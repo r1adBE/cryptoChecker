@@ -4,7 +4,7 @@
     <string name="update_mode_for_pros">耗费更多流量和电量</string>
     <string name="update_mode_live">打开时实时</string>
     <string name="update_mode_live_hint">交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：最多每 %1$s 一次，常常更晚。</string>
-    <string name="update_mode_live_hint_ios">交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：iOS 允许时，有时相隔数小时。如果你划掉应用，iOS 会暂停这些检查，直到你再次打开它。</string>
+    <string name="update_mode_live_hint_ios">交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：iOS 允许时，有时相隔数小时。如果您划掉应用，iOS 会暂停这些检查，直到您再次打开它。</string>
     <string name="update_mode_recommended">推荐</string>
     <string name="update_mode_sparsam">省电</string>
     <string name="update_mode_sparsam_hint">应用关闭时最多每 %1$s 一次，常常更晚（提醒、小组件）。打开时：每次打开时。</string>
@@ -94,7 +94,7 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android 可能会延迟检查——请将电池设为“无限制”</string>
     <string name="battery_later">稍后</string>
-    <string name="battery_message">Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。</string>
+    <string name="battery_message">Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。您可以随时在 Android 设置中更改。</string>
     <string name="battery_open_settings">打开电池设置</string>
     <string name="battery_steps">在应用信息中点按“电池”（或“应用电池用量”），然后选择“无限制”。</string>
     <string name="battery_title">保持价格最新</string>

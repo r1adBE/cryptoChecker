@@ -4,7 +4,7 @@
     <string name="cost_gaps_card">冇成本基礎嘅記錄：%1$d</string>
     <string name="cost_gaps_card_text">加入成本基礎，盈利同稅務先會完整。</string>
     <string name="cost_gaps_sheet_title">冇成本基礎嘅記錄</string>
-    <string name="cost_gaps_sheet_intro">呢啲流入冇成本基礎。建議值係當日嘅每日收市價 – 你可以喺記錄入面調整。</string>
+    <string name="cost_gaps_sheet_intro">呢啲流入冇成本基礎。建議值係當日嘅每日收市價 – 您可以喺記錄入面調整。</string>
     <string name="cost_gaps_empty">所有記錄都有成本基礎。</string>
     <string name="cost_gap_enter">輸入成本基礎</string>
     <string name="cost_gap_leave_unknown">保留未知</string>

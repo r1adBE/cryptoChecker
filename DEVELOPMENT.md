@@ -3194,6 +3194,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 242: terms of use page + in-app link (about.terms), privacy policy rights/Wear/crash reports/Show on watch, Pulse top-coins cache 30 min (TOP_CACHE_MILLIS / topCacheMillis), exchange logos from CoinMarketCap or monogram (gen_logo_packs.py source types cmc/monogram), Play data safety: in-app search history.
 * Build 243: CI push-to-main runs dropped for ios/android/device tests/CodeQL + weekly schedule (keepalive list), store_build from a tag worktree (android/ios Fastfile, iOS team:), setup-github-settings: bypass pull_request only, rebase merges, mirror cadence documented.
 * Build 244: watch notify readiness (WatchNotifyPolicy, /cc/notify/state, takeReachable/takePermitted), wear alarm channel + visible-only loops (WatchActivity visible flow), non-urgent quote puts, WatchFetcher loading reset, WatchBodyLimit chunked, WatchLink retry + WatchLog.
+* Build 245: zh/zh-Hant/yue 你→您 (not 迷你), fil translations, iOS PairEdits menu subtitle, unused iOS overrides removed.
 
 ## Known warnings
 

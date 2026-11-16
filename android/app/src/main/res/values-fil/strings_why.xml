@@ -145,8 +145,8 @@
     </plurals>
     <string name="why_fresh_today">ngayon</string>
     <string name="why_fresh_yesterday">kahapon</string>
-    <string name="why_source_fallback">%1$s (fallback)</string>
-    <string name="why_source_reference">%1$s (reference)</string>
+    <string name="why_source_fallback">%1$s (kapalit)</string>
+    <string name="why_source_reference">%1$s (batayan)</string>
     <string name="why_sources">Mga pinagmulan: mga hourly candle ng exchange (karamihan Binance), futures data mula sa mga exchange, Fear &amp; Greed mula sa alternative.me.</string>
     <string name="why_sources_list">Mga pinagmulan: %1$s.</string>
     <string name="why_src_breadth">%1$s (lawak ng market)</string>
@@ -160,6 +160,6 @@
     <string name="factor_funding">Funding</string>
     <string name="factor_spoken_volatility">%1$s beses ng karaniwang paggalaw</string>
     <string name="factor_spoken_volume">%1$s beses ng normal</string>
-    <string name="factor_volatility">Volatility (1h)</string>
-    <string name="factor_volume">Volume</string>
+    <string name="factor_volatility">Pagbabago-bago (1h)</string>
+    <string name="factor_volume">Dami</string>
 </resources>

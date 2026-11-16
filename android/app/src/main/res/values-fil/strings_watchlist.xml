@@ -27,7 +27,7 @@
     <string name="watchlist_updated">Na-update: %1$s</string>
 
     <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
-    <string name="watchlist_pulse_avg">avg. %1$s</string>
+    <string name="watchlist_pulse_avg">karaniwan %1$s</string>
     <plurals name="watchlist_pulse_down">
         <item quantity="one">%1$d ang bumaba</item>
         <item quantity="other">%1$d ang bumaba</item>

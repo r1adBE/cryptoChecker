@@ -9,7 +9,7 @@
     <string name="alarm_log_empty_message">提示觸發或被暫緩時，記錄會喺呢度出現 – 例如因為價格過時或者喺靜音時段。</string>
     <string name="alarm_log_clear">清除記錄</string>
     <string name="alarm_log_clear_title">清除提示記錄？</string>
-    <string name="alarm_log_clear_message">所有記錄都會移除。你嘅提示會保持不變。</string>
+    <string name="alarm_log_clear_message">所有記錄都會移除。您嘅提示會保持不變。</string>
     <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
     <string name="alarm_log_threshold">門檻 %1$s</string>
     <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->

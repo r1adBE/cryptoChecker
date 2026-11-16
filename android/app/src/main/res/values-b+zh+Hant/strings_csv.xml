@@ -44,7 +44,7 @@
     <string name="portfolio_csv_import_transfer_link">記為一次轉移</string>
     <string name="portfolio_csv_import_transfer_stored">來自之前匯入的對應記錄</string>
     <string name="portfolio_csv_import_transfers_hint">同一幣種的一筆提領和與之匹配的儲值合併為一次轉移：買入價和持有期保留，差額計為網路手續費。</string>
-    <string name="portfolio_csv_import_transfers_title">你的帳戶之間的轉移</string>
+    <string name="portfolio_csv_import_transfers_title">您的帳戶之間的轉移</string>
     <string name="portfolio_csv_import_unreadable">未找到支援的交易。支援：Relai、Swissquote、Kraken、Binance、Coinbase 和 Bitpanda 匯出的 CSV。</string>
     <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">檔案過大，無法匯入（上限 16 MB、%1$s 行）。請分成較短的時間段匯出，再依次匯入。</string>
@@ -56,7 +56,7 @@
     <string name="portfolio_csv_skip_bad_date">日期無法辨識</string>
     <string name="portfolio_csv_skip_bad_number">數字無法辨識</string>
     <string name="portfolio_csv_skip_fee_exceeds">手續費 ≥ 收到的數量</string>
-    <string name="portfolio_csv_skip_internal_move">你自己帳戶之間的移動 – 無需記帳</string>
+    <string name="portfolio_csv_skip_internal_move">您自己帳戶之間的移動 – 無需記帳</string>
     <string name="portfolio_csv_skip_missing">缺少欄位</string>
     <string name="portfolio_csv_skip_ambiguous">同一秒內多筆無法區分的交易 – 請手動輸入</string>
     <string name="portfolio_csv_skip_not_crypto">非加密貨幣</string>
@@ -94,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">每日匯率依此時區的日曆日計算：%1$s</string>
     <string name="portfolio_csv_import_rates_failed">無法載入每日匯率。</string>
     <string name="portfolio_csv_import_anyway">仍要匯入</string>
-    <string name="portfolio_csv_import_anyway_hint">沒有每日匯率時，價格或手續費會一直缺少，直到你補上為止。請重試或仍然匯入 – 這些交易會加上備註。</string>
+    <string name="portfolio_csv_import_anyway_hint">沒有每日匯率時，價格或手續費會一直缺少，直到您補上為止。請重試或仍然匯入 – 這些交易會加上備註。</string>
     <string name="portfolio_csv_note_price_no_rate">價格無每日匯率</string>
     <string name="portfolio_csv_note_fee_no_rate">手續費無每日匯率</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s 沒有每日匯率，重試也無濟於事。若仍要匯入，這些交易將加上備註。</string>

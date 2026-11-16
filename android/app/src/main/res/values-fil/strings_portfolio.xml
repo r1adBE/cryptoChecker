@@ -44,10 +44,10 @@
     <string name="portfolio_card_total">Kabuuan</string>
     <string name="portfolio_hide_amounts">Itago ang mga halaga</string>
     <string name="portfolio_hide_amounts_hint">Ipinapakita bilang ••• ang mga halaga at value sa portfolio, sa portfolio widget, sa relo at sa mga portfolio alert – makikita pa rin ang mga porsiyento.</string>
-    <string name="portfolio_invested">Cost basis</string>
+    <string name="portfolio_invested">Kabuuang puhunan</string>
     <string name="portfolio_total_no_fx">Walang exchange rate para sa %1$s – mga halaga sa USDT</string>
     <string name="portfolio_total_value">Kabuuang value</string>
-    <string name="portfolio_value">Value</string>
+    <string name="portfolio_value">Halaga</string>
 
     <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
     <string name="portfolio_avg_and_now">Avg. %1$s · ngayon %2$s</string>
@@ -114,7 +114,7 @@
     <string name="portfolio_tx_date">Petsa</string>
     <string name="portfolio_tx_delete_confirm">Aalisin ang transaksyong ito sa portfolio.</string>
     <string name="portfolio_tx_delete_title">I-delete ang transaksyon?</string>
-    <string name="portfolio_tx_deposit">Deposit</string>
+    <string name="portfolio_tx_deposit">Deposito</string>
     <string name="portfolio_tx_entry_currency">Ilagay sa</string>
     <string name="portfolio_tx_explain_deposit">Mga hawak na walang trade, hal. mga coin mula noon</string>
     <string name="portfolio_tx_explain_gift">Lumalabas ang mga coin sa mga hawak mo gaya ng withdrawal – disposal sa market value lang kung saan binubuwisan ng bansa ang mga regalo (UK, CA, AU)</string>
@@ -145,7 +145,7 @@
     <string name="portfolio_tx_price_receipt_hint">Sa USDT. Walang laman = mga hawak na walang cost basis.</string>
     <string name="portfolio_tx_price_zero">Hindi puwede ang presyong 0 sa mga na-import na transaksyon – iwanang walang laman para sa market price</string>
     <string name="portfolio_tx_removed">Na-delete ang transaksyon</string>
-    <string name="portfolio_tx_reward">Reward</string>
+    <string name="portfolio_tx_reward">Gantimpala</string>
     <string name="portfolio_tx_save_failed">Hindi ma-save ang transaksyon. Narito pa rin ang mga inilagay mo – pakisubukan ulit.</string>
     <string name="portfolio_tx_swap">Swap</string>
     <string name="portfolio_tx_swap_fee_received">Fee sa %1$s: binabawasan ang natanggap na halaga, hindi kailangan ng presyo.</string>
@@ -164,13 +164,13 @@
     <string name="portfolio_tx_third_fee_price">Presyo bawat fee coin (opsyonal)</string>
     <string name="portfolio_tx_third_fee_toggle">Fee sa ibang coin</string>
     <string name="portfolio_tx_total">Kabuuan: %1$s</string>
-    <string name="portfolio_tx_transfer">Transfer</string>
+    <string name="portfolio_tx_transfer">Paglipat</string>
     <string name="portfolio_tx_transfer_from">Mula sa (opsyonal)</string>
     <string name="portfolio_tx_transfer_to">Papunta sa (opsyonal)</string>
     <string name="portfolio_tx_transfer_to_hint">Exchange o wallet – doon na pinapahalagahan mula ngayon.</string>
     <string name="portfolio_tx_type_select">Uri: %1$s</string>
     <string name="portfolio_tx_value_received">Value bawat coin nang matanggap (opsyonal)</string>
-    <string name="portfolio_tx_withdrawal">Withdrawal</string>
+    <string name="portfolio_tx_withdrawal">Pag-withdraw</string>
     <string name="portfolio_tx_withdrawal_gift_hint">Ipinamigay o ipinambayad? Itala ito bilang “Regalo” o “Ipinambayad” – depende sa bansa, binibilang iyon na pagbenta para sa buwis.</string>
     <string name="portfolio_tx_withdrawal_price_hint">Opsyonal: market value sa USDT, ginagamit lang para sa kasaysayan (walang laman = presyo ng araw na iyon). Laging lumalabas ang mga coin sa cost basis nila.</string>
     <string name="portfolio_wallet_did_you_mean">%1$s ba ang ibig mong sabihin? Ang ibang baybay ay binibilang bilang hiwalay na wallet.</string>
@@ -178,7 +178,7 @@
 
     <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
     <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
-    <string name="portfolio_chart_high">High %1$s</string>
+    <string name="portfolio_chart_high">Pinakamataas %1$s</string>
     <string name="portfolio_compare">Ihambing</string>
     <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
     <string name="portfolio_compare_a11y">Ihambing ang %1$s at USDT sa porsiyento</string>

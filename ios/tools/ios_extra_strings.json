@@ -611,8 +611,8 @@
     "uz": "Ilova fonda qachon yangilanishini iOS hal qiladi, shuning uchun interval «eng erta har …» degani. Ilova ochiq paytda kurslar oʻz vaqtida tekshiriladi. Vidjetlar va Live Activity joriy kurslarni bir qarashda koʻrsatadi.",
     "vi": "iOS quyết định khi nào ứng dụng được làm mới ở chế độ nền, nên chu kỳ có nghĩa là “sớm nhất mỗi …”. Khi ứng dụng đang mở, việc kiểm tra diễn ra đúng giờ. Tiện ích và Hoạt động trực tiếp cho xem giá hiện tại trong nháy mắt.",
     "yue-Hant": "App 幾時可以喺背景重新整理由 iOS 決定，所以間隔代表「最快每 …」。App 開住時，價格會準時檢查。小工具同即時動態一眼就睇到最新價格。",
-    "zh-Hans": "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让你一眼看到当前行情。",
-    "zh-Hant": "App 何時可在背景重新整理由 iOS 決定，因此間隔表示「最快每 … 一次」。應用程式開啟時會準時檢查。小工具和即時動態可讓你一眼看到目前行情。",
+    "zh-Hans": "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让您一眼看到当前行情。",
+    "zh-Hant": "App 何時可在背景重新整理由 iOS 決定，因此間隔表示「最快每 … 一次」。應用程式開啟時會準時檢查。小工具和即時動態可讓您一眼看到目前行情。",
     "zu": "I-iOS inquma ukuthi i-app ingavuselela nini ngemuva, ngakho isikhawu sisho ukuthi “ngokushesha okukhulu njalo ngo- …”. Ngesikhathi i-app ivuliwe, izintengo zihlolwa ngesikhathi. Amawijethi ne-Live Activity kubonisa izintengo zamanje ngokushesha."
   },
   "ios_face_id_usage": {
@@ -687,9 +687,9 @@
     "ur": "Face ID سے اپنا پورٹ فولیو ان لاک کریں۔",
     "uz": "Portfelingizni Face ID bilan qulfdan chiqarish.",
     "vi": "Mở khóa danh mục đầu tư của bạn bằng Face ID.",
-    "yue-Hant": "用 Face ID 解鎖你嘅投資組合。",
-    "zh-Hans": "使用面容 ID 解锁你的投资组合。",
-    "zh-Hant": "使用 Face ID 解鎖你的投資組合。",
+    "yue-Hant": "用 Face ID 解鎖您嘅投資組合。",
+    "zh-Hans": "使用面容 ID 解锁您的投资组合。",
+    "zh-Hant": "使用 Face ID 解鎖您的投資組合。",
     "zu": "Vula i-portfolio yakho nge-Face ID."
   },
   "live_activity_start": {
@@ -1534,9 +1534,9 @@
     "ur": "جب قیمت آپ کے نشان تک پہنچے تو اطلاع پائیں – ایپ بند ہو تو iOS طے کرتا ہے کہ کب جانچنا ہے۔",
     "uz": "Kurs chegarangizga yetganda xabar oling – ilova yopiq boʻlsa, qachon tekshirishni iOS hal qiladi.",
     "vi": "Nhận thông báo khi giá chạm mức bạn đặt – khi ứng dụng đóng, iOS quyết định khi nào kiểm tra.",
-    "yue-Hant": "價格到你嘅標記時收到通知 – App 關閉時，由 iOS 決定幾時檢查。",
-    "zh-Hans": "价格到达你设定的位置时通知你——应用关闭时，由 iOS 决定何时检查。",
-    "zh-Hant": "價格到達你設定的位置時通知你——應用程式關閉時，由 iOS 決定何時檢查。",
+    "yue-Hant": "價格到您嘅標記時收到通知 – App 關閉時，由 iOS 決定幾時檢查。",
+    "zh-Hans": "价格到达您设定的位置时通知您——应用关闭时，由 iOS 决定何时检查。",
+    "zh-Hant": "價格到達您設定的位置時通知您——應用程式關閉時，由 iOS 決定何時檢查。",
     "zu": "Yaziswa lapho intengo ifinyelela umkhawulo wakho – uma i-app ivaliwe, i-iOS inquma ukuthi ihlole nini."
   },
   "settings_portfolio_system_backup_hint_ios": {
@@ -1611,9 +1611,9 @@
     "ur": "بند: آپ کے لین دین iCloud یا کمپیوٹر بیک اپ میں شامل نہیں ہوتے۔ آن: یہ صرف اسی iPhone پر بحال ہو سکتے ہیں – نئے iPhone پر فائل ناقابلِ مطالعہ رہتی ہے کیونکہ کی کبھی آلے سے باہر نہیں جاتی۔ نئے فون پر منتقلی کے لیے پاس ورڈ کے ساتھ ایپ کا اپنا بیک اپ استعمال کریں۔",
     "uz": "Oʻchiq: tranzaksiyalaringiz iCloud yoki kompyuter zaxiralariga kirmaydi. Yoqiq: ularni faqat shu iPhone’da tiklash mumkin – yangi iPhone’da fayl oʻqilmaydi, chunki kalit qurilmani hech qachon tark etmaydi. Yangi telefonga oʻtish uchun ilovaning parolli oʻz zaxira nusxasidan foydalaning.",
     "vi": "Tắt: giao dịch của bạn không nằm trong bản sao lưu iCloud hay máy tính. Bật: chỉ khôi phục được trên iPhone này – trên iPhone mới, tệp vẫn không đọc được vì khóa không bao giờ rời thiết bị. Khi đổi điện thoại, hãy dùng bản sao lưu có mật khẩu của ứng dụng.",
-    "yue-Hant": "關閉時：你嘅交易唔會包括喺 iCloud 或電腦備份。開啟時：只可以喺呢部 iPhone 還原 – 喺新 iPhone 上檔案會讀唔到，因為金鑰永遠唔會離開裝置。如要轉去新手機，請用 App 本身嘅備份加密碼。",
-    "zh-Hans": "关闭：你的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。",
-    "zh-Hant": "關閉：你的交易不會納入 iCloud 或電腦備份。開啟：只能在這支 iPhone 上還原——在新 iPhone 上檔案無法讀取，因為金鑰從不離開裝置。換手機時請使用應用程式內建的密碼備份。",
+    "yue-Hant": "關閉時：您嘅交易唔會包括喺 iCloud 或電腦備份。開啟時：只可以喺呢部 iPhone 還原 – 喺新 iPhone 上檔案會讀唔到，因為金鑰永遠唔會離開裝置。如要轉去新手機，請用 App 本身嘅備份加密碼。",
+    "zh-Hans": "关闭：您的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。",
+    "zh-Hant": "關閉：您的交易不會納入 iCloud 或電腦備份。開啟：只能在這支 iPhone 上還原——在新 iPhone 上檔案無法讀取，因為金鑰從不離開裝置。換手機時請使用應用程式內建的密碼備份。",
     "zu": "Kuvaliwe: imisebenzi yakho ayifakwa ezipeleni ze-iCloud noma zekhompyutha. Kuvuliwe: ingabuyiselwa kule iPhone kuphela – ku-iPhone entsha ifayela lihlala lingafundeki ngoba ukhiye awulokothi uphume kudivayisi. Ukuze uthuthele ocingweni olusha, sebenzisa isipele se-app ngokwayo esinephasiwedi."
   },
   "ios_local_network_usage": {
@@ -1688,9 +1688,9 @@
     "ur": "صرف تب درکار جب پتوں کے لیے آپ کا اپنا سرور آپ کے ہوم نیٹ ورک میں ہو۔",
     "uz": "Faqat manzillar uchun shaxsiy serveringiz uy tarmogʻingizda boʻlsa kerak.",
     "vi": "Chỉ cần khi máy chủ riêng cho địa chỉ nằm trong mạng gia đình.",
-    "yue-Hant": "只有當你地址用嘅自家伺服器喺屋企網絡入面先需要。",
-    "zh-Hans": "仅当你自己的地址服务器位于家庭网络中时才需要。",
-    "zh-Hant": "僅當你自己的地址伺服器位於家用網路中時才需要。",
+    "yue-Hant": "只有當您地址用嘅自家伺服器喺屋企網絡入面先需要。",
+    "zh-Hans": "仅当您自己的地址服务器位于家庭网络中时才需要。",
+    "zh-Hant": "僅當您自己的地址伺服器位於家用網路中時才需要。",
     "zu": "Kudingeka kuphela uma iseva yakho yamakheli isenethiwekhini yakho yasekhaya."
   },
   "ios_settings_watch_hint": {
@@ -1842,9 +1842,9 @@
     "ur": "پھر آپ کی ٹرانزیکشنز، پورٹ فولیو الرٹس اور زیرِ نگرانی پتے اس iPhone کے iCloud یا کمپیوٹر بیک اپس میں شامل ہوں گے۔ انہیں صرف اسی iPhone پر بحال کیا جا سکتا ہے۔",
     "uz": "Shunda tranzaksiyalaringiz, portfel signallari va kuzatilayotgan manzillar ushbu iPhone’ning iCloud yoki kompyuter zaxira nusxalariga kiradi. Ularni faqat shu iPhone’da tiklash mumkin.",
     "vi": "Khi đó giao dịch, cảnh báo danh mục và địa chỉ đang theo dõi của bạn sẽ có trong bản sao lưu iCloud hoặc máy tính của iPhone này. Chỉ có thể khôi phục trên iPhone này.",
-    "yue-Hant": "到時你嘅交易、投資組合提示同關注嘅地址會納入呢部 iPhone 嘅 iCloud 或電腦備份。只可以喺呢部 iPhone 還原。",
-    "zh-Hans": "届时你的交易、投资组合提醒和关注的地址将进入此 iPhone 的 iCloud 或电脑备份。它们只能在此 iPhone 上恢复。",
-    "zh-Hant": "屆時你的交易、投資組合提醒與關注的地址會納入此 iPhone 的 iCloud 或電腦備份。只能在此 iPhone 上還原。",
+    "yue-Hant": "到時您嘅交易、投資組合提示同關注嘅地址會納入呢部 iPhone 嘅 iCloud 或電腦備份。只可以喺呢部 iPhone 還原。",
+    "zh-Hans": "届时您的交易、投资组合提醒和关注的地址将进入此 iPhone 的 iCloud 或电脑备份。它们只能在此 iPhone 上恢复。",
+    "zh-Hant": "屆時您的交易、投資組合提醒與關注的地址會納入此 iPhone 的 iCloud 或電腦備份。只能在此 iPhone 上還原。",
     "zu": "Imisebenzi yakho, ama-alamu e-portfolio namakheli owalandelayo kuzongena kuzipele ze-iCloud noma zekhompyutha zale iPhone. Kungabuyiselwa kule iPhone kuphela."
   },
   "ios_backup_storage_damaged": {

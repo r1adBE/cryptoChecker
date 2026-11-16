@@ -34,9 +34,14 @@ extension PairScreen {
             }
             moveSection(watch)
             Section {
+                // Mit Erklärzeile wie Android (Untertitel im Menü)
                 Button { toggleDisabled(watch) } label: {
-                    Label(L(watch.disabled ? "watch_enable" : "watch_disable"),
-                          systemImage: watch.disabled ? "play.circle" : "pause.circle")
+                    Label {
+                        Text(L(watch.disabled ? "watch_enable" : "watch_disable"))
+                        Text(L(watch.disabled ? "watch_enable_hint" : "watch_disable_hint"))
+                    } icon: {
+                        Image(systemName: watch.disabled ? "play.circle" : "pause.circle")
+                    }
                 }
                 Button(role: .destructive) { onDelete(watch) } label: { Label(L("action_delete"), systemImage: "trash") }
             }

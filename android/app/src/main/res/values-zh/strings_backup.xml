@@ -6,7 +6,7 @@
     <string name="backup_export">备份</string>
     <string name="backup_exported">备份已保存。</string>
     <string name="backup_failed">失败了。这是 Crypto Checker 的备份吗？</string>
-    <string name="backup_hint">把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由你自己保管的文件，例如换新手机时使用。</string>
+    <string name="backup_hint">把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由您自己保管的文件，例如换新手机时使用。</string>
     <string name="backup_import">恢复</string>
     <string name="backup_title">备份与恢复</string>
     <string name="backup_too_large">文件过大或不是有效的备份（上限 64 MB）。</string>
@@ -41,8 +41,8 @@
         <item quantity="other">备份中有 %d 条记录（投资组合或提醒）无效，不会恢复。</item>
     </plurals>
     <string name="backup_restore_newer_version">此备份来自更新版本的应用——请先更新应用。未恢复任何内容。</string>
-    <string name="backup_restore_unencrypted_warning">此备份未加密，请确认它来自你。设置会被应用，但降低保护的更改除外（投资组合锁、地址专用的自有服务器、隐藏金额、将投资组合纳入系统备份）。</string>
-    <string name="backup_restore_unencrypted_replaces">没有密码就无法检查是否有人改过此文件 – 它还会替换你的交易、投资组合提醒和监视中的地址。</string>
+    <string name="backup_restore_unencrypted_warning">此备份未加密，请确认它来自您。设置会被应用，但降低保护的更改除外（投资组合锁、地址专用的自有服务器、隐藏金额、将投资组合纳入系统备份）。</string>
+    <string name="backup_restore_unencrypted_replaces">没有密码就无法检查是否有人改过此文件 – 它还会替换您的交易、投资组合提醒和监视中的地址。</string>
     <string name="backup_restored">已恢复：%1$s，%2$s。</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d 个提醒</item>
@@ -76,7 +76,7 @@
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">未能从系统备份恢复投资组合</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果你有备份文件，请在设置的“%1$s”中恢复。</string>
+    <string name="system_backup_not_imported_message">来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果您有备份文件，请在设置的“%1$s”中恢复。</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">暂时无法读取已保存的数据，因此投资组合不会显示，也无法更改。请重启应用。</string>
@@ -88,7 +88,7 @@
     <string name="backup_storage_kept">目前无法备份和恢复：无法读取已保存的数据。请重启应用后再试。</string>
     <string name="backup_restore_storage_in_memory">目前无法恢复：应用暂时不保存数据（加密尚未启用），恢复的内容会在重启后丢失。请重新启动应用后再试。</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
-    <string name="backup_restore_journal_unavailable">暂时无法恢复：无法保存你当前数据的安全副本（密钥暂时不可用）。未做任何更改。请稍后重试或重新启动应用。</string>
+    <string name="backup_restore_journal_unavailable">暂时无法恢复：无法保存您当前数据的安全副本（密钥暂时不可用）。未做任何更改。请稍后重试或重新启动应用。</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">加密尚未启用——投资组合不会被保存，关闭应用后更改将丢失。应用会在下次启动时重试。</string>

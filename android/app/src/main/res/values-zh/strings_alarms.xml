@@ -157,7 +157,7 @@
     <string name="alarm_test">测试提醒</string>
     <string name="alarm_test_action">测试</string>
     <string name="alarm_test_denied">Crypto Checker 的通知已关闭。</string>
-    <string name="alarm_test_hint">使用你的声音、振动和语音播报设置发送一条示例提醒。</string>
+    <string name="alarm_test_hint">使用您的声音、振动和语音播报设置发送一条示例提醒。</string>
     <string name="alarm_test_open_settings">打开设置</string>
     <string name="alarm_test_quiet">现在处于静音时段：真实提醒会等到时段结束后再响铃送达。</string>
     <string name="alarm_test_text">提醒就是这样显示和响起的。</string>

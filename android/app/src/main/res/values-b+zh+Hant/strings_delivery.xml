@@ -21,7 +21,7 @@
     <string name="delivery_exact_off">關閉 – Android 不定期檢查</string>
     <string name="delivery_battery">電池最佳化</string>
     <string name="delivery_battery_unrestricted">不受限制</string>
-    <string name="delivery_battery_optimized">已最佳化 – Android 可能延後檢查。應用程式不會申請例外；你可以在應用程式的電池設定中更改。</string>
+    <string name="delivery_battery_optimized">已最佳化 – Android 可能延後檢查。應用程式不會申請例外；您可以在應用程式的電池設定中更改。</string>
     <string name="delivery_background">背景使用</string>
     <string name="delivery_background_restricted">受限 – Android 會停止背景檢查</string>
     <string name="delivery_dnd">勿擾</string>
@@ -47,7 +47,7 @@
     <string name="delivery_background_refresh">背景 App 重新整理</string>
     <string name="delivery_low_power">低電量模式</string>
     <string name="delivery_swipe_away">是否已滑掉應用程式？</string>
-    <string name="delivery_swipe_away_note">如果在 App 切換器中滑掉應用程式，iOS 會停止背景檢查，直到你再次開啟它。</string>
+    <string name="delivery_swipe_away_note">如果在 App 切換器中滑掉應用程式，iOS 會停止背景檢查，直到您再次開啟它。</string>
     <string name="delivery_live_activity">即時活動</string>
     <string name="delivery_live_activity_note">在鎖定畫面上顯示價格，但只在應用程式檢查時更新 – 並不會讓提醒檢查得更頻繁。</string>
 

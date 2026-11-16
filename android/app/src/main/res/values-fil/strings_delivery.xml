@@ -20,7 +20,7 @@
         <item quantity="other">Naka-on – mga bawat %d minuto</item>
     </plurals>
     <string name="delivery_exact_off">Naka-off – hindi regular ang pagsusuri ng Android</string>
-    <string name="delivery_battery">Battery optimization</string>
+    <string name="delivery_battery">Pag-optimize ng baterya</string>
     <string name="delivery_battery_unrestricted">Walang limitasyon</string>
     <string name="delivery_battery_optimized">Optimized – maaaring iantala ng Android ang mga pagsusuri. Hindi humihingi ng exception ang app; mababago mo ito sa mga setting ng baterya ng app.</string>
     <string name="delivery_background">Paggamit sa background</string>

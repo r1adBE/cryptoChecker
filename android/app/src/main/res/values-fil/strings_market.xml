@@ -32,12 +32,12 @@
     <string name="market_plain_standout_volume">Namumukod ang %1$s: mga %2$s beses na mas maraming trading kaysa karaniwan.</string>
     <string name="market_plain_title">Sa madaling salita</string>
     <string name="market_section_collapse">Itago ang %1$s</string>
-    <string name="market_section_context">Sentiment &amp; cycle</string>
-    <string name="market_section_data">Market data</string>
+    <string name="market_section_context">Damdamin at siklo</string>
+    <string name="market_section_data">Datos ng merkado</string>
     <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
     <string name="market_section_expand">Ipakita ang %1$s</string>
     <string name="market_section_now">Sa ngayon</string>
-    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_source">Datos: Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="exchange_unavailable_error">Hindi available ang exchange</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
@@ -76,8 +76,8 @@
     <!-- Markt-Tab: Krypto-Markt gesamt -->
     <string name="market_cap_label">Market cap</string>
     <string name="market_cap_source">Lahat ng coin · CoinGecko</string>
-    <string name="market_cap_title">Crypto market</string>
-    <string name="market_volume_label">Volume 24h</string>
+    <string name="market_cap_title">Merkado ng crypto</string>
+    <string name="market_volume_label">Dami 24h</string>
 
     <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
@@ -160,7 +160,7 @@
     <string name="activity_indicator">Kapansin-pansin</string>
     <string name="activity_sensitivity_less">Mas kaunti</string>
     <string name="activity_sensitivity_more">Mas marami</string>
-    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_sensitivity_normal">Karaniwan</string>
     <string name="activity_signal_funding_long">Funding %1$s — maraming leveraged long</string>
     <string name="activity_signal_funding_short">Funding %1$s — maraming short</string>
     <string name="activity_signal_open_interest">Open interest %1$s sa loob ng %2$d min</string>
@@ -177,7 +177,7 @@
     <string name="insights_chart_hint">Presyo bilang multiple ng presyo sa araw ng halving (log scale). Pattern ang mga naunang cycle, hindi forecast.</string>
     <string name="insights_cycle_chart">Mga cycle mula sa halving</string>
     <string name="insights_dominance_eth">ETH %1$s ng kabuuang market</string>
-    <string name="insights_dominance_title">Bitcoin dominance</string>
+    <string name="insights_dominance_title">Pangingibabaw ng Bitcoin</string>
     <string name="insights_fng_history">Kahapon %1$s · isang linggo ang nakalipas %2$s · isang buwan ang nakalipas %3$s</string>
     <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="insights_halving_title">Bitcoin halving</string>
@@ -195,9 +195,9 @@
     <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
     <string name="cycle_data_as_of">Data noong %1$s · nag-a-update…</string>
     <string name="cycle_from_top">%1$s mula sa top</string>
-    <string name="cycle_marker_bottom">Bottom %1$s</string>
-    <string name="cycle_marker_double_bottom">Double bottom %1$s</string>
-    <string name="cycle_marker_double_top">Double top %1$s</string>
+    <string name="cycle_marker_bottom">Pinakamababa %1$s</string>
+    <string name="cycle_marker_double_bottom">Dobleng pinakamababa %1$s</string>
+    <string name="cycle_marker_double_top">Dobleng pinakamataas %1$s</string>
     <string name="cycle_marker_high_so_far">Pinakamataas sa ngayon</string>
     <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
     <string name="cycle_marker_top">Top %1$s</string>
@@ -209,7 +209,7 @@
     <string name="gas_slow_fast">Mabagal %1$s · Mabilis %2$s</string>
     <string name="gas_source">Mga pampublikong RPC node at mempool.space · Gastos ng simpleng transfer, walang bahagi ng L1 sa mga L2</string>
     <string name="gas_title">Mga network fee</string>
-    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+    <string name="gas_transfer_cost">Paglipat ≈ %1$s</string>
 
     <!-- Wirtschaftsdaten (US-Termine) -->
     <string name="macro_cpi">Inflation data ng US (CPI)</string>
@@ -228,7 +228,7 @@
     <string name="macro_ppi">Producer prices ng US (PPI)</string>
     <string name="macro_released_list">Inilabas ngayon: %1$s.</string>
     <string name="macro_released_one">Inilabas ngayon nang %1$s: %2$s.</string>
-    <string name="macro_title">Economic data</string>
+    <string name="macro_title">Datos pang-ekonomiya</string>
 
     <!-- Coin-Analyse -->
     <string name="coin_choose">Coin</string>
@@ -242,7 +242,7 @@
 
     <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
          (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
-    <string name="pulse_plain_sources">Data: %1$s</string>
+    <string name="pulse_plain_sources">Datos: %1$s</string>
 
     <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
     <string name="movers_title">Mga tumaas at bumaba 24 h</string>

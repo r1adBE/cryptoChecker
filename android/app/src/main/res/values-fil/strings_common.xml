@@ -19,7 +19,7 @@
     <string name="action_view">Tingnan</string>
 
     <!-- Tabs der Hauptnavigation -->
-    <string name="tab_market_phase">Market</string>
+    <string name="tab_market_phase">Merkado</string>
     <string name="tab_portfolio">Portfolio</string>
     <string name="tab_settings">Mga Setting</string>
     <string name="tab_watchlist">Watchlist</string>
@@ -45,7 +45,7 @@
     <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
     <string name="shortcut_add">Magdagdag ng pares</string>
     <string name="shortcut_alarms">Lahat ng alerto</string>
-    <string name="shortcut_cycle">Market</string>
+    <string name="shortcut_cycle">Merkado</string>
     <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
     <string name="shortcut_add_long">Magdagdag ng bagong pares</string>
     <string name="shortcut_alarms_long">Ipakita ang mga alerto</string>

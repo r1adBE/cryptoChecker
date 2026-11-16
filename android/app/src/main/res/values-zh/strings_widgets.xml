@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">背景</string>
-    <string name="widget_configure_hint">选择背景和不透明度。颜色跟随 App。小部件显示你的列表或下方选择的分组；点一下某一行即可打开 App。</string>
+    <string name="widget_configure_hint">选择背景和不透明度。颜色跟随 App。小部件显示您的列表或下方选择的分组；点一下某一行即可打开 App。</string>
     <string name="widget_configure_title">设置小部件</string>
     <string name="widget_description">显示自选列表中某个交易对的价格。</string>
     <string name="widget_empty">自选列表中还没有交易对。</string>
@@ -51,7 +51,7 @@
     <string name="widget_portfolio_display_hint">换算货币为 USD 稳定币（如 USDC）时不显示 USDT 行。</string>
     <string name="widget_portfolio_display_usdt">仅 USDT</string>
     <string name="widget_portfolio_empty">在“投资组合”标签页中添加买入记录</string>
-    <string name="widget_portfolio_list_hint">打开应用即可在此显示你的持仓。</string>
+    <string name="widget_portfolio_list_hint">打开应用即可在此显示您的持仓。</string>
     <string name="widget_portfolio_locked_hint">已锁定——请在应用中解锁</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -87,7 +87,7 @@
     <string name="widgets_add">添加</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">添加小部件 %1$s</string>
-    <string name="widgets_manual_text">你的主屏幕无法从应用内添加小部件。请长按主屏幕上的空白处，选择“小部件”，然后查找“Crypto Checker”。</string>
+    <string name="widgets_manual_text">您的主屏幕无法从应用内添加小部件。请长按主屏幕上的空白处，选择“小部件”，然后查找“Crypto Checker”。</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">手动添加小部件</string>
     <string name="widgets_sheet_title">添加小部件</string>

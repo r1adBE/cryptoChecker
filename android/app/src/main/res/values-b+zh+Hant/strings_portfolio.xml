@@ -11,11 +11,11 @@
     <string name="portfolio_empty_action">新增第一筆買入</string>
     <string name="portfolio_empty_address">僅關注一個錢包地址</string>
     <string name="portfolio_empty_csv">在交易所買的？匯入其檔案</string>
-    <string name="portfolio_empty_example_plain">範例：3 月 1 日買入 %1$s BTC。應用程式會顯示它今天值多少，以及你是賺是虧——僅儲存在本裝置上。</string>
+    <string name="portfolio_empty_example_plain">範例：3 月 1 日買入 %1$s BTC。應用程式會顯示它今天值多少，以及您是賺是虧——僅儲存在本裝置上。</string>
     <string name="portfolio_empty_title">暫無交易</string>
-    <string name="portfolio_enable_ask_text">你的交易已儲存。「投資組合」分頁會顯示你的持倉及其價值。</string>
+    <string name="portfolio_enable_ask_text">您的交易已儲存。「投資組合」分頁會顯示您的持倉及其價值。</string>
     <string name="portfolio_enable_ask_title">開啟「投資組合」分頁？</string>
-    <string name="portfolio_enable_later_hint">交易已儲存。你可以在「設定 › 投資組合」中開啟「投資組合」分頁。</string>
+    <string name="portfolio_enable_later_hint">交易已儲存。您可以在「設定 › 投資組合」中開啟「投資組合」分頁。</string>
     <string name="portfolio_enabled_banner">已開啟投資組合，可在「投資組合」分頁中找到。</string>
     <string name="portfolio_lock_reason">解鎖投資組合</string>
     <string name="portfolio_locked_text">解鎖後可查看持倉和價值。</string>
@@ -100,9 +100,9 @@
     <string name="number_ambiguous">不明確：%1$s 還是 %2$s？請輸入其中一種寫法。</string>
     <string name="portfolio_oversold">賣出數量超過持倉，請檢查交易記錄。</string>
     <string name="portfolio_sell">賣出</string>
-    <string name="portfolio_sell_exceeds">超過你的持倉（%1$s）</string>
+    <string name="portfolio_sell_exceeds">超過您的持倉（%1$s）</string>
     <string name="portfolio_sell_exceeds_fee">數量加手續費超過持有量（%1$s）</string>
-    <string name="portfolio_sell_exceeds_wallet">超過你在 %2$s 的持有量（%1$s）</string>
+    <string name="portfolio_sell_exceeds_wallet">超過您在 %2$s 的持有量（%1$s）</string>
     <string name="portfolio_transactions">交易記錄</string>
     <string name="portfolio_tx_acquired_date">原始買入日期（選填）</string>
     <string name="portfolio_tx_acquired_date_hint">用於稅務匯出中的持有期</string>
@@ -128,7 +128,7 @@
     <string name="portfolio_tx_gift">贈與</string>
     <string name="portfolio_tx_gift_price_hint">以 USDT 計。留空 = 當日收盤價（估算）</string>
     <string name="portfolio_tx_gift_spouse">給配偶 / 伴侶</string>
-    <string name="portfolio_tx_gift_spouse_hint">英國和加拿大：無損益——你的伴侶承接你的成本。其他國家不考慮這一點。</string>
+    <string name="portfolio_tx_gift_spouse_hint">英國和加拿大：無損益——您的伴侶承接您的成本。其他國家不考慮這一點。</string>
     <string name="portfolio_tx_market_value">每枚幣的市值</string>
     <string name="portfolio_tx_more_buy">手續費、交易所、備註</string>
     <string name="portfolio_tx_network_fee">網路手續費（以幣計，選填）</string>
@@ -143,7 +143,7 @@
     <string name="portfolio_tx_price_zero">匯入的交易價格不能為 0——留空則使用市場價</string>
     <string name="portfolio_tx_removed">交易已刪除</string>
     <string name="portfolio_tx_reward">獎勵</string>
-    <string name="portfolio_tx_save_failed">無法儲存交易。你輸入的內容仍在——請重試。</string>
+    <string name="portfolio_tx_save_failed">無法儲存交易。您輸入的內容仍在——請重試。</string>
     <string name="portfolio_tx_swap">兌換</string>
     <string name="portfolio_tx_swap_fee_received">以 %1$s 支付的手續費：從收到的數量中扣除，無需價格。</string>
     <string name="portfolio_tx_swap_from">從 %1$s 兌換</string>
@@ -170,7 +170,7 @@
     <string name="portfolio_tx_withdrawal">提取</string>
     <string name="portfolio_tx_withdrawal_gift_hint">送人了或用於支付？請記為‹贈與›或‹用於支付›——視國家而定，稅務上屬於賣出。</string>
     <string name="portfolio_tx_withdrawal_price_hint">可選：以 USDT 計的市場價值，僅用於歷史計算（留空 = 當日價格）。幣始終按成本移出。</string>
-    <string name="portfolio_wallet_did_you_mean">你是指 %1$s 嗎？寫法不同會算作另一個錢包。</string>
+    <string name="portfolio_wallet_did_you_mean">您是指 %1$s 嗎？寫法不同會算作另一個錢包。</string>
     <string name="portfolio_wallet_shortfall">%1$s 中的持有量不足——是否漏記了轉移？</string>
 
     <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
@@ -211,7 +211,7 @@
     <string name="portfolio_history_scaled">%1$s 的走勢：按交易所價格換算的 Binance 走勢</string>
     <string name="portfolio_history_title">價值走勢</string>
     <string name="portfolio_history_today">今天</string>
-    <string name="portfolio_history_too_short">走勢從你的第一個完整日之後開始。</string>
+    <string name="portfolio_history_too_short">走勢從您的第一個完整日之後開始。</string>
     <string name="portfolio_history_unavailable">暫無走勢資料。</string>
     <string name="portfolio_history_utc_days">日期按 UTC（日K線）</string>
     <string name="portfolio_history_without_matching">不含 %1$s（無匹配的每日價格）</string>

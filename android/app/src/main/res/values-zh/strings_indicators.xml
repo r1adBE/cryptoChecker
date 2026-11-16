@@ -24,7 +24,7 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">应用只显示计数，不称其为“季”。该数值通常以天而不是小时为单位变化。</string>
-    <string name="neutral_info_btc_how">每个数值都附一句话，说明它衡量什么，以及它在自 2016 年以来自身历史中的位置。应用不评价数值，也不推断市场阶段；通知阈值只有你自己设定的那些。过去的模式不一定会重复。</string>
+    <string name="neutral_info_btc_how">每个数值都附一句话，说明它衡量什么，以及它在自 2016 年以来自身历史中的位置。应用不评价数值，也不推断市场阶段；通知阈值只有您自己设定的那些。过去的模式不一定会重复。</string>
     <string name="neutral_info_btc_what">常用比特币指标，只显示测量值：Mayer Multiple、200周均线、距历史最高点跌幅、30天变化、Pi Cycle 差距，以及链上数据 MVRV、Puell Multiple 和算力。</string>
     <string name="neutral_info_coin_how">每个数值都附有一句说明其测量内容，不作评价。价格历史较短的币种会缺少部分数值。此处不含链上数据。</string>
     <string name="neutral_info_coin_what">为所选币种显示同样的原始指标，仅基于价格数据：Mayer Multiple、200 周均线、距最高点跌幅、30 天变化、50/200 日趋势、RSI，以及 90 天内相对比特币的强弱。</string>

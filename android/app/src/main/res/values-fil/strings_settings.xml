@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
-    <string name="settings_custom_value">Custom</string>
+    <string name="settings_custom_value">Sariling halaga</string>
     <string name="settings_group_general">Pangkalahatan</string>
     <string name="settings_group_more">Higit pa</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">Tungkol sa app</string>
     <string name="settings_row_alarms">Mga Alerto</string>
-    <string name="settings_row_currency">Currency</string>
+    <string name="settings_row_currency">Pera</string>
     <string name="settings_row_dated_futures">Dated futures</string>
     <string name="settings_row_updates">Mga update ng presyo</string>
     <string name="settings_row_watchlist">Watchlist</string>
@@ -67,7 +67,7 @@
     <string name="settings_quiet_hours_to">Hanggang</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
-    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_interval">Pagitan</string>
     <string name="settings_background_updates">Mga update sa background</string>
     <string name="settings_battery_hint">Ang limitado ay nangangahulugang maaaring iantala ng Android nang ilang oras ang mga update sa background.</string>
     <string name="settings_battery_ok">Paggamit ng baterya: walang limitasyon</string>
@@ -86,7 +86,7 @@
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
     <string name="settings_activity_alerts">Kapansin-pansin: mag-notify</string>
     <string name="settings_activity_alerts_hint">Hanggang isang beses kada oras bawat pares: kakaibang galaw ng presyo, biglang taas ng volume at mga extreme sa futures (data mula sa Binance).</string>
-    <string name="settings_activity_sensitivity">Sensitivity</string>
+    <string name="settings_activity_sensitivity">Pagkasensitibo</string>
     <string name="settings_activity_sensitivity_hint">Gaano kadaling ituring na kakaiba ang isang coin – pareho para sa watchlist card at mga market alert. Sa “Mas kaunti”, ang 3 pinakamalakas lang ang ipinapakita ng card.</string>
     <string name="settings_watchlist_activity_card">Kapansin-pansin: ipakita sa listahan</string>
     <string name="settings_watchlist_activity_card_hint">Ipinapakita ang ⚡ chip sa tabi ng mga grupo: i-tap ito para makita lang ang mga pares na may nangyayari ngayon. Itinatakda ang mga notification para dito sa ilalim ng Mga market alert.</string>
@@ -96,7 +96,7 @@
     <string name="settings_watchlist_sparkline_hint">Trend sa 24 na oras sa tabi ng presyo</string>
     <string name="settings_watchlist_value_names">Mga pangalan</string>
     <string name="settings_watchlist_value_price_only">Presyo lang</string>
-    <string name="settings_watchlist_value_sparkline">Mini chart</string>
+    <string name="settings_watchlist_value_sparkline">Maliit na chart</string>
 
     <!-- Einstellungen › Token & TradFi -->
     <string name="settings_asset_scope_alpha">Kasama ang mga Alpha token (α)</string>
@@ -118,7 +118,7 @@
     <string name="settings_tradfi_futures_hint">Ipinapakita rin ang futures sa stocks, ginto at ibang commodities, mga currency at mga pre-IPO na kumpanya kapag pumipili ka ng pares. Mga kontrata ang mga ito, hindi token.</string>
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
-    <string name="settings_accent">Accent color</string>
+    <string name="settings_accent">Kulay ng accent</string>
     <string name="settings_accent_hint">Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Mga logo ng coin</string>
@@ -136,7 +136,7 @@
     <string name="settings_language_system">Wika ng system</string>
     <string name="settings_price_colors">Mga kulay ng presyo</string>
     <string name="settings_price_colors_hint">Madaling makilala ang asul / orange sa anumang color vision deficiency (pula-berde at asul-dilaw). Laging ipinapakita rin ang direksyon gamit ang + / −.</string>
-    <string name="settings_theme_mode">Light / Dark</string>
+    <string name="settings_theme_mode">Maliwanag / Madilim</string>
     <string name="settings_widgets">Mga widget</string>
 
     <!-- Einstellungen › %-Änderung -->
@@ -148,7 +148,7 @@
     <string name="settings_change_basis_hint_since_last">Inihahambing ng “%1$s” sa presyo ng nakaraang update. Sa mga live price, nananatili itong malapit sa 0%%.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
-    <string name="settings_conversion_currency">Conversion currency</string>
+    <string name="settings_conversion_currency">Perang pang-convert</string>
     <string name="settings_conversion_currency_hint">Ginagamit din para sa portfolio, mga alerto sa currency mo, crypto market card at portfolio widget.</string>
     <string name="settings_cost_method">Paraan ng gastos</string>
     <string name="settings_cost_method_average">Average na gastos</string>
@@ -186,7 +186,7 @@
     <string name="settings_ind_mvrv_above">MVRV lampas</string>
     <string name="settings_ind_mvrv_below">MVRV mababa sa</string>
     <string name="settings_indicator_alerts_hint">Mga indicator ng Bitcoin, sinusuri dalawang beses kada araw. Ikaw ang pipili ng mga limitasyon – hindi nire-rate ng app ang mga value.</string>
-    <string name="settings_macro_notifications">Economic calendar</string>
+    <string name="settings_macro_notifications">Kalendaryong pang-ekonomiya</string>
     <string name="settings_macro_notifications_hint">Sa 08:00 sa mga araw na may mahalagang economic data ng US (inflation, jobs report, desisyon ng Fed). Galing ang kalendaryo sa website ng app, nilo-load isang beses kada araw.</string>
     <string name="settings_macro_notifications_us_hint">Sa US, darating ang notification nang hindi lalampas sa 08:00 oras sa New York, bago ang unang data.</string>
     <string name="settings_market_alerts">Mga market alert</string>
@@ -218,9 +218,9 @@
     <string name="language_search">Maghanap ng wika</string>
 
     <!-- Theme -->
-    <string name="theme_dark">Dark</string>
-    <string name="theme_light">Light</string>
-    <string name="theme_system">System</string>
+    <string name="theme_dark">Madilim</string>
+    <string name="theme_light">Maliwanag</string>
+    <string name="theme_system">Sistema</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Asul</string>
@@ -235,7 +235,7 @@
     <string name="price_colors_swap">Pagpalitin ang mga kulay (taas ↔ baba)</string>
     <string name="price_style_calm">Kalmado</string>
     <string name="price_style_calm_color_vision">Kalmado · Color vision deficiency</string>
-    <string name="price_style_color_vision">Color vision deficiency</string>
+    <string name="price_style_color_vision">Kakulangan sa paningin ng kulay</string>
     <string name="price_style_fresh">Sariwa</string>
     <string name="price_style_traditional">Tradisyonal</string>
 
@@ -283,7 +283,7 @@
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
     <string name="about_data_connections">Direktang galing ang mga presyo sa mga exchange ng mga pares mo, pati ang mga exchange rate, listahan ng coin at logo at ang data mirror sa GitHub; nakikita nila ang IP address mo, hindi kailanman ang mga hawak mo (ang mga binabantayang address ay napupunta sa provider ng kaukulang network).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
-    <string name="about_data_backup_label">Backup</string>
+    <string name="about_data_backup_label">Pag-back up</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
     <string name="about_data_backup">Kung gagawa ka lang. Kapag may password, naka-encrypt ito (Argon2id + AES-256-GCM); kung wala, nababasa ito.</string>
     <!-- Über › Deine Daten: Stichwort -->

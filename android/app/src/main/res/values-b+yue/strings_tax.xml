@@ -68,7 +68,7 @@
     <string name="tax_export_match_pool">Section 104 pool</string>
     <string name="tax_export_match_same_day">同日（HMRC）</string>
     <string name="tax_export_match_thirty_day">30 日規則（HMRC）</string>
-    <string name="tax_export_method_change_warning">更改方法或範本會連之前年度都重新計算 – 請同你已申報嘅比較。</string>
+    <string name="tax_export_method_change_warning">更改方法或範本會連之前年度都重新計算 – 請同您已申報嘅比較。</string>
     <string name="tax_export_method_overridden">範本計算 %1$s – 唔係 %2$s</string>
     <string name="tax_export_new_holding">2021 年 3 月 1 日起取得</string>
     <string name="tax_export_no">否</string>
@@ -167,7 +167,7 @@
     <string name="tax_template_hint">只供參考：設定稅務工作表嘅方法、課稅年度同總結。投資組合卡片保持中性 – 贈與同轉賬費可能同工作表唔同。</string>
     <string name="tax_template_jp">日本</string>
     <string name="tax_template_neutral">中性（所有國家）</string>
-    <string name="tax_template_suggestion">你所在地區嘅建議：%1$s</string>
+    <string name="tax_template_suggestion">您所在地區嘅建議：%1$s</string>
     <string name="tax_template_title">稅務範本</string>
     <string name="tax_template_uk">英國</string>
     <string name="tax_template_us">美國</string>
@@ -184,12 +184,12 @@
     <string name="tax_note_fr">以加密貨幣支付嘅出售同手續費屬於出售 – 兌換會遞延。出售時嘅加密貨幣手續費計入扣手續費前價格 – 否則以其價值獨立當一次出售。投資組合價值來自每日收市價 – 欠缺收市價會令成本留空。</string>
     <string name="tax_note_network_fee">以加密貨幣支付嘅網絡費（轉去自己錢包、提取）屬於按市值出售手續費幣 – 盈虧只計呢啲幣，唔係成筆手續費都當虧損（%1$s）。冇記錄價格：用當日收市價（UTC）；冇收市價就所得留空。</string>
     <string name="tax_note_specific_id">唔支援指定識別法 – 會用 FIFO。</string>
-    <string name="tax_note_spouse_gift">標示咗「俾配偶／民事伴侶」嘅贈與冇盈利亦冇虧損：所得 = 你嘅成本基礎，由你嘅伴侶承接（%1$s）。</string>
-    <string name="tax_note_stable_swap">將加密貨幣賣做你保留嘅穩定幣（USDT/USDC/DAI …）喺呢度屬於幣對幣，唔課稅 – 請記做兌換做穩定幣。只有賣做歐元先課稅 –「賣出」會當賣做歐元。</string>
+    <string name="tax_note_spouse_gift">標示咗「俾配偶／民事伴侶」嘅贈與冇盈利亦冇虧損：所得 = 您嘅成本基礎，由您嘅伴侶承接（%1$s）。</string>
+    <string name="tax_note_stable_swap">將加密貨幣賣做您保留嘅穩定幣（USDT/USDC/DAI …）喺呢度屬於幣對幣，唔課稅 – 請記做兌換做穩定幣。只有賣做歐元先課稅 –「賣出」會當賣做歐元。</string>
     <string name="tax_note_transfer_fee">自己錢包之間轉賬嘅 USDT 或現金手續費都一樣：唔會加入成本基礎，只列出供參考。</string>
     <string name="tax_note_uk">按 HMRC 配對：同日 → 之後 30 日 → Section 104 pool。</string>
-    <string name="tax_note_us_transition">2025 年 1 月 1 日過渡（Rev. Proc. 2024-28 safe harbor）：如果之前年度用跨所有錢包嘅 FIFO，截至 2024 年 12 月 31 日嘅剩餘批次會分配去持有嗰啲幣嘅錢包 – 持有最舊幣嘅錢包會攞最舊嘅成本基礎。呢個分配係 App 嘅規則 – 請同你自己嘅記錄核對。</string>
-    <string name="tax_note_us_wallet">由 2025 課稅年度起，IRS 要求按每個錢包或交易所計成本基礎（Rev. Proc. 2024-28）：匯出由 2025 年起用每個錢包分開 FIFO – 之前年度用跨所有錢包 FIFO，或者如果你嘅成本方法係每個錢包分開 FIFO 就用嗰個。</string>
+    <string name="tax_note_us_transition">2025 年 1 月 1 日過渡（Rev. Proc. 2024-28 safe harbor）：如果之前年度用跨所有錢包嘅 FIFO，截至 2024 年 12 月 31 日嘅剩餘批次會分配去持有嗰啲幣嘅錢包 – 持有最舊幣嘅錢包會攞最舊嘅成本基礎。呢個分配係 App 嘅規則 – 請同您自己嘅記錄核對。</string>
+    <string name="tax_note_us_wallet">由 2025 課稅年度起，IRS 要求按每個錢包或交易所計成本基礎（Rev. Proc. 2024-28）：匯出由 2025 年起用每個錢包分開 FIFO – 之前年度用跨所有錢包 FIFO，或者如果您嘅成本方法係每個錢包分開 FIFO 就用嗰個。</string>
     <string name="tax_note_withdrawal_fee">以 USDT 或現金支付嘅提取費唔係虧損：現金手續費唔係可扣減成本，USDT 手續費係按面值出售、冇盈利 – 只列出供參考（%1$s）。</string>
     <string name="tax_summary_at_interest_income">計入：收到時按 27.5 百分比特別稅率當收入（§ 27b(2) no. 1 EStG / BMF）– 呢啲幣以呢個價值作為取得成本</string>
     <string name="tax_summary_at_reward_info">只供參考 – 唔計入任何總數：獎勵以取得成本 0 計入新持倉，只喺賣出時課稅（已包括喺盈利入面）– § 27b para. 2 EStG / BMF</string>
@@ -233,7 +233,7 @@
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30 日規則仍然可能改變呢啲數字（截至 %1$s 嘅買入）</string>
     <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
-    <string name="tax_summary_uk_hmrc_report">扣手續費前所得超過申報界限（£50,000；2020/21–2022/23：£49,200）：如果你已登記 Self Assessment，即使冇應課稅盈利都要向 HMRC 申報</string>
+    <string name="tax_summary_uk_hmrc_report">扣手續費前所得超過申報界限（£50,000；2020/21–2022/23：£49,200）：如果您已登記 Self Assessment，即使冇應課稅盈利都要向 HMRC 申報</string>
 
     <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
     <string name="tax_line_ch_wealth_value">12 月 31 日財富價值 %1$s（參考）</string>

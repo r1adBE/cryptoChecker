@@ -123,7 +123,7 @@
     <string name="settings_coin_logos">币种图标</string>
     <string name="settings_coin_logos_app">在应用中</string>
     <string name="settings_coin_logos_app_hint">自选列表、交易对页面和市场卡片</string>
-    <string name="settings_coin_logos_footer">图标来自 CoinGecko；CoinGecko 没有收录的（如黄金、白银、股票）来自 Binance。应用会一次性下载全部图标并保存在本设备上，因此两者都无法得知你关注哪些币种。没有图标的币种显示首字母。收藏的币种会在图标上显示一个小星标。开关关闭的地方既不显示图标也不显示首字母；全部关闭后不会加载任何内容。</string>
+    <string name="settings_coin_logos_footer">图标来自 CoinGecko；CoinGecko 没有收录的（如黄金、白银、股票）来自 Binance。应用会一次性下载全部图标并保存在本设备上，因此两者都无法得知您关注哪些币种。没有图标的币种显示首字母。收藏的币种会在图标上显示一个小星标。开关关闭的地方既不显示图标也不显示首字母；全部关闭后不会加载任何内容。</string>
     <string name="settings_coin_logos_portfolio">在投资组合中</string>
     <string name="settings_coin_logos_portfolio_hint">持仓、币种详情和分析</string>
     <string name="settings_coin_logos_value_app">应用</string>
@@ -148,7 +148,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">换算货币</string>
-    <string name="settings_conversion_currency_hint">也用于投资组合、以你的货币设置的提醒、加密货币市场卡片和投资组合小部件。</string>
+    <string name="settings_conversion_currency_hint">也用于投资组合、以您的货币设置的提醒、加密货币市场卡片和投资组合小部件。</string>
     <string name="settings_cost_method">成本计算方法</string>
     <string name="settings_cost_method_average">平均（Ø）</string>
     <string name="settings_cost_method_average_hint">卖出按移动平均买入价计算。</string>
@@ -157,12 +157,12 @@
     <string name="settings_cost_method_fifo_wallet">按钱包/交易所分别 FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">在每个交易所或钱包内先卖最早的币；转移会连同买入日期移动批次。</string>
     <string name="settings_portfolio_lock">投资组合锁</string>
-    <string name="settings_portfolio_lock_footer">锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。你可以用密码保护备份。</string>
+    <string name="settings_portfolio_lock_footer">锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。您可以用密码保护备份。</string>
     <string name="settings_portfolio_lock_hint">仅隐藏投资组合：使用指纹、面容或设备 PIN 解锁。在后台超过一分钟后会再次锁定。自选列表、提醒和其他小部件不受影响。</string>
     <string name="settings_portfolio_lock_no_device_lock">没有设备 PIN 或密码，锁定什么也隐藏不了——请设置屏幕锁定。</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">将投资组合纳入系统备份</string>
-    <string name="settings_portfolio_system_backup_hint">关闭：你的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。</string>
+    <string name="settings_portfolio_system_backup_hint">关闭：您的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。</string>
     <string name="settings_portfolio_system_backup_unavailable">需要 Android 9 或更高版本——旧版本会把投资组合未加密地保存到 Google 备份中。</string>
     <string name="settings_portfolio_tab">显示“投资组合”标签页</string>
     <string name="settings_portfolio_value_locked">开启，已加锁</string>
@@ -184,7 +184,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple 低于</string>
     <string name="settings_ind_mvrv_above">MVRV 高于</string>
     <string name="settings_ind_mvrv_below">MVRV 低于</string>
-    <string name="settings_indicator_alerts_hint">比特币指标每天检查两次。阈值由你选择——应用不评价这些数值。</string>
+    <string name="settings_indicator_alerts_hint">比特币指标每天检查两次。阈值由您选择——应用不评价这些数值。</string>
     <string name="settings_macro_notifications">经济日历</string>
     <string name="settings_macro_notifications_hint">在有重要美国经济数据（通胀、就业报告、美联储利率决议）的日子 08:00 提醒。日历每天从应用网站加载一次。</string>
     <string name="settings_macro_notifications_us_hint">在美国，通知最晚于纽约时间 08:00 送达，早于第一批数据。</string>
@@ -270,7 +270,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">统计新的提醒和市场通知；打开应用后归零。</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">你的数据</string>
+    <string name="about_your_data_title">您的数据</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">设备上</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -278,11 +278,11 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">连接</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">价格直接来自你所选交易对的交易所，另有汇率、币种列表和图标以及 GitHub 上的数据镜像；它们能看到你的 IP 地址，但绝不会看到你的持仓（关注的地址会发送给相应网络的服务商）。</string>
+    <string name="about_data_connections">价格直接来自您所选交易对的交易所，另有汇率、币种列表和图标以及 GitHub 上的数据镜像；它们能看到您的 IP 地址，但绝不会看到您的持仓（关注的地址会发送给相应网络的服务商）。</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">备份</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">仅在你创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。</string>
+    <string name="about_data_backup">仅在您创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">更换设备</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -290,7 +290,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">分享诊断信息</string>
-    <string name="diagnostics_share_hint">供支持使用的文本文件：版本、设备、提醒设置、最近检查和提醒记录 – 不含投资组合、金额、地址或备注。你会先看到内容；不会自动发送任何内容。</string>
+    <string name="diagnostics_share_hint">供支持使用的文本文件：版本、设备、提醒设置、最近检查和提醒记录 – 不含投资组合、金额、地址或备注。您会先看到内容；不会自动发送任何内容。</string>
     <string name="diagnostics_preview_title">诊断信息 – 预览</string>
     <string name="diagnostics_action_share">分享</string>
     <string name="settings_price_overlay">价格悬浮窗</string>
@@ -303,7 +303,7 @@
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">地址专用的自有服务器</string>
     <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">仅限比特币：你自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要公开受信任的证书，例如 Let\'s Encrypt）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。</string>
+    <string name="settings_address_server_hint">仅限比特币：您自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要公开受信任的证书，例如 Let\'s Encrypt）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">比特币服务器（https://）</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
@@ -332,12 +332,12 @@
     <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
     <string name="settings_address_server_public_title">切换到公共节点？</string>
     <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
-    <string name="settings_address_server_public_text">之后你的比特币地址和 xpub 将向公共节点查询：%1$s。这些节点会看到这些地址以及你的 IP 地址。</string>
+    <string name="settings_address_server_public_text">之后您的比特币地址和 xpub 将向公共节点查询：%1$s。这些节点会看到这些地址以及您的 IP 地址。</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">使用公共节点</string>
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">关闭，已加锁</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">将重新计算所有年份：以往年份的成本、已实现收益和税务工作表也会改变。</string>
-    <string name="settings_portfolio_system_backup_confirm">届时你的交易、投资组合提醒和关注的地址将进入 Android 备份（例如你的 Google 账号）以及迁移到新设备的数据中——仅限端到端加密。</string>
+    <string name="settings_portfolio_system_backup_confirm">届时您的交易、投资组合提醒和关注的地址将进入 Android 备份（例如您的 Google 账号）以及迁移到新设备的数据中——仅限端到端加密。</string>
 </resources>

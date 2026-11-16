@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">背景</string>
-    <string name="widget_configure_hint">揀背景同透明度。顏色跟隨 App。小工具會顯示你嘅自選清單或者下面揀咗嘅群組；撳一行就會打開 App。</string>
+    <string name="widget_configure_hint">揀背景同透明度。顏色跟隨 App。小工具會顯示您嘅自選清單或者下面揀咗嘅群組；撳一行就會打開 App。</string>
     <string name="widget_configure_title">設定小工具</string>
     <string name="widget_description">顯示自選清單入面一個交易對嘅價格。</string>
     <string name="widget_empty">自選清單暫時未有交易對。</string>
@@ -38,7 +38,7 @@
     <string name="widget_portfolio_as_of">截至 %1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">歷史即將推出</string>
-    <string name="widget_portfolio_description">你投資組合嘅總值同今日變動</string>
+    <string name="widget_portfolio_description">您投資組合嘅總值同今日變動</string>
     <string name="widget_portfolio_entries">幣種下面嘅記錄</string>
     <string name="widget_portfolio_entries_both">兩者</string>
     <string name="widget_portfolio_entries_buys">買入</string>
@@ -51,7 +51,7 @@
     <string name="widget_portfolio_display_hint">換算貨幣係 USD 穩定幣（例如 USDC）時，USDT 一行會隱藏。</string>
     <string name="widget_portfolio_display_usdt">只顯示 USDT</string>
     <string name="widget_portfolio_empty">喺「投資組合」分頁加入買入</string>
-    <string name="widget_portfolio_list_hint">開啟 App 就可以喺呢度顯示你嘅持倉。</string>
+    <string name="widget_portfolio_list_hint">開啟 App 就可以喺呢度顯示您嘅持倉。</string>
     <string name="widget_portfolio_locked_hint">已鎖定 – 請喺 App 解鎖</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -87,7 +87,7 @@
     <string name="widgets_add">加入</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">加入小工具 %1$s</string>
-    <string name="widgets_manual_text">你嘅主畫面唔可以由 App 加入小工具。喺主畫面長按空白位置，揀「小工具」再搵「Crypto Checker」。</string>
+    <string name="widgets_manual_text">您嘅主畫面唔可以由 App 加入小工具。喺主畫面長按空白位置，揀「小工具」再搵「Crypto Checker」。</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">自己加入小工具</string>
     <string name="widgets_sheet_title">加入小工具</string>

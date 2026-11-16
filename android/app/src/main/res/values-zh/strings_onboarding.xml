@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">提醒——价格、百分比、成交量和异常波动</string>
     <string name="welcome_alert_q">何时提醒？</string>
-    <string name="welcome_text">你的行情。你的提醒。你的概览。\n无需账户。没有广告。不做追踪。</string>
+    <string name="welcome_text">您的行情。您的提醒。您的概览。\n无需账户。没有广告。不做追踪。</string>
     <string name="welcome_understand">理解——此刻有什么在随某个价格一起波动</string>
     <string name="welcome_understand_q">哪些在同步波动？</string>
-    <string name="welcome_watch">关注——你的币种、行情和走势</string>
+    <string name="welcome_watch">关注——您的币种、行情和走势</string>
     <string name="welcome_watch_q">发生了什么？</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->

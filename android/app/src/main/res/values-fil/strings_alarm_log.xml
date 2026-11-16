@@ -11,7 +11,7 @@
     <string name="alarm_log_clear_title">I-clear ang log ng alerto?</string>
     <string name="alarm_log_clear_message">Aalisin ang lahat ng entry. Mananatili ang mga alerto mo.</string>
     <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
-    <string name="alarm_log_threshold">Threshold %1$s</string>
+    <string name="alarm_log_threshold">Hangganan %1$s</string>
     <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
     <string name="alarm_last_check">Huling sinuri: %1$s</string>
     <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->

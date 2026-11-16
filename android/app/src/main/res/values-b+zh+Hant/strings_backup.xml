@@ -6,7 +6,7 @@
     <string name="backup_export">備份</string>
     <string name="backup_exported">備份已儲存。</string>
     <string name="backup_failed">失敗了。這是 Crypto Checker 的備份嗎？</string>
-    <string name="backup_hint">把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由你自己保管的檔案，例如換新手機時使用。</string>
+    <string name="backup_hint">把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由您自己保管的檔案，例如換新手機時使用。</string>
     <string name="backup_import">還原</string>
     <string name="backup_title">備份與還原</string>
     <string name="backup_too_large">檔案過大或不是有效的備份（上限 64 MB）。</string>
@@ -41,7 +41,7 @@
         <item quantity="other">備份中有 %d 筆記錄（投資組合或提醒）無效，不會還原。</item>
     </plurals>
     <string name="backup_restore_newer_version">此備份來自更新版本的應用程式——請先更新應用程式。未還原任何內容。</string>
-    <string name="backup_restore_unencrypted_warning">此備份未加密，請確認它來自你。設定會被套用，但降低保護的更改除外（投資組合鎖、地址專用的自有伺服器、隱藏金額、將投資組合納入系統備份）。</string>
+    <string name="backup_restore_unencrypted_warning">此備份未加密，請確認它來自您。設定會被套用，但降低保護的更改除外（投資組合鎖、地址專用的自有伺服器、隱藏金額、將投資組合納入系統備份）。</string>
     <string name="backup_restore_unencrypted_replaces">沒有密碼就無法檢查是否有人改過此檔案 – 它也會取代您的交易、投資組合提醒及監看中的地址。</string>
     <string name="backup_restored">已還原：%1$s，%2$s。</string>
     <plurals name="backup_restored_alarms">
@@ -76,7 +76,7 @@
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">未能從系統備份還原投資組合</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">來自 Android 系統備份的投資組合副本在第二次嘗試時仍無法讀取，已被刪除。如果你有備份檔案，請在設定的「%1$s」中還原。</string>
+    <string name="system_backup_not_imported_message">來自 Android 系統備份的投資組合副本在第二次嘗試時仍無法讀取，已被刪除。如果您有備份檔案，請在設定的「%1$s」中還原。</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">暫時無法讀取已儲存的資料，因此投資組合不會顯示，也無法更改。請重新啟動應用程式。</string>
@@ -88,7 +88,7 @@
     <string name="backup_storage_kept">目前無法備份和還原：無法讀取已儲存的資料。請重新啟動應用程式後再試。</string>
     <string name="backup_restore_storage_in_memory">目前無法還原：應用程式暫時不儲存資料（加密尚未啟用），還原的內容會在重新啟動後遺失。請重新啟動應用程式後再試。</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
-    <string name="backup_restore_journal_unavailable">暫時無法還原：無法儲存你目前資料的安全副本（金鑰暫時不可用）。未做任何更改。請稍後重試或重新啟動應用程式。</string>
+    <string name="backup_restore_journal_unavailable">暫時無法還原：無法儲存您目前資料的安全副本（金鑰暫時不可用）。未做任何更改。請稍後重試或重新啟動應用程式。</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">加密尚未啟用——投資組合不會被儲存，關閉應用程式後更改將遺失。應用程式會在下次啟動時重試。</string>

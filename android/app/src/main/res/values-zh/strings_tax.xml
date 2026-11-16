@@ -167,7 +167,7 @@
     <string name="tax_template_hint">仅供参考：决定工作底稿的方法、纳税年度和汇总。投资组合卡片保持中性——赠与和转账手续费可能与工作底稿不同。</string>
     <string name="tax_template_jp">日本</string>
     <string name="tax_template_neutral">中性（所有国家）</string>
-    <string name="tax_template_suggestion">适合你所在地区的建议：%1$s</string>
+    <string name="tax_template_suggestion">适合您所在地区的建议：%1$s</string>
     <string name="tax_template_title">税务模板</string>
     <string name="tax_template_uk">英国</string>
     <string name="tax_template_us">美国</string>
@@ -182,13 +182,13 @@
     <string name="tax_note_at">按币和钱包计算移动平均——不跨所有钱包（KryptowährungsVO § 2）。奖励以取得成本 0 计入新持仓（BMF：质押 / 空投）——收入文件按收到时的价值列示。2021年3月1日起取得的持仓手续费不可扣除（§ 27a 第4款第2项、§ 20 第2款 EStG）：成本和收入均不计手续费。借贷利息（来自 CSV 导入类型或备注）在收到时按百分之 27.5 计为收入，并以该价值作为取得成本。</string>
     <string name="tax_note_at_staking">用已有币质押及空投：收到时的价值在税务上无关紧要——依法取得成本为 0（§ 27b Abs. 2 EStG；BMF“Kryptowährungen”）。仅在卖出时才产生税款。</string>
     <string name="tax_note_fr">卖出和以加密货币支付的手续费都属于转让——兑换予以递延。卖出时的加密货币手续费计入扣除手续费前的价格——否则按其价值单独视为转让。投资组合价值取自每日收盘价——缺少收盘价时成本留空。</string>
-    <string name="tax_note_network_fee">以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$s）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。</string>
+    <string name="tax_note_network_fee">以加密货币支付的网络手续费（转入您自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$s）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。</string>
     <string name="tax_note_specific_id">不支持个别认定法（Specific Identification）——采用 FIFO（先进先出）。</string>
-    <string name="tax_note_spouse_gift">标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 你的成本，由你的伴侣承接（%1$s）。</string>
-    <string name="tax_note_stable_swap">卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——“卖出”视为卖出换成欧元。</string>
-    <string name="tax_note_transfer_fee">在你自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。</string>
+    <string name="tax_note_spouse_gift">标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 您的成本，由您的伴侣承接（%1$s）。</string>
+    <string name="tax_note_stable_swap">卖出换成您继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——“卖出”视为卖出换成欧元。</string>
+    <string name="tax_note_transfer_fee">在您自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。</string>
     <string name="tax_note_uk">按 HMRC 匹配：同一天，然后之后 30 天，然后 依 Section 104 的合并持仓（Section 104 pool）。</string>
-    <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。</string>
+    <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与您自己的记录核对。</string>
     <string name="tax_note_us_wallet">自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前对所有钱包合并使用 FIFO；若设置的成本计算方法为按钱包 FIFO，则按钱包使用 FIFO。</string>
     <string name="tax_note_withdrawal_fee">USDT 或法币支付的提取手续费不算亏损：法币手续费不可扣除，USDT 手续费是按面值处置、没有收益——仅作参考列出（%1$s）。</string>
     <string name="tax_summary_at_interest_income">计入：收到时按百分之 27.5 特别税率计为收入（§ 27b 第2款第1项 EStG / BMF）——币以该价值作为取得成本</string>

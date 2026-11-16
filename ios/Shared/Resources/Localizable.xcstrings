@@ -7850,7 +7850,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Value"
+            "value" : "Halaga"
           }
         },
         "fr" : {
@@ -46243,19 +46243,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只喺你建立時先有。有密碼就會加密（Argon2id + AES-256-GCM）；冇密碼就可以直接讀取。"
+            "value" : "只喺您建立時先有。有密碼就會加密（Argon2id + AES-256-GCM）；冇密碼就可以直接讀取。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅在你创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。"
+            "value" : "仅在您创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "僅在你建立時才有。設定密碼則加密（Argon2id + AES-256-GCM）；無密碼則可直接讀取。"
+            "value" : "僅在您建立時才有。設定密碼則加密（Argon2id + AES-256-GCM）；無密碼則可直接讀取。"
           }
         },
         "zu" : {
@@ -46380,7 +46380,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Backup"
+            "value" : "Pag-back up"
           }
         },
         "fr" : {
@@ -47153,19 +47153,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格直接來自你交易對所屬嘅交易所，另外仲有匯率、幣種清單同標誌，以及 GitHub 上嘅數據鏡像；佢哋會見到你嘅 IP 地址，但永遠見唔到你嘅持倉（觀察中嘅地址會傳去相應網絡嘅供應商）。"
+            "value" : "價格直接來自您交易對所屬嘅交易所，另外仲有匯率、幣種清單同標誌，以及 GitHub 上嘅數據鏡像；佢哋會見到您嘅 IP 地址，但永遠見唔到您嘅持倉（觀察中嘅地址會傳去相應網絡嘅供應商）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格直接来自你所选交易对的交易所，另有汇率、币种列表和图标以及 GitHub 上的数据镜像；它们能看到你的 IP 地址，但绝不会看到你的持仓（关注的地址会发送给相应网络的服务商）。"
+            "value" : "价格直接来自您所选交易对的交易所，另有汇率、币种列表和图标以及 GitHub 上的数据镜像；它们能看到您的 IP 地址，但绝不会看到您的持仓（关注的地址会发送给相应网络的服务商）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格直接來自你所選交易對的交易所，另有匯率、幣種清單和圖示以及 GitHub 上的資料鏡像；它們能看到你的 IP 地址，但絕不會看到你的持倉（關注的地址會發送給相應網路的服務商）。"
+            "value" : "價格直接來自您所選交易對的交易所，另有匯率、幣種清單和圖示以及 GitHub 上的資料鏡像；它們能看到您的 IP 地址，但絕不會看到您的持倉（關注的地址會發送給相應網路的服務商）。"
           }
         },
         "zu" : {
@@ -48063,7 +48063,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅自選清單、提示同投資組合加密儲存喺呢部裝置；毋須帳戶，亦冇我哋自己嘅伺服器。"
+            "value" : "您嘅自選清單、提示同投資組合加密儲存喺呢部裝置；毋須帳戶，亦冇我哋自己嘅伺服器。"
           }
         },
         "zh-Hans" : {
@@ -53978,19 +53978,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅資料"
+            "value" : "您嘅資料"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的数据"
+            "value" : "您的数据"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的資料"
+            "value" : "您的資料"
           }
         },
         "zu" : {
@@ -65490,7 +65490,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Normal"
+            "value" : "Karaniwan"
           }
         },
         "fr" : {
@@ -84145,7 +84145,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Karagdagan"
           }
         },
         "fr" : {
@@ -92790,7 +92790,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Currency"
+            "value" : "Pera"
           }
         },
         "fr" : {
@@ -103118,19 +103118,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "所有記錄都會移除。你嘅提示會保持不變。"
+            "value" : "所有記錄都會移除。您嘅提示會保持不變。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "所有记录将被删除。你的提醒保持不变。"
+            "value" : "所有记录将被删除。您的提醒保持不变。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "所有記錄將被刪除。你的提醒保持不變。"
+            "value" : "所有記錄將被刪除。您的提醒保持不變。"
           }
         },
         "zu" : {
@@ -107350,7 +107350,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threshold %1$@"
+            "value" : "Hangganan %1$@"
           }
         },
         "fr" : {
@@ -146033,7 +146033,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "fr" : {
@@ -149991,7 +149991,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "通知已關閉 – 呢個提示無法通知你"
+            "value" : "通知已關閉 – 呢個提示無法通知您"
           }
         },
         "zh-Hans" : {
@@ -152403,7 +152403,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume ×%1$@"
+            "value" : "Dami ×%1$@"
           }
         },
         "fr" : {
@@ -154996,19 +154996,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用你嘅聲音、震動同語音設定傳送一個示範提示。"
+            "value" : "用您嘅聲音、震動同語音設定傳送一個示範提示。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用你的声音、振动和语音播报设置发送一条示例提醒。"
+            "value" : "使用您的声音、振动和语音播报设置发送一条示例提醒。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用你的聲音、震動和語音播報設定發送一條範例提醒。"
+            "value" : "使用您的聲音、震動和語音播報設定發送一條範例提醒。"
           }
         },
         "zu" : {
@@ -161366,7 +161366,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App 關閉時，iOS 通常會遲過 15 分鐘先檢查，有時要等你下次開 App。短暫嘅急升急跌可能會錯過。"
+            "value" : "App 關閉時，iOS 通常會遲過 15 分鐘先檢查，有時要等您下次開 App。短暫嘅急升急跌可能會錯過。"
           }
         },
         "zh-Hans" : {
@@ -169678,7 +169678,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "通知已關閉 – 提示無法通知你。"
+            "value" : "通知已關閉 – 提示無法通知您。"
           }
         },
         "zh-Hans" : {
@@ -175260,7 +175260,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "冇螢幕鎖就無法解鎖投資組合。關閉後，App 會唔使問就再次顯示你嘅投資組合。設定好螢幕鎖之後，你可以喺設定重新開啟呢個鎖。"
+            "value" : "冇螢幕鎖就無法解鎖投資組合。關閉後，App 會唔使問就再次顯示您嘅投資組合。設定好螢幕鎖之後，您可以喺設定重新開啟呢個鎖。"
           }
         },
         "zh-Hans" : {
@@ -181187,19 +181187,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "將你嘅自選清單（連備註同群組）、提示、最愛、投資組合同設定儲存做一個由你自己保管嘅檔案 – 例如換新手機時用。"
+            "value" : "將您嘅自選清單（連備註同群組）、提示、最愛、投資組合同設定儲存做一個由您自己保管嘅檔案 – 例如換新手機時用。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由你自己保管的文件，例如换新手机时使用。"
+            "value" : "把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由您自己保管的文件，例如换新手机时使用。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由你自己保管的檔案，例如換新手機時使用。"
+            "value" : "把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由您自己保管的檔案，例如換新手機時使用。"
           }
         },
         "zu" : {
@@ -193017,7 +193017,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "還原會用備份取代你目前嘅自選清單（連備註同群組）、提示、最愛、投資組合同設定。"
+            "value" : "還原會用備份取代您目前嘅自選清單（連備註同群組）、提示、最愛、投資組合同設定。"
           }
         },
         "zh-Hans" : {
@@ -193472,7 +193472,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "還原備份期間 App 被關閉，之前嘅資料亦未能完整放返。請檢查你嘅自選清單同投資組合，或者喺設定嘅「%1$@」重新還原備份。"
+            "value" : "還原備份期間 App 被關閉，之前嘅資料亦未能完整放返。請檢查您嘅自選清單同投資組合，或者喺設定嘅「%1$@」重新還原備份。"
           }
         },
         "zh-Hans" : {
@@ -193927,7 +193927,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "還原備份期間 App 被關閉。你之前嘅資料已經放返；備份嘅內容一樣都冇保留。"
+            "value" : "還原備份期間 App 被關閉。您之前嘅資料已經放返；備份嘅內容一樣都冇保留。"
           }
         },
         "zh-Hans" : {
@@ -196324,19 +196324,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暫時無法還原：無法儲存你目前資料嘅安全副本（暫時攞唔到金鑰）。乜都冇改。請稍後再試或者重新啟動 App。"
+            "value" : "暫時無法還原：無法儲存您目前資料嘅安全副本（暫時攞唔到金鑰）。乜都冇改。請稍後再試或者重新啟動 App。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暂时无法恢复：无法保存你当前数据的安全副本（密钥暂时不可用）。未做任何更改。请稍后重试或重新启动应用。"
+            "value" : "暂时无法恢复：无法保存您当前数据的安全副本（密钥暂时不可用）。未做任何更改。请稍后重试或重新启动应用。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暫時無法還原：無法儲存你目前資料的安全副本（金鑰暫時不可用）。未做任何更改。請稍後重試或重新啟動應用程式。"
+            "value" : "暫時無法還原：無法儲存您目前資料的安全副本（金鑰暫時不可用）。未做任何更改。請稍後重試或重新啟動應用程式。"
           }
         },
         "zu" : {
@@ -199964,7 +199964,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暫時無法還原：App 嘅儲存空間用唔到。請重新啟動 App 再試。你原本嘅資料冇改變。"
+            "value" : "暫時無法還原：App 嘅儲存空間用唔到。請重新啟動 App 再試。您原本嘅資料冇改變。"
           }
         },
         "zh-Hans" : {
@@ -200874,13 +200874,13 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "冇密碼就冇辦法檢查有冇人改過呢個檔案 – 佢亦會取代你嘅交易、投資組合提醒同埋監察緊嘅地址。"
+            "value" : "冇密碼就冇辦法檢查有冇人改過呢個檔案 – 佢亦會取代您嘅交易、投資組合提醒同埋監察緊嘅地址。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有密码就无法检查是否有人改过此文件 – 它还会替换你的交易、投资组合提醒和监视中的地址。"
+            "value" : "没有密码就无法检查是否有人改过此文件 – 它还会替换您的交易、投资组合提醒和监视中的地址。"
           }
         },
         "zh-Hant" : {
@@ -201329,19 +201329,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "呢個備份冇加密 – 請確認係你自己嘅。設定會套用 – 但會降低保護嘅更改除外（投資組合鎖、地址用嘅自家伺服器、隱藏金額、系統備份包括投資組合）。"
+            "value" : "呢個備份冇加密 – 請確認係您自己嘅。設定會套用 – 但會降低保護嘅更改除外（投資組合鎖、地址用嘅自家伺服器、隱藏金額、系統備份包括投資組合）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此备份未加密，请确认它来自你。设置会被应用，但降低保护的更改除外（投资组合锁、地址专用的自有服务器、隐藏金额、将投资组合纳入系统备份）。"
+            "value" : "此备份未加密，请确认它来自您。设置会被应用，但降低保护的更改除外（投资组合锁、地址专用的自有服务器、隐藏金额、将投资组合纳入系统备份）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此備份未加密，請確認它來自你。設定會被套用，但降低保護的更改除外（投資組合鎖、地址專用的自有伺服器、隱藏金額、將投資組合納入系統備份）。"
+            "value" : "此備份未加密，請確認它來自您。設定會被套用，但降低保護的更改除外（投資組合鎖、地址專用的自有伺服器、隱藏金額、將投資組合納入系統備份）。"
           }
         },
         "zu" : {
@@ -206260,7 +206260,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Backup & restore"
+            "value" : "Pag-back up at pag-restore"
           }
         },
         "fr" : {
@@ -208398,19 +208398,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 為咗慳電會延遲背景工作 — 價格同小工具可能會舊咗幾個鐘。將電池用量設為不受限制就可以保持最新。你隨時可以喺 Android 設定更改。"
+            "value" : "Android 為咗慳電會延遲背景工作 — 價格同小工具可能會舊咗幾個鐘。將電池用量設為不受限制就可以保持最新。您隨時可以喺 Android 設定更改。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。"
+            "value" : "Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。您可以随时在 Android 设置中更改。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 會為了省電而延後背景任務——價格和小工具可能因此滯後數小時。將電池使用設為「不受限制」可保持其最新。你可以隨時在 Android 設定中更改。"
+            "value" : "Android 會為了省電而延後背景任務——價格和小工具可能因此滯後數小時。將電池使用設為「不受限制」可保持其最新。您可以隨時在 Android 設定中更改。"
           }
         },
         "zu" : {
@@ -213820,19 +213820,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "期間你設定咗提示嘅交易對會保留。"
+            "value" : "期間您設定咗提示嘅交易對會保留。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在此期间你已设置提醒的交易对会保留。"
+            "value" : "在此期间您已设置提醒的交易对会保留。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在此期間你已設定提醒的交易對會保留。"
+            "value" : "在此期間您已設定提醒的交易對會保留。"
           }
         },
         "zu" : {
@@ -221311,7 +221311,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mitteilung, wenn ein Alarm auslöst."
+            "value" : "Benachrichtigung, wenn ein Alarm auslöst."
           }
         },
         "el" : {
@@ -225861,7 +225861,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mitteilung, solange Kurse aktualisiert werden."
+            "value" : "Benachrichtigung, solange Kurse aktualisiert werden."
           }
         },
         "el" : {
@@ -229549,7 +229549,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Background"
+            "value" : "Sa background"
           }
         },
         "fr" : {
@@ -231824,7 +231824,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Background"
+            "value" : "Sa background"
           }
         },
         "fr" : {
@@ -243639,7 +243639,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "呢啲流入冇成本基礎。建議值係當日嘅每日收市價 – 你可以喺記錄入面調整。"
+            "value" : "呢啲流入冇成本基礎。建議值係當日嘅每日收市價 – 您可以喺記錄入面調整。"
           }
         },
         "zh-Hans" : {
@@ -245596,7 +245596,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bottom %1$@"
+            "value" : "Pinakamababa %1$@"
           }
         },
         "fr" : {
@@ -246051,7 +246051,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Double bottom %1$@"
+            "value" : "Dobleng pinakamababa %1$@"
           }
         },
         "fr" : {
@@ -246506,7 +246506,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Double top %1$@"
+            "value" : "Dobleng pinakamataas %1$@"
           }
         },
         "fr" : {
@@ -252421,7 +252421,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Battery optimization"
+            "value" : "Pag-optimize ng baterya"
           }
         },
         "fr" : {
@@ -253194,19 +253194,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已優化 – Android 可能會延遲檢查。App 唔會要求豁免；你可以喺 App 嘅電池設定更改。"
+            "value" : "已優化 – Android 可能會延遲檢查。App 唔會要求豁免；您可以喺 App 嘅電池設定更改。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已优化 – Android 可能推迟检查。应用不会申请例外；你可以在应用的电池设置中更改。"
+            "value" : "已优化 – Android 可能推迟检查。应用不会申请例外；您可以在应用的电池设置中更改。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已最佳化 – Android 可能延後檢查。應用程式不會申請例外；你可以在應用程式的電池設定中更改。"
+            "value" : "已最佳化 – Android 可能延後檢查。應用程式不會申請例外；您可以在應用程式的電池設定中更改。"
           }
         },
         "zu" : {
@@ -266056,19 +266056,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果你喺 App 切換器將 App 掃走，iOS 會停止背景檢查，直到你再開返佢。"
+            "value" : "如果您喺 App 切換器將 App 掃走，iOS 會停止背景檢查，直到您再開返佢。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果在 App 切换器中划掉应用，iOS 会停止后台检查，直到你再次打开它。"
+            "value" : "如果在 App 切换器中划掉应用，iOS 会停止后台检查，直到您再次打开它。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果在 App 切換器中滑掉應用程式，iOS 會停止背景檢查，直到你再次開啟它。"
+            "value" : "如果在 App 切換器中滑掉應用程式，iOS 會停止背景檢查，直到您再次開啟它。"
           }
         },
         "zu" : {
@@ -278463,19 +278463,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "俾支援用嘅文字檔：版本、裝置、提示設定、最近檢查同提示記錄 – 唔包括投資組合、金額、地址或備註。你會先睇到；乜都唔會自動傳送。"
+            "value" : "俾支援用嘅文字檔：版本、裝置、提示設定、最近檢查同提示記錄 – 唔包括投資組合、金額、地址或備註。您會先睇到；乜都唔會自動傳送。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "供支持使用的文本文件：版本、设备、提醒设置、最近检查和提醒记录 – 不含投资组合、金额、地址或备注。你会先看到内容；不会自动发送任何内容。"
+            "value" : "供支持使用的文本文件：版本、设备、提醒设置、最近检查和提醒记录 – 不含投资组合、金额、地址或备注。您会先看到内容；不会自动发送任何内容。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "供支援使用的文字檔案：版本、裝置、提醒設定、最近檢查和提醒記錄 – 不含投資組合、金額、地址或備註。你會先看到內容；不會自動發送任何內容。"
+            "value" : "供支援使用的文字檔案：版本、裝置、提醒設定、最近檢查和提醒記錄 – 不含投資組合、金額、地址或備註。您會先看到內容；不會自動發送任何內容。"
           }
         },
         "zu" : {
@@ -304098,7 +304098,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg 個交易對未加入：你嘅自選清單最多可以有 %2$@ 個交易對。"
+                      "value" : "%arg 個交易對未加入：您嘅自選清單最多可以有 %2$@ 個交易對。"
                     }
                   }
                 }
@@ -313061,7 +313061,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exchange"
+            "value" : "Palitan"
           }
         },
         "fr" : {
@@ -313516,7 +313516,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quote currency"
+            "value" : "Perang quote"
           }
         },
         "fr" : {
@@ -314881,7 +314881,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume"
+            "value" : "Dami"
           }
         },
         "fr" : {
@@ -317480,13 +317480,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请你稍后再试。"
+            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请您稍后再试。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 目前沒有回應 – 未能載入交易對清單。請你稍後再試。"
+            "value" : "%1$@ 目前沒有回應 – 未能載入交易對清單。請您稍後再試。"
           }
         },
         "zu" : {
@@ -319422,13 +319422,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请你稍后再试。"
+            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请您稍后再试。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 目前沒有回應 – 未能載入交易對清單。請你稍後再試。"
+            "value" : "%1$@ 目前沒有回應 – 未能載入交易對清單。請您稍後再試。"
           }
         },
         "zu" : {
@@ -322268,19 +322268,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "會載入每個交易所完整嘅公開清單 – 人人都一樣。你嘅搜尋只會留喺呢部裝置。"
+            "value" : "會載入每個交易所完整嘅公開清單 – 人人都一樣。您嘅搜尋只會留喺呢部裝置。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为每家交易所加载完整的公开列表（对所有人相同）。你的搜索只留在设备上。"
+            "value" : "为每家交易所加载完整的公开列表（对所有人相同）。您的搜索只留在设备上。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "為每家交易所載入完整的公開清單（對所有人相同）。你的搜尋只留在裝置上。"
+            "value" : "為每家交易所載入完整的公開清單（對所有人相同）。您的搜尋只留在裝置上。"
           }
         },
         "zu" : {
@@ -341034,7 +341034,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volatility (1h)"
+            "value" : "Pagbabago-bago (1h)"
           }
         },
         "fr" : {
@@ -341489,7 +341489,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume"
+            "value" : "Dami"
           }
         },
         "fr" : {
@@ -346039,7 +346039,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reference: %1$@"
+            "value" : "Batayan: %1$@"
           }
         },
         "fr" : {
@@ -353319,7 +353319,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transfer ≈ %1$@"
+            "value" : "Paglipat ≈ %1$@"
           }
         },
         "fr" : {
@@ -355912,7 +355912,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易對會留喺你嘅自選清單。"
+            "value" : "交易對會留喺您嘅自選清單。"
           }
         },
         "zh-Hans" : {
@@ -378306,7 +378306,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin dominance"
+            "value" : "Pangingibabaw ng Bitcoin"
           }
         },
         "fr" : {
@@ -384994,19 +384994,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用 Face ID 解鎖你嘅投資組合。"
+            "value" : "用 Face ID 解鎖您嘅投資組合。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用面容 ID 解锁你的投资组合。"
+            "value" : "使用面容 ID 解锁您的投资组合。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用 Face ID 解鎖你的投資組合。"
+            "value" : "使用 Face ID 解鎖您的投資組合。"
           }
         },
         "zu" : {
@@ -385449,19 +385449,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只有當你地址用嘅自家伺服器喺屋企網絡入面先需要。"
+            "value" : "只有當您地址用嘅自家伺服器喺屋企網絡入面先需要。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅当你自己的地址服务器位于家庭网络中时才需要。"
+            "value" : "仅当您自己的地址服务器位于家庭网络中时才需要。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "僅當你自己的地址伺服器位於家用網路中時才需要。"
+            "value" : "僅當您自己的地址伺服器位於家用網路中時才需要。"
           }
         },
         "zu" : {
@@ -399099,7 +399099,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日、7 日、1 年：期間內嘅價值變動 – 買賣唔計做盈利。買入至今：你仲持有嘅幣嘅現值減成本基礎（包括手續費嘅平均成本）。"
+            "value" : "今日、7 日、1 年：期間內嘅價值變動 – 買賣唔計做盈利。買入至今：您仲持有嘅幣嘅現值減成本基礎（包括手續費嘅平均成本）。"
           }
         },
         "zh-Hans" : {
@@ -400009,7 +400009,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日、7 日、1 年：期間內嘅價值變動 – 買賣唔計做盈利。買入至今：你仲持有嘅幣嘅現值減成本基礎（FIFO，包括手續費）。"
+            "value" : "今日、7 日、1 年：期間內嘅價值變動 – 買賣唔計做盈利。買入至今：您仲持有嘅幣嘅現值減成本基礎（FIFO，包括手續費）。"
           }
         },
         "zh-Hans" : {
@@ -417398,7 +417398,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Economic data"
+            "value" : "Datos pang-ekonomiya"
           }
         },
         "fr" : {
@@ -420705,7 +420705,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto market"
+            "value" : "Merkado ng crypto"
           }
         },
         "fr" : {
@@ -422980,7 +422980,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market data"
+            "value" : "Datos ng merkado"
           }
         },
         "fr" : {
@@ -448460,7 +448460,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sentiment & cycle"
+            "value" : "Damdamin at siklo"
           }
         },
         "fr" : {
@@ -448915,7 +448915,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market data"
+            "value" : "Datos ng merkado"
           }
         },
         "fr" : {
@@ -450280,7 +450280,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Data: Binance · Coin Metrics (CC BY-NC 4.0)"
+            "value" : "Datos: Binance · Coin Metrics (CC BY-NC 4.0)"
           }
         },
         "fr" : {
@@ -450735,7 +450735,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume 24h"
+            "value" : "Dami 24h"
           }
         },
         "fr" : {
@@ -455692,7 +455692,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Markt-Mitteilungen"
+            "value" : "Markt-Benachrichtigungen"
           }
         },
         "el" : {
@@ -466068,19 +466068,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每個數值都附一句說明佢量度乜嘢，以及佢喺 2016 年以嚟自身歷史中嘅位置。App 唔會評價數值，亦唔會推斷市場階段；市場提示嘅界限只係你自己設定嘅。過去嘅規律未必會重複。"
+            "value" : "每個數值都附一句說明佢量度乜嘢，以及佢喺 2016 年以嚟自身歷史中嘅位置。App 唔會評價數值，亦唔會推斷市場階段；市場提示嘅界限只係您自己設定嘅。過去嘅規律未必會重複。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每个数值都附一句话，说明它衡量什么，以及它在自 2016 年以来自身历史中的位置。应用不评价数值，也不推断市场阶段；通知阈值只有你自己设定的那些。过去的模式不一定会重复。"
+            "value" : "每个数值都附一句话，说明它衡量什么，以及它在自 2016 年以来自身历史中的位置。应用不评价数值，也不推断市场阶段；通知阈值只有您自己设定的那些。过去的模式不一定会重复。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每個數值都附一句話，說明它衡量什麼，以及它在自 2016 年以來自身歷史中的位置。應用程式不評價數值，也不推斷市場階段；通知門檻只有你自己設定的那些。過去的模式不一定會重複。"
+            "value" : "每個數值都附一句話，說明它衡量什麼，以及它在自 2016 年以來自身歷史中的位置。應用程式不評價數值，也不推斷市場階段；通知門檻只有您自己設定的那些。過去的模式不一定會重複。"
           }
         },
         "zu" : {
@@ -467433,7 +467433,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同樣嘅純指標，適用於你揀嘅幣，只用價格資料：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、50/200 日趨勢、RSI，以及 90 日內對比 Bitcoin 嘅強弱。"
+            "value" : "同樣嘅純指標，適用於您揀嘅幣，只用價格資料：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、50/200 日趨勢、RSI，以及 90 日內對比 Bitcoin 嘅強弱。"
           }
         },
         "zh-Hans" : {
@@ -476215,7 +476215,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mood index (Fear & Greed): %1$ld"
+            "value" : "Index ng damdamin (Fear & Greed): %1$ld"
           }
         },
         "fr" : {
@@ -476988,19 +476988,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低過你嘅上限 %1$@ sat/vB · 轉賬 ≈ %2$@"
+            "value" : "低過您嘅上限 %1$@ sat/vB · 轉賬 ≈ %2$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低于你设定的 %1$@ sat/vB · 转账 ≈ %2$@"
+            "value" : "低于您设定的 %1$@ sat/vB · 转账 ≈ %2$@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低於你設定的 %1$@ sat/vB · 轉帳 ≈ %2$@"
+            "value" : "低於您設定的 %1$@ sat/vB · 轉帳 ≈ %2$@"
           }
         },
         "zu" : {
@@ -477125,7 +477125,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin fee: %1$@ sat/vB"
+            "value" : "Bayad sa Bitcoin: %1$@ sat/vB"
           }
         },
         "fr" : {
@@ -477898,19 +477898,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低過你嘅上限 %1$@ gwei · 轉賬 ≈ %2$@"
+            "value" : "低過您嘅上限 %1$@ gwei · 轉賬 ≈ %2$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低于你设定的 %1$@ gwei · 转账 ≈ %2$@"
+            "value" : "低于您设定的 %1$@ gwei · 转账 ≈ %2$@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低於你設定的 %1$@ gwei · 轉帳 ≈ %2$@"
+            "value" : "低於您設定的 %1$@ gwei · 轉帳 ≈ %2$@"
           }
         },
         "zu" : {
@@ -478808,19 +478808,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "高過你嘅界限 %1$@ – 只係量度數值，唔係建議。"
+            "value" : "高過您嘅界限 %1$@ – 只係量度數值，唔係建議。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "高于你的阈值 %1$@——这是测量值，不是建议。"
+            "value" : "高于您的阈值 %1$@——这是测量值，不是建议。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "高於你的門檻 %1$@——這是測量值，不是建議。"
+            "value" : "高於您的門檻 %1$@——這是測量值，不是建議。"
           }
         },
         "zu" : {
@@ -479263,19 +479263,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低過你嘅界限 %1$@ – 只係量度數值，唔係建議。"
+            "value" : "低過您嘅界限 %1$@ – 只係量度數值，唔係建議。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低于你的阈值 %1$@——这是测量值，不是建议。"
+            "value" : "低于您的阈值 %1$@——这是测量值，不是建议。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "低於你的門檻 %1$@——這是測量值，不是建議。"
+            "value" : "低於您的門檻 %1$@——這是測量值，不是建議。"
           }
         },
         "zu" : {
@@ -481538,19 +481538,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "為咗令提示同價格通知送到你手上，App 需要傳送通知嘅權限。App 只會用嚟發送你嘅提示同價格通知。"
+            "value" : "為咗令提示同價格通知送到您手上，App 需要傳送通知嘅權限。App 只會用嚟發送您嘅提示同價格通知。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为了让提醒和价格通知能送达，应用需要通知权限。应用只将通知用于你的提醒和价格通知。"
+            "value" : "为了让提醒和价格通知能送达，应用需要通知权限。应用只将通知用于您的提醒和价格通知。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "為了讓提醒和價格通知能送達，應用程式需要通知權限。應用程式只將通知用於你的提醒和價格通知。"
+            "value" : "為了讓提醒和價格通知能送達，應用程式需要通知權限。應用程式只將通知用於您的提醒和價格通知。"
           }
         },
         "zu" : {
@@ -482448,19 +482448,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅提示已觸發 – 開 App 睇詳情。"
+            "value" : "您嘅提示已觸發 – 開 App 睇詳情。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的提醒已触发，打开应用查看详情。"
+            "value" : "您的提醒已触发，打开应用查看详情。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的提醒已觸發，開啟應用程式查看詳細資料。"
+            "value" : "您的提醒已觸發，開啟應用程式查看詳細資料。"
           }
         },
         "zu" : {
@@ -492580,7 +492580,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 已經加入你嘅自選清單"
+            "value" : "%1$@ 已經加入您嘅自選清單"
           }
         },
         "zh-Hans" : {
@@ -493035,7 +493035,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 已經加入你嘅自選清單"
+            "value" : "%1$@ 已經加入您嘅自選清單"
           }
         },
         "zh-Hans" : {
@@ -497130,19 +497130,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己嘅交易入面都有：%1$@ – 只會計地址比你喺呢個錢包嘅交易多出嚟嘅部分。"
+            "value" : "您自己嘅交易入面都有：%1$@ – 只會計地址比您喺呢個錢包嘅交易多出嚟嘅部分。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——只计入地址比你在此钱包中的交易多出的部分。"
+            "value" : "您自己的交易中也有：%1$@——只计入地址比您在此钱包中的交易多出的部分。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——只計入地址比你在此錢包中的交易多出的部分。"
+            "value" : "您自己的交易中也有：%1$@——只計入地址比您在此錢包中的交易多出的部分。"
           }
         },
         "zu" : {
@@ -497585,19 +497585,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已經用自己嘅交易記錄咗 %1$@。要將呢個地址嘅結餘加入投資組合，定係只顯示？"
+            "value" : "您已經用自己嘅交易記錄咗 %1$@。要將呢個地址嘅結餘加入投資組合，定係只顯示？"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已用自己的交易记录了 %1$@。要把此地址的余额计入投资组合，还是仅显示？"
+            "value" : "您已用自己的交易记录了 %1$@。要把此地址的余额计入投资组合，还是仅显示？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已用自己的交易記錄了 %1$@。要把此地址的餘額計入投資組合，還是僅顯示？"
+            "value" : "您已用自己的交易記錄了 %1$@。要把此地址的餘額計入投資組合，還是僅顯示？"
           }
         },
         "zu" : {
@@ -498040,19 +498040,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「%1$@」而家只顯示、唔計入 – %2$@ 亦喺你嘅交易入面。"
+            "value" : "「%1$@」而家只顯示、唔計入 – %2$@ 亦喺您嘅交易入面。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“%1$@”现在仅显示，不计入——%2$@ 也出现在你的交易中。"
+            "value" : "“%1$@”现在仅显示，不计入——%2$@ 也出现在您的交易中。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「%1$@」 現在僅顯示，不計入——%2$@ 也出現在你的交易中。"
+            "value" : "「%1$@」 現在僅顯示，不計入——%2$@ 也出現在您的交易中。"
           }
         },
         "zu" : {
@@ -498495,19 +498495,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同你嘅交易係同一批幣？"
+            "value" : "同您嘅交易係同一批幣？"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "与你交易中的币相同？"
+            "value" : "与您交易中的币相同？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "與你交易中的幣相同？"
+            "value" : "與您交易中的幣相同？"
           }
         },
         "zu" : {
@@ -499405,19 +499405,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只會將公開地址傳送去 %1$@ – 永遠唔會傳送私鑰或助記詞。服務商會同時見到你嘅 IP 地址。最多每 10 分鐘檢查一次。"
+            "value" : "只會將公開地址傳送去 %1$@ – 永遠唔會傳送私鑰或助記詞。服務商會同時見到您嘅 IP 地址。最多每 10 分鐘檢查一次。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只向 %1$@ 发送公开地址——绝不发送密钥或助记词。服务方会同时看到你的 IP 地址。最多每 10 分钟查询一次。"
+            "value" : "只向 %1$@ 发送公开地址——绝不发送密钥或助记词。服务方会同时看到您的 IP 地址。最多每 10 分钟查询一次。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只向 %1$@ 發送公開地址——絕不發送金鑰或助記詞。服務方會同時看到你的 IP 地址。最多每 10 分鐘查詢一次。"
+            "value" : "只向 %1$@ 發送公開地址——絕不發送金鑰或助記詞。服務方會同時看到您的 IP 地址。最多每 10 分鐘查詢一次。"
           }
         },
         "zu" : {
@@ -510691,19 +510691,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同你轉去「%1$@」嘅數量一樣 – 將目的地改做呢個地址，唔係就會計兩次。"
+            "value" : "同您轉去「%1$@」嘅數量一樣 – 將目的地改做呢個地址，唔係就會計兩次。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "与你转到“%1$@”的数量相同——请把目标设为此地址，否则会重复计算。"
+            "value" : "与您转到“%1$@”的数量相同——请把目标设为此地址，否则会重复计算。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "與你轉到「%1$@」的數量相同——請把目的地設為此地址，否則會重複計算。"
+            "value" : "與您轉到「%1$@」的數量相同——請把目的地設為此地址，否則會重複計算。"
           }
         },
         "zu" : {
@@ -512056,19 +512056,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "營運 %1$@ 嘅人會見到呢個錢包所有被查詢嘅地址，亦可以將佢哋互相連結，同埋連結到你嘅 IP 地址。"
+            "value" : "營運 %1$@ 嘅人會見到呢個錢包所有被查詢嘅地址，亦可以將佢哋互相連結，同埋連結到您嘅 IP 地址。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 的运营者能看到此钱包被查询的全部地址，并能将它们相互关联，也能与你的 IP 地址关联。"
+            "value" : "%1$@ 的运营者能看到此钱包被查询的全部地址，并能将它们相互关联，也能与您的 IP 地址关联。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 的營運者能看到此錢包被查詢的全部地址，並能將它們相互關聯，也能與你的 IP 地址關聯。"
+            "value" : "%1$@ 的營運者能看到此錢包被查詢的全部地址，並能將它們相互關聯，也能與您的 IP 地址關聯。"
           }
         },
         "zu" : {
@@ -512511,19 +512511,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如要避免，請喺「設定 › 投資組合 › 地址用嘅自家伺服器」輸入你自己嘅伺服器。"
+            "value" : "如要避免，請喺「設定 › 投資組合 › 地址用嘅自家伺服器」輸入您自己嘅伺服器。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如需避免，请在“设置 › 投资组合 › 地址专用的自有服务器”中填写你自己的服务器。"
+            "value" : "如需避免，请在“设置 › 投资组合 › 地址专用的自有服务器”中填写您自己的服务器。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如需避免，請在「設定 › 投資組合 › 地址專用的自有伺服器」中填寫你自己的伺服器。"
+            "value" : "如需避免，請在「設定 › 投資組合 › 地址專用的自有伺服器」中填寫您自己的伺服器。"
           }
         },
         "zu" : {
@@ -512966,19 +512966,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "xpub 會披露呢個錢包嘅所有地址。地址喺你部裝置上推導；只會將個別地址傳送去 %1$@ – 第一次掃描最少 40 個請求，之後會少啲。永遠唔接受私鑰（xprv）。"
+            "value" : "xpub 會披露呢個錢包嘅所有地址。地址喺您部裝置上推導；只會將個別地址傳送去 %1$@ – 第一次掃描最少 40 個請求，之後會少啲。永遠唔接受私鑰（xprv）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "xpub 会暴露此钱包的全部地址。地址在你的设备上推导；只向 %1$@ 发送单个地址——首次扫描至少 40 次请求，之后更少。绝不接受私钥（xprv）。"
+            "value" : "xpub 会暴露此钱包的全部地址。地址在您的设备上推导；只向 %1$@ 发送单个地址——首次扫描至少 40 次请求，之后更少。绝不接受私钥（xprv）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "xpub 會暴露此錢包的全部地址。地址在你的裝置上推導；只向 %1$@ 發送單個地址——首次掃描至少 40 次請求，之後更少。絕不接受私鑰（xprv）。"
+            "value" : "xpub 會暴露此錢包的全部地址。地址在您的裝置上推導；只向 %1$@ 發送單個地址——首次掃描至少 40 次請求，之後更少。絕不接受私鑰（xprv）。"
           }
         },
         "zu" : {
@@ -531758,7 +531758,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "High %1$@"
+            "value" : "Pinakamataas %1$@"
           }
         },
         "fr" : {
@@ -547541,19 +547541,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "冇每日匯率嘅話，價格或者手續費會一直缺少，直到你補返為止。請再試或者照樣匯入 – 嗰啲交易會有備註。"
+            "value" : "冇每日匯率嘅話，價格或者手續費會一直缺少，直到您補返為止。請再試或者照樣匯入 – 嗰啲交易會有備註。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有每日汇率时，价格或手续费会一直缺失，直到你补上为止。请重试或仍然导入 – 这些交易会带有备注。"
+            "value" : "没有每日汇率时，价格或手续费会一直缺失，直到您补上为止。请重试或仍然导入 – 这些交易会带有备注。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "沒有每日匯率時，價格或手續費會一直缺少，直到你補上為止。請重試或仍然匯入 – 這些交易會加上備註。"
+            "value" : "沒有每日匯率時，價格或手續費會一直缺少，直到您補上為止。請重試或仍然匯入 – 這些交易會加上備註。"
           }
         },
         "zu" : {
@@ -568171,7 +568171,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同穩定幣（USDT、USDC …）嘅交易會記做兌換 – 穩定幣會出現喺你嘅持倉。"
+            "value" : "同穩定幣（USDT、USDC …）嘅交易會記做兌換 – 穩定幣會出現喺您嘅持倉。"
           }
         },
         "zh-Hans" : {
@@ -569218,7 +569218,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Network fee: %1$@"
+            "value" : "Bayad sa network: %1$@"
           }
         },
         "fr" : {
@@ -571811,19 +571811,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你帳戶之間嘅轉賬"
+            "value" : "您帳戶之間嘅轉賬"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的账户之间的转移"
+            "value" : "您的账户之间的转移"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的帳戶之間的轉移"
+            "value" : "您的帳戶之間的轉移"
           }
         },
         "zu" : {
@@ -577732,13 +577732,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己账户之间的移动 – 无需记账"
+            "value" : "您自己账户之间的移动 – 无需记账"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己帳戶之間的移動 – 無需記帳"
+            "value" : "您自己帳戶之間的移動 – 無需記帳"
           }
         },
         "zu" : {
@@ -585006,7 +585006,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "加入你第一筆買入"
+            "value" : "加入您第一筆買入"
           }
         },
         "zh-Hans" : {
@@ -586371,19 +586371,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "例子：3 月 1 日買入 %1$@ BTC。App 會顯示今日值幾多，同埋你係賺定蝕 – 只儲存喺呢部裝置。"
+            "value" : "例子：3 月 1 日買入 %1$@ BTC。App 會顯示今日值幾多，同埋您係賺定蝕 – 只儲存喺呢部裝置。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "示例：3 月 1 日买入 %1$@ BTC。应用会显示它今天值多少，以及你是赚是亏——仅保存在本设备上。"
+            "value" : "示例：3 月 1 日买入 %1$@ BTC。应用会显示它今天值多少，以及您是赚是亏——仅保存在本设备上。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "範例：3 月 1 日買入 %1$@ BTC。應用程式會顯示它今天值多少，以及你是賺是虧——僅儲存在本裝置上。"
+            "value" : "範例：3 月 1 日買入 %1$@ BTC。應用程式會顯示它今天值多少，以及您是賺是虧——僅儲存在本裝置上。"
           }
         },
         "zu" : {
@@ -587281,19 +587281,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅交易已儲存。「投資組合」分頁會顯示你嘅持倉同價值。"
+            "value" : "您嘅交易已儲存。「投資組合」分頁會顯示您嘅持倉同價值。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的交易已保存。“投资组合”标签页会显示你的持仓及其价值。"
+            "value" : "您的交易已保存。“投资组合”标签页会显示您的持仓及其价值。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的交易已儲存。「投資組合」分頁會顯示你的持倉及其價值。"
+            "value" : "您的交易已儲存。「投資組合」分頁會顯示您的持倉及其價值。"
           }
         },
         "zu" : {
@@ -588191,19 +588191,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已儲存交易。你可以喺「設定 › 投資組合」開啟「投資組合」分頁。"
+            "value" : "已儲存交易。您可以喺「設定 › 投資組合」開啟「投資組合」分頁。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易已保存。你可以在“设置 › 投资组合”中开启“投资组合”标签页。"
+            "value" : "交易已保存。您可以在“设置 › 投资组合”中开启“投资组合”标签页。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易已儲存。你可以在「設定 › 投資組合」中開啟「投資組合」分頁。"
+            "value" : "交易已儲存。您可以在「設定 › 投資組合」中開啟「投資組合」分頁。"
           }
         },
         "zu" : {
@@ -592423,7 +592423,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rate USDT→%1$@"
+            "value" : "Palitan USDT→%1$@"
           }
         },
         "fr" : {
@@ -592878,7 +592878,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Value USDT"
+            "value" : "Halaga USDT"
           }
         },
         "fr" : {
@@ -593333,7 +593333,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Value %1$@"
+            "value" : "Halaga %1$@"
           }
         },
         "fr" : {
@@ -594243,7 +594243,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Currency: %1$@"
+            "value" : "Pera: %1$@"
           }
         },
         "fr" : {
@@ -594698,7 +594698,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cutoff date"
+            "value" : "Petsa ng cutoff"
           }
         },
         "fr" : {
@@ -602296,7 +602296,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FIFO：賣出時先用你最舊嘅幣。平均 = 剩餘成本基礎 ÷ 有買入價嘅數量。"
+            "value" : "FIFO：賣出時先用您最舊嘅幣。平均 = 剩餘成本基礎 ÷ 有買入價嘅數量。"
           }
         },
         "zh-Hans" : {
@@ -617311,19 +617311,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "歷史由你第一個完整日之後開始。"
+            "value" : "歷史由您第一個完整日之後開始。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "走势从你的第一个完整日之后开始。"
+            "value" : "走势从您的第一个完整日之后开始。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "走勢從你的第一個完整日之後開始。"
+            "value" : "走勢從您的第一個完整日之後開始。"
           }
         },
         "zu" : {
@@ -626004,7 +626004,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cost basis"
+            "value" : "Kabuuang puhunan"
           }
         },
         "fr" : {
@@ -627232,7 +627232,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "解鎖就可以睇到你嘅持倉同價值。"
+            "value" : "解鎖就可以睇到您嘅持倉同價值。"
           }
         },
         "zh-Hans" : {
@@ -636787,19 +636787,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超過你嘅持倉（%1$@）"
+            "value" : "超過您嘅持倉（%1$@）"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超过你的持仓（%1$@）"
+            "value" : "超过您的持仓（%1$@）"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超過你的持倉（%1$@）"
+            "value" : "超過您的持倉（%1$@）"
           }
         },
         "zu" : {
@@ -637242,7 +637242,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "數量加手續費超過你嘅持倉（%1$@）"
+            "value" : "數量加手續費超過您嘅持倉（%1$@）"
           }
         },
         "zh-Hans" : {
@@ -637697,19 +637697,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超過你喺 %2$@ 嘅持倉（%1$@）"
+            "value" : "超過您喺 %2$@ 嘅持倉（%1$@）"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超过你在 %2$@ 的持有量（%1$@）"
+            "value" : "超过您在 %2$@ 的持有量（%1$@）"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超過你在 %2$@ 的持有量（%1$@）"
+            "value" : "超過您在 %2$@ 的持有量（%1$@）"
           }
         },
         "zu" : {
@@ -647056,7 +647056,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deposit"
+            "value" : "Deposito"
           }
         },
         "fr" : {
@@ -648739,7 +648739,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "幣會好似提取咁離開你嘅持倉 – 只有喺會向贈與徵稅嘅國家（UK、CA、AU）先按市值當出售"
+            "value" : "幣會好似提取咁離開您嘅持倉 – 只有喺會向贈與徵稅嘅國家（UK、CA、AU）先按市值當出售"
           }
         },
         "zh-Hans" : {
@@ -655109,19 +655109,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "英國同加拿大：冇盈利亦冇虧損 – 你嘅伴侶承接你嘅成本基礎。其他國家會忽略呢項。"
+            "value" : "英國同加拿大：冇盈利亦冇虧損 – 您嘅伴侶承接您嘅成本基礎。其他國家會忽略呢項。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "英国和加拿大：无盈亏——你的伴侣承接你的成本。其他国家不考虑这一点。"
+            "value" : "英国和加拿大：无盈亏——您的伴侣承接您的成本。其他国家不考虑这一点。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "英國和加拿大：無損益——你的伴侶承接你的成本。其他國家不考慮這一點。"
+            "value" : "英國和加拿大：無損益——您的伴侶承接您的成本。其他國家不考慮這一點。"
           }
         },
         "zu" : {
@@ -662071,7 +662071,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reward"
+            "value" : "Gantimpala"
           }
         },
         "fr" : {
@@ -662844,19 +662844,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "儲存唔到交易。你輸入嘅內容仲喺度 – 請再試一次。"
+            "value" : "儲存唔到交易。您輸入嘅內容仲喺度 – 請再試一次。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法保存交易。你输入的内容仍在——请重试。"
+            "value" : "无法保存交易。您输入的内容仍在——请重试。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "無法儲存交易。你輸入的內容仍在——請重試。"
+            "value" : "無法儲存交易。您輸入的內容仍在——請重試。"
           }
         },
         "zu" : {
@@ -670716,7 +670716,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transfer"
+            "value" : "Paglipat"
           }
         },
         "fr" : {
@@ -673446,7 +673446,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Withdrawal"
+            "value" : "Pag-withdraw"
           }
         },
         "fr" : {
@@ -678451,7 +678451,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Value"
+            "value" : "Halaga"
           }
         },
         "fr" : {
@@ -679224,19 +679224,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你係咪想打 %1$@？串法唔同會當另一個錢包。"
+            "value" : "您係咪想打 %1$@？串法唔同會當另一個錢包。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你是指 %1$@ 吗？写法不同会算作另一个钱包。"
+            "value" : "您是指 %1$@ 吗？写法不同会算作另一个钱包。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你是指 %1$@ 嗎？寫法不同會算作另一個錢包。"
+            "value" : "您是指 %1$@ 嗎？寫法不同會算作另一個錢包。"
           }
         },
         "zu" : {
@@ -683013,7 +683013,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color vision deficiency"
+            "value" : "Kakulangan sa paningin ng kulay"
           }
         },
         "fr" : {
@@ -704853,7 +704853,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Data: %1$@"
+            "value" : "Datos: %1$@"
           }
         },
         "fr" : {
@@ -729746,7 +729746,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "timeout"
+            "value" : "lumampas sa oras"
           }
         },
         "fr" : {
@@ -731566,7 +731566,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breakdown"
+            "value" : "Mga hakbang"
           }
         },
         "fr" : {
@@ -735661,7 +735661,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Accent color"
+            "value" : "Kulay ng accent"
           }
         },
         "fr" : {
@@ -737481,7 +737481,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sensitivity"
+            "value" : "Pagkasensitibo"
           }
         },
         "fr" : {
@@ -741439,19 +741439,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只限 Bitcoin：你自己嘅 Esplora 或 mempool 兼容伺服器（例如 https://node.example/api，需要公開受信任嘅證書，例如 Let's Encrypt）。設定咗之後，Bitcoin 地址同 xpub 金鑰只會喺嗰度查詢 – 永遠唔會去公開節點，就算你嘅伺服器連唔到都唔會。其他網絡繼續用公開節點。留空 = 公開節點。"
+            "value" : "只限 Bitcoin：您自己嘅 Esplora 或 mempool 兼容伺服器（例如 https://node.example/api，需要公開受信任嘅證書，例如 Let's Encrypt）。設定咗之後，Bitcoin 地址同 xpub 金鑰只會喺嗰度查詢 – 永遠唔會去公開節點，就算您嘅伺服器連唔到都唔會。其他網絡繼續用公開節點。留空 = 公開節點。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅限比特币：你自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要公开受信任的证书，例如 Let's Encrypt）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。"
+            "value" : "仅限比特币：您自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要公开受信任的证书，例如 Let's Encrypt）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "僅限比特幣：你自己的 Esplora 或 mempool 相容伺服器（例如 https://node.example/api，需要公開受信任的憑證，例如 Let's Encrypt）。設定後，比特幣地址和 xpub 只向該伺服器查詢——即使伺服器無法連線，也絕不改用公共節點。其他網路仍使用公共節點。留空 = 公共節點。"
+            "value" : "僅限比特幣：您自己的 Esplora 或 mempool 相容伺服器（例如 https://node.example/api，需要公開受信任的憑證，例如 Let's Encrypt）。設定後，比特幣地址和 xpub 只向該伺服器查詢——即使伺服器無法連線，也絕不改用公共節點。其他網路仍使用公共節點。留空 = 公共節點。"
           }
         },
         "zu" : {
@@ -742804,19 +742804,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "咁你嘅 Bitcoin 地址同 xpub 金鑰就會喺公開節點查詢：%1$@。佢哋會同時見到呢啲地址同你嘅 IP 地址。"
+            "value" : "咁您嘅 Bitcoin 地址同 xpub 金鑰就會喺公開節點查詢：%1$@。佢哋會同時見到呢啲地址同您嘅 IP 地址。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "之后你的比特币地址和 xpub 将向公共节点查询：%1$@。这些节点会看到这些地址以及你的 IP 地址。"
+            "value" : "之后您的比特币地址和 xpub 将向公共节点查询：%1$@。这些节点会看到这些地址以及您的 IP 地址。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "之後你的比特幣地址和 xpub 將向公共節點查詢：%1$@。這些節點會看到這些地址以及你的 IP 地址。"
+            "value" : "之後您的比特幣地址和 xpub 將向公共節點查詢：%1$@。這些節點會看到這些地址以及您的 IP 地址。"
           }
         },
         "zu" : {
@@ -747443,7 +747443,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Richtet sich nach den Mitteilungseinstellungen des Telefons."
+            "value" : "Richtet sich nach den Benachrichtigungseinstellungen des Telefons."
           }
         },
         "el" : {
@@ -747809,7 +747809,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "跟隨你手機嘅通知設定。"
+            "value" : "跟隨您手機嘅通知設定。"
           }
         },
         "zh-Hans" : {
@@ -750084,7 +750084,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己嘅音訊檔…"
+            "value" : "您自己嘅音訊檔…"
           }
         },
         "zh-Hans" : {
@@ -751538,7 +751538,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zählt offene Alarm-Mitteilungen. Ob eine Zahl oder ein Punkt erscheint, bestimmt der Startbildschirm (z. B. Samsung: «Mit Zahl»)."
+            "value" : "Zählt offene Alarm-Benachrichtigungen. Ob eine Zahl oder ein Punkt erscheint, bestimmt der Startbildschirm (z. B. Samsung: «Mit Zahl»)."
           }
         },
         "el" : {
@@ -757046,7 +757046,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Interval"
+            "value" : "Pagitan"
           }
         },
         "fr" : {
@@ -765099,19 +765099,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "標誌來自 CoinGecko；CoinGecko 冇列出嘅幣（例如黃金、白銀、股票）就來自 Binance。App 會一次過載入所有標誌並儲存喺呢部裝置，所以兩個供應商都唔會知道你關注邊啲幣。冇標誌嘅幣會顯示縮寫。最愛會喺標誌上加一粒細星。開關關閉嘅地方，標誌同縮寫都唔會出現；所有開關都關閉時，乜都唔會載入。"
+            "value" : "標誌來自 CoinGecko；CoinGecko 冇列出嘅幣（例如黃金、白銀、股票）就來自 Binance。App 會一次過載入所有標誌並儲存喺呢部裝置，所以兩個供應商都唔會知道您關注邊啲幣。冇標誌嘅幣會顯示縮寫。最愛會喺標誌上加一粒細星。開關關閉嘅地方，標誌同縮寫都唔會出現；所有開關都關閉時，乜都唔會載入。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "图标来自 CoinGecko；CoinGecko 没有收录的（如黄金、白银、股票）来自 Binance。应用会一次性下载全部图标并保存在本设备上，因此两者都无法得知你关注哪些币种。没有图标的币种显示首字母。收藏的币种会在图标上显示一个小星标。开关关闭的地方既不显示图标也不显示首字母；全部关闭后不会加载任何内容。"
+            "value" : "图标来自 CoinGecko；CoinGecko 没有收录的（如黄金、白银、股票）来自 Binance。应用会一次性下载全部图标并保存在本设备上，因此两者都无法得知您关注哪些币种。没有图标的币种显示首字母。收藏的币种会在图标上显示一个小星标。开关关闭的地方既不显示图标也不显示首字母；全部关闭后不会加载任何内容。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "圖示來自 CoinGecko；CoinGecko 沒有收錄的（如黃金、白銀、股票）來自 Binance。應用程式會一次性下載全部圖示並儲存在本裝置上，因此兩者都無法得知你關注哪些幣種。沒有圖示的幣種顯示首字母。收藏的幣種會在圖示上顯示一個小星標。開關關閉的地方既不顯示圖示也不顯示首字母；全部關閉後不會載入任何內容。"
+            "value" : "圖示來自 CoinGecko；CoinGecko 沒有收錄的（如黃金、白銀、股票）來自 Binance。應用程式會一次性下載全部圖示並儲存在本裝置上，因此兩者都無法得知您關注哪些幣種。沒有圖示的幣種顯示首字母。收藏的幣種會在圖示上顯示一個小星標。開關關閉的地方既不顯示圖示也不顯示首字母；全部關閉後不會載入任何內容。"
           }
         },
         "zu" : {
@@ -767511,7 +767511,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conversion currency"
+            "value" : "Perang pang-convert"
           }
         },
         "fr" : {
@@ -768284,19 +768284,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "亦用於投資組合、以你嘅貨幣設定嘅提示、加密貨幣市場卡片同投資組合小工具。"
+            "value" : "亦用於投資組合、以您嘅貨幣設定嘅提示、加密貨幣市場卡片同投資組合小工具。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "也用于投资组合、以你的货币设置的提醒、加密货币市场卡片和投资组合小部件。"
+            "value" : "也用于投资组合、以您的货币设置的提醒、加密货币市场卡片和投资组合小部件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "也用於投資組合、以你的貨幣設定的提醒、加密貨幣市場卡片和投資組合小工具。"
+            "value" : "也用於投資組合、以您的貨幣設定的提醒、加密貨幣市場卡片和投資組合小工具。"
           }
         },
         "zu" : {
@@ -772061,7 +772061,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custom"
+            "value" : "Sariling halaga"
           }
         },
         "fr" : {
@@ -785241,19 +785241,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin 指標，每日檢查兩次。界限由你揀 – App 唔會評價數值。"
+            "value" : "Bitcoin 指標，每日檢查兩次。界限由您揀 – App 唔會評價數值。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "比特币指标每天检查两次。阈值由你选择——应用不评价这些数值。"
+            "value" : "比特币指标每天检查两次。阈值由您选择——应用不评价这些数值。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "比特幣指標每天檢查兩次。門檻由你選擇——應用程式不評價這些數值。"
+            "value" : "比特幣指標每天檢查兩次。門檻由您選擇——應用程式不評價這些數值。"
           }
         },
         "zu" : {
@@ -785702,13 +785702,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让你一眼看到当前行情。"
+            "value" : "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让您一眼看到当前行情。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App 何時可在背景重新整理由 iOS 決定，因此間隔表示「最快每 … 一次」。應用程式開啟時會準時檢查。小工具和即時動態可讓你一眼看到目前行情。"
+            "value" : "App 何時可在背景重新整理由 iOS 決定，因此間隔表示「最快每 … 一次」。應用程式開啟時會準時檢查。小工具和即時動態可讓您一眼看到目前行情。"
           }
         },
         "zu" : {
@@ -787653,7 +787653,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Economic calendar"
+            "value" : "Kalendaryong pang-ekonomiya"
           }
         },
         "fr" : {
@@ -792732,7 +792732,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dauerhaft in den Mitteilungen"
+            "value" : "Dauerhaft in den Benachrichtigungen"
           }
         },
         "el" : {
@@ -794918,19 +794918,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "呢個鎖會隱藏畫面上顯示嘅內容。你嘅資料儲存喺呢部裝置，受裝置加密保護。你可以用密碼保護備份。"
+            "value" : "呢個鎖會隱藏畫面上顯示嘅內容。您嘅資料儲存喺呢部裝置，受裝置加密保護。您可以用密碼保護備份。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。你可以用密码保护备份。"
+            "value" : "锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。您可以用密码保护备份。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "鎖定只隱藏螢幕上的顯示內容。資料儲存在此裝置上，並受裝置加密保護。你可以用密碼保護備份。"
+            "value" : "鎖定只隱藏螢幕上的顯示內容。資料儲存在此裝置上，並受裝置加密保護。您可以用密碼保護備份。"
           }
         },
         "zu" : {
@@ -796738,19 +796738,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "到時你嘅交易、投資組合提示同關注嘅地址會納入 Android 備份（例如你嘅 Google 帳戶）同轉去新裝置——只限端對端加密。"
+            "value" : "到時您嘅交易、投資組合提示同關注嘅地址會納入 Android 備份（例如您嘅 Google 帳戶）同轉去新裝置——只限端對端加密。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "届时你的交易、投资组合提醒和关注的地址将进入 Android 备份（例如你的 Google 账号）以及迁移到新设备的数据中——仅限端到端加密。"
+            "value" : "届时您的交易、投资组合提醒和关注的地址将进入 Android 备份（例如您的 Google 账号）以及迁移到新设备的数据中——仅限端到端加密。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屆時你的交易、投資組合提醒與關注的地址會納入 Android 備份（例如你的 Google 帳戶）及轉移到新裝置——僅限端對端加密。"
+            "value" : "屆時您的交易、投資組合提醒與關注的地址會納入 Android 備份（例如您的 Google 帳戶）及轉移到新裝置——僅限端對端加密。"
           }
         },
         "zu" : {
@@ -797193,19 +797193,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "到時你嘅交易、投資組合提示同關注嘅地址會納入呢部 iPhone 嘅 iCloud 或電腦備份。只可以喺呢部 iPhone 還原。"
+            "value" : "到時您嘅交易、投資組合提示同關注嘅地址會納入呢部 iPhone 嘅 iCloud 或電腦備份。只可以喺呢部 iPhone 還原。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "届时你的交易、投资组合提醒和关注的地址将进入此 iPhone 的 iCloud 或电脑备份。它们只能在此 iPhone 上恢复。"
+            "value" : "届时您的交易、投资组合提醒和关注的地址将进入此 iPhone 的 iCloud 或电脑备份。它们只能在此 iPhone 上恢复。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屆時你的交易、投資組合提醒與關注的地址會納入此 iPhone 的 iCloud 或電腦備份。只能在此 iPhone 上還原。"
+            "value" : "屆時您的交易、投資組合提醒與關注的地址會納入此 iPhone 的 iCloud 或電腦備份。只能在此 iPhone 上還原。"
           }
         },
         "zu" : {
@@ -797648,19 +797648,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "關閉時：你嘅交易唔會包括喺裝置嘅系統備份同手機對手機轉移入面。如要轉去新手機，請用 App 本身嘅備份加密碼。"
+            "value" : "關閉時：您嘅交易唔會包括喺裝置嘅系統備份同手機對手機轉移入面。如要轉去新手機，請用 App 本身嘅備份加密碼。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关闭：你的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。"
+            "value" : "关闭：您的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "關閉：你的交易不會包含在裝置的系統備份和換機遷移中。如需遷移，請使用應用程式自帶的密碼保護備份。"
+            "value" : "關閉：您的交易不會包含在裝置的系統備份和換機遷移中。如需遷移，請使用應用程式自帶的密碼保護備份。"
           }
         },
         "zu" : {
@@ -798103,19 +798103,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "關閉時：你嘅交易唔會包括喺 iCloud 或電腦備份。開啟時：只可以喺呢部 iPhone 還原 – 喺新 iPhone 上檔案會讀唔到，因為金鑰永遠唔會離開裝置。如要轉去新手機，請用 App 本身嘅備份加密碼。"
+            "value" : "關閉時：您嘅交易唔會包括喺 iCloud 或電腦備份。開啟時：只可以喺呢部 iPhone 還原 – 喺新 iPhone 上檔案會讀唔到，因為金鑰永遠唔會離開裝置。如要轉去新手機，請用 App 本身嘅備份加密碼。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关闭：你的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。"
+            "value" : "关闭：您的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "關閉：你的交易不會納入 iCloud 或電腦備份。開啟：只能在這支 iPhone 上還原——在新 iPhone 上檔案無法讀取，因為金鑰從不離開裝置。換手機時請使用應用程式內建的密碼備份。"
+            "value" : "關閉：您的交易不會納入 iCloud 或電腦備份。開啟：只能在這支 iPhone 上還原——在新 iPhone 上檔案無法讀取，因為金鑰從不離開裝置。換手機時請使用應用程式內建的密碼備份。"
           }
         },
         "zu" : {
@@ -810843,7 +810843,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "無法讀取你嘅設定，已重設為預設值。請檢查投資組合鎖、提示間隔同貨幣。"
+            "value" : "無法讀取您嘅設定，已重設為預設值。請檢查投資組合鎖、提示間隔同貨幣。"
           }
         },
         "zh-Hans" : {
@@ -815075,7 +815075,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Currency"
+            "value" : "Pera"
           }
         },
         "fr" : {
@@ -821900,7 +821900,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light / Dark"
+            "value" : "Maliwanag / Madilim"
           }
         },
         "fr" : {
@@ -835550,7 +835550,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mini chart"
+            "value" : "Maliit na chart"
           }
         },
         "fr" : {
@@ -843285,7 +843285,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market"
+            "value" : "Merkado"
           }
         },
         "fr" : {
@@ -848745,7 +848745,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Circulating supply"
+            "value" : "Umiikot na supply"
           }
         },
         "fr" : {
@@ -850110,7 +850110,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Max supply"
+            "value" : "Pinakamataas na supply"
           }
         },
         "fr" : {
@@ -852840,7 +852840,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume (24h)"
+            "value" : "Dami (24h)"
           }
         },
         "fr" : {
@@ -860893,19 +860893,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 系統備份入面嘅投資組合副本試咗第二次都讀唔到，已經刪除。如果你有備份檔案，請喺設定嘅「%1$@」還原。"
+            "value" : "Android 系統備份入面嘅投資組合副本試咗第二次都讀唔到，已經刪除。如果您有備份檔案，請喺設定嘅「%1$@」還原。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果你有备份文件，请在设置的“%1$@”中恢复。"
+            "value" : "来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果您有备份文件，请在设置的“%1$@”中恢复。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "來自 Android 系統備份的投資組合副本在第二次嘗試時仍無法讀取，已被刪除。如果你有備份檔案，請在設定的「%1$@」中還原。"
+            "value" : "來自 Android 系統備份的投資組合副本在第二次嘗試時仍無法讀取，已被刪除。如果您有備份檔案，請在設定的「%1$@」中還原。"
           }
         },
         "zu" : {
@@ -861485,7 +861485,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market"
+            "value" : "Merkado"
           }
         },
         "fr" : {
@@ -864670,7 +864670,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Item"
+            "value" : "Aytem"
           }
         },
         "fr" : {
@@ -891378,7 +891378,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "更改方法或範本會連之前年度都重新計算 – 請同你已申報嘅比較。"
+            "value" : "更改方法或範本會連之前年度都重新計算 – 請同您已申報嘅比較。"
           }
         },
         "zh-Hans" : {
@@ -898795,7 +898795,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tax year"
+            "value" : "Taon ng buwis"
           }
         },
         "fr" : {
@@ -902435,7 +902435,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Withdrawal fee"
+            "value" : "Bayad sa pag-withdraw"
           }
         },
         "fr" : {
@@ -907895,7 +907895,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxable capital gain (inclusion rate 1/2)"
+            "value" : "Kapital na kita na may buwis (inclusion rate 1/2)"
           }
         },
         "fr" : {
@@ -915175,7 +915175,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Net capital loss (carry-forward)"
+            "value" : "Netong kapital na lugi (dala sa susunod)"
           }
         },
         "fr" : {
@@ -924144,13 +924144,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$@）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。"
+            "value" : "以加密货币支付的网络手续费（转入您自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$@）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "以加密貨幣支付的網路手續費（轉入你自己的錢包、提幣）是按市價處置手續費所用的幣——損益只計這些幣，而不是整筆手續費的虧損（%1$@）。沒有記錄價格時用當日（UTC）收盤價；沒有收盤價時賣出所得留空。"
+            "value" : "以加密貨幣支付的網路手續費（轉入您自己的錢包、提幣）是按市價處置手續費所用的幣——損益只計這些幣，而不是整筆手續費的虧損（%1$@）。沒有記錄價格時用當日（UTC）收盤價；沒有收盤價時賣出所得留空。"
           }
         },
         "zu" : {
@@ -925048,19 +925048,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "標示咗「俾配偶／民事伴侶」嘅贈與冇盈利亦冇虧損：所得 = 你嘅成本基礎，由你嘅伴侶承接（%1$@）。"
+            "value" : "標示咗「俾配偶／民事伴侶」嘅贈與冇盈利亦冇虧損：所得 = 您嘅成本基礎，由您嘅伴侶承接（%1$@）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 你的成本，由你的伴侣承接（%1$@）。"
+            "value" : "标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 您的成本，由您的伴侣承接（%1$@）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "標記為「給配偶 / 伴侶」的贈與無損益：所得 = 你的成本，由你的伴侶承接（%1$@）。"
+            "value" : "標記為「給配偶 / 伴侶」的贈與無損益：所得 = 您的成本，由您的伴侶承接（%1$@）。"
           }
         },
         "zu" : {
@@ -925503,19 +925503,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "將加密貨幣賣做你保留嘅穩定幣（USDT/USDC/DAI …）喺呢度屬於幣對幣，唔課稅 – 請記做兌換做穩定幣。只有賣做歐元先課稅 –「賣出」會當賣做歐元。"
+            "value" : "將加密貨幣賣做您保留嘅穩定幣（USDT/USDC/DAI …）喺呢度屬於幣對幣，唔課稅 – 請記做兌換做穩定幣。只有賣做歐元先課稅 –「賣出」會當賣做歐元。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——“卖出”视为卖出换成欧元。"
+            "value" : "卖出换成您继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——“卖出”视为卖出换成欧元。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "賣出換成你繼續持有的穩定幣（USDT/USDC/DAI …）在此屬於加密貨幣換加密貨幣，不徵稅——請記為兌換為該穩定幣。只有賣出換成歐元才徵稅——「賣出」 視為賣出換成歐元。"
+            "value" : "賣出換成您繼續持有的穩定幣（USDT/USDC/DAI …）在此屬於加密貨幣換加密貨幣，不徵稅——請記為兌換為該穩定幣。只有賣出換成歐元才徵稅——「賣出」 視為賣出換成歐元。"
           }
         },
         "zu" : {
@@ -925964,13 +925964,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在你自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。"
+            "value" : "在您自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在你自己的錢包之間轉移時以 USDT 或法幣支付的手續費同樣如此：不計入成本，僅作參考列出。"
+            "value" : "在您自己的錢包之間轉移時以 USDT 或法幣支付的手續費同樣如此：不計入成本，僅作參考列出。"
           }
         },
         "zu" : {
@@ -926868,19 +926868,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025 年 1 月 1 日過渡（Rev. Proc. 2024-28 safe harbor）：如果之前年度用跨所有錢包嘅 FIFO，截至 2024 年 12 月 31 日嘅剩餘批次會分配去持有嗰啲幣嘅錢包 – 持有最舊幣嘅錢包會攞最舊嘅成本基礎。呢個分配係 App 嘅規則 – 請同你自己嘅記錄核對。"
+            "value" : "2025 年 1 月 1 日過渡（Rev. Proc. 2024-28 safe harbor）：如果之前年度用跨所有錢包嘅 FIFO，截至 2024 年 12 月 31 日嘅剩餘批次會分配去持有嗰啲幣嘅錢包 – 持有最舊幣嘅錢包會攞最舊嘅成本基礎。呢個分配係 App 嘅規則 – 請同您自己嘅記錄核對。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。"
+            "value" : "2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与您自己的记录核对。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025年1月1日過渡（Rev. Proc. 2024-28，安全港）：若以前年度對所有錢包統一使用 FIFO，截至 2024年12月31日的剩餘批次分配給持有這些幣的錢包——持有最早幣的錢包獲得最早的成本。此分配為應用程式自身的規則——請與你自己的記錄核對。"
+            "value" : "2025年1月1日過渡（Rev. Proc. 2024-28，安全港）：若以前年度對所有錢包統一使用 FIFO，截至 2024年12月31日的剩餘批次分配給持有這些幣的錢包——持有最早幣的錢包獲得最早的成本。此分配為應用程式自身的規則——請與您自己的記錄核對。"
           }
         },
         "zu" : {
@@ -927323,7 +927323,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "由 2025 課稅年度起，IRS 要求按每個錢包或交易所計成本基礎（Rev. Proc. 2024-28）：匯出由 2025 年起用每個錢包分開 FIFO – 之前年度用跨所有錢包 FIFO，或者如果你嘅成本方法係每個錢包分開 FIFO 就用嗰個。"
+            "value" : "由 2025 課稅年度起，IRS 要求按每個錢包或交易所計成本基礎（Rev. Proc. 2024-28）：匯出由 2025 年起用每個錢包分開 FIFO – 之前年度用跨所有錢包 FIFO，或者如果您嘅成本方法係每個錢包分開 FIFO 就用嗰個。"
           }
         },
         "zh-Hans" : {
@@ -936878,7 +936878,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "扣手續費前所得超過申報界限（£50,000；2020/21–2022/23：£49,200）：如果你已登記 Self Assessment，即使冇應課稅盈利都要向 HMRC 申報"
+            "value" : "扣手續費前所得超過申報界限（£50,000；2020/21–2022/23：£49,200）：如果您已登記 Self Assessment，即使冇應課稅盈利都要向 HMRC 申報"
           }
         },
         "zh-Hans" : {
@@ -941110,7 +941110,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tax template (beta)"
+            "value" : "Template ng buwis (beta)"
           }
         },
         "fr" : {
@@ -944613,19 +944613,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你所在地區嘅建議：%1$@"
+            "value" : "您所在地區嘅建議：%1$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "适合你所在地区的建议：%1$@"
+            "value" : "适合您所在地区的建议：%1$@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "適合你所在地區的建議：%1$@"
+            "value" : "適合您所在地區的建議：%1$@"
           }
         },
         "zu" : {
@@ -944750,7 +944750,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tax template"
+            "value" : "Template ng buwis"
           }
         },
         "fr" : {
@@ -946570,7 +946570,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark"
+            "value" : "Madilim"
           }
         },
         "fr" : {
@@ -947025,7 +947025,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light"
+            "value" : "Maliwanag"
           }
         },
         "fr" : {
@@ -947480,7 +947480,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "fr" : {
@@ -948845,7 +948845,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "High"
+            "value" : "Pinakamataas"
           }
         },
         "fr" : {
@@ -964633,19 +964633,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易所有提供即時價格嘅話：自選清單開住時即時更新。否則喺下次擷取時更新。關閉時：iOS 容許先會檢查，有時相隔幾個鐘。如果你將 App 掃走，iOS 會停止呢啲檢查，直到你再開返佢。"
+            "value" : "交易所有提供即時價格嘅話：自選清單開住時即時更新。否則喺下次擷取時更新。關閉時：iOS 容許先會檢查，有時相隔幾個鐘。如果您將 App 掃走，iOS 會停止呢啲檢查，直到您再開返佢。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：iOS 允许时，有时相隔数小时。如果你划掉应用，iOS 会暂停这些检查，直到你再次打开它。"
+            "value" : "交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：iOS 允许时，有时相隔数小时。如果您划掉应用，iOS 会暂停这些检查，直到您再次打开它。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易所提供即時價格時：自選清單開啟期間即時更新。否則在下次取得時。關閉時：iOS 允許時，有時相隔數小時。如果你滑掉應用程式，iOS 會暫停這些檢查，直到你再次開啟它。"
+            "value" : "交易所提供即時價格時：自選清單開啟期間即時更新。否則在下次取得時。關閉時：iOS 允許時，有時相隔數小時。如果您滑掉應用程式，iOS 會暫停這些檢查，直到您再次開啟它。"
           }
         },
         "zu" : {
@@ -1009230,19 +1009230,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格到你嘅標記時收到通知 – App 關閉時，Android 會不定時檢查。"
+            "value" : "價格到您嘅標記時收到通知 – App 關閉時，Android 會不定時檢查。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格到达你设定的位置时通知你——应用关闭时，Android 的检查时间不固定。"
+            "value" : "价格到达您设定的位置时通知您——应用关闭时，Android 的检查时间不固定。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格到達你設定的位置時通知你——應用程式關閉時，Android 的檢查時間不固定。"
+            "value" : "價格到達您設定的位置時通知您——應用程式關閉時，Android 的檢查時間不固定。"
           }
         },
         "zu" : {
@@ -1009685,19 +1009685,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格到你嘅標記時收到通知 – App 關閉時，由 iOS 決定幾時檢查。"
+            "value" : "價格到您嘅標記時收到通知 – App 關閉時，由 iOS 決定幾時檢查。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格到达你设定的位置时通知你——应用关闭时，由 iOS 决定何时检查。"
+            "value" : "价格到达您设定的位置时通知您——应用关闭时，由 iOS 决定何时检查。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "價格到達你設定的位置時通知你——應用程式關閉時，由 iOS 決定何時檢查。"
+            "value" : "價格到達您設定的位置時通知您——應用程式關閉時，由 iOS 決定何時檢查。"
           }
         },
         "zu" : {
@@ -1010140,7 +1010140,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "設定你第一個提示"
+            "value" : "設定您第一個提示"
           }
         },
         "zh-Hans" : {
@@ -1010595,7 +1010595,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "設定你第一個提示 – %1$@"
+            "value" : "設定您第一個提示 – %1$@"
           }
         },
         "zh-Hans" : {
@@ -1017171,19 +1017171,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅群組會喺呢度出現"
+            "value" : "您嘅群組會喺呢度出現"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的分组会显示在这里"
+            "value" : "您的分组会显示在这里"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的分組會顯示在這裡"
+            "value" : "您的分組會顯示在這裡"
           }
         },
         "zu" : {
@@ -1018536,7 +1018536,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅自選清單最多可以有 %1$@ 個交易對。"
+            "value" : "您嘅自選清單最多可以有 %1$@ 個交易對。"
           }
         },
         "zh-Hans" : {
@@ -1025620,7 +1025620,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "avg. %1$@"
+            "value" : "karaniwan %1$@"
           }
         },
         "fr" : {
@@ -1057938,7 +1057938,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "來自你交易所嘅價格 · %1$@"
+            "value" : "來自您交易所嘅價格 · %1$@"
           }
         },
         "zh-Hans" : {
@@ -1062943,7 +1062943,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "語音輸出已開啟。你可以喺「設定 › 提示 › 語音輸出」更改。"
+            "value" : "語音輸出已開啟。您可以喺「設定 › 提示 › 語音輸出」更改。"
           }
         },
         "zh-Hans" : {
@@ -1066250,19 +1066250,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅價格。你嘅提示。你嘅概覽。\n毋須帳戶。冇廣告。冇追蹤。"
+            "value" : "您嘅價格。您嘅提示。您嘅概覽。\n毋須帳戶。冇廣告。冇追蹤。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的行情。你的提醒。你的概览。\n无需账户。没有广告。不做追踪。"
+            "value" : "您的行情。您的提醒。您的概览。\n无需账户。没有广告。不做追踪。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的行情。你的提醒。你的總覽。\n無需帳戶。沒有廣告。不做追蹤。"
+            "value" : "您的行情。您的提醒。您的總覽。\n無需帳戶。沒有廣告。不做追蹤。"
           }
         },
         "zu" : {
@@ -1067615,19 +1067615,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "觀察 – 你嘅幣、價格同價格歷史"
+            "value" : "觀察 – 您嘅幣、價格同價格歷史"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关注——你的币种、行情和走势"
+            "value" : "关注——您的币种、行情和走势"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "關注——你的幣種、行情和走勢"
+            "value" : "關注——您的幣種、行情和走勢"
           }
         },
         "zu" : {
@@ -1113041,7 +1113041,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ (fallback)"
+            "value" : "%1$@ (kapalit)"
           }
         },
         "fr" : {
@@ -1113496,7 +1113496,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ (reference)"
+            "value" : "%1$@ (batayan)"
           }
         },
         "fr" : {
@@ -1130697,7 +1130697,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Background"
+            "value" : "Background ng widget"
           }
         },
         "fr" : {
@@ -1133290,19 +1133290,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "揀背景同透明度。顏色跟隨 App。小工具會顯示你嘅自選清單或者下面揀咗嘅群組；撳一行就會打開 App。"
+            "value" : "揀背景同透明度。顏色跟隨 App。小工具會顯示您嘅自選清單或者下面揀咗嘅群組；撳一行就會打開 App。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择背景和不透明度。颜色跟随 App。小部件显示你的列表或下方选择的分组；点一下某一行即可打开 App。"
+            "value" : "选择背景和不透明度。颜色跟随 App。小部件显示您的列表或下方选择的分组；点一下某一行即可打开 App。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "選擇背景和不透明度。顏色跟隨 App。小工具會顯示你的清單或下方選擇的群組；點一下某一列即可開啟 App。"
+            "value" : "選擇背景和不透明度。顏色跟隨 App。小工具會顯示您的清單或下方選擇的群組；點一下某一列即可開啟 App。"
           }
         },
         "zu" : {
@@ -1138750,7 +1138750,7 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你投資組合嘅總值同今日變動"
+            "value" : "您投資組合嘅總值同今日變動"
           }
         },
         "zh-Hans" : {
@@ -1138887,7 +1138887,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Display"
+            "value" : "Ipakita"
           }
         },
         "fr" : {
@@ -1145120,19 +1145120,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "開啟 App 就可以喺呢度顯示你嘅持倉。"
+            "value" : "開啟 App 就可以喺呢度顯示您嘅持倉。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "打开应用即可在此显示你的持仓。"
+            "value" : "打开应用即可在此显示您的持仓。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "開啟應用程式即可在此顯示你的持倉。"
+            "value" : "開啟應用程式即可在此顯示您的持倉。"
           }
         },
         "zu" : {
@@ -1154146,7 +1154146,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View"
+            "value" : "Tingnan"
           }
         },
         "fr" : {
@@ -1155511,7 +1155511,7 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overview"
+            "value" : "Pangkalahatang-tanaw"
           }
         },
         "fr" : {
@@ -1164474,19 +1164474,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你嘅主畫面唔可以由 App 加入小工具。喺主畫面長按空白位置，揀「小工具」再搵「Crypto Checker」。"
+            "value" : "您嘅主畫面唔可以由 App 加入小工具。喺主畫面長按空白位置，揀「小工具」再搵「Crypto Checker」。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的主屏幕无法从应用内添加小部件。请长按主屏幕上的空白处，选择“小部件”，然后查找“Crypto Checker”。"
+            "value" : "您的主屏幕无法从应用内添加小部件。请长按主屏幕上的空白处，选择“小部件”，然后查找“Crypto Checker”。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的主畫面無法從應用程式內新增小工具。請長按主畫面上的空白處，選擇「小工具」，然後尋找「Crypto Checker」。"
+            "value" : "您的主畫面無法從應用程式內新增小工具。請長按主畫面上的空白處，選擇「小工具」，然後尋找「Crypto Checker」。"
           }
         },
         "zu" : {

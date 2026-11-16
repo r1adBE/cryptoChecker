@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 245)
+
+- Chinese (simplified, traditional, Cantonese): consistently polite «您» in the apps, watch apps, store texts and screenshot captions.
+- Filipino: 81 texts that were still English are translated (established English terms such as Futures, Spot and Portfolio stay).
+- iOS: the «Pause/Resume» menu entry of a pair shows an explanation line, as on Android.
+
 ## 16.2.2 (build 244)
 
 - «Show on watch» (Wear OS): alerts vibrate (own channel, no sound), price and market notifications stay silent; the phone keeps its notification local only when the watch app was last reachable and reported that it may show notifications, otherwise the system forwards it as before (no lost alert). Settings hint updated in all 75 languages.

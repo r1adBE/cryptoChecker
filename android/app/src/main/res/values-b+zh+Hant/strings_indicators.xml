@@ -24,7 +24,7 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">應用程式只顯示計數，不稱其為「季」。該數值通常以天而不是小時為單位變化。</string>
-    <string name="neutral_info_btc_how">每個數值都附一句話，說明它衡量什麼，以及它在自 2016 年以來自身歷史中的位置。應用程式不評價數值，也不推斷市場階段；通知門檻只有你自己設定的那些。過去的模式不一定會重複。</string>
+    <string name="neutral_info_btc_how">每個數值都附一句話，說明它衡量什麼，以及它在自 2016 年以來自身歷史中的位置。應用程式不評價數值，也不推斷市場階段；通知門檻只有您自己設定的那些。過去的模式不一定會重複。</string>
     <string name="neutral_info_btc_what">常用比特幣指標，只顯示測量值：Mayer Multiple、200週均線、距歷史最高點跌幅、30天變化、Pi Cycle 差距，以及鏈上資料 MVRV、Puell Multiple 和算力。</string>
     <string name="neutral_info_coin_how">每個數值都附有一句說明其測量內容，不作評價。價格歷史較短的幣種會缺少部分數值。此處不含鏈上資料。</string>
     <string name="neutral_info_coin_what">為所選幣種顯示同樣的原始指標，僅基於價格資料：Mayer Multiple、200 週均線、距最高點跌幅、30 天變化、50/200 日趨勢、RSI，以及 90 天內相對比特幣的強弱。</string>

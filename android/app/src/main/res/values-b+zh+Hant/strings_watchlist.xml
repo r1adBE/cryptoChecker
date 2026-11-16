@@ -96,7 +96,7 @@
     <string name="watchlist_favorites_empty_hint">還沒有收藏。將交易對向右滑動，或在交易對頁面中點按「收藏」。</string>
     <string name="watchlist_group_empty_hint">長按分組以選擇其交易對。</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">你的分組會顯示在這裡</string>
+    <string name="watchlist_groups_empty_hint">您的分組會顯示在這裡</string>
     <string name="watchlist_notification">價格通知</string>
     <string name="watchlist_tts">播報價格</string>
     <string name="watchlist_tts_speech_on">語音播報已開啟。可在此更改：設定 › 提醒 › 語音播報。</string>
@@ -182,7 +182,7 @@
     <string name="sort_move_up">上移</string>
 
     <string name="watchlist_first_alarm_title">設定第一個提醒</string>
-    <string name="watchlist_first_alarm_text">價格到達你設定的位置時通知你——應用程式關閉時，Android 的檢查時間不固定。</string>
+    <string name="watchlist_first_alarm_text">價格到達您設定的位置時通知您——應用程式關閉時，Android 的檢查時間不固定。</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">標記價格（無中間價）</string>

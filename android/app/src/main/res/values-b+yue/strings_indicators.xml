@@ -24,10 +24,10 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">App 只顯示數目，唔會標示做某個季節。數值通常以日計變化，唔係以小時計。</string>
-    <string name="neutral_info_btc_how">每個數值都附一句說明佢量度乜嘢，以及佢喺 2016 年以嚟自身歷史中嘅位置。App 唔會評價數值，亦唔會推斷市場階段；市場提示嘅界限只係你自己設定嘅。過去嘅規律未必會重複。</string>
+    <string name="neutral_info_btc_how">每個數值都附一句說明佢量度乜嘢，以及佢喺 2016 年以嚟自身歷史中嘅位置。App 唔會評價數值，亦唔會推斷市場階段；市場提示嘅界限只係您自己設定嘅。過去嘅規律未必會重複。</string>
     <string name="neutral_info_btc_what">常見嘅 Bitcoin 指標，以純量度數值顯示：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、Pi Cycle 差距，以及鏈上數值 MVRV、Puell Multiple 同算力。</string>
     <string name="neutral_info_coin_how">每個數值都附一句說明佢量度乜嘢，冇評價。價格歷史短嘅幣，有啲數值會欠缺。呢度唔包括鏈上資料。</string>
-    <string name="neutral_info_coin_what">同樣嘅純指標，適用於你揀嘅幣，只用價格資料：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、50/200 日趨勢、RSI，以及 90 日內對比 Bitcoin 嘅強弱。</string>
+    <string name="neutral_info_coin_what">同樣嘅純指標，適用於您揀嘅幣，只用價格資料：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、50/200 日趨勢、RSI，以及 90 日內對比 Bitcoin 嘅強弱。</string>
     <string name="neutral_info_halving_how">下次減半按目前區塊高度同目前難度週期嘅平均出塊時間（mempool.space）計算；冇呢啲資料就按日曆（上次減半加大約四年）。圖表顯示過往週期由減半開始嘅價格走勢 – 係歷史，唔係預測。</string>
 
     <!-- Indikator-Namen -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
-    <string name="widget_background">Background</string>
+    <string name="widget_background">Background ng widget</string>
     <string name="widget_configure_hint">Piliin ang background at opacity. Sinusunod ng kulay ang app. Ipinapakita ng widget ang watchlist mo o ang grupong pinili sa ibaba; i-tap ang isang row para buksan ang app.</string>
     <string name="widget_configure_title">I-set up ang widget</string>
     <string name="widget_description">Ipinapakita ang presyo ng isang pares mula sa watchlist mo.</string>
@@ -45,7 +45,7 @@
     <string name="widget_portfolio_entries_hint">Ipinapakita lang kung may espasyo sa ilalim ng mga coin. Kasama sa mga pagbili ang mga deposit, kasama sa mga pagbenta ang mga withdrawal; sa «Pareho», nagsusuma ang mga linya sa hawak.</string>
     <string name="widget_portfolio_entries_off">Naka-off</string>
     <string name="widget_portfolio_entries_sells">Mga pagbenta</string>
-    <string name="widget_portfolio_display">Display</string>
+    <string name="widget_portfolio_display">Ipakita</string>
     <string name="widget_portfolio_display_conversion">Conversion lang</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>
     <string name="widget_portfolio_display_hint">Nakatago ang linya ng USDT kapag USD stablecoin ang conversion currency (hal. USDC).</string>
@@ -74,10 +74,10 @@
     <string name="widget_portfolio_range_fallback">%1$s: buksan ang Portfolio</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Ngayon nang wala ang %1$s</string>
-    <string name="widget_portfolio_view">View</string>
+    <string name="widget_portfolio_view">Tingnan</string>
     <string name="widget_portfolio_view_chart">Chart</string>
     <string name="widget_portfolio_view_list">Listahan</string>
-    <string name="widget_portfolio_view_overview">Overview</string>
+    <string name="widget_portfolio_view_overview">Pangkalahatang-tanaw</string>
 
     <!-- Einzel-Widget -->
     <string name="single_widget_choose">Pumili ng pares</string>

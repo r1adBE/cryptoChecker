@@ -12,19 +12,19 @@
     <string name="notification_fng_above">指數升破 %1$d——按該指數，市場情緒為貪婪。</string>
     <string name="notification_fng_below">指數跌破 %1$d——按該指數，市場情緒為恐懼。</string>
     <string name="notification_fng_title">情緒指數（Fear &amp; Greed）：%1$d</string>
-    <string name="notification_gas_btc_text">低於你設定的 %1$s sat/vB · 轉帳 ≈ %2$s</string>
+    <string name="notification_gas_btc_text">低於您設定的 %1$s sat/vB · 轉帳 ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin 手續費：%1$s sat/vB</string>
-    <string name="notification_gas_eth_text">低於你設定的 %1$s gwei · 轉帳 ≈ %2$s</string>
+    <string name="notification_gas_eth_text">低於您設定的 %1$s gwei · 轉帳 ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum Gas：%1$s gwei</string>
-    <string name="notification_indicator_above">高於你的門檻 %1$s——這是測量值，不是建議。</string>
-    <string name="notification_indicator_below">低於你的門檻 %1$s——這是測量值，不是建議。</string>
+    <string name="notification_indicator_above">高於您的門檻 %1$s——這是測量值，不是建議。</string>
+    <string name="notification_indicator_below">低於您的門檻 %1$s——這是測量值，不是建議。</string>
     <string name="notification_indicator_title">%1$s：%2$s</string>
     <string name="notification_macro_title">今日有經濟數據</string>
     <string name="notification_permission_preprompt_continue">繼續</string>
     <string name="notification_permission_preprompt_later">稍後</string>
-    <string name="notification_permission_preprompt_text">為了讓提醒和價格通知能送達，應用程式需要通知權限。應用程式只將通知用於你的提醒和價格通知。</string>
+    <string name="notification_permission_preprompt_text">為了讓提醒和價格通知能送達，應用程式需要通知權限。應用程式只將通知用於您的提醒和價格通知。</string>
     <string name="notification_permission_preprompt_title">允許通知？</string>
-    <string name="notification_portfolio_alarm_locked">你的提醒已觸發，開啟應用程式查看詳細資料。</string>
+    <string name="notification_portfolio_alarm_locked">您的提醒已觸發，開啟應用程式查看詳細資料。</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_title">投資組合價值</string>
     <string name="notification_price_change">%1$s，自 %2$s（%3$s前）</string>

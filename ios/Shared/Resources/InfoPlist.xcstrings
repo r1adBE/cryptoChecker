@@ -444,19 +444,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用 Face ID 解鎖你嘅投資組合。"
+            "value" : "用 Face ID 解鎖您嘅投資組合。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用面容 ID 解锁你的投资组合。"
+            "value" : "使用面容 ID 解锁您的投资组合。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用 Face ID 解鎖你的投資組合。"
+            "value" : "使用 Face ID 解鎖您的投資組合。"
           }
         },
         "zu" : {
@@ -899,19 +899,19 @@
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只有當你地址用嘅自家伺服器喺屋企網絡入面先需要。"
+            "value" : "只有當您地址用嘅自家伺服器喺屋企網絡入面先需要。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅当你自己的地址服务器位于家庭网络中时才需要。"
+            "value" : "仅当您自己的地址服务器位于家庭网络中时才需要。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "僅當你自己的地址伺服器位於家用網路中時才需要。"
+            "value" : "僅當您自己的地址伺服器位於家用網路中時才需要。"
           }
         },
         "zu" : {

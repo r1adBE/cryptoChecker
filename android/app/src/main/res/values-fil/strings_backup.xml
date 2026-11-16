@@ -8,7 +8,7 @@
     <string name="backup_failed">Hindi iyon gumana. Backup ba ito ng Crypto Checker?</string>
     <string name="backup_hint">Sine-save ang watchlist mo kasama ang mga tala at grupo, mga alerto, paborito, portfolio at setting bilang file na ikaw mismo ang may hawak – halimbawa para sa bagong phone.</string>
     <string name="backup_import">I-restore</string>
-    <string name="backup_title">Backup &amp; restore</string>
+    <string name="backup_title">Pag-back up at pag-restore</string>
     <string name="backup_too_large">Masyadong malaki ang file o hindi ito valid na backup (limitasyon 64 MB).</string>
     <string name="backup_export_too_large">Lalampas sa 64 MB ang backup at hindi ito mare-restore, kaya hindi ito na-save.</string>
 

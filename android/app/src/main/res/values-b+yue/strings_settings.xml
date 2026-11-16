@@ -26,12 +26,12 @@
     <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
     <string name="settings_alarm_signal">提示訊號</string>
     <string name="settings_alarm_signal_open_system">喺系統設定調整</string>
-    <string name="settings_alarm_signal_system_hint">跟隨你手機嘅通知設定。</string>
+    <string name="settings_alarm_signal_system_hint">跟隨您手機嘅通知設定。</string>
     <string name="settings_alarm_sound">提示聲音</string>
     <string name="settings_alarm_sound_custom">自訂聲音</string>
     <string name="settings_alarm_sound_default">預設聲音</string>
     <string name="settings_alarm_sound_error">無法使用呢個聲音。</string>
-    <string name="settings_alarm_sound_file">你自己嘅音訊檔…</string>
+    <string name="settings_alarm_sound_file">您自己嘅音訊檔…</string>
     <string name="settings_alarm_sound_reset">使用預設聲音</string>
     <string name="settings_alarm_sound_system">揀系統聲音…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
@@ -123,7 +123,7 @@
     <string name="settings_coin_logos">幣種標誌</string>
     <string name="settings_coin_logos_app">喺 App 入面</string>
     <string name="settings_coin_logos_app_hint">自選清單、已開啟嘅交易對同市場卡片</string>
-    <string name="settings_coin_logos_footer">標誌來自 CoinGecko；CoinGecko 冇列出嘅幣（例如黃金、白銀、股票）就來自 Binance。App 會一次過載入所有標誌並儲存喺呢部裝置，所以兩個供應商都唔會知道你關注邊啲幣。冇標誌嘅幣會顯示縮寫。最愛會喺標誌上加一粒細星。開關關閉嘅地方，標誌同縮寫都唔會出現；所有開關都關閉時，乜都唔會載入。</string>
+    <string name="settings_coin_logos_footer">標誌來自 CoinGecko；CoinGecko 冇列出嘅幣（例如黃金、白銀、股票）就來自 Binance。App 會一次過載入所有標誌並儲存喺呢部裝置，所以兩個供應商都唔會知道您關注邊啲幣。冇標誌嘅幣會顯示縮寫。最愛會喺標誌上加一粒細星。開關關閉嘅地方，標誌同縮寫都唔會出現；所有開關都關閉時，乜都唔會載入。</string>
     <string name="settings_coin_logos_portfolio">喺投資組合</string>
     <string name="settings_coin_logos_portfolio_hint">持倉、幣種詳情同洞察</string>
     <string name="settings_coin_logos_value_app">App</string>
@@ -148,7 +148,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">換算貨幣</string>
-    <string name="settings_conversion_currency_hint">亦用於投資組合、以你嘅貨幣設定嘅提示、加密貨幣市場卡片同投資組合小工具。</string>
+    <string name="settings_conversion_currency_hint">亦用於投資組合、以您嘅貨幣設定嘅提示、加密貨幣市場卡片同投資組合小工具。</string>
     <string name="settings_cost_method">成本計算方法</string>
     <string name="settings_cost_method_average">平均成本</string>
     <string name="settings_cost_method_average_hint">賣出按移動平均買入價計價。</string>
@@ -157,12 +157,12 @@
     <string name="settings_cost_method_fifo_wallet">每個錢包／交易所分開 FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">每個交易所或錢包內最舊嘅幣先賣；轉賬會連買入日期一齊轉移批次。</string>
     <string name="settings_portfolio_lock">投資組合鎖</string>
-    <string name="settings_portfolio_lock_footer">呢個鎖會隱藏畫面上顯示嘅內容。你嘅資料儲存喺呢部裝置，受裝置加密保護。你可以用密碼保護備份。</string>
+    <string name="settings_portfolio_lock_footer">呢個鎖會隱藏畫面上顯示嘅內容。您嘅資料儲存喺呢部裝置，受裝置加密保護。您可以用密碼保護備份。</string>
     <string name="settings_portfolio_lock_hint">只隱藏投資組合：用指紋、面容或裝置 PIN 解鎖。喺背景超過一分鐘會再次鎖定。自選清單、提示同其他小工具保持開放。</string>
     <string name="settings_portfolio_lock_no_device_lock">冇裝置 PIN 或密碼嘅話，呢個鎖乜都隱藏唔到 – 請設定螢幕鎖。</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">系統備份包括投資組合</string>
-    <string name="settings_portfolio_system_backup_hint">關閉時：你嘅交易唔會包括喺裝置嘅系統備份同手機對手機轉移入面。如要轉去新手機，請用 App 本身嘅備份加密碼。</string>
+    <string name="settings_portfolio_system_backup_hint">關閉時：您嘅交易唔會包括喺裝置嘅系統備份同手機對手機轉移入面。如要轉去新手機，請用 App 本身嘅備份加密碼。</string>
     <string name="settings_portfolio_system_backup_unavailable">需要 Android 9 或以上 – 舊版本會將投資組合未加密咁儲存喺 Google 備份。</string>
     <string name="settings_portfolio_tab">顯示「投資組合」分頁</string>
     <string name="settings_portfolio_value_locked">開啟，有鎖</string>
@@ -184,7 +184,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple 低於</string>
     <string name="settings_ind_mvrv_above">MVRV 高於</string>
     <string name="settings_ind_mvrv_below">MVRV 低於</string>
-    <string name="settings_indicator_alerts_hint">Bitcoin 指標，每日檢查兩次。界限由你揀 – App 唔會評價數值。</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin 指標，每日檢查兩次。界限由您揀 – App 唔會評價數值。</string>
     <string name="settings_macro_notifications">經濟日曆</string>
     <string name="settings_macro_notifications_hint">喺有重要美國經濟數據嘅日子（通脹、非農就業報告、聯儲局決定）08:00 通知。日曆來自 App 網站，每日載入一次。</string>
     <string name="settings_macro_notifications_us_hint">喺美國，通知最遲會喺紐約時間 08:00 送到，早過第一批數據。</string>
@@ -270,19 +270,19 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">計算新提示同市場提示；開 App 時歸 0。</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">你嘅資料</string>
+    <string name="about_your_data_title">您嘅資料</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">喺呢部裝置</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device">你嘅自選清單、提示同投資組合加密儲存喺呢部裝置；毋須帳戶，亦冇我哋自己嘅伺服器。</string>
+    <string name="about_data_device">您嘅自選清單、提示同投資組合加密儲存喺呢部裝置；毋須帳戶，亦冇我哋自己嘅伺服器。</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">連線</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">價格直接來自你交易對所屬嘅交易所，另外仲有匯率、幣種清單同標誌，以及 GitHub 上嘅數據鏡像；佢哋會見到你嘅 IP 地址，但永遠見唔到你嘅持倉（觀察中嘅地址會傳去相應網絡嘅供應商）。</string>
+    <string name="about_data_connections">價格直接來自您交易對所屬嘅交易所，另外仲有匯率、幣種清單同標誌，以及 GitHub 上嘅數據鏡像；佢哋會見到您嘅 IP 地址，但永遠見唔到您嘅持倉（觀察中嘅地址會傳去相應網絡嘅供應商）。</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">備份</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">只喺你建立時先有。有密碼就會加密（Argon2id + AES-256-GCM）；冇密碼就可以直接讀取。</string>
+    <string name="about_data_backup">只喺您建立時先有。有密碼就會加密（Argon2id + AES-256-GCM）；冇密碼就可以直接讀取。</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">換裝置</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -290,7 +290,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">分享診斷資料</string>
-    <string name="diagnostics_share_hint">俾支援用嘅文字檔：版本、裝置、提示設定、最近檢查同提示記錄 – 唔包括投資組合、金額、地址或備註。你會先睇到；乜都唔會自動傳送。</string>
+    <string name="diagnostics_share_hint">俾支援用嘅文字檔：版本、裝置、提示設定、最近檢查同提示記錄 – 唔包括投資組合、金額、地址或備註。您會先睇到；乜都唔會自動傳送。</string>
     <string name="diagnostics_preview_title">診斷資料預覽</string>
     <string name="diagnostics_action_share">分享</string>
     <string name="settings_price_overlay">價格浮窗</string>
@@ -303,7 +303,7 @@
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">地址用嘅自家伺服器</string>
     <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">只限 Bitcoin：你自己嘅 Esplora 或 mempool 兼容伺服器（例如 https://node.example/api，需要公開受信任嘅證書，例如 Let\'s Encrypt）。設定咗之後，Bitcoin 地址同 xpub 金鑰只會喺嗰度查詢 – 永遠唔會去公開節點，就算你嘅伺服器連唔到都唔會。其他網絡繼續用公開節點。留空 = 公開節點。</string>
+    <string name="settings_address_server_hint">只限 Bitcoin：您自己嘅 Esplora 或 mempool 兼容伺服器（例如 https://node.example/api，需要公開受信任嘅證書，例如 Let\'s Encrypt）。設定咗之後，Bitcoin 地址同 xpub 金鑰只會喺嗰度查詢 – 永遠唔會去公開節點，就算您嘅伺服器連唔到都唔會。其他網絡繼續用公開節點。留空 = 公開節點。</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Bitcoin 伺服器（https://）</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
@@ -332,12 +332,12 @@
     <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
     <string name="settings_address_server_public_title">轉用公開節點？</string>
     <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
-    <string name="settings_address_server_public_text">咁你嘅 Bitcoin 地址同 xpub 金鑰就會喺公開節點查詢：%1$s。佢哋會同時見到呢啲地址同你嘅 IP 地址。</string>
+    <string name="settings_address_server_public_text">咁您嘅 Bitcoin 地址同 xpub 金鑰就會喺公開節點查詢：%1$s。佢哋會同時見到呢啲地址同您嘅 IP 地址。</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">使用公開節點</string>
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">關閉，有鎖</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">會重新計算所有年份：以往年份嘅成本、已實現收益同稅務工作表都會改變。</string>
-    <string name="settings_portfolio_system_backup_confirm">到時你嘅交易、投資組合提示同關注嘅地址會納入 Android 備份（例如你嘅 Google 帳戶）同轉去新裝置——只限端對端加密。</string>
+    <string name="settings_portfolio_system_backup_confirm">到時您嘅交易、投資組合提示同關注嘅地址會納入 Android 備份（例如您嘅 Google 帳戶）同轉去新裝置——只限端對端加密。</string>
 </resources>

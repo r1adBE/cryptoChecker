@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">設定提示 – 價格、百分比、成交量同異常波動</string>
     <string name="welcome_alert_q">幾時提示？</string>
-    <string name="welcome_text">你嘅價格。你嘅提示。你嘅概覽。\n毋須帳戶。冇廣告。冇追蹤。</string>
+    <string name="welcome_text">您嘅價格。您嘅提示。您嘅概覽。\n毋須帳戶。冇廣告。冇追蹤。</string>
     <string name="welcome_understand">了解 – 而家有乜嘢同價格一齊郁</string>
     <string name="welcome_understand_q">有乜嘢一齊郁？</string>
-    <string name="welcome_watch">觀察 – 你嘅幣、價格同價格歷史</string>
+    <string name="welcome_watch">觀察 – 您嘅幣、價格同價格歷史</string>
     <string name="welcome_watch_q">發生緊乜事？</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->

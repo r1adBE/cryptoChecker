@@ -18,14 +18,14 @@
     <string name="alarms_title">Mga Alerto</string>
 
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
-    <string name="alarm_advanced">Advanced</string>
+    <string name="alarm_advanced">Karagdagan</string>
     <string name="alarm_change_updates">Ayusin ang mga update ng presyo</string>
     <string name="alarm_closed_app_short">Kapag sarado ang app, maaaring mahuli ang mga alerto.</string>
     <string name="alarm_check_mode_15min">Mga bawat 15 minuto</string>
     <string name="alarm_check_mode_saving">Matipid</string>
     <string name="alarm_check_mode_title">Gaano kadalas susuriin kapag idle ang device?</string>
     <string name="alarm_create">Gumawa ng alerto</string>
-    <string name="alarm_currency_label">Currency</string>
+    <string name="alarm_currency_label">Pera</string>
     <string name="alarm_delete_confirm">Aalisin ang alertong ito.</string>
     <string name="alarm_delete_title">I-delete ang alerto?</string>
     <string name="alarm_field_percent">Porsiyento</string>
@@ -69,7 +69,7 @@
     <string name="alarm_template_a11y_down">Gumawa ng alerto sa minus %1$s porsiyento mula sa kasalukuyang presyo</string>
     <string name="alarm_template_a11y_up">Gumawa ng alerto sa plus %1$s porsiyento mula sa kasalukuyang presyo</string>
     <string name="alarm_template_from_now">mula ngayon</string>
-    <string name="alarm_template_volume">Volume ×%1$s</string>
+    <string name="alarm_template_volume">Dami ×%1$s</string>
     <string name="alarm_templates_title">Mabibilis na alerto</string>
 
     <!-- Alarm-Bedingungen -->
@@ -158,7 +158,7 @@
     <string name="alarm_signal_silent">Tahimik (notification lang)</string>
     <string name="alarm_signal_sound">Tunog lang</string>
     <string name="alarm_signal_sound_vibrate">Tunog at vibration</string>
-    <string name="alarm_signal_system">System</string>
+    <string name="alarm_signal_system">Sistema</string>
     <string name="alarm_signal_vibrate">Vibration lang</string>
     <string name="alarm_test">Subukan ang alerto</string>
     <string name="alarm_test_action">Subukan</string>

@@ -56,7 +56,7 @@
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
     <string name="explorer_filter_gainers">Tumaas</string>
     <string name="explorer_filter_losers">Bumaba</string>
-    <string name="explorer_filter_volume">Volume</string>
+    <string name="explorer_filter_volume">Dami</string>
 
     <!-- Paar hinzufügen: mehrere Paare auf einmal -->
     <string name="bulk_all_pairs">Lahat ng %1$s pares ng exchange na ito</string>
@@ -95,8 +95,8 @@
     <string name="explorer_sync_sheet_title">I-update ang mga currency pair</string>
     <string name="explorer_field_coin">Coin</string>
     <string name="explorer_field_contract">Uri ng kontrata</string>
-    <string name="explorer_field_exchange">Exchange</string>
-    <string name="explorer_field_quote">Quote currency</string>
+    <string name="explorer_field_exchange">Palitan</string>
+    <string name="explorer_field_quote">Perang quote</string>
     <string name="explorer_contract_spot">Spot</string>
     <string name="explorer_reload_pairs">I-sync</string>
     <string name="sync_pairs_count">Mga trading pair: %1$d</string>

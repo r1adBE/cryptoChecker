@@ -12,19 +12,19 @@
     <string name="notification_fng_above">指數升穿 %1$d – 按呢個量度，市場情緒偏貪婪。</string>
     <string name="notification_fng_below">指數跌穿 %1$d – 按呢個量度，市場情緒偏恐慌。</string>
     <string name="notification_fng_title">情緒指數（Fear &amp; Greed）：%1$d</string>
-    <string name="notification_gas_btc_text">低過你嘅上限 %1$s sat/vB · 轉賬 ≈ %2$s</string>
+    <string name="notification_gas_btc_text">低過您嘅上限 %1$s sat/vB · 轉賬 ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin 手續費：%1$s sat/vB</string>
-    <string name="notification_gas_eth_text">低過你嘅上限 %1$s gwei · 轉賬 ≈ %2$s</string>
+    <string name="notification_gas_eth_text">低過您嘅上限 %1$s gwei · 轉賬 ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum gas：%1$s gwei</string>
-    <string name="notification_indicator_above">高過你嘅界限 %1$s – 只係量度數值，唔係建議。</string>
-    <string name="notification_indicator_below">低過你嘅界限 %1$s – 只係量度數值，唔係建議。</string>
+    <string name="notification_indicator_above">高過您嘅界限 %1$s – 只係量度數值，唔係建議。</string>
+    <string name="notification_indicator_below">低過您嘅界限 %1$s – 只係量度數值，唔係建議。</string>
     <string name="notification_indicator_title">%1$s：%2$s</string>
     <string name="notification_macro_title">今日經濟數據</string>
     <string name="notification_permission_preprompt_continue">繼續</string>
     <string name="notification_permission_preprompt_later">稍後</string>
-    <string name="notification_permission_preprompt_text">為咗令提示同價格通知送到你手上，App 需要傳送通知嘅權限。App 只會用嚟發送你嘅提示同價格通知。</string>
+    <string name="notification_permission_preprompt_text">為咗令提示同價格通知送到您手上，App 需要傳送通知嘅權限。App 只會用嚟發送您嘅提示同價格通知。</string>
     <string name="notification_permission_preprompt_title">允許通知？</string>
-    <string name="notification_portfolio_alarm_locked">你嘅提示已觸發 – 開 App 睇詳情。</string>
+    <string name="notification_portfolio_alarm_locked">您嘅提示已觸發 – 開 App 睇詳情。</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_title">投資組合價值</string>
     <string name="notification_price_change">%1$s，由 %2$s（%3$s 前）</string>

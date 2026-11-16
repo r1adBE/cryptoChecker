@@ -10,17 +10,17 @@
     <string name="explorer_coin_show_pairs">显示交易对</string>
     <string name="explorer_coin_suggested">推荐</string>
     <string name="explorer_coins_title">币种</string>
-    <string name="explorer_lists_failed_many">%1$s 目前没有响应 – 未能加载交易对列表。请你稍后再试。</string>
+    <string name="explorer_lists_failed_many">%1$s 目前没有响应 – 未能加载交易对列表。请您稍后再试。</string>
     <plurals name="explorer_lists_failed_more">
         <item quantity="other">另有 %1$d 个</item>
     </plurals>
-    <string name="explorer_lists_failed_one">%1$s 目前没有响应 – 未能加载交易对列表。请你稍后再试。</string>
+    <string name="explorer_lists_failed_one">%1$s 目前没有响应 – 未能加载交易对列表。请您稍后再试。</string>
     <string name="explorer_lists_load">加载列表</string>
     <string name="explorer_lists_loading">正在加载交易对列表… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">
         <item quantity="other">%1$d 家交易所的交易对列表尚未保存在设备上。</item>
     </plurals>
-    <string name="explorer_lists_privacy">为每家交易所加载完整的公开列表（对所有人相同）。你的搜索只留在设备上。</string>
+    <string name="explorer_lists_privacy">为每家交易所加载完整的公开列表（对所有人相同）。您的搜索只留在设备上。</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">最近搜索：%1$s</string>
     <string name="explorer_recent_clear">清除</string>
@@ -132,7 +132,7 @@
     <plurals name="bulk_undo_confirm_title">
         <item quantity="other">再次移除 %1$d 个交易对？</item>
     </plurals>
-    <string name="bulk_undo_confirm_text">在此期间你已设置提醒的交易对会保留。</string>
+    <string name="bulk_undo_confirm_text">在此期间您已设置提醒的交易对会保留。</string>
     <string name="bulk_undo_expired">已无法撤销，交易对会保留在自选中。</string>
     <string name="explorer_section_spot">现货</string>
     <string name="explorer_section_futures">期货</string>

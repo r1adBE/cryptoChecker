@@ -11,9 +11,9 @@
     <string name="notification_depeg_stable_text">Lumilihis ang %1$s sa 1 USD nang hindi bababa sa threshold ng depeg.</string>
     <string name="notification_fng_above">Tumaas ang index nang lampas %1$d – ayon sa sukatang ito, sakim ang mood ng market.</string>
     <string name="notification_fng_below">Bumaba ang index nang mas mababa sa %1$d – ayon sa sukatang ito, takot ang mood ng market.</string>
-    <string name="notification_fng_title">Mood index (Fear &amp; Greed): %1$d</string>
+    <string name="notification_fng_title">Index ng damdamin (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Mas mababa sa limitasyon mong %1$s sat/vB · Transfer ≈ %2$s</string>
-    <string name="notification_gas_btc_title">Bitcoin fee: %1$s sat/vB</string>
+    <string name="notification_gas_btc_title">Bayad sa Bitcoin: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Mas mababa sa limitasyon mong %1$s gwei · Transfer ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
     <string name="notification_indicator_above">Lampas sa limitasyon mong %1$s – sinukat na value, hindi rekomendasyon.</string>

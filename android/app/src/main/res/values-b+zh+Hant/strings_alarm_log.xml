@@ -7,7 +7,7 @@
     <string name="alarm_log_empty_message">當提醒觸發或被暫緩時（例如價格過時或處於靜音時段），記錄會顯示在這裡。</string>
     <string name="alarm_log_clear">清除記錄</string>
     <string name="alarm_log_clear_title">清除提醒記錄？</string>
-    <string name="alarm_log_clear_message">所有記錄將被刪除。你的提醒保持不變。</string>
+    <string name="alarm_log_clear_message">所有記錄將被刪除。您的提醒保持不變。</string>
     <string name="alarm_log_threshold">門檻 %1$s</string>
     <string name="alarm_last_check">上次檢查：%1$s</string>
     <string name="alarm_outcome_fired">已觸發</string>

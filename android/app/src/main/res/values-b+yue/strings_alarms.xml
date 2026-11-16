@@ -7,7 +7,7 @@
     <string name="alarms_empty">呢個交易對暫時未有提示。</string>
     <string name="alarms_empty_example">例如：BTC 升穿 %1$s 就通知我。</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">通知已關閉 – 提示無法通知你。</string>
+    <string name="alarms_notifications_off">通知已關閉 – 提示無法通知您。</string>
     <string name="alarms_notifications_turn_on">開啟</string>
     <plurals name="alarms_overview_active">
         <item quantity="other">%1$d 個啟用中</item>
@@ -143,7 +143,7 @@
 
     <!-- Wann Alarme geprüft werden -->
     <string name="alarm_timing_hint_android">冇「%1$s」嘅話，裝置閒置時 Android 會不定時檢查 – 有時要幾個鐘之後。開咗就大約每 15 分鐘一次。</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">App 關閉時，iOS 通常會遲過 15 分鐘先檢查，有時要等你下次開 App。短暫嘅急升急跌可能會錯過。</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">App 關閉時，iOS 通常會遲過 15 分鐘先檢查，有時要等您下次開 App。短暫嘅急升急跌可能會錯過。</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">提示幾時檢查</string>
     <string name="alarm_timing_where">喺 %1$s 更改價格更新頻率。</string>
@@ -157,7 +157,7 @@
     <string name="alarm_test">測試提示</string>
     <string name="alarm_test_action">測試</string>
     <string name="alarm_test_denied">Crypto Checker 嘅通知已關閉。</string>
-    <string name="alarm_test_hint">用你嘅聲音、震動同語音設定傳送一個示範提示。</string>
+    <string name="alarm_test_hint">用您嘅聲音、震動同語音設定傳送一個示範提示。</string>
     <string name="alarm_test_open_settings">開啟設定</string>
     <string name="alarm_test_quiet">而家係靜音時段：真正嘅提示會等到時段結束，然後有聲響起。</string>
     <string name="alarm_test_text">提示就係咁嘅樣同聲。</string>
@@ -171,7 +171,7 @@
     <string name="alarm_unchecked_no_window_price">無法檢查（時間範圍內冇價格）</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">通知已關閉 – 呢個提示無法通知你</string>
+    <string name="alarm_status_notifications_off">通知已關閉 – 呢個提示無法通知您</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">冇提示 – 流動性低</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->

@@ -57,12 +57,12 @@
     <string name="refresh_sheet_reason_rate_limit">masyadong maraming request</string>
     <string name="refresh_sheet_reason_server">error sa server</string>
     <!-- Kurze Fehlerursachen in Klammern -->
-    <string name="refresh_sheet_reason_timeout">timeout</string>
+    <string name="refresh_sheet_reason_timeout">lumampas sa oras</string>
     <string name="refresh_sheet_reason_unavailable">hindi available ang exchange</string>
     <string name="refresh_sheet_seconds_a11y">%1$s segundo</string>
     <!-- Abschnittstitel -->
     <string name="refresh_sheet_section_exchanges">Mga exchange</string>
-    <string name="refresh_sheet_section_steps">Breakdown</string>
+    <string name="refresh_sheet_section_steps">Mga hakbang</string>
     <string name="refresh_sheet_status_failed">hindi na-update</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
     <string name="refresh_sheet_status_ok">na-update lahat</string>
@@ -93,12 +93,12 @@
     <string name="check_result_skipped">Nilaktawan</string>
     <string name="check_result_paused">Naka-pause, walang na-check</string>
     <string name="check_result_offline">Nilaktawan (offline)</string>
-    <string name="check_trigger_bgtask">Background</string>
+    <string name="check_trigger_bgtask">Sa background</string>
     <string name="check_trigger_exact">Sa takdang oras</string>
     <string name="check_trigger_foreground">App</string>
     <string name="check_trigger_widget">Widget</string>
     <string name="check_trigger_widget_ios">Widget · mga presyo at price alert</string>
-    <string name="check_trigger_worker">Background</string>
+    <string name="check_trigger_worker">Sa background</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Maaaring iantala ng Android ang mga pagsusuri – itakda ang baterya sa “Walang limitasyon”</string>

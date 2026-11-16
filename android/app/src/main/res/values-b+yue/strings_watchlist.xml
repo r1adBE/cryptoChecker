@@ -18,7 +18,7 @@
         <item quantity="other">%2$d 個之中 %1$d 個已過時</item>
     </plurals>
     <string name="watchlist_status_all_disabled">呢度所有交易對都已停用</string>
-    <string name="watchlist_status_exchange_prices">來自你交易所嘅價格 · %1$s</string>
+    <string name="watchlist_status_exchange_prices">來自您交易所嘅價格 · %1$s</string>
     <string name="watchlist_status_exchange_prices_short">交易所價格 · %1$s</string>
     <string name="watchlist_status_group_empty">呢個群組冇交易對</string>
     <string name="watchlist_status_none_traded">呢度冇交易緊嘅交易對</string>
@@ -96,10 +96,10 @@
     <string name="watchlist_favorites_empty_hint">暫時未有最愛。將交易對向右掃，或者開啟交易對再撳「最愛」。</string>
     <string name="watchlist_group_empty_hint">長按群組就可以揀佢嘅交易對。</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">你嘅群組會喺呢度出現</string>
+    <string name="watchlist_groups_empty_hint">您嘅群組會喺呢度出現</string>
     <string name="watchlist_notification">價格通知</string>
     <string name="watchlist_tts">讀出價格</string>
-    <string name="watchlist_tts_speech_on">語音輸出已開啟。你可以喺「設定 › 提示 › 語音輸出」更改。</string>
+    <string name="watchlist_tts_speech_on">語音輸出已開啟。您可以喺「設定 › 提示 › 語音輸出」更改。</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">加做小工具</string>
@@ -132,9 +132,9 @@
     <string name="watch_row_source_chart">圖表：%1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s 已經加入你嘅自選清單</string>
+    <string name="pair_added_watching">%1$s 已經加入您嘅自選清單</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s 已經加入你嘅自選清單</string>
+    <string name="pairs_added_watching">%1$s 已經加入您嘅自選清單</string>
 
     <!-- Favoriten -->
     <string name="favorite_add">加入最愛</string>
@@ -149,7 +149,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Alpha 代幣</string>
     <string name="group_delete">刪除群組</string>
-    <string name="group_delete_confirm">交易對會留喺你嘅自選清單。</string>
+    <string name="group_delete_confirm">交易對會留喺您嘅自選清單。</string>
     <string name="group_done">完成</string>
     <string name="group_edit_title">編輯群組</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -181,15 +181,15 @@
     <string name="sort_move_top">移到最頂</string>
     <string name="sort_move_up">向上移</string>
 
-    <string name="watchlist_first_alarm_title">設定你第一個提示</string>
-    <string name="watchlist_first_alarm_text">價格到你嘅標記時收到通知 – App 關閉時，Android 會不定時檢查。</string>
+    <string name="watchlist_first_alarm_title">設定您第一個提示</string>
+    <string name="watchlist_first_alarm_text">價格到您嘅標記時收到通知 – App 關閉時，Android 會不定時檢查。</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">標記價格（冇中間價）</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">每小時價格</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
-    <string name="watchlist_first_alarm_title_pair">設定你第一個提示 – %1$s</string>
+    <string name="watchlist_first_alarm_title_pair">設定您第一個提示 – %1$s</string>
 
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">重新整理（%1$d）</string>
@@ -207,7 +207,7 @@
 
     <string name="watchlist_sort_by_coin">按幣種排序</string>
     <string name="watchlist_sort_by_exchange">按交易所排序</string>
-    <string name="watchlist_limit_reached">你嘅自選清單最多可以有 %1$s 個交易對。</string>
+    <string name="watchlist_limit_reached">您嘅自選清單最多可以有 %1$s 個交易對。</string>
     <string name="watch_price_reference">參考匯率，每日</string>
     <string name="watch_price_reference_weekly">參考匯率，每週</string>
     <string name="watch_price_daily">每日</string>

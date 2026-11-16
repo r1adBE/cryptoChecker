@@ -4,7 +4,7 @@
     <string name="update_mode_for_pros">需要更多數據同電量</string>
     <string name="update_mode_live">開啟時即時</string>
     <string name="update_mode_live_hint">交易所有提供即時價格嘅話：自選清單開住時即時更新。否則喺下次擷取時更新。關閉時：唔會密過每 %1$s 一次，通常更遲。</string>
-    <string name="update_mode_live_hint_ios">交易所有提供即時價格嘅話：自選清單開住時即時更新。否則喺下次擷取時更新。關閉時：iOS 容許先會檢查，有時相隔幾個鐘。如果你將 App 掃走，iOS 會停止呢啲檢查，直到你再開返佢。</string>
+    <string name="update_mode_live_hint_ios">交易所有提供即時價格嘅話：自選清單開住時即時更新。否則喺下次擷取時更新。關閉時：iOS 容許先會檢查，有時相隔幾個鐘。如果您將 App 掃走，iOS 會停止呢啲檢查，直到您再開返佢。</string>
     <string name="update_mode_recommended">建議</string>
     <string name="update_mode_sparsam">慳電</string>
     <string name="update_mode_sparsam_hint">App 關閉時，唔會密過每 %1$s 一次，通常更遲（提示、小工具）。開啟時：每次開都會更新。</string>
@@ -94,7 +94,7 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android 可能會延遲檢查 – 請將電池設為「不受限制」</string>
     <string name="battery_later">稍後</string>
-    <string name="battery_message">Android 為咗慳電會延遲背景工作 — 價格同小工具可能會舊咗幾個鐘。將電池用量設為不受限制就可以保持最新。你隨時可以喺 Android 設定更改。</string>
+    <string name="battery_message">Android 為咗慳電會延遲背景工作 — 價格同小工具可能會舊咗幾個鐘。將電池用量設為不受限制就可以保持最新。您隨時可以喺 Android 設定更改。</string>
     <string name="battery_open_settings">開啟電池設定</string>
     <string name="battery_steps">喺應用程式資訊撳「電池」（或「應用程式電池用量」），再揀「不受限制」。</string>
     <string name="battery_title">保持價格最新</string>

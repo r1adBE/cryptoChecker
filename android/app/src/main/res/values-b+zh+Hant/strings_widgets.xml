@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">背景</string>
-    <string name="widget_configure_hint">選擇背景和不透明度。顏色跟隨 App。小工具會顯示你的清單或下方選擇的群組；點一下某一列即可開啟 App。</string>
+    <string name="widget_configure_hint">選擇背景和不透明度。顏色跟隨 App。小工具會顯示您的清單或下方選擇的群組；點一下某一列即可開啟 App。</string>
     <string name="widget_configure_title">設定小工具</string>
     <string name="widget_description">顯示自選清單中某個交易對的價格。</string>
     <string name="widget_empty">自選清單中還沒有交易對。</string>
@@ -51,7 +51,7 @@
     <string name="widget_portfolio_display_hint">換算貨幣為 USD 穩定幣（如 USDC）時不顯示 USDT 行。</string>
     <string name="widget_portfolio_display_usdt">僅 USDT</string>
     <string name="widget_portfolio_empty">在「投資組合」分頁中新增買入記錄</string>
-    <string name="widget_portfolio_list_hint">開啟應用程式即可在此顯示你的持倉。</string>
+    <string name="widget_portfolio_list_hint">開啟應用程式即可在此顯示您的持倉。</string>
     <string name="widget_portfolio_locked_hint">已鎖定——請在應用程式中解鎖</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -87,7 +87,7 @@
     <string name="widgets_add">新增</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">新增小工具 %1$s</string>
-    <string name="widgets_manual_text">你的主畫面無法從應用程式內新增小工具。請長按主畫面上的空白處，選擇「小工具」，然後尋找「Crypto Checker」。</string>
+    <string name="widgets_manual_text">您的主畫面無法從應用程式內新增小工具。請長按主畫面上的空白處，選擇「小工具」，然後尋找「Crypto Checker」。</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">手動新增小工具</string>
     <string name="widgets_sheet_title">新增小工具</string>

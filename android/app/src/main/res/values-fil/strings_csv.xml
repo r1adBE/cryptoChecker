@@ -44,7 +44,7 @@
     <string name="portfolio_csv_import_stable_swaps">Ang mga trade laban sa stablecoin (USDT, USDC …) ay itinatala bilang swap – lalabas ang stablecoin sa mga hawak mo.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Maraming posibleng tugma – piliin ang tama o wala.</string>
     <string name="portfolio_csv_import_transfer_loose">Mataas na bayad o huling pagdating – tingnan kung iisang transfer ito.</string>
-    <string name="portfolio_csv_import_transfer_fee">Network fee: %1$s</string>
+    <string name="portfolio_csv_import_transfer_fee">Bayad sa network: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Itala bilang isang transfer</string>
     <string name="portfolio_csv_import_transfer_stored">Katapat mula sa naunang import</string>
     <string name="portfolio_csv_import_transfers_hint">Nagiging isang transfer ang isang withdrawal at ang katugmang deposit ng parehong coin: dala ang presyo ng pagbili at tagal ng paghawak, ang diperensya ay binibilang na network fee.</string>
