@@ -2,7 +2,6 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.LogoLoadingHint
 import com.cryptochecker.app.domain.logos.MissingLogoNotice
-import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -12,9 +11,8 @@ import java.nio.file.Files
 
 /**
  * Hinweis «2 Coins ohne Logo» ([MissingLogoNotice]): gemeinsame Testfälle `missing_logos.json` (iOS:
- * `MissingLogoNoticeTests.swift`), «erstes Laden erledigt» aus [LogoLoadingHint] und die Anbindung im Quelltext —
- * an der Stelle des Lade-Hinweises, nur mit Logo-Quelle (Schalter aus → nie), ✕ mit 48 dp und eigener Bedienhilfe,
- * gemerkter Satz in der nicht gesicherten Einstellungsdatei der Logos.
+ * `MissingLogoNoticeTests.swift`), «erstes Laden erledigt» aus [LogoLoadingHint] (Anbindung: Gerätetest
+ * `MissingLogosHintTest`, Regel missing-logos).
  */
 class MissingLogoNoticeParityTest {
 
@@ -89,34 +87,6 @@ class MissingLogoNoticeParityTest {
         }
     }
 
-    @Test
-    fun wiredAtTheLoadingHintWithTheLogoSwitch() {
-        val app = SourceGuard.android(
-            listOf("src/main/java/com/cryptochecker/app/ui", "app/src/main/java/com/cryptochecker/app/ui")
-                .map(::File).firstOrNull { it.isDirectory },
-            "app/src/main/java/com/cryptochecker/app/ui",
-        )
-        val data = SourceGuard.android(
-            listOf("../data/src/main/java/com/cryptochecker/app/data", "data/src/main/java/com/cryptochecker/app/data")
-                .map(::File).firstOrNull { it.isDirectory },
-            "data/src/main/java/com/cryptochecker/app/data",
-        )
-        val line = File(app, "features/watchlist/WatchlistMissingLogos.kt").readText()
-        assertTrue(line.contains("val source = LocalCoinLogoSource.current ?: return"))
-        // Nie während des ersten Ladens bzw. solange «Logos werden geladen» steht
-        assertTrue(line.contains("if (loadingLine || !source.firstLoadDone()) null else keys.filterNot { source.hasLogo(it) }"))
-        assertTrue(line.contains("MissingLogoNotice.state(current, stored, loading = loadingLine, logosEnabled = true)"))
-        assertTrue(line.contains("R.plurals.watchlist_missing_logos, count, count"))
-        assertTrue(line.contains("contentDescription = stringResource(R.string.watchlist_missing_logos_dismiss)"))
-        assertTrue(line.contains("IconButton(onClick = { source.dismissMissing(shown[0].toSet()) }, modifier = Modifier.size(TOUCH_MIN))"))
-        assertTrue(line.contains("private val TOUCH_MIN = 48.dp"))
-        assertTrue(line.contains("R.string.watchlist_missing_logos_explain"))
-        val body = File(app, "features/watchlist/WatchlistScreenBody.kt").readText()
-        val hint = body.indexOf("WatchlistLogoHint(reduceMotion = reduceMotion)")
-        val notice = body.indexOf("WatchlistMissingLogos(watches, reduceMotion = reduceMotion)")
-        assertTrue(hint > 0 && notice > hint)
-        // Gemerkter Satz: Einstellungsdatei der Logos (nicht in backup_rules/data_extraction_rules)
-        val store = File(data, "logos/MissingLogoDismissals.kt").readText()
-        assertTrue(store.contains("private val prefs by lazy { CoinLogoStorage.prefs(context) }"))
-    }
+    // Anbindung (Zeile unter dem Lade-Hinweis, ✕, Schalter, Ablage): Gerätetest MissingLogosHintTest und Regel
+    // missing-logos in .github/scripts/source_rules.py (Audit A-01)
 }

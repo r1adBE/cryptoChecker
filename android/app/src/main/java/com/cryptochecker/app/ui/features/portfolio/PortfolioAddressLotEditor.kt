@@ -52,7 +52,7 @@ import java.time.ZoneId
 internal fun AddressLotEditor(
     initial: AddressCostLot,
     coins: List<String>,
-    viewModel: PortfolioViewModel,
+    historicClose: suspend (String, java.time.LocalDate) -> BigDecimal?,
     onSave: (AddressCostLot) -> Unit,
     onDelete: (() -> Unit)?,
     onDismiss: () -> Unit,
@@ -80,7 +80,7 @@ internal fun AddressLotEditor(
     } else null
     // Vorschlag: geprüfter Tagesschluss des Kaufdatums (gleiche Quelle wie das Erfassen-Blatt)
     var close by remember(coin, time) { mutableStateOf<BigDecimal?>(null) }
-    LaunchedEffect(coin, time) { close = viewModel.historicClose(coin, localDate(time)) }
+    LaunchedEffect(coin, time) { close = historicClose(coin, localDate(time)) }
 
     if (pickDate) {
         DateDialog(selected = time, onSelect = { d ->

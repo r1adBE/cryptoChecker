@@ -40,4 +40,33 @@ final class MissingLogosModelTests: XCTestCase {
         await model.refresh(MissingLogosModel.entries([watch(1, "ZZQA")]), enabled: true, loading: false, lookup: lookup)
         XCTAssertNil(model.missing)
     }
+
+    /// Schalter «Coin-Logos» aus bzw. «Logos werden geladen» sichtbar: keine Zeile (Audit A-01, früher Quelltext-Wächter).
+    func testHiddenWhenSwitchedOffOrWhileLoading() async {
+        let lookup = MissingLogosModel.Lookup(firstLoadDone: { true }, hasLogo: { _ in false }, notYetLoaded: { _ in false })
+        let entries = MissingLogosModel.entries([watch(1, "ZZQA")])
+        for (enabled, loading) in [(false, false), (true, true)] {
+            let model = MissingLogosModel()
+            await model.refresh(entries, enabled: enabled, loading: loading, lookup: lookup)
+            XCTAssertNil(model.missing, "enabled \(enabled), loading \(loading)")
+        }
+    }
+
+    /// ✕ merkt genau die gezeigten Coins, in der App-Gruppe (nicht in iCloud), und blendet die Zeile aus.
+    func testCloseRemembersExactlyTheShownCoins() async {
+        let before = MissingLogoDismissals.shared.keys
+        defer { MissingLogoDismissals.shared.dismiss(before) }
+        let model = MissingLogosModel()
+        let lookup = MissingLogosModel.Lookup(firstLoadDone: { true }, hasLogo: { _ in false }, notYetLoaded: { _ in false })
+        await model.refresh(MissingLogosModel.entries([watch(1, "ZZQA"), watch(2, "ZZQB")]), enabled: true, loading: false,
+                            lookup: lookup)
+        let shown = Set(model.missing ?? [])
+        XCTAssertEqual(shown.count, 2)
+        model.dismiss()
+        XCTAssertEqual(MissingLogoDismissals.shared.keys, shown)
+        XCTAssertEqual(MissingLogoNotice.decode(SharedStorage.defaults.string(forKey: MissingLogoDismissals.key)), shown)
+        let state = MissingLogoNotice.state(missing: Array(shown), dismissed: MissingLogoDismissals.shared.keys, loading: false,
+                                            logosEnabled: true)
+        XCTAssertFalse(state.visible)
+    }
 }

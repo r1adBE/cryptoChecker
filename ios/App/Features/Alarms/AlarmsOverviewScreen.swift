@@ -355,9 +355,7 @@ struct AlarmsOverviewScreen: View {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
                                 .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                            // Kein Editor für Portfolio-Alarme – löschen und neu anlegen
-                            Text(L(invalid ? "portfolio_alarm_threshold_invalid_recreate"
-                                   : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
+                            Text(L(PortfolioAlarmLine.key(invalid: invalid, repeating: alarm.repeating)))
                                 .font(.caption)
                                 .foregroundStyle(invalid ? AppColors.error : AppColors.onSurfaceVariant)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -382,5 +380,15 @@ struct AlarmsOverviewScreen: View {
             .padding(.vertical, 4)
         }
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.large, style: .continuous))
+    }
+}
+
+/// Zweite Zeile eines Portfolio-Alarms: ungültige Schwelle («fällt um ≥ 100 %», aus einer Sicherung) nennt «löschen und
+/// neu anlegen» — Portfolio-Alarme haben keinen Editor, die Zeile bietet Löschen an —, sonst «Wiederholt» bzw. «Einmal».
+/// Wie Android `portfolioAlarmLineRes`.
+enum PortfolioAlarmLine {
+    static func key(invalid: Bool, repeating: Bool) -> String {
+        if invalid { return "portfolio_alarm_threshold_invalid_recreate" }
+        return repeating ? "alarm_repeating" : "alarm_once"
     }
 }

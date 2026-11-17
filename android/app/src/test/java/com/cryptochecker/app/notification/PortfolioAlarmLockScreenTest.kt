@@ -16,16 +16,6 @@ import java.io.File
  */
 class PortfolioAlarmLockScreenTest {
 
-    private val source: String by lazy {
-        val rel = "java/com/cryptochecker/app/notification/AppNotifierAlarms.kt"
-        SourceGuard.android(main(rel), rel).readText(Charsets.UTF_8)
-    }
-
-    /** Rumpf von `showPortfolioAlarm` bis zur nächsten Funktion. */
-    private val portfolio: String by lazy {
-        source.substringAfter("suspend fun AppNotifier.showPortfolioAlarm(").substringBefore("\n}\n")
-    }
-
     @Test
     fun inhaltIstNurTitelUndNeutralerSatz() {
         val notice = PortfolioAlarmNotice.content { id -> "text-$id" }
@@ -34,29 +24,8 @@ class PortfolioAlarmLockScreenTest {
         assertEquals(listOf(notice.title, notice.text), notice.fields)
     }
 
-    /** Die Funktion bekommt nur die Kennung: Schwelle, Messwert und Währung können gar nicht in die Mitteilung. */
-    @Test
-    fun mitteilungBekommtKeineZahlDesAlarms() {
-        assertTrue(source.contains("suspend fun AppNotifier.showPortfolioAlarm(alarmId: Long): Boolean {"))
-        for (forbidden in listOf(
-            "PortfolioAlarmTexts.", "notification_portfolio_alarm_text", "settings.appLock", "measured", "threshold",
-            "usdtAssumed", "hidePortfolioAmounts", "PriceFormat", "setTicker", "setSubText", "setContentInfo",
-            "contentDescription", "addLine", "setSummaryText",
-        )) {
-            assertFalse(forbidden, portfolio.contains(forbidden))
-        }
-        // Jedes Textfeld kommt aus PortfolioAlarmNotice (Titel bzw. neutraler Satz), auch die öffentliche Fassung
-        assertTrue(portfolio.contains("val notice = PortfolioAlarmNotice.content { context.getString(it) }"))
-        assertTrue(portfolio.contains("val title = notice.title\n    val body = notice.text\n"))
-        assertEquals(2, Regex("""\.setContentTitle\(title\)""").findAll(portfolio).count())
-        assertEquals(2, Regex("""\.setContentText\(body\)""").findAll(portfolio).count())
-        assertEquals(1, Regex("""\.bigText\(body\)""").findAll(portfolio).count())
-        assertEquals(5, Regex("""\.(setContentTitle|setContentText|bigText|setTicker|setSubText)\(""").findAll(portfolio).count())
-        // Der Aufrufer reicht nur die Kennung weiter
-        val rel = "java/com/cryptochecker/app/alarm/PortfolioAlarms.kt"
-        val caller = SourceGuard.android(main(rel), rel).readText(Charsets.UTF_8)
-        assertTrue(caller.contains("notifier.showPortfolioAlarm(alarm.id)"))
-    }
+    // Die echte Mitteilung (alle Textfelder, öffentliche Fassung, privat): Gerätetest PortfolioAlarmNoticeDeviceTest
+    // (Audit A-01, früher Quelltext-Wächter); die Funktion bekommt nur die Kennung des Alarms (Signatur).
 
     /** Titel und neutraler Satz enthalten in keiner Sprache eine Ziffer oder einen Platzhalter. */
     @Test
@@ -73,14 +42,6 @@ class PortfolioAlarmLockScreenTest {
                 assertFalse("${folder.name}: $name = $value", value!!.any { it.isDigit() } || value.contains('%'))
             }
         }
-    }
-
-    @Test
-    fun zusaetzlichPrivatUndKursalarmeUnveraendert() {
-        assertTrue(portfolio.contains("    builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)"))
-        assertFalse(portfolio.contains("lockScreenPrivacy("))
-        // Kursalarme unverändert: nur mit Sperre privat
-        assertTrue(source.substringBefore("suspend fun AppNotifier.showPortfolioAlarm(").contains("builder.lockScreenPrivacy("))
     }
 
     private fun main(rel: String): File? {

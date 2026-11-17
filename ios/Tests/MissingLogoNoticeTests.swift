@@ -2,8 +2,8 @@ import XCTest
 @testable import CryptoChecker
 
 /// Hinweis «2 Coins ohne Logo» (`MissingLogoNotice`): gemeinsame Testfälle `missing_logos.json` (Android:
-/// `MissingLogoNoticeParityTest.kt`), «erstes Laden erledigt» aus `LogoLoadingHint` und die Anbindung im Quelltext —
-/// an der Stelle des Lade-Hinweises, nur mit Schalter «Coin-Logos › In der App», ✕ mit 44 pt und eigener Bedienhilfe.
+/// `MissingLogoNoticeParityTest.kt`), «erstes Laden erledigt» aus `LogoLoadingHint` (Anbindung:
+/// `MissingLogosModelTests`, Regel missing-logos).
 final class MissingLogoNoticeTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -67,29 +67,6 @@ final class MissingLogoNoticeTests: XCTestCase {
         XCTAssertTrue(hint.finishedNow)
     }
 
-    func testWiredAtTheLoadingHintWithTheLogoSwitch() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func text(_ path: String) throws -> String {
-            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
-        }
-        let line = try text("App/Features/Watchlist/WatchlistMissingLogos.swift")
-        // Nie während des ersten Ladens bzw. solange «Logos werden geladen» steht; Schalter aus: nie
-        XCTAssertTrue(line.contains("guard enabled, !loading, CoinLogoLoading.firstLoadDone() else { return show(nil) }"))
-        XCTAssertTrue(line.contains("await model.refresh(entries, enabled: coinLogosEnabled, loading: loading.visible)"))
-        XCTAssertTrue(line.contains("dismissed: dismissals.keys, loading: loading.visible,"))
-        XCTAssertTrue(line.contains("logosEnabled: coinLogosEnabled)"))
-        XCTAssertTrue(line.contains("if await !CoinLogoStore.shared.hasLogo(entry.key)"))
-        XCTAssertTrue(line.contains("L(\"watchlist_missing_logos\", count: count)"))
-        XCTAssertTrue(line.contains(".accessibilityLabel(L(\"watchlist_missing_logos_dismiss\"))"))
-        XCTAssertTrue(line.contains("private static let touch: CGFloat = 44"))
-        XCTAssertTrue(line.contains("L(\"watchlist_missing_logos_explain\")"))
-        XCTAssertTrue(line.contains("SharedStorage.defaults.set(MissingLogoNotice.encode(keys), forKey: Self.key)"))
-        let header = try text("App/Features/Watchlist/WatchlistHeader.swift")
-        let hint = try XCTUnwrap(header.range(of: "WatchlistLogoHint()"))
-        let notice = try XCTUnwrap(header.range(of: "{ WatchlistMissingLogos() }"))
-        XCTAssertTrue(hint.upperBound < notice.lowerBound)
-        XCTAssertTrue(header.contains(".background { WatchlistMissingLogosCheck(watches: data.watches) }"))
-        let loading = try text("Shared/Util/LogoLoadingHint.swift")
-        XCTAssertTrue(loading.contains("shared.hint.finishedNow || FileManager.default.fileExists(atPath: markerPath)"))
-    }
+    // Anbindung (Zeile unter dem Lade-Hinweis, ✕, Schalter, Ablage): MissingLogosModelTests und Regel missing-logos
+    // in .github/scripts/source_rules.py (Audit A-01)
 }

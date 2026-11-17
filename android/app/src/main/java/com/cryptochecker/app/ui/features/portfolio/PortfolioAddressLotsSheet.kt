@@ -68,7 +68,7 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                 AddressLotEditor(
                     initial = draft,
                     coins = coins,
-                    viewModel = viewModel,
+                    historicClose = { coin, day -> viewModel.historicClose(coin, day) },
                     onSave = { lot ->
                         val id = if (draft.id == 0L) AddressCostLots.nextId(a.costLots) else draft.id
                         viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != id } + lot.copy(id = id))

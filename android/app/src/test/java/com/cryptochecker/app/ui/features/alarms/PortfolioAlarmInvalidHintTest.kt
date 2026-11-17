@@ -1,7 +1,9 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import com.cryptochecker.app.util.SourceGuard
-import org.junit.Assert.assertFalse
+import com.cryptochecker.resources.R
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
@@ -15,28 +17,14 @@ class PortfolioAlarmInvalidHintTest {
 
     private fun file(path: String): File? = listOf(File(path), File("app/$path")).firstOrNull { it.exists() }
 
+    /** Audit A-01 (früher Quelltext-Wächter): Text der Zeile als Funktion; iOS `PortfolioAlarmLineTests`. */
     @Test
-    fun androidPortfolioZeileNenntLoeschenUndNeuAnlegen() {
-        // Die Portfolio-Karte der Übersicht steht in AlarmsOverviewCards.kt
-        val text = SourceGuard.android(
-            file("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsOverviewCards.kt"), "AlarmsOverviewCards.kt"
-        ).readText()
-        val portfolio = text.substringAfter("PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)")
-        assertTrue(portfolio.contains("R.string.portfolio_alarm_threshold_invalid_recreate"))
-        assertFalse(portfolio.contains("R.string.alarm_threshold_invalid_fix"))
-        // Die genannte Aktion gibt es in der Zeile
-        assertTrue(portfolio.contains("onDelete(alarm)"))
-    }
-
-    @Test
-    fun iosPortfolioZeileNenntLoeschenUndNeuAnlegen() {
-        val path = "../../ios/App/Features/Alarms/AlarmsOverviewScreen.swift"
-        val text = SourceGuard.ios(
-            listOf(File(path), File(path.removePrefix("../"))).firstOrNull { it.exists() }, "ios/…/AlarmsOverviewScreen.swift"
-        ).readText().substringAfter("private func portfolioCard(")
-        assertTrue(text.contains("\"portfolio_alarm_threshold_invalid_recreate\""))
-        assertFalse(text.contains("\"alarm_threshold_invalid_fix\""))
-        assertTrue(text.contains("deletePortfolio = alarm"))
+    fun zeileNenntLoeschenUndNeuAnlegen() {
+        assertEquals(R.string.portfolio_alarm_threshold_invalid_recreate, portfolioAlarmLineRes(invalid = true, repeating = true))
+        assertEquals(R.string.portfolio_alarm_threshold_invalid_recreate, portfolioAlarmLineRes(invalid = true, repeating = false))
+        assertNotEquals(R.string.alarm_threshold_invalid_fix, portfolioAlarmLineRes(invalid = true, repeating = false))
+        assertEquals(R.string.alarm_repeating, portfolioAlarmLineRes(invalid = false, repeating = true))
+        assertEquals(R.string.alarm_once, portfolioAlarmLineRes(invalid = false, repeating = false))
     }
 
     @Test

@@ -5,6 +5,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHeightIsAtLeast
+import androidx.compose.ui.test.assertWidthIsAtLeast
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -24,6 +28,8 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -53,7 +59,14 @@ class MissingLogosHintTest {
         private val notYet: Set<String>,
         loadingNow: Boolean = false,
         percentNow: Int? = null,
+        private val firstDone: Boolean = true,
     ) : CoinLogoSource {
+        val dismissed = MutableStateFlow<Set<String>?>(emptySet())
+        override val missingDismissed: StateFlow<Set<String>?> = dismissed
+        override suspend fun firstLoadDone(): Boolean = firstDone
+        override fun dismissMissing(keys: Set<String>) {
+            dismissed.value = dismissed.value.orEmpty() + keys
+        }
         override val loading: StateFlow<Boolean> = MutableStateFlow(loadingNow)
         override val loadingPercent: StateFlow<Int?> = MutableStateFlow(percentNow)
         override val revision: StateFlow<Int> = MutableStateFlow(0)
@@ -68,7 +81,14 @@ class MissingLogosHintTest {
         WatchEntity(id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = base, quoteAsset = "USDT")
 
     private fun showList(notYet: Set<String>) {
-        val source = NoLogos(notYet)
+        setList(NoLogos(notYet))
+        // Zeile erscheint nach dem ersten Laden (produceState)
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag(MISSING_LOGOS_TAG).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag(MISSING_LOGOS_TAG).performClick()
+        compose.waitForIdle()
+    }
+
+    private fun setList(source: NoLogos) {
         compose.runOnUiThread {
             compose.activity.setContent {
                 MaterialTheme {
@@ -78,13 +98,54 @@ class MissingLogosHintTest {
                 }
             }
         }
-        // Zeile erscheint nach dem ersten Laden (produceState)
-        compose.waitUntil(5_000) { compose.onAllNodesWithTag(MISSING_LOGOS_TAG).fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithTag(MISSING_LOGOS_TAG).performClick()
+    }
+
+    private fun rowShown() = compose.onAllNodesWithTag(MISSING_LOGOS_TAG).fetchSemanticsNodes().isNotEmpty()
+
+    /**
+     * Zeile «2 Coins ohne Logo» (Audit A-01, früher Quelltext-Wächter): Zahl in der Mehrzahl-Form, ✕ mit eigener
+     * Bedienhilfe und mindestens 48 dp; ✕ merkt die Coins, danach bleibt die Zeile weg.
+     */
+    @Test
+    fun rowCountsTheCoinsAndCloseRemembersThem() {
+        val source = NoLogos(emptySet())
+        setList(source)
+        compose.waitUntil(5_000) { rowShown() }
+        val title = compose.activity.resources.getQuantityString(R.plurals.watchlist_missing_logos, 2, 2)
+        compose.onAllNodes(hasText(title)).assertCountEquals(1)
+        val close = compose.onNode(hasContentDescription(text(R.string.watchlist_missing_logos_dismiss)), useUnmergedTree = true)
+        close.assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+        close.performClick()
+        compose.waitUntil(5_000) { !rowShown() }
+        assertEquals("beide Coins gemerkt", 2, source.dismissed.value.orEmpty().size)
+    }
+
+    /** Während des ersten Ladens bzw. solange «Logos werden geladen» steht: keine Zeile (sonst hiesse es zu früh «ohne Logo»). */
+    @Test
+    fun noRowBeforeTheFirstLoadOrWhileLoading() {
+        for (source in listOf(NoLogos(emptySet(), firstDone = false), NoLogos(emptySet(), loadingNow = true))) {
+            setList(source)
+            compose.waitForIdle()
+            Thread.sleep(SETTLE_MILLIS)
+            compose.waitForIdle()
+            assertFalse(rowShown())
+        }
+        // Schalter «Coin-Logos» aus: keine Logo-Quelle → nie
+        compose.runOnUiThread {
+            compose.activity.setContent {
+                MaterialTheme { WatchlistMissingLogos(listOf(watch(1, "ZZQA")), reduceMotion = true) }
+            }
+        }
         compose.waitForIdle()
+        Thread.sleep(SETTLE_MILLIS)
+        assertFalse(rowShown())
     }
 
     private fun text(id: Int) = compose.activity.getString(id)
+
+    private companion object {
+        const val SETTLE_MILLIS = 1_500L
+    }
 
     @Test
     fun notYetLoadedIsNamedAsSuch() {

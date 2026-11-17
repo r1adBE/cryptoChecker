@@ -75,7 +75,11 @@ object FakeExchange {
     @Volatile
     var rateLimited: Boolean = false
 
+    /** Alle beantworteten Adressen (auch die mit 404), zum Zählen neuer Abfragen. */
+    val requests: MutableList<String> = java.util.concurrent.CopyOnWriteArrayList()
+
     fun reset() {
+        requests.clear()
         btcPrice = START_PRICE
         rateLimited = false
         binanceMirror = false
@@ -93,6 +97,7 @@ class FakeExchangeInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
+        FakeExchange.requests += request.url.toString()
         if (FakeExchange.rateLimited && request.url.host.startsWith("api.binance")) {
             return Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(429).message("Too Many Requests")
                 .header("Retry-After", "600").body("{\"code\":-1003}".toResponseBody(JSON)).build()

@@ -257,9 +257,7 @@ internal fun PortfolioAlarmsCard(
                             else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            // Kein Editor für Portfolio-Alarme – löschen und neu anlegen
-                            if (invalid) stringResource(R.string.portfolio_alarm_threshold_invalid_recreate)
-                            else stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
+                            stringResource(portfolioAlarmLineRes(invalid = invalid, repeating = alarm.repeating)),
                             style = MaterialTheme.typography.bodySmall,
                             color = if (invalid) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -282,4 +280,15 @@ internal fun PortfolioAlarmsCard(
         }
         Box(modifier = Modifier.padding(bottom = Spacing.xs))
     }
+}
+
+/**
+ * Zweite Zeile eines Portfolio-Alarms: ungültige Schwelle («fällt um ≥ 100 %», aus einer Sicherung) nennt «löschen und
+ * neu anlegen» — Portfolio-Alarme haben keinen Editor, die Zeile bietet Löschen an —, sonst «Wiederholt» bzw. «Einmal».
+ * Wie iOS `PortfolioAlarmLine.key`.
+ */
+internal fun portfolioAlarmLineRes(invalid: Boolean, repeating: Boolean): Int = when {
+    invalid -> R.string.portfolio_alarm_threshold_invalid_recreate
+    repeating -> R.string.alarm_repeating
+    else -> R.string.alarm_once
 }

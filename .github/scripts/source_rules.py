@@ -31,6 +31,10 @@ Rules (ids in the annotation title):
   ios-alarm-create   every iOS alarm sheet goes through AlarmCreateGuard (double tap = one alarm)
   bulk-undo          «Undo» after adding many pairs removes only from the confirmation (BulkUndoConfirm), both platforms
   app-start          process start (Application.onCreate) starts the price overlay; its setting says it comes back then
+  settings-anchors   every settings search hit has its anchor on the page (both platforms); key entries are searchable
+  permission-event   the price-pair settings ask for the notification permission through a screen event
+  missing-logos      «coins without logo» sits under the loading hint; dismissed coins stay in the logo settings/app group
+  lot-sheets         deleting a cost lot asks first on iOS; the open lot sheets survive recreation on Android
 
 The comments and messages are in German like the tests they replace.
 """
@@ -690,7 +694,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1492, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1479, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1817,6 +1821,173 @@ def rule_app_start(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# settings-anchors: jeder Treffer der Suche in den Einstellungen hat seinen Anker auf der Seite (sonst öffnete ein Treffer
+# die Seite, ohne zum Punkt zu scrollen), auf beiden Plattformen; «Damit Alarme ankommen», «Diagnose teilen»,
+# «Alarm-Protokoll», «Pünktlich prüfen» und «Letzte Prüfungen» sind auffindbar. Die Suche selbst ist Composable bzw.
+# SwiftUI und ohne Gerät nicht aufrufbar; die Zuordnung Seite ↔ Startseite prüft SettingsPlacementTest als Verhalten.
+
+
+SA_KOTLIN_TARGET = re.compile(r'SettingsSearchTarget\.\w+\((?:SettingsPage\.\w+,\s*)?"([^"]+)"\)')
+SA_SWIFT_TARGET = re.compile(r'anchor:\s*"([^"]+)"|\.main\("([^"]+)"\)')
+SA_MIN_TARGETS = 30
+# Pflicht-Einträge: Kennung → Anker, zu dem der Treffer führt (Android: Seite und Anker; iOS: Kennung als Ziel)
+SA_REQUIRED_ANDROID = {
+    "alarms.delivery": ("ALARMS", "alarms.delivery"),
+    "about.diagnostics": ("ABOUT", "about.diagnostics"),
+    "updates.alarm_log": ("UPDATES", "updates.check_runs"),
+    "updates.exact": ("UPDATES", "updates.exact"),
+    "updates.check_runs": ("UPDATES", "updates.check_runs"),
+}
+SA_REQUIRED_IOS_TARGETS = ("alarms.delivery", "about.diagnostics", "updates.check_runs")
+SA_REQUIRED_IOS_ENTRIES = ("updates.alarm_log", "updates.check_runs")
+
+
+def anchors_missing(targets, sources, marker):
+    """Ziele ohne Zeile mit [marker] und ihrer Kennung in [sources] (Kommentare zählen nicht)."""
+    lines = [line for text in sources for line in ds_strip_comments(text).split("\n") if marker in line]
+    return sorted(t for t in targets if not any(f'"{t}"' in line for line in lines))
+
+
+def settings_anchor_problems_android(catalog, sources):
+    code = ds_strip_comments(catalog)
+    targets = set(SA_KOTLIN_TARGET.findall(code))
+    problems = []
+    if len(targets) <= SA_MIN_TARGETS:
+        problems.append(f"Android: nur {len(targets)} Suchziele erkannt (mehr als {SA_MIN_TARGETS} erwartet)")
+    problems += [f"Android: Suchziel {t} ohne SettingsAnchor" for t in anchors_missing(targets, sources, "SettingsAnchor(")]
+    flat = re.sub(r"\s+", " ", code)
+    for entry, (page, anchor) in SA_REQUIRED_ANDROID.items():
+        pattern = re.compile(r'add\("' + re.escape(entry) + r'",[^\n]*?SettingsSearchTarget\.Page\(SettingsPage\.'
+                             + page + r', "' + re.escape(anchor) + r'"\)')
+        if not pattern.search(flat):
+            problems.append(f"Android: Sucheintrag {entry} führt nicht zu {page}/{anchor}")
+    return problems
+
+
+def settings_anchor_problems_ios(search, sources):
+    code = ds_strip_comments(search)
+    targets = {a or b for a, b in SA_SWIFT_TARGET.findall(code)}
+    problems = [f"iOS: Suchziel {t} fehlt" for t in SA_REQUIRED_IOS_TARGETS if t not in targets]
+    problems += [f"iOS: Sucheintrag {e} fehlt" for e in SA_REQUIRED_IOS_ENTRIES if f'add("{e}"' not in code]
+    problems += [f"iOS: Suchziel {t} ohne .settingsAnchor" for t in anchors_missing(targets, sources, ".settingsAnchor(")]
+    return problems
+
+
+def rule_settings_anchors(t):
+    app = t.java("app")
+    catalog = read(need_file(os.path.join(app, "ui", "features", "settings", "SettingsSearchCatalog.kt")))
+    problems = settings_anchor_problems_android(catalog, [read(f) for _, f in files_under(app, "kt")])
+    ios_app = need_dir(t.i("App"))
+    search = "\n".join(read(need_file(t.i("App", "Features", "Settings", n)))
+                       for n in ("SettingsSearchUi.swift", "SettingsSearchCatalog.swift"))
+    return problems + settings_anchor_problems_ios(search, [read(f) for _, f in files_under(ios_app, "swift")])
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# permission-event: Einstellungen › Alarme › Preis-Paare fragt nach der Mitteilungs-Erlaubnis über ein Ereignis für den
+# aktuellen Bildschirm (askPermissionAfterWrite + CollectScreenEvents), nie aus einem Rückruf in die alte Komposition.
+# Das Ereignis selbst ist Verhalten (SettingsUiEventsTest).
+
+
+PE_DIRECT = re.compile(r"written\s*->[^}]*requestNotifications\(\)")
+PE_ASK = re.compile(r"askPermissionAfterWrite\(uiEvents\.requestNotifications")
+PE_COLLECT = re.compile(r"CollectScreenEvents\(uiEvents\.requestNotifications\)")
+
+
+def permission_event_problems(page):
+    code = ds_strip_comments(page)
+    problems = []
+    if PE_DIRECT.search(code):
+        problems.append("SettingsAlarmPages.kt: Erlaubnis-Abfrage direkt im Rückruf nach dem Schreiben")
+    if len(PE_ASK.findall(code)) != 2:
+        problems.append(f"SettingsAlarmPages.kt: {len(PE_ASK.findall(code))}× askPermissionAfterWrite (2 erwartet)")
+    if len(PE_COLLECT.findall(code)) != 1:
+        problems.append("SettingsAlarmPages.kt: CollectScreenEvents(uiEvents.requestNotifications) nicht genau einmal")
+    return problems
+
+
+def rule_permission_event(t):
+    return permission_event_problems(read(need_file(os.path.join(t.java("app"), "ui", "features", "settings", "SettingsAlarmPages.kt"))))
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# missing-logos: die Zeile «2 Coins ohne Logo» steht unter dem Lade-Hinweis der Merkliste (an seiner Stelle, nicht
+# daneben), die Prüfung läuft auf iOS im Hintergrund des Kopfs mit; gemerkte Coins liegen in der Einstellungsdatei der
+# Logos (Android, nicht in der Systemsicherung) bzw. in der App-Gruppe (iOS). Zeile, ✕ und Zustände sind Verhalten
+# (MissingLogosHintTest, MissingLogosModelTests).
+
+
+ML_ANDROID = (("WatchlistLogoHint(reduceMotion = reduceMotion)", "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)"),)
+ML_IOS = (("WatchlistLogoHint()", "WatchlistMissingLogos()"),)
+ML_IOS_CHECK = ".background { WatchlistMissingLogosCheck(watches: data.watches) }"
+ML_ANDROID_STORE = "private val prefs by lazy { CoinLogoStorage.prefs(context) }"
+ML_IOS_STORE = "SharedStorage.defaults.set(MissingLogoNotice.encode(keys), forKey: Self.key)"
+
+
+def missing_logo_problems(body, store, header, ios_store):
+    problems = []
+    for name, text, pairs in (("WatchlistScreenBody.kt", body, ML_ANDROID), ("WatchlistHeader.swift", header, ML_IOS)):
+        code = ds_strip_comments(text)
+        for first, second in pairs:
+            a, b = code.find(first), code.find(second)
+            if a < 0 or b < 0 or b < a:
+                problems.append(f"{name}: {second} fehlt oder steht nicht unter {first}")
+    if ML_IOS_CHECK not in ds_strip_comments(header):
+        problems.append(f"WatchlistHeader.swift: {ML_IOS_CHECK} fehlt (Prüfung läuft nicht mit)")
+    if ML_ANDROID_STORE not in ds_strip_comments(store):
+        problems.append("MissingLogoDismissals.kt: gemerkte Coins nicht in CoinLogoStorage.prefs")
+    if ML_IOS_STORE not in ds_strip_comments(ios_store):
+        problems.append("WatchlistMissingLogos.swift: gemerkte Coins nicht in SharedStorage.defaults")
+    return problems
+
+
+def rule_missing_logos(t):
+    watch = os.path.join(t.java("app"), "ui", "features", "watchlist")
+    body = read(need_file(os.path.join(watch, "WatchlistScreenBody.kt")))
+    store = read(need_file(os.path.join(t.java("data"), "data", "logos", "MissingLogoDismissals.kt")))
+    header = read(need_file(t.i("App", "Features", "Watchlist", "WatchlistHeader.swift")))
+    ios_store = read(need_file(t.i("App", "Features", "Watchlist", "WatchlistMissingLogos.swift")))
+    return missing_logo_problems(body, store, header, ios_store)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ios-lot-delete: «Löschen» eines Postens einer Adresse fragt auf iOS erst nach («Posten löschen?»). Android prüft dasselbe
+# als Verhalten (AddressLotEditorDeviceTest); das iOS-Blatt ist ohne Netz (Adresse mit Guthaben) nicht erreichbar.
+
+
+LD_BUTTON = 'Button(L("action_delete"), role: .destructive) { askDelete = true }'
+LD_ALERT = '.alert(L("address_lots_delete_title"), isPresented: $askDelete)'
+
+
+def lot_delete_problems(sheet):
+    code = ds_strip_comments(sheet)
+    return [f"PortfolioAddressLotsSheet.swift: {part} fehlt (Löschen ohne Rückfrage?)" for part in (LD_BUTTON, LD_ALERT)
+            if part not in code]
+
+
+# Android: welches Blatt offen ist (Erfassen der Coin-Seite, Posten-Liste, Posten im Editor), übersteht das Neu-Erzeugen;
+# die Eingaben im Editor selbst prüft AddressLotEditorDeviceTest.
+LD_SAVEABLE = {
+    "PortfolioDetailScreen.kt": ("var sheet by rememberSaveable(stateSaver = TxDraftSaver) { mutableStateOf<TxDraft?>(null) }",
+                                 "var lotsFor by rememberSaveable { mutableStateOf<Long?>(null) }"),
+    "PortfolioAddressSheet.kt": ("var lotsFor by rememberSaveable { mutableStateOf<Long?>(null) }",),
+    "PortfolioAddressLotsSheet.kt": ("var editingId by rememberSaveable { mutableStateOf<Long?>(null) }",),
+}
+
+
+def lot_sheet_problems(sources):
+    return [f"{name}: {line} fehlt (Blatt ginge beim Drehen zu)" for name, lines in LD_SAVEABLE.items()
+            for line in lines if line not in ds_strip_comments(sources.get(name, ""))]
+
+
+def rule_ios_lot_delete(t):
+    portfolio = os.path.join(t.java("app"), "ui", "features", "portfolio")
+    sources = {name: read(need_file(os.path.join(portfolio, name))) for name in LD_SAVEABLE}
+    return (lot_delete_problems(read(need_file(t.i("App", "Features", "Portfolio", "PortfolioAddressLotsSheet.swift"))))
+            + lot_sheet_problems(sources))
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -1936,6 +2107,10 @@ RULES = [
     ("ios-alarm-create", rule_ios_alarm_create),
     ("bulk-undo", rule_bulk_undo),
     ("app-start", rule_app_start),
+    ("settings-anchors", rule_settings_anchors),
+    ("permission-event", rule_permission_event),
+    ("missing-logos", rule_missing_logos),
+    ("lot-sheets", rule_ios_lot_delete),
 ]
 
 
@@ -1978,6 +2153,31 @@ def self_test():
        "bulk-undo: Kotlin")
     eq(bulk_undo_swift("B.swift", "func undoBulkAdd(_ ids: [Int64]) {}\nbulkUndo.remove(ids) { vm.undoBulkAdd($0) }\n"
                                   + "let a = 1\n" * 80 + "Button { vm.undoBulkAdd(ids) }"), (2, ["B.swift:83"]), "bulk-undo: Swift")
+
+    # ios-lot-delete: mit Rückfrage ok, auskommentiert fehlt
+    eq(lot_delete_problems(LD_BUTTON + "\n" + LD_ALERT), [], "ios-lot-delete: ok")
+    eq(len(lot_delete_problems("// " + LD_BUTTON + "\n" + LD_ALERT)), 1, "ios-lot-delete: fehlt")
+    eq(len(lot_sheet_problems({"PortfolioAddressSheet.kt": LD_SAVEABLE["PortfolioAddressSheet.kt"][0]})), 3, "lot-sheets: fehlt")
+
+    # missing-logos: richtige Reihenfolge ok, vertauscht und ohne Ablage gefunden
+    ok_body = "WatchlistLogoHint(reduceMotion = reduceMotion)\nWatchlistMissingLogos(watches, reduceMotion = reduceMotion)"
+    ok_header = "WatchlistLogoHint()\nWatchlistMissingLogos()\n" + ML_IOS_CHECK
+    eq(missing_logo_problems(ok_body, ML_ANDROID_STORE, ok_header, ML_IOS_STORE), [], "missing-logos: ok")
+    swapped = "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)\nWatchlistLogoHint(reduceMotion = reduceMotion)"
+    eq(len(missing_logo_problems(swapped, "", "// " + ok_header, ML_IOS_STORE)), 3, "missing-logos: Fehler")
+
+    # settings-anchors: Ziel ohne Anker gefunden, auskommentierter Anker zählt nicht
+    eq(anchors_missing({"a.x", "b.y"}, ['SettingsAnchor("a.x")', '// SettingsAnchor("b.y")'], "SettingsAnchor("), ["b.y"],
+       "settings-anchors: Anker")
+    eq(settings_anchor_problems_ios('anchor: "alarms.delivery" .main("about.diagnostics")', ['.settingsAnchor("alarms.delivery")']),
+       ["iOS: Suchziel updates.check_runs fehlt", "iOS: Sucheintrag updates.alarm_log fehlt",
+        "iOS: Sucheintrag updates.check_runs fehlt", "iOS: Suchziel about.diagnostics ohne .settingsAnchor"],
+       "settings-anchors: iOS")
+    # permission-event: direkter Aufruf und falsche Zahl gefunden
+    eq(permission_event_problems("askPermissionAfterWrite(uiEvents.requestNotifications, a)\n"
+                                 "askPermissionAfterWrite(uiEvents.requestNotifications, b)\nCollectScreenEvents(uiEvents.requestNotifications)"),
+       [], "permission-event: ok")
+    eq(len(permission_event_problems("{ written -> requestNotifications() }")), 3, "permission-event: Rückruf")
 
     # ios-alarm-create: Anlegen ohne Wächter gefunden, mit Wächter bzw. ohne Anlegen nicht
     eq(alarm_create_unguarded([("A.swift", "struct XAlarmSheet: View {\n Button { onSave() }\n}"),
