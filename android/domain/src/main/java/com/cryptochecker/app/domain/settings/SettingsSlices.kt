@@ -2,7 +2,7 @@
 // Teil, den sie brauchen ([SettingsRepository.watchlistSettings] usw., je mit distinctUntilChanged). So löst z. B.
 // das Umstellen der Ruhezeit keine neue Ausgabe für die Merkliste aus. Gespeichert wird weiter nur AppSettings.
 // Eigene Datei, weil es reine Abbildungen ohne Android-Bezug sind (Unit-Tests in SettingsSlicesTest).
-package com.cryptochecker.app.data.settings
+package com.cryptochecker.app.domain.settings
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.portfolio.CostMethod

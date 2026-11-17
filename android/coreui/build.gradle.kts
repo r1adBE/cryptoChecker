@@ -41,7 +41,6 @@ composeCompiler {
 
 dependencies {
     api(project(":domain"))
-    api(project(":data"))
     api(project(":resources"))
     implementation(project(":marketdata"))
 

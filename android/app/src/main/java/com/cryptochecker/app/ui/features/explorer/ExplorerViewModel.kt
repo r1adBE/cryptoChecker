@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
@@ -17,6 +16,7 @@ import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.scoped
 import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType

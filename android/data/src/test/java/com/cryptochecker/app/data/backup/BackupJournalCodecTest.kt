@@ -1,12 +1,12 @@
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.parity.ParityJson
 import java.io.File
 import java.math.BigDecimal

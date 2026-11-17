@@ -3,7 +3,6 @@
 package com.cryptochecker.app.data.backup
 
 import androidx.room.withTransaction
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.backup.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.backup.BackupJournalCodec.journalJson
 import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
@@ -16,6 +15,7 @@ import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import kotlin.coroutines.cancellation.CancellationException
 
 /** Stand vor dem Wiederherstellen, für das Zurückrollen (die Merkliste darin frisch unter der Sperre: [watchlistUnderLock]). */

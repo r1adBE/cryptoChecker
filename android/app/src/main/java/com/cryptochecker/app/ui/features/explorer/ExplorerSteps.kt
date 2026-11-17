@@ -26,10 +26,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.components.ReferenceSourceLine
 import com.cryptochecker.app.ui.components.Ticker

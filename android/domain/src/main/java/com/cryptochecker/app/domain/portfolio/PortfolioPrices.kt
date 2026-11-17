@@ -1,4 +1,4 @@
-package com.cryptochecker.app.data.portfolio
+package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute

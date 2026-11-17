@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import org.json.JSONArray
 import org.json.JSONObject
 

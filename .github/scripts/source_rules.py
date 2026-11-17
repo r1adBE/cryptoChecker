@@ -17,7 +17,8 @@ Rules (ids in the annotation title):
   spacing            paddings and gaps on the 4/8/12/16/24/32 grid (Kotlin, Swift, widget layouts), same tokens
   label-value        «label: value» through the label_value string, never a hard-coded ": "
   dispatchers        Dispatchers.IO/Default only from DispatcherModule (remaining places may only go down)
-  layers             package = module; :domain and :data import only their own layers; no module loses its tests
+  layers             package = module; :domain and :data import only their own layers; no module loses its tests;
+                     :coreui without :data and app/ui references to data only in UI_DATA_REMAINING (C-07)
   dialog-scroll      dialog texts with more than one sentence scroll (DialogText)
   write-consent      every user write of WatchRepository outside data/ asks confirmUserWrite() first
   ios-write-consent  every iOS screen calling a user write of AppData asks withWatchlistConfirm first
@@ -754,6 +755,123 @@ def _layer(t, module, base, forbidden, app_packages, exceptions, source_set="mai
     return problems
 
 
+# C-07: Oberfläche ohne :data. :coreui hängt nicht mehr an :data (auch nicht über `api`); in app/ui verweisen nur noch die
+# Dateien aus UI_DATA_REMAINING auf das Paket data (Import oder voller Name) — die Liste darf nur kürzer werden.
+UI_DATA_REMAINING = {
+    "MainActivity.kt",
+    "components/BulkAddProgress.kt",
+    "components/BulkUndoConfirm.kt",
+    "components/WatchlistLockedHint.kt",
+    "components/WatchlistNotSavedGateHost.kt",
+    "features/about/BatteryOptimizationDialog.kt",
+    "features/about/LicensesSheet.kt",
+    "features/alarms/AlarmCard.kt",
+    "features/alarms/AlarmDeliveryScreen.kt",
+    "features/alarms/AlarmDeliveryTexts.kt",
+    "features/alarms/AlarmEditorDialogs.kt",
+    "features/alarms/AlarmEditorSheet.kt",
+    "features/alarms/AlarmLogScreen.kt",
+    "features/alarms/AlarmReliabilityLine.kt",
+    "features/alarms/AlarmSaveNotices.kt",
+    "features/alarms/AlarmUserChange.kt",
+    "features/alarms/AlarmsOverviewCards.kt",
+    "features/alarms/AlarmsOverviewScreen.kt",
+    "features/alarms/AlarmsOverviewViewModel.kt",
+    "features/alarms/AlarmsViewModel.kt",
+    "features/alarms/AlarmsViewModelTemplates.kt",
+    "features/explorer/ExplorerBulkActions.kt",
+    "features/explorer/ExplorerCollaborators.kt",
+    "features/explorer/ExplorerFeedback.kt",
+    "features/explorer/ExplorerSelectionActions.kt",
+    "features/explorer/ExplorerViewModel.kt",
+    "features/info/InfoViewModel.kt",
+    "features/info/InfoWatchlist.kt",
+    "features/info/MarketDataLoaders.kt",
+    "features/info/MarketDataSync.kt",
+    "features/info/MarketPhaseScreenParts.kt",
+    "features/portfolio/CsvImportState.kt",
+    "features/portfolio/PortfolioAddressActions.kt",
+    "features/portfolio/PortfolioAddressRow.kt",
+    "features/portfolio/PortfolioAddressSheet.kt",
+    "features/portfolio/PortfolioCoinDetailFlow.kt",
+    "features/portfolio/PortfolioCostGapUi.kt",
+    "features/portfolio/PortfolioCostGapsSheet.kt",
+    "features/portfolio/PortfolioCsvImportMapping.kt",
+    "features/portfolio/PortfolioCsvImportReader.kt",
+    "features/portfolio/PortfolioCsvImportSave.kt",
+    "features/portfolio/PortfolioCsvImportSaving.kt",
+    "features/portfolio/PortfolioCsvImportViewModel.kt",
+    "features/portfolio/PortfolioCutoffExport.kt",
+    "features/portfolio/PortfolioDetailScreen.kt",
+    "features/portfolio/PortfolioEditActions.kt",
+    "features/portfolio/PortfolioExportViewModel.kt",
+    "features/portfolio/PortfolioHelpers.kt",
+    "features/portfolio/PortfolioHistoryLoad.kt",
+    "features/portfolio/PortfolioLoadActions.kt",
+    "features/portfolio/PortfolioPriceSources.kt",
+    "features/portfolio/PortfolioRestoreNoticeDialog.kt",
+    "features/portfolio/PortfolioScreenDialogs.kt",
+    "features/portfolio/PortfolioScreenEffects.kt",
+    "features/portfolio/PortfolioTaxPrices.kt",
+    "features/portfolio/PortfolioTxDraft.kt",
+    "features/portfolio/PortfolioTxRow.kt",
+    "features/portfolio/PortfolioTxSheet.kt",
+    "features/portfolio/PortfolioTxValueSections.kt",
+    "features/portfolio/PortfolioViewModel.kt",
+    "features/settings/AutoBackupViewModel.kt",
+    "features/settings/BackupDialogs.kt",
+    "features/settings/BackupResultPresentation.kt",
+    "features/settings/SettingsAddressServer.kt",
+    "features/settings/SettingsAlarmActions.kt",
+    "features/settings/SettingsBackupActions.kt",
+    "features/settings/SettingsDataPages.kt",
+    "features/settings/SettingsDiagnostics.kt",
+    "features/settings/SettingsGeneralPages.kt",
+    "features/settings/SettingsPickers.kt",
+    "features/settings/SettingsTestActions.kt",
+    "features/settings/SettingsUsagePage.kt",
+    "features/settings/SettingsViewModel.kt",
+    "features/settings/SettingsViewModelAppearance.kt",
+    "features/settings/StorageRecoveryNoticeDialog.kt",
+    "features/watchlist/WatchEditViewModel.kt",
+    "features/watchlist/WatchSheetDexAddress.kt",
+    "features/watchlist/WatchSparklines.kt",
+    "features/watchlist/WatchlistBulkAdd.kt",
+    "features/watchlist/WatchlistContentFlows.kt",
+    "features/watchlist/WatchlistEditController.kt",
+    "features/watchlist/WatchlistEditUndo.kt",
+    "features/watchlist/WatchlistListItem.kt",
+    "features/watchlist/WatchlistLiveFlows.kt",
+    "features/watchlist/WatchlistRefreshController.kt",
+    "features/watchlist/WatchlistRetiredNotice.kt",
+    "features/watchlist/WatchlistRowParts.kt",
+    "features/watchlist/WatchlistScreenEffects.kt",
+    "features/watchlist/WatchlistSheetData.kt",
+    "features/watchlist/WatchlistStarterController.kt",
+    "features/watchlist/WatchlistUiState.kt",
+    "features/watchlist/WatchlistViewModel.kt",
+    "lock/PortfolioLock.kt",
+    "navigation/AppNavViewModel.kt",
+}
+
+
+def ui_data_problems(t):
+    problems = []
+    coreui = read(need_file(t.a("coreui", "build.gradle.kts")))
+    if 'project(":data")' in coreui:
+        problems.append("coreui/build.gradle.kts hängt an :data (C-07: Oberflächen-Bausteine ohne :data)")
+    for rel, path in files_under(t.a("coreui", "src", "main"), "kt"):
+        if (DATA + ".") in read(path):
+            problems.append(f"coreui/src/main/{rel} verweist auf {DATA}")
+    ui = t.a("app", "src", "main", "java", "com", "cryptochecker", "app", "ui")
+    found = {rel for rel, path in files_under(need_dir(ui), "kt") if (DATA + ".") in read(path)}
+    problems += [f"app/ui/{rel} verweist neu auf {DATA} (C-07: über :domain-Schnittstellen gehen)"
+                 for rel in sorted(found - UI_DATA_REMAINING)]
+    problems += [f"app/ui/{rel} verweist nicht mehr auf {DATA} — aus UI_DATA_REMAINING streichen"
+                 for rel in sorted(UI_DATA_REMAINING - found)]
+    return problems
+
+
 def rule_layers(t):
     """Schichtgrenzen am Quelltext (Paket = Modul): :domain ohne Room/OkHttp und ohne andere App-Pakete, :data nur mit
     :domain; :app ohne Pakete domain/data; kein Paket in zwei Modulen; Tests halten dieselben Regeln ein; der gemeinsame
@@ -804,7 +922,7 @@ def rule_layers(t):
     lost = [f":{m} {counts[m]} < {floor}" for m, floor in TEST_FLOOR.items() if counts[m] < floor]
     if lost:
         problems.append(f"@Test-Methoden verloren (Ordner src/test des Moduls?): {lost} – gezählt: {counts}")
-    return problems
+    return problems + ui_data_problems(t)
 
 
 # --------------------------------------------------------------------------------------------------------------------

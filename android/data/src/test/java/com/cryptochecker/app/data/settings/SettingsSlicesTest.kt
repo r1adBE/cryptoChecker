@@ -1,11 +1,11 @@
 package com.cryptochecker.app.data.settings
-import com.cryptochecker.app.data.settings.AlarmSettings
-import com.cryptochecker.app.data.settings.PortfolioSettings
-import com.cryptochecker.app.data.settings.UpdateSettings
-import com.cryptochecker.app.data.settings.WatchlistSettings
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AlarmSettings
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.PortfolioSettings
+import com.cryptochecker.app.domain.settings.UpdateSettings
+import com.cryptochecker.app.domain.settings.WatchlistSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test

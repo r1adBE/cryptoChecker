@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 292)
+
+- Internal restructuring (no change in the app).
+
 ## 16.2.2 (build 291)
 
 - Widget background choice «System» is now called «Like the app».

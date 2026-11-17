@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioPriceIssue
 import com.cryptochecker.app.domain.portfolio.BinanceBatchSplit.Reply
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num

@@ -41,9 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.DropdownField

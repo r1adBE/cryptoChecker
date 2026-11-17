@@ -2,7 +2,6 @@
 // Hauptthreads statt in der Komposition: Ledger/FIFO, Adress-Guthaben, Umbuchungs-Treffer. Ergebnis wie vorher.
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
@@ -12,6 +11,7 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
+import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import java.math.BigDecimal

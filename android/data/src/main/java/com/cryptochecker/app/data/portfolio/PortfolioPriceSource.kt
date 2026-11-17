@@ -12,6 +12,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue
+import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
@@ -41,9 +43,8 @@ import timber.log.Timber
 /**
  * Kurse und Coin-Liste für das Portfolio, immer in USDT.
  *
- * Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für
- * fehlende Coins einzeln der letzte Schlusskurs der 1-h-Kerzen aus der
- * [CandleDataSource]-Kette (Binance → Binance.US → Coinbase). USDT = 1; andere Stablecoins
+ * Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für fehlende Coins einzeln der letzte
+ * Schlusskurs der 1-h-Kerzen aus der [CandleDataSource]-Kette (Binance → Binance.US → Coinbase). USDT = 1; andere Stablecoins
  * (USDC, DAI …) werden wie jeder Coin geholt — fehlt ihr Kurs, haben sie keinen Wert
  * ([PortfolioStables]). Zwischenspeicher 60 s.
  *
@@ -62,7 +63,7 @@ import timber.log.Timber
  *
  * Hier Zustand und Abruf der Kurse; als Erweiterungsfunktionen in eigenen Dateien: gemerkter Stand
  * (`PortfolioPriceSourceStore.kt`), eingetragene Börsen (`PortfolioPriceSourceExchanges.kt`) und Coin-Liste
- * (`PortfolioPriceSourceCoins.kt`); Ergebnis-Typen in `PortfolioPrices.kt`.
+ * (`PortfolioPriceSourceCoins.kt`); Ergebnis-Typen in `PortfolioPrices.kt` (:domain).
  */
 @Singleton
 class PortfolioPriceSource @Inject constructor(

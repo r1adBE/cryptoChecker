@@ -3,7 +3,6 @@ package com.cryptochecker.app.ui.features.info
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.activity.ActivityMonitor
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
 import com.cryptochecker.app.data.cycle.CycleCacheStore
@@ -36,6 +35,7 @@ import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job

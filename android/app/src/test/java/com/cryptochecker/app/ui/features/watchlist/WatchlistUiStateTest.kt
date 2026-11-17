@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.settings.WatchlistSettings
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.WatchlistSettings
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ColumnSort

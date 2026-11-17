@@ -13,10 +13,14 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AlarmSettings
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.AssetScope
+import com.cryptochecker.app.domain.settings.PortfolioSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.settings.UpdateMode
+import com.cryptochecker.app.domain.settings.UpdateSettings
+import com.cryptochecker.app.domain.settings.WatchlistSettings
 import com.cryptochecker.app.domain.settings.clampAlarmCooldown
 import com.cryptochecker.app.domain.settings.clampBackgroundInterval
 import com.cryptochecker.app.domain.util.IoDispatcher
@@ -50,21 +54,11 @@ class SettingsRepository @Inject constructor(
             }
         }
 
-    /*
-     * Ausschnitte von settings (SettingsSlices.kt): geben nur neu aus, wenn sich ihr Teil ändert — wer nur
-     * die Merkliste bzw. das Aussehen braucht, wird nicht bei jeder anderen Einstellung neu benachrichtigt.
-     */
-
-    /** Was die Merkliste liest ([WatchlistSettings]). */
+    // Ausschnitte von settings (SettingsSlices.kt) für Merkliste, Alarme, Portfolio und «Wie aktuell?»: geben nur neu
+    // aus, wenn sich ihr Teil ändert — sonst benachrichtigte jede andere Einstellung alle
     val watchlistSettings: Flow<WatchlistSettings> = settings.map { WatchlistSettings.of(it) }.distinctUntilChanged()
-
-    /** Alarme, Mitteilungen und Sprachausgabe ([AlarmSettings]). */
     val alarmSettings: Flow<AlarmSettings> = settings.map { AlarmSettings.of(it) }.distinctUntilChanged()
-
-    /** Portfolio ([PortfolioSettings]). */
     val portfolioSettings: Flow<PortfolioSettings> = settings.map { PortfolioSettings.of(it) }.distinctUntilChanged()
-
-    /** «Wie aktuell?» ([UpdateSettings]). */
     val updateSettings: Flow<UpdateSettings> = settings.map { UpdateSettings.of(it) }.distinctUntilChanged()
 
     /**

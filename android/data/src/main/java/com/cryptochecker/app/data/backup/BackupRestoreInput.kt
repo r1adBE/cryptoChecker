@@ -6,7 +6,6 @@ import android.net.Uri
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.asDomainJson
 import com.cryptochecker.app.data.asOrgJson
@@ -58,6 +57,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

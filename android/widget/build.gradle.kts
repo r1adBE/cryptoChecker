@@ -42,6 +42,8 @@ composeCompiler {
 
 dependencies {
     api(project(":coreui"))
+    // Daten direkt, nicht mehr über :coreui weitergereicht (C-07: Oberflächen-Bausteine ohne :data)
+    implementation(project(":data"))
     implementation(project(":marketdata"))
 
     implementation(libs.androidx.core.ktx)

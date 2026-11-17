@@ -159,11 +159,11 @@ class PortfolioPriceFallbackTest {
     /** Fehler (Netz, Sperre) ist nicht «kein Kurs». */
     @Test
     fun priceIssueSeparatesErrorsFromNoPrice() {
-        val of = com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.Companion::of
-        assertEquals(com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.NO_PRICE, of(false, false, false))
-        assertEquals(com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(true, false, false))
-        assertEquals(com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(false, true, false))
-        assertEquals(com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(false, false, true))
+        val of = com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue.Companion::of
+        assertEquals(com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue.NO_PRICE, of(false, false, false))
+        assertEquals(com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(true, false, false))
+        assertEquals(com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(false, true, false))
+        assertEquals(com.cryptochecker.app.domain.portfolio.PortfolioPriceIssue.UNAVAILABLE, of(false, false, true))
     }
 
     @Test

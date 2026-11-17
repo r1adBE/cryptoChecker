@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.CurrencyConversion.QuoteKind
+import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import javax.inject.Inject
 import javax.inject.Singleton

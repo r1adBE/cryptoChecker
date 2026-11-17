@@ -2,15 +2,13 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-/** Welche Auswahlliste: Börsen, Coins oder Gegenwerte. */
-enum class FavoriteKind { EXCHANGE, COIN, QUOTE }
 
 /**
  * Favoriten in den Auswahllisten des Börsen-Tabs (langes Drücken auf einen

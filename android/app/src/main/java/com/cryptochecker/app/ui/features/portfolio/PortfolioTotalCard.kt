@@ -75,7 +75,7 @@ internal fun TotalCard(
      * «Kurse von … · veraltet» in Warnfarbe.
      */
     stale: Boolean = false,
-    /** Coin → Börse, deren Kurs gilt ([com.cryptochecker.app.data.portfolio.PortfolioPrices.sources]); leer = nur Binance. */
+    /** Coin → Börse, deren Kurs gilt ([com.cryptochecker.app.domain.portfolio.PortfolioPrices.sources]); leer = nur Binance. */
     priceSources: Map<String, String> = emptyMap(),
     /** Coin → eingetragene Börse ohne Kurs (dann Binance). */
     exchangeFailed: Map<String, String> = emptyMap(),

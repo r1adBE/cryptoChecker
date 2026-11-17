@@ -1,7 +1,6 @@
 package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.asDomainJson
 import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.alarmToJson
@@ -15,6 +14,7 @@ import com.cryptochecker.app.data.portfolio.toDomain
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import org.json.JSONArray
 import org.json.JSONObject
 

@@ -3,7 +3,6 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
@@ -16,6 +15,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.widget.WidgetUpdater

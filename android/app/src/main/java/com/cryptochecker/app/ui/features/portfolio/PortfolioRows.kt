@@ -87,11 +87,11 @@ internal fun CoinRow(
     noMarket: Boolean = false,
     /** Einheit von Wert und Gewinn/Verlust ([cardUnit]); Standard USDT. */
     unit: CardUnit = cardUnit(PortfolioFormat.USDT, null),
-    /** Börse, deren Kurs gilt ([com.cryptochecker.app.data.portfolio.PortfolioPrices.sources]); null = Binance (kein Name). */
+    /** Börse, deren Kurs gilt ([com.cryptochecker.app.domain.portfolio.PortfolioPrices.sources]); null = Binance (kein Name). */
     exchange: String? = null,
     /**
      * Gekapselter Coin ohne eigenen Börsenkurs, bewertet mit dem Kurs dieser Basis
-     * ([com.cryptochecker.app.data.portfolio.PortfolioPrices.viaBase]): Hinweis «≈ BTC-Kurs (gebrückt/verpackt)».
+     * ([com.cryptochecker.app.domain.portfolio.PortfolioPrices.viaBase]): Hinweis «≈ BTC-Kurs (gebrückt/verpackt)».
      */
     viaBase: String? = null,
     /**

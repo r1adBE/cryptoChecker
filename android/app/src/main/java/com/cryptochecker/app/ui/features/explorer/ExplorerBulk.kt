@@ -40,8 +40,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.format.CompactAmount
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.DropdownField

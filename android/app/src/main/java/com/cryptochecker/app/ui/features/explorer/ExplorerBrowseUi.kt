@@ -37,8 +37,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.referencePeriodText
 import com.cryptochecker.app.ui.components.referenceSourceName
