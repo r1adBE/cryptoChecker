@@ -61,82 +61,11 @@ internal fun AlarmsPage(
     SettingsSubPage(title = stringResource(R.string.settings_row_alarms), onBack = onBack) {
         // «Wie aktuell?» zuerst: davon hängt ab, wie zeitnah Alarme melden (dieselbe Seite wie «Kurs-Aktualisierung»
         // unter «Allgemein»)
-        AppCard(padding = CardPadding.None) {
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                SettingsNavRow(
-                    title = stringResource(R.string.update_mode_title),
-                    icon = R.drawable.ic_settings_updates,
-                    value = updatesSummary(settings),
-                    onClick = { onOpenPage(SettingsPage.UPDATES) }
-                )
-                // Damit Alarme ankommen: Erlaubnisse, Kanal, Akku und letzte Prüfung auf einen Blick
-                com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery.current?.let { openDelivery ->
-                    SettingsAnchor("alarms.delivery") {
-                        SettingsNavRow(
-                            title = stringResource(R.string.delivery_title),
-                            icon = R.drawable.ic_notifications_active_outline,
-                            onClick = openDelivery,
-                        )
-                    }
-                }
-                SettingsAnchor("alarms.market_alerts") {
-                    SettingsNavRow(
-                        title = stringResource(R.string.settings_market_alerts),
-                        // Blitz wie «Ungewöhnliche Aktivität»
-                        icon = R.drawable.ic_bolt,
-                        value = marketAlertsSummary(settings),
-                        onClick = onOpenMarketAlerts
-                    )
-                }
-                SettingsAnchor("alarms.speech") {
-                    SettingsNavRow(
-                        title = stringResource(R.string.settings_tts),
-                        icon = R.drawable.ic_settings_speech,
-                        value = speechSummary(settings),
-                        onClick = onOpenSpeech
-                    )
-                }
-            }
-        }
+        AlarmsNavCard(settings, onOpenPage, onOpenMarketAlerts, onOpenSpeech)
         // Abstand zwischen den Karten wie auf den anderen Unterseiten (z. B. «Hell / Dunkel»)
         Spacer(Modifier.height(12.dp))
         GroupCard {
-            SettingsAnchor("alarms.price") {
-                SwitchRow(
-                    title = stringResource(R.string.settings_price_notifications),
-                    subtitle = stringResource(R.string.settings_price_notifications_hint),
-                    checked = settings.priceNotifications,
-                    onCheckedChange = {
-                        if (it) requestNotifications()
-                        viewModel.setPriceNotifications(it)
-                    }
-                )
-            }
-            if (settings.priceNotifications) {
-                // Welche Paare: Zahl aktiv/alle, Tipp öffnet die Liste mit «Alle an / Alle aus»
-                val watches by viewModel.watches.collectAsStateWithLifecycle()
-                SettingsAnchor("alarms.price_pairs") {
-                    // In der Karte mit Innenabstand: ohne eigenen seitlichen Abstand (sonst doppelt eingerückt)
-                    SettingsNavRow(
-                        title = stringResource(R.string.settings_price_pairs),
-                        horizontalPadding = 0.dp,
-                        value = stringResource(
-                            R.string.settings_price_pairs_count,
-                            watches.count { it.notificationEnabled },
-                            watches.size
-                        ),
-                        onClick = { onOpenPage(SettingsPage.PRICE_PAIRS) }
-                    )
-                }
-                SettingsAnchor("alarms.change") {
-                    PercentChoiceRow(
-                        label = stringResource(R.string.settings_notification_change),
-                        selected = settings.notificationChangePercent,
-                        onSelected = viewModel::setNotificationChangePercent
-                    )
-                }
-                Hint(stringResource(R.string.settings_notification_change_hint))
-            }
+            PriceNotificationRows(settings, viewModel, requestNotifications, onOpenPage)
             RowDivider()
             SettingsAnchor("alarms.cooldown") {
                 ChoiceRow(
@@ -296,5 +225,98 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                 }
             }
         }
+    }
+}
+
+/** Karte oben auf «Alarme» ([AlarmsPage]): «Wie aktuell?», «Damit Alarme ankommen», Markt-Meldungen, Sprachausgabe. */
+@Composable
+private fun AlarmsNavCard(
+    settings: AppSettings,
+    onOpenPage: (SettingsPage) -> Unit,
+    onOpenMarketAlerts: () -> Unit,
+    onOpenSpeech: () -> Unit,
+) {
+    AppCard(padding = CardPadding.None) {
+        Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+            SettingsNavRow(
+                title = stringResource(R.string.update_mode_title),
+                icon = R.drawable.ic_settings_updates,
+                value = updatesSummary(settings),
+                onClick = { onOpenPage(SettingsPage.UPDATES) }
+            )
+            // Damit Alarme ankommen: Erlaubnisse, Kanal, Akku und letzte Prüfung auf einen Blick
+            com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery.current?.let { openDelivery ->
+                SettingsAnchor("alarms.delivery") {
+                    SettingsNavRow(
+                        title = stringResource(R.string.delivery_title),
+                        icon = R.drawable.ic_notifications_active_outline,
+                        onClick = openDelivery,
+                    )
+                }
+            }
+            SettingsAnchor("alarms.market_alerts") {
+                SettingsNavRow(
+                    title = stringResource(R.string.settings_market_alerts),
+                    // Blitz wie «Ungewöhnliche Aktivität»
+                    icon = R.drawable.ic_bolt,
+                    value = marketAlertsSummary(settings),
+                    onClick = onOpenMarketAlerts
+                )
+            }
+            SettingsAnchor("alarms.speech") {
+                SettingsNavRow(
+                    title = stringResource(R.string.settings_tts),
+                    icon = R.drawable.ic_settings_speech,
+                    value = speechSummary(settings),
+                    onClick = onOpenSpeech
+                )
+            }
+        }
+    }
+}
+
+/** Kurs-Mitteilungen auf «Alarme» ([AlarmsPage]): Schalter, mit ihm Paare und Schwelle der Veränderung. */
+@Composable
+private fun PriceNotificationRows(
+    settings: AppSettings,
+    viewModel: SettingsViewModel,
+    requestNotifications: () -> Unit,
+    onOpenPage: (SettingsPage) -> Unit,
+) {
+    SettingsAnchor("alarms.price") {
+        SwitchRow(
+            title = stringResource(R.string.settings_price_notifications),
+            subtitle = stringResource(R.string.settings_price_notifications_hint),
+            checked = settings.priceNotifications,
+            onCheckedChange = {
+                if (it) requestNotifications()
+                viewModel.setPriceNotifications(it)
+            }
+        )
+    }
+    if (settings.priceNotifications) {
+        // Welche Paare: Zahl aktiv/alle, Tipp öffnet die Liste mit «Alle an / Alle aus»
+        val watches by viewModel.watches.collectAsStateWithLifecycle()
+        SettingsAnchor("alarms.price_pairs") {
+            // In der Karte mit Innenabstand: ohne eigenen seitlichen Abstand (sonst doppelt eingerückt)
+            SettingsNavRow(
+                title = stringResource(R.string.settings_price_pairs),
+                horizontalPadding = 0.dp,
+                value = stringResource(
+                    R.string.settings_price_pairs_count,
+                    watches.count { it.notificationEnabled },
+                    watches.size
+                ),
+                onClick = { onOpenPage(SettingsPage.PRICE_PAIRS) }
+            )
+        }
+        SettingsAnchor("alarms.change") {
+            PercentChoiceRow(
+                label = stringResource(R.string.settings_notification_change),
+                selected = settings.notificationChangePercent,
+                onSelected = viewModel::setNotificationChangePercent
+            )
+        }
+        Hint(stringResource(R.string.settings_notification_change_hint))
     }
 }

@@ -1,6 +1,8 @@
 package com.cryptochecker.app.ui.features.settings
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -115,46 +117,13 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             SettingsAnchor("backup.actions") {
                 // Untereinander und volle Breite: «Wiederherstellen» und längere Wörter anderer Sprachen passen nicht
                 // in eine halbe Zeile (iOS gleich)
-                Box(contentAlignment = Alignment.Center) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm)
-                    ) {
-                        FilledTonalButton(
-                            enabled = !working,
-                            colors = DisabledColors.filledTonalButton(),
-                            onClick = {
-                                // Mit Portfolio-Daten und gesperrt: erst entsperren
-                                viewModel.startBackupExport(context.findFragmentActivity(), reason) { hasPortfolio ->
-                                    exportDialog = hasPortfolio
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_EXPORT)
-                        ) {
-                            // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
-                            Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
-                            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                            Text(stringResource(R.string.backup_export), maxLines = 1)
-                        }
-                        FilledTonalButton(
-                            enabled = !working,
-                            colors = DisabledColors.filledTonalButton(),
-                            onClick = {
-                                viewModel.startRestore(context.findFragmentActivity(), reason) {
-                                    importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_IMPORT)
-                        ) {
-                            // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
-                            Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
-                            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                            Text(stringResource(R.string.backup_import), maxLines = 1)
-                        }
-                    }
-                    // Fortschrittskreis über den (ausgeschalteten) Knöpfen, wie iOS `.overlay { ProgressView() }`
-                    if (working) CircularProgressIndicator()
-                }
+                BackupActionButtons(
+                    viewModel = viewModel,
+                    working = working,
+                    reason = reason,
+                    onExportDialog = { exportDialog = it },
+                    importLauncher = importLauncher,
+                )
             }
         }
         // Wöchentlich verschlüsselt in einen Ordner (AutoBackupPolicy)
@@ -180,62 +149,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
 
     // Wiederherstellen (Passwort, Rückfrage «Ersetzen?»): keine fremden Fenster darüber (ab Android 12)
     HideOverlaysEffect(restoreStep != null)
-    when (val step = restoreStep) {
-        is RestoreStep.Password -> BackupPasswordDialog(
-            wrong = step.wrong,
-            checking = step.checking,
-            onSubmit = { password -> viewModel.submitRestorePassword(step.uri, password) },
-            onDismiss = viewModel::cancelRestore,
-            failedAttempts = step.failedAttempts,
-        )
-        is RestoreStep.Confirm -> AlertDialog(
-            onDismissRequest = viewModel::cancelRestore,
-            title = { Text(stringResource(R.string.backup_import)) },
-            text = {
-                DialogText {
-                    Text(stringResource(R.string.backup_restore_confirm))
-                    // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen
-                    if (step.unencrypted) {
-                        // Verschärft (Inhaber 14.11.): ersetzt auch Trades, Portfolio-Alarme und Adressen — fett vorneweg
-                        Text(
-                            stringResource(R.string.backup_restore_unencrypted_replaces),
-                            color = AppColors.warningText,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                        Text(
-                            stringResource(R.string.backup_restore_unencrypted_warning),
-                            color = AppColors.warningText,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
-                    // Ungültige Portfolio-Einträge nennen, statt sie still wegzulassen
-                    if (step.invalid > 0) {
-                        Text(
-                            pluralStringResource(R.plurals.backup_restore_invalid, step.invalid, step.invalid),
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
-                    // Paare und Alarme über den Grenzen nennen, bevor etwas ersetzt wird (nicht still weglassen)
-                    overLimitsText(resources, R.string.backup_restore_over_limits, step.preview.droppedPairs, step.preview.droppedAlarms)
-                        ?.let { Text(it, color = AppColors.warningText, modifier = Modifier.padding(top = 8.dp)) }
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = { viewModel.restoreBackup(step.uri, step.password, step.invalid) },
-                    modifier = Modifier.testTag(UiTestTags.BACKUP_RESTORE_CONFIRM),
-                ) {
-                    Text(stringResource(R.string.backup_import), color = MaterialTheme.colorScheme.error)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = viewModel::cancelRestore) { Text(stringResource(R.string.action_cancel)) }
-            }
-        )
-        null -> Unit
-    }
+    RestoreStepDialog(restoreStep, viewModel)
 
     // Ergebnis mit Hinweisen oder langem Text als Dialog (BackupResultPresentation); Mitteilungs-Frage erst danach
     var resultDialog by rememberSaveable { mutableStateOf<String?>(null) }
@@ -340,4 +254,119 @@ internal fun overLimitsText(
         LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
         LocaleNumbers.integer(WatchlistLimits.MAX_ALARMS_PER_PAIR),
     )
+}
+
+/** «Sichern» und «Wiederherstellen» untereinander, beim Laufen mit Fortschrittskreis darüber ([BackupPage]). */
+@Composable
+private fun BackupActionButtons(
+    viewModel: SettingsViewModel,
+    working: Boolean,
+    reason: String,
+    onExportDialog: (Boolean) -> Unit,
+    importLauncher: ManagedActivityResultLauncher<Array<String>, Uri?>,
+) {
+    val context = LocalContext.current
+    Box(contentAlignment = Alignment.Center) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm)
+        ) {
+            FilledTonalButton(
+                enabled = !working,
+                colors = DisabledColors.filledTonalButton(),
+                onClick = {
+                    // Mit Portfolio-Daten und gesperrt: erst entsperren
+                    viewModel.startBackupExport(context.findFragmentActivity(), reason) { hasPortfolio ->
+                        onExportDialog(hasPortfolio)
+                    }
+                },
+                modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_EXPORT)
+            ) {
+                // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
+                Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                Text(stringResource(R.string.backup_export), maxLines = 1)
+            }
+            FilledTonalButton(
+                enabled = !working,
+                colors = DisabledColors.filledTonalButton(),
+                onClick = {
+                    viewModel.startRestore(context.findFragmentActivity(), reason) {
+                        importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
+                    }
+                },
+                modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_IMPORT)
+            ) {
+                // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
+                Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                Text(stringResource(R.string.backup_import), maxLines = 1)
+            }
+        }
+        // Fortschrittskreis über den (ausgeschalteten) Knöpfen, wie iOS `.overlay { ProgressView() }`
+        if (working) CircularProgressIndicator()
+    }
+}
+
+/** Wiederherstellen: Passwort bzw. Rückfrage «Ersetzen?» samt Warnungen ([BackupPage]). */
+@Composable
+private fun RestoreStepDialog(restoreStep: RestoreStep?, viewModel: SettingsViewModel) {
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
+    when (val step = restoreStep) {
+        is RestoreStep.Password -> BackupPasswordDialog(
+            wrong = step.wrong,
+            checking = step.checking,
+            onSubmit = { password -> viewModel.submitRestorePassword(step.uri, password) },
+            onDismiss = viewModel::cancelRestore,
+            failedAttempts = step.failedAttempts,
+        )
+        is RestoreStep.Confirm -> AlertDialog(
+            onDismissRequest = viewModel::cancelRestore,
+            title = { Text(stringResource(R.string.backup_import)) },
+            text = {
+                DialogText {
+                    Text(stringResource(R.string.backup_restore_confirm))
+                    // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen
+                    if (step.unencrypted) {
+                        // Verschärft (Inhaber 14.11.): ersetzt auch Trades, Portfolio-Alarme und Adressen — fett vorneweg
+                        Text(
+                            stringResource(R.string.backup_restore_unencrypted_replaces),
+                            color = AppColors.warningText,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                        Text(
+                            stringResource(R.string.backup_restore_unencrypted_warning),
+                            color = AppColors.warningText,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
+                    // Ungültige Portfolio-Einträge nennen, statt sie still wegzulassen
+                    if (step.invalid > 0) {
+                        Text(
+                            pluralStringResource(R.plurals.backup_restore_invalid, step.invalid, step.invalid),
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
+                    // Paare und Alarme über den Grenzen nennen, bevor etwas ersetzt wird (nicht still weglassen)
+                    overLimitsText(resources, R.string.backup_restore_over_limits, step.preview.droppedPairs, step.preview.droppedAlarms)
+                        ?.let { Text(it, color = AppColors.warningText, modifier = Modifier.padding(top = 8.dp)) }
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.restoreBackup(step.uri, step.password, step.invalid) },
+                    modifier = Modifier.testTag(UiTestTags.BACKUP_RESTORE_CONFIRM),
+                ) {
+                    Text(stringResource(R.string.backup_import), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = viewModel::cancelRestore) { Text(stringResource(R.string.action_cancel)) }
+            }
+        )
+        null -> Unit
+    }
 }

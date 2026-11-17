@@ -3,6 +3,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import android.app.ActivityManager
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.diagnostics.AppVersion
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.ui.UiTestTags
@@ -53,6 +55,7 @@ import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.wearable.PhoneWatchSync
 import com.cryptochecker.resources.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -95,35 +98,7 @@ fun SettingsScreen(
     // Rückfrage offen: keine fremden Fenster darüber (ab Android 12)
     HideOverlaysEffect(askReset)
     if (askReset) {
-        AlertDialog(
-            onDismissRequest = { askReset = false },
-            title = { Text(stringResource(R.string.settings_reset_app_title)) },
-            text = { DialogText { Text(stringResource(R.string.settings_reset_app_confirm)) } },
-            confirmButton = {
-                TextButton(onClick = {
-                    askReset = false
-                    resetScope.launch {
-                        withContext(Dispatchers.IO) {
-                            // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
-                            // sie liegen (darum vorher gelöscht, abseits des Hauptthreads)
-                            if (AlarmSoundStore.supportsCustomFile) AlarmSoundStore.deleteAllOwn(resetContext)
-                            // Einträge für die Uhr liegen bei den Play-Diensten: löschen, damit die Uhr Portfolio-Wert,
-                            // Favoriten und Kurse vom Handy vergisst (wartet auf die Play-Dienste, darum ebenfalls hier)
-                            PhoneWatchSync.clearWatch(resetContext)
-                        }
-                        // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
-                        // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
-                        // danach, beim nächsten Öffnen startet sie wie neu installiert.
-                        resetContext.getSystemService(ActivityManager::class.java)?.clearApplicationUserData()
-                    }
-                }) {
-                    Text(stringResource(R.string.settings_reset_app_action), color = MaterialTheme.colorScheme.error)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { askReset = false }) { Text(stringResource(R.string.action_cancel)) }
-            }
-        )
+        ResetAppDialog(onDismiss = { askReset = false }, resetContext = resetContext, resetScope = resetScope)
     }
     val focusManager = LocalFocusManager.current
     LaunchedEffect(mainHighlight) {
@@ -167,105 +142,10 @@ fun SettingsScreen(
             } else {
                 ProvideSettingsHighlight(mainHighlight) {
                     // 1 Allgemein: Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung
-                    SettingsSection(stringResource(R.string.settings_group_general), first = true) {
-                        SettingsAnchor("main.language") {
-                            LanguageRow(selectedTag = languageTag, onClick = { onOpenPage(SettingsPage.LANGUAGE) })
-                        }
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_currency),
-                            icon = R.drawable.ic_settings_currency,
-                            value = settings.portfolioCurrency,
-                            onClick = { onOpenPage(SettingsPage.CURRENCY) }
-                        )
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_watchlist),
-                            // Gleiches Symbol wie der Tab «Merkliste»
-                            icon = R.drawable.ic_tab_watchlist,
-                            value = watchlistSummary(settings),
-                            onClick = { onOpenPage(SettingsPage.WATCHLIST) }
-                        )
-                        // Alles zum Portfolio an einem Ort (Schalter des Tabs zuoberst auf der Seite); gleich nach
-                        // «Merkliste» wie die Reihenfolge der Tabs
-                        SettingsNavRow(
-                            title = stringResource(R.string.portfolio_title),
-                            // Gleiches Symbol wie der Tab «Portfolio»
-                            icon = R.drawable.ic_portfolio,
-                            value = portfolioSummary(settings),
-                            onClick = { onOpenPage(SettingsPage.PORTFOLIO) }
-                        )
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_alarms),
-                            // Glocke mit Wellen wie bei den Alarmen der Paare (einfarbig in Textfarbe)
-                            icon = R.drawable.ic_notifications_active_outline,
-                            value = stringResource(alarmSignalLabel(settings.alarmSignal)),
-                            onClick = { onOpenPage(SettingsPage.ALARMS) }
-                        )
-                        // Direkt nach «Alarme»: bestimmt, wie oft Alarme geprüft werden
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_updates),
-                            icon = R.drawable.ic_settings_updates,
-                            value = updatesSummary(settings),
-                            onClick = { onOpenPage(SettingsPage.UPDATES) }
-                        )
-                        // Gleich daneben: was die Hintergrund-Prüfung kostet (Läufe, Anfragen, Bytes)
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_usage),
-                            icon = R.drawable.ic_settings_usage,
-                            onClick = { onOpenPage(SettingsPage.USAGE) }
-                        )
-                    }
+                    GeneralSettingsSection(settings, languageTag, onOpenPage)
 
                     // 2 Darstellung: Hell/Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets
-                    SettingsSection(stringResource(R.string.settings_section_appearance)) {
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_theme_mode),
-                            icon = R.drawable.ic_settings_display_mode,
-                            value = displayModeSummary(settings),
-                            onClick = { onOpenPage(SettingsPage.DISPLAY_MODE) }
-                        )
-                        val accentName = stringResource(settings.accentColor.labelRes)
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_accent),
-                            icon = R.drawable.ic_settings_theme,
-                            valueDescription = accentName,
-                            valueContent = {
-                                // Farbpunkt passend zum kleinen Wert unter dem Titel
-                                Box(
-                                    Modifier
-                                        .padding(end = 4.dp)
-                                        .size(10.dp)
-                                        .clip(CircleShape)
-                                        // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
-                                        .background(accentButtonColor(settings.accentColor, LocalDarkTheme.current))
-                                )
-                                SettingsValueText(accentName)
-                            },
-                            onClick = { onOpenPage(SettingsPage.THEME) }
-                        )
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_price_colors),
-                            // Kerzen wie im Schalter Kerzen | Linie der Charts
-                            icon = R.drawable.ic_chart_candles,
-                            valueDescription = priceColorsSummary(settings),
-                            valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
-                            onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
-                        )
-                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen
-                        SettingsAnchor("main.coin_logos") {
-                            SettingsNavRow(
-                                title = stringResource(R.string.settings_coin_logos),
-                                icon = R.drawable.ic_settings_coin_logos,
-                                value = coinLogosSummary(settings),
-                                onClick = { onOpenPage(SettingsPage.COIN_LOGOS) }
-                            )
-                        }
-                        // Widgets direkt aus der App auf den Startbildschirm
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_widgets),
-                            icon = R.drawable.ic_settings_widgets,
-                            onClick = { onOpenPage(SettingsPage.WIDGETS) }
-                        )
-                    }
+                    AppearanceSettingsSection(settings, onOpenPage)
 
                     // 3 Mehr: Sicherung, Über die App (Token & TradFi stehen auf «Merkliste»,
                     // Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter «Darstellung», Entwickler auf
@@ -304,3 +184,144 @@ fun SettingsScreen(
 
 /** Dauer der Hervorhebung einer Zeile der Hauptseite nach einem Suchtreffer (ms). */
 private const val MAIN_HIGHLIGHT_MILLIS = 2_500L
+
+/** Rückfrage «App zurücksetzen»: löscht alle Daten der App wie «Speicher leeren» ([SettingsScreen]). */
+@Composable
+private fun ResetAppDialog(onDismiss: () -> Unit, resetContext: Context, resetScope: CoroutineScope) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.settings_reset_app_title)) },
+        text = { DialogText { Text(stringResource(R.string.settings_reset_app_confirm)) } },
+        confirmButton = {
+            TextButton(onClick = {
+                onDismiss()
+                resetScope.launch {
+                    withContext(Dispatchers.IO) {
+                        // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
+                        // sie liegen (darum vorher gelöscht, abseits des Hauptthreads)
+                        if (AlarmSoundStore.supportsCustomFile) AlarmSoundStore.deleteAllOwn(resetContext)
+                        // Einträge für die Uhr liegen bei den Play-Diensten: löschen, damit die Uhr Portfolio-Wert,
+                        // Favoriten und Kurse vom Handy vergisst (wartet auf die Play-Dienste, darum ebenfalls hier)
+                        PhoneWatchSync.clearWatch(resetContext)
+                    }
+                    // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
+                    // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
+                    // danach, beim nächsten Öffnen startet sie wie neu installiert.
+                    resetContext.getSystemService(ActivityManager::class.java)?.clearApplicationUserData()
+                }
+            }) {
+                Text(stringResource(R.string.settings_reset_app_action), color = MaterialTheme.colorScheme.error)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        }
+    )
+}
+
+/** Gruppe «Allgemein» der Hauptseite ([SettingsScreen]): Sprache, Währung, Merkliste, Portfolio, Alarme, Kurse. */
+@Composable
+private fun GeneralSettingsSection(settings: AppSettings, languageTag: String, onOpenPage: (SettingsPage) -> Unit) {
+    SettingsSection(stringResource(R.string.settings_group_general), first = true) {
+        SettingsAnchor("main.language") {
+            LanguageRow(selectedTag = languageTag, onClick = { onOpenPage(SettingsPage.LANGUAGE) })
+        }
+        SettingsNavRow(
+            title = stringResource(R.string.settings_row_currency),
+            icon = R.drawable.ic_settings_currency,
+            value = settings.portfolioCurrency,
+            onClick = { onOpenPage(SettingsPage.CURRENCY) }
+        )
+        SettingsNavRow(
+            title = stringResource(R.string.settings_row_watchlist),
+            // Gleiches Symbol wie der Tab «Merkliste»
+            icon = R.drawable.ic_tab_watchlist,
+            value = watchlistSummary(settings),
+            onClick = { onOpenPage(SettingsPage.WATCHLIST) }
+        )
+        // Alles zum Portfolio an einem Ort (Schalter des Tabs zuoberst auf der Seite); gleich nach
+        // «Merkliste» wie die Reihenfolge der Tabs
+        SettingsNavRow(
+            title = stringResource(R.string.portfolio_title),
+            // Gleiches Symbol wie der Tab «Portfolio»
+            icon = R.drawable.ic_portfolio,
+            value = portfolioSummary(settings),
+            onClick = { onOpenPage(SettingsPage.PORTFOLIO) }
+        )
+        SettingsNavRow(
+            title = stringResource(R.string.settings_row_alarms),
+            // Glocke mit Wellen wie bei den Alarmen der Paare (einfarbig in Textfarbe)
+            icon = R.drawable.ic_notifications_active_outline,
+            value = stringResource(alarmSignalLabel(settings.alarmSignal)),
+            onClick = { onOpenPage(SettingsPage.ALARMS) }
+        )
+        // Direkt nach «Alarme»: bestimmt, wie oft Alarme geprüft werden
+        SettingsNavRow(
+            title = stringResource(R.string.settings_row_updates),
+            icon = R.drawable.ic_settings_updates,
+            value = updatesSummary(settings),
+            onClick = { onOpenPage(SettingsPage.UPDATES) }
+        )
+        // Gleich daneben: was die Hintergrund-Prüfung kostet (Läufe, Anfragen, Bytes)
+        SettingsNavRow(
+            title = stringResource(R.string.settings_row_usage),
+            icon = R.drawable.ic_settings_usage,
+            onClick = { onOpenPage(SettingsPage.USAGE) }
+        )
+    }
+}
+
+/** Gruppe «Darstellung» der Hauptseite ([SettingsScreen]): Hell/Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets. */
+@Composable
+private fun AppearanceSettingsSection(settings: AppSettings, onOpenPage: (SettingsPage) -> Unit) {
+    SettingsSection(stringResource(R.string.settings_section_appearance)) {
+        SettingsNavRow(
+            title = stringResource(R.string.settings_theme_mode),
+            icon = R.drawable.ic_settings_display_mode,
+            value = displayModeSummary(settings),
+            onClick = { onOpenPage(SettingsPage.DISPLAY_MODE) }
+        )
+        val accentName = stringResource(settings.accentColor.labelRes)
+        SettingsNavRow(
+            title = stringResource(R.string.settings_accent),
+            icon = R.drawable.ic_settings_theme,
+            valueDescription = accentName,
+            valueContent = {
+                // Farbpunkt passend zum kleinen Wert unter dem Titel
+                Box(
+                    Modifier
+                        .padding(end = 4.dp)
+                        .size(10.dp)
+                        .clip(CircleShape)
+                        // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
+                        .background(accentButtonColor(settings.accentColor, LocalDarkTheme.current))
+                )
+                SettingsValueText(accentName)
+            },
+            onClick = { onOpenPage(SettingsPage.THEME) }
+        )
+        SettingsNavRow(
+            title = stringResource(R.string.settings_price_colors),
+            // Kerzen wie im Schalter Kerzen | Linie der Charts
+            icon = R.drawable.ic_chart_candles,
+            valueDescription = priceColorsSummary(settings),
+            valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
+            onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
+        )
+        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen
+        SettingsAnchor("main.coin_logos") {
+            SettingsNavRow(
+                title = stringResource(R.string.settings_coin_logos),
+                icon = R.drawable.ic_settings_coin_logos,
+                value = coinLogosSummary(settings),
+                onClick = { onOpenPage(SettingsPage.COIN_LOGOS) }
+            )
+        }
+        // Widgets direkt aus der App auf den Startbildschirm
+        SettingsNavRow(
+            title = stringResource(R.string.settings_widgets),
+            icon = R.drawable.ic_settings_widgets,
+            onClick = { onOpenPage(SettingsPage.WIDGETS) }
+        )
+    }
+}

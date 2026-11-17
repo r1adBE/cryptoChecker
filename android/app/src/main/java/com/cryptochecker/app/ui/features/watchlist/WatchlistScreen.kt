@@ -6,14 +6,16 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxSize
+import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.NonRestartableComposable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -25,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.model.WatchEntity
@@ -39,6 +40,7 @@ import com.cryptochecker.app.ui.navigation.OnTabReselect
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.resources.R
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -74,47 +76,30 @@ fun WatchlistScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val display = state.display
     val live = state.live
-    val starter = state.starter
     val watches = state.watches
     val loaded = state.loaded
-    val groups = state.groups
     val selectedGroup = state.selectedGroup
     // Ansicht der Gruppen-Chips: alle Paare, die Favoriten (★) oder nur die der gewählten Gruppe
     // Art je Paar (Symbol vor der Glocke, «Alpha»)
     val kinds = state.kinds
     val groupVisible = remember(watches, selectedGroup, kinds) { filterByGroup(watches, selectedGroup, kinds) }
-    val alarmCounts = state.content.alarmCounts
     val alarmTotal = state.content.alarmTotal
     // Glocke (Kopf und Start-Auswahl): mit Alarmen die Übersicht, ohne einen einzigen gleich zum Anlegen —
     // ein Paar: dessen Alarm-Seite (öffnet den Editor), mehrere: erst wählen, leere Merkliste: Coin hinzufügen
     val onBellClick = rememberBellClick(alarmTotal, watches, onOpenAllAlarms, onOpenAlarms, onAddClick)
-    val latestAlarmTrigger = state.content.latestAlarmTrigger
-    val alarmFiredAt = state.content.alarmFiredAt
-    val refreshing = live.refreshing
     // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
     val staleAfter = display.staleAfterMillis
-
-    val fetchSparklines = rememberSparklinesFit(display.sparklineEnabled)
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu ([rememberWatchlistClock])
     val now = rememberWatchlistClock()
     // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.) und «Live» nur, wenn alle dabei sind
     val liveIds = live.liveWatchIds
-    // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
-    // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
-    // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
-    val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
-    val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
-    val hourlyCloseIds by viewModel.hourlyCloseIds.collectAsStateWithLifecycle()
-    val exchangePauses by viewModel.exchangePauses.collectAsStateWithLifecycle()
     WatchlistVisibleEffects(viewModel, loaded)
 
     // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst
     // Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Meldungen)
     // Nicht mehr gehandelte Paare: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
     val signals = rememberActivitySignals(watches, state.content.activity, now, display.activitySensitivity)
-    val notTradedIds = signals.notTradedIds
-    val activeSignals = signals.activeSignals
     val hot = signals.hot
 
     val ui = rememberWatchlistScreenState()
@@ -152,21 +137,82 @@ fun WatchlistScreen(
         if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
     }
     val banner = rememberWatchlistBanner(scope)
+    WatchlistScreenScaffold(
+        state = state,
+        viewModel = viewModel,
+        ui = ui,
+        listState = listState,
+        scope = scope,
+        resources = resources,
+        reduceMotion = reduceMotion,
+        banner = banner,
+        now = now,
+        visible = visible,
+        groupVisible = groupVisible,
+        signals = signals,
+        activityChip = activityChip,
+        selectedIds = selectedIds,
+        disabledCount = disabledCount,
+        onBellClick = onBellClick,
+        onAddClick = onAddClick,
+        onOpenAllAlarms = onOpenAllAlarms,
+        onOpenAbout = onOpenAbout,
+        onOpenAlarms = onOpenAlarms,
+        onOpenPair = onOpenPair,
+    )
+}
+
+/**
+ * Banner, Aktualisieren, Sortieren und Suche der Merkliste samt Gerüst. Nicht neu startbar: liest den Zustand wie
+ * zuvor im Rumpf von [WatchlistScreen] (gleiche Neuzusammensetzung, gleicher Start der Flows).
+ */
+@NonRestartableComposable
+@Composable
+private fun WatchlistScreenScaffold(
+    state: WatchlistUiState,
+    viewModel: WatchlistViewModel,
+    ui: WatchlistScreenState,
+    listState: LazyListState,
+    scope: CoroutineScope,
+    resources: Resources,
+    reduceMotion: Boolean,
+    banner: WatchlistBanner,
+    now: Long,
+    visible: List<WatchEntity>,
+    groupVisible: List<WatchEntity>,
+    signals: ActivitySignals,
+    activityChip: Boolean,
+    selectedIds: Set<Long>,
+    disabledCount: Int,
+    onBellClick: () -> Unit,
+    onAddClick: () -> Unit,
+    onOpenAllAlarms: () -> Unit,
+    onOpenAbout: () -> Unit,
+    onOpenAlarms: (Long) -> Unit,
+    onOpenPair: (Long) -> Unit,
+) {
+    val display = state.display
+    val live = state.live
+    val watches = state.watches
+    val fetchSparklines = rememberSparklinesFit(display.sparklineEnabled)
+    // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
+    // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
+    // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
+    val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
+    val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
+    val hourlyCloseIds by viewModel.hourlyCloseIds.collectAsStateWithLifecycle()
+    val exchangePauses by viewModel.exchangePauses.collectAsStateWithLifecycle()
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
-    val bellScale = rememberBellPulse(latestAlarmTrigger, reduceMotion)
+    val bellScale = rememberBellPulse(state.content.latestAlarmTrigger, reduceMotion)
     // Erst-Moment (Start-Merkliste, allererstes Paar) samt Frage nach Mitteilungen ([rememberStarterMoment])
-    val starterMoment = rememberStarterMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms)
-    val moment = starterMoment.moment
+    val starterMoment = rememberStarterMoment(viewModel, watches, state.loaded, state.content.alarmCounts, banner, onOpenAlarms)
 
     // Alles aktualisieren (nach unten ziehen, Menü; [rememberPullRefresh])
     val pull = rememberPullRefresh(viewModel, scope, banner, resources)
-    val requestRefresh = pull.request
     // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
     // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner über Ereignisse im
     // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
-    val deleteWithUndo: (WatchEntity) -> Unit = { uiEvents.deleteWithUndo(viewModel, it) }
-    val favoriteWithBanner: (WatchEntity) -> Unit = { uiEvents.favoriteWithBanner(viewModel, it) }
 
     val reorder = rememberReorderState(listState, scope, visible, viewModel::reorder)
     val ordered = reorder.items ?: visible
@@ -195,7 +241,7 @@ fun WatchlistScreen(
     val listed = rememberColumnSorted(shown, columnSort, sortRates, changeView, ui.sortMode)
     // ★/⚡ in den Zeilen nur farbig, solange der passende Chip gewählt ist
     // ebenso das Art-Symbol vor der Glocke (Token, TradFi, α)
-    val rowHighlight = rowHighlightFor(ui.quickView, selectedGroup)
+    val rowHighlight = rowHighlightFor(ui.quickView, state.selectedGroup)
     CompositionLocalProvider(
         LocalChangeView provides changeView,
         LocalRowHighlight provides rowHighlight,
@@ -212,91 +258,43 @@ fun WatchlistScreen(
             },
             snackbarHost = { AppSnackbarHost(banner.host) },
         ) { padding ->
-            WatchlistSheets(
-                ui = ui,
+            WatchlistScaffoldContent(
+                padding = padding,
                 state = state,
+                ui = ui,
                 viewModel = viewModel,
-                watches = watches,
-                groups = groups,
-                notTradedCount = notTradedIds.size,
-                rollingBasis = !changeBasis.isDay,
-                activeSignals = activeSignals,
-                now = now,
                 banner = banner,
+                signals = signals,
+                changeView = changeView,
+                pull = pull,
+                starterMoment = starterMoment,
+                activityChip = activityChip,
+                selectedIds = selectedIds,
+                shown = shown,
+                visible = visible,
+                groupVisible = groupVisible,
+                listed = listed,
+                filtering = filtering,
+                trimmedQuery = trimmedQuery,
+                now = now,
+                reduceMotion = reduceMotion,
+                listState = listState,
+                jump = jump,
+                reorder = reorder,
+                bellScale = bellScale,
+                livePrices = livePrices,
+                fetchSparklines = fetchSparklines,
+                firstAlarmTarget = firstAlarmTarget,
+                disabledCount = disabledCount,
+                onBellClick = onBellClick,
+                onOpenAllAlarms = onOpenAllAlarms,
+                onOpenAbout = onOpenAbout,
+                onAddClick = onAddClick,
+                onOpenAlarms = onOpenAlarms,
+                onOpenPair = onOpenPair,
+                deleteWithUndo = { uiEvents.deleteWithUndo(viewModel, it) },
+                favoriteWithBanner = { uiEvents.favoriteWithBanner(viewModel, it) },
             )
-            // «Mehrere Paare auf einmal» läuft noch: Balken oben, über der Liste
-            WatchlistBulkAdd(banner, Modifier.padding(padding).zIndex(1f))
-
-            // Noch nicht geladen (Gerüst) bzw. leer (Start-Auswahl): [showsNotListed]
-            if (showsNotListed(
-                    loaded,
-                    watches.isEmpty(),
-                    Modifier.padding(padding),
-                    starter,
-                    viewModel,
-                    onAddClick,
-                    // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
-                    onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
-                    onStartersAdded = starterMoment.askAfterHint,
-                )
-            ) {
-                return@Scaffold
-            }
-
-            // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
-            PullToRefreshBox(
-                isRefreshing = refreshing || pull.echo,
-                onRefresh = requestRefresh,
-                modifier = Modifier.fillMaxSize().padding(padding)
-            ) {
-                // Puls ganz oben: wie viele steigen/fallen, Ø-Veränderung — nur für die gezeigte
-                // Gruppe, nicht beim Suchen oder Sortieren
-                // Nur Paare mit Kurs (und noch gehandelt) zählen als «ohne 24h-Wert». Gemerkt, damit
-                // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
-                // Erster Gebrauch: kein Puls, bis es einen Alarm gibt bzw. nach einigen Tagen (WatchlistOnboarding)
-                val onboarding = state.onboarding
-                val pulse = rememberWatchPulse(visible, ui.searching, ui.sortMode, changeView, onboarding.pulse)
-                KeepTopWhenPulseAppears(pulseShown = pulse != null, listState = listState)
-                // Kopf und Liste: [WatchlistBody]
-                WatchlistBody(
-                    state = state,
-                    ui = ui,
-                    viewModel = viewModel,
-                    onboarding = onboarding,
-                    activityChip = activityChip,
-                    selectedIds = selectedIds,
-                    shown = shown,
-                    visible = visible,
-                    groupVisible = groupVisible,
-                    notTradedIds = notTradedIds,
-                    listed = listed,
-                    filtering = filtering,
-                    trimmedQuery = trimmedQuery,
-                    now = now,
-                    reduceMotion = reduceMotion,
-                    listState = listState,
-                    jump = jump,
-                    reorder = reorder,
-                    pulse = pulse,
-                    bellScale = bellScale,
-                    moment = moment,
-                    livePrices = livePrices,
-                    fetchSparklines = fetchSparklines,
-                    activeSignals = activeSignals,
-                    firstAlarmTarget = firstAlarmTarget,
-                    disabledCount = disabledCount,
-                    banner = banner,
-                    onBellClick = onBellClick,
-                    onOpenAllAlarms = onOpenAllAlarms,
-                    onOpenAbout = onOpenAbout,
-                    onAddClick = onAddClick,
-                    onOpenAlarms = onOpenAlarms,
-                    onOpenPair = onOpenPair,
-                    requestRefresh = requestRefresh,
-                    deleteWithUndo = deleteWithUndo,
-                    favoriteWithBanner = favoriteWithBanner,
-                )
-            }
         }
     }
 }

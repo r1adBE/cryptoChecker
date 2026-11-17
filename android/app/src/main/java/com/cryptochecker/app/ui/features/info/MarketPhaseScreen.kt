@@ -1,22 +1,19 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -32,26 +29,24 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.activity.CandleSeries
-import com.cryptochecker.app.domain.market.CycleSource
+import com.cryptochecker.app.domain.macro.MacroEvent
+import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketSection
+import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppMenuHead
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.TabTitle
-import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -127,12 +122,7 @@ fun MarketPhaseScreen(
     MarketCoinUiEffects(watchlistViewModel, banner)
     // Paar nicht übernommen bzw. nicht geändert, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
     com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it, SnackbarKind.ERROR) }
-    // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
-    // Auf «Jetzt» zählt nur, was dort schon stand (Fear & Greed erst unter den Karten darüber)
-    val revealedOnEntry = remember {
-        viewModel.reveal.value.let { r -> r.shown.filterTo(mutableSetOf()) { r.isShownOnNow(it) } }
-    }
-    val instant = reveal.instant + revealedOnEntry
+    val instant = rememberInstantReveal(viewModel, reveal)
     val motion = !rememberReduceMotion()
 
     // Tipp auf einen Coin aus «Heute auffällig» bzw. «Gewinner und Verlierer 24 h»: dasselbe wie ein Tipp in der
@@ -164,28 +154,26 @@ fun MarketPhaseScreen(
     var macroFocus by remember { mutableStateOf(false) }
     val macroAnchor = remember { MacroAnchor() }
     var macroHintHeight by remember { mutableIntStateOf(0) }
-    LaunchedEffect(jump, macroEvents, reveal.shown) {
-        if (jump != MarketJump.MACRO || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
-        onJumpHandled()
-        if (macroRegister(macroEvents) == MarketSection.NOW) {
-            moreForJump = true
-            macroFocus = true
-        } else {
-            onOpenMacroData()
-        }
-    }
     // Der Sprung bleibt offen, bis der Hinweis wirklich steht (aufgeklappt, alles darüber erschienen,
     // gezeichnet); dann den Hinweis an den oberen Rand scrollen (wie iOS, anchor .top) und erst dann löschen
     val macroReady = reveal.macroHintReady(showMore) && macroHintHeight > 0
-    LaunchedEffect(macroFocus, macroReady) {
-        if (!macroFocus || !macroReady) return@LaunchedEffect
-        withFrameNanos { }
-        val hint = macroAnchor.hint?.takeIf { it.isAttached } ?: return@LaunchedEffect
-        val viewport = macroAnchor.viewport?.takeIf { it.isAttached } ?: return@LaunchedEffect
-        val target = scrollState.value + viewport.localPositionOf(hint, Offset.Zero).y.roundToInt()
-        if (motion) scrollState.animateScrollTo(target) else scrollState.scrollTo(target)
-        macroFocus = false
-    }
+    MarketMacroJumpEffects(
+        jump = jump,
+        macroEvents = macroEvents,
+        reveal = reveal,
+        macroFocus = macroFocus,
+        macroReady = macroReady,
+        macroAnchor = macroAnchor,
+        scrollState = scrollState,
+        motion = motion,
+        onJumpHandled = onJumpHandled,
+        onOpenMacroData = onOpenMacroData,
+        onFocusNow = {
+            moreForJump = true
+            macroFocus = true
+        },
+        onFocusDone = { macroFocus = false },
+    )
 
     // Tab geöffnet oder App wieder im Vordergrund: nur Abgelaufenes neu laden
     LifecycleResumeEffect(viewModel) {
@@ -199,132 +187,47 @@ fun MarketPhaseScreen(
             TopAppBar(
                 title = { TabTitle(stringResource(R.string.tab_market_phase), R.drawable.ic_tab_market) },
                 actions = {
-                    // ⋯ wie in Merkliste und Portfolio: App (→ «Über die App»), Aktualisieren
-                    var menuOpen by remember { mutableStateOf(false) }
-                    Box {
-                        IconButton(onClick = { menuOpen = true }) {
-                            Icon(
-                                painterResource(R.drawable.ic_more_vert),
-                                contentDescription = stringResource(R.string.action_more)
-                            )
-                        }
-                        DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                            AppMenuHead(
-                                refreshing = pullRefreshing,
-                                onClose = { menuOpen = false },
-                                onOpenAbout = onOpenAbout,
-                                onRefresh = viewModel::refreshAll
-                            )
-                        }
-                    }
+                    MarketMenuAction(
+                        refreshing = pullRefreshing,
+                        onOpenAbout = onOpenAbout,
+                        onRefresh = viewModel::refreshAll,
+                    )
                 }
             )
         }
     ) { padding ->
-        PullToRefreshBox(
-            isRefreshing = pullRefreshing,
-            onRefresh = viewModel::refreshAll,
-            modifier = Modifier.fillMaxSize().padding(padding)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    // Sichtbereich (vor dem Scrollen): Bezug für den Sprung zum Wirtschaftsdaten-Hinweis
-                    .onGloballyPositioned { macroAnchor.viewport = it }
-                    .verticalScroll(scrollState)
-                    // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
-                    .readableWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    // Kennung für UI-Tests (Bildschirmfotos): Puls geladen, alles Sichtbare auf «Jetzt» erschienen
-                    .then(
-                        if (pulse is LoadState.Loaded && !reveal.nowLoading(showMore)) {
-                            Modifier.testTag(UiTestTags.MARKET_LOADED)
-                        } else {
-                            Modifier
-                        }
-                    )
-            ) {
-                // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
-                // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
-                // Der Platz bleibt immer reserviert — darunter springt nichts.
-                MarketStatusPill(
-                    refreshingSince = dataAsOf,
-                    updatedAt = (pulse as? LoadState.Loaded)?.value?.time,
-                    online = online,
-                    animate = motion
-                )
-                // 1. Eine Heldenkarte: Crypto Pulse mit «Kurz gesagt» als Körper (einzige betonte Karte).
-                // Beim Laden ein form-gleicher Platzhalter, bei Fehler die kompakte Zeile — der Rest
-                // darunter erscheint trotzdem.
-                Reveal(MarketRevealSlot.PULSE, reveal, instant, motion, onNow = true) {
-                    CryptoPulseCard(pulse, plain = plain, onRetry = { viewModel.loadPulse(force = true) })
-                }
-                // 2. Darunter ruhig und kompakt: Fear & Greed (dieselbe Quelle wie auf «Stimmung & Zyklus») und
-                // «Gewinner und Verlierer 24 h» (je drei, «Alle zeigen»; Tippen wie bei «Heute auffällig»)
-                Reveal(MarketRevealSlot.FEAR_GREED, reveal, instant, motion, onNow = true) {
-                    FearGreedRow(
-                        fearGreed,
-                        onRetry = viewModel::refreshAll,
-                        first = false,
-                        stamp = stamps[CycleSource.FEAR_GREED],
-                        compact = true
-                    )
-                    MarketMoversCard(pulse, onOpen = { coin -> openCoin(coin.symbol) })
-                }
-                // 3. «Mehr Marktdaten» (Standard zu, gemerkt): «Heute auffällig», der Wirtschaftsdaten-Hinweis
-                // (nur bei einem Termin in ±2 h, sonst unter «Daten») und die zwei Unterseiten — deren Daten
-                // laden schon hier (Öffnen sofort)
-                if (reveal.isShownOnNow(MarketRevealSlot.FEAR_GREED)) {
-                    MarketMoreToggle(expanded = showMore, onToggle = {
-                        // Zuklappen beendet auch das Aufklappen aus der Mitteilung
-                        moreForJump = false
-                        viewModel.setMoreExpanded(!showMore)
-                    })
-                    if (showMore) {
-                        // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
-                        // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
-                        // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
-                        Reveal(MarketRevealSlot.UNUSUAL, reveal, instant, motion, onNow = true) {
-                            UnusualCard(
-                                state = unusual,
-                                onOpen = { row -> openCoin(row.symbol) },
-                                onRetry = { viewModel.loadUnusual(force = true) }
-                            )
-                        }
-                        // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine» (Termin in ±2 h)
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .onGloballyPositioned { macroAnchor.hint = it }
-                                .onSizeChanged { macroHintHeight = it.height }
-                        ) {
-                            MacroHintRow(macroEvents, atTop = true)
-                        }
-                        // Zugeklappt ist der Hinweis weg: Höhe zurücksetzen (onSizeChanged meldet das nicht)
-                        DisposableEffect(Unit) { onDispose { macroHintHeight = 0 } }
-                        MarketSectionRow(
-                            section = MarketSection.CONTEXT,
-                            summary = fearGreedSummary(fearGreed),
-                            onClick = { onOpenSection(MarketSection.CONTEXT) }
-                        )
-                        MarketSectionRow(
-                            section = MarketSection.DATA,
-                            summary = macroSummary(macroEvents),
-                            onClick = { onOpenSection(MarketSection.DATA) }
-                        )
-                    }
-                }
-                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis alles Sichtbare auf
-                // «Jetzt» steht (verborgenes «Heute auffällig» zählt nicht)
-                if (reveal.nowLoading(showMore)) RevealLoadingRow()
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-        }
+        MarketNowContent(
+            padding = padding,
+            pullRefreshing = pullRefreshing,
+            scrollState = scrollState,
+            viewModel = viewModel,
+            dataAsOf = dataAsOf,
+            pulse = pulse,
+            online = online,
+            motion = motion,
+            reveal = reveal,
+            instant = instant,
+            plain = plain,
+            fearGreed = fearGreed,
+            stamps = stamps,
+            unusual = unusual,
+            macroEvents = macroEvents,
+            macroAnchor = macroAnchor,
+            showMore = showMore,
+            onToggleMore = {
+                // Zuklappen beendet auch das Aufklappen aus der Mitteilung
+                moreForJump = false
+                viewModel.setMoreExpanded(!showMore)
+            },
+            onMacroHintHeight = { macroHintHeight = it },
+            onOpenCoin = { openCoin(it) },
+            onOpenSection = onOpenSection,
+        )
     }
 }
 
 /** Lage von Sichtbereich und Wirtschaftsdaten-Hinweis für den Sprung (kein Zustand: löst nichts neu aus). */
-private class MacroAnchor {
+internal class MacroAnchor {
     var viewport: LayoutCoordinates? = null
     var hint: LayoutCoordinates? = null
 }
@@ -346,3 +249,134 @@ private fun watchFor(watches: List<WatchEntity>, symbol: String): WatchEntity? =
             it.contractType == FuturesContractType.PERPETUAL || it.contractType == FuturesContractType.INVERSE_PERPETUAL
         },
     )
+
+/** ⋯ in der Leiste von [MarketPhaseScreen]: App (→ «Über die App») und Aktualisieren. */
+@Composable
+private fun MarketMenuAction(refreshing: Boolean, onOpenAbout: () -> Unit, onRefresh: () -> Unit) {
+    // ⋯ wie in Merkliste und Portfolio: App (→ «Über die App»), Aktualisieren
+    var menuOpen by remember { mutableStateOf(false) }
+    Box {
+        IconButton(onClick = { menuOpen = true }) {
+            Icon(
+                painterResource(R.drawable.ic_more_vert),
+                contentDescription = stringResource(R.string.action_more)
+            )
+        }
+        DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+            AppMenuHead(
+                refreshing = refreshing,
+                onClose = { menuOpen = false },
+                onOpenAbout = onOpenAbout,
+                onRefresh = onRefresh
+            )
+        }
+    }
+}
+
+/**
+ * «Mehr Marktdaten» auf «Jetzt» ([MarketPhaseScreen]): Schalter, «Heute auffällig», der Wirtschaftsdaten-Hinweis
+ * (Ziel des Sprungs) und die zwei Unterseiten.
+ */
+@Composable
+internal fun MarketMoreSection(
+    reveal: MarketReveal.State,
+    instant: Set<MarketRevealSlot>,
+    motion: Boolean,
+    showMore: Boolean,
+    onToggleMore: () -> Unit,
+    unusual: LoadState<UnusualReport>,
+    fearGreed: LoadState<FearGreed>,
+    macroEvents: List<MacroEvent>,
+    macroAnchor: MacroAnchor,
+    onMacroHintHeight: (Int) -> Unit,
+    onOpenCoin: (String) -> Unit,
+    onRetryUnusual: () -> Unit,
+    onOpenSection: (MarketSection) -> Unit,
+) {
+    if (reveal.isShownOnNow(MarketRevealSlot.FEAR_GREED)) {
+        MarketMoreToggle(expanded = showMore, onToggle = onToggleMore)
+        if (showMore) {
+            // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+            // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+            // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
+            Reveal(MarketRevealSlot.UNUSUAL, reveal, instant, motion, onNow = true) {
+                UnusualCard(
+                    state = unusual,
+                    onOpen = { row -> onOpenCoin(row.symbol) },
+                    onRetry = onRetryUnusual
+                )
+            }
+            // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine» (Termin in ±2 h)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { macroAnchor.hint = it }
+                    .onSizeChanged { onMacroHintHeight(it.height) }
+            ) {
+                MacroHintRow(macroEvents, atTop = true)
+            }
+            // Zugeklappt ist der Hinweis weg: Höhe zurücksetzen (onSizeChanged meldet das nicht)
+            DisposableEffect(Unit) { onDispose { onMacroHintHeight(0) } }
+            MarketSectionRow(
+                section = MarketSection.CONTEXT,
+                summary = fearGreedSummary(fearGreed),
+                onClick = { onOpenSection(MarketSection.CONTEXT) }
+            )
+            MarketSectionRow(
+                section = MarketSection.DATA,
+                summary = macroSummary(macroEvents),
+                onClick = { onOpenSection(MarketSection.DATA) }
+            )
+        }
+    }
+}
+
+/**
+ * Sprung von aussen zum Wirtschaftsdaten-Hinweis ([MarketPhaseScreen]): entscheiden, sobald die Daten stehen, und den
+ * Hinweis an den oberen Rand scrollen, sobald er steht.
+ */
+@Composable
+private fun MarketMacroJumpEffects(
+    jump: MarketJump?,
+    macroEvents: List<MacroEvent>,
+    reveal: MarketReveal.State,
+    macroFocus: Boolean,
+    macroReady: Boolean,
+    macroAnchor: MacroAnchor,
+    scrollState: ScrollState,
+    motion: Boolean,
+    onJumpHandled: () -> Unit,
+    onOpenMacroData: () -> Unit,
+    onFocusNow: () -> Unit,
+    onFocusDone: () -> Unit,
+) {
+    LaunchedEffect(jump, macroEvents, reveal.shown) {
+        if (jump != MarketJump.MACRO || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
+        onJumpHandled()
+        if (macroRegister(macroEvents) == MarketSection.NOW) {
+            onFocusNow()
+        } else {
+            onOpenMacroData()
+        }
+    }
+    LaunchedEffect(macroFocus, macroReady) {
+        if (!macroFocus || !macroReady) return@LaunchedEffect
+        withFrameNanos { }
+        val hint = macroAnchor.hint?.takeIf { it.isAttached } ?: return@LaunchedEffect
+        val viewport = macroAnchor.viewport?.takeIf { it.isAttached } ?: return@LaunchedEffect
+        val target = scrollState.value + viewport.localPositionOf(hint, Offset.Zero).y.roundToInt()
+        if (motion) scrollState.animateScrollTo(target) else scrollState.scrollTo(target)
+        onFocusDone()
+    }
+}
+
+/** Karten, die ohne Animation erscheinen; liefert einen Wert, liest also wie zuvor im Aufrufer. */
+@Composable
+private fun rememberInstantReveal(viewModel: InfoViewModel, reveal: MarketReveal.State): Set<MarketRevealSlot> {
+    // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
+    // Auf «Jetzt» zählt nur, was dort schon stand (Fear & Greed erst unter den Karten darüber)
+    val revealedOnEntry = remember {
+        viewModel.reveal.value.let { r -> r.shown.filterTo(mutableSetOf()) { r.isShownOnNow(it) } }
+    }
+    return reveal.instant + revealedOnEntry
+}

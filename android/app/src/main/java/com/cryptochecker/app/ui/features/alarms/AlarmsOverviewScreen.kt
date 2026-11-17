@@ -97,25 +97,13 @@ fun AlarmsOverviewScreen(
     val activeText = pluralStringResource(R.plurals.alarms_overview_active, active, active)
 
     askDeletePortfolio?.let { alarm ->
-        AlertDialog(
-            onDismissRequest = { askDeletePortfolio = null },
-            title = { Text(stringResource(R.string.alarm_delete_title)) },
-            text = {
-                DialogText {
-                    Text(PortfolioAlarmTexts.sentence(context, alarm, portfolioDisplay.second, hidePortfolio))
-                }
+        PortfolioAlarmDeleteDialog(
+            sentence = PortfolioAlarmTexts.sentence(context, alarm, portfolioDisplay.second, hidePortfolio),
+            onDelete = {
+                viewModel.deletePortfolioAlarm(alarm.id)
+                askDeletePortfolio = null
             },
-            confirmButton = {
-                TextButton(onClick = {
-                    viewModel.deletePortfolioAlarm(alarm.id)
-                    askDeletePortfolio = null
-                }) {
-                    Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { askDeletePortfolio = null }) { Text(stringResource(R.string.action_cancel)) }
-            }
+            onDismiss = { askDeletePortfolio = null },
         )
     }
 
@@ -164,37 +152,12 @@ fun AlarmsOverviewScreen(
         }
     ) { padding ->
         if (groups.isEmpty() && portfolioAlarms.isEmpty()) {
-            // Keine Sackgasse: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite
-            val watches by viewModel.watches.collectAsStateWithLifecycle()
-            var pickPair by remember { mutableStateOf(false) }
-            // Beispiel im Stil der Alarm-Sätze (wie iOS)
-            EmptyState(
-                iconRes = R.drawable.ic_notifications_active,
-                title = stringResource(R.string.alarms_overview_empty),
-                example = alarmsEmptyExample(),
-                // Leere Merkliste: ohne Paar kein Alarm — direkt «Paar hinzufügen» statt einer Sackgasse
-                actionLabel = stringResource(if (watches.isNotEmpty()) R.string.alarms_add else R.string.shortcut_add),
-                onAction = {
-                    when {
-                        watches.isEmpty() -> onAddPair()
-                        watches.size == 1 -> onOpenWatch(watches.first().id)
-                        else -> pickPair = true
-                    }
-                },
-                modifier = Modifier.fillMaxSize().padding(padding),
+            AlarmsOverviewEmpty(
+                padding = padding,
+                viewModel = viewModel,
+                onAddPair = onAddPair,
+                onOpenWatch = onOpenWatch,
             )
-            if (pickPair) {
-                // Zeilen ohne Kurs, nur bei echter Änderung neu
-                val pickerRows by viewModel.pickerRows.collectAsStateWithLifecycle()
-                AlarmPairPicker(
-                    rows = pickerRows,
-                    onPick = { id ->
-                        pickPair = false
-                        onOpenWatch(id)
-                    },
-                    onDismiss = { pickPair = false },
-                )
-            }
             return@Scaffold
         }
 
@@ -237,4 +200,67 @@ fun AlarmsOverviewScreen(
             }
         }
     }
+}
+
+/** Noch kein Alarm ([AlarmsOverviewScreen]): keine Sackgasse — «Neuer Alarm» → Paar wählen → dessen Alarm-Seite. */
+@Composable
+private fun AlarmsOverviewEmpty(
+    padding: PaddingValues,
+    viewModel: AlarmsOverviewViewModel,
+    onAddPair: () -> Unit,
+    onOpenWatch: (Long) -> Unit,
+) {
+    // Keine Sackgasse: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite
+    val watches by viewModel.watches.collectAsStateWithLifecycle()
+    var pickPair by remember { mutableStateOf(false) }
+    // Beispiel im Stil der Alarm-Sätze (wie iOS)
+    EmptyState(
+        iconRes = R.drawable.ic_notifications_active,
+        title = stringResource(R.string.alarms_overview_empty),
+        example = alarmsEmptyExample(),
+        // Leere Merkliste: ohne Paar kein Alarm — direkt «Paar hinzufügen» statt einer Sackgasse
+        actionLabel = stringResource(if (watches.isNotEmpty()) R.string.alarms_add else R.string.shortcut_add),
+        onAction = {
+            when {
+                watches.isEmpty() -> onAddPair()
+                watches.size == 1 -> onOpenWatch(watches.first().id)
+                else -> pickPair = true
+            }
+        },
+        modifier = Modifier.fillMaxSize().padding(padding),
+    )
+    if (pickPair) {
+        // Zeilen ohne Kurs, nur bei echter Änderung neu
+        val pickerRows by viewModel.pickerRows.collectAsStateWithLifecycle()
+        AlarmPairPicker(
+            rows = pickerRows,
+            onPick = { id ->
+                pickPair = false
+                onOpenWatch(id)
+            },
+            onDismiss = { pickPair = false },
+        )
+    }
+}
+
+/** Rückfrage «Alarm löschen?» für einen Portfolio-Alarm ([AlarmsOverviewScreen]) mit seinem Satz. */
+@Composable
+private fun PortfolioAlarmDeleteDialog(sentence: String, onDelete: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.alarm_delete_title)) },
+        text = {
+            DialogText {
+                Text(sentence)
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDelete) {
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        }
+    )
 }

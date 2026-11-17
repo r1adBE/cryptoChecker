@@ -5,34 +5,25 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.isSpecified
 import com.cryptochecker.app.domain.WatchMove
-import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.DayChange
@@ -40,11 +31,9 @@ import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.resources.R
 
 /**
@@ -137,6 +126,88 @@ internal fun WatchRow(
     val pausedUntil = RowPause.shownUntil(off, LocalExchangePauses.current[watch.exchangeKey], now)
     val status = watchRowStatus(watch, now, stale, staleAfter, pausedUntil)
 
+    WatchRowCard(
+        watch = watch,
+        alarmCount = alarmCount,
+        now = now,
+        staleAfter = staleAfter,
+        onClick = onClick,
+        modifier = modifier,
+        elevation = elevation,
+        highlighted = highlighted,
+        sortMode = sortMode,
+        selecting = selecting,
+        selected = selected,
+        onMove = onMove,
+        onDeleteAction = onDeleteAction,
+        onFavoriteAction = onFavoriteAction,
+        canReorder = canReorder,
+        onLongClick = onLongClick,
+        handleModifier = handleModifier,
+        hasActivity = hasActivity,
+        onActivityClick = onActivityClick,
+        converted = converted,
+        convertedA11y = convertedA11y,
+        sparkline = sparkline,
+        hasSparkline = hasSparkline,
+        chartSource = chartSource,
+        changeSource = changeSource,
+        shape = shape,
+        alarmFiredAt = alarmFiredAt,
+        kind = kind,
+        onSourceHint = onSourceHint,
+        accent = accent,
+        motion = motion,
+        off = off,
+        stale = stale,
+        flash = flash,
+        status = status,
+    )
+}
+
+/**
+ * Karte von [WatchRow] samt Zeilensatz für den Screenreader und den Aktionen der Zeile. Nicht neu startbar: liest wie
+ * zuvor im Rumpf von [WatchRow].
+ */
+@NonRestartableComposable
+@Composable
+private fun WatchRowCard(
+    watch: WatchEntity,
+    alarmCount: Int,
+    now: Long,
+    staleAfter: Long,
+    onClick: () -> Unit,
+    modifier: Modifier,
+    elevation: Dp,
+    highlighted: Boolean,
+    sortMode: Boolean,
+    selecting: Boolean,
+    selected: Boolean,
+    onMove: (WatchMove) -> Unit,
+    onDeleteAction: (() -> Unit)?,
+    onFavoriteAction: (() -> Unit)?,
+    canReorder: Boolean,
+    onLongClick: (() -> Unit)?,
+    handleModifier: Modifier,
+    hasActivity: Boolean,
+    onActivityClick: () -> Unit,
+    converted: String?,
+    convertedA11y: String?,
+    sparkline: List<Double>?,
+    hasSparkline: Boolean,
+    chartSource: String?,
+    changeSource: String?,
+    shape: Shape,
+    alarmFiredAt: Long,
+    kind: AssetKind,
+    onSourceHint: (String) -> Unit,
+    accent: Color,
+    motion: RowMotion,
+    off: Boolean,
+    stale: Boolean,
+    flash: PriceFlash,
+    status: WatchRowStatus,
+) {
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
     // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
     val labels = rememberWatchRowLabels(watch.favorite)
@@ -209,93 +280,32 @@ internal fun WatchRow(
                 onMove = onMove,
             )
     ) {
-        // Mit «Namen anzeigen» oben bündig: links Paar / Name / Börse, rechts Kurs / Änderung /
-        // ≈ Umrechnung stehen je auf einer Linie; Logo, Mini-Chart und Griff bleiben mittig
-        val namesOn = LocalCoinNameSource.current != null
-        // Grösste Schrift (ab 1.5): Kurs unter das Paar statt daneben, links bleibt Breite ([DenseRowText])
-        val stacked = DenseRowText.stacksTrailing(LocalDensity.current.fontScale)
-
-        // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText]).
-        // Breite einmal von der Liste ([LocalWatchRowWidth]) statt je Zeile gemessen
-        // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
-        @SuppressLint("ConfigurationScreenWidthHeight")
-        val rowWidth = LocalWatchRowWidth.current.takeIf { it.isSpecified }?.value
-            ?: LocalConfiguration.current.screenWidthDp.toFloat()
-        Box {
-            val sparkWidth = DenseRowText.sparklineWidth(rowWidth).dp
-            val largePrice = DenseRowText.largePrice(LocalDensity.current.fontScale, rowWidth)
-            // Kurs neben dem Paar bzw. (grösste Schrift) darunter – derselbe Inhalt an zwei möglichen Stellen
-            val price: @Composable (Modifier) -> Unit = { priceModifier ->
-                RowPrice(
-                    watch = watch,
-                    converted = converted,
-                    convertedMaxWidth = if (stacked) Dp.Unspecified else DenseRowText.convertedMaxWidth(rowWidth).dp,
-                    off = off,
-                    stale = stale,
-                    reveal = motion.priceReveal,
-                    flash = flash,
-                    changeMarker = changeMarker != null,
-                    changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
-                    onChangeMarkerClick = showSourceHint,
-                    markPrice = markPrice,
-                    hourlyPrice = hourlyPrice,
-                    reference = reference,
-                    largePrice = largePrice,
-                    modifier = priceModifier,
-                )
-            }
-            Column(modifier = Modifier.padding(start = 4.dp, end = Spacing.md, top = Spacing.md, bottom = Spacing.md)) {
-                Row(verticalAlignment = if (namesOn) Alignment.Top else Alignment.CenterVertically) {
-                    Box(Modifier.align(Alignment.CenterVertically)) {
-                        RowLeading(
-                            sortMode = sortMode,
-                            selecting = selecting,
-                            selected = selected,
-                            accent = accent,
-                            handleModifier = handleModifier,
-                        )
-                    }
-                    RowLogo(watch, sortMode, off)
-                    RowInfo(
-                        watch = watch,
-                        alarmCount = alarmCount,
-                        now = now,
-                        stale = stale,
-                        status = status,
-                        accent = accent,
-                        check = motion.check,
-                        hasActivity = hasActivity && !off,
-                        onActivityClick = onActivityClick,
-                        kind = kind,
-                        modifier = Modifier.weight(1f),
-                    )
-
-                    // Mini-Chart zwischen Paar und Kurs; feste Grösse, immer sichtbar, wenn eingeschaltet — wird es
-                    // eng, bricht die Börsenzeile um ([RowMetaLine]), wie iOS. Der Kurs wird nie schmaler
-                    // (deaktiviert: keines — es wird nichts geladen)
-                    if (sparkline != null && hasSparkline && !off) {
-                        Sparkline(
-                            values = sparkline,
-                            // Veraltet: grau wie der Kurs, ohne Fläche (statt halber Deckkraft in Kursfarbe)
-                            stale = stale,
-                            progress = { motion.draw.value },
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 8.dp)
-                                // 28 dp: passt in die Zeilenhöhe
-                                .size(width = sparkWidth, height = 28.dp)
-                                .clearAndSetSemantics { }
-                        )
-                    }
-
-                    if (!stacked) price(Modifier.padding(start = 8.dp))
-
-                    // Sortiermodus: «ganz nach oben/unten» im Zeilenmenü statt als Symbole
-                    if (sortMode) Box(Modifier.align(Alignment.CenterVertically)) { RowSortMenu(onMove = onMove) }
-                }
-                watch.note?.let { note -> WatchRowNote(note, accent, off) }
-                if (stacked) price(Modifier.align(Alignment.End).padding(top = 4.dp))
-            }
-        }
+        WatchRowContent(
+            watch = watch,
+            alarmCount = alarmCount,
+            now = now,
+            converted = converted,
+            off = off,
+            stale = stale,
+            status = status,
+            motion = motion,
+            flash = flash,
+            changeMarker = changeMarker,
+            showSourceHint = showSourceHint,
+            markPrice = markPrice,
+            hourlyPrice = hourlyPrice,
+            reference = reference,
+            sortMode = sortMode,
+            selecting = selecting,
+            selected = selected,
+            accent = accent,
+            handleModifier = handleModifier,
+            hasActivity = hasActivity,
+            onActivityClick = onActivityClick,
+            kind = kind,
+            sparkline = sparkline,
+            hasSparkline = hasSparkline,
+            onMove = onMove,
+        )
     }
 }

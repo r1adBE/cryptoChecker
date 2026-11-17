@@ -11,6 +11,7 @@ import android.widget.RemoteViews
 import androidx.core.os.BundleCompat
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetLayout
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSize
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
@@ -97,46 +98,20 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
     }
     // Gewählter Zeitraum ohne Tageskurse: 24 h als Linie, dazu «7T folgt» in der Fusszeile
     val fallbackHint = fallbackHint(plan)
-    val chartDescription = if (drawable) {
-        val periodLong = when {
-            plan.range != PortfolioChartRange.DAY -> rangeLong(plan.range)
-            chartBasis.isDay -> ChangeBasisText.longLabel(context, chartBasis)
-            spanAtMostDay(plan.bars) -> context.getString(R.string.widget_range_24h)
-            else -> context.getString(R.string.widget_portfolio_range_48h)
-        }
-        val hiddenSpoken = context.getString(R.string.a11y_amount_hidden)
-        A11yText.chart(context, periodLong, plan.bars.map { it.close }) {
-            if (style.hideAmounts) hiddenSpoken else PriceFormat.valueWithCurrency(it, snapshot.currency)
-        }
-    } else {
-        null
-    }
-    if (layout.chart) {
-        views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
-        val chartUp = direction?.let { it >= 0 } ?: (plan.bars.isNotEmpty() && plan.bars.last().close >= plan.bars.first().open)
-        val chartColor = if (chartUp) colors.upColor else colors.downColor
-        val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
-        val bitmap = if (drawable) {
-            withContext(Dispatchers.Default) {
-                runCatchingCancellable { drawPortfolioChart(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale) }
-                    .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
-                    .getOrNull()
-            }
-        } else {
-            null
-        }
-        if (bitmap != null) {
-            views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
-            views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
-            views.setViewVisibility(R.id.portfolio_chart_pending, View.GONE)
-        } else {
-            views.setViewVisibility(R.id.portfolio_chart, View.GONE)
-            views.setViewVisibility(R.id.portfolio_chart_pending, View.VISIBLE)
-            views.setTextColor(R.id.portfolio_chart_pending, colors.secondaryTextColor)
-        }
-    } else {
-        views.setViewVisibility(R.id.portfolio_chart_box, View.GONE)
-    }
+    val chartDescription = if (drawable) portfolioChartDescription(plan, chartBasis, style, snapshot) else null
+    bindPortfolioChart(
+        views = views,
+        layout = layout,
+        drawable = drawable,
+        direction = direction,
+        plan = plan,
+        style = style,
+        appWidgetId = appWidgetId,
+        slot = slot,
+        widthDp = widthDp,
+        heightDp = heightDp,
+        fontScale = fontScale,
+    )
     // Platzhalter hält die Fusszeile unten: klein und mittel (linke Spalte); sonst füllt der Chart
     views.setViewVisibility(
         R.id.portfolio_spacer,
@@ -283,3 +258,65 @@ fun PortfolioWidgetRenderer.drawPortfolioChart(
 
 /** Bis zu dieser Spanne heisst der Wertverlauf «24h», darüber «48h». */
 private const val DAY_SPAN_MILLIS = 25 * 3_600_000L
+
+/** Chart der Ansicht «Chart» ([portfolioViews]): Bild abseits des Main-Threads, sonst «Verlauf folgt»; ohne Platz weg. */
+private suspend fun PortfolioWidgetRenderer.bindPortfolioChart(
+    views: RemoteViews,
+    layout: PortfolioWidgetLayout,
+    drawable: Boolean,
+    direction: Int?,
+    plan: PortfolioChartPlan,
+    style: PortfolioStyle,
+    appWidgetId: Int,
+    slot: Int,
+    widthDp: Int,
+    heightDp: Int,
+    fontScale: Float,
+) {
+    val colors = style.colors
+    if (layout.chart) {
+        views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
+        val chartUp = direction?.let { it >= 0 } ?: (plan.bars.isNotEmpty() && plan.bars.last().close >= plan.bars.first().open)
+        val chartColor = if (chartUp) colors.upColor else colors.downColor
+        val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
+        val bitmap = if (drawable) {
+            withContext(Dispatchers.Default) {
+                runCatchingCancellable { drawPortfolioChart(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale) }
+                    .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
+                    .getOrNull()
+            }
+        } else {
+            null
+        }
+        if (bitmap != null) {
+            views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
+            views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
+            views.setViewVisibility(R.id.portfolio_chart_pending, View.GONE)
+        } else {
+            views.setViewVisibility(R.id.portfolio_chart, View.GONE)
+            views.setViewVisibility(R.id.portfolio_chart_pending, View.VISIBLE)
+            views.setTextColor(R.id.portfolio_chart_pending, colors.secondaryTextColor)
+        }
+    } else {
+        views.setViewVisibility(R.id.portfolio_chart_box, View.GONE)
+    }
+}
+
+/** Verlauf als Satz für den Screenreader ([portfolioViews]): Zeitraum, Start, Ende, Hoch, Tief; Beträge verborgen gesprochen. */
+private fun PortfolioWidgetRenderer.portfolioChartDescription(
+    plan: PortfolioChartPlan,
+    chartBasis: ChangeBasis,
+    style: PortfolioStyle,
+    snapshot: PortfolioSnapshot,
+): String {
+    val periodLong = when {
+        plan.range != PortfolioChartRange.DAY -> rangeLong(plan.range)
+        chartBasis.isDay -> ChangeBasisText.longLabel(context, chartBasis)
+        spanAtMostDay(plan.bars) -> context.getString(R.string.widget_range_24h)
+        else -> context.getString(R.string.widget_portfolio_range_48h)
+    }
+    val hiddenSpoken = context.getString(R.string.a11y_amount_hidden)
+    return A11yText.chart(context, periodLong, plan.bars.map { it.close }) {
+        if (style.hideAmounts) hiddenSpoken else PriceFormat.valueWithCurrency(it, snapshot.currency)
+    }
+}

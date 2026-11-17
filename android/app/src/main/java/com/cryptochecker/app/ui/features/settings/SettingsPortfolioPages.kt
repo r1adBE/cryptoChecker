@@ -32,6 +32,7 @@ import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsConfirm
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.lock.AppLockAuth
@@ -99,47 +100,7 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             // Mit eingeschaltetem Portfolio — und solange die Sperre an ist auch ohne (sie wirkt weiter auf Widget und
             // Sicherung und muss ausschaltbar bleiben); der Wert bleibt beim Ausblenden erhalten
             if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled, settings.appLock)) {
-                val unavailableText = stringResource(R.string.app_lock_unavailable)
-                val haptics = rememberHaptics()
-                val reason = stringResource(R.string.portfolio_lock_reason)
-                // Ohne Displaysperre (PIN/Muster/Passwort) hebt sich die Sperre selbst auf
-                // (AppLock.requireUnlock) — das hier ehrlich sagen; beim Zurückkehren neu prüfen
-                var deviceSecure by remember { mutableStateOf(AppLockAuth.canAuthenticate(context)) }
-                LifecycleResumeEffect(Unit) {
-                    deviceSecure = AppLockAuth.canAuthenticate(context)
-                    onPauseOrDispose { }
-                }
-                RowDivider()
-                SettingsAnchor("portfolio.lock") {
-                    Column {
-                        SwitchRow(
-                            title = stringResource(R.string.settings_portfolio_lock),
-                            subtitle = stringResource(R.string.settings_portfolio_lock_hint),
-                            checked = settings.appLock,
-                            onCheckedChange = { on ->
-                                val activity = context.findFragmentActivity()
-                                if (!on) {
-                                    // Solange gesperrt, erst entsperren — sonst wäre die Sperre hier zu umgehen
-                                    viewModel.disableAppLock(activity, reason)
-                                } else if (activity == null || !AppLockAuth.canAuthenticate(context)) {
-                                    haptics.play(HapticEvent.ERROR)
-                                    Toast.makeText(context, unavailableText, Toast.LENGTH_LONG).show()
-                                } else {
-                                    // Einschalten erst nach einer erfolgreichen Entsperrung
-                                    viewModel.enableAppLock(activity, reason)
-                                }
-                            }
-                        )
-                        if (!deviceSecure) {
-                            Text(
-                                stringResource(R.string.settings_portfolio_lock_no_device_lock),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = AppColors.warningText,
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                        }
-                    }
-                }
+                PortfolioLockRow(settings, viewModel)
             }
             if (settings.portfolioEnabled) {
                 RowDivider()
@@ -162,36 +123,10 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 RowDivider()
                 // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO)
                 SettingsAnchor("portfolio.cost_method") {
-                    // Drei Zeilen untereinander (Titel + Hinweis) statt Segmentknopf: die Namen wurden dort abgeschnitten
-                    Column(modifier = Modifier.padding(vertical = 8.dp).selectableGroup()) {
-                        Text(
-                            stringResource(R.string.settings_cost_method),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(bottom = 4.dp).semantics { heading() }
-                        )
-                        CostMethod.entries.forEach { method ->
-                            RadioRow(
-                                selected = settings.costMethod == method,
-                                onClick = {
-                                    if (SettingsConfirm.costMethod(settings.costMethod, method)) pendingMethod = method
-                                },
-                                title = stringResource(
-                                    when (method) {
-                                        CostMethod.FIFO -> R.string.settings_cost_method_fifo
-                                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet
-                                        CostMethod.AVERAGE -> R.string.settings_cost_method_average
-                                    }
-                                ),
-                                subtitle = stringResource(
-                                    when (method) {
-                                        CostMethod.FIFO -> R.string.settings_cost_method_fifo_hint
-                                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet_hint
-                                        CostMethod.AVERAGE -> R.string.settings_cost_method_average_hint
-                                    }
-                                ),
-                            )
-                        }
-                    }
+                    CostMethodChoice(
+                        selected = settings.costMethod,
+                        onSelect = { method -> if (SettingsConfirm.costMethod(settings.costMethod, method)) pendingMethod = method },
+                    )
                 }
                 RowDivider()
                 // Steuer-Vorlage der Arbeitsunterlage (Standard Neutral); die Region wird nur vorgeschlagen, nie still übernommen
@@ -311,4 +246,87 @@ private fun PortfolioSettingsConfirmDialog(
         confirmButton = { TextButton(onClick = onConfirm) { Text(confirm) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
+}
+
+/**
+ * Schalter der Portfolio-Sperre ([PortfolioPage]); ohne Displaysperre hebt sich die Sperre selbst auf — das sagt die
+ * Zeile ehrlich (beim Zurückkehren neu geprüft).
+ */
+@Composable
+private fun PortfolioLockRow(settings: AppSettings, viewModel: SettingsViewModel) {
+    val context = LocalContext.current
+    val unavailableText = stringResource(R.string.app_lock_unavailable)
+    val haptics = rememberHaptics()
+    val reason = stringResource(R.string.portfolio_lock_reason)
+    // Ohne Displaysperre (PIN/Muster/Passwort) hebt sich die Sperre selbst auf
+    // (AppLock.requireUnlock) — das hier ehrlich sagen; beim Zurückkehren neu prüfen
+    var deviceSecure by remember { mutableStateOf(AppLockAuth.canAuthenticate(context)) }
+    LifecycleResumeEffect(Unit) {
+        deviceSecure = AppLockAuth.canAuthenticate(context)
+        onPauseOrDispose { }
+    }
+    RowDivider()
+    SettingsAnchor("portfolio.lock") {
+        Column {
+            SwitchRow(
+                title = stringResource(R.string.settings_portfolio_lock),
+                subtitle = stringResource(R.string.settings_portfolio_lock_hint),
+                checked = settings.appLock,
+                onCheckedChange = { on ->
+                    val activity = context.findFragmentActivity()
+                    if (!on) {
+                        // Solange gesperrt, erst entsperren — sonst wäre die Sperre hier zu umgehen
+                        viewModel.disableAppLock(activity, reason)
+                    } else if (activity == null || !AppLockAuth.canAuthenticate(context)) {
+                        haptics.play(HapticEvent.ERROR)
+                        Toast.makeText(context, unavailableText, Toast.LENGTH_LONG).show()
+                    } else {
+                        // Einschalten erst nach einer erfolgreichen Entsperrung
+                        viewModel.enableAppLock(activity, reason)
+                    }
+                }
+            )
+            if (!deviceSecure) {
+                Text(
+                    stringResource(R.string.settings_portfolio_lock_no_device_lock),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = AppColors.warningText,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
+        }
+    }
+}
+
+/** Einstandsmethode ([PortfolioPage]): drei Zeilen untereinander mit Titel und Hinweis. */
+@Composable
+private fun CostMethodChoice(selected: CostMethod, onSelect: (CostMethod) -> Unit) {
+    // Drei Zeilen untereinander (Titel + Hinweis) statt Segmentknopf: die Namen wurden dort abgeschnitten
+    Column(modifier = Modifier.padding(vertical = 8.dp).selectableGroup()) {
+        Text(
+            stringResource(R.string.settings_cost_method),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(bottom = 4.dp).semantics { heading() }
+        )
+        CostMethod.entries.forEach { method ->
+            RadioRow(
+                selected = selected == method,
+                onClick = { onSelect(method) },
+                title = stringResource(
+                    when (method) {
+                        CostMethod.FIFO -> R.string.settings_cost_method_fifo
+                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet
+                        CostMethod.AVERAGE -> R.string.settings_cost_method_average
+                    }
+                ),
+                subtitle = stringResource(
+                    when (method) {
+                        CostMethod.FIFO -> R.string.settings_cost_method_fifo_hint
+                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet_hint
+                        CostMethod.AVERAGE -> R.string.settings_cost_method_average_hint
+                    }
+                ),
+            )
+        }
+    }
 }

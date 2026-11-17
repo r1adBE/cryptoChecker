@@ -189,48 +189,7 @@ private fun PortfolioWidgetConfigureContent(
                 }
             }
 
-            // Anzeige: als Liste (die Bezeichnungen sind für Segmente zu lang); je Ansicht nur, was dort wirkt
-            // ([PortfolioWidgetOptions]: Liste ohne «+ USDT»). Markiert ist die wirksame Wahl; gespeichert wird nur,
-            // was man antippt — beim Wechsel zurück auf Übersicht/Chart gilt die frühere Wahl wieder.
-            Text(
-                stringResource(R.string.widget_portfolio_display),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            val displayLabels = mapOf(
-                PortfolioDisplay.USDT to R.string.widget_portfolio_display_usdt,
-                PortfolioDisplay.CONVERSION to R.string.widget_portfolio_display_conversion,
-                PortfolioDisplay.CONVERSION_USDT to R.string.widget_portfolio_display_conversion_usdt,
-            )
-            val displays = PortfolioWidgetOptions.displays(view)
-            val shownDisplay = PortfolioWidgetOptions.effectiveDisplay(view, display)
-            Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
-                displays.forEach { value ->
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .selectable(selected = shownDisplay == value, role = Role.RadioButton) { chosenDisplay = value }
-                            .padding(vertical = 2.dp)
-                    ) {
-                        RadioButton(selected = shownDisplay == value, onClick = null)
-                        Text(
-                            stringResource(displayLabels.getValue(value)),
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = 12.dp)
-                        )
-                    }
-                }
-            }
-            // Hinweis zur USDT-Zeile nur, wo «Umrechnung + USDT» angeboten wird
-            if (PortfolioDisplay.CONVERSION_USDT in displays) {
-                Text(
-                    stringResource(R.string.widget_portfolio_display_hint),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-            }
+            PortfolioDisplayChoice(view = view, display = display, onChoose = { chosenDisplay = it })
 
             // Zeitraum: nicht bei «Liste», bei «Übersicht» nur 30 T / 1 J ([PortfolioWidgetOptions]); markiert ist der
             // wirksame Zeitraum, gespeichert nur ein angetippter (die frühere Wahl bleibt sonst erhalten)
@@ -277,35 +236,7 @@ private fun PortfolioWidgetConfigureContent(
 
             // Liste: Buchungen unter den Coins, nur wenn unter ihnen Platz bleibt (Coins haben Vorrang)
             if (view == PortfolioWidgetView.LIST) {
-                Text(
-                    stringResource(R.string.widget_portfolio_entries),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
-                    ENTRY_CHOICES.forEach { (value, label) ->
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(selected = entries == value, role = Role.RadioButton) { entries = value }
-                                .padding(vertical = 2.dp)
-                        ) {
-                            RadioButton(selected = entries == value, onClick = null)
-                            Text(
-                                stringResource(label),
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(start = 12.dp)
-                            )
-                        }
-                    }
-                }
-                Text(
-                    stringResource(R.string.widget_portfolio_entries_hint),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
+                PortfolioEntriesChoice(entries = entries, onEntries = { entries = it })
             }
 
             Text(
@@ -360,3 +291,84 @@ private val ENTRY_CHOICES = listOf(
     PortfolioWidgetEntryFilter.SELLS to R.string.widget_portfolio_entries_sells,
     PortfolioWidgetEntryFilter.BOTH to R.string.widget_portfolio_entries_both,
 )
+
+/** Wahl der Anzeige ([PortfolioWidgetConfigureContent]): je Ansicht nur, was dort wirkt, mit Hinweis zur USDT-Zeile. */
+@Composable
+private fun PortfolioDisplayChoice(view: PortfolioWidgetView, display: PortfolioDisplay, onChoose: (PortfolioDisplay) -> Unit) {
+    // Anzeige: als Liste (die Bezeichnungen sind für Segmente zu lang); je Ansicht nur, was dort wirkt
+    // ([PortfolioWidgetOptions]: Liste ohne «+ USDT»). Markiert ist die wirksame Wahl; gespeichert wird nur,
+    // was man antippt — beim Wechsel zurück auf Übersicht/Chart gilt die frühere Wahl wieder.
+    Text(
+        stringResource(R.string.widget_portfolio_display),
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 16.dp)
+    )
+    val displayLabels = mapOf(
+        PortfolioDisplay.USDT to R.string.widget_portfolio_display_usdt,
+        PortfolioDisplay.CONVERSION to R.string.widget_portfolio_display_conversion,
+        PortfolioDisplay.CONVERSION_USDT to R.string.widget_portfolio_display_conversion_usdt,
+    )
+    val displays = PortfolioWidgetOptions.displays(view)
+    val shownDisplay = PortfolioWidgetOptions.effectiveDisplay(view, display)
+    Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
+        displays.forEach { value ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(selected = shownDisplay == value, role = Role.RadioButton) { onChoose(value) }
+                    .padding(vertical = 2.dp)
+            ) {
+                RadioButton(selected = shownDisplay == value, onClick = null)
+                Text(
+                    stringResource(displayLabels.getValue(value)),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 12.dp)
+                )
+            }
+        }
+    }
+    // Hinweis zur USDT-Zeile nur, wo «Umrechnung + USDT» angeboten wird
+    if (PortfolioDisplay.CONVERSION_USDT in displays) {
+        Text(
+            stringResource(R.string.widget_portfolio_display_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+/** Liste: Buchungen unter den Coins ([PortfolioWidgetConfigureContent]), nur wenn unter ihnen Platz bleibt. */
+@Composable
+private fun PortfolioEntriesChoice(entries: PortfolioWidgetEntryFilter, onEntries: (PortfolioWidgetEntryFilter) -> Unit) {
+    Text(
+        stringResource(R.string.widget_portfolio_entries),
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 16.dp)
+    )
+    Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
+        ENTRY_CHOICES.forEach { (value, label) ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(selected = entries == value, role = Role.RadioButton) { onEntries(value) }
+                    .padding(vertical = 2.dp)
+            ) {
+                RadioButton(selected = entries == value, onClick = null)
+                Text(
+                    stringResource(label),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 12.dp)
+                )
+            }
+        }
+    }
+    Text(
+        stringResource(R.string.widget_portfolio_entries_hint),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = 4.dp)
+    )
+}

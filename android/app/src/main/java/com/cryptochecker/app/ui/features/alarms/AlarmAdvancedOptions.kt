@@ -172,70 +172,9 @@ internal fun MoreConditionOptions(
     if (!AlarmTemplates.opensMoreConditions(draft.condition)) return
 
     if (draft.condition == AlarmCondition.VOLUME_SPIKE) {
-        // Volumen-Spike: Faktor als Chips statt Eingabefeld
-        Text(
-            stringResource(R.string.alarm_volume_factor_label),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(top = Spacing.lg)
-        )
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
-            modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
-        ) {
-            AlarmDraft.VOLUME_FACTORS.forEach { factor ->
-                FilterChip(
-                    selected = draft.threshold == factor,
-                    onClick = { onDraftChange(draft.copy(thresholdText = AlarmDraft.formatFactor(factor))) },
-                    label = { Text("×" + AlarmDraft.formatFactor(factor)) },
-                    modifier = Modifier.weight(1f)
-                )
-            }
-        }
-        Text(
-            stringResource(R.string.alarm_volume_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = Spacing.xs)
-        )
-        // Stunden ohne Handel zählen als 0 (VolumeDataSource.spikeOf): bei dünnem Handel wirkt eine normale Stunde auffällig
-        Text(
-            stringResource(R.string.alarm_volume_zero_hours_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
-        )
+        VolumeFactorOptions(draft, onDraftChange)
     } else if (draft.condition.isFunding) {
-        // Funding: Prozent mit Vorzeichen; «±» wechselt es (Zifferntastaturen haben oft kein Minus)
-        val signA11y = stringResource(R.string.alarm_funding_sign_a11y)
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
-            modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)
-        ) {
-            OutlinedTextField(
-                value = draft.thresholdText,
-                onValueChange = { onDraftChange(draft.copy(thresholdText = it)) },
-                singleLine = true,
-                label = { Text(stringResource(R.string.alarm_field_percent)) },
-                suffix = { Text(PercentText.symbol()) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                isError = draft.thresholdProblem != null,
-                supportingText = thresholdErrorText(draft.thresholdProblem, draft.ambiguity),
-                modifier = Modifier.weight(1f).testTag(UiTestTags.ALARM_THRESHOLD)
-            )
-            OutlinedButton(
-                onClick = { onDraftChange(draft.withToggledSign()) },
-                modifier = Modifier.semantics { contentDescription = signA11y }
-            ) {
-                Text("±", style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
-            }
-        }
-        Text(
-            stringResource(R.string.alarm_funding_hint_8h),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
-        )
+        FundingThresholdField(draft, onDraftChange)
     } else if (!(draft.condition.isNearExtreme && draft.newExtremeOnly)) {
         // Nur neue Hochs/Tiefs: kein Abstand nötig
         ThresholdField(draft = draft, onDraftChange = onDraftChange)
@@ -372,5 +311,78 @@ internal fun AdvancedOptions(
         title = stringResource(R.string.alarm_option_speak),
         checked = draft.speak,
         onCheckedChange = { onDraftChange(draft.copy(speak = it)) }
+    )
+}
+
+/** Volumen-Spike ([MoreConditionOptions]): Faktor als Chips statt Eingabefeld, mit den Hinweisen darunter. */
+@Composable
+private fun VolumeFactorOptions(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Unit) {
+    // Volumen-Spike: Faktor als Chips statt Eingabefeld
+    Text(
+        stringResource(R.string.alarm_volume_factor_label),
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = Spacing.lg)
+    )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
+    ) {
+        AlarmDraft.VOLUME_FACTORS.forEach { factor ->
+            FilterChip(
+                selected = draft.threshold == factor,
+                onClick = { onDraftChange(draft.copy(thresholdText = AlarmDraft.formatFactor(factor))) },
+                label = { Text("×" + AlarmDraft.formatFactor(factor)) },
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+    Text(
+        stringResource(R.string.alarm_volume_hint),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = Spacing.xs)
+    )
+    // Stunden ohne Handel zählen als 0 (VolumeDataSource.spikeOf): bei dünnem Handel wirkt eine normale Stunde auffällig
+    Text(
+        stringResource(R.string.alarm_volume_zero_hours_hint),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
+    )
+}
+
+/** Funding ([MoreConditionOptions]): Prozent mit Vorzeichen; «±» wechselt es (Zifferntastaturen haben oft kein Minus). */
+@Composable
+private fun FundingThresholdField(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Unit) {
+    // Funding: Prozent mit Vorzeichen; «±» wechselt es (Zifferntastaturen haben oft kein Minus)
+    val signA11y = stringResource(R.string.alarm_funding_sign_a11y)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)
+    ) {
+        OutlinedTextField(
+            value = draft.thresholdText,
+            onValueChange = { onDraftChange(draft.copy(thresholdText = it)) },
+            singleLine = true,
+            label = { Text(stringResource(R.string.alarm_field_percent)) },
+            suffix = { Text(PercentText.symbol()) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            isError = draft.thresholdProblem != null,
+            supportingText = thresholdErrorText(draft.thresholdProblem, draft.ambiguity),
+            modifier = Modifier.weight(1f).testTag(UiTestTags.ALARM_THRESHOLD)
+        )
+        OutlinedButton(
+            onClick = { onDraftChange(draft.withToggledSign()) },
+            modifier = Modifier.semantics { contentDescription = signA11y }
+        ) {
+            Text("±", style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
+        }
+    }
+    Text(
+        stringResource(R.string.alarm_funding_hint_8h),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
     )
 }

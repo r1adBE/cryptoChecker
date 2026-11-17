@@ -21,24 +21,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
-import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppSnackbarHost
-import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.NoteDialog
 import com.cryptochecker.app.ui.components.WidgetManualDialog
 import com.cryptochecker.app.ui.features.alarms.AlarmEditorHost
@@ -48,8 +42,6 @@ import com.cryptochecker.app.ui.features.alarms.rememberPairAlarmLimits
 import com.cryptochecker.app.ui.features.portfolio.PortfolioQuickAddSheet
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.SnackbarKind
-import com.cryptochecker.app.widget.WidgetKind
-import com.cryptochecker.app.widget.WidgetPinner
 import com.cryptochecker.resources.R
 
 /**
@@ -126,9 +118,7 @@ internal fun PairScreen(
     var portfolioFor by remember { mutableStateOf<WatchEntity?>(null) }
     val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
     LaunchedEffect(portfolioAccess) { if (portfolioAccess != PortfolioAccess.OPEN) portfolioFor = null }
-    val context = LocalContext.current
     val resources = LocalResources.current
-    val unlockReason = stringResource(R.string.portfolio_lock_reason)
     val off = shown != null && shown.disabled && !isPreview
     CompositionLocalProvider(
         LocalChangeView provides if (isPreview) previewView else changeView,
@@ -147,135 +137,42 @@ internal fun PairScreen(
                         }
                     },
                     actions = {
-                        // Seltenes im Menü ⋮ (alles braucht einen gespeicherten Eintrag)
-                        if (stored != null) {
-                            IconButton(onClick = { menuOpen = true }) {
-                                Icon(painterResource(R.drawable.ic_more_vert), contentDescription = stringResource(R.string.action_more))
-                            }
-                            PairOverflowMenu(
-                                expanded = menuOpen,
-                                onDismiss = { menuOpen = false },
-                                watch = stored,
-                                off = off,
-                                actions = PairMenuActions(
-                                    onEditGroup = { dialogs = dialogs.copy(group = true) },
-                                    onEditNote = { dialogs = dialogs.copy(note = true) },
-                                    // Auch mit ausgeschaltetem Portfolio: das erste Speichern schaltet es ein
-                                    onAddToPortfolio = if (PortfolioOff.offerAddToPortfolio(preview = false)) {
-                                        {
-                                            lockViewModel.requireUnlock(context.findFragmentActivity(), unlockReason) {
-                                                portfolioFor = stored
-                                            }
-                                        }
-                                    } else {
-                                        null
-                                    },
-                                    onRefresh = { viewModel.refreshOneByUser(stored) },
-                                    onAddWidget = {
-                                        if (!WidgetPinner.request(context, WidgetKind.SINGLE, stored.id)) {
-                                            dialogs =
-                                                dialogs.copy(widget = true)
-                                        }
-                                    },
-                                    onTtsChange = { on ->
-                                        // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
-                                        if (viewModel.setTtsEnabled(
-                                                stored,
-                                                on
-                                            )
-                                        ) {
-                                            banner.show(resources.getString(R.string.watchlist_tts_speech_on))
-                                        }
-                                    },
-                                    onToggleDisabled = { pageEvents.toggleDisabled(viewModel, stored) },
-                                    // Wie nach links wischen: sofort, «Rückgängig» im Banner dort, woher die Seite kam
-                                    onDelete = { originEvents.deleteWithUndo(viewModel, stored) },
-                                ),
-                            )
-                        }
+                        PairTopBarActions(
+                            stored = stored,
+                            off = off,
+                            menuOpen = menuOpen,
+                            onMenuOpenChange = { menuOpen = it },
+                            onDialogsChange = { change -> dialogs = change(dialogs) },
+                            onPortfolioFor = { portfolioFor = it },
+                            viewModel = viewModel,
+                            lockViewModel = lockViewModel,
+                            pageEvents = pageEvents,
+                            originEvents = originEvents,
+                            banner = banner,
+                        )
                     },
                 )
             },
             snackbarHost = { AppSnackbarHost(banner.host) },
         ) { padding ->
-            if (shown == null) return@Scaffold
-            val signals = if (isPreview) {
-                emptyList()
-            } else {
-                ActivityAnalyzer.applySensitivity(
-                    state.content.activity[shown.id]?.active(now).orEmpty(),
-                    state.display.activitySensitivity,
-                )
-            }
-            WithLiveQuote(
-                shown,
-                livePrices,
-                rollingBasis = !isPreview && !state.display.changeBasis.isDay,
-                // Am Live-Strom: Frische am letzten Takt (wie Zeile und Status-Pille)
-                onLiveSocket = !isPreview && shown.id in state.live.liveWatchIds,
+            PairScaffoldContent(
+                padding = padding,
+                shown = shown,
+                isPreview = isPreview,
+                off = off,
+                state = state,
                 now = now,
-            ) { live ->
-                PairPageContent(
-                    // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): «—» mit Grund statt des letzten Kurses
-                    watch = com.cryptochecker.app.domain.watch.RetiredWatch.shown(if (isPreview) shown else live, now),
-                    isPreview = isPreview,
-                    off = off,
-                    now = now,
-                    // Am Live-Strom: 2 Min. wie Zeile und Status-Pille
-                    outdatedAfter = if (isPreview) {
-                        0L
-                    } else {
-                        com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis(
-                            shown.id in state.live.liveWatchIds,
-                            state.display.staleAfterMillis,
-                        )
-                    },
-                    viewModel = viewModel,
-                    chartLine = state.display.sheetChartLine,
-                    alarms = alarms,
-                    alarmHost = alarmHost,
-                    limits = limits,
-                    hasActivity = !shown.isNotTraded && !shown.disabled && signals.isNotEmpty() &&
-                        com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null,
-                    adding = addState.addedId != null,
-                    callbacks = PairPageCallbacks(
-                        onRetry = { if (isPreview) preview?.reload?.invoke() else viewModel.refreshOneByUser(shown) },
-                        onToggleDisabled = { pageEvents.toggleDisabled(viewModel, shown) },
-                        onAdd = { addState.add(viewModel, pageEvents, preview?.watch) },
-                        onToggleFavorite = {
-                            viewModel.toggleFavorite(shown) { if (it) pageEvents.send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT)) }
-                        },
-                        onWhy = { dialogs = dialogs.copy(why = true) },
-                        onChangeExchange = { dialogs = dialogs.copy(editPair = true) },
-                        onNotificationChange = { on ->
-                            // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                            viewModel.setNotificationEnabled(shown, on) { written ->
-                                if (written && on) pageEvents.send(WatchUiEvent.RequestNotifications)
-                            }
-                        },
-                        onEditNote = { dialogs = dialogs.copy(note = true) },
-                    ),
-                    padding = padding,
-                )
-            }
-            if (dialogs.why && !shown.isNotTraded && !off &&
-                com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null
-            ) {
-                WhySheet(
-                    watch = shown,
-                    signals = signals,
-                    load = viewModel::explain,
-                    onDismiss = { dialogs = dialogs.copy(why = false) },
-                    // Bei rollender Basis die Änderung selbst; bei «seit 00:00» rechnet es eigene Kerzen
-                    candleSource = if (isPreview) {
-                        null
-                    } else {
-                        viewModel.foreignCandleSource(shown).takeIf {
-                            !state.display.changeBasis.isDay
-                        }
-                    },
-                )
-            }
+                livePrices = livePrices,
+                viewModel = viewModel,
+                alarms = alarms,
+                alarmHost = alarmHost,
+                limits = limits,
+                addState = addState,
+                preview = preview,
+                pageEvents = pageEvents,
+                whyOpen = dialogs.why,
+                onDialogsChange = { change -> dialogs = change(dialogs) },
+            )
         }
     }
     if (stored != null) {

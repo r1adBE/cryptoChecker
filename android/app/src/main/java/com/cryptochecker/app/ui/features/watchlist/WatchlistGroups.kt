@@ -212,29 +212,7 @@ internal fun GroupChips(
         }
         if (groups.isNotEmpty()) {
             item(key = "add") {
-                // Druck-Rückmeldung nur auf dem sichtbaren Feld, nicht auf der grösseren Tippfläche
-                val addInteraction = remember { MutableInteractionSource() }
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig das kleine Feld
-                        .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
-                        .clickable(interactionSource = addInteraction, indication = null, onClick = onAdd)
-                        .wrapContentSize()
-                        .size(32.dp)
-                        .clip(ChipShape)
-                        // Rand ist die einzige Kontur: outline (≥ 3:1, WCAG 1.4.11) statt outlineVariant (≈ 2:1)
-                        .border(1.dp, MaterialTheme.colorScheme.outline, ChipShape)
-                        .indication(addInteraction, LocalIndication.current)
-                ) {
-                    Icon(
-                        painterResource(R.drawable.ic_add),
-                        contentDescription = stringResource(R.string.group_add),
-                        // Neutral wie die übrigen Chips
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
+                AddGroupChip(onAdd)
             }
         }
     }
@@ -350,5 +328,33 @@ private fun GroupChip(
                 modifier = a11y
             )
         }
+    }
+}
+
+/** «+» am Ende der Gruppen-Chips ([GroupChips]): Tippfläche 48 × 48 dp, darin mittig das kleine Feld. */
+@Composable
+private fun AddGroupChip(onAdd: () -> Unit) {
+    // Druck-Rückmeldung nur auf dem sichtbaren Feld, nicht auf der grösseren Tippfläche
+    val addInteraction = remember { MutableInteractionSource() }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig das kleine Feld
+            .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+            .clickable(interactionSource = addInteraction, indication = null, onClick = onAdd)
+            .wrapContentSize()
+            .size(32.dp)
+            .clip(ChipShape)
+            // Rand ist die einzige Kontur: outline (≥ 3:1, WCAG 1.4.11) statt outlineVariant (≈ 2:1)
+            .border(1.dp, MaterialTheme.colorScheme.outline, ChipShape)
+            .indication(addInteraction, LocalIndication.current)
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_add),
+            contentDescription = stringResource(R.string.group_add),
+            // Neutral wie die übrigen Chips
+            tint = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(18.dp)
+        )
     }
 }

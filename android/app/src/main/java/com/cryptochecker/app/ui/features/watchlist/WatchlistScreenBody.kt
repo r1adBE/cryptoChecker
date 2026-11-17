@@ -32,16 +32,11 @@ import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.AutoGroup
-import com.cryptochecker.app.domain.watch.FirstAlarmCard
-import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.QuickView
-import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchPulse
-import com.cryptochecker.app.domain.watch.WatchlistFooter
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
@@ -90,21 +85,6 @@ internal fun WatchlistBody(
     deleteWithUndo: (WatchEntity) -> Unit,
     favoriteWithBanner: (WatchEntity) -> Unit,
 ) {
-    // Dieselben Werte wie in [WatchlistScreen] (aus demselben Stand)
-    val display = state.display
-    val live = state.live
-    val watches = state.watches
-    val groups = state.groups
-    val selectedGroup = state.selectedGroup
-    val kinds = state.kinds
-    val alarmCounts = state.content.alarmCounts
-    val alarmTotal = state.content.alarmTotal
-    val alarmFiredAt = state.content.alarmFiredAt
-    // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
-    val staleAfter = display.staleAfterMillis
-    val liveIds = live.liveWatchIds
-    val columnSort = display.columnSort
-    val changeBasis = display.changeBasis
     val haptics = rememberHaptics()
     ReadableInset { inset ->
         Column(modifier = Modifier.fillMaxSize()) {
@@ -116,83 +96,27 @@ internal fun WatchlistBody(
                     .fillMaxWidth()
                     .padding(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 8.dp)
             ) {
-                WatchlistHeader(
-                    state = headerStateOf(
-                        state = state,
-                        activityChip = activityChip,
-                        quickView = ui.quickView,
-                        sortMode = ui.sortMode,
-                        selecting = ui.selecting,
-                        searching = ui.searching,
-                        selectedCount = selectedIds.size,
-                        shownCount = shown.size,
-                        visibleCount = visible.size,
-                        notTradedCount = notTradedIds.size,
-                    ),
-                    actions = WatchlistHeaderActions(
-                        onSelectGroup = { group ->
-                            ui.quickView = null
-                            viewModel.selectGroup(group)
-                        },
-                        onEditGroup = { group ->
-                            haptics.play(HapticEvent.LONG_PRESS)
-                            ui.startEditingGroup(group)
-                        },
-                        onAddGroup = { ui.askNewGroup = true },
-                        onSortDone = { ui.sortMode = false },
-                        onBellClick = onBellClick,
-                        onOpenAllAlarms = onOpenAllAlarms,
-                        onOpenAbout = onOpenAbout,
-                        onRefresh = requestRefresh,
-                        lastFullRefreshAt = viewModel::lastFullRefreshAt,
-                        // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
-                        onSort = {
-                            viewModel.clearColumnSort()
-                            ui.startSort()
-                        },
-                        onShowReport = { ui.showReport = true },
-                        onRemoveNotTraded = { ui.askRemoveNotTraded = true },
-                        onClearAll = { ui.askClearAll = true },
-                        onToggleActivity = { ui.toggleQuickView(QuickView.ACTIVITY) },
-                        onSelectAll = { ui.selectedIds = shown.mapTo(HashSet()) { it.id } },
-                        onSelectionDone = ui::endSelection,
-                        onStartSelection = ui::startSelection,
-                    ),
-                    bellScale = { bellScale.value },
-                )
-                WatchlistStatusRow(
-                    // «Nur veraltete» bzw. «nur deaktivierte»: der Status zählt weiter über die ganze Gruppe («10 von 30»)
-                    visible = if (ui.quickView == QuickView.STALE || ui.quickView == QuickView.DISABLED) groupVisible else visible,
+                WatchlistFixedHead(
+                    state = state,
+                    ui = ui,
+                    viewModel = viewModel,
+                    haptics = haptics,
+                    activityChip = activityChip,
+                    selectedIds = selectedIds,
+                    shown = shown,
+                    visible = visible,
+                    groupVisible = groupVisible,
+                    notTradedIds = notTradedIds,
                     now = now,
-                    staleAfter = staleAfter,
-                    online = live.online,
-                    liveIds = liveIds,
                     reduceMotion = reduceMotion,
-                    searching = ui.searching,
-                    query = ui.query,
-                    onQueryChange = { ui.query = it },
-                    onOpenSearch = { ui.searching = true },
-                    onCloseSearch = ui::closeSearch,
-                    onAddPair = onAddClick,
-                    // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
-                    searchAvailable = !ui.sortMode && !ui.selecting,
-                    staleOnly = ui.quickView == QuickView.STALE,
-                    onToggleStale = { ui.toggleQuickView(QuickView.STALE) },
-                    // «3 deaktiviert» neben dem Status: Tipp zeigt nur die deaktivierten bzw. wieder alle
+                    bellScale = bellScale,
                     disabledCount = disabledCount,
-                    disabledOnly = ui.quickView == QuickView.DISABLED,
-                    onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
-                    addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
-                    retryAt = live.widgetRetryAt,
+                    onBellClick = onBellClick,
+                    onOpenAllAlarms = onOpenAllAlarms,
+                    onOpenAbout = onOpenAbout,
+                    onAddClick = onAddClick,
+                    requestRefresh = requestRefresh,
                 )
-                // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
-                if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(reduceMotion = reduceMotion)
-                // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
-                if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistMissingLogos(watches, reduceMotion = reduceMotion)
-                // Börse stillgelegt (ExchangeRetirement): einmal erklären, mit ✕
-                if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistRetiredNotice(watches, now = now, reduceMotion = reduceMotion)
-                // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
-                if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)
             }
             // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
             val listScrolled by remember { derivedStateOf { listState.canScrollBackward } }
@@ -206,97 +130,145 @@ internal fun WatchlistBody(
                     )
             )
             Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                WatchlistList(
-                    listState = listState,
+                WatchlistListArea(
+                    state = state,
+                    ui = ui,
+                    viewModel = viewModel,
+                    haptics = haptics,
                     inset = inset,
-                    // Platz unten für den Sprungknopf bzw. die Leiste der Mehrfachauswahl
-                    roomForJump = jump.eligible || ui.selecting,
-                    pulse = pulse,
-                    sortBar = if (!ui.sortMode && listed.size > 1) {
-                        { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
-                    } else {
-                        null
-                    },
-                    sortMode = ui.sortMode,
-                    // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
-                    onAutoOrder = if (ui.sortMode && visible.size > 1) reorder::autoOrder else null,
-                    showGestureHint = display.showGestureHint && onboarding.gestureHint,
-                    onDismissGestureHint = viewModel::dismissGestureHint,
-                    // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
-                    onSetFirstAlarm = firstAlarmTarget?.takeIf {
-                        FirstAlarmCard.shouldShow(
-                            alarmCount = alarmTotal,
-                            watchCount = watches.size,
-                            dismissed = display.firstAlarmCardDismissed,
-                            busy = ui.searching || ui.sortMode || ui.selecting,
-                        )
-                    }?.let { first -> { onOpenAlarms(first.id) } },
-                    onDismissFirstAlarm = viewModel::dismissFirstAlarmCard,
-                    firstAlarmPair = firstAlarmTarget?.displayName,
-                    noSearchMatch = filtering && shown.isEmpty(),
-                    query = trimmedQuery,
-                    groupEmpty = visible.isEmpty() && !filtering,
-                    favoritesEmpty = visible.isEmpty() && !filtering && WatchFilter.isFavorites(selectedGroup),
-                    // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch)
-                    onEditGroup = selectedGroup?.takeIf { ui.quickView == null && it in groups && it != AutoGroup.TRADFI }
-                        ?.let { group -> { ui.startEditingGroup(group) } },
-                    shown = listed,
-                    // Gezeigte Zeilen von der ganzen Merkliste; in der Mehrfachauswahl steht unten die Leiste
-                    footer = WatchlistFooter.of(shown = listed.size, total = watches.size, selecting = ui.selecting),
-                ) { watch, shape ->
-                    WatchlistItem(
-                        watch = watch,
-                        shape = shape,
-                        reorder = reorder,
-                        searching = ui.searching,
-                        sortMode = ui.sortMode,
-                        selecting = ui.selecting,
-                        selected = watch.id in selectedIds,
-                        onToggleSelected = {
-                            haptics.play(HapticEvent.SELECTION)
-                            ui.toggleSelected(watch.id)
-                        },
-                        sparklines = fetchSparklines,
-                        cachedSparkline = viewModel::cachedSparkline,
-                        loadSparkline = viewModel::sparkline,
-                        sparklineSource = viewModel::foreignSparklineSource,
-                        changeSource = viewModel::foreignCandleSource,
-                        moment = moment,
-                        reduceMotion = reduceMotion,
-                        livePrices = livePrices,
-                        rollingBasis = !changeBasis.isDay,
-                        alarmCount = alarmCounts[watch.id] ?: 0,
-                        alarmFiredAt = alarmFiredAt[watch.id] ?: 0L,
-                        kind = kinds[watch.id] ?: AssetKind.TOKEN,
-                        now = now,
-                        // Am Live-Strom: 2 Min. ab dem letzten Takt, nicht ab dem letzten Kurswechsel (wie die Status-Pille)
-                        staleAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
-                        onLiveSocket = watch.id in liveIds,
-                        convertTarget = display.convertTarget,
-                        convertRates = live.convertRates,
-                        convertFxTimes = live.convertFxTimes,
-                        convertUsdtNotes = live.convertUsdtNotes,
-                        hasActivity = watch.id in activeSignals,
-                        onOpenWhy = { ui.whyFor = watch.id },
-                        onOpenActions = { onOpenPair(watch.id) },
-                        onMove = { viewModel.move(watch, it) },
-                        onDelete = { deleteWithUndo(watch) },
-                        onFavoriteWithBanner = { favoriteWithBanner(watch) },
-                        onStartSelection = { ui.startSelectionWith(watch.id) },
-                        onSourceHint = { text -> banner.show(text) },
-                    )
-                }
-                // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
-                // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.
-                WatchlistJumpButton(
+                    listState = listState,
                     jump = jump,
-                    bannerShown = banner.host.currentSnackbarData != null,
+                    reorder = reorder,
+                    pulse = pulse,
+                    visible = visible,
+                    shown = shown,
+                    listed = listed,
+                    filtering = filtering,
+                    trimmedQuery = trimmedQuery,
+                    selectedIds = selectedIds,
+                    now = now,
                     reduceMotion = reduceMotion,
-                    endInset = inset,
+                    moment = moment,
+                    livePrices = livePrices,
+                    fetchSparklines = fetchSparklines,
+                    activeSignals = activeSignals,
+                    firstAlarmTarget = firstAlarmTarget,
+                    onboarding = onboarding,
+                    banner = banner,
+                    onOpenAlarms = onOpenAlarms,
+                    onOpenPair = onOpenPair,
+                    deleteWithUndo = deleteWithUndo,
+                    favoriteWithBanner = favoriteWithBanner,
                 )
-                // Mehrfachauswahl: Leiste, Gruppe wählen, Vergleich ([WatchlistSelectionLayer])
-                WatchlistSelectionLayer(ui, viewModel, watches, groups, selectedIds, inset)
             }
         }
     }
+}
+
+/** Fester Kopf von [WatchlistBody]: Kopfzeile, Status mit Lupe und die ruhigen Hinweiszeilen (in dessen Spalte). */
+@Composable
+private fun WatchlistFixedHead(
+    state: WatchlistUiState,
+    ui: WatchlistScreenState,
+    viewModel: WatchlistViewModel,
+    haptics: HapticPlayer,
+    activityChip: Boolean,
+    selectedIds: Set<Long>,
+    shown: List<WatchEntity>,
+    visible: List<WatchEntity>,
+    groupVisible: List<WatchEntity>,
+    notTradedIds: Set<Long>,
+    now: Long,
+    reduceMotion: Boolean,
+    bellScale: Animatable<Float, AnimationVector1D>,
+    disabledCount: Int,
+    onBellClick: () -> Unit,
+    onOpenAllAlarms: () -> Unit,
+    onOpenAbout: () -> Unit,
+    onAddClick: () -> Unit,
+    requestRefresh: () -> Unit,
+) {
+    val live = state.live
+    val watches = state.watches
+    // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
+    val staleAfter = state.display.staleAfterMillis
+    val liveIds = live.liveWatchIds
+
+    WatchlistHeader(
+        state = headerStateOf(
+            state = state,
+            activityChip = activityChip,
+            quickView = ui.quickView,
+            sortMode = ui.sortMode,
+            selecting = ui.selecting,
+            searching = ui.searching,
+            selectedCount = selectedIds.size,
+            shownCount = shown.size,
+            visibleCount = visible.size,
+            notTradedCount = notTradedIds.size,
+        ),
+        actions = WatchlistHeaderActions(
+            onSelectGroup = { group ->
+                ui.quickView = null
+                viewModel.selectGroup(group)
+            },
+            onEditGroup = { group ->
+                haptics.play(HapticEvent.LONG_PRESS)
+                ui.startEditingGroup(group)
+            },
+            onAddGroup = { ui.askNewGroup = true },
+            onSortDone = { ui.sortMode = false },
+            onBellClick = onBellClick,
+            onOpenAllAlarms = onOpenAllAlarms,
+            onOpenAbout = onOpenAbout,
+            onRefresh = requestRefresh,
+            lastFullRefreshAt = viewModel::lastFullRefreshAt,
+            // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
+            onSort = {
+                viewModel.clearColumnSort()
+                ui.startSort()
+            },
+            onShowReport = { ui.showReport = true },
+            onRemoveNotTraded = { ui.askRemoveNotTraded = true },
+            onClearAll = { ui.askClearAll = true },
+            onToggleActivity = { ui.toggleQuickView(QuickView.ACTIVITY) },
+            onSelectAll = { ui.selectedIds = shown.mapTo(HashSet()) { it.id } },
+            onSelectionDone = ui::endSelection,
+            onStartSelection = ui::startSelection,
+        ),
+        bellScale = { bellScale.value },
+    )
+    WatchlistStatusRow(
+        // «Nur veraltete» bzw. «nur deaktivierte»: der Status zählt weiter über die ganze Gruppe («10 von 30»)
+        visible = if (ui.quickView == QuickView.STALE || ui.quickView == QuickView.DISABLED) groupVisible else visible,
+        now = now,
+        staleAfter = staleAfter,
+        online = live.online,
+        liveIds = liveIds,
+        reduceMotion = reduceMotion,
+        searching = ui.searching,
+        query = ui.query,
+        onQueryChange = { ui.query = it },
+        onOpenSearch = { ui.searching = true },
+        onCloseSearch = ui::closeSearch,
+        onAddPair = onAddClick,
+        // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
+        searchAvailable = !ui.sortMode && !ui.selecting,
+        staleOnly = ui.quickView == QuickView.STALE,
+        onToggleStale = { ui.toggleQuickView(QuickView.STALE) },
+        // «3 deaktiviert» neben dem Status: Tipp zeigt nur die deaktivierten bzw. wieder alle
+        disabledCount = disabledCount,
+        disabledOnly = ui.quickView == QuickView.DISABLED,
+        onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
+        addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
+        retryAt = live.widgetRetryAt,
+    )
+    // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
+    if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(reduceMotion = reduceMotion)
+    // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
+    if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistMissingLogos(watches, reduceMotion = reduceMotion)
+    // Börse stillgelegt (ExchangeRetirement): einmal erklären, mit ✕
+    if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistRetiredNotice(watches, now = now, reduceMotion = reduceMotion)
+    // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
+    if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)
 }

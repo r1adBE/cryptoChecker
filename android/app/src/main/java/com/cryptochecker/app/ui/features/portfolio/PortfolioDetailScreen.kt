@@ -6,14 +6,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,9 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -37,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,20 +40,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
-import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.components.rememberHaptics
-import com.cryptochecker.app.ui.components.sectionTitleMarker
-import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.resources.R
 
@@ -190,92 +175,21 @@ fun PortfolioDetailScreen(
             }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
         }
     ) { padding ->
-        val d = detail
-        if (d == null) {
-            SkeletonList(modifier = Modifier.padding(padding))
-            return@Scaffold
-        }
-        val ledger = d.ledger
-        PullToRefreshBox(
-            isRefreshing = refreshing,
-            onRefresh = { viewModel.refresh(force = true) },
-            modifier = Modifier.fillMaxSize().padding(padding)
-        ) {
-            // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
-            ReadableInset { inset ->
-                CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
-                    LazyColumn(
-                        state = listState,
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(
-                            start = 16.dp + inset,
-                            top = 4.dp,
-                            end = 16.dp + inset,
-                            bottom = Spacing.fabClearance
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        item(key = "summary") {
-                            PositionCard(
-                                ledger.position,
-                                d.addressAmount,
-                                overlap = d.own.isNotEmpty(),
-                                retarget = d.retarget,
-                                onMissingCost = { costGapsOpen = true },
-                                onAddressCost = d.lotAddress?.let { a -> { lotsFor = a.id } },
-                                onRetarget = { r ->
-                                    viewModel.retargetTransfer(r.trade.id, r.to) { result ->
-                                        if (result != PortfolioWriteResult.OK) {
-                                            banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
-                                        }
-                                    }
-                                },
-                            )
-                        }
-                        // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion
-                        if (ledger.walletShortfalls.isNotEmpty()) {
-                            item(key = "shortfalls") {
-                                WalletShortfallBanner(ledger.walletShortfalls) { id ->
-                                    d.all.firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
-                                }
-                            }
-                        }
-                        // Offene Kauf-Posten (zugeklappt)
-                        if (ledger.openLots.isNotEmpty()) {
-                            item(key = "open_lots") { OpenLotsSection(ledger.openLots, symbol) }
-                        }
-                        item(key = "tx_header") {
-                            Text(
-                                stringResource(R.string.portfolio_transactions),
-                                style = SectionTitle.style,
-                                color = SectionTitle.color,
-                                modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp).sectionTitleMarker()
-                            )
-                        }
-                        items(d.own, key = { it.id }) { tx ->
-                            SwipeActionsRow(
-                                enabled = true,
-                                favorite = false,
-                                onDelete = { confirmDelete = tx },
-                                onToggleFavorite = null,
-                                reduceMotion = reduceMotion,
-                                modifier = (if (reduceMotion) Modifier else Modifier.animateItem()).testTag(UiTestTags.PORTFOLIO_TX_ROW),
-                                // Rückfrage statt sofort: die Zeile gleitet zurück, gelöscht wird erst nach «Löschen»
-                                confirmsDelete = true,
-                            ) {
-                                TxRow(
-                                    tx = tx,
-                                    coin = symbol,
-                                    onClick = { sheet = tx.toDraft() },
-                                    onDelete = { confirmDelete = tx }
-                                )
-                            }
-                        }
-                        item(key = "disclaimer") { PortfolioDisclaimer() }
-                    }
-                }
-            }
-        }
+        PortfolioDetailContent(
+            padding = padding,
+            detail = detail,
+            viewModel = viewModel,
+            symbol = symbol,
+            refreshing = refreshing,
+            hideAmounts = hideAmounts,
+            listState = listState,
+            reduceMotion = reduceMotion,
+            banner = banner,
+            onSheet = { sheet = it },
+            onConfirmDelete = { confirmDelete = it },
+            onCostGaps = { costGapsOpen = true },
+            onLotsFor = { lotsFor = it },
+        )
     }
 }
 
@@ -284,7 +198,7 @@ fun PortfolioDetailScreen(
  * betroffene Transaktion ([onOpen] mit ihrer Id).
  */
 @Composable
-private fun WalletShortfallBanner(shortfalls: List<PortfolioWalletShortfall>, onOpen: (Long) -> Unit) {
+internal fun WalletShortfallBanner(shortfalls: List<PortfolioWalletShortfall>, onOpen: (Long) -> Unit) {
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),

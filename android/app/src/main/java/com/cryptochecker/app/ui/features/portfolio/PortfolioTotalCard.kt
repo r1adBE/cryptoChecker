@@ -96,8 +96,6 @@ internal fun TotalCard(
     // Details und Hinweise aufklappbar (die Karte zeigt zuerst nur Gesamtwert, «Heute», 7 T, Seit Kauf)
     var showDetails by rememberSaveable { mutableStateOf(false) }
     var showHints by rememberSaveable { mutableStateOf(false) }
-    val expandedText = stringResource(R.string.a11y_expanded)
-    val collapsedText = stringResource(R.string.a11y_collapsed)
     // Woher die Kurse stammen: «Kurse: Binance · USDT zum Marktkurs» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · …»
     val priceSourceText = if (priceSources.isEmpty()) {
         stringResource(R.string.portfolio_price_source)
@@ -132,43 +130,14 @@ internal fun TotalCard(
                     .background(Brush.linearGradient(listOf(AppColors.accentTint(CARD_TINT_START), AppColors.accentTint(CARD_TINT_END))))
                     .padding(start = Spacing.lg, end = Spacing.lg, top = Spacing.lg, bottom = Spacing.xs)
             ) {
-                Text(
-                    stringResource(R.string.portfolio_total_value),
-                    style = SectionTitle.style,
-                    color = SectionTitle.color,
-                    modifier = Modifier.sectionTitleMarker()
-                )
                 // Gross in der Anzeigewährung (wie das Widget), USDT klein darunter; ohne Devisenkurs gross USDT
                 val unit = cardUnit(currency, fxRate)
-                FittedTotal(
-                    text = maskAmount(PriceFormat.valueWithCurrency(unit.of(summary.totalValue), unit.code).removeSuffix(" " + unit.code)),
-                    // Verborgen («•••») ohne Währung, wie zuvor
-                    quote = if (LocalHidePortfolioAmounts.current) null else unit.code,
-                    value = unit.of(summary.totalValue),
-                    // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % läge unter 4.5:1)
-                    color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(top = 2.dp)
+                TotalValueBlock(
+                    summary = summary,
+                    unit = unit,
+                    stale = stale,
+                    onShowHints = { showHints = true },
                 )
-                // Teilsumme: Coins ohne Kurs zählen als 0 — direkt an der Zahl «ohne 2 Coins» (antippen: Hinweise)
-                if (summary.missingCurrentPrices.isNotEmpty()) {
-                    PartialMarker(
-                        text = pluralStringResource(
-                            R.plurals.widget_portfolio_missing_coins,
-                            summary.missingCurrentPrices.size,
-                            summary.missingCurrentPrices.size,
-                        ),
-                        onClick = { showHints = true },
-                        modifier = Modifier.padding(bottom = 2.dp)
-                    )
-                }
-                // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
-                if (unit.converted) {
-                    Text(
-                        withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(summary.totalValue))),
-                        style = MaterialTheme.typography.bodyMedium.amountNumbers(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
                 // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
                 // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
                 UsdtNoteLine(usdtNote, priceSourceText)
@@ -186,70 +155,23 @@ internal fun TotalCard(
                 GainHeader(method = summary.method, modifier = Modifier.padding(top = Spacing.xs))
                 // 7 Tage · Seit Kauf nebeneinander (gleich breit); ausgeschrieben statt «7 T», weil das Kürzel
                 // allein neben dem Gesamtwert unverständlich war — die Spalte ist so breit wie «Seit Kauf (CHF)»
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    InsightFigure(
-                        label = stringResource(R.string.portfolio_history_period_7d),
-                        spokenLabel = stringResource(R.string.portfolio_history_period_7d),
-                        amount = weekChange?.amountUsd,
-                        percent = weekChange?.percent,
-                        unit = unit,
-                        modifier = Modifier.weight(1f),
-                        rewardsUsd = weekChange?.rewardsUsd ?: 0.0,
-                    )
-                    // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);
-                    // umgerechnet: Wert zum heutigen Kurs − Einstand zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]),
-                    // nie der Einstand zum heutigen Kurs
-                    val sinceAmount = if (unit.converted) costFx?.unrealized?.toDouble() else summary.unrealized
-                    val sincePercent = if (unit.converted) costFx?.unrealizedPercent else summary.unrealizedPercent
-                    Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
-                        InsightFigure(
-                            label = stringResource(R.string.ledger_since_purchase_currency, unit.code),
-                            spokenLabel = stringResource(R.string.ledger_since_purchase_spoken),
-                            amount = sinceAmount,
-                            percent = sincePercent?.takeIf { sinceAmount != null },
-                            unit = unit,
-                            modifier = Modifier.fillMaxWidth(),
-                            amountInUnit = unit.converted,
-                        )
-                        // Teilsumme (Coins/Teile ohne Kaufpreis, ohne Kurs oder ohne Devisenkurs am Kauftag fehlen):
-                        // «unvollständig» an der Zahl
-                        val fxMissing = unit.converted && costFx?.unrealizedFxMissing == true
-                        if (summary.unrealized != null && (
-                                fxMissing ||
-                                    (
-                                        sinceAmount != null && (
-                                            summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
-                                                summary.missingCurrentPrices.isNotEmpty()
-                                            )
-                                        )
-                                )
-                        ) {
-                            PartialMarker(
-                                text = stringResource(R.string.portfolio_export_incomplete),
-                                onClick = { showHints = true },
-                                modifier = Modifier.padding(top = 2.dp)
-                            )
-                        }
-                    }
-                }
-                // «Details»: 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht — zugeklappt
-                ExpandToggleButton(
-                    text = stringResource(R.string.portfolio_card_details),
-                    expanded = showDetails,
-                    onClick = { showDetails = !showDetails },
-                    modifier = Modifier.semantics {
-                        stateDescription = if (showDetails) expandedText else collapsedText
-                    }
+                TotalGainRow(
+                    summary = summary,
+                    unit = unit,
+                    weekChange = weekChange,
+                    costFx = costFx,
+                    onShowHints = { showHints = true },
                 )
-                if (showDetails) {
-                    TotalCardDetails(
-                        summary = summary,
-                        unit = unit,
-                        costFx = costFx,
-                        yearChange = yearChange,
-                        onShowHints = { showHints = true },
-                    )
-                }
+                // «Details»: 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht — zugeklappt
+                TotalDetailsSection(
+                    showDetails = showDetails,
+                    onToggle = { showDetails = !showDetails },
+                    summary = summary,
+                    unit = unit,
+                    costFx = costFx,
+                    yearChange = yearChange,
+                    onShowHints = { showHints = true },
+                )
             }
         }
         // Hinweise klein unter der Karte; eine Zeile «Hinweise (n)», aufklappbar
@@ -278,3 +200,132 @@ internal fun TotalCard(
 private const val CARD_TINT_START = 0.08f
 
 private const val CARD_TINT_END = 0.02f
+
+/** «7 Tage» und «Seit Kauf» nebeneinander (gleich breit) in der Gesamtkarte ([TotalCard]). */
+@Composable
+private fun TotalGainRow(
+    summary: PortfolioSummary,
+    unit: CardUnit,
+    weekChange: TodayChange?,
+    costFx: PortfolioCostFxFigures?,
+    onShowHints: () -> Unit,
+) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        InsightFigure(
+            label = stringResource(R.string.portfolio_history_period_7d),
+            spokenLabel = stringResource(R.string.portfolio_history_period_7d),
+            amount = weekChange?.amountUsd,
+            percent = weekChange?.percent,
+            unit = unit,
+            modifier = Modifier.weight(1f),
+            rewardsUsd = weekChange?.rewardsUsd ?: 0.0,
+        )
+        // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);
+        // umgerechnet: Wert zum heutigen Kurs − Einstand zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]),
+        // nie der Einstand zum heutigen Kurs
+        val sinceAmount = if (unit.converted) costFx?.unrealized?.toDouble() else summary.unrealized
+        val sincePercent = if (unit.converted) costFx?.unrealizedPercent else summary.unrealizedPercent
+        Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
+            InsightFigure(
+                label = stringResource(R.string.ledger_since_purchase_currency, unit.code),
+                spokenLabel = stringResource(R.string.ledger_since_purchase_spoken),
+                amount = sinceAmount,
+                percent = sincePercent?.takeIf { sinceAmount != null },
+                unit = unit,
+                modifier = Modifier.fillMaxWidth(),
+                amountInUnit = unit.converted,
+            )
+            // Teilsumme (Coins/Teile ohne Kaufpreis, ohne Kurs oder ohne Devisenkurs am Kauftag fehlen):
+            // «unvollständig» an der Zahl
+            val fxMissing = unit.converted && costFx?.unrealizedFxMissing == true
+            if (summary.unrealized != null && (
+                    fxMissing ||
+                        (
+                            sinceAmount != null && (
+                                summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
+                                    summary.missingCurrentPrices.isNotEmpty()
+                                )
+                            )
+                    )
+            ) {
+                PartialMarker(
+                    text = stringResource(R.string.portfolio_export_incomplete),
+                    onClick = onShowHints,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
+        }
+    }
+}
+
+/** Gesamtwert der Karte ([TotalCard]): Überschrift, grosse Zahl, «ohne 2 Coins» und «≈ … USDT». */
+@Composable
+private fun TotalValueBlock(summary: PortfolioSummary, unit: CardUnit, stale: Boolean, onShowHints: () -> Unit) {
+    Text(
+        stringResource(R.string.portfolio_total_value),
+        style = SectionTitle.style,
+        color = SectionTitle.color,
+        modifier = Modifier.sectionTitleMarker()
+    )
+    FittedTotal(
+        text = maskAmount(PriceFormat.valueWithCurrency(unit.of(summary.totalValue), unit.code).removeSuffix(" " + unit.code)),
+        // Verborgen («•••») ohne Währung, wie zuvor
+        quote = if (LocalHidePortfolioAmounts.current) null else unit.code,
+        value = unit.of(summary.totalValue),
+        // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % läge unter 4.5:1)
+        color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
+        modifier = Modifier.padding(top = 2.dp)
+    )
+    // Teilsumme: Coins ohne Kurs zählen als 0 — direkt an der Zahl «ohne 2 Coins» (antippen: Hinweise)
+    if (summary.missingCurrentPrices.isNotEmpty()) {
+        PartialMarker(
+            text = pluralStringResource(
+                R.plurals.widget_portfolio_missing_coins,
+                summary.missingCurrentPrices.size,
+                summary.missingCurrentPrices.size,
+            ),
+            onClick = onShowHints,
+            modifier = Modifier.padding(bottom = 2.dp)
+        )
+    }
+    // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
+    if (unit.converted) {
+        Text(
+            withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(summary.totalValue))),
+            style = MaterialTheme.typography.bodyMedium.amountNumbers(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+/** «Details» der Gesamtkarte ([TotalCard]): Knopf mit Zustand für den Screenreader und die zugeklappten Zahlen. */
+@Composable
+private fun TotalDetailsSection(
+    showDetails: Boolean,
+    onToggle: () -> Unit,
+    summary: PortfolioSummary,
+    unit: CardUnit,
+    costFx: PortfolioCostFxFigures?,
+    yearChange: TodayChange?,
+    onShowHints: () -> Unit,
+) {
+    val expandedText = stringResource(R.string.a11y_expanded)
+    val collapsedText = stringResource(R.string.a11y_collapsed)
+    ExpandToggleButton(
+        text = stringResource(R.string.portfolio_card_details),
+        expanded = showDetails,
+        onClick = onToggle,
+        modifier = Modifier.semantics {
+            stateDescription = if (showDetails) expandedText else collapsedText
+        }
+    )
+    if (showDetails) {
+        TotalCardDetails(
+            summary = summary,
+            unit = unit,
+            costFx = costFx,
+            yearChange = yearChange,
+            onShowHints = onShowHints,
+        )
+    }
+}

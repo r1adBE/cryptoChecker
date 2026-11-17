@@ -1,4 +1,5 @@
 import BackgroundTasks
+import Combine
 import Foundation
 import SwiftUI
 import WidgetKit
@@ -114,7 +115,12 @@ final class AppData {
     /// beobachtbares Objekt, damit eine Änderung nicht alle Ansichten von `AppData` neu aufbaut (`RefreshState`).
     let refreshState = RefreshState(lastRefreshMillis: SharedStorage.lastRefreshDuration,
                                     lastRefreshReport: SharedStorage.lastRefreshReport)
-    @ObservationIgnored var favorites: [FavoriteKind: Set<String>] = [:] { willSet { publish() } }
+    @ObservationIgnored var favorites: [FavoriteKind: Set<String>] = [:] {
+        willSet { publish() }
+        didSet { favoritesSubject.send(favorites) }
+    }
+    /// Favoriten als Strom (früher `$favorites`; `CycleViewModel`): jetziger Stand und jede Änderung.
+    let favoritesSubject = CurrentValueSubject<[FavoriteKind: Set<String>], Never>([:])
     /// Beobachtete Adressen samt Datei-Stand — Zugriff nur über `watchedAddresses`, `watchedAddressFile` und
     /// `watchedAddressIntact` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
     @ObservationIgnored var watchedState = WatchedAddressState()
@@ -197,6 +203,7 @@ final class AppData {
         PriceColors.inverted = settings.priceColorsInverted
         PriceColors.accent = settings.accentColor
         for kind in FavoriteKind.allCases { favorites[kind] = SharedStorage.favorites(kind) }
+        favoritesSubject.send(favorites)
         activityReports = ActivityRepository.reports()
         // Namensdatei vorwärmen, sonst liest `watchKinds` sie beim ersten Zeichnen auf Main — wie Android
         Task.detached(priority: .utility) { TokenIdentityStore.shared.warmUp() }

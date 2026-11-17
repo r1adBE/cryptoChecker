@@ -31,12 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartRange
+import com.cryptochecker.app.domain.widget.ChartLevels
 import com.cryptochecker.app.domain.widget.LevelKind
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.components.ChartPointStep
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
@@ -137,34 +139,9 @@ internal fun SheetChartCanvas(
     val column = min(gap + max(labelWidth, tagLayout.size.width.toFloat()) + 2 * tagPadH, canvasSize.width * 0.42f)
     val labelHeight = labelLayouts.values.maxOf { it.size.height }.toFloat()
     val tagHeight = tagLayout.size.height + 2 * tagPadV
-    val geometry by produceState<WidgetChartGeometry?>(
-        null, candles, type, canvasSize, levels, tagPrice, column, labelHeight, tagHeight, zone, widgetRange,
-    ) {
-        val size = canvasSize
-        if (size.width <= 0 || size.height <= 0) return@produceState
-        value = withContext(Dispatchers.Default) {
-            WidgetChartGeometry(
-                candles = candles,
-                type = type,
-                gridUnit = widgetRange.gridUnit,
-                intervalMillis = widgetRange.intervalMillis,
-                zone = zone,
-                width = size.width.toFloat(),
-                height = size.height.toFloat(),
-                labelColumnWidth = column,
-                labelHeight = labelHeight,
-                tagHeight = tagHeight,
-                compact = false,
-                gap = 1f * dp,
-                currentPrice = tagPrice,
-                levelsOverride = levels,
-            ).also {
-                // Träge Teile gleich hier rechnen, nicht erst beim Zeichnen
-                it.candleShapes
-                it.linePoints
-            }
-        }
-    }
+    val geometry = rememberChartGeometry(
+        candles, type, canvasSize, levels, tagPrice, column, labelHeight, tagHeight, zone, widgetRange, dp,
+    )
     SideEffect { holder.geometry = geometry }
 
     val summary = A11yText.chart(
@@ -206,54 +183,7 @@ internal fun SheetChartCanvas(
                     ChartPointStep.previous(a11yPoint, candles.size)
                 }
             }
-            .pointerInput(candles, type) {
-                // Waagrecht ziehen oder lange drücken = Kerze zeigen; senkrecht bleibt dem Blatt
-                awaitEachGesture {
-                    val down = awaitFirstDown(requireUnconsumed = false)
-                    val slop = viewConfiguration.touchSlop
-                    var total = Offset.Zero
-                    var x = down.position.x
-                    val start: Boolean? = withTimeoutOrNull(viewConfiguration.longPressTimeoutMillis) {
-                        var decided: Boolean? = null
-                        while (decided == null) {
-                            val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id }
-                            if (change == null || !change.pressed || change.isConsumed) {
-                                decided = false
-                            } else {
-                                total += change.positionChange()
-                                x = change.position.x
-                                if (abs(total.x) > slop && abs(total.x) > abs(total.y)) {
-                                    change.consume()
-                                    decided = true
-                                } else if (abs(total.y) > slop) {
-                                    decided = false
-                                }
-                            }
-                        }
-                        decided
-                    }
-                    // null = lange gedrückt, ohne sich zu bewegen
-                    if (start == false) return@awaitEachGesture
-
-                    fun show(atX: Float) {
-                        val geo = holder.geometry ?: return
-                        val index = SheetChart.scrubIndex(atX, geo.plotLeft, geo.slotWidth, geo.candles.size)
-                        // Leichtes Ticken je neuer Kerze (folgt den System-Einstellungen)
-                        if (candles.size <= MAX_TICK_CANDLES && SheetChart.isNewCandle(scrub, index)) {
-                            haptics.play(HapticEvent.SELECTION)
-                        }
-                        scrub = index
-                    }
-                    show(x)
-                    while (true) {
-                        val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id } ?: break
-                        if (!change.pressed) break
-                        change.consume()
-                        show(change.position.x)
-                    }
-                    scrub = null
-                }
-            }
+            .chartScrubGesture(candles, type, holder, haptics, currentScrub = { scrub }, onScrub = { scrub = it })
             .sheetChartDrawing(
                 geometry = { geometry },
                 scrub = { scrub },
@@ -286,4 +216,111 @@ internal fun SheetChartCanvas(
 internal fun icuTimeZone(zone: ZoneId): android.icu.util.TimeZone {
     val id = (zone as? java.time.ZoneOffset)?.let { if (it.totalSeconds == 0) "GMT" else "GMT" + it.id } ?: zone.id
     return android.icu.util.TimeZone.getTimeZone(id)
+}
+
+/**
+ * Ziehen im Chart ([SheetChartCanvas]): waagrecht ziehen oder lange drücken = Kerze zeigen; senkrecht bleibt dem Blatt.
+ * Neu gestartet mit neuen Kerzen bzw. neuer Darstellung (wie zuvor über die Schlüssel von pointerInput).
+ */
+private fun Modifier.chartScrubGesture(
+    candles: List<WidgetCandle>,
+    type: WidgetChartType,
+    holder: GeometryHolder,
+    haptics: HapticPlayer,
+    currentScrub: () -> Int?,
+    onScrub: (Int?) -> Unit,
+): Modifier =
+    pointerInput(candles, type) {
+        // Waagrecht ziehen oder lange drücken = Kerze zeigen; senkrecht bleibt dem Blatt
+        awaitEachGesture {
+            val down = awaitFirstDown(requireUnconsumed = false)
+            val slop = viewConfiguration.touchSlop
+            var total = Offset.Zero
+            var x = down.position.x
+            val start: Boolean? = withTimeoutOrNull(viewConfiguration.longPressTimeoutMillis) {
+                var decided: Boolean? = null
+                while (decided == null) {
+                    val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id }
+                    if (change == null || !change.pressed || change.isConsumed) {
+                        decided = false
+                    } else {
+                        total += change.positionChange()
+                        x = change.position.x
+                        if (abs(total.x) > slop && abs(total.x) > abs(total.y)) {
+                            change.consume()
+                            decided = true
+                        } else if (abs(total.y) > slop) {
+                            decided = false
+                        }
+                    }
+                }
+                decided
+            }
+            // null = lange gedrückt, ohne sich zu bewegen
+            if (start == false) return@awaitEachGesture
+
+            fun show(atX: Float) {
+                val geo = holder.geometry ?: return
+                val index = SheetChart.scrubIndex(atX, geo.plotLeft, geo.slotWidth, geo.candles.size)
+                // Leichtes Ticken je neuer Kerze (folgt den System-Einstellungen)
+                if (candles.size <= MAX_TICK_CANDLES && SheetChart.isNewCandle(currentScrub(), index)) {
+                    haptics.play(HapticEvent.SELECTION)
+                }
+                onScrub(index)
+            }
+            show(x)
+            while (true) {
+                val change = awaitPointerEvent().changes.firstOrNull { it.id == down.id } ?: break
+                if (!change.pressed) break
+                change.consume()
+                show(change.position.x)
+            }
+            onScrub(null)
+        }
+    }
+
+/** Geometrie des Charts abseits des Main-Threads ([SheetChartCanvas]); liefert einen Wert, liest also wie zuvor im Aufrufer. */
+@Composable
+private fun rememberChartGeometry(
+    candles: List<WidgetCandle>,
+    type: WidgetChartType,
+    canvasSize: IntSize,
+    levels: ChartLevels,
+    tagPrice: Double,
+    column: Float,
+    labelHeight: Float,
+    tagHeight: Float,
+    zone: ZoneId,
+    widgetRange: WidgetChartRange,
+    dp: Float,
+): WidgetChartGeometry? {
+    val geometry by produceState<WidgetChartGeometry?>(
+        null, candles, type, canvasSize, levels, tagPrice, column, labelHeight, tagHeight, zone, widgetRange,
+    ) {
+        val size = canvasSize
+        if (size.width <= 0 || size.height <= 0) return@produceState
+        value = withContext(Dispatchers.Default) {
+            WidgetChartGeometry(
+                candles = candles,
+                type = type,
+                gridUnit = widgetRange.gridUnit,
+                intervalMillis = widgetRange.intervalMillis,
+                zone = zone,
+                width = size.width.toFloat(),
+                height = size.height.toFloat(),
+                labelColumnWidth = column,
+                labelHeight = labelHeight,
+                tagHeight = tagHeight,
+                compact = false,
+                gap = 1f * dp,
+                currentPrice = tagPrice,
+                levelsOverride = levels,
+            ).also {
+                // Träge Teile gleich hier rechnen, nicht erst beim Zeichnen
+                it.candleShapes
+                it.linePoints
+            }
+        }
+    }
+    return geometry
 }

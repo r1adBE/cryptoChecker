@@ -32,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
+import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.WatchlistLimits
@@ -172,94 +175,24 @@ fun AlarmsScreen(
         // «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (Live-Region über den SnackbarHost)
         snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
-        if (alarms.isEmpty() && retired) {
-            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { RetiredExchangeNote(watch) }
-        } else if (alarms.isEmpty() && referenceRate) {
-            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote(watch?.exchangeKey) }
-        } else if (alarms.isEmpty() && lowLiquidity) {
-            // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
-            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
-        } else if (alarms.isEmpty()) {
-            // Beispiel im Stil der Alarm-Sätze, damit klar ist, was ein Alarm kann (wie iOS)
-            EmptyState(
-                iconRes = R.drawable.ic_notifications_active,
-                title = stringResource(R.string.alarms_empty),
-                example = alarmsEmptyExample(),
-                actionLabel = stringResource(R.string.alarms_add),
-                onAction = { editorHost.openNew() },
-                modifier = Modifier.fillMaxSize().padding(padding),
-            )
-        } else {
-            // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
-            ReadableInset { inset ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize().padding(padding),
-                    contentPadding = PaddingValues(start = 12.dp + inset, top = 12.dp, end = 12.dp + inset, bottom = Spacing.fabClearance),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    if (!notificationsEnabled) {
-                        item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
-                    }
-                    // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
-                    if (retired || retirementAnnounced(watch)) {
-                        item(key = "exchange_retired") { RetiredExchangeNote(watch) }
-                    }
-                    if (lowLiquidity) {
-                        item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
-                    }
-                    if (referenceRate) {
-                        item(key = "reference_rate") { ReferenceRateNote(watch?.exchangeKey) }
-                    }
-                    if (alarmsFull) {
-                        item(key = "alarm_limit") { AlarmLimitNote() }
-                    }
-                    // «Zuletzt geprüft 14:32» auch in der Alarmliste des Paars (wie Übersicht, Editor und iOS)
-                    if (alarms.isNotEmpty()) {
-                        item(key = "last_checked") { AlarmLastCheckedLine(Modifier.padding(horizontal = 4.dp)) }
-                    }
-                    items(alarms, key = { it.id }) { alarm ->
-                        // Wischen zum Löschen wie iOS: Rückfrage, die Karte federt zurück (auch über das Menü der Karte)
-                        SwipeActionsRow(
-                            enabled = true,
-                            favorite = false,
-                            onDelete = { editorHost.askDelete = alarm },
-                            onToggleFavorite = null,
-                            reduceMotion = reduceMotion,
-                            shape = MaterialTheme.shapes.large,
-                            confirmsDelete = true,
-                        ) {
-                            AlarmCard(
-                                alarm = alarm,
-                                baseAsset = watch?.baseAsset.orEmpty(),
-                                quoteAsset = watch?.quoteAsset.orEmpty(),
-                                unchecked = unchecked[alarm.id],
-                                status = AlarmCardStatus.of(
-                                    alarmEnabled = alarm.enabled,
-                                    notificationsAllowed = alarmsAllowed,
-                                    dexBlocksAlarms = lowLiquidity,
-                                    exchangeTime = watch?.exchangeTime,
-                                    lastUpdate = watch?.lastUpdate ?: 0L,
-                                    now = now,
-                                    staleAfterMillis = staleAfter,
-                                    unchecked = unchecked[alarm.id] != null,
-                                    markFallback = markFallback,
-                                    exchangeRetired = retired,
-                                ),
-                                retiredExchange = watch?.exchangeName,
-                                onToggle = { viewModel.setEnabled(alarm.id, it) },
-                                // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
-                                onEdit = if (!lowLiquidity && !referenceRate && !retired) {
-                                    { editorHost.edit(alarm) }
-                                } else {
-                                    null
-                                },
-                                onDelete = { editorHost.askDelete = alarm }
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        AlarmsContent(
+            padding = padding,
+            viewModel = viewModel,
+            editorHost = editorHost,
+            watch = watch,
+            alarms = alarms,
+            unchecked = unchecked,
+            retired = retired,
+            referenceRate = referenceRate,
+            lowLiquidity = lowLiquidity,
+            alarmsFull = alarmsFull,
+            notificationsEnabled = notificationsEnabled,
+            alarmsAllowed = alarmsAllowed,
+            now = now,
+            staleAfter = staleAfter,
+            markFallback = markFallback,
+            reduceMotion = reduceMotion,
+        )
     }
 
     AlarmEditorHost(editorHost, viewModel, snackbar)
@@ -267,3 +200,113 @@ fun AlarmsScreen(
 
 /** Takt, in dem die Statuszeilen der Karten die Uhr nachführen («Wartet auf aktuellen Kurs»). */
 private const val STATUS_TICK_MILLIS = 60_000L
+
+/** Inhalt der Alarme eines Paars ([AlarmsScreen]): Hinweis statt Liste bzw. Hinweise und die Alarm-Karten. */
+@Composable
+private fun AlarmsContent(
+    padding: PaddingValues,
+    viewModel: AlarmsViewModel,
+    editorHost: AlarmEditorHostState,
+    watch: WatchEntity?,
+    alarms: List<AlarmEntity>,
+    unchecked: Map<Long, AlarmCheckStatus.Unchecked>,
+    retired: Boolean,
+    referenceRate: Boolean,
+    lowLiquidity: Boolean,
+    alarmsFull: Boolean,
+    notificationsEnabled: Boolean,
+    alarmsAllowed: Boolean,
+    now: Long,
+    staleAfter: Long,
+    markFallback: Boolean,
+    reduceMotion: Boolean,
+) {
+    if (alarms.isEmpty() && retired) {
+        Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { RetiredExchangeNote(watch) }
+    } else if (alarms.isEmpty() && referenceRate) {
+        Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote(watch?.exchangeKey) }
+    } else if (alarms.isEmpty() && lowLiquidity) {
+        // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
+        Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
+    } else if (alarms.isEmpty()) {
+        // Beispiel im Stil der Alarm-Sätze, damit klar ist, was ein Alarm kann (wie iOS)
+        EmptyState(
+            iconRes = R.drawable.ic_notifications_active,
+            title = stringResource(R.string.alarms_empty),
+            example = alarmsEmptyExample(),
+            actionLabel = stringResource(R.string.alarms_add),
+            onAction = { editorHost.openNew() },
+            modifier = Modifier.fillMaxSize().padding(padding),
+        )
+    } else {
+        // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
+        ReadableInset { inset ->
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(padding),
+                contentPadding = PaddingValues(start = 12.dp + inset, top = 12.dp, end = 12.dp + inset, bottom = Spacing.fabClearance),
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm)
+            ) {
+                if (!notificationsEnabled) {
+                    item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
+                }
+                // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
+                if (retired || retirementAnnounced(watch)) {
+                    item(key = "exchange_retired") { RetiredExchangeNote(watch) }
+                }
+                if (lowLiquidity) {
+                    item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
+                }
+                if (referenceRate) {
+                    item(key = "reference_rate") { ReferenceRateNote(watch?.exchangeKey) }
+                }
+                if (alarmsFull) {
+                    item(key = "alarm_limit") { AlarmLimitNote() }
+                }
+                // «Zuletzt geprüft 14:32» auch in der Alarmliste des Paars (wie Übersicht, Editor und iOS)
+                if (alarms.isNotEmpty()) {
+                    item(key = "last_checked") { AlarmLastCheckedLine(Modifier.padding(horizontal = 4.dp)) }
+                }
+                items(alarms, key = { it.id }) { alarm ->
+                    // Wischen zum Löschen wie iOS: Rückfrage, die Karte federt zurück (auch über das Menü der Karte)
+                    SwipeActionsRow(
+                        enabled = true,
+                        favorite = false,
+                        onDelete = { editorHost.askDelete = alarm },
+                        onToggleFavorite = null,
+                        reduceMotion = reduceMotion,
+                        shape = MaterialTheme.shapes.large,
+                        confirmsDelete = true,
+                    ) {
+                        AlarmCard(
+                            alarm = alarm,
+                            baseAsset = watch?.baseAsset.orEmpty(),
+                            quoteAsset = watch?.quoteAsset.orEmpty(),
+                            unchecked = unchecked[alarm.id],
+                            status = AlarmCardStatus.of(
+                                alarmEnabled = alarm.enabled,
+                                notificationsAllowed = alarmsAllowed,
+                                dexBlocksAlarms = lowLiquidity,
+                                exchangeTime = watch?.exchangeTime,
+                                lastUpdate = watch?.lastUpdate ?: 0L,
+                                now = now,
+                                staleAfterMillis = staleAfter,
+                                unchecked = unchecked[alarm.id] != null,
+                                markFallback = markFallback,
+                                exchangeRetired = retired,
+                            ),
+                            retiredExchange = watch?.exchangeName,
+                            onToggle = { viewModel.setEnabled(alarm.id, it) },
+                            // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
+                            onEdit = if (!lowLiquidity && !referenceRate && !retired) {
+                                { editorHost.edit(alarm) }
+                            } else {
+                                null
+                            },
+                            onDelete = { editorHost.askDelete = alarm }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

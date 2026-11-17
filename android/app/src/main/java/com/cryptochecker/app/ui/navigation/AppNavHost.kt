@@ -5,6 +5,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.exclude
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -36,6 +39,7 @@ import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
+import com.cryptochecker.app.ui.features.explorer.ExplorerSectionsState
 import com.cryptochecker.app.ui.features.explorer.rememberExplorerSections
 import com.cryptochecker.app.ui.features.info.MarketJump
 import com.cryptochecker.app.ui.features.portfolio.LocalHidePortfolioAmounts
@@ -124,36 +128,19 @@ fun AppNavHost(
         }
     )
 
-    // Gesperrt, während eine Unterseite des Portfolios offen ist: zurück zum (gesperrten) Portfolio-Tab
-    androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
-        if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioSubpage) {
-            runCatchingCancellable { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
-        }
-    }
-
-    // Portfolio ausgeschaltet, während es offen ist: zurück zur Merkliste
-    androidx.compose.runtime.LaunchedEffect(portfolioEnabled, currentRoute) {
-        if (!portfolioEnabled && onPortfolio) {
-            runCatchingCancellable { navigation.navigateToTab(ScreenRoute.Watchlist) }
-        }
-    }
-
-    // App-Verknüpfung: direkt zum gewünschten Bereich springen
-    androidx.compose.runtime.LaunchedEffect(openTarget) {
-        if (openTarget == null) return@LaunchedEffect
-        // Der Graph steht erst nach dem ersten Aufbau — Fehler hier nie zum Absturz werden lassen.
-        runCatchingCancellable {
-            openAppTarget(
-                navigation = navigation,
-                openTarget = openTarget,
-                portfolioEnabled = portfolioEnabled,
-                onMarketJump = { marketJump = it },
-                onWhyWatch = { whyWatchId = it },
-                onFocusWatch = { focusWatchId = it },
-            )
-        }
-        onOpenTargetHandled()
-    }
+    AppNavEffects(
+        navigation = navigation,
+        portfolioAccess = portfolioAccess,
+        portfolioEnabled = portfolioEnabled,
+        currentRoute = currentRoute,
+        onPortfolioSubpage = onPortfolioSubpage,
+        onPortfolio = onPortfolio,
+        openTarget = openTarget,
+        onOpenTargetHandled = onOpenTargetHandled,
+        onMarketJump = { marketJump = it },
+        onWhyWatch = { whyWatchId = it },
+        onFocusWatch = { focusWatchId = it },
+    )
 
     // Keine Begrüssung: ein neuer Nutzer landet direkt in der Starter-Auswahl der
     // leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über die App. Der Akku-Hinweis
@@ -184,89 +171,199 @@ fun AppNavHost(
             // testTags als Ressourcen-Id für alle Seiten (Tableiste, Paarseite): Baseline-Profile-Generator (UiAutomator)
             modifier = Modifier.semantics { testTagsAsResourceId = true },
             bottomBar = {
-                if (currentTab != null) {
-                    AppTabBar(
-                        tabs = bottomTabs,
-                        currentRoute = currentTab,
-                        onSelect = { route ->
-                            if (route == currentTab) {
-                                // Schon gewählt: allfällige Unterseite schliessen, an den Anfang rollen
-                                navigation.popBackStack(route, inclusive = false)
-                                tabReselect.request(route)
-                            } else {
-                                navigation.navigateToTab(route)
-                            }
-                        }
-                    )
-                }
+                AppBottomBar(currentTab = currentTab, tabs = bottomTabs, navigation = navigation, tabReselect = tabReselect)
             }
         ) { innerPadding ->
-            // Tab- und Seitenwechsel: kurze Überblendung (statt der 700 ms von Navigation);
-            // ohne Bewegung (Animationen aus) sofort
-            val reduceMotion = rememberReduceMotion()
-            NavHost(
-                navController = navigation,
-                startDestination = ScreenRoute.Watchlist,
-                // Tastatur: Die Tableiste bleibt unten und verschwindet hinter der Tastatur
-                // (adjustResize, randlos – das Fenster wird weder verschoben noch verkleinert). Der Inhalt
-                // bekommt nur den Teil der Tastatur, der über die Tableiste hinausragt, als Abstand –
-                // so bleibt das fokussierte Feld sichtbar. Danach gelten die Ränder dieses Scaffolds
-                // (Statusleiste oben, Tableiste bzw. Navigationsleiste unten) als verbraucht: Die Seiten
-                // mit eigenem Scaffold/TopAppBar setzen sie sonst ein zweites Mal (doppelter Abstand oben).
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .windowInsetsPadding(
-                        WindowInsets.ime.exclude(WindowInsets(bottom = innerPadding.calculateBottomPadding()))
-                    )
-                    .consumeWindowInsets(innerPadding),
-                enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
-                exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
-            ) {
-                watchlistDestination(
-                    navigation = navigation,
-                    whyWatchId = { whyWatchId },
-                    onWhyHandled = { whyWatchId = null },
-                    focusWatchId = { focusWatchId },
-                    onFocusHandled = { focusWatchId = null },
-                )
-
-                explorerDestination(
-                    navigation = navigation,
-                    search = { explorerSearch },
-                    onSearchHandled = { explorerSearch = null },
-                    sections = explorerSections,
-                )
-
-                settingsDestinations(
-                    navigation = navigation,
-                    anchor = { settingsAnchor },
-                    onAnchorChange = { settingsAnchor = it },
-                )
-
-                marketDestinations(
-                    navigation = navigation,
-                    activityOwner = activityOwner,
-                    marketJump = { marketJump },
-                    onMarketJumpChange = { marketJump = it },
-                    onExplorerSearch = { explorerSearch = it },
-                )
-
-                portfolioDestinations(
-                    navigation = navigation,
-                    portfolioAccess = { portfolioAccess },
-                    requestUnlock = requestUnlock,
-                    lockViewModel = lockViewModel,
-                )
-
-                pairDestination(navigation = navigation, activityOwner = activityOwner, lockViewModel = lockViewModel)
-
-                alarmDestinations(
-                    navigation = navigation,
-                    openAlarmLog = openAlarmLog,
-                    openAlarmDelivery = openAlarmDelivery,
-                    openUpdateSettings = openUpdateSettings,
-                )
-            }
+            AppNavGraph(
+                innerPadding = innerPadding,
+                navigation = navigation,
+                activityOwner = activityOwner,
+                whyWatchId = { whyWatchId },
+                onWhyHandled = { whyWatchId = null },
+                focusWatchId = { focusWatchId },
+                onFocusHandled = { focusWatchId = null },
+                explorerSearch = { explorerSearch },
+                onExplorerSearchChange = { explorerSearch = it },
+                explorerSections = explorerSections,
+                settingsAnchor = { settingsAnchor },
+                onSettingsAnchorChange = { settingsAnchor = it },
+                marketJump = { marketJump },
+                onMarketJumpChange = { marketJump = it },
+                portfolioAccess = { portfolioAccess },
+                requestUnlock = requestUnlock,
+                lockViewModel = lockViewModel,
+                openAlarmLog = openAlarmLog,
+                openAlarmDelivery = openAlarmDelivery,
+                openUpdateSettings = openUpdateSettings,
+            )
         }
+    }
+}
+
+/**
+ * Graph der App unter der Tableiste ([AppNavHost]): alle Tabs und Seiten mit kurzer Überblendung. Nicht neu startbar:
+ * läuft wie zuvor mit dem Inhalt des Gerüsts.
+ */
+@NonRestartableComposable
+@Composable
+private fun AppNavGraph(
+    innerPadding: PaddingValues,
+    navigation: NavHostController,
+    activityOwner: ViewModelStoreOwner,
+    whyWatchId: () -> Long?,
+    onWhyHandled: () -> Unit,
+    focusWatchId: () -> Long?,
+    onFocusHandled: () -> Unit,
+    explorerSearch: () -> String?,
+    onExplorerSearchChange: (String?) -> Unit,
+    explorerSections: ExplorerSectionsState,
+    settingsAnchor: () -> String?,
+    onSettingsAnchorChange: (String?) -> Unit,
+    marketJump: () -> String?,
+    onMarketJumpChange: (String?) -> Unit,
+    portfolioAccess: () -> PortfolioAccess,
+    requestUnlock: () -> Unit,
+    lockViewModel: PortfolioLockViewModel,
+    openAlarmLog: () -> Unit,
+    openAlarmDelivery: () -> Unit,
+    openUpdateSettings: () -> Unit,
+) {
+    // Tab- und Seitenwechsel: kurze Überblendung (statt der 700 ms von Navigation);
+    // ohne Bewegung (Animationen aus) sofort
+    val reduceMotion = rememberReduceMotion()
+    NavHost(
+        navController = navigation,
+        startDestination = ScreenRoute.Watchlist,
+        // Tastatur: Die Tableiste bleibt unten und verschwindet hinter der Tastatur
+        // (adjustResize, randlos – das Fenster wird weder verschoben noch verkleinert). Der Inhalt
+        // bekommt nur den Teil der Tastatur, der über die Tableiste hinausragt, als Abstand –
+        // so bleibt das fokussierte Feld sichtbar. Danach gelten die Ränder dieses Scaffolds
+        // (Statusleiste oben, Tableiste bzw. Navigationsleiste unten) als verbraucht: Die Seiten
+        // mit eigenem Scaffold/TopAppBar setzen sie sonst ein zweites Mal (doppelter Abstand oben).
+        modifier = Modifier
+            .padding(innerPadding)
+            .windowInsetsPadding(
+                WindowInsets.ime.exclude(WindowInsets(bottom = innerPadding.calculateBottomPadding()))
+            )
+            .consumeWindowInsets(innerPadding),
+        enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
+        exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
+    ) {
+        watchlistDestination(
+            navigation = navigation,
+            whyWatchId = whyWatchId,
+            onWhyHandled = onWhyHandled,
+            focusWatchId = focusWatchId,
+            onFocusHandled = onFocusHandled,
+        )
+
+        explorerDestination(
+            navigation = navigation,
+            search = explorerSearch,
+            onSearchHandled = { onExplorerSearchChange(null) },
+            sections = explorerSections,
+        )
+
+        settingsDestinations(
+            navigation = navigation,
+            anchor = settingsAnchor,
+            onAnchorChange = onSettingsAnchorChange,
+        )
+
+        marketDestinations(
+            navigation = navigation,
+            activityOwner = activityOwner,
+            marketJump = marketJump,
+            onMarketJumpChange = onMarketJumpChange,
+            onExplorerSearch = { onExplorerSearchChange(it) },
+        )
+
+        portfolioDestinations(
+            navigation = navigation,
+            portfolioAccess = portfolioAccess,
+            requestUnlock = requestUnlock,
+            lockViewModel = lockViewModel,
+        )
+
+        pairDestination(navigation = navigation, activityOwner = activityOwner, lockViewModel = lockViewModel)
+
+        alarmDestinations(
+            navigation = navigation,
+            openAlarmLog = openAlarmLog,
+            openAlarmDelivery = openAlarmDelivery,
+            openUpdateSettings = openUpdateSettings,
+        )
+    }
+}
+
+/** Gesperrt bzw. ausgeschaltet zurück, App-Verknüpfung öffnen ([AppNavHost]). */
+@Composable
+private fun AppNavEffects(
+    navigation: NavHostController,
+    portfolioAccess: PortfolioAccess,
+    portfolioEnabled: Boolean,
+    currentRoute: String?,
+    onPortfolioSubpage: Boolean,
+    onPortfolio: Boolean,
+    openTarget: String?,
+    onOpenTargetHandled: () -> Unit,
+    onMarketJump: (String) -> Unit,
+    onWhyWatch: (Long) -> Unit,
+    onFocusWatch: (Long) -> Unit,
+) {
+    // Gesperrt, während eine Unterseite des Portfolios offen ist: zurück zum (gesperrten) Portfolio-Tab
+    androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
+        if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioSubpage) {
+            runCatchingCancellable { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
+        }
+    }
+
+    // Portfolio ausgeschaltet, während es offen ist: zurück zur Merkliste
+    androidx.compose.runtime.LaunchedEffect(portfolioEnabled, currentRoute) {
+        if (!portfolioEnabled && onPortfolio) {
+            runCatchingCancellable { navigation.navigateToTab(ScreenRoute.Watchlist) }
+        }
+    }
+
+    // App-Verknüpfung: direkt zum gewünschten Bereich springen
+    androidx.compose.runtime.LaunchedEffect(openTarget) {
+        if (openTarget == null) return@LaunchedEffect
+        // Der Graph steht erst nach dem ersten Aufbau — Fehler hier nie zum Absturz werden lassen.
+        runCatchingCancellable {
+            openAppTarget(
+                navigation = navigation,
+                openTarget = openTarget,
+                portfolioEnabled = portfolioEnabled,
+                onMarketJump = onMarketJump,
+                onWhyWatch = onWhyWatch,
+                onFocusWatch = onFocusWatch,
+            )
+        }
+        onOpenTargetHandled()
+    }
+}
+
+/** Tableiste ([AppNavHost]) nur auf Haupt-Tabs; erneutes Tippen schliesst eine Unterseite und rollt an den Anfang. */
+@Composable
+private fun AppBottomBar(
+    currentTab: ScreenRoute?,
+    tabs: List<BottomTab>,
+    navigation: NavHostController,
+    tabReselect: TabReselectSignal,
+) {
+    if (currentTab != null) {
+        AppTabBar(
+            tabs = tabs,
+            currentRoute = currentTab,
+            onSelect = { route ->
+                if (route == currentTab) {
+                    // Schon gewählt: allfällige Unterseite schliessen, an den Anfang rollen
+                    navigation.popBackStack(route, inclusive = false)
+                    tabReselect.request(route)
+                } else {
+                    navigation.navigateToTab(route)
+                }
+            }
+        )
     }
 }

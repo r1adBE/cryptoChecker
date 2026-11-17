@@ -1,5 +1,7 @@
 // Wurzel-Buildskript. Alle Versionen stehen im Versionskatalog gradle/libs.versions.toml.
 import org.gradle.api.artifacts.dsl.LockMode
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -70,6 +72,21 @@ subprojects {
 // Swift-Quellen, Nachbarmodule …): eine Änderung dort lässt die Tests neu laufen und ändert den Cache-Schlüssel.
 subprojects {
     apply(from = rootProject.file("gradle/test-inputs.gradle.kts"))
+}
+
+// KSP (Room, Hilt) immer vollständig und nacheinander: Die CI baute mehrmals ein Debug-APK ohne die von Room
+// erzeugten Klassen (Absturz «AppDatabase_Impl does not exist», :data ohne erzeugte Java-Dateien), lokal kam eine
+// unvollständige KSP-Ausgabe aus dem Build-Cache. Darum: KSP-Ausgaben nie aus dem Cache, nie inkrementell
+// (gradle.properties `ksp.incremental=false`), höchstens eine KSP-Aufgabe gleichzeitig; :data prüft danach, dass die
+// Room-Klassen da sind (data/build.gradle.kts).
+abstract class KspSerial : BuildService<BuildServiceParameters.None>
+
+val kspSerial = gradle.sharedServices.registerIfAbsent("kspSerial", KspSerial::class) { maxParallelUsages.set(1) }
+subprojects {
+    tasks.matching { it.name.startsWith("ksp") && it.name.endsWith("Kotlin") }.configureEach {
+        usesService(kspSerial)
+        outputs.cacheIf("KSP-Ausgabe immer neu erzeugen") { false }
+    }
 }
 
 tasks.register<Delete>("clean") {

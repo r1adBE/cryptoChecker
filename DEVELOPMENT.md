@@ -3280,6 +3280,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 295: C-07 Teil 2c: PortfolioTxEntity/PortfolioAlarmEntity nach :domain, Room-Zeilen PortfolioTxRow/PortfolioAlarmRow mit Umwandlung (PortfolioRowMappingTest), Schema unverändert; UI_DATA_REMAINING 88 → 80.
 * Build 296: Review 11: AppData @Observable (revision/publish, @AppDataEnv/@AppDataRef, AppDataObservationTests); Swift 6 strict concurrency war schon aktiv.
 * Build 297: C-04 Rest: neun iOS-Logikfunktionen zerlegt, LOGIC_CEILINGS Swift 136 → 100.
+* Build 298: C-02 Android (46 Funktionen, Kotlin-Obergrenze 148); KSP nie aus Cache/inkrementell, seriell, Prüfung der Room-Klassen in :data; iOS favoritesSubject statt $favorites (Build 296 kompilierte nicht).
 
 ## Known warnings
 

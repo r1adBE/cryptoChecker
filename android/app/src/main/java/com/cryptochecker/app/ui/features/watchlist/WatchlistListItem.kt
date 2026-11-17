@@ -9,7 +9,6 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +22,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.cryptochecker.app.data.SparklineRepository
@@ -34,9 +32,9 @@ import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.rememberHaptics
-import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
 
 /**
@@ -103,27 +101,7 @@ internal fun LazyItemScope.WatchlistItem(
     // Sortieren nur im Sortiermodus (⋯ › Sortieren): dann lange drücken und ziehen oder am Griff.
     // Ausserhalb startet langes Drücken nichts mehr — ein zögerliches Wischen landete sonst im
     // Sortiermodus. Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
-    val dragModifier = if (searching || !sortMode) {
-        Modifier
-    } else {
-        Modifier.pointerInput(watch.id) {
-            detectDragGesturesAfterLongPress(
-                onDragStart = {
-                    haptics.play(HapticEvent.LONG_PRESS)
-                    reorder.start(watch.id)
-                },
-                onDrag = { change, amount ->
-                    change.consume()
-                    reorder.drag(amount.y)
-                },
-                onDragEnd = {
-                    haptics.play(HapticEvent.LIGHT_IMPACT)
-                    reorder.end()
-                },
-                onDragCancel = { reorder.end() }
-            )
-        }
-    }
+    val dragModifier = sortDragModifier(watch.id, searching, sortMode, haptics, reorder)
 
     // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
     // Fehler → kein Mini-Chart, keine Meldung. Nicht mehr gehandelt bzw. deaktiviert: keiner (keine Abfrage).
@@ -132,30 +110,7 @@ internal fun LazyItemScope.WatchlistItem(
         com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(watch, now) == null
     // Zwischengespeicherter Verlauf als Startwert: nur einmal je Schlüssel nachschlagen, nicht bei jeder Rekomposition
     // (produceState nimmt den Startwert ohnehin nur beim ersten Mal)
-    val initialSparkline = remember(watch.baseAsset, watch.quoteAsset, watch.lastPrice != null, rowSparklines) {
-        if (rowSparklines) cachedSparkline(watch) else null
-    }
-    val sparkline by produceState(
-        initialValue = initialSparkline,
-        watch.baseAsset,
-        watch.quoteAsset,
-        // Erst mit Kurs prüfbar (gleicher Token, SheetChart.sparklineFor)
-        watch.lastPrice != null,
-        rowSparklines,
-    ) {
-        if (!rowSparklines) {
-            value = null
-            return@produceState
-        }
-        var first = true
-        while (true) {
-            val closes = loadSparkline(watch)
-            // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
-            if (closes != null || first) value = closes
-            first = false
-            delay(SparklineRepository.TTL_MILLIS)
-        }
-    }
+    val sparkline = rememberRowSparkline(watch, rowSparklines, cachedSparkline, loadSparkline)
 
     // Mini-Chart einer anderen Börse: im Zeilensatz nennen (sichtbar steht es im Aktionsblatt)
     val chartSource = remember(sparkline, watch.exchangeKey, watch.lastPrice != null) {
@@ -193,91 +148,110 @@ internal fun LazyItemScope.WatchlistItem(
             ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
     ) {
         WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis, onLiveSocket = onLiveSocket, now = now) { shown ->
-            // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
-            val dated = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
-                convertedFxTime(shown, convertFxTimes, now)?.let {
-                    stringResource(R.string.converted_fx_stale, text, com.cryptochecker.app.util.PriceFormat.shortTime(it))
-                } ?: text
-            }
-            // USDT/USD nicht gemessen bzw. nur unsicher über USDC: in der Zeile kurz «Umrechnung unsicher»
-            // (passt neben das Paar), im Screenreader beim nicht gemessenen USDT der ganze Satz
-            val usdtNote = convertedUsdtNote(shown, convertTarget, convertUsdtNotes)
-            val converted = dated?.let { if (usdtNote != null) "$it · " + stringResource(R.string.converted_unsure) else it }
-            val convertedA11y = dated?.takeIf {
-                usdtNote == com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.ASSUMED
-            }?.let { "$it · " + stringResource(R.string.portfolio_usdt_assumed) }
-            WatchRow(
-                // Börse stillgelegt: «—» mit Grund statt des letzten Kurses, auch vor dem ersten Abruf danach (RetiredWatch)
-                watch = com.cryptochecker.app.domain.watch.RetiredWatch.shown(shown, now),
+            WatchlistItemRow(
+                shown = shown,
+                watchId = watch.id,
+                now = now,
+                staleAfter = staleAfter,
+                convertTarget = convertTarget,
+                convertRates = convertRates,
+                convertFxTimes = convertFxTimes,
+                convertUsdtNotes = convertUsdtNotes,
                 alarmCount = alarmCount,
                 alarmFiredAt = alarmFiredAt,
                 kind = kind,
-                now = now,
-                staleAfter = staleAfter,
-                converted = converted,
-                convertedA11y = convertedA11y,
-                // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
                 sparkline = sparkline.takeIf { rowSparklines && !sortMode },
                 chartSource = chartSource,
-                changeSource = changeProvider,
-                celebrateKey = moment?.id?.takeIf { celebrateIndex != null },
+                changeProvider = changeProvider,
+                moment = moment,
                 celebrateIndex = celebrateIndex,
                 reduceMotion = reduceMotion,
                 hasActivity = hasActivity,
-                onActivityClick = {
-                    when {
-                        selecting -> onToggleSelected()
-                        !sortMode -> onOpenWhy()
-                    }
-                },
                 elevation = elevation,
                 highlighted = dragging || selected,
                 shape = shape,
+                searching = searching,
                 sortMode = sortMode,
                 selecting = selecting,
                 selected = selected,
-                onClick = {
-                    when {
-                        selecting -> onToggleSelected()
-                        !sortMode -> onOpenActions()
-                    }
-                },
+                haptics = haptics,
+                reorder = reorder,
+                onToggleSelected = onToggleSelected,
+                onOpenWhy = onOpenWhy,
+                onOpenActions = onOpenActions,
                 onMove = onMove,
-                // Lange drücken: Mehrfachauswahl mit dieser Zeile (wie ⋯ › «Auswählen»), mit Haptik.
-                // Im Sortier- und Auswahlmodus nicht (die Zeile behandelt das selbst).
-                onLongClick = if (sortMode || selecting) {
-                    null
-                } else {
-                    {
-                        haptics.play(HapticEvent.LONG_PRESS)
-                        onStartSelection()
-                    }
-                },
-                // Screenreader: «Löschen» und «Favorit» wie Wischen
-                onDeleteAction = onDelete,
-                onFavoriteAction = onFavoriteWithBanner,
+                onDelete = onDelete,
+                onFavoriteWithBanner = onFavoriteWithBanner,
+                onStartSelection = onStartSelection,
                 onSourceHint = onSourceHint,
-                // Screenreader: «Nach oben/unten» wie Ziehen (nicht während der Suche)
-                canReorder = !searching,
-                // Am Griff ohne Warten ziehen
-                handleModifier = Modifier.pointerInput(watch.id) {
-                    detectDragGestures(
-                        onDragStart = {
-                            haptics.play(HapticEvent.LONG_PRESS)
-                            reorder.start(watch.id)
-                        },
-                        onDrag = { change, amount ->
-                            change.consume()
-                            reorder.drag(amount.y)
-                        },
-                        onDragEnd = {
-                            haptics.play(HapticEvent.LIGHT_IMPACT)
-                            reorder.end()
-                        },
-                        onDragCancel = { reorder.end() }
-                    )
-                }
             )
         }
     }
+}
+
+/** Ziehen zum Sortieren nach langem Drücken (nur im Sortiermodus, nicht während der Suche); sonst kein Modifier. */
+private fun sortDragModifier(
+    watchId: Long,
+    searching: Boolean,
+    sortMode: Boolean,
+    haptics: HapticPlayer,
+    reorder: ReorderState,
+): Modifier = if (searching || !sortMode) {
+    Modifier
+} else {
+    Modifier.pointerInput(watchId) {
+        detectDragGesturesAfterLongPress(
+            onDragStart = {
+                haptics.play(HapticEvent.LONG_PRESS)
+                reorder.start(watchId)
+            },
+            onDrag = { change, amount ->
+                change.consume()
+                reorder.drag(amount.y)
+            },
+            onDragEnd = {
+                haptics.play(HapticEvent.LIGHT_IMPACT)
+                reorder.end()
+            },
+            onDragCancel = { reorder.end() }
+        )
+    }
+}
+
+/**
+ * 24-Stunden-Verlauf einer Zeile, danach alle 15 Min. neu ([SparklineRepository.TTL_MILLIS]). Liefert einen Wert,
+ * liest also wie zuvor im Aufrufer.
+ */
+@Composable
+private fun rememberRowSparkline(
+    watch: WatchEntity,
+    rowSparklines: Boolean,
+    cachedSparkline: (WatchEntity) -> List<Double>?,
+    loadSparkline: suspend (WatchEntity) -> List<Double>?,
+): List<Double>? {
+    val initialSparkline = remember(watch.baseAsset, watch.quoteAsset, watch.lastPrice != null, rowSparklines) {
+        if (rowSparklines) cachedSparkline(watch) else null
+    }
+    val sparkline by produceState(
+        initialValue = initialSparkline,
+        watch.baseAsset,
+        watch.quoteAsset,
+        // Erst mit Kurs prüfbar (gleicher Token, SheetChart.sparklineFor)
+        watch.lastPrice != null,
+        rowSparklines,
+    ) {
+        if (!rowSparklines) {
+            value = null
+            return@produceState
+        }
+        var first = true
+        while (true) {
+            val closes = loadSparkline(watch)
+            // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
+            if (closes != null || first) value = closes
+            first = false
+            delay(SparklineRepository.TTL_MILLIS)
+        }
+    }
+    return sparkline
 }

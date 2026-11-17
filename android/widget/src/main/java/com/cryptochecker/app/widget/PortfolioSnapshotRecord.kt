@@ -32,6 +32,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
+import com.cryptochecker.app.domain.portfolio.TimedPrice
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -88,7 +90,6 @@ suspend fun PortfolioSnapshotUpdater.record(
     // nicht lesbar): nichts aufnehmen — sonst zeigte das Widget ein leeres Portfolio und der Verlauf bekäme eine Null
     if (DatabaseEncryptionNotice.isStoredKept(PortfolioDatabase.DB_NAME)) return@withContext null
     val settings = settingsRepository.current()
-    val basis = settings.changeBasis.storage
     // Beobachtete Adress-Guthaben: zählen in Heute, 7 T / 30 T / 1 J und im 24-h-Verlauf erst ab ihrer
     // ersten Beobachtung (nie rückwirkend) und ohne das schon Gebuchte (wie die Karte, [AddressBooked]);
     // Fehler → ohne (dann nur der eigene Bestand)
@@ -154,63 +155,26 @@ suspend fun PortfolioSnapshotUpdater.record(
             now = now,
         ).filterKeys { coin -> holdings.keys.any { it.equals(coin, ignoreCase = true) } }
 
-        val snapshot = PortfolioSnapshotMath.snapshot(
+        val snapshot = buildSnapshot(
+            transactions = transactions,
+            summary = summary,
             holdings = holdings,
-            totalUsd = summary.totalValue,
             current = current,
             history = history,
             now = now,
-            fxRate = rate,
-            currency = code,
+            rate = rate,
+            code = code,
             hourlyPrices = hourlyPrices,
-            stables = PortfolioStables.COINS,
-            // %-Basis: rollend oder seit Tagesbeginn (UTC/Ortszeit)
-            stamp = ChangeBasisMath.stamp(basis, now),
-            // Adress-Anteil im 24-h-Verlauf nur mit dem damals beobachteten Guthaben
-            addressSteps = AddressBalanceHistory.stepsByCoin(addresses),
-        ).withDaily(transactions, holdings, current, now, routing, addresses, settings.costMethod, memo, code, rate)
-            // Buchungen je Position für die Liste (Wahl im Widget: Käufe / Verkäufe / beides)
-            .let { s ->
-                PortfolioWidgetEntries.withEntries(
-                    s,
-                    transactions.map { it.toTrade() },
-                    transactions.associate { it.id to it.note },
-                    current,
-                    rate,
-                    settings.costMethod,
-                )
-            }
-            // «Gesamt» der Übersicht: ± seit Kauf in USDT wie in der Gesamtkarte des Portfolio-Tabs; in der
-            // Anzeigewährung: Wert × Faktor jetzt − gemerkter Einstand zum Kurs der Erwerbstage
-            .copy(
-                unrealized = summary.unrealized?.takeIf { it.isFinite() }?.let { PortfolioChange(it, summary.unrealizedPercent) },
-                unrealizedDisplay = PortfolioDisplayFigures.unrealized(summary.open, code, rate, memo),
-                displayFx = memo,
-            )
-            // «Heute»: Bestand der Karte (eigener samt Posten + Adress-Teil); die Reihe rechnet Änderungen
-            // seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend)
-            .withHonestToday(
-                transactions,
-                todayHoldings(summary.open, addresses),
-                current,
-                settings.changeBasis,
-                now,
-                rate,
-                addresses,
-                settings.costMethod,
-            )
-            // Wert der alten Kurse (unwesentlich unter 1 %: Alarme prüfen trotzdem) und nie geladene Adressen
-            .copy(
-                stalePrices = staleCoins.size,
-                staleCoins = staleList,
-                staleValueUsdt = staleList.sumOf { pricedValues[it] ?: 0.0 },
-                addressesPending = addressState.pending,
-                addressesFailing = addressState.failing,
-                staleTokenAddresses = addressState.staleTokenAddresses,
-                staleTokenValueUsdt = addressState.staleTokenValue(current),
-                unverifiedCoins = unverifiedList,
-                unverifiedValueUsdt = unverifiedList.sumOf { pricedValues[it] ?: 0.0 },
-            )
+            settings = settings,
+            addresses = addresses,
+            routing = routing,
+            memo = memo,
+            staleCoins = staleCoins,
+            staleList = staleList,
+            pricedValues = pricedValues,
+            addressState = addressState,
+            unverifiedList = unverifiedList,
+        )
         store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
         snapshot
     }
@@ -228,4 +192,88 @@ suspend fun PortfolioSnapshotUpdater.record(
         }
     }
     recorded
+}
+
+/**
+ * Momentaufnahme aus den Eingaben von [record] (im Schloss): Werte, Tagesreihe, Buchungen je Position, «Gesamt» seit
+ * Kauf, ehrliches «Heute» und die Merker für alte bzw. ungeprüfte Kurse.
+ */
+private suspend fun PortfolioSnapshotUpdater.buildSnapshot(
+    transactions: List<PortfolioTxEntity>,
+    summary: PortfolioSummary,
+    holdings: Map<String, Double>,
+    current: Map<String, Double>,
+    history: List<PriceSample>,
+    now: Long,
+    rate: Double,
+    code: String,
+    hourlyPrices: Map<String, List<TimedPrice>>,
+    settings: AppSettings,
+    addresses: List<AddressBalanceHistory>,
+    routing: PortfolioPrices?,
+    memo: PortfolioDisplayFx?,
+    staleCoins: Set<String>,
+    staleList: List<String>,
+    pricedValues: Map<String, Double>,
+    addressState: AddressAlarmState,
+    unverifiedList: List<String>,
+): PortfolioSnapshot {
+    val basis = settings.changeBasis.storage
+    return PortfolioSnapshotMath.snapshot(
+        holdings = holdings,
+        totalUsd = summary.totalValue,
+        current = current,
+        history = history,
+        now = now,
+        fxRate = rate,
+        currency = code,
+        hourlyPrices = hourlyPrices,
+        stables = PortfolioStables.COINS,
+        // %-Basis: rollend oder seit Tagesbeginn (UTC/Ortszeit)
+        stamp = ChangeBasisMath.stamp(basis, now),
+        // Adress-Anteil im 24-h-Verlauf nur mit dem damals beobachteten Guthaben
+        addressSteps = AddressBalanceHistory.stepsByCoin(addresses),
+    ).withDaily(transactions, holdings, current, now, routing, addresses, settings.costMethod, memo, code, rate)
+        // Buchungen je Position für die Liste (Wahl im Widget: Käufe / Verkäufe / beides)
+        .let { s ->
+            PortfolioWidgetEntries.withEntries(
+                s,
+                transactions.map { it.toTrade() },
+                transactions.associate { it.id to it.note },
+                current,
+                rate,
+                settings.costMethod,
+            )
+        }
+        // «Gesamt» der Übersicht: ± seit Kauf in USDT wie in der Gesamtkarte des Portfolio-Tabs; in der
+        // Anzeigewährung: Wert × Faktor jetzt − gemerkter Einstand zum Kurs der Erwerbstage
+        .copy(
+            unrealized = summary.unrealized?.takeIf { it.isFinite() }?.let { PortfolioChange(it, summary.unrealizedPercent) },
+            unrealizedDisplay = PortfolioDisplayFigures.unrealized(summary.open, code, rate, memo),
+            displayFx = memo,
+        )
+        // «Heute»: Bestand der Karte (eigener samt Posten + Adress-Teil); die Reihe rechnet Änderungen
+        // seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend)
+        .withHonestToday(
+            transactions,
+            todayHoldings(summary.open, addresses),
+            current,
+            settings.changeBasis,
+            now,
+            rate,
+            addresses,
+            settings.costMethod,
+        )
+        // Wert der alten Kurse (unwesentlich unter 1 %: Alarme prüfen trotzdem) und nie geladene Adressen
+        .copy(
+            stalePrices = staleCoins.size,
+            staleCoins = staleList,
+            staleValueUsdt = staleList.sumOf { pricedValues[it] ?: 0.0 },
+            addressesPending = addressState.pending,
+            addressesFailing = addressState.failing,
+            staleTokenAddresses = addressState.staleTokenAddresses,
+            staleTokenValueUsdt = addressState.staleTokenValue(current),
+            unverifiedCoins = unverifiedList,
+            unverifiedValueUsdt = unverifiedList.sumOf { pricedValues[it] ?: 0.0 },
+        )
 }

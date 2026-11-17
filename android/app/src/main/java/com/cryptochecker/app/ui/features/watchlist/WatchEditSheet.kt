@@ -38,6 +38,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -129,84 +130,14 @@ internal fun WatchEditSheet(
             )
 
             AppCard {
-                val exchanges = state.exchanges
-                if (exchanges == null) {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
-                } else {
-                    DropdownField(
-                        modifier = Modifier.fillMaxWidth(),
-                        itemList = exchanges.map { it.name },
-                        selectedIndex = exchanges.indexOf(state.exchange),
-                        label = stringResource(R.string.explorer_field_exchange),
-                        searchable = true,
-                        emptyText = stringResource(R.string.explorer_select_placeholder),
-                        favorites = favExchanges,
-                        onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.EXCHANGE, it) },
-                        onValueChange = { viewModel.setExchange(exchanges[it]) }
-                    )
-                }
-
-                val bases = state.bases
-                when {
-                    state.exchange == null && exchanges != null -> Hint(stringResource(R.string.explorer_select_exchange_hint))
-                    state.exchange == null -> Unit
-                    state.syncing || state.pairs == null -> Column(modifier = Modifier.padding(top = gap)) {
-                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
-                        Hint(stringResource(R.string.explorer_loading_pairs))
-                    }
-                    bases.isEmpty() -> Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(top = 8.dp)
-                    ) {
-                        Text(
-                            text = state.syncError?.let { stringResource(R.string.check_error_generic_prefix, friendlyError(it)) }
-                                ?: stringResource(R.string.explorer_no_pairs_yet),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = if (state.syncError != null) {
-                                MaterialTheme.colorScheme.error
-                            } else {
-                                MaterialTheme.colorScheme.onSurfaceVariant
-                            },
-                            modifier = Modifier.weight(1f)
-                        )
-                        TextButton(onClick = viewModel::sync) { Text(stringResource(R.string.action_retry)) }
-                    }
-                    else -> {
-                        DropdownField(
-                            modifier = Modifier.fillMaxWidth().padding(top = gap),
-                            itemList = bases,
-                            selectedIndex = bases.indexOf(state.base),
-                            label = stringResource(R.string.explorer_field_coin),
-                            searchable = true,
-                            favorites = favCoins,
-                            onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.COIN, it) },
-                            onValueChange = { viewModel.setBase(bases[it]) }
-                        )
-                        val quotes = state.quotes
-                        DropdownField(
-                            modifier = Modifier.fillMaxWidth().padding(top = gap),
-                            itemList = quotes,
-                            selectedIndex = quotes.indexOf(state.quote),
-                            label = stringResource(R.string.explorer_field_quote),
-                            searchable = true,
-                            favorites = favQuotes,
-                            onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.QUOTE, it) },
-                            onValueChange = { viewModel.setQuote(quotes[it]) }
-                        )
-                        // Kontrakt nur bei Futures; auswählbar nur bei mehreren Laufzeiten
-                        val contracts = state.contracts
-                        if (contracts.isNotEmpty() && !(contracts.size == 1 && contracts[0] == FuturesContractType.NONE)) {
-                            DropdownField(
-                                modifier = Modifier.fillMaxWidth().padding(top = gap),
-                                itemList = contracts.map { contractName(it) },
-                                selectedIndex = contracts.indexOf(state.contract),
-                                label = stringResource(R.string.explorer_field_contract),
-                                enabled = contracts.size > 1,
-                                onValueChange = { viewModel.setContract(contracts[it]) }
-                            )
-                        }
-                    }
-                }
+                WatchEditFields(
+                    state = state,
+                    viewModel = viewModel,
+                    favExchanges = favExchanges,
+                    favCoins = favCoins,
+                    favQuotes = favQuotes,
+                    gap = gap,
+                )
             }
 
             // Alarme hängen am Eintrag und bleiben; ihre Schwellen galten dem alten Kurs
@@ -282,3 +213,93 @@ private fun contractName(contractType: FuturesContractType): String =
     } else {
         contractType.toString()
     }
+
+/** Felder von «Paar bearbeiten» ([WatchEditSheet]): Börse, Coin, Gegenwert und Kontrakt bzw. Laden und Fehler. */
+@Composable
+private fun WatchEditFields(
+    state: WatchEditState,
+    viewModel: WatchEditViewModel,
+    favExchanges: Set<String>,
+    favCoins: Set<String>,
+    favQuotes: Set<String>,
+    gap: Dp,
+) {
+    val exchanges = state.exchanges
+    if (exchanges == null) {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
+    } else {
+        DropdownField(
+            modifier = Modifier.fillMaxWidth(),
+            itemList = exchanges.map { it.name },
+            selectedIndex = exchanges.indexOf(state.exchange),
+            label = stringResource(R.string.explorer_field_exchange),
+            searchable = true,
+            emptyText = stringResource(R.string.explorer_select_placeholder),
+            favorites = favExchanges,
+            onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.EXCHANGE, it) },
+            onValueChange = { viewModel.setExchange(exchanges[it]) }
+        )
+    }
+
+    val bases = state.bases
+    when {
+        state.exchange == null && exchanges != null -> Hint(stringResource(R.string.explorer_select_exchange_hint))
+        state.exchange == null -> Unit
+        state.syncing || state.pairs == null -> Column(modifier = Modifier.padding(top = gap)) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
+            Hint(stringResource(R.string.explorer_loading_pairs))
+        }
+        bases.isEmpty() -> Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text(
+                text = state.syncError?.let { stringResource(R.string.check_error_generic_prefix, friendlyError(it)) }
+                    ?: stringResource(R.string.explorer_no_pairs_yet),
+                style = MaterialTheme.typography.bodySmall,
+                color = if (state.syncError != null) {
+                    MaterialTheme.colorScheme.error
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                modifier = Modifier.weight(1f)
+            )
+            TextButton(onClick = viewModel::sync) { Text(stringResource(R.string.action_retry)) }
+        }
+        else -> {
+            DropdownField(
+                modifier = Modifier.fillMaxWidth().padding(top = gap),
+                itemList = bases,
+                selectedIndex = bases.indexOf(state.base),
+                label = stringResource(R.string.explorer_field_coin),
+                searchable = true,
+                favorites = favCoins,
+                onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.COIN, it) },
+                onValueChange = { viewModel.setBase(bases[it]) }
+            )
+            val quotes = state.quotes
+            DropdownField(
+                modifier = Modifier.fillMaxWidth().padding(top = gap),
+                itemList = quotes,
+                selectedIndex = quotes.indexOf(state.quote),
+                label = stringResource(R.string.explorer_field_quote),
+                searchable = true,
+                favorites = favQuotes,
+                onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.QUOTE, it) },
+                onValueChange = { viewModel.setQuote(quotes[it]) }
+            )
+            // Kontrakt nur bei Futures; auswählbar nur bei mehreren Laufzeiten
+            val contracts = state.contracts
+            if (contracts.isNotEmpty() && !(contracts.size == 1 && contracts[0] == FuturesContractType.NONE)) {
+                DropdownField(
+                    modifier = Modifier.fillMaxWidth().padding(top = gap),
+                    itemList = contracts.map { contractName(it) },
+                    selectedIndex = contracts.indexOf(state.contract),
+                    label = stringResource(R.string.explorer_field_contract),
+                    enabled = contracts.size > 1,
+                    onValueChange = { viewModel.setContract(contracts[it]) }
+                )
+            }
+        }
+    }
+}

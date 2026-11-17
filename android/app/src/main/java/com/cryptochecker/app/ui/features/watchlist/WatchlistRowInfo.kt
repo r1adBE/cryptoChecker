@@ -34,6 +34,7 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.domain.format.DenseRowText
@@ -78,75 +79,15 @@ internal fun RowInfo(
     // Symbole der Zeile wachsen mit der Schriftgrösse (13 sp ≙ 13 dp bei Standardschrift) — wie iOS @ScaledMetric
     val rowIcon = with(LocalDensity.current) { 13.sp.toDp() }
     Column(modifier = modifier) {
-        // Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
-        // steht nur, wenn danach noch Platz ist ([ActivityBolt] klappt sonst auf ⚡ zusammen)
-        Layout(
-            content = {
-                PairName(
-                    base = watch.baseAsset,
-                    rest = watch.displayName.removePrefix(watch.baseAsset),
-                    contract = watch.contractShortName,
-                    color = disabledTextColor(off),
-                    maxLines = lines,
-                    modifier = Modifier.layoutId(PAIR_NAME).clearAndSetSemantics { }
-                )
-                // Erst-Moment: kurzes Häkchen in der Akzentfarbe (das Banner sagt es dem Screenreader)
-                if (check.value > 0f) {
-                    Icon(
-                        painterResource(R.drawable.ic_check),
-                        contentDescription = null,
-                        tint = accent,
-                        modifier = Modifier
-                            .layoutId(PAIR_CHECK)
-                            .padding(start = 4.dp)
-                            .size(16.dp)
-                            .graphicsLayer {
-                                alpha = check.value
-                                val scale = 0.7f + 0.3f * check.value
-                                scaleX = scale
-                                scaleY = scale
-                            }
-                            .clearAndSetSemantics { }
-                    )
-                }
-                // «⚡ Was bewegt sich mit?» bei ungewöhnlicher Aktivität — eigener Chip, Tipp öffnet «Was bewegt sich mit?»
-                if (hasActivity) {
-                    ActivityBolt(onClick = onActivityClick, modifier = Modifier.layoutId(PAIR_WHY).padding(start = Spacing.sm))
-                }
-            }
-        ) { measurables, constraints ->
-            val loose = constraints.copy(minWidth = 0, minHeight = 0)
-            val checkP = measurables.firstOrNull { it.layoutId == PAIR_CHECK }?.measure(loose)
-            val why = measurables.firstOrNull { it.layoutId == PAIR_WHY }
-            val checkW = checkP?.width ?: 0
-            val whyMin = if (why != null) (WHY_CHIP_ICON_ONLY_WIDTH + Spacing.sm).roundToPx() else 0
-            val nameMax = if (constraints.hasBoundedWidth) {
-                (constraints.maxWidth - checkW - whyMin).coerceAtLeast(0)
-            } else {
-                Constraints.Infinity
-            }
-            val nameP = measurables.first { it.layoutId == PAIR_NAME }.measure(loose.copy(maxWidth = nameMax))
-            val whyMax = if (constraints.hasBoundedWidth) {
-                (constraints.maxWidth - nameP.width - checkW).coerceAtLeast(0)
-            } else {
-                Constraints.Infinity
-            }
-            val whyP = why?.measure(loose.copy(maxWidth = whyMax))
-            val width = nameP.width + checkW + (whyP?.width ?: 0)
-            val height = maxOf(nameP.height, checkP?.height ?: 0, whyP?.height ?: 0)
-            // Mitte an Mitte (wie Alignment.CenterVertically); placeRelative spiegelt bei RTL
-            // (Arabisch, Hebräisch, Persisch) wie der Kopf daneben
-            layout(width.coerceIn(constraints.minWidth, constraints.maxWidth), height.coerceAtLeast(constraints.minHeight)) {
-                var x = 0
-                nameP.placeRelative(x, (height - nameP.height) / 2)
-                x += nameP.width
-                checkP?.let {
-                    it.placeRelative(x, (height - it.height) / 2)
-                    x += it.width
-                }
-                whyP?.let { it.placeRelative(x, (height - it.height) / 2) }
-            }
-        }
+        RowPairLine(
+            watch = watch,
+            off = off,
+            lines = lines,
+            accent = accent,
+            check = check,
+            hasActivity = hasActivity,
+            onActivityClick = onActivityClick,
+        )
         // «Namen anzeigen»: Name unter dem Paar («Bitcoin», «NVIDIA»), ohne bekannten Namen «–»;
         // im Zeilensatz enthalten. Gleiche Höhe wie die %-Änderung rechts (bodySmall = labelMedium
         // 16 sp + 2 × 2 dp), so stehen Paar/Kurs, Name/Änderung und Börse/≈ Umrechnung je auf einer Linie.
@@ -213,53 +154,15 @@ internal fun RowInfo(
                 }
             },
             icons = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
-                    // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
-                    val highlight = LocalRowHighlight.current
-                    val kindHighlighted = when (kind) {
-                        AssetKind.TOKEN -> highlight.tokens
-                        AssetKind.TRADFI -> highlight.tradFi
-                        AssetKind.ALPHA -> highlight.alpha
-                    }
-                    AssetKindIcon(
-                        kind = kind,
-                        tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
-                        size = rowIcon,
-                        // Abstand zum Börsentext setzt [RowMetaLine] (auch beim Umbruch bündig)
-                        modifier = Modifier.alpha(iconAlpha)
-                    )
-                    // Kursmitteilung: schlichte Glocke = an, durchgestrichene
-                    // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
-                    // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
-                    val priceOn = com.cryptochecker.app.domain.format.A11ySpeech.priceNotificationOn(
-                        pairOn = watch.notificationEnabled,
-                        masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
-                    )
-                    Icon(
-                        painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
-                        contentDescription = stringResource(
-                            if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
-                        ),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
-                    )
-                    if (alarmCount > 0) {
-                        Icon(
-                            painterResource(R.drawable.ic_notifications_active),
-                            contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
-                            // Textfarbe (weiss bzw. dunkel im Hellmodus), nicht die Themenfarbe
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
-                        )
-                        Text(
-                            text = LocaleNumbers.integer(alarmCount),
-                            style = MaterialTheme.typography.label,
-                            color = disabledTextColor(off, MaterialTheme.colorScheme.onSurface),
-                            modifier = Modifier.padding(start = 2.dp)
-                        )
-                    }
-                }
+                RowStatusIcons(
+                    watch = watch,
+                    kind = kind,
+                    accent = accent,
+                    rowIcon = rowIcon,
+                    iconAlpha = iconAlpha,
+                    alarmCount = alarmCount,
+                    off = off,
+                )
             },
         )
         watch.lastError?.takeIf { status.showErrorLine }?.let { error ->
@@ -316,3 +219,145 @@ internal fun WatchRowNote(note: String, accent: Color, off: Boolean, modifier: M
 private const val PAIR_NAME = "name"
 private const val PAIR_CHECK = "check"
 private const val PAIR_WHY = "why"
+
+/** Paar mit Häkchen des Erst-Moments und ⚡-Chip ([RowInfo]); das Paar geht vor, der Chip klappt notfalls zusammen. */
+@Composable
+private fun RowPairLine(
+    watch: WatchEntity,
+    off: Boolean,
+    lines: Int,
+    accent: Color,
+    check: Animatable<Float, AnimationVector1D>,
+    hasActivity: Boolean,
+    onActivityClick: () -> Unit,
+) {
+    // Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
+    // steht nur, wenn danach noch Platz ist ([ActivityBolt] klappt sonst auf ⚡ zusammen)
+    Layout(
+        content = {
+            PairName(
+                base = watch.baseAsset,
+                rest = watch.displayName.removePrefix(watch.baseAsset),
+                contract = watch.contractShortName,
+                color = disabledTextColor(off),
+                maxLines = lines,
+                modifier = Modifier.layoutId(PAIR_NAME).clearAndSetSemantics { }
+            )
+            // Erst-Moment: kurzes Häkchen in der Akzentfarbe (das Banner sagt es dem Screenreader)
+            if (check.value > 0f) {
+                Icon(
+                    painterResource(R.drawable.ic_check),
+                    contentDescription = null,
+                    tint = accent,
+                    modifier = Modifier
+                        .layoutId(PAIR_CHECK)
+                        .padding(start = 4.dp)
+                        .size(16.dp)
+                        .graphicsLayer {
+                            alpha = check.value
+                            val scale = 0.7f + 0.3f * check.value
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        .clearAndSetSemantics { }
+                )
+            }
+            // «⚡ Was bewegt sich mit?» bei ungewöhnlicher Aktivität — eigener Chip, Tipp öffnet «Was bewegt sich mit?»
+            if (hasActivity) {
+                ActivityBolt(onClick = onActivityClick, modifier = Modifier.layoutId(PAIR_WHY).padding(start = Spacing.sm))
+            }
+        }
+    ) { measurables, constraints ->
+        val loose = constraints.copy(minWidth = 0, minHeight = 0)
+        val checkP = measurables.firstOrNull { it.layoutId == PAIR_CHECK }?.measure(loose)
+        val why = measurables.firstOrNull { it.layoutId == PAIR_WHY }
+        val checkW = checkP?.width ?: 0
+        val whyMin = if (why != null) (WHY_CHIP_ICON_ONLY_WIDTH + Spacing.sm).roundToPx() else 0
+        val nameMax = if (constraints.hasBoundedWidth) {
+            (constraints.maxWidth - checkW - whyMin).coerceAtLeast(0)
+        } else {
+            Constraints.Infinity
+        }
+        val nameP = measurables.first { it.layoutId == PAIR_NAME }.measure(loose.copy(maxWidth = nameMax))
+        val whyMax = if (constraints.hasBoundedWidth) {
+            (constraints.maxWidth - nameP.width - checkW).coerceAtLeast(0)
+        } else {
+            Constraints.Infinity
+        }
+        val whyP = why?.measure(loose.copy(maxWidth = whyMax))
+        val width = nameP.width + checkW + (whyP?.width ?: 0)
+        val height = maxOf(nameP.height, checkP?.height ?: 0, whyP?.height ?: 0)
+        // Mitte an Mitte (wie Alignment.CenterVertically); placeRelative spiegelt bei RTL
+        // (Arabisch, Hebräisch, Persisch) wie der Kopf daneben
+        layout(width.coerceIn(constraints.minWidth, constraints.maxWidth), height.coerceAtLeast(constraints.minHeight)) {
+            var x = 0
+            nameP.placeRelative(x, (height - nameP.height) / 2)
+            x += nameP.width
+            checkP?.let {
+                it.placeRelative(x, (height - it.height) / 2)
+                x += it.width
+            }
+            whyP?.let { it.placeRelative(x, (height - it.height) / 2) }
+        }
+    }
+}
+
+/** Symbole hinter der Börse ([RowInfo]): Art des Paars, Kursmitteilung und Alarmglocke mit Anzahl. */
+@Composable
+private fun RowStatusIcons(
+    watch: WatchEntity,
+    kind: AssetKind,
+    accent: Color,
+    rowIcon: Dp,
+    iconAlpha: Float,
+    alarmCount: Int,
+    off: Boolean,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
+        // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
+        val highlight = LocalRowHighlight.current
+        val kindHighlighted = when (kind) {
+            AssetKind.TOKEN -> highlight.tokens
+            AssetKind.TRADFI -> highlight.tradFi
+            AssetKind.ALPHA -> highlight.alpha
+        }
+        AssetKindIcon(
+            kind = kind,
+            tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
+            size = rowIcon,
+            // Abstand zum Börsentext setzt [RowMetaLine] (auch beim Umbruch bündig)
+            modifier = Modifier.alpha(iconAlpha)
+        )
+        // Kursmitteilung: schlichte Glocke = an, durchgestrichene
+        // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
+        // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
+        val priceOn = com.cryptochecker.app.domain.format.A11ySpeech.priceNotificationOn(
+            pairOn = watch.notificationEnabled,
+            masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
+        )
+        Icon(
+            painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
+            contentDescription = stringResource(
+                if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
+            ),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
+        )
+        if (alarmCount > 0) {
+            Icon(
+                painterResource(R.drawable.ic_notifications_active),
+                contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
+                // Textfarbe (weiss bzw. dunkel im Hellmodus), nicht die Themenfarbe
+                tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
+            )
+            Text(
+                text = LocaleNumbers.integer(alarmCount),
+                style = MaterialTheme.typography.label,
+                color = disabledTextColor(off, MaterialTheme.colorScheme.onSurface),
+                modifier = Modifier.padding(start = 2.dp)
+            )
+        }
+    }
+}

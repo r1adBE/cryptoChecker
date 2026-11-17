@@ -150,45 +150,15 @@ internal fun AddressLotEditor(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth()
                 )
-                close?.let { c ->
-                    val suggested = if (perCoin) c else amount?.let { AddressCostLots.suggestion(it, c) }
-                    if (suggested != null) {
-                        Text(
-                            stringResource(
-                                R.string.cost_gap_suggestion,
-                                PortfolioFormat.date(time),
-                                maskAmount(PortfolioFormat.usdt(suggested.toDouble()))
-                            ),
-                            style = MaterialTheme.typography.body,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        TextButton(onClick = { valueText = PriceFormat.amountForInput(suggested, sep) }) {
-                            Text(stringResource(R.string.cost_gap_apply))
-                        }
-                    }
-                }
-                if (tried && lot == null) {
-                    Text(
-                        stringResource(R.string.address_lots_invalid),
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.body
-                    )
-                }
-                // Je Coin aus einem Gesamtbetrag (nur Anzeige): «≈ 30'000 USDT je Coin»
-                if (!perCoin && amount != null && value != null) {
-                    PortfolioCostGaps.priceFromTotal(value, amount)?.let {
-                        Text(
-                            stringResource(
-                                R.string.label_value,
-                                stringResource(R.string.address_lots_price),
-                                PortfolioFormat.price(it.toDouble())
-                            ),
-                            style = MaterialTheme.typography.body,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(top = Spacing.xs)
-                        )
-                    }
-                }
+                LotEditorHints(
+                    close = close,
+                    perCoin = perCoin,
+                    amount = amount,
+                    value = value,
+                    time = time,
+                    invalid = tried && lot == null,
+                    onApply = { suggested -> valueText = PriceFormat.amountForInput(suggested, sep) },
+                )
             }
         },
         confirmButton = {
@@ -208,4 +178,56 @@ internal fun AddressLotEditor(
             }
         },
     )
+}
+
+/** Unter den Feldern eines Postens ([AddressLotEditor]): Vorschlag Tagesschluss, Fehler und Preis je Coin aus dem Gesamtbetrag. */
+@Composable
+private fun LotEditorHints(
+    close: BigDecimal?,
+    perCoin: Boolean,
+    amount: BigDecimal?,
+    value: BigDecimal?,
+    time: Long,
+    invalid: Boolean,
+    onApply: (BigDecimal) -> Unit,
+) {
+    close?.let { c ->
+        val suggested = if (perCoin) c else amount?.let { AddressCostLots.suggestion(it, c) }
+        if (suggested != null) {
+            Text(
+                stringResource(
+                    R.string.cost_gap_suggestion,
+                    PortfolioFormat.date(time),
+                    maskAmount(PortfolioFormat.usdt(suggested.toDouble()))
+                ),
+                style = MaterialTheme.typography.body,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            TextButton(onClick = { onApply(suggested) }) {
+                Text(stringResource(R.string.cost_gap_apply))
+            }
+        }
+    }
+    if (invalid) {
+        Text(
+            stringResource(R.string.address_lots_invalid),
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.body
+        )
+    }
+    // Je Coin aus einem Gesamtbetrag (nur Anzeige): «≈ 30'000 USDT je Coin»
+    if (!perCoin && amount != null && value != null) {
+        PortfolioCostGaps.priceFromTotal(value, amount)?.let {
+            Text(
+                stringResource(
+                    R.string.label_value,
+                    stringResource(R.string.address_lots_price),
+                    PortfolioFormat.price(it.toDouble())
+                ),
+                style = MaterialTheme.typography.body,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = Spacing.xs)
+            )
+        }
+    }
 }

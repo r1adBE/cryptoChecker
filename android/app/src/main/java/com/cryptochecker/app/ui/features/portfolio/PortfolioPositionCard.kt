@@ -64,30 +64,7 @@ internal fun PositionCard(
     onAddressCost: (() -> Unit)? = null,
 ) {
     AppCard {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            CoinBadge(p.coin, size = 44.dp, portfolio = true, modifier = Modifier.padding(end = 12.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    stringResource(R.string.portfolio_value),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                // Zu eng (grosse Schrift, grosser Betrag): schrittweise bis 60 % kleiner statt Ziffern abzuschneiden
-                // (wie iOS minimumScaleFactor(0.6)); passt es auch dann nicht, sichtbar «…»
-                val headline = MaterialTheme.typography.headlineSmall.tabularNumbers()
-                BasicText(
-                    withSmallQuote(p.value?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—"),
-                    style = headline.copy(fontWeight = FontWeight.SemiBold, color = LocalContentColor.current),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    autoSize = TextAutoSize.StepBased(
-                        minFontSize = headline.fontSize * 0.6f,
-                        maxFontSize = headline.fontSize,
-                        stepSize = 0.5.sp,
-                    ),
-                )
-            }
-        }
+        PositionValueRow(p)
         Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
             Metric(
                 label = stringResource(R.string.portfolio_holdings),
@@ -156,46 +133,7 @@ internal fun PositionCard(
                 modifier = Modifier.weight(1f)
             )
         }
-        Row(modifier = Modifier.fillMaxWidth().padding(top = 12.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
-                Metric(
-                    label = stringResource(R.string.portfolio_unrealized),
-                    value = p.unrealized?.let { maskAmount(PortfolioFormat.signedUsdt(it)) } ?: "—",
-                    valueTone = plTone(p.unrealized)
-                )
-                if (p.unrealized != null) {
-                    PlPill(p.unrealizedPercent, modifier = Modifier.padding(top = 4.dp))
-                }
-                // Nur der Teil mit Kaufpreis zählt: «ohne 0.5 BTC ohne Kaufpreis»
-                if (p.unrealizedPartial) {
-                    Text(
-                        stringResource(
-                            R.string.portfolio_unrealized_without_unpriced,
-                            maskAmount(PortfolioFormat.amount(p.unpricedHoldingsExact, p.coin))
-                        ),
-                        style = MaterialTheme.typography.label,
-                        color = if (onMissingCost !=
-                            null
-                        ) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                        },
-                        modifier = Modifier.costLink(onMissingCost).padding(top = 2.dp)
-                    )
-                }
-            }
-            if (PortfolioFormat.showRealized(p.realized, p.realizedIncomplete)) {
-                Metric(
-                    label = stringResource(R.string.portfolio_realized),
-                    value = maskAmount(
-                        PortfolioFormat.realizedText(p.realized, p.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))
-                    ),
-                    valueTone = plTone(p.realized),
-                    modifier = Modifier.weight(1f)
-                )
-            }
-        }
+        PositionGainRow(p, onMissingCost)
         // Wie Einstand und Ø gerechnet werden (nach der gewählten Methode)
         PortfolioHint(
             stringResource(if (p.method.isFifo) R.string.portfolio_fifo_hint else R.string.portfolio_avg_price_hint)
@@ -309,5 +247,79 @@ private fun OpenLotRow(lot: PortfolioOpenLot, coin: String, formats: OpenLotForm
             style = MaterialTheme.typography.bodyMedium.tabularNumbers(),
             modifier = Modifier.padding(start = 8.dp)
         )
+    }
+}
+
+/** Kopf der Kennzahlen ([PositionCard]): Plakette und Wert, bei wenig Platz schrittweise kleiner. */
+@Composable
+private fun PositionValueRow(p: CoinPosition) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        CoinBadge(p.coin, size = 44.dp, portfolio = true, modifier = Modifier.padding(end = 12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                stringResource(R.string.portfolio_value),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            // Zu eng (grosse Schrift, grosser Betrag): schrittweise bis 60 % kleiner statt Ziffern abzuschneiden
+            // (wie iOS minimumScaleFactor(0.6)); passt es auch dann nicht, sichtbar «…»
+            val headline = MaterialTheme.typography.headlineSmall.tabularNumbers()
+            BasicText(
+                withSmallQuote(p.value?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—"),
+                style = headline.copy(fontWeight = FontWeight.SemiBold, color = LocalContentColor.current),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                autoSize = TextAutoSize.StepBased(
+                    minFontSize = headline.fontSize * 0.6f,
+                    maxFontSize = headline.fontSize,
+                    stepSize = 0.5.sp,
+                ),
+            )
+        }
+    }
+}
+
+/** «Unrealisiert» (mit Pille und Teil ohne Kaufpreis) und «Realisiert» nebeneinander ([PositionCard]). */
+@Composable
+private fun PositionGainRow(p: CoinPosition, onMissingCost: (() -> Unit)?) {
+    Row(modifier = Modifier.fillMaxWidth().padding(top = 12.dp)) {
+        Column(modifier = Modifier.weight(1f)) {
+            Metric(
+                label = stringResource(R.string.portfolio_unrealized),
+                value = p.unrealized?.let { maskAmount(PortfolioFormat.signedUsdt(it)) } ?: "—",
+                valueTone = plTone(p.unrealized)
+            )
+            if (p.unrealized != null) {
+                PlPill(p.unrealizedPercent, modifier = Modifier.padding(top = 4.dp))
+            }
+            // Nur der Teil mit Kaufpreis zählt: «ohne 0.5 BTC ohne Kaufpreis»
+            if (p.unrealizedPartial) {
+                Text(
+                    stringResource(
+                        R.string.portfolio_unrealized_without_unpriced,
+                        maskAmount(PortfolioFormat.amount(p.unpricedHoldingsExact, p.coin))
+                    ),
+                    style = MaterialTheme.typography.label,
+                    color = if (onMissingCost !=
+                        null
+                    ) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    modifier = Modifier.costLink(onMissingCost).padding(top = 2.dp)
+                )
+            }
+        }
+        if (PortfolioFormat.showRealized(p.realized, p.realizedIncomplete)) {
+            Metric(
+                label = stringResource(R.string.portfolio_realized),
+                value = maskAmount(
+                    PortfolioFormat.realizedText(p.realized, p.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))
+                ),
+                valueTone = plTone(p.realized),
+                modifier = Modifier.weight(1f)
+            )
+        }
     }
 }

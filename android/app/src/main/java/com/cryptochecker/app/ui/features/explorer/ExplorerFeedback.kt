@@ -16,6 +16,8 @@ import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
+import com.cryptochecker.app.ui.components.OneShotGate
 import com.cryptochecker.app.ui.components.rememberBulkUndoConfirm
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
@@ -101,59 +103,15 @@ internal fun ExplorerFeedback(
         }
     }
     // DEX-Rückmeldungen ebenfalls als Snackbar
-    val dexMessage = dex.message
-    val dexAddedText = (dexMessage as? DexMessage.Added)?.let { stringResource(R.string.dex_added, it.symbol) }
-    val dexAlreadyText = (dexMessage as? DexMessage.AlreadyInList)?.let { stringResource(R.string.dex_already, it.symbol) }
-    val dexFailedText = (dexMessage as? DexMessage.Failed)?.let {
-        stringResource(
-            when (it.kind) {
-                DexFailure.OFFLINE -> R.string.watch_error_offline
-                DexFailure.UNREACHABLE -> R.string.error_exchange_unreachable_short
-                DexFailure.OTHER -> R.string.something_went_wrong
-            }
-        )
-    }
-    val retryLabel = stringResource(R.string.action_retry)
-    LaunchedEffect(dexMessage) {
-        val text = when (dexMessage) {
-            is DexMessage.Added -> dexAddedText
-            is DexMessage.AlreadyInList -> dexAlreadyText
-            is DexMessage.Failed -> dexFailedText
-            else -> null
-        } ?: run {
-            // Ohne Snackbar (z. B. keine Treffer, steht im Bildschirm): nicht abräumen
-            dexGate.claim(null)
-            return@LaunchedEffect
-        }
-        if (!dexGate.claim(dexMessage)) {
-            dex.onMessageShown()
-            return@LaunchedEffect
-        }
-        if (dexMessage is DexMessage.Added) requestNotifications()
-        // Gescheiterte Suche ohne Haptik (wie iOS) — nur Aufnehmen gibt Rückmeldung
-        if (dexMessage !is DexMessage.Failed) {
-            haptics.play(if (dexMessage is DexMessage.Added) HapticEvent.SUCCESS else HapticEvent.WARNING)
-        }
-        try {
-            val result = snackbar.showAppSnackbar(
-                text = text,
-                kind = when (dexMessage) {
-                    is DexMessage.Added -> SnackbarKind.SUCCESS
-                    is DexMessage.Failed -> SnackbarKind.ERROR
-                    else -> SnackbarKind.INFO
-                },
-                actionLabel = if (dexMessage is DexMessage.Failed) retryLabel else viewLabel,
-                // Mit «Erneut versuchen» länger stehen lassen (Zeit zum Antippen, auch mit Screenreader)
-                duration = if (dexMessage is DexMessage.Failed) SnackbarDuration.Long else SnackbarDuration.Short
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                // «Erneut versuchen»: denselben Begriff noch einmal suchen
-                if (dexMessage is DexMessage.Failed) dex.onSearch(dexMessage.query) else onOpenWatchlist()
-            }
-        } finally {
-            dex.onMessageShown()
-        }
-    }
+    DexFeedbackEffect(
+        snackbar = snackbar,
+        dex = dex,
+        dexGate = dexGate,
+        haptics = haptics,
+        requestNotifications = requestNotifications,
+        viewLabel = viewLabel,
+        onOpenWatchlist = onOpenWatchlist,
+    )
 
     val bulkFailedText = stringResource(R.string.something_went_wrong)
     // Rückfrage «%d Paare wieder entfernen?» — steht unabhängig von der (dann schon geschlossenen) Meldung
@@ -231,3 +189,69 @@ internal fun bulkAddedKind(state: BulkAddResult): SnackbarKind = when {
 @Composable
 internal fun watchlistFullText(): String =
     stringResource(R.string.watchlist_limit_reached, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true))
+
+/** DEX-Rückmeldungen als Snackbar ([ExplorerFeedback]): aufgenommen, schon da bzw. Suche gescheitert mit «Erneut versuchen». */
+@Composable
+private fun DexFeedbackEffect(
+    snackbar: SnackbarHostState,
+    dex: DexUi,
+    dexGate: OneShotGate,
+    haptics: HapticPlayer,
+    requestNotifications: () -> Unit,
+    viewLabel: String,
+    onOpenWatchlist: () -> Unit,
+) {
+    val dexMessage = dex.message
+    val dexAddedText = (dexMessage as? DexMessage.Added)?.let { stringResource(R.string.dex_added, it.symbol) }
+    val dexAlreadyText = (dexMessage as? DexMessage.AlreadyInList)?.let { stringResource(R.string.dex_already, it.symbol) }
+    val dexFailedText = (dexMessage as? DexMessage.Failed)?.let {
+        stringResource(
+            when (it.kind) {
+                DexFailure.OFFLINE -> R.string.watch_error_offline
+                DexFailure.UNREACHABLE -> R.string.error_exchange_unreachable_short
+                DexFailure.OTHER -> R.string.something_went_wrong
+            }
+        )
+    }
+    val retryLabel = stringResource(R.string.action_retry)
+    LaunchedEffect(dexMessage) {
+        val text = when (dexMessage) {
+            is DexMessage.Added -> dexAddedText
+            is DexMessage.AlreadyInList -> dexAlreadyText
+            is DexMessage.Failed -> dexFailedText
+            else -> null
+        } ?: run {
+            // Ohne Snackbar (z. B. keine Treffer, steht im Bildschirm): nicht abräumen
+            dexGate.claim(null)
+            return@LaunchedEffect
+        }
+        if (!dexGate.claim(dexMessage)) {
+            dex.onMessageShown()
+            return@LaunchedEffect
+        }
+        if (dexMessage is DexMessage.Added) requestNotifications()
+        // Gescheiterte Suche ohne Haptik (wie iOS) — nur Aufnehmen gibt Rückmeldung
+        if (dexMessage !is DexMessage.Failed) {
+            haptics.play(if (dexMessage is DexMessage.Added) HapticEvent.SUCCESS else HapticEvent.WARNING)
+        }
+        try {
+            val result = snackbar.showAppSnackbar(
+                text = text,
+                kind = when (dexMessage) {
+                    is DexMessage.Added -> SnackbarKind.SUCCESS
+                    is DexMessage.Failed -> SnackbarKind.ERROR
+                    else -> SnackbarKind.INFO
+                },
+                actionLabel = if (dexMessage is DexMessage.Failed) retryLabel else viewLabel,
+                // Mit «Erneut versuchen» länger stehen lassen (Zeit zum Antippen, auch mit Screenreader)
+                duration = if (dexMessage is DexMessage.Failed) SnackbarDuration.Long else SnackbarDuration.Short
+            )
+            if (result == SnackbarResult.ActionPerformed) {
+                // «Erneut versuchen»: denselben Begriff noch einmal suchen
+                if (dexMessage is DexMessage.Failed) dex.onSearch(dexMessage.query) else onOpenWatchlist()
+            }
+        } finally {
+            dex.onMessageShown()
+        }
+    }
+}

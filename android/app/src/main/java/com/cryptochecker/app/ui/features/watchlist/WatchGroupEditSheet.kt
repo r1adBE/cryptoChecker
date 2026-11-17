@@ -140,33 +140,7 @@ internal fun GroupEditSheet(
     val shown = rememberWatchSearchResult(watches, trimmedQuery, searchNames)
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
-        // Kopf: «Gruppe bearbeiten», Name gross, Stift zum Umbenennen
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 12.dp)
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(if (isNew) R.string.group_add else R.string.group_edit_title),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.headline,
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            IconButton(onClick = { renaming = true }) {
-                Icon(
-                    painterResource(R.drawable.ic_edit),
-                    contentDescription = stringResource(R.string.group_rename),
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-        }
+        GroupEditHeader(isNew = isNew, name = name, onRename = { renaming = true })
 
         GroupSearchField(
             query = query,
@@ -197,52 +171,7 @@ internal fun GroupEditSheet(
                 val toggle = { checked = if (isChecked) checked - watch.id else checked + watch.id }
                 // Steht in einer anderen Gruppe (und wird nicht gerade hierher verschoben)
                 val otherGroup = watch.groupName?.takeIf { it != groupName && !isChecked }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.small)
-                        // Eine Zeile, ein Fokus für TalkBack: Zeile als Kästchen mit Zustand, das innere ohne eigenen Klick
-                        .toggleable(value = isChecked, role = Role.Checkbox) { toggle() }
-                        .padding(end = 12.dp)
-                ) {
-                    Checkbox(checked = isChecked, onCheckedChange = null)
-                    Column(modifier = Modifier.weight(1f)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (watch.favorite) {
-                                Icon(
-                                    painterResource(R.drawable.ic_star),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.padding(end = 4.dp).size(14.dp)
-                                )
-                            }
-                            Text(
-                                text = watch.displayName,
-                                style = MaterialTheme.typography.bodyLarge,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
-                        Text(
-                            text = watch.exchangeName,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                    if (otherGroup != null) {
-                        Text(
-                            text = stringResource(R.string.group_in_other, otherGroup),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
-                }
+                GroupMemberRow(watch = watch, isChecked = isChecked, otherGroup = otherGroup, onToggle = toggle)
             }
         }
 
@@ -356,6 +285,89 @@ internal fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mo
                     modifier = Modifier.size(18.dp)
                 )
             }
+        }
+    }
+}
+
+/** Kopf von [GroupEditSheet]: «Gruppe bearbeiten», Name gross, Stift zum Umbenennen. */
+@Composable
+private fun GroupEditHeader(isNew: Boolean, name: String, onRename: () -> Unit) {
+    // Kopf: «Gruppe bearbeiten», Name gross, Stift zum Umbenennen
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 12.dp)
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(if (isNew) R.string.group_add else R.string.group_edit_title),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = name,
+                style = MaterialTheme.typography.headline,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+        IconButton(onClick = onRename) {
+            Icon(
+                painterResource(R.drawable.ic_edit),
+                contentDescription = stringResource(R.string.group_rename),
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}
+
+/** Ein Paar in [GroupEditSheet]: Zeile als Kästchen mit Zustand, Paar und Börse, ggf. die andere Gruppe. */
+@Composable
+private fun GroupMemberRow(watch: WatchEntity, isChecked: Boolean, otherGroup: String?, onToggle: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.small)
+            // Eine Zeile, ein Fokus für TalkBack: Zeile als Kästchen mit Zustand, das innere ohne eigenen Klick
+            .toggleable(value = isChecked, role = Role.Checkbox) { onToggle() }
+            .padding(end = 12.dp)
+    ) {
+        Checkbox(checked = isChecked, onCheckedChange = null)
+        Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (watch.favorite) {
+                    Icon(
+                        painterResource(R.drawable.ic_star),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(end = 4.dp).size(14.dp)
+                    )
+                }
+                Text(
+                    text = watch.displayName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Text(
+                text = watch.exchangeName,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+        if (otherGroup != null) {
+            Text(
+                text = stringResource(R.string.group_in_other, otherGroup),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 8.dp)
+            )
         }
     }
 }

@@ -156,61 +156,28 @@ internal fun AlarmEditorSheet(
                 )
                 RepeatingChoice(draft = draft, onDraftChange = onDraftChange)
 
-                // «Mehr»: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration, Vorlesen
-                AdvancedHeader(
-                    title = stringResource(R.string.alarm_editor_more),
-                    subtitle = stringResource(R.string.alarm_editor_more_summary).takeIf { !more },
-                    expanded = more,
-                    onToggle = {
+                AlarmMoreSection(
+                    more = more,
+                    onToggleMore = {
                         more = !more
                         AlarmEditorSession.moreExpanded = more
                     },
-                    modifier = Modifier.testTag(UiTestTags.ALARM_MORE),
+                    draft = draft,
+                    templates = templates,
+                    onTemplate = onTemplate,
+                    derivatives = derivatives,
+                    quoteAsset = quoteAsset,
+                    otherCurrency = otherCurrency,
+                    offerCurrency = offerCurrency,
+                    rates = rates,
+                    onDraftChange = onDraftChange,
                 )
-                if (more) {
-                    // Ein Antippen legt den Alarm sofort an (nur beim Anlegen)
-                    if (draft.id == 0L && templates.isNotEmpty()) {
-                        TemplateChips(templates = templates, onTemplate = onTemplate)
-                    }
-                    // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
-                    MoreSubtitle(stringResource(R.string.alarm_more_conditions))
-                    MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
-                    MoreSubtitle(stringResource(R.string.alarm_advanced))
-                    AdvancedOptions(
-                        draft = draft,
-                        quoteAsset = quoteAsset,
-                        otherCurrency = otherCurrency,
-                        offerCurrency = offerCurrency,
-                        rates = rates,
-                        onDraftChange = onDraftChange,
-                    )
-                }
 
                 // Vorschau: der Alarm als Satz, live mit der Eingabe (zeigt auch, wie der Betrag gelesen wurde). Keine
                 // Live-Region: der Screenreader läse sonst nach jeder getippten Ziffer den ganzen Satz vor
                 // Leeres Feld: nur der Hinweis «Wert eingeben» unter dem Knopf, nicht zusätzlich die Karte ([AlarmDraft.showsSentence])
                 val sentenceCurrency = if (offerCurrency && draft.currency != null) otherCurrency else quoteAsset.uppercase()
-                if (draft.showsSentence) {
-                    Text(
-                        text = alarmSentence(
-                            context = context,
-                            condition = draft.condition,
-                            symbol = baseAsset,
-                            threshold = draft.threshold,
-                            currency = sentenceCurrency,
-                            windowHours = draft.windowHours,
-                        ),
-                        style = MaterialTheme.typography.bodyMedium,
-                        // Ganzer Satz: normale Textfarbe (dunkel wäre onSecondaryContainer die Akzentfarbe)
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = Spacing.md, bottom = Spacing.sm)
-                            .clip(MaterialTheme.shapes.medium)
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                            .padding(horizontal = Spacing.md, vertical = Spacing.md)
-                    )
-                }
+                AlarmSentencePreview(draft = draft, symbol = baseAsset, currency = sentenceCurrency)
                 // Ehrlich: bei geschlossener App meldet der Alarm erst beim nächsten Abruf
                 // «Zuletzt geprüft» nur einmal: steht die ausführliche Zeile oben (Bearbeiten), hier nicht (wie iOS)
                 ClosedAppHint(showLastChecked = !lastCheckDetail)
@@ -218,27 +185,7 @@ internal fun AlarmEditorSheet(
 
             // Fest am unteren Rand: auch bei 200 % Schrift mit offener Tastatur erreichbar
             Column(modifier = Modifier.fillMaxWidth().padding(start = Spacing.lg, end = Spacing.lg, bottom = Spacing.xl)) {
-                Button(
-                    onClick = onConfirm,
-                    enabled = draft.isValid,
-                    colors = DisabledColors.button(),
-                    modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm).testTag(UiTestTags.ALARM_SAVE)
-                ) {
-                    Text(stringResource(if (draft.id == 0L) R.string.alarm_create else R.string.action_save))
-                }
-                // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt
-                if (draft.showsEnterAmountHint) {
-                    Text(
-                        stringResource(R.string.alarm_enter_amount),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
-                    )
-                }
-                TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.action_cancel))
-                }
+                AlarmEditorActions(draft = draft, onConfirm = onConfirm, onDismiss = onDismiss)
             }
         }
     }
@@ -251,4 +198,100 @@ internal fun AlarmEditorSheet(
  */
 internal object AlarmEditorSession {
     var moreExpanded = false
+}
+
+/** Knöpfe fest am unteren Rand des Alarm-Editors ([AlarmEditorSheet]): Speichern, Hinweis zum leeren Feld, Abbrechen. */
+@Composable
+private fun AlarmEditorActions(draft: AlarmDraft, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    Button(
+        onClick = onConfirm,
+        enabled = draft.isValid,
+        colors = DisabledColors.button(),
+        modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm).testTag(UiTestTags.ALARM_SAVE)
+    ) {
+        Text(stringResource(if (draft.id == 0L) R.string.alarm_create else R.string.action_save))
+    }
+    // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt
+    if (draft.showsEnterAmountHint) {
+        Text(
+            stringResource(R.string.alarm_enter_amount),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
+        )
+    }
+    TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
+        Text(stringResource(R.string.action_cancel))
+    }
+}
+
+/** Vorschau des Alarms als Satz ([AlarmEditorSheet]), live mit der Eingabe; leeres Feld: keine Karte. */
+@Composable
+private fun AlarmSentencePreview(draft: AlarmDraft, symbol: String, currency: String) {
+    val context = LocalContext.current
+    if (draft.showsSentence) {
+        Text(
+            text = alarmSentence(
+                context = context,
+                condition = draft.condition,
+                symbol = symbol,
+                threshold = draft.threshold,
+                currency = currency,
+                windowHours = draft.windowHours,
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            // Ganzer Satz: normale Textfarbe (dunkel wäre onSecondaryContainer die Akzentfarbe)
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Spacing.md, bottom = Spacing.sm)
+                .clip(MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colorScheme.secondaryContainer)
+                .padding(horizontal = Spacing.md, vertical = Spacing.md)
+        )
+    }
+}
+
+/** «Mehr» im Alarm-Editor ([AlarmEditorSheet]): Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration, Vorlesen. */
+@Composable
+private fun AlarmMoreSection(
+    more: Boolean,
+    onToggleMore: () -> Unit,
+    draft: AlarmDraft,
+    templates: List<AlarmTemplates.Template>,
+    onTemplate: (AlarmTemplates.Template) -> Unit,
+    derivatives: Boolean,
+    quoteAsset: String,
+    otherCurrency: String,
+    offerCurrency: Boolean,
+    rates: Map<String, Double>,
+    onDraftChange: (AlarmDraft) -> Unit,
+) {
+    // «Mehr»: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration, Vorlesen
+    AdvancedHeader(
+        title = stringResource(R.string.alarm_editor_more),
+        subtitle = stringResource(R.string.alarm_editor_more_summary).takeIf { !more },
+        expanded = more,
+        onToggle = onToggleMore,
+        modifier = Modifier.testTag(UiTestTags.ALARM_MORE),
+    )
+    if (more) {
+        // Ein Antippen legt den Alarm sofort an (nur beim Anlegen)
+        if (draft.id == 0L && templates.isNotEmpty()) {
+            TemplateChips(templates = templates, onTemplate = onTemplate)
+        }
+        // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
+        MoreSubtitle(stringResource(R.string.alarm_more_conditions))
+        MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
+        MoreSubtitle(stringResource(R.string.alarm_advanced))
+        AdvancedOptions(
+            draft = draft,
+            quoteAsset = quoteAsset,
+            otherCurrency = otherCurrency,
+            offerCurrency = offerCurrency,
+            rates = rates,
+            onDraftChange = onDraftChange,
+        )
+    }
 }

@@ -121,7 +121,7 @@ final class CycleViewModel: ObservableObject {
 
     init(data: AppData = .shared) {
         self.data = data
-        data.$favorites.map { $0[.COIN] ?? [] }.removeDuplicates().assign(to: &$favoriteCoins)
+        data.favoritesSubject.map { $0[.COIN] ?? [] }.removeDuplicates().assign(to: &$favoriteCoins)
     }
 
     /// Ältester gezeigter Stand, solange ein Bereich mit gezeigten Daten neu lädt; sonst nil.

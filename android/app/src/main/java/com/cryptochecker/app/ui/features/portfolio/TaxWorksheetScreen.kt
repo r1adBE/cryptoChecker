@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import android.net.Uri
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -31,10 +35,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.BuildConfig
+import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
 import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxPeriod
+import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppSnackbarHost
@@ -77,10 +86,56 @@ fun TaxWorksheetScreen(
     // Methode je Steuerjahr (US ab 2025 nur FIFO je Wallet)
     val method = template.methodFor(costMethod, taxYear)
     val period = taxYear?.let { template.period(it) }
-    var taxKind by rememberSaveable { mutableStateOf<TaxExportKind?>(null) }
+    val taxKindState = rememberSaveable { mutableStateOf<TaxExportKind?>(null) }
     // Zuletzt angebotener Dateiname: «Erneut versuchen» nach «Datei nicht schreibbar» fragt damit nach einer neuen
     // Datei
-    var lastFileName by rememberSaveable { mutableStateOf("") }
+    val lastFileNameState = rememberSaveable { mutableStateOf("") }
+    val summary by viewModel.summary.collectAsStateWithLifecycle()
+    // Einstandsmethode als Schlüssel: US-Übergang hängt an ihr, nicht nur an der Methode der Vorlage
+    LaunchedEffect(taxYear, template, method, workCurrency, costMethod) { taxYear?.let { viewModel.loadSummary(it, currency) } }
+    TaxWorksheetExports(
+        viewModel = viewModel,
+        state = state,
+        years = years,
+        costMethod = costMethod,
+        template = template,
+        currency = currency,
+        workCurrency = workCurrency,
+        taxYear = taxYear,
+        method = method,
+        period = period,
+        summary = summary,
+        taxKindState = taxKindState,
+        lastFileNameState = lastFileNameState,
+        onYear = { chosenYear = it },
+        onBack = onBack,
+    )
+}
+
+/**
+ * Kopfzeilen und Dateiauswahl der Arbeitsunterlage ([TaxWorksheetScreen]). Nicht neu startbar: liest wie zuvor im
+ * Rumpf von [TaxWorksheetScreen].
+ */
+@NonRestartableComposable
+@Composable
+private fun TaxWorksheetExports(
+    viewModel: PortfolioExportViewModel,
+    state: CutoffExportState,
+    years: List<Int>,
+    costMethod: CostMethod,
+    template: TaxTemplate,
+    currency: String,
+    workCurrency: String,
+    taxYear: Int?,
+    method: TaxMethod,
+    period: TaxPeriod?,
+    summary: TaxYearSummary?,
+    taxKindState: MutableState<TaxExportKind?>,
+    lastFileNameState: MutableState<String>,
+    onYear: (Int) -> Unit,
+    onBack: () -> Unit,
+) {
+    var taxKind by taxKindState
     // Daten in der Zeitzone der Vorlage (Neutral: Gerät) — in jeder CSV der Arbeitsunterlage genannt
     val taxZone = template.zone()
     val taxTexts = taxCsvTexts(workCurrency, taxZone, template)
@@ -124,9 +179,6 @@ fun TaxWorksheetScreen(
             EstvKursliste.listUrl(it, LocalConfiguration.current.locales[0].language),
         )
     }.orEmpty()
-    val summary by viewModel.summary.collectAsStateWithLifecycle()
-    // Einstandsmethode als Schlüssel: US-Übergang hängt an ihr, nicht nur an der Methode der Vorlage
-    LaunchedEffect(taxYear, template, method, workCurrency, costMethod) { taxYear?.let { viewModel.loadSummary(it, currency) } }
     val summaryLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("text/csv")
     ) { uri ->
@@ -191,6 +243,56 @@ fun TaxWorksheetScreen(
         ActivityResultContracts.CreateDocument("text/csv")
     ) { uri -> uri?.let { viewModel.retryExport(it) } }
 
+    TaxWorksheetScaffold(
+        viewModel = viewModel,
+        state = state,
+        template = template,
+        costMethod = costMethod,
+        years = years,
+        taxYear = taxYear,
+        period = period,
+        workCurrency = workCurrency,
+        methodNote = methodNote,
+        summary = summary,
+        summaryTexts = summaryTexts,
+        disclaimer = disclaimer,
+        taxKindState = taxKindState,
+        lastFileNameState = lastFileNameState,
+        taxLauncher = taxLauncher,
+        holdingsLauncher = holdingsLauncher,
+        summaryLauncher = summaryLauncher,
+        retryLauncher = retryLauncher,
+        onYear = onYear,
+        onBack = onBack,
+    )
+}
+
+/** Seite der Arbeitsunterlage ([TaxWorksheetScreen]): Leiste, Vorlage, Steuerjahr mit den Exporten und Hinweis. */
+@Composable
+private fun TaxWorksheetScaffold(
+    viewModel: PortfolioExportViewModel,
+    state: CutoffExportState,
+    template: TaxTemplate,
+    costMethod: CostMethod,
+    years: List<Int>,
+    taxYear: Int?,
+    period: TaxPeriod?,
+    workCurrency: String,
+    methodNote: String?,
+    summary: TaxYearSummary?,
+    summaryTexts: TaxSummaryTexts,
+    disclaimer: String,
+    taxKindState: MutableState<TaxExportKind?>,
+    lastFileNameState: MutableState<String>,
+    taxLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    holdingsLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    summaryLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    retryLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    onYear: (Int) -> Unit,
+    onBack: () -> Unit,
+) {
+    var taxKind by taxKindState
+    var lastFileName by lastFileNameState
     val scope = rememberCoroutineScope()
     val banner = rememberWatchlistBanner(scope)
     val doneText = stringResource(R.string.portfolio_export_done)
@@ -257,7 +359,7 @@ fun TaxWorksheetScreen(
                     taxYear = taxYear,
                     period = period,
                     state = state,
-                    onYear = { chosenYear = it },
+                    onYear = onYear,
                     onGains = {
                         launch(TaxExport.gainsFileName(taxYear)) {
                             taxKind = TaxExportKind.GAINS

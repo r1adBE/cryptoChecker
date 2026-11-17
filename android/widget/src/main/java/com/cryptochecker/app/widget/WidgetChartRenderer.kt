@@ -139,72 +139,11 @@ object WidgetChartRenderer {
         }
 
         // --- Kerzen oder Linie ---
-        when (type) {
-            WidgetChartType.CANDLES -> {
-                val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
-                for (c in geo.candleShapes) {
-                    paint.color = if (c.up) colors.upColor else colors.downColor
-                    val wick = min(1f * dp, c.bodyWidth)
-                    canvas.drawRect(c.x - wick / 2f, c.wickTop, c.x + wick / 2f, c.wickBottom, paint)
-                    canvas.drawRect(c.x - c.bodyWidth / 2f, c.bodyTop, c.x + c.bodyWidth / 2f, c.bodyBottom, paint)
-                }
-            }
-            WidgetChartType.LINE -> {
-                val color = if (geo.up) colors.upColor else colors.downColor
-                val line = Path()
-                geo.linePoints.forEachIndexed { i, (x, y) -> if (i == 0) line.moveTo(x, y) else line.lineTo(x, y) }
-                val fill = Path(line).apply {
-                    lineTo(geo.linePoints.last().first, geo.plotBottom)
-                    lineTo(geo.linePoints.first().first, geo.plotBottom)
-                    close()
-                }
-                canvas.drawPath(
-                    fill,
-                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        this.color = color
-                        alpha = 40
-                        style = Paint.Style.FILL
-                    }
-                )
-                canvas.drawPath(
-                    line,
-                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        this.color = color
-                        strokeWidth = 1.5f * dp
-                        style = Paint.Style.STROKE
-                        strokeJoin = Paint.Join.ROUND
-                        strokeCap = Paint.Cap.ROUND
-                    }
-                )
-            }
-        }
+        drawSeries(canvas, geo, type, colors, dp)
 
         // --- Aktueller Kurs: gestrichelte Akzentlinie und Etikett ---
-        canvas.drawLine(
-            geo.plotLeft,
-            geo.currentY,
-            geo.plotRight,
-            geo.currentY,
-            Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = withAlpha(colors.accentColor, if (highContrast) 1f else 0.7f)
-                strokeWidth = max(1f, 0.8f * dp)
-                style = Paint.Style.STROKE
-                pathEffect = DashPathEffect(floatArrayOf(3f * dp, 2.5f * dp), 0f)
-            }
-        )
         val tagLeft = geo.plotRight + gap
-        val tagRect = RectF(tagLeft, geo.tagSpan.top, w.toFloat(), geo.tagSpan.bottom)
-        canvas.drawRoundRect(
-            tagRect,
-            3f * dp,
-            3f * dp,
-            Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = colors.accentColor
-                style = Paint.Style.FILL
-            }
-        )
-        tagTextPaint.color = colors.onAccentColor
-        canvas.drawText(tagText, tagLeft + tagPadH, tagRect.centerY() - (tfm.ascent + tfm.descent) / 2f, tagTextPaint)
+        drawCurrentTag(canvas, geo, colors, highContrast, dp, tagLeft, w, tagText, tagTextPaint, tagPadH, tfm)
 
         // --- Beschriftungen der Preisstufen (rechts, bündig mit dem Etikett-Text) ---
         for (label in geo.labels) {
@@ -365,5 +304,88 @@ object WidgetChartRenderer {
     private fun withAlpha(color: Int, alpha: Float): Int {
         val a = ((color ushr 24) * alpha).toInt().coerceIn(0, 255)
         return (color and 0x00FFFFFF) or (a shl 24)
+    }
+
+/** Kerzen bzw. Linie mit zarter Fläche ([draw]). */
+    private fun drawSeries(canvas: Canvas, geo: WidgetChartGeometry, type: WidgetChartType, colors: WidgetColors, dp: Float) {
+        when (type) {
+            WidgetChartType.CANDLES -> {
+                val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
+                for (c in geo.candleShapes) {
+                    paint.color = if (c.up) colors.upColor else colors.downColor
+                    val wick = min(1f * dp, c.bodyWidth)
+                    canvas.drawRect(c.x - wick / 2f, c.wickTop, c.x + wick / 2f, c.wickBottom, paint)
+                    canvas.drawRect(c.x - c.bodyWidth / 2f, c.bodyTop, c.x + c.bodyWidth / 2f, c.bodyBottom, paint)
+                }
+            }
+            WidgetChartType.LINE -> {
+                val color = if (geo.up) colors.upColor else colors.downColor
+                val line = Path()
+                geo.linePoints.forEachIndexed { i, (x, y) -> if (i == 0) line.moveTo(x, y) else line.lineTo(x, y) }
+                val fill = Path(line).apply {
+                    lineTo(geo.linePoints.last().first, geo.plotBottom)
+                    lineTo(geo.linePoints.first().first, geo.plotBottom)
+                    close()
+                }
+                canvas.drawPath(
+                    fill,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        this.color = color
+                        alpha = 40
+                        style = Paint.Style.FILL
+                    }
+                )
+                canvas.drawPath(
+                    line,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        this.color = color
+                        strokeWidth = 1.5f * dp
+                        style = Paint.Style.STROKE
+                        strokeJoin = Paint.Join.ROUND
+                        strokeCap = Paint.Cap.ROUND
+                    }
+                )
+            }
+        }
+    }
+
+/** Aktueller Kurs ([draw]): gestrichelte Akzentlinie und Etikett in der Akzentfarbe rechts. */
+    private fun drawCurrentTag(
+        canvas: Canvas,
+        geo: WidgetChartGeometry,
+        colors: WidgetColors,
+        highContrast: Boolean,
+        dp: Float,
+        tagLeft: Float,
+        w: Int,
+        tagText: String,
+        tagTextPaint: Paint,
+        tagPadH: Float,
+        tfm: Paint.FontMetrics,
+    ) {
+        canvas.drawLine(
+            geo.plotLeft,
+            geo.currentY,
+            geo.plotRight,
+            geo.currentY,
+            Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = withAlpha(colors.accentColor, if (highContrast) 1f else 0.7f)
+                strokeWidth = max(1f, 0.8f * dp)
+                style = Paint.Style.STROKE
+                pathEffect = DashPathEffect(floatArrayOf(3f * dp, 2.5f * dp), 0f)
+            }
+        )
+        val tagRect = RectF(tagLeft, geo.tagSpan.top, w.toFloat(), geo.tagSpan.bottom)
+        canvas.drawRoundRect(
+            tagRect,
+            3f * dp,
+            3f * dp,
+            Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = colors.accentColor
+                style = Paint.Style.FILL
+            }
+        )
+        tagTextPaint.color = colors.onAccentColor
+        canvas.drawText(tagText, tagLeft + tagPadH, tagRect.centerY() - (tfm.ascent + tfm.descent) / 2f, tagTextPaint)
     }
 }

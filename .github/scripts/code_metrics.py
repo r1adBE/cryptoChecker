@@ -50,7 +50,7 @@ PROPS_CEILING = 26  # ExplorerViewModel
 
 # Longest function per platform (lines). New code stays under FUNCTION_TARGET; the ceiling only keeps the remaining
 # long functions from growing and goes down with every split.
-FUNCTION_CEILINGS = {"Kotlin": 250, "Swift": 150}  # WatchlistScreen; WatchlistList.list (both user interface)
+FUNCTION_CEILINGS = {"Kotlin": 148, "Swift": 150}  # MarketPhaseScreen, TaxWorksheetExports; WatchlistList.list (all UI)
 # Longest logic function (not user interface, see the module text): ActivityMonitor.explain and others at 100 (both, C-04)
 LOGIC_CEILINGS = {"Kotlin": 100, "Swift": 100}
 FUNCTION_TARGET = 80

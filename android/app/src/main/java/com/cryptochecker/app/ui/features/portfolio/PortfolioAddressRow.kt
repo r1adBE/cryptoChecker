@@ -79,180 +79,20 @@ internal fun AddressRow(
         modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 8.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                a.label ?: WatchedAddressRules.shortAddress(a.address),
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+            AddressRowSummary(a = a, now = now, hideAmounts = hideAmounts)
+            AddressRowControls(
+                a = a,
+                hideAmounts = hideAmounts,
+                overlap = overlap,
+                retarget = retarget,
+                onCountTokens = onCountTokens,
+                onNetworks = onNetworks,
+                onShowOnly = onShowOnly,
+                onCostLots = onCostLots,
+                onRetarget = onRetarget,
+                trades = trades,
+                allAddresses = allAddresses,
             )
-            val balance = PortfolioDecimal.parse(a.lastBalance)
-            val amount = balance?.let { PortfolioFormat.amount(it, a.chain.coin) } ?: "— ${a.chain.coin}"
-            Text(
-                (if (a.label != null) WatchedAddressRules.shortAddress(a.address) + " · " else "") +
-                    (if (hideAmounts && balance != null) "•••" else amount),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
-            val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
-            // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (ZeroConfirm)
-            val zeroUnconfirmed = ZeroConfirm.MAIN in a.zeroPending
-            val lastError = a.lastError // lokal: WatchedAddress liegt in :domain (kein Smart Cast über Modulgrenzen)
-            val status = when {
-                // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
-                lastError != null -> stringResource(addressErrorText(lastError)) +
-                    (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
-                // Zeit am Zeilenanfang: gross beginnend («Vor 2 Std. · Etherscan»)
-                a.lastUpdated > 0 -> ago(a.lastUpdated, now).let { age ->
-                    val stalePart = stringResource(R.string.portfolio_address_tokens_partly_stale)
-                    val zeroPart = stringResource(R.string.portfolio_address_zero_unconfirmed)
-                    lineStart(age, age) + (a.lastProvider?.let { " · $it" } ?: "") +
-                        (if (zeroUnconfirmed) " · $zeroPart" else "") +
-                        (if (partlyStale) " · $stalePart" else "")
-                }
-                else -> null
-            }
-            if (a.isXpub) {
-                Text(
-                    stringResource(R.string.portfolio_address_xpub_used, a.xpub?.usedCount ?: 0),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                // Vollständige Suche zu gross, nur schnell gesucht (XpubCache.limitedFallback): dezenter Hinweis
-                if (a.xpub?.limitedFallback == true) {
-                    Text(
-                        stringResource(R.string.portfolio_address_xpub_limited),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-            val tokens = a.tokenHoldings()
-            if (tokens.isNotEmpty()) {
-                Text(
-                    if (hideAmounts) {
-                        "•••"
-                    } else {
-                        tokens.joinToString(" · ") { h ->
-                            val amount =
-                                PortfolioDecimal.parse(h.amount)?.let { PortfolioFormat.amount(it, h.label) } ?: "${h.amount} ${h.label}"
-                            // Netz dazu (Arbitrum, BNB Smart Chain …), damit z. B. USDC auf zwei Netzen unterscheidbar bleibt
-                            ChainAssets.network(h.network)?.let { "$amount (${it.name})" } ?: amount
-                        }
-                    },
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            if (status != null) {
-                Text(
-                    status,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = if (a.lastError != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            if (a.unknownTokens > 0 && a.countTokens) {
-                Text(
-                    pluralStringResource(R.plurals.portfolio_address_unknown_tokens, a.unknownTokens, a.unknownTokens),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            if (retarget != null && a.countInPortfolio) {
-                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis mit «Ziel ändern», Summen unverändert
-                RetargetHint(retarget, MaterialTheme.typography.labelSmall, hideAmounts, onRetarget)
-            } else if (overlap.isNotEmpty() && a.countInPortfolio) {
-                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt) —
-                // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        stringResource(R.string.portfolio_address_overlap, overlap.joinToString(", ")),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.weight(1f)
-                    )
-                    TextButton(onClick = { onShowOnly(true) }) {
-                        Text(stringResource(R.string.portfolio_address_show_only_short), style = MaterialTheme.typography.labelLarge)
-                    }
-                }
-            }
-            if (a.chain == AddressChain.ETH) {
-                // Weitere EVM-Netze derselben 0x-Adresse (Ethereum immer)
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
-                    modifier = Modifier.horizontalScroll(rememberScrollState())
-                ) {
-                    for (net in ChainAssets.EVM) {
-                        val selected = a.networkSelected(net.id)
-                        FilterChip(
-                            selected = selected,
-                            onClick = {
-                                val current = ChainAssets.EVM.map { it.id }.filter { a.networkSelected(it) }
-                                onNetworks(if (selected) current - net.id else current + net.id)
-                            },
-                            label = { Text(net.name, style = MaterialTheme.typography.labelSmall) },
-                        )
-                    }
-                }
-            }
-            if (ChainAssets.hasTokens(a.chain)) {
-                // Ganze Zeile schaltbar (Bildschirmleser: Name + Schalter in einem)
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.toggleable(value = a.countTokens, role = Role.Switch, onValueChange = onCountTokens)
-                ) {
-                    Text(
-                        stringResource(R.string.portfolio_address_tokens),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Switch(checked = a.countTokens, onCheckedChange = null)
-                }
-            }
-            // Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
-            if (a.countInPortfolio) {
-                val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a, trades, allAddresses)
-                covered.forEach { c ->
-                    Text(
-                        stringResource(
-                            R.string.address_lots_status,
-                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.lotted, c.coin),
-                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.base, c.coin),
-                        ),
-                        style = MaterialTheme.typography.label,
-                        color = if (c.capped &&
-                            a.lastBalance != null
-                        ) {
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                        },
-                    )
-                }
-                TextButton(onClick = onCostLots) {
-                    Text(stringResource(R.string.address_lots_action), style = MaterialTheme.typography.labelLarge)
-                }
-            }
-            // «Nur anzeigen, nicht zum Portfolio zählen»
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.toggleable(value = !a.countInPortfolio, role = Role.Switch, onValueChange = onShowOnly)
-            ) {
-                Text(
-                    stringResource(R.string.portfolio_address_show_only),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.weight(1f)
-                )
-                Switch(checked = !a.countInPortfolio, onCheckedChange = null)
-            }
         }
         IconButton(onClick = onRemove) {
             Icon(painterResource(R.drawable.ic_delete), contentDescription = stringResource(R.string.portfolio_address_remove))
@@ -332,4 +172,200 @@ internal fun problemRes(problem: AddressValidation.Problem): Int = when (problem
     AddressValidation.Problem.BEP2_SHUTDOWN -> R.string.address_bep2_shutdown
     AddressValidation.Problem.DOGE_UNSUPPORTED -> R.string.address_doge_unsupported
     AddressValidation.Problem.BCH_UNSUPPORTED -> R.string.address_bch_unsupported
+}
+
+/** Hinweise und Schalter einer Adresse ([AddressRow]): Umbuchung bzw. Überschneidung, Netze, Tokens, Einstand, «Nur anzeigen». */
+@Composable
+private fun AddressRowControls(
+    a: WatchedAddress,
+    hideAmounts: Boolean,
+    overlap: List<String>,
+    retarget: AddressWithdrawalMatch.Retarget?,
+    onCountTokens: (Boolean) -> Unit,
+    onNetworks: (List<String>) -> Unit,
+    onShowOnly: (Boolean) -> Unit,
+    onCostLots: () -> Unit,
+    onRetarget: (AddressWithdrawalMatch.Retarget) -> Unit,
+    trades: List<PortfolioTrade>,
+    allAddresses: List<WatchedAddress>,
+) {
+    if (retarget != null && a.countInPortfolio) {
+        // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis mit «Ziel ändern», Summen unverändert
+        RetargetHint(retarget, MaterialTheme.typography.labelSmall, hideAmounts, onRetarget)
+    } else if (overlap.isNotEmpty() && a.countInPortfolio) {
+        // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt) —
+        // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                stringResource(R.string.portfolio_address_overlap, overlap.joinToString(", ")),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.weight(1f)
+            )
+            TextButton(onClick = { onShowOnly(true) }) {
+                Text(stringResource(R.string.portfolio_address_show_only_short), style = MaterialTheme.typography.labelLarge)
+            }
+        }
+    }
+    if (a.chain == AddressChain.ETH) {
+        // Weitere EVM-Netze derselben 0x-Adresse (Ethereum immer)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+            modifier = Modifier.horizontalScroll(rememberScrollState())
+        ) {
+            for (net in ChainAssets.EVM) {
+                val selected = a.networkSelected(net.id)
+                FilterChip(
+                    selected = selected,
+                    onClick = {
+                        val current = ChainAssets.EVM.map { it.id }.filter { a.networkSelected(it) }
+                        onNetworks(if (selected) current - net.id else current + net.id)
+                    },
+                    label = { Text(net.name, style = MaterialTheme.typography.labelSmall) },
+                )
+            }
+        }
+    }
+    if (ChainAssets.hasTokens(a.chain)) {
+        // Ganze Zeile schaltbar (Bildschirmleser: Name + Schalter in einem)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.toggleable(value = a.countTokens, role = Role.Switch, onValueChange = onCountTokens)
+        ) {
+            Text(
+                stringResource(R.string.portfolio_address_tokens),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.weight(1f)
+            )
+            Switch(checked = a.countTokens, onCheckedChange = null)
+        }
+    }
+    // Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
+    if (a.countInPortfolio) {
+        val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a, trades, allAddresses)
+        covered.forEach { c ->
+            Text(
+                stringResource(
+                    R.string.address_lots_status,
+                    if (hideAmounts) "•••" else PortfolioFormat.amount(c.lotted, c.coin),
+                    if (hideAmounts) "•••" else PortfolioFormat.amount(c.base, c.coin),
+                ),
+                style = MaterialTheme.typography.label,
+                color = if (c.capped &&
+                    a.lastBalance != null
+                ) {
+                    MaterialTheme.colorScheme.error
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+            )
+        }
+        TextButton(onClick = onCostLots) {
+            Text(stringResource(R.string.address_lots_action), style = MaterialTheme.typography.labelLarge)
+        }
+    }
+    // «Nur anzeigen, nicht zum Portfolio zählen»
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.toggleable(value = !a.countInPortfolio, role = Role.Switch, onValueChange = onShowOnly)
+    ) {
+        Text(
+            stringResource(R.string.portfolio_address_show_only),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f)
+        )
+        Switch(checked = !a.countInPortfolio, onCheckedChange = null)
+    }
+}
+
+/** Kopf einer Adresse ([AddressRow]): Name, Guthaben, xpub, Token-Guthaben, Stand bzw. Fehler. */
+@Composable
+private fun AddressRowSummary(a: WatchedAddress, now: Long, hideAmounts: Boolean) {
+    Text(
+        a.label ?: WatchedAddressRules.shortAddress(a.address),
+        style = MaterialTheme.typography.bodyLarge,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+    val balance = PortfolioDecimal.parse(a.lastBalance)
+    val amount = balance?.let { PortfolioFormat.amount(it, a.chain.coin) } ?: "— ${a.chain.coin}"
+    Text(
+        (if (a.label != null) WatchedAddressRules.shortAddress(a.address) + " · " else "") +
+            (if (hideAmounts && balance != null) "•••" else amount),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+    // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
+    val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
+    // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (ZeroConfirm)
+    val zeroUnconfirmed = ZeroConfirm.MAIN in a.zeroPending
+    val lastError = a.lastError // lokal: WatchedAddress liegt in :domain (kein Smart Cast über Modulgrenzen)
+    val status = when {
+        // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
+        lastError != null -> stringResource(addressErrorText(lastError)) +
+            (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
+        // Zeit am Zeilenanfang: gross beginnend («Vor 2 Std. · Etherscan»)
+        a.lastUpdated > 0 -> ago(a.lastUpdated, now).let { age ->
+            val stalePart = stringResource(R.string.portfolio_address_tokens_partly_stale)
+            val zeroPart = stringResource(R.string.portfolio_address_zero_unconfirmed)
+            lineStart(age, age) + (a.lastProvider?.let { " · $it" } ?: "") +
+                (if (zeroUnconfirmed) " · $zeroPart" else "") +
+                (if (partlyStale) " · $stalePart" else "")
+        }
+        else -> null
+    }
+    if (a.isXpub) {
+        Text(
+            stringResource(R.string.portfolio_address_xpub_used, a.xpub?.usedCount ?: 0),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        // Vollständige Suche zu gross, nur schnell gesucht (XpubCache.limitedFallback): dezenter Hinweis
+        if (a.xpub?.limitedFallback == true) {
+            Text(
+                stringResource(R.string.portfolio_address_xpub_limited),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+    val tokens = a.tokenHoldings()
+    if (tokens.isNotEmpty()) {
+        Text(
+            if (hideAmounts) {
+                "•••"
+            } else {
+                tokens.joinToString(" · ") { h ->
+                    val amount =
+                        PortfolioDecimal.parse(h.amount)?.let { PortfolioFormat.amount(it, h.label) } ?: "${h.amount} ${h.label}"
+                    // Netz dazu (Arbitrum, BNB Smart Chain …), damit z. B. USDC auf zwei Netzen unterscheidbar bleibt
+                    ChainAssets.network(h.network)?.let { "$amount (${it.name})" } ?: amount
+                }
+            },
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+    if (status != null) {
+        Text(
+            status,
+            style = MaterialTheme.typography.labelSmall,
+            color = if (a.lastError != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+    if (a.unknownTokens > 0 && a.countTokens) {
+        Text(
+            pluralStringResource(R.plurals.portfolio_address_unknown_tokens, a.unknownTokens, a.unknownTokens),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 298)
+
+- Internal: long Android screens split into smaller parts (C-02); code generation for the database runs complete and is checked after each build, fixing flaky device-test builds without database classes; iOS favorites stream after the Observation switch.
+
 ## 16.2.2 (build 297)
 
 - Internal (iOS): long calculation and background functions split into steps; logic functions now at most 100 lines on both platforms (C-04).

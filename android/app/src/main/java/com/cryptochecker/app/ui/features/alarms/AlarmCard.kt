@@ -128,34 +128,7 @@ internal fun AlarmCard(
     ) {
         Column(modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 8.dp, end = 4.dp)) {
             // Titel volle Breite, Menü nur mit «Löschen» (Bearbeiten = Karte antippen)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    title,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.weight(1f).clearAndSetSemantics {}
-                )
-                Box {
-                    var menu by remember { mutableStateOf(false) }
-                    IconButton(onClick = { menu = true }) {
-                        Icon(
-                            painterResource(R.drawable.ic_more_vert),
-                            contentDescription = stringResource(R.string.action_more)
-                        )
-                    }
-                    DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) },
-                            leadingIcon = {
-                                Icon(painterResource(R.drawable.ic_delete), null, tint = MaterialTheme.colorScheme.error)
-                            },
-                            onClick = {
-                                menu = false
-                                onDelete()
-                            }
-                        )
-                    }
-                }
-            }
+            AlarmCardTitleRow(title, onDelete)
             // Der Alarm als Satz; «einmalig · zuletzt …» bleibt darunter
             if (sentence != null) {
                 Text(
@@ -170,48 +143,7 @@ internal fun AlarmCard(
             // Statuszeile, bis der Grund wegfällt. Vorgelesen über die Beschreibung der Karte; nur «Mitteilungen
             // aus» ist antippbar (öffnet die Mitteilungs-Einstellungen) und dafür ein eigenes Element.
             if (statusLine != null && statusText != null) {
-                val notificationsOff = !invalidThreshold && status == AlarmCardStatus.Kind.NOTIFICATIONS_OFF
-                val turnOnLabel = stringResource(R.string.alarms_notifications_turn_on)
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(top = 2.dp, end = 12.dp)
-                        .then(
-                            if (notificationsOff) {
-                                // Semantik ausdrücklich (Text + Aktion), die Geste übernimmt clickable
-                                Modifier
-                                    .clearAndSetSemantics {
-                                        contentDescription = statusText
-                                        role = Role.Button
-                                        onClick(label = turnOnLabel) {
-                                            openAppNotificationSettings(context)
-                                            true
-                                        }
-                                    }
-                                    .clickable { openAppNotificationSettings(context) }
-                            } else {
-                                Modifier.clearAndSetSemantics {}
-                            }
-                        )
-                ) {
-                    val lineColor = if (invalidThreshold) {
-                        MaterialTheme.colorScheme.error
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    }
-                    Icon(
-                        painterResource(statusLine.second),
-                        contentDescription = null,
-                        tint = lineColor,
-                        modifier = Modifier.size(14.dp)
-                    )
-                    Spacer(Modifier.width(4.dp))
-                    Text(
-                        text = statusText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = lineColor,
-                    )
-                }
+                AlarmStatusLine(statusLine, statusText, invalidThreshold, status)
             }
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 12.dp)) {
                 Text(
@@ -248,6 +180,95 @@ internal fun AlarmCard(
                     enabled = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled),
                     colors = DisabledColors.switch(),
                     modifier = Modifier.semantics { contentDescription = title }
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Statuszeile einer Alarm-Karte ([AlarmCard]), bis der Grund wegfällt; nur «Mitteilungen aus» ist antippbar (öffnet die
+ * Mitteilungs-Einstellungen).
+ */
+@Composable
+private fun AlarmStatusLine(
+    statusLine: Pair<Int, Int>,
+    statusText: String,
+    invalidThreshold: Boolean,
+    status: AlarmCardStatus.Kind?,
+) {
+    val context = LocalContext.current
+    val notificationsOff = !invalidThreshold && status == AlarmCardStatus.Kind.NOTIFICATIONS_OFF
+    val turnOnLabel = stringResource(R.string.alarms_notifications_turn_on)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(top = 2.dp, end = 12.dp)
+            .then(
+                if (notificationsOff) {
+                    // Semantik ausdrücklich (Text + Aktion), die Geste übernimmt clickable
+                    Modifier
+                        .clearAndSetSemantics {
+                            contentDescription = statusText
+                            role = Role.Button
+                            onClick(label = turnOnLabel) {
+                                openAppNotificationSettings(context)
+                                true
+                            }
+                        }
+                        .clickable { openAppNotificationSettings(context) }
+                } else {
+                    Modifier.clearAndSetSemantics {}
+                }
+            )
+    ) {
+        val lineColor = if (invalidThreshold) {
+            MaterialTheme.colorScheme.error
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant
+        }
+        Icon(
+            painterResource(statusLine.second),
+            contentDescription = null,
+            tint = lineColor,
+            modifier = Modifier.size(14.dp)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(
+            text = statusText,
+            style = MaterialTheme.typography.bodySmall,
+            color = lineColor,
+        )
+    }
+}
+
+/** Titel einer Alarm-Karte ([AlarmCard]) volle Breite, daneben das Menü mit «Löschen». */
+@Composable
+private fun AlarmCardTitleRow(title: String, onDelete: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.weight(1f).clearAndSetSemantics {}
+        )
+        Box {
+            var menu by remember { mutableStateOf(false) }
+            IconButton(onClick = { menu = true }) {
+                Icon(
+                    painterResource(R.drawable.ic_more_vert),
+                    contentDescription = stringResource(R.string.action_more)
+                )
+            }
+            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) },
+                    leadingIcon = {
+                        Icon(painterResource(R.drawable.ic_delete), null, tint = MaterialTheme.colorScheme.error)
+                    },
+                    onClick = {
+                        menu = false
+                        onDelete()
+                    }
                 )
             }
         }

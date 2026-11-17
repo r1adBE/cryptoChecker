@@ -92,6 +92,29 @@ internal fun SearchItemsBuilder.alarmSection(): SearchItemsBuilder {
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.test"),
         stringResource(R.string.alarm_test_hint)
     )
+    marketAlertItems(alarms)
+    val speech = stringResource(R.string.settings_tts)
+    add(
+        "page.speech",
+        speech,
+        alarms,
+        SettingsSearchTarget.Speech("speech.enabled"),
+        stringResource(R.string.settings_tts_hint_silent)
+    )
+    add(
+        "speech.alarms_only",
+        stringResource(R.string.settings_tts_alarms_only),
+        speech,
+        SettingsSearchTarget.Speech("speech.alarms_only"),
+        stringResource(R.string.settings_tts_alarms_only_hint)
+    )
+    add("speech.test", stringResource(R.string.settings_tts_test), speech, SettingsSearchTarget.Speech("speech.test"))
+    return this
+}
+
+/** Markt-Meldungen unter «Alarme» ([alarmSection]): Seite und ihre Einträge, in dieser Reihenfolge. */
+@Composable
+private fun SearchItemsBuilder.marketAlertItems(alarms: String) {
     val market = stringResource(R.string.settings_market_alerts)
     add("page.market_alerts", market, alarms, SettingsSearchTarget.MarketAlerts())
     add(
@@ -148,21 +171,4 @@ internal fun SearchItemsBuilder.alarmSection(): SearchItemsBuilder {
         SettingsSearchTarget.MarketAlerts("market.macro"),
         stringResource(R.string.settings_macro_notifications_hint)
     )
-    val speech = stringResource(R.string.settings_tts)
-    add(
-        "page.speech",
-        speech,
-        alarms,
-        SettingsSearchTarget.Speech("speech.enabled"),
-        stringResource(R.string.settings_tts_hint_silent)
-    )
-    add(
-        "speech.alarms_only",
-        stringResource(R.string.settings_tts_alarms_only),
-        speech,
-        SettingsSearchTarget.Speech("speech.alarms_only"),
-        stringResource(R.string.settings_tts_alarms_only_hint)
-    )
-    add("speech.test", stringResource(R.string.settings_tts_test), speech, SettingsSearchTarget.Speech("speech.test"))
-    return this
 }

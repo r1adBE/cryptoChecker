@@ -96,40 +96,7 @@ internal fun StarterPicker(
                 .readableWidth()
                 .padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
-            Image(
-                painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
-                contentDescription = null,
-                modifier = Modifier.size(56.dp)
-            )
-            Text(
-                text = stringResource(R.string.starter_title),
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center,
-                // Screenreader: Überschrift (wie iOS .isHeader)
-                modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp).semantics { heading() }
-            )
-            // Unterzeile «Ohne Konto. Ohne Werbung. Ohne Tracking.»: letzte Zeile von welcome_text (wie «Über die App»)
-            Text(
-                text = stringResource(R.string.welcome_text).substringAfterLast('\n'),
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 4.dp, start = 16.dp, end = 16.dp)
-            )
-            // Börse und Quote der Startpaare hervorgehoben: man soll sehen, woher die Kurse kommen
-            val emphasis = SpanStyle(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
-            Text(
-                text = emphasized(
-                    stringResource(R.string.starter_source_text, BidiText.isolate(exchangeName), BidiText.isolate(quote)),
-                    listOf(exchangeName, quote),
-                    emphasis,
-                ),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
-            )
+            StarterHead(exchangeName = exchangeName, quote = quote)
 
             // Wie die Merkliste: die Zeilen als eine Karte mit feinen Trennlinien ([ListSegment])
             Column(
@@ -157,49 +124,7 @@ internal fun StarterPicker(
                     }
                 }
             }
-            // Kein einziger Kurs (offline, Börse nicht erreichbar): sagen, was los ist, und erneut laden lassen.
-            // Hinzufügen geht trotzdem (gleich wie iOS)
-            if (prices.failed && !prices.loading) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = Spacing.sm).fillMaxWidth()
-                ) {
-                    Icon(
-                        painterResource(R.drawable.ic_cloud_off),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.offline_status),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.weight(1f).padding(start = Spacing.xs)
-                    )
-                    TextButton(onClick = onLoad) { Text(stringResource(R.string.try_again)) }
-                }
-            }
-
-            // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen»
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
-            ) {
-                // Neutrales Kurs-Symbol (wie «Linie» im Chart-Umschalter): die Alarm-Glocke im Kopf erscheint
-                // erst mit Alarmen, im leeren Start würde sie auf nichts zeigen
-                Icon(
-                    painterResource(R.drawable.ic_chart_line),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(18.dp)
-                )
-                Text(
-                    text = stringResource(R.string.starter_watch_alarm_hint),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = Spacing.xs)
-                )
-            }
+            StarterStatusLines(offline = prices.failed && !prices.loading, onLoad = onLoad)
 
             Button(
                 onClick = onAdd,
@@ -273,4 +198,91 @@ internal fun WatchlistStarterPicker(
         onAddClick = onAddClick,
         onOpenAlarms = onOpenAlarms,
     )
+}
+
+/** Kopf der Start-Auswahl ([StarterPicker]): Logo, Titel, «Ohne Konto …» und woher die Kurse kommen. */
+@Composable
+private fun StarterHead(exchangeName: String, quote: String) {
+    Image(
+        painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
+        contentDescription = null,
+        modifier = Modifier.size(56.dp)
+    )
+    Text(
+        text = stringResource(R.string.starter_title),
+        style = MaterialTheme.typography.titleLarge,
+        textAlign = TextAlign.Center,
+        // Screenreader: Überschrift (wie iOS .isHeader)
+        modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp).semantics { heading() }
+    )
+    // Unterzeile «Ohne Konto. Ohne Werbung. Ohne Tracking.»: letzte Zeile von welcome_text (wie «Über die App»)
+    Text(
+        text = stringResource(R.string.welcome_text).substringAfterLast('\n'),
+        style = MaterialTheme.typography.bodyMedium,
+        fontWeight = FontWeight.Medium,
+        color = MaterialTheme.colorScheme.primary,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.padding(top = 4.dp, start = 16.dp, end = 16.dp)
+    )
+    // Börse und Quote der Startpaare hervorgehoben: man soll sehen, woher die Kurse kommen
+    val emphasis = SpanStyle(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+    Text(
+        text = emphasized(
+            stringResource(R.string.starter_source_text, BidiText.isolate(exchangeName), BidiText.isolate(quote)),
+            listOf(exchangeName, quote),
+            emphasis,
+        ),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
+    )
+}
+
+/** Unter den Coins ([StarterPicker]): ohne einen einzigen Kurs «offline» mit «Erneut versuchen», dann was die App tut. */
+@Composable
+private fun StarterStatusLines(offline: Boolean, onLoad: () -> Unit) {
+    // Kein einziger Kurs (offline, Börse nicht erreichbar): sagen, was los ist, und erneut laden lassen.
+    // Hinzufügen geht trotzdem (gleich wie iOS)
+    if (offline) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = Spacing.sm).fillMaxWidth()
+        ) {
+            Icon(
+                painterResource(R.drawable.ic_cloud_off),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(18.dp)
+            )
+            Text(
+                text = stringResource(R.string.offline_status),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.weight(1f).padding(start = Spacing.xs)
+            )
+            TextButton(onClick = onLoad) { Text(stringResource(R.string.try_again)) }
+        }
+    }
+
+    // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen»
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
+    ) {
+        // Neutrales Kurs-Symbol (wie «Linie» im Chart-Umschalter): die Alarm-Glocke im Kopf erscheint
+        // erst mit Alarmen, im leeren Start würde sie auf nichts zeigen
+        Icon(
+            painterResource(R.drawable.ic_chart_line),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(18.dp)
+        )
+        Text(
+            text = stringResource(R.string.starter_watch_alarm_hint),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = Spacing.xs)
+        )
+    }
 }

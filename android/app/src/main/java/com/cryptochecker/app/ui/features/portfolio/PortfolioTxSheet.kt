@@ -11,14 +11,10 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -27,29 +23,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
-import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.resources.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
@@ -91,7 +85,6 @@ fun PortfolioTxSheet(
     }
 
     val state = rememberTxFormState(initial)
-    val isEdit = state.isEdit
     val currency by viewModel.currency.collectAsState()
     var pickAcquired by remember { mutableStateOf(false) }
     var pickDate by remember { mutableStateOf(false) }
@@ -100,18 +93,7 @@ fun PortfolioTxSheet(
     val d = state.derive(currency)
     val coin = d.coin
     val coinValid = d.coinValid
-    val dirtyNow by rememberUpdatedState(d.dirty)
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { target ->
-            if (target == SheetValue.Hidden && dirtyNow) {
-                askDiscard = true
-                false
-            } else {
-                true
-            }
-        },
-    )
+    val sheetState = rememberDiscardGuardSheetState(d.dirty, onAskDiscard = { askDiscard = true })
     // Abbrechen bzw. Schliessen: mit Änderungen erst nachfragen
     val requestClose: () -> Unit = {
         if (d.dirty) {
@@ -135,71 +117,32 @@ fun PortfolioTxSheet(
     }
     // Fehler beim Speichern als Meldung im Blatt (über dem Blatt sichtbar)
     val saveErrorHost = remember { SnackbarHostState() }
-    val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
-    // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
-    val storageLockedText = stringResource(R.string.portfolio_storage_locked)
-    // Löschen nicht geschrieben (Fehler, nicht gesperrt)
-    val writeFailedText = stringResource(R.string.portfolio_write_failed)
     val scope = rememberCoroutineScope()
     val haptics = rememberHaptics()
     // Speichern mit Fehlern: zum ersten ungültigen Feld springen und den Fehler ansagen (PortfolioTxFocus.kt)
     val focusTargets = remember { TxFocusTargets() }
-    val resources = LocalResources.current
 
     TxPrefillEffects(state, d, currency, viewModel)
 
-    if (pickDate) {
-        DateDialog(
-            selected = state.time,
-            onSelect = { date ->
-                pickDate = false
-                state.onDateSelected(date, coinValid, coin)
-            },
-            onDismiss = { pickDate = false }
-        )
-    }
-
-    if (pickAcquired) {
-        DateDialog(
-            selected = state.acquiredTime ?: state.time,
-            maxDate = localDate(state.time),
-            onSelect = { date ->
-                state.onAcquiredSelected(date)
-                pickAcquired = false
-            },
-            onDismiss = { pickAcquired = false }
-        )
-    }
-
-    if (askDiscard) {
-        DiscardChangesDialog(onDiscard = {
-            askDiscard = false
-            onDismiss()
-        }, onKeep = { askDiscard = false })
-    }
-
-    if (askDelete) {
-        TxDeleteConfirmDialog(
-            onDismiss = { askDelete = false },
-            onConfirm = {
-                askDelete = false
-                // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
-                // Hinweis offen (wie iOS)
-                viewModel.delete(initial.id) { result ->
-                    if (result == PortfolioWriteResult.OK) {
-                        haptics.play(HapticEvent.DESTRUCTIVE)
-                        onDismiss()
-                    } else {
-                        haptics.play(HapticEvent.ERROR)
-                        val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
-                        scope.launch {
-                            saveErrorHost.showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
-                        }
-                    }
-                }
-            },
-        )
-    }
+    TxSheetDialogs(
+        state = state,
+        coinValid = coinValid,
+        coin = coin,
+        pickDate = pickDate,
+        onPickDateChange = { pickDate = it },
+        pickAcquired = pickAcquired,
+        onPickAcquiredChange = { pickAcquired = it },
+        askDiscard = askDiscard,
+        onAskDiscardChange = { askDiscard = it },
+        askDelete = askDelete,
+        onAskDeleteChange = { askDelete = it },
+        viewModel = viewModel,
+        txId = initial.id,
+        haptics = haptics,
+        saveErrorHost = saveErrorHost,
+        scope = scope,
+        onDismiss = onDismiss,
+    )
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -224,80 +167,112 @@ fun PortfolioTxSheet(
                         .navigationBarsPadding()
                         .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
                 ) {
-                    Text(
-                        stringResource(if (isEdit) R.string.portfolio_edit_tx else R.string.portfolio_add_tx),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    TxTypeSection(state)
-                    TxCoinSection(state, d, coins, onPicked = { focus.clearFocus() })
-                    // Datum (nicht in der Zukunft) — vor Menge und Preis: ein Datumswechsel kann den Preis leeren,
-                    // das soll nicht unbemerkt über dem sichtbaren Bereich geschehen
-                    TxDateSection(state, onPickDate = { pickDate = true }, onPickAcquired = { pickAcquired = true })
-                    TxAmountSection(state, d, viewModel)
-                    // Tausch: erhaltener Coin und Menge
-                    if (d.isSwap) TxSwapReceivedSection(state, d, coins)
-                    // Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
-                    if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
-                    TxPriceValueSection(state, d, currency)
-                    // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
-                    TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
-                    // Notiz direkt unter dem Preis, bei allen Arten
-                    TxNoteField(state, 12.dp)
-                    TxSwitchesSection(state)
-                    // Umbuchung: von / nach
-                    if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
-                    TxLedgerSection(state, d, exchanges, noteInLedger = false)
-                    TxTotalLine(d)
-                    TxActionsRow(
-                        isEdit = isEdit,
+                    TxSheetForm(
+                        state = state,
+                        d = d,
+                        viewModel = viewModel,
+                        coins = coins,
+                        exchanges = exchanges,
+                        usedWallets = usedWallets,
+                        currency = currency,
                         saving = saving,
-                        onDelete = { askDelete = true },
+                        saveSession = saveSession,
+                        focusTargets = focusTargets,
+                        haptics = haptics,
+                        saveErrorHost = saveErrorHost,
+                        scope = scope,
+                        onClearFocus = { focus.clearFocus() },
+                        onPickDate = { pickDate = true },
+                        onPickAcquired = { pickAcquired = true },
+                        onAskDelete = { askDelete = true },
                         onCancel = requestClose,
-                        onSave = {
-                            state.tried = true
-                            // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
-                            if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
-                            PortfolioTxFirstInvalid.of(d.check, amountValid = d.amount != null, isSwap = d.isSwap)?.let { field ->
-                                // Gebühren liegen im Abschnitt: erst aufklappen, sonst gibt es kein Feld für den Fokus
-                                if (field.inLedger) state.showLedger = true
-                                focusTargets.jumpTo(
-                                    field,
-                                    resources.getString(txFieldLabelRes(field, d)) + ". " + resources.getString(txFieldErrorRes(field, d)),
-                                )
-                            }
-                            // Haptik wie iOS: mit Fehlern Warnung, gespeichert Erfolg, Schreiben gescheitert Fehler
-                            if (!d.valid) haptics.play(HapticEvent.WARNING)
-                            if (d.valid) {
-                                viewModel.save(
-                                    state.toDraft(d),
-                                    onAskEnablePortfolio,
-                                    onSaved = {
-                                        haptics.play(HapticEvent.SUCCESS)
-                                        closedAfterSave = true
-                                        onDismiss()
-                                    },
-                                    // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
-                                    onFailed = {
-                                        haptics.play(HapticEvent.ERROR)
-                                        val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
-                                        // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
-                                        scope.launch {
-                                            saveErrorHost.showAppSnackbar(
-                                                if (locked) storageLockedText else saveFailedText,
-                                                SnackbarKind.ERROR,
-                                                duration = SnackbarDuration.Long,
-                                            )
-                                        }
-                                    },
-                                    session = saveSession,
-                                )
-                            }
-                        },
+                        onAskEnablePortfolio = onAskEnablePortfolio,
+                        onClosedAfterSave = { closedAfterSave = true },
+                        isStorageLocked = { PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value) },
+                        onDismiss = onDismiss,
                     )
                 }
                 AppSnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
             }
         }
+    }
+}
+
+/** Rückfragen und Datumswahl von [PortfolioTxSheet] (vor dem Blatt, wie zuvor). */
+@Composable
+private fun TxSheetDialogs(
+    state: TxFormState,
+    coinValid: Boolean,
+    coin: String,
+    pickDate: Boolean,
+    onPickDateChange: (Boolean) -> Unit,
+    pickAcquired: Boolean,
+    onPickAcquiredChange: (Boolean) -> Unit,
+    askDiscard: Boolean,
+    onAskDiscardChange: (Boolean) -> Unit,
+    askDelete: Boolean,
+    onAskDeleteChange: (Boolean) -> Unit,
+    viewModel: PortfolioViewModel,
+    txId: Long,
+    haptics: HapticPlayer,
+    saveErrorHost: SnackbarHostState,
+    scope: CoroutineScope,
+    onDismiss: () -> Unit,
+) {
+    // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
+    val storageLockedText = stringResource(R.string.portfolio_storage_locked)
+    // Löschen nicht geschrieben (Fehler, nicht gesperrt)
+    val writeFailedText = stringResource(R.string.portfolio_write_failed)
+    if (pickDate) {
+        DateDialog(
+            selected = state.time,
+            onSelect = { date ->
+                onPickDateChange(false)
+                state.onDateSelected(date, coinValid, coin)
+            },
+            onDismiss = { onPickDateChange(false) }
+        )
+    }
+
+    if (pickAcquired) {
+        DateDialog(
+            selected = state.acquiredTime ?: state.time,
+            maxDate = localDate(state.time),
+            onSelect = { date ->
+                state.onAcquiredSelected(date)
+                onPickAcquiredChange(false)
+            },
+            onDismiss = { onPickAcquiredChange(false) }
+        )
+    }
+
+    if (askDiscard) {
+        DiscardChangesDialog(onDiscard = {
+            onAskDiscardChange(false)
+            onDismiss()
+        }, onKeep = { onAskDiscardChange(false) })
+    }
+
+    if (askDelete) {
+        TxDeleteConfirmDialog(
+            onDismiss = { onAskDeleteChange(false) },
+            onConfirm = {
+                onAskDeleteChange(false)
+                // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
+                // Hinweis offen (wie iOS)
+                viewModel.delete(txId) { result ->
+                    if (result == PortfolioWriteResult.OK) {
+                        haptics.play(HapticEvent.DESTRUCTIVE)
+                        onDismiss()
+                    } else {
+                        haptics.play(HapticEvent.ERROR)
+                        val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
+                        scope.launch {
+                            saveErrorHost.showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
+                        }
+                    }
+                }
+            },
+        )
     }
 }

@@ -122,64 +122,7 @@ internal fun WhySheet(
                     .verticalScroll(rememberScrollState())
                     .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             ) {
-                // Kopf: Frage, Paar, Kurs, 1h/24h
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painterResource(R.drawable.ic_lightbulb),
-                        null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Text(
-                        watch.baseAsset.takeIf { it.isNotBlank() }
-                            ?.let { stringResource(R.string.why_title_coin, it) }
-                            ?: stringResource(R.string.why_title),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-                }
-                Text(
-                    watch.displayName,
-                    style = MaterialTheme.typography.headline,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(top = Spacing.xs)
-                )
-                Text(
-                    watch.exchangeName,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                val report = (state as? WhyState.Loaded)?.report
-                val candleNote = candleSource?.takeIf { report?.change24h != null }
-                    ?.let { stringResource(R.string.change_candle_source, it) }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
-                ) {
-                    Text(
-                        PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-                        style = MaterialTheme.typography.titleLarge.tabularNumbers(),
-                        fontWeight = FontWeight.SemiBold,
-                        // Grosse Schrift: Kurs bricht um statt abgeschnitten zu werden
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f)
-                    )
-                    ChangeBadge(stringResource(R.string.why_change_1h), report?.change1h)
-                    Spacer(Modifier.width(8.dp))
-                    ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h, note = candleNote)
-                }
-                // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
-                if (candleNote != null) {
-                    Text(
-                        candleNote,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = Spacing.sm),
-                        textAlign = TextAlign.End
-                    )
-                }
+                WhyHeader(watch = watch, report = (state as? WhyState.Loaded)?.report, candleSource = candleSource)
 
                 // Oben kurz: «Kurz gesagt · Stand …» mit Satz und auffälligen Faktoren;
                 // darunter zugeklappt «Alle Werte und Quellen» (Beobachtung, Mögliche Einordnung,
@@ -228,5 +171,67 @@ internal fun WhySheet(
                 )
             }
         }
+    }
+}
+
+/** Kopf von «Was bewegt sich mit?» ([WhySheet]): Frage, Paar, Kurs, 1h/24h und woher ein fremder 24-h-Wert stammt. */
+@Composable
+private fun WhyHeader(watch: WatchEntity, report: WhyReport?, candleSource: String?) {
+    // Kopf: Frage, Paar, Kurs, 1h/24h
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            painterResource(R.drawable.ic_lightbulb),
+            null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(18.dp)
+        )
+        Text(
+            watch.baseAsset.takeIf { it.isNotBlank() }
+                ?.let { stringResource(R.string.why_title_coin, it) }
+                ?: stringResource(R.string.why_title),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+    }
+    Text(
+        watch.displayName,
+        style = MaterialTheme.typography.headline,
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier.padding(top = Spacing.xs)
+    )
+    Text(
+        watch.exchangeName,
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+    val candleNote = candleSource?.takeIf { report?.change24h != null }
+        ?.let { stringResource(R.string.change_candle_source, it) }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
+    ) {
+        Text(
+            PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
+            style = MaterialTheme.typography.titleLarge.tabularNumbers(),
+            fontWeight = FontWeight.SemiBold,
+            // Grosse Schrift: Kurs bricht um statt abgeschnitten zu werden
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
+        )
+        ChangeBadge(stringResource(R.string.why_change_1h), report?.change1h)
+        Spacer(Modifier.width(8.dp))
+        ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h, note = candleNote)
+    }
+    // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+    if (candleNote != null) {
+        Text(
+            candleNote,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = Spacing.sm),
+            textAlign = TextAlign.End
+        )
     }
 }

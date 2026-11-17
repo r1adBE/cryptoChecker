@@ -165,34 +165,19 @@ internal fun PortfolioScreenDialogs(
     }
 
     if (askClear) {
-        AlertDialog(
-            onDismissRequest = { onAskClearChange(false) },
-            title = { Text(stringResource(R.string.portfolio_clear)) },
-            // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht); «Rückgängig» danach
-            text = {
-                DialogText {
-                    val count = transactions?.size ?: 0
-                    Text(pluralStringResource(R.plurals.portfolio_clear_confirm_count, count, count))
-                }
-            },
-            confirmButton = {
-                // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
-                TextButton(onClick = {
-                    onAskClearChange(false)
-                    // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); nicht geschrieben: Hinweis
-                    viewModel.clearAll(onFailed = notSaved) { removed ->
-                        haptics.play(HapticEvent.DESTRUCTIVE)
-                        banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
-                            viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) }
-                        }
+        ClearPortfolioDialog(
+            count = transactions?.size ?: 0,
+            onConfirm = {
+                onAskClearChange(false)
+                // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); nicht geschrieben: Hinweis
+                viewModel.clearAll(onFailed = notSaved) { removed ->
+                    haptics.play(HapticEvent.DESTRUCTIVE)
+                    banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
+                        viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) }
                     }
-                }) {
-                    Text(stringResource(R.string.portfolio_clear), color = MaterialTheme.colorScheme.error)
                 }
             },
-            dismissButton = {
-                TextButton(onClick = { onAskClearChange(false) }) { Text(stringResource(R.string.action_cancel)) }
-            }
+            onDismiss = { onAskClearChange(false) },
         )
     }
 }
@@ -253,3 +238,27 @@ private fun CurrencyDialog(selected: String, onSelect: (String) -> Unit, onDismi
 
 /** So lange steht «Alarm gespeichert … · Mitteilungen aus» mit «Einstellungen». */
 private const val SAVED_ALARM_MILLIS = 8_000L
+
+/** Rückfrage «Portfolio leeren» ([PortfolioScreenDialogs]) mit der Anzahl; beobachtete Adressen bleiben. */
+@Composable
+private fun ClearPortfolioDialog(count: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.portfolio_clear)) },
+        // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht); «Rückgängig» danach
+        text = {
+            DialogText {
+                Text(pluralStringResource(R.plurals.portfolio_clear_confirm_count, count, count))
+            }
+        },
+        confirmButton = {
+            // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(R.string.portfolio_clear), color = MaterialTheme.colorScheme.error)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        }
+    )
+}

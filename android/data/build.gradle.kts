@@ -47,6 +47,23 @@ room {
     schemaDirectory("$rootDir/app/schemas")
 }
 
+// Nach KSP prüfen, dass Room seine Klassen erzeugt hat — fehlen sie, bricht der Build hier ab statt mit einem APK, das
+// beim Start abstürzt («AppDatabase_Impl does not exist»; siehe KspSerial im Wurzel-Buildskript)
+val roomImpls = listOf(
+    "com/cryptochecker/app/data/local/AppDatabase_Impl.kt",
+    "com/cryptochecker/app/data/portfolio/PortfolioDatabase_Impl.kt",
+)
+tasks.matching { Regex("ksp\\w+Kotlin").matches(it.name) && !it.name.contains("Test") }.configureEach {
+    val variant = name.removePrefix("ksp").removeSuffix("Kotlin").replaceFirstChar { it.lowercase() }
+    val out = layout.buildDirectory.dir("generated/ksp/$variant/kotlin")
+    // Liste als lokale Kopie: die Aktion darf das Buildskript nicht festhalten (Konfigurations-Cache)
+    val expected = roomImpls.toList()
+    doLast("checkRoomOutput") {
+        val missing = expected.filterNot { out.get().file(it).asFile.isFile }
+        check(missing.isEmpty()) { "KSP hat die Room-Klassen nicht erzeugt: $missing" }
+    }
+}
+
 // Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).
 
 dependencies {
