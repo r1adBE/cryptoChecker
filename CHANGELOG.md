@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 290)
+
+- iPad (all orientations) and landscape on iPhone.
+
 ## 16.2.2 (build 289)
 
 - Back up automatically: weekly, encrypted, into a folder you choose (e.g. Google Drive or iCloud Drive); the newest 4 files are kept.

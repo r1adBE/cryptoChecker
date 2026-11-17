@@ -28,8 +28,8 @@ final class AutoBackup: ObservableObject {
     private static let successKey = "auto_backup_last_success_at"
     private static let attemptKey = "auto_backup_last_attempt_at"
     private static let failedKey = "auto_backup_last_failed"
-    private static let service = "com.cryptochecker.auto-backup"
-    private static let account = "password"
+    nonisolated private static let service = "com.cryptochecker.auto-backup"
+    nonisolated private static let account = "password"
 
     private init() { state = read() }
 

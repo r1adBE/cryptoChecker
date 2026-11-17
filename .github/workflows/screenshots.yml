@@ -1,6 +1,7 @@
 # Screenshots of every main screen of both apps, light and dark, published to the orphan branch «screenshots»
 # (one commit, replaced on every run), so they can be fetched with plain git: git fetch origin screenshots.
-# Layout there: android/<light|dark>/NN_name.png, ios/<light|dark>/NN_name.png and README.md with the source commit.
+# Layout there: android/<light|dark>/NN_name.png, ios/<light|dark>/NN_name.png (iPhone), ipad/<light|dark>/NN_name.png and
+# README.md with the source commit.
 # Both tours answer every request offline: fake exchanges plus canned market data (CoinGecko, Fear & Greed, Coin Metrics,
 # funding, fees, candles, USDT/USD), generated at the current time and switched on only for the tour
 # (Android FakeExchange.marketData, iOS UITestExchange.marketData), so the market tab and portfolio values show content.
@@ -137,9 +138,13 @@ jobs:
           fi
 
   ios:
-    # Same runner and toolchain as ios.yml (Xcode 26 / iOS 26 SDK)
+    # Same runner and toolchain as ios.yml (Xcode 26 / iOS 26 SDK); iPhone and iPad 13" (App Store needs both)
     runs-on: macos-26
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        device: [iphone, ipad]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -155,14 +160,23 @@ jobs:
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
 
-      # Simulator: "iPhone 17" if the installed Xcode has it, otherwise its first available iPhone (as in ios.yml).
+      # Simulator: "iPhone 17" if the installed Xcode has it, otherwise its first available iPhone (as in ios.yml);
+      # iPad: the first available «iPad Pro 13-inch» (13" screenshots for the App Store), otherwise any iPad Pro.
       # Booted here so the status bar can be fixed (9:41, full battery; cosmetic, failures ignored).
       - name: Pick and boot iOS Simulator
+        env:
+          KIND: ${{ matrix.device }}
         run: |
-          DEVICE="iPhone 17"
-          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
-            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          if [ "$KIND" = ipad ]; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPad Pro 13-inch[^()]*' | sed 's/ *$//')
+            [ -n "$DEVICE" ] || DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPad Pro [^()]+' | sed 's/ *$//')
+          else
+            DEVICE="iPhone 17"
+            if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+              DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+            fi
           fi
+          [ -n "$DEVICE" ] || { echo "::error::no $KIND simulator"; exit 1; }
           echo "Simulator: $DEVICE"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
           xcrun simctl boot "$DEVICE" || true
@@ -247,7 +261,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: screenshots-ios
+          name: screenshots-${{ matrix.device == 'ipad' && 'ipad' || 'ios' }}
           path: ${{ runner.temp }}/screenshots/ios/
           if-no-files-found: warn
           retention-days: 3
@@ -256,7 +270,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: xcode-logs-screenshots
+          name: xcode-logs-screenshots-${{ matrix.device }}
           path: ${{ runner.temp }}/xcode-screenshots.log
           if-no-files-found: ignore
           retention-days: 7
@@ -280,8 +294,8 @@ jobs:
           ANDROID_RESULT: ${{ needs.android.result }}
           IOS_RESULT: ${{ needs.ios.result }}
         run: |
-          for p in android ios; do
-            result=ANDROID_RESULT; [ "$p" = ios ] && result=IOS_RESULT
+          for p in android ios ipad; do
+            result=ANDROID_RESULT; [ "$p" != android ] && result=IOS_RESULT
             if [ "${!result}" != success ]; then
               echo "::warning title=Screenshots::$p job ${!result}: its previous set is kept (partial images only as run artifact)"
               continue
@@ -301,7 +315,7 @@ jobs:
           src, dst = sys.argv[1], sys.argv[2]
           name_re = re.compile(r"\d{2}_[a-z0-9_]{1,40}\.png\Z")
           found = []
-          for platform in ("android", "ios"):
+          for platform in ("android", "ios", "ipad"):
               root = os.path.join(src, platform)
               if not os.path.isdir(root):
                   continue
@@ -359,7 +373,7 @@ jobs:
           fi
           NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           LINES=""
-          for p in android ios; do
+          for p in android ios ipad; do
             if [[ " $PLATFORMS " == *" $p "* ]]; then
               LINES+="- $p: $GITHUB_SHA ($NOW)"$'\n'
             elif [ -d "$PREV/$p" ]; then
@@ -380,7 +394,7 @@ jobs:
             echo
             printf '%s' "$LINES"
             echo
-            echo 'Layout: `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png`.'
+            echo 'Layout: `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png` (iPhone), `ipad/<light|dark>/NN_name.png`.'
           } > "$SITE/README.md"
           # Kept folders come from the previous branch: same rules as «Check screenshots» before anything is pushed
           python3 -I - "$SITE" <<'PY'
@@ -388,9 +402,9 @@ jobs:
           site = sys.argv[1]
           name_re = re.compile(r"\d{2}_[a-z0-9_]{1,40}\.png\Z")
           for entry in os.listdir(site):
-              if entry not in ("android", "ios", "README.md"):
+              if entry not in ("android", "ios", "ipad", "README.md"):
                   sys.exit(f"::error title=Screenshots::unexpected entry {entry}")
-          for platform in ("android", "ios"):
+          for platform in ("android", "ios", "ipad"):
               root = os.path.join(site, platform)
               if not os.path.isdir(root):
                   continue
