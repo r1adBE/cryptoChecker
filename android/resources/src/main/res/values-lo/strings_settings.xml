@@ -219,6 +219,8 @@
     <string name="theme_dark">ມືດ</string>
     <string name="theme_light">ສະຫວ່າງ</string>
     <string name="theme_system">ລະບົບ</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">ຄືກັບແອັບ</string>
     <string name="theme_scheduled">ຕາມເວລາ</string>
     <string name="theme_dark_from">ມືດແຕ່</string>
     <string name="theme_light_from">ສະຫວ່າງແຕ່</string>

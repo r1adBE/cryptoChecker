@@ -221,6 +221,8 @@
     <string name="theme_dark">ጨለማ</string>
     <string name="theme_light">ብሩህ</string>
     <string name="theme_system">ሲስተም</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">እንደ መተግበሪያው</string>
     <string name="theme_scheduled">በሰዓት</string>
     <string name="theme_dark_from">ጨለማ ከ</string>
     <string name="theme_light_from">ብሩህ ከ</string>

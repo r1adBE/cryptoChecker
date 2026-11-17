@@ -223,6 +223,8 @@
     <string name="theme_dark">Tumšs</string>
     <string name="theme_light">Gaišs</string>
     <string name="theme_system">Sistēmas</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Kā lietotnē</string>
     <string name="theme_scheduled">Pēc laika</string>
     <string name="theme_dark_from">Tumšs no</string>
     <string name="theme_light_from">Gaišs no</string>

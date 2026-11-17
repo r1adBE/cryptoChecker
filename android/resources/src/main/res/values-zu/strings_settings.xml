@@ -221,6 +221,8 @@
     <string name="theme_dark">Kumnyama</string>
     <string name="theme_light">Kukhanyayo</string>
     <string name="theme_system">Isistimu</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Njengohlelo lokusebenza</string>
     <string name="theme_scheduled">Ngesikhathi</string>
     <string name="theme_dark_from">Kumnyama kusukela</string>
     <string name="theme_light_from">Kukhanyayo kusukela</string>

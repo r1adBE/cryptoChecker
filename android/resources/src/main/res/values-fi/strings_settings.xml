@@ -221,6 +221,8 @@
     <string name="theme_dark">Tumma</string>
     <string name="theme_light">Vaalea</string>
     <string name="theme_system">Järjestelmä</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Kuten sovellus</string>
     <string name="theme_scheduled">Kellonajan mukaan</string>
     <string name="theme_dark_from">Tumma alkaen</string>
     <string name="theme_light_from">Vaalea alkaen</string>

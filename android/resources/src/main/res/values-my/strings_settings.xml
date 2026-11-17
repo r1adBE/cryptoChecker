@@ -219,6 +219,8 @@
     <string name="theme_dark">အမှောင်</string>
     <string name="theme_light">အလင်း</string>
     <string name="theme_system">စနစ်</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">အက်ပ်အတိုင်း</string>
     <string name="theme_scheduled">အချိန်အလိုက်</string>
     <string name="theme_dark_from">အမှောင် စတင်ချိန်</string>
     <string name="theme_light_from">အလင်း စတင်ချိန်</string>

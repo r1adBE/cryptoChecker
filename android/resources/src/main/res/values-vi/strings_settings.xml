@@ -219,6 +219,8 @@
     <string name="theme_dark">Tối</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_system">Hệ thống</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Như ứng dụng</string>
     <string name="theme_scheduled">Theo giờ</string>
     <string name="theme_dark_from">Tối từ</string>
     <string name="theme_light_from">Sáng từ</string>

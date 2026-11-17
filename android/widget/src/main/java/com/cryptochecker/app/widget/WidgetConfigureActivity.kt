@@ -241,7 +241,7 @@ private fun WidgetConfigureContent(
                 style = MaterialTheme.typography.bodyMedium
             )
             val themes = listOf(
-                WidgetTheme.SYSTEM to R.string.theme_system,
+                WidgetTheme.SYSTEM to R.string.widget_theme_app,
                 WidgetTheme.DARK to R.string.theme_dark,
                 WidgetTheme.LIGHT to R.string.theme_light,
             )

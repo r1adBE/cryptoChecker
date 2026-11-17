@@ -221,6 +221,8 @@
     <string name="theme_dark">Giza</string>
     <string name="theme_light">Mwanga</string>
     <string name="theme_system">Mfumo</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Kama programu</string>
     <string name="theme_scheduled">Kwa saa</string>
     <string name="theme_dark_from">Giza kuanzia</string>
     <string name="theme_light_from">Mwanga kuanzia</string>

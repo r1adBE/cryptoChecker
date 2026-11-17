@@ -219,6 +219,8 @@
     <string name="theme_dark">深色</string>
     <string name="theme_light">浅色</string>
     <string name="theme_system">跟随系统</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">与应用相同</string>
     <string name="theme_scheduled">按时间</string>
     <string name="theme_dark_from">深色开始</string>
     <string name="theme_light_from">浅色开始</string>

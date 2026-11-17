@@ -221,6 +221,8 @@
     <string name="theme_dark">Sötét</string>
     <string name="theme_light">Világos</string>
     <string name="theme_system">Rendszer</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Mint az app</string>
     <string name="theme_scheduled">Időpont szerint</string>
     <string name="theme_dark_from">Sötét ettől</string>
     <string name="theme_light_from">Világos ettől</string>

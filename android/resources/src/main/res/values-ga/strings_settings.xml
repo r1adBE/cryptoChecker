@@ -227,6 +227,8 @@
     <string name="theme_dark">Dorcha</string>
     <string name="theme_light">Geal</string>
     <string name="theme_system">Córas</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Mar an aip</string>
     <string name="theme_scheduled">De réir ama</string>
     <string name="theme_dark_from">Dorcha ó</string>
     <string name="theme_light_from">Geal ó</string>

@@ -314,7 +314,7 @@ private fun PortfolioWidgetConfigureContent(
                 modifier = Modifier.padding(top = 16.dp)
             )
             val themes = listOf(
-                WidgetTheme.SYSTEM to R.string.theme_system,
+                WidgetTheme.SYSTEM to R.string.widget_theme_app,
                 WidgetTheme.DARK to R.string.theme_dark,
                 WidgetTheme.LIGHT to R.string.theme_light,
             )

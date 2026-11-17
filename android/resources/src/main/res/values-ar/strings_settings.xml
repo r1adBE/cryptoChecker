@@ -229,6 +229,8 @@
     <string name="theme_dark">داكن</string>
     <string name="theme_light">فاتح</string>
     <string name="theme_system">النظام</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">مثل التطبيق</string>
     <string name="theme_scheduled">حسب الوقت</string>
     <string name="theme_dark_from">داكن من</string>
     <string name="theme_light_from">فاتح من</string>

@@ -223,6 +223,8 @@
     <string name="theme_dark">Sombre</string>
     <string name="theme_light">Clair</string>
     <string name="theme_system">Système</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Comme l’app</string>
     <string name="theme_scheduled">Selon l’heure</string>
     <string name="theme_dark_from">Sombre dès</string>
     <string name="theme_light_from">Clair dès</string>

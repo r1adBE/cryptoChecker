@@ -219,6 +219,8 @@
     <string name="theme_dark">ងងឹត</string>
     <string name="theme_light">ភ្លឺ</string>
     <string name="theme_system">ប្រព័ន្ធ</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">ដូចកម្មវិធី</string>
     <string name="theme_scheduled">តាមម៉ោង</string>
     <string name="theme_dark_from">ងងឹតចាប់ពី</string>
     <string name="theme_light_from">ភ្លឺចាប់ពី</string>

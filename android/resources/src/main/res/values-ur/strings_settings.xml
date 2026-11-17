@@ -221,6 +221,8 @@
     <string name="theme_dark">تاریک</string>
     <string name="theme_light">روشن</string>
     <string name="theme_system">سسٹم</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">ایپ کی طرح</string>
     <string name="theme_scheduled">وقت کے مطابق</string>
     <string name="theme_dark_from">تاریک از</string>
     <string name="theme_light_from">روشن از</string>

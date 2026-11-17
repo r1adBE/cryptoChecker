@@ -221,6 +221,8 @@
     <string name="theme_dark">E errët</string>
     <string name="theme_light">E çelët</string>
     <string name="theme_system">Sistemi</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Si aplikacioni</string>
     <string name="theme_scheduled">Sipas orës</string>
     <string name="theme_dark_from">E errët nga</string>
     <string name="theme_light_from">E çelët nga</string>

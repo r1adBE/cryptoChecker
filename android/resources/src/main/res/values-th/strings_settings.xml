@@ -219,6 +219,8 @@
     <string name="theme_dark">มืด</string>
     <string name="theme_light">สว่าง</string>
     <string name="theme_system">ระบบ</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">เหมือนแอป</string>
     <string name="theme_scheduled">ตามเวลา</string>
     <string name="theme_dark_from">มืดตั้งแต่</string>
     <string name="theme_light_from">สว่างตั้งแต่</string>

@@ -9,7 +9,7 @@ enum WidgetThemeOption: String, AppEnum {
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_background"
 
     static let caseDisplayRepresentations: [WidgetThemeOption: DisplayRepresentation] = [
-        .system: "theme_system",
+        .system: "widget_theme_app",
         .dark: "theme_dark",
         .light: "theme_light"
     ]

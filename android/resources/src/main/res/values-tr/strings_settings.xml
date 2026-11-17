@@ -221,6 +221,8 @@
     <string name="theme_dark">Koyu</string>
     <string name="theme_light">Açık</string>
     <string name="theme_system">Sistem</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Uygulama gibi</string>
     <string name="theme_scheduled">Saate göre</string>
     <string name="theme_dark_from">Koyu başlangıcı</string>
     <string name="theme_light_from">Açık başlangıcı</string>

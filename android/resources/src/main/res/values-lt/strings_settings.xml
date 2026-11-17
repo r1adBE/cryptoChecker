@@ -225,6 +225,8 @@
     <string name="theme_dark">Tamsi</string>
     <string name="theme_light">Šviesi</string>
     <string name="theme_system">Sistemos</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Kaip programėlėje</string>
     <string name="theme_scheduled">Pagal laiką</string>
     <string name="theme_dark_from">Tamsi nuo</string>
     <string name="theme_light_from">Šviesi nuo</string>

@@ -221,6 +221,8 @@
     <string name="theme_dark">Dökkt</string>
     <string name="theme_light">Ljóst</string>
     <string name="theme_system">Kerfi</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Eins og appið</string>
     <string name="theme_scheduled">Eftir tíma</string>
     <string name="theme_dark_from">Dökkt frá</string>
     <string name="theme_light_from">Ljóst frá</string>

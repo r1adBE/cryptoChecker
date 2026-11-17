@@ -221,6 +221,8 @@
     <string name="theme_dark">Tume</string>
     <string name="theme_light">Hele</string>
     <string name="theme_system">Süsteem</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Nagu rakendus</string>
     <string name="theme_scheduled">Kellaaja järgi</string>
     <string name="theme_dark_from">Tume alates</string>
     <string name="theme_light_from">Hele alates</string>

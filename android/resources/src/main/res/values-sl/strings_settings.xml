@@ -225,6 +225,8 @@
     <string name="theme_dark">Temno</string>
     <string name="theme_light">Svetlo</string>
     <string name="theme_system">Sistem</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Kot aplikacija</string>
     <string name="theme_scheduled">Po uri</string>
     <string name="theme_dark_from">Temno od</string>
     <string name="theme_light_from">Svetlo od</string>

@@ -221,6 +221,8 @@
     <string name="theme_dark">მუქი</string>
     <string name="theme_light">ღია</string>
     <string name="theme_system">სისტემური</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">აპის მსგავსად</string>
     <string name="theme_scheduled">დროის მიხედვით</string>
     <string name="theme_dark_from">მუქი იწყება</string>
     <string name="theme_light_from">ღია იწყება</string>

@@ -221,6 +221,8 @@
     <string name="theme_dark">Σκοτεινό</string>
     <string name="theme_light">Φωτεινό</string>
     <string name="theme_system">Σύστημα</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Όπως η εφαρμογή</string>
     <string name="theme_scheduled">Βάσει ώρας</string>
     <string name="theme_dark_from">Σκοτεινό από</string>
     <string name="theme_light_from">Φωτεινό από</string>

@@ -221,6 +221,8 @@
     <string name="theme_dark">Mørk</string>
     <string name="theme_light">Lys</string>
     <string name="theme_system">System</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Som appen</string>
     <string name="theme_scheduled">Etter klokkeslett</string>
     <string name="theme_dark_from">Mørk fra</string>
     <string name="theme_light_from">Lys fra</string>

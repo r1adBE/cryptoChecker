@@ -221,6 +221,8 @@
     <string name="theme_dark">ડાર્ક</string>
     <string name="theme_light">લાઇટ</string>
     <string name="theme_system">સિસ્ટમ</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">ઍપ જેવું</string>
     <string name="theme_scheduled">સમય મુજબ</string>
     <string name="theme_dark_from">ડાર્ક શરૂ</string>
     <string name="theme_light_from">લાઇટ શરૂ</string>

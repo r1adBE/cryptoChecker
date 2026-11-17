@@ -223,6 +223,8 @@
     <string name="theme_dark">כהה</string>
     <string name="theme_light">בהיר</string>
     <string name="theme_system">מערכת</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">כמו האפליקציה</string>
     <string name="theme_scheduled">לפי שעה</string>
     <string name="theme_dark_from">כהה מ־</string>
     <string name="theme_light_from">בהיר מ־</string>

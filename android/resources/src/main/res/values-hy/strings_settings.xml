@@ -221,6 +221,8 @@
     <string name="theme_dark">Մուգ</string>
     <string name="theme_light">Բաց</string>
     <string name="theme_system">Համակարգային</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Ինչպես հավելվածը</string>
     <string name="theme_scheduled">Ըստ ժամի</string>
     <string name="theme_dark_from">Մուգ՝ սկսած</string>
     <string name="theme_light_from">Բաց՝ սկսած</string>

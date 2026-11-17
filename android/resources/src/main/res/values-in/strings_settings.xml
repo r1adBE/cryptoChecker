@@ -219,6 +219,8 @@
     <string name="theme_dark">Gelap</string>
     <string name="theme_light">Terang</string>
     <string name="theme_system">Sistem</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Seperti aplikasi</string>
     <string name="theme_scheduled">Menurut waktu</string>
     <string name="theme_dark_from">Gelap mulai</string>
     <string name="theme_light_from">Terang mulai</string>

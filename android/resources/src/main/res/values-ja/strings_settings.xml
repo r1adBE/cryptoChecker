@@ -219,6 +219,8 @@
     <string name="theme_dark">ダーク</string>
     <string name="theme_light">ライト</string>
     <string name="theme_system">システム</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">アプリと同じ</string>
     <string name="theme_scheduled">時刻で切り替え</string>
     <string name="theme_dark_from">ダーク開始</string>
     <string name="theme_light_from">ライト開始</string>

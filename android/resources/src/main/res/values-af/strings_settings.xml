@@ -221,6 +221,8 @@
     <string name="theme_dark">Donker</string>
     <string name="theme_light">Lig</string>
     <string name="theme_system">Stelsel</string>
+    <!-- Widget-Hintergrund «System»: folgt der Darstellung der App (Hell, Dunkel, Nach Uhrzeit, wie das Gerät) -->
+    <string name="widget_theme_app">Soos die app</string>
     <string name="theme_scheduled">Volgens tyd</string>
     <string name="theme_dark_from">Donker vanaf</string>
     <string name="theme_light_from">Lig vanaf</string>

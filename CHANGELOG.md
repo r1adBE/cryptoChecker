@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 291)
+
+- Widget background choice «System» is now called «Like the app».
+
 ## 16.2.2 (build 290)
 
 - iPad (all orientations) and landscape on iPhone.
