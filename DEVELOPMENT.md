@@ -3264,6 +3264,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 279: iOS coin logo network tests forget image server pauses before and after each test (a pause from an earlier test made one fail).
 * Build 280: A-01 part 2 (10): portfolio settings questions as a device test; iOS questions and tax sheet contents as rule portfolio-settings-confirm; Wear OS phone deletions as rule watch-deletion. CI: Gradle warm-up up to five attempts over about ten minutes.
 * Build 281: A-01 part 2 (11): eleven iOS XCTest source checks as the table of source rule ios-wiring.
+* Build 282: A-01 part 2 (12): more iOS XCTest source checks into rule ios-wiring (portfolio alarm notification, portfolio storage notice and hidden amounts, watch without iPhone app, backup and restore, Live Activity, full refresh time); the rule also counts occurrences.
 
 ## Known warnings
 

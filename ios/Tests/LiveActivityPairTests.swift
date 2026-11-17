@@ -20,15 +20,4 @@ final class LiveActivityPairTests: XCTestCase {
         XCTAssertFalse(attributes.matches(watch(1, "BTC", exchange: "Kraken")))
         XCTAssertFalse(attributes.matches(watch(2, "BTC")))
     }
-
-    func testControllerRestartsOnChangedPair() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let controller = try String(contentsOf: root.appendingPathComponent("App/Services/LiveActivityController.swift"),
-                                    encoding: .utf8)
-        XCTAssertTrue(controller.contains("watches.first(where: { activity.attributes.matches($0) })"))
-        // Eintrag noch da, anderes Paar: beenden und mit dem neuen Paar neu starten
-        XCTAssertTrue(controller.contains("if watches.contains(where: { $0.id == id }) { replaced.append(id) }"))
-        XCTAssertTrue(controller.contains(
-            "if let id = replaced.first, let watch = watches.first(where: { $0.id == id }) { _ = await start(watch) }"))
-    }
 }

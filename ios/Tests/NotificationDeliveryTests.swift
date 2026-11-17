@@ -178,14 +178,8 @@ final class FearGreedBoundChangeTests: XCTestCase {
 /// Portfolio-Alarme auf dem Sperrbildschirm immer privat: Kategorie mit neutraler verborgener Vorschau,
 /// unabhängig von der Portfolio-Sperre — Android gleich (neutraler Inhalt, dazu VISIBILITY_PRIVATE).
 final class PortfolioAlarmLockScreenTests: XCTestCase {
-    func testPortfolioAlarmCategoryIsAlwaysPrivate() throws {
+    func testPortfolioAlarmCategoryIsAlwaysPrivate() {
         XCTAssertEqual(Notifier.categoryPortfolioLocked, "portfolio_locked")
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let source = try String(contentsOf: root.appendingPathComponent("Shared/Services/Notifier.swift"), encoding: .utf8)
-        XCTAssertTrue(source.contains("content.categoryIdentifier = Notifier.categoryPortfolioLocked\n"))
-        // Kein Betrags-Text mehr in der Mitteilung (nur in der App)
-        XCTAssertFalse(source.contains("notification_portfolio_alarm_text"))
-        XCTAssertFalse(source.contains("PortfolioAlarmTexts."))
-        XCTAssertFalse(source.contains("settings.appLock ? categoryPortfolioLocked : categoryAlarm"))
+        // Kategorie gesetzt, kein Betrags-Text in der Mitteilung: Regel ios-wiring (source_rules.py)
     }
 }

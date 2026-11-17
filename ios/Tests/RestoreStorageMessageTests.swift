@@ -31,10 +31,7 @@ final class RestoreStorageMessageTests: XCTestCase {
 
     func testLongMessageAndWiring() throws {
         XCTAssertTrue(BackupResultPresentation.longKeys.contains("backup_restore_storage_unavailable"))
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let page = try String(contentsOf: root.appendingPathComponent("App/Features/Settings/SettingsDataPages.swift"),
-                              encoding: .utf8)
-        XCTAssertTrue(page.contains("fail(BackupManager.restoreFailureKey(error))"))
+        // Anbindung in SettingsDataPages: Regel ios-wiring (source_rules.py)
         let key = BackupManager.restoreFailureKey(BackupManager.Failure.invalid(BackupManager.watchlistStep))
         XCTAssertEqual(key, "backup_restore_storage_unavailable")
         XCTAssertEqual(BackupManager.restoreFailureKey(BackupManager.Failure.invalid("portfolio")), "backup_failed")

@@ -11,14 +11,6 @@ final class WatchForgetPhoneTests: XCTestCase {
         return try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
     }
 
-    func testLinkForgetsWithoutCompanionApp() throws {
-        let link = try source("Watch/WatchLink.swift")
-        XCTAssertTrue(link.contains("func sessionCompanionAppInstalledDidChange(_ session: WCSession)"))
-        XCTAssertTrue(link.contains("guard !session.isCompanionAppInstalled else { return }"))
-        XCTAssertTrue(link.contains("let companion = session.isCompanionAppInstalled"))
-        XCTAssertEqual(link.components(separatedBy: "WatchModel.shared.forgetPhone()").count - 1, 2)
-    }
-
     /// Ohne Stand des iPhones bleibt die geänderte Wahl der Uhr, der iPhone-Teil fällt auf Standard.
     func testForgetPhoneKeepsOwnChoice() {
         var local = WatchSettings()

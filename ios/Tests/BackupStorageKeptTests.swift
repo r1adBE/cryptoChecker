@@ -45,34 +45,6 @@ final class BackupStorageKeptTests: XCTestCase {
         XCTAssertFalse(ProtectedFile.unreadableIsDamaged(dir.appendingPathComponent("fehlt.json"), keys: keys))
     }
 
-    /// Sichern (Start und vor dem Schreiben) und Wiederherstellen fragen vorher; `restore` lehnt selbst auch ab (nur
-    /// gesperrt). Beschädigte Teile kommen vor dem Ersetzen daneben und beim Zurückrollen zurück.
-    func testSeiteUndRestorePruefen() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func source(_ path: String) throws -> String {
-            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
-        }
-        let page = try source("App/Features/Settings/SettingsDataPages.swift")
-        let backup = "if let key = BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }"
-        XCTAssertEqual(page.components(separatedBy: backup).count - 1, 2)
-        let restoreGuard = "if let key = BackupManager.restoreRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }"
-        XCTAssertEqual(page.components(separatedBy: restoreGuard).count - 1, 1)
-        let manager = try source("App/Services/BackupManager.swift")
-        XCTAssertTrue(manager.contains("if journal && storageAccess(data) == .locked { throw Failure.storageKept }"))
-        XCTAssertTrue(manager.contains("if !journal { putBackJournalDamaged(root, into: data) }"))
-        let restore = try source("App/Services/BackupManager+Restore.swift")
-        XCTAssertTrue(restore.contains("try requireJournal(try? journalData(data)"))
-        XCTAssertTrue(restore.contains(
-            "undo: { _ = rollBackPortfolio(previous.portfolio, wasIntact: previous.portfolioIntact, into: data) })"))
-        XCTAssertTrue(restore.contains("guard WatchedAddressStore.setAsideUnreadable(at: SharedStorage.portfolioAlarmsURL) else {"))
-        let portfolio = try source("App/Services/BackupManager+PortfolioFile.swift")
-        XCTAssertTrue(portfolio.contains(
-            "guard ProtectedFile.unreadableIsDamaged(PortfolioStore.url), PortfolioStore.setAsideUnreadable() else { return false }"))
-        let addresses = try source("App/Services/AppData+WatchedAddresses.swift")
-        XCTAssertTrue(addresses.contains(
-            "guard ProtectedFile.unreadableIsDamaged(WatchedAddressStore.url), WatchedAddressStore.setAsideUnreadable() else { return false }"))
-    }
-
     /// Daneben gelegt und zurückgelegt: Bytes exakt, auch für die Portfolio-Datei.
     func testBeiseiteUndZurueck() throws {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("aside-\(UUID().uuidString)")

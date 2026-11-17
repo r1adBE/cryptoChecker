@@ -47,28 +47,6 @@ final class RefreshDebounceParityTests: XCTestCase {
         XCTAssertEqual(RefreshDebounce.decide(running: false, lastFinishedAt: SharedStorage.lastFullRefreshAt, now: now),
                        .start)
     }
-
-    /// Knopf, Ziehen, Menü-Countdown und Widget-Knopf lesen `lastFullRefreshAt`; Live-Kurse setzen es nie.
-    func testCallersUseTheFullRefreshTime() throws {
-        let ios = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func text(_ path: String) throws -> String {
-            try String(contentsOf: ios.appendingPathComponent(path), encoding: .utf8)
-        }
-        let callers = ["App/Services/AppData+Refresh.swift", "App/Features/Watchlist/WatchlistList.swift",
-                       "App/Features/Watchlist/WatchlistRefreshCountdown.swift", "Widgets/WidgetIntents.swift",
-                       "Widgets/WatchlistWidget.swift"]
-        for path in callers {
-            let source = try text(path)
-            XCTAssertTrue(source.contains("lastFinishedAt: SharedStorage.lastFullRefreshAt"), path)
-            XCTAssertFalse(source.contains("lastFinishedAt: SharedStorage.lastRefreshAt"), path)
-            XCTAssertFalse(source.contains("lastFinishedAt: entry.lastRefreshAt"), path)
-        }
-        XCTAssertTrue(try text("App/Features/Watchlist/WatchlistRefreshCountdown.swift")
-            .contains("let last = SharedStorage.lastFullRefreshAt"))
-        let live = try text("App/Services/AppData+Live.swift")
-        XCTAssertFalse(live.contains("markFullRefresh"))
-        XCTAssertFalse(live.contains("lastFullRefreshAt ="))
-    }
 }
 
 // ---- aus RefreshEffectsDerivativesTests
