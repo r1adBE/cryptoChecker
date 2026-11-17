@@ -159,7 +159,7 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(Set(trades.map(\.id)).count, trades.count)
     }
 
-    /// Sprung auf 0: erst der zweite gleiche Abruf gilt (N3-13/N3-14, `address_balance.json` › «zeroConfirm»).
+    /// Sprung auf 0: erst der zweite gleiche Abruf gilt (`address_balance.json` › «zeroConfirm»).
     func testZeroConfirm() throws {
         let block = try XCTUnwrap(try data()["zeroConfirm"] as? [String: Any])
         let cases = S.list(block["cases"])

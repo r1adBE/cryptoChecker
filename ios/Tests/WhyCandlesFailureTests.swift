@@ -2,7 +2,7 @@ import XCTest
 import os
 @testable import CryptoChecker
 
-/// V4-02: «Was bewegt sich mit?» ohne Kerzen – offline bzw. Zeitgrenze ist «nicht abrufbar» (mit «Erneut versuchen»),
+/// «Was bewegt sich mit?» ohne Kerzen – offline bzw. Zeitgrenze ist «nicht abrufbar» (mit «Erneut versuchen»),
 /// nur sonst «keine Stundenkerzen für dieses Paar». Android: WhyCandlesFailureTest.
 final class WhyCandlesFailureTests: XCTestCase {
     func testOfflineGehtVor() {
@@ -19,9 +19,9 @@ final class WhyCandlesFailureTests: XCTestCase {
         XCTAssertNil(ActivityAnalyzer.notLive(now: 1).candlesFailure)
     }
 
-    /// «Erneut versuchen» (`refresh`) fragt neu statt den gemerkten Leerstand zu liefern (Audit A-01, früher
-    /// Quelltext-Wächter): echter `ActivityMonitor` über `ExchangeHTTP.testTransport`, ein unbekannter Coin hat keine
-    /// Kerzen. Android: `WhyEmptyStateDeviceTest` (dort auch der Leerzustand mit der Börse des Paars).
+    /// «Erneut versuchen» (`refresh`) fragt neu statt den gemerkten Leerstand zu liefern: echter `ActivityMonitor` über
+    /// `ExchangeHTTP.testTransport`, ein unbekannter Coin hat keine Kerzen. Android: `WhyEmptyStateDeviceTest` (dort
+    /// auch der Leerzustand mit der Börse des Paars).
     func testRetryAsksAgainInsteadOfTheRememberedEmptyState() async throws {
         let coin = "ZZQW\(Int.random(in: 1000...9999))"
         let requests = OSAllocatedUnfairLock(initialState: [String]())

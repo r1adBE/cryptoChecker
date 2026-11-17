@@ -8,7 +8,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Meldung zu «Adresse hinzufügen» (Audit A-01, früher Quelltext-Wächter): nicht geschrieben heisst nie «ungültig» — die
+ * Meldung zu «Adresse hinzufügen»: nicht geschrieben heisst nie «ungültig» — die
  * Prüfung lief davor grün —, sondern «gesperrt» bzw. «nicht gespeichert». Wie iOS `AddressSaveMessageTests`.
  */
 class AddressSaveMessageTest {

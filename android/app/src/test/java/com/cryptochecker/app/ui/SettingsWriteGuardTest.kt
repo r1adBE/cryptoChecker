@@ -5,7 +5,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Einstellungen aus anderen Bildschirmen als «Einstellungen» (G4-04): Gruppe wählen bzw. löschen, Währung, «Beträge
+ * Einstellungen aus anderen Bildschirmen als «Einstellungen»: Gruppe wählen bzw. löschen, Währung, «Beträge
  * verbergen», Zeitraum, Ansage, Hinweise «gesehen», Sperre ohne Displaysperre, eigener Bitcoin-Server … schreiben über
  * `SettingsRepository.guarded` — bei vollem Speicher ein Hinweis statt Absturz (DataStore wirft dann eine IOException,
  * ohne `CoroutineExceptionHandler` beendet sie die App). «Einstellungen» selbst schreibt über `SettingsViewModel.update`.

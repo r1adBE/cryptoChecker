@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Fiat-Werte aus der USDT-Reihe mit USDT/USD je Tag (Review 194): BTC in USDT flach, USDT/USD 1.00 → 0.90,
+/// Fiat-Werte aus der USDT-Reihe mit USDT/USD je Tag: BTC in USDT flach, USDT/USD 1.00 → 0.90,
 /// CHF je USD 0.90 — in CHF −10 %. Wie `UsdtDepegFiatTest.kt`.
 final class UsdtDepegFiatTests: XCTestCase {
 
@@ -54,7 +54,7 @@ final class UsdtDepegFiatTests: XCTestCase {
 
     func testMissingHistoryNeverInventsAStep() throws {
         let rates: [Int: Double] = [20: 0.9, 21: 0.9]
-        // Review 195: nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
+        // nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
         let noClose = UsdtUsdRates(live: 0.9)
         let chart = try XCTUnwrap(SheetChart.accept(flat, request: fallback, price: 81_000, dailyRates: rates,
                                                     usdt: noClose, todayEpochDay: 21))

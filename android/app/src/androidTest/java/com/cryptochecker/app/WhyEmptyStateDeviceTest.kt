@@ -28,7 +28,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * «Was bewegt sich mit?» ohne Kerzen (V4-02; Audit A-01, früher Quelltext-Wächter): offline heisst es «Offline» mit
+ * «Was bewegt sich mit?» ohne Kerzen: offline heisst es «Offline» mit
  * «Erneut versuchen», das wirklich neu fragt (nicht den gemerkten Leerstand liefert); führt keine Quelle das Paar, nennt
  * der Leerzustand die Börse des Paars statt «Binance» und bietet kein «Erneut versuchen». Echter [ActivityMonitor] über
  * die Test-Börse ([FakeExchange], ein unbekannter Coin hat keine Kerzen). iOS: `WhyCandlesFailureTests`.

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 283)
+
+- Comments without references to reviews and build numbers.
+
 ## 16.2.2 (build 282)
 
 - More checks as source rules.

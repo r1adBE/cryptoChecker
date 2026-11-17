@@ -10,12 +10,13 @@ enum WatchLog {
 }
 
 /// Speicher der Uhr (App-Gruppe, damit die Komplikation mitliest; nichts davon im Backup): die Wahl der Liste in einer
-/// eigenen Datei (`watch_settings.json` — die Standard-Einstellungen der App-Gruppe liessen sich nicht vom Backup ausnehmen, X4-03; Wear
-/// OS: `allowBackup="false"`) und die zuletzt geladenen Kurse, je Coin mit dem Start seines Abrufs (`WatchCached.time`),
-/// in einer Datei, die Uhr-App und Komplikation nur über `NSFileCoordinator` lesen und zusammenführen (`WatchQuoteFile`)
-/// — die Komplikation zeigt sie auch ohne Netz. Dazu die Coins der letzten Kurse vom iPhone (`phoneCoins`, `phoneTime`:
-/// `watch_phone.json`) und der Portfolio-Wert vom iPhone (`portfolio`, eigene Datei). Alle Dateien atomar geschrieben und
-/// vom Backup ausgenommen. Die Wahl schreibt nur die Uhr-App, auf dem MainActor (`WatchModel`). Wie Android `WatchStore`.
+/// eigenen Datei (`watch_settings.json` — die Standard-Einstellungen der App-Gruppe liessen sich nicht vom Backup
+/// ausnehmen; Wear OS: `allowBackup="false"`) und die zuletzt geladenen Kurse, je Coin mit dem Start seines Abrufs
+/// (`WatchCached.time`), in einer Datei, die Uhr-App und Komplikation nur über `NSFileCoordinator` lesen und
+/// zusammenführen (`WatchQuoteFile`) — die Komplikation zeigt sie auch ohne Netz. Dazu die Coins der letzten Kurse vom
+/// iPhone (`phoneCoins`, `phoneTime`: `watch_phone.json`) und der Portfolio-Wert vom iPhone (`portfolio`, eigene
+/// Datei). Alle Dateien atomar geschrieben und vom Backup ausgenommen. Die Wahl schreibt nur die Uhr-App, auf dem
+/// MainActor (`WatchModel`). Wie Android `WatchStore`.
 enum WatchStore {
     private static let group = "group.com.cryptochecker.app"
     private static let settingsFileName = "watch_settings.json"

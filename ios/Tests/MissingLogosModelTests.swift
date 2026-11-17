@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Hinweis «Coins ohne Logo» (Audit A-01, früher Quelltext-Wächter): die Liste unterscheidet «noch nicht geladen» (kommt
+/// Hinweis «Coins ohne Logo»: die Liste unterscheidet «noch nicht geladen» (kommt
 /// mit dem nächsten Abgleich) von «kein Logo verfügbar» — Vermerk je Coin und Erklärung. Wie Android
 /// `MissingLogosHintTest.kt` (Gerät).
 @MainActor
@@ -41,7 +41,7 @@ final class MissingLogosModelTests: XCTestCase {
         XCTAssertNil(model.missing)
     }
 
-    /// Schalter «Coin-Logos» aus bzw. «Logos werden geladen» sichtbar: keine Zeile (Audit A-01, früher Quelltext-Wächter).
+    /// Schalter «Coin-Logos» aus bzw. «Logos werden geladen» sichtbar: keine Zeile.
     func testHiddenWhenSwitchedOffOrWhileLoading() async {
         let lookup = MissingLogosModel.Lookup(firstLoadDone: { true }, hasLogo: { _ in false }, notYetLoaded: { _ in false })
         let entries = MissingLogosModel.entries([watch(1, "ZZQA")])

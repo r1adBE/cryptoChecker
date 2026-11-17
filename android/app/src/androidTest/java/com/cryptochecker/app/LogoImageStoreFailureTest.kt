@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 /**
- * Bilder der Coin-Logos bei Fehlern (Audit A-01, früher Quelltext-Wächter): Speicher voll (Ordner nicht beschreibbar) ist
+ * Bilder der Coin-Logos bei Fehlern: Speicher voll (Ordner nicht beschreibbar) ist
  * eine eigene Art — keine Tagessperre, kein Netzfehler, der Durchgang lädt nichts mehr, das ohnehin verworfen würde, und
  * der nächste Durchgang holt alles nach. Start-Logos laden gleichzeitig (nicht eins nach dem anderen).
  * Antworten aus einem Interceptor (kein Netz).

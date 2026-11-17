@@ -34,7 +34,7 @@ import java.io.File
 import javax.inject.Inject
 
 /**
- * Sichern (Audit A-01, früher Quelltext-Wächter): der Dialog übersteht das Neuerstellen des Bildschirms (Drehen), und eine
+ * Sichern: der Dialog übersteht das Neuerstellen des Bildschirms (Drehen), und eine
  * gescheiterte Sicherung lässt keine leere Datei mit dem Namen einer Sicherung liegen — eine gewählte bestehende Datei
  * bleibt aber unangetastet. Die Dateiauswahl liefert [DocumentPickerStub] (FileProvider der App, Datei schreibgeschützt,
  * damit das Schreiben scheitert).

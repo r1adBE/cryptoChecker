@@ -10,7 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Fiat-Werte aus der USDT-Reihe mit USDT/USD je Tag (Review 194): BTC in USDT flach, USDT/USD 1.00 → 0.90,
+ * Fiat-Werte aus der USDT-Reihe mit USDT/USD je Tag: BTC in USDT flach, USDT/USD 1.00 → 0.90,
  * CHF je USD 0.90 — in CHF −10 %. Gegenstück: `Tests/UsdtDepegFiatTests.swift`.
  */
 class UsdtDepegFiatTest {
@@ -58,7 +58,7 @@ class UsdtDepegFiatTest {
     @Test
     fun missingHistoryNeverInventsAStep() {
         val rates = mapOf(20L to 0.9, 21L to 0.9)
-        // Review 195: nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
+        // nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
         val noClose = UsdtUsdRates(live = 0.9)
         val chart = SheetChart.accept(flat, fallback, 81_000.0, rates, usdt = noClose, todayEpochDay = 21)!!
         assertEquals(81_000.0, chart.first().close, 1e-6)

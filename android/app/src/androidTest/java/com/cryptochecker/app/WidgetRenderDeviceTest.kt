@@ -25,7 +25,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Widgets auf dem Gerät (Audit C-10): Was der Launcher zeigt, ist ein [RemoteViews], den das System aufbläht — erlaubt sind
+ * Widgets auf dem Gerät: Was der Launcher zeigt, ist ein [RemoteViews], den das System aufbläht — erlaubt sind
  * dort nur bestimmte View-Klassen und Methoden. Dieser Test bläht jedes Widget-Layout und echte Zeilen des Listen-Widgets
  * wie der Launcher auf ([RemoteViews.apply]) und prüft den Inhalt: Paar, Kurs, Börse, deaktiviert. Ergänzt die Regeln auf
  * der JVM (Texte, Farben, Platz) um das, was nur ein Gerät zeigt (Aufblähen, unerlaubte Aufrufe, Absturz im Launcher).

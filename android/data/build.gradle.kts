@@ -74,7 +74,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.timber)
 
-    // Tests der Datenschicht (src/test, Audit C-03): dieselbe Umgebung wie die Unit-Tests von :app — echtes org.json
+    // Tests der Datenschicht (src/test): dieselbe Umgebung wie die Unit-Tests von :app — echtes org.json
     // (AOSP-Code, vor android.jar; die Codecs und Parser hier lesen damit), virtuelle Zeit (runTest) und ein echter
     // lokaler HTTP-Server für die Netzschicht (ExchangeHttpTest)
     testImplementation(libs.junit)

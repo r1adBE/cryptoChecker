@@ -156,7 +156,7 @@ class FxRateSourceTest {
 
     /**
      * Abruf ohne Antwort beider Quellen: eine Minute kein neuer Versuch — sonst wartete jede weitere Währung erneut bis
-     * 2 × 10 s (früher Quelltext-Wächter, Audit A-01).
+     * 2 × 10 s.
      */
     @Test
     fun failedFetchIsNotRepeatedWithinAMinute() = runBlocking {

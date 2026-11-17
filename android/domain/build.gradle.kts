@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
-    // Tests der Fachlogik (src/test, Audit C-03): dieselbe Umgebung wie die Unit-Tests von :app — echtes org.json
+    // Tests der Fachlogik (src/test): dieselbe Umgebung wie die Unit-Tests von :app — echtes org.json
     // (AOSP-Code, vor android.jar: JsonCompatibilityTest vergleicht das eigene JSON damit, die Börsenklassen aus
     // :marketdata lesen damit) und virtuelle Zeit (runTest)
     testImplementation(libs.junit)

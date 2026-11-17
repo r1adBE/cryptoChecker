@@ -197,7 +197,7 @@ struct BackupSettingsPage: View {
     /// Sichern: Enthält die Datei Portfolio-Daten (Trades, beobachtete Adressen inkl. xpub oder Portfolio-Alarme)
     /// und ist gesperrt, erst entsperren — wie Android.
     private func startExport() {
-        // Gespeicherter Stand gesperrt bzw. beschädigt: keine Datei, die ihn nicht enthält und gültig aussieht (R4-02)
+        // Gespeicherter Stand gesperrt bzw. beschädigt: keine Datei, die ihn nicht enthält und gültig aussieht
         if let key = BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,

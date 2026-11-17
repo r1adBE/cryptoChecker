@@ -33,7 +33,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Einstellungen › Portfolio (Audit A-01, früher Quelltext-Wächter): eine andere Einstandsmethode und «Portfolio in
+ * Einstellungen › Portfolio: eine andere Einstandsmethode und «Portfolio in
  * Systemsicherung» einschalten fragen erst — «Abbrechen» lässt den Wert, erst «Ändern» schreibt. Echte Seite mit dem
  * echten ViewModel. iOS: Regel portfolio-settings-confirm.
  */

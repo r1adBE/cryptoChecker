@@ -16,7 +16,7 @@ import org.junit.Test
 import java.util.Collections
 
 /**
- * [PriceFetcher.fetchGroup] als Verhalten (Audit A-01, früher Quelltext-Wächter): Paare mit Alarm werden zuerst
+ * [PriceFetcher.fetchGroup] als Verhalten: Paare mit Alarm werden zuerst
  * abgefragt ([FetchOrder]); ist das Budget der Prüfung aufgebraucht, gilt das Paar als «am Budget gescheitert»
  * ([Fetched.budgetCut]) — das zählt nie als volle Prüfung ([BackgroundSchedule.isFullCheck]).
  */

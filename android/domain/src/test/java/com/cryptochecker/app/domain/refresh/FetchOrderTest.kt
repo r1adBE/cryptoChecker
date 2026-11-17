@@ -21,7 +21,7 @@ class FetchOrderTest {
         assertSame(ids, FetchOrder.alarmsFirst(ids, setOf(9L)) { it })
     }
 
-    /** Mit Zeitbudget je Lauf anderer Beginn — Alarm-Paare bleiben vorn (B3-03). */
+    /** Mit Zeitbudget je Lauf anderer Beginn — Alarm-Paare bleiben vorn. */
     @Test
     fun rotationShiftsBothPartsAndKeepsAlarmsFirst() {
         val ids = listOf(1L, 2L, 3L, 4L, 5L)

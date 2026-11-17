@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «Letzte Prüfungen» ehrlich (Audit A-01, früher Quelltext-Wächter): pausiert, offline und Budget-Lücken als Verhalten;
+/// «Letzte Prüfungen» ehrlich: pausiert, offline und Budget-Lücken als Verhalten;
 /// dazu, wann die Kurs-Mitteilung eines Paars verschwindet (`PriceRefresher.evaluate`).
 /// Gegenstück Android: `BackgroundRunLogTest.kt`, `ExactFiredStepTest.kt` (Gerät), `PriceFetcherOrderTest.kt`.
 final class BackgroundRunOutcomeTests: XCTestCase {
@@ -36,7 +36,7 @@ final class BackgroundRunOutcomeTests: XCTestCase {
         return (outcome, cancel)
     }
 
-    /// N3-01: Kurs-Mitteilung nur bei «nicht gehandelt»/stillgelegt entfernen, nicht bei jedem Fehler (Zeit, 5xx, Netz).
+    /// Kurs-Mitteilung nur bei «nicht gehandelt»/stillgelegt entfernen, nicht bei jedem Fehler (Zeit, 5xx, Netz).
     func testPriceNotificationStaysOnOrdinaryFailure() {
         let failed = evaluated([(watch(1), Fetched(ticker: nil, error: "HTTP 503")), (watch(2), PriceRefresher.budgetSpent(
             [:], partial: [:], groups: ["Binance": [watch(2)]])[2])])

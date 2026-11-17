@@ -1,6 +1,6 @@
 import Foundation
 
-// Sichern und Wiederherstellen bei nicht lesbarem Stand (Teil von `BackupManager`, R4-02): «gerade gesperrt» (Merkliste
+// Sichern und Wiederherstellen bei nicht lesbarem Stand (Teil von `BackupManager`): «gerade gesperrt» (Merkliste
 // gesperrt, kein Schlüssel, Datenschutz vor dem ersten Entsperren) heisst abwarten — weder sichern (die Datei enthielte
 // den Stand nicht und sähe gültig aus) noch einspielen (das Journal hielte einen leeren Stand, die Daten kämen nach dem
 // Entsperren zurück). «Beschädigt» (lesbar, aber kaputt) hilft kein Neustart: Sichern lehnt mit eigenem Text ab,

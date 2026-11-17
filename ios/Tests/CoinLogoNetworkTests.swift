@@ -3,7 +3,7 @@ import ImageIO
 import os
 @testable import CryptoChecker
 
-/// Coin-Logos bei Fehlern (Audit A-01, früher Quelltext-Wächter), Antworten aus Test-Transporten statt Netz:
+/// Coin-Logos bei Fehlern, Antworten aus Test-Transporten statt Netz:
 /// Netzfehler auf einer Folgeseite der Rangliste = Teil-Ergebnis, aber bald erneut (kein Zeitpunkt, kein Versuch gemerkt);
 /// Speicher voll = eigene Art (der Durchgang lädt nichts mehr); lauter «gibt es nicht» ist kein Netzfehler, lauter
 /// Störungen schon. Wie Android `LogoRankingNetworkCutTest.kt` und `LogoImageStoreFailureTest.kt` (Gerät).

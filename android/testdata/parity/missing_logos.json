@@ -1,5 +1,5 @@
 {
-  "_doc": "Hinweis «N Coins ohne Logo» (MissingLogoNotice, Build 207). candidates: Paare der Merkliste (Börse, Basis, TradFi) → Schlüssel der Coins, die ein Logo haben sollten (DEX-Pools und Kürzel ohne Dateinamen nie; Hebel-Präfix und Aliase wie beim Laden; TradFi eigener Namensraum; ohne doppelte, Reihenfolge der Merkliste). state: Coins ohne Logo, beim ✕ gemerkter Satz, Logos laden noch, Schalter «Coin-Logos › In der App» → sichtbar und Zahl (unsichtbar: 0).",
+  "_doc": "Hinweis «N Coins ohne Logo» (MissingLogoNotice). candidates: Paare der Merkliste (Börse, Basis, TradFi) → Schlüssel der Coins, die ein Logo haben sollten (DEX-Pools und Kürzel ohne Dateinamen nie; Hebel-Präfix und Aliase wie beim Laden; TradFi eigener Namensraum; ohne doppelte, Reihenfolge der Merkliste). state: Coins ohne Logo, beim ✕ gemerkter Satz, Logos laden noch, Schalter «Coin-Logos › In der App» → sichtbar und Zahl (unsichtbar: 0).",
   "candidates": [
     {
       "name": "doppelte und Hebel-Präfix",

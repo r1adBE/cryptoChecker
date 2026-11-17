@@ -22,7 +22,7 @@ final class NotificationDeliveryTests: XCTestCase {
     }
 
     func testGasZeroOrInvalidValueIsNoData() {
-        // F3-08: Messwert 0 (gestörter Knoten) meldet nicht und verbraucht nichts; nicht scharf bleibt nicht scharf
+        // Messwert 0 (gestörter Knoten) meldet nicht und verbraucht nichts; nicht scharf bleibt nicht scharf
         for value in [0.0, -1.0, Double.nan] {
             let result = GasAlertCheck.evaluate(value: value, threshold: 2.0, armed: true)
             XCTAssertFalse(result.fire)

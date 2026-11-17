@@ -68,5 +68,5 @@ final class MissingLogoNoticeTests: XCTestCase {
     }
 
     // Anbindung (Zeile unter dem Lade-Hinweis, ✕, Schalter, Ablage): MissingLogosModelTests und Regel missing-logos
-    // in .github/scripts/source_rules.py (Audit A-01)
+    // in .github/scripts/source_rules.py
 }

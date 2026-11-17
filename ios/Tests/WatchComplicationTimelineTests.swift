@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Zeitleiste der Preis-Komplikation (`WatchFreshness.complicationDates`, Audit I-01): ein Eintrag jetzt, ein zweiter 1 ms
+/// Zeitleiste der Preis-Komplikation (`WatchFreshness.complicationDates`): ein Eintrag jetzt, ein zweiter 1 ms
 /// nach dem Veralten — nur wenn das vor dem nächsten Neuladen liegt; Neuladen nach dem begrenzten Intervall.
 final class WatchComplicationTimelineTests: XCTestCase {
 

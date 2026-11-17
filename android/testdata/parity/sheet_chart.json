@@ -361,7 +361,7 @@
       }
     },
     {
-      "name": "review 194: BTC flat in USDT, USDT/USD 1.00 -> 0.90, CHF per USD 0.90 (daily rates): -10 % in CHF",
+      "name": "BTC flat in USDT, USDT/USD 1.00 -> 0.90, CHF per USD 0.90 (daily rates): -10 % in CHF",
       "convert": true,
       "candles": [
         [
@@ -392,7 +392,7 @@
       "usdtHistoryMissing": false
     },
     {
-      "name": "review 194 with one current FX rate: the depeg still shows (-10 % in CHF)",
+      "name": "with one current FX rate: the depeg still shows (-10 % in CHF)",
       "convert": true,
       "candles": [
         [
@@ -512,7 +512,7 @@
       "usdtHistoryMissing": false
     },
     {
-      "name": "review 195: watchlist-only user (no stored USDT/USD closes), live 0.90, BTC flat in USDT: no step, one rate, note",
+      "name": "watchlist-only user (no stored USDT/USD closes), live 0.90, BTC flat in USDT: no step, one rate, note",
       "convert": true,
       "candles": [
         [
@@ -554,7 +554,7 @@
       }
     },
     {
-      "name": "review 195: same with one current FX rate: no step",
+      "name": "same with one current FX rate: no step",
       "convert": true,
       "candles": [
         [
@@ -584,7 +584,7 @@
       }
     },
     {
-      "name": "review 195: one earlier close missing among present ones: whole series at the live rate",
+      "name": "one earlier close missing among present ones: whole series at the live rate",
       "convert": true,
       "candles": [
         [
@@ -620,7 +620,7 @@
       }
     },
     {
-      "name": "review 195: real crash 0.40 stored and live 0.40, BTC flat in USDT: kept at 0.40 on both days (no step)",
+      "name": "real crash 0.40 stored and live 0.40, BTC flat in USDT: kept at 0.40 on both days (no step)",
       "convert": true,
       "candles": [
         [
@@ -651,7 +651,7 @@
       }
     },
     {
-      "name": "review 195: real depeg history 1.00 -> 0.40 measured: shown per day",
+      "name": "real depeg history 1.00 -> 0.40 measured: shown per day",
       "convert": true,
       "candles": [
         [
@@ -688,7 +688,7 @@
       }
     },
     {
-      "name": "review 195: closes present but no live rate: whole series at 1 (no step), note «USDT = 1 assumed»",
+      "name": "closes present but no live rate: whole series at 1 (no step), note «USDT = 1 assumed»",
       "convert": true,
       "candles": [
         [

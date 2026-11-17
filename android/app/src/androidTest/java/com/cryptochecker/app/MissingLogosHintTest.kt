@@ -36,7 +36,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * Hinweis «Coins ohne Logo» (Audit A-01, früher Quelltext-Wächter): die Liste unterscheidet «noch nicht geladen» (kommt
+ * Hinweis «Coins ohne Logo»: die Liste unterscheidet «noch nicht geladen» (kommt
  * mit dem nächsten Abgleich) von «kein Logo verfügbar» — Erklärung und Vermerk je Coin. Echte Zeile und echter Dialog
  * mit einer Logo-Quelle ohne Logos. Wie iOS `MissingLogosModelTests.swift`.
  */
@@ -104,7 +104,7 @@ class MissingLogosHintTest {
     private fun rowShown() = compose.onAllNodesWithTag(MISSING_LOGOS_TAG).fetchSemanticsNodes().isNotEmpty()
 
     /**
-     * Zeile «2 Coins ohne Logo» (Audit A-01, früher Quelltext-Wächter): Zahl in der Mehrzahl-Form, ✕ mit eigener
+     * Zeile «2 Coins ohne Logo»: Zahl in der Mehrzahl-Form, ✕ mit eigener
      * Bedienhilfe und mindestens 48 dp; ✕ merkt die Coins, danach bleibt die Zeile weg.
      */
     @Test

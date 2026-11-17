@@ -69,7 +69,7 @@ class LogoFilesTest {
         assertEquals(listOf("FLOKI.png"), dir.list()?.toList())
     }
 
-    /** Listen (Zuordnung, Namen) atomar wie die Logos (N3-17); Fehlschlag wie `writeText` als IOException. */
+    /** Listen (Zuordnung, Namen) atomar wie die Logos; Fehlschlag wie `writeText` als IOException. */
     @Test
     fun writeTextIsAtomicAndThrowsOnFailure() {
         val dir = folder.newFolder("coin_logos")
@@ -85,7 +85,7 @@ class LogoFilesTest {
         }
     }
 
-    /** Liegen gebliebene Hilfsdateien (N3-11): nur alte `.tmp` weg, junge (gerade geschrieben) und echte Dateien bleiben. */
+    /** Liegen gebliebene Hilfsdateien: nur alte `.tmp` weg, junge (gerade geschrieben) und echte Dateien bleiben. */
     @Test
     fun staleTempsAreRemoved() {
         val dir = folder.newFolder("coin_logos")

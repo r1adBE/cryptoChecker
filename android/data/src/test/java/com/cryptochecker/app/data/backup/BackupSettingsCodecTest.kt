@@ -246,13 +246,13 @@ class BackupSettingsCodecTest {
         assertEquals(SET, set.addressServer)
         assertEquals("b.example", set.addressServerHost)
         assertEquals("https://b.example:3006/api", settings.server)
-        // Ersetzt (CHANGED): seit Build 226 (S2-02) ebenfalls mit Hostnamen
+        // Ersetzt (CHANGED): ebenfalls mit Hostnamen
         val changed = codec(settings).restoreSettings(backup(settings, "addressServerBtc" to "https://c.example"), true)
         assertEquals(CHANGED, changed.addressServer)
         assertEquals("c.example", changed.addressServerHost)
     }
 
-    /** Datei ohne Passwort: ohne eigenen Server (S3-04); mit Passwort und im Journal (Standard) mit. */
+    /** Datei ohne Passwort: ohne eigenen Server; mit Passwort und im Journal (Standard) mit. */
     @Test
     fun dateiOhnePasswortOhneServer() = runTest {
         val settings = FakeSettings().apply { server = "https://a.example/api" }

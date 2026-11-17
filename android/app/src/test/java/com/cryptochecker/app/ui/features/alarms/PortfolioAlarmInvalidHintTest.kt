@@ -17,7 +17,7 @@ class PortfolioAlarmInvalidHintTest {
 
     private fun file(path: String): File? = listOf(File(path), File("app/$path")).firstOrNull { it.exists() }
 
-    /** Audit A-01 (früher Quelltext-Wächter): Text der Zeile als Funktion; iOS `PortfolioAlarmLineTests`. */
+    /** Text der Zeile als Funktion; iOS `PortfolioAlarmLineTests`. */
     @Test
     fun zeileNenntLoeschenUndNeuAnlegen() {
         assertEquals(R.string.portfolio_alarm_threshold_invalid_recreate, portfolioAlarmLineRes(invalid = true, repeating = true))

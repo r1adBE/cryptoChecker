@@ -23,7 +23,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Portfolio-Alarm auf dem Gerät (Audit A-01, früher Quelltext-Wächter): die echte Mitteilung trägt nur den Titel und den
+ * Portfolio-Alarm auf dem Gerät: die echte Mitteilung trägt nur den Titel und den
  * neutralen Satz — keine Zahl in irgendeinem Feld, auch nicht in der öffentlichen Fassung für den Sperrbildschirm —, und
  * sie ist privat. Text in allen Sprachen ohne Ziffer: `PortfolioAlarmLockScreenTest` (JVM). iOS:
  * `PortfolioAlarmLockScreenTests`.

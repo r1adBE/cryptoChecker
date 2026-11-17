@@ -77,7 +77,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 282
+        versionCode = 283
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -337,7 +337,7 @@ dependencies {
     testImplementation(libs.android.json)
     // Virtuelle Zeit (runTest, StandardTestDispatcher), Flows prüfen (Turbine) und ein echter lokaler HTTP-Server
     // für die Netzschicht (MirrorLoadLimitTest; ExchangeHttpTest mit 429/Retry-After, Grössengrenze, callTimeout
-    // läuft seit Audit C-03 in :data) — ohne Robolectric
+    // läuft in :data) — ohne Robolectric
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.okhttp.mockwebserver3)
@@ -376,7 +376,7 @@ tasks.withType<Test>().configureEach {
 // :app:koverXmlReportDebug), sonst laufen die Unit-Tests ohne Instrumentierung. Die CI prüft daraus eine
 // Mindestabdeckung der Logik (MIN_LOGIC in android.yml). Der Bericht von :app führt über die kover-Abhängigkeiten
 // unten die Unit-Tests aller vier Module zusammen (Variante debug): die Tests der Fachlogik und der Datenschicht
-// laufen in :domain bzw. :data (Audit C-03), die Börsen-Parser vor allem in den Vertragstests von :app (contract/).
+// laufen in :domain bzw. :data, die Börsen-Parser vor allem in den Vertragstests von :app (contract/).
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
     dependencies {

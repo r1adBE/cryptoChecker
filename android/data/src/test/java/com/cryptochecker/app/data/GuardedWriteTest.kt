@@ -11,7 +11,7 @@ import java.io.File
 import java.io.IOException
 
 /**
- * Schreibweg des Nutzers bei vollem Speicher (N3-20): kein Absturz, Hinweis, «nicht geschrieben» ([guardedWrite]).
+ * Schreibweg des Nutzers bei vollem Speicher: kein Absturz, Hinweis, «nicht geschrieben» ([guardedWrite]).
  * Gegenstück iOS: `WatchlistWriteFailedTests.swift`.
  */
 class GuardedWriteTest {

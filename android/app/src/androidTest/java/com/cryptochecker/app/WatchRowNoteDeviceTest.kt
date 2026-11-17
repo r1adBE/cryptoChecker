@@ -25,7 +25,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Notiz unter einem Paar der Merkliste (Audit A-01, früher Quelltext-Wächter): eine Zeile über die ganze Breite der Zeile
+ * Notiz unter einem Paar der Merkliste: eine Zeile über die ganze Breite der Zeile
  * (nicht in der Paar-Spalte), lange bzw. mehrzeilige Notizen gekürzt. Echte Merkliste.
  * iOS: `CryptoCheckerUITests.testWatchRowNoteIsOneLineAcrossTheRow`.
  */

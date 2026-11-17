@@ -137,7 +137,7 @@ final class SettingsSearchTests: XCTestCase {
     /// wie `SettingsSearchAnchorsTest` (Android).
     @MainActor
     func testDeliveryDiagnosticsAndAlarmLogAreSearchable() {
-        // «Diagnose teilen» erst nach 7 Tipps auf die Version (seit Build 239, in jedem Build)
+        // «Diagnose teilen» erst nach 7 Tipps auf die Version (in jedem Build)
         XCTAssertFalse(SettingsSearchCatalog.items(settings: AppSettings()).contains { $0.entry.id == "about.diagnostics" })
         var unlocked = AppSettings()
         unlocked.developerUnlocked = true

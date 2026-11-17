@@ -25,7 +25,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
- * «Beträge verbergen» gilt an der Wurzel der App (U3-01; Audit A-01, früher Quelltext-Wächter): nicht nur in der Liste
+ * «Beträge verbergen» gilt an der Wurzel der App: nicht nur in der Liste
  * des Portfolio-Tabs, auch auf der eigenen Seite eines Coins (anderes Ziel der Navigation) stehen die Beträge verdeckt.
  */
 @HiltAndroidTest

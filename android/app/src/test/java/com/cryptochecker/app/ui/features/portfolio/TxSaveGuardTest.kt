@@ -4,7 +4,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Transaktion speichern: kein zweites Anlegen derselben Eingaben (B3-14, wie iOS `guard !saving`). */
+/** Transaktion speichern: kein zweites Anlegen derselben Eingaben (wie iOS `guard !saving`). */
 class TxSaveGuardTest {
 
     @Test

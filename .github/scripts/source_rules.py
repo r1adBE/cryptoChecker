@@ -291,7 +291,7 @@ def runcatching_violations(source):
 
 
 def rule_runcatching(t):
-    # Alle Module (Audit 16.11.2026, A-05): app plus coreui, data, domain, marketdata, wear und widget
+    # Alle Module: app plus coreui, data, domain, marketdata, wear und widget
     roots = [need_dir(t.java("app"))] + [need_dir(t.a(m, "src", "main", "java"))
                                           for m in ("coreui", "data", "domain", "marketdata", "wear", "widget")]
     problems = []
@@ -1670,7 +1670,7 @@ def rule_ios_widget_offline(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
-# swipe-delete: Wischen zum Löschen wie iOS (U3-09) — Positionen, Transaktionen, Alarme, Adressen immer mit Rückfrage.
+# swipe-delete: Wischen zum Löschen wie iOS — Positionen, Transaktionen, Alarme, Adressen immer mit Rückfrage.
 # Die Merkliste löscht ohne Frage, bietet aber «Rückgängig» (WatchlistViewModel.deleteWithUndo).
 
 
@@ -2107,7 +2107,7 @@ def rule_watch_deletion(t):
 # --------------------------------------------------------------------------------------------------------------------
 # ios-wiring: Anbindungen in SwiftUI-Ansichten, Widgets, der Uhr und der Daten-Schicht, die ohne Gerät nicht als Verhalten
 # prüfbar sind — je Datei Teile, die stehen («has») bzw. nicht stehen («not») müssen, und wie oft («count»); Kommentare
-# zählen nicht. Früher Quelltext-Wächter in den XCTest-Dateien (Audit A-01).
+# zählen nicht. Früher Quelltext-Wächter in den XCTest-Dateien.
 
 
 IW_TABLE = {'App/Components/WatchlistLockedHint.swift': {'has': ('.onReceive(NotificationCenter.default.publisher(for: '

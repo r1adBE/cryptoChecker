@@ -180,7 +180,7 @@ final class WatchPairsParityTests: XCTestCase {
         }
     }
 
-    /// Grund bei «—» aus dem letzten eigenen Abruf (Review 195: «nur vom iPhone» nur, wenn die Börsen das Paar nicht
+    /// Grund bei «—» aus dem letzten eigenen Abruf («nur vom iPhone» nur, wenn die Börsen das Paar nicht
     /// führen). Wie Android.
     func testMissing() throws {
         for c in TestSupport.list(try TestSupport.fixture("watch_pairs")["missing"]) {

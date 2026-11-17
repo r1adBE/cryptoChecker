@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 import java.util.Locale
 
 /**
- * Sprachwechsel in der App (Audit A-01 / B3-07, früher Quelltext-Wächter): bis Android 12 spricht der App-Kontext
+ * Sprachwechsel in der App: bis Android 12 spricht der App-Kontext
  * (Widgets, Mitteilungen, Ansagen) sofort die neue Sprache; die Kanäle — auch schon angelegte Alarm-Kanäle — tragen
  * danach Namen in der neuen Sprache. Läuft auf API 26 (sofort) und 34 (Kanäle mit dem Kontext der neuen Sprache).
  */

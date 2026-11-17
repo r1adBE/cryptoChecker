@@ -21,7 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * Rückfrage nach «Rückgängig» bei «Mehrere Paare auf einmal» (Audit A-01, früher Quelltext-Wächter): «Behalten» entfernt
+ * Rückfrage nach «Rückgängig» bei «Mehrere Paare auf einmal»: «Behalten» entfernt
  * nichts, «Entfernen» entfernt genau einmal, nach Ablauf des Zeitfensters nichts (Hinweis «abgelaufen»). Echter Dialog;
  * dass Coin-Suche und Merkliste nur über ihn entfernen, prüft die Regel `bulk-undo` (source_rules.py).
  */

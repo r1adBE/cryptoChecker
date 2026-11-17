@@ -1248,7 +1248,7 @@
     ]
   },
   "openPasses": {
-    "description": "Logos: images a whole pass left open (transient error or host paused) count per image; after OPEN_PASSES_FAIL (3) passes in a row they count as failed (day block), so a permanently disturbed image never keeps the first load open (R4-05). Attempted images that settled (loaded, failed, not saved) drop out; images not attempted keep their count. A pass that failed for the network does not count (not part of these cases).",
+    "description": "Logos: images a whole pass left open (transient error or host paused) count per image; after OPEN_PASSES_FAIL (3) passes in a row they count as failed (day block), so a permanently disturbed image never keeps the first load open. Attempted images that settled (loaded, failed, not saved) drop out; images not attempted keep their count. A pass that failed for the network does not count (not part of these cases).",
     "failAfter": 3,
     "next": [
       {"previous": {}, "attempted": ["a.png", "b.png"], "open": ["a.png"], "expected": {"a.png": 1}, "failed": []},

@@ -220,7 +220,7 @@ final class WidgetRowsTests: XCTestCase {
     }
 }
 
-// ---- Zeit-Zeile der Widgets (Build 205)
+// ---- Zeit-Zeile der Widgets
 
 /// Gemeinsame Testfälle `widget_status.json` (Android: `WidgetStatusParityTest`): offline > veraltet > Uhrzeit.
 final class WidgetStatusRuleParityTests: XCTestCase {
@@ -246,7 +246,7 @@ final class WidgetStatusRuleParityTests: XCTestCase {
     }
 
     /// Ohne Netz zeigen die Widgets den Text der App («Keine Verbindung · Stand …») vor «veraltet»; ohne Zeit nur «Keine
-    /// Verbindung» (Audit A-01: Verhalten statt Quelltext). Dass jede Timeline das Netz abfragt, prüft die Regel
+    /// Verbindung» (Verhalten statt Quelltext). Dass jede Timeline das Netz abfragt, prüft die Regel
     /// `ios-widget-offline` (source_rules.py); der Knopf ohne Netz: `WidgetRefreshStateTests`.
     func testWidgetsShowTheOfflineLine() {
         let date = Date(timeIntervalSince1970: 1_700_000_000)

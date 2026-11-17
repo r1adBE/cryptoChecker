@@ -62,7 +62,7 @@ final class ExchangeFailureParityTests: XCTestCase {
         }
     }
 
-    /// Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab (N3-08).
+    /// Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab.
     func testPairListAborts() {
         let all = cases("pairListAborts")
         XCTAssertFalse(all.isEmpty)
@@ -75,7 +75,7 @@ final class ExchangeFailureParityTests: XCTestCase {
         }
     }
 
-    /// Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht (N3-05).
+    /// Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht.
     func testPairListAttempt() {
         let all = cases("pairListAttempt")
         XCTAssertFalse(all.isEmpty)
@@ -85,7 +85,7 @@ final class ExchangeFailureParityTests: XCTestCase {
         }
     }
 
-    /// HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»; N3-07).
+    /// HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»).
     func testAccessDenied() {
         let all = cases("accessDenied")
         XCTAssertFalse(all.isEmpty)
@@ -129,7 +129,7 @@ final class ExchangeFailureParityTests: XCTestCase {
         XCTAssertEqual(ExchangeFailure.of(URLError(.secureConnectionFailed)), .ssl)
         XCTAssertEqual(ExchangeFailure.of(URLError(.notConnectedToInternet)), .offline)
         XCTAssertEqual(ExchangeFailure.of(URLError(.cannotFindHost)), .offline)
-        // Übertragung mitten in der Antwort gescheitert (N3-02): keine Verbindung — wie Android NetworkError
+        // Übertragung mitten in der Antwort gescheitert: keine Verbindung — wie Android NetworkError
         for code in [URLError.Code.badServerResponse, .cannotParseResponse, .cannotDecodeContentData,
                      .cannotDecodeRawData, .resourceUnavailable, .networkConnectionLost] {
             XCTAssertEqual(ExchangeFailure.of(URLError(code)), .offline, "\(code)")

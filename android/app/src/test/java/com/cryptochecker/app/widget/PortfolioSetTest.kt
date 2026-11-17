@@ -36,7 +36,7 @@ class PortfolioRefreshGateTest {
         assertFalse(PortfolioSnapshotUpdater.shouldRefresh(hasPortfolioWidget = false, activeAlarms = false))
     }
 
-    /** Bestand während der Netzabfrage geändert (gelöscht, eingespielt): keine Aufnahme mit dem alten (B3-15). */
+    /** Bestand während der Netzabfrage geändert (gelöscht, eingespielt): keine Aufnahme mit dem alten. */
     @Test
     fun recordOnlyWithTheCurrentLedger() {
         fun tx(id: Long, amount: String = "1") = com.cryptochecker.app.data.portfolio.PortfolioTxEntity(

@@ -250,7 +250,7 @@ struct NotificationPermissionRow: View {
 
     var body: some View {
         // Grosse Schrift: Knopf unter den Text statt daneben — nebeneinander wurde «Mitteilungen erlauben» abgeschnitten
-        // (Audit «Text clipped»)
+        // (Barrierefreiheit: «Text clipped»)
         let layout = typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
             : AnyLayout(HStackLayout(spacing: 12))

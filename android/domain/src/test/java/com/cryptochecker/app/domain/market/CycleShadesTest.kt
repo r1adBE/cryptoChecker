@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** V4-11: ab dem Halving 2028 (drei frühere Zyklen) hat jeder frühere Zyklus einen eigenen Grauton. iOS: CycleShadesTests. */
+/** ab dem Halving 2028 (drei frühere Zyklen) hat jeder frühere Zyklus einen eigenen Grauton. iOS: CycleShadesTests. */
 class CycleShadesTest {
 
     @Test

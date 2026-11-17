@@ -176,7 +176,7 @@ class WidgetQuantityParityTest {
     }
 }
 
-// ---- Zeit-Zeile der Widgets (Build 205)
+// ---- Zeit-Zeile der Widgets
 
 /** Gemeinsame Testfälle `widget_status.json` (iOS: `WidgetStatusRuleParityTests`): offline > veraltet > Uhrzeit. */
 class WidgetStatusParityTest {

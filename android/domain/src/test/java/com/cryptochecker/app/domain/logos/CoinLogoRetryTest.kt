@@ -43,7 +43,7 @@ class CoinLogoRetryTest {
         assertFalse(CoinLogoRetry.downloadsFailedForNetwork(online = true, failed = 2, attempted = 2))
     }
 
-    /** Lauter «gibt es nicht» (404, unlesbar) ist kein Netzfehler; erst eine Störung darunter (N3-03). */
+    /** Lauter «gibt es nicht» (404, unlesbar) ist kein Netzfehler; erst eine Störung darunter. */
     @Test
     fun `all failed online without a transient failure is not the network`() {
         assertFalse(CoinLogoRetry.downloadsFailedForNetwork(online = true, failed = 3, attempted = 3, transient = 0))
@@ -52,7 +52,7 @@ class CoinLogoRetryTest {
         assertTrue(CoinLogoRetry.downloadsFailedForNetwork(online = false, failed = 3, attempted = 3, transient = 0))
     }
 
-    /** Ein Server, der Verbindungen schluckt: nach vier gestörten Bildern in Folge pausiert (N3-03). */
+    /** Ein Server, der Verbindungen schluckt: nach vier gestörten Bildern in Folge pausiert. */
     @Test
     fun `transient streak pauses the image server`() {
         var streak = 0

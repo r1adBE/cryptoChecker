@@ -1,7 +1,7 @@
 import Foundation
 
 /// Paar des Einzel-Widgets: gewählt als «Id|Paar» (`WatchIdentity.text`). Eine eingespielte Sicherung kann dieselbe Id
-/// einem anderen Paar geben — dann zeigt das Widget «Paar wählen» statt still ein fremdes Paar (B3-08). Ältere Wahl ohne
+/// einem anderen Paar geben — dann zeigt das Widget «Paar wählen» statt still ein fremdes Paar. Ältere Wahl ohne
 /// Paar (nur die Id) gilt weiter. Wie Android `WidgetPrefs.chosenWatch`.
 enum SingleWidgetChoice {
     /// Kennung der Wahl in der Widget-Einrichtung.

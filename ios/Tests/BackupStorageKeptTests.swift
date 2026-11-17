@@ -1,11 +1,11 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Sichern/Wiederherstellen bei nicht lesbarem Stand (S3-01, R4-02: gesperrt ≠ beschädigt), Journal mit Alarm-Zustand (S3-09) und Datei ohne Passwort
-/// ohne eigenen Bitcoin-Server (S3-04). Gegenstück Android: `BackupRestorePolicyTest.kt` (Ablehnen),
+/// Sichern/Wiederherstellen bei nicht lesbarem Stand (gesperrt ≠ beschädigt), Journal mit Alarm-Zustand und Datei ohne
+/// Passwort ohne eigenen Bitcoin-Server. Gegenstück Android: `BackupRestorePolicyTest.kt` (Ablehnen),
 /// `BackupSettingsCodecTest.dateiOhnePasswortOhneServer`.
 final class BackupStorageKeptTests: XCTestCase {
-    /// Gesperrt (abwarten) geht vor beschädigt (ersetzen, R4-02): Sichern lehnt beides ab, Wiederherstellen nur «gesperrt».
+    /// Gesperrt (abwarten) geht vor beschädigt (ersetzen): Sichern lehnt beides ab, Wiederherstellen nur «gesperrt».
     /// Vorher sperrte auch eine dauerhaft beschädigte Datei das Wiederherstellen — den Rettungsweg — mit «Starte die App
     /// neu», was nie half.
     func testGesperrtLehntAbBeschaedigtWirdErsetzt() {

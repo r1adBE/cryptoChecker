@@ -6,7 +6,7 @@
 # unsigniertes Bundle zu bauen) und -PgitCommit=<voller Commit des Tags aus dem öffentlichen Klon> («Diagnose teilen»
 # zeigt ihn als «Source:»). Bricht ab, wenn der Tag fehlt, nicht zu versionName/versionCode passt oder der Klon
 # lokale Änderungen hat. Gebaut wird NICHT dieser Arbeitsordner, sondern genau der Baum des Tags: ein temporärer
-# Worktree des öffentlichen Klons am Tag-Commit (Audit 16.11.2026, C-02 – so können hochgeladenes Bundle, «Source:»
+# Worktree des öffentlichen Klons am Tag-Commit (so können hochgeladenes Bundle, «Source:»
 # und Herkunftsnachweis nie auseinanderlaufen). Nur keystore.properties und local.properties werden aus diesem
 # Ordner hineinkopiert und mit dem Worktree wieder gelöscht. Ergebnis (zurückkopiert in diesen Ordner):
 # app/… und wear/build/outputs/bundle/release/*.aab samt mapping.txt (Hochladen bleibt Handarbeit).

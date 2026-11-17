@@ -2195,7 +2195,7 @@
    "fallbacks": {}
   }
  ],
- "_walletEndToEndComment": "F3-09: zwei Börsen-Dateien (Binance gespeichert, dann Coinbase) mit verknüpfter Umbuchung unter FIFO je Wallet. Jede importierte Zeile trägt die Börse ihrer Datei als Wallet (exchange); die Umbuchung Binance → Coinbase nimmt angekommen + Gebühr von Binance. Bestand je Wallet = wallets, gesamt wie ein Topf (holdings).",
+ "_walletEndToEndComment": "Zwei Börsen-Dateien (Binance gespeichert, dann Coinbase) mit verknüpfter Umbuchung unter FIFO je Wallet. Jede importierte Zeile trägt die Börse ihrer Datei als Wallet (exchange); die Umbuchung Binance → Coinbase nimmt angekommen + Gebühr von Binance. Bestand je Wallet = wallets, gesamt wie ein Topf (holdings).",
  "walletEndToEnd": {
   "storedCsv": "User_ID,UTC_Time,Account,Operation,Coin,Change,Remark\n1,2024-03-01 09:00:00,Spot,Transaction Spend,EUR,-50000.00000000,\n1,2024-03-01 09:00:00,Spot,Transaction Buy,BTC,1.00000000,\n1,2024-03-02 10:00:00,Spot,Withdraw,BTC,-1.00000000,Withdraw fee is included\n",
   "importCsv": "\"You can use this transaction report to inform your likely tax obligations. For US customers, Sells, Converts, Rewards Income, Coinbase Earn transactions, and Donations are taxable events. For final tax obligations, please consult a tax advisor.\"\n\nTransactions\nUser,Jane Example,0f1e2d3c-0000-4000-8000-000000000000\nID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes\nc0ffee0000000000000000a1,2024-03-02 11:00:00 UTC,Receive,BTC,0.9995,EUR,€50000.00,€49975.00,€49975.00,€0.00,\nc0ffee0000000000000000a2,2024-03-05 10:00:00 UTC,Sell,BTC,0.5,EUR,€51000.00,€25500.00,€25500.00,€0.00,\n",

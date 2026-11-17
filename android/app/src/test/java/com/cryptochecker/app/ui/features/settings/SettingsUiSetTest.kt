@@ -48,7 +48,7 @@ class SettingsPlacementTest {
 }
 
 // ---- aus SettingsSearchAnchorsTest: Anker jedes Suchtreffers (beide Plattformen) → Regel settings-anchors in
-// .github/scripts/source_rules.py (Audit A-01: Struktur, nicht Verhalten)
+// .github/scripts/source_rules.py (Struktur, nicht Verhalten)
 
 // ---- aus SettingsUiEventsTest
 

@@ -32,7 +32,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 /**
- * Hinweis «Logos werden geladen» am echten Bild-Abruf (Audit A-01, früher Quelltext-Wächter): Geladene, nicht
+ * Hinweis «Logos werden geladen» am echten Bild-Abruf: Geladene, nicht
  * vorhandene (404) und nach der letzten Runde noch gestörte Bilder zählen als erledigt (100 %); ein bremsender Server
  * nimmt die Prozentzahl weg; ohne fehlende Bilder kein Hinweis. Das erste Laden wird nur nach einem vollständigen
  * Durchgang im Logo-Ordner gemerkt. Antworten aus einem [LogoTestInterceptor] (kein Netz).

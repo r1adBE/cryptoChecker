@@ -145,7 +145,7 @@ class BackupRestorePolicyTest {
         assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(false, false, true, true, trusted = true, lock = true, lockNow = true))
     }
 
-    /** Doppelte Kennungen (S3-08): wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json). */
+    /** Doppelte Kennungen: wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json). */
     @Test
     fun duplicateIdsCountAsInvalid() {
         val fixture = JSONObject(java.io.File(com.cryptochecker.app.parity.ParityJson.dir(), "backup_duplicate_ids.json").readText())

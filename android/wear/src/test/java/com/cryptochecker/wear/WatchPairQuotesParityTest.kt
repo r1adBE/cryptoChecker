@@ -108,7 +108,7 @@ class WatchPairQuotesParityTest {
         }
     }
 
-    /** Grund bei «—» aus dem letzten eigenen Abruf (Review 195: «nur vom Handy» nur, wenn die Börsen das Paar nicht führen). */
+    /** Grund bei «—» aus dem letzten eigenen Abruf («nur vom Handy» nur, wenn die Börsen das Paar nicht führen). */
     @Test
     fun missing() {
         for (c in objects(data.getJSONArray("missing"))) {

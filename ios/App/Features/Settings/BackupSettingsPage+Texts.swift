@@ -37,7 +37,7 @@ extension BackupSettingsPage {
             result.lowered.systemBackupOn ? L("backup_restore_system_backup_on") : nil,
             result.lowered.amountsShown ? L("backup_restore_amounts_shown") : nil,
             result.lowered.lockOff ? L("backup_restore_app_lock_off") : nil,
-            // Beschädigte Portfolio-Daten ersetzt (R4-02): nie still, die Datei liegt daneben
+            // Beschädigte Portfolio-Daten ersetzt: nie still, die Datei liegt daneben
             result.damagedSetAside ? L("ios_backup_restore_damaged_set_aside") : nil,
         ].compactMap { $0 }.joined(separator: "\n")
     }

@@ -29,7 +29,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Posten einer Adresse (Audit A-01, früher Quelltext-Wächter): «Löschen» fragt erst nach («Posten löschen?»), und Eingaben
+ * Posten einer Adresse: «Löschen» fragt erst nach («Posten löschen?»), und Eingaben
  * samt offener Rückfrage überstehen das Neu-Erzeugen (Drehen, Falten, Dunkelmodus). Echter Editor in [SavedStateHost].
  * iOS: Regel ios-lot-delete (Blatt ohne Testzugang ohne Netz).
  */

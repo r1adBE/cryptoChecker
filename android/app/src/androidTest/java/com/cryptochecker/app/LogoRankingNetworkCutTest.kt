@@ -29,10 +29,10 @@ import java.io.IOException
 import javax.inject.Inject
 
 /**
- * Rangliste der Coin-Logos ([CoinListSync.symbolMap]) bei einem Netzfehler auf einer Folgeseite (Audit A-01, früher
- * Quelltext-Wächter): das Teil-Ergebnis wird genutzt, aber weder der Stand noch ein Versuch gemerkt — so fragt die App
- * bald erneut statt Stunden «unvollständig» zu bleiben ([CoinListSync.mapNetworkFailed]). Gegenprobe: ganze Liste →
- * Stand gemerkt. Antworten kommen aus einem Interceptor (kein Netz).
+ * Rangliste der Coin-Logos ([CoinListSync.symbolMap]) bei einem Netzfehler auf einer Folgeseite: das Teil-Ergebnis wird
+ * genutzt, aber weder der Stand noch ein Versuch gemerkt — so fragt die App bald erneut statt Stunden «unvollständig»
+ * zu bleiben ([CoinListSync.mapNetworkFailed]). Gegenprobe: ganze Liste → Stand gemerkt. Antworten kommen aus einem
+ * Interceptor (kein Netz).
  */
 @HiltAndroidTest
 class LogoRankingNetworkCutTest {

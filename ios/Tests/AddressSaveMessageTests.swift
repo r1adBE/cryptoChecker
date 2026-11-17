@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Meldung zu «Adresse hinzufügen» (Audit A-01): nicht geschrieben heisst nie «ungültig» — die Prüfung lief davor grün —,
-/// sondern «gesperrt» bzw. «nicht gespeichert». Wie Android `AddressSaveMessageTest.kt`.
+/// Meldung zu «Adresse hinzufügen»: nicht geschrieben heisst nie «ungültig» — die Prüfung lief davor grün —, sondern
+/// «gesperrt» bzw. «nicht gespeichert». Wie Android `AddressSaveMessageTest.kt`.
 @MainActor
 final class AddressSaveMessageTests: XCTestCase {
     func testNotWrittenIsNeverInvalid() {

@@ -145,7 +145,7 @@ final class MirrorSignatureTests: XCTestCase {
         XCTAssertFalse(rejected)
     }
 
-    /// S3-15: Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage.
+    /// Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage.
     func testTrustRejectsOlderManifestAfterNewer() async throws {
         let c = try signedCase()
         let data = try S.fixture("mirror_signature")

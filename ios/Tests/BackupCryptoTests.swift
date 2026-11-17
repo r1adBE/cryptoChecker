@@ -302,7 +302,7 @@ final class BackupLimitsTests: XCTestCase {
             tx(["id": 1, "amountText": "0.5"]), tx(["id": 2, "amountText": "1e300"]), tx(["id": 3, "amountText": "1e-50"]),
             tx(["id": 4, "priceText": "1e31"]), tx(["id": 5, "feeText": "1e35"]),
         ])
-        // Eigene Kennungen: doppelte zählten ebenfalls als ungültig (S3-08)
+        // Eigene Kennungen: doppelte zählten ebenfalls als ungültig
         // Menge zu gross bzw. zu fein → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
         XCTAssertEqual(try BackupManager.invalidEntries(json), 2)
         // Zahl statt Text: Sicherung unlesbar

@@ -25,7 +25,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * «Letzte Prüfungen» ehrlich (Audit A-01, früher Quelltext-Wächter): Bremst die einzige Börse (429, pausiert), vermerkt
+ * «Letzte Prüfungen» ehrlich: Bremst die einzige Börse (429, pausiert), vermerkt
  * die Hintergrund-Prüfung «pausiert» statt «OK» und zählt nicht als volle Prüfung; ebenso keine volle Prüfung, wenn das
  * Budget aufgebraucht ist; mit Kursen «OK» und volle Prüfung.
  * Echter [BackgroundCheck] über Hilt, Antworten aus [FakeExchange] (kein Netz).

@@ -2,7 +2,7 @@ import CryptoKit
 import XCTest
 @testable import CryptoChecker
 
-/// Merkliste bei vollem Speicher bzw. nicht beschreibbarer Datei (N3-15): `writeFiles` merkt sich das Scheitern
+/// Merkliste bei vollem Speicher bzw. nicht beschreibbarer Datei: `writeFiles` merkt sich das Scheitern
 /// (`watchlistWriteFailed`), die App zeigt «Konnte nicht gespeichert werden» und lässt den Stand im Speicher massgebend,
 /// bis ein Schreiben gelingt. Gegenstück Android: `GuardedWriteTest.kt`.
 final class WatchlistWriteFailedTests: XCTestCase {
@@ -34,7 +34,7 @@ final class WatchlistWriteFailedTests: XCTestCase {
                                                 includePortfolioInBackup: false, keys: keys()))
         XCTAssertTrue(SharedStorage.watchlistWriteFailed)
         XCTAssertFalse(SharedStorage.watchlistPending)
-        // Nächstes Schreiben gelingt: Merker bleibt (G4-03) — `writeFiles` schreibt auch Stände aus der Datei
+        // Nächstes Schreiben gelingt: Merker bleibt — `writeFiles` schreibt auch Stände aus der Datei
         // (`updateSnapshot` im Hintergrund-Abruf) ohne die ungespeicherte Änderung im Speicher der App; früher löschte
         // jedes geglückte Schreiben den Merker, und das nächste Lesen ersetzte die Änderung still
         XCTAssertTrue(SharedStorage.writeFiles(snapshot, watchlist: dir.appendingPathComponent("watchlist.json"),
@@ -60,7 +60,7 @@ final class WatchlistWriteFailedTests: XCTestCase {
         XCTAssertFalse(update.contains("watchlistWriteFailed"))
     }
 
-    /// Liegen gebliebene Zwischendateien (N3-11): nur alte `.<Name>.<UUID>.tmp` weg; junge und echte Dateien bleiben.
+    /// Liegen gebliebene Zwischendateien: nur alte `.<Name>.<UUID>.tmp` weg; junge und echte Dateien bleiben.
     func testAlteZwischendateienWeg() throws {
         let fm = FileManager.default
         let now = EpochTime.nowMillis

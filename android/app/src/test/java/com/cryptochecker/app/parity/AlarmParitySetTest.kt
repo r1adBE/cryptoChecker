@@ -210,5 +210,5 @@ class AlarmToggleParityTest {
     }
 
     // Schreibweg: Gerätetest WatchlistLockDeviceTest.enablingANeverFiringFallIsRefused; Schalter der Karte und der Übersicht:
-    // Regel wiring in .github/scripts/source_rules.py (Audit A-01)
+    // Regel wiring in .github/scripts/source_rules.py
 }

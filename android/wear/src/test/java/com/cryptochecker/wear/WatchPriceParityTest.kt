@@ -81,7 +81,7 @@ class WatchPriceParityTest {
     }
 
     /**
-     * Kurs-Komplikation nie «keine Daten» (Audit A-01, früher Quelltext-Wächter): ohne Coins ein Hinweis je Wahl, sonst der
+     * Kurs-Komplikation nie «keine Daten»: ohne Coins ein Hinweis je Wahl, sonst der
      * erste Coin; ohne Kurs oder mit stillgelegter Börse «Paar / —» statt eines alten Kurses ([ComplicationPlan]).
      */
     @Test

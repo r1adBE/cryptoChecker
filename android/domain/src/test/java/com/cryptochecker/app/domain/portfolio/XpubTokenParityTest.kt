@@ -233,7 +233,7 @@ class XpubTokenParityTest {
         assertEquals(WatchedAddressExtras.Decoded(), WatchedAddressExtras.decode("{kaputt", AddressChain.ETH))
     }
 
-    /** Sprung auf 0: erst der zweite gleiche Abruf gilt (N3-13/N3-14, `address_balance.json` › «zeroConfirm»). */
+    /** Sprung auf 0: erst der zweite gleiche Abruf gilt (`address_balance.json` › «zeroConfirm»). */
     @Test
     fun zeroConfirm() {
         val cases = data["zeroConfirm"].obj()["cases"].list().map { it.obj() }

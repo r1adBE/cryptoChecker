@@ -23,7 +23,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Leeres Portfolio (Audit A-01, früher Quelltext-Wächter): nur ein Satz — das Beispiel mit der Menge im Zahlenformat der
+ * Leeres Portfolio: nur ein Satz — das Beispiel mit der Menge im Zahlenformat der
  * App — und der Fusstext, kein zweiter Absatz. Wie iOS `CryptoCheckerUITests.testEmptyPortfolioShowsOneSentence`.
  */
 @HiltAndroidTest

@@ -1,7 +1,7 @@
 import Foundation
 
 // Portfolio-Datei beim Wiederherstellen (Teil von `BackupManager`; nicht in `AppData`, das nur dafür nicht weiter wachsen
-// soll): ersetzen und zurückrollen — auch über eine beschädigte Datei, die unverändert daneben kommt (R4-02).
+// soll): ersetzen und zurückrollen — auch über eine beschädigte Datei, die unverändert daneben kommt.
 
 extension BackupManager {
     /// Nach einer Wiederherstellung — wie Android: Transaktionen der Sicherung übernehmen. Ist `portfolio.json` nicht

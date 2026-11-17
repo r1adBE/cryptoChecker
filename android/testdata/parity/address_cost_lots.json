@@ -325,7 +325,7 @@
       },
       {
         "name": "FIFO: own sale beyond own holdings leaves the address part alone",
-        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
+        "_comment": "Befund 1: eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
         "method": "FIFO",
         "addresses": [
           {"id": 23, "chain": "BTC", "address": "bc1qtestperiodthree", "label": "Ledger", "lastBalance": "0.5", "lastUpdated": 1727827200000, "observations": [{"t": 1726272000000, "b": "1.5"}, {"t": 1727827200000, "b": "0.5"}]}
@@ -338,7 +338,7 @@
       },
       {
         "name": "average cost: own sale beyond own holdings leaves the address part alone",
-        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
+        "_comment": "Befund 1: eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
         "method": "AVERAGE",
         "addresses": [
           {"id": 23, "chain": "BTC", "address": "bc1qtestperiodthree", "label": "Ledger", "lastBalance": "0.5", "lastUpdated": 1727827200000, "observations": [{"t": 1726272000000, "b": "1.5"}, {"t": 1727827200000, "b": "0.5"}]}

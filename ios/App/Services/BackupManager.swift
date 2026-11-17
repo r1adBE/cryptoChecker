@@ -194,7 +194,7 @@ enum BackupManager {
         var addressServerHost: String?
         /// Von der Sicherung abgeschalteter Schutz (`BackupRestorePolicy.loweredProtection`).
         var lowered = BackupRestorePolicy.LoweredProtection()
-        /// Beschädigte Portfolio-Daten ersetzt, ihre Datei liegt unverändert daneben (R4-02, nur iOS: Android legt eine
+        /// Beschädigte Portfolio-Daten ersetzt, ihre Datei liegt unverändert daneben (nur iOS: Android legt eine
         /// beschädigte Datenbank schon beim Öffnen beiseite und nennt es dann).
         var damagedSetAside = false
     }
@@ -259,7 +259,7 @@ enum BackupManager {
         _ = try BackupVersion.check(root["version"])
         try BackupFields.checkParts(root)
         // Gespeicherter Stand gerade gesperrt: nichts ersetzen (das Journal hielte sonst einen leeren Stand, die Daten kämen
-        // nach dem Entsperren zurück); beschädigt: ersetzen, die Datei kommt daneben (R4-02). Nicht beim Zurückrollen eines
+        // nach dem Entsperren zurück); beschädigt: ersetzen, die Datei kommt daneben. Nicht beim Zurückrollen eines
         // abgebrochenen Laufs (`journal` false)
         if journal && storageAccess(data) == .locked { throw Failure.storageKept }
 

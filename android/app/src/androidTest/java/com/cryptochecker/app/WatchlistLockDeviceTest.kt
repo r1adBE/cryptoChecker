@@ -319,7 +319,7 @@ class WatchlistLockDeviceTest {
 
     /**
      * «Fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus: der Schreibweg schaltet ihn nicht ein, ausschalten geht immer
-     * (Audit A-01, früher Quelltext-Wächter; die Schalter der Karte und der Übersicht nutzen dieselbe Regel
+     * (die Schalter der Karte und der Übersicht nutzen dieselbe Regel
      * `AlarmJson.toggleAllowed`, Testfälle `AlarmParitySetTest`).
      */
     @Test

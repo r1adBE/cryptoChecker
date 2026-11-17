@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Portfolio-Kurse aus der Kerzen-Kette (Audit A-01, früher Quelltext-Wächter): Netz, Zeitgrenze oder 5xx heissen «nicht
+/// Portfolio-Kurse aus der Kerzen-Kette: Netz, Zeitgrenze oder 5xx heissen «nicht
 /// abrufbar» (`failed`), lauter «gibt es nicht» bleibt «kein Kurs». Antworten aus dem Test-Transport statt Netz. Wie
 /// Android `CandleDataSourceChainTest.attemptTellsFailureFromNoData`.
 final class CandleChainAttemptTests: XCTestCase {

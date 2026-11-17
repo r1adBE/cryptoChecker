@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Einzel-Widget merkt das Paar, nicht nur die Id (B3-08; Audit A-01, früher Quelltext-Wächter): steht unter der Id nach
+ * Einzel-Widget merkt das Paar, nicht nur die Id: steht unter der Id nach
  * einer eingespielten Sicherung ein anderes Paar, zeigt es «Paar wählen». Ältere Wahl ohne Paar merkt sich das Paar
  * beim ersten Zeichnen. Echte Widget-Einstellungen (SharedPreferences). Wie iOS `SingleWidgetChoiceTests.swift`.
  */

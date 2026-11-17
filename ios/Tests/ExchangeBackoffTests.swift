@@ -49,7 +49,7 @@ final class ExchangeBackoffTests: XCTestCase {
         XCTAssertNil(ExchangeBackoff.next(once, outcome: .other, now: now))
     }
 
-    /// Stufe sinkt: Ende der letzten Pause länger als 15 Min. her → wieder ab 30 s (N3-09).
+    /// Stufe sinkt: Ende der letzten Pause länger als 15 Min. her → wieder ab 30 s.
     func testPauseLevelDecaysAfterQuietTime() throws {
         let high = ExchangeBackoff.State(strikes: 6, pausedUntil: now, reason: .TIMEOUT, timeoutRuns: 1)
         XCTAssertEqual(ExchangeBackoff.next(high, outcome: .timeout, now: now + 60_000)?.strikes, 7)
@@ -59,7 +59,7 @@ final class ExchangeBackoffTests: XCTestCase {
         XCTAssertEqual(ExchangeBackoff.next(high, outcome: .rateLimited, now: now + ExchangeBackoff.maxMillis + 1)?.strikes, 1)
     }
 
-    /// Netz wieder da: Zeit-Pausen weg, Bremsen-Pausen bleiben (N3-09).
+    /// Netz wieder da: Zeit-Pausen weg, Bremsen-Pausen bleiben.
     func testReconnectDropsTimeoutPausesOnly() {
         let states: [String: ExchangeBackoff.State] = [
             "kraken": .init(strikes: 3, pausedUntil: now + 60_000, reason: .TIMEOUT, timeoutRuns: 0),

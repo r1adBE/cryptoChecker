@@ -53,5 +53,5 @@ class RestoreStorageMessageTest {
     }
 
     // Anbindung an das Schreiben in BackupManager.restore und die Sperre der Adress-Aktualisierung beim Wiederherstellen
-    // und Zurückrollen: Regel wiring in .github/scripts/source_rules.py (Audit A-01)
+    // und Zurückrollen: Regel wiring in .github/scripts/source_rules.py
 }

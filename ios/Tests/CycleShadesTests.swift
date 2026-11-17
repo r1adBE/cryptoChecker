@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// V4-11: ab dem Halving 2028 (drei frühere Zyklen) hat jeder frühere Zyklus einen eigenen Grauton. Android: CycleShadesTest.
+/// ab dem Halving 2028 (drei frühere Zyklen) hat jeder frühere Zyklus einen eigenen Grauton. Android: CycleShadesTest.
 final class CycleShadesTests: XCTestCase {
     func testHeuteZweiFruehereZyklenWieBisher() {
         XCTAssertEqual(CycleShades.olderAlpha(0, olderCount: 2), 0.65, accuracy: 1e-9)

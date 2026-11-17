@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            // Nur in instrumentierten Tests gesetzt (Audit mit grosser Schrift / Arabisch), sonst unverändert
+            // Nur in instrumentierten Tests gesetzt (Barrierefreiheit: grosse Schrift, Arabisch), sonst unverändert
             TestDisplayOverride.Provide {
                 CryptoCheckerTheme(
                     dark = settings.darkMode ?: isSystemInDarkTheme(),

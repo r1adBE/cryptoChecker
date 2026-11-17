@@ -17,7 +17,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Wecker «Pünktlich prüfen» ohne Netz (Audit A-01, früher Quelltext-Wächter): kein Versuch, aber ein ehrlicher Eintrag
+ * Wecker «Pünktlich prüfen» ohne Netz: kein Versuch, aber ein ehrlicher Eintrag
  * «offline» (Auslöser exakt) in «Letzte Prüfungen»; Absagen vermerkt nichts; mit Netz wird geprüft.
  */
 @HiltAndroidTest

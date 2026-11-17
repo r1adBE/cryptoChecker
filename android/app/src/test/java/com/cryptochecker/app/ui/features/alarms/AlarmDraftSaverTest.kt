@@ -70,7 +70,7 @@ class AlarmDraftSaverTest {
 
     /**
      * Offener Editor im ViewModel ([AlarmEditorState] über [SavedStateHandle]): übersteht Prozess-Ende samt Eingaben;
-     * zu = nichts gespeichert (Audit A-01, früher Quelltext-Wächter). Drehen mit offener Rückfrage auf dem Gerät:
+     * zu = nichts gespeichert. Drehen mit offener Rückfrage auf dem Gerät:
      * `AlarmEditorRecreateTest`.
      */
     @Test

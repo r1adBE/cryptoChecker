@@ -18,8 +18,8 @@ import org.junit.Test
 
 /**
  * Adressen von bitbank, Coincheck, HashKey Exchange und BTC Markets: Kennung aus der Paarliste oder aus Basis und
- * Gegenwährung gebildet, dazu die gefilterte Sammelabfrage von BTC Markets (je Markt ein «marketId»). Ab Build 187
- * auch Bitkub, Coinone (Pfad «KRW/BTC»), BitoPro und MAX (Auswahl je «markets[]»). Gegenstück:
+ * Gegenwährung gebildet, dazu die gefilterte Sammelabfrage von BTC Markets (je Markt ein «marketId»). Dazu
+ * Bitkub, Coinone (Pfad «KRW/BTC»), BitoPro und MAX (Auswahl je «markets[]»). Gegenstück:
  * `Tests/RegionalExchangeAddressTests.swift`.
  */
 class RegionalExchangeAddressTest {

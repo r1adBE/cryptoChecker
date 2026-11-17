@@ -5,7 +5,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Einstellungen ersetzt (unlesbar) → eigener Bitcoin-Server unbekannt (S3-02): Bitcoin-Adressen werden nicht abgefragt,
+ * Einstellungen ersetzt (unlesbar) → eigener Bitcoin-Server unbekannt: Bitcoin-Adressen werden nicht abgefragt,
  * bis der Nutzer den Server neu einträgt oder öffentliche Knoten bestätigt — nie still bei öffentlichen Knoten. Die
  * Regel selbst prüft `AddressServerParityTest.unbekannterServerSperrtBitcoin`; hier die Verdrahtung (SharedPreferences
  * und Room laufen nur auf dem Gerät). Gegenstück iOS: `AddressServerUnknownTests.swift`.

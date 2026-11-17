@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Einzel-Widget merkt das Paar, nicht nur die Id (B3-08; Audit A-01, früher Quelltext-Wächter). Wie Android
+/// Einzel-Widget merkt das Paar, nicht nur die Id. Wie Android
 /// `SingleWidgetChoiceDeviceTest.kt`.
 final class SingleWidgetChoiceTests: XCTestCase {
     private func watch(_ id: Int64, _ base: String) -> Watch {

@@ -133,7 +133,7 @@ class ExchangeRetirementParityTest {
         assertNull(RetiredWatch.shown(marked, end - 86_400_000).lastPrice)
     }
 
-    /** Android lädt weder Alarm-Zusatzdaten noch Tages-Bezüge für stillgelegte bzw. nicht gehandelte Paare (F2-05). */
+    /** Android lädt weder Alarm-Zusatzdaten noch Tages-Bezüge für stillgelegte bzw. nicht gehandelte Paare. */
     @Test
     fun noPrefetchForRetiredPairs() {
         val source = sequenceOf("", "../", "android/")

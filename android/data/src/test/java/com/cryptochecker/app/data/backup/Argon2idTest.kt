@@ -99,7 +99,7 @@ class Argon2idTest {
         rejects { Argon2id.hash(pw, ByteArray(7), 64, 1, 1, 32) } // Salt < 8 Bytes
     }
 
-    /** S3-14: Arbeitsblöcke (r, tmp, input, address) werden nach dem Füllen überschrieben, auch bei einem Fehler. */
+    /** Arbeitsblöcke (r, tmp, input, address) werden nach dem Füllen überschrieben, auch bei einem Fehler. */
     @Test
     fun workBlocksAreWiped() {
         val text = listOf(

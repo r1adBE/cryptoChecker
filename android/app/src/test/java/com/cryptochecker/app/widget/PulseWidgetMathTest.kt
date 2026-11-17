@@ -101,7 +101,7 @@ class PulseWidgetMathTest {
         assertEquals(2, PulseWidgetMath.leadLines(180))
         assertEquals(1, PulseWidgetMath.leadLines(140))
         assertEquals(1, PulseWidgetMath.leadLines(134))
-        // V4-01: der Stand steht in jeder Grösse (wie iOS) – reicht die Höhe nicht für Leitsatz und Stand, weicht
+        // der Stand steht in jeder Grösse (wie iOS) – reicht die Höhe nicht für Leitsatz und Stand, weicht
         // der Leitsatz (früher fiel unter 150 dp der Stand weg, auch «Keine Verbindung»)
         assertEquals(0, PulseWidgetMath.leadLines(120))
         assertEquals(1, PulseWidgetMath.leadLines(120, showsTime = false))

@@ -99,7 +99,7 @@ class PhoneWatchFeedTest {
     }
 
     /**
-     * G4-02: die Uhr beschriftet die Veränderung mit «24 h» – vom Handy kommt sie nur rollend; bei «Seit 00:00» bzw.
+     * die Uhr beschriftet die Veränderung mit «24 h» – vom Handy kommt sie nur rollend; bei «Seit 00:00» bzw.
      * UTC keine (Uhr «—»), auch nicht, solange die gespeicherten Werte noch mit einer Tages-Basis gestempelt sind.
      */
     @Test

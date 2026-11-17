@@ -25,7 +25,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * Hinweis unter dem Alarm-Formular (Audit A-01, früher Quelltext-Wächter): ein kurzer Satz und genau ein Verweis «Mehr
+ * Hinweis unter dem Alarm-Formular: ein kurzer Satz und genau ein Verweis «Mehr
  * dazu» zur Seite «Damit Alarme ankommen» — kein langer Text, kein zweiter Knopf. Dort stehen der ganze Satz und
  * «Kurs-Aktualisierung ändern». Echte Composables auf dem Gerät. iOS: `CryptoCheckerUITests.testClosedAppHintLeadsToDelivery`.
  */

@@ -31,7 +31,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
- * «+»-Knopf des Portfolios verdeckt beim Lesen keine Beträge (Audit A-01, früher Quelltext-Wächter; Regel
+ * «+»-Knopf des Portfolios verdeckt beim Lesen keine Beträge (Regel
  * `AddButtonScroll`): beim Scrollen nach unten blendet er aus, nach oben wieder ein — in der Übersicht und auf der Seite
  * eines Coins. Echte Oberfläche mit langer Liste. Wie iOS `CryptoCheckerUITests.testAddButtonHidesWhileScrollingDown`.
  */

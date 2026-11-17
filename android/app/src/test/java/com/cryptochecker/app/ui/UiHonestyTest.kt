@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Kleine Ehrlichkeits-Regeln der Oberfläche (Audit A-01: Verhalten statt Quelltext). Vergleich: die feste Spalte des
+ * Kleine Ehrlichkeits-Regeln der Oberfläche (Verhalten statt Quelltext). Vergleich: die feste Spalte des
  * gewählten Zeitraums entfällt (nie zweimal «7T» mit zwei Werten). Diagnose/«Entwickler»: `AboutExtrasTest`; Kurs-Overlay
  * nach dem Prozessstart: Regel `app-start` (source_rules.py). Wie iOS `UiHonestyTests`.
  */

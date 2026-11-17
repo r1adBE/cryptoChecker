@@ -112,7 +112,7 @@ extension SharedStorage {
     /// der gespeicherte Stand dank Transaktion unverändert und der Hinweis kommt sofort).
     /// «Gelöscht nach dem nächsten geschriebenen Stand» heisst: nach dem nächsten Stand der App (`saveSnapshotInBackground`,
     /// immer der Speicher der App). Ein Schreiben aus der Datei (`updateSnapshot` im Hintergrund-Abruf) löscht ihn nicht —
-    /// sonst ersetzte das nächste Lesen die ungespeicherte Änderung still durch den älteren Dateistand (G4-03).
+    /// sonst ersetzte das nächste Lesen die ungespeicherte Änderung still durch den älteren Dateistand.
     static var watchlistWriteFailed: Bool {
         get { watchlistWriteFailedBox.current }
         set { watchlistWriteFailedBox.current = newValue }

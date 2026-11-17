@@ -65,7 +65,7 @@ extension BackupManager {
         return try encode(root)
     }
 
-    /// Schlüssel im Journal: Teile, deren beschädigte Datei das Wiederherstellen daneben legt (R4-02). Das Zurückrollen nach
+    /// Schlüssel im Journal: Teile, deren beschädigte Datei das Wiederherstellen daneben legt. Das Zurückrollen nach
     /// einem Abbruch legt sie unverändert zurück, statt den leeren Stand des Journals stehen zu lassen.
     static let journalDamagedKey = "journalDamaged"
     static let damagedPortfolio = "portfolio"

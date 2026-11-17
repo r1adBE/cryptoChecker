@@ -25,7 +25,7 @@ class PortfolioAlarmLockScreenTest {
     }
 
     // Die echte Mitteilung (alle Textfelder, öffentliche Fassung, privat): Gerätetest PortfolioAlarmNoticeDeviceTest
-    // (Audit A-01, früher Quelltext-Wächter); die Funktion bekommt nur die Kennung des Alarms (Signatur).
+    //; die Funktion bekommt nur die Kennung des Alarms (Signatur).
 
     /** Titel und neutraler Satz enthalten in keiner Sprache eine Ziffer oder einen Platzhalter. */
     @Test

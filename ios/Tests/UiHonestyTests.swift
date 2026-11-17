@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Kleine Ehrlichkeits-Regeln der Oberfläche (Audit A-01, früher Quelltext-Wächter). Wie Android `UiHonestyTest.kt`.
+/// Kleine Ehrlichkeits-Regeln der Oberfläche. Wie Android `UiHonestyTest.kt`.
 final class UiHonestyTests: XCTestCase {
     /// Vergleich: die feste Spalte des gewählten Zeitraums entfällt (nie zweimal «7T» mit zwei Werten).
     func testCompareNeverShowsTheRangeTwice() {

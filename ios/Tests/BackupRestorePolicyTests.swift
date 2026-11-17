@@ -149,7 +149,7 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertTrue(BackupSettingsPage.restoredAsDialog(result, text: text))
     }
 
-    /// Doppelte Kennungen (S3-08): wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json).
+    /// Doppelte Kennungen: wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json).
     func testDuplicateIdsCountAsInvalid() throws {
         let cases = TestSupport.list(try TestSupport.fixture("backup_duplicate_ids")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)

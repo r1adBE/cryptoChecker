@@ -33,7 +33,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
- * Löschen einer Buchungszeile (Wischen bzw. TalkBack «Löschen»; Audit A-01, früher Quelltext-Wächter): erst die Rückfrage
+ * Löschen einer Buchungszeile (Wischen bzw. TalkBack «Löschen»): erst die Rückfrage
  * wie im Editor, gelöscht wird erst nach «Löschen» — ohne «Rückgängig», wie der Editor. Echte Oberfläche.
  * iOS: `CryptoCheckerUITests.testTxSwipeDeleteAsksFirst`.
  */

@@ -145,7 +145,7 @@ androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", 
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "benchmark" }
 
 # Nur Build-Werkzeuge (AGP, Lint, Hilt-Plugin): Mindestversionen ohne bekannte Lücken, als Constraints im
-# Wurzel-Buildskript (Audit C-07; OSV-Abfrage 16.11.2026). Nicht in der App.
+# Wurzel-Buildskript (OSV-Abfrage 16.11.2026). Nicht in der App.
 buildtool-bcprov = { module = "org.bouncycastle:bcprov-jdk18on", version = "1.85" }
 buildtool-bcpkix = { module = "org.bouncycastle:bcpkix-jdk18on", version = "1.85" }
 buildtool-bcutil = { module = "org.bouncycastle:bcutil-jdk18on", version = "1.85" }

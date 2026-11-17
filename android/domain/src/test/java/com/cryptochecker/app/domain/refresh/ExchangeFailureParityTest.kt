@@ -72,7 +72,7 @@ class ExchangeFailureParityTest {
         }
     }
 
-    /** Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab (N3-08). */
+    /** Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab. */
     @Test
     fun pairListAborts() {
         val cases = data["pairListAborts"].list()
@@ -87,7 +87,7 @@ class ExchangeFailureParityTest {
         }
     }
 
-    /** Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht (N3-05). */
+    /** Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht. */
     @Test
     fun pairListAttempt() {
         val cases = data["pairListAttempt"].list()
@@ -98,7 +98,7 @@ class ExchangeFailureParityTest {
         }
     }
 
-    /** HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»; N3-07). */
+    /** HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»). */
     @Test
     fun accessDenied() {
         val cases = data["accessDenied"].list()

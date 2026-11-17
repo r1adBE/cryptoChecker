@@ -63,7 +63,7 @@ class ExchangeBackoffTest {
         assertNull(broken)
     }
 
-    /** Stufe sinkt: Ende der letzten Pause länger als 15 Min. her → wieder ab 30 s (N3-09). */
+    /** Stufe sinkt: Ende der letzten Pause länger als 15 Min. her → wieder ab 30 s. */
     @Test
     fun pauseLevelDecaysAfterQuietTime() {
         val high = ExchangeBackoff.State(strikes = 6, pausedUntil = now, reason = RefreshFailure.TIMEOUT, timeoutRuns = 1)
@@ -76,7 +76,7 @@ class ExchangeBackoffTest {
         assertEquals(1, limited.strikes)
     }
 
-    /** Netz wieder da: Zeit-Pausen weg, Bremsen-Pausen bleiben (N3-09). */
+    /** Netz wieder da: Zeit-Pausen weg, Bremsen-Pausen bleiben. */
     @Test
     fun reconnectDropsTimeoutPausesOnly() {
         val states = mapOf(

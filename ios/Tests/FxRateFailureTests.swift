@@ -3,8 +3,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Devisenkurs nach einem Abruf ohne Antwort beider Quellen: eine Minute kein neuer Versuch — sonst wartete jede weitere
-/// Währung erneut bis 2 × 10 s. Wie Android `FxRateSourceTest.failedFetchIsNotRepeatedWithinAMinute` (früher
-/// Quelltext-Wächter, Audit A-01).
+/// Währung erneut bis 2 × 10 s. Wie Android `FxRateSourceTest.failedFetchIsNotRepeatedWithinAMinute`.
 final class FxRateFailureTests: XCTestCase {
 
     override func tearDown() {

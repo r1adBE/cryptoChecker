@@ -284,7 +284,7 @@ enum ProtectedFile {
 
     /// Eine Datei, die der Aufrufer nicht (ganz) lesen konnte: beschädigt statt nur gerade gesperrt? true = ihre Bytes sind
     /// lesbar und entschlüsselbar (dann ist der Inhalt kaputt bzw. hat übersprungene Einträge) oder `damaged` — ein Neustart
-    /// hilft nicht, nur Ersetzen (Wiederherstellen, R4-02). false = gerade nicht zugänglich (kein Schlüssel, Datenschutz vor
+    /// hilft nicht, nur Ersetzen (Wiederherstellen). false = gerade nicht zugänglich (kein Schlüssel, Datenschutz vor
     /// dem ersten Entsperren, neueres Format) oder weg: abwarten, nie ersetzen.
     static func unreadableIsDamaged(_ url: URL, keys: StorageKey = .shared) -> Bool {
         do {

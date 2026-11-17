@@ -178,7 +178,7 @@ class MirrorTrustTest {
         assertEquals(MirrorManifest.Status.OK, trust.lastStatus)
     }
 
-    /** S3-15: Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage. */
+    /** Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage. */
     @Test
     fun olderManifestAfterNewerIsTooOld() = runBlocking {
         val newer = list("verify").first { it["name"] == "signed with an unknown extra field" }

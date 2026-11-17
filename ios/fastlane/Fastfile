@@ -8,7 +8,7 @@
 # ab, wenn der Tag fehlt, nicht zur Version passt oder der Klon lokale Änderungen hat. Ergebnis:
 # build/CryptoChecker-<Build>.xcarchive; Hochladen weiter im Organizer (Abschnitt 5, Schritt 3).
 # Archiviert wird NICHT dieser Arbeitsordner, sondern genau der Baum des Tags: ein temporärer Worktree des
-# öffentlichen Klons am Tag-Commit (Audit 16.11.2026, C-02), danach wieder entfernt.
+# öffentlichen Klons am Tag-Commit, danach wieder entfernt.
 # Lädt nichts hoch und liest fastlane/metadata nicht (das macht nur deliver mit dem Deliverfile).
 require "tmpdir"
 

@@ -62,9 +62,8 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 /**
- * Widgets, wie sie gezeichnet werden (Audit A-01, früher Quelltext-Wächter `WidgetOfflineTest` und
- * `WidgetInitialLayoutTest`): Die echten Renderer zeichnen, [WidgetPublish.testSink] fängt die [RemoteViews] ab, der Test
- * bläht sie wie der Launcher auf und liest, was dasteht.
+ * Widgets, wie sie gezeichnet werden: Die echten Renderer zeichnen, [WidgetPublish.testSink] fängt die [RemoteViews]
+ * ab, der Test bläht sie wie der Launcher auf und liest, was dasteht.
  * - Ohne Internet: «Keine Verbindung · Stand 14:05» bzw. «Keine Verbindung» in der Zeit-Zeile, Neuzeichnen bei Rückkehr
  *   des Netzes geplant (WorkManager, nur mit Netz) und ausgeführt (ohne bestätigtes Netz später erneut, sonst Kurse
  *   holen); eine Netzabfrage je Zeichnen, nicht je Widget.

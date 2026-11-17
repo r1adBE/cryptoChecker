@@ -260,7 +260,7 @@ class CoinLogosParityTest {
         )
     }
 
-    /** Dauerhaft gestörte Bilder halten das erste Laden nicht für immer offen (R4-05, `openPasses`). */
+    /** Dauerhaft gestörte Bilder halten das erste Laden nicht für immer offen (`openPasses`). */
     @Test
     fun openPasses() {
         val o = data["openPasses"].obj()

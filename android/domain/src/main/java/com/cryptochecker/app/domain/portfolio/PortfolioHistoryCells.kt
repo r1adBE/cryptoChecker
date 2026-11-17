@@ -5,7 +5,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Teile von [PortfolioHistory.build] (Audit 16.11.2026, A-02: die Funktion war 166 Zeilen lang): Kerzen mit
+ * Teile von [PortfolioHistory.build] (die Funktion war 166 Zeilen lang): Kerzen mit
  * Identitätsprüfung, Werte je Coin und Tag, Zuflüsse für Gewinn/Verlust. Verhalten unverändert.
  */
 

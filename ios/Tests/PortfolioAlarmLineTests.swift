@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Portfolio-Alarm mit ungültiger Schwelle nennt «löschen und neu anlegen» (kein Editor), nicht «anpassen» (Audit A-01,
-/// früher Quelltext-Wächter). Wie Android `PortfolioAlarmInvalidHintTest.kt`.
+/// Portfolio-Alarm mit ungültiger Schwelle nennt «löschen und neu anlegen» (kein Editor), nicht «anpassen». Wie
+/// Android `PortfolioAlarmInvalidHintTest.kt`.
 final class PortfolioAlarmLineTests: XCTestCase {
     func testInvalidThresholdNamesDeleteAndRecreate() {
         XCTAssertEqual(PortfolioAlarmLine.key(invalid: true, repeating: true), "portfolio_alarm_threshold_invalid_recreate")

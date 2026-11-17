@@ -26,12 +26,12 @@ extension BackupManager {
         let favorites: [FavoriteKind: Set<String>]
         let columnSort: String?
         let portfolio: PortfolioFile
-        /// Beschädigte Datei (R4-02): Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben.
+        /// Beschädigte Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben.
         var portfolioIntact = true
         let watched: WatchedAddressFile
         /// Unlesbare Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben.
         let watchedIntact: Bool
-        /// `portfolio_alarms.json` beschädigt (R4-02): vor dem Ersetzen unverändert daneben gelegt; Rückrollen schreibt
+        /// `portfolio_alarms.json` beschädigt: vor dem Ersetzen unverändert daneben gelegt; Rückrollen schreibt
         /// keine Portfolio-Alarme (leer, wie das Journal), die Datei bleibt daneben.
         var alarmsDamaged = false
 

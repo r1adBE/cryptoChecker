@@ -7,7 +7,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * «Keine Verbindung» in den Widgets (Owner-Wunsch Build 205): Reihenfolge offline > veraltet > Uhrzeit ([WidgetStatusRule])
+ * «Keine Verbindung» in den Widgets: Reihenfolge offline > veraltet > Uhrzeit ([WidgetStatusRule])
  * und die enge Stufe des Listenkopfs. Was die Widgets zeichnen (Zeit-Zeile ohne Netz, Neuzeichnen bei Rückkehr, eine
  * Netzabfrage je Zeichnen, erster Auftritt), prüft `WidgetDrawDeviceTest` auf dem Gerät; der Knopf ohne Netz:
  * `WidgetRefreshStateTest`.

@@ -141,7 +141,7 @@ class RefreshResultProcessorTest {
         assertTrue(f.notifier.alarmPosts.isEmpty())
     }
 
-    /** Nicht gehandelt bzw. Börse stillgelegt: weder «geprüft» noch «fehlgeschlagen» (F2-01). */
+    /** Nicht gehandelt bzw. Börse stillgelegt: weder «geprüft» noch «fehlgeschlagen». */
     @Test
     fun notTradedPairsCountNeitherAsCheckedNorAsFailed() {
         val f = RefreshFixture(listOf(watch(id = 1, price = 99.0), watch(id = 2, price = 99.0), watch(id = 3, price = 99.0)))
@@ -163,7 +163,7 @@ class RefreshResultProcessorTest {
     }
 
     /**
-     * Kurs-Meldung (N3-01): ein gewöhnlicher Fehler (Zeit, 5xx) lässt sie stehen; entfernt wird sie nur, wenn das Paar
+     * Kurs-Meldung: ein gewöhnlicher Fehler (Zeit, 5xx) lässt sie stehen; entfernt wird sie nur, wenn das Paar
      * nicht mehr gehandelt wird bzw. die Börse stillgelegt ist. iOS `PriceRefresher.evaluate` gleich.
      */
     @Test

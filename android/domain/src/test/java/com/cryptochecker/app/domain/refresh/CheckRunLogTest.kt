@@ -33,11 +33,11 @@ class CheckRunLogTest {
         assertEquals(CheckResult.OK, CheckRunLog.result(checked = 5, failed = 0))
         assertEquals(CheckResult.PARTIAL, CheckRunLog.result(checked = 5, failed = 2))
         assertEquals(CheckResult.FAILED, CheckRunLog.result(checked = 5, failed = 5))
-        // Alle Börsen pausiert bzw. Alarme ohne Lease: nichts geprüft, nicht «OK» (B3-02)
+        // Alle Börsen pausiert bzw. Alarme ohne Lease: nichts geprüft, nicht «OK»
         assertEquals(CheckResult.PAUSED, CheckRunLog.result(checked = 0, failed = 0, paused = 3))
         assertEquals(CheckResult.OK, CheckRunLog.result(checked = 2, failed = 0, paused = 3))
         assertEquals(CheckResult.PAUSED, CheckRunLog.result(checked = 5, failed = 0, alarmsUnchecked = true))
-        // Pausiert und offline zählen nicht als letzte Prüfung; offline übersprungen wird erkannt (B3-11)
+        // Pausiert und offline zählen nicht als letzte Prüfung; offline übersprungen wird erkannt
         val runs = listOf(
             CheckRun(300, CheckTrigger.EXACT, CheckResult.OFFLINE, 0),
             CheckRun(200, CheckTrigger.WORKER, CheckResult.PAUSED, 10),

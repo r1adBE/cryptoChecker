@@ -9,7 +9,7 @@ import java.net.SocketException
 import java.net.UnknownHostException
 
 /**
- * Verbindung mitten in der Antwort getrennt (N3-02): jede Ein-/Ausgabe-Ausnahme beim Transport ist «keine
+ * Verbindung mitten in der Antwort getrennt: jede Ein-/Ausgabe-Ausnahme beim Transport ist «keine
  * Verbindung» (wiederholbar), nicht «Etwas ist schiefgelaufen» — wie iOS `.networkConnectionLost`.
  */
 class NetworkFailureKindTest {

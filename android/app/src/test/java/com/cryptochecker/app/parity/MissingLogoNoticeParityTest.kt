@@ -88,5 +88,5 @@ class MissingLogoNoticeParityTest {
     }
 
     // Anbindung (Zeile unter dem Lade-Hinweis, ✕, Schalter, Ablage): Gerätetest MissingLogosHintTest und Regel
-    // missing-logos in .github/scripts/source_rules.py (Audit A-01)
+    // missing-logos in .github/scripts/source_rules.py
 }

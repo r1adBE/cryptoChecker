@@ -8,7 +8,7 @@
    the parent's logo): CoinGecko's public exchange list (/exchanges pages, detail page /exchanges/<id> for
    exchanges missing from the list), for exchanges CoinGecko does not list the CoinMarketCap exchange image
    (s2.coinmarketcap.com, by CoinMarketCap exchange id), and where neither has one a neutral monogram (letter on a
-   grey circle, drawn once and kept from the current pack). No App Store icons (Audit 241, K-02).
+   grey circle, drawn once and kept from the current pack). No App Store icons.
    Android assets + iOS App/Resources (app only).
 
 Format (CoinLogos.parseIconPack on both platforms): "CCIP1\\n", one line "<name> <byte length>\\n" per logo, an

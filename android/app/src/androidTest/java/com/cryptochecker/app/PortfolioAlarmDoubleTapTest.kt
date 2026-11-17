@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
- * Doppeltipp beim Anlegen eines Portfolio-Alarms (Audit A-01, früher Quelltext-Wächter): zweimal «Speichern», solange das
+ * Doppeltipp beim Anlegen eines Portfolio-Alarms: zweimal «Speichern», solange das
  * erste Anlegen läuft, ergibt genau einen Alarm. Echtes [PortfolioViewModel] mit den Abhängigkeiten der App (Hilt).
  * iOS: `PortfolioAlarmSheet` mit `AlarmCreateGuard` (Regel `alarm-create-guard`).
  */

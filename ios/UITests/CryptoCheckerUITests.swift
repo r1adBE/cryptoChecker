@@ -239,7 +239,7 @@ final class CryptoCheckerUITests: XCTestCase {
     // MARK: 7. Hinweis «App geschlossen» im Alarm-Formular
 
     /// Ein kurzer Satz und genau ein Verweis «Learn more» zur Seite «Damit Alarme ankommen»; dort steht «Adjust price
-    /// updates» (Audit A-01, früher Quelltext-Wächter). Wie Android `ClosedAppHintDeviceTest`.
+    /// updates». Wie Android `ClosedAppHintDeviceTest`.
     @MainActor
     func testClosedAppHintLeadsToDelivery() throws {
         let app = launchApp()
@@ -259,7 +259,7 @@ final class CryptoCheckerUITests: XCTestCase {
     // MARK: 8. «+»-Knopf des Portfolios beim Scrollen
 
     /// Lange Liste: nach unten scrollen blendet «Add transaction» aus (verdeckt keine Beträge), nach oben wieder ein
-    /// (Audit A-01, früher Quelltext-Wächter; Regel `AddButtonScroll`). Wie Android `PortfolioFabScrollDeviceTest`.
+    /// (Regel `AddButtonScroll`). Wie Android `PortfolioFabScrollDeviceTest`.
     @MainActor
     func testAddButtonHidesWhileScrollingDown() throws {
         let coins = ["BTC", "ETH", "SOL", "XRP", "ADA", "DOGE", "DOT", "LTC", "LINK", "AVAX", "ATOM", "UNI", "XLM", "ETC",
@@ -293,8 +293,8 @@ final class CryptoCheckerUITests: XCTestCase {
 
     // MARK: 9. Leeres Portfolio
 
-    /// Nur ein Satz (das Beispiel mit der Menge im Zahlenformat der App) und der Fusstext, kein zweiter Absatz (Audit
-    /// A-01, früher Quelltext-Wächter). Wie Android `PortfolioEmptyStateDeviceTest`.
+    /// Nur ein Satz (das Beispiel mit der Menge im Zahlenformat der App) und der Fusstext, kein zweiter Absatz. Wie
+    /// Android `PortfolioEmptyStateDeviceTest`.
     @MainActor
     func testEmptyPortfolioShowsOneSentence() throws {
         let app = launchApp()
@@ -308,8 +308,8 @@ final class CryptoCheckerUITests: XCTestCase {
 
     // MARK: 10. Buchung per Wischen löschen
 
-    /// Wischen auf einer Buchung fragt wie der Editor («Delete transaction?») und löscht erst danach, ohne «Undo» (Audit
-    /// A-01, früher Quelltext-Wächter). Wie Android `TxSwipeDeleteDeviceTest`.
+    /// Wischen auf einer Buchung fragt wie der Editor («Delete transaction?») und löscht erst danach, ohne «Undo». Wie
+    /// Android `TxSwipeDeleteDeviceTest`.
     @MainActor
     func testTxSwipeDeleteAsksFirst() throws {
         let app = launchApp(csv: try fixture(Self.csvFixture))
@@ -335,7 +335,7 @@ final class CryptoCheckerUITests: XCTestCase {
     // MARK: 11. Notiz unter einem Paar
 
     /// Notiz unter dem Paar der Merkliste: eine Zeile über die ganze Breite der Zeile (ausserhalb der Paar-Spalte), lange
-    /// bzw. mehrzeilige Notizen gekürzt (Audit A-01, früher Quelltext-Wächter). Wie Android `WatchRowNoteDeviceTest`.
+    /// bzw. mehrzeilige Notizen gekürzt. Wie Android `WatchRowNoteDeviceTest`.
     @MainActor
     func testWatchRowNoteIsOneLineAcrossTheRow() throws {
         let note = "First line of a long note that keeps going and going well past the width of any phone screen\\nsecond line"

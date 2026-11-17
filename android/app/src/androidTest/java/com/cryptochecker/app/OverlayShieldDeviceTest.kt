@@ -27,7 +27,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Schutz der App-Fenster (Audit A-01, früher Quelltext-Wächter): Über dem Portfolio und über «App zurücksetzen» blendet
+ * Schutz der App-Fenster: Über dem Portfolio und über «App zurücksetzen» blendet
  * die App fremde Überlagerungen aus (Tapjacking, [OverlayShield]); verlässt man sie, hebt sie es auf. Mehrere Stellen mit
  * FLAG_SECURE zählen: erst die letzte nimmt es weg ([SecureShield]).
  */

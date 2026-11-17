@@ -1,7 +1,7 @@
 package com.cryptochecker.marketdata.config
 
 /**
- * Börsen, deren öffentliche Kurs-Schnittstelle zu einem festen Zeitpunkt endet (Entscheid Inhaber, 12.11.2026): Bitpanda
+ * Börsen, deren öffentliche Kurs-Schnittstelle zu einem festen Zeitpunkt endet: Bitpanda
  * bis 31. Januar 2027, ab 1. Februar 2027 00:00 UTC von selbst — ohne App-Update — still gelegt. Ab dann keine Anfrage
  * mehr an diese Börse (Kurse, Sammelliste, Paarliste), ihre Paare bleiben in der Merkliste grau mit Grund ([marker],
  * gespeichert als `lastError`, zählt als «nicht gehandelt», `NotTraded`), Alarme bleiben gespeichert, prüfen aber
