@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 272)
+
+- Test fixes.
+
 ## 16.2.2 (build 271)
 
 - More checks as behaviour tests (settings search anchors, coins without logo, address cost lots, portfolio alarms, «What moves with it?» without candles).

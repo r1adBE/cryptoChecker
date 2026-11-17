@@ -24,22 +24,29 @@ final class WhyCandlesFailureTests: XCTestCase {
     /// Kerzen. Android: `WhyEmptyStateDeviceTest` (dort auch der Leerzustand mit der Börse des Paars).
     func testRetryAsksAgainInsteadOfTheRememberedEmptyState() async throws {
         let coin = "ZZQW\(Int.random(in: 1000...9999))"
-        let requests = OSAllocatedUnfairLock(initialState: 0)
+        let requests = OSAllocatedUnfairLock(initialState: [String]())
         ExchangeHTTP.testTransport.withLock {
             $0 = { url in
-                if url.uppercased().contains(coin) { requests.withLock { $0 += 1 } }
+                if url.uppercased().contains(coin) { requests.withLock { $0.append(url) } }
                 throw HttpExchangeError(httpCode: 404, body: "test")
             }
         }
         defer { ExchangeHTTP.testTransport.withLock { $0 = nil } }
         let watch = Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: coin, quoteAsset: "USDT",
                           lastPrice: 1.0)
-        _ = await ActivityMonitor.explain(watch)
-        let first = requests.withLock { $0 }
-        XCTAssertGreaterThan(first, 0, "erste Abfrage ging nicht ans Netz")
-        _ = await ActivityMonitor.explain(watch)
-        XCTAssertEqual(requests.withLock { $0 }, first, "ohne «Erneut versuchen» gemerkter Leerstand")
-        _ = await ActivityMonitor.explain(watch, refresh: true)
-        XCTAssertGreaterThan(requests.withLock { $0 }, first, "«Erneut versuchen» fragte nicht neu")
+        func asked(_ refresh: Bool) async -> Set<String> {
+            let before = requests.withLock { $0.count }
+            _ = await ActivityMonitor.explain(watch, refresh: refresh)
+            return Set(requests.withLock { Array($0[before...]) })
+        }
+        let first = await asked(false)
+        XCTAssertFalse(first.isEmpty, "erste Abfrage ging nicht ans Netz")
+        // Ohne «Erneut versuchen»: was gemerkt ist (mindestens die Kerzen), wird nicht neu gefragt
+        let again = await asked(false)
+        let remembered = first.subtracting(again)
+        XCTAssertFalse(remembered.isEmpty, "nichts gemerkt")
+        // «Erneut versuchen» fragt das Gemerkte neu
+        let retry = await asked(true)
+        XCTAssertFalse(remembered.isDisjoint(with: retry), "«Erneut versuchen» fragte nicht neu")
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertWidthIsAtLeast
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.hasText
@@ -113,7 +114,8 @@ class MissingLogosHintTest {
         compose.waitUntil(5_000) { rowShown() }
         val title = compose.activity.resources.getQuantityString(R.plurals.watchlist_missing_logos, 2, 2)
         compose.onAllNodes(hasText(title)).assertCountEquals(1)
-        val close = compose.onNode(hasContentDescription(text(R.string.watchlist_missing_logos_dismiss)), useUnmergedTree = true)
+        // Knopf (zusammengeführt mit seinem Symbol), nicht das 16-dp-Symbol allein
+        val close = compose.onNode(hasContentDescription(text(R.string.watchlist_missing_logos_dismiss)) and hasClickAction())
         close.assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
         close.performClick()
         compose.waitUntil(5_000) { !rowShown() }

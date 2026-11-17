@@ -5,6 +5,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.ui.platform.testTag
+import com.cryptochecker.app.ui.UiTestTags
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -241,7 +243,7 @@ fun PortfolioDetailScreen(
                                 onDelete = { confirmDelete = tx },
                                 onToggleFavorite = null,
                                 reduceMotion = reduceMotion,
-                                modifier = if (reduceMotion) Modifier else Modifier.animateItem(),
+                                modifier = (if (reduceMotion) Modifier else Modifier.animateItem()).testTag(UiTestTags.PORTFOLIO_TX_ROW),
                                 // Rückfrage statt sofort: die Zeile gleitet zurück, gelöscht wird erst nach «Löschen»
                                 confirmsDelete = true,
                             ) {

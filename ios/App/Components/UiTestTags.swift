@@ -77,6 +77,9 @@ enum UiTestTags {
     /// Zeile einer offenen Position im Portfolio («portfolio_coin_BTC»).
     static func portfolioCoin(_ coin: String) -> String { "portfolio_coin_" + coin }
 
+    /// Zeile einer Buchung auf der Coin-Seite des Portfolios.
+    static let portfolioTxRow = "portfolio_tx_row"
+
     // Stichtag-Export und Steuer-Arbeitsunterlage
     static let portfolioCutoffExport = "portfolio_cutoff_export"
     static let portfolioTaxExport = "portfolio_tax_export"

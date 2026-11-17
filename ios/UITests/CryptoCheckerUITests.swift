@@ -267,7 +267,12 @@ final class CryptoCheckerUITests: XCTestCase {
                      "FLOW", "KAVA", "ZEC"]
         let rows = coins.enumerated().map { i, coin in "2024-01-\(String(format: "%02d", i % 28 + 1))T10:00:00Z,Buy,\(coin),1,\(100 + i),USD,scroll-\(i)" }
         let app = launchApp(csv: (["Date,Type,Coin,Amount,Price,Currency,ID"] + rows).joined(separator: "\n") + "\n")
-        importFixtureCsv(app)
+        // Lange Liste: nur die oberen Zeilen stehen im Baum — irgendeine Position genügt
+        tap(app, UiTestTags.tabPortfolio)
+        tap(app, UiTestTags.portfolioImportCsv)
+        tap(app, UiTestTags.csvImportConfirm, timeout: uiListTimeout)
+        let anyCoin = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH %@", "portfolio_coin_"))
+        XCTAssertTrue(anyCoin.firstMatch.waitForExistence(timeout: uiTimeout), "nothing imported")
         _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
         let add = app.buttons["Add transaction"]
         XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button missing")
@@ -303,15 +308,16 @@ final class CryptoCheckerUITests: XCTestCase {
         _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
         tap(app, UiTestTags.portfolioCoin("BTC"))
         // Die Buchung (0.01 BTC aus der Testdatei)
-        let cell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "0.01")).firstMatch
-        XCTAssertTrue(cell.waitForExistence(timeout: uiTimeout), "transaction row missing")
-        let before = app.cells.count
-        cell.swipeLeft()
+        let rows = app.descendants(matching: .any).matching(identifier: UiTestTags.portfolioTxRow)
+        let row = rows.firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "transaction row missing")
+        let before = rows.count
+        row.swipeLeft()
         let swipeDelete = app.buttons["Delete"].firstMatch
         if swipeDelete.waitForExistence(timeout: 3), !app.alerts.firstMatch.exists { swipeDelete.tap() }
         let alert = app.alerts["Delete transaction?"]
         XCTAssertTrue(alert.waitForExistence(timeout: uiTimeout), "no confirmation before deleting")
-        XCTAssertEqual(app.cells.count, before, "deleted before the confirmation")
+        XCTAssertEqual(rows.count, before, "deleted before the confirmation")
         alert.buttons["Delete"].tap()
         XCTAssertTrue(wait(alert, "exists == false"), "confirmation still open")
         XCTAssertFalse(app.buttons["Undo"].waitForExistence(timeout: 2), "undo offered after deleting a transaction")

@@ -85,6 +85,7 @@ struct PortfolioCoinDetail: View {
                     PortfolioTxRow(tx: tx, coin: coin)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier(UiTestTags.portfolioTxRow)
                 // VoiceOver: Löschen wie nach links wischen (mit Rückfrage)
                 .accessibilityActions {
                     Button(L("action_delete")) { confirmDelete(tx) }

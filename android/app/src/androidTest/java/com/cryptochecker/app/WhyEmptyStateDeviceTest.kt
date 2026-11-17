@@ -57,7 +57,12 @@ class WhyEmptyStateDeviceTest {
         ConnectivityMonitor.forcedOnlineForTest = null
     }
 
-    private fun coinRequests() = FakeExchange.requests.count { COIN in it.uppercase() }
+    /** Adressen mit dem Coin, die [block] abfragt. */
+    private suspend fun coinRequests(block: suspend () -> Unit): Set<String> {
+        val before = FakeExchange.requests.size
+        block()
+        return FakeExchange.requests.drop(before).filterTo(HashSet()) { COIN in it.uppercase() }
+    }
 
     @Test
     fun offlineNamesItAsSuch() = runBlocking<Unit> {
@@ -68,14 +73,18 @@ class WhyEmptyStateDeviceTest {
     @Test
     fun retryAsksAgainInsteadOfTheRememberedEmptyState() = runBlocking<Unit> {
         ConnectivityMonitor.forcedOnlineForTest = true
-        // Keine Quelle führt den Coin: kein Fehler, der Leerstand wird kurz gemerkt
-        assertEquals(null, monitor.explain(watch).candlesFailure)
-        val first = coinRequests()
-        assertTrue("erste Abfrage ging nicht ans Netz", first > 0)
-        monitor.explain(watch)
-        assertEquals("ohne «Erneut versuchen» gemerkter Leerstand", first, coinRequests())
-        monitor.explain(watch, refresh = true)
-        assertTrue("«Erneut versuchen» fragte nicht neu", coinRequests() > first)
+        // Keine Quelle führt den Coin: kein Fehler, der Leerstand der Kerzen wird kurz gemerkt
+        var report: com.cryptochecker.app.domain.activity.WhyReport? = null
+        val first = coinRequests { report = monitor.explain(watch) }
+        assertEquals(null, report?.candlesFailure)
+        assertTrue("erste Abfrage ging nicht ans Netz", first.isNotEmpty())
+        // Ohne «Erneut versuchen»: was gemerkt ist (mindestens die Kerzen), wird nicht neu gefragt
+        val again = coinRequests { monitor.explain(watch) }
+        val remembered = first - again
+        assertTrue("nichts gemerkt: $again", remembered.isNotEmpty())
+        // «Erneut versuchen» fragt das Gemerkte neu
+        val retry = coinRequests { monitor.explain(watch, refresh = true) }
+        assertTrue("«Erneut versuchen» fragte nicht neu: $remembered / $retry", remembered.any { it in retry })
     }
 
     private fun text(id: Int, vararg args: Any) = compose.activity.getString(id, *args)

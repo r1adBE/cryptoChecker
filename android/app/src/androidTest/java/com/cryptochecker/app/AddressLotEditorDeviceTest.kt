@@ -79,7 +79,9 @@ class AddressLotEditorDeviceTest {
             hasAnyAncestor(hasAnyDescendant(hasText(text(R.string.address_lots_delete_title))))
 
     private fun restore() {
-        compose.runOnUiThread { host.restore() }
+        compose.runOnUiThread { host.dispose() }
+        compose.waitForIdle()
+        compose.runOnUiThread { host.show() }
         compose.waitForIdle()
     }
 

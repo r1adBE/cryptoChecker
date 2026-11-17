@@ -78,6 +78,9 @@ object UiTestTags {
     /** Zeile einer offenen Position im Portfolio («portfolio_coin_BTC»). */
     fun portfolioCoin(coin: String): String = PORTFOLIO_COIN + coin
 
+    /** Zeile einer Buchung auf der Coin-Seite des Portfolios. */
+    const val PORTFOLIO_TX_ROW = "portfolio_tx_row"
+
     // ── Stichtag-Export und Steuer-Arbeitsunterlage ──
     const val PORTFOLIO_CUTOFF_EXPORT = "portfolio_cutoff_export"
     const val PORTFOLIO_TAX_EXPORT = "portfolio_tax_export"

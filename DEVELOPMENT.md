@@ -3254,6 +3254,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 269: A-01 Teil 2 (6): Fixes Gerätetests 268, CompareMath.withoutRepeatedRange, AboutExtras, SpeechHints, PhoneWatchListener.watchAppChanged/PhoneWatchSync.putOutcome/republishAtStart/PhoneWatchFeed.sentIfNew, AlarmEditorState-Test, wear ComplicationPlan, Regel app-start; ROADMAP: Entscheid «nichts nach dem Release».
 * Build 270: test fixes: backup device test confirms the plain-backup question or enters a password and checks the file picker opened; iOS address message test on the main actor.
 * Build 271: A-01 part 2 (8): settings search anchors and the pairs permission event as source rules; coins-without-logo, address cost lot editor, «why» empty state and the portfolio alarm notification as device/iOS tests; lot editor takes the daily close as a function; portfolio alarm line as a function on both platforms.
+* Build 272: test fixes of 271: retry test checks only the remembered requests; logo close measured as button; recreation at the same position; iOS AlarmSaveOutcome in its own file; transaction row test tag; long portfolio list without fixed coins.
 
 ## Known warnings
 
