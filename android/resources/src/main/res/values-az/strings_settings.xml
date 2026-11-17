@@ -221,6 +221,10 @@
     <string name="theme_dark">Tünd</string>
     <string name="theme_light">Açıq</string>
     <string name="theme_system">Sistem</string>
+    <string name="theme_scheduled">Vaxta görə</string>
+    <string name="theme_dark_from">Tünd başlayır</string>
+    <string name="theme_light_from">Açıq başlayır</string>
+    <string name="theme_scheduled_hint">%1$s ilə %2$s arası tünd, qalan vaxt açıq.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Mavi</string>

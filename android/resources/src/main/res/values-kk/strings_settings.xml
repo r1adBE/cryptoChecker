@@ -221,6 +221,10 @@
     <string name="theme_dark">Қараңғы</string>
     <string name="theme_light">Жарық</string>
     <string name="theme_system">Жүйелік</string>
+    <string name="theme_scheduled">Уақыт бойынша</string>
+    <string name="theme_dark_from">Қараңғы басталуы</string>
+    <string name="theme_light_from">Жарық басталуы</string>
+    <string name="theme_scheduled_hint">%1$s – %2$s аралығында қараңғы, басқа уақытта жарық.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Көк</string>

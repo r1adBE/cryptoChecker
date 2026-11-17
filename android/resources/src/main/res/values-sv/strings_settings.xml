@@ -221,6 +221,10 @@
     <string name="theme_dark">Mörkt</string>
     <string name="theme_light">Ljust</string>
     <string name="theme_system">System</string>
+    <string name="theme_scheduled">Efter tid</string>
+    <string name="theme_dark_from">Mörkt från</string>
+    <string name="theme_light_from">Ljust från</string>
+    <string name="theme_scheduled_hint">Mörkt från %1$s till %2$s, annars ljust.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blå</string>

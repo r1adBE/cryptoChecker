@@ -219,6 +219,10 @@
     <string name="theme_dark">Gelap</string>
     <string name="theme_light">Cerah</string>
     <string name="theme_system">Sistem</string>
+    <string name="theme_scheduled">Mengikut masa</string>
+    <string name="theme_dark_from">Gelap dari</string>
+    <string name="theme_light_from">Cerah dari</string>
+    <string name="theme_scheduled_hint">Gelap dari %1$s hingga %2$s, selain itu cerah.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Biru</string>

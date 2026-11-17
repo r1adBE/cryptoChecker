@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Modus: wie das System, Hell oder Dunkel (App und Widgets); dazu hoher Kontrast.
+/// Modus: wie das System, Hell, Dunkel oder «Nach Uhrzeit» (dunkel ab / hell ab, `ThemeSchedule`) — für die App und
+/// Widgets mit «System»; dazu hoher Kontrast. Wie Android `DisplayModePage`.
 @MainActor
 struct DisplayModeSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -10,7 +11,29 @@ struct DisplayModeSettingsPage: View {
     var body: some View {
         SettingsCardsPage(title: L("settings_theme_mode")) {
             SettingsCard {
-                SettingsThemePicker(selection: data.settings.darkMode) { data.settings.darkMode = $0 }
+                SettingsThemePicker(
+                    selection: data.settings.darkMode,
+                    scheduled: data.settings.themeScheduled,
+                    scheduleHint: L("theme_scheduled_hint", QuietHours.format(data.settings.themeDarkFrom),
+                                    QuietHours.format(data.settings.themeLightFrom)),
+                    onSelect: { dark in
+                        // Eine Änderung (ein Speichern): Wahl setzen und «Nach Uhrzeit» aus
+                        var s = data.settings
+                        s.darkMode = dark
+                        s.themeScheduled = false
+                        data.settings = s
+                    },
+                    onSchedule: { data.settings.themeScheduled = true }
+                )
+                if data.settings.themeScheduled {
+                    SettingsTimePicker(title: L("theme_dark_from"), minute: data.settings.themeDarkFrom) {
+                        data.settings.themeDarkFrom = $0
+                    }
+                    SettingsTimePicker(title: L("theme_light_from"), minute: data.settings.themeLightFrom) {
+                        data.settings.themeLightFrom = $0
+                    }
+                    .padding(.bottom, Spacing.xs)
+                }
             }
             SettingsCard {
                 // Hoher Kontrast: kräftigere Kursfarben, dunklere Nebentexte

@@ -219,6 +219,10 @@
     <string name="theme_dark">ងងឹត</string>
     <string name="theme_light">ភ្លឺ</string>
     <string name="theme_system">ប្រព័ន្ធ</string>
+    <string name="theme_scheduled">តាមម៉ោង</string>
+    <string name="theme_dark_from">ងងឹតចាប់ពី</string>
+    <string name="theme_light_from">ភ្លឺចាប់ពី</string>
+    <string name="theme_scheduled_hint">ងងឹតពី %1$s ដល់ %2$s ក្រៅពីនោះភ្លឺ។</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ខៀវ</string>

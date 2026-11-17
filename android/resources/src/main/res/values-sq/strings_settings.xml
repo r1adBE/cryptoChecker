@@ -221,6 +221,10 @@
     <string name="theme_dark">E errët</string>
     <string name="theme_light">E çelët</string>
     <string name="theme_system">Sistemi</string>
+    <string name="theme_scheduled">Sipas orës</string>
+    <string name="theme_dark_from">E errët nga</string>
+    <string name="theme_light_from">E çelët nga</string>
+    <string name="theme_scheduled_hint">E errët nga %1$s deri në %2$s, përndryshe e çelët.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blu</string>

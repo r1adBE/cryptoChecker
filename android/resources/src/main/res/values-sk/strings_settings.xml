@@ -225,6 +225,10 @@
     <string name="theme_dark">Tmavý</string>
     <string name="theme_light">Svetlý</string>
     <string name="theme_system">Systém</string>
+    <string name="theme_scheduled">Podľa času</string>
+    <string name="theme_dark_from">Tmavý od</string>
+    <string name="theme_light_from">Svetlý od</string>
+    <string name="theme_scheduled_hint">Od %1$s do %2$s tmavý, inak svetlý.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Modrá</string>

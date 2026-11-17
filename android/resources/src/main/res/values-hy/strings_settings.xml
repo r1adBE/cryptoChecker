@@ -221,6 +221,10 @@
     <string name="theme_dark">Մուգ</string>
     <string name="theme_light">Բաց</string>
     <string name="theme_system">Համակարգային</string>
+    <string name="theme_scheduled">Ըստ ժամի</string>
+    <string name="theme_dark_from">Մուգ՝ սկսած</string>
+    <string name="theme_light_from">Բաց՝ սկսած</string>
+    <string name="theme_scheduled_hint">%1$s–%2$s մուգ, մնացած ժամերին՝ բաց։</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Կապույտ</string>

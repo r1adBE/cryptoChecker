@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.ThemeSchedule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,11 +51,22 @@ class AppearanceApplier @Inject constructor(
     }
 
     /**
-     * Hell/Dunkel für alles, was nicht Compose ist (Fensterhintergrund, Systemdialoge).
-     * null = dem System folgen. Merkt sich die Wahl zusätzlich im kleinen Start-Zwischenspeicher.
+     * Hell/Dunkel für alles, was nicht Compose ist (Fensterhintergrund, Systemdialoge), aus den Einstellungen:
+     * «Nach Uhrzeit» ([ThemeSchedule], Stand jetzt), fest Hell/Dunkel oder wie das System. Merkt sich die Wahl
+     * zusätzlich im kleinen Start-Zwischenspeicher (mit Zeitplan die beiden Zeiten, nicht das heutige Ergebnis).
      */
-    fun applyNightMode(dark: Boolean?) {
-        writeCachedNightMode(dark)
+    fun applyNightMode(settings: AppSettings, now: Long = System.currentTimeMillis()) {
+        writeCachedNightMode(
+            if (settings.themeScheduled) {
+                NIGHT_SCHEDULE + settings.themeDarkFrom + ":" + settings.themeLightFrom
+            } else {
+                nightValue(settings.darkMode)
+            }
+        )
+        setNightMode(ThemeSchedule.forcedDark(settings, now))
+    }
+
+    private fun setNightMode(dark: Boolean?) {
         AppCompatDelegate.setDefaultNightMode(
             when (dark) {
                 null -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -69,20 +82,35 @@ class AppearanceApplier @Inject constructor(
      * [CachedNightMode.Missing] = noch nie geschrieben (frische Installation,
      * Systemsicherung ohne diese Datei) – dann liest der Start einmal synchron.
      */
-    fun cachedNightMode(): CachedNightMode =
-        when (context.getSharedPreferences(CACHE_PREFS, Context.MODE_PRIVATE).getString(KEY_NIGHT, null)) {
+    fun cachedNightMode(now: Long = System.currentTimeMillis()): CachedNightMode {
+        val value = context.getSharedPreferences(CACHE_PREFS, Context.MODE_PRIVATE).getString(KEY_NIGHT, null)
+        return when (value) {
             NIGHT_SYSTEM -> CachedNightMode.Known(null)
             NIGHT_DARK -> CachedNightMode.Known(true)
             NIGHT_LIGHT -> CachedNightMode.Known(false)
-            else -> CachedNightMode.Missing
+            else -> scheduled(value, now)
         }
+    }
 
-    private fun writeCachedNightMode(dark: Boolean?) {
-        val value = when (dark) {
-            null -> NIGHT_SYSTEM
-            true -> NIGHT_DARK
-            false -> NIGHT_LIGHT
-        }
+    /** «schedule:1380:420» → Hell/Dunkel jetzt; anderes = [CachedNightMode.Missing]. */
+    private fun scheduled(value: String?, now: Long): CachedNightMode {
+        val times = value?.removePrefix(NIGHT_SCHEDULE)?.takeIf { it != value }?.split(":")
+            ?.mapNotNull { it.toIntOrNull() }?.takeIf { it.size == 2 }
+            ?: return CachedNightMode.Missing
+        val settings = AppSettings(themeScheduled = true, themeDarkFrom = times[0], themeLightFrom = times[1])
+        return CachedNightMode.Known(ThemeSchedule.forcedDark(settings, now))
+    }
+
+    /** Start aus dem Zwischenspeicher: Hell/Dunkel setzen, ohne ihn neu zu schreiben. */
+    fun applyCachedNightMode(dark: Boolean?) = setNightMode(dark)
+
+    private fun nightValue(dark: Boolean?): String = when (dark) {
+        null -> NIGHT_SYSTEM
+        true -> NIGHT_DARK
+        false -> NIGHT_LIGHT
+    }
+
+    private fun writeCachedNightMode(value: String) {
         val prefs = context.getSharedPreferences(CACHE_PREFS, Context.MODE_PRIVATE)
         if (prefs.getString(KEY_NIGHT, null) != value) prefs.edit { putString(KEY_NIGHT, value) }
     }
@@ -100,5 +128,6 @@ class AppearanceApplier @Inject constructor(
         const val NIGHT_SYSTEM = "system"
         const val NIGHT_DARK = "dark"
         const val NIGHT_LIGHT = "light"
+        const val NIGHT_SCHEDULE = "schedule:"
     }
 }

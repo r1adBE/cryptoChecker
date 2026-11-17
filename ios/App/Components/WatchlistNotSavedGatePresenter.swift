@@ -101,6 +101,6 @@ private struct WatchlistNotSavedGateContent: View {
             .tint(data.settings.accentColor.primary)
             .environment(\.appAccent, data.settings.accentColor)
             .highContrastRoot(data.settings.highContrast)
-            .preferredColorScheme(data.settings.darkMode.map { $0 ? .dark : .light })
+            .appColorScheme(data.settings)
     }
 }

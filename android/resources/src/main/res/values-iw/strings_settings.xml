@@ -223,6 +223,10 @@
     <string name="theme_dark">כהה</string>
     <string name="theme_light">בהיר</string>
     <string name="theme_system">מערכת</string>
+    <string name="theme_scheduled">לפי שעה</string>
+    <string name="theme_dark_from">כהה מ־</string>
+    <string name="theme_light_from">בהיר מ־</string>
+    <string name="theme_scheduled_hint">כהה מ־%1$s עד %2$s, ובשאר הזמן בהיר.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">כחול</string>

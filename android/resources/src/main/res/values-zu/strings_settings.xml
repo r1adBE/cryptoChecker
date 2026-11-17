@@ -221,6 +221,10 @@
     <string name="theme_dark">Kumnyama</string>
     <string name="theme_light">Kukhanyayo</string>
     <string name="theme_system">Isistimu</string>
+    <string name="theme_scheduled">Ngesikhathi</string>
+    <string name="theme_dark_from">Kumnyama kusukela</string>
+    <string name="theme_light_from">Kukhanyayo kusukela</string>
+    <string name="theme_scheduled_hint">Kumnyama kusukela ku-%1$s kuya ku-%2$s, ngaphandle kwalokho kukhanyayo.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Okuluhlaza okwesibhakabhaka</string>

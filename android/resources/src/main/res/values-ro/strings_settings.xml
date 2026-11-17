@@ -223,6 +223,10 @@
     <string name="theme_dark">Întunecat</string>
     <string name="theme_light">Luminos</string>
     <string name="theme_system">Sistem</string>
+    <string name="theme_scheduled">După oră</string>
+    <string name="theme_dark_from">Întunecat de la</string>
+    <string name="theme_light_from">Luminos de la</string>
+    <string name="theme_scheduled_hint">Întunecat de la %1$s la %2$s, altfel luminos.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Albastru</string>

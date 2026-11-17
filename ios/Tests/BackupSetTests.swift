@@ -105,6 +105,22 @@ final class BackupSettingsParityTests: XCTestCase {
         }
     }
 
+    /// Wie Android `olderBackupWithoutScheduleTurnsItOffAndKeepsTimes`: ältere Sicherung kennt «Nach Uhrzeit» nicht —
+    /// aus, damit ihr «darkMode» gilt; die Zeiten bleiben.
+    func testOlderBackupWithoutScheduleTurnsItOffAndKeepsTimes() throws {
+        var current = AppSettings()
+        current.themeScheduled = true
+        current.themeDarkFrom = 1200
+        current.themeLightFrom = 360
+        var older = try XCTUnwrap(TestSupport.fixture("backup_settings")["settings"] as? [String: Any])
+        for field in BackupManager.optionalSettingsFields { older.removeValue(forKey: field.key) }
+        let restored = try BackupManager.applySettings(older, onto: current, trusted: true)
+        XCTAssertFalse(restored.themeScheduled)
+        XCTAssertEqual(restored.darkMode, true)
+        XCTAssertEqual(restored.themeDarkFrom, 1200)
+        XCTAssertEqual(restored.themeLightFrom, 360)
+    }
+
     func testUntrustedOnlyTowardsMoreProtection() throws {
         var current = AppSettings()
         current.hidePortfolioAmounts = true
@@ -124,9 +140,17 @@ final class BackupSettingsParityTests: XCTestCase {
         let data = try TestSupport.fixture("backup_settings")
         let settings = try XCTUnwrap(data["settings"] as? [String: Any])
         let fields = Set(BackupManager.settingsFields.map(\.key))
+        // Wahlfreie Felder (fehlen in älteren Sicherungen): geschrieben, dürfen aber fehlen
+        let optional = Set(data["optional"] as? [String] ?? [])
+        XCTAssertEqual(Set(BackupManager.optionalSettingsFields.map(\.key)), optional)
         let written = BackupManager.settingsJson(AppSettings())
-        XCTAssertEqual(Set(written.keys), fields)
-        XCTAssertEqual(Set(settings.keys), fields)
+        XCTAssertEqual(Set(written.keys), fields.union(optional))
+        XCTAssertEqual(Set(settings.keys), fields.union(optional))
+        for key in optional {
+            var missing = settings
+            missing.removeValue(forKey: key)
+            XCTAssertNoThrow(try BackupManager.checkSettings(missing), "ohne \(key)")
+        }
         XCTAssertEqual(BackupManager.settingsFields.count, fields.count)
         try BackupManager.checkSettings(written)
         try BackupManager.checkSettings(settings)

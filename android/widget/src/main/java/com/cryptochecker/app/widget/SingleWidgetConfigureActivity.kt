@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +55,7 @@ import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.DisabledColors
+import com.cryptochecker.app.ui.theme.rememberAppDark
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,7 +89,7 @@ class SingleWidgetConfigureActivity : AppCompatActivity() {
         setContent {
             val settings by settingsRepository.settings.collectAsState(initial = settingsRepository.cached)
             CryptoCheckerTheme(
-                dark = settings.darkMode ?: isSystemInDarkTheme(),
+                dark = rememberAppDark(settings),
                 accent = settings.accentColor,
                 priceColors = settings.priceColorScheme,
                 highContrast = rememberHighContrast(settings.highContrast),

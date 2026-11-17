@@ -126,10 +126,12 @@ class SettingsViewModel @Inject constructor(
     }
 
     /** Hell/Dunkel für App und Widgets; null = wie das System. */
+
+    /** System, Hell oder Dunkel (schaltet «Nach Uhrzeit» aus); App und Widgets mit «System». */
     fun setDarkMode(dark: Boolean?) = update {
         settingsRepository.setDarkMode(dark)
-        appearanceApplier.applyNightMode(dark)
-        widgetUpdater.updateAll()
+        settingsRepository.setThemeScheduled(false)
+        applyAppearance()
     }
 
     fun unlockDeveloper() = update {

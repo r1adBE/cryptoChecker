@@ -223,6 +223,10 @@
     <string name="theme_dark">Tumšs</string>
     <string name="theme_light">Gaišs</string>
     <string name="theme_system">Sistēmas</string>
+    <string name="theme_scheduled">Pēc laika</string>
+    <string name="theme_dark_from">Tumšs no</string>
+    <string name="theme_light_from">Gaišs no</string>
+    <string name="theme_scheduled_hint">Tumšs no %1$s līdz %2$s, citā laikā gaišs.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Zila</string>

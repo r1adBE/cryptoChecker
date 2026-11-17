@@ -3269,6 +3269,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 284: Kotlin style: ktlint 1.7.1 in CI (Android Studio style, 140 columns, android/.editorconfig, download checked by SHA-256); all Kotlin formatted, files named after their class, constant names, wildcard imports resolved; files over 400 lines after formatting split into helper/extension files; long functions shortened.
 * Build 285: Swift style: SwiftLint 0.59.1 in CI (ios/.swiftlint.yml, 140 columns, ceilings for nesting, parameters and complexity; portable macOS release checked by SHA-256, runs with the selected Xcode); iOS sources and tests cleaned up (long lines wrapped, static instead of class, shorthand forms), two long places moved into helpers.
 * Build 286: Test names in English: 886 German test names translated on both platforms (Kotlin backtick sentences and camelCase, Swift testXxx; same names for the same tests on Android and iOS); cross-references in comments updated.
+* Build 287: Appearance «By time» (ThemeSchedule, both platforms, 75 languages): fourth choice next to System/Light/Dark with «Dark from» / «Light from» (default 23:00 / 07:00); the app switches by itself (Android also AppCompat night mode); widgets with background «System» follow the app's appearance and redraw at the switch (Android alarm, iOS extra timeline entry); watch not affected. Backup: three optional settings fields (older backups stay readable and turn the schedule off); shared test cases theme_schedule.json.
 
 ## Known warnings
 

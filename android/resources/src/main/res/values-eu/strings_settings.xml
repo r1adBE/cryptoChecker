@@ -221,6 +221,10 @@
     <string name="theme_dark">Iluna</string>
     <string name="theme_light">Argia</string>
     <string name="theme_system">Sistema</string>
+    <string name="theme_scheduled">Orduaren arabera</string>
+    <string name="theme_dark_from">Iluna noiztik</string>
+    <string name="theme_light_from">Argia noiztik</string>
+    <string name="theme_scheduled_hint">Iluna %1$s–%2$s bitartean; bestela, argia.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Urdina</string>

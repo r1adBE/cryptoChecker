@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.settings
 import android.content.Context
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.cryptochecker.app.data.guardedWrite
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
@@ -133,6 +134,11 @@ class SettingsRepository @Inject constructor(
             it[SettingsKeys.darkMode] = dark
         }
     }
+
+    // «Nach Uhrzeit» (ThemeSchedule): Schalter, «Dunkel ab» und «Hell ab» (Minuten seit Mitternacht; ungültige ignoriert)
+    override suspend fun setThemeScheduled(enabled: Boolean) = edit { it[SettingsKeys.themeScheduled] = enabled }
+    override suspend fun setThemeDarkFrom(minute: Int) = editMinute(SettingsKeys.themeDarkFrom, minute)
+    override suspend fun setThemeLightFrom(minute: Int) = editMinute(SettingsKeys.themeLightFrom, minute)
 
     suspend fun setShowHttpLog(show: Boolean) = edit { it[SettingsKeys.showHttpLog] = show }
 
@@ -319,19 +325,12 @@ class SettingsRepository @Inject constructor(
     /** Chart im Aktionsblatt: Linie (true) oder Kerzen (nicht in der Sicherung). */
     suspend fun setSheetChartLine(line: Boolean) = edit { it[SettingsKeys.sheetChartLine] = line }
 
-    /** Wertverlauf im Portfolio auf- oder zugeklappt (nicht in der Sicherung). */
+    // Wertverlauf im Portfolio (nicht in der Sicherung): auf- oder zugeklappt, Zeitraum, Darstellung (Währung, USDT oder
+    // Vergleich), Kerzen (true) oder Linie, Gewinn/Verlust (true) oder Wert
     suspend fun setPortfolioHistoryExpanded(expanded: Boolean) = edit { it[SettingsKeys.portfolioHistoryExpanded] = expanded }
-
-    /** Zeitraum des Wertverlaufs (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryRange(range: PortfolioHistoryRange) = edit { it[SettingsKeys.portfolioHistoryRange] = range.name }
-
-    /** Darstellung des Wertverlaufs: Währung, USDT oder Vergleich (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryView(view: PortfolioHistoryView) = edit { it[SettingsKeys.portfolioHistoryView] = view.name }
-
-    /** Wertverlauf als Kerzen (true) oder Linie (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryCandles(candles: Boolean) = edit { it[SettingsKeys.portfolioHistoryCandles] = candles }
-
-    /** Wertverlauf als Gewinn/Verlust (true) oder Wert (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryPnl(pnl: Boolean) = edit { it[SettingsKeys.portfolioHistoryPnl] = pnl }
 
     /** Einstandsmethode FIFO | Ø (nicht in der Sicherung). */
@@ -392,6 +391,8 @@ class SettingsRepository @Inject constructor(
         block()
         true
     }
+
+    private suspend fun editMinute(key: Preferences.Key<Int>, minute: Int) = edit { if (QuietHours.isValidMinute(minute)) it[key] = minute }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.settingsDataStore.edit(block)

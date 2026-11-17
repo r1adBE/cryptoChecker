@@ -46,7 +46,8 @@ struct SingleWidgetView: View {
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(Self.url(entry.watch))
         default:
-            WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
+            WidgetThemed(theme: entry.theme, forcedDark: entry.appTheme.forcedDark(at: entry.date),
+                         accent: entry.accent, priceColors: entry.priceColors,
                          highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
                 Group {
                     if let watch = entry.shownWatch {

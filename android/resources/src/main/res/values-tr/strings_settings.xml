@@ -221,6 +221,10 @@
     <string name="theme_dark">Koyu</string>
     <string name="theme_light">Açık</string>
     <string name="theme_system">Sistem</string>
+    <string name="theme_scheduled">Saate göre</string>
+    <string name="theme_dark_from">Koyu başlangıcı</string>
+    <string name="theme_light_from">Açık başlangıcı</string>
+    <string name="theme_scheduled_hint">%1$s ile %2$s arası koyu, diğer saatlerde açık.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Mavi</string>

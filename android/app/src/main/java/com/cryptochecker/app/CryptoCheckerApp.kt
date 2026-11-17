@@ -13,6 +13,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.mirror.MirrorRevocations
+import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.setup.AppLanguages
@@ -242,14 +243,16 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         val cached = appearanceApplier.cachedNightMode()
         // Fehlt der Zwischenspeicher: nichts setzen = AppCompat folgt dem System
         val startDark = when (cached) {
-            is AppearanceApplier.CachedNightMode.Known -> cached.dark.also { appearanceApplier.applyNightMode(it) }
+            is AppearanceApplier.CachedNightMode.Known -> cached.dark.also { appearanceApplier.applyCachedNightMode(it) }
             AppearanceApplier.CachedNightMode.Missing -> null
         }
         scope.launch {
-            val dark = settingsRepository.current().darkMode
-            // Ohne Zwischenspeicher immer anwenden (schreibt ihn), sonst nur bei Abweichung
-            if (cached is AppearanceApplier.CachedNightMode.Missing || dark != startDark) {
-                withContext(Dispatchers.Main) { appearanceApplier.applyNightMode(dark) }
+            val settings = settingsRepository.current()
+            val dark = ThemeSchedule.forcedDark(settings)
+            // Ohne Zwischenspeicher immer anwenden (schreibt ihn), sonst nur bei Abweichung; mit «Nach Uhrzeit» immer
+            // (der Zwischenspeicher hält dann die Zeiten, die Einstellungen könnten andere haben)
+            if (cached is AppearanceApplier.CachedNightMode.Missing || dark != startDark || settings.themeScheduled) {
+                withContext(Dispatchers.Main) { appearanceApplier.applyNightMode(settings) }
             }
         }
         // Das App-Icon wird nicht hier umgeschaltet, sondern erst beim

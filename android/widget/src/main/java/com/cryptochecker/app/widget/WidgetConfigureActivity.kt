@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -61,7 +60,9 @@ import com.cryptochecker.app.domain.watch.assetKind
 import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberAppDark
 import com.cryptochecker.app.ui.theme.rememberHighContrast
+import com.cryptochecker.app.ui.theme.rememberThemeClock
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.resources.R
@@ -107,7 +108,7 @@ class WidgetConfigureActivity : AppCompatActivity() {
         setContent {
             val settings by settingsRepository.settings
                 .collectAsState(initial = settingsRepository.cached)
-            val dark = settings.darkMode ?: isSystemInDarkTheme()
+            val dark = rememberAppDark(settings)
 
             val highContrast = rememberHighContrast(settings.highContrast)
             CryptoCheckerTheme(
@@ -123,6 +124,7 @@ class WidgetConfigureActivity : AppCompatActivity() {
                     priceColors = settings.priceColorScheme,
                     highContrast = highContrast,
                     priceColorsInverted = settings.priceColorsInverted,
+                    settings = settings,
                     onDone = { finishWithSuccess(widgetId) }
                 )
             }
@@ -203,6 +205,7 @@ private fun WidgetConfigureContent(
     priceColors: com.cryptochecker.app.domain.settings.PriceColorScheme,
     highContrast: Boolean,
     priceColorsInverted: Boolean,
+    settings: com.cryptochecker.app.domain.settings.AppSettings,
     onDone: () -> Unit,
     viewModel: WidgetConfigureViewModel = hiltViewModel(),
 ) {
@@ -212,13 +215,8 @@ private fun WidgetConfigureContent(
     val loadedOptions by viewModel.options.collectAsStateWithLifecycle()
     // Vor dem Laden nur «Alle» und FAV (gibt es immer)
     val options = loadedOptions ?: listOf(null, WatchFilter.FAVORITES)
-    // Handy-Einstellung, nicht der Modus der App (der kann fest Hell/Dunkel sein)
-    val systemDark = remember { com.cryptochecker.app.util.SystemTheme.isDark() }
-    val previewDark = when (theme) {
-        WidgetTheme.SYSTEM -> systemDark
-        WidgetTheme.DARK -> true
-        WidgetTheme.LIGHT -> false
-    }
+    // «System» folgt der Darstellung der App (Hell, Dunkel, «Nach Uhrzeit» oder wie das Handy)
+    val previewDark = themeDark(theme, settings, rememberThemeClock(settings))
     val background = WidgetColors.of(accent, previewDark, priceColors, highContrast, priceColorsInverted)
 
     Scaffold(

@@ -4,8 +4,10 @@ import WidgetKit
 
 // MARK: Daten
 
-struct WatchlistEntry: TimelineEntry {
+struct WatchlistEntry: ThemedTimelineEntry {
     var date: Date
+    /// Darstellung der App für «System» (beim Erstellen des Eintrags gelesen).
+    var appTheme = WidgetAppTheme.current
     let watches: [Watch]
     let lastRefreshAt: Int64
     /// Ab diesem Alter «veraltet» (`WidgetOutdated`), gemessen an `date`.
@@ -143,7 +145,7 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         // höchstens einer je Takt (`WidgetCadence`)
         let reload = WidgetData.reload(kind: WidgetData.watchlistKind,
                                        wantsQuickRetry: refreshSoon || !pricesWritten || entry.offline)
-        return Timeline(entries: entries, policy: .after(reload))
+        return Timeline(entries: WidgetAppTheme.addingSwitch(entries, until: reload), policy: .after(reload))
     }
 }
 
@@ -170,7 +172,8 @@ struct WatchlistWidgetView: View {
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
-        WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
+        WidgetThemed(theme: entry.theme, forcedDark: entry.appTheme.forcedDark(at: entry.date),
+                     accent: entry.accent, priceColors: entry.priceColors,
                      highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
             Group {
                 switch family {

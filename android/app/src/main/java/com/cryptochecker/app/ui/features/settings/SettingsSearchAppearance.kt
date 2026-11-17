@@ -26,6 +26,14 @@ internal fun SearchItemsBuilder.appearanceSection(watchlist: String): SearchItem
         stringResource(R.string.theme_dark)
     )
     add(
+        "display.scheduled",
+        stringResource(R.string.theme_scheduled),
+        mode,
+        SettingsSearchTarget.Page(SettingsPage.DISPLAY_MODE, "display.scheduled"),
+        stringResource(R.string.theme_dark_from),
+        stringResource(R.string.theme_light_from)
+    )
+    add(
         "display.contrast",
         stringResource(R.string.settings_high_contrast),
         mode,

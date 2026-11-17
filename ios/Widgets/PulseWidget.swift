@@ -23,8 +23,8 @@ struct PulseWidgetIntent: WidgetConfigurationIntent {
 
 // MARK: Daten
 
-struct PulseEntry: TimelineEntry {
-    let date: Date
+struct PulseEntry: ThemedTimelineEntry {
+    var date: Date
     /// nil = keine (brauchbaren) Marktdaten → «nicht verfügbar».
     let data: PulseMarketData?
     let theme: WidgetThemeOption
@@ -42,6 +42,8 @@ struct PulseEntry: TimelineEntry {
     var displayWidth: CGFloat = 0
     /// Ohne Internet beim Erstellen (`WidgetOffline`): «Keine Verbindung · Stand 14:05» statt «Aktualisiert 14:05».
     var offline = false
+    /// Darstellung der App für «System» (beim Erstellen des Eintrags gelesen).
+    var appTheme = WidgetAppTheme.current
 
     /// Auswertung wie die Karte. Fear & Greed und Gas ändern Schlagzeile, Leitsatz und
     /// Chips nicht (nur die Zusatzsätze der Karte) — das Widget lädt sie deshalb nicht.
@@ -94,7 +96,7 @@ struct PulseEntry: TimelineEntry {
     func at(_ later: Date) -> PulseEntry {
         PulseEntry(date: later, data: data, theme: theme, accent: accent, priceColors: priceColors,
                    highContrast: highContrast, priceColorsInverted: priceColorsInverted, fearGreed: fearGreed,
-                   plainFearGreed: plainFearGreed, displayWidth: displayWidth, offline: offline)
+                   plainFearGreed: plainFearGreed, displayWidth: displayWidth, offline: offline, appTheme: appTheme)
     }
 
     /// Beispiel für Galerie und Platzhalter: «Breite Stärke».
@@ -117,7 +119,7 @@ struct PulseEntry: TimelineEntry {
                           priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
                           priceColorsInverted: settings.priceColorsInverted,
                           fearGreed: fearGreed ?? FearGreedShared.showable(stored, now: EpochTime.nowMillis),
-                          plainFearGreed: stored, displayWidth: width)
+                          plainFearGreed: stored, displayWidth: width, appTheme: WidgetAppTheme(settings))
     }
 }
 
@@ -192,7 +194,8 @@ struct PulseProvider: AppIntentTimelineProvider {
         // Gleicher Takt wie die anderen Widgets; ohne Netz ein früher Neuversuch (der Hinweis soll mit dem Netz gehen)
         let reload = first.offline ? WidgetData.reload(kind: PulseWidgetData.kind, wantsQuickRetry: true)
             : WidgetData.nextReload
-        return Timeline(entries: Self.entries(first, until: reload), policy: .after(reload))
+        let entries = WidgetAppTheme.addingSwitch(Self.entries(first, until: reload), until: reload)
+        return Timeline(entries: entries, policy: .after(reload))
     }
 
     /// Der Eintrag und je ein weiterer, sobald ein Satz von «Kurz gesagt» auf veralteten Daten stünde
@@ -323,7 +326,8 @@ struct PulseWidgetView: View {
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
-        WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
+        WidgetThemed(theme: entry.theme, forcedDark: entry.appTheme.forcedDark(at: entry.date),
+                     accent: entry.accent, priceColors: entry.priceColors,
                      highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
             PulseHomeView(entry: entry, palette: palette, size: size)
                 .widgetURL(PulseWidgetData.appURL)

@@ -72,7 +72,7 @@ enum BackupFields {
         for kind in FavoriteKind.allCases where !((fav[kind.rawValue] as? [Any])?.allSatisfy({ $0 is String }) ?? false) {
             throw BackupManager.Failure.invalid("favorites." + kind.rawValue)
         }
-        try check(root["settings"] as? [String: Any] ?? [:], BackupManager.settingsFields, "settings.")
+        try BackupManager.checkSettings(root["settings"] as? [String: Any] ?? [:])
         for entry in entries {
             for item in root[entry.part] as? [Any] ?? [] { try checkEntry(entry, item) }
         }

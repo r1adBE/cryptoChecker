@@ -223,6 +223,10 @@
     <string name="theme_dark">Fosc</string>
     <string name="theme_light">Clar</string>
     <string name="theme_system">Sistema</string>
+    <string name="theme_scheduled">Segons l’hora</string>
+    <string name="theme_dark_from">Fosc des de</string>
+    <string name="theme_light_from">Clar des de</string>
+    <string name="theme_scheduled_hint">Fosc de %1$s a %2$s; la resta del temps, clar.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blau</string>

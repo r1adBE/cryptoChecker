@@ -79,6 +79,15 @@ class BackupSettingsCodecTest {
         override suspend fun setDarkMode(dark: Boolean?) {
             s = s.copy(darkMode = dark)
         }
+        override suspend fun setThemeScheduled(enabled: Boolean) {
+            s = s.copy(themeScheduled = enabled)
+        }
+        override suspend fun setThemeDarkFrom(minute: Int) {
+            s = s.copy(themeDarkFrom = minute)
+        }
+        override suspend fun setThemeLightFrom(minute: Int) {
+            s = s.copy(themeLightFrom = minute)
+        }
         override suspend fun setFearGreedBelow(value: Int) {
             s = s.copy(fearGreedBelow = value)
         }
@@ -216,19 +225,36 @@ class BackupSettingsCodecTest {
     @Test
     fun everyWrittenFieldIsRequired() = runTest {
         val written = codec(FakeSettings()).settingsToJson()
-        // Liste der Pflichtfelder = was geschrieben wird = Fixture
-        assertEquals(keys(written), BackupSettingsCodec.FIELDS.keys)
-        assertEquals(keys(fixtureSettings), BackupSettingsCodec.FIELDS.keys)
+        // Pflichtfelder + wahlfreie Felder = was geschrieben wird = Fixture
+        val optional = fixture.getJSONArray("optional").let { a -> (0 until a.length()).map { a.getString(it) }.toSet() }
+        assertEquals(optional, BackupSettingsCodec.OPTIONAL_FIELDS.keys)
+        assertEquals(keys(written), BackupSettingsCodec.FIELDS.keys + optional)
+        assertEquals(keys(fixtureSettings), BackupSettingsCodec.FIELDS.keys + optional)
         BackupSettingsCodec.checkSettings(written)
         BackupSettingsCodec.checkSettings(fixtureSettings)
         for (key in keys(written)) {
-            assertTrue("ohne $key", invalid(JSONObject(written.toString()).apply { remove(key) }))
+            // Wahlfreie Felder (fehlen in älteren Sicherungen) dürfen fehlen
+            assertEquals("ohne $key", key !in optional, invalid(JSONObject(written.toString()).apply { remove(key) }))
         }
         // null nur, wo der Schreiber null schreibt
         val nullable = fixture.getJSONArray("nullable").let { a -> (0 until a.length()).map { a.getString(it) }.toSet() }
         for (key in keys(written)) {
             assertEquals(key, key !in nullable, invalid(JSONObject(written.toString()).put(key, JSONObject.NULL)))
         }
+    }
+
+    @Test
+    fun olderBackupWithoutScheduleTurnsItOffAndKeepsTimes() = runTest {
+        val settings = FakeSettings(AppSettings(themeScheduled = true, themeDarkFrom = 1200, themeLightFrom = 360))
+        val older = JSONObject(fixtureSettings.toString()).apply {
+            BackupSettingsCodec.OPTIONAL_FIELDS.keys.forEach { remove(it) }
+        }
+        codec(settings).restoreSettings(older, trusted = true)
+        // Ältere Sicherung kennt «Nach Uhrzeit» nicht: aus, damit ihr «darkMode» gilt; die Zeiten bleiben
+        assertFalse(settings.s.themeScheduled)
+        assertEquals(true, settings.s.darkMode)
+        assertEquals(1200, settings.s.themeDarkFrom)
+        assertEquals(360, settings.s.themeLightFrom)
     }
 
     @Test

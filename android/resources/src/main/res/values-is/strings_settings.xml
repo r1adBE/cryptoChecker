@@ -221,6 +221,10 @@
     <string name="theme_dark">Dökkt</string>
     <string name="theme_light">Ljóst</string>
     <string name="theme_system">Kerfi</string>
+    <string name="theme_scheduled">Eftir tíma</string>
+    <string name="theme_dark_from">Dökkt frá</string>
+    <string name="theme_light_from">Ljóst frá</string>
+    <string name="theme_scheduled_hint">Dökkt frá %1$s til %2$s, annars ljóst.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blár</string>

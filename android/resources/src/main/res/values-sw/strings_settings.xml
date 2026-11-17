@@ -221,6 +221,10 @@
     <string name="theme_dark">Giza</string>
     <string name="theme_light">Mwanga</string>
     <string name="theme_system">Mfumo</string>
+    <string name="theme_scheduled">Kwa saa</string>
+    <string name="theme_dark_from">Giza kuanzia</string>
+    <string name="theme_light_from">Mwanga kuanzia</string>
+    <string name="theme_scheduled_hint">Giza kuanzia %1$s hadi %2$s, vinginevyo mwanga.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Bluu</string>

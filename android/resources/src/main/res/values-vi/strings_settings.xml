@@ -219,6 +219,10 @@
     <string name="theme_dark">Tối</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_system">Hệ thống</string>
+    <string name="theme_scheduled">Theo giờ</string>
+    <string name="theme_dark_from">Tối từ</string>
+    <string name="theme_light_from">Sáng từ</string>
+    <string name="theme_scheduled_hint">Tối từ %1$s đến %2$s, ngoài ra là sáng.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Xanh dương</string>

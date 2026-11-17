@@ -99,7 +99,11 @@ struct SettingsChoiceSearchField: View {
 @MainActor
 struct SettingsThemePicker: View {
     let selection: Bool?
+    /// «Nach Uhrzeit» gewählt (geht vor `selection`), mit Hinweis «Von 23:00 bis 07:00 dunkel, sonst hell».
+    var scheduled = false
+    var scheduleHint = ""
     let onSelect: (Bool?) -> Void
+    var onSchedule: () -> Void = {}
 
     private static let options: [(value: Bool?, key: String)] = [
         (nil, "theme_system"),
@@ -110,13 +114,41 @@ struct SettingsThemePicker: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(Array(Self.options.enumerated()), id: \.offset) { _, option in
-                SettingsChoiceRow(title: L(option.key), selected: option.value == selection) {
-                    if option.value != selection { onSelect(option.value) }
+                SettingsChoiceRow(title: L(option.key), selected: !scheduled && option.value == selection) {
+                    if scheduled || option.value != selection { onSelect(option.value) }
                 }
             }
+            SettingsChoiceRow(title: L("theme_scheduled"), subtitle: scheduleHint, selected: scheduled) {
+                if !scheduled { onSchedule() }
+            }
+            .settingsAnchor("display.scheduled")
         }
         .padding(.vertical, 4)
-        .haptic(.selection, trigger: selection)
+        .haptic(.selection, trigger: "\(scheduled)-\(String(describing: selection))")
+    }
+}
+
+/// Uhrzeit (Minuten seit Mitternacht) im Format der Region; ein Tipp öffnet die Zeitauswahl des Systems.
+@MainActor
+struct SettingsTimePicker: View {
+    let title: String
+    let minute: Int
+    let onChange: (Int) -> Void
+
+    @Environment(\.appAccent) private var accent
+
+    var body: some View {
+        DatePicker(
+            title,
+            selection: Binding(
+                get: { QuietHours.date(for: minute) },
+                set: { onChange(QuietHours.minuteOfDay($0)) }
+            ),
+            displayedComponents: .hourAndMinute
+        )
+        .font(.body)
+        .tint(accent.primary)
+        .padding(.vertical, Spacing.sm)
     }
 }
 

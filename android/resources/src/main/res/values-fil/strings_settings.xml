@@ -221,6 +221,10 @@
     <string name="theme_dark">Madilim</string>
     <string name="theme_light">Maliwanag</string>
     <string name="theme_system">Sistema</string>
+    <string name="theme_scheduled">Ayon sa oras</string>
+    <string name="theme_dark_from">Madilim mula</string>
+    <string name="theme_light_from">Maliwanag mula</string>
+    <string name="theme_scheduled_hint">Madilim mula %1$s hanggang %2$s, maliwanag sa ibang oras.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Asul</string>

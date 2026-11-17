@@ -55,7 +55,7 @@ internal fun coinLogosSummary(settings: AppSettings): String {
 /** Kurzwert «Modus»: «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz. */
 @Composable
 internal fun displayModeSummary(settings: AppSettings): String {
-    val mode = stringResource(themeModeLabel(settings.darkMode))
+    val mode = stringResource(if (settings.themeScheduled) R.string.theme_scheduled else themeModeLabel(settings.darkMode))
     return if (settings.highContrast) mode + " · " + stringResource(R.string.settings_high_contrast) else mode
 }
 

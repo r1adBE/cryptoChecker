@@ -221,6 +221,10 @@
     <string name="theme_dark">ડાર્ક</string>
     <string name="theme_light">લાઇટ</string>
     <string name="theme_system">સિસ્ટમ</string>
+    <string name="theme_scheduled">સમય મુજબ</string>
+    <string name="theme_dark_from">ડાર્ક શરૂ</string>
+    <string name="theme_light_from">લાઇટ શરૂ</string>
+    <string name="theme_scheduled_hint">%1$s થી %2$s સુધી ડાર્ક, બાકીના સમયે લાઇટ.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">વાદળી</string>

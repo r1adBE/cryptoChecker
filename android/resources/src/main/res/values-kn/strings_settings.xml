@@ -221,6 +221,10 @@
     <string name="theme_dark">ಡಾರ್ಕ್</string>
     <string name="theme_light">ಲೈಟ್</string>
     <string name="theme_system">ಸಿಸ್ಟಮ್</string>
+    <string name="theme_scheduled">ಸಮಯದ ಪ್ರಕಾರ</string>
+    <string name="theme_dark_from">ಡಾರ್ಕ್ ಆರಂಭ</string>
+    <string name="theme_light_from">ಲೈಟ್ ಆರಂಭ</string>
+    <string name="theme_scheduled_hint">%1$s ರಿಂದ %2$s ವರೆಗೆ ಡಾರ್ಕ್, ಉಳಿದ ಸಮಯ ಲೈಟ್.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ನೀಲಿ</string>

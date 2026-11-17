@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,6 +39,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
+import com.cryptochecker.app.ui.theme.rememberAppDark
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,7 +74,7 @@ class PulseWidgetConfigureActivity : AppCompatActivity() {
         setContent {
             val settings by settingsRepository.settings.collectAsState(initial = settingsRepository.cached)
             CryptoCheckerTheme(
-                dark = settings.darkMode ?: isSystemInDarkTheme(),
+                dark = rememberAppDark(settings),
                 accent = settings.accentColor,
                 priceColors = settings.priceColorScheme,
                 highContrast = rememberHighContrast(settings.highContrast),

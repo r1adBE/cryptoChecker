@@ -8,8 +8,10 @@ import WidgetKit
 
 // MARK: Daten
 
-struct SingleEntry: TimelineEntry {
+struct SingleEntry: ThemedTimelineEntry {
     var date: Date
+    /// Darstellung der App für «System» (beim Erstellen des Eintrags gelesen).
+    var appTheme = WidgetAppTheme.current
     /// nil = noch kein Paar gewählt (oder gelöscht).
     let watch: Watch?
     /// Kerzen (OHLC) im gewählten Zeitraum; nil = nicht verfügbar (Chart ausgeblendet).
@@ -153,8 +155,8 @@ struct SingleProvider: AppIntentTimelineProvider {
             return later
         }
         // Normaler Takt (ohne Netz ein früher Neuversuch); zählt im Tageszähler mit (`WidgetCadence.dailyReloadSoftCap`)
-        return Timeline(entries: entries,
-                        policy: .after(WidgetData.reload(kind: WidgetData.singleKind, wantsQuickRetry: entry.offline)))
+        let reload = WidgetData.reload(kind: WidgetData.singleKind, wantsQuickRetry: entry.offline)
+        return Timeline(entries: WidgetAppTheme.addingSwitch(entries, until: reload), policy: .after(reload))
     }
 
     private func entry(for configuration: SingleWidgetIntent, watch: Watch?) async -> SingleEntry {

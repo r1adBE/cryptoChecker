@@ -4,13 +4,22 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/** Hintergrund eines Widgets: wie das Handy, immer dunkel oder immer hell. */
+/** Hintergrund eines Widgets: wie die App («System»), immer dunkel oder immer hell. */
 enum class WidgetTheme { SYSTEM, DARK, LIGHT }
+
+/** Dunkel für ein Widget mit [theme]: «System» folgt der App ([ThemeSchedule.isDark]), sonst fest. Wie iOS. */
+fun themeDark(theme: WidgetTheme, settings: AppSettings, now: Long = System.currentTimeMillis()): Boolean = when (theme) {
+    WidgetTheme.SYSTEM -> ThemeSchedule.isDark(settings, com.cryptochecker.app.util.SystemTheme.isDark(), now)
+    WidgetTheme.DARK -> true
+    WidgetTheme.LIGHT -> false
+}
 
 /**
  * Einstellungen je Widget. Bewusst SharedPreferences: Die Werte werden auch
@@ -70,12 +79,12 @@ class WidgetPrefs @Inject constructor(
             ?.let { name -> WidgetTheme.entries.firstOrNull { it.name == name } }
             ?: WidgetTheme.SYSTEM
 
-    /** Dunkel für dieses Widget? «System» folgt dem Handy. */
-    fun isDark(appWidgetId: Int): Boolean = when (getTheme(appWidgetId)) {
-        WidgetTheme.SYSTEM -> com.cryptochecker.app.util.SystemTheme.isDark()
-        WidgetTheme.DARK -> true
-        WidgetTheme.LIGHT -> false
-    }
+    /**
+     * Dunkel für dieses Widget? «System» folgt der Darstellung der App ([settings]: Hell, Dunkel, «Nach Uhrzeit» zum
+     * Zeitpunkt [now] oder wie das Handy).
+     */
+    fun isDark(appWidgetId: Int, settings: AppSettings, now: Long = System.currentTimeMillis()): Boolean =
+        themeDark(getTheme(appWidgetId), settings, now)
 
     fun getOpacity(appWidgetId: Int): Int = prefs.getInt(opacityKey(appWidgetId), WidgetColors.DEFAULT_OPACITY)
 

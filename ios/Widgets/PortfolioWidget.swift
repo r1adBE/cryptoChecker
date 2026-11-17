@@ -4,8 +4,10 @@ import WidgetKit
 
 // MARK: Daten
 
-struct PortfolioEntry: TimelineEntry {
+struct PortfolioEntry: ThemedTimelineEntry {
     var date: Date
+    /// Darstellung der App für «System» (beim Erstellen des Eintrags gelesen).
+    var appTheme = WidgetAppTheme.current
     /// nil = noch nie berechnet (wie leer behandelt).
     let snapshot: PortfolioWidgetSnapshot?
     /// Portfolio-Sperre an: Titel, Schloss und «Gesperrt – in der App entsperren», keine Werte.
@@ -240,7 +242,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         // Ohne Netz ein früher Neuversuch: der Hinweis soll mit dem Netz verschwinden
         let reload = timedOut || entry.offline ? WidgetData.reload(kind: PortfolioWidgetStore.kind, wantsQuickRetry: true)
                               : WidgetData.nextReload
-        return Timeline(entries: entries, policy: .after(reload))
+        return Timeline(entries: WidgetAppTheme.addingSwitch(entries, until: reload), policy: .after(reload))
     }
 
     /// Zeitgrenze für das Nachrechnen beim Zeichnen (ms).
@@ -278,7 +280,8 @@ struct PortfolioWidgetView: View {
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(PortfolioWidgetText.appURL)
         default:
-            WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
+            WidgetThemed(theme: entry.theme, forcedDark: entry.appTheme.forcedDark(at: entry.date),
+                         accent: entry.accent, priceColors: entry.priceColors,
                          highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
                 PortfolioHomeView(entry: entry, palette: palette, family: family)
                     .widgetURL(PortfolioWidgetText.appURL)

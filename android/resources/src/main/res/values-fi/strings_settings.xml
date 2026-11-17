@@ -221,6 +221,10 @@
     <string name="theme_dark">Tumma</string>
     <string name="theme_light">Vaalea</string>
     <string name="theme_system">Järjestelmä</string>
+    <string name="theme_scheduled">Kellonajan mukaan</string>
+    <string name="theme_dark_from">Tumma alkaen</string>
+    <string name="theme_light_from">Vaalea alkaen</string>
+    <string name="theme_scheduled_hint">Tumma klo %1$s–%2$s, muulloin vaalea.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Sininen</string>

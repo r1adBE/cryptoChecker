@@ -144,6 +144,8 @@ extension SettingsSearchIndex {
         let mode = L("settings_theme_mode")
         addPage("page.display_mode", .displayMode, mode,
             [L("theme_system"), L("theme_light"), L("theme_dark")])
+        add("display.scheduled", L("theme_scheduled"), mode, .page(.displayMode, anchor: "display.scheduled"),
+            [L("theme_dark_from"), L("theme_light_from")])
         add("display.contrast", L("settings_high_contrast"), mode, .page(.displayMode, anchor: "display.contrast"),
             [L("settings_high_contrast_hint")])
         addPage("page.theme", .theme, L("settings_accent"),

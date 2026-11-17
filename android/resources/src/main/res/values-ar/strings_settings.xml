@@ -229,6 +229,10 @@
     <string name="theme_dark">داكن</string>
     <string name="theme_light">فاتح</string>
     <string name="theme_system">النظام</string>
+    <string name="theme_scheduled">حسب الوقت</string>
+    <string name="theme_dark_from">داكن من</string>
+    <string name="theme_light_from">فاتح من</string>
+    <string name="theme_scheduled_hint">داكن من %1$s إلى %2$s، وفاتح في باقي الأوقات.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">أزرق</string>

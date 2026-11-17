@@ -221,6 +221,10 @@
     <string name="theme_dark">डार्क</string>
     <string name="theme_light">लाइट</string>
     <string name="theme_system">सिस्टम</string>
+    <string name="theme_scheduled">वेळेनुसार</string>
+    <string name="theme_dark_from">डार्क सुरू</string>
+    <string name="theme_light_from">लाइट सुरू</string>
+    <string name="theme_scheduled_hint">%1$s ते %2$s डार्क, इतर वेळी लाइट.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">निळा</string>

@@ -221,6 +221,10 @@
     <string name="theme_dark">Dunkel</string>
     <string name="theme_light">Hell</string>
     <string name="theme_system">System</string>
+    <string name="theme_scheduled">Nach Uhrzeit</string>
+    <string name="theme_dark_from">Dunkel ab</string>
+    <string name="theme_light_from">Hell ab</string>
+    <string name="theme_scheduled_hint">Von %1$s bis %2$s dunkel, sonst hell.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blau</string>

@@ -223,6 +223,10 @@
     <string name="theme_dark">Escuro</string>
     <string name="theme_light">Claro</string>
     <string name="theme_system">Sistema</string>
+    <string name="theme_scheduled">Por horário</string>
+    <string name="theme_dark_from">Escuro a partir das</string>
+    <string name="theme_light_from">Claro a partir das</string>
+    <string name="theme_scheduled_hint">Escuro das %1$s às %2$s; no restante do tempo, claro.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Azul</string>

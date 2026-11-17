@@ -150,7 +150,7 @@ class PulseWidgetRenderer @Inject constructor(
                 ?: plainFootnote
 
         for (appWidgetId in appWidgetIds) {
-            val dark = widgetPrefs.isDark(appWidgetId)
+            val dark = widgetPrefs.isDark(appWidgetId, settings)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
             val views = RemoteViews(context.packageName, R.layout.widget_pulse)
 

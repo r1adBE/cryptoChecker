@@ -219,6 +219,10 @@
     <string name="theme_dark">มืด</string>
     <string name="theme_light">สว่าง</string>
     <string name="theme_system">ระบบ</string>
+    <string name="theme_scheduled">ตามเวลา</string>
+    <string name="theme_dark_from">มืดตั้งแต่</string>
+    <string name="theme_light_from">สว่างตั้งแต่</string>
+    <string name="theme_scheduled_hint">มืดตั้งแต่ %1$s ถึง %2$s นอกนั้นสว่าง</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">น้ำเงิน</string>

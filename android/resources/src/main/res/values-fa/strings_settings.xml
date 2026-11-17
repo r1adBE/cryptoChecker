@@ -221,6 +221,10 @@
     <string name="theme_dark">تیره</string>
     <string name="theme_light">روشن</string>
     <string name="theme_system">سیستم</string>
+    <string name="theme_scheduled">بر اساس ساعت</string>
+    <string name="theme_dark_from">تیره از</string>
+    <string name="theme_light_from">روشن از</string>
+    <string name="theme_scheduled_hint">از %1$s تا %2$s تیره، در غیر این صورت روشن.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">آبی</string>

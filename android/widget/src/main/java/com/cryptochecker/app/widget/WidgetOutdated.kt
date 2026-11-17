@@ -55,8 +55,16 @@ object WidgetOutdated {
      * Wecker auf den nächsten Wechsel zu «veraltet» stellen (oder löschen, wenn keiner mehr
      * kommt). RTC ohne Wecken: fällig wird er, sobald das Gerät ohnehin wach ist — dann, wenn
      * jemand auf den Startbildschirm schaut. Kein exakter Wecker, keine Berechtigung nötig.
+     * [themeSwitchAt]: nächster Wechsel von «Nach Uhrzeit» ([com.cryptochecker.app.domain.settings.ThemeSchedule]),
+     * falls früher — dann zeichnen die Widgets mit «System» hell bzw. dunkel neu.
      */
-    fun schedule(context: Context, times: Iterable<Long>, afterMillis: Long, now: Long = System.currentTimeMillis()) {
+    fun schedule(
+        context: Context,
+        times: Iterable<Long>,
+        afterMillis: Long,
+        now: Long = System.currentTimeMillis(),
+        themeSwitchAt: Long? = null,
+    ) {
         val alarmManager = context.getSystemService(AlarmManager::class.java) ?: return
         val intent = Intent(context, PriceWidgetProvider::class.java).setAction(PriceWidgetProvider.ACTION_OUTDATED_CHECK)
         val pending = PendingIntent.getBroadcast(
@@ -65,7 +73,8 @@ object WidgetOutdated {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        val at = OutdatedRule.nextChangeAt(times, now, afterMillis)
+        val at = listOfNotNull(OutdatedRule.nextChangeAt(times, now, afterMillis), themeSwitchAt?.takeIf { it > now })
+            .minOrNull()
         runCatching {
             if (at == null) alarmManager.cancel(pending) else alarmManager.set(AlarmManager.RTC, at, pending)
         }.onFailure { Timber.w(it, "Wecker für veraltete Widget-Kurse nicht gestellt") }

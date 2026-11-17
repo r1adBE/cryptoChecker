@@ -221,6 +221,10 @@
     <string name="theme_dark">Темно</string>
     <string name="theme_light">Светло</string>
     <string name="theme_system">Систем</string>
+    <string name="theme_scheduled">Според времето</string>
+    <string name="theme_dark_from">Темно од</string>
+    <string name="theme_light_from">Светло од</string>
+    <string name="theme_scheduled_hint">Темно од %1$s до %2$s, инаку светло.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Сина</string>

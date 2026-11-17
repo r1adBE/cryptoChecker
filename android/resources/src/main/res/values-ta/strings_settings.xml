@@ -221,6 +221,10 @@
     <string name="theme_dark">இருள்</string>
     <string name="theme_light">ஒளி</string>
     <string name="theme_system">சிஸ்டம்</string>
+    <string name="theme_scheduled">நேரப்படி</string>
+    <string name="theme_dark_from">இருள் தொடக்கம்</string>
+    <string name="theme_light_from">ஒளி தொடக்கம்</string>
+    <string name="theme_scheduled_hint">%1$s முதல் %2$s வரை இருள், மற்ற நேரங்களில் ஒளி.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">நீலம்</string>

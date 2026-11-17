@@ -219,6 +219,10 @@
     <string name="theme_dark">다크</string>
     <string name="theme_light">라이트</string>
     <string name="theme_system">시스템</string>
+    <string name="theme_scheduled">시간에 따라</string>
+    <string name="theme_dark_from">다크 시작</string>
+    <string name="theme_light_from">라이트 시작</string>
+    <string name="theme_scheduled_hint">%1$s~%2$s에는 다크, 그 외에는 라이트입니다.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">파랑</string>

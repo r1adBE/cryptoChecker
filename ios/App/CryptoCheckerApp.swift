@@ -200,7 +200,7 @@ struct CryptoCheckerApp: App {
                 // Hoher Kontrast: Einstellung oder «Kontrast erhöhen» des Systems
                 .highContrastRoot(data.settings.highContrast)
                 .tint(data.settings.accentColor.primary)
-                .preferredColorScheme(data.settings.darkMode.map { $0 ? .dark : .light })
+                .appColorScheme(data.settings)
                 .onOpenURL { url in
                     // cryptochecker://add, cryptochecker://watch/12 … — nur das eigene Schema;
                     // AppRouter.open kennt nur feste Ziele (Navigation, keine Daten-Änderung).

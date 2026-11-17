@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 287)
+
+- New appearance option «By time»: dark from 23:00, light from 07:00 (adjustable); widgets with the background «System» now follow the app's appearance.
+
 ## 16.2.2 (build 286)
 
 - Test names in English (no change in the app).

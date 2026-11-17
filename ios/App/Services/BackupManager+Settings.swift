@@ -40,6 +40,10 @@ extension BackupManager {
             "includeAlphaTokens": s.includeAlphaTokens,
             "accentColor": s.accentColor.rawValue,
             "darkMode": s.darkMode.map { $0 as Any } ?? NSNull(),
+            // «Nach Uhrzeit» (wahlfrei: ältere Sicherungen haben die Felder nicht, `optionalSettingsFields`)
+            "themeScheduled": s.themeScheduled,
+            "themeDarkFrom": s.themeDarkFrom,
+            "themeLightFrom": s.themeLightFrom,
             "fearGreedBelow": s.fearGreedBelow,
             // Eigene Grenzen der Bitcoin-Kennzahlen (Art → gespeicherte Ganzzahl), wie Android
             "indicatorAlerts": s.indicatorAlerts.filter { $0.value > 0 },
@@ -105,7 +109,16 @@ extension BackupManager {
     /// die Sicherung ist unlesbar. Unbekannte Felder werden übergangen. Wie Android `checkSettings`.
     static func checkSettings(_ o: [String: Any]) throws {
         try BackupFields.check(o, settingsFields, "settings.")
+        for field in optionalSettingsFields where o[field.key].map({ !BackupFields.matches($0, field.type) }) ?? false {
+            throw Failure.invalid("settings." + field.key)
+        }
     }
+
+    /// Felder, die `settingsJson` schreibt, ältere Sicherungen aber nicht haben: fehlen darf, steht es da, zählt der Typ
+    /// (wie Android `BackupSettingsCodec.OPTIONAL_FIELDS`).
+    static let optionalSettingsFields: BackupFields.Fields = [
+        ("themeScheduled", .bool), ("themeDarkFrom", .int), ("themeLightFrom", .int)
+    ]
 
     // Lesen nach `checkSettings`: Feld vorhanden und vom richtigen Typ, sonst `Failure.invalid`
 
@@ -158,6 +171,17 @@ extension BackupManager {
         s.accentColor = AccentColor(rawValue: try text(o, "accentColor")) ?? .default
         // null = «Wie das System»
         s.darkMode = try o["darkMode"] is NSNull ? nil : flag(o, "darkMode")
+        // «Nach Uhrzeit»: fehlt in älteren Sicherungen = aus (dort gilt «darkMode»); Zeiten nur, wenn da und gültig
+        s.themeScheduled = false
+        if o["themeScheduled"] != nil { s.themeScheduled = try flag(o, "themeScheduled") }
+        if o["themeDarkFrom"] != nil {
+            let v = try whole(o, "themeDarkFrom")
+            if QuietHours.isValidMinute(v) { s.themeDarkFrom = v }
+        }
+        if o["themeLightFrom"] != nil {
+            let v = try whole(o, "themeLightFrom")
+            if QuietHours.isValidMinute(v) { s.themeLightFrom = v }
+        }
         s.fearGreedBelow = min(max(try whole(o, "fearGreedBelow"), 0), 100)
         // Nur eingeschaltete Grenzen stehen in der Datei; nur gültige Werte je bekannter Art
         let alerts = o["indicatorAlerts"] as? [String: Any] ?? [:]

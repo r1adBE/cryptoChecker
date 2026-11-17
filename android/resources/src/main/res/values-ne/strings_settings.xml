@@ -221,6 +221,10 @@
     <string name="theme_dark">अँध्यारो</string>
     <string name="theme_light">उज्यालो</string>
     <string name="theme_system">सिस्टम</string>
+    <string name="theme_scheduled">समयअनुसार</string>
+    <string name="theme_dark_from">अँध्यारो सुरु</string>
+    <string name="theme_light_from">उज्यालो सुरु</string>
+    <string name="theme_scheduled_hint">%1$s देखि %2$s सम्म अँध्यारो, अरू बेला उज्यालो।</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">नीलो</string>

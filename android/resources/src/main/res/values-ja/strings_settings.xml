@@ -219,6 +219,10 @@
     <string name="theme_dark">ダーク</string>
     <string name="theme_light">ライト</string>
     <string name="theme_system">システム</string>
+    <string name="theme_scheduled">時刻で切り替え</string>
+    <string name="theme_dark_from">ダーク開始</string>
+    <string name="theme_light_from">ライト開始</string>
+    <string name="theme_scheduled_hint">%1$s～%2$s はダーク、それ以外はライトになります。</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ブルー</string>

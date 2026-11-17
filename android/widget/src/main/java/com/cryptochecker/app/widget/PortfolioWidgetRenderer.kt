@@ -145,7 +145,7 @@ class PortfolioWidgetRenderer @Inject constructor(
         val zone = ChangeBasisMath.chartZone(settings.changeBasis.storage)
 
         for (appWidgetId in appWidgetIds) {
-            val dark = widgetPrefs.isDark(appWidgetId)
+            val dark = widgetPrefs.isDark(appWidgetId, settings)
             val style = PortfolioStyle(
                 colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted),
                 dark = dark,

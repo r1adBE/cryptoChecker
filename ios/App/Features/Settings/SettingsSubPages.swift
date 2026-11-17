@@ -109,7 +109,7 @@ enum SettingsSummary {
 
     /// «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz.
     static func displayModeText(_ s: AppSettings) -> String {
-        let mode = L(themeModeKey(s.darkMode))
+        let mode = L(s.themeScheduled ? "theme_scheduled" : themeModeKey(s.darkMode))
         return s.highContrast ? mode + " · " + L("settings_high_contrast") : mode
     }
 

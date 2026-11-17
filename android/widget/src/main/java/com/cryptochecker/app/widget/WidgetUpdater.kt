@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.TimedPrice
+import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
@@ -72,9 +73,11 @@ class WidgetUpdater @Inject constructor(
         if (portfolioWidgets.update(appWidgetIds)) scheduleOutdatedCheck()
     }
 
-    /** Widgets «Was gerade auffällt» ([PulseWidgetRenderer.update]). */
-    suspend fun updatePulse(appWidgetIds: IntArray, fetch: Boolean = true) =
+    /** Widgets «Was gerade auffällt» ([PulseWidgetRenderer.update]); danach der Wecker (Wechsel «Nach Uhrzeit»). */
+    suspend fun updatePulse(appWidgetIds: IntArray, fetch: Boolean = true) {
         pulseWidgets.update(appWidgetIds, fetch)
+        if (appWidgetIds.isNotEmpty()) scheduleOutdatedCheck()
+    }
 
     /**
      * Wecker auf den Moment, an dem der nächste angezeigte Stand veraltet ([WidgetOutdated]):
@@ -103,14 +106,22 @@ class WidgetUpdater @Inject constructor(
                 portfolioSnapshotStore.snapshot()?.let { add(it.time) }
             }
         }
-        WidgetOutdated.schedule(context, times, WidgetOutdated.afterMillis(settings))
+        // «Nach Uhrzeit»: zum Wechsel neu zeichnen, solange es Widgets gibt (Thema «System» folgt der App)
+        val anyWidget = hasList || hasSingle || hasPortfolio || pulseWidgetIds().isNotEmpty()
+        val now = System.currentTimeMillis()
+        val switchAt = if (anyWidget) ThemeSchedule.nextSwitchAt(settings, now) else null
+        WidgetOutdated.schedule(context, times, WidgetOutdated.afterMillis(settings), now, switchAt)
     }
 
-    /** Vom Wecker ([WidgetOutdated.schedule]): Listen-, Einzel- und Portfolio-Widgets neu zeichnen (ohne Netz). */
+    /**
+     * Vom Wecker ([WidgetOutdated.schedule]): Listen-, Einzel-, Portfolio- und Puls-Widgets neu zeichnen (ohne Netz) —
+     * veraltete Stände und der Wechsel von «Nach Uhrzeit».
+     */
     suspend fun redrawOutdated() {
         update(widgetIds())
         updateSingle(singleWidgetIds(), fetch = false)
         updatePortfolio(portfolioWidgetIds())
+        updatePulse(pulseWidgetIds(), fetch = false)
     }
 
     /** Stundenkerzen eines Einzel-Widgets ohne Netz, siehe [SingleWidgetRenderer.cachedHourlyPrices]. */
@@ -151,6 +162,8 @@ class WidgetUpdater @Inject constructor(
         updateSingle(singleWidgetIds(), fetch)
         updatePortfolio(portfolioWidgetIds())
         pulseWidgets.updateWithOthers()
+        // Nur Puls-Widgets: der Wecker für «Nach Uhrzeit» kommt sonst von keinem anderen Zeichnen
+        if (pulseWidgetIds().isNotEmpty()) scheduleOutdatedCheck()
     }
 
     /** Fehlten beim letzten Zeichnen ohne Netz Kerzen ([SingleWidgetRenderer.takeStaleCharts])? Setzt zurück. */

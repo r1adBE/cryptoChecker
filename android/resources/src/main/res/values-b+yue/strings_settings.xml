@@ -219,6 +219,10 @@
     <string name="theme_dark">深色</string>
     <string name="theme_light">淺色</string>
     <string name="theme_system">系統</string>
+    <string name="theme_scheduled">按時間</string>
+    <string name="theme_dark_from">深色開始</string>
+    <string name="theme_light_from">淺色開始</string>
+    <string name="theme_scheduled_hint">%1$s 至 %2$s 用深色，其他時間用淺色。</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">藍色</string>

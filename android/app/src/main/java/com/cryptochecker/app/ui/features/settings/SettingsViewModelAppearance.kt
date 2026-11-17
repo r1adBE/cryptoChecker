@@ -52,3 +52,27 @@ fun SettingsViewModel.setChangeBasis(basis: com.cryptochecker.app.domain.watch.C
     widgetUpdater.updateAll()
     scheduler.refreshNow()
 }
+
+/** Darstellung «Nach Uhrzeit» wählen ([com.cryptochecker.app.domain.settings.ThemeSchedule]). */
+fun SettingsViewModel.setThemeScheduled() = update {
+    settingsRepository.setThemeScheduled(true)
+    applyAppearance()
+}
+
+/** «Dunkel ab» (Minuten seit Mitternacht). */
+fun SettingsViewModel.setThemeDarkFrom(minute: Int) = update {
+    settingsRepository.setThemeDarkFrom(minute)
+    applyAppearance()
+}
+
+/** «Hell ab» (Minuten seit Mitternacht). */
+fun SettingsViewModel.setThemeLightFrom(minute: Int) = update {
+    settingsRepository.setThemeLightFrom(minute)
+    applyAppearance()
+}
+
+/** Hell/Dunkel neu anwenden: Fenster und Systemdialoge, Widgets mit «System» (folgen der App). */
+internal suspend fun SettingsViewModel.applyAppearance() {
+    appearanceApplier.applyNightMode(settingsRepository.current())
+    widgetUpdater.updateAll()
+}

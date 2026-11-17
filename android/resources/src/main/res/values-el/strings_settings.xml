@@ -221,6 +221,10 @@
     <string name="theme_dark">Σκοτεινό</string>
     <string name="theme_light">Φωτεινό</string>
     <string name="theme_system">Σύστημα</string>
+    <string name="theme_scheduled">Βάσει ώρας</string>
+    <string name="theme_dark_from">Σκοτεινό από</string>
+    <string name="theme_light_from">Φωτεινό από</string>
+    <string name="theme_scheduled_hint">Σκοτεινό από %1$s έως %2$s, αλλιώς φωτεινό.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Μπλε</string>

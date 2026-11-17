@@ -109,7 +109,7 @@ class SingleWidgetRenderer @Inject constructor(
         val online = connectivity.online()
 
         for (appWidgetId in appWidgetIds) {
-            val dark = widgetPrefs.isDark(appWidgetId)
+            val dark = widgetPrefs.isDark(appWidgetId, settings)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
             // Gemerkte Id zeigt inzwischen ein anderes Paar (eingespielte Sicherung): «Paar wählen» statt ein fremdes Paar
             val watch = widgetPrefs.chosenWatch(appWidgetId, watches)

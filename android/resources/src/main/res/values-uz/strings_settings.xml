@@ -221,6 +221,10 @@
     <string name="theme_dark">Qorongʻi</string>
     <string name="theme_light">Yorugʻ</string>
     <string name="theme_system">Tizim</string>
+    <string name="theme_scheduled">Vaqt boʻyicha</string>
+    <string name="theme_dark_from">Qorongʻi boshlanishi</string>
+    <string name="theme_light_from">Yorugʻ boshlanishi</string>
+    <string name="theme_scheduled_hint">%1$s dan %2$s gacha qorongʻi, qolgan vaqtda yorugʻ.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Koʻk</string>

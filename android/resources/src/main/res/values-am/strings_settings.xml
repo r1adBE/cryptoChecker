@@ -221,6 +221,10 @@
     <string name="theme_dark">ጨለማ</string>
     <string name="theme_light">ብሩህ</string>
     <string name="theme_system">ሲስተም</string>
+    <string name="theme_scheduled">በሰዓት</string>
+    <string name="theme_dark_from">ጨለማ ከ</string>
+    <string name="theme_light_from">ብሩህ ከ</string>
+    <string name="theme_scheduled_hint">ከ%1$s እስከ %2$s ጨለማ፣ ያለበለዚያ ብሩህ።</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ሰማያዊ</string>

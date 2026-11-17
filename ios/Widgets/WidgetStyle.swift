@@ -86,10 +86,60 @@ struct WidgetBackground: View {
     }
 }
 
-/// Löst das Widget-Thema auf (System / Dunkel / Hell) und setzt Hintergrund
+/// Darstellung der App für Widgets mit «System» (beim Erstellen des Eintrags gelesen): Hell, Dunkel, «Nach Uhrzeit»
+/// (`ThemeSchedule`) oder wie das Gerät — wie Android `themeDark`.
+struct WidgetAppTheme {
+    var darkMode: Bool?
+    var scheduled = false
+    var darkFrom = ThemeSchedule.defaultDarkFrom
+    var lightFrom = ThemeSchedule.defaultLightFrom
+
+    init(_ settings: AppSettings) {
+        darkMode = settings.darkMode
+        scheduled = settings.themeScheduled
+        darkFrom = settings.themeDarkFrom
+        lightFrom = settings.themeLightFrom
+    }
+
+    static var current: WidgetAppTheme { WidgetAppTheme(SharedStorage.loadSettings()) }
+
+    /// Erzwungenes Hell/Dunkel zum Zeitpunkt `date`; nil = wie das Gerät.
+    func forcedDark(at date: Date) -> Bool? {
+        ThemeSchedule.forcedDark(darkMode: darkMode, scheduled: scheduled, darkFrom: darkFrom, lightFrom: lightFrom,
+                                 minuteOfDay: QuietHours.minuteOfDay(date))
+    }
+
+    /// Nächster Wechsel von «Nach Uhrzeit» nach `date`; nil ohne Zeitplan.
+    func nextSwitch(after date: Date) -> Date? {
+        scheduled ? ThemeSchedule.nextSwitch(darkFrom: darkFrom, lightFrom: lightFrom, after: date) : nil
+    }
+}
+
+/// Timeline-Eintrag mit änderbarer Zeit und der Darstellung der App: zum Wechsel von «Nach Uhrzeit» kommt ein Eintrag
+/// dazu (`WidgetAppTheme.addingSwitch`), statt auf das nächste Neuladen zu warten.
+protocol ThemedTimelineEntry: TimelineEntry {
+    var date: Date { get set }
+    var appTheme: WidgetAppTheme { get }
+}
+
+extension WidgetAppTheme {
+    /// `entries` und, falls vor `reload` ein Wechsel kommt, eine Kopie des dann gezeigten Eintrags zur Zeit des Wechsels.
+    static func addingSwitch<E: ThemedTimelineEntry>(_ entries: [E], until reload: Date) -> [E] {
+        guard let first = entries.min(by: { $0.date < $1.date }),
+              let at = first.appTheme.nextSwitch(after: first.date), at < reload,
+              let shown = entries.filter({ $0.date <= at }).max(by: { $0.date < $1.date }) else { return entries }
+        var switched = shown
+        switched.date = at
+        return (entries + [switched]).sorted { $0.date < $1.date }
+    }
+}
+
+/// Löst das Widget-Thema auf (System = wie die App / Dunkel / Hell) und setzt Hintergrund
 /// und Farbschema für den Inhalt.
 struct WidgetThemed<Content: View>: View {
     let theme: WidgetThemeOption
+    /// Von der App erzwungenes Hell/Dunkel für «System» (`WidgetAppTheme.forcedDark`); nil = wie das Gerät.
+    var forcedDark: Bool? = nil
     let accent: AccentColor
     var priceColors: PriceColorScheme = .default
     /// Einstellung «Hoher Kontrast»; «Kontrast erhöhen» des Systems zählt zusätzlich.
@@ -101,7 +151,7 @@ struct WidgetThemed<Content: View>: View {
     @Environment(\.colorSchemeContrast) private var contrast
 
     var body: some View {
-        let dark = theme.isDark(systemDark: systemScheme == .dark)
+        let dark = theme.isDark(systemDark: systemScheme == .dark, forced: forcedDark)
         let palette = WidgetPalette(accent: accent, dark: dark, priceColors: priceColors,
                                     highContrast: highContrast || contrast == .increased, inverted: inverted)
         content(palette)

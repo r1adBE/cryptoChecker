@@ -221,6 +221,10 @@
     <string name="theme_dark">تاریک</string>
     <string name="theme_light">روشن</string>
     <string name="theme_system">سسٹم</string>
+    <string name="theme_scheduled">وقت کے مطابق</string>
+    <string name="theme_dark_from">تاریک از</string>
+    <string name="theme_light_from">روشن از</string>
+    <string name="theme_scheduled_hint">%1$s سے %2$s تک تاریک، باقی وقت روشن۔</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">نیلا</string>

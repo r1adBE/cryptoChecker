@@ -221,6 +221,10 @@
     <string name="theme_dark">ਡਾਰਕ</string>
     <string name="theme_light">ਲਾਈਟ</string>
     <string name="theme_system">ਸਿਸਟਮ</string>
+    <string name="theme_scheduled">ਸਮੇਂ ਅਨੁਸਾਰ</string>
+    <string name="theme_dark_from">ਡਾਰਕ ਸ਼ੁਰੂ</string>
+    <string name="theme_light_from">ਲਾਈਟ ਸ਼ੁਰੂ</string>
+    <string name="theme_scheduled_hint">%1$s ਤੋਂ %2$s ਤੱਕ ਡਾਰਕ, ਬਾਕੀ ਸਮਾਂ ਲਾਈਟ।</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ਨੀਲਾ</string>

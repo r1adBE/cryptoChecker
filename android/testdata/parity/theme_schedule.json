@@ -1,0 +1,234 @@
+{
+  "description": "Appearance «By time» (Android ThemeSchedule.kt / iOS ThemeSchedule.swift). Minutes since midnight 0..1439, local time; dark from «darkFrom» (included) until «lightFrom» (excluded), the span may cross midnight; equal or invalid times = never dark; the minute is taken modulo 1440. forced: the appearance the app forces (null = follow the system); the schedule beats the fixed choice. nextSwitch: the earlier of the next local «darkFrom» and «lightFrom» strictly after «now» in «zone»; none for equal or invalid times. Times that exist on both sides of daylight-saving changes only.",
+  "isDark": [
+    {
+      "name": "23:00-07:00, 22:59",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 1379,
+      "dark": false
+    },
+    {
+      "name": "23:00-07:00, 23:00",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 1380,
+      "dark": true
+    },
+    {
+      "name": "23:00-07:00, midnight",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 0,
+      "dark": true
+    },
+    {
+      "name": "23:00-07:00, 06:59",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 419,
+      "dark": true
+    },
+    {
+      "name": "23:00-07:00, 07:00",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 420,
+      "dark": false
+    },
+    {
+      "name": "23:00-07:00, noon",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 720,
+      "dark": false
+    },
+    {
+      "name": "dark by day 09:00-17:00, 12:00",
+      "darkFrom": 540,
+      "lightFrom": 1020,
+      "minute": 720,
+      "dark": true
+    },
+    {
+      "name": "dark by day 09:00-17:00, 17:00",
+      "darkFrom": 540,
+      "lightFrom": 1020,
+      "minute": 1020,
+      "dark": false
+    },
+    {
+      "name": "dark by day 09:00-17:00, 08:59",
+      "darkFrom": 540,
+      "lightFrom": 1020,
+      "minute": 539,
+      "dark": false
+    },
+    {
+      "name": "same times never dark",
+      "darkFrom": 600,
+      "lightFrom": 600,
+      "minute": 600,
+      "dark": false
+    },
+    {
+      "name": "invalid dark-from never dark",
+      "darkFrom": 1440,
+      "lightFrom": 420,
+      "minute": 0,
+      "dark": false
+    },
+    {
+      "name": "negative light-from never dark",
+      "darkFrom": 1380,
+      "lightFrom": -1,
+      "minute": 0,
+      "dark": false
+    },
+    {
+      "name": "minute taken modulo 1440",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 2825,
+      "dark": true
+    }
+  ],
+  "forced": [
+    {
+      "name": "System without schedule",
+      "darkMode": null,
+      "scheduled": false,
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 0,
+      "forced": null
+    },
+    {
+      "name": "fixed dark without schedule",
+      "darkMode": true,
+      "scheduled": false,
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 720,
+      "forced": true
+    },
+    {
+      "name": "fixed light without schedule",
+      "darkMode": false,
+      "scheduled": false,
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 0,
+      "forced": false
+    },
+    {
+      "name": "schedule beats fixed light at night",
+      "darkMode": false,
+      "scheduled": true,
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 60,
+      "forced": true
+    },
+    {
+      "name": "schedule beats fixed dark by day",
+      "darkMode": true,
+      "scheduled": true,
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "minute": 720,
+      "forced": false
+    },
+    {
+      "name": "schedule with same times is light",
+      "darkMode": null,
+      "scheduled": true,
+      "darkFrom": 600,
+      "lightFrom": 600,
+      "minute": 600,
+      "forced": false
+    }
+  ],
+  "nextSwitch": [
+    {
+      "name": "before dark-from",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "zone": "Europe/Zurich",
+      "now": "2026-11-17T21:30:00Z",
+      "nowMillis": 1794951000000,
+      "next": "2026-11-17T22:00:00Z",
+      "nextMillis": 1794952800000
+    },
+    {
+      "name": "exactly at dark-from: next is light-from",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "zone": "Europe/Zurich",
+      "now": "2026-11-17T22:00:00Z",
+      "nowMillis": 1794952800000,
+      "next": "2026-11-18T06:00:00Z",
+      "nextMillis": 1794981600000
+    },
+    {
+      "name": "after midnight",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "zone": "Europe/Zurich",
+      "now": "2026-11-17T23:30:00Z",
+      "nowMillis": 1794958200000,
+      "next": "2026-11-18T06:00:00Z",
+      "nextMillis": 1794981600000
+    },
+    {
+      "name": "spring forward night",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "zone": "Europe/Zurich",
+      "now": "2026-03-28T22:30:00Z",
+      "nowMillis": 1774737000000,
+      "next": "2026-03-29T05:00:00Z",
+      "nextMillis": 1774760400000
+    },
+    {
+      "name": "fall back night",
+      "darkFrom": 1380,
+      "lightFrom": 420,
+      "zone": "Europe/Zurich",
+      "now": "2026-10-24T21:30:00Z",
+      "nowMillis": 1792877400000,
+      "next": "2026-10-25T06:00:00Z",
+      "nextMillis": 1792908000000
+    },
+    {
+      "name": "New York evening",
+      "darkFrom": 1260,
+      "lightFrom": 360,
+      "zone": "America/New_York",
+      "now": "2026-11-17T23:59:30Z",
+      "nowMillis": 1794959970000,
+      "next": "2026-11-18T02:00:00Z",
+      "nextMillis": 1794967200000
+    },
+    {
+      "name": "same times: no switch",
+      "darkFrom": 600,
+      "lightFrom": 600,
+      "zone": "Europe/Zurich",
+      "now": "2026-11-17T12:00:00Z",
+      "nowMillis": 1794916800000,
+      "next": null,
+      "nextMillis": null
+    },
+    {
+      "name": "invalid time: no switch",
+      "darkFrom": 1380,
+      "lightFrom": 1440,
+      "zone": "Europe/Zurich",
+      "now": "2026-11-17T12:00:00Z",
+      "nowMillis": 1794916800000,
+      "next": null,
+      "nextMillis": null
+    }
+  ]
+}

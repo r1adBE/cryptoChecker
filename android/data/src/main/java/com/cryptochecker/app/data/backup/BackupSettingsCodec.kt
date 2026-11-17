@@ -44,6 +44,10 @@ class BackupSettingsCodec(
             .put("includeAlphaTokens", s.includeAlphaTokens)
             .put("accentColor", s.accentColor.name)
             .put("darkMode", s.darkMode ?: JSONObject.NULL)
+            // «Nach Uhrzeit» (wahlfrei: ältere Sicherungen haben die Felder nicht, [OPTIONAL_FIELDS])
+            .put("themeScheduled", s.themeScheduled)
+            .put("themeDarkFrom", s.themeDarkFrom)
+            .put("themeLightFrom", s.themeLightFrom)
             .put("fearGreedBelow", s.fearGreedBelow)
             // Eigene Grenzen der Bitcoin-Kennzahlen (Art → gespeicherte Ganzzahl), wie iOS
             .put("indicatorAlerts", JSONObject().apply { s.indicatorAlerts.forEach { (kind, v) -> if (v > 0) put(kind.key, v) } })
@@ -110,9 +114,7 @@ class BackupSettingsCodec(
         // «Token & TradFi»; unbekannt: Einstellung bleibt
         com.cryptochecker.app.domain.settings.AssetScope.fromNameOrNull(o.text("assetScope"))?.let { setAssetScope(it) }
         setIncludeAlphaTokens(o.bool("includeAlphaTokens"))
-        setAccentColor(AccentColor.fromName(o.text("accentColor")))
-        // null = «Wie das System»
-        setDarkMode(if (o.isNull("darkMode")) null else o.bool("darkMode"))
+        restoreAppearance(o)
         setFearGreedBelow(o.int("fearGreedBelow"))
         // Nur eingeschaltete Grenzen stehen in der Datei; fehlende Arten = aus, unbekannte werden übergangen
         val alerts = o.getJSONObject("indicatorAlerts")
@@ -194,6 +196,18 @@ class BackupSettingsCodec(
         )
     }
 
+    /**
+     * Akzentfarbe, Hell/Dunkel (null = «Wie das System») und «Nach Uhrzeit»: fehlt in älteren Sicherungen = aus (dort
+     * gilt «darkMode»); die Zeiten nur, wenn da und gültig.
+     */
+    private suspend fun restoreAppearance(o: JSONObject) = with(settings) {
+        setAccentColor(AccentColor.fromName(o.text("accentColor")))
+        setDarkMode(if (o.isNull("darkMode")) null else o.bool("darkMode"))
+        setThemeScheduled(o.has("themeScheduled") && o.bool("themeScheduled"))
+        o.intIfPresent("themeDarkFrom")?.takeIf { QuietHours.isValidMinute(it) }?.let { setThemeDarkFrom(it) }
+        o.intIfPresent("themeLightFrom")?.takeIf { QuietHours.isValidMinute(it) }?.let { setThemeLightFrom(it) }
+    }
+
     companion object {
         /** Schlüssel des eigenen Bitcoin-Servers in der Sicherung (wie iOS). */
         const val ADDRESS_SERVER = "addressServerBtc"
@@ -230,7 +244,20 @@ class BackupSettingsCodec(
          * Jedes Feld aus [FIELDS] vorhanden und vom richtigen Typ ([BackupFields.check]); sonst
          * [IllegalArgumentException] — die Sicherung ist unlesbar. Unbekannte Felder werden übergangen.
          */
-        fun checkSettings(o: JSONObject) = BackupFields.check(o, FIELDS, "Einstellung")
+        fun checkSettings(o: JSONObject) {
+            BackupFields.check(o, FIELDS, "Einstellung")
+            BackupFields.checkOptional(o, OPTIONAL_FIELDS, "Einstellung")
+        }
+
+        /**
+         * Felder, die [settingsToJson] schreibt, ältere Sicherungen aber nicht haben: fehlen darf, steht es da, zählt
+         * der Typ (wie iOS `BackupManager.optionalSettingsFields`).
+         */
+        val OPTIONAL_FIELDS: Map<String, Type> = linkedMapOf(
+            "themeScheduled" to Type.BOOL,
+            "themeDarkFrom" to Type.INT,
+            "themeLightFrom" to Type.INT,
+        )
     }
 
     // Lesen nach [checkSettings]: Feld vorhanden und vom richtigen Typ
@@ -240,6 +267,8 @@ class BackupSettingsCodec(
     // Ausserhalb von Int gesättigt statt still umgebrochen (sonst würde z. B. 4294967311 zu 15); die Setter kürzen danach
     private fun JSONObject.int(key: String): Int =
         (get(key) as Number).toDouble().toLong().coerceIn(Int.MIN_VALUE.toLong(), Int.MAX_VALUE.toLong()).toInt()
+
+    private fun JSONObject.intIfPresent(key: String): Int? = if (has(key)) int(key) else null
 
     private fun JSONObject.double(key: String): Double = (get(key) as Number).toDouble()
 

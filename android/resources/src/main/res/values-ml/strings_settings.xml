@@ -221,6 +221,10 @@
     <string name="theme_dark">ഡാർക്ക്</string>
     <string name="theme_light">ലൈറ്റ്</string>
     <string name="theme_system">സിസ്റ്റം</string>
+    <string name="theme_scheduled">സമയം അനുസരിച്ച്</string>
+    <string name="theme_dark_from">ഡാർക്ക് ആരംഭം</string>
+    <string name="theme_light_from">ലൈറ്റ് ആരംഭം</string>
+    <string name="theme_scheduled_hint">%1$s മുതൽ %2$s വരെ ഡാർക്ക്, മറ്റു സമയങ്ങളിൽ ലൈറ്റ്.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">നീല</string>

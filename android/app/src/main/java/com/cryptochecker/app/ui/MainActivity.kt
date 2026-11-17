@@ -7,7 +7,6 @@ import android.os.SystemClock
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -31,6 +30,7 @@ import com.cryptochecker.app.ui.components.LocalCoinSearchNameSource
 import com.cryptochecker.app.ui.components.LocalPortfolioCoinLogoSource
 import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
+import com.cryptochecker.app.ui.theme.rememberAppDark
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.util.OpenTargetGuard
 import com.cryptochecker.app.util.StartupClock
@@ -98,10 +98,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            // «Nach Uhrzeit»: zum Wechsel auch Fenster und Systemdialoge (AppCompat) umstellen
+            val dark = rememberAppDark(settings)
+            LaunchedEffect(settings.themeScheduled, dark) {
+                if (settings.themeScheduled) appearanceApplier.applyNightMode(settings)
+            }
+
             // Nur in instrumentierten Tests gesetzt (Barrierefreiheit: grosse Schrift, Arabisch), sonst unverändert
             TestDisplayOverride.Provide {
                 CryptoCheckerTheme(
-                    dark = settings.darkMode ?: isSystemInDarkTheme(),
+                    dark = dark,
                     accent = settings.accentColor,
                     priceColors = settings.priceColorScheme,
                     highContrast = rememberHighContrast(settings.highContrast),

@@ -48,6 +48,10 @@ fun appSettingsOf(prefs: Preferences): AppSettings {
         includeAlphaTokens = prefs[SettingsKeys.includeAlphaTokens] ?: defaults.includeAlphaTokens,
         accentColor = AccentColor.fromName(prefs[SettingsKeys.accentColor]),
         darkMode = prefs[SettingsKeys.darkMode],
+        themeScheduled = prefs[SettingsKeys.themeScheduled] ?: defaults.themeScheduled,
+        themeDarkFrom = prefs[SettingsKeys.themeDarkFrom]?.takeIf { QuietHours.isValidMinute(it) } ?: defaults.themeDarkFrom,
+        themeLightFrom = prefs[SettingsKeys.themeLightFrom]?.takeIf { QuietHours.isValidMinute(it) }
+            ?: defaults.themeLightFrom,
         showHttpLog = prefs[SettingsKeys.showHttpLog] ?: defaults.showHttpLog,
         developerUnlocked = prefs[SettingsKeys.developerUnlocked] ?: defaults.developerUnlocked,
         gestureHintSeen = prefs[SettingsKeys.gestureHintSeen] ?: defaults.gestureHintSeen,

@@ -174,7 +174,7 @@ private suspend fun SettingsViewModel.replaceFromBackup(uri: android.net.Uri, pa
                 // Neue Einstellungen gleich anwenden
                 val s = settingsRepository.current()
                 scheduler.apply(s)
-                appearanceApplier.applyNightMode(s.darkMode)
+                appearanceApplier.applyNightMode(s)
                 widgetUpdater.updateAll()
                 // Gleich Kurse holen: Widgets, Kurs-Mitteilungen und Alarme der neuen Paare
                 // warteten sonst bis zur nächsten Hintergrund-Aktualisierung (bis 15 Min. und mehr)

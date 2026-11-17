@@ -121,7 +121,7 @@ object BackupFields {
                 "Favoriten «$kind» fehlen oder sind keine Texte"
             }
         }
-        check(root.getJSONObject("settings"), BackupSettingsCodec.FIELDS, "Einstellung")
+        BackupSettingsCodec.checkSettings(root.getJSONObject("settings"))
         checkEntries(root, ENTRIES)
     }
 
@@ -146,6 +146,13 @@ object BackupFields {
     fun check(o: JSONObject, fields: Map<String, Type>, what: String) {
         fields.forEach { (key, type) ->
             require(o.has(key) && matches(o.opt(key), type)) { "$what: «$key» fehlt oder hat den falschen Typ" }
+        }
+    }
+
+    /** Jedes Feld aus [fields], das in [o] steht, vom richtigen Typ; fehlen darf es. */
+    fun checkOptional(o: JSONObject, fields: Map<String, Type>, what: String) {
+        fields.forEach { (key, type) ->
+            require(!o.has(key) || matches(o.opt(key), type)) { "$what: «$key» hat den falschen Typ" }
         }
     }
 

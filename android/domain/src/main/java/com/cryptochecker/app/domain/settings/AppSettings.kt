@@ -78,6 +78,14 @@ data class AppSettings(
     /** Dunkles Erscheinungsbild für App und Widgets. null = wie das System (Standard bei neuer Installation). */
     val darkMode: Boolean? = null,
 
+    /**
+     * Darstellung «Nach Uhrzeit» ([ThemeSchedule]): dunkel ab [themeDarkFrom] bis [themeLightFrom] (Minuten seit
+     * Mitternacht), sonst hell; geht vor [darkMode]. Standard aus.
+     */
+    val themeScheduled: Boolean = false,
+    val themeDarkFrom: Int = ThemeSchedule.DEFAULT_DARK_FROM,
+    val themeLightFrom: Int = ThemeSchedule.DEFAULT_LIGHT_FROM,
+
     /** Entwickleroption: HTTP-Protokoll unten im Explorer («Paar hinzufügen») anzeigen. */
     val showHttpLog: Boolean = false,
 

@@ -145,7 +145,7 @@ class ListWidgetRenderer @Inject constructor(
         // Widgets, deren Zeilen der Dienst liefert: danach neu laden lassen
         val viaService = ArrayList<Int>()
         for (appWidgetId in appWidgetIds) {
-            val dark = widgetPrefs.isDark(appWidgetId)
+            val dark = widgetPrefs.isDark(appWidgetId, settings)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
             // Leer oder nicht: selbst entscheiden statt über setEmptyView — manche Launcher lassen den
             // Hinweis «Noch keine Paare» sonst stehen, obwohl inzwischen Paare da sind (z. B. nach dem

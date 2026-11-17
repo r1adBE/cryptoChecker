@@ -219,6 +219,10 @@
     <string name="theme_dark">အမှောင်</string>
     <string name="theme_light">အလင်း</string>
     <string name="theme_system">စနစ်</string>
+    <string name="theme_scheduled">အချိန်အလိုက်</string>
+    <string name="theme_dark_from">အမှောင် စတင်ချိန်</string>
+    <string name="theme_light_from">အလင်း စတင်ချိန်</string>
+    <string name="theme_scheduled_hint">%1$s မှ %2$s အထိ အမှောင်၊ ကျန်အချိန် အလင်း။</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">အပြာ</string>

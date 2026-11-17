@@ -33,6 +33,11 @@ struct AppSettings: Codable, Equatable, Sendable {
     var accentColor: AccentColor = .default
     /// nil = wie das System.
     var darkMode: Bool? = nil
+    /// Darstellung «Nach Uhrzeit» (`ThemeSchedule`): dunkel ab `themeDarkFrom` bis `themeLightFrom` (Minuten seit
+    /// Mitternacht), sonst hell; geht vor `darkMode`. Standard aus — wie Android.
+    var themeScheduled: Bool = false
+    var themeDarkFrom: Int = ThemeSchedule.defaultDarkFrom
+    var themeLightFrom: Int = ThemeSchedule.defaultLightFrom
     var showHttpLog: Bool = false
     var developerUnlocked: Bool = false
     /// Fear & Greed: melden unter/über diesem Wert (0 = aus).
@@ -190,6 +195,11 @@ struct AppSettings: Codable, Equatable, Sendable {
         includeAlphaTokens = (try? c.decodeIfPresent(Bool.self, forKey: .includeAlphaTokens)) ?? d.includeAlphaTokens
         accentColor = (try? c.decodeIfPresent(AccentColor.self, forKey: .accentColor)) ?? d.accentColor
         darkMode = try? c.decodeIfPresent(Bool.self, forKey: .darkMode)
+        themeScheduled = (try? c.decodeIfPresent(Bool.self, forKey: .themeScheduled)) ?? d.themeScheduled
+        let darkFrom = (try? c.decodeIfPresent(Int.self, forKey: .themeDarkFrom)) ?? nil
+        themeDarkFrom = darkFrom.flatMap { QuietHours.isValidMinute($0) ? $0 : nil } ?? d.themeDarkFrom
+        let lightFrom = (try? c.decodeIfPresent(Int.self, forKey: .themeLightFrom)) ?? nil
+        themeLightFrom = lightFrom.flatMap { QuietHours.isValidMinute($0) ? $0 : nil } ?? d.themeLightFrom
         showHttpLog = (try? c.decodeIfPresent(Bool.self, forKey: .showHttpLog)) ?? d.showHttpLog
         developerUnlocked = (try? c.decodeIfPresent(Bool.self, forKey: .developerUnlocked)) ?? d.developerUnlocked
         fearGreedBelow = (try? c.decodeIfPresent(Int.self, forKey: .fearGreedBelow)) ?? d.fearGreedBelow

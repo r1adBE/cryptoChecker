@@ -221,6 +221,10 @@
     <string name="theme_dark">Tume</string>
     <string name="theme_light">Hele</string>
     <string name="theme_system">Süsteem</string>
+    <string name="theme_scheduled">Kellaaja järgi</string>
+    <string name="theme_dark_from">Tume alates</string>
+    <string name="theme_light_from">Hele alates</string>
+    <string name="theme_scheduled_hint">Kella %1$s–%2$s tume, muul ajal hele.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Sinine</string>

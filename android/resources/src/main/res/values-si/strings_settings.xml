@@ -221,6 +221,10 @@
     <string name="theme_dark">අඳුරු</string>
     <string name="theme_light">ආලෝක</string>
     <string name="theme_system">පද්ධතිය</string>
+    <string name="theme_scheduled">වේලාව අනුව</string>
+    <string name="theme_dark_from">අඳුරු ආරම්භය</string>
+    <string name="theme_light_from">ආලෝක ආරම්භය</string>
+    <string name="theme_scheduled_hint">%1$s සිට %2$s දක්වා අඳුරු, අනෙක් වේලාවට ආලෝක.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">නිල්</string>

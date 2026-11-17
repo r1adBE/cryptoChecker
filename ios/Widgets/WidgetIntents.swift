@@ -14,10 +14,10 @@ enum WidgetThemeOption: String, AppEnum {
         .light: "theme_light"
     ]
 
-    /// Dunkel für dieses Widget? «System» folgt dem Gerät.
-    func isDark(systemDark: Bool) -> Bool {
+    /// Dunkel für dieses Widget? «System» folgt der App (`forced`: Hell, Dunkel oder «Nach Uhrzeit»; nil = wie das Gerät).
+    func isDark(systemDark: Bool, forced: Bool? = nil) -> Bool {
         switch self {
-        case .system: systemDark
+        case .system: forced ?? systemDark
         case .dark: true
         case .light: false
         }

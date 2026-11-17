@@ -219,6 +219,10 @@
     <string name="theme_dark">ມືດ</string>
     <string name="theme_light">ສະຫວ່າງ</string>
     <string name="theme_system">ລະບົບ</string>
+    <string name="theme_scheduled">ຕາມເວລາ</string>
+    <string name="theme_dark_from">ມືດແຕ່</string>
+    <string name="theme_light_from">ສະຫວ່າງແຕ່</string>
+    <string name="theme_scheduled_hint">ມືດແຕ່ %1$s ຫາ %2$s, ນອກນັ້ນສະຫວ່າງ.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ສີຟ້າ</string>

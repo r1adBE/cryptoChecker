@@ -70,7 +70,7 @@ class ListWidgetRows @Inject constructor(
         val settings = settingsRepository.current()
         val background = WidgetColors.of(
             settings.accentColor,
-            widgetPrefs.isDark(appWidgetId),
+            widgetPrefs.isDark(appWidgetId, settings),
             settings.priceColorScheme,
             HighContrast.isEffective(context, settings.highContrast),
             settings.priceColorsInverted,

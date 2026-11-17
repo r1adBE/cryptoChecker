@@ -221,6 +221,10 @@
     <string name="theme_dark">Бараан</string>
     <string name="theme_light">Цайвар</string>
     <string name="theme_system">Систем</string>
+    <string name="theme_scheduled">Цагаар</string>
+    <string name="theme_dark_from">Бараан эхлэх</string>
+    <string name="theme_light_from">Цайвар эхлэх</string>
+    <string name="theme_scheduled_hint">%1$s-с %2$s хүртэл бараан, бусад үед цайвар.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Цэнхэр</string>

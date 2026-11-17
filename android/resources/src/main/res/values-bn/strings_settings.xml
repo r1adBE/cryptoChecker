@@ -221,6 +221,10 @@
     <string name="theme_dark">ডার্ক</string>
     <string name="theme_light">লাইট</string>
     <string name="theme_system">সিস্টেম</string>
+    <string name="theme_scheduled">সময় অনুযায়ী</string>
+    <string name="theme_dark_from">ডার্ক শুরু</string>
+    <string name="theme_light_from">লাইট শুরু</string>
+    <string name="theme_scheduled_hint">%1$s থেকে %2$s পর্যন্ত ডার্ক, অন্য সময় লাইট।</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">নীল</string>

@@ -221,6 +221,10 @@
     <string name="theme_dark">მუქი</string>
     <string name="theme_light">ღია</string>
     <string name="theme_system">სისტემური</string>
+    <string name="theme_scheduled">დროის მიხედვით</string>
+    <string name="theme_dark_from">მუქი იწყება</string>
+    <string name="theme_light_from">ღია იწყება</string>
+    <string name="theme_scheduled_hint">%1$s-დან %2$s-მდე მუქი, დანარჩენ დროს ღია.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ლურჯი</string>

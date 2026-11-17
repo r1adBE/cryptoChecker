@@ -227,6 +227,10 @@
     <string name="theme_dark">Dorcha</string>
     <string name="theme_light">Geal</string>
     <string name="theme_system">Córas</string>
+    <string name="theme_scheduled">De réir ama</string>
+    <string name="theme_dark_from">Dorcha ó</string>
+    <string name="theme_light_from">Geal ó</string>
+    <string name="theme_scheduled_hint">Dorcha ó %1$s go %2$s, geal ag amanna eile.</string>
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Gorm</string>

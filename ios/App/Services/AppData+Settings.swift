@@ -51,7 +51,9 @@ extension AppData {
             // übernimmt das Icon selbst über die Varianten im Asset-Katalog.
             AppIconSwitcher.apply(accent: settings.accentColor)
         }
-        if old.accentColor != settings.accentColor || old.darkMode != settings.darkMode {
+        let themeChanged = old.darkMode != settings.darkMode || old.themeScheduled != settings.themeScheduled
+            || old.themeDarkFrom != settings.themeDarkFrom || old.themeLightFrom != settings.themeLightFrom
+        if old.accentColor != settings.accentColor || themeChanged {
             // Akzentfarbe kann Kursfarben ändern (Ersatzfassung bei zu ähnlichem Farbton)
             PriceColors.accent = settings.accentColor
             WidgetCenter.shared.reloadAllTimelines()

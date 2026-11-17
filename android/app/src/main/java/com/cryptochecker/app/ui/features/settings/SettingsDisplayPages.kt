@@ -30,20 +30,48 @@ import com.cryptochecker.resources.R
 
 // ── Darstellung ──────────────────────────────────────────────────────────────
 
-/** Modus: wie das System, Hell oder Dunkel (App und Widgets); dazu hoher Kontrast. */
+/**
+ * Modus: wie das System, Hell, Dunkel oder «Nach Uhrzeit» (dunkel ab / hell ab, [ThemeSchedule]) — für die App und
+ * Widgets mit «System»; dazu hoher Kontrast.
+ */
 @Composable
 internal fun DisplayModePage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     SettingsSubPage(title = stringResource(R.string.settings_theme_mode), onBack = onBack) {
         GroupCard {
             Column(Modifier.selectableGroup()) {
                 listOf(null, false, true).forEach { dark ->
                     RadioRow(
-                        selected = settings.darkMode == dark,
+                        selected = !settings.themeScheduled && settings.darkMode == dark,
                         onClick = { viewModel.setDarkMode(dark) },
                         title = stringResource(themeModeLabel(dark))
                     )
                 }
+                SettingsAnchor("display.scheduled") {
+                    RadioRow(
+                        selected = settings.themeScheduled,
+                        onClick = { viewModel.setThemeScheduled() },
+                        title = stringResource(R.string.theme_scheduled),
+                        subtitle = stringResource(
+                            R.string.theme_scheduled_hint,
+                            formatMinuteOfDay(context, settings.themeDarkFrom),
+                            formatMinuteOfDay(context, settings.themeLightFrom)
+                        )
+                    )
+                }
+            }
+            if (settings.themeScheduled) {
+                QuietTimeRow(
+                    label = stringResource(R.string.theme_dark_from),
+                    minute = settings.themeDarkFrom,
+                    onPicked = viewModel::setThemeDarkFrom
+                )
+                QuietTimeRow(
+                    label = stringResource(R.string.theme_light_from),
+                    minute = settings.themeLightFrom,
+                    onPicked = viewModel::setThemeLightFrom
+                )
             }
         }
         Spacer(Modifier.height(12.dp))

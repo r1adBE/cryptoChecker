@@ -16,6 +16,9 @@
   "includeAlphaTokens": true,
   "accentColor": "BLUE",
   "darkMode": true,
+  "themeScheduled": true,
+  "themeDarkFrom": 1260,
+  "themeLightFrom": 480,
   "fearGreedBelow": 20,
   "indicatorAlerts": {"MAYER_ABOVE": 200},
   "fearGreedAbove": 80,
@@ -53,7 +56,8 @@
   "addressServerBtc": "https://node.example.org/api"
  },
  "nullable": ["darkMode", "watchlistColumnSort", "addressServerBtc"],
- "invalidDescription": "Each key in «settings» is required (removing any one makes the backup invalid). Each case below replaces one value of «settings»; the backup must be invalid on both platforms (Android BackupSettingsCodec.checkSettings, iOS BackupManager.checkSettings). «indicatorAlerts» lists only enabled kinds, so a missing kind is valid.",
+ "optional": ["themeScheduled", "themeDarkFrom", "themeLightFrom"],
+ "invalidDescription": "Each key in «settings» is required (removing any one makes the backup invalid), except the keys in «optional» (written by newer versions, missing in older backups: valid without them, but their type counts when present). Each case below replaces one value of «settings»; the backup must be invalid on both platforms (Android BackupSettingsCodec.checkSettings, iOS BackupManager.checkSettings). «indicatorAlerts» lists only enabled kinds, so a missing kind is valid.",
  "invalid": [
   {"name": "Schalter als Text", "key": "priceNotifications", "value": "true"},
   {"name": "Schalter als Zahl", "key": "ttsEnabled", "value": 1},
@@ -64,6 +68,8 @@
   {"name": "Text null", "key": "taxTemplate", "value": null},
   {"name": "Schalter null", "key": "appLock", "value": null},
   {"name": "Dunkelmodus als Text", "key": "darkMode", "value": "dark"},
+  {"name": "Nach Uhrzeit als Text", "key": "themeScheduled", "value": "ja"},
+  {"name": "Dunkel ab gebrochen", "key": "themeDarkFrom", "value": 1260.5},
   {"name": "Server als Zahl", "key": "addressServerBtc", "value": 5},
   {"name": "Grenze als Text", "key": "indicatorAlerts", "value": {"MAYER_ABOVE": "200"}},
   {"name": "Grenzen als Liste", "key": "indicatorAlerts", "value": [200]}
