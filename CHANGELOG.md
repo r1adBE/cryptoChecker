@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 277)
+
+- CI: the Gradle warm-up asks the repositories again from the second attempt on.
+
 ## 16.2.2 (build 276)
 
 - Fix (iOS): the add button hidden while scrolling could still be reached with VoiceOver.

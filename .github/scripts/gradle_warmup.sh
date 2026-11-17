@@ -12,7 +12,11 @@ LOG="${RUNNER_TEMP:-/tmp}/gradle-warmup.log"
 NETWORK='was not found in any of the following sources|Could not resolve|Could not GET|Could not HEAD|Connection reset|Connect timed out|Read timed out|Remote host terminated the handshake|status code 5[0-9][0-9]|Received status code 429'
 chmod +x gradlew
 for attempt in 1 2 3; do
-  if ./gradlew --no-daemon help --quiet >"$LOG" 2>&1; then
+  # From the second attempt on, bypass cached repository answers: a missing or partial entry restored from the cache
+  # (build 276: the same plugin «not found» in six attempts over two runs, in one job only) is otherwise repeated on
+  # every attempt instead of being fetched again
+  refresh=$([ "$attempt" -gt 1 ] && echo --refresh-dependencies || true)
+  if ./gradlew --no-daemon help --quiet $refresh >"$LOG" 2>&1; then
     echo "Gradle warm-up ok (attempt $attempt)"
     exit 0
   fi

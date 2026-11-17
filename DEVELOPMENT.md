@@ -3259,6 +3259,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 274: iOS UI test of the add button: short drag instead of a swipe (a swipe reached the end of the list, where the button comes back by design).
 * Build 275: iOS UI test of the add button checks that the list scrolled and reports the button in the tree on failure.
 * Build 276: iOS portfolio add button: disabled while hidden (accessibilityHidden alone left it in the tree on iOS 26); UI test checks it.
+* Build 277: CI: gradle_warmup.sh uses --refresh-dependencies from the second attempt (a cached missing plugin entry failed one job six times in 276).
 
 ## Known warnings
 
