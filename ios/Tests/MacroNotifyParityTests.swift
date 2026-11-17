@@ -44,15 +44,4 @@ final class MacroNotifyParityTests: XCTestCase {
                            c["note"] as? String ?? "")
         }
     }
-
-    /// Nach einem Wechsel von Zeitzone oder Uhr wird neu geplant (Text und Zeitpunkt in der neuen Zone).
-    func testZonenwechselPlantNeu() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let planning = try String(contentsOf: root.appendingPathComponent("App/Services/BackgroundRefresh+Planning.swift"),
-                                  encoding: .utf8)
-        XCTAssertTrue(planning.contains("MacroNotifications.clockChanged()"))
-        let macro = try String(contentsOf: root.appendingPathComponent("App/Services/MacroNotifications.swift"), encoding: .utf8)
-        XCTAssertTrue(macro.contains("let notifyAt = MacroCalendar.notifyAt(day: day, calendar: calendar),"))
-        XCTAssertTrue(macro.contains("refresh(settings: SharedStorage.loadSettings())"))
-    }
 }

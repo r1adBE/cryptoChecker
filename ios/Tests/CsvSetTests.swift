@@ -108,21 +108,6 @@ final class CsvImportRateGateSheetTests: XCTestCase {
         return try String(contentsOf: file, encoding: .utf8)
     }
 
-    func testSheetGatesButtonAndConfirmAndMarksRows() throws {
-        let sheet = try source("PortfolioCsvImport.swift")
-        let gate = "CsvImportRateGate.canImport(missingFx: preview.missingFx.count, accepted: "
-        XCTAssertTrue(sheet.contains("|| !" + gate + "ratesAccepted))"), "Knopf aus")
-        XCTAssertTrue(sheet.contains("guard " + gate + "consent.accepted) else { return }"), "auch im Ablauf geprüft")
-        XCTAssertTrue(sheet.contains("CsvImportRateGate.mark(CsvTransferMatch.withFallbacks(preview.transactions, plan: plan), "
-                                     + "consent: consent)"), "Vermerk an jeder Zeile, auch der Ersatzzeile")
-        // Neue Vorschau (neu gelesen oder Kurse neu geladen): Bestätigung gilt nicht weiter
-        XCTAssertTrue(sheet.contains("preview = computed.preview\n            // Neue Vorschau: Zeilen ohne Tageskurs "
-                                     + "brauchen wieder eine eigene Bestätigung\n            ratesAccepted = false"))
-        let choices = try source("PortfolioCsvImportSheet+Choices.swift")
-        XCTAssertTrue(choices.contains("Toggle(L(\"portfolio_csv_import_anyway\"), isOn: $ratesAccepted)"))
-        XCTAssertTrue(choices.contains("ratesStale = true\n        remap()"), "«Erneut versuchen» lädt die Kurse neu")
-    }
-
     /// Der Kurstag kommt aus der Steuer-Vorlage (Neutral: Gerät) — beim Laden und bei jedem Neu-Lesen derselbe.
     func testFxZoneComesFromTheTaxTemplate() throws {
         XCTAssertEqual(CsvImportParser.fxZoneFor(templateZone: "America/New_York", deviceZone: "America/Los_Angeles"),

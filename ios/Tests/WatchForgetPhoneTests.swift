@@ -19,29 +19,6 @@ final class WatchForgetPhoneTests: XCTestCase {
         XCTAssertEqual(link.components(separatedBy: "WatchModel.shared.forgetPhone()").count - 1, 2)
     }
 
-    func testModelClearsPhoneData() throws {
-        let model = try source("Watch/WatchModel.swift")
-        XCTAssertTrue(model.contains("let next = WatchSettings.forgetPhone(settings)"))
-        XCTAssertTrue(model.contains("WatchStore.forgetPhoneQuotes()"))
-        XCTAssertTrue(model.contains("WatchStore.takePortfolio(.clear)"))
-        let store = try source("Watch/Device/WatchStore.swift")
-        // Coins und Stand vom iPhone liegen seit X4-03 in einer eigenen Datei (vom Backup ausgenommen): sie fällt weg
-        XCTAssertTrue(store.contains("try? FileManager.default.removeItem(at: directory.appendingPathComponent(phoneFileName))"))
-    }
-
-    /// Wahl der Uhr, Coins vom iPhone, Kurse und Portfolio-Wert: nichts davon im Backup (X4-03, wie Wear OS
-    /// `allowBackup="false"`) — keine UserDefaults der App-Gruppe mehr (liessen sich nicht ausnehmen).
-    func testNothingOfTheWatchInBackups() throws {
-        let store = try source("Watch/Device/WatchStore.swift")
-        XCTAssertFalse(store.contains("UserDefaults"))
-        XCTAssertTrue(store.contains("values.isExcludedFromBackup = true"))
-        XCTAssertTrue(store.contains("set { writeExcluded(Data(newValue.toJson().utf8), settingsFileName) }"))
-        XCTAssertTrue(store.contains("if let data = try? JSONEncoder().encode(delivery) { writeExcluded(data, phoneFileName) }"))
-        XCTAssertTrue(store.contains("if let data = try? JSONEncoder().encode(p) { writeExcluded(data, portfolioFileName) }"))
-        let quotes = try source("WatchCore/WatchQuoteFile.swift")
-        XCTAssertTrue(quotes.contains("isExcludedFromBackup"))
-    }
-
     /// Ohne Stand des iPhones bleibt die geänderte Wahl der Uhr, der iPhone-Teil fällt auf Standard.
     func testForgetPhoneKeepsOwnChoice() {
         var local = WatchSettings()

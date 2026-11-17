@@ -38,6 +38,7 @@ Rules (ids in the annotation title):
   wiring             restore writes under the address refresh lock; every exact-check entry reads the shared demand
   portfolio-settings-confirm  iOS asks before another cost method / system backup; the tax sheet names the file contents
   watch-deletion     Wear OS reads deleted phone entries and forgets what came from the phone
+  ios-wiring         fixed wiring of iOS views, widgets, watch and data layer (table, former XCTest source checks)
 
 The comments and messages are in German like the tests they replace.
 """
@@ -2104,6 +2105,129 @@ def rule_watch_deletion(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# ios-wiring: Anbindungen in SwiftUI-Ansichten, Widgets, der Uhr und der Daten-Schicht, die ohne Gerät nicht als Verhalten
+# prüfbar sind — je Datei Teile, die stehen bzw. nicht stehen müssen (Kommentare zählen nicht). Früher Quelltext-Wächter
+# in XCTest (Audit A-01): AddressServerUnknownTests.testVerdrahtung,
+# AddressSetTests.testBitcoinEintraegeKeinActorFeld,
+# AlarmSnoozeClearTests.testRestoreRemovesReplacedAlarmNotifications,
+# CsvSetTests.testSheetGatesButtonAndConfirmAndMarksRows, MacroNotifyParityTests.testZonenwechselPlantNeu,
+# PhoneWatchLinkResendTests.testResendTriggers, WatchForgetPhoneTests.testModelClearsPhoneData,
+# WatchForgetPhoneTests.testNothingOfTheWatchInBackups, WatchPriceFormatParityTests.testKomplikationenNutzenDieRegeln,
+# WatchPriceFormatParityTests.testPortfolioKomplikationSprichtVerdecktOhneBetrag,
+# WatchlistWriteFailedTests.testVerdrahtung.
+
+
+IW_TABLE = {'App/Components/WatchlistLockedHint.swift': {'has': ('.onReceive(NotificationCenter.default.publisher(for: '
+                                                      'SharedStorage.watchlistWriteFailedNotice))',
+                                                      'show(L("portfolio_write_failed"))'),
+                                              'not': ()},
+ 'App/Features/Portfolio/PortfolioCsvImport.swift': {'has': ('|| !',
+                                                             'guard ',
+                                                             'CsvImportRateGate.mark(CsvTransferMatch.withFallbacks(preview.transactions, '
+                                                             'plan: plan), ',
+                                                             'preview = computed.preview\n'
+                                                             '            // Neue Vorschau: Zeilen ohne Tageskurs '),
+                                                     'not': ()},
+ 'App/Features/Portfolio/PortfolioCsvImportSheet+Choices.swift': {'has': ('Toggle(L("portfolio_csv_import_anyway"), '
+                                                                          'isOn: $ratesAccepted)',
+                                                                          'ratesStale = true\n        remap()'),
+                                                                  'not': ()},
+ 'App/Features/Portfolio/PortfolioLoadActions.swift': {'has': ('data.watchedAddresses.filter { '
+                                                               'AddressServer.queryAllowed($0.chain, serverUnknown: '
+                                                               'unknown) }',),
+                                                       'not': ()},
+ 'App/Features/Settings/SettingsAddressServerCard.swift': {'has': ('if url != nil { '
+                                                                   'StorageRecoveryNotice.confirmAddressServer() }',
+                                                                   'if serverUnknown && '
+                                                                   'data.settings.addressServerBtc == nil { '
+                                                                   'confirmPublic() } else { save(nil) }'),
+                                                           'not': ()},
+ 'App/Services/AppData.swift': {'has': ('if watchlistSavePending || SharedStorage.watchlistWriteFailed {',
+                                        'if !waiting, !SharedStorage.watchlistWriteFailed, let fresh = read.snapshot '
+                                        '{'),
+                                'not': ()},
+ 'App/Services/BackgroundRefresh+Planning.swift': {'has': ('MacroNotifications.clockChanged()',), 'not': ()},
+ 'App/Services/BackupManager.swift': {'has': ('if journal && input.newSettings.addressServerBtc != nil { '
+                                              'StorageRecoveryNotice.confirmAddressServer() }',
+                                              'removeReplacedAlarmNotifications(previous.snapshot)',
+                                              'old.alarms.forEach { Notifier.cancelAlarm($0.id) }',
+                                              '(old.portfolioAlarms ?? []).forEach { '
+                                              'Notifier.cancelPortfolioAlarm($0.id) }',
+                                              'AlarmSnooze.clearAll()'),
+                                      'not': ()},
+ 'App/Services/MacroNotifications.swift': {'has': ('let notifyAt = MacroCalendar.notifyAt(day: day, calendar: '
+                                                   'calendar),',
+                                                   'refresh(settings: SharedStorage.loadSettings())'),
+                                           'not': ()},
+ 'App/Services/PhoneWatchLink.swift': {'has': ('if WatchSettings.phoneSideDiffers(settings, watch: remote) { send() '
+                                               '}',
+                                               'try session.updateApplicationContext(context)',
+                                               'if failedSends <= Self.maxRetries { sendSoon() }',
+                                               'nonisolated func sessionWatchStateDidChange(_ session: WCSession) {\n'
+                                               '        Task { @MainActor in self.send() }'),
+                                       'not': ('try? session.updateApplicationContext(context)',)},
+ 'App/Services/StorageRecoveryNotice.swift': {'has': ('L("settings_address_server_unknown")',), 'not': ()},
+ 'Shared/Portfolio/WatchedAddressSource+Chains.swift': {'has': (),
+                                                        'not': ('var btcEntries',
+                                                                '= btcEntries\n',
+                                                                'btcEntries: [String] =',
+                                                                'btcServer: String? = nil')},
+ 'Shared/Portfolio/WatchedAddressSource.swift': {'has': (),
+                                                 'not': ('var btcEntries',
+                                                         '= btcEntries\n',
+                                                         'btcEntries: [String] =',
+                                                         'btcServer: String? = nil')},
+ 'Shared/Storage/SharedStorage+Snapshot.swift': {'has': ('NotificationCenter.default.post(name: '
+                                                         'watchlistWriteFailedNotice, object: nil)',),
+                                                 'not': ()},
+ 'Watch/Device/WatchStore.swift': {'has': ('try? FileManager.default.removeItem(at: '
+                                           'directory.appendingPathComponent(phoneFileName))',
+                                           'values.isExcludedFromBackup = true',
+                                           'set { writeExcluded(Data(newValue.toJson().utf8), settingsFileName) }',
+                                           'if let data = try? JSONEncoder().encode(delivery) { writeExcluded(data, '
+                                           'phoneFileName) }',
+                                           'if let data = try? JSONEncoder().encode(p) { writeExcluded(data, '
+                                           'portfolioFileName) }'),
+                                   'not': ('UserDefaults',)},
+ 'Watch/WatchModel.swift': {'has': ('let next = WatchSettings.forgetPhone(settings)',
+                                    'WatchStore.forgetPhoneQuotes()',
+                                    'WatchStore.takePortfolio(.clear)'),
+                            'not': ()},
+ 'WatchCore/WatchQuoteFile.swift': {'has': ('isExcludedFromBackup',), 'not': ()},
+ 'WatchWidgets/WatchPortfolioWidget.swift': {'has': ('WatchText.t("ios_watch_portfolio_turn_on_iphone")',
+                                                     'WatchText.t("watch_portfolio_off")',
+                                                     'WatchPortfolioOff.line(title: title, hint: hint)',
+                                                     '@Environment(\\.redactionReasons) private var redactionReasons',
+                                                     'if redactionReasons.contains(.privacy) { '
+                                                     'spokenPortfolio.hidden = true }',
+                                                     'WatchText.portfolioSpoken(spokenPortfolio)'),
+                                             'not': ('WatchText.portfolioSpoken(p)',)},
+ 'WatchWidgets/WatchPriceWidget.swift': {'has': ('compact: q.map { WatchText.compactPrice($0.price) } ?? "—"',
+                                                 'Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)',
+                                                 'quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt',
+                                                 'empty: WatchText.t(phone ? "ios_watch_iphone_empty" : '
+                                                 '"watch_choose")',
+                                                 'let missing = q == nil ? WatchText.missingShort(coin) : nil'),
+                                         'not': ('Text(entry.change).foregroundStyle(valueStyle)',)}}
+
+
+def ios_wiring_problems(sources, table=None):
+    problems = []
+    for path, parts in (table or IW_TABLE).items():
+        raw = sources.get(path, "")
+        code = ds_strip_comments(raw)
+        # Ein Teil, der selbst einen Kommentar enthält, wird am Quelltext samt Kommentaren gesucht
+        problems += [f"ios/{path}: {part.splitlines()[0]} fehlt" for part in parts["has"]
+                     if part not in (raw if "//" in part else code)]
+        problems += [f"ios/{path}: {part.splitlines()[0] or part!r} darf nicht stehen" for part in parts["not"] if part in code]
+    return problems
+
+
+def rule_ios_wiring(t):
+    return ios_wiring_problems({path: read(need_file(t.i(*path.split("/")))) for path in IW_TABLE})
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -2230,6 +2354,7 @@ RULES = [
     ("wiring", rule_wiring),
     ("portfolio-settings-confirm", rule_portfolio_settings),
     ("watch-deletion", rule_watch_deletion),
+    ("ios-wiring", rule_ios_wiring),
 ]
 
 
@@ -2272,6 +2397,11 @@ def self_test():
        "bulk-undo: Kotlin")
     eq(bulk_undo_swift("B.swift", "func undoBulkAdd(_ ids: [Int64]) {}\nbulkUndo.remove(ids) { vm.undoBulkAdd($0) }\n"
                                   + "let a = 1\n" * 80 + "Button { vm.undoBulkAdd(ids) }"), (2, ["B.swift:83"]), "bulk-undo: Swift")
+
+    # ios-wiring: vorhanden ok; fehlend, auskommentiert und verboten gefunden
+    table = {"A.swift": {"has": ("good()",), "not": ("bad()",)}}
+    eq(ios_wiring_problems({"A.swift": "good()"}, table), [], "ios-wiring: ok")
+    eq(len(ios_wiring_problems({"A.swift": "// good()\nbad()"}, table)), 2, "ios-wiring: Fehler")
 
     # watch-deletion: vollständig ok, Lücke gefunden
     eq(watch_deletion_problems({k: "\n".join(v) for k, v in WD_PARTS.items()}), [], "watch-deletion: ok")

@@ -56,24 +56,6 @@ final class WatchPriceFormatParityTests: XCTestCase {
         }
     }
 
-    /// Beide Komplikationen: klein der Kurs statt der Änderung, Portfolio ohne Wert sagt es (kein «—»).
-    func testKomplikationenNutzenDieRegeln() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let price = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPriceWidget.swift"), encoding: .utf8)
-        XCTAssertTrue(price.contains("compact: q.map { WatchText.compactPrice($0.price) } ?? \"—\""))
-        XCTAssertTrue(price.contains("Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)"))
-        XCTAssertTrue(price.contains("quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt"))
-        XCTAssertFalse(price.contains("Text(entry.change).foregroundStyle(valueStyle)"))
-        // Leer wie Wear OS («Kurs / +» mit Hinweis je Listenwahl), ohne Kurs der Grund (U2-07)
-        XCTAssertTrue(price.contains("empty: WatchText.t(phone ? \"ios_watch_iphone_empty\" : \"watch_choose\")"))
-        XCTAssertTrue(price.contains("let missing = q == nil ? WatchText.missingShort(coin) : nil"))
-        let portfolio = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
-                                   encoding: .utf8)
-        XCTAssertTrue(portfolio.contains("WatchText.t(\"ios_watch_portfolio_turn_on_iphone\")"))
-        XCTAssertTrue(portfolio.contains("WatchText.t(\"watch_portfolio_off\")"))
-        XCTAssertTrue(portfolio.contains("WatchPortfolioOff.line(title: title, hint: hint)"))
-    }
-
     /// Portfolio-Komplikation: jeder Betrag ist `privacySensitive` (wie das iPhone-Widget) — in allen vier Familien samt
     /// der Veränderung; der Zustand «aus» (kein Betrag) braucht es nicht.
     func testPortfolioKomplikationBetraegeSindPrivacySensitive() throws {
@@ -93,16 +75,5 @@ final class WatchPriceFormatParityTests: XCTestCase {
         let amounts = ["Text(total)", "Text(WatchText.portfolioToday(p)", "Text(WatchFreshness.inlineLine(total",
                        "Text(WatchText.portfolioCompact(p))"]
         XCTAssertEqual(amounts.reduce(0) { $0 + value.components(separatedBy: $1).count - 1 }, 5)
-    }
-
-    /// X4-04: verdeckt (gesenktes Handgelenk) nennt VoiceOver keinen Betrag – wie das iPhone-Widget (`spokenHidden`).
-    func testPortfolioKomplikationSprichtVerdecktOhneBetrag() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let source = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
-                                encoding: .utf8)
-        XCTAssertTrue(source.contains("@Environment(\\.redactionReasons) private var redactionReasons"))
-        XCTAssertTrue(source.contains("if redactionReasons.contains(.privacy) { spokenPortfolio.hidden = true }"))
-        XCTAssertTrue(source.contains("WatchText.portfolioSpoken(spokenPortfolio)"))
-        XCTAssertFalse(source.contains("WatchText.portfolioSpoken(p)"))
     }
 }

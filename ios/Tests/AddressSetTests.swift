@@ -147,20 +147,6 @@ final class AddressServerRulesParityTests: XCTestCase {
             WatchedAddress(id: Int64(i + 1), chain: AddressChain(rawValue: chain) ?? .BTC, address: "a\(i)")
         }
     }
-
-    /// Mehrere Abrufe gleichzeitig im Vordergrund: die Bitcoin-Einträge reisen als Parameter mit, kein gemeinsames Feld
-    /// des Actors (sonst überschriebe ein zweiter Abruf an einem `await` die Hosts des ersten).
-    func testBitcoinEintraegeKeinActorFeld() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        for name in ["WatchedAddressSource.swift", "WatchedAddressSource+Chains.swift"] {
-            let text = try String(contentsOf: root.appendingPathComponent("Shared/Portfolio/\(name)"), encoding: .utf8)
-            XCTAssertFalse(text.contains("var btcEntries"), name)
-            XCTAssertFalse(text.contains("= btcEntries\n"), name)
-            // Bitcoin-Hosts und eigener Server immer ausdrücklich: kein Standardwert, der still öffentliche Knoten wählt
-            XCTAssertFalse(text.contains("btcEntries: [String] ="), name)
-            XCTAssertFalse(text.contains("btcServer: String? = nil"), name)
-        }
-    }
 }
 
 // ---- aus AddressServerTestRunTests

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 281)
+
+- More checks as source rules.
+
 ## 16.2.2 (build 280)
 
 - More checks as behaviour tests or source rules; CI retries the Gradle warm-up longer.

@@ -19,13 +19,4 @@ final class AlarmSnoozeClearTests: XCTestCase {
         XCTAssertNil(AlarmSnooze.until(7, store: store))
         XCTAssertEqual(store.integer(forKey: "other"), 3)
     }
-
-    func testRestoreRemovesReplacedAlarmNotifications() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let source = try String(contentsOf: root.appendingPathComponent("App/Services/BackupManager.swift"), encoding: .utf8)
-        XCTAssertTrue(source.contains("removeReplacedAlarmNotifications(previous.snapshot)"))
-        XCTAssertTrue(source.contains("old.alarms.forEach { Notifier.cancelAlarm($0.id) }"))
-        XCTAssertTrue(source.contains("(old.portfolioAlarms ?? []).forEach { Notifier.cancelPortfolioAlarm($0.id) }"))
-        XCTAssertTrue(source.contains("AlarmSnooze.clearAll()"))
-    }
 }

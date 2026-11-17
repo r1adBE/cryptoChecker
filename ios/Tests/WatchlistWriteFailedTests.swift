@@ -82,20 +82,4 @@ final class WatchlistWriteFailedTests: XCTestCase {
             .appendingPathComponent("Shared/Storage/ProtectedStorage.swift"), encoding: .utf8)
         XCTAssertTrue(storage.contains("ProtectedFile.removeStaleTemps(in: dir, now: now)"))
     }
-
-    /// Hinweis, erneutes Schreiben und Speicher massgebend sind verdrahtet.
-    func testVerdrahtung() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func source(_ path: String) throws -> String {
-            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
-        }
-        let appData = try source("App/Services/AppData.swift")
-        XCTAssertTrue(appData.contains("if watchlistSavePending || SharedStorage.watchlistWriteFailed {"))
-        XCTAssertTrue(appData.contains("if !waiting, !SharedStorage.watchlistWriteFailed, let fresh = read.snapshot {"))
-        let snapshot = try source("Shared/Storage/SharedStorage+Snapshot.swift")
-        XCTAssertTrue(snapshot.contains("NotificationCenter.default.post(name: watchlistWriteFailedNotice, object: nil)"))
-        let hint = try source("App/Components/WatchlistLockedHint.swift")
-        XCTAssertTrue(hint.contains(".onReceive(NotificationCenter.default.publisher(for: SharedStorage.watchlistWriteFailedNotice))"))
-        XCTAssertTrue(hint.contains("show(L(\"portfolio_write_failed\"))"))
-    }
 }
