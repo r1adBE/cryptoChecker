@@ -276,7 +276,10 @@ final class CryptoCheckerUITests: XCTestCase {
         _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
         let add = app.buttons["Add transaction"]
         XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button missing")
-        app.swipeUp()
+        // Kurzes Ziehen ohne Schwung: ein Wischen schöbe die Liste bis ans Ende, und dort kommt der Knopf gewollt zurück
+        // (AddButtonScroll: am Anfang bzw. Ende immer sichtbar)
+        let from = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.6))
+        from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35)))
         XCTAssertTrue(wait(add, "exists == false"), "add button still shown while scrolling down")
         app.swipeDown()
         XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button not back after scrolling up")

@@ -3256,6 +3256,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 271: A-01 part 2 (8): settings search anchors and the pairs permission event as source rules; coins-without-logo, address cost lot editor, «why» empty state and the portfolio alarm notification as device/iOS tests; lot editor takes the daily close as a function; portfolio alarm line as a function on both platforms.
 * Build 272: test fixes of 271: retry test checks only the remembered requests; logo close measured as button; recreation at the same position; iOS AlarmSaveOutcome in its own file; transaction row test tag; long portfolio list without fixed coins.
 * Build 273: fixes of 272: iOS portfolio alarm flag back in AppData+Alarms; Android AlarmCreateGuard starts the block on the next dispatch so a fast create cannot free the guard before a second tap in the same frame.
+* Build 274: iOS UI test of the add button: short drag instead of a swipe (a swipe reached the end of the list, where the button comes back by design).
 
 ## Known warnings
 

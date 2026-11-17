@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 274)
+
+- Test fix (iOS UI test of the add button while scrolling).
+
 ## 16.2.2 (build 273)
 
 - Fix: a double tap on «Save» when creating an alarm creates one alarm even when saving is very fast (Android).
