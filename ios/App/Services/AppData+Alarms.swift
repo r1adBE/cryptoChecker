@@ -319,3 +319,7 @@ extension AppData {
         return true
     }
 }
+
+/// Portfolio-Alarme werden gerade gemeldet (`evaluatePortfolioAlarms`): eine zweite Prüfung wartet die nächste
+/// Runde ab. Global, weil Erweiterungen keine gespeicherten Eigenschaften haben; nur auf dem MainActor.
+@MainActor private var portfolioAlarmsDelivering = false

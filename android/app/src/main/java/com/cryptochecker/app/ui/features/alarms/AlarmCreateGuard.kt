@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.features.alarms
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -19,7 +20,12 @@ class AlarmCreateGuard {
      */
     fun launch(scope: CoroutineScope, guarded: Boolean, block: suspend CoroutineScope.() -> Unit): Job? {
         if (guarded && !running.compareAndSet(false, true)) return null
-        val job = scope.launch(block = block)
+        // Erst im nächsten Takt beginnen: mit Main.immediate liefe ein schnelles Anlegen sonst ganz im Aufruf durch und gäbe
+        // den Wächter frei, bevor ein zweiter Tipp im selben Takt ankommt (zwei Alarme; PortfolioAlarmDoubleTapTest)
+        val job = scope.launch {
+            if (guarded) yield()
+            block()
+        }
         if (guarded) job.invokeOnCompletion { running.set(false) }
         return job
     }
