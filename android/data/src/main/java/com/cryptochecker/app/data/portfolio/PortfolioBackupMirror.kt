@@ -5,8 +5,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.asDomainJson
 import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.data.backup.BackupFields
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras

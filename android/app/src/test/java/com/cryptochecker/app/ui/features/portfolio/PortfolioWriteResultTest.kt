@@ -1,10 +1,10 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import java.math.BigDecimal
 import kotlinx.coroutines.CancellationException

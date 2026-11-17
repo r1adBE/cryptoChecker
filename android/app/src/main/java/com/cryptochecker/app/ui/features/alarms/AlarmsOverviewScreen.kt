@@ -32,7 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.UiTestTags

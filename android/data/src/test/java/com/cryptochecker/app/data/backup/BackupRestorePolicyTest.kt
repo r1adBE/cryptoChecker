@@ -1,10 +1,10 @@
 package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.backup.BackupRestorePolicy.AppLockDecision
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import java.math.BigDecimal
 import org.json.JSONObject

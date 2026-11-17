@@ -6,13 +6,13 @@ import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.alarmToJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.jsonToWatch
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.watchToJson
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioJson
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.toDomain
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.watch.FavoriteKind
 import org.json.JSONArray

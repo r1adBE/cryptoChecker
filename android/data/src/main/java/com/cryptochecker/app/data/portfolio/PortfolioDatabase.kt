@@ -20,8 +20,8 @@ import timber.log.Timber
  */
 @Database(
     entities = [
-        PortfolioTxEntity::class,
-        PortfolioAlarmEntity::class,
+        PortfolioTxRow::class,
+        PortfolioAlarmRow::class,
         WatchedAddressEntity::class,
     ],
     version = PortfolioDatabase.VERSION,

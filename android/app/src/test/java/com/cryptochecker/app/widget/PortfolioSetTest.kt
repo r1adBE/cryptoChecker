@@ -39,7 +39,7 @@ class PortfolioRefreshGateTest {
     /** Bestand während der Netzabfrage geändert (gelöscht, eingespielt): keine Aufnahme mit dem alten. */
     @Test
     fun recordOnlyWithTheCurrentLedger() {
-        fun tx(id: Long, amount: String = "1") = com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+        fun tx(id: Long, amount: String = "1") = com.cryptochecker.app.domain.portfolio.PortfolioTxEntity(
             id = id,
             coin = "BTC",
             type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,

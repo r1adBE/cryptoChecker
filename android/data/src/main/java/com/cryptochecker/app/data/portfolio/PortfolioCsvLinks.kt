@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import androidx.room.withTransaction
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable

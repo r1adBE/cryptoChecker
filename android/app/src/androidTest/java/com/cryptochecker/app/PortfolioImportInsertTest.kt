@@ -6,9 +6,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.portfolio.CsvImportWritten
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.insertImportedLinked
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvAbsorbedRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException

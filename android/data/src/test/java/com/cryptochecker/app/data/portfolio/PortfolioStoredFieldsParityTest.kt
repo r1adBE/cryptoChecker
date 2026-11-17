@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.portfolio.PortfolioJson
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState

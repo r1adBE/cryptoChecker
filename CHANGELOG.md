@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 295)
+
+- Internal: portfolio transactions and alarms are core-module models; the database rows are mapped field by field, with a test that no field is lost (C-07 part 2c).
+
 ## 16.2.2 (build 294)
 
 - Internal: the watchlist screens use a core-module interface instead of the database layer; the user-write consent check also covers it (C-07 part 2b).

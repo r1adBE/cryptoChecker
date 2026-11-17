@@ -3,15 +3,15 @@ package com.cryptochecker.app.alarm
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
-import com.cryptochecker.app.data.portfolio.toInput
 import com.cryptochecker.app.domain.alarm.AlarmDelivery
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmDecision
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioReading
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.alarm.toInput
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher

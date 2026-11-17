@@ -3,6 +3,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 
 object PortfolioCoinDeletion {
 

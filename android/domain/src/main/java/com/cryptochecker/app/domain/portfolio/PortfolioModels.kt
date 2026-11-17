@@ -130,10 +130,10 @@ data class PortfolioTrade(
      * Verkaufs/Tauschs, Aufwand einer Auszahlung) tragen den Vermerk «Wert geschätzt (Tagesschluss)». Nie gespeichert.
      */
     val feePriceEstimated: Boolean = false,
-    /** Aus einem CSV-Import ([com.cryptochecker.app.data.portfolio.PortfolioTxEntity.importKey] gesetzt). */
+    /** Aus einem CSV-Import ([com.cryptochecker.app.domain.portfolio.PortfolioTxEntity.importKey] gesetzt). */
     val imported: Boolean = false,
     /**
-     * Gebühr-Zeile (CSV «Fee», [com.cryptochecker.app.data.portfolio.PortfolioTxEntity.feeRow]) — eine Veräusserung zum
+     * Gebühr-Zeile (CSV «Fee», [com.cryptochecker.app.domain.portfolio.PortfolioTxEntity.feeRow]) — eine Veräusserung zum
      * Tageskurs ([PortfolioLedger.isFeeDisposal]); nur bei [PortfolioTxType.SELL].
      */
     val feeRow: Boolean = false,
@@ -143,7 +143,7 @@ data class PortfolioTrade(
      */
     val fromGift: Boolean = false,
     /**
-     * Belohnung ist ein Zins (Lending; [com.cryptochecker.app.data.portfolio.PortfolioTxEntity.interest]) — AT:
+     * Belohnung ist ein Zins (Lending; [com.cryptochecker.app.domain.portfolio.PortfolioTxEntity.interest]) — AT:
      * Anschaffungskosten = Wert beim Zufluss statt 0.
      */
     val interestIncome: Boolean = false,

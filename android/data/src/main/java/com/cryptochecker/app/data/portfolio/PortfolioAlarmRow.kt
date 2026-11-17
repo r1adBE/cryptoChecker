@@ -7,62 +7,77 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
-import com.cryptochecker.app.domain.alarm.PortfolioAlarmInput
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
- * Alarm «Portfolio-Wert»: Gesamtwert über/unter einem Betrag oder Veränderung
- * «heute» ±x %. Eigene Tabelle `portfolio_alarms` statt der Tabelle
- * `alarms`: Die gehört über einen Fremdschlüssel zu einem Paar der Merkliste — ein
- * Portfolio-Alarm hat keins, ein Schein-Paar wäre in Merkliste, Sicherung und Widgets sichtbar.
- * Spalten, Typen und NOT NULL bilden das Schema der [PortfolioDatabase]; Änderungen nur mit Migration (Room prüft
- * das Schema beim Öffnen).
- * Regeln: [com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic].
+ * Zeile der Tabelle «portfolio_alarms» (Room); Fachmodell und Bedeutung: [PortfolioAlarmEntity] in :domain. Spalten, Typen
+ * und NOT NULL bilden das Schema der [PortfolioDatabase]; Änderungen nur mit Migration (Room prüft das Schema beim Öffnen).
+ * Ohne Standardwerte, damit [toRow] kein Feld vergessen kann.
  */
 @Entity(tableName = "portfolio_alarms")
-data class PortfolioAlarmEntity(
+data class PortfolioAlarmRow(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    /** Name von [PortfolioAlarmKind]. */
+    val id: Long,
     @ColumnInfo val kind: PortfolioAlarmKind,
-    /** Betrag (VALUE_*) in [currency] oder Prozent (CHANGE_*). */
     @ColumnInfo val threshold: Double,
-    /** Währung des Betrags (Umrechnungswährung beim Anlegen); bei Prozent ohne Bedeutung. */
-    @ColumnInfo val currency: String? = null,
-    @ColumnInfo val enabled: Boolean = true,
-    /** false = schaltet sich nach dem Auslösen ab. */
-    @ColumnInfo val repeating: Boolean = false,
-    /** 0 = scharf, > 0 = gemeldet (Zeitpunkt), bis der Wert hinter die Marke zurückkehrt. */
-    @ColumnInfo val referenceAt: Long = 0,
-    @ColumnInfo val lastTriggeredAt: Long = 0,
-    /** Gemessener Wert beim letzten Auslösen (Betrag bzw. Prozent). */
-    @ColumnInfo val lastTriggeredValue: Double? = null,
+    @ColumnInfo val currency: String?,
+    @ColumnInfo val enabled: Boolean,
+    @ColumnInfo val repeating: Boolean,
+    @ColumnInfo val referenceAt: Long,
+    @ColumnInfo val lastTriggeredAt: Long,
+    @ColumnInfo val lastTriggeredValue: Double?,
 )
 
-fun PortfolioAlarmEntity.toInput() = PortfolioAlarmInput(
+/** Tabellenzeile → Fachmodell, alle Felder (PortfolioRowMappingTest prüft Vollständigkeit und Hin- und Rückweg). */
+fun PortfolioAlarmRow.toEntity(): PortfolioAlarmEntity = PortfolioAlarmEntity(
+    id = id,
     kind = kind,
     threshold = threshold,
     currency = currency,
     enabled = enabled,
+    repeating = repeating,
     referenceAt = referenceAt,
     lastTriggeredAt = lastTriggeredAt,
+    lastTriggeredValue = lastTriggeredValue,
 )
 
+/** Fachmodell → Tabellenzeile, alle Felder. */
+fun PortfolioAlarmEntity.toRow(): PortfolioAlarmRow = PortfolioAlarmRow(
+    id = id,
+    kind = kind,
+    threshold = threshold,
+    currency = currency,
+    enabled = enabled,
+    repeating = repeating,
+    referenceAt = referenceAt,
+    lastTriggeredAt = lastTriggeredAt,
+    lastTriggeredValue = lastTriggeredValue,
+)
+
+/** Portfolio-Alarme. Room liest und schreibt [PortfolioAlarmRow]; nach aussen gehen nur [PortfolioAlarmEntity]. */
 @Dao
 interface PortfolioAlarmDao {
 
     @Query("SELECT * FROM portfolio_alarms ORDER BY id")
-    fun observeAll(): Flow<List<PortfolioAlarmEntity>>
+    fun observeAllRows(): Flow<List<PortfolioAlarmRow>>
+
+    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = observeAllRows().map { rows -> rows.map { it.toEntity() } }
 
     @Query("SELECT * FROM portfolio_alarms ORDER BY id")
-    suspend fun getAll(): List<PortfolioAlarmEntity>
+    suspend fun getAllRows(): List<PortfolioAlarmRow>
+
+    suspend fun getAll(): List<PortfolioAlarmEntity> = getAllRows().map { it.toEntity() }
 
     @Query("SELECT COUNT(*) FROM portfolio_alarms WHERE enabled = 1")
     suspend fun countEnabled(): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(alarm: PortfolioAlarmEntity): Long
+    suspend fun insertRow(alarm: PortfolioAlarmRow): Long
+
+    suspend fun insert(alarm: PortfolioAlarmEntity): Long = insertRow(alarm.toRow())
 
     @Query("DELETE FROM portfolio_alarms WHERE id = :id")
     suspend fun delete(id: Long)

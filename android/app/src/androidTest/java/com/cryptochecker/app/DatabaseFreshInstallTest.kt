@@ -72,7 +72,7 @@ class DatabaseFreshInstallTest {
             val dao = room.getPortfolioDao()
             kotlinx.coroutines.runBlocking {
                 dao.insert(
-                    com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+                    com.cryptochecker.app.domain.portfolio.PortfolioTxEntity(
                         coin = "BTC", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.TRANSFER,
                         amount = java.math.BigDecimal("0.1"), time = 2, transferFrom = "Kraken", transferTo = "Ledger",
                         feeCoin = "BNB", feeCoinAmount = java.math.BigDecimal("0.00000001"), importKey = "relai:abc",
@@ -85,7 +85,7 @@ class DatabaseFreshInstallTest {
                 assertEquals("relai:abc", back.importKey)
                 // Einzahlung mit ursprünglichem Kaufdatum (Spalte `acquiredTime`)
                 dao.insert(
-                    com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+                    com.cryptochecker.app.domain.portfolio.PortfolioTxEntity(
                         coin = "ETH",
                         type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.DEPOSIT,
                         amount = java.math.BigDecimal("1"),
@@ -99,7 +99,7 @@ class DatabaseFreshInstallTest {
                 )
                 // Tausch und Importlauf (Spalten `toCoin`, `toAmount`, `swapValueUsdt`, `importBatch`)
                 dao.insert(
-                    com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+                    com.cryptochecker.app.domain.portfolio.PortfolioTxEntity(
                         coin = "BTC",
                         type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.SWAP,
                         amount = java.math.BigDecimal("0.01"),
@@ -159,7 +159,7 @@ class DatabaseFreshInstallTest {
         mirrorFile.writeText(
             com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.encode(
                 txs = listOf(
-                    com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+                    com.cryptochecker.app.domain.portfolio.PortfolioTxEntity(
                         id = 4,
                         coin = "ETH",
                         type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
@@ -170,7 +170,7 @@ class DatabaseFreshInstallTest {
                     )
                 ),
                 alarms = listOf(
-                    com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity(
+                    com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity(
                         id = 2,
                         kind = com.cryptochecker.app.domain.alarm.PortfolioAlarmKind.VALUE_BELOW,
                         threshold = 5_000.0,

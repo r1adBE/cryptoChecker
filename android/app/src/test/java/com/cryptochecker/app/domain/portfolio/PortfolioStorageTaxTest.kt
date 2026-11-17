@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.data.portfolio.PortfolioJson
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
