@@ -102,6 +102,7 @@ object UiTestTags {
     const val BACKUP_PASSWORD_FIELD = "backup_password"
     const val BACKUP_PASSWORD_REPEAT = "backup_password_repeat"
     const val BACKUP_EXPORT_CONFIRM = "backup_export_confirm"
+    const val BACKUP_PLAIN_CONFIRM = "backup_plain_confirm"
     const val BACKUP_RESTORE_PASSWORD_FIELD = "backup_restore_password"
     const val BACKUP_RESTORE_SUBMIT = "backup_restore_submit"
     const val BACKUP_RESTORE_CONFIRM = "backup_restore_confirm"

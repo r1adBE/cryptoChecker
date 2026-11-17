@@ -186,7 +186,9 @@ private fun BackupPlainConfirmDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = onConfirm) { Text(stringResource(R.string.backup_plain_confirm)) }
+            TextButton(onClick = onConfirm, modifier = Modifier.testTag(UiTestTags.BACKUP_PLAIN_CONFIRM)) {
+                Text(stringResource(R.string.backup_plain_confirm))
+            }
         },
         dismissButton = {
             TextButton(onClick = onBack) { Text(stringResource(R.string.action_back)) }

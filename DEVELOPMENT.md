@@ -3252,6 +3252,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 267: A-01 Teil 2 (4): WidgetDrawDeviceTest (WidgetPublish.testSink, ConnectivityMonitor.forcedOnlineForTest, WidgetConnectivity.queries), WidgetRefreshState.onTap(online:) Tap.Offline, iOS WidgetOffline/WidgetOutdated nach Shared, Regeln ios-widget-offline und swipe-delete, addWatchedMessage/PortfolioAddressSheet.message; Fix MissingLogosModel.Lookup @MainActor, LogoTestInterceptor.
 * Build 268: A-01 Teil 2 (5), Paket: BackupDialogDeviceTest, HiddenAmountsDeviceTest, OverlayShieldDeviceTest (OverlayShield.holders), ClosedAppHintDeviceTest, PortfolioFabScrollDeviceTest, PortfolioEmptyStateDeviceTest, TxSwipeDeleteDeviceTest, PortfolioAlarmDoubleTapTest, LogoLoadingHintDeviceTest, BulkUndoConfirmDialogTest, WatchRowNoteDeviceTest (UiTestTags.WATCH_NOTE); iOS UI-Tests 7–11; Regeln ios-alarm-create, bulk-undo; Fix WidgetRefreshState.swift.
 * Build 269: A-01 Teil 2 (6): Fixes Gerätetests 268, CompareMath.withoutRepeatedRange, AboutExtras, SpeechHints, PhoneWatchListener.watchAppChanged/PhoneWatchSync.putOutcome/republishAtStart/PhoneWatchFeed.sentIfNew, AlarmEditorState-Test, wear ComplicationPlan, Regel app-start; ROADMAP: Entscheid «nichts nach dem Release».
+* Build 270: test fixes: backup device test confirms the plain-backup question or enters a password and checks the file picker opened; iOS address message test on the main actor.
 
 ## Known warnings
 

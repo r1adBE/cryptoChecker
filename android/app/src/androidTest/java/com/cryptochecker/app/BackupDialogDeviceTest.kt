@@ -8,6 +8,7 @@ import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
 import androidx.core.content.FileProvider
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
@@ -119,7 +120,7 @@ class BackupDialogDeviceTest {
         val (file, uri) = providerFile("new-backup.ccb", ByteArray(0))
         picker.uri = uri
         openExportDialog()
-        clickTag(UiTestTags.BACKUP_EXPORT_CONFIRM)
+        confirmExport()
         compose.waitUntil(TIMEOUT) { !file.exists() }
     }
 
@@ -129,12 +130,34 @@ class BackupDialogDeviceTest {
         val (file, uri) = providerFile("old-backup.ccb", before)
         picker.uri = uri
         openExportDialog()
-        clickTag(UiTestTags.BACKUP_EXPORT_CONFIRM)
+        confirmExport()
         // Das Schreiben scheitert sofort (schreibgeschützt); danach darf die Datei nicht verschwinden
         Thread.sleep(SETTLE_MILLIS)
         compose.waitForIdle()
         assertTrue("bestehende Datei gelöscht", file.exists())
         assertArrayEquals(before, file.readBytes())
+    }
+
+    /**
+     * Sichern bestätigen: mit Passwortfeldern (Schutz an) Passwort eingeben, sonst die Rückfrage «Ohne Passwort sichern?»
+     * bestätigen. Danach muss die Dateiauswahl wirklich geöffnet worden sein — sonst prüfte der Test nichts.
+     */
+    private fun confirmExport() {
+        val launches = picker.launches
+        if (exists(UiTestTags.BACKUP_PASSWORD_FIELD)) {
+            input(UiTestTags.BACKUP_PASSWORD_FIELD, PASSPHRASE)
+            input(UiTestTags.BACKUP_PASSWORD_REPEAT, PASSPHRASE)
+            clickTag(UiTestTags.BACKUP_EXPORT_CONFIRM)
+        } else {
+            clickTag(UiTestTags.BACKUP_EXPORT_CONFIRM)
+            clickTag(UiTestTags.BACKUP_PLAIN_CONFIRM)
+        }
+        compose.waitUntil(TIMEOUT) { picker.launches == launches + 1 }
+    }
+
+    private fun input(tag: String, text: String) {
+        compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).onFirst().performTextInput(text)
+        compose.waitForIdle()
     }
 
     private fun exists(tag: String): Boolean =
@@ -154,5 +177,6 @@ class BackupDialogDeviceTest {
     private companion object {
         const val TIMEOUT = 15_000L
         const val SETTLE_MILLIS = 3_000L
+        const val PASSPHRASE = "Kiwi-Harbor-4821!"
     }
 }

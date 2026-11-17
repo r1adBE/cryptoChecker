@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 270)
+
+- Test fixes (backup device test, iOS address message test).
+
 ## 16.2.2 (build 269)
 
 - Tests: fixes of the new emulator tests of 268; more source-text guards became behaviour tests on both platforms (compare columns, about page extras, speech hint on iOS, phone-to-watch sync, alert editor after process death, watch complication).
