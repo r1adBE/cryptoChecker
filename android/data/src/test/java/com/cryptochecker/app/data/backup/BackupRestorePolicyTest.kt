@@ -6,12 +6,12 @@ import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import java.math.BigDecimal
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Wie `BackupRestorePolicyTests.swift`: gleiche Fälle auf beiden Seiten. */
 class BackupRestorePolicyTest {
@@ -19,17 +19,32 @@ class BackupRestorePolicyTest {
     @Test
     fun unencryptedBackupNeverTurnsLockOff() {
         // Sperre an, Sicherung ohne Passwort will sie aus → bleibt an, Hinweis
-        assertEquals(AppLockDecision(null, true), BackupRestorePolicy.appLock(false, current = true, encrypted = false, canAuthenticate = true))
+        assertEquals(
+            AppLockDecision(null, true),
+            BackupRestorePolicy.appLock(false, current = true, encrypted = false, canAuthenticate = true)
+        )
         // Mit Passwort: aus wie gewünscht
-        assertEquals(AppLockDecision(false, false), BackupRestorePolicy.appLock(false, current = true, encrypted = true, canAuthenticate = true))
+        assertEquals(
+            AppLockDecision(false, false),
+            BackupRestorePolicy.appLock(false, current = true, encrypted = true, canAuthenticate = true)
+        )
         // Sperre schon aus: nichts zu schützen
-        assertEquals(AppLockDecision(false, false), BackupRestorePolicy.appLock(false, current = false, encrypted = false, canAuthenticate = true))
+        assertEquals(
+            AppLockDecision(false, false),
+            BackupRestorePolicy.appLock(false, current = false, encrypted = false, canAuthenticate = true)
+        )
     }
 
     @Test
     fun lockOnOnlyIfDeviceCanUnlock() {
-        assertEquals(AppLockDecision(true, false), BackupRestorePolicy.appLock(true, current = false, encrypted = false, canAuthenticate = true))
-        assertEquals(AppLockDecision(null, false), BackupRestorePolicy.appLock(true, current = false, encrypted = true, canAuthenticate = false))
+        assertEquals(
+            AppLockDecision(true, false),
+            BackupRestorePolicy.appLock(true, current = false, encrypted = false, canAuthenticate = true)
+        )
+        assertEquals(
+            AppLockDecision(null, false),
+            BackupRestorePolicy.appLock(true, current = false, encrypted = true, canAuthenticate = false)
+        )
     }
 
     @Test
@@ -130,8 +145,13 @@ class BackupRestorePolicyTest {
     @Test
     fun abgeschalteterSchutzNieStill() {
         fun lowered(
-            sys: Boolean, sysNow: Boolean, hide: Boolean, hideNow: Boolean, trusted: Boolean,
-            lock: Boolean = false, lockNow: Boolean = false,
+            sys: Boolean,
+            sysNow: Boolean,
+            hide: Boolean,
+            hideNow: Boolean,
+            trusted: Boolean,
+            lock: Boolean = false,
+            lockNow: Boolean = false,
         ) = BackupRestorePolicy.loweredProtection(sys, sysNow, hide, hideNow, trusted, wantedAppLock = lock, currentAppLock = lockNow)
         assertEquals(BackupRestorePolicy.LoweredProtection(true, true), lowered(true, false, false, true, trusted = true))
         assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(true, false, false, true, trusted = false))
@@ -139,10 +159,16 @@ class BackupRestorePolicyTest {
         assertEquals(false, lowered(true, true, false, false, trusted = true).any)
         assertEquals(false, lowered(false, true, true, false, trusted = true).any)
         // Portfolio-Sperre: mit Passwort ausgeschaltet → genannt; ohne Passwort bleibt sie an (appLockKept), nichts genannt
-        assertEquals(BackupRestorePolicy.LoweredProtection(lockOff = true), lowered(false, false, true, true, trusted = true, lockNow = true))
+        assertEquals(
+            BackupRestorePolicy.LoweredProtection(lockOff = true),
+            lowered(false, false, true, true, trusted = true, lockNow = true)
+        )
         assertEquals(true, lowered(false, false, true, true, trusted = true, lockNow = true).any)
         assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(false, false, true, true, trusted = false, lockNow = true))
-        assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(false, false, true, true, trusted = true, lock = true, lockNow = true))
+        assertEquals(
+            BackupRestorePolicy.LoweredProtection(),
+            lowered(false, false, true, true, trusted = true, lock = true, lockNow = true)
+        )
     }
 
     /** Doppelte Kennungen: wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json). */
@@ -160,8 +186,12 @@ class BackupRestorePolicyTest {
             assertEquals(c.getString("name"), c.getInt("invalid"), got.count { !it })
         }
         // Im Lesen der Sicherung: der zweite Eintrag mit Kennung 7 zählt als ungültig
-        val tx = com.cryptochecker.app.data.portfolio.PortfolioJson.txToJson(PortfolioTxEntity(id = 7, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal.ONE, time = 1))
-        val parsed = com.cryptochecker.app.data.portfolio.PortfolioJson.parseTxs(org.json.JSONArray().put(tx).put(JSONObject(tx.toString())))
+        val tx = com.cryptochecker.app.data.portfolio.PortfolioJson.txToJson(
+            PortfolioTxEntity(id = 7, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal.ONE, time = 1)
+        )
+        val parsed = com.cryptochecker.app.data.portfolio.PortfolioJson.parseTxs(
+            org.json.JSONArray().put(tx).put(JSONObject(tx.toString()))
+        )
         assertEquals(1, parsed.items.size)
         assertEquals(1, parsed.invalid)
     }

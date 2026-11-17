@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
+import com.cryptochecker.app.domain.model.WatchEntity
 
 /**
  * Wie frisch ist ein Kurs? Börsen ohne eigene Zeit (Kraken, Gate.io, Hyperliquid, bitFlyer, Binance
@@ -71,8 +71,11 @@ object PriceFreshness {
 
     /** Wie oben für ein Paar; deaktiviert oder nicht mehr gehandelt nie (dort steht anderes). */
     fun rowTradeAgeTime(watch: WatchEntity, outdatedAfterMillis: Long): Long? =
-        if (watch.disabled || watch.isNotTraded) null
-        else rowTradeAgeTime(watch.lastUpdate, watch.exchangeTime, outdatedAfterMillis)
+        if (watch.disabled || watch.isNotTraded) {
+            null
+        } else {
+            rowTradeAgeTime(watch.lastUpdate, watch.exchangeTime, outdatedAfterMillis)
+        }
 
     /** Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt. */
     enum class StaleReason { FETCH, TRADE }

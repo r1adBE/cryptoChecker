@@ -1,18 +1,18 @@
 package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.math.BigDecimal
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `portfolio_stored_fields.json` (iOS: `PortfolioStoredFieldsTests.swift`). */
 class PortfolioStoredFieldsParityTest {

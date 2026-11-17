@@ -57,7 +57,10 @@ class CheckBudgetTest {
         val deadlineAt = idle - 1_000L
         // Budget je Börse (8 s) endet im Netz-Fenster, Bezüge warten höchstens bis 9 s
         assertEquals(8_000L, CheckBudget.groupDeadline(0L, deadlineAt))
-        assertEquals(CheckBudget.IDLE_NETWORK_MILLIS, CheckBudget.waitMillis(deadlineAt, 0L, Long.MAX_VALUE, reserve = CheckBudget.EVALUATE_RESERVE_MILLIS))
+        assertEquals(
+            CheckBudget.IDLE_NETWORK_MILLIS,
+            CheckBudget.waitMillis(deadlineAt, 0L, Long.MAX_VALUE, reserve = CheckBudget.EVALUATE_RESERVE_MILLIS)
+        )
         // Spät gestartet: nie über das Netz-Fenster hinaus
         assertEquals(CheckBudget.IDLE_NETWORK_MILLIS, CheckBudget.groupDeadline(4_000L, deadlineAt))
         // Nie länger als die normale Grenze

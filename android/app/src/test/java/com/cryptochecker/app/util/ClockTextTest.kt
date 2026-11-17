@@ -1,10 +1,10 @@
 package com.cryptochecker.app.util
 
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /** Uhrzeiten nach der 12/24-h-Einstellung des Systems ([ClockText]); die Einstellung wird hier eingesetzt. */
 class ClockTextTest {

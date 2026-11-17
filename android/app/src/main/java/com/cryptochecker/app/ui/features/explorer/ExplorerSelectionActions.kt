@@ -7,17 +7,19 @@ package com.cryptochecker.app.ui.features.explorer
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.MutableTicker
-import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.confirmUserWrite
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.domain.exceptions.ExchangeError
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
-import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /** Kurs des gewählten Paars neu laden («Erneut»). */
@@ -95,7 +97,10 @@ fun ExplorerViewModel.reloadPairList() {
         Timber.d("Paarliste abgleichen: ${target.key}")
         try {
             exchangeRepository.updateExchangeCurrencyPairs(target)
-            runCatchingCancellable { searchData.pairsByExchange[target.key] = exchangeRepository.getExchangeCurrencyPairsInfo(target, withAlpha = true) }
+            runCatchingCancellable {
+                searchData.pairsByExchange[target.key] =
+                    exchangeRepository.getExchangeCurrencyPairsInfo(target, withAlpha = true)
+            }
             pairListChanged.emit(Unit)
             pairListSync.value = PairListSync()
             // Die Suche kennt die Liste jetzt auch

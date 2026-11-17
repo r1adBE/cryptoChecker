@@ -1,12 +1,12 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PlainSummaryInput
+import com.cryptochecker.app.domain.widget.WidgetType
 
 /**
  * Grösse des Widgets «Was gerade auffällt» für «Kurz gesagt» (wie die iOS-Familien):

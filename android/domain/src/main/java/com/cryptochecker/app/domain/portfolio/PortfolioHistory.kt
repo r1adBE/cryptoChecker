@@ -224,7 +224,8 @@ object PortfolioHistory {
         // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
         // und Gebühren des ersten Kaufs), der Kopf «7 T/1 J» ([PortfolioPeriodChange.gain]) zählt ihn
         val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST || from > todayEpochDay - range.days
-        val (pnlCoins, pnlSkipped, pnlFlows) = pnlParts(drawn, events, from, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method, entries)
+        val (pnlCoins, pnlSkipped, pnlFlows) =
+            pnlParts(drawn, events, from, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method, entries)
         val pnlValues = if (pnlCoins.isEmpty()) emptyList() else sumCells(pnlCoins, shown, from, days, rate)
         val rangeEnd = dayEndMillis(from)
         val withdrawalsInRange = valid.any { t ->

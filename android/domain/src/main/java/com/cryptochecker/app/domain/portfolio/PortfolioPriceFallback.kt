@@ -178,7 +178,13 @@ object PortfolioPriceFallback {
      * ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]).
      * Ohne offene Coins mit Wert: nur mit irgendeinem Kurs ([anyPrice]).
      */
-    fun mayRecordShare(values: Map<String, Double>, times: Map<String, Long>, now: Long, staleAfterMillis: Long, anyPrice: Boolean): Boolean {
+    fun mayRecordShare(
+        values: Map<String, Double>,
+        times: Map<String, Long>,
+        now: Long,
+        staleAfterMillis: Long,
+        anyPrice: Boolean
+    ): Boolean {
         val share = freshShare(values, times, now, staleAfterMillis) ?: return anyPrice
         return share >= MIN_FRESH_SHARE - 1e-9
     }

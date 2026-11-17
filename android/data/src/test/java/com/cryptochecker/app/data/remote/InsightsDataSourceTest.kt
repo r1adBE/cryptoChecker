@@ -4,6 +4,8 @@ import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.exceptions.ExchangeError
 import com.cryptochecker.app.domain.exceptions.NetworkError
 import com.cryptochecker.app.domain.market.DataFreshness
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -15,8 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Markt-Tab über Bitcoin hinaus ([InsightsDataSource]) mit einem Interceptor als Anbieter: Coin-Kennzahlen aus der
@@ -32,7 +32,10 @@ class InsightsDataSourceTest {
     fun chainOpen() = RouteHttp.releaseChain()
 
     private fun insights(http: RouteHttp) =
-        InsightsDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO))
+        InsightsDataSource(
+            http.client,
+            CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO)
+        )
 
     private fun mirror(url: String) = "binance.vision/api/v3/klines?symbol=$url"
 

@@ -2,9 +2,9 @@ package com.cryptochecker.app.domain.gas
 
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.gas.GasAlertLogic
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.Locale
 
 /** Reine Logik ohne org.json (im JVM-Test nur als Android-Attrappe vorhanden). */
 class GasAlertLogicTest {

@@ -49,7 +49,12 @@ class EncryptingOpenHelperFactoryDefaultsTest {
     @Test
     fun prepareLockIsSharedPerDatabaseAcrossFactories() {
         // App und Systemsicherung (eigene Fabrik) bereiten dieselbe Datei nie gleichzeitig vor
-        assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) === EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME))
-        assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) !== EncryptingOpenHelperFactory.prepareLock(PortfolioDatabase.DB_NAME))
+        assertTrue(
+            EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) === EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME)
+        )
+        assertTrue(
+            EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) !==
+                EncryptingOpenHelperFactory.prepareLock(PortfolioDatabase.DB_NAME)
+        )
     }
 }

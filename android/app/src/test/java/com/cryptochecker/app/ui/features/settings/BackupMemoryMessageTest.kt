@@ -1,11 +1,11 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.BackupCrypto
+import com.cryptochecker.resources.R
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Zu wenig Arbeitsspeicher für Argon2id (64 MiB am Stück): verständliche Meldung statt Absturz oder «fehlgeschlagen»,
@@ -29,13 +29,19 @@ class BackupMemoryMessageTest {
     @Test
     fun storageAndSizeRefusalsHaveOwnMessages() {
         assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageKeptException()))
-        assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageInMemoryException()))
+        assertEquals(
+            BackupMessage.StorageInMemory,
+            BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageInMemoryException())
+        )
         // Ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
         val journal = BackupMessage.failure(com.cryptochecker.app.data.backup.BackupJournalUnavailableException(null))
         assertEquals(BackupMessage.JournalUnavailable, journal)
         assertEquals(com.cryptochecker.app.ui.components.HapticEvent.ERROR, BackupMessage.haptic(journal))
         // Zu gross zum Schreiben ist nicht «Datei zu gross oder keine Sicherung» (das gilt beim Einlesen)
-        assertEquals(BackupMessage.ExportTooLarge, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException(1)))
+        assertEquals(
+            BackupMessage.ExportTooLarge,
+            BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException(1))
+        )
         assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.TooLargeException()))
     }
 

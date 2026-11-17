@@ -43,7 +43,8 @@ val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
 /** App-Context für den Ersatz-Handler von [settingsDataStore] (gesetzt in `produceMigrations`). */
 // Nur der App-Context (applicationContext), kein Activity-Context: kein Speicherleck
 @SuppressLint("StaticFieldLeak")
-@Volatile private var settingsStoreContext: Context? = null
+@Volatile
+private var settingsStoreContext: Context? = null
 
 /**
  * Neu angelegte Einstellungen (noch nichts gespeichert: neue Installation, fehlende oder durch leere ersetzte Datei):

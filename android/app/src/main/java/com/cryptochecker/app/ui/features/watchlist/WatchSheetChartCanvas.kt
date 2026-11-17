@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
@@ -9,17 +8,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -29,9 +29,16 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartRange
+import com.cryptochecker.app.domain.widget.LevelKind
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetChartType
+import com.cryptochecker.app.ui.components.ChartPointStep
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.chartPointSemantics
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
@@ -39,23 +46,16 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.widget.LevelKind
-import com.cryptochecker.app.domain.widget.WidgetCandle
-import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import com.cryptochecker.app.widget.WidgetChartRange
-import com.cryptochecker.app.domain.widget.WidgetChartType
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.cryptochecker.resources.R
 import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import com.cryptochecker.app.ui.components.ChartPointStep
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.chartPointSemantics
-import com.cryptochecker.app.ui.components.rememberHaptics
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /** Ein gezeichneter Verlauf: Zustand der Überblendung. */
 internal data class ChartFrame(
@@ -200,8 +200,11 @@ internal fun SheetChartCanvas(
             .height(CHART_HEIGHT)
             .onSizeChanged { canvasSize = it }
             .chartPointSemantics(summary, candles.size, pointText, nextLabel, previousLabel) { forward ->
-                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, candles.size)
-                else ChartPointStep.previous(a11yPoint, candles.size)
+                a11yPoint = if (forward) {
+                    ChartPointStep.next(a11yPoint, candles.size)
+                } else {
+                    ChartPointStep.previous(a11yPoint, candles.size)
+                }
             }
             .pointerInput(candles, type) {
                 // Waagrecht ziehen oder lange drücken = Kerze zeigen; senkrecht bleibt dem Blatt

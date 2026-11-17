@@ -3,15 +3,15 @@ package com.cryptochecker.app.ui.features.portfolio
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.util.PriceFormat
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * Vorbelegen im Erfassen-Blatt (PortfolioTxFormPrefill): heutiger Kurs, geprüfter Tagesschluss eines vergangenen Tags,
@@ -45,15 +45,24 @@ class PortfolioTxFormPrefillTest {
     fun prefillPriceSkipsEditInvalidCoinAndSameCoin() = runTest {
         var calls = 0
         val edit = state(TxDraft(id = 5, coin = "BTC"))
-        edit.prefillPrice("ETH", true) { calls++; 1.0 }
+        edit.prefillPrice("ETH", true) {
+            calls++
+            1.0
+        }
         val invalid = state(TxDraft(coin = "BTC"))
-        invalid.prefillPrice("B?", false) { calls++; 1.0 }
+        invalid.prefillPrice("B?", false) {
+            calls++
+            1.0
+        }
         assertEquals(0, calls)
         assertEquals("", invalid.priceText)
 
         val priced = state(TxDraft(coin = "BTC"))
         priced.prefillPrice("BTC", true) { 10.0 }
-        priced.prefillPrice("BTC", true) { calls++; 20.0 }
+        priced.prefillPrice("BTC", true) {
+            calls++
+            20.0
+        }
         assertEquals(0, calls)
         assertEquals(inputOf(10.0), priced.priceText)
     }
@@ -102,7 +111,10 @@ class PortfolioTxFormPrefillTest {
     fun prefillHistoricCloseForPastReward() = runTest {
         val s = state(TxDraft(coin = "ETH", type = PortfolioTxType.REWARD, time = pastTime))
         var askedDay: LocalDate? = null
-        s.prefillHistoricClose("ETH", true) { _, day -> askedDay = day; BigDecimal("42.5") }
+        s.prefillHistoricClose("ETH", true) { _, day ->
+            askedDay = day
+            BigDecimal("42.5")
+        }
         assertEquals(LocalDate.of(2020, 1, 15), askedDay)
         assertEquals(PriceFormat.amountForInput(BigDecimal("42.5"), '.'), s.priceText)
         assertEquals(42.5, s.priceHint!!, 0.0)
@@ -124,7 +136,10 @@ class PortfolioTxFormPrefillTest {
     @Test
     fun prefillHistoricCloseSkipsBuyTodayTypedAndFiat() = runTest {
         var calls = 0
-        val close: suspend (String, LocalDate) -> BigDecimal? = { _, _ -> calls++; BigDecimal.ONE }
+        val close: suspend (String, LocalDate) -> BigDecimal? = { _, _ ->
+            calls++
+            BigDecimal.ONE
+        }
         state(TxDraft(coin = "ETH", type = PortfolioTxType.BUY, time = pastTime)).prefillHistoricClose("ETH", true, close)
         state(TxDraft(coin = "ETH", type = PortfolioTxType.REWARD)).prefillHistoricClose("ETH", true, close)
         state(TxDraft(coin = "ETH", type = PortfolioTxType.REWARD, time = pastTime)).prefillHistoricClose("ETH", false, close)
@@ -152,10 +167,22 @@ class PortfolioTxFormPrefillTest {
     fun prefillFeeCoinPriceIgnoresInvalidSymbol() = runTest {
         var calls = 0
         val s = state(TxDraft(coin = "BTC"))
-        s.prefillFeeCoinPrice("", "BTC") { calls++; 1.0 }
-        s.prefillFeeCoinPrice("B-N", "BTC") { calls++; 1.0 }
-        s.prefillFeeCoinPrice("BTC", "BTC") { calls++; 1.0 }
-        s.prefillFeeCoinPrice("ABCDEFGHIJKLMNOP", "BTC") { calls++; 1.0 }
+        s.prefillFeeCoinPrice("", "BTC") {
+            calls++
+            1.0
+        }
+        s.prefillFeeCoinPrice("B-N", "BTC") {
+            calls++
+            1.0
+        }
+        s.prefillFeeCoinPrice("BTC", "BTC") {
+            calls++
+            1.0
+        }
+        s.prefillFeeCoinPrice("ABCDEFGHIJKLMNOP", "BTC") {
+            calls++
+            1.0
+        }
         assertEquals(0, calls)
         assertEquals("", s.feeCoinPriceText)
     }
@@ -189,10 +216,16 @@ class PortfolioTxFormPrefillTest {
     fun loadEntryFxSkipsUsdtEntryAndUsd() = runTest {
         var calls = 0
         val usdt = state(TxDraft(coin = "BTC"))
-        usdt.loadEntryFx("EUR", LocalDate.now()) { _, _ -> calls++; null }
+        usdt.loadEntryFx("EUR", LocalDate.now()) { _, _ ->
+            calls++
+            null
+        }
         val usd = state(TxDraft(coin = "BTC"))
         usd.switchToFiat()
-        usd.loadEntryFx("USD", LocalDate.now()) { _, _ -> calls++; null }
+        usd.loadEntryFx("USD", LocalDate.now()) { _, _ ->
+            calls++
+            null
+        }
         assertEquals(0, calls)
         assertNull(usdt.entryFxState)
     }
@@ -206,7 +239,10 @@ class PortfolioTxFormPrefillTest {
         assertTrue(s.pendingToFiat)
         val day = localDate(s.time)
         var calls = 0
-        s.loadEntryFx("EUR", day) { _, d -> calls++; EntryFx(BigDecimal("0.9"), d) }
+        s.loadEntryFx("EUR", day) { _, d ->
+            calls++
+            EntryFx(BigDecimal("0.9"), d)
+        }
         assertEquals(1, calls)
         assertEquals(EntryFxState.READY, s.entryFxState)
         assertEquals("EUR|$day", s.entryFxKey)
@@ -215,7 +251,10 @@ class PortfolioTxFormPrefillTest {
         assertFalse(s.fxFailed("EUR", day))
 
         // Gleicher Schlüssel, Kurs schon geladen: kein zweiter Abruf
-        s.loadEntryFx("EUR", day) { _, d -> calls++; EntryFx(BigDecimal("2"), d) }
+        s.loadEntryFx("EUR", day) { _, d ->
+            calls++
+            EntryFx(BigDecimal("2"), d)
+        }
         assertEquals(1, calls)
 
         val d = s.derive("EUR")

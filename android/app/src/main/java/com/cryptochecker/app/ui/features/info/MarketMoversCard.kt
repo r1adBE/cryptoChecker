@@ -33,7 +33,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseReport
@@ -48,6 +47,7 @@ import com.cryptochecker.app.ui.features.portfolio.PlPill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.resources.R
 
 /**
  * «Gewinner und Verlierer 24 h» unter dem Pulse: je bis zu fünf Coins mit dem grössten Plus bzw. Minus unter den

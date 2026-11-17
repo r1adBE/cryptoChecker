@@ -2,9 +2,9 @@ package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.io.File
 
 /** App-Icon hängt nur an der Akzentfarbe (kein Wechsel bei Hell/Dunkel). */
 class AccentColorTest {
@@ -49,7 +49,11 @@ class AccentColorTest {
     private fun findManifest(): File? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
-            for (rel in listOf("src/main/AndroidManifest.xml", "app/src/main/AndroidManifest.xml", "android/app/src/main/AndroidManifest.xml")) {
+            for (rel in listOf(
+                "src/main/AndroidManifest.xml",
+                "app/src/main/AndroidManifest.xml",
+                "android/app/src/main/AndroidManifest.xml"
+            )) {
                 val f = File(dir, rel)
                 if (f.isFile) return f
             }

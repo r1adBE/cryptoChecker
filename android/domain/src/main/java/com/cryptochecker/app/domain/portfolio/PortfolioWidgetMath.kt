@@ -308,7 +308,9 @@ object PortfolioWidgetMath {
         addressSteps: Map<String, List<AddressObservation>> = emptyMap(),
     ): List<PortfolioValuePoint> {
         fun valid(price: Double?): Double? = price?.takeIf { it > 0.0 && it.isFinite() }
-        val open = holdings.filter { (coin, amount) -> amount > PortfolioCalculator.EPS && amount.isFinite() && valid(current[coin]) != null }
+        val open = holdings.filter { (coin, amount) ->
+            amount > PortfolioCalculator.EPS && amount.isFinite() && valid(current[coin]) != null
+        }
         if (open.isEmpty()) return emptyList()
         fun value(prices: Map<String, Double>, time: Long): Double =
             open.entries.sumOf { (coin, amount) ->

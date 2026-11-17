@@ -65,7 +65,12 @@ object HalvingMath {
      * null bei ungültigen Werten (Höhe ≤ 0 oder ab [MAX_PLAUSIBLE_HEIGHT], Blockzeit ausserhalb 1–60 Minuten). Wie iOS;
      * Testfälle `server_values.json`.
      */
-    fun estimate(tipHeight: Int, avgBlockSeconds: Double, nowMillis: Long, zone: java.time.ZoneId = java.time.ZoneOffset.UTC): HalvingEstimate? {
+    fun estimate(
+        tipHeight: Int,
+        avgBlockSeconds: Double,
+        nowMillis: Long,
+        zone: java.time.ZoneId = java.time.ZoneOffset.UTC
+    ): HalvingEstimate? {
         if (tipHeight <= 0 || tipHeight >= MAX_PLAUSIBLE_HEIGHT) return null
         if (!avgBlockSeconds.isFinite() || avgBlockSeconds < 60.0 || avgBlockSeconds > 3_600.0) return null
         val next = (tipHeight / BLOCKS_PER_HALVING + 1) * BLOCKS_PER_HALVING
@@ -75,4 +80,3 @@ object HalvingMath {
         return HalvingEstimate(date, next, remaining, avgBlockSeconds)
     }
 }
-

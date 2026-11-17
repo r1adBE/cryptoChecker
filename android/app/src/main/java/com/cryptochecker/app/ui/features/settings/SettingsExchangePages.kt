@@ -2,33 +2,33 @@
 // Eigene Datei, weil `SettingsGeneralPages` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.selection.selectableGroup
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AssetScope
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.painterResource
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.resources.R
 
 /**
  * Merkliste: Namen, Mini-Chart, «≈ Umrechnung», ⚡ «Ungewöhnliche Aktivität», die Basis der %-Änderung und «Token &
@@ -122,8 +122,11 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     SwitchRow(
                         title = stringResource(R.string.settings_asset_scope_alpha),
                         subtitle = stringResource(
-                            if (enabled) R.string.settings_asset_scope_alpha_hint
-                            else R.string.settings_asset_scope_alpha_tradfi_hint
+                            if (enabled) {
+                                R.string.settings_asset_scope_alpha_hint
+                            } else {
+                                R.string.settings_asset_scope_alpha_tradfi_hint
+                            }
                         ),
                         checked = settings.includeAlphaTokens,
                         onCheckedChange = viewModel::setIncludeAlphaTokens,
@@ -141,8 +144,11 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     SwitchRow(
                         title = stringResource(R.string.settings_rolling_futures_qtly),
                         subtitle = stringResource(
-                            if (enabled) R.string.settings_rolling_futures_hint
-                            else R.string.settings_rolling_futures_tradfi_hint
+                            if (enabled) {
+                                R.string.settings_rolling_futures_hint
+                            } else {
+                                R.string.settings_rolling_futures_tradfi_hint
+                            }
                         ),
                         checked = settings.includeRollingFutures,
                         onCheckedChange = viewModel::setIncludeRollingFutures,

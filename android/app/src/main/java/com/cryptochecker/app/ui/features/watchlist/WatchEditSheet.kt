@@ -3,7 +3,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.layout.Arrangement
-import com.cryptochecker.app.ui.components.AppCard
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -42,20 +41,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.WatchEdit
+import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.DropdownField
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberOneShotGate
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
-import com.cryptochecker.app.ui.components.rememberOneShotGate
+import com.cryptochecker.resources.R
 
 /**
  * «Paar bearbeiten» (Stift neben dem Paar im Aktionsblatt), volle Höhe: Börse, Coin,
@@ -162,8 +162,11 @@ internal fun WatchEditSheet(
                             text = state.syncError?.let { stringResource(R.string.check_error_generic_prefix, friendlyError(it)) }
                                 ?: stringResource(R.string.explorer_no_pairs_yet),
                             style = MaterialTheme.typography.bodySmall,
-                            color = if (state.syncError != null) MaterialTheme.colorScheme.error
-                            else MaterialTheme.colorScheme.onSurfaceVariant,
+                            color = if (state.syncError != null) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
                             modifier = Modifier.weight(1f)
                         )
                         TextButton(onClick = viewModel::sync) { Text(stringResource(R.string.action_retry)) }
@@ -274,5 +277,8 @@ private fun Hint(text: String) {
 
 @Composable
 private fun contractName(contractType: FuturesContractType): String =
-    if (contractType == FuturesContractType.NONE) stringResource(R.string.explorer_contract_spot)
-    else contractType.toString()
+    if (contractType == FuturesContractType.NONE) {
+        stringResource(R.string.explorer_contract_spot)
+    } else {
+        contractType.toString()
+    }

@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
@@ -37,6 +36,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Kompakter Kopf wie in Portfolio-Trackern: Gesamtwert (gross, rollende Ziffern)
@@ -102,14 +102,19 @@ internal fun TotalCard(
     val priceSourceText = if (priceSources.isEmpty()) {
         stringResource(R.string.portfolio_price_source)
     } else {
-        stringResource(R.string.portfolio_price_source_routes, com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources))
+        stringResource(
+            R.string.portfolio_price_source_routes,
+            com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources)
+        )
     }
     // USDT zum Marktkurs: ohne frische Messung trägt Ersatz 1 die Zahlen — dann
     // «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile
     val usdtNote = DepegAlarm.cardNote(
         holdingCoins = summary.open.map { it.coin },
         valuesViaUsdt = com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.usdtParityShown(
-            currency, cardUnit(currency, fxRate).converted, priceSources
+            currency,
+            cardUnit(currency, fxRate).converted,
+            priceSources
         ),
         reading = depegReading,
         thresholdTenths = depegThresholdTenths,
@@ -209,9 +214,15 @@ internal fun TotalCard(
                         // Teilsumme (Coins/Teile ohne Kaufpreis, ohne Kurs oder ohne Devisenkurs am Kauftag fehlen):
                         // «unvollständig» an der Zahl
                         val fxMissing = unit.converted && costFx?.unrealizedFxMissing == true
-                        if (summary.unrealized != null && (fxMissing ||
-                            (sinceAmount != null && (summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
-                                summary.missingCurrentPrices.isNotEmpty())))
+                        if (summary.unrealized != null && (
+                                fxMissing ||
+                                    (
+                                        sinceAmount != null && (
+                                            summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
+                                                summary.missingCurrentPrices.isNotEmpty()
+                                            )
+                                        )
+                                )
                         ) {
                             PartialMarker(
                                 text = stringResource(R.string.portfolio_export_incomplete),

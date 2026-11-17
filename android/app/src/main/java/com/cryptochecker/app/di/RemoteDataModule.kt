@@ -9,11 +9,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.ConnectionPool
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 /** Netz: ein gemeinsamer OkHttp-Client mit kurzen Fristen, eigenem User-Agent und Mitschnitt. */
 @Module

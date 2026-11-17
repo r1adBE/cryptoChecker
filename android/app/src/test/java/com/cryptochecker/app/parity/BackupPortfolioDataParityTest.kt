@@ -30,12 +30,14 @@ class BackupPortfolioDataParityTest {
             assertEquals(name, c["hasPortfolioData"] as Boolean, has)
             assertEquals(name, has, PortfolioLockPolicy.backupExportRequiresPassword(has))
             assertEquals(
-                name, c["allowedWithoutPassword"] as Boolean,
+                name,
+                c["allowedWithoutPassword"] as Boolean,
                 PortfolioLockPolicy.backupExportAllowed(hasPassword = false, hasPortfolioData = has),
             )
             assertTrue(name, PortfolioLockPolicy.backupExportAllowed(hasPassword = true, hasPortfolioData = has))
             assertEquals(
-                name, c["needsUnlockWhenLocked"] as Boolean,
+                name,
+                c["needsUnlockWhenLocked"] as Boolean,
                 PortfolioLockPolicy.backupExportNeedsUnlock(locked = true, hasPortfolioData = has),
             )
             assertFalse(name, PortfolioLockPolicy.backupExportNeedsUnlock(locked = false, hasPortfolioData = has))

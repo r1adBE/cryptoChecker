@@ -1,7 +1,7 @@
 package com.cryptochecker.app.settings
 
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.resources.R
 
 /** Name der Akzentfarbe in der Farbauswahl und der Einstellungs-Suche ([AccentColor]). */
 val AccentColor.labelRes: Int

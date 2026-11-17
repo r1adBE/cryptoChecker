@@ -11,7 +11,11 @@ import org.junit.Test
 class PriceNotificationRuleTest {
 
     private fun show(
-        master: Boolean = true, pair: Boolean = true, disabled: Boolean = false, notTraded: Boolean = false, price: Double? = 100.0,
+        master: Boolean = true,
+        pair: Boolean = true,
+        disabled: Boolean = false,
+        notTraded: Boolean = false,
+        price: Double? = 100.0,
     ) = PriceNotificationRule.showNow(master, pair, disabled, notTraded, price)
 
     @Test

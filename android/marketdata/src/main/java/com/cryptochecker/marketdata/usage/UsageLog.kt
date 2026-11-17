@@ -148,7 +148,10 @@ object UsageLog {
             bytes += when {
                 c.code < 0x80 -> 1
                 c.code < 0x800 -> 2
-                c.isHighSurrogate() && i + 1 < text.length && text[i + 1].isLowSurrogate() -> { i++; 4 }
+                c.isHighSurrogate() && i + 1 < text.length && text[i + 1].isLowSurrogate() -> {
+                    i++
+                    4
+                }
                 else -> 3
             }
             i++

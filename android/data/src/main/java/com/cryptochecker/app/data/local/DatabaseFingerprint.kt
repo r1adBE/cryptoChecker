@@ -45,11 +45,26 @@ data class DatabaseFingerprint(val userVersion: Int, val tables: Map<String, Tab
             for (value in values) {
                 when (value) {
                     null -> mix(0)
-                    is Long -> { mix(1); mixLong(value) }
-                    is Int -> { mix(1); mixLong(value.toLong()) }
-                    is Double -> { mix(2); mixLong(value.toRawBits()) }
-                    is String -> { mix(3); mixBytes(value.toByteArray(Charsets.UTF_8)) }
-                    is ByteArray -> { mix(4); mixBytes(value) }
+                    is Long -> {
+                        mix(1)
+                        mixLong(value)
+                    }
+                    is Int -> {
+                        mix(1)
+                        mixLong(value.toLong())
+                    }
+                    is Double -> {
+                        mix(2)
+                        mixLong(value.toRawBits())
+                    }
+                    is String -> {
+                        mix(3)
+                        mixBytes(value.toByteArray(Charsets.UTF_8))
+                    }
+                    is ByteArray -> {
+                        mix(4)
+                        mixBytes(value)
+                    }
                     else -> throw IllegalArgumentException("Unbekannter Spaltentyp ${value::class.simpleName}")
                 }
             }

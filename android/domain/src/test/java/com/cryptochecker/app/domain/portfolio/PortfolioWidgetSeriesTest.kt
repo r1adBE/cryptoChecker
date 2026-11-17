@@ -93,7 +93,18 @@ class PortfolioWidgetSeriesTest {
         assertEquals(150.0, points.first { it.time == now - 6 * h }.value, 1e-9)
         assertEquals(150.0, points.last().value, 1e-9)
         // Ohne Stufen (heutiger Bestand über den ganzen Tag)
-        val plain = PortfolioWidgetSeries.hourly(mapOf("BTC" to 1.5), mapOf("BTC" to 100.0), mapOf("BTC" to series { 100.0 }), now, 1.0, stables)
+        val plain = PortfolioWidgetSeries.hourly(
+            mapOf("BTC" to 1.5),
+            mapOf("BTC" to 100.0),
+            mapOf(
+                "BTC" to series {
+                    100.0
+                }
+            ),
+            now,
+            1.0,
+            stables
+        )
         assertEquals(150.0, plain.first().value, 1e-9)
     }
 
@@ -107,7 +118,18 @@ class PortfolioWidgetSeriesTest {
         assertEquals(listOf(now), points.map { it.time })
         assertFalse(PortfolioWidgetSeries.drawable(points))
         // Mit 80 %: zählt; der Rest geht flach mit dem aktuellen Kurs ein
-        val ok = PortfolioWidgetSeries.hourly(mapOf("BTC" to 0.8, "XYZ" to 20.0), current, mapOf("BTC" to series { 50.0 }), now, 1.0, stables)
+        val ok = PortfolioWidgetSeries.hourly(
+            mapOf("BTC" to 0.8, "XYZ" to 20.0),
+            current,
+            mapOf(
+                "BTC" to series {
+                    50.0
+                }
+            ),
+            now,
+            1.0,
+            stables
+        )
         assertEquals(25, ok.size)
         assertEquals(0.8 * 50.0 + 20.0, ok.first().value, 1e-9)
     }
@@ -119,7 +141,10 @@ class PortfolioWidgetSeriesTest {
         val points = PortfolioWidgetSeries.hourly(
             mapOf("BTC" to 1.0, "USDC" to 100.0, "USDT" to 50.0),
             mapOf("BTC" to 100.0, "USDC" to 1.0, "USDT" to 1.0),
-            prices, now, 1.0, stables,
+            prices,
+            now,
+            1.0,
+            stables,
         )
         assertEquals(25, points.size)
         assertEquals(100.0 + 90.0 + 50.0, points.first().value, 1e-9)
@@ -128,7 +153,10 @@ class PortfolioWidgetSeriesTest {
         val none = PortfolioWidgetSeries.hourly(
             mapOf("BTC" to 1.0, "USDC" to 200.0),
             mapOf("BTC" to 100.0, "USDC" to 1.0),
-            mapOf("BTC" to series { 100.0 }), now, 1.0, stables,
+            mapOf("BTC" to series { 100.0 }),
+            now,
+            1.0,
+            stables,
         )
         assertEquals(listOf(now), none.map { it.time })
     }
@@ -201,7 +229,10 @@ class PortfolioWidgetSeriesTest {
         val late = mapOf("BTC" to listOf(TimedPrice(dayStart + 2 * h, 105.0)))
         val partial = PortfolioWidgetSeries.hourlySince(mapOf("BTC" to 2.0), mapOf("BTC" to 110.0), late, dayStart, now, 1.0, stables)
         assertNull(PortfolioWidgetSeries.changeSince(partial, dayStart))
-        assertEquals(mapOf("BTC" to (110.0 / 101.0 - 1) * 100), PortfolioWidgetSeries.coinChangesSince(mapOf("BTC" to 110.0), prices, dayStart))
+        assertEquals(
+            mapOf("BTC" to (110.0 / 101.0 - 1) * 100),
+            PortfolioWidgetSeries.coinChangesSince(mapOf("BTC" to 110.0), prices, dayStart)
+        )
         assertTrue(PortfolioWidgetSeries.coinChangesSince(mapOf("BTC" to 110.0), late, dayStart).isEmpty())
     }
 

@@ -4,15 +4,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxDayClose
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.time.LocalDate
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.LocalDate
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /** Gemeinsame Testfälle `tax_day_close.json` (iOS: `TaxDayCloseParityTests`). */
 class TaxDayCloseParityTest {
@@ -96,9 +96,21 @@ class TaxDayCloseParityTest {
         a["valued"].list().map { it.obj() }.forEach { e ->
             val t = valued.getValue(e["id"].num()!!.toLong())
             val label = "${t.id} ${t.type}"
-            assertEquals(label, (e["feeCoinPrice"] as String?)?.let { BigDecimal(it) }?.stripTrailingZeros(), t.feeCoinPrice?.stripTrailingZeros())
+            assertEquals(
+                label,
+                (e["feeCoinPrice"] as String?)?.let {
+                    BigDecimal(it)
+                }?.stripTrailingZeros(),
+                t.feeCoinPrice?.stripTrailingZeros()
+            )
             assertEquals(label, e["estimated"] as Boolean, t.feePriceEstimated)
-            assertEquals(label, (e["feeValue"] as String?)?.let { BigDecimal(it) }?.stripTrailingZeros(), t.thirdFeeValue?.stripTrailingZeros())
+            assertEquals(
+                label,
+                (e["feeValue"] as String?)?.let {
+                    BigDecimal(it)
+                }?.stripTrailingZeros(),
+                t.thirdFeeValue?.stripTrailingZeros()
+            )
         }
         val buy = valued.values.single { it.type == PortfolioTxType.BUY }
         assertEquals(0, BigDecimal(a["cost"] as String).compareTo(buy.amount * buy.priceUsdt!! + buy.thirdFeeValue!!))

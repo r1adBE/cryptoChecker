@@ -1,17 +1,17 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import com.cryptochecker.app.data.settings.SettingsRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Guthaben der beobachteten Adressen in der Portfolio-Aktualisierung (Portfolio-Tab und
@@ -40,7 +40,8 @@ class WatchedAddressRefresher @Inject constructor(
     suspend fun refresh(force: Boolean, background: Boolean = false): Boolean {
         val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
         return singleFlightRefresh(
-            gate, background,
+            gate,
+            background,
             read = { repository.getWatchedAddresses() },
             load = { addresses ->
                 val server = settings.addressServerFlow.first()
@@ -113,6 +114,14 @@ fun List<PortfolioTxEntity>.withAddresses(
     if (synthetic.isEmpty()) return this
     // Eröffnungsposten ([com.cryptochecker.app.domain.portfolio.AddressCostLots]) mit Preis und Wallet der Adresse
     return this + synthetic.map { t ->
-        PortfolioTxEntity(id = t.id, coin = t.coin, type = t.type, amount = t.amount, priceUsdt = t.priceUsdt, time = t.time, exchange = t.exchange)
+        PortfolioTxEntity(
+            id = t.id,
+            coin = t.coin,
+            type = t.type,
+            amount = t.amount,
+            priceUsdt = t.priceUsdt,
+            time = t.time,
+            exchange = t.exchange
+        )
     }
 }

@@ -4,12 +4,12 @@
 // sie und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
+import com.cryptochecker.app.data.settings.WatchlistSettings
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.data.settings.WatchlistSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -136,7 +136,11 @@ internal class WatchlistLiveFlows(
     /** Aktualisierung, Netz, Live-Strom, Umrechnung und Stempel der Änderungen in einem Stand. */
     val live: StateFlow<WatchlistLive> = combine(
         combine(
-            refresh.refreshing, online, liveExchanges, liveWatchIds, refresh.widgetRetryAt,
+            refresh.refreshing,
+            online,
+            liveExchanges,
+            liveWatchIds,
+            refresh.widgetRetryAt,
         ) { refreshing, online, exchanges, ids, retryAt ->
             WatchlistLive(
                 refreshing = refreshing,

@@ -1,16 +1,16 @@
 package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.domain.logos.parseAlpha
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.io.File
-import com.cryptochecker.app.domain.logos.parseAlpha
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /**
  * Gemeinsame Testfälle `coin_meta.json` (iOS: `CoinMetaTests.swift`): ein ganzer Abgleich mit
@@ -115,7 +115,8 @@ class CoinMetaParityTest {
         }
         data["needed"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "needed $c", c["expected"],
+                "needed $c",
+                c["expected"],
                 CoinMeta.needed(c["directOk"] as Boolean, (c["lastDirectAt"] as Double).toLong(), (c["now"] as Double).toLong()),
             )
         }

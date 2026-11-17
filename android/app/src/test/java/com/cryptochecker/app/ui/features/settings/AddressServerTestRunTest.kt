@@ -80,7 +80,10 @@ class AddressServerTestRunTest {
     fun secondStartWhileRunningIsIgnored() = runTest {
         val answer = CompletableDeferred<Long?>()
         var calls = 0
-        val run = AddressServerTestRun { calls++; answer.await() }
+        val run = AddressServerTestRun {
+            calls++
+            answer.await()
+        }
         run.start(backgroundScope, url)
         run.start(backgroundScope, "https://other.example")
         runCurrent()

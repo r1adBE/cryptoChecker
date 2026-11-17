@@ -31,7 +31,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
@@ -49,6 +48,7 @@ import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.features.watchlist.lineStart
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /**
  * Eine Adresse: Bezeichnung oder gekürzte Adresse, Netz, Guthaben, Stand bzw. Fehler; xpub mit Anzahl benutzter
@@ -134,10 +134,15 @@ internal fun AddressRow(
             val tokens = a.tokenHoldings()
             if (tokens.isNotEmpty()) {
                 Text(
-                    if (hideAmounts) "•••" else tokens.joinToString(" · ") { h ->
-                        val amount = PortfolioDecimal.parse(h.amount)?.let { PortfolioFormat.amount(it, h.label) } ?: "${h.amount} ${h.label}"
-                        // Netz dazu (Arbitrum, BNB Smart Chain …), damit z. B. USDC auf zwei Netzen unterscheidbar bleibt
-                        ChainAssets.network(h.network)?.let { "$amount (${it.name})" } ?: amount
+                    if (hideAmounts) {
+                        "•••"
+                    } else {
+                        tokens.joinToString(" · ") { h ->
+                            val amount =
+                                PortfolioDecimal.parse(h.amount)?.let { PortfolioFormat.amount(it, h.label) } ?: "${h.amount} ${h.label}"
+                            // Netz dazu (Arbitrum, BNB Smart Chain …), damit z. B. USDC auf zwei Netzen unterscheidbar bleibt
+                            ChainAssets.network(h.network)?.let { "$amount (${it.name})" } ?: amount
+                        }
                     },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -223,7 +228,13 @@ internal fun AddressRow(
                             if (hideAmounts) "•••" else PortfolioFormat.amount(c.base, c.coin),
                         ),
                         style = MaterialTheme.typography.label,
-                        color = if (c.capped && a.lastBalance != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = if (c.capped &&
+                            a.lastBalance != null
+                        ) {
+                            MaterialTheme.colorScheme.error
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
                     )
                 }
                 TextButton(onClick = onCostLots) {
@@ -295,6 +306,7 @@ internal fun addressErrorText(error: String): Int = when (error) {
 }
 
 /** Meldung zu einem Prüfergebnis. */
+
 /**
  * Meldung zum Ergebnis von «Adresse hinzufügen»; null = angelegt. Nicht geschrieben (null): gesperrt
  * ([locked], PortfolioStorageLock) bzw. Schreiben gescheitert — nie «ungültig», die Prüfung der Adresse lief davor grün

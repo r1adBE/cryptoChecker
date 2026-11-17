@@ -1,19 +1,19 @@
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.asOrgJson
-import com.cryptochecker.app.data.asDomainJson
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.FavoriteKind
+import com.cryptochecker.app.data.asDomainJson
+import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.alarmToJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.jsonToWatch
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.watchToJson
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.toDomain
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import org.json.JSONArray
 import org.json.JSONObject
@@ -36,11 +36,20 @@ object BackupJournalCodec {
         .put("portfolioAlarms", JSONArray().apply { previous.portfolioAlarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
         .put(
             WatchedAddressRules.BACKUP_KEY,
-            WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(previous.watchedAddresses.mapNotNull { it.toDomain() })).asOrgJson(),
+            WatchedAddressRules.toJson(
+                WatchedAddressRules.backupEntries(
+                    previous.watchedAddresses.mapNotNull {
+                        it.toDomain()
+                    }
+                )
+            ).asOrgJson(),
         )
-        .put("favorites", JSONObject().apply {
-            FavoriteKind.entries.forEach { kind -> put(kind.name, JSONArray(previous.favorites[kind].orEmpty().toList())) }
-        })
+        .put(
+            "favorites",
+            JSONObject().apply {
+                FavoriteKind.entries.forEach { kind -> put(kind.name, JSONArray(previous.favorites[kind].orEmpty().toList())) }
+            }
+        )
         .put("settings", previous.settings)
 
     /**
@@ -59,7 +68,8 @@ object BackupJournalCodec {
             portfolio = PortfolioJson.parseTxs(root.getJSONArray("portfolio")).items,
             portfolioAlarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms")).items,
             watchedAddresses = WatchedAddressRules.merge(
-                emptyList(), WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson()),
+                emptyList(),
+                WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson()),
             ).map { WatchedAddressEntity.from(it) },
             favorites = FavoriteKind.entries.associateWith { kind ->
                 favorites.getJSONArray(kind.name).let { arr -> (0 until arr.length()).map { arr.getString(it) }.toSet() }

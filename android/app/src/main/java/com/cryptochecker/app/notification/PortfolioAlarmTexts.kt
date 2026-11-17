@@ -1,7 +1,6 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
@@ -9,6 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Texte der Portfolio-Alarme (Alarmliste, Portfolio und Benachrichtigung). Beträge werden mit

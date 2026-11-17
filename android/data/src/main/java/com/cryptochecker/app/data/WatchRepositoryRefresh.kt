@@ -5,8 +5,8 @@ package com.cryptochecker.app.data
 import androidx.room.withTransaction
 import com.cryptochecker.app.domain.ErrorWrite
 import com.cryptochecker.app.domain.PriceWrite
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.refresh.PriceWriteOrder
 import com.cryptochecker.app.domain.refresh.StoredError
 
@@ -24,7 +24,13 @@ suspend fun WatchRepository.writePrice(
     val plausibleUntil = PriceWriteOrder.plausibleUntil(now)
     if (pair == null) {
         return watchDao.updatePrice(
-            write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime, plausibleUntil,
+            write.id,
+            write.price,
+            write.time,
+            write.change24h,
+            write.priceChangedAt,
+            write.exchangeTime,
+            plausibleUntil,
         ) > 0
     }
     return watchDao.updatePriceForPair(
@@ -41,7 +47,13 @@ suspend fun WatchRepository.writeError(write: ErrorWrite) {
         watchDao.updateError(write.id, error)
     } else {
         watchDao.updateErrorForPair(
-            write.id, error, pair.exchangeKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
+            write.id,
+            error,
+            pair.exchangeKey,
+            pair.baseAsset,
+            pair.quoteAsset,
+            pair.contractType,
+            pair.pairId,
         )
     }
 }
@@ -114,7 +126,13 @@ suspend fun WatchRepository.markAlarmTriggered(
 /** Neuer Bezug (Bewegungs-/Prozentalarm) — nur, wenn der Alarm seit dem Lesen unverändert ist. */
 suspend fun WatchRepository.setAlarmReferenceIfUnchanged(alarm: AlarmEntity, price: Double, time: Long) {
     watchDao.setAlarmReferenceIfUnchanged(
-        alarm.id, price, time, alarm.condition.name, alarm.threshold, alarm.windowHours, alarm.currency,
+        alarm.id,
+        price,
+        time,
+        alarm.condition.name,
+        alarm.threshold,
+        alarm.windowHours,
+        alarm.currency,
     )
 }
 

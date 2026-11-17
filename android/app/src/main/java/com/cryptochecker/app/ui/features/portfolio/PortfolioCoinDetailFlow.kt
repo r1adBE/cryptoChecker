@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import java.math.BigDecimal
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import java.math.BigDecimal
 
 /** Alles, was die Coin-Ansicht zeigt ([PortfolioDetailScreen]); [all] = alle echten Transaktionen. */
 internal data class CoinDetailUi(
@@ -76,8 +76,15 @@ internal fun coinDetailFlowOf(
     closes: Flow<HistoryCloses?>,
     costMethod: Flow<CostMethod>,
     dispatcher: CoroutineDispatcher,
-    detail: (String, List<PortfolioTxEntity>, List<PortfolioTxEntity>, List<WatchedAddress>, Double?, CostMethod,
-             ((String, Long) -> Double?)?) -> CoinDetailUi = ::coinDetail,
+    detail: (
+        String,
+        List<PortfolioTxEntity>,
+        List<PortfolioTxEntity>,
+        List<WatchedAddress>,
+        Double?,
+        CostMethod,
+        ((String, Long) -> Double?)?
+    ) -> CoinDetailUi = ::coinDetail,
 ): Flow<CoinDetailUi> {
     val feeCoins = calcTransactions.map { coinDetailFeeCoins(symbol, it.orEmpty()) }.distinctUntilChanged()
     val feePrices = combine(feeCoins, prices, closes) { coins, p, loaded -> CoinFeePrices.of(coins, p, loaded) }
@@ -85,8 +92,11 @@ internal fun coinDetailFlowOf(
     return combine(transactions, calcTransactions, watchedAddresses, prices, costMethod) { all, calc, addresses, p, method ->
         Inputs(all, calc, addresses, p.prices[symbol], method)
     }.distinctUntilChanged().combine(feePrices) { input, fee ->
-        if (input.all == null || input.calc == null) null
-        else detail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee.priceAt())
+        if (input.all == null || input.calc == null) {
+            null
+        } else {
+            detail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee.priceAt())
+        }
     }.filterNotNull().distinctUntilChanged().flowOn(dispatcher)
 }
 

@@ -2,19 +2,14 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.EmptyState
-import com.cryptochecker.app.ui.theme.label
-import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.segmentLines
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.ui.platform.LocalDensity
-import com.cryptochecker.app.domain.format.DenseRowText
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -27,35 +22,40 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.text.TextAutoSize
-import androidx.compose.ui.platform.testTag
-import java.util.Locale
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.EmptyState
+import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
+import java.util.Locale
 
 /**
  * Zeile je Coin (wie die Zeilen im Portfolio-Widget): Plakette, Menge klein und grau vor dem Symbol
@@ -119,7 +119,14 @@ internal fun CoinRow(
             .clickable(onClick = onClick)
             .semantics {
                 contentDescription = spoken
-                if (onDelete != null) customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true })
+                if (onDelete != null) {
+                    customActions = listOf(
+                        CustomAccessibilityAction(deleteLabel) {
+                            onDelete()
+                            true
+                        }
+                    )
+                }
             }
     ) {
         // Grösste Schrift (ab 1.5): Wert und Gewinn/Verlust unter Coin und Anteil statt daneben ([DenseRowText])
@@ -272,7 +279,12 @@ internal fun CoinRow(
                         }
                     }
                     // «Ø … · aktuell …»; passt das nicht, fällt zuerst «aktuell …» weg (Ø bleibt, wie iOS ViewThatFits)
-                    val avgText = stringResource(R.string.portfolio_avg_and_now, PriceFormat.price(position.avgCost), PriceFormat.price(position.currentPrice))
+                    val avgText =
+                        stringResource(
+                            R.string.portfolio_avg_and_now,
+                            PriceFormat.price(position.avgCost),
+                            PriceFormat.price(position.currentPrice)
+                        )
                     var avgOnly by remember(avgText) { mutableStateOf(false) }
                     Text(
                         if (avgOnly) stringResource(R.string.portfolio_avg_only, PriceFormat.price(position.avgCost)) else avgText,
@@ -320,7 +332,13 @@ internal fun ClosedRow(position: CoinPosition, onClick: () -> Unit) {
             modifier = Modifier.weight(1f)
         )
         PlValuePill(
-            maskAmount(PortfolioFormat.realizedText(position.realized, position.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+            maskAmount(
+                PortfolioFormat.realizedText(
+                    position.realized,
+                    position.realizedIncomplete,
+                    stringResource(R.string.portfolio_export_incomplete)
+                )
+            ),
             position.realized
         )
     }

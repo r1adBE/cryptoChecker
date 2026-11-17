@@ -31,12 +31,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.BtcLink
 import com.cryptochecker.app.domain.activity.WhyFactor
 import com.cryptochecker.app.domain.activity.WhyFactorDirection
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.activity.WhySummary
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.theme.Spacing
@@ -44,8 +44,8 @@ import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.ui.theme.title
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * «Beobachtung»: die Faktoren als Messwerte (stärkster oben, neutrale abgeblendet, höchstens
@@ -255,10 +255,12 @@ private val FACTOR_ICON = 32.dp
 internal fun WhyBriefSkeleton() {
     // Screenreader: «Lädt …» statt Stille (höflich angesagt, die Form selbst bleibt stumm)
     val loading = stringResource(R.string.loading_hint)
-    SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics {
-        contentDescription = loading
-        liveRegion = LiveRegionMode.Polite
-    }) {
+    SkeletonPulse(
+        modifier = Modifier.fillMaxWidth().clearAndSetSemantics {
+            contentDescription = loading
+            liveRegion = LiveRegionMode.Polite
+        }
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

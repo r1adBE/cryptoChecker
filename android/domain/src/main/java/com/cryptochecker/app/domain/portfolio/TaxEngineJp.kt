@@ -22,13 +22,17 @@ fun TaxEngines.jpTotal(coin: String, steps: List<TaxStep>, zone: ZoneId, lost: M
         var totCost = carryCost
         val parts = ArrayList(carryParts)
         var estimated = carryEstimated
-        for (s in ys) if (s.kind == TaxStepKind.ACQUIRE) {
-            if (s.cost != null) {
-                totPriced += s.qty
-                totCost += s.cost
-                if (s.cost.signum() != 0) parts += PortfolioCostPart(s.acquired, s.cost)
-                if (s.costEstimated && s.cost.signum() != 0) estimated = true
-            } else totUnpriced += s.qty
+        for (s in ys) {
+            if (s.kind == TaxStepKind.ACQUIRE) {
+                if (s.cost != null) {
+                    totPriced += s.qty
+                    totCost += s.cost
+                    if (s.cost.signum() != 0) parts += PortfolioCostPart(s.acquired, s.cost)
+                    if (s.costEstimated && s.cost.signum() != 0) estimated = true
+                } else {
+                    totUnpriced += s.qty
+                }
+            }
         }
         val totQty = totPriced + totUnpriced
         val share = if (totQty.signum() > 0) totPriced.divide(totQty, mc) else BigDecimal.ONE

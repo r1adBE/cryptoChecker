@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.ui.components.BulkAddProgress
 import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog
@@ -25,6 +24,7 @@ import com.cryptochecker.app.ui.features.explorer.bulkAddedKind
 import com.cryptochecker.app.ui.features.explorer.bulkAddedText
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

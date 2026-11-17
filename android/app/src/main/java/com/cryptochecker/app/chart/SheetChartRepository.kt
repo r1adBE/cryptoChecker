@@ -1,6 +1,6 @@
 package com.cryptochecker.app.chart
 
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
@@ -11,27 +11,27 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
-import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
+import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartCache
 import com.cryptochecker.app.domain.watch.SheetChartFx
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
-import com.cryptochecker.app.domain.util.DefaultDispatcher
-import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartRange
+import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.time.LocalDate
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.data.TokenIdentityStore
 
 /**
  * Kerzen für den Chart im Aktionsblatt: gleiche Intervalle wie das Einzel-Widget ([WidgetChartRange]).
@@ -124,8 +124,7 @@ class SheetChartRepository @Inject constructor(
             // TradFi und DEX: nie Kerzen eines gleichnamigen Krypto-Tokens
             if (!OwnCandlePolicy.allowsFallback(pair)) return@withContext SheetChartResult.NoData
 
-            // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der
-            // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token)
+            // 2. Ausweich-Kette (Binance … Coinbase, Futures zuerst USDⓈ-M), Binance nur bei gleichem Token
             val identityName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset)
             // USDT → USD je Tag zum Marktkurs, nur wenn eine Abfrage umrechnet ([SheetChart.usdtSeries])
             val requests = SheetChart.requests(watch.baseAsset, watch.quoteAsset, quoteIsFiat)
@@ -139,7 +138,11 @@ class SheetChartRepository @Inject constructor(
                 val sourced = try {
                     withTimeoutOrNull(TIMEOUT_MILLIS) {
                         candleDataSource.candlesSourced(
-                            request.base, request.quote, interval, widgetRange.limit, preferFutures = pair.isFutures,
+                            request.base,
+                            request.quote,
+                            interval,
+                            widgetRange.limit,
+                            preferFutures = pair.isFutures,
                             identityName = identityName,
                         ) { hourCandles ->
                             val raw = hourCandles.map(::widgetCandle)
@@ -206,7 +209,11 @@ class SheetChartRepository @Inject constructor(
 
     /** Kerze für Blatt und Widget; Umsatz in der Quote für die Volumen-Balken. */
     private fun widgetCandle(it: HourCandle): WidgetCandle = WidgetCandle(
-        openTime = it.openTime, open = it.open, high = it.high, low = it.low, close = it.close,
+        openTime = it.openTime,
+        open = it.open,
+        high = it.high,
+        low = it.low,
+        close = it.close,
         volume = SheetChart.quoteVolume(it.volume, it.quoteVolume, it.close),
         volumeApproximated = SheetChart.isVolumeApproximated(it.quoteVolume),
     )

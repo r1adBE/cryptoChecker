@@ -29,7 +29,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.ExchangeRefresh
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
@@ -41,6 +40,7 @@ import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.util.Locale
 
 /** Eine Börse: Status, Name, Dauer; darunter Paare und Sammelabfrage, ggf. die Ursachen. */
@@ -77,8 +77,11 @@ internal fun MarketRow(exchange: ExchangeRefresh, locale: Locale) {
             val time = PriceFormat.shortTime(until)
             val reason = exchange.pauseReason?.let { reasonText(it) }
             add(
-                if (reason == null) stringResource(R.string.refresh_sheet_paused_until, time)
-                else stringResource(R.string.refresh_sheet_paused_until_reason, time, reason)
+                if (reason == null) {
+                    stringResource(R.string.refresh_sheet_paused_until, time)
+                } else {
+                    stringResource(R.string.refresh_sheet_paused_until_reason, time, reason)
+                }
             )
         }
     }.joinToString(" · ")
@@ -95,7 +98,9 @@ internal fun MarketRow(exchange: ExchangeRefresh, locale: Locale) {
     )
     // Screenreader: ein Satz je Börse («Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden»)
     val spoken = listOf(
-        exchange.name, statusText, pairsText,
+        exchange.name,
+        statusText,
+        pairsText,
         stringResource(R.string.refresh_sheet_seconds_a11y, "%.1f".format(locale, exchange.millis / 1000.0)),
         issues,
         exchangeDetail.orEmpty(),

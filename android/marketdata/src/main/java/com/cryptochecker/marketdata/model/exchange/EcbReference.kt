@@ -60,8 +60,10 @@ class EcbReference : Exchange("ECB", "E C B") {
         val window = EcbRates.parseXml(body)?.let { EcbRates.recent(it, WINDOW_DAYS) }
             ?: throw ExchangeParseException(ExchangeParseException.NO_DATA)
         val codes = window.flatMap { EcbRates.codes(it) }.distinct().sorted()
-        for (base in codes) for (quote in codes) {
-            if (base != quote) bulkRow("$base$quote", tickers, failed) { copySeries(window, base, quote, it) }
+        for (base in codes) {
+            for (quote in codes) {
+                if (base != quote) bulkRow("$base$quote", tickers, failed) { copySeries(window, base, quote, it) }
+            }
         }
     }
 

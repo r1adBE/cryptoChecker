@@ -6,6 +6,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,7 +17,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Speichern des CSV-Imports im Hintergrund ([saveCsvImport] mit [CsvImportInsert]): «Abbrechen» mitten im Anlegen lässt

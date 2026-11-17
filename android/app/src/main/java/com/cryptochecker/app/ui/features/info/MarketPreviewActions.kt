@@ -3,9 +3,9 @@
 // Eigene Datei, weil die Vorschau ein nicht gespeichertes Paar betrifft und mit den Markt-Karten nichts teilt.
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -62,7 +62,10 @@ suspend fun InfoViewModel.previewQuote(watch: WatchEntity): WatchEntity {
             exchangeRepository.getExchangeTicker(
                 com.cryptochecker.app.domain.model.ExchangeInfo(watch.exchangeKey, watch.exchangeName),
                 com.cryptochecker.marketdata.model.ExchangePair(
-                    watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType
+                    watch.baseAsset,
+                    watch.quoteAsset,
+                    watch.pairId,
+                    watch.contractType
                 ),
             )
         }

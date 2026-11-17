@@ -25,12 +25,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.ui.components.ChartTypeSwitch
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /**
  * Chips «Wert | Gewinn/Verlust» über dem Chart ([pnl] = Gewinn/Verlust). Screenreader: Auswahl-Chips mit Zustand.

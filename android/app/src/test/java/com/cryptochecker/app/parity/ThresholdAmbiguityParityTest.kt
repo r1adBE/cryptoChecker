@@ -24,7 +24,11 @@ class ThresholdAmbiguityParityTest {
             if (expected == null) {
                 assertNull("'$text' ($separator)", actual)
             } else {
-                assertEquals("'$text' ($separator)", ThresholdParser.Ambiguity(expected["grouped"] as String, expected["decimal"] as String), actual)
+                assertEquals(
+                    "'$text' ($separator)",
+                    ThresholdParser.Ambiguity(expected["grouped"] as String, expected["decimal"] as String),
+                    actual
+                )
                 // Mehrdeutig heisst immer: parse liest nichts (nie still eine Lesart)
                 assertNull(ThresholdParser.parse(text, separator, c["hint"].num()))
                 // Beide genannten Schreibweisen sind eindeutig

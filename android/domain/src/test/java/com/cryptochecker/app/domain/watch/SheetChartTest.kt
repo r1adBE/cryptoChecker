@@ -269,11 +269,11 @@ class SheetChartTest {
         // Tag 10 (Fr) 0.9, Tag 13 (Mo) 0.8; Tage 11 und 12 (Wochenende) fehlen
         val rates = mapOf(10L to 0.9, 13L to 0.8)
         val candles = listOf(
-            dayCandle(9, 0, 100.0),   // vor dem ersten Kurs → erster Kurs (0.9)
-            dayCandle(10, 5, 100.0),  // 0.9
+            dayCandle(9, 0, 100.0), // vor dem ersten Kurs → erster Kurs (0.9)
+            dayCandle(10, 5, 100.0), // 0.9
             dayCandle(10, 23, 100.0), // gleicher Tag, Stundenkerze → 0.9
             dayCandle(12, 12, 100.0), // Wochenende → Freitag (0.9)
-            dayCandle(13, 1, 100.0),  // 0.8
+            dayCandle(13, 1, 100.0), // 0.8
         )
         // Kurs des Paars = umgerechneter Schluss: Tageskurse allein (Faktor 1)
         val plain = SheetChart.accept(candles, fallback, price = 80.0, dailyRates = rates)!!
@@ -398,8 +398,12 @@ class SheetChartTest {
         val candles = listOf(dayCandle(1, 0, 100.0, 1_000.0, approx = true), dayCandle(2, 0, 110.0, 2_000.0))
         val pair = SheetChart.accept(candles, SheetCandleRequest("BTC", "USDT", convert = false), price = 110.0)!!
         assertEquals(listOf(true, false), pair.map { it.volumeApproximated })
-        val daily = SheetChart.accept(candles, SheetCandleRequest("BTC", "USDT", convert = true), price = 55.0,
-            dailyRates = mapOf(1L to 0.5))!!
+        val daily = SheetChart.accept(
+            candles,
+            SheetCandleRequest("BTC", "USDT", convert = true),
+            price = 55.0,
+            dailyRates = mapOf(1L to 0.5)
+        )!!
         assertEquals(listOf(true, false), daily.map { it.volumeApproximated })
         assertEquals(listOf(500.0, 1_000.0), daily.map { it.volume })
         val current = SheetChart.accept(candles, SheetCandleRequest("BTC", "USDT", convert = true), price = 55.0, currentRate = 0.5)!!

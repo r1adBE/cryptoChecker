@@ -1,14 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.core.content.edit
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.marketdata.model.FuturesContractType
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.BINANCE_HOST
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.COINBASE_HOST
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.COINS_TTL_MILLIS
@@ -17,7 +9,15 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.KEY_C
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.KEY_COINS_SOURCE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.SOURCE_BINANCE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.SOURCE_OTHER
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.isSymbol
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.marketdata.model.FuturesContractType
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
 
 // Coin-Liste für die Suche (Teil von [PortfolioPriceSource]): Binance-Spot-Paare, sonst Paar-Zwischenspeicher der
 // Börse «Binance», sonst Coinbase; 1 Tag gemerkt. Erweiterungsfunktionen; der Zustand bleibt in der Klasse.

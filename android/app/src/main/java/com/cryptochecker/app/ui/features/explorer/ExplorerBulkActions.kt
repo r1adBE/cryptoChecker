@@ -8,8 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.marketdata.model.ExchangePair
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun ExplorerViewModel.setBulkQuote(quote: String) {
     // Die Sammelliste gehört zur Gegenwährung, für die sie erstellt wurde
@@ -108,7 +113,10 @@ internal fun bulkAddFromRunner(p: BulkAddRunner.Progress?): BulkAddResult? = whe
     p.running -> BulkAddResult(added = 0, skipped = 0, running = true, done = p.done, total = p.total)
     else -> p.result?.let {
         BulkAddResult(
-            added = it.added, skipped = it.skipped, refused = it.refused, addedIds = it.addedIds,
+            added = it.added,
+            skipped = it.skipped,
+            refused = it.refused,
+            addedIds = it.addedIds,
             finishedAt = p.finishedAt,
         )
     }

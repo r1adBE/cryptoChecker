@@ -37,13 +37,18 @@ class WatchedAddressSingleFlightTest {
             WatchedAddress(id = 2, chain = AddressChain.BTC, address = xpub),
             // Schon früher versucht (vor einer Stunde), Token aus
             WatchedAddress(
-                id = 3, chain = AddressChain.ETH, address = "0x0000000000000000000000000000000000000001",
-                lastAttempt = now - 3_600_000, countTokens = false,
+                id = 3,
+                chain = AddressChain.ETH,
+                address = "0x0000000000000000000000000000000000000001",
+                lastAttempt = now - 3_600_000,
+                countTokens = false,
             ),
         )
         val loads = mutableMapOf<Long, Int>()
+
         /** «Tokens mitzählen» der Adresse 3 je Abruf. */
         val ethCountTokens = mutableListOf<Boolean>()
+
         /** Gewählte Netze je Abruf der Adresse 4 (nur in Tests, die sie anlegen). */
         val netsOf4 = mutableListOf<List<String>?>()
         val started = CompletableDeferred<Unit>()
@@ -51,8 +56,12 @@ class WatchedAddressSingleFlightTest {
         var failRead = false
 
         suspend fun run(background: Boolean = false): Boolean = singleFlightRefresh(
-            gate, background,
-            read = { check(!failRead) { "nicht lesbar" }; stored },
+            gate,
+            background,
+            read = {
+                check(!failRead) { "nicht lesbar" }
+                stored
+            },
             load = { addresses ->
                 val due = AddressBalance.dueOrder(addresses, now, force = false, background = background)
                 due.forEach { loads[it.id] = (loads[it.id] ?: 0) + 1 }
@@ -132,8 +141,11 @@ class WatchedAddressSingleFlightTest {
     fun secondNetworkDuringRoundIsLoadedByWaiter() = runBlocking {
         val f = Fixture()
         val evm = WatchedAddress(
-            id = 4, chain = AddressChain.ETH, address = "0x0000000000000000000000000000000000000004",
-            lastAttempt = f.now - 3_600_000, networks = listOf("BSC"),
+            id = 4,
+            chain = AddressChain.ETH,
+            address = "0x0000000000000000000000000000000000000004",
+            lastAttempt = f.now - 3_600_000,
+            networks = listOf("BSC"),
         )
         f.stored = f.stored + WatchedAddressRules.withNetworks(evm, listOf("BSC", "POLYGON"))
         assertEquals(0L, f.stored[3].lastAttempt)

@@ -1,8 +1,8 @@
 package com.cryptochecker.wear
 
+import java.net.URLEncoder
 import org.json.JSONArray
 import org.json.JSONObject
-import java.net.URLEncoder
 
 /**
  * Kurs auf der Uhr: [symbol] = Schlüssel (Kürzel gegen USDT oder Paar des Handys, `WatchPair.key`), letzter Kurs,

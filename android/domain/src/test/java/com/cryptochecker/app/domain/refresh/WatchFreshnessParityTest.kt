@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.domain.refresh.OutdatedRule
-import com.cryptochecker.marketdata.watch.WatchFreshness
-import com.cryptochecker.marketdata.watch.WatchInterval
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchInterval
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Alter der Kurse auf der Uhr (`watch_quotes.json`, Abschnitt «freshness») — wie `WatchQuotesParityTests.swift`:
@@ -38,8 +38,11 @@ class WatchFreshnessParityTest {
             val time = c["time"].num()!!.toLong()
             val interval = c["interval"].num()!!.toInt()
             assertEquals(name, c["outdated"] as Boolean, WatchFreshness.isOutdated(time, now, interval))
-            assertEquals(name, OutdatedRule.isOutdated(time, now, WatchFreshness.outdatedAfterMillis(interval)),
-                WatchFreshness.isOutdated(time, now, interval))
+            assertEquals(
+                name,
+                OutdatedRule.isOutdated(time, now, WatchFreshness.outdatedAfterMillis(interval)),
+                WatchFreshness.isOutdated(time, now, interval)
+            )
             val unit = c["unit"] as String? ?: continue
             val expected = WatchFreshness.Age(
                 when (unit) {

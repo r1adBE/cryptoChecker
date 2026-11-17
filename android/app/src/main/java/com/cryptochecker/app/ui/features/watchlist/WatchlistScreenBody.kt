@@ -8,7 +8,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.runtime.getValue
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.background
@@ -24,13 +23,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.AutoGroup
@@ -41,10 +41,10 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.WatchlistFooter
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
-import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
 
 /**
  * Fester Kopf und Liste der Merkliste ([WatchlistScreen] setzt Zustand und Ableitungen; die Werte hier sind dieselben
@@ -214,7 +214,9 @@ internal fun WatchlistBody(
                     pulse = pulse,
                     sortBar = if (!ui.sortMode && listed.size > 1) {
                         { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
-                    } else null,
+                    } else {
+                        null
+                    },
                     sortMode = ui.sortMode,
                     // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
                     onAutoOrder = if (ui.sortMode && visible.size > 1) reorder::autoOrder else null,
@@ -250,7 +252,10 @@ internal fun WatchlistBody(
                         sortMode = ui.sortMode,
                         selecting = ui.selecting,
                         selected = watch.id in selectedIds,
-                        onToggleSelected = { haptics.play(HapticEvent.SELECTION); ui.toggleSelected(watch.id) },
+                        onToggleSelected = {
+                            haptics.play(HapticEvent.SELECTION)
+                            ui.toggleSelected(watch.id)
+                        },
                         sparklines = fetchSparklines,
                         cachedSparkline = viewModel::cachedSparkline,
                         loadSparkline = viewModel::sparkline,

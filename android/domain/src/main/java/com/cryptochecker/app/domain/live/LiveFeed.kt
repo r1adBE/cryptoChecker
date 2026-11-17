@@ -190,8 +190,11 @@ object LiveRules {
      * beim Verbinden zu «gerade eben». Nie rückwärts; ohne gespeicherte Zeit (≤ 0) die Takt-Zeit.
      */
     fun updateTime(quote: LiveQuote, storedPrice: Double?, storedLastUpdate: Long): Long =
-        if ((quote.tradeTime ?: 0L) <= 0 && storedPrice == quote.price && storedLastUpdate > 0) storedLastUpdate
-        else maxOf(storedLastUpdate, quote.time)
+        if ((quote.tradeTime ?: 0L) <= 0 && storedPrice == quote.price && storedLastUpdate > 0) {
+            storedLastUpdate
+        } else {
+            maxOf(storedLastUpdate, quote.time)
+        }
 
     /** Kurs vor höchstens [FRESH_MILLIS] aus dem Strom? */
     fun isFresh(lastTickAt: Long?, now: Long): Boolean =

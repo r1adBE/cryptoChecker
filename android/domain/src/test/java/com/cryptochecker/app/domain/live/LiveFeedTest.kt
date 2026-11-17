@@ -78,6 +78,7 @@ class LiveFeedTest {
         data["subscribe"].list().forEach { raw ->
             val c = raw.obj()
             val exchange = LiveExchange.valueOf(c["exchange"] as String)
+
             @Suppress("UNCHECKED_CAST")
             val symbols = c["symbols"] as List<String>
             assertEquals("${c["exchange"]}", c["messages"], exchange.subscribeMessages(symbols))
@@ -90,6 +91,7 @@ class LiveFeedTest {
     fun planMatchesFixtures() {
         data["plan"].list().forEach { raw ->
             val c = raw.obj()
+
             @Suppress("UNCHECKED_CAST")
             val paused = (c["paused"] as List<String>).toSet()
             val plan = LivePlanner.plan(c["pairs"].list().map { pair(it.obj()) }, paused)
@@ -111,7 +113,8 @@ class LiveFeedTest {
         data["backoff"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "$c", c["millis"].num()!!.toLong(),
+                "$c",
+                c["millis"].num()!!.toLong(),
                 LiveBackoff.delayMillis(c["attempt"].num()!!.toInt(), c["rateLimited"] as Boolean),
             )
         }
@@ -123,9 +126,12 @@ class LiveFeedTest {
         data["backoffAttempt"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "${c["name"]}", c["expected"].num()!!.toInt(),
+                "${c["name"]}",
+                c["expected"].num()!!.toInt(),
                 LiveBackoff.nextAttempt(
-                    c["attempt"].num()!!.toInt(), c["receivedData"] as Boolean, c["connectedMillis"].num()!!.toLong(),
+                    c["attempt"].num()!!.toInt(),
+                    c["receivedData"] as Boolean,
+                    c["connectedMillis"].num()!!.toLong(),
                 ),
             )
         }
@@ -136,7 +142,8 @@ class LiveFeedTest {
         data["backoffJitter"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "$c", c["millis"].num()!!.toLong(),
+                "$c",
+                c["millis"].num()!!.toLong(),
                 LiveBackoff.reconnectDelayMillis(c["attempt"].num()!!.toInt(), c["rateLimited"] as Boolean, c["random"].num()!!),
             )
         }
@@ -155,7 +162,8 @@ class LiveFeedTest {
         cases.forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "tickTime ${c["name"]}", c["expected"].num()!!.toLong(),
+                "tickTime ${c["name"]}",
+                c["expected"].num()!!.toLong(),
                 LiveRules.tickTime(c["reported"].num()?.toLong(), c["now"].num()!!.toLong()),
             )
         }
@@ -176,9 +184,12 @@ class LiveFeedTest {
     fun silentSubscriptionMatchesFixtures() {
         data["silentSubscription"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "silentSubscription ${c["name"]}", c["silent"],
+                "silentSubscription ${c["name"]}",
+                c["silent"],
                 LiveRules.silentSubscription(
-                    c["subscribedAt"].num()!!.toLong(), c["receivedData"] as Boolean, c["now"].num()!!.toLong(),
+                    c["subscribedAt"].num()!!.toLong(),
+                    c["receivedData"] as Boolean,
+                    c["now"].num()!!.toLong(),
                 ),
             )
         }
@@ -189,13 +200,17 @@ class LiveFeedTest {
     fun samePairMatchesFixtures() {
         fun identity(value: Any?): PairIdentity? = value?.obj()?.let {
             PairIdentity(
-                it["exchangeKey"] as String, it["base"] as String, it["quote"] as String, it["contract"] as String,
+                it["exchangeKey"] as String,
+                it["base"] as String,
+                it["quote"] as String,
+                it["contract"] as String,
                 it["pairId"] as String?,
             )
         }
         data["samePair"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "samePair ${c["name"]}", c["expected"],
+                "samePair ${c["name"]}",
+                c["expected"],
                 LiveRules.samePair(identity(c["subscribed"]), identity(c["current"])!!),
             )
         }
@@ -208,8 +223,11 @@ class LiveFeedTest {
             assertNumber(
                 c["expected"].num(),
                 LiveRules.chooseChange(
-                    c["rolling"] as Boolean, c["stampCurrent"] as Boolean, c["exchangeRolling"] as Boolean,
-                    c["live"].num(), c["existing"].num(),
+                    c["rolling"] as Boolean,
+                    c["stampCurrent"] as Boolean,
+                    c["exchangeRolling"] as Boolean,
+                    c["live"].num(),
+                    c["existing"].num(),
                 ),
                 "chooseChange $c",
             )
@@ -217,10 +235,14 @@ class LiveFeedTest {
         data["skipRest"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "skipRest $c", c["expected"],
+                "skipRest $c",
+                c["expected"],
                 LiveRules.skipRest(
-                    c["lastTickAt"].num()?.toLong(), c["now"].num()!!.toLong(),
-                    c["rolling"] as Boolean, c["stampUnchanged"] as Boolean, c["exchangeRolling"] as Boolean,
+                    c["lastTickAt"].num()?.toLong(),
+                    c["now"].num()!!.toLong(),
+                    c["rolling"] as Boolean,
+                    c["stampUnchanged"] as Boolean,
+                    c["exchangeRolling"] as Boolean,
                 ),
             )
         }
@@ -280,7 +302,9 @@ class LiveFeedTest {
         }
         assertEquals(LiveQuote(100.0, 1.5, 1_000), buffer.takeForUi()!![1L])
         // Neue Veränderung bei gleichem Kurs: Veränderung neu, Zeit bleibt
-        LiveParser.parse(LiveExchange.BINANCE, text("100", 4_000).replace("1.5", "1.6")).forEach { buffer.offer(listOf(1L), it, now = 4_000) }
+        LiveParser.parse(LiveExchange.BINANCE, text("100", 4_000).replace("1.5", "1.6")).forEach {
+            buffer.offer(listOf(1L), it, now = 4_000)
+        }
         assertEquals(LiveQuote(100.0, 1.6, 1_000), buffer.takeForUi()!![1L])
         // Kurs ändert sich: neue Zeit
         LiveParser.parse(LiveExchange.BINANCE, text("100.1", 5_000)).forEach { buffer.offer(listOf(1L), it, now = 5_000) }

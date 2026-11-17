@@ -14,16 +14,16 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Banner unten in der Merkliste («BTC/USDT entfernt» mit «Rückgängig», «… wird jetzt
@@ -41,6 +41,7 @@ internal class WatchlistBanner(
     /** Jede Komposition neu gesetzt (Sprache, Screenreader können wechseln). */
     internal var accessibilityManager: androidx.compose.ui.platform.AccessibilityManager? = null
     internal var undoLabel: String = ""
+
     /** «Rückgängig» getippt: Erfolgs-Haptik (wie iOS); null in Tests ohne Bildschirm. */
     internal var haptics: HapticPlayer? = null
 
@@ -61,7 +62,10 @@ internal class WatchlistBanner(
             host.currentSnackbarData?.dismiss()
             // Die Aktion ist selbst «Schliessen»: kein zusätzliches ✕
             host.showAppSnackbar(
-                text, actionLabel = label, duration = SnackbarDuration.Indefinite, withDismissAction = false,
+                text,
+                actionLabel = label,
+                duration = SnackbarDuration.Indefinite,
+                withDismissAction = false,
             )
         }
     }
@@ -99,7 +103,10 @@ internal class WatchlistBanner(
                 host.currentSnackbarData?.dismiss()
                 // Mit Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
                 val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-                    millis, containsIcons = false, containsText = true, containsControls = true
+                    millis,
+                    containsIcons = false,
+                    containsText = true,
+                    containsControls = true
                 ) ?: millis
                 val result = withTimeoutOrNull(timeout) {
                     host.showAppSnackbar(text, kind, actionLabel = label, duration = SnackbarDuration.Indefinite)

@@ -1,16 +1,16 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.CurrencyConversion.QuoteKind
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * «≈ Umrechnung»: Faktor von der Quote-Währung eines Paars in eine Zielwährung
@@ -77,7 +77,12 @@ class CurrencyConverter @Inject constructor(
         val quoteUsd = when (val kind = classify(from)) {
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(kind, null, stableMarket(from), from, liveUsdtUsd())
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.cached(from), null)
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.cached(listOf(from)), from), usdtUsd = liveUsdtUsd())
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(
+                kind,
+                null,
+                freshMarket(priceSource.cached(listOf(from)), from),
+                usdtUsd = liveUsdtUsd()
+            )
             QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> null
         }
         val usdToTarget = when (classify(to)) {
@@ -186,12 +191,20 @@ class CurrencyConverter @Inject constructor(
         return when (val kind = classify(code)) {
             // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor; USDT × USDT/USD
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(
-                kind, null, if (CurrencyConversion.stableNeedsMarket(code)) freshMarket(priceSource.prices(listOf(code)), code) else null,
-                code, liveUsdtUsd(),
+                kind,
+                null,
+                if (CurrencyConversion.stableNeedsMarket(code)) freshMarket(priceSource.prices(listOf(code)), code) else null,
+                code,
+                liveUsdtUsd(),
             )
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.usdTo(code), null)
             // Höchstens 15 min alt: scheitert die Abfrage, bleibt sonst der letzte Kurs beliebig lange stehen
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.prices(listOf(code)), code), usdtUsd = liveUsdtUsd())
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(
+                kind,
+                null,
+                freshMarket(priceSource.prices(listOf(code)), code),
+                usdtUsd = liveUsdtUsd()
+            )
             QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> null
         }
     }

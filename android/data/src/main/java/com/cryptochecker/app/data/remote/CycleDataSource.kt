@@ -1,22 +1,22 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.CycleInputs
-import com.cryptochecker.app.domain.market.IndicatorHistoryMath
 import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.market.IndicatorHistoryMath
 import com.cryptochecker.app.domain.market.OnChainValues
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import timber.log.Timber
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
-import javax.inject.Inject
 
 /**
  * Holt die Daten für das Zyklus-Modell:
@@ -120,7 +120,9 @@ class CycleDataSource @Inject constructor(
         val puell = if (issuance.size >= 365) {
             val avg = issuance.takeLast(365).average()
             if (avg > 0) issuance.last() / avg else null
-        } else null
+        } else {
+            null
+        }
 
         return OnChainValues(
             mvrv = mvrv.lastOrNull(),

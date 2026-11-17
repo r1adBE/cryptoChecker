@@ -57,8 +57,11 @@ internal class FakeWatchStore(filler: Int = 0) {
         fun pair(base: String, quote: String = "USDT") = ExchangePair(base, quote, "$base$quote")
 
         fun key(exchange: ExchangeInfo, pair: ExchangePair): WatchIdentity.Key = WatchIdentity.key(
-            exchange.key, pair.base, pair.quote,
-            pair.contractType.name, pair.pairId,
+            exchange.key,
+            pair.base,
+            pair.quote,
+            pair.contractType.name,
+            pair.pairId,
         )
     }
 }

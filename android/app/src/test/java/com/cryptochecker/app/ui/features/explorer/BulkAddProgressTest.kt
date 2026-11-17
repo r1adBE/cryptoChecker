@@ -1,13 +1,13 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.data.BulkAddRunner.Progress
+import com.cryptochecker.app.domain.BulkAddResult as RepoResult
+import com.cryptochecker.marketdata.model.ExchangePair
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.app.domain.BulkAddResult as RepoResult
 
 /** Stand der app-weiten Aufnahme ([com.cryptochecker.app.data.BulkAddRunner]) als Anzeige des Explorers. */
 class BulkAddProgressTest {
@@ -55,7 +55,8 @@ class BulkAddProgressTest {
 
     @Test
     fun newCountSkipsPairsAlreadyInWatchlist() {
-        val pairs = listOf(ExchangePair("BTC", "USDT", "BTCUSDT"), ExchangePair("ETH", "USDT", "ETHUSDT"), ExchangePair("SOL", "USDT", "SOLUSDT"))
+        val pairs =
+            listOf(ExchangePair("BTC", "USDT", "BTCUSDT"), ExchangePair("ETH", "USDT", "ETHUSDT"), ExchangePair("SOL", "USDT", "SOLUSDT"))
         val watched = setOf(watchKey("Binance", "ETH", "USDT", "NONE"))
         assertEquals(2, bulkNewCount("Binance", pairs, watched))
         assertEquals(3, bulkNewCount("Binance", pairs, emptySet()))

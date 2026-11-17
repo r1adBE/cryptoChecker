@@ -1,16 +1,16 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STORE_FILE
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.StoredPrice
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.io.File
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.io.File
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STORE_FILE
 
 // Letzter Stand der Portfolio-Kurse auf dem Gerät (Teil von [PortfolioPriceSource]): lesen, zusammenführen, schreiben,
 // leeren. Erweiterungsfunktionen; der Zustand bleibt in der Klasse.
@@ -31,7 +31,9 @@ suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPri
         updatedAt = hits.minOfOrNull { it.second.at } ?: 0L,
         unchecked = normalized(coins).filterTo(HashSet()) { it in uncheckedCoins && it !in merged && it !in via },
         noMarket = normalized(coins).filterTo(HashSet()) { it in noMarketCoins && it !in merged && it !in via },
-        unavailable = normalized(coins).filterTo(HashSet()) { it in unavailableCoins && it !in merged && it !in uncheckedCoins && it !in via },
+        unavailable = normalized(coins).filterTo(HashSet()) {
+            it in unavailableCoins && it !in merged && it !in uncheckedCoins && it !in via
+        },
         viaBase = via,
         times = hits.associate { (coin, entry) -> coin to entry.at },
         sources = hits.mapNotNull { (coin, _) -> sourceOf[coin]?.let { coin to it } }.toMap(),

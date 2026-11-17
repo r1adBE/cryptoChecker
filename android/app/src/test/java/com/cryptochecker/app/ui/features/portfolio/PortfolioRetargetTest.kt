@@ -6,11 +6,11 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * «Ziel ändern» am Umbuchungs-Hinweis ([retargeted], [coinDetail]): nur die genannte Umbuchung bekommt die Adress-Wallet
@@ -19,8 +19,12 @@ import java.math.BigDecimal
 class PortfolioRetargetTest {
 
     private val cold = WatchedAddress(
-        id = 1, chain = AddressChain.BTC, address = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4", label = "Cold",
-        lastBalance = "1.0", lastUpdated = 1_727_740_800_000L,
+        id = 1,
+        chain = AddressChain.BTC,
+        address = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        label = "Cold",
+        lastBalance = "1.0",
+        lastUpdated = 1_727_740_800_000L,
     )
 
     private val all = listOf(
@@ -57,9 +61,21 @@ class PortfolioRetargetTest {
     }
 
     private fun tx(
-        id: Long, type: PortfolioTxType, amount: String, exchange: String? = null, from: String? = null, to: String? = null,
+        id: Long,
+        type: PortfolioTxType,
+        amount: String,
+        exchange: String? = null,
+        from: String? = null,
+        to: String? = null,
     ) = PortfolioTxEntity(
-        id = id, coin = "BTC", type = type, amount = BigDecimal(amount), priceUsdt = if (type == PortfolioTxType.BUY) BigDecimal("40000") else null,
+        id = id, coin = "BTC", type = type, amount = BigDecimal(amount),
+        priceUsdt = if (type ==
+            PortfolioTxType.BUY
+        ) {
+            BigDecimal("40000")
+        } else {
+            null
+        },
         time = 1_725_000_000_000L + id * 86_400_000L, exchange = exchange, transferFrom = from, transferTo = to,
     )
 }

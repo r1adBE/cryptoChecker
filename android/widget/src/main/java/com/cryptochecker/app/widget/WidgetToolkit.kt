@@ -1,6 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetQuoteText
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -12,11 +11,12 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
+import com.cryptochecker.app.domain.widget.WidgetQuoteText
 import com.cryptochecker.app.util.AppIntents
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -111,7 +111,12 @@ class WidgetToolkit @Inject constructor(
         val range = WidgetQuoteText.quoteRange(text, quote) ?: return text
         val end = range.last + 1
         return android.text.SpannableString(text).apply {
-            setSpan(android.text.style.RelativeSizeSpan(WidgetQuoteText.scale(priceSp)), range.first, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(
+                android.text.style.RelativeSizeSpan(WidgetQuoteText.scale(priceSp)),
+                range.first,
+                end,
+                android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             setSpan(android.text.style.ForegroundColorSpan(quoteColor), range.first, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
@@ -140,10 +145,12 @@ class WidgetToolkit @Inject constructor(
         val options = runCatching { manager.getAppWidgetOptions(appWidgetId) }.getOrNull() ?: return 0 to 0
         val landscape = context.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
         val width = options.getInt(
-            if (landscape) AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH else AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0
+            if (landscape) AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH else AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH,
+            0
         )
         val height = options.getInt(
-            if (landscape) AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT else AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0
+            if (landscape) AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT else AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT,
+            0
         )
         return width to height
     }

@@ -1,6 +1,5 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
@@ -18,24 +17,28 @@ import androidx.work.workDataOf
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
 import com.cryptochecker.app.widget.PriceWidgetProvider
 import com.cryptochecker.app.widget.PulseWidgetProvider
 import com.cryptochecker.app.widget.SingleWidgetProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
@@ -44,9 +47,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.flow.update
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /** Plant die Hintergrund-Aktualisierung. */
 @Singleton
@@ -157,7 +157,9 @@ class PriceUpdateScheduler @Inject constructor(
 
         // Fear-&-Greed-Meldung und eigene Grenzen der Bitcoin-Kennzahlen: zweimal täglich prüfen
         // Eingeschaltete Kennzahl-Grenzen wie die Prüfung selbst (IndicatorAlertRules.active, nur gültige Werte)
-        if (settings.fearGreedBelow > 0 || settings.fearGreedAbove > 0 || IndicatorAlertRules.active(settings.indicatorAlerts).isNotEmpty()) {
+        if (settings.fearGreedBelow > 0 || settings.fearGreedAbove > 0 ||
+            IndicatorAlertRules.active(settings.indicatorAlerts).isNotEmpty()
+        ) {
             val request = PeriodicWorkRequestBuilder<ZoneCheckWorker>(12, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 // Abruf gescheitert: 30 s, 1 Min., 2 Min. (MarketNoticeGate, iOS gleich)

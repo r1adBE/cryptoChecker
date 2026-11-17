@@ -17,7 +17,8 @@ object CompactAmount {
     /** Nur die Zahl, kurz und in der Sprache der App: «1,2 Mio.», "1.2M", «1,2 млн». */
     fun number(value: Double, locale: Locale = LocaleNumbers.appLocale): String = runCatching {
         val f = android.icu.text.CompactDecimalFormat.getInstance(
-            locale, android.icu.text.CompactDecimalFormat.CompactStyle.SHORT
+            locale,
+            android.icu.text.CompactDecimalFormat.CompactStyle.SHORT
         )
         f.setSignificantDigitsUsed(true)
         f.setMinimumSignificantDigits(1)

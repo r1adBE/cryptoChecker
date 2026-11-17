@@ -8,12 +8,12 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.LifecycleStartEffect
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.isNotTraded
 

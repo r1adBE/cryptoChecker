@@ -5,13 +5,13 @@ import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.MissingLogoNotice
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Coins, deren Hinweis «2 Coins ohne Logo» mit ✕ geschlossen wurde ([MissingLogoNotice]): nur auf diesem Gerät, in

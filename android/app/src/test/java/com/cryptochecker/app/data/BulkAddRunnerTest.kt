@@ -8,8 +8,8 @@ import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.ui.features.explorer.BulkAddResult as ShownResult
 import com.cryptochecker.app.ui.features.explorer.BulkAddDisplay
+import com.cryptochecker.app.ui.features.explorer.BulkAddResult as ShownResult
 import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -53,9 +53,11 @@ class BulkAddRunnerTest {
         val failOn: String? = null,
     ) : BulkAddWrites {
         lateinit var runner: BulkAddRunner
+
         /** Stand von [BulkAddRunner.progress] nach jeder Meldung des Fortschritts. */
         val seen = mutableListOf<BulkAddRunner.Progress?>()
         var firstPairMarks = 0
+
         /** Paare, die inzwischen einen Alarm haben. */
         val alarmed = mutableSetOf<Long>()
 
@@ -90,8 +92,10 @@ class BulkAddRunnerTest {
     }
 
     private lateinit var app: CoroutineScope
+
     /** Uhr des Runners (ms). */
     private var clock = 1_000_000L
+
     /** Ausnahmen, die der Runner im App-Bereich weiterwirft. */
     private val crashes = mutableListOf<Throwable>()
 
@@ -235,6 +239,7 @@ class BulkAddRunnerTest {
         assertEquals(emptyList<String>(), writes.store.writes)
         assertEquals(0, writes.firstPairMarks)
     }
+
     /**
      * Fehler mitten in der Aufnahme (Ausnahme): eindeutiges Ende «Fehler» statt eines ewigen Balkens; die Ausnahme
      * geht weiter. Der Explorer räumt ab (Knopf frei, kein Balken) und meldet den Fehler selbst, der Runner ist leer.

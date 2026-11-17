@@ -1,24 +1,24 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.asOrgJson
-import com.cryptochecker.app.data.backup.BackupFields
-import com.cryptochecker.app.data.asDomainJson
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.asDomainJson
+import com.cryptochecker.app.data.asOrgJson
+import com.cryptochecker.app.data.backup.BackupFields
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
-import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
+import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.io.File
+import java.math.BigDecimal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import java.io.File
-import java.math.BigDecimal
 
 /**
  * Schalter «Portfolio in Systemsicherung» (Android).
@@ -302,8 +302,12 @@ object PortfolioBackupMirror {
                 "INSERT OR REPLACE INTO `portfolio_alarms` (`id`, `kind`, `threshold`, `currency`, `enabled`, " +
                     "`repeating`, `referenceAt`, `lastTriggeredAt`, `lastTriggeredValue`) VALUES (?, ?, ?, ?, ?, ?, 0, 0, NULL)",
                 arrayOf<Any?>(
-                    a.id.takeIf { keepIds && it > 0 }, a.kind.name, a.threshold, a.currency,
-                    if (a.enabled) 1L else 0L, if (a.repeating) 1L else 0L,
+                    a.id.takeIf { keepIds && it > 0 },
+                    a.kind.name,
+                    a.threshold,
+                    a.currency,
+                    if (a.enabled) 1L else 0L,
+                    if (a.repeating) 1L else 0L,
                 ),
             )
         }
@@ -316,7 +320,12 @@ object PortfolioBackupMirror {
                     "`lastUpdated`, `lastAttempt`, `lastError`, `lastProvider`, `addedAt`, `observations`, `costLots`) " +
                     "VALUES (?, ?, ?, NULL, 0, 0, NULL, NULL, ?, ?, ?)",
                 arrayOf<Any?>(
-                    a.chain.name, a.address, a.label, a.addedAt, WatchedAddressExtras.encode(a), AddressCostLots.encode(a.costLots),
+                    a.chain.name,
+                    a.address,
+                    a.label,
+                    a.addedAt,
+                    WatchedAddressExtras.encode(a),
+                    AddressCostLots.encode(a.costLots),
                 ),
             )
         }

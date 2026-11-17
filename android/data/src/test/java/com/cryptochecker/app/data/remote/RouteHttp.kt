@@ -1,14 +1,14 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.remote.BlockedSources
+import java.io.IOException
+import java.util.concurrent.CopyOnWriteArrayList
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import java.io.IOException
-import java.util.concurrent.CopyOnWriteArrayList
 
 /** Antwort einer Testroute: Text und HTTP-Code. */
 internal data class Reply(val body: String, val code: Int = 200)
@@ -21,15 +21,17 @@ internal data class Reply(val body: String, val code: Int = 200)
 internal class RouteHttp(private val route: (String) -> Reply?) {
     val requested: MutableList<String> = CopyOnWriteArrayList()
 
-    val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-        val request = chain.request()
-        val url = request.url.toString()
-        requested += url
-        val reply = route(url) ?: throw IOException("offline: $url")
-        Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(reply.code)
-            .message(if (reply.code == 200) "OK" else "Error")
-            .body(reply.body.toResponseBody("application/json".toMediaType())).build()
-    }).build()
+    val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(
+        Interceptor { chain ->
+            val request = chain.request()
+            val url = request.url.toString()
+            requested += url
+            val reply = route(url) ?: throw IOException("offline: $url")
+            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(reply.code)
+                .message(if (reply.code == 200) "OK" else "Error")
+                .body(reply.body.toResponseBody("application/json".toMediaType())).build()
+        }
+    ).build()
 
     /** Anzahl Anfragen, deren Adresse [part] enthält. */
     fun count(part: String): Int = requested.count { part in it }
@@ -40,7 +42,11 @@ internal class RouteHttp(private val route: (String) -> Reply?) {
          * Prozess) → vor dem Test freigeben, damit er immer läuft (nie still übersprungen).
          */
         val CHAIN_HOSTS = listOf(
-            "data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com",
+            "data-api.binance.vision",
+            "api.binance.com",
+            "fapi.binance.com",
+            "api.binance.us",
+            "api.exchange.coinbase.com",
         )
 
         fun releaseChain() {

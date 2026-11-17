@@ -1,11 +1,11 @@
 package com.cryptochecker.app.tts
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Locale
 import javax.inject.Inject
@@ -64,8 +64,11 @@ class SpokenText @Inject constructor(
 
         /** Gesprochener Kurs, mit Währung nur, wenn sie von der Quote abweicht («60000 CHF»). */
         internal fun spokenAlarmPrice(spoken: String, quote: String, currency: String?): String =
-            if (currency.isNullOrBlank() || currency.equals(quote, ignoreCase = true)) spoken
-            else "$spoken ${currency.uppercase()}"
+            if (currency.isNullOrBlank() || currency.equals(quote, ignoreCase = true)) {
+                spoken
+            } else {
+                "$spoken ${currency.uppercase()}"
+            }
     }
 
     /** Börsen liefern einen aussprechbaren Namen mit (z. B. "MCX now"). */

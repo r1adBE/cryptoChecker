@@ -1,12 +1,14 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.model.ExchangePair
+import java.io.IOException
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -15,8 +17,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * [ExchangeRepositoryImpl] nach dem Ende einer Börse ([ExchangeRetirement], Bitpanda ab 1. Februar 2027): keine einzige
@@ -27,7 +27,10 @@ class ExchangeRepositoryRetirementTest {
 
     private val calls = AtomicInteger()
     private val http = OkHttpClient.Builder()
-        .addInterceptor { calls.incrementAndGet(); throw IOException("kein Netz im Test") }
+        .addInterceptor {
+            calls.incrementAndGet()
+            throw IOException("kein Netz im Test")
+        }
         .build()
     private val bitpanda = ExchangeInfo(key = ExchangeRetirement.BITPANDA, name = ExchangeRetirement.BITPANDA)
     private val pair = ExchangePair("BTC", "EUR", "BTC_EUR")

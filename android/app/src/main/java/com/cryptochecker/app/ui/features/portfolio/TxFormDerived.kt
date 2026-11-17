@@ -48,6 +48,7 @@ internal class TxFormDerived(
     val toCoinValid: Boolean get() = check.toCoinValid
     val swapValueValid: Boolean get() = check.swapValueValid
     val hasFee: Boolean get() = check.hasFee
+
     /** Gebühr dieser Art (null = leer, unlesbar oder Art ohne Gebühr). */
     val fee: BigDecimal? get() = check.fee
     val feeValid: Boolean get() = check.feeValid

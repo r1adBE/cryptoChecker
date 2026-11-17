@@ -43,7 +43,6 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
@@ -63,6 +62,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 import java.time.ZoneId
 
 /** Höchstens so viele Zeilen in der Vorschau. */
@@ -185,7 +185,11 @@ internal fun CsvImportPreviewSheet(
                     PreviewHint(stringResource(R.string.portfolio_csv_import_no_rates_for, retry.currencies.joinToString(", ")))
                 }
                 CsvRateGate(
-                    ratesAccepted, { ratesAccepted = it }, onReloadRates, enabled = !rereading, canRetry = retry.retryHelps,
+                    ratesAccepted,
+                    { ratesAccepted = it },
+                    onReloadRates,
+                    enabled = !rereading,
+                    canRetry = retry.retryHelps,
                 )
             }
             // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
@@ -294,8 +298,11 @@ private fun DateOrderPicker(order: CsvDateOrder, onDateOrder: (CsvDateOrder) -> 
                 label = {
                     Text(
                         stringResource(
-                            if (o == CsvDateOrder.DAY_FIRST) R.string.portfolio_csv_import_date_day_first
-                            else R.string.portfolio_csv_import_date_month_first,
+                            if (o == CsvDateOrder.DAY_FIRST) {
+                                R.string.portfolio_csv_import_date_day_first
+                            } else {
+                                R.string.portfolio_csv_import_date_month_first
+                            },
                         ),
                     )
                 },

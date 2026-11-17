@@ -89,6 +89,11 @@ def need_file(path):
     return path
 
 
+def squash(text):
+    """Ohne Leerraum und ohne Komma vor einer schliessenden Klammer: Vergleich unabhängig vom Umbruch des Formatierers."""
+    return re.sub(r",([)\]}])", r"\1", re.sub(r"\s+", "", text))
+
+
 def is_comment_line(line):
     code = line.lstrip()
     return code.startswith("//") or code.startswith("*") or code.startswith("/*")
@@ -1834,6 +1839,8 @@ def rule_app_start(t):
 SA_KOTLIN_TARGET = re.compile(r'SettingsSearchTarget\.\w+\((?:SettingsPage\.\w+,\s*)?"([^"]+)"\)')
 SA_SWIFT_TARGET = re.compile(r'anchor:\s*"([^"]+)"|\.main\("([^"]+)"\)')
 SA_MIN_TARGETS = 30
+# Katalog der Suche (Android), nach Bereichen auf Dateien verteilt
+SA_CATALOG_FILES = ("SettingsSearchCatalog.kt", "SettingsSearchAppearance.kt", "SettingsSearchAlarms.kt", "SettingsSearchMore.kt")
 # Pflicht-Einträge: Kennung → Anker, zu dem der Treffer führt (Android: Seite und Anker; iOS: Kennung als Ziel)
 SA_REQUIRED_ANDROID = {
     "alarms.delivery": ("ALARMS", "alarms.delivery"),
@@ -1847,9 +1854,19 @@ SA_REQUIRED_IOS_ENTRIES = ("updates.alarm_log", "updates.check_runs")
 
 
 def anchors_missing(targets, sources, marker):
-    """Ziele ohne Zeile mit [marker] und ihrer Kennung in [sources] (Kommentare zählen nicht)."""
-    lines = [line for text in sources for line in ds_strip_comments(text).split("\n") if marker in line]
-    return sorted(t for t in targets if not any(f'"{t}"' in line for line in lines))
+    """Ziele ohne Aufruf [marker]…) mit ihrer Kennung in den Argumenten (Kommentare zählen nicht, Umbrüche egal)."""
+    args = []
+    for text in sources:
+        code = squash(ds_strip_comments(text))
+        start = code.find(marker)
+        while start >= 0:
+            i, depth = start + len(marker), 1
+            while i < len(code) and depth:
+                depth += {"(": 1, ")": -1}.get(code[i], 0)
+                i += 1
+            args.append(code[start:i])
+            start = code.find(marker, i)
+    return sorted(t for t in targets if not any(f'"{t}"' in a for a in args))
 
 
 def settings_anchor_problems_android(catalog, sources):
@@ -1859,10 +1876,10 @@ def settings_anchor_problems_android(catalog, sources):
     if len(targets) <= SA_MIN_TARGETS:
         problems.append(f"Android: nur {len(targets)} Suchziele erkannt (mehr als {SA_MIN_TARGETS} erwartet)")
     problems += [f"Android: Suchziel {t} ohne SettingsAnchor" for t in anchors_missing(targets, sources, "SettingsAnchor(")]
-    flat = re.sub(r"\s+", " ", code)
+    flat = squash(code)
     for entry, (page, anchor) in SA_REQUIRED_ANDROID.items():
-        pattern = re.compile(r'add\("' + re.escape(entry) + r'",[^\n]*?SettingsSearchTarget\.Page\(SettingsPage\.'
-                             + page + r', "' + re.escape(anchor) + r'"\)')
+        pattern = re.compile(r'add\("' + re.escape(entry) + r'",(?:(?!add\().)*?SettingsSearchTarget\.Page\(SettingsPage\.'
+                             + page + r',"' + re.escape(anchor) + r'"\)')
         if not pattern.search(flat):
             problems.append(f"Android: Sucheintrag {entry} führt nicht zu {page}/{anchor}")
     return problems
@@ -1879,7 +1896,7 @@ def settings_anchor_problems_ios(search, sources):
 
 def rule_settings_anchors(t):
     app = t.java("app")
-    catalog = read(need_file(os.path.join(app, "ui", "features", "settings", "SettingsSearchCatalog.kt")))
+    catalog = "\n".join(read(need_file(os.path.join(app, "ui", "features", "settings", name))) for name in SA_CATALOG_FILES)
     problems = settings_anchor_problems_android(catalog, [read(f) for _, f in files_under(app, "kt")])
     ios_app = need_dir(t.i("App"))
     search = "\n".join(read(need_file(t.i("App", "Features", "Settings", n)))
@@ -2028,11 +2045,11 @@ WI_FORBIDDEN = {("app", p): ("any { !it.disabled }",) for p in
 def wiring_problems(sources):
     problems = []
     for key, parts in WI_REQUIRED.items():
-        code = ds_strip_comments(sources.get(key, ""))
-        problems += [f"{key[1]}: {part.splitlines()[0]} fehlt" for part in parts if part not in code]
+        code = squash(ds_strip_comments(sources.get(key, "")))
+        problems += [f"{key[1]}: {part.splitlines()[0]} fehlt" for part in parts if squash(part) not in code]
     for key, parts in WI_FORBIDDEN.items():
-        code = ds_strip_comments(sources.get(key, ""))
-        problems += [f"{key[1]}: {part} (nur aktive Paare als Bedarf)" for part in parts if part in code]
+        code = squash(ds_strip_comments(sources.get(key, "")))
+        problems += [f"{key[1]}: {part} (nur aktive Paare als Bedarf)" for part in parts if squash(part) in code]
     return problems
 
 

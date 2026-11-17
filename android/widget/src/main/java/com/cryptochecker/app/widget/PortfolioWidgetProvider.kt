@@ -7,8 +7,8 @@ import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Portfolio-Widget: Gesamtwert in der Umrechnungswährung mit Veränderung über 24 h; je nach
@@ -27,12 +27,14 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
-        launchAsync("Portfolio-Widget aktualisieren") { com.cryptochecker.app.domain.work.countedRun {
-            // Sofort mit der letzten Aufnahme zeichnen, dann frisch berechnen
-            widgetUpdater.updatePortfolio(appWidgetIds)
-            // goAsync erlaubt nur rund 10 s
-            withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
-        } }
+        launchAsync("Portfolio-Widget aktualisieren") {
+            com.cryptochecker.app.domain.work.countedRun {
+                // Sofort mit der letzten Aufnahme zeichnen, dann frisch berechnen
+                widgetUpdater.updatePortfolio(appWidgetIds)
+                // goAsync erlaubt nur rund 10 s
+                withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
+            }
+        }
     }
 
     /** Grösse geändert: aus der letzten Aufnahme in der neuen Stufe zeichnen (ohne Netz). */

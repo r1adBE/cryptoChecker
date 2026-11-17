@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvAbsorbedRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
+import java.math.BigDecimal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -23,7 +24,6 @@ import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.math.BigDecimal
 
 /**
  * Anlegen importierter Zeilen (PortfolioRepository.insertImported, insertImportedLinked) mit echter In-Memory-Datenbank:
@@ -50,8 +50,12 @@ class PortfolioImportInsertTest {
     }
 
     private fun row(i: Int, amount: String = "0.5") = PortfolioTxEntity(
-        coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal(amount), priceUsdt = BigDecimal("30000"),
-        time = 1_700_000_000_000L + i, importKey = "test-$i",
+        coin = "BTC",
+        type = PortfolioTxType.BUY,
+        amount = BigDecimal(amount),
+        priceUsdt = BigDecimal("30000"),
+        time = 1_700_000_000_000L + i,
+        importKey = "test-$i",
     )
 
     @Test
@@ -94,26 +98,38 @@ class PortfolioImportInsertTest {
             type = PortfolioTxType.WITHDRAWAL, amount = BigDecimal("0.005"), priceUsdt = null, time = 1_700_000_000_000L,
             fee = null, feeUnit = null, feeCoin = null, feeCoinAmount = null, feeCoinPrice = null, transferFrom = null,
             transferTo = null, acquiredTime = null, exchange = null, importKey = "BINANCE|W1", importBatch = "b0",
-            absorbed = CsvAbsorbedRow(PortfolioTxType.DEPOSIT, BigDecimal("0.0049"), null, deposit.time, null, null, null, null,
-                deposit.importKey!!),
+            absorbed = CsvAbsorbedRow(
+                PortfolioTxType.DEPOSIT, BigDecimal("0.0049"), null, deposit.time, null, null, null, null,
+                deposit.importKey!!
+            ),
         ),
     )
 
     private val deposit = PortfolioTxEntity(
-        coin = "BTC", type = PortfolioTxType.DEPOSIT, amount = BigDecimal("0.0049"), time = 1_700_000_900_000L,
+        coin = "BTC",
+        type = PortfolioTxType.DEPOSIT,
+        amount = BigDecimal("0.0049"),
+        time = 1_700_000_900_000L,
         importKey = "COINBASE|D1",
     )
 
     private val withdrawal = PortfolioTxEntity(
-        coin = "BTC", type = PortfolioTxType.WITHDRAWAL, amount = BigDecimal("0.005"), time = 1_700_000_000_000L,
-        importKey = "BINANCE|W1", importBatch = "b0",
+        coin = "BTC",
+        type = PortfolioTxType.WITHDRAWAL,
+        amount = BigDecimal("0.005"),
+        time = 1_700_000_000_000L,
+        importKey = "BINANCE|W1",
+        importBatch = "b0",
     )
 
     @Test
     fun linkAndRowsInOneTransaction() = runBlocking {
         val id = db.getPortfolioDao().insert(withdrawal)
         val written = repository.insertImportedLinked(
-            listOf(row(1), deposit), "b1", listOf(link(id, deposit)), mapOf(deposit.importKey!! to id),
+            listOf(row(1), deposit),
+            "b1",
+            listOf(link(id, deposit)),
+            mapOf(deposit.importKey!! to id),
         )
         assertEquals(CsvImportWritten(inserted = 1, linked = 1), written)
         val all = db.getPortfolioDao().getAll()
@@ -125,7 +141,10 @@ class PortfolioImportInsertTest {
     @Test
     fun deletedStoredSideKeepsTheAbsorbedRow() = runBlocking {
         val written = repository.insertImportedLinked(
-            listOf(row(1), deposit), "b1", listOf(link(99L, deposit)), mapOf(deposit.importKey!! to 99L),
+            listOf(row(1), deposit),
+            "b1",
+            listOf(link(99L, deposit)),
+            mapOf(deposit.importKey!! to 99L),
         )
         assertEquals(CsvImportWritten(inserted = 2, linked = 0), written)
         val kept = db.getPortfolioDao().getAll().single { it.importKey == deposit.importKey }
@@ -138,7 +157,11 @@ class PortfolioImportInsertTest {
         val id = db.getPortfolioDao().insert(withdrawal)
         try {
             repository.insertImportedLinked(
-                listOf(row(1), deposit), "b1", listOf(link(id, deposit)), mapOf(deposit.importKey!! to id), cancelled = { true },
+                listOf(row(1), deposit),
+                "b1",
+                listOf(link(id, deposit)),
+                mapOf(deposit.importKey!! to id),
+                cancelled = { true },
             )
             fail("Abbruch erwartet")
         } catch (_: CsvImportCancelledException) {
@@ -160,8 +183,12 @@ class PortfolioImportInsertTest {
         val price = BigDecimal("0.000000001371733333333333333333333333")
         db.getPortfolioDao().insert(
             row(1, amount = "1.0000000000000000004").copy(
-                priceUsdt = price, fee = BigDecimal("0.0000000000000000015"), feeUnit = PortfolioFeeUnit.COIN.name,
-                feeCoin = "BNB", feeCoinAmount = BigDecimal("1E-19"), feeCoinPriceUsdt = price,
+                priceUsdt = price,
+                fee = BigDecimal("0.0000000000000000015"),
+                feeUnit = PortfolioFeeUnit.COIN.name,
+                feeCoin = "BNB",
+                feeCoinAmount = BigDecimal("1E-19"),
+                feeCoinPriceUsdt = price,
             ),
         )
         val stored = db.getPortfolioDao().getAll().single()

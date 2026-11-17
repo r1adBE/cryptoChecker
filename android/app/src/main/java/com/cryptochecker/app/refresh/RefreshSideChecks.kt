@@ -1,23 +1,23 @@
 package com.cryptochecker.app.refresh
-import com.cryptochecker.app.domain.refresh.SideCheckExtra
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
 import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.alarm.DepegAlarmChecker
-import com.cryptochecker.app.gas.GasAlertChecker
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
+import com.cryptochecker.app.domain.refresh.SideCheckExtra
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.gas.GasAlertChecker
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Prüfungen nach einer vollen Aktualisierung, ausserhalb der Refresh-Sperre: ungewöhnliche Aktivität, Gas-Alarm,

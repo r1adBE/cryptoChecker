@@ -3,13 +3,13 @@ package com.cryptochecker.app.ui.features.portfolio
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Gespeicherte Transaktion → Entwurf des Erfassen-Blatts ([toDraft]) und → mögliches Gegenstück einer Umbuchung beim

@@ -1,17 +1,19 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import androidx.compose.ui.platform.LocalResources
-import androidx.compose.foundation.layout.*
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.BulkAddRunner
-import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberBulkUndoConfirm
@@ -19,6 +21,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.launch
 
 /**
@@ -158,7 +161,10 @@ internal fun ExplorerFeedback(
     val undoExpiredText = stringResource(R.string.bulk_undo_expired)
     val scope = rememberCoroutineScope()
     // «Entfernen» nach Ablauf des Zeitfensters: nichts löschen, nur sagen, dass die Paare bleiben
-    val onUndoExpired = { scope.launch { snackbar.showAppSnackbar(undoExpiredText, SnackbarKind.INFO) }; Unit }
+    val onUndoExpired = {
+        scope.launch { snackbar.showAppSnackbar(undoExpiredText, SnackbarKind.INFO) }
+        Unit
+    }
     BulkUndoConfirmDialog(bulkUndo, onExpired = onUndoExpired, onRemove = onUndoBulk)
     LaunchedEffect(bulkAddResult) {
         val done = bulkAddResult?.takeIf { !it.running }
@@ -206,8 +212,10 @@ internal fun bulkAddedText(resources: android.content.res.Resources, state: Bulk
     val added = resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped)
     if (state.refused <= 0) return added
     val refused = resources.getQuantityString(
-        R.plurals.explorer_bulk_not_added_limit, state.refused,
-        state.refused, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
+        R.plurals.explorer_bulk_not_added_limit,
+        state.refused,
+        state.refused,
+        LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
     )
     return "$added $refused"
 }

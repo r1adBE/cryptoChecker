@@ -1,17 +1,17 @@
 package com.cryptochecker.marketdata.model.exchange
 
-import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.PairQuery
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.generic.SimpleExchange
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
-import org.json.JSONObject
 import kotlin.math.roundToLong
+import org.json.JSONObject
 
 private const val WOO_API = "https://api.woox.io"
 
@@ -57,8 +57,11 @@ class Woo : WooBase(
     override fun tickerCallCount(info: PairQuery?): Int = 2
 
     override fun tickerAddress(call: Int, info: PairQuery): String =
-        if (call == 1) "$WOO_API/v1/public/market_trades?symbol=${pairId(info)}&limit=1"
-        else super.tickerAddress(call, info)
+        if (call == 1) {
+            "$WOO_API/v1/public/market_trades?symbol=${pairId(info)}&limit=1"
+        } else {
+            super.tickerAddress(call, info)
+        }
 
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
         if (call == 1) {

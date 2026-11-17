@@ -1,11 +1,11 @@
 package com.cryptochecker.app.util
 
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.AssumptionViolatedException
 import org.junit.Test
-import java.io.File
 
 /** Meta-Test der Pfadwächter: ein fehlender Pfad lässt den Wächtertest scheitern bzw. überspringen. */
 class SourceGuardTest {
@@ -38,7 +38,11 @@ class SourceGuardTest {
         ).absoluteFile
         // root = <android>/app/src/test/java
         val android = root.parentFile.parentFile.parentFile.parentFile
-        val roots = listOf(root) + listOf("domain", "data").map { SourceGuard.android(File(android, "$it/src/test/java").takeIf(File::isDirectory), "$it/src/test/java") }
+        val roots =
+            listOf(root) +
+                listOf("domain", "data").map {
+                    SourceGuard.android(File(android, "$it/src/test/java").takeIf(File::isDirectory), "$it/src/test/java")
+                }
         val offenders = roots.flatMap { dir ->
             dir.walkTopDown().filter { it.isFile && it.extension == "kt" }
                 .filter { readsIosWithoutGuard(it.readText()) }
@@ -64,6 +68,7 @@ class SourceGuardTest {
     private companion object {
         val BLOCK_COMMENT = Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL)
         val LINE_COMMENT = Regex("""(^|[ \t])//[^\n]*""", RegexOption.MULTILINE)
+
         /** Zeichenkette mit `ios/` (nicht Teil eines Worts) oder `.swift`. */
         val IOS_PATH = Regex(""""[^"\n]*(?:(?<![\w])ios/|\.swift\b)[^"\n]*"""")
     }

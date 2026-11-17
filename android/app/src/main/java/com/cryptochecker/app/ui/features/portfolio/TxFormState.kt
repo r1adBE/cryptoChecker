@@ -20,9 +20,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.fiatToUsdt
+import com.cryptochecker.app.domain.portfolio.fields
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
-import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
@@ -42,6 +44,7 @@ internal fun rememberTxFormState(initial: TxDraft): TxFormState {
 @Stable
 internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     val isEdit = initial.id != 0L
+
     // Schenkung an Ehe-/Lebenspartner bzw. Zins nur bei der passenden Art des Entwurfs
     val initialSpouse = initial.giftToSpouse && initial.type == PortfolioTxType.GIFT
     val initialInterest = initial.interest && initial.type == PortfolioTxType.REWARD
@@ -50,42 +53,56 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     var coinQuery by mutableStateOf(initial.coin)
     var amountText by mutableStateOf(PriceFormat.amountForInput(initial.amount, decimalSeparator))
     var priceText by mutableStateOf(PriceFormat.amountForInput(initial.priceUsdt, decimalSeparator))
+
     // Kurs, an dem ein mehrdeutiger Preis («60.000») gemessen wird: gespeicherter bzw. aktueller Kurs
     var priceHint by mutableStateOf(initial.priceUsdt?.takeIf { it.signum() > 0 }?.toDouble())
+
     // Vorbelegter Preis darf bei einem Coin-Wechsel ersetzt werden, ein getippter nicht
     var priceAuto by mutableStateOf(!isEdit && initial.priceUsdt != null)
+
     // Preis = geprüfter Tagesschluss eines vergangenen Tags (Belohnung/Einzahlung), markiert; Tag als Text
     var priceHistoricDay by mutableStateOf<String?>(null)
     var pricedCoin by mutableStateOf(if (initial.priceUsdt != null || isEdit) initial.coin else "")
     var time by mutableLongStateOf(initial.time)
+
     // Einzahlung: ursprüngliches Kaufdatum (optional, ≤ Datum der Einzahlung) für die Haltedauer im Steuer-Export
     var acquiredTime by mutableStateOf(initial.acquiredTime)
+
     // Höchstens 120 Zeichen wie die Notiz in der Merkliste (eine längere alte Notiz wird beim Speichern gekürzt)
     var note by mutableStateOf(TextLimit.takeGraphemes(initial.note.orEmpty(), NOTE_MAX))
+
     // Gebühr und Börse: zugeklappt, ausser beim Bearbeiten mit Angaben
     var feeText by mutableStateOf(PriceFormat.amountForInput(initial.fee, decimalSeparator))
     var feeUnit by mutableStateOf(initial.feeUnit)
     var exchange by mutableStateOf(initial.exchange.orEmpty())
+
     // Umbuchung: von / nach (freier Text, Vorschläge aus den Börsen)
     var transferFrom by mutableStateOf(initial.transferFrom.orEmpty())
     var transferTo by mutableStateOf(initial.transferTo.orEmpty())
+
     // Schenkung an Ehe-/Lebenspartner (eigenes Feld, nur bei einer Schenkung)
     var giftToSpouse by mutableStateOf(initialSpouse)
+
     // Belohnung als Zins (Lending; AT: Einkunft beim Zufluss) — eigenes Feld, nur bei einer Belohnung
     var interest by mutableStateOf(initialInterest)
+
     // Gebühr in einem dritten Coin
     var feeCoinText by mutableStateOf(initial.feeCoin.orEmpty())
     var feeCoinAmountText by mutableStateOf(PriceFormat.amountForInput(initial.feeCoinAmount, decimalSeparator))
     var feeCoinPriceText by mutableStateOf(PriceFormat.amountForInput(initial.feeCoinPriceUsdt, decimalSeparator))
     var feeCoinPriceAuto by mutableStateOf(false)
+
     // Tausch: erhaltener Coin und Menge, Wert des Tauschs (optional, gesamt)
     var toCoinQuery by mutableStateOf(initial.toCoin.orEmpty())
     var toAmountText by mutableStateOf(PriceFormat.amountForInput(initial.toAmount, decimalSeparator))
     var swapValueText by mutableStateOf(PriceFormat.amountForInput(initial.swapValueUsdt, decimalSeparator))
+
     // Preis/Wert in der Anzeigewährung eingeben (gespeichert wird immer USDT, umgerechnet mit dem Tageskurs)
     var entryFiat by mutableStateOf(false)
+
     // Umschalten auf die Anzeigewährung: Felder (noch USDT) umrechnen, sobald der Kurs da ist
     var pendingToFiat by mutableStateOf(false)
+
     // Kauf: auch die Notiz steht im zugeklappten Abschnitt «Gebühr, Börse, Notiz»
     var showLedger by mutableStateOf(
         initial.fee != null || !initial.exchange.isNullOrBlank() || initial.feeCoin != null ||
@@ -172,25 +189,6 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         )
     }
 
-    /** Vom Nutzer geändert? Vorbelegte Preise (heutiger Kurs, Tagesschluss) zählen nicht als Änderung. */
-    private fun isDirty(): Boolean {
-        val sep = decimalSeparator
-        return type != initial.type || coinQuery != initial.coin ||
-            amountText != PriceFormat.amountForInput(initial.amount, sep) ||
-            (!priceAuto && priceHistoricDay == null && priceText != PriceFormat.amountForInput(initial.priceUsdt, sep)) ||
-            time != initial.time || acquiredTime != initial.acquiredTime ||
-            note != TextLimit.takeGraphemes(initial.note.orEmpty(), NOTE_MAX) ||
-            feeText != PriceFormat.amountForInput(initial.fee, sep) || feeUnit != initial.feeUnit ||
-            exchange != initial.exchange.orEmpty() || transferFrom != initial.transferFrom.orEmpty() ||
-            transferTo != initial.transferTo.orEmpty() || giftToSpouse != initialSpouse || interest != initialInterest ||
-            feeCoinText != initial.feeCoin.orEmpty() ||
-            feeCoinAmountText != PriceFormat.amountForInput(initial.feeCoinAmount, sep) ||
-            (!feeCoinPriceAuto && feeCoinPriceText != PriceFormat.amountForInput(initial.feeCoinPriceUsdt, sep)) ||
-            toCoinQuery != initial.toCoin.orEmpty() ||
-            toAmountText != PriceFormat.amountForInput(initial.toAmount, sep) ||
-            swapValueText != PriceFormat.amountForInput(initial.swapValueUsdt, sep)
-    }
-
     /** Preis getippt: kein vorbelegter Kurs bzw. Tagesschluss mehr. */
     fun onPriceText(text: String) {
         priceText = text
@@ -212,9 +210,15 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         // Ursprüngliches Kaufdatum höchstens das Datum der Einzahlung
         acquiredTime = acquiredTime?.coerceAtMost(time)
         // Tagesschluss gehört zum alten Tag: leeren (der neue wird geladen)
-        if (priceHistoricDay != null) { priceText = ""; priceHistoricDay = null }
+        if (priceHistoricDay != null) {
+            priceText = ""
+            priceHistoricDay = null
+        }
         // Heutiger Kurs des Gebühr-Coins gilt nur für heute
-        if (feeCoinPriceAuto && date != LocalDate.now()) { feeCoinPriceText = ""; feeCoinPriceAuto = false }
+        if (feeCoinPriceAuto && date != LocalDate.now()) {
+            feeCoinPriceText = ""
+            feeCoinPriceAuto = false
+        }
         // Vorbelegter heutiger Kurs gilt nur für heute: anderer Tag → leeren, zurück auf heute → wieder vorbelegen
         val action = PortfolioTxForm.onDateChange(
             isEdit = isEdit,
@@ -223,7 +227,10 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
             priceBlank = priceText.isBlank(),
         )
         when (action) {
-            PortfolioTxForm.PriceAction.CLEAR -> { priceText = ""; priceAuto = false }
+            PortfolioTxForm.PriceAction.CLEAR -> {
+                priceText = ""
+                priceAuto = false
+            }
             PortfolioTxForm.PriceAction.PREFILL -> {
                 val current = priceHint?.takeIf { !entryFiat && coinValid && coin == pricedCoin && it.isFinite() && it > 0.0 }
                 if (current != null) {
@@ -238,8 +245,11 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     /** Ursprüngliches Kaufdatum gewählt: unverändertes Datum behält die Uhrzeit, sonst 12:00 Ortszeit; nie nach der Einzahlung. */
     fun onAcquiredSelected(date: LocalDate) {
         val original = acquiredTime ?: initial.acquiredTime
-        val picked = if (original != null && localDate(original) == date) original
-        else date.atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val picked = if (original != null && localDate(original) == date) {
+            original
+        } else {
+            date.atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        }
         acquiredTime = picked.coerceAtMost(time)
     }
 
@@ -259,7 +269,10 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
 
     /** Auf die Anzeigewährung: umgerechnet wird, sobald der Kurs da ist ([loadEntryFx]). */
     fun switchToFiat() {
-        if (!entryFiat) { entryFiat = true; pendingToFiat = true }
+        if (!entryFiat) {
+            entryFiat = true
+            pendingToFiat = true
+        }
     }
 
     /** Devisenkurs für diesen Tag nicht ladbar: Anzeigewährung gesperrt (mit Hinweis). */
@@ -291,9 +304,27 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
             feeRow = type == PortfolioTxType.SELL && initial.feeRow,
             // Staking-Umbuchung bleibt eine, solange die Art «Umbuchung» bleibt; neu erfasst nie (dann eine Auszahlung)
             stakingMove = type == PortfolioTxType.TRANSFER && initial.stakingMove,
-            feeCoin = if (keepThird) initial.feeCoin else if (third) d.feeCoinSymbol else null,
-            feeCoinAmount = if (keepThird) initial.feeCoinAmount else if (third) d.feeCoinAmount else null,
-            feeCoinPriceUsdt = if (keepThird) initial.feeCoinPriceUsdt else if (third && !d.feeInReceived) d.feeCoinPrice else null,
+            feeCoin = if (keepThird) {
+                initial.feeCoin
+            } else if (third) {
+                d.feeCoinSymbol
+            } else {
+                null
+            },
+            feeCoinAmount = if (keepThird) {
+                initial.feeCoinAmount
+            } else if (third) {
+                d.feeCoinAmount
+            } else {
+                null
+            },
+            feeCoinPriceUsdt = if (keepThird) {
+                initial.feeCoinPriceUsdt
+            } else if (third && !d.feeInReceived) {
+                d.feeCoinPrice
+            } else {
+                null
+            },
             // Nur bei einer Einzahlung, nie nach ihrem Datum
             acquiredTime = if (type == PortfolioTxType.DEPOSIT) acquiredTime?.coerceAtMost(time) else null,
             // Tausch: erhaltener Coin, Menge und Wert (USDT; leer = unbekannt)

@@ -43,13 +43,19 @@ class LogoUrlPolicyTest {
     @Test
     fun entscheidetWieDerParserDesAbrufs() {
         var allowed = 0
-        for (host in hosts) for (port in ports) for (tail in tails) for (wrap in wrappers) {
-            val url = "https://" + wrap(host) + port + tail
-            val expected = isAllowedWithParser(url)
-            assertEquals(url, expected, LogoUrlPolicy.isAllowed(url))
-            if (expected) {
-                allowed++
-                assertTrue(url, parserAgrees(url))
+        for (host in hosts) {
+            for (port in ports) {
+                for (tail in tails) {
+                    for (wrap in wrappers) {
+                        val url = "https://" + wrap(host) + port + tail
+                        val expected = isAllowedWithParser(url)
+                        assertEquals(url, expected, LogoUrlPolicy.isAllowed(url))
+                        if (expected) {
+                            allowed++
+                            assertTrue(url, parserAgrees(url))
+                        }
+                    }
+                }
             }
         }
         assertTrue("freigegebene Fälle: $allowed", allowed > 200)

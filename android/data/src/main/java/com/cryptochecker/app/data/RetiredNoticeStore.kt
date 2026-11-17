@@ -5,13 +5,13 @@ import androidx.core.content.edit
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Mit ✕ geschlossene Hinweise über der Merkliste je Börse ([ExchangeRetirement]): der Hinweis nach dem Ende (Eintrag =

@@ -7,17 +7,23 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.ExchangeCandleRegistry
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.logos.alphaNames
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.alphaTokens
+import com.cryptochecker.app.domain.logos.parseAlpha
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.scoped
-import com.cryptochecker.marketdata.model.PairQuery
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.Binance
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
+import kotlin.math.abs
+import kotlin.math.max
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -26,12 +32,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import kotlin.math.abs
-import kotlin.math.max
-import com.cryptochecker.app.domain.logos.alphaNames
-import com.cryptochecker.app.domain.logos.alphaSymbols
-import com.cryptochecker.app.domain.logos.alphaTokens
-import com.cryptochecker.app.domain.logos.parseAlpha
 
 /**
  * Binance Alpha (`testdata/parity/binance_alpha.json`): Paarliste Spot + Alpha, Kurse aus der Token-Liste

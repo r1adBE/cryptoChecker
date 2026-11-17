@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.toDomain
+import com.cryptochecker.app.domain.util.json.JsonArray
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Einstand für Adressguthaben: Prüfung, Abdeckung gegen das Guthaben (FIFO), Speicherform und Sicherung (hin
@@ -66,7 +66,14 @@ class AddressCostLotsTest {
 
     @Test
     fun addressPartShrinksByLotsAndXpubCoveredAddressesDoNotCount() {
-        val a = WatchedAddress(id = 7, chain = AddressChain.BTC, address = btc, lastBalance = "1", costLots = listOf(lot(1, 10, "0.4", price = "100")))
+        val a =
+            WatchedAddress(
+                id = 7,
+                chain = AddressChain.BTC,
+                address = btc,
+                lastBalance = "1",
+                costLots = listOf(lot(1, 10, "0.4", price = "100"))
+            )
         val trades = AddressBalance.trades(listOf(a), emptyList(), 20_000)
         val (real, part) = AddressBalance.split(trades)
         assertEquals(0, BigDecimal("0.6").compareTo(part["BTC"]))
@@ -110,7 +117,11 @@ class AddressCostLotsTest {
         val restored = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(plain))
         assertTrue(restored.single().costLots.isEmpty())
         // Ohne Posten schreibt die Sicherung das Feld nicht
-        assertFalse(WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(listOf(a.copy(costLots = emptyList())))).getJSONObject(0).has("costLots"))
+        assertFalse(
+            WatchedAddressRules.toJson(
+                WatchedAddressRules.backupEntries(listOf(a.copy(costLots = emptyList())))
+            ).getJSONObject(0).has("costLots")
+        )
     }
 
     @Test
@@ -119,11 +130,36 @@ class AddressCostLotsTest {
         // (1 → 1.3) steckt schon im Guthaben — der Adress-Teil bleibt 1, nur die erste Beobachtung ist ein Zugang
         val obs = listOf(AddressObservation(10, BigDecimal("1")))
         for ((later, transfer) in listOf(
-            "0.5" to PortfolioTrade(7, "BTC", PortfolioTxType.TRANSFER, BigDecimal("0.5"), null, 20, transferFrom = "Ledger", transferTo = "Binance"),
-            "1.3" to PortfolioTrade(7, "BTC", PortfolioTxType.TRANSFER, BigDecimal("0.3"), null, 20, transferFrom = "Binance", transferTo = "Ledger"),
+            "0.5" to
+                PortfolioTrade(
+                    7,
+                    "BTC",
+                    PortfolioTxType.TRANSFER,
+                    BigDecimal("0.5"),
+                    null,
+                    20,
+                    transferFrom = "Ledger",
+                    transferTo = "Binance"
+                ),
+            "1.3" to
+                PortfolioTrade(
+                    7,
+                    "BTC",
+                    PortfolioTxType.TRANSFER,
+                    BigDecimal("0.3"),
+                    null,
+                    20,
+                    transferFrom = "Binance",
+                    transferTo = "Ledger"
+                ),
         )) {
             val ledger = WatchedAddress(
-                id = 3, chain = AddressChain.BTC, address = btc, label = "Ledger", lastBalance = later, lastUpdated = 30,
+                id = 3,
+                chain = AddressChain.BTC,
+                address = btc,
+                label = "Ledger",
+                lastBalance = later,
+                lastUpdated = 30,
                 observations = obs + AddressObservation(30, BigDecimal(later)),
             )
             val fr = AddressCostLots.exportTrades(listOf(transfer), listOf(ledger), frTotalValue = true).drop(1)
@@ -132,7 +168,14 @@ class AddressCostLotsTest {
             assertEquals(10L, fr.single().time)
         }
         // Ohne FR: nur eigene Transaktionen + Posten (Käufe mit Preis)
-        val a = WatchedAddress(id = 2, chain = AddressChain.BTC, address = btc, lastBalance = "1", costLots = listOf(lot(1, 5, "0.4", price = "100")))
+        val a =
+            WatchedAddress(
+                id = 2,
+                chain = AddressChain.BTC,
+                address = btc,
+                lastBalance = "1",
+                costLots = listOf(lot(1, 5, "0.4", price = "100"))
+            )
         val real = listOf(PortfolioTrade(1, "BTC", PortfolioTxType.BUY, BigDecimal("1"), BigDecimal("200"), 50))
         val export = AddressCostLots.exportTrades(real, listOf(a), frTotalValue = false)
         assertEquals(listOf(1L, AddressCostLots.tradeId(2, 0)), export.map { it.id })
@@ -141,7 +184,15 @@ class AddressCostLotsTest {
 
     @Test
     fun recordedMovesOfTheAddressWalletAndNoNegativeBase() {
-        fun t(id: Long, type: PortfolioTxType, amount: String, exchange: String? = null, from: String? = null, to: String? = null, coinFee: String? = null) =
+        fun t(
+            id: Long,
+            type: PortfolioTxType,
+            amount: String,
+            exchange: String? = null,
+            from: String? = null,
+            to: String? = null,
+            coinFee: String? = null
+        ) =
             PortfolioTrade(
                 id, "BTC", type, BigDecimal(amount), null, 10, fee = coinFee?.let(::BigDecimal),
                 feeUnit = coinFee?.let { PortfolioFeeUnit.COIN }, exchange = exchange, transferFrom = from, transferTo = to,
@@ -159,7 +210,12 @@ class AddressCostLotsTest {
         assertEquals(0, BigDecimal.ZERO.compareTo(AddressCostLots.recorded("ETH", "Ledger", trades)))
         assertEquals(0, BigDecimal.ZERO.compareTo(AddressCostLots.recorded("BTC", " ", trades)))
         // Erfasste Zugänge über dem Guthaben: Bestand 0, alle Posten verbraucht, nichts negativ
-        val c = AddressCostLots.cover("BTC", AddressCostLots.clean(listOf(lot(1, 10, "1", price = "1"))), BigDecimal("0.2"), BigDecimal("0.5"))
+        val c = AddressCostLots.cover(
+            "BTC",
+            AddressCostLots.clean(listOf(lot(1, 10, "1", price = "1"))),
+            BigDecimal("0.2"),
+            BigDecimal("0.5")
+        )
         assertEquals(0, BigDecimal.ZERO.compareTo(c.base))
         assertEquals(0, BigDecimal.ZERO.compareTo(c.lotted))
         assertEquals(0, BigDecimal.ZERO.compareTo(c.unlotted))

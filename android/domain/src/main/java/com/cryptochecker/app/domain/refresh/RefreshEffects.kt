@@ -1,9 +1,5 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
@@ -12,16 +8,20 @@ import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
-import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.DomainLog
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import com.cryptochecker.app.domain.util.DomainLog
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Was nach einem neuen Kurs passiert: Alarme prüfen und melden (mit Ansage), die
@@ -213,8 +213,10 @@ class RefreshEffects constructor(
                 // Vermerk einer schon gespeicherten Auslösung zählt nicht (neue Auslösung wird gemeldet)
                 savedSince = { markerAt -> AlarmDeliveryMarker.savedSinceMarker(alarm.lastTriggeredAt, markerAt) },
             )
-            if (trace != null && logPrice != null) observe {
-                AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved, snoozed)?.let { trace.note(alarm, it, logPrice) }
+            if (trace != null && logPrice != null) {
+                observe {
+                    AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved, snoozed)?.let { trace.note(alarm, it, logPrice) }
+                }
             }
             if (!saved) return
             count++
@@ -230,87 +232,102 @@ class RefreshEffects constructor(
          * stellen oder melden.
          */
         suspend fun checkPriceAlarm(alarm: AlarmEntity) {
-        // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
-        if (alarmEvaluator.needsReference(alarm, now)) {
-            watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
-            if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), price) }
-            return
-        }
-        // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen.
-        // Vorheriger Kurs mit demselben Faktor — verglichen wird durchgehend in der Alarm-Währung
-        val convertTo = alarm.convertCurrency
-        val rate = if (convertTo == null) 1.0 else rateFor(convertTo)?.takeIf { it.isFinite() && it > 0.0 }
-        if (rate == null) {
-            unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
-            if (trace != null) observe { trace.note(alarm, AlarmLogTrace(noRate = true), null) }
-            return
-        }
-        val comparePrice = if (convertTo == null) price else price * rate
-        val comparePrevious = if (convertTo == null) previousPrice else previousPrice?.let { it * rate }
-        // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
-        val skip = convertTo?.let { currencyConverter.skip(conversionQuote, it, now) }
-        if (skip != null) {
-            unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
-            if (trace != null) observe {
-                val due = alarmEvaluator.shouldTrigger(
-                    alarm, comparePrice, comparePrevious, now, settings.alarmCooldownMinutes, moveHistory,
-                )
-                val fxStale = skip == FiatAlarmGuard.Skip.FX_STALE
-                trace.note(alarm, AlarmLogTrace(fxStale = fxStale, fxUnsure = !fxStale, due = due), comparePrice)
+            // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
+            if (alarmEvaluator.needsReference(alarm, now)) {
+                watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
+                if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), price) }
+                return
             }
-            return
-        }
-        // Bewegungs-Alarm ohne Kurs im Zeitfenster (lange Pause): nicht als «geprüft» ausgeben
-        if (alarmEvaluator.moveWindowUncheckable(alarm, comparePrice, now, moveHistory)) {
-            unchecked(alarm, AlarmCheckStatus.Reason.NO_WINDOW_PRICE)
-            return
-        }
-        alarmCheckStatus.markChecked(alarm.id)
-        // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
-        if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
-            watchRepository.rearmAlarmIfUnchanged(alarm)
-            if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), comparePrice) }
-            return
-        }
-        val fires = alarmEvaluator.shouldTrigger(
-            alarm = alarm,
-            price = comparePrice,
-            previousPrice = comparePrevious,
-            now = now,
-            cooldownMinutes = settings.alarmCooldownMinutes,
-            moveHistory = moveHistory,
-        )
-        if (!fires) {
-            // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
-            if (trace != null) observe {
-                val metWithoutCooldown = settings.alarmCooldownMinutes > 0 && alarmEvaluator.shouldTrigger(
-                    alarm = alarm,
-                    price = comparePrice,
-                    previousPrice = comparePrevious,
-                    now = now,
-                    cooldownMinutes = 0,
-                    moveHistory = moveHistory,
-                )
-                val waiting = alarm.condition.isPriceThreshold && !alarmEvaluator.isLevelArmed(alarm)
-                trace.note(alarm, AlarmLogTrace(coolingDown = metWithoutCooldown, waitingRearm = waiting), comparePrice)
+            // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen.
+            // Vorheriger Kurs mit demselben Faktor — verglichen wird durchgehend in der Alarm-Währung
+            val convertTo = alarm.convertCurrency
+            val rate = if (convertTo == null) 1.0 else rateFor(convertTo)?.takeIf { it.isFinite() && it > 0.0 }
+            if (rate == null) {
+                unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                if (trace != null) observe { trace.note(alarm, AlarmLogTrace(noRate = true), null) }
+                return
             }
-            return
-        }
+            val comparePrice = if (convertTo == null) price else price * rate
+            val comparePrevious = if (convertTo == null) previousPrice else previousPrice?.let { it * rate }
+            // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
+            val skip = convertTo?.let { currencyConverter.skip(conversionQuote, it, now) }
+            if (skip != null) {
+                unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                if (trace != null) {
+                    observe {
+                        val due = alarmEvaluator.shouldTrigger(
+                            alarm,
+                            comparePrice,
+                            comparePrevious,
+                            now,
+                            settings.alarmCooldownMinutes,
+                            moveHistory,
+                        )
+                        val fxStale = skip == FiatAlarmGuard.Skip.FX_STALE
+                        trace.note(alarm, AlarmLogTrace(fxStale = fxStale, fxUnsure = !fxStale, due = due), comparePrice)
+                    }
+                }
+                return
+            }
+            // Bewegungs-Alarm ohne Kurs im Zeitfenster (lange Pause): nicht als «geprüft» ausgeben
+            if (alarmEvaluator.moveWindowUncheckable(alarm, comparePrice, now, moveHistory)) {
+                unchecked(alarm, AlarmCheckStatus.Reason.NO_WINDOW_PRICE)
+                return
+            }
+            alarmCheckStatus.markChecked(alarm.id)
+            // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
+            if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
+                watchRepository.rearmAlarmIfUnchanged(alarm)
+                if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), comparePrice) }
+                return
+            }
+            val fires = alarmEvaluator.shouldTrigger(
+                alarm = alarm,
+                price = comparePrice,
+                previousPrice = comparePrevious,
+                now = now,
+                cooldownMinutes = settings.alarmCooldownMinutes,
+                moveHistory = moveHistory,
+            )
+            if (!fires) {
+                // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
+                if (trace != null) {
+                    observe {
+                        val metWithoutCooldown = settings.alarmCooldownMinutes > 0 && alarmEvaluator.shouldTrigger(
+                            alarm = alarm,
+                            price = comparePrice,
+                            previousPrice = comparePrevious,
+                            now = now,
+                            cooldownMinutes = 0,
+                            moveHistory = moveHistory,
+                        )
+                        val waiting = alarm.condition.isPriceThreshold && !alarmEvaluator.isLevelArmed(alarm)
+                        trace.note(alarm, AlarmLogTrace(coolingDown = metWithoutCooldown, waitingRearm = waiting), comparePrice)
+                    }
+                }
+                return
+            }
 
-        // Gespeichert wird der Kurs in der Quote; gemeldet und angesagt in der Währung
-        // der Schwelle — sonst stünde «Über 60’000 CHF — jetzt 66’000 USDT» in der Meldung
-        report(
-            alarm,
-            mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
-            show = {
-                // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
-                val usdtAssumed = convertTo != null && currencyConverter.usdtAssumed(conversionQuote, convertTo, now)
-                notifier.showAlarm(watch, alarm, comparePrice, priceCurrency = convertTo, textNote = AlarmTextNote.of(usdtAssumed = usdtAssumed))
-            },
-            spokenPrice = comparePrice,
-            currency = convertTo,
-            logPrice = comparePrice,
-        )
+            // Gespeichert wird der Kurs in der Quote; gemeldet und angesagt in der Währung
+            // der Schwelle — sonst stünde «Über 60’000 CHF — jetzt 66’000 USDT» in der Meldung
+            report(
+                alarm,
+                mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
+                show = {
+                    // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
+                    val usdtAssumed = convertTo != null && currencyConverter.usdtAssumed(conversionQuote, convertTo, now)
+                    notifier.showAlarm(
+                        watch,
+                        alarm,
+                        comparePrice,
+                        priceCurrency = convertTo,
+                        textNote = AlarmTextNote.of(usdtAssumed = usdtAssumed)
+                    )
+                },
+                spokenPrice = comparePrice,
+                currency = convertTo,
+                logPrice = comparePrice,
+            )
         }
     }
 

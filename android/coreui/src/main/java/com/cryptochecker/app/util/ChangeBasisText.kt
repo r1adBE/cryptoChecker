@@ -1,14 +1,14 @@
 package com.cryptochecker.app.util
 
-import androidx.compose.ui.platform.LocalResources
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import com.cryptochecker.resources.R
+import androidx.compose.ui.platform.LocalResources
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.resources.R
 
 /**
  * Texte zur «Basis der %-Änderung» für App und Widgets: kurzer Zeitraum neben der Änderung, Puls und
@@ -61,14 +61,23 @@ object ChangeBasisText {
         return when (basis.kind) {
             ChangeBasis.Kind.ROLLING_24H -> A11yText.change24h(context, valid)
             ChangeBasis.Kind.SINCE_LAST ->
-                if (valid == null) context.getString(R.string.a11y_change_since_last_none)
-                else context.getString(R.string.a11y_change_since_last, A11yText.change(context, valid))
+                if (valid == null) {
+                    context.getString(R.string.a11y_change_since_last_none)
+                } else {
+                    context.getString(R.string.a11y_change_since_last, A11yText.change(context, valid))
+                }
             ChangeBasis.Kind.UTC_DAY ->
-                if (valid == null) context.getString(R.string.a11y_change_today_zone_none, zone(basis))
-                else context.getString(R.string.a11y_change_today_zone, A11yText.change(context, valid), zone(basis))
+                if (valid == null) {
+                    context.getString(R.string.a11y_change_today_zone_none, zone(basis))
+                } else {
+                    context.getString(R.string.a11y_change_today_zone, A11yText.change(context, valid), zone(basis))
+                }
             ChangeBasis.Kind.LOCAL_DAY ->
-                if (valid == null) context.getString(R.string.a11y_change_today_none)
-                else context.getString(R.string.a11y_change_today, A11yText.change(context, valid))
+                if (valid == null) {
+                    context.getString(R.string.a11y_change_today_none)
+                } else {
+                    context.getString(R.string.a11y_change_today, A11yText.change(context, valid))
+                }
         }
     }
 
@@ -106,8 +115,11 @@ object ChangeBasisText {
     fun summary(basis: ChangeBasis): String {
         LocalConfiguration.current
         val context = LocalContext.current
-        return if (basis.kind == ChangeBasis.Kind.ROLLING_24H) LocalResources.current.getString(R.string.change_basis_rolling)
-        else longLabel(context, basis)
+        return if (basis.kind == ChangeBasis.Kind.ROLLING_24H) {
+            LocalResources.current.getString(R.string.change_basis_rolling)
+        } else {
+            longLabel(context, basis)
+        }
     }
 
     private fun zone(basis: ChangeBasis): String = ChangeBasisMath.zoneLabel(basis) ?: "UTC"

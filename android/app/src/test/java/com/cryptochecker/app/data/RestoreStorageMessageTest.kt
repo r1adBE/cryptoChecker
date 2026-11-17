@@ -2,17 +2,17 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.data.backup.BackupRestoreStorageException
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.RestoreRun
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.ui.features.settings.BackupMessage
 import com.cryptochecker.app.ui.features.settings.BackupResultPresentation
+import com.cryptochecker.resources.R
+import java.io.IOException
+import kotlin.coroutines.cancellation.CancellationException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Wiederherstellen scheitert am Speicher der App ([RestoreRun.forMessage]): eigene Meldung

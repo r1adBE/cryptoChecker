@@ -168,8 +168,11 @@ internal object FakeMarketData {
     // ── Binance-Website ──
 
     /** Symbolliste mit vollen Namen (`fullName`), wie die Website sie für Logos und Namen liefert. */
-    private fun binanceSymbolList(): String = FakeMarketSeries.coins.joinToString(",", """{"code":"000000","data":[""",
-        """],"success":true}""") { coin ->
+    private fun binanceSymbolList(): String = FakeMarketSeries.coins.joinToString(
+        ",",
+        """{"code":"000000","data":[""",
+        """],"success":true}"""
+    ) { coin ->
         """{"name":"${coin.symbol}","fullName":"${coin.name}","logo":null,"tags":[],"onlyFutures":false}"""
     }
 

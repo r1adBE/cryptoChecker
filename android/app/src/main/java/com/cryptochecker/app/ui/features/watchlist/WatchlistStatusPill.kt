@@ -45,11 +45,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Punkt in der Statusfarbe und der Satz dazu, z. B. «Kurse der gewählten Börsen · vor 2 Min.». */
 @Composable
@@ -103,8 +103,11 @@ internal fun WatchlistStatusPill(
             } else {
                 stringResource(R.string.offline_status)
             }
-            status.offline -> if (newest > 0) stringResource(R.string.watchlist_offline_since, ago(newest, now))
-                else stringResource(R.string.watch_error_offline)
+            status.offline -> if (newest > 0) {
+                stringResource(R.string.watchlist_offline_since, ago(newest, now))
+            } else {
+                stringResource(R.string.watch_error_offline)
+            }
             status.stale > 0 -> pluralStringResource(R.plurals.watchlist_stale_count, status.stale, status.stale, status.traded)
             status.failed > 0 -> pluralStringResource(R.plurals.watchlist_failed_count, status.failed, status.failed, status.traded)
             // Ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind, sonst

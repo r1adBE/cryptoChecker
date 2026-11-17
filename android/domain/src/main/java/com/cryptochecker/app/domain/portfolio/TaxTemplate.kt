@@ -58,7 +58,16 @@ import java.time.ZoneId
  *    国税庁 «仮想通貨に関する所得の計算方法等について» (2017): 雑所得, Tausch steuerbar. Kalenderjahr.
  */
 enum class TaxTemplate {
-    NEUTRAL, DE, AT, CH, UK, US, CA, AU, FR, JP;
+    NEUTRAL,
+    DE,
+    AT,
+    CH,
+    UK,
+    US,
+    CA,
+    AU,
+    FR,
+    JP;
 
     /** Währung der Vorlage (Steuerwährung); null = Anzeigewährung ([NEUTRAL]). */
     val currency: String?
@@ -146,7 +155,11 @@ enum class TaxTemplate {
     fun walletFrom(app: CostMethod, startYear: Int): LocalDate? =
         if (this == US && startYear >= US_WALLET_FROM_YEAR && methodFor(app, startYear) == TaxMethod.FIFO_WALLET &&
             methodFor(app, US_WALLET_FROM_YEAR - 1) == TaxMethod.FIFO
-        ) LocalDate.of(US_WALLET_FROM_YEAR, 1, 1) else null
+        ) {
+            LocalDate.of(US_WALLET_FROM_YEAR, 1, 1)
+        } else {
+            null
+        }
 
     /**
      * Die Vorlage erlaubt die Einstandsmethode [app] nicht — der Export rechnet still mit [methodFor]. Darum Hinweis

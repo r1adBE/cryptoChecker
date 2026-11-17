@@ -29,17 +29,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.work.ExactCheckOffer
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.ReferenceSource
+import com.cryptochecker.resources.R
 
 /**
  * EIN Dialog nach dem allerersten Alarm statt mehrerer nacheinander: Bestätigung mit «Alarm testen», dazu optional
@@ -170,7 +170,10 @@ internal fun DeleteAlarmDialog(onDelete: () -> Unit, onDismiss: () -> Unit) {
         title = { Text(stringResource(R.string.alarm_delete_title)) },
         text = { Text(stringResource(R.string.alarm_delete_confirm)) },
         confirmButton = {
-            TextButton(onClick = { haptics.play(HapticEvent.DESTRUCTIVE); onDelete() }) {
+            TextButton(onClick = {
+                haptics.play(HapticEvent.DESTRUCTIVE)
+                onDelete()
+            }) {
                 Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
             }
         },

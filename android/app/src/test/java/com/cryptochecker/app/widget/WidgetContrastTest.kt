@@ -2,10 +2,10 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.widget.WidgetContrast
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 class WidgetContrastTest {
 
@@ -38,15 +38,17 @@ class WidgetContrastTest {
      */
     @Test
     fun `widgets raise the accent in high contrast like the app`() {
-        for (accent in com.cryptochecker.app.domain.settings.AccentColor.entries) for (dark in listOf(false, true)) {
-            val normal = WidgetColors.of(accent, dark)
-            val strong = WidgetColors.of(accent, dark, highContrast = true)
-            assertEquals(WidgetContrast.highContrastAccent(normal.accentColor, dark), strong.accentColor)
-            val reference = if (dark) WidgetContrast.DARK_REFERENCE else WidgetContrast.LIGHT_REFERENCE
-            assertTrue("${accent.name}/dark=$dark", WidgetContrast.ratio(strong.accentColor, reference) >= 7.0)
-            assertTrue(WidgetContrast.ratio(strong.onAccentColor, strong.accentColor) >= 4.5)
-            // Ohne hohen Kontrast bleibt der Akzent der App
-            assertEquals(normal.accentColor, WidgetColors.of(accent, dark, highContrast = false).accentColor)
+        for (accent in com.cryptochecker.app.domain.settings.AccentColor.entries) {
+            for (dark in listOf(false, true)) {
+                val normal = WidgetColors.of(accent, dark)
+                val strong = WidgetColors.of(accent, dark, highContrast = true)
+                assertEquals(WidgetContrast.highContrastAccent(normal.accentColor, dark), strong.accentColor)
+                val reference = if (dark) WidgetContrast.DARK_REFERENCE else WidgetContrast.LIGHT_REFERENCE
+                assertTrue("${accent.name}/dark=$dark", WidgetContrast.ratio(strong.accentColor, reference) >= 7.0)
+                assertTrue(WidgetContrast.ratio(strong.onAccentColor, strong.accentColor) >= 4.5)
+                // Ohne hohen Kontrast bleibt der Akzent der App
+                assertEquals(normal.accentColor, WidgetColors.of(accent, dark, highContrast = false).accentColor)
+            }
         }
     }
 

@@ -22,6 +22,7 @@ import com.cryptochecker.app.ui.features.settings.PortfolioPage
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -30,7 +31,6 @@ import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Einstellungen › Portfolio: eine andere Einstandsmethode und «Portfolio in

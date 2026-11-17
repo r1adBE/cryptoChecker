@@ -25,8 +25,10 @@ object WidgetChartRenderer {
     /** Beschriftungen ≈ 9.5 sp, auf kleiner Fläche 8.5 sp. */
     private const val TEXT_SP = 9.5f
     private const val TEXT_SP_COMPACT = 8.5f
+
     /** Grosse Systemschrift nur begrenzt übernehmen, sonst frisst die Spalte den Chart. */
     private const val MAX_FONT_SCALE = 1.3f
+
     /** Die Beschriftungsspalte nimmt höchstens diesen Anteil der Breite ein. */
     private const val MAX_COLUMN_RATIO = 0.42f
 
@@ -156,34 +158,51 @@ object WidgetChartRenderer {
                     lineTo(geo.linePoints.first().first, geo.plotBottom)
                     close()
                 }
-                canvas.drawPath(fill, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    this.color = color
-                    alpha = 40
-                    style = Paint.Style.FILL
-                })
-                canvas.drawPath(line, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    this.color = color
-                    strokeWidth = 1.5f * dp
-                    style = Paint.Style.STROKE
-                    strokeJoin = Paint.Join.ROUND
-                    strokeCap = Paint.Cap.ROUND
-                })
+                canvas.drawPath(
+                    fill,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        this.color = color
+                        alpha = 40
+                        style = Paint.Style.FILL
+                    }
+                )
+                canvas.drawPath(
+                    line,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        this.color = color
+                        strokeWidth = 1.5f * dp
+                        style = Paint.Style.STROKE
+                        strokeJoin = Paint.Join.ROUND
+                        strokeCap = Paint.Cap.ROUND
+                    }
+                )
             }
         }
 
         // --- Aktueller Kurs: gestrichelte Akzentlinie und Etikett ---
-        canvas.drawLine(geo.plotLeft, geo.currentY, geo.plotRight, geo.currentY, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = withAlpha(colors.accentColor, if (highContrast) 1f else 0.7f)
-            strokeWidth = max(1f, 0.8f * dp)
-            style = Paint.Style.STROKE
-            pathEffect = DashPathEffect(floatArrayOf(3f * dp, 2.5f * dp), 0f)
-        })
+        canvas.drawLine(
+            geo.plotLeft,
+            geo.currentY,
+            geo.plotRight,
+            geo.currentY,
+            Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = withAlpha(colors.accentColor, if (highContrast) 1f else 0.7f)
+                strokeWidth = max(1f, 0.8f * dp)
+                style = Paint.Style.STROKE
+                pathEffect = DashPathEffect(floatArrayOf(3f * dp, 2.5f * dp), 0f)
+            }
+        )
         val tagLeft = geo.plotRight + gap
         val tagRect = RectF(tagLeft, geo.tagSpan.top, w.toFloat(), geo.tagSpan.bottom)
-        canvas.drawRoundRect(tagRect, 3f * dp, 3f * dp, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = colors.accentColor
-            style = Paint.Style.FILL
-        })
+        canvas.drawRoundRect(
+            tagRect,
+            3f * dp,
+            3f * dp,
+            Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = colors.accentColor
+                style = Paint.Style.FILL
+            }
+        )
         tagTextPaint.color = colors.onAccentColor
         canvas.drawText(tagText, tagLeft + tagPadH, tagRect.centerY() - (tfm.ascent + tfm.descent) / 2f, tagTextPaint)
 
@@ -287,23 +306,34 @@ object WidgetChartRenderer {
                     lineTo(points.first().x, geo.plotBottom)
                     close()
                 }
-                canvas.drawPath(fill, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = lineColor
-                    alpha = 40
-                    style = Paint.Style.FILL
-                })
-                canvas.drawPath(line, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = lineColor
-                    strokeWidth = stroke
-                    style = Paint.Style.STROKE
-                    strokeJoin = Paint.Join.ROUND
-                    strokeCap = Paint.Cap.ROUND
-                })
+                canvas.drawPath(
+                    fill,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = lineColor
+                        alpha = 40
+                        style = Paint.Style.FILL
+                    }
+                )
+                canvas.drawPath(
+                    line,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = lineColor
+                        strokeWidth = stroke
+                        style = Paint.Style.STROKE
+                        strokeJoin = Paint.Join.ROUND
+                        strokeCap = Paint.Cap.ROUND
+                    }
+                )
                 val last = points.last()
-                canvas.drawCircle(last.x, last.y, dot, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = lineColor
-                    style = Paint.Style.FILL
-                })
+                canvas.drawCircle(
+                    last.x,
+                    last.y,
+                    dot,
+                    Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = lineColor
+                        style = Paint.Style.FILL
+                    }
+                )
             }
         }
 

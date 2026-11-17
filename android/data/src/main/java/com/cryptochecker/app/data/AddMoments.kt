@@ -1,12 +1,12 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.starter.AddMoment
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Übergibt einen «Erst-Moment» ([AddMoment]) an die Merkliste, die ihn abspielt,

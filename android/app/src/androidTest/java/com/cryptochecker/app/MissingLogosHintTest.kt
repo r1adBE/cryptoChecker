@@ -9,13 +9,14 @@ import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertWidthIsAtLeast
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.components.CoinLogoSource
@@ -23,7 +24,6 @@ import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.features.watchlist.MISSING_LOGOS_TAG
 import com.cryptochecker.app.ui.features.watchlist.WatchlistLogoHint
 import com.cryptochecker.app.ui.features.watchlist.WatchlistMissingLogos
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

@@ -66,7 +66,24 @@ object CsvImportParser {
     val SATS_PER_BTC = BigDecimal(100_000_000)
 
     /** Spaltenrollen. */
-    enum class Role { DATE, KIND, COIN, AMOUNT, AMOUNT_SATS, PRICE, FIAT_AMOUNT, QUOTE, NET_CURRENCY, PAIR, FEE, FEE_UNIT, ID, ISIN, TO_COIN, TO_AMOUNT }
+    enum class Role {
+        DATE,
+        KIND,
+        COIN,
+        AMOUNT,
+        AMOUNT_SATS,
+        PRICE,
+        FIAT_AMOUNT,
+        QUOTE,
+        NET_CURRENCY,
+        PAIR,
+        FEE,
+        FEE_UNIT,
+        ID,
+        ISIN,
+        TO_COIN,
+        TO_AMOUNT,
+    }
 
     /** Normalisierter Spaltenname → Rolle (exakt). */
     private val ALIASES: Map<String, Role> = buildMap {
@@ -74,7 +91,10 @@ object CsvImportParser {
         add(Role.DATE, "date", "datum", "timestamp", "time", "datetime", "zeitpunkt", "dateheure")
         // «Date(UTC)», «Time (UTC)», «UTC_Time»: Zeiten in UTC ([Header.utcDate])
         add(Role.DATE, "dateutc", "timeutc", "datetimeutc", "timestamputc", "utctime", "utcdate")
-        add(Role.KIND, "transactiontype", "type", "transaction", "transaktion", "transaktionen", "typ", "art", "kind", "transactiontyp", "transaktionstyp")
+        add(
+            Role.KIND, "transactiontype", "type", "transaction", "transaktion", "transaktionen", "typ", "art", "kind",
+            "transactiontyp", "transaktionstyp",
+        )
         add(Role.COIN, "symbol", "coin", "asset", "cryptocurrency", "crypto")
         add(Role.AMOUNT, "btcamount", "amountbtc", "quantity", "amount", "anzahl", "menge", "quantite", "btc")
         add(Role.AMOUNT_SATS, "satsamount", "amountsats", "sats", "satoshis", "satamount", "amountsat")
@@ -85,10 +105,16 @@ object CsvImportParser {
         add(Role.PAIR, "currencypair", "pair", "waehrungspaar", "market")
         add(Role.FEE, "fee", "fees", "costs", "kosten", "gebuehr", "gebuehren", "frais", "commission")
         add(Role.FEE_UNIT, "feecurrency", "feeunit", "feeasset", "gebuehrenwaehrung")
-        add(Role.ID, "operationid", "orderid", "order", "ordernr", "auftrag", "auftragnr", "ordre", "transactionid", "id", "txid", "reference")
+        add(
+            Role.ID, "operationid", "orderid", "order", "ordernr", "auftrag", "auftragnr", "ordre", "transactionid", "id", "txid",
+            "reference",
+        )
         add(Role.ISIN, "isin")
         // Tausch in einer Zeile: erhaltene Seite
-        add(Role.TO_COIN, "tocoin", "toasset", "tocurrency", "receivedcoin", "receivedasset", "receivedcurrency", "zielcoin", "erhaltenercoin")
+        add(
+            Role.TO_COIN, "tocoin", "toasset", "tocurrency", "receivedcoin", "receivedasset", "receivedcurrency", "zielcoin",
+            "erhaltenercoin",
+        )
         add(Role.TO_AMOUNT, "toamount", "toquantity", "receivedamount", "receivedquantity", "zielmenge", "erhaltenemenge")
     }
 
@@ -147,7 +173,11 @@ object CsvImportParser {
                     val records = tokenizeOrNull(clean, d) ?: return tooLarge()
                     val override = zone ?: "UTC".takeIf { header.utcDate }
                     return build(
-                        format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), dateOrder,
+                        format,
+                        header,
+                        records.subList(h + 1, records.size),
+                        zoneFor(format, deviceZone, override),
+                        dateOrder,
                         decimalMark,
                     ).copy(columns = header.recognized(), fxZone = fxZone ?: deviceZone)
                 }

@@ -19,20 +19,27 @@ object PortfolioPeriodParts {
     class Parts {
         /** Σ Gewinn je Coin (Wert Ende − Wert Anfang − Zuflüsse). */
         var gain = 0.0
+
         /** Σ Bestand am Stichtag × Kurs am Anfang. */
         var start = 0.0
+
         /** Σ Käufe im Zeitraum (Einstand). */
         var buys = 0.0
+
         /** Σ heutiger Bestand × (Kurs jetzt − Kurs am Anfang) — die reine Kursänderung derselben Coins. */
         var held = 0.0
         var counted = 0
         var windowTrades = 0
+
         /** Coins ohne Kurs am Anfang (fehlen in der Summe). */
         val skipped = ArrayList<String>()
+
         /** Gezählte Coins. */
         val countedCoins = HashSet<String>()
+
         /** Σ reine Kursänderung der wegen Transaktion ohne Preis ausgelassenen Coins (soweit Kurs am Anfang bekannt). */
         var skippedHeld = 0.0
+
         /** Σ Wert beim Erhalt der Belohnungen im Zeitraum (gezählte Coins). */
         var rewards = 0.0
 
@@ -99,7 +106,9 @@ object PortfolioPeriodParts {
                 val feeCoin = e.trade.thirdFeeCoin
                 val feeMarket = if (feeCoin != null && PortfolioLedger.needsFeeMarketPrice(e)) {
                     marketPrice(feeCoin, current[feeCoin]?.takeIf { it > 0.0 && it.isFinite() }, e.trade.time)
-                } else null
+                } else {
+                    null
+                }
                 // Abgänge gekappt auf den Topf des Schritts (FIFO je Wallet: seine Wallet)
                 val f = PortfolioLedger.flow(e, book.capFor(e), market, feeMarket, book.method)
                 if (f == null) flows = null else flows?.add(e to f)

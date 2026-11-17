@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.notification.NotificationBudget
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Ablauf «ausgelösten Alarm melden» ohne Android-Abhängigkeiten (Spiegel von `report` in

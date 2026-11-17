@@ -21,11 +21,19 @@ import org.junit.Test
 class PhoneWatchFeedTest {
 
     /** Wie die Merkliste speichert: Börsen-Paare mit ihrer Kennung (Binance «BTCUSDT»), DexScreener «chain/address». */
-    private fun watch(base: String, quote: String = "USDT", price: Double = 10.0, time: Long = 1_000L,
-                      contract: FuturesContractType = FuturesContractType.NONE, exchange: String = "Binance",
-                      pairId: String? = "$base$quote") =
-        WatchEntity(exchangeKey = exchange, exchangeName = exchange, baseAsset = base, quoteAsset = quote,
-            contractType = contract, pairId = pairId, lastPrice = price, lastUpdate = time, change24h = 1.5)
+    private fun watch(
+        base: String,
+        quote: String = "USDT",
+        price: Double = 10.0,
+        time: Long = 1_000L,
+        contract: FuturesContractType = FuturesContractType.NONE,
+        exchange: String = "Binance",
+        pairId: String? = "$base$quote"
+    ) =
+        WatchEntity(
+            exchangeKey = exchange, exchangeName = exchange, baseAsset = base, quoteAsset = quote,
+            contractType = contract, pairId = pairId, lastPrice = price, lastUpdate = time, change24h = 1.5
+        )
 
     @Test
     fun spotUsdtOfBothLists() {
@@ -56,14 +64,30 @@ class PhoneWatchFeedTest {
     /** Zwei DexScreener-Pools mit gleicher Basis/Quote: eigene Schlüssel, die Uhr bekommt den Kurs des markierten. */
     @Test
     fun twoPoolsStayApart() {
-        val marked = watch("PEPE", exchange = "DexScreener", pairId = "ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f",
-            price = 4e-9).copy(favorite = true)
-        val other = watch("PEPE", exchange = "DexScreener", pairId = "ethereum/0x11950d141ecb863f01007add7d1a342041227b58",
-            price = 5e-9, time = 2_000L)
+        val marked = watch(
+            "PEPE",
+            exchange = "DexScreener",
+            pairId = "ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f",
+            price = 4e-9
+        ).copy(favorite = true)
+        val other = watch(
+            "PEPE",
+            exchange = "DexScreener",
+            pairId = "ethereum/0x11950d141ecb863f01007add7d1a342041227b58",
+            price = 5e-9,
+            time = 2_000L
+        )
         val (_, pairs) = PhoneWatchSync.favorites(listOf(marked, other))
         assertEquals(listOf("PEPE/USDT|DexScreener|Pool995b79ee"), pairs.map { it.key })
-        assertEquals("PEPE/USDT|DexScreener|Pool0275864c", WatchPair.of("PEPE", "USDT", "DexScreener",
-            PhoneWatchFeed.watchContract(other))?.key)
+        assertEquals(
+            "PEPE/USDT|DexScreener|Pool0275864c",
+            WatchPair.of(
+                "PEPE",
+                "USDT",
+                "DexScreener",
+                PhoneWatchFeed.watchContract(other)
+            )?.key
+        )
         val settings = WatchSettings(mode = WatchSettings.Mode.PHONE, phone = listOf("PEPE"), pairs = pairs)
         val quotes = WatchPhoneQuotes.fromJson(PhoneWatchFeed.quotesJson(listOf(marked, other), settings))!!
         assertEquals(listOf("PEPE/USDT|DexScreener|Pool995b79ee"), quotes.map { it.symbol })

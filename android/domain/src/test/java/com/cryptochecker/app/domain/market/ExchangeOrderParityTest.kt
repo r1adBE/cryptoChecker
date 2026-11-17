@@ -1,5 +1,9 @@
 package com.cryptochecker.app.domain.market
 import com.cryptochecker.app.domain.market.ExchangeOrder
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.exchange.DexScreener
 import com.cryptochecker.marketdata.util.GeckoTerminalNetworks
@@ -8,10 +12,6 @@ import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Reihenfolge der Börsenauswahl (`testdata/parity/picker_order.json`) und Netzwerke des DEX-Auswegs

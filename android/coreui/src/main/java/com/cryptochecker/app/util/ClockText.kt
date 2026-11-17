@@ -35,8 +35,11 @@ object ClockText {
      */
     fun format(locale: Locale, withSeconds: Boolean, is24: Boolean?, dateStyle: Int? = null): DateFormat {
         val timeStyle = if (withSeconds) DateFormat.MEDIUM else DateFormat.SHORT
-        val format = if (dateStyle == null) DateFormat.getTimeInstance(timeStyle, locale)
-        else DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale)
+        val format = if (dateStyle == null) {
+            DateFormat.getTimeInstance(timeStyle, locale)
+        } else {
+            DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale)
+        }
         if (is24 != null && format is SimpleDateFormat) {
             val adjusted = pattern(format.toPattern(), is24, locale)
             if (adjusted != format.toPattern()) runCatching { format.applyPattern(adjusted) }
@@ -100,8 +103,9 @@ object ClockText {
     }
 
     private fun to24(parts: List<Part>): String = parts.joinToString("") { part ->
-        if (part.quoted) part.text
-        else {
+        if (part.quoted) {
+            part.text
+        } else {
             // Tageszeit samt anschliessendem bzw. vorangehendem Abstand weg, Stunde zweistellig «HH» (wie Android «Hms»)
             var t = part.text.replace(Regex("[\\u0020\\u00A0\\u202F]*a+[\\u0020\\u00A0\\u202F]*")) { m ->
                 val before = m.range.first > 0 && m.value.first() in SPACES

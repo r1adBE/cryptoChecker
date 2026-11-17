@@ -1,24 +1,32 @@
 package com.cryptochecker.app.data
 
+import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.data.logos.CoinLogoStorage
 import com.cryptochecker.app.data.logos.LogoDownloads
 import com.cryptochecker.app.data.logos.LogoFiles
 import com.cryptochecker.app.data.logos.LogoImageStore
-import android.content.Context
-import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.exceptions.NetworkError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
-import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.hasAlphaIds
+import com.cryptochecker.app.domain.logos.keepAlphaIds
+import com.cryptochecker.app.domain.logos.withStockLogos
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,14 +42,6 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.io.File
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.domain.logos.alphaSymbols
-import com.cryptochecker.app.domain.logos.hasAlphaIds
-import com.cryptochecker.app.domain.logos.keepAlphaIds
-import com.cryptochecker.app.domain.logos.withStockLogos
 
 /**
  * Abgleich der Listen hinter Logos und Namen (Regeln in [CoinLogos], [CoinMeta], [CoinLists]):
@@ -88,12 +88,16 @@ class CoinListSync @Inject constructor(
 
     /** Zuletzt bekannte Binance- und Alpha-Listen (direkt, Ersatzdatei oder gespeichert). */
     @Volatile var lists: CoinMeta.Meta? = null
+
     @Volatile private var listsRead = false
+
     /** Stand der Listen; die Zuordnung übernimmt neue Listen auch ohne neue Rangliste ([withListsMerged]). */
     @Volatile var listsVersion = 0
+
     @Volatile var mergedListsVersion = -1
+
     /** Letzte fällige Liste scheiterte am Netz (für [retryPending]). */
-    @Volatile private var listsNetworkFailed = false
+    @Volatile internal var listsNetworkFailed = false
 
     /**
      * Beim Start, ohne Netz: gespeicherte Namen, sonst der mitgelieferte Auszug (Namen und
@@ -106,9 +110,11 @@ class CoinListSync @Inject constructor(
         val needAlpha = !alpha.hasStoredSymbols() && alpha.symbols.value.isEmpty()
         if (needNames || needAlpha) {
             val snapshot = withContext(Dispatchers.IO) {
-                CoinMeta.parse(runCatchingCancellable {
-                    context.assets.open(CoinMeta.SNAPSHOT_FILE).bufferedReader().use { it.readText() }
-                }.getOrNull())
+                CoinMeta.parse(
+                    runCatchingCancellable {
+                        context.assets.open(CoinMeta.SNAPSHOT_FILE).bufferedReader().use { it.readText() }
+                    }.getOrNull()
+                )
             }
             if (snapshot != null) {
                 if (needAlpha && snapshot.alpha.isNotEmpty() && !alpha.hasStoredSymbols()) {
@@ -156,7 +162,10 @@ class CoinListSync @Inject constructor(
             CoinLogos.alphaListDue(binanceAt, prefs.getLong(KEY_BINANCE_ATTEMPT, 0L), now, saved?.binance?.isNotEmpty() == true)
         // Ohne Kennungen für die Alpha-Paare: einmal direkt neu, sonst fehlen die Alpha-Paare
         val alphaDue = CoinLogos.alphaListDue(
-            alphaAt, prefs.getLong(KEY_ALPHA_ATTEMPT, 0L), now, alpha.hasStoredSymbols() && CoinLogos.hasAlphaIds(saved?.alpha),
+            alphaAt,
+            prefs.getLong(KEY_ALPHA_ATTEMPT, 0L),
+            now,
+            alpha.hasStoredSymbols() && CoinLogos.hasAlphaIds(saved?.alpha),
         )
         if (!binanceDue && !alphaDue) {
             listsNetworkFailed = false
@@ -179,7 +188,11 @@ class CoinListSync @Inject constructor(
         prefs.edit {
             if (binanceDue) {
                 if (result.binanceSource == CoinLists.Source.DIRECT) putLong(KEY_BINANCE_TIME, now)
-                if (result.binanceSource == CoinLists.Source.DIRECT || CoinLogoRetry.recordsAttempt(network)) putLong(KEY_BINANCE_ATTEMPT, now)
+                if (result.binanceSource == CoinLists.Source.DIRECT ||
+                    CoinLogoRetry.recordsAttempt(network)
+                ) {
+                    putLong(KEY_BINANCE_ATTEMPT, now)
+                }
             }
             if (alphaDue && (result.alphaSource == CoinLists.Source.DIRECT || CoinLogoRetry.recordsAttempt(network))) {
                 putLong(KEY_ALPHA_ATTEMPT, now)
@@ -212,7 +225,11 @@ class CoinListSync @Inject constructor(
         names.publishListNames(CoinMeta.listNames(meta.binance, meta.alpha))
         Timber.i(
             "Binance-Listen: %d Einträge (%s), Alpha %d (%s), %d Namen",
-            meta.binance.size, result.binanceSource, meta.alpha.size, result.alphaSource, names.size,
+            meta.binance.size,
+            result.binanceSource,
+            meta.alpha.size,
+            result.alphaSource,
+            names.size,
         )
         true
     }
@@ -223,6 +240,7 @@ class CoinListSync @Inject constructor(
     // ---- 3. Abgleich im Hintergrund
     private val syncLock = Any()
     private var syncJob: Job? = null
+
     @Volatile private var rerunImages = false
 
     /**
@@ -230,7 +248,7 @@ class CoinListSync @Inject constructor(
      * [CoinLogoSync] holt ihn nach, sobald wieder Netz da ist ([CoinLogoRetry.syncNeeded]). Nur im
      * Speicher — nach einem Neustart der App läuft der Abgleich ohnehin beim Öffnen.
      */
-    private val _retryPending = MutableStateFlow(false)
+    internal val _retryPending = MutableStateFlow(false)
     val retryPending: StateFlow<Boolean> = _retryPending.asStateFlow()
 
     /**
@@ -276,6 +294,7 @@ class CoinListSync @Inject constructor(
      */
     @Volatile var networkFailures = 0
         private set
+
     @Volatile var lastNetworkFailureAt = 0L
         private set
 
@@ -315,46 +334,16 @@ class CoinListSync @Inject constructor(
     }
 
     /**
-     * Rangliste holen und alle fehlenden Logos laden, in Stufen nacheinander ([LogoImageStore.downloadMissing]): erst die
-     * bei Binance gelisteten Krypto-Kürzel (Symbolliste, schon da), während die Seiten der Rangliste laden; dann die
-     * grössten 1000; zuletzt die ganze Zuordnung (nur noch, was fehlt). Scheitert ein Bild: Ersatz-Adressen
-     * ([logoAlternates]).
-     */
-    private suspend fun syncAll(): Int = coroutineScope {
-        val stages = Channel<Pair<Map<String, String>, Boolean>>(Channel.UNLIMITED)
-        val worker = async {
-            var total = LogoDownloads()
-            // Erst ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) erledigt das erste Laden
-            imageStore.loadingHint.during(complete = { d: LogoDownloads -> d.complete && !mapNetworkFailed && !listsNetworkFailed }) {
-                for (stage in stages) total += imageStore.downloadMissing(stage.first, logoAlternates(), stage.second)
-                total
-            }
-        }
-        val current = try {
-            symbolMap { partial -> stages.send(CoinLogos.withStockLogos(partial, names.tradFiBases) to false) }
-        } catch (e: Throwable) {
-            stages.close()
-            throw e
-        }
-        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu; die letzte Stufe (true) versucht alle noch fehlenden Bilder
-        stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)
-        stages.close()
-        val result = worker.await()
-        _retryPending.value = listsNetworkFailed || mapNetworkFailed || result.network
-        imagesPausedUntil = result.pausedUntil
-        result.added
-    }
-
-    /**
      * Frühestes Ende der Pausen gebremster Bild-Server nach dem letzten Abgleich mit Bildern (ms; null = nichts
      * gebremst): [CoinLogoSync] holt die fehlenden Bilder danach von selbst nach. Nur im Speicher.
      */
     @Volatile var imagesPausedUntil: Long? = null
-        private set
+        internal set
 
     // ---- 2. Zuordnung Kürzel → Bild (Rangliste von CoinGecko)
 
     val mapMutex = Mutex()
+
     @Volatile var map: Map<String, String>? = null
 
     /** Letzter Abruf der Rangliste scheiterte am Netz (für [retryPending]). */
@@ -387,13 +376,17 @@ class CoinListSync @Inject constructor(
         const val KEY_MAP_ATTEMPT = "map_attempt"
         const val KEY_ALPHA_ATTEMPT = "alpha_attempt"
         const val MAP_FILE = "coin_logos/map.txt"
+
         /** Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, [CoinMeta.encode]). */
         const val LISTS_FILE = "coin_logos/lists.json"
+
         /** Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs. */
         const val KEY_BINANCE_TIME = "binance_list_time"
         const val KEY_BINANCE_ATTEMPT = "binance_list_attempt"
+
         /** Letzter unbrauchbarer Abruf der Ersatzdatei `coin_meta.json` (dann frühestens nach einer Stunde). */
         const val KEY_META_ATTEMPT = "coin_meta_attempt"
+
         /** Zeitgrenze für Binance- und Alpha-Liste (wie die Paarlisten). */
         const val LIST_TIMEOUT_SECONDS = 60L
     }

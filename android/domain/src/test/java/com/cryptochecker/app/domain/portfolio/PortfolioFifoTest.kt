@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** FIFO-Posten, Veräusserungen und Adress-Teil (Gegenstück: `Tests/PortfolioFifoTests.swift`). */
 class PortfolioFifoTest {
@@ -114,8 +114,10 @@ class PortfolioFifoTest {
             tx(1, "BNB", PortfolioTxType.BUY, "1", "300", day),
             tx(2, "ETH", PortfolioTxType.BUY, "1", "100", day),
             tx(4, "ETH", PortfolioTxType.SELL, "1", "120", 5 * day),
-            PortfolioTrade(3, "BTC", PortfolioTxType.BUY, dec("1"), dec("1000"), 3 * day,
-                feeCoin = "BNB", feeCoinAmount = dec("0.1"), feeCoinPrice = dec("400")),
+            PortfolioTrade(
+                3, "BTC", PortfolioTxType.BUY, dec("1"), dec("1000"), 3 * day,
+                feeCoin = "BNB", feeCoinAmount = dec("0.1"), feeCoinPrice = dec("400")
+            ),
         )
         val all = PortfolioCalculator.disposals(trades)
         assertEquals(listOf("BNB", "ETH"), all.map { it.coin })
@@ -182,7 +184,18 @@ class PortfolioFifoTest {
     @Test
     fun `deposit with original purchase date sorts before younger lots`() {
         val deposit = tx(2, "BTC", PortfolioTxType.DEPOSIT, "1", null, 20 * day).copy(acquiredTime = 5 * day)
-        val trades = listOf(tx(1, "BTC", PortfolioTxType.BUY, "1", "100", 10 * day), deposit, tx(3, "BTC", PortfolioTxType.SELL, "1", "200", 30 * day))
+        val trades = listOf(
+            tx(1, "BTC", PortfolioTxType.BUY, "1", "100", 10 * day),
+            deposit,
+            tx(
+                3,
+                "BTC",
+                PortfolioTxType.SELL,
+                "1",
+                "200",
+                30 * day
+            )
+        )
         val d = PortfolioCalculator.disposals(trades).single()
         assertEquals(2L, d.lotTxId)
         assertEquals(25L, d.holdingDays)
@@ -207,14 +220,26 @@ class PortfolioFifoTest {
         assertNull(plain.withdrawnGainExact)
         assertTrue(plain.withdrawnGainIncomplete)
         // Mit Kurs zum Zeitpunkt (z. B. Tagesschluss): 1 × 25 − 10 = +15
-        val withMarket = PortfolioCalculator.summarize(trades, prices, withdrawalPrice = { coin, time -> if (coin == "SOL" && time == 2 * day) 25.0 else null })
+        val withMarket = PortfolioCalculator.summarize(trades, prices, withdrawalPrice = { coin, time ->
+            if (coin == "SOL" &&
+                time == 2 * day
+            ) {
+                25.0
+            } else {
+                null
+            }
+        })
         same("15", withMarket.withdrawnGainExact)
         assertFalse(withMarket.withdrawnGainIncomplete)
         // Gleiche Positionen wie einzeln gerechnet
         assertEquals(PortfolioCalculator.position("SOL", trades, 20.0), withMarket.open.first { it.coin == "SOL" })
     }
 
-    private fun utc(y: Int, m: Int, d: Int) = java.time.LocalDate.of(y, m, d).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli()
+    private fun utc(y: Int, m: Int, d: Int) = java.time.LocalDate.of(
+        y,
+        m,
+        d
+    ).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli()
 
     /** M-6a: Netzwerkgebühr verbraucht den letzten bezahlten Posten, übrig nur eine Einzahlung ohne Preis. */
     @Test
@@ -222,7 +247,16 @@ class PortfolioFifoTest {
         val trades = listOf(
             tx(1, "BTC", PortfolioTxType.BUY, "0.001", "100000", day),
             tx(2, "BTC", PortfolioTxType.DEPOSIT, "1", null, 2 * day),
-            PortfolioTrade(3, "BTC", PortfolioTxType.TRANSFER, dec("1"), null, 3 * day, fee = dec("0.001"), feeUnit = PortfolioFeeUnit.COIN),
+            PortfolioTrade(
+                3,
+                "BTC",
+                PortfolioTxType.TRANSFER,
+                dec("1"),
+                null,
+                3 * day,
+                fee = dec("0.001"),
+                feeUnit = PortfolioFeeUnit.COIN
+            ),
         )
         for (method in CostMethod.entries) {
             val l = PortfolioCalculator.ledger("BTC", trades, 50000.0, method)
@@ -245,9 +279,19 @@ class PortfolioFifoTest {
             "ETH",
             listOf(
                 tx(1, "ETH", PortfolioTxType.BUY, "0.01", "2000", day),
-                PortfolioTrade(2, "ETH", PortfolioTxType.TRANSFER, dec("0.01"), null, 2 * day, fee = dec("0.01"), feeUnit = PortfolioFeeUnit.COIN),
+                PortfolioTrade(
+                    2,
+                    "ETH",
+                    PortfolioTxType.TRANSFER,
+                    dec("0.01"),
+                    null,
+                    2 * day,
+                    fee = dec("0.01"),
+                    feeUnit = PortfolioFeeUnit.COIN
+                ),
             ),
-            null, CostMethod.AVERAGE,
+            null,
+            CostMethod.AVERAGE,
         )
         same("20", avgAll.lostFeeCostUsdt)
         // Steuer-Export: Vermerk je Gebühr im Jahr
@@ -313,30 +357,55 @@ class PortfolioFifoTest {
         val trades = listOf(
             tx(1, "BTC", PortfolioTxType.BUY, "1", "100", utc(2020, 1, 1)),
             tx(2, "BTC", PortfolioTxType.BUY, "1", "200", utc(2021, 6, 1)),
-            PortfolioTrade(3, "BTC", PortfolioTxType.SELL, dec("1"), dec("300"), utc(2021, 12, 1), fee = dec("0.5"), feeUnit = PortfolioFeeUnit.COIN),
+            PortfolioTrade(
+                3,
+                "BTC",
+                PortfolioTxType.SELL,
+                dec("1"),
+                dec("300"),
+                utc(2021, 12, 1),
+                fee = dec("0.5"),
+                feeUnit = PortfolioFeeUnit.COIN
+            ),
         )
         val d = PortfolioCalculator.disposals(trades)
         assertEquals(2, d.size)
         // Verkaufte Menge aus dem ältesten Posten: voller Erlös, langfristig
         assertEquals(1L, d[0].lotTxId)
-        same("1", d[0].amount); same("300", d[0].proceedsUsdt); same("200", d[0].gainUsdt)
+        same("1", d[0].amount)
+        same("300", d[0].proceedsUsdt)
+        same("200", d[0].gainUsdt)
         // Gebühr-Coins aus dem nächsten Posten: Erlös 0, Einstand = Kosten der Veräusserung, kurzfristig
         assertEquals(2L, d[1].lotTxId)
-        same("0.5", d[1].amount); same("0", d[1].proceedsUsdt); same("-100", d[1].gainUsdt)
+        same("0.5", d[1].amount)
+        same("0", d[1].proceedsUsdt)
+        same("-100", d[1].gainUsdt)
         val zone = java.time.ZoneOffset.UTC
-        fun long(x: PortfolioDisposal) = TaxExport.isLongTerm(TaxExport.localDate(x.acquiredTime!!, zone), TaxExport.localDate(x.sellTime, zone))
+        fun long(
+            x: PortfolioDisposal
+        ) = TaxExport.isLongTerm(TaxExport.localDate(x.acquiredTime!!, zone), TaxExport.localDate(x.sellTime, zone))
         same("200", d.filter { long(it) }.fold(BigDecimal.ZERO) { a, x -> a + x.gainUsdt!! })
         same("-100", d.filter { !long(it) }.fold(BigDecimal.ZERO) { a, x -> a + x.gainUsdt!! })
         same("100", PortfolioCalculator.position("BTC", trades, null).realizedExact) // Summe unverändert
         // Mehr abgegeben als erfasst: zuerst die verkaufte Menge, der ungedeckte Rest sind Gebühr-Coins (Erlös 0)
         val short = listOf(
             tx(1, "BTC", PortfolioTxType.BUY, "1.2", "100", utc(2020, 1, 1)),
-            PortfolioTrade(2, "BTC", PortfolioTxType.SELL, dec("1"), dec("300"), utc(2021, 12, 1), fee = dec("0.5"), feeUnit = PortfolioFeeUnit.COIN),
+            PortfolioTrade(
+                2,
+                "BTC",
+                PortfolioTxType.SELL,
+                dec("1"),
+                dec("300"),
+                utc(2021, 12, 1),
+                fee = dec("0.5"),
+                feeUnit = PortfolioFeeUnit.COIN
+            ),
         )
         val s = PortfolioCalculator.disposals(short)
         same("300", s.fold(BigDecimal.ZERO) { a, x -> a + x.proceedsUsdt!! })
         val uncovered = s.single { it.uncovered }
-        same("0.3", uncovered.amount); same("0", uncovered.proceedsUsdt)
+        same("0.3", uncovered.amount)
+        same("0", uncovered.proceedsUsdt)
         same("1", PortfolioCalculator.position("BTC", short, null).soldAmount.toBigDecimal())
     }
 
@@ -374,7 +443,16 @@ class PortfolioFifoTest {
             ),
             PortfolioTrade(3, "SOL", PortfolioTxType.BUY, dec("1"), dec("100"), 3 * day, fee = dec("1"), feeUnit = PortfolioFeeUnit.COIN),
             tx(4, "ADA", PortfolioTxType.BUY, "100", "1", 4 * day),
-            PortfolioTrade(5, "ADA", PortfolioTxType.WITHDRAWAL, dec("50"), null, 5 * day, fee = dec("2"), feeUnit = PortfolioFeeUnit.QUOTE),
+            PortfolioTrade(
+                5,
+                "ADA",
+                PortfolioTxType.WITHDRAWAL,
+                dec("50"),
+                null,
+                5 * day,
+                fee = dec("2"),
+                feeUnit = PortfolioFeeUnit.QUOTE
+            ),
         )
         val prices = mapOf("ETH" to 1000.0, "BTC" to 60000.0, "SOL" to 100.0, "ADA" to 1.0)
         for (method in CostMethod.entries) {
@@ -400,7 +478,11 @@ class PortfolioFifoTest {
             same("-602", rows.fold(BigDecimal.ZERO) { a, r -> a + r.gainUsdt!! })
             assertEquals(
                 method.name,
-                listOf("BTC" to PortfolioFeeExpense.CONSUMED, "SOL" to PortfolioFeeExpense.CONSUMED, "ADA" to PortfolioFeeExpense.WITHDRAWAL),
+                listOf(
+                    "BTC" to PortfolioFeeExpense.CONSUMED,
+                    "SOL" to PortfolioFeeExpense.CONSUMED,
+                    "ADA" to PortfolioFeeExpense.WITHDRAWAL
+                ),
                 rows.filter { it.feeExpense != null }.map { it.coin to it.feeExpense },
             )
             val x = "x"
@@ -436,18 +518,38 @@ class PortfolioFifoTest {
             move,
         )
         // Posten mit Kaufpreis im Ziel: übernimmt den Einstand (200)
-        val withTarget = PortfolioCalculator.ledger("BTC", listOf(inWallet(tx(1, "BTC", PortfolioTxType.BUY, "1", "1000", day), "Ledger")) + base, null, CostMethod.FIFO_WALLET)
+        val withTarget = PortfolioCalculator.ledger(
+            "BTC",
+            listOf(inWallet(tx(1, "BTC", PortfolioTxType.BUY, "1", "1000", day), "Ledger")) + base,
+            null,
+            CostMethod.FIFO_WALLET
+        )
         same("0", withTarget.position.lostFeeCostUsdt)
         same("1200", withTarget.lots.single { it.txId == 1L }.costUsdt)
         // Keiner da: wartet im Ziel — ein späterer Kauf in der Quelle übernimmt ihn nicht, einer im Ziel schon
-        val laterSrc = PortfolioCalculator.ledger("BTC", base + inWallet(tx(5, "BTC", PortfolioTxType.BUY, "1", "3000", 5 * day), "Binance"), null, CostMethod.FIFO_WALLET)
+        val laterSrc = PortfolioCalculator.ledger(
+            "BTC",
+            base + inWallet(tx(5, "BTC", PortfolioTxType.BUY, "1", "3000", 5 * day), "Binance"),
+            null,
+            CostMethod.FIFO_WALLET
+        )
         same("200", laterSrc.position.lostFeeCostUsdt)
         same("3000", laterSrc.lots.single { it.txId == 5L }.costUsdt)
-        val laterDst = PortfolioCalculator.ledger("BTC", base + inWallet(tx(5, "BTC", PortfolioTxType.BUY, "1", "3000", 5 * day), "Ledger"), null, CostMethod.FIFO_WALLET)
+        val laterDst = PortfolioCalculator.ledger(
+            "BTC",
+            base + inWallet(tx(5, "BTC", PortfolioTxType.BUY, "1", "3000", 5 * day), "Ledger"),
+            null,
+            CostMethod.FIFO_WALLET
+        )
         same("0", laterDst.position.lostFeeCostUsdt)
         same("3200", laterDst.lots.single { it.txId == 5L }.costUsdt)
         // Universelles FIFO: der verbleibende Posten mit Kaufpreis übernimmt ihn (unverändert)
-        val universal = PortfolioCalculator.ledger("BTC", listOf(inWallet(tx(1, "BTC", PortfolioTxType.BUY, "1", "1000", day), "Ledger")) + base, null, CostMethod.FIFO)
+        val universal = PortfolioCalculator.ledger(
+            "BTC",
+            listOf(inWallet(tx(1, "BTC", PortfolioTxType.BUY, "1", "1000", day), "Ledger")) + base,
+            null,
+            CostMethod.FIFO
+        )
         same("0", universal.position.lostFeeCostUsdt)
     }
 }

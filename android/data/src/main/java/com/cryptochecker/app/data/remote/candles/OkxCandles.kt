@@ -2,9 +2,9 @@
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
 
@@ -24,7 +24,13 @@ object OkxCandles : ExchangeCandleSource {
         val id = CandleParse.id(pair.pairId) {
             val b = CandleParse.asset(pair.base)
             val q = CandleParse.asset(pair.quote)
-            if (b == null || q == null) null else if (swap) "$b-$q-SWAP" else "$b-$q"
+            if (b == null || q == null) {
+                null
+            } else if (swap) {
+                "$b-$q-SWAP"
+            } else {
+                "$b-$q"
+            }
         }
         return id?.takeIf { it.endsWith("-SWAP") == swap }
     }
@@ -41,7 +47,9 @@ object OkxCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val url = "https://www.okx.com/api/v5/market/candles?instId=$id&bar=$bar"
-        val first = http.get("$url&limit=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() } ?: return null
+        val first =
+            http.get("$url&limit=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() }
+                ?: return null
         var all = first
         // Mehr als eine Seite (1 Jahr Tageskerzen): ältere Kerzen vor der ältesten bisherigen
         if (limit > PAGE && first.size >= PAGE) {
@@ -62,7 +70,10 @@ object OkxCandles : ExchangeCandleSource {
                 val k = data.optJSONArray(i) ?: return@mapNotNull null
                 HourCandle(
                     openTime = k.numAt(0).toLong(),
-                    open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
+                    open = k.numAt(1),
+                    high = k.numAt(2),
+                    low = k.numAt(3),
+                    close = k.numAt(4),
                     volume = if (swap) k.numAt(6) else k.numAt(5),
                     quoteVolume = quoteVolume(k.numAt(7)),
                 )

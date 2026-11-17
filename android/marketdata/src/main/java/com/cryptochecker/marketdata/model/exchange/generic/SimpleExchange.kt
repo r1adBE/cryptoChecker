@@ -1,8 +1,8 @@
 package com.cryptochecker.marketdata.model.exchange.generic
 
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.CurrencyPairsMap
 import com.cryptochecker.marketdata.model.Exchange
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.util.getText
 import org.json.JSONObject
 

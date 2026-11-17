@@ -7,31 +7,33 @@ import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.features.watchlist.WatchlistControllers
 import com.cryptochecker.app.ui.features.watchlist.WatchlistSheetData
 import com.cryptochecker.app.ui.features.watchlist.WatchlistUiState
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelAndJoin
@@ -40,8 +42,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -50,8 +52,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * [WatchlistViewModel] mit allen echten Teilen (Hilt, Datenbank, Einstellungen; Börsen-Antworten aus
@@ -70,16 +70,27 @@ class WatchlistViewModelTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var connectivity: ConnectivityMonitor
+
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var activityRepository: ActivityRepository
+
     @Inject lateinit var currencyConverter: CurrencyConverter
+
     @Inject lateinit var addMoments: AddMoments
+
     @Inject lateinit var livePriceStream: LivePriceStream
+
     @Inject lateinit var coinLogoRepository: CoinLogoRepository
+
     @Inject lateinit var tokenIdentityStore: TokenIdentityStore
+
     @Inject lateinit var portfolioAlarmRepository: PortfolioAlarmRepository
+
     @Inject lateinit var sheetData: WatchlistSheetData
+
     @Inject internal lateinit var controllers: WatchlistControllers
 
     /** Eigener Speicher: [ViewModelStore.clear] beendet den viewModelScope nach jedem Test. */
@@ -280,7 +291,12 @@ class WatchlistViewModelTest {
         DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME, storedKept = true)
         try {
             var undoOffered = false
-            withTimeout(10_000) { vm.deleteWithUndo(watch) { undoOffered = true; id }.join() }
+            withTimeout(10_000) {
+                vm.deleteWithUndo(watch) {
+                    undoOffered = true
+                    id
+                }.join()
+            }
             assertEquals(0, awaitDone<Int> { done -> vm.deleteSelectedWithUndo(listOf(id), done) })
             assertEquals(0, awaitDone<Int> { done -> vm.deleteAllWithUndo(done) })
             assertFalse(awaitDone { done -> vm.setNotificationEnabled(watch, false, done) })

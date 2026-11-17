@@ -1,17 +1,20 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.DomainLog
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -20,9 +23,6 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.domain.util.DomainLog
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Holt die Kurse einer Börse: erst gesammelt (wo die Börse das anbietet), was fehlt, einzeln —
@@ -207,13 +207,21 @@ class PriceFetcher @Inject constructor(
             // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
             // die Liste gilt als vollständig ohne sie
             if (plan.request.isEmpty()) return BulkResult(BulkTickers(complete = true))
-            withinBudget(deadline, onTimeout = { cut = true; BulkTickers(error = CheckBudget.TIMEOUT_ERROR) }) {
+            withinBudget(deadline, onTimeout = {
+                cut = true
+                BulkTickers(error = CheckBudget.TIMEOUT_ERROR)
+            }) {
                 exchangeRepository.getBulkTickers(exchange, plan.request)
             }.also { r ->
                 delisted.put(
                     sample.exchangeKey,
                     BulkDelisted.learn(
-                        delisted[sample.exchangeKey], plan, r.tickers.keys, r.failed, r.complete, System.currentTimeMillis(),
+                        delisted[sample.exchangeKey],
+                        plan,
+                        r.tickers.keys,
+                        r.failed,
+                        r.complete,
+                        System.currentTimeMillis(),
                         r.incomplete,
                     ),
                 )
@@ -258,24 +266,22 @@ class PriceFetcher @Inject constructor(
         }
     }
 
-    suspend fun fetchSingle(watch: WatchEntity): Fetched {
-        return runCatchingCancellable {
-            exchangeRepository.getExchangeTicker(
-                ExchangeInfo(watch.exchangeKey, watch.exchangeName),
-                watch.toPairInfo()
-            )
-        }.fold(
-            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true, failure = it.failure) },
-            onFailure = { failure ->
-                // Zeitüberschreitungen kommen als CancellationException an und
-                // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
-                // Durchlauf selbst abgebrochen wurde.
-                currentCoroutineContext().ensureActive()
-                DomainLog.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
-                Fetched(null, failure.message, fromSingle = true, failure = failure.toExchangeFailure())
-            }
+    suspend fun fetchSingle(watch: WatchEntity): Fetched = runCatchingCancellable {
+        exchangeRepository.getExchangeTicker(
+            ExchangeInfo(watch.exchangeKey, watch.exchangeName),
+            watch.toPairInfo()
         )
-    }
+    }.fold(
+        onSuccess = { Fetched(it.ticker, it.error, fromSingle = true, failure = it.failure) },
+        onFailure = { failure ->
+            // Zeitüberschreitungen kommen als CancellationException an und
+            // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
+            // Durchlauf selbst abgebrochen wurde.
+            currentCoroutineContext().ensureActive()
+            DomainLog.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
+            Fetched(null, failure.message, fromSingle = true, failure = failure.toExchangeFailure())
+        }
+    )
 
     private companion object {
         /** Unter so wenigen Paaren spart die Massenabfrage nichts. */

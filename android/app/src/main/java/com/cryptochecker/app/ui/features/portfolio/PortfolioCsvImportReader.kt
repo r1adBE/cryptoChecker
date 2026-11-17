@@ -9,7 +9,6 @@ import com.cryptochecker.app.data.backup.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
@@ -22,23 +21,28 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau;
  * [choice] = Lesart, mit der gelesen wurde; [rateDays] = Tage, für die die Kurse geladen wurden ([CsvImportRateDays.of]).
  */
 internal class CsvImportInput(
-    val text: String, val result: CsvImportResult, val keys: Set<String>,
-    val rates: Map<String, List<Pair<Long, Double>>>, val usdtUsd: Map<Long, BigDecimal>,
-    val choice: CsvReadChoice, val rateDays: Map<String, LongRange> = emptyMap(),
+    val text: String,
+    val result: CsvImportResult,
+    val keys: Set<String>,
+    val rates: Map<String, List<Pair<Long, Double>>>,
+    val usdtUsd: Map<Long, BigDecimal>,
+    val choice: CsvReadChoice,
+    val rateDays: Map<String, LongRange> = emptyMap(),
     /** Tageskurse einer gebrauchten Währung liessen sich nicht laden ([CsvImportPreview.ratesFailed]). */
     val ratesFailed: Boolean = false,
 )
@@ -136,12 +140,21 @@ internal suspend fun mapCsvPreview(
     val onRow = { done: Int, total: Int ->
         job.ensureActive()
         if (report != null) {
-            (throttle ?: CsvProgressThrottle(CsvImportStep.PREVIEW, total, report = report).also { throttle = it; it.start() })
+            (
+                throttle ?: CsvProgressThrottle(CsvImportStep.PREVIEW, total, report = report).also {
+                    throttle = it
+                    it.start()
+                }
+                )
                 .row(done)
         }
     }
     CsvImportMapping.preview(
-        read.result, read.keys, usdtUsd = read.usdtUsd, keepDuplicates = read.choice.keepDuplicates, onRow = onRow,
+        read.result,
+        read.keys,
+        usdtUsd = read.usdtUsd,
+        keepDuplicates = read.choice.keepDuplicates,
+        onRow = onRow,
     ) { currency, day ->
         read.rates[currency]?.let { PortfolioHistoryFx.rateOn(it, day) }?.let { PortfolioDecimal.of(it) }
     }.copy(ratesFailed = read.ratesFailed)

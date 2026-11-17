@@ -16,12 +16,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.WhyMark
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 
 /**
  * Eine Zeile der Faktor-Checkliste (Crypto Pulse und Blatt «Was bewegt sich mit?»): Markierung ✓ / – / !, kurzer Titel, Wert rechtsbündig, optional

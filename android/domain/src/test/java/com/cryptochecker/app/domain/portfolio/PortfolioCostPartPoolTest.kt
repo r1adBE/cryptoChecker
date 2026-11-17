@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import kotlin.random.Random
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * [PortfolioCostPartPool] gegen die einfache Liste der Herkunftsteile ([ReferenceParts]: jeder Abgang schreibt alle Teile
@@ -108,8 +108,11 @@ class PortfolioCostPartPoolTest {
         expected.zip(actual).forEachIndexed { i, (e, a) ->
             assertEquals("$label Teil $i Zeitpunkt", e.time, a.time)
             val diff = (e.usdt - a.usdt).abs()
-            if (exact) assertEquals("$label Teil $i ${e.usdt} / ${a.usdt}", 0, diff.signum())
-            else assertTrue("$label Teil $i ${e.usdt} / ${a.usdt}", diff <= TOLERANCE)
+            if (exact) {
+                assertEquals("$label Teil $i ${e.usdt} / ${a.usdt}", 0, diff.signum())
+            } else {
+                assertTrue("$label Teil $i ${e.usdt} / ${a.usdt}", diff <= TOLERANCE)
+            }
         }
         if (expected.isNotEmpty()) {
             assertEquals("$label Summe", 0, expected.sumOf { it.usdt }.compareTo(actual.sumOf { it.usdt }))

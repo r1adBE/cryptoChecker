@@ -35,5 +35,11 @@ object AddressRedirect {
         return a == b || (from == "http" && to == "https" && a == 80 && b == 443)
     }
 
-    private fun port(scheme: String?, port: Int): Int = if (port >= 0) port else if (scheme == "http") 80 else 443
+    private fun port(scheme: String?, port: Int): Int = if (port >= 0) {
+        port
+    } else if (scheme == "http") {
+        80
+    } else {
+        443
+    }
 }

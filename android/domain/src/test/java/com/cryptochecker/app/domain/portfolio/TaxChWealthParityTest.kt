@@ -16,18 +16,18 @@ import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.chWealth
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.time.LocalDate
-import java.time.ZoneId
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.LocalDate
+import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Gemeinsame Testfälle `tax_ch_wealth.json` — CH-Vermögenswert per 31.12. (iOS: `TaxChWealthTests.swift`). */
 class TaxChWealthParityTest {
@@ -138,7 +138,7 @@ class TaxChWealthParityTest {
             val private = s.lines.single { it.line == TaxLine.CH_PRIVATE }
             assertNull(private.usdt)
             assertNull(private.target)
-            val csv = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("﻿").split("\r\n").filter { it.isNotEmpty() }
+            val csv = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("").split("\r\n").filter { it.isNotEmpty() }
             val at = csv.indexOfFirst { it.startsWith("CH_WEALTH_VALUE;") }
             val expected = c["csv"].list().map { it as String }
             assertTrue("$name CSV-Posten", at >= 0)

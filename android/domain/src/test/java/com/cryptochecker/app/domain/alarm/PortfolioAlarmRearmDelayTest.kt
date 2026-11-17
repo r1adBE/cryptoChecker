@@ -9,7 +9,12 @@ class PortfolioAlarmRearmDelayTest {
     private val firedAt = 1_700_000_000_000L
 
     private val fired = PortfolioAlarmInput(
-        PortfolioAlarmKind.VALUE_ABOVE, 50_000.0, "CHF", enabled = true, referenceAt = firedAt, lastTriggeredAt = firedAt,
+        PortfolioAlarmKind.VALUE_ABOVE,
+        50_000.0,
+        "CHF",
+        enabled = true,
+        referenceAt = firedAt,
+        lastTriggeredAt = firedAt,
     )
 
     private val back = PortfolioReading(total = 40_000.0, currency = "CHF", totalUsdt = 44_000.0, changePercent = null, empty = false)

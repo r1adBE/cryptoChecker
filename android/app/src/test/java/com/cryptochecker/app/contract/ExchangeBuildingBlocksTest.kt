@@ -1,9 +1,9 @@
 package com.cryptochecker.app.contract
 
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Exchange
+import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.UpbitStyleExchange

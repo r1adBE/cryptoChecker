@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.features.watchlist.GroupSearchField
 import com.cryptochecker.app.ui.features.watchlist.WatchSearchField
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before

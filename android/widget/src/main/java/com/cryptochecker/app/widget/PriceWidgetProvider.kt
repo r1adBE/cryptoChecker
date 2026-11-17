@@ -10,8 +10,8 @@ import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 /** Watchlist-Widget für den Startbildschirm. */
 @AndroidEntryPoint
@@ -135,12 +135,16 @@ class PriceWidgetProvider : AppWidgetProvider() {
 
     companion object {
         const val ACTION_REFRESH = "com.cryptochecker.app.action.WIDGET_REFRESH"
+
         /** Wecker aus [WidgetRefreshUnlock.schedule]: Sperre des Knopfs vorbei, Symbol wieder zeigen. */
         const val ACTION_REFRESH_UNLOCKED = "com.cryptochecker.app.action.WIDGET_REFRESH_UNLOCKED"
+
         /** Empfang aus [WidgetRefreshUnlock.hold]: bis zum Ende der Sperre warten, dann Symbol statt Countdown. */
         const val ACTION_REFRESH_HOLD = "com.cryptochecker.app.action.WIDGET_REFRESH_HOLD"
+
         /** Ende der Sperre (Wanduhr, ms) zu [ACTION_REFRESH_HOLD]. */
         const val EXTRA_BLOCKED_UNTIL = "com.cryptochecker.app.extra.BLOCKED_UNTIL"
+
         /** Wecker aus [WidgetOutdated.schedule]: Widgets mit inzwischen veraltetem Stand neu zeichnen. */
         const val ACTION_OUTDATED_CHECK = "com.cryptochecker.app.action.WIDGET_OUTDATED_CHECK"
     }

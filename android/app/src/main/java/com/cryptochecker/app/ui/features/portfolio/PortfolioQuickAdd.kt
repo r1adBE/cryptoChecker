@@ -14,10 +14,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.resources.R
 
 /**
  * Erfassen-Blatt aus der Merkliste bzw. dem Markt: Coin und Kurs vorbelegt. Auch mit ausgeschaltetem Portfolio.

@@ -10,28 +10,28 @@ import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.ExchangeDao
 import com.cryptochecker.app.data.local.SharedPreferencesStores
 import com.cryptochecker.app.data.local.WatchDao
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.data.refresh.AlarmLogStore
-import com.cryptochecker.app.domain.refresh.CheckRunStore
-import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
-import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
-import com.cryptochecker.app.domain.util.IoDispatcher
-import com.cryptochecker.app.domain.util.KeyValueStores
 import com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.refresh.CheckRunStore
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.util.KeyValueStores
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import timber.log.Timber
 import java.io.File
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
+import timber.log.Timber
 
 /** Lokale Speicher: Hauptdatenbank, Portfolio-Datenbank, «Letzte Prüfungen», Alarm-Protokoll und die DAOs. */
 @Module
@@ -66,13 +66,11 @@ object LocalDataModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context,
         openHelperFactory: EncryptingOpenHelperFactory,
-    ): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
-            .openHelperFactory(openHelperFactory)
-            .addCallback(SecureDeleteCallback)
-            .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS, AppDatabase.DB_NAME))
-            .build()
-    }
+    ): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
+        .openHelperFactory(openHelperFactory)
+        .addCallback(SecureDeleteCallback)
+        .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS, AppDatabase.DB_NAME))
+        .build()
 
     /**
      * Portfolio in eigener Datei (Systemsicherung nur mit Erlaubnis, siehe PortfolioBackupMirror).

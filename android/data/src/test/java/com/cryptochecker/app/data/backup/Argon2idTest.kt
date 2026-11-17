@@ -89,7 +89,8 @@ class Argon2idTest {
     @Test
     fun invalidParametersAreRejected() {
         fun rejects(block: () -> Unit) = try {
-            block(); fail("accepted")
+            block()
+            fail("accepted")
         } catch (_: IllegalArgumentException) {
         }
         val pw = ByteArray(4)

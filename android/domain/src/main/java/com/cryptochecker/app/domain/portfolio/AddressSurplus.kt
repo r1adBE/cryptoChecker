@@ -58,12 +58,14 @@ object AddressSurplus {
             if (owners[key] != a.id) continue
             val all = LinkedHashMap<String, MutableList<AddressMove>>()
             val inBalance = LinkedHashMap<String, MutableList<AddressMove>>()
-            for (coin in coins) for (t in own) {
-                val m = AddressCostLots.recordedMove(coin, wallet, t)
-                if (m.signum() == 0) continue
-                all.getOrPut(coin) { ArrayList() } += AddressMove(t.time, m)
-                // Bis zum Abruf wie [AddressCostLots.fetched]
-                if (a.lastUpdated <= 0 || t.time <= a.lastUpdated) inBalance.getOrPut(coin) { ArrayList() } += AddressMove(t.time, m)
+            for (coin in coins) {
+                for (t in own) {
+                    val m = AddressCostLots.recordedMove(coin, wallet, t)
+                    if (m.signum() == 0) continue
+                    all.getOrPut(coin) { ArrayList() } += AddressMove(t.time, m)
+                    // Bis zum Abruf wie [AddressCostLots.fetched]
+                    if (a.lastUpdated <= 0 || t.time <= a.lastUpdated) inBalance.getOrPut(coin) { ArrayList() } += AddressMove(t.time, m)
+                }
             }
             out[key] = WalletMoves(a, all, inBalance)
         }

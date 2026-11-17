@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.market
 
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
 
 /** Wie `BitcoinIndicatorModelTests` (iOS, ExchangesTests.swift). */
 class BitcoinIndicatorModelTest {
@@ -33,8 +33,14 @@ class BitcoinIndicatorModelTest {
         val r = BitcoinIndicatorModel.evaluate(inputs())
         assertEquals(
             listOf(
-                IndicatorId.MAYER, IndicatorId.MA200W, IndicatorId.ATH_DISTANCE, IndicatorId.CHANGE_30D,
-                IndicatorId.PI_CYCLE_GAP, IndicatorId.MVRV, IndicatorId.PUELL, IndicatorId.HASHRATE_30_60,
+                IndicatorId.MAYER,
+                IndicatorId.MA200W,
+                IndicatorId.ATH_DISTANCE,
+                IndicatorId.CHANGE_30D,
+                IndicatorId.PI_CYCLE_GAP,
+                IndicatorId.MVRV,
+                IndicatorId.PUELL,
+                IndicatorId.HASHRATE_30_60,
             ),
             r.indicators.map { it.id }
         )

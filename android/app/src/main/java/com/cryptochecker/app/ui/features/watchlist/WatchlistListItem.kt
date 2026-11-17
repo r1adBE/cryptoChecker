@@ -7,8 +7,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.ui.components.ListSegment
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -21,23 +19,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.compose.ui.platform.testTag
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.domain.WatchMove
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
-import kotlinx.coroutines.delay
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.delay
 
 /**
  * Ein Paar in der Liste: Ziehen zum Sortieren (lange drücken oder am Griff), Wischen (links
@@ -103,22 +103,26 @@ internal fun LazyItemScope.WatchlistItem(
     // Sortieren nur im Sortiermodus (⋯ › Sortieren): dann lange drücken und ziehen oder am Griff.
     // Ausserhalb startet langes Drücken nichts mehr — ein zögerliches Wischen landete sonst im
     // Sortiermodus. Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
-    val dragModifier = if (searching || !sortMode) Modifier else Modifier.pointerInput(watch.id) {
-        detectDragGesturesAfterLongPress(
-            onDragStart = {
-                haptics.play(HapticEvent.LONG_PRESS)
-                reorder.start(watch.id)
-            },
-            onDrag = { change, amount ->
-                change.consume()
-                reorder.drag(amount.y)
-            },
-            onDragEnd = {
-                haptics.play(HapticEvent.LIGHT_IMPACT)
-                reorder.end()
-            },
-            onDragCancel = { reorder.end() }
-        )
+    val dragModifier = if (searching || !sortMode) {
+        Modifier
+    } else {
+        Modifier.pointerInput(watch.id) {
+            detectDragGesturesAfterLongPress(
+                onDragStart = {
+                    haptics.play(HapticEvent.LONG_PRESS)
+                    reorder.start(watch.id)
+                },
+                onDrag = { change, amount ->
+                    change.consume()
+                    reorder.drag(amount.y)
+                },
+                onDragEnd = {
+                    haptics.play(HapticEvent.LIGHT_IMPACT)
+                    reorder.end()
+                },
+                onDragCancel = { reorder.end() }
+            )
+        }
     }
 
     // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
@@ -173,16 +177,20 @@ internal fun LazyItemScope.WatchlistItem(
         reduceMotion = reduceMotion,
         shape = shape,
         modifier = (
-            if (dragging) Modifier
-                .zIndex(1f)
-                .graphicsLayer {
-                    translationY = reorder.offset
-                    scaleX = lift
-                    scaleY = lift
-                }
-            else if (reduceMotion) Modifier
-            else Modifier.animateItem()
-        ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
+            if (dragging) {
+                Modifier
+                    .zIndex(1f)
+                    .graphicsLayer {
+                        translationY = reorder.offset
+                        scaleX = lift
+                        scaleY = lift
+                    }
+            } else if (reduceMotion) {
+                Modifier
+            } else {
+                Modifier.animateItem()
+            }
+            ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
     ) {
         WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis, onLiveSocket = onLiveSocket, now = now) { shown ->
             // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
@@ -237,7 +245,9 @@ internal fun LazyItemScope.WatchlistItem(
                 onMove = onMove,
                 // Lange drücken: Mehrfachauswahl mit dieser Zeile (wie ⋯ › «Auswählen»), mit Haptik.
                 // Im Sortier- und Auswahlmodus nicht (die Zeile behandelt das selbst).
-                onLongClick = if (sortMode || selecting) null else {
+                onLongClick = if (sortMode || selecting) {
+                    null
+                } else {
                     {
                         haptics.play(HapticEvent.LONG_PRESS)
                         onStartSelection()

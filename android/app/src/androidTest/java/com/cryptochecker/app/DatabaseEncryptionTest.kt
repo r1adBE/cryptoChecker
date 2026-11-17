@@ -7,10 +7,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.local.AppDatabase
-import com.cryptochecker.app.data.local.DatabaseOpenPlanner
-import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.DatabaseKeyStore
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseSystemBackup
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
@@ -56,7 +56,8 @@ class DatabaseEncryptionTest {
             val path = context.getDatabasePath(name).path
             context.getDatabasePath(name).parentFile?.listFiles()
                 ?.filter {
-                    it.path.startsWith(path + SqlCipherDatabaseFiles.COPY_SUFFIX) || it.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) ||
+                    it.path.startsWith(path + SqlCipherDatabaseFiles.COPY_SUFFIX) ||
+                        it.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) ||
                         it.path.startsWith(path + SqlCipherDatabaseFiles.REPLACED_SUFFIX)
                 }
                 ?.forEach { it.delete() }
@@ -167,7 +168,12 @@ class DatabaseEncryptionTest {
 
         withMain { main -> assertEquals(1, count(main, "watches")) } // nächster Start: zurückgeholt
         val dir = context.getDatabasePath(MAIN).parentFile!!
-        assertTrue(dir.listFiles()!!.any { it.name.startsWith(MAIN + SqlCipherDatabaseFiles.REPLACED_SUFFIX) && !it.name.endsWith("-wal") && !it.name.endsWith("-shm") })
+        assertTrue(
+            dir.listFiles()!!.any {
+                it.name.startsWith(MAIN + SqlCipherDatabaseFiles.REPLACED_SUFFIX) && !it.name.endsWith("-wal") &&
+                    !it.name.endsWith("-shm")
+            }
+        )
         assertEquals(StorageRecoveryNotice.Kind.KEY_RESTORED, StorageRecoveryNotice.pending(context))
         StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.KEY_RESTORED)
         assertEquals(null, StorageRecoveryNotice.pending(context))
@@ -278,7 +284,10 @@ class DatabaseEncryptionTest {
         assertFalse(name, walHead != null && String(walHead.toByteArray(), Charsets.US_ASCII).contains("SQLite format 3"))
         val plainRead = runCatching {
             android.database.sqlite.SQLiteDatabase.openDatabase(
-                file.path, null, android.database.sqlite.SQLiteDatabase.OPEN_READONLY, DatabaseErrorHandler { },
+                file.path,
+                null,
+                android.database.sqlite.SQLiteDatabase.OPEN_READONLY,
+                DatabaseErrorHandler { },
             ).use { db -> db.rawQuery("SELECT COUNT(*) FROM sqlite_master", null).use { it.moveToFirst() } }
         }
         assertTrue("$name ohne Schlüssel lesbar", plainRead.isFailure)
@@ -286,7 +295,10 @@ class DatabaseEncryptionTest {
     }
 
     private fun count(db: SupportSQLiteDatabase, from: String): Int =
-        db.query("SELECT COUNT(*) FROM $from").use { c -> c.moveToFirst(); c.getInt(0) }
+        db.query("SELECT COUNT(*) FROM $from").use { c ->
+            c.moveToFirst()
+            c.getInt(0)
+        }
 
     private companion object {
         const val MAIN = "encryption-test.db"

@@ -16,13 +16,13 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.math.BigDecimal
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.math.BigDecimal
-import javax.inject.Inject
 
 /**
  * «Beträge verbergen» gilt an der Wurzel der App: nicht nur in der Liste
@@ -41,7 +41,9 @@ class HiddenAmountsDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
     @Before
@@ -57,7 +59,10 @@ class HiddenAmountsDeviceTest {
             portfolioRepository.clearAll()
             portfolioRepository.save(
                 PortfolioTxEntity(
-                    coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal("0.5"), priceUsdt = BigDecimal("30000"),
+                    coin = "BTC",
+                    type = PortfolioTxType.BUY,
+                    amount = BigDecimal("0.5"),
+                    priceUsdt = BigDecimal("30000"),
                     time = System.currentTimeMillis() - 86_400_000L,
                 ),
             )

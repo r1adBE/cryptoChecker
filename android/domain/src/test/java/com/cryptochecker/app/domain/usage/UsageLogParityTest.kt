@@ -64,8 +64,11 @@ class UsageLogParityTest {
         for (raw in data["totals"].list()) {
             val c = raw.obj()
             val e = c["expected"].list()
-            assertEquals(c["name"] as String, UsageTotals(e[0].int(), e[1].int(), e[2].long()),
-                UsageLog.totals(buckets(c["buckets"]), now))
+            assertEquals(
+                c["name"] as String,
+                UsageTotals(e[0].int(), e[1].int(), e[2].long()),
+                UsageLog.totals(buckets(c["buckets"]), now)
+            )
         }
     }
 

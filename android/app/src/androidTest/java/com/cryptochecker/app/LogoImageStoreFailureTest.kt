@@ -5,12 +5,16 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.logos.LogoImageStore
+import com.cryptochecker.app.data.logos.LogoTestInterceptor
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.util.concurrent.atomic.AtomicInteger
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
-import com.cryptochecker.app.data.logos.LogoTestInterceptor
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -24,10 +28,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.util.concurrent.atomic.AtomicInteger
-import javax.inject.Inject
 
 /**
  * Bilder der Coin-Logos bei Fehlern: Speicher voll (Ordner nicht beschreibbar) ist
@@ -96,8 +96,10 @@ class LogoImageStoreFailureTest {
         assertEquals(0, first.added)
         assertFalse("Speicher voll ist kein Netzfehler", first.network)
         assertTrue("unvollständig: der nächste Abgleich versucht es wieder", first.incomplete)
-        assertTrue("nach dem ersten nicht gespeicherten Bild lädt der Durchgang nichts mehr (${requests.get()} Abrufe)",
-            requests.get() < wanted.size)
+        assertTrue(
+            "nach dem ersten nicht gespeicherten Bild lädt der Durchgang nichts mehr (${requests.get()} Abrufe)",
+            requests.get() < wanted.size
+        )
         // Platz wieder da: alles nachgeholt (keine Tagessperre)
         assertTrue(imageDir.setWritable(true))
         val second = store.downloadMissing(wanted)

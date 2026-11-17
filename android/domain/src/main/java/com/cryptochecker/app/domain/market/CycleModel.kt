@@ -125,7 +125,9 @@ object BitcoinIndicatorModel {
             ind(IndicatorId.HASHRATE_30_60, IndicatorMath.changePercent(input.hash30d, input.hash60d)),
         )
         return BitcoinReport(
-            price, indicators, onChainAvailable = mvrv != null || puell != null,
+            price,
+            indicators,
+            onChainAvailable = mvrv != null || puell != null,
             historySince = input.history?.since,
         )
     }

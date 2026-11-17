@@ -23,28 +23,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.FuturesInfo
 import com.cryptochecker.app.domain.remote.FuturesSources
-import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.spot.SpotData
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.PillTone
 import com.cryptochecker.app.ui.components.RegisterTabs
 import com.cryptochecker.app.ui.components.TonePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.format.CompactAmount
-import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.resources.R
 import kotlin.math.abs
 
 /** Nachkommastellen der Funding Rate («+0.0100%») — wie iOS. */
@@ -162,7 +162,11 @@ private fun FuturesBody(watch: WatchEntity, info: FuturesInfo?, loaded: Boolean,
             stringResource(R.string.label_value, stringResource(R.string.futures_funding), stringResource(R.string.explain_funding))
         )
         MarketDataExplanation(
-            stringResource(R.string.label_value, stringResource(R.string.futures_open_interest), stringResource(R.string.explain_open_interest))
+            stringResource(
+                R.string.label_value,
+                stringResource(R.string.futures_open_interest),
+                stringResource(R.string.explain_open_interest)
+            )
         )
     }
     when {
@@ -290,4 +294,3 @@ private fun futuresSourceText(info: FuturesInfo, watch: WatchEntity): String {
 
 /** Quote-Währungen, deren Kurs als USDT-Preis übernommen werden kann. */
 internal val USD_LIKE_QUOTES = setOf("USDT", "USD", "USDC", "FDUSD")
-

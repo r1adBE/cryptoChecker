@@ -10,6 +10,8 @@ import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.exchange.Kraken
 import com.cryptochecker.marketdata.model.exchange.OneTrading
+import java.io.File
+import java.io.IOException
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -23,8 +25,6 @@ import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import java.io.IOException
 
 /**
  * Ausweg des Einzelkurses nach einem Serverfehler ([SingleTickerFallback]): die Fälle `singleFallback` aus
@@ -41,8 +41,10 @@ class SingleTickerFallbackTest {
     private fun fixtureCases(): List<Map<String, Any?>> {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null && !File(dir, "testdata/exchanges").isDirectory) dir = dir.parentFile
-        val file = File(dir ?: throw IllegalStateException("testdata/exchanges nicht gefunden"),
-            "testdata/exchanges/exchange_onetrading.json")
+        val file = File(
+            dir ?: throw IllegalStateException("testdata/exchanges nicht gefunden"),
+            "testdata/exchanges/exchange_onetrading.json"
+        )
         return ParityJson.parse(file.readText(Charsets.UTF_8)).obj()["cases"].list().map { it.obj() }
             .filter { it["kind"] == "singleFallback" }
     }
@@ -85,7 +87,10 @@ class SingleTickerFallbackTest {
             val server = HttpExchangeError(code, "")
             var loaded = false
             try {
-                SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), server) { loaded = true; "[]" }
+                SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), server) {
+                    loaded = true
+                    "[]"
+                }
                 fail("$code: Fehler erwartet")
             } catch (e: HttpExchangeError) {
                 assertSame(server, e)
@@ -99,7 +104,10 @@ class SingleTickerFallbackTest {
         val server = HttpExchangeError(500, "")
         var loaded = false
         try {
-            SingleTickerFallback.load(Kraken(), 0, btcEur, SimpleTicker(), server) { loaded = true; "{}" }
+            SingleTickerFallback.load(Kraken(), 0, btcEur, SimpleTicker(), server) {
+                loaded = true
+                "{}"
+            }
             fail("Fehler erwartet")
         } catch (e: HttpExchangeError) {
             assertSame(server, e)
@@ -138,14 +146,16 @@ class SingleTickerFallbackTest {
     private val hits = HashMap<String, Int>()
 
     private fun source(replies: Map<String, Pair<Int, String>>) = ExchangeRemoteDataSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            hits[url] = (hits[url] ?: 0) + 1
-            val (code, body) = replies[url] ?: throw IOException("offline: $url")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
-                .body(body.toResponseBody("application/json".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                hits[url] = (hits[url] ?: 0) + 1
+                val (code, body) = replies[url] ?: throw IOException("offline: $url")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
+                    .body(body.toResponseBody("application/json".toMediaType())).build()
+            }
+        ).build(),
     )
 
     private fun bulkBody(): String = fixtureCases().first { it["expect"].obj()["error"] != true }["body"] as String

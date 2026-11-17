@@ -1,22 +1,27 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.market.AltSeason
 import com.cryptochecker.app.domain.market.BitcoinHalving
 import com.cryptochecker.app.domain.market.CoinInputs
-import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleExtremes
 import com.cryptochecker.app.domain.market.CycleExtremesResult
+import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleSeries
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.GlobalMarket
-import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.Indicators
+import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.mirror.DataMirror
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.util.EpochTime
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.temporal.ChronoUnit
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -26,11 +31,6 @@ import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.temporal.ChronoUnit
-import javax.inject.Inject
 
 /**
  * Daten für den Markt-Tab über Bitcoin hinaus:
@@ -55,8 +55,11 @@ class InsightsDataSource @Inject constructor(
         val dailyJob = async { klinesSourced(base, daily = true) }
         val weeklyJob = async { runCatchingCancellable { klines(base, daily = false) }.getOrDefault(emptyList()) }
         val btcJob = async {
-            if (base == "BTC") null
-            else runCatchingCancellable { klines("BTC", daily = true, limit = 120) }.getOrNull()
+            if (base == "BTC") {
+                null
+            } else {
+                runCatchingCancellable { klines("BTC", daily = true, limit = 120) }.getOrNull()
+            }
         }
 
         val dailySourced = dailyJob.await()
@@ -257,14 +260,22 @@ class InsightsDataSource @Inject constructor(
             val startPrice = first.value
             val extremes = cycleMarkers(prices, halving, startPrice)
             // Wochenpunkte, dazu die Tage aller Marken, damit die Linie genau durch sie läuft
-            val days = ((0..1440 step 7) + listOfNotNull(
-                extremes.top?.day, extremes.bottom?.day, extremes.secondTop?.day, extremes.secondBottom?.day
-            )).toSortedSet()
+            val days = (
+                (0..1440 step 7) + listOfNotNull(
+                    extremes.top?.day,
+                    extremes.bottom?.day,
+                    extremes.secondTop?.day,
+                    extremes.secondBottom?.day
+                )
+                ).toSortedSet()
             val points = days.mapNotNull { day ->
                 prices[halving.plusDays(day.toLong())]?.let { day to it / startPrice }
             }
-            if (points.size < 2) null
-            else CycleSeries(halving, points, extremes.top, extremes.bottom, extremes.secondTop, extremes.secondBottom)
+            if (points.size < 2) {
+                null
+            } else {
+                CycleSeries(halving, points, extremes.top, extremes.bottom, extremes.secondTop, extremes.secondBottom)
+            }
         }
         return CycleHistory(series)
     }

@@ -1,38 +1,38 @@
 package com.cryptochecker.app.alarm
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.settings.DepegAlarmPrefs
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.StableDepeg
 import com.cryptochecker.app.domain.alarm.StableDepegStore
-import com.cryptochecker.app.domain.remote.BlockedSources
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_STABLE_EXCHANGE_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_STABLE_NOTIFICATION_BASE_ID
 import com.cryptochecker.app.notification.showDepeg
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.DepegAlarmPrefs
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Depeg-Alarm für weitere Stablecoins ([StableDepeg]), von [DepegAlarmChecker] nach der USDT-Messung aufgerufen — nur
@@ -62,7 +62,9 @@ class StableDepegChecker @Inject constructor(
         val watches = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled } }.getOrDefault(emptyList())
         val holdings = if (settings.portfolioEnabled) {
             runCatchingCancellable { portfolioRepository.holdingCoins() }.getOrDefault(emptyList())
-        } else emptyList()
+        } else {
+            emptyList()
+        }
         val watched = StableDepeg.watched(watches.map { it.baseAsset }, holdings)
         val backoff = refreshStats.backoffStates()
         fun available(key: String) = !ExchangeBackoff.isPaused(backoff[key], now) && BlockedSources.groupPausedUntil(key) == null
@@ -70,7 +72,9 @@ class StableDepegChecker @Inject constructor(
         val measured = LinkedHashMap<String, StableDepeg.Measurement>()
         val kraken = if (available(DepegAlarm.KRAKEN_KEY)) {
             last(DepegAlarm.KRAKEN_KEY, ExchangePair(StableDepeg.USDC, "USD", StableDepeg.KRAKEN_USDC_PAIR_ID), now)
-        } else null
+        } else {
+            null
+        }
         val cross = StableDepeg.toUsd(binanceUsdcUsdt, "USDT", usdtUsd, null)
         StableDepeg.measure(listOf(StableDepeg.Source(kraken, cross = false), StableDepeg.Source(cross, cross = true)), requireTwo = false)
             ?.let { measured[StableDepeg.USDC] = it }
@@ -108,18 +112,28 @@ class StableDepegChecker @Inject constructor(
         val index = StableDepeg.notificationIndex(coin).coerceAtLeast(0)
         val sign = if (deviation < 0) "−" else "+"
         val title = context.getString(
-            R.string.notification_depeg_stable_title, coin, LocaleNumbers.decimal(price, 4), sign + PercentText.unsigned(deviation, 2)
+            R.string.notification_depeg_stable_title,
+            coin,
+            LocaleNumbers.decimal(price, 4),
+            sign + PercentText.unsigned(deviation, 2)
         )
         val url = if (coin == StableDepeg.USDC) DepegAlarm.exchangeUrl(keys) else null
         return notifier.showDepeg(
-            title, context.getString(R.string.notification_depeg_stable_text, coin), url,
-            notificationId = DEPEG_STABLE_NOTIFICATION_BASE_ID + index, requestCode = DEPEG_STABLE_EXCHANGE_REQUEST_BASE + index,
+            title,
+            context.getString(R.string.notification_depeg_stable_text, coin),
+            url,
+            notificationId = DEPEG_STABLE_NOTIFICATION_BASE_ID + index,
+            requestCode = DEPEG_STABLE_EXCHANGE_REQUEST_BASE + index,
         )
     }
 
     /** Ein weiterer Stablecoin: je Börse höchstens ein Paar aus der gespeicherten Paarliste, parallel abgefragt. */
     private suspend fun measureOther(
-        coin: String, exchanges: List<String>, usdtUsd: Double?, usdcUsd: Double?, now: Long,
+        coin: String,
+        exchanges: List<String>,
+        usdtUsd: Double?,
+        usdcUsd: Double?,
+        now: Long,
     ): StableDepeg.Measurement? = coroutineScope {
         val sources = exchanges.mapNotNull { key -> pairFor(coin, key)?.let { key to it } }.map { (key, pair) ->
             async {

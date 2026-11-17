@@ -1,9 +1,12 @@
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,30 +14,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.font.FontWeight
 import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.setup.AppLanguages
-import java.util.Locale
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.UpdateMode
+import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.work.BatteryOptimization
+import com.cryptochecker.resources.R
+import java.util.Locale
 
 // ── Allgemein ────────────────────────────────────────────────────────────────
 
@@ -55,8 +55,12 @@ internal fun CurrencyPage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
     }
     val options = remember(codes, locale) { codes.map { it to currencyName(it, locale) } }
     val q = query.trim()
-    val visible = if (q.isEmpty()) options else options.filter { (code, name) ->
-        code.contains(q, ignoreCase = true) || name.contains(q, ignoreCase = true)
+    val visible = if (q.isEmpty()) {
+        options
+    } else {
+        options.filter { (code, name) ->
+            code.contains(q, ignoreCase = true) || name.contains(q, ignoreCase = true)
+        }
     }
     SettingsSubPage(title = stringResource(R.string.settings_row_currency), onBack = onBack) {
         ChoiceSearchField(query, { query = it }, stringResource(R.string.currency_search))
@@ -108,8 +112,12 @@ internal fun LanguagePage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
     var query by rememberSaveable { mutableStateOf("") }
     val options = listOf("" to systemLabel) + AppLanguages.ALL.map { it.tag to it.nativeName }
     val q = query.trim()
-    val visible = if (q.isEmpty()) options else options.filter { (tag, name) ->
-        name.contains(q, ignoreCase = true) || (tag.isNotEmpty() && tag.startsWith(q, ignoreCase = true))
+    val visible = if (q.isEmpty()) {
+        options
+    } else {
+        options.filter { (tag, name) ->
+            name.contains(q, ignoreCase = true) || (tag.isNotEmpty() && tag.startsWith(q, ignoreCase = true))
+        }
     }
     SettingsSubPage(title = stringResource(R.string.settings_section_language), onBack = onBack) {
         ChoiceSearchField(query, { query = it }, stringResource(R.string.language_search))
@@ -223,8 +231,11 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                     StatusDot(ok = batteryUnrestricted)
                     Text(
                         text = stringResource(
-                            if (batteryUnrestricted) R.string.settings_battery_ok
-                            else R.string.settings_battery_restricted
+                            if (batteryUnrestricted) {
+                                R.string.settings_battery_ok
+                            } else {
+                                R.string.settings_battery_restricted
+                            }
                         ),
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(start = Spacing.sm)
@@ -233,8 +244,11 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 // Eingeschränkt und es wird im Hintergrund geprüft: deutlicher Satz
                 Hint(
                     stringResource(
-                        if (com.cryptochecker.app.domain.refresh.BackgroundSchedule.showBatteryHint(!batteryUnrestricted, hasWork)) R.string.battery_delay_hint
-                        else R.string.settings_battery_hint
+                        if (com.cryptochecker.app.domain.refresh.BackgroundSchedule.showBatteryHint(!batteryUnrestricted, hasWork)) {
+                            R.string.battery_delay_hint
+                        } else {
+                            R.string.settings_battery_hint
+                        }
                     )
                 )
                 if (!batteryUnrestricted) {
@@ -269,10 +283,17 @@ private fun UpdateModeCard(settings: AppSettings, onSelect: (UpdateMode) -> Unit
             UpdateMode.selectable.forEach { mode ->
                 val sparsam = mode == UpdateMode.SPARSAM
                 // Sparsam ist Standard und empfohlen; Live nur für Profis
-                val title = if (sparsam) stringResource(R.string.update_mode_sparsam) + " · " + stringResource(R.string.update_mode_recommended)
-                else stringResource(R.string.update_mode_live) + " · " + stringResource(R.string.update_mode_for_pros)
-                val subtitle = if (sparsam) stringResource(R.string.update_mode_sparsam_hint, background)
-                else stringResource(R.string.update_mode_live_hint, background)
+                val title = if (sparsam) {
+                    stringResource(R.string.update_mode_sparsam) + " · " +
+                        stringResource(R.string.update_mode_recommended)
+                } else {
+                    stringResource(R.string.update_mode_live) + " · " + stringResource(R.string.update_mode_for_pros)
+                }
+                val subtitle = if (sparsam) {
+                    stringResource(R.string.update_mode_sparsam_hint, background)
+                } else {
+                    stringResource(R.string.update_mode_live_hint, background)
+                }
                 RadioRow(
                     selected = settings.updateMode == mode,
                     onClick = { if (settings.updateMode != mode) onSelect(mode) },

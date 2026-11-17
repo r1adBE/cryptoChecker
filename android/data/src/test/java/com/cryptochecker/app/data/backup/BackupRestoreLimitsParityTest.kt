@@ -1,20 +1,20 @@
 package com.cryptochecker.app.data.backup
-import com.cryptochecker.app.domain.BackupRestoreLimits
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec
+import com.cryptochecker.app.domain.BackupRestoreLimits
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Grenzen beim Wiederherstellen der Merkliste (`testdata/parity/backup_limits.json`): unzulässige
@@ -124,11 +124,20 @@ class BackupRestoreLimitsParityTest {
             val key = c["key"] as String
             assertEquals(c.toString(), c["result"], BackupWatchlistCodec.catalogueName(key, c["name"] as String))
             val root = JSONObject()
-                .put("watches", JSONArray().put(
-                    BackupWatchlistCodec.watchToJson(
-                        WatchEntity(id = 1, exchangeKey = key, exchangeName = c["name"] as String, baseAsset = "BTC", quoteAsset = "EUR"),
-                    ),
-                ))
+                .put(
+                    "watches",
+                    JSONArray().put(
+                        BackupWatchlistCodec.watchToJson(
+                            WatchEntity(
+                                id = 1,
+                                exchangeKey = key,
+                                exchangeName = c["name"] as String,
+                                baseAsset = "BTC",
+                                quoteAsset = "EUR"
+                            ),
+                        ),
+                    )
+                )
                 .put("alarms", JSONArray())
             assertEquals(c.toString(), c["result"], BackupWatchlistCodec.readWatchlist(root).watches.single().exchangeName)
         }
@@ -144,7 +153,11 @@ class BackupRestoreLimitsParityTest {
             watches.put(
                 BackupWatchlistCodec.watchToJson(
                     WatchEntity(
-                        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = base, quoteAsset = "USDT",
+                        id = id,
+                        exchangeKey = "Binance",
+                        exchangeName = "Binance",
+                        baseAsset = base,
+                        quoteAsset = "USDT",
                         pairId = if (id in invalid) "$base USDT" else "${base}USDT",
                     ),
                 ),

@@ -5,6 +5,8 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.marketdata.model.ExchangePair
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -13,8 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * «Mehrere Paare auf einmal» app-weit: Die Aufnahme läuft im Prozess-Bereich weiter, auch wenn der Bildschirm «Paar
@@ -78,8 +78,11 @@ class BulkAddRunner constructor(
                 val outcome = writes.add(exchange, pairs, group) { done ->
                     state.value = Progress(done, total)
                 }
-                state.value = if (outcome.locked) Progress(total, total, locked = true)
-                else Progress(total, total, result = outcome, finishedAt = now())
+                state.value = if (outcome.locked) {
+                    Progress(total, total, locked = true)
+                } else {
+                    Progress(total, total, result = outcome, finishedAt = now())
+                }
                 // Viele auf einmal: kein Erst-Moment, das erste Paar gilt aber als erledigt
                 if (outcome.added > 0) writes.markFirstPairAdded()
             } catch (e: Throwable) {
@@ -87,8 +90,11 @@ class BulkAddRunner constructor(
                 // eines Balkens, der ewig steht. Ein schon gemeldetes Ende bleibt.
                 val cancelled = e is CancellationException
                 state.update { p ->
-                    if (p == null || !p.running) p
-                    else Progress(p.done, total, cancelled = cancelled, failed = !cancelled)
+                    if (p == null || !p.running) {
+                        p
+                    } else {
+                        Progress(p.done, total, cancelled = cancelled, failed = !cancelled)
+                    }
                 }
                 throw e
             }

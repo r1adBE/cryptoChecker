@@ -1,35 +1,35 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.CutoffHolding
 import com.cryptochecker.app.domain.refresh.OutdatedRule
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.NotTraded
-import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.util.Change24h
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import kotlin.math.abs
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle Android/iOS (JSON-Dateien in `testdata/parity/`): gleiche Eingaben, gleiche
@@ -79,7 +79,10 @@ class ParityFixturesTest {
         data["trigger"].list().forEach { raw ->
             val c = raw.obj()
             val result = evaluator.shouldTrigger(
-                alarm(c["alarm"].obj()), c["price"].num()!!, c["previousPrice"].num(), now,
+                alarm(c["alarm"].obj()),
+                c["price"].num()!!,
+                c["previousPrice"].num(),
+                now,
                 c["cooldownMinutes"].num()!!.toInt(),
             )
             assertEquals("trigger: ${c["name"]}", c["expected"], result)
@@ -88,7 +91,8 @@ class ParityFixturesTest {
         data["rearm"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "rearm: ${c["name"]}", c["expected"],
+                "rearm: ${c["name"]}",
+                c["expected"],
                 evaluator.shouldRearmLevel(alarm(c["alarm"].obj()), c["price"].num()!!, c["now"].num()?.toLong()),
             )
             count++
@@ -96,7 +100,10 @@ class ParityFixturesTest {
         data["volumeSpike"].list().forEach { raw ->
             val c = raw.obj()
             val result = evaluator.shouldTriggerVolumeSpike(
-                alarm(c["alarm"].obj()), c["ratio"].num(), c["candleOpenTime"].num()!!.toLong(), now,
+                alarm(c["alarm"].obj()),
+                c["ratio"].num(),
+                c["candleOpenTime"].num()!!.toLong(),
+                now,
                 c["cooldownMinutes"].num()!!.toInt(),
             )
             assertEquals("volumeSpike: ${c["name"]}", c["expected"], result)
@@ -117,7 +124,15 @@ class ParityFixturesTest {
                         a = a.copy(referencePrice = price, referenceAt = t)
                     } else if (evaluator.shouldRearmLevel(a, price, t)) {
                         a = a.copy(referenceAt = 0)
-                    } else if (evaluator.shouldTrigger(a, price, previousPrice = null, now = t, cooldownMinutes = cooldown, moveHistory = history)) {
+                    } else if (evaluator.shouldTrigger(
+                            a,
+                            price,
+                            previousPrice = null,
+                            now = t,
+                            cooldownMinutes = cooldown,
+                            moveHistory = history
+                        )
+                    ) {
                         fired++
                         a = AlarmEvaluator.triggered(a, price, t)
                     }
@@ -136,8 +151,11 @@ class ParityFixturesTest {
             val c = raw.obj()
             val name = "triggered: ${c["name"]}"
             val after = AlarmEvaluator.triggered(
-                alarm(c["alarm"].obj()), c["price"].num()!!, now,
-                candleOpenTime = c["candleOpenTime"].num()?.toLong(), nearLevel = c["nearLevel"].num(),
+                alarm(c["alarm"].obj()),
+                c["price"].num()!!,
+                now,
+                candleOpenTime = c["candleOpenTime"].num()?.toLong(),
+                nearLevel = c["nearLevel"].num(),
             )
             val e = c["expected"].obj()
             assertNumber(e["referencePrice"].num(), after.referencePrice, 1e-9, "$name referencePrice")
@@ -168,7 +186,10 @@ class ParityFixturesTest {
         data["moveUncheckable"].obj()["cases"].list().forEach { raw ->
             val c = raw.obj()
             val result = evaluator.moveWindowUncheckable(
-                alarm(c["alarm"].obj()), c["price"].num()!!, now, c["history"].list().map { point(it) },
+                alarm(c["alarm"].obj()),
+                c["price"].num()!!,
+                now,
+                c["history"].list().map { point(it) },
             )
             assertEquals("moveUncheckable: ${c["name"]}", c["expected"], result)
             count++
@@ -177,7 +198,8 @@ class ParityFixturesTest {
             val c = raw.obj()
             val range = c["range"].obj().let { NearExtreme.Range(high = it["high"].num()!!, low = it["low"].num()!!) }
             var a = AlarmEntity(
-                id = 1, watchId = 1,
+                id = 1,
+                watchId = 1,
                 condition = AlarmCondition.valueOf(c["condition"] as String),
                 threshold = c["threshold"].num()!!,
                 repeating = c["repeating"] as Boolean,
@@ -189,17 +211,19 @@ class ParityFixturesTest {
                 val price = p.num()!!
                 val t = now + i * step
                 if (!a.enabled) return@mapIndexed "skip"
-                when (val d = NearExtreme.decide(
-                    side = if (a.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
-                    price = price,
-                    range = range,
-                    thresholdPercent = a.threshold,
-                    armed = a.referenceAt <= 0L,
-                    lastLevel = NearExtreme.reportedMark(a.referencePrice, a.lastTriggeredAt, a.windowHours, t),
-                    inCooldown = NearExtreme.inCooldown(a.lastTriggeredAt, t, cooldown),
-                    lastTriggeredAt = a.lastTriggeredAt,
-                    now = t,
-                )) {
+                when (
+                    val d = NearExtreme.decide(
+                        side = if (a.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
+                        price = price,
+                        range = range,
+                        thresholdPercent = a.threshold,
+                        armed = a.referenceAt <= 0L,
+                        lastLevel = NearExtreme.reportedMark(a.referencePrice, a.lastTriggeredAt, a.windowHours, t),
+                        inCooldown = NearExtreme.inCooldown(a.lastTriggeredAt, t, cooldown),
+                        lastTriggeredAt = a.lastTriggeredAt,
+                        now = t,
+                    )
+                ) {
                     NearExtreme.Decision.None -> "none"
                     NearExtreme.Decision.Rearm -> {
                         a = a.copy(referenceAt = 0)
@@ -342,6 +366,7 @@ class ParityFixturesTest {
     @Test
     fun cutoffReferencePrices() {
         val cases = ParityJson.load("cutoff_export.json")["referenceCases"].list().map { it.obj() }
+
         // Zahl oder Text «NaN» (JSON kennt kein NaN)
         fun number(v: Any?): Double = (v as? Number)?.toDouble() ?: (v as String).toDouble()
         cases.forEach { c ->
@@ -366,7 +391,9 @@ class ParityFixturesTest {
             val layers = c["layers"].list().map { raw ->
                 val l = raw.obj()
                 CutoffExport.ReferenceLayer(
-                    l["prices"].obj().mapValues { (it.value as Number).toDouble() }, names(l["unchecked"]), names(l["unverified"]),
+                    l["prices"].obj().mapValues { (it.value as Number).toDouble() },
+                    names(l["unchecked"]),
+                    names(l["unverified"]),
                 )
             }
             val expected = (c["expected"] as Number?)?.toDouble()
@@ -397,7 +424,10 @@ class ParityFixturesTest {
             val c = raw.obj()
             val stamp = c["stamp"]?.obj()?.let { ChangeStamp(basisOf(it["basis"] as String), time(it["dayStart"])) }
             val actual = ChangeBasisMath.isCurrent(
-                stamp, basisOf(c["basis"] as String), time(c["now"]), ZoneId.of(c["zone"] as String)
+                stamp,
+                basisOf(c["basis"] as String),
+                time(c["now"]),
+                ZoneId.of(c["zone"] as String)
             )
             assertEquals("isCurrent: ${c["name"]}", c["expected"], actual)
         }
@@ -461,7 +491,8 @@ class ParityFixturesTest {
             val c = raw.obj()
             val time = c["ageMillis"].num()?.let { now - it.toLong() } ?: 0L
             assertEquals(
-                "stale: ${c["name"]}", c["expected"],
+                "stale: ${c["name"]}",
+                c["expected"],
                 OutdatedRule.isOutdated(time, now, c["afterMillis"].num()!!.toLong()),
             )
         }
@@ -482,7 +513,10 @@ class ParityFixturesTest {
         data["select"].list().forEach { raw ->
             val c = raw.obj()
             val actual = DayChange.select(
-                c["price"].num(), reference(c["pair"]), reference(c["usdt"]), c["quoteIsFiat"] as Boolean,
+                c["price"].num(),
+                reference(c["pair"]),
+                reference(c["usdt"]),
+                c["quoteIsFiat"] as Boolean,
                 usdToQuote = c["usdToQuote"].num(),
                 usdToQuoteAtOpen = c["usdToQuoteAtOpen"].num(),
                 usdtUsd = c["usdtUsd"].num(),
@@ -490,10 +524,18 @@ class ParityFixturesTest {
             )
             assertNumber(c["expected"].num(), actual, 1e-9, "select: ${c["name"]}")
             (c["usdtApproximate"] as Boolean?)?.let {
-                assertEquals("usdtApproximate: ${c["name"]}", it, DayChange.usdtSeriesApproximate(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num()))
+                assertEquals(
+                    "usdtApproximate: ${c["name"]}",
+                    it,
+                    DayChange.usdtSeriesApproximate(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num())
+                )
             }
             (c["usdtHistoryMissing"] as Boolean?)?.let {
-                assertEquals("usdtHistoryMissing: ${c["name"]}", it, DayChange.usdtSeriesHistoryMissing(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num()))
+                assertEquals(
+                    "usdtHistoryMissing: ${c["name"]}",
+                    it,
+                    DayChange.usdtSeriesHistoryMissing(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num())
+                )
             }
         }
         data["reference"].list().forEach { raw ->

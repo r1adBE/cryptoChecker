@@ -31,11 +31,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
 import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -89,7 +89,12 @@ fun TaxWorksheetScreen(
     val yearLabel = taxYear?.let { template.label(it) }.orEmpty()
     // Kopfzeile jeder Datei: Vorlage, Methode, Steuerjahr, Währung, Version; Arbeitsunterlage – keine Steuerberatung
     val info = stringResource(
-        R.string.tax_export_info_template, templateName, methodLabel, yearLabel, workCurrency, BuildConfig.VERSION_NAME,
+        R.string.tax_export_info_template,
+        templateName,
+        methodLabel,
+        yearLabel,
+        workCurrency,
+        BuildConfig.VERSION_NAME,
     )
     val disclaimer = stringResource(R.string.tax_export_workpaper_disclaimer)
     // Länder-Vorlagen: Regelstand (Monat/Jahr der App-Sprache) in jeder Kopfzeile
@@ -104,7 +109,9 @@ fun TaxWorksheetScreen(
     // Vorlage erlaubt die Einstandsmethode der App nicht: offen sagen, womit der Export rechnet (Kopfzeile und Seite)
     val methodNote = if (template.methodOverridden(costMethod, taxYear)) {
         stringResource(R.string.tax_export_method_overridden, methodLabel, taxMethodName(TaxMethod.of(costMethod)))
-    } else null
+    } else {
+        null
+    }
     // «Daten in Ortszeit (Zone)» — Verlauf/Heute rechnen in UTC (Hinweis dort)
     val zoneLine = stringResource(R.string.tax_export_year_local_zone, taxZone.id)
     val gainsTitle = stringResource(R.string.tax_export_gains_title, yearLabel)
@@ -125,7 +132,14 @@ fun TaxWorksheetScreen(
     ) { uri ->
         if (uri != null && taxYear != null) {
             val header = listOfNotNull(summaryTexts.title, info, rulesLine, methodNote, atWalletNote, usdtNote, dayCloseNote, disclaimer)
-            viewModel.exportSummary(uri, taxYear, currency, summaryTexts, TaxExport.withChWealthNote(template, header, chWealthNote), zoneLine)
+            viewModel.exportSummary(
+                uri,
+                taxYear,
+                currency,
+                summaryTexts,
+                TaxExport.withChWealthNote(template, header, chWealthNote),
+                zoneLine
+            )
         }
     }
     val taxLauncher = rememberLauncherForActivityResult(
@@ -135,7 +149,9 @@ fun TaxWorksheetScreen(
         taxKind = null
         if (uri != null && kind != null && taxYear != null) {
             val header = when (kind) {
-                TaxExportKind.GAINS -> listOfNotNull(gainsTitle, info, rulesLine, methodNote, rule, atWalletNote, usdtNote, dayCloseNote, disclaimer)
+                TaxExportKind.GAINS -> listOfNotNull(
+                    gainsTitle, info, rulesLine, methodNote, rule, atWalletNote, usdtNote, dayCloseNote, disclaimer,
+                )
                 TaxExportKind.INCOME -> listOfNotNull(incomeTitle, info, rulesLine, usdtNote, dayCloseNote, disclaimer)
             }
             viewModel.exportTax(uri, kind, taxYear, currency, taxTexts, TaxExport.withChWealthNote(template, header, chWealthNote))
@@ -146,16 +162,27 @@ fun TaxWorksheetScreen(
     val holdingsTexts = cutoffTexts(workCurrency)
     val holdingsEnd = period?.end
     val holdingsTitle = holdingsEnd?.let {
-        stringResource(R.string.tax_export_holdings_title, it.format(LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))))
+        stringResource(
+            R.string.tax_export_holdings_title,
+            it.format(LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+        )
     }.orEmpty()
     val holdingsLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("text/csv")
     ) { uri ->
         if (uri != null && holdingsEnd != null) {
             viewModel.export(
-                uri, holdingsEnd, workCurrency, holdingsTexts,
-                TaxExport.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, methodNote, usdtNote, disclaimer, zoneLine), chWealthNote),
-                zone = taxZone, method = method.holdingsCostMethod, // Methode der Vorlage, wie im Kopf
+                uri,
+                holdingsEnd,
+                workCurrency,
+                holdingsTexts,
+                TaxExport.withChWealthNote(
+                    template,
+                    listOfNotNull(holdingsTitle, info, rulesLine, methodNote, usdtNote, disclaimer, zoneLine),
+                    chWealthNote
+                ),
+                zone = taxZone,
+                method = method.holdingsCostMethod, // Methode der Vorlage, wie im Kopf
             )
         }
     }
@@ -193,7 +220,10 @@ fun TaxWorksheetScreen(
                 title = { Text(stringResource(R.string.tax_export_workpaper_title), fontWeight = FontWeight.SemiBold) },
                 navigationIcon = {
                     // Zurück während eines Exports: abbrechen, angefangene Datei löschen
-                    IconButton(onClick = { viewModel.cancelExport(); onBack() }) {
+                    IconButton(onClick = {
+                        viewModel.cancelExport()
+                        onBack()
+                    }) {
                         Icon(
                             painterResource(R.drawable.ic_arrow_back),
                             contentDescription = stringResource(R.string.action_back),
@@ -230,12 +260,14 @@ fun TaxWorksheetScreen(
                     onYear = { chosenYear = it },
                     onGains = {
                         launch(TaxExport.gainsFileName(taxYear)) {
-                            taxKind = TaxExportKind.GAINS; taxLauncher.launch(TaxExport.gainsFileName(taxYear))
+                            taxKind = TaxExportKind.GAINS
+                            taxLauncher.launch(TaxExport.gainsFileName(taxYear))
                         }
                     },
                     onIncome = {
                         launch(TaxExport.incomeFileName(taxYear)) {
-                            taxKind = TaxExportKind.INCOME; taxLauncher.launch(TaxExport.incomeFileName(taxYear))
+                            taxKind = TaxExportKind.INCOME
+                            taxLauncher.launch(TaxExport.incomeFileName(taxYear))
                         }
                     },
                     onHoldings = {

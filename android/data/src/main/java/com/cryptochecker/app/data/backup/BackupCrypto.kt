@@ -37,6 +37,7 @@ import javax.crypto.spec.SecretKeySpec
  */
 object BackupCrypto {
     const val FORMAT = "cryptochecker-backup-enc"
+
     /** Version der Hülle (Argon2id + AAD). */
     const val VERSION = 3
     const val ENC = "AES-256-GCM"
@@ -276,8 +277,11 @@ object BackupCrypto {
     /** NFC-Kopie des Passworts (der Aufrufer überschreibt sie): «ö» als ein Zeichen, wie es die Tastatur unter iOS liefert. */
     private fun normalizedCopy(password: CharArray): CharArray {
         val buffer = CharBuffer.wrap(password)
-        return if (Normalizer.isNormalized(buffer, Normalizer.Form.NFC)) password.copyOf()
-        else Normalizer.normalize(buffer, Normalizer.Form.NFC).toCharArray()
+        return if (Normalizer.isNormalized(buffer, Normalizer.Form.NFC)) {
+            password.copyOf()
+        } else {
+            Normalizer.normalize(buffer, Normalizer.Form.NFC).toCharArray()
+        }
     }
 
     /** NFC: «ö» als ein Zeichen, gleich wie es die Tastatur unter iOS liefert. */

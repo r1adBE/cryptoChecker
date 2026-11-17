@@ -25,8 +25,13 @@ class ListWidgetSnapshotCodecTest {
 
     @Test
     fun missingValuesStayMissing() {
-        val bare = WatchEntity(exchangeKey = "kraken", exchangeName = "Kraken", baseAsset = "ETH", quoteAsset = "EUR",
-            change24h = Double.NaN)
+        val bare = WatchEntity(
+            exchangeKey = "kraken",
+            exchangeName = "Kraken",
+            baseAsset = "ETH",
+            quoteAsset = "EUR",
+            change24h = Double.NaN
+        )
         val back = ListWidgetSnapshotCodec.decode(ListWidgetSnapshotCodec.encode(listOf(bare)))!!.single()
         assertEquals(bare.copy(change24h = null), back)
     }

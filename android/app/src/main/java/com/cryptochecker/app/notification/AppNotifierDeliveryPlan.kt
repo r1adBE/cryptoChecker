@@ -4,8 +4,8 @@
 // Systemdienst, fragen hier nach dem Plan und melden bzw. entfernen danach. Reines Kotlin, per JVM-Test geprüft.
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.domain.notification.NotificationIds
 import com.cryptochecker.app.domain.notification.NotificationBudget
+import com.cryptochecker.app.domain.notification.NotificationIds
 
 object AppNotifierDeliveryPlan {
 
@@ -149,8 +149,10 @@ object AppNotifierDeliveryPlan {
     enum class Channel {
         /** Lautloser Alarm-Kanal (Nachtruhe). */
         QUIET_ALARM,
+
         /** Kanal des gewählten «Alarm-Signals» (Kursalarme, Portfolio-Alarme, Depeg). */
         ALARM_SIGNAL,
+
         /** Markt-Kanal (Aktivität, Fear & Greed, Kennzahlen, Gebühren, Wirtschaftstermine). */
         MARKET,
     }
@@ -214,7 +216,9 @@ object AppNotifierDeliveryPlan {
                     if (NotificationIds.isKind(NotificationIds.Kind.ACTIVITY, e.id)) activity += e
                     if (NotificationIds.isKind(NotificationIds.Kind.ALARM, e.id) ||
                         NotificationIds.isKind(NotificationIds.Kind.PORTFOLIO_ALARM, e.id)
-                    ) alarms += e
+                    ) {
+                        alarms += e
+                    }
                 }
             }
         }

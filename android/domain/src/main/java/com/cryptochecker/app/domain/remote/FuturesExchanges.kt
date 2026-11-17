@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.remote
-import com.cryptochecker.app.domain.util.json.JsonObject
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.activity.FuturesSourceNote
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 
 /**
  * Welche Börse ihre Perpetuals mit eigenen Funding-/Open-Interest-Daten versorgt und wie die
@@ -18,6 +18,7 @@ object FuturesSources {
     const val HTX = "HTX Futures"
     const val HYPERLIQUID = "Hyperliquid"
     const val DERIBIT = "Deribit"
+
     /** Binance COIN-M (Paare «2:BTCUSD_PERP», `dapi.binance.com`) — eigener Kontrakt, nicht der USDT-Kontrakt. */
     const val BINANCE_COIN_M = "Binance COIN-M"
 
@@ -196,7 +197,10 @@ object FuturesParsers {
         val oi = oiUsd?.takeIf { it > 0.0 }
         require(funding != null || oi != null) { "$source ohne Futures-Daten" }
         return FuturesInfo(
-            fundingRatePercent = funding, nextFundingTime = next, openInterestUsd = oi, source = source,
+            fundingRatePercent = funding,
+            nextFundingTime = next,
+            openInterestUsd = oi,
+            source = source,
             fundingIntervalHours = intervalHours,
         )
     }
@@ -244,8 +248,10 @@ object FuturesParsers {
             ?: throw IllegalArgumentException("COIN-M ohne $symbol")
         val contracts = openInterest?.let { runCatching { num(JsonObject(it), "openInterest") }.getOrNull() }
         return info(
-            num(row, "lastFundingRate"), time(row, "nextFundingTime"),
-            product(contracts, coinMContractUsd(symbol, contractSizes)), FuturesSources.BINANCE_COIN_M,
+            num(row, "lastFundingRate"),
+            time(row, "nextFundingTime"),
+            product(contracts, coinMContractUsd(symbol, contractSizes)),
+            FuturesSources.BINANCE_COIN_M,
         )
     }
 

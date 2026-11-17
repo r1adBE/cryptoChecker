@@ -15,6 +15,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvAbsorbedRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
+import java.io.File
+import java.math.BigDecimal
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -23,8 +25,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
-import java.math.BigDecimal
 
 /**
  * Systemsicherung des Portfolios im Rundlauf: [PortfolioBackupMirror.writeForBackup] (Sicherungs-Agent) schreibt die
@@ -59,8 +59,10 @@ class DatabaseFreshInstallBackupTest {
             val columns = columnsOf(db, "portfolio_tx")
             assertTrue("portfolio_tx ohne Spalten", columns.isNotEmpty())
             val uncovered = columns.filterNot { column -> hasValue(db, column) }
-            assertTrue("Spalten ohne Wert in den Testdaten (TXS ergänzen, INSERT in importInto prüfen): $uncovered",
-                uncovered.isEmpty())
+            assertTrue(
+                "Spalten ohne Wert in den Testdaten (TXS ergänzen, INSERT in importInto prüfen): $uncovered",
+                uncovered.isEmpty()
+            )
         }
     }
 
@@ -182,28 +184,53 @@ class DatabaseFreshInstallBackupTest {
             ),
             // Staking-Umbuchung von/nach
             PortfolioTxEntity(
-                id = 12, coin = "BTC", type = PortfolioTxType.TRANSFER, amount = BigDecimal("0.25"), time = T + 1,
-                transferFrom = "Kraken Staking", transferTo = "Kraken", stakingMove = true,
+                id = 12,
+                coin = "BTC",
+                type = PortfolioTxType.TRANSFER,
+                amount = BigDecimal("0.25"),
+                time = T + 1,
+                transferFrom = "Kraken Staking",
+                transferTo = "Kraken",
+                stakingMove = true,
             ),
             // Zins
             PortfolioTxEntity(
-                id = 13, coin = "ADA", type = PortfolioTxType.REWARD, amount = BigDecimal("12.5"),
-                priceUsdt = BigDecimal("0.45"), time = T + 2, exchange = "Nexo", interest = true,
+                id = 13,
+                coin = "ADA",
+                type = PortfolioTxType.REWARD,
+                amount = BigDecimal("12.5"),
+                priceUsdt = BigDecimal("0.45"),
+                time = T + 2,
+                exchange = "Nexo",
+                interest = true,
             ),
             // Einzahlung mit ursprünglichem Kaufdatum
             PortfolioTxEntity(
-                id = 14, coin = "BTC", type = PortfolioTxType.DEPOSIT, amount = BigDecimal("0.1"), time = T + 3,
+                id = 14,
+                coin = "BTC",
+                type = PortfolioTxType.DEPOSIT,
+                amount = BigDecimal("0.1"),
+                time = T + 3,
                 acquiredTime = 1_600_000_000_000L,
             ),
             // Schenkung an den Partner
             PortfolioTxEntity(
-                id = 15, coin = "BTC", type = PortfolioTxType.GIFT, amount = BigDecimal("0.05"), time = T + 4,
+                id = 15,
+                coin = "BTC",
+                type = PortfolioTxType.GIFT,
+                amount = BigDecimal("0.05"),
+                time = T + 4,
                 giftToSpouse = true,
             ),
             // Gebühr-Zeile (gespeichert als Verkauf)
             PortfolioTxEntity(
-                id = 16, coin = "BTC", type = PortfolioTxType.SELL, amount = BigDecimal("0.0002"),
-                priceUsdt = BigDecimal("65000.5"), time = T + 5, feeRow = true,
+                id = 16,
+                coin = "BTC",
+                type = PortfolioTxType.SELL,
+                amount = BigDecimal("0.0002"),
+                priceUsdt = BigDecimal("65000.5"),
+                time = T + 5,
+                feeRow = true,
             ),
         )
 

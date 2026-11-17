@@ -2,21 +2,21 @@
 // grosses Bild. Eigene Datei, damit `AppNotifierAlarms.kt` beim Aufbau der Meldung bleibt; Erweiterungsfunktionen.
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.data.local.SharedPreferencesStores
 import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.local.SharedPreferencesStores
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.AlarmSnoozeStore
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.AppNotifier.Companion.EDIT_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Companion.SNOOZE_REQUEST_BASE
 import com.cryptochecker.app.ui.navigation.AlarmEditTarget
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.withTimeoutOrNull
 
 /** Längstens so lange wartet die Alarm-Meldung auf das Logo aus der Datei; danach ohne Bild. */

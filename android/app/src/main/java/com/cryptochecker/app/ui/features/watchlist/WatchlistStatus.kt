@@ -49,7 +49,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.DisabledView
 import com.cryptochecker.app.domain.watch.LiveStatus
@@ -57,7 +57,7 @@ import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.domain.format.A11ySpeech
+import com.cryptochecker.resources.R
 import java.util.Locale
 import kotlin.math.abs
 
@@ -67,22 +67,31 @@ internal const val STATUS_FADE_MILLIS = 200
 /** «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts, klein beginnend ([midSentence]). */
 @Composable
 internal fun ago(millis: Long, now: Long): String =
-    if (now - millis < 60_000) stringResource(R.string.time_just_now)
-    else midSentence(
-        DateUtils.getRelativeTimeSpanString(
-            millis, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
-        ).toString(),
-        now - millis,
-    )
+    if (now - millis < 60_000) {
+        stringResource(R.string.time_just_now)
+    } else {
+        midSentence(
+            DateUtils.getRelativeTimeSpanString(
+                millis,
+                now,
+                DateUtils.MINUTE_IN_MILLIS,
+                DateUtils.FORMAT_ABBREV_RELATIVE
+            ).toString(),
+            now - millis,
+        )
+    }
 
 /** Wie [ago], aber ausgeschrieben für den Screenreader: «vor 2 Minuten». */
 @Composable
 internal fun spokenAgo(millis: Long, now: Long): String =
-    if (now - millis < 60_000) stringResource(R.string.time_just_now)
-    else midSentence(
-        DateUtils.getRelativeTimeSpanString(millis, now, DateUtils.MINUTE_IN_MILLIS).toString(),
-        now - millis,
-    )
+    if (now - millis < 60_000) {
+        stringResource(R.string.time_just_now)
+    } else {
+        midSentence(
+            DateUtils.getRelativeTimeSpanString(millis, now, DateUtils.MINUTE_IN_MILLIS).toString(),
+            now - millis,
+        )
+    }
 
 /** Ab diesem Abstand liefert [DateUtils.getRelativeTimeSpanString] ein Datum statt einer relativen Zeit. */
 private const val RELATIVE_SPAN_MAX_MILLIS = 7L * 24 * 60 * 60_000
@@ -95,8 +104,11 @@ private const val RELATIVE_SPAN_MAX_MILLIS = 7L * 24 * 60 * 60_000
  * Datum («Oct 12») — Monatsnamen bleiben, wie sie sind.
  */
 internal fun midSentence(relative: String, ageMillis: Long, locale: Locale = Locale.getDefault()): String =
-    if (abs(ageMillis) >= RELATIVE_SPAN_MAX_MILLIS) relative
-    else relative.replaceFirstChar { it.lowercase(locale) }
+    if (abs(ageMillis) >= RELATIVE_SPAN_MAX_MILLIS) {
+        relative
+    } else {
+        relative.replaceFirstChar { it.lowercase(locale) }
+    }
 
 /**
  * Zeile, die mit der relativen Zeit [ago] beginnt («vor 5 Min. · Binance nicht erreichbar», Adresszeile «vor 2 Std. ·
@@ -161,7 +173,9 @@ internal data class WatchlistStatus(
         fun isStale(watch: WatchEntity, now: Long, staleAfter: Long, liveIds: Set<Long> = emptySet()): Boolean {
             val onLive = watch.id in liveIds
             return PriceFreshness.isStale(
-                LiveOverlay.atHeartbeat(watch, onLive, now), now, LiveStatus.staleAfterMillis(onLive, staleAfter),
+                LiveOverlay.atHeartbeat(watch, onLive, now),
+                now,
+                LiveStatus.staleAfterMillis(onLive, staleAfter),
             )
         }
 
@@ -235,8 +249,11 @@ internal fun WatchlistStatusRow(
     // «veraltet» in Bernstein wie die Zeile, Fehler (keine Verbindung, gescheitert) in Fehlerfarbe
     val tone = when (
         com.cryptochecker.app.domain.watch.StatusPillTone.of(
-            none = status.none, deviceOffline = status.deviceOffline, offline = status.offline,
-            stale = status.stale, failed = status.failed,
+            none = status.none,
+            deviceOffline = status.deviceOffline,
+            offline = status.offline,
+            stale = status.stale,
+            failed = status.failed,
         )
     ) {
         com.cryptochecker.app.domain.watch.StatusPillTone.NEUTRAL -> MaterialTheme.colorScheme.onSurfaceVariant

@@ -11,6 +11,7 @@ import kotlinx.coroutines.sync.Mutex
 object ZoneCheckPrefs {
     const val PREFS = "market_zone"
     const val KEY_FNG = "last_fear_greed"
+
     /** Grenzen, zu denen der gemerkte Stand gehört. */
     const val KEY_FNG_BELOW = "last_fear_greed_below"
     const val KEY_FNG_ABOVE = "last_fear_greed_above"
@@ -29,6 +30,7 @@ object ZoneCheckPrefs {
  */
 object GasAlertPrefs {
     const val PREFS = "gas_alerts"
+
     /** Grenze, zu der der gemerkte Zustand gehört (Double als Bits). */
     const val KEY_ETH_THRESHOLD = "eth_threshold"
     const val KEY_BTC_THRESHOLD = "btc_threshold"
@@ -41,8 +43,10 @@ object GasAlertPrefs {
  */
 object DepegAlarmPrefs {
     const val PREFS = "depeg_alarm"
+
     /** Schwelle in Zehntelprozent, zu der der gemerkte Zustand «scharf» gehört; 0 = zwischendurch ausgeschaltet. */
     const val KEY_ARMED_TENTHS = "armed_tenths"
+
     /** Weitere Stablecoins (`StableDepeg`): «scharf» und die zugehörige Schwelle je Kürzel (Präfix + Kürzel). */
     const val STABLE_ARMED_PREFIX = "stable_armed_state_"
     const val STABLE_ARMED_TENTHS_PREFIX = "stable_armed_tenths_"

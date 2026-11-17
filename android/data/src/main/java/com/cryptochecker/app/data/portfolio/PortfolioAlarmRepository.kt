@@ -6,11 +6,11 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.util.IoDispatcher
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /** Portfolio-Alarme lesen und ändern (Portfolio-Tab, Alarm-Übersicht, Sicherung). */
 @Singleton

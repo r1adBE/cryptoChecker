@@ -20,8 +20,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PhoneWatchListener : WearableListenerService() {
     @Inject lateinit var sync: PhoneWatchSync
+
     @Inject lateinit var feed: PhoneWatchFeed
+
     @Inject lateinit var usage: PhoneWatchUsage
+
     @Inject lateinit var notify: WatchNotifyBridge
 
     override fun onDataChanged(dataEvents: DataEventBuffer) {
@@ -37,8 +40,13 @@ class PhoneWatchListener : WearableListenerService() {
     }
 
     override fun onCapabilityChanged(capabilityInfo: CapabilityInfo) =
-        watchAppChanged(capabilityInfo.name, capabilityInfo.nodes.isNotEmpty(), notify::takeReachable,
-            republish = { sync.republish() }, resend = { feed.resend() })
+        watchAppChanged(
+            capabilityInfo.name,
+            capabilityInfo.nodes.isNotEmpty(),
+            notify::takeReachable,
+            republish = { sync.republish() },
+            resend = { feed.resend() }
+        )
 
     companion object {
         /**

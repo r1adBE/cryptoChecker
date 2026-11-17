@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.settings
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.parity.ParityJson
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
 
 /** Gemeinsame Testfälle `price_colors.json`: Kursfarben je Schema × Akzent (iOS: `PriceColorsParityTests.swift`). */
 class PriceColorsParityTest {

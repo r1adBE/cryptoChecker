@@ -51,7 +51,11 @@ fun CoinLogos.parseSymbolDirectory(text: String?, into: MutableMap<String, Strin
  * Namen der TradFi-Kürzel [tradFiBases] aus der Symbolliste [stockNames] ([tradFiKey] als
  * Schlüssel), nur wo [names] noch keinen hat (bStocks-Namen der Binance-Liste gehen vor).
  */
-fun CoinLogos.withStockNames(names: Map<String, String>, stockNames: Map<String, String>, tradFiBases: Collection<String>): Map<String, String> {
+fun CoinLogos.withStockNames(
+    names: Map<String, String>,
+    stockNames: Map<String, String>,
+    tradFiBases: Collection<String>
+): Map<String, String> {
     if (tradFiBases.isEmpty() || stockNames.isEmpty()) return names
     val out = LinkedHashMap(names)
     for (base in tradFiBases.sorted()) {

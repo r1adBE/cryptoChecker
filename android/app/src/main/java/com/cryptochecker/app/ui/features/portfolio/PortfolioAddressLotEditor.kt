@@ -3,7 +3,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,14 +29,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
-import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
+import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 import java.time.ZoneId
 
@@ -77,7 +77,9 @@ internal fun AddressLotEditor(
     val value = PriceFormat.parseDecimalAmount(valueText, sep)?.takeIf { it.signum() >= 0 }
     val lot = if (amount != null && value != null) {
         AddressCostLot(initial.id, coin, time, amount, priceUsdt = value.takeIf { perCoin }, costUsdt = value.takeIf { !perCoin })
-    } else null
+    } else {
+        null
+    }
     // Vorschlag: geprüfter Tagesschluss des Kaufdatums (gleiche Quelle wie das Erfassen-Blatt)
     var close by remember(coin, time) { mutableStateOf<BigDecimal?>(null) }
     LaunchedEffect(coin, time) { close = historicClose(coin, localDate(time)) }
@@ -131,8 +133,12 @@ internal fun AddressLotEditor(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(Spacing.xs)) {
-                    FilterChip(selected = !perCoin, onClick = { perCoin = false }, label = { Text(stringResource(R.string.address_lots_mode_total)) })
-                    FilterChip(selected = perCoin, onClick = { perCoin = true }, label = { Text(stringResource(R.string.address_lots_mode_price)) })
+                    FilterChip(selected = !perCoin, onClick = {
+                        perCoin = false
+                    }, label = { Text(stringResource(R.string.address_lots_mode_total)) })
+                    FilterChip(selected = perCoin, onClick = {
+                        perCoin = true
+                    }, label = { Text(stringResource(R.string.address_lots_mode_price)) })
                 }
                 OutlinedTextField(
                     value = valueText,
@@ -148,7 +154,11 @@ internal fun AddressLotEditor(
                     val suggested = if (perCoin) c else amount?.let { AddressCostLots.suggestion(it, c) }
                     if (suggested != null) {
                         Text(
-                            stringResource(R.string.cost_gap_suggestion, PortfolioFormat.date(time), maskAmount(PortfolioFormat.usdt(suggested.toDouble()))),
+                            stringResource(
+                                R.string.cost_gap_suggestion,
+                                PortfolioFormat.date(time),
+                                maskAmount(PortfolioFormat.usdt(suggested.toDouble()))
+                            ),
                             style = MaterialTheme.typography.body,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -158,13 +168,21 @@ internal fun AddressLotEditor(
                     }
                 }
                 if (tried && lot == null) {
-                    Text(stringResource(R.string.address_lots_invalid), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.body)
+                    Text(
+                        stringResource(R.string.address_lots_invalid),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.body
+                    )
                 }
                 // Je Coin aus einem Gesamtbetrag (nur Anzeige): «≈ 30'000 USDT je Coin»
                 if (!perCoin && amount != null && value != null) {
                     PortfolioCostGaps.priceFromTotal(value, amount)?.let {
                         Text(
-                            stringResource(R.string.label_value, stringResource(R.string.address_lots_price), PortfolioFormat.price(it.toDouble())),
+                            stringResource(
+                                R.string.label_value,
+                                stringResource(R.string.address_lots_price),
+                                PortfolioFormat.price(it.toDouble())
+                            ),
                             style = MaterialTheme.typography.body,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = Spacing.xs)

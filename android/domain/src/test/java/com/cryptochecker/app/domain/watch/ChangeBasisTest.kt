@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.watch
 
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
 
 class ChangeBasisTest {
 
@@ -149,7 +149,14 @@ class ChangeBasisTest {
         assertFalse(ChangeBasisMath.isCurrent(today, ChangeBasis.UTC_DAY, t("2026-10-08T00:00:01Z"), utc))
         assertFalse(ChangeBasisMath.isCurrent(today, ChangeBasis.LOCAL_DAY, now, zurich))
         assertFalse(ChangeBasisMath.isCurrent(today, ChangeBasis.ROLLING_24H, now, utc))
-        assertTrue(ChangeBasisMath.isCurrent(ChangeBasisMath.stamp(ChangeBasis.ROLLING_24H, now), ChangeBasis.ROLLING_24H, now + 3 * 24 * hour, utc))
+        assertTrue(
+            ChangeBasisMath.isCurrent(
+                ChangeBasisMath.stamp(ChangeBasis.ROLLING_24H, now),
+                ChangeBasis.ROLLING_24H,
+                now + 3 * 24 * hour,
+                utc
+            )
+        )
         val view = ChangeView.of(today, ChangeBasis.UTC_DAY, t("2026-10-08T01:00:00Z"), utc)
         assertNull(view.shown(2.0))
         assertEquals(2.0, ChangeView.of(today, ChangeBasis.UTC_DAY, now, utc).shown(2.0)!!, 0.0)

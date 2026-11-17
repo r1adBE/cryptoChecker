@@ -86,12 +86,24 @@ class PortfolioCoinDeletionTest {
 
     private val buyBnb = PortfolioTxEntity(id = 1, coin = "BNB", type = PortfolioTxType.BUY, amount = BigDecimal.ONE, time = 1L)
     private val transfer = PortfolioTxEntity(
-        id = 2, coin = "ETH", type = PortfolioTxType.TRANSFER, amount = BigDecimal.ONE, time = 2L,
-        feeCoin = "bnb", feeCoinAmount = BigDecimal("0.01"), feeCoinPriceUsdt = BigDecimal(600),
+        id = 2,
+        coin = "ETH",
+        type = PortfolioTxType.TRANSFER,
+        amount = BigDecimal.ONE,
+        time = 2L,
+        feeCoin = "bnb",
+        feeCoinAmount = BigDecimal("0.01"),
+        feeCoinPriceUsdt = BigDecimal(600),
     )
     private val buyEth = PortfolioTxEntity(id = 3, coin = "ETH", type = PortfolioTxType.BUY, amount = BigDecimal(2), time = 3L)
     private val swapToBnb = PortfolioTxEntity(
-        id = 4, coin = "ETH", type = PortfolioTxType.SWAP, amount = BigDecimal.ONE, time = 4L, toCoin = "BNB", toAmount = BigDecimal(3),
+        id = 4,
+        coin = "ETH",
+        type = PortfolioTxType.SWAP,
+        amount = BigDecimal.ONE,
+        time = 4L,
+        toCoin = "BNB",
+        toAmount = BigDecimal(3),
     )
 
     @Test
@@ -132,8 +144,14 @@ class PortfolioCoinDeletionTest {
 class PortfolioCsvLinksTest {
 
     private fun stored(id: Long, linked: String? = null) = PortfolioTxEntity(
-        id = id, coin = "BTC", type = PortfolioTxType.WITHDRAWAL, amount = BigDecimal("1"), time = 100L,
-        importKey = "k$id", importBatch = "old", linkedImportKey = linked,
+        id = id,
+        coin = "BTC",
+        type = PortfolioTxType.WITHDRAWAL,
+        amount = BigDecimal("1"),
+        time = 100L,
+        importKey = "k$id",
+        importBatch = "old",
+        linkedImportKey = linked,
     )
 
     private fun update(id: Long) = CsvStoredTransfer(
@@ -175,8 +193,13 @@ class PortfolioCsvLinksTest {
             incomplete = "incomplete", noFx = "nofx", wealthMissing = "nc", wealthAddressUnobserved = "unobserved",
         )
         val partial = TaxWealthRow(
-            "BTC", BigDecimal("0.1"), BigDecimal("60000"), BigDecimal("6000"), BigDecimal("4800"),
-            addressUnobserved = true, incomplete = true,
+            "BTC",
+            BigDecimal("0.1"),
+            BigDecimal("60000"),
+            BigDecimal("6000"),
+            BigDecimal("4800"),
+            addressUnobserved = true,
+            incomplete = true,
         )
         assertEquals("incomplete – unobserved", texts.wealthCoinNoteBelowValue(partial, hasValue = true))
         assertNull(texts.wealthCoinNoteBelowValue(partial, hasValue = false))
@@ -222,8 +245,13 @@ class PortfolioStorageLockTest {
     fun addressUserWritesAreLockedBackgroundUpdatesAreNot() {
         val source = repositorySource()
         val locked = listOf(
-            "addWatchedAddress", "removeWatchedAddress", "setWatchedAddressLabel", "setWatchedAddressCostLots",
-            "replaceWatchedAddresses", "mergeWatchedAddresses", "changeWatched",
+            "addWatchedAddress",
+            "removeWatchedAddress",
+            "setWatchedAddressLabel",
+            "setWatchedAddressCostLots",
+            "replaceWatchedAddresses",
+            "mergeWatchedAddresses",
+            "changeWatched",
         )
         for (name in locked) assertTrue("$name prüft die Sperre nicht", body(source, name).contains("ensureWritable()"))
         assertFalse(body(source, "updateWatchedAddressBalance").contains("ensureWritable()"))
@@ -250,7 +278,9 @@ class PortfolioStorageLockTest {
 
     private fun source(name: String): String {
         val path = "src/main/java/com/cryptochecker/app/data/portfolio/$name"
-        val file = listOf("", "app/", "android/app/", "../data/", "data/", "android/data/").map { File(it + path) }.firstOrNull { it.isFile }
+        val file = listOf("", "app/", "android/app/", "../data/", "data/", "android/data/").map {
+            File(it + path)
+        }.firstOrNull { it.isFile }
         assertNotNull("$name nicht gefunden (Arbeitsverzeichnis?)", file)
         return file!!.readText()
     }

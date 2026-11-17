@@ -4,6 +4,8 @@ import com.cryptochecker.marketdata.usage.UsageLog
 import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchPair
+import java.net.HttpURLConnection
+import java.net.URL
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -16,8 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
-import java.net.HttpURLConnection
-import java.net.URL
 
 /**
  * Kurse direkt bei den Börsen (kein Server, kein Google-Daten-Layer): zuerst Binance (nur die gewünschten

@@ -64,13 +64,29 @@ fun Bip32.ripemd160(message: ByteArray): ByteArray {
             x[i] = (data[o].toInt() and 0xff) or ((data[o + 1].toInt() and 0xff) shl 8) or
                 ((data[o + 2].toInt() and 0xff) shl 16) or ((data[o + 3].toInt() and 0xff) shl 24)
         }
-        var al = h0; var bl = h1; var cl = h2; var dl = h3; var el = h4
-        var ar = h0; var br = h1; var cr = h2; var dr = h3; var er = h4
+        var al = h0
+        var bl = h1
+        var cl = h2
+        var dl = h3
+        var el = h4
+        var ar = h0
+        var br = h1
+        var cr = h2
+        var dr = h3
+        var er = h4
         for (j in 0 until 80) {
             var t = Integer.rotateLeft(al + f(j, bl, cl, dl) + x[RL[j]] + KL[j / 16], SL[j]) + el
-            al = el; el = dl; dl = Integer.rotateLeft(cl, 10); cl = bl; bl = t
+            al = el
+            el = dl
+            dl = Integer.rotateLeft(cl, 10)
+            cl = bl
+            bl = t
             t = Integer.rotateLeft(ar + f(79 - j, br, cr, dr) + x[RR[j]] + KR[j / 16], SR[j]) + er
-            ar = er; er = dr; dr = Integer.rotateLeft(cr, 10); cr = br; br = t
+            ar = er
+            er = dr
+            dr = Integer.rotateLeft(cr, 10)
+            cr = br
+            br = t
         }
         val t = h1 + cl + dr
         h1 = h2 + dl + er

@@ -5,10 +5,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.util.Locale
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Umbuchungs-Abgleich beim CSV-Import ([CsvTransferMatch.candidates]) für eine grosse Datei: 20 000 Ein- und

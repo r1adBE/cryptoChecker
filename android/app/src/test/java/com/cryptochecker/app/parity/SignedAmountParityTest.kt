@@ -1,14 +1,14 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.features.portfolio.PortfolioFormat
 import com.cryptochecker.app.ui.features.portfolio.signedAxisValue
 import com.cryptochecker.app.ui.features.portfolio.signedValue
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /**
  * Portfolio-Beträge mit Vorzeichen (`testdata/parity/signed_amount.json`): unter einem halben Cent ohne Vorzeichen

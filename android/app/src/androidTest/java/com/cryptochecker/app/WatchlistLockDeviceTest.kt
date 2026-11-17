@@ -6,29 +6,29 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.AlarmSaveResult
-import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.data.RestoreOutcome
-import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.addWatches
-import com.cryptochecker.app.data.markAlarmTriggered
-import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.data.deleteWatchesWithoutAlarms
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.data.markAlarmTriggered
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.trySaveAlarm
 import com.cryptochecker.app.data.trySaveAlarmMerged
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.data.refresh.AlarmLogStore
-import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.PairEditResult
+import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.WatchSnapshot
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.marketdata.model.ExchangePair
 import java.io.File
 import java.lang.reflect.Method
@@ -84,7 +84,9 @@ class WatchlistLockDeviceTest {
     private fun openSeeded() {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         repo = WatchRepository(
-            db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys, Dispatchers.IO),
+            db,
+            db.getWatchDao(),
+            AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys, Dispatchers.IO),
             AlarmDeliveryMarkers(context),
             ioDispatcher = Dispatchers.IO,
         )
@@ -276,7 +278,11 @@ class WatchlistLockDeviceTest {
             EXTENSION_FILES.flatMap { suspendFunctions(Class.forName("com.cryptochecker.app.data.$it"), extension = true) }
         val userWrites = userWrites().keys
         val known = userWrites + READS + BACKGROUND
-        assertEquals("nicht eingeordnet (Schreibweg des Nutzers → userWrites, sonst READS/BACKGROUND)", emptySet<String>(), declared - known)
+        assertEquals(
+            "nicht eingeordnet (Schreibweg des Nutzers → userWrites, sonst READS/BACKGROUND)",
+            emptySet<String>(),
+            declared - known
+        )
         assertEquals("veraltete Einträge", emptySet<String>(), known - declared)
         assertTrue("doppelt eingeordnet", userWrites.intersect(READS + BACKGROUND).isEmpty() && READS.intersect(BACKGROUND).isEmpty())
     }

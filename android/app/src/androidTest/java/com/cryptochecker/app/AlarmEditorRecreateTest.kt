@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
@@ -16,14 +15,16 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -32,7 +33,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage «nicht gespeichert» offen →

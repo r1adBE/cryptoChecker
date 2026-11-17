@@ -1,16 +1,16 @@
 package com.cryptochecker.marketdata.model.exchange
 
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.generic.SimpleExchange
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.forEachOptJSONObject
+import java.net.URLEncoder
 import org.json.JSONArray
 import org.json.JSONObject
-import java.net.URLEncoder
 
 /** Ab so vielen Symbolen kostet die Auswahl bei Binance gleich viel wie die ganze Liste. */
 private const val BINANCE_SYMBOL_LIMIT = 100

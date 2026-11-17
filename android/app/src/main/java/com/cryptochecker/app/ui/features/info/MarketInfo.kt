@@ -36,8 +36,8 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.launch
 
 /**
@@ -55,18 +55,66 @@ internal enum class MarketInfoTopic(
     val advice: Boolean,
     val readingRes: List<Int> = emptyList(),
 ) {
-    PULSE(R.string.pulse_now_title, R.string.market_info_pulse_what, R.string.market_info_pulse_how, R.string.market_info_pulse_source, true,
-        listOf(R.string.ind_read_leverage)),
-    UNUSUAL(R.string.unusual_title, R.string.market_info_unusual_what, R.string.market_info_unusual_how, R.string.market_info_unusual_source, true,
-        listOf(R.string.ind_read_funding)),
+    PULSE(
+        R.string.pulse_now_title,
+        R.string.market_info_pulse_what,
+        R.string.market_info_pulse_how,
+        R.string.market_info_pulse_source,
+        true,
+        listOf(R.string.ind_read_leverage)
+    ),
+    UNUSUAL(
+        R.string.unusual_title,
+        R.string.market_info_unusual_what,
+        R.string.market_info_unusual_how,
+        R.string.market_info_unusual_source,
+        true,
+        listOf(R.string.ind_read_funding)
+    ),
     MACRO(R.string.macro_title, R.string.market_info_macro_what, R.string.market_info_macro_how, R.string.market_info_macro_source, true),
-    FEAR_GREED(R.string.insights_fng_title, R.string.market_info_fear_greed_what, R.string.market_info_fear_greed_how, R.string.market_info_fear_greed_source, true),
-    PHASE(R.string.neutral_btc_indicators_title, R.string.neutral_info_btc_what, R.string.neutral_info_btc_how, R.string.market_info_phase_source, true),
-    DOMINANCE(R.string.insights_dominance_title, R.string.market_info_dominance_what, R.string.market_info_dominance_how, R.string.market_info_dominance_source, true),
-    ALT_SEASON(R.string.neutral_alt_title, R.string.market_info_alt_season_what, R.string.neutral_info_alt_season_how, R.string.market_info_alt_season_source, true,
-        listOf(R.string.ind_read_alt_season)),
-    HALVING(R.string.insights_halving_title, R.string.market_info_halving_what, R.string.neutral_info_halving_how, R.string.market_info_halving_source, true),
-    TOTALS(R.string.market_cap_title, R.string.market_info_totals_what, R.string.market_info_totals_how, R.string.market_info_totals_source, false),
+    FEAR_GREED(
+        R.string.insights_fng_title,
+        R.string.market_info_fear_greed_what,
+        R.string.market_info_fear_greed_how,
+        R.string.market_info_fear_greed_source,
+        true
+    ),
+    PHASE(
+        R.string.neutral_btc_indicators_title,
+        R.string.neutral_info_btc_what,
+        R.string.neutral_info_btc_how,
+        R.string.market_info_phase_source,
+        true
+    ),
+    DOMINANCE(
+        R.string.insights_dominance_title,
+        R.string.market_info_dominance_what,
+        R.string.market_info_dominance_how,
+        R.string.market_info_dominance_source,
+        true
+    ),
+    ALT_SEASON(
+        R.string.neutral_alt_title,
+        R.string.market_info_alt_season_what,
+        R.string.neutral_info_alt_season_how,
+        R.string.market_info_alt_season_source,
+        true,
+        listOf(R.string.ind_read_alt_season)
+    ),
+    HALVING(
+        R.string.insights_halving_title,
+        R.string.market_info_halving_what,
+        R.string.neutral_info_halving_how,
+        R.string.market_info_halving_source,
+        true
+    ),
+    TOTALS(
+        R.string.market_cap_title,
+        R.string.market_info_totals_what,
+        R.string.market_info_totals_how,
+        R.string.market_info_totals_source,
+        false
+    ),
     GAS(R.string.gas_title, R.string.market_info_gas_what, R.string.market_info_gas_how, R.string.market_info_gas_source, false),
     COIN(R.string.coin_title, R.string.neutral_info_coin_what, R.string.neutral_info_coin_how, R.string.market_info_coin_source, true),
     ;

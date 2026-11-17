@@ -4,10 +4,10 @@ import android.content.Context
 import android.database.Cursor
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
-import net.zetetic.database.DatabaseErrorHandler
-import net.zetetic.database.sqlcipher.SQLiteDatabase
 import java.io.File
 import java.io.IOException
+import net.zetetic.database.DatabaseErrorHandler
+import net.zetetic.database.sqlcipher.SQLiteDatabase
 
 /**
  * Datei- und SQL-Schicht der Datenbank-Verschlüsselung ([DatabaseOpenPlanner.Files]) mit SQLCipher. Jede Verbindung ist
@@ -258,9 +258,12 @@ class SqlCipherDatabaseFiles(
          */
         fun open(file: File, passphrase: ByteArray?, create: Boolean = false): SupportSQLiteDatabase =
             SQLiteDatabase.openDatabase(
-                file.path, passphrase?.let { String(it, Charsets.US_ASCII) } ?: "", null,
+                file.path,
+                passphrase?.let { String(it, Charsets.US_ASCII) } ?: "",
+                null,
                 if (create) SQLiteDatabase.OPEN_READWRITE or SQLiteDatabase.CREATE_IF_NECESSARY else SQLiteDatabase.OPEN_READWRITE,
-                keepOnCorruption, null,
+                keepOnCorruption,
+                null,
             )
     }
 }

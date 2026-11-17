@@ -147,7 +147,12 @@ class AlarmEvaluator @Inject constructor() {
         if (!price.isFinite() || price <= 0.0) return false
         val reference = alarm.referencePrice ?: return false
         return MoveWindow.changePercent(
-            moveHistory, MoveWindow.PricePoint(reference, alarm.referenceAt), price, alarm.windowHours, alarm.referenceAt, now,
+            moveHistory,
+            MoveWindow.PricePoint(reference, alarm.referenceAt),
+            price,
+            alarm.windowHours,
+            alarm.referenceAt,
+            now,
         ) == null
     }
 

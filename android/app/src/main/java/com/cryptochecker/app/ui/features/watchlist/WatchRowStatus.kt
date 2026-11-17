@@ -9,14 +9,14 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.marketdata.config.ExchangeRetirement
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.resources.R
 
 /**
  * Zustandstexte einer Zeile, auch für den Screenreader: [warning] ersetzt die Zeitzeile
@@ -67,7 +67,10 @@ internal fun watchRowStatus(
     if (watch.disabled) {
         val retired = watch.lastError?.takeIf { ExchangeRetirement.isMarker(it) }
         return WatchRowStatus(
-            warning = null, error = retired?.let { friendlyError(it) }, stale = null, showErrorLine = retired != null,
+            warning = null,
+            error = retired?.let { friendlyError(it) },
+            stale = null,
+            showErrorLine = retired != null,
         )
     }
     // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «Vor 41 Min. · Binance nicht erreichbar»

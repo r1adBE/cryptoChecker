@@ -15,12 +15,12 @@ import com.cryptochecker.app.ui.features.portfolio.PortfolioEmptyExample
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Leeres Portfolio: nur ein Satz — das Beispiel mit der Menge im Zahlenformat der
@@ -39,7 +39,9 @@ class PortfolioEmptyStateDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
     @Before

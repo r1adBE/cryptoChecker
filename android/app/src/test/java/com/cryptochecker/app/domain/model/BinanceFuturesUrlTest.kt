@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.model
 
-import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
+import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
+import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
@@ -18,12 +18,18 @@ class BinanceFuturesUrlTest {
     @Test
     fun datedContractsUseTheExchangeSymbol() {
         val m = BinanceFutures()
-        assertEquals("https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_251226",
-            m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT_251226", FuturesContractType.QUARTERLY)))
-        assertEquals("https://dapi.binance.com/dapi/v1/ticker/24hr?symbol=BTCUSD_260327",
-            m.tickerAddress(0, PairQuery("BTC", "USD", "2:BTCUSD_260327", FuturesContractType.BIQUARTERLY)))
-        assertEquals("https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
-            m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
+        assertEquals(
+            "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_251226",
+            m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT_251226", FuturesContractType.QUARTERLY))
+        )
+        assertEquals(
+            "https://dapi.binance.com/dapi/v1/ticker/24hr?symbol=BTCUSD_260327",
+            m.tickerAddress(0, PairQuery("BTC", "USD", "2:BTCUSD_260327", FuturesContractType.BIQUARTERLY))
+        )
+        assertEquals(
+            "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
+            m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL))
+        )
     }
 
     /** Ohne Paar-Kennung (fehlt oder leer) keine Anfrage, sondern ein Fehler. Wie iOS (`tickerQueryError`). */

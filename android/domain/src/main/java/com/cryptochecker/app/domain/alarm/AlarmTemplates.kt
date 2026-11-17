@@ -19,7 +19,13 @@ object AlarmTemplates {
 
     /** Die Vorlagen in der Reihenfolge der Chips. */
     enum class Template {
-        UP_1, UP_5, DOWN_1, DOWN_5, NEW_HIGH_30, NEW_LOW_30, VOLUME_X3;
+        UP_1,
+        UP_5,
+        DOWN_1,
+        DOWN_5,
+        NEW_HIGH_30,
+        NEW_LOW_30,
+        VOLUME_X3;
 
         /** Vorzeichenbehafteter Prozentwert (±1, ±5) bei Prozent-Vorlagen, sonst null. */
         val percent: Double?
@@ -135,8 +141,10 @@ object AlarmTemplates {
      * «Mehr Bedingungen».
      */
     val SIMPLE_CONDITIONS: List<AlarmCondition> = listOf(
-        AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW,
-        AlarmCondition.CHANGE_PERCENT_UP, AlarmCondition.CHANGE_PERCENT_DOWN,
+        AlarmCondition.PRICE_ABOVE,
+        AlarmCondition.PRICE_BELOW,
+        AlarmCondition.CHANGE_PERCENT_UP,
+        AlarmCondition.CHANGE_PERCENT_DOWN,
     )
 
     /** Öffnet der Editor gleich mit «Mehr Bedingungen»? Ja bei jeder Bedingung ausser den einfachen. */

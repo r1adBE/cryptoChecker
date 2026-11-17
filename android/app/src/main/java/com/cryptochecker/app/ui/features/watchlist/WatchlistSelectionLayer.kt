@@ -47,18 +47,24 @@ internal fun BoxScope.WatchlistSelectionLayer(
             },
             // Auswahl bleibt stehen: zurück aus dem Vergleich lässt sie sich ändern
             onCompare = {
-                if (CompareMath.canCompare(chosen.size)) ui.compareIds = chosen.map { it.id }
-                else uiEvents.send(WatchUiEvent.Banner(BannerText(R.string.watchlist_compare_hint)))
+                if (CompareMath.canCompare(chosen.size)) {
+                    ui.compareIds = chosen.map { it.id }
+                } else {
+                    uiEvents.send(WatchUiEvent.Banner(BannerText(R.string.watchlist_compare_hint)))
+                }
             },
             onDelete = {
                 viewModel.deleteSelectedWithUndo(selectedIds.toList()) { count ->
-                    if (count > 0) uiEvents.send(
-                        WatchUiEvent.EndSelection,
-                        WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
-                        WatchUiEvent.Banner(
-                            BannerText(plural = R.plurals.watchlist_removed_count, count = count), SELECTION_UNDO_KEY,
-                        ),
-                    )
+                    if (count > 0) {
+                        uiEvents.send(
+                            WatchUiEvent.EndSelection,
+                            WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                            WatchUiEvent.Banner(
+                                BannerText(plural = R.plurals.watchlist_removed_count, count = count),
+                                SELECTION_UNDO_KEY,
+                            ),
+                        )
+                    }
                 }
             },
             modifier = Modifier

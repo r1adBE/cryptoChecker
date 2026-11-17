@@ -1,7 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.LatestPerWidget
-import com.cryptochecker.app.domain.widget.PortfolioDrawState
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -10,29 +8,31 @@ import android.os.Build
 import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.refresh.OutdatedRule
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.widget.LatestPerWidget
+import com.cryptochecker.app.domain.widget.PortfolioDrawState
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.util.AppIntents
 import com.cryptochecker.app.util.withOpenToken
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.withTimeoutOrNull
-import timber.log.Timber
 import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.withTimeoutOrNull
+import timber.log.Timber
 
 /**
  * Portfolio-Widget: Gesamtwert, Veränderung, Wertverlauf und die grössten Positionen aus der
@@ -119,17 +119,21 @@ class PortfolioWidgetRenderer @Inject constructor(
             // gewechselt): mit dem gemerkten Kurs umrechnen, damit «Umrechnung» sofort greift
             val now = System.currentTimeMillis()
             PortfolioWidgetChart.rebased(
-                it, settings.portfolioCurrency,
+                it,
+                settings.portfolioCurrency,
                 PortfolioWidgetChart.fxRateFor(settings.portfolioCurrency, null, fxMemo, now)
                     ?.let { fx -> PortfolioWidgetChart.usdtFactor(settings.portfolioCurrency, fx, depegReadings.liveUsdtUsd(now)) },
             )
         }?.let {
-            if (ChangeBasisMath.isCurrent(it.stamp, settings.changeBasis, System.currentTimeMillis())) it
-            else it.copy(
-                changeAmount = null,
-                changePercent = null,
-                positions = it.positions.map { p -> p.copy(change24hPercent = null, pnlAmount = null, pnlPercent = null) },
-            )
+            if (ChangeBasisMath.isCurrent(it.stamp, settings.changeBasis, System.currentTimeMillis())) {
+                it
+            } else {
+                it.copy(
+                    changeAmount = null,
+                    changePercent = null,
+                    positions = it.positions.map { p -> p.copy(change24hPercent = null, pnlAmount = null, pnlPercent = null) },
+                )
+            }
         }
         val fontScale = context.resources.configuration.fontScale.takeIf { it > 0f } ?: 1f
         val outdated = snapshot != null &&
@@ -161,7 +165,9 @@ class PortfolioWidgetRenderer @Inject constructor(
             }
             val views = if (message != null || snapshot == null) {
                 portfolioMessageViews(
-                    style, message.orEmpty(), state == PortfolioOff.WidgetState.LOCKED,
+                    style,
+                    message.orEmpty(),
+                    state == PortfolioOff.WidgetState.LOCKED,
                     title = if (state == PortfolioOff.WidgetState.OFF) context.getString(R.string.widget_portfolio_off_title) else null,
                 )
             } else {
@@ -199,12 +205,15 @@ class PortfolioWidgetRenderer @Inject constructor(
                         Timber.d(e, "Portfolio-Widget %d: Coin-Logos nicht geladen", appWidgetId)
                         null
                     }
-                } else null
+                } else {
+                    null
+                }
                 val build: suspend (Int, Int, Int) -> RemoteViews = { slot, w, h ->
                     when (view) {
                         PortfolioWidgetView.OVERVIEW -> overviewViews(w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                         PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos, entryFilter)
-                        PortfolioWidgetView.CHART -> portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
+                        PortfolioWidgetView.CHART ->
+                            portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                     }
                 }
                 val sizes = portfolioSizesDp(manager, appWidgetId)

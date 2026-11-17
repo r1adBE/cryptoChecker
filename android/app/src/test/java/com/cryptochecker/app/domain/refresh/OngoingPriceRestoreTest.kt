@@ -26,7 +26,9 @@ class OngoingPriceRestoreTest {
         ),
     ).apply {
         settings.settings = settings.settings.copy(
-            priceNotifications = true, notificationChangePercent = 5.0, ongoingNotifications = ongoing,
+            priceNotifications = true,
+            notificationChangePercent = 5.0,
+            ongoingNotifications = ongoing,
         )
         // Paar 1 nach dem Neustart weg, Paar 2 noch da
         notifier.priceVisible = { it != 1L }
@@ -35,8 +37,11 @@ class OngoingPriceRestoreTest {
     private fun RefreshFixture.refresh() = runBlocking {
         lock.withLock { proof ->
             processor.process(
-                proof, store.getWatches(), mapOf(1L to Fetched(ticker(102.0), null), 2L to Fetched(ticker(102.0), null)),
-                settings.settings, dayStart = null,
+                proof,
+                store.getWatches(),
+                mapOf(1L to Fetched(ticker(102.0), null), 2L to Fetched(ticker(102.0), null)),
+                settings.settings,
+                dayStart = null,
             )
         }
     }

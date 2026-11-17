@@ -3,14 +3,14 @@
 // Gesamtwert. Eigene Datei, weil es reine Textregeln sind, die alle Ansichten des Widgets teilen.
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetStatusRule
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** «Einschalten unter Einstellungen › Portfolio.» — Pfad aus den Namen der App (Zeile unter «Allgemein»). */
 fun PortfolioWidgetRenderer.offHint(): String = context.getString(
@@ -102,8 +102,11 @@ fun PortfolioWidgetRenderer.spokenChange(plan: PortfolioChartPlan, snapshot: Por
     val byAmount = {
         context.getString(
             if (amount > 0) R.string.a11y_change_up else R.string.a11y_change_down,
-            if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden)
-            else PriceFormat.valueWithCurrency(kotlin.math.abs(amount), snapshot.currency)
+            if (style.hideAmounts) {
+                context.getString(R.string.a11y_amount_hidden)
+            } else {
+                PriceFormat.valueWithCurrency(kotlin.math.abs(amount), snapshot.currency)
+            }
         )
     }
     return when {

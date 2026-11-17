@@ -67,8 +67,10 @@ object DayReferenceCache {
      * [dayStarts] liegt (heute UTC, Ortszeit und die gewählte Zone) — mehr braucht keine Basis.
      */
     fun keepStarts(opens: Map<Long, Double>, dayStarts: Collection<Long>): Map<Long, Double> =
-        validStarts(dayStarts.map { ChangeBasisMath.hourOf(it) }.distinct()
-            .mapNotNull { hour -> opens[hour]?.let { hour to it } }.toMap())
+        validStarts(
+            dayStarts.map { ChangeBasisMath.hourOf(it) }.distinct()
+                .mapNotNull { hour -> opens[hour]?.let { hour to it } }.toMap()
+        )
 
     /** Nur volle Stunden mit gültigem Kurs. */
     private fun validStarts(starts: Map<Long, Double>): Map<Long, Double> =

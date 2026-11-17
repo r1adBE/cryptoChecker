@@ -1,11 +1,11 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Lizenzdatei der App byte-gleich mit `LICENSE` (Android und iOS), die Hinweise zu Dritten in eigener Datei

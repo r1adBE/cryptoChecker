@@ -1,30 +1,6 @@
 // JSON-Formate der zwischengespeicherten Markt-Bereiche (Teil von `CycleCacheStore.kt`); Hilfen in `CycleCacheJson.kt`.
 package com.cryptochecker.app.data.cycle
 
-import com.cryptochecker.app.domain.market.AltSeason
-import com.cryptochecker.app.domain.market.BtcFees
-import com.cryptochecker.app.domain.market.CoinInputs
-import com.cryptochecker.app.domain.market.CycleCachePolicy
-import com.cryptochecker.app.domain.market.CycleHistory
-import com.cryptochecker.app.domain.market.CycleInputs
-import com.cryptochecker.app.domain.market.IndicatorHistory
-import com.cryptochecker.app.domain.market.IndicatorId
-import com.cryptochecker.app.domain.market.IndicatorStat
-import com.cryptochecker.app.domain.market.CycleSeries
-import com.cryptochecker.app.domain.market.Dominance
-import com.cryptochecker.app.domain.market.EvmGas
-import com.cryptochecker.app.domain.market.FearGreed
-import com.cryptochecker.app.domain.market.GasNetwork
-import com.cryptochecker.app.domain.market.GasReport
-import com.cryptochecker.app.domain.market.GlobalMarket
-import com.cryptochecker.app.domain.market.MarketMoversResult
-import com.cryptochecker.app.domain.market.MarketTotals
-import com.cryptochecker.app.domain.market.MoverCoin
-import com.cryptochecker.app.domain.market.OnChainValues
-import com.cryptochecker.app.domain.market.PulseInput
-import org.json.JSONArray
-import org.json.JSONObject
-import java.time.LocalDate
 import com.cryptochecker.app.data.cycle.CycleCacheJson.dateOrNull
 import com.cryptochecker.app.data.cycle.CycleCacheJson.doubleOrNull
 import com.cryptochecker.app.data.cycle.CycleCacheJson.intOrNull
@@ -35,6 +11,30 @@ import com.cryptochecker.app.data.cycle.CycleCacheJson.putNumber
 import com.cryptochecker.app.data.cycle.CycleCacheJson.requireDouble
 import com.cryptochecker.app.data.cycle.CycleCacheJson.toDoubleMap
 import com.cryptochecker.app.data.cycle.CycleCacheJson.toJson
+import com.cryptochecker.app.domain.market.AltSeason
+import com.cryptochecker.app.domain.market.BtcFees
+import com.cryptochecker.app.domain.market.CoinInputs
+import com.cryptochecker.app.domain.market.CycleCachePolicy
+import com.cryptochecker.app.domain.market.CycleHistory
+import com.cryptochecker.app.domain.market.CycleInputs
+import com.cryptochecker.app.domain.market.CycleSeries
+import com.cryptochecker.app.domain.market.Dominance
+import com.cryptochecker.app.domain.market.EvmGas
+import com.cryptochecker.app.domain.market.FearGreed
+import com.cryptochecker.app.domain.market.GasNetwork
+import com.cryptochecker.app.domain.market.GasReport
+import com.cryptochecker.app.domain.market.GlobalMarket
+import com.cryptochecker.app.domain.market.IndicatorHistory
+import com.cryptochecker.app.domain.market.IndicatorId
+import com.cryptochecker.app.domain.market.IndicatorStat
+import com.cryptochecker.app.domain.market.MarketMoversResult
+import com.cryptochecker.app.domain.market.MarketTotals
+import com.cryptochecker.app.domain.market.MoverCoin
+import com.cryptochecker.app.domain.market.OnChainValues
+import com.cryptochecker.app.domain.market.PulseInput
+import java.time.LocalDate
+import org.json.JSONArray
+import org.json.JSONObject
 
 /** JSON-Formate der zwischengespeicherten Bereiche (Version: [CycleCachePolicy.FORMAT_VERSION]). */
 object CycleCacheCodecs {

@@ -19,7 +19,9 @@ class NbpReference : BankReference("NBP", "N B P") {
         listOf(ReferenceRates.NBP_TABLE_A_URL, ReferenceRates.NBP_TABLE_B_URL)
 
     override fun validUntil(bodies: List<String>, now: Long): Long = ReferenceRates.nbpValidUntil(
-        bodies.getOrNull(0)?.let(ReferenceRates::parseNbp), bodies.getOrNull(1)?.let(ReferenceRates::parseNbp), now,
+        bodies.getOrNull(0)?.let(ReferenceRates::parseNbp),
+        bodies.getOrNull(1)?.let(ReferenceRates::parseNbp),
+        now,
     )
 
     override fun publications(bodies: List<String>): List<Map<String, Double>>? {
@@ -28,7 +30,10 @@ class NbpReference : BankReference("NBP", "N B P") {
     }
 
     override val pairListAddresses = listOf(
-        EcbRates.DAILY_URL, ReferenceRates.NBU_LIST_URL, ReferenceRates.NBP_LIST_B_URL, ReferenceRates.NBP_LIST_A_URL,
+        EcbRates.DAILY_URL,
+        ReferenceRates.NBU_LIST_URL,
+        ReferenceRates.NBP_LIST_B_URL,
+        ReferenceRates.NBP_LIST_A_URL,
     )
 
     /** Codes der NBP = Tabelle B samt den Währungen der Tabelle A, die sonst niemand führt (CLP). */

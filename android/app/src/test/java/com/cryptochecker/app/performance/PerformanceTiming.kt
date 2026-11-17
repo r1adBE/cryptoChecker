@@ -1,8 +1,8 @@
 package com.cryptochecker.app.performance
 
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import org.junit.Assert.assertTrue
 import java.util.Locale
+import org.junit.Assert.assertTrue
 
 /**
  * Zeitmessung der Leistungstests ohne JMH: je Messung zuerst [WARMUP_RUNS] Aufwärmläufe (JIT), dann der Median aus
@@ -34,6 +34,7 @@ internal object PerformanceTiming {
 
     const val WARMUP_RUNS = 2
     const val MEASURED_RUNS = 5
+
     /** 6 statt 5: n·log n ist schon knapp das 5-Fache, ohne Spielraum schlug ein langsamer Runner an (wie iOS). */
     const val SCALE_FACTOR = 6.0
 
@@ -104,8 +105,13 @@ internal object PerformanceTiming {
     fun reportSize(name: String, pairs: Int, bytes: Int, limitBytes: Int) {
         println(
             String.format(
-                Locale.ROOT, "[Performance] %s: %d Paare %d Bytes (%.0f je Paar) · Grenze %d Bytes",
-                name, pairs, bytes, bytes.toDouble() / pairs, limitBytes,
+                Locale.ROOT,
+                "[Performance] %s: %d Paare %d Bytes (%.0f je Paar) · Grenze %d Bytes",
+                name,
+                pairs,
+                bytes,
+                bytes.toDouble() / pairs,
+                limitBytes,
             ),
         )
     }

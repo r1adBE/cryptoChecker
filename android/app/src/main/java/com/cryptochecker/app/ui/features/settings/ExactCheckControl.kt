@@ -4,9 +4,9 @@ import com.cryptochecker.app.domain.refresh.CheckRun
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.work.ExactCheckDemand
 import com.cryptochecker.app.work.ExactCheckScheduler
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
 /**
  * «Aktualisierung» › «Pünktlich prüfen» und «Letzte Prüfungen»: stellt den exakten Wecker passend zum Schalter und zum

@@ -18,6 +18,7 @@ import com.cryptochecker.app.ui.features.watchlist.EmptyReasons
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -25,7 +26,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * «Was bewegt sich mit?» ohne Kerzen: offline heisst es «Offline» mit
@@ -47,7 +47,8 @@ class WhyEmptyStateDeviceTest {
 
     @Inject lateinit var monitor: ActivityMonitor
 
-    private val watch = WatchEntity(id = 1, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = COIN, quoteAsset = "USDT", lastPrice = 1.0)
+    private val watch =
+        WatchEntity(id = 1, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = COIN, quoteAsset = "USDT", lastPrice = 1.0)
 
     @Before
     fun setUp() = hiltRule.inject()

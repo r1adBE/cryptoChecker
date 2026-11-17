@@ -1,11 +1,11 @@
 package com.cryptochecker.app.setup
 
-import androidx.core.content.edit
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.LocaleList
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import java.util.Locale
@@ -124,8 +124,11 @@ object AppLanguages {
     fun select(context: Context, tag: String) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit { putString(KEY_TAG, tag) }
         AppCompatDelegate.setApplicationLocales(
-            if (tag.isEmpty()) LocaleListCompat.getEmptyLocaleList()
-            else LocaleListCompat.forLanguageTags(tag)
+            if (tag.isEmpty()) {
+                LocaleListCompat.getEmptyLocaleList()
+            } else {
+                LocaleListCompat.forLanguageTags(tag)
+            }
         )
         applyToProcess(context.applicationContext, tag)
         // Kanalnamen (auch der Alarm-Kanäle) in der neuen Sprache — bis Android 12 sofort, sonst beim nächsten Start
@@ -138,8 +141,11 @@ object AppLanguages {
      */
     private fun applyToProcess(app: Context, tag: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return
-        val locale = if (tag.isEmpty()) android.content.res.Resources.getSystem().configuration.locales.get(0)
-        else Locale.forLanguageTag(tag)
+        val locale = if (tag.isEmpty()) {
+            android.content.res.Resources.getSystem().configuration.locales.get(0)
+        } else {
+            Locale.forLanguageTag(tag)
+        }
         Locale.setDefault(locale)
         applyNumberLocale()
         val resources = app.resources

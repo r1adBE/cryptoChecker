@@ -11,14 +11,19 @@ object StoredError {
     /** Eigene, sprachunabhängige Marker (schon ohne Details) — bleiben, wie sie sind. */
     private val KEEP = setOf(
         com.cryptochecker.app.domain.watch.NotTraded.MARKER,
-        "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)",
-        "Exchange unavailable", "Response too large",
-        RefreshReportLogic.OFFLINE_MARKER, CheckBudget.TIMEOUT_ERROR,
+        "Response data is empty",
+        "Parsed ticker has no data",
+        "Unknown error (empty)",
+        "Exchange unavailable",
+        "Response too large",
+        RefreshReportLogic.OFFLINE_MARKER,
+        CheckBudget.TIMEOUT_ERROR,
     )
 
     /** Fehler der Massenabfrage («Bulk format error: 3 of 5 rows unreadable»): nur Zahlen, bleiben. */
     private val KEEP_PREFIXES = listOf(
-        "Bulk format error", "Bulk row unreadable",
+        "Bulk format error",
+        "Bulk row unreadable",
         // Börse stillgelegt (ExchangeRetirement): Marker samt Name der Börse
         com.cryptochecker.marketdata.config.ExchangeRetirement.MARKER_PREFIX,
     )

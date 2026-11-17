@@ -1,13 +1,13 @@
 package com.cryptochecker.wear
 
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeoutException
 import kotlin.coroutines.resume
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Wartet auf eine Aufgabe der Play-Dienste, ohne einen Thread zu blockieren (statt `Tasks.await`): Die Coroutine ruht,

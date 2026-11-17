@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.market
 import com.cryptochecker.app.domain.market.Indicators
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Kennzahlen auf Schlusskursen (`testdata/parity/indicators.json`): gleitender Durchschnitt der letzten n Werte und
@@ -60,20 +60,29 @@ class IndicatorsParityTest {
     fun byDateWieGemeinsameTestfaelle() {
         for (raw in data["closeOnOrBefore"].list()) {
             val c = raw.obj()
-            check("closeOnOrBefore: ${c["name"]}", c["expected"].num(),
-                Indicators.closeOnOrBefore(days(c["series"]), c["day"].num()!!.toLong()))
+            check(
+                "closeOnOrBefore: ${c["name"]}",
+                c["expected"].num(),
+                Indicators.closeOnOrBefore(days(c["series"]), c["day"].num()!!.toLong())
+            )
         }
         for (raw in data["changeOverDays"].list()) {
             val c = raw.obj()
-            check("changeOverDays: ${c["name"]}", c["expected"].num(),
-                Indicators.changeOverDays(days(c["series"]), c["days"].num()!!.toInt()))
+            check(
+                "changeOverDays: ${c["name"]}",
+                c["expected"].num(),
+                Indicators.changeOverDays(days(c["series"]), c["days"].num()!!.toInt())
+            )
         }
         val relative = data["relativeChange"].list()
         assertTrue(relative.size >= 4)
         for (raw in relative) {
             val c = raw.obj()
-            check("relativeChange: ${c["name"]}", c["expected"].num(),
-                Indicators.relativeChangePercent(days(c["coin"]), days(c["btc"]), c["days"].num()!!.toInt()))
+            check(
+                "relativeChange: ${c["name"]}",
+                c["expected"].num(),
+                Indicators.relativeChangePercent(days(c["coin"]), days(c["btc"]), c["days"].num()!!.toInt())
+            )
         }
     }
 

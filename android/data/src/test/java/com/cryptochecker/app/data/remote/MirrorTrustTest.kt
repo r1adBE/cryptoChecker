@@ -37,7 +37,10 @@ class MirrorTrustTest {
     fun missingManifestRejectsAndIsRemembered() = runBlocking {
         val trust = production()
         val asked = mutableListOf<String>()
-        val loader: MirrorLoader = { url, _ -> asked += url; null }
+        val loader: MirrorLoader = { url, _ ->
+            asked += url
+            null
+        }
         assertFalse(trust.verified("fng.txt", "CCDM1 1\n{}", loader))
         assertFalse(trust.verified("onchain.txt", "CCDM1 1\n{}", loader))
         // Ohne Manifest wird die Signatur gar nicht erst geholt, und erst nach der Wartezeit wieder versucht

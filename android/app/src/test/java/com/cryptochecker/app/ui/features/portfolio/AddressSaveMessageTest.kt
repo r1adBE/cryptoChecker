@@ -22,7 +22,10 @@ class AddressSaveMessageTest {
     @Test
     fun everyOtherResultNamesItsReason() {
         assertNull(addWatchedMessage(AddWatchedResult.Added(7), locked = false))
-        assertEquals(R.string.address_checksum, addWatchedMessage(AddWatchedResult.Invalid(AddressValidation.Problem.BAD_CHECKSUM), locked = false))
+        assertEquals(
+            R.string.address_checksum,
+            addWatchedMessage(AddWatchedResult.Invalid(AddressValidation.Problem.BAD_CHECKSUM), locked = false)
+        )
         assertEquals(R.string.address_duplicate, addWatchedMessage(AddWatchedResult.Duplicate, locked = false))
         assertEquals(R.string.address_limit, addWatchedMessage(AddWatchedResult.LimitReached, locked = true))
     }

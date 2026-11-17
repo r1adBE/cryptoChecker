@@ -28,7 +28,9 @@ private fun <T> sum(rows: List<T>, pick: (T) -> BigDecimal?): BigDecimal? {
 private fun shownGain(cost: BigDecimal?, proceeds: BigDecimal?, gain: BigDecimal?): BigDecimal? =
     if (gain != null && cost != null && proceeds != null) {
         CutoffExport.roundedMoney(proceeds) - CutoffExport.roundedMoney(cost)
-    } else gain
+    } else {
+        gain
+    }
 
 private val TaxGainRow.shownGainUsdt: BigDecimal? get() = shownGain(costUsdt, proceedsUsdt, gainUsdt)
 private val TaxGainRow.shownGainTarget: BigDecimal? get() = shownGain(costTarget, proceedsTarget, gainTarget)
@@ -84,10 +86,19 @@ fun TaxExport.gainsCsv(
                 listOf(
                     t(label), t(""), t(""), blank, t(""), blank,
                     money(total(usdt) { it.costUsdt }), money(total(usdt) { it.proceedsUsdt }), money(total(usdt) { it.shownGainUsdt }),
-                    money(total(target) { it.costTarget }), money(total(target) { it.proceedsTarget }), money(total(target) { it.shownGainTarget }),
+                    money(
+                        total(target) {
+                            it.costTarget
+                        }
+                    ),
+                    money(total(target) { it.proceedsTarget }), money(total(target) { it.shownGainTarget }),
                 ) + c.extra(
-                    sum(list) { it.adjustmentUsdt }, sum(list) { it.adjustmentTarget },
-                    sum(list) { it.grossProceedsUsdt }, sum(list) { it.grossProceedsTarget }, null, null,
+                    sum(list) { it.adjustmentUsdt },
+                    sum(list) { it.adjustmentTarget },
+                    sum(list) { it.grossProceedsUsdt },
+                    sum(list) { it.grossProceedsTarget },
+                    null,
+                    null,
                 ) + t(if (incomplete) texts.incomplete else ""),
                 format,
             )
@@ -138,7 +149,18 @@ private fun gainsHeaderCells(c: GainsCells, texts: TaxCsvTexts): List<CsvCell> =
         texts.costTarget, texts.proceedsTarget, texts.gainTarget,
     ).map { c.t(it) } +
         (if (c.adj) listOf(c.t(texts.adjustmentUsdt), c.t(texts.adjustmentTarget)) else emptyList()) +
-        (if (c.fr) listOf(c.t(texts.grossUsdt), c.t(texts.grossTarget), c.t(texts.portfolioValueUsdt), c.t(texts.portfolioValueTarget)) else emptyList()) +
+        (
+            if (c.fr) {
+                listOf(
+                    c.t(texts.grossUsdt),
+                    c.t(texts.grossTarget),
+                    c.t(texts.portfolioValueUsdt),
+                    c.t(texts.portfolioValueTarget)
+                )
+            } else {
+                emptyList()
+            }
+            ) +
         c.t(texts.note)
 
 /** Eine Gewinnzeile von [gainsCsv]. */
@@ -148,11 +170,25 @@ private fun gainRowCells(c: GainsCells, r: TaxGainRow, texts: TaxCsvTexts): List
         c.t(r.acquiredDate?.toString().orEmpty()),
         c.t(r.soldDate.toString()),
         CsvCell(r.holdingDays?.toString().orEmpty(), numeric = true),
-        c.t(when (r.longTerm) { true -> texts.yes; false -> texts.no; null -> "" }),
+        c.t(
+            when (r.longTerm) {
+                true -> texts.yes
+                false -> texts.no
+                null -> ""
+            }
+        ),
         CsvCell(c.n(CutoffExport.amount(r.amount)), numeric = true),
         c.money(r.costUsdt), c.money(r.proceedsUsdt), c.money(r.shownGainUsdt),
         c.money(r.costTarget), c.money(r.proceedsTarget), c.money(r.shownGainTarget),
-    ) + c.extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget, r.portfolioValueUsdt, r.portfolioValueTarget) +
+    ) +
+        c.extra(
+            r.adjustmentUsdt,
+            r.adjustmentTarget,
+            r.grossProceedsUsdt,
+            r.grossProceedsTarget,
+            r.portfolioValueUsdt,
+            r.portfolioValueTarget
+        ) +
         c.t(gainNotes(r, texts))
 
 /** Gebühren-Zeile nach der Summe (Datum, Betrag USDT in der Einstand-Spalte, Vermerk [note]); Teil von [gainsCsv]. */
@@ -241,8 +277,12 @@ fun TaxExport.incomeCsv(
         sb.append(
             line(
                 listOf(
-                    t(r.date.toString()), t(r.coin), CsvCell(n(CutoffExport.amount(r.amount)), numeric = true),
-                    money(r.valueUsdt), money(r.valueTarget), t(notes),
+                    t(r.date.toString()),
+                    t(r.coin),
+                    CsvCell(n(CutoffExport.amount(r.amount)), numeric = true),
+                    money(r.valueUsdt),
+                    money(r.valueTarget),
+                    t(notes),
                 ),
                 format,
             )
@@ -253,7 +293,11 @@ fun TaxExport.incomeCsv(
         sb.append(
             line(
                 listOf(
-                    t(label), t(""), CsvCell("", numeric = true), money(sum(list) { it.valueUsdt }), money(sum(list) { it.valueTarget }),
+                    t(label),
+                    t(""),
+                    CsvCell("", numeric = true),
+                    money(sum(list) { it.valueUsdt }),
+                    money(sum(list) { it.valueTarget }),
                     t(if (incomplete) texts.incomplete else ""),
                 ),
                 format,
@@ -332,7 +376,8 @@ fun TaxExport.summaryCsv(
                 sb.append(
                     textLine(
                         listOf(label, money(r.valueUsdt), money(r.valueTarget.takeIf { s.fxAvailable }), texts.wealthCoinNote(r)),
-                        format, setOf(1, 2),
+                        format,
+                        setOf(1, 2),
                     )
                 )
             }

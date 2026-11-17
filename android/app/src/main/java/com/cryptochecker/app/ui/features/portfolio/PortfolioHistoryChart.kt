@@ -31,30 +31,30 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCandle
 import com.cryptochecker.app.domain.portfolio.PortfolioCandleBucket
 import com.cryptochecker.app.domain.portfolio.PortfolioCandles
 import com.cryptochecker.app.domain.portfolio.PortfolioChartAxis
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.ui.components.ChangePill
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
-import com.cryptochecker.app.ui.components.HapticPlayer
 
 /** Höhe der Chart-Fläche im Wertverlauf (wie im Aktionsblatt eines Paars). */
 internal val HISTORY_CHART_HEIGHT = 180.dp
@@ -119,10 +119,22 @@ internal fun HistoryChart(
                 val raw = candleList?.let { PortfolioChartAxis.candleBounds(it) } ?: (values.min() to values.max())
                 val bounds = if (pnl) PortfolioChartAxis.pnlBounds(raw.first, raw.second) else raw
                 val format: (Double) -> String = {
-                    if (hidden) PortfolioInsights.HIDDEN else if (pnl) signedAxisValue(it) else axisValue(it)
+                    if (hidden) {
+                        PortfolioInsights.HIDDEN
+                    } else if (pnl) {
+                        signedAxisValue(it)
+                    } else {
+                        axisValue(it)
+                    }
                 }
                 val (frame, texts) = measureFrame(
-                    measurer, paint, spans, bounds.first, bounds.second, format, format(values.last())
+                    measurer,
+                    paint,
+                    spans,
+                    bounds.first,
+                    bounds.second,
+                    format,
+                    format(values.last())
                 )
                 holder.frame = frame
                 val maxSlot = maxIndex?.let { PortfolioChartAxis.slotOfDay(spans, points[it].epochDay) }

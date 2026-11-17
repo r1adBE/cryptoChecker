@@ -3,15 +3,15 @@
 // Eigene Datei, weil alle Ansichten (Chart, Übersicht, Liste) dieselbe Wert-Bindung nutzen.
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetTextFit
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Gesamtwert (passt sich der Breite an), darunter «↘ −1’968.40 CHF  −2.31% · 24h» bzw. «· 7T» —
@@ -100,7 +100,13 @@ fun PortfolioWidgetRenderer.bindValues(
 }
 
 /** Fusszeile: der erste der [candidates] (lang → kurz), der in [textWidth] passt. */
-fun PortfolioWidgetRenderer.bindFooter(views: RemoteViews, visible: Boolean, textWidth: Float?, candidates: List<String>, colors: WidgetColors) {
+fun PortfolioWidgetRenderer.bindFooter(
+    views: RemoteViews,
+    visible: Boolean,
+    textWidth: Float?,
+    candidates: List<String>,
+    colors: WidgetColors
+) {
     views.setViewVisibility(R.id.portfolio_time, if (visible) View.VISIBLE else View.GONE)
     val text = WidgetTextFit.firstFitting(candidates, textWidth?.minus(WidgetTextFit.SAFETY_DP)) {
         toolkit.textWidthDp(it, FOOTER_SP, bold = false, tabular = true)

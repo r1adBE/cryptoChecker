@@ -99,7 +99,10 @@ class DayChangeTest {
     @Test
     fun `choose prefers ticker and does not evaluate candles then`() {
         var evaluated = false
-        val value = DayChange.choose(2.0) { evaluated = true; 5.0 }
+        val value = DayChange.choose(2.0) {
+            evaluated = true
+            5.0
+        }
         assertEquals(2.0, value!!, 0.0)
         assertFalse(evaluated)
     }

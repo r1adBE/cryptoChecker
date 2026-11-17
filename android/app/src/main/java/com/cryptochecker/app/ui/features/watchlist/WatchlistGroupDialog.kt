@@ -7,15 +7,12 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.selectable
-import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
@@ -32,12 +29,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.util.TextLimit
-import androidx.compose.ui.semantics.selected
+import com.cryptochecker.app.ui.theme.DisabledColors
+import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /**
  * Gruppe wählen: bestehende Gruppen, «Keine Gruppe» oder eine neue anlegen.

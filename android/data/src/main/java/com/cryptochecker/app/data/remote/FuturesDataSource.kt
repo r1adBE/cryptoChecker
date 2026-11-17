@@ -1,13 +1,15 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.domain.activity.FundingHistory
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.remote.FuturesInfo
 import com.cryptochecker.app.domain.remote.FuturesParsers
 import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.activity.FundingHistory
 import com.cryptochecker.marketdata.model.PostRequest
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
@@ -16,8 +18,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
 
 /**
  * Futures-Kennzahlen. Perpetuals zuerst von der beobachteten Börse, wenn sie eigene Daten liefert
@@ -41,18 +41,22 @@ class FuturesDataSource @Inject constructor(
                 source(OKX) { okx(base) },
             )
             // COIN-M (2:BTCUSD_PERP): eigene Kennzahlen von dapi; USDT-Kontrakt nur als Richtwert
-            "BinanceFutures" -> if (FuturesSources.isCoinM(watch.pairId)) firstOf(
-                source(BINANCE_COIN_M) { binanceCoinM(watch.pairId.orEmpty().removePrefix(FuturesSources.COIN_M_PREFIX)) },
-                source(BINANCE) { binance("${base}USDT") },
-                source(BYBIT) { bybit("${base}USDT") },
-                source(OKX) { okx(base) },
-            ) else firstOf(
-                source(BINANCE) {
-                    binance(watch.pairId?.takeIf { it.endsWith("USDT") || it.endsWith("USDC") } ?: "${base}USDT")
-                },
-                source(BYBIT) { bybit("${base}USDT") },
-                source(OKX) { okx(base) },
-            )
+            "BinanceFutures" -> if (FuturesSources.isCoinM(watch.pairId)) {
+                firstOf(
+                    source(BINANCE_COIN_M) { binanceCoinM(watch.pairId.orEmpty().removePrefix(FuturesSources.COIN_M_PREFIX)) },
+                    source(BINANCE) { binance("${base}USDT") },
+                    source(BYBIT) { bybit("${base}USDT") },
+                    source(OKX) { okx(base) },
+                )
+            } else {
+                firstOf(
+                    source(BINANCE) {
+                        binance(watch.pairId?.takeIf { it.endsWith("USDT") || it.endsWith("USDC") } ?: "${base}USDT")
+                    },
+                    source(BYBIT) { bybit("${base}USDT") },
+                    source(OKX) { okx(base) },
+                )
+            }
             // OKX-Perpetual: eigener Kontrakt (auch BASE-USD-SWAP), sonst Binance/Bybit als Richtwert
             "OkexFutures" -> firstOf(
                 source(OKX) { okx(base, watch.pairId?.takeIf { it.endsWith("-SWAP") }) },
@@ -121,7 +125,8 @@ class FuturesDataSource @Inject constructor(
     }
 
     private suspend fun htx(code: String): FuturesInfo = coroutineScope {
-        val funding = async { httpClient.callExchange("https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=$code", null) }
+        val funding =
+            async { httpClient.callExchange("https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=$code", null) }
         val oi = async {
             optionalCall("https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=$code&business_type=swap")
         }
@@ -285,7 +290,8 @@ class FuturesDataSource @Inject constructor(
             runCatchingCancellable {
                 okxFirst(
                     httpClient.callExchange(
-                        "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=$instId", null
+                        "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=$instId",
+                        null
                     )
                 )
             }.getOrNull()
@@ -297,20 +303,24 @@ class FuturesDataSource @Inject constructor(
                 runCatchingCancellable {
                     okxFirst(
                         httpClient.callExchange(
-                            "https://www.okx.com/api/v5/public/mark-price?instType=SWAP&instId=$instId", null
+                            "https://www.okx.com/api/v5/public/mark-price?instType=SWAP&instId=$instId",
+                            null
                         )
                     ).optString("markPx").toDoubleOrNull()
                 }.getOrNull()?.let { coins * it }
             }
         FuturesInfo(
             fundingRatePercent = f.optString("fundingRate").toDoubleOrNull()?.times(100.0),
-            nextFundingTime = (f.optString("fundingTime").toLongOrNull()
-                ?: f.optString("nextFundingTime").toLongOrNull())?.takeIf { it > 0 },
+            nextFundingTime = (
+                f.optString("fundingTime").toLongOrNull()
+                    ?: f.optString("nextFundingTime").toLongOrNull()
+                )?.takeIf { it > 0 },
             openInterestUsd = oiUsd,
             source = "OKX",
             // «fundingTime» = nächste, «nextFundingTime» = übernächste Abrechnung: der Abstand ist das Intervall
             fundingIntervalHours = FuturesParsers.okxIntervalHours(
-                f.optString("fundingTime").toLongOrNull(), f.optString("nextFundingTime").toLongOrNull()
+                f.optString("fundingTime").toLongOrNull(),
+                f.optString("nextFundingTime").toLongOrNull()
             ),
         )
     }

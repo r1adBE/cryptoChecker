@@ -8,7 +8,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.DialogText
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,14 +29,15 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 
 /** Transaktion: Art und Datum, Menge × Preis, Summe; Tausch: «Tausch in ETH» / «Tausch von BTC», «0.1 BTC → 1.6 ETH», Wert. */
 /**
@@ -77,7 +77,14 @@ internal fun TxRow(tx: PortfolioTxEntity, coin: String, onClick: () -> Unit, onD
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .semantics { customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true }) }
+            .semantics {
+                customActions = listOf(
+                    CustomAccessibilityAction(deleteLabel) {
+                        onDelete()
+                        true
+                    }
+                )
+            }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -98,9 +105,13 @@ internal fun TxRow(tx: PortfolioTxEntity, coin: String, onClick: () -> Unit, onD
                     )
                 }
                 Text(
-                    swapLine(tx)?.let { maskAmount(it) } ?: (maskAmount(PortfolioFormat.amount(tx.amount, tx.coin)) + " × " +
-                        (tx.priceUsdt?.let { PortfolioFormat.price(it.toDouble()) }
-                            ?: stringResource(R.string.portfolio_price_missing))),
+                    swapLine(tx)?.let { maskAmount(it) } ?: (
+                        maskAmount(PortfolioFormat.amount(tx.amount, tx.coin)) + " × " +
+                            (
+                                tx.priceUsdt?.let { PortfolioFormat.price(it.toDouble()) }
+                                    ?: stringResource(R.string.portfolio_price_missing)
+                                )
+                        ),
                     style = MaterialTheme.typography.bodySmall.tabularNumbers(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -157,7 +168,9 @@ private fun ledgerLine(tx: PortfolioTxEntity): String? {
         stringResource(R.string.portfolio_tx_gift_spouse)
     } else if (!tx.transferFrom.isNullOrBlank() || !tx.transferTo.isNullOrBlank()) {
         "${tx.transferFrom?.takeIf { it.isNotBlank() } ?: "—"} → ${tx.transferTo?.takeIf { it.isNotBlank() } ?: "—"}"
-    } else null
+    } else {
+        null
+    }
     val parts = listOfNotNull(fee, thirdFee, route, tx.exchange?.takeIf { it.isNotBlank() })
     return parts.takeIf { it.isNotEmpty() }?.joinToString(" · ")
 }
@@ -167,8 +180,11 @@ private fun ledgerLine(tx: PortfolioTxEntity): String? {
 private fun swapLabel(tx: PortfolioTxEntity, coin: String): String? {
     if (tx.type != PortfolioTxType.SWAP) return null
     val to = tx.toCoin?.takeIf { it.isNotBlank() } ?: return null
-    return if (PortfolioCalculator.normalizeCoin(to) == coin) stringResource(R.string.portfolio_tx_swap_from, tx.coin)
-    else stringResource(R.string.portfolio_tx_swap_to, to)
+    return if (PortfolioCalculator.normalizeCoin(to) == coin) {
+        stringResource(R.string.portfolio_tx_swap_from, tx.coin)
+    } else {
+        stringResource(R.string.portfolio_tx_swap_to, to)
+    }
 }
 
 /** Tausch: «0.1 BTC → 1.6 ETH»; andere Arten null. */

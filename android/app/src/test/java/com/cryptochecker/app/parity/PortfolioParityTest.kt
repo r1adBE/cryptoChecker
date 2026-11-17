@@ -18,14 +18,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
+import com.cryptochecker.app.domain.portfolio.flow
+import java.math.BigDecimal
+import kotlin.math.abs
+import kotlin.math.max
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import kotlin.math.abs
-import kotlin.math.max
 
 /**
  * Gemeinsame Portfolio-Fälle (`testdata/parity/portfolio.json`): Buchhaltung, Gewinn im Zeitraum und
@@ -348,7 +349,11 @@ class PortfolioParityTest {
             val name = c["name"] as String
             val history = c["history"].list().map { it.obj() }.map { PriceSample(it["time"].num()!!.toLong(), prices(it["prices"])) }
             val points = PortfolioWidgetMath.valueHistory(
-                prices(c["holdings"]), history, prices(c["current"]), c["now"].num()!!.toLong(), c["fxRate"].num()!!,
+                prices(c["holdings"]),
+                history,
+                prices(c["current"]),
+                c["now"].num()!!.toLong(),
+                c["fxRate"].num()!!,
             )
             val expected = c["expected"].list().map { it.obj() }
             assertEquals("$name times", expected.map { it["time"].num()!!.toLong() }, points.map { it.time })
@@ -400,11 +405,19 @@ class PortfolioParityTest {
             val coinChanges = prices(c["coinChanges"])
             val change = PortfolioPeriodChange.todayFromCoinChanges(prices(c["holdings"]), current, coinChanges)
             val today = PortfolioPeriodChange.todayAdjusted(
-                change, c["trades"].list().map(::trade), current, coinChanges, c["windowStart"].num()!!.toLong(),
+                change,
+                c["trades"].list().map(::trade),
+                current,
+                coinChanges,
+                c["windowStart"].num()!!.toLong(),
             )
             // Zeilen: Gewinn/Verlust je Coin, Summe = «Heute»
             val byCoin = PortfolioPeriodChange.todayByCoin(
-                prices(c["holdings"]), c["trades"].list().map(::trade), current, coinChanges, c["windowStart"].num()!!.toLong(),
+                prices(c["holdings"]),
+                c["trades"].list().map(::trade),
+                current,
+                coinChanges,
+                c["windowStart"].num()!!.toLong(),
             )
             c["byCoin"]?.let { expectedRows ->
                 val rows = expectedRows.obj()
@@ -491,8 +504,13 @@ class PortfolioParityTest {
             val c = raw.obj()
             val name = c["name"] as String
             val result = PortfolioExchangeRoute.historyCloses(
-                series(c["closes"]), emptyMap(), names(c["own"]), names(c["routed"]), names(c["failed"]),
-                prices(c["prices"]), prices(c["binance"]),
+                series(c["closes"]),
+                emptyMap(),
+                names(c["own"]),
+                names(c["routed"]),
+                names(c["failed"]),
+                prices(c["prices"]),
+                prices(c["binance"]),
             )
             val expected = series(c["expected"])
             assertEquals("$name coins", expected.keys, result.closes.keys)
@@ -535,7 +553,11 @@ class PortfolioParityTest {
         }
         for (raw in m["usdtTo"].list()) {
             val c = raw.obj()
-            near("usdtTo $c", c["expected"].num(), PortfolioStables.usdtTo(c["usdToTarget"].num(), PortfolioStables.usdtUsd(c["market"].num())))
+            near(
+                "usdtTo $c",
+                c["expected"].num(),
+                PortfolioStables.usdtTo(c["usdToTarget"].num(), PortfolioStables.usdtUsd(c["market"].num()))
+            )
         }
         for (raw in m["ratesOn"].list()) {
             val c = raw.obj()
@@ -563,9 +585,16 @@ class PortfolioParityTest {
             near("$name change vs USDT = 1", c["changeVsParPercent"].num(), (rate / par - 1.0) * 100.0)
             // Anzeigewährung (auch USD): Faktor von Widget und Karte = derselbe Wert, Verlauf wird umgerechnet
             (c["currency"] as? String)?.let { currency ->
-                val factor = com.cryptochecker.app.widget.PortfolioWidgetChart.usdtFactor(currency, c["usdToTarget"].num()!!, c["usdtMarket"].num())
+                val factor = com.cryptochecker.app.widget.PortfolioWidgetChart.usdtFactor(
+                    currency,
+                    c["usdToTarget"].num()!!,
+                    c["usdtMarket"].num()
+                )
                 near("$name valueTarget ($currency, widget/card)", c["valueTarget"].num(), total * factor)
-                assertTrue("$name history converted", com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.convertsUsdt(currency, usdtMarket = true))
+                assertTrue(
+                    "$name history converted",
+                    com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.convertsUsdt(currency, usdtMarket = true)
+                )
             }
         }
         assertTrue("USD display case", m["holdings"].list().any { (it.obj()["currency"] as? String) == "USD" })
@@ -590,8 +619,10 @@ class PortfolioParityTest {
             val c = raw.obj()
             val name = c["name"] as String
             val result = PortfolioExchangeRoute.scaledHint(
-                names(c["scaled"]), c["binanceBefore"].obj().mapValues { it.value.num()!!.toLong() },
-                c["fromDay"].num()!!.toLong(), c["coins"].list().map { it as String },
+                names(c["scaled"]),
+                c["binanceBefore"].obj().mapValues { it.value.num()!!.toLong() },
+                c["fromDay"].num()!!.toLong(),
+                c["coins"].list().map { it as String },
             )
             assertEquals(name, c["expected"].list(), result)
         }

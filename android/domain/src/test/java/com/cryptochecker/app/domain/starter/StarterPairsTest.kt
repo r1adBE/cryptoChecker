@@ -33,7 +33,7 @@ class StarterPairsTest {
             StarterPairs.pairFor("BTC", "DE")
         val existing = listOf(
             Triple("Binance", "btc", "usdt"),
-            Triple("BinanceUs", "ETH", "USDT"),   // andere Börse: zählt nicht
+            Triple("BinanceUs", "ETH", "USDT"), // andere Börse: zählt nicht
         )
         assertEquals(listOf("ETH", "SOL"), StarterPairs.missing(wanted, existing).map { it.base })
     }

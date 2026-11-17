@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.resources.R
 
 /**
  * Satz «Portfolio-Alarme pausiert: …» der Alarm-Übersicht ([PortfolioAlarmPause]) — gleich wie iOS

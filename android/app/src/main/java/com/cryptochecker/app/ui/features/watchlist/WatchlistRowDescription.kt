@@ -4,16 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
-import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.ReferenceSource
+import com.cryptochecker.resources.R
 
 /**
  * Screenreader-Satz einer Zeile der Merkliste ([WatchRow]): Paar, Kurs, Änderung, ≈, Verlauf, Notiz, Alarme, Zustand.
@@ -65,7 +65,13 @@ internal fun watchRowDescription(
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(status.paused, A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.spokenAge, status.unchanged),
+        state = listOf(
+            status.paused,
+            A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName),
+            status.trade,
+            status.spokenAge,
+            status.unchanged
+        ),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,

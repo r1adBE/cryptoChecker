@@ -1,4 +1,4 @@
-// Steuer-Rechnung, Ereignisregeln und Steuerjahr (Teil von `TaxTemplates.kt`, Spiegel: `TaxTemplates.swift`).
+// Steuer-Rechnung, Ereignisregeln und Steuerjahr (Teil von `TaxTemplate.kt`, Spiegel: `TaxTemplates.swift`).
 package com.cryptochecker.app.domain.portfolio
 
 import java.time.LocalDate
@@ -15,7 +15,14 @@ import java.time.LocalDate
  * Name wird nicht gespeichert (folgt aus Vorlage + Einstandsmethode, [TaxTemplate.methodFor]).
  */
 enum class TaxMethod {
-    FIFO, FIFO_WALLET, AVERAGE, UK_POOL, CA_ACB, FR_PTA, JP_TOTAL_AVERAGE, AT_MOVING_AVERAGE;
+    FIFO,
+    FIFO_WALLET,
+    AVERAGE,
+    UK_POOL,
+    CA_ACB,
+    FR_PTA,
+    JP_TOTAL_AVERAGE,
+    AT_MOVING_AVERAGE;
 
     /** Einstandsmethode des Portfolios dahinter; null = eigene Rechnung in [TaxEngines]. */
     val costMethod: CostMethod?
@@ -60,7 +67,10 @@ data class TaxEventRules(
     companion object {
         /** Keine Umschreibung (Schenkung wie eine Auszahlung, Netzwerkgebühr senkt nur die Menge). */
         val NONE = TaxEventRules(
-            giftIsDisposal = false, spouseGiftNeutral = false, networkFeeIsDisposal = false, quoteFeeIsInfo = false,
+            giftIsDisposal = false,
+            spouseGiftNeutral = false,
+            networkFeeIsDisposal = false,
+            quoteFeeIsInfo = false,
         )
 
         /** Standard ohne Vorlage: die eigenen Rechnungen UK, CA und JP (総平均法) wie ihre Vorlage, sonst [NONE]. */

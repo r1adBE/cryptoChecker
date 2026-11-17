@@ -70,7 +70,14 @@ object HistoricCloseChain {
      * widersprechen. Kettenquelle: wie die Ausweich-Reihen ([TokenIdentity.fallbackSeriesAllowed]) — widerspricht der
      * eigene Name dem Binance-Namen, fällt die ganze Kette aus. Unbekannte Namen: ja (Kursband entscheidet).
      */
-    fun nameAllowed(base: String, own: Boolean, exchangeKey: String, ownName: String?, binanceName: String?, providerName: String?): Boolean =
+    fun nameAllowed(
+        base: String,
+        own: Boolean,
+        exchangeKey: String,
+        ownName: String?,
+        binanceName: String?,
+        providerName: String?
+    ): Boolean =
         if (own) {
             TokenIdentity.compatible(base, ownName, providerName)
         } else {

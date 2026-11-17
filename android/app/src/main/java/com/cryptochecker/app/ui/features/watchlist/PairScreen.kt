@@ -28,14 +28,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
+import com.cryptochecker.app.domain.lock.PortfolioAccess
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppSnackbarHost
@@ -51,6 +50,7 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.widget.WidgetKind
 import com.cryptochecker.app.widget.WidgetPinner
+import com.cryptochecker.resources.R
 
 /**
  * Vorschau eines Coins, der nicht in der Merkliste steht (Binance «COIN/USDT», nur im Speicher): [watch] mit Kurs
@@ -167,14 +167,25 @@ internal fun PairScreen(
                                                 portfolioFor = stored
                                             }
                                         }
-                                    } else null,
+                                    } else {
+                                        null
+                                    },
                                     onRefresh = { viewModel.refreshOneByUser(stored) },
                                     onAddWidget = {
-                                        if (!WidgetPinner.request(context, WidgetKind.SINGLE, stored.id)) dialogs = dialogs.copy(widget = true)
+                                        if (!WidgetPinner.request(context, WidgetKind.SINGLE, stored.id)) {
+                                            dialogs =
+                                                dialogs.copy(widget = true)
+                                        }
                                     },
                                     onTtsChange = { on ->
                                         // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
-                                        if (viewModel.setTtsEnabled(stored, on)) banner.show(resources.getString(R.string.watchlist_tts_speech_on))
+                                        if (viewModel.setTtsEnabled(
+                                                stored,
+                                                on
+                                            )
+                                        ) {
+                                            banner.show(resources.getString(R.string.watchlist_tts_speech_on))
+                                        }
                                     },
                                     onToggleDisabled = { pageEvents.toggleDisabled(viewModel, stored) },
                                     // Wie nach links wischen: sofort, «Rückgängig» im Banner dort, woher die Seite kam
@@ -188,13 +199,21 @@ internal fun PairScreen(
             snackbarHost = { AppSnackbarHost(banner.host) },
         ) { padding ->
             if (shown == null) return@Scaffold
-            val signals = if (isPreview) emptyList() else ActivityAnalyzer.applySensitivity(
-                state.content.activity[shown.id]?.active(now).orEmpty(), state.display.activitySensitivity,
-            )
+            val signals = if (isPreview) {
+                emptyList()
+            } else {
+                ActivityAnalyzer.applySensitivity(
+                    state.content.activity[shown.id]?.active(now).orEmpty(),
+                    state.display.activitySensitivity,
+                )
+            }
             WithLiveQuote(
-                shown, livePrices, rollingBasis = !isPreview && !state.display.changeBasis.isDay,
+                shown,
+                livePrices,
+                rollingBasis = !isPreview && !state.display.changeBasis.isDay,
                 // Am Live-Strom: Frische am letzten Takt (wie Zeile und Status-Pille)
-                onLiveSocket = !isPreview && shown.id in state.live.liveWatchIds, now = now,
+                onLiveSocket = !isPreview && shown.id in state.live.liveWatchIds,
+                now = now,
             ) { live ->
                 PairPageContent(
                     // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): «—» mit Grund statt des letzten Kurses
@@ -203,9 +222,14 @@ internal fun PairScreen(
                     off = off,
                     now = now,
                     // Am Live-Strom: 2 Min. wie Zeile und Status-Pille
-                    outdatedAfter = if (isPreview) 0L else com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis(
-                        shown.id in state.live.liveWatchIds, state.display.staleAfterMillis,
-                    ),
+                    outdatedAfter = if (isPreview) {
+                        0L
+                    } else {
+                        com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis(
+                            shown.id in state.live.liveWatchIds,
+                            state.display.staleAfterMillis,
+                        )
+                    },
                     viewModel = viewModel,
                     chartLine = state.display.sheetChartLine,
                     alarms = alarms,
@@ -234,14 +258,22 @@ internal fun PairScreen(
                     padding = padding,
                 )
             }
-            if (dialogs.why && !shown.isNotTraded && !off && com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null) {
+            if (dialogs.why && !shown.isNotTraded && !off &&
+                com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null
+            ) {
                 WhySheet(
                     watch = shown,
                     signals = signals,
                     load = viewModel::explain,
                     onDismiss = { dialogs = dialogs.copy(why = false) },
                     // Bei rollender Basis die Änderung selbst; bei «seit 00:00» rechnet es eigene Kerzen
-                    candleSource = if (isPreview) null else viewModel.foreignCandleSource(shown).takeIf { !state.display.changeBasis.isDay },
+                    candleSource = if (isPreview) {
+                        null
+                    } else {
+                        viewModel.foreignCandleSource(shown).takeIf {
+                            !state.display.changeBasis.isDay
+                        }
+                    },
                 )
             }
         }
@@ -294,10 +326,16 @@ private fun PairDialogsHost(
             onSave = { note ->
                 if (!saving) {
                     saving = true
-                    viewModel.setNote(watch, note, { onDialogsChange { it.copy(note = false) }; saving = false }, { saving = false })
+                    viewModel.setNote(watch, note, {
+                        onDialogsChange { it.copy(note = false) }
+                        saving = false
+                    }, { saving = false })
                 }
             },
-            onDismiss = { onDialogsChange { it.copy(note = false) }; saving = false }
+            onDismiss = {
+                onDialogsChange { it.copy(note = false) }
+                saving = false
+            }
         )
     }
     if (dialogs.group) {
@@ -307,10 +345,16 @@ private fun PairDialogsHost(
             onSelect = { group ->
                 if (!saving) {
                     saving = true
-                    viewModel.setGroup(watch, group, { onDialogsChange { it.copy(group = false) }; saving = false }, { saving = false })
+                    viewModel.setGroup(watch, group, {
+                        onDialogsChange { it.copy(group = false) }
+                        saving = false
+                    }, { saving = false })
                 }
             },
-            onDismiss = { onDialogsChange { it.copy(group = false) }; saving = false }
+            onDismiss = {
+                onDialogsChange { it.copy(group = false) }
+                saving = false
+            }
         )
     }
 }

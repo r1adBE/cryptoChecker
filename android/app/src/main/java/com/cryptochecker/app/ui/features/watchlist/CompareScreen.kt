@@ -49,7 +49,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.CompareFigures
@@ -64,6 +63,7 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.widget.WidgetChartRange
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -115,8 +115,11 @@ internal fun CompareScreen(
     }
     val colors = compareColors()
     val rangeShort = rangeShortLabel(range, basis.isDay)
-    val rangeLong = if (range == SheetChartRange.DAY && basis.isDay) ChangeBasisText.longLabel(basis)
-    else stringResource(WidgetChartRange.valueOf(range.name).labelRes)
+    val rangeLong = if (range == SheetChartRange.DAY && basis.isDay) {
+        ChangeBasisText.longLabel(basis)
+    } else {
+        stringResource(WidgetChartRange.valueOf(range.name).labelRes)
+    }
 
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         Scaffold(
@@ -142,8 +145,11 @@ internal fun CompareScreen(
                 val lines = series
                 val chartSentence = lines?.let { all ->
                     val parts = watches.mapIndexed { i, w ->
-                        stringResource(R.string.label_value, w.displayName,
-                            A11yText.change(context, all.getOrNull(i)?.let(CompareMath::last)))
+                        stringResource(
+                            R.string.label_value,
+                            w.displayName,
+                            A11yText.change(context, all.getOrNull(i)?.let(CompareMath::last))
+                        )
                     }
                     stringResource(R.string.a11y_compare_chart, rangeLong, parts.joinToString("; "))
                 }
@@ -184,8 +190,11 @@ internal fun CompareScreen(
 /** Kurzlabel des Zeitraums («24h», bei Tages-Basis «Heute», «7D» …). */
 @Composable
 private fun rangeShortLabel(range: SheetChartRange, dayBasis: Boolean): String =
-    if (range == SheetChartRange.DAY && dayBasis) stringResource(R.string.sheet_chart_today)
-    else stringResource(WidgetChartRange.valueOf(range.name).shortLabelRes)
+    if (range == SheetChartRange.DAY && dayBasis) {
+        stringResource(R.string.sheet_chart_today)
+    } else {
+        stringResource(WidgetChartRange.valueOf(range.name).shortLabelRes)
+    }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -261,8 +270,11 @@ private fun CompareChart(series: List<List<ComparePoint>>, colors: List<Color>, 
 private fun LineSample(index: Int, color: Color) {
     Canvas(Modifier.size(width = 28.dp, height = 12.dp).clearAndSetSemantics { }) {
         drawLine(
-            color, Offset(0f, size.height / 2), Offset(size.width, size.height / 2),
-            strokeWidth = 2.dp.toPx(), pathEffect = dash(index),
+            color,
+            Offset(0f, size.height / 2),
+            Offset(size.width, size.height / 2),
+            strokeWidth = 2.dp.toPx(),
+            pathEffect = dash(index),
         )
     }
 }

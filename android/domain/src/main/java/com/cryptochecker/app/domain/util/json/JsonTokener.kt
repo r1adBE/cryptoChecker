@@ -7,16 +7,14 @@ package com.cryptochecker.app.domain.util.json
 internal class JsonTokener(private val input: String) {
     private var pos = 0
 
-    fun nextValue(): Any? {
-        return when (val c = nextClean()) {
-            -1 -> throw syntaxError("End of input")
-            '{'.code -> readObject()
-            '['.code -> readArray()
-            '\''.code, '"'.code -> nextString(c.toChar())
-            else -> {
-                pos--
-                readLiteral()
-            }
+    fun nextValue(): Any? = when (val c = nextClean()) {
+        -1 -> throw syntaxError("End of input")
+        '{'.code -> readObject()
+        '['.code -> readArray()
+        '\''.code, '"'.code -> nextString(c.toChar())
+        else -> {
+            pos--
+            readLiteral()
         }
     }
 
@@ -78,21 +76,19 @@ internal class JsonTokener(private val input: String) {
         throw syntaxError("Unterminated string")
     }
 
-    private fun readEscape(): Char {
-        return when (val escaped = input[pos++]) {
-            'u' -> {
-                if (pos + 4 > input.length) throw syntaxError("Unterminated escape sequence")
-                val hex = input.substring(pos, pos + 4)
-                pos += 4
-                hex.toIntOrNull(16)?.toChar() ?: throw syntaxError("Invalid escape sequence: $hex")
-            }
-            't' -> '\t'
-            'b' -> '\b'
-            'n' -> '\n'
-            'r' -> '\r'
-            'f' -> '\u000C'
-            else -> escaped
+    private fun readEscape(): Char = when (val escaped = input[pos++]) {
+        'u' -> {
+            if (pos + 4 > input.length) throw syntaxError("Unterminated escape sequence")
+            val hex = input.substring(pos, pos + 4)
+            pos += 4
+            hex.toIntOrNull(16)?.toChar() ?: throw syntaxError("Invalid escape sequence: $hex")
         }
+        't' -> '\t'
+        'b' -> '\b'
+        'n' -> '\n'
+        'r' -> '\r'
+        'f' -> '\u000C'
+        else -> escaped
     }
 
     private fun readLiteral(): Any {

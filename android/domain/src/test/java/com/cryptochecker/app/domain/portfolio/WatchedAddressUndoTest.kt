@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** «Adresse entfernen» mit «Rückgängig» ([WatchedAddressUndo]). Gegenstück: `WatchedAddressUndoTests.swift`. */
 class WatchedAddressUndoTest {
@@ -17,11 +17,16 @@ class WatchedAddressUndoTest {
     @Test
     fun rueckfrageNenntWasMitgeht() {
         assertTrue(WatchedAddressUndo.removal(address(1)).isEmpty)
-        assertEquals(WatchedAddressUndo.Removal(2, false), WatchedAddressUndo.removal(address(1).copy(costLots = listOf(lot, lot.copy(id = 2)))))
+        assertEquals(
+            WatchedAddressUndo.Removal(2, false),
+            WatchedAddressUndo.removal(address(1).copy(costLots = listOf(lot, lot.copy(id = 2))))
+        )
         assertEquals(WatchedAddressUndo.Removal(0, true), WatchedAddressUndo.removal(address(1).copy(observations = listOf(obs))))
         // Token-Reihen zählen als Verlauf
-        assertEquals(WatchedAddressUndo.Removal(1, true),
-            WatchedAddressUndo.removal(address(1).copy(costLots = listOf(lot), tokenObservations = mapOf("USDC" to listOf(obs)))))
+        assertEquals(
+            WatchedAddressUndo.Removal(1, true),
+            WatchedAddressUndo.removal(address(1).copy(costLots = listOf(lot), tokenObservations = mapOf("USDC" to listOf(obs))))
+        )
         assertTrue(WatchedAddressUndo.removal(address(1).copy(tokenObservations = mapOf("USDC" to emptyList()))).isEmpty)
     }
 

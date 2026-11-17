@@ -1,8 +1,5 @@
 package com.cryptochecker.app.ui.features.settings
 
-import androidx.compose.ui.platform.LocalResources
-import com.cryptochecker.app.ui.components.CardPadding
-import com.cryptochecker.app.ui.components.AppCard
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,18 +13,21 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.rememberAlarmTest
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 
 // ── Alarme ───────────────────────────────────────────────────────────────────
 
@@ -122,7 +122,8 @@ internal fun AlarmsPage(
                         horizontalPadding = 0.dp,
                         value = stringResource(
                             R.string.settings_price_pairs_count,
-                            watches.count { it.notificationEnabled }, watches.size
+                            watches.count { it.notificationEnabled },
+                            watches.size
                         ),
                         onClick = { onOpenPage(SettingsPage.PRICE_PAIRS) }
                     )
@@ -280,20 +281,20 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                     colors = DisabledColors.filledTonalButton(),
                     modifier = Modifier.weight(1f)
                 ) { Text(stringResource(R.string.settings_price_pairs_all_off)) }
-        }
-        GroupCard {
-            watches.forEachIndexed { index, watch ->
-                if (index > 0) RowDivider()
-                SwitchRow(
-                    title = watch.displayName,
-                    subtitle = watch.exchangeName,
-                    checked = watch.notificationEnabled,
-                    onCheckedChange = { on ->
-                        viewModel.setPairNotification(watch.id, on, askPermissionAfterWrite(uiEvents.requestNotifications, on))
-                    }
-                )
             }
-        }
+            GroupCard {
+                watches.forEachIndexed { index, watch ->
+                    if (index > 0) RowDivider()
+                    SwitchRow(
+                        title = watch.displayName,
+                        subtitle = watch.exchangeName,
+                        checked = watch.notificationEnabled,
+                        onCheckedChange = { on ->
+                            viewModel.setPairNotification(watch.id, on, askPermissionAfterWrite(uiEvents.requestNotifications, on))
+                        }
+                    )
+                }
+            }
         }
     }
 }

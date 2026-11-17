@@ -1,6 +1,7 @@
 package com.cryptochecker.wear
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,12 +9,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
-import android.annotation.SuppressLint
-import android.util.Log
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
 import kotlinx.coroutines.launch
@@ -93,7 +93,9 @@ object WatchNotifications {
         }
         ensureChannel(context)
         val open = PendingIntent.getActivity(
-            context, 0, Intent(context, WatchActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            context,
+            0,
+            Intent(context, WatchActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         val notification = NotificationCompat.Builder(context, if (alarm) ALARM_CHANNEL else CHANNEL)
@@ -119,14 +121,20 @@ object WatchNotifications {
         if (manager.getNotificationChannel(CHANNEL) == null) {
             manager.createNotificationChannel(
                 NotificationChannel(CHANNEL, context.getString(R.string.watch_notify_channel), NotificationManager.IMPORTANCE_LOW)
-                    .apply { enableVibration(false); setSound(null, null) }
+                    .apply {
+                        enableVibration(false)
+                        setSound(null, null)
+                    }
             )
         }
         if (manager.getNotificationChannel(ALARM_CHANNEL) == null) {
             // Alarme tippen ans Handgelenk (Vibration), ohne Ton
             manager.createNotificationChannel(
                 NotificationChannel(ALARM_CHANNEL, context.getString(R.string.watch_alarm_channel), NotificationManager.IMPORTANCE_HIGH)
-                    .apply { enableVibration(true); setSound(null, null) }
+                    .apply {
+                        enableVibration(true)
+                        setSound(null, null)
+                    }
             )
         }
     }

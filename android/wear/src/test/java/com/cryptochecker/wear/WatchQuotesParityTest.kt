@@ -2,6 +2,10 @@ package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import java.io.File
+import java.net.URI
+import java.net.URLDecoder
+import java.util.Collections
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
@@ -10,10 +14,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.net.URI
-import java.net.URLDecoder
-import java.util.Collections
 
 /**
  * Uhr-App (`testdata/parity/watch_quotes.json`) — wie iOS `WatchQuotesParityTests.swift`: Antworten je Börse (Abfrage
@@ -121,7 +121,9 @@ class WatchQuotesParityTest {
     }
 
     private fun quote(o: JSONObject) = WatchQuote(
-        o.getString("symbol"), o.getDouble("price"), if (o.isNull("change24h")) null else o.getDouble("change24h"),
+        o.getString("symbol"),
+        o.getDouble("price"),
+        if (o.isNull("change24h")) null else o.getDouble("change24h"),
         o.getString("source"),
     )
 

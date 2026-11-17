@@ -1,8 +1,8 @@
 // Eröffnungsposten (Einstand) für Guthaben beobachteter Adressen (gespiegelt in `AddressCostLots.swift`).
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigDecimal
 
 /**
@@ -26,7 +26,8 @@ data class AddressCostLot(
 
     /** Einstand gesamt: erfasster Einstand, sonst Menge × Preis; null ohne gültigen Einstand. */
     val cost: BigDecimal?
-        get() = costUsdt?.takeIf { it.signum() >= 0 } ?: priceUsdt?.takeIf { it.signum() >= 0 }?.let { amount.multiply(it, PortfolioDecimal.MC) }
+        get() = costUsdt?.takeIf { it.signum() >= 0 }
+            ?: priceUsdt?.takeIf { it.signum() >= 0 }?.let { amount.multiply(it, PortfolioDecimal.MC) }
 }
 
 /**
@@ -186,7 +187,8 @@ object AddressCostLots {
         if (PortfolioCalculator.normalizeCoin(t.coin) == coin) {
             net += when {
                 t.type == PortfolioTxType.TRANSFER ->
-                    (if (at(t.transferTo)) t.amount else BigDecimal.ZERO) - (if (at(t.transferFrom)) t.amount + t.coinFee else BigDecimal.ZERO)
+                    (if (at(t.transferTo)) t.amount else BigDecimal.ZERO) -
+                        (if (at(t.transferFrom)) t.amount + t.coinFee else BigDecimal.ZERO)
                 !at(t.exchange) -> BigDecimal.ZERO
                 t.type.isInflow -> t.received
                 else -> -(t.amount + t.coinFee)
@@ -268,8 +270,13 @@ object AddressCostLots {
                 val coin = c.coin
                 for (l in c.lots) {
                     out += PortfolioTrade(
-                        id = tradeId(a.id, lots.indexOfFirst { it.id == l.id }), coin = coin, type = PortfolioTxType.BUY,
-                        amount = l.amount, priceUsdt = l.price, time = l.time, exchange = walletName(a),
+                        id = tradeId(a.id, lots.indexOfFirst { it.id == l.id }),
+                        coin = coin,
+                        type = PortfolioTxType.BUY,
+                        amount = l.amount,
+                        priceUsdt = l.price,
+                        time = l.time,
+                        exchange = walletName(a),
                     )
                 }
             }

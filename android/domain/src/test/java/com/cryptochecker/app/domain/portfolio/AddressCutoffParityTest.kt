@@ -18,17 +18,17 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.chWealth
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.time.LocalDate
-import java.time.ZoneId
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.LocalDate
+import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Stichtag-CSV und CH-Vermögenswert mit beobachteten Adressen wie die Karte ([AddressCutoff]): `cutoff_export.json`
@@ -44,12 +44,23 @@ class AddressCutoffParityTest {
     private fun address(raw: Any?): WatchedAddress {
         val o = raw.obj()
         return WatchedAddress(
-            id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
-            label = o["label"] as String?, lastBalance = o["lastBalance"] as String?,
+            id = o["id"].num()!!.toLong(),
+            chain = AddressChain.valueOf(o["chain"] as String),
+            address = o["address"] as String,
+            label = o["label"] as String?,
+            lastBalance = o["lastBalance"] as String?,
             lastUpdated = o["lastUpdated"].num()?.toLong() ?: 0L,
-            observations = o["observations"]?.list()?.map { it.obj() }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
+            observations = o["observations"]?.list()?.map {
+                it.obj()
+            }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
             costLots = o["costLots"]?.list()?.map { it.obj() }?.map {
-                AddressCostLot(it["id"].num()!!.toLong(), it["coin"] as String, it["t"].num()!!.toLong(), dec(it["amount"])!!, dec(it["price"]))
+                AddressCostLot(
+                    it["id"].num()!!.toLong(),
+                    it["coin"] as String,
+                    it["t"].num()!!.toLong(),
+                    dec(it["amount"])!!,
+                    dec(it["price"])
+                )
             }.orEmpty(),
         )
     }
@@ -86,7 +97,7 @@ class AddressCutoffParityTest {
             val fx = dec(c["fxRate"])
             val rows = CutoffExport.rows(holdings, prices, fx) + CutoffExport.addressRows(view.part, prices, fx)
             val lines = CutoffExport.csv(date, "CHF", null, rows, csvTexts, addressLots = view.lotsAfterObservation)
-                .removePrefix("﻿").split("\r\n")
+                .removePrefix("").split("\r\n")
             val expected = c["expected"].list().map { it as String }
             assertEquals(name, expected, lines.subList(1, 1 + expected.size))
             assertEquals("$name Ende", listOf(""), lines.drop(1 + expected.size))

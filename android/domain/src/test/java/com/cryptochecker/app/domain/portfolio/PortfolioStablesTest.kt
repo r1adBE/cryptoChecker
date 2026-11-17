@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneId
 
 /** Eine Stablecoin-Regel für Kopf, Verlauf, Stichtag und Widget ([PortfolioStables]). */
 class PortfolioStablesTest {
@@ -70,7 +70,11 @@ class PortfolioStablesTest {
         // USDC: Schluss je Tag; DAI ganz ohne Kerzen → fehlt (kein stilles 1), steht unter «ohne …»
         val closes = mapOf("USDC" to mapOf(today - 3 to 0.97, today - 2 to 0.98, today - 1 to 0.99))
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("USDC" to 0.995), PortfolioHistoryRange.WEEK, today,
+            trades,
+            closes,
+            mapOf("USDC" to 0.995),
+            PortfolioHistoryRange.WEEK,
+            today,
         )
         assertEquals(listOf("DAI"), s.skipped)
         assertEquals(listOf(97.0, 98.0, 99.0, 99.5), s.points.map { Math.round(it.value * 1000) / 1000.0 })

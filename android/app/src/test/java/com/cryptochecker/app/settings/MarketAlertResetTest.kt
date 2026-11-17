@@ -1,15 +1,15 @@
 package com.cryptochecker.app.settings
 
 import android.content.SharedPreferences
+import com.cryptochecker.app.alarm.DepegAlarmChecker
 import com.cryptochecker.app.data.settings.DepegAlarmPrefs
 import com.cryptochecker.app.data.settings.MarketAlertReset
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.alarm.DepegAlarmChecker
-import com.cryptochecker.app.gas.GasAlertChecker
-import com.cryptochecker.app.gas.GasAlertLogic
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
+import com.cryptochecker.app.gas.GasAlertChecker
+import com.cryptochecker.app.gas.GasAlertLogic
 import com.cryptochecker.app.work.ZoneCheckWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -97,7 +97,13 @@ class MarketAlertResetTest {
         assertFalse(DepegAlarm.armedFor(false, prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1), 5))
         MarketAlertReset.depegOff(prefs)
         assertEquals(0, prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1))
-        assertTrue(DepegAlarm.armedFor(prefs.getBoolean(DepegAlarmChecker.KEY_ARMED, true), prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1), 5))
+        assertTrue(
+            DepegAlarm.armedFor(
+                prefs.getBoolean(DepegAlarmChecker.KEY_ARMED, true),
+                prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1),
+                5
+            )
+        )
         // Neue Schwelle ohne Ausschalten: ebenfalls scharf
         assertTrue(DepegAlarm.armedFor(false, 5, 3))
     }
@@ -139,6 +145,7 @@ private class FakePrefs : SharedPreferences {
 
     override fun getAll(): MutableMap<String, *> = HashMap(values)
     override fun getString(key: String, defValue: String?): String? = values[key] as? String ?: defValue
+
     @Suppress("UNCHECKED_CAST")
     override fun getStringSet(key: String, defValues: MutableSet<String>?): MutableSet<String>? =
         values[key] as? MutableSet<String> ?: defValues
@@ -154,20 +161,46 @@ private class FakePrefs : SharedPreferences {
         private val changes = HashMap<String, Any?>()
         private val removed = HashSet<String>()
         private var clear = false
-        override fun putString(key: String, value: String?): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putStringSet(key: String, values: MutableSet<String>?): SharedPreferences.Editor { changes[key] = values; return this }
-        override fun putInt(key: String, value: Int): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putLong(key: String, value: Long): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putFloat(key: String, value: Float): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun remove(key: String): SharedPreferences.Editor { removed += key; return this }
-        override fun clear(): SharedPreferences.Editor { clear = true; return this }
+        override fun putString(key: String, value: String?): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putStringSet(key: String, values: MutableSet<String>?): SharedPreferences.Editor {
+            changes[key] = values
+            return this
+        }
+        override fun putInt(key: String, value: Int): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putLong(key: String, value: Long): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putFloat(key: String, value: Float): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun remove(key: String): SharedPreferences.Editor {
+            removed += key
+            return this
+        }
+        override fun clear(): SharedPreferences.Editor {
+            clear = true
+            return this
+        }
         override fun commit(): Boolean {
             if (clear) values.clear()
             removed.forEach { values.remove(it) }
             values.putAll(changes)
             return true
         }
-        override fun apply() { commit() }
+        override fun apply() {
+            commit()
+        }
     }
 }

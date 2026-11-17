@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.annotation.StringRes
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.BackupRestorePolicy
+import com.cryptochecker.resources.R
 
 /**
  * Ergebnis von Sichern/Wiederherstellen als Dialog statt als Toast? Ein Text-Toast zeigt ab Android 12 höchstens
@@ -29,8 +29,14 @@ object BackupResultPresentation {
 
     /** Codepunkte, die doppelt so breit sind (East Asian Wide/Fullwidth, vereinfacht; je einschliesslich). */
     val WIDE_RANGES: List<IntRange> = listOf(
-        0x1100..0x115F, 0x2E80..0xA4CF, 0xAC00..0xD7A3, 0xF900..0xFAFF,
-        0xFE30..0xFE4F, 0xFF00..0xFF60, 0xFFE0..0xFFE6, 0x20000..0x3FFFD,
+        0x1100..0x115F,
+        0x2E80..0xA4CF,
+        0xAC00..0xD7A3,
+        0xF900..0xFAFF,
+        0xFE30..0xFE4F,
+        0xFF00..0xFF60,
+        0xFFE0..0xFFE6,
+        0x20000..0x3FFFD,
     )
 
     /** Anzeigebreite: je Codepunkt 1, breite Zeichen ([WIDE_RANGES]) 2. */

@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio
 
+import com.cryptochecker.app.domain.alarm.ThresholdParser
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.domain.alarm.ThresholdParser
-import java.math.BigDecimal
 
 /**
  * Exakte Buchhaltung (BigDecimal, 1 Satoshi = 0.00000001 BTC), Gebühren und Gewinn je
@@ -17,8 +17,14 @@ class PortfolioLedgerTest {
     private fun dec(s: String) = BigDecimal(s)
 
     private fun trade(
-        id: Long, coin: String, type: PortfolioTxType, amount: String, price: String?, time: Long,
-        fee: String? = null, unit: PortfolioFeeUnit? = null,
+        id: Long,
+        coin: String,
+        type: PortfolioTxType,
+        amount: String,
+        price: String?,
+        time: Long,
+        fee: String? = null,
+        unit: PortfolioFeeUnit? = null,
     ) = PortfolioTrade(id, coin, type, dec(amount), price?.let(::dec), time, fee?.let(::dec), unit)
 
     // ---------------- exakt ----------------
@@ -124,7 +130,9 @@ class PortfolioLedgerTest {
     @Test
     fun `eighteen decimals are kept`() {
         val p = PortfolioCalculator.position(
-            "ETH", listOf(trade(1, "ETH", PortfolioTxType.BUY, "0.000000000000000001", "2000", 1)), 2_000.0,
+            "ETH",
+            listOf(trade(1, "ETH", PortfolioTxType.BUY, "0.000000000000000001", "2000", 1)),
+            2_000.0,
         )
         assertEquals("0.000000000000000001", PortfolioDecimal.text(p.holdingsExact))
     }
@@ -175,7 +183,11 @@ class PortfolioLedgerTest {
         )
         // Kursänderung des heutigen Bestands (2 BTC, 100 → 110): +20; gekauft wurde 1 BTC erst zu 110
         val adjusted = PortfolioPeriodChange.todayAdjusted(
-            TodayChange(20.0, 10.0), trades, mapOf("BTC" to 110.0), mapOf("BTC" to 10.0), start,
+            TodayChange(20.0, 10.0),
+            trades,
+            mapOf("BTC" to 110.0),
+            mapOf("BTC" to 10.0),
+            start,
         )!!
         assertEquals(10.0, adjusted.amountUsd, 1e-9)
     }
@@ -205,7 +217,11 @@ class PortfolioLedgerTest {
         val start = 1_000_000L
         val trades = listOf(PortfolioTrade(1, "ETH", PortfolioTxType.BUY, 1.0, null, start + 10))
         val adjusted = PortfolioPeriodChange.todayAdjusted(
-            TodayChange(5.0, 2.0), trades, mapOf("ETH" to 220.0), mapOf("ETH" to 10.0), start,
+            TodayChange(5.0, 2.0),
+            trades,
+            mapOf("ETH" to 220.0),
+            mapOf("ETH" to 10.0),
+            start,
         )
         assertNull(adjusted)
     }
@@ -233,7 +249,9 @@ class PortfolioLedgerTest {
     @Test
     fun `quote fee on buy raises cost basis`() {
         val p = PortfolioCalculator.position(
-            "BTC", listOf(trade(1, "BTC", PortfolioTxType.BUY, "0.5", "60000", 1, "12.5", PortfolioFeeUnit.QUOTE)), 60_000.0,
+            "BTC",
+            listOf(trade(1, "BTC", PortfolioTxType.BUY, "0.5", "60000", 1, "12.5", PortfolioFeeUnit.QUOTE)),
+            60_000.0,
         )
         assertEquals(0, dec("30012.5").compareTo(p.costBasisExact!!))
         assertEquals(60_025.0, p.avgCost!!, 1e-9)
@@ -243,7 +261,9 @@ class PortfolioLedgerTest {
     @Test
     fun `coin fee on buy reduces holdings, not cost`() {
         val p = PortfolioCalculator.position(
-            "BTC", listOf(trade(1, "BTC", PortfolioTxType.BUY, "1", "100", 1, "0.001", PortfolioFeeUnit.COIN)), 100.0,
+            "BTC",
+            listOf(trade(1, "BTC", PortfolioTxType.BUY, "1", "100", 1, "0.001", PortfolioFeeUnit.COIN)),
+            100.0,
         )
         assertEquals(0, dec("0.999").compareTo(p.holdingsExact))
         assertEquals(0, dec("100").compareTo(p.costBasisExact!!))
@@ -357,7 +377,10 @@ class PortfolioLedgerTest {
             PortfolioTrade(2, "NEWCOIN", PortfolioTxType.BUY, 10.0, 1.0, (base - 3) * dayMs),
         )
         val gain = PortfolioPeriodChange.gain(
-            trades, mapOf("BTC" to 110.0, "NEWCOIN" to 1.5), mapOf("BTC" to flat(100.0)), base,
+            trades,
+            mapOf("BTC" to 110.0, "NEWCOIN" to 1.5),
+            mapOf("BTC" to flat(100.0)),
+            base,
         )!!
         // Nur BTC: 100 → 110
         assertEquals(10.0, gain.amountUsd, 1e-9)

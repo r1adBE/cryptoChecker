@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.CostGapKind
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -35,6 +34,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 
 /**
@@ -54,7 +54,8 @@ internal fun PortfolioCostGapsSheet(
 ) {
     val ui = rememberCostGaps(viewModel, transactions)
     val gaps = remember(ui.gaps, coin) {
-        coin?.let { c -> ui.gaps.filter { PortfolioCalculator.normalizeCoin(it.trade.coin) == PortfolioCalculator.normalizeCoin(c) } } ?: ui.gaps
+        coin?.let { c -> ui.gaps.filter { PortfolioCalculator.normalizeCoin(it.trade.coin) == PortfolioCalculator.normalizeCoin(c) } }
+            ?: ui.gaps
     }
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         LazyColumn(
@@ -138,7 +139,9 @@ private fun CostGapRow(
                         !loaded -> stringResource(R.string.cost_gap_suggestion_loading)
                         value == null -> stringResource(R.string.cost_gap_suggestion_none)
                         else -> stringResource(
-                            R.string.cost_gap_suggestion, PortfolioFormat.date(t.time), maskAmount(PortfolioFormat.usdt(value.toDouble())),
+                            R.string.cost_gap_suggestion,
+                            PortfolioFormat.date(t.time),
+                            maskAmount(PortfolioFormat.usdt(value.toDouble())),
                         )
                     },
                     style = MaterialTheme.typography.body,

@@ -1,20 +1,21 @@
 package com.cryptochecker.app.data.backup
 
+import java.util.Base64
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.util.Base64
 
 class BackupCryptoTest {
 
     // Prüfwerte (Argon2id + AAD): testdata/parity/backup_crypto.json (BackupCryptoParityTest)
     private val vectorPassword = "Kryptö-Test 2026!"
-    private val vectorSalt = ByteArray(16) { it.toByte() }                  // 00..0f
-    private val vectorIv = ByteArray(12) { (0xa0 + it).toByte() }           // a0..ab
+    private val vectorSalt = ByteArray(16) { it.toByte() } // 00..0f
+    private val vectorIv = ByteArray(12) { (0xa0 + it).toByte() } // a0..ab
     private val vectorPlain = """{"format":"cryptochecker-backup","version":1,"portfolio":[]}"""
+
     // Beliebige gültige Base64-Daten (≥ 16 Bytes) für Hüllen, die schon beim Lesen scheitern
     private val someData =
         "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
@@ -53,7 +54,11 @@ class BackupCryptoTest {
         // Gleiche Ableitung, aber ohne AAD verschlüsselt: muss am Tag scheitern
         val withoutAad = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding").run {
             val key = Argon2id.hash(vectorPassword.toByteArray(Charsets.UTF_8), vectorSalt, 256, 1, 1, 32)
-            init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.spec.SecretKeySpec(key, "AES"), javax.crypto.spec.GCMParameterSpec(128, vectorIv))
+            init(
+                javax.crypto.Cipher.ENCRYPT_MODE,
+                javax.crypto.spec.SecretKeySpec(key, "AES"),
+                javax.crypto.spec.GCMParameterSpec(128, vectorIv)
+            )
             doFinal(vectorPlain.toByteArray(Charsets.UTF_8))
         }
         // Chiffrat gleich (gleicher Schlüssel und IV), nur das Tag hängt vom Kopf ab
@@ -64,7 +69,11 @@ class BackupCryptoTest {
         } catch (_: BackupCrypto.WrongPasswordException) {
         }
         // Veränderter Kopf (t, p, m) → «falsches Passwort oder beschädigte Datei», nicht «nicht unterstützt»
-        for (changed in listOf(BackupCrypto.Kdf.Argon2(256, 2, 1), BackupCrypto.Kdf.Argon2(256, 1, 2), BackupCrypto.Kdf.Argon2(264, 1, 1))) {
+        for (changed in listOf(
+            BackupCrypto.Kdf.Argon2(256, 2, 1),
+            BackupCrypto.Kdf.Argon2(256, 1, 2),
+            BackupCrypto.Kdf.Argon2(264, 1, 1)
+        )) {
             try {
                 BackupCrypto.decrypt(BackupCrypto.Envelope(changed, env.salt, env.iv, env.data), pw(vectorPassword))
                 fail("decrypted with changed header $changed")
@@ -80,12 +89,12 @@ class BackupCryptoTest {
             fail("accepted $kdf")
         } catch (_: BackupCrypto.UnsupportedException) {
         }
-        rejects(BackupCrypto.Kdf.Argon2(262_145, 3, 1))   // über 256 MiB
-        rejects(BackupCrypto.Kdf.Argon2(65_536, 11, 1))   // t über 10
-        rejects(BackupCrypto.Kdf.Argon2(65_536, 3, 5))    // p über 4
+        rejects(BackupCrypto.Kdf.Argon2(262_145, 3, 1)) // über 256 MiB
+        rejects(BackupCrypto.Kdf.Argon2(65_536, 11, 1)) // t über 10
+        rejects(BackupCrypto.Kdf.Argon2(65_536, 3, 5)) // p über 4
         rejects(BackupCrypto.Kdf.Argon2(65_536, 0, 1))
         rejects(BackupCrypto.Kdf.Argon2(65_536, 3, 0))
-        rejects(BackupCrypto.Kdf.Argon2(31, 1, 4))        // unter 8 KiB je Bahn
+        rejects(BackupCrypto.Kdf.Argon2(31, 1, 4)) // unter 8 KiB je Bahn
         rejects(BackupCrypto.Kdf.Argon2(Int.MAX_VALUE, 3, 1))
     }
 
@@ -148,7 +157,11 @@ class BackupCryptoTest {
     @Test
     fun envelopeJson() {
         val env = BackupCrypto.encrypt(
-            vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv, fastKdf
+            vectorPlain.toByteArray(Charsets.UTF_8),
+            pw(vectorPassword),
+            vectorSalt,
+            vectorIv,
+            fastKdf
         )
         val json = BackupCrypto.toJson(env)
         assertTrue(json.contains("\"format\": \"cryptochecker-backup-enc\""))
@@ -166,14 +179,16 @@ class BackupCryptoTest {
     @Test
     fun unsupportedEnvelopesAreRejected() {
         fun rejects(block: () -> Unit) = try {
-            block(); fail("accepted")
+            block()
+            fail("accepted")
         } catch (_: BackupCrypto.UnsupportedException) {
         }
         val salt = "AAECAwQFBgcICQoLDA0ODw=="
         val iv = "oKGio6Slpqeoqaqr"
         // Neuere Hülle: eigene Meldung «neuere App-Version»
         try {
-            BackupCrypto.envelope(4, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 1); fail("accepted")
+            BackupCrypto.envelope(4, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 1)
+            fail("accepted")
         } catch (e: BackupVersion.NewerVersionException) {
             assertEquals(4, e.version)
         }
@@ -187,7 +202,7 @@ class BackupCryptoTest {
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 262_145, 3, 1) }
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 11, 1) }
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 5) }
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData) }   // m, t, p fehlen
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData) } // m, t, p fehlen
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, "AAEC", someData, 65_536, 3, 1) }
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, "%%%", 65_536, 3, 1) }
         rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", null, iv, someData, 65_536, 3, 1) }
@@ -223,9 +238,9 @@ class BackupCryptoTest {
         for (weak in weakSamples) {
             assertFalse(weak, BackupCrypto.canExport(protect = true, password = weak, repeat = weak))
         }
-        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen
-        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
-        assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy")) // 10 Zeichen
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ")) // 11 Zeichen
+        assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2")) // 12 Zeichen
     }
 
     @Test

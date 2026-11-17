@@ -28,9 +28,9 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 
 /** Kleine Kapsel «Beta» neben dem Namen einer Länder-Vorlage (Regeln vereinfacht). */
 @Composable

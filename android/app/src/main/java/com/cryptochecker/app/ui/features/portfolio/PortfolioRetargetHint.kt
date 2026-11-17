@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.resources.R
 
 /**
  * «Gleiche Menge wie deine Umbuchung nach «Ledger» …» und daneben «Ziel ändern»: erst die Rückfrage
@@ -57,7 +57,10 @@ internal fun RetargetHint(
                 DialogText { Text(stringResource(R.string.portfolio_address_retarget_ask, amount, retarget.from, retarget.to)) }
             },
             confirmButton = {
-                TextButton(onClick = { ask = false; onRetarget(retarget) }) {
+                TextButton(onClick = {
+                    ask = false
+                    onRetarget(retarget)
+                }) {
                     Text(stringResource(R.string.portfolio_address_retarget_confirm), fontWeight = FontWeight.SemiBold)
                 }
             },

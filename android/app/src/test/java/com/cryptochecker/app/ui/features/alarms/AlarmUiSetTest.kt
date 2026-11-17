@@ -27,7 +27,10 @@ class AlarmCreateGuardTest {
         val guard = AlarmCreateGuard()
         val release = CompletableDeferred<Unit>()
         var inserts = 0
-        val first = guard.launch(this, guarded = true) { release.await(); inserts++ }
+        val first = guard.launch(this, guarded = true) {
+            release.await()
+            inserts++
+        }
         val second = guard.launch(this, guarded = true) { inserts++ }
         assertNotNull(first)
         assertNull(second)

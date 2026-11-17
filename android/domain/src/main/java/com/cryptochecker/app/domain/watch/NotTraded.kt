@@ -137,6 +137,9 @@ object NotTraded {
 
     /** [map] ohne die Einträge nicht gehandelter Paare (z. B. gespeicherte Aktivitäts-Signale). */
     fun <V> withoutIds(map: Map<Long, V>, notTraded: Set<Long>): Map<Long, V> =
-        if (notTraded.isEmpty() || map.keys.none { it in notTraded }) map
-        else map.filterKeys { it !in notTraded }
+        if (notTraded.isEmpty() || map.keys.none { it in notTraded }) {
+            map
+        } else {
+            map.filterKeys { it !in notTraded }
+        }
 }

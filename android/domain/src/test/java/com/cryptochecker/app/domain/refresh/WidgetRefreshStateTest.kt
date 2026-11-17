@@ -105,6 +105,7 @@ class WidgetRefreshStateTest {
         val elapsed = 50_000L
         val rest = 14_200L
         val base = WidgetRefreshState.chronometerBase(elapsed, rest)
+
         // Chronometer (Countdown): ganze Sekunden bis zur Basis, abgeschnitten
         fun shown(at: Long) = (base - at) / 1000
         assertEquals(15L, shown(elapsed))

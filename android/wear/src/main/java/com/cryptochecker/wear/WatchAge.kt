@@ -18,7 +18,10 @@ object WatchAge {
     /** «vor 47 Min.» — erstes Zeichen klein (steht hinter «+1.23%  ·»), ein Datum ab einer Woche bleibt, wie es ist. */
     fun short(time: Long, now: Long, locale: Locale = Locale.getDefault()): String {
         val text = DateUtils.getRelativeTimeSpanString(
-            time, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE,
+            time,
+            now,
+            DateUtils.MINUTE_IN_MILLIS,
+            DateUtils.FORMAT_ABBREV_RELATIVE,
         ).toString()
         return if (abs(now - time) >= RELATIVE_SPAN_MAX_MILLIS) text else text.replaceFirstChar { it.lowercase(locale) }
     }

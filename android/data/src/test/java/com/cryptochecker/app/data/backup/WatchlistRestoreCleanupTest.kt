@@ -10,9 +10,12 @@ class WatchlistRestoreCleanupTest {
     private data class A(val id: Long, val watchId: Long, val tag: String = "")
 
     private fun clean(watches: List<W>, alarms: List<A>) = WatchlistRestoreCleanup.clean(
-        watches, alarms,
-        watchId = { it.id }, pairKey = { it.pair },
-        alarmId = { it.id }, alarmWatchId = { it.watchId },
+        watches,
+        alarms,
+        watchId = { it.id },
+        pairKey = { it.pair },
+        alarmId = { it.id },
+        alarmWatchId = { it.watchId },
         withWatchId = { a, id -> a.copy(watchId = id) },
     )
 

@@ -2,11 +2,11 @@ package com.cryptochecker.app.domain.portfolio.csvimport
 
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import java.math.BigDecimal
+import kotlin.random.Random
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import kotlin.random.Random
 
 /**
  * Umbuchungs-Abgleich ([CsvTransferMatch.candidates]) mit Zeitfenster per Binärsuche ([CsvTransferWindow]) gegen die

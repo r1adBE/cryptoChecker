@@ -28,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
@@ -37,6 +36,7 @@ import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /**
  * «Einstand für Adressguthaben» einer beobachteten Adresse ([addressId]): je Coin, wie viel des Guthabens
@@ -75,10 +75,16 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                         editingId = null
                     },
                     // Der Editor fragt vor dem Löschen nach («Posten löschen?»)
-                    onDelete = if (draft.id == 0L) null else ({
-                        viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != draft.id })
-                        editingId = null
-                    }),
+                    onDelete = if (draft.id == 0L) {
+                        null
+                    } else {
+                        (
+                            {
+                                viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != draft.id })
+                                editingId = null
+                            }
+                            )
+                    },
                     onDismiss = { editingId = null },
                 )
             }
@@ -96,7 +102,8 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                     Text(
                         stringResource(
                             R.string.address_lots_status,
-                            maskAmount(PortfolioFormat.amount(c.lotted, c.coin)), maskAmount(PortfolioFormat.amount(c.base, c.coin)),
+                            maskAmount(PortfolioFormat.amount(c.lotted, c.coin)),
+                            maskAmount(PortfolioFormat.amount(c.base, c.coin)),
                         ),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.SemiBold
@@ -130,7 +137,11 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                         .clickable(role = Role.Button) { editingId = lot.id }
                         .padding(horizontal = Spacing.xl, vertical = Spacing.sm)
                 ) {
-                    Text(PortfolioFormat.date(lot.time), style = MaterialTheme.typography.label, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        PortfolioFormat.date(lot.time),
+                        style = MaterialTheme.typography.label,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                     Text(
                         maskAmount(PortfolioFormat.amount(lot.amount, lot.coin)) + " · " +
                             maskAmount(lot.cost?.let { PortfolioFormat.usdt(it.toDouble()) } ?: "—"),

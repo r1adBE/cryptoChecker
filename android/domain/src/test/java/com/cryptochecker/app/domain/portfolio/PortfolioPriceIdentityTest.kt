@@ -80,7 +80,15 @@ class PortfolioPriceIdentityTest {
     @Test
     fun withoutOtherListsNothingUnverified() {
         assertEquals(PortfolioPriceIdentity.BinanceCheck.USE, PortfolioPriceIdentity.binanceCheck("BEAM", null, "Beam Gaming"))
-        val split = PortfolioPriceIdentity.binanceSplit(listOf("BTC", "BEAM"), emptyMap(), { if (it == "BTC") "Bitcoin" else "Beam Gaming" })
+        val split = PortfolioPriceIdentity.binanceSplit(listOf("BTC", "BEAM"), emptyMap(), {
+            if (it ==
+                "BTC"
+            ) {
+                "Bitcoin"
+            } else {
+                "Beam Gaming"
+            }
+        })
         assertEquals(listOf("BTC", "BEAM"), split.use)
         assertTrue(split.unverified.isEmpty())
     }

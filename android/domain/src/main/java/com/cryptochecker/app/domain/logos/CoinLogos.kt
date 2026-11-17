@@ -171,6 +171,7 @@ object CoinLogos {
 
     /** Hebel-Präfixe der Futures («1000PEPE», «1MBABYDOGE») und Börsen-Eigenheiten («XBT»). */
     private val MULTIPLIER_PREFIXES = listOf("1000000", "100000", "10000", "1000", "1M")
+
     // «LUNA2»: Terra 2.0 heisst bei den Futures-Börsen so (LUNA2USDT), Logo und Name sind die von LUNA
     private val ALIASES = mapOf("XBT" to "BTC", "XDG" to "DOGE", "LUNA2" to "LUNA")
 

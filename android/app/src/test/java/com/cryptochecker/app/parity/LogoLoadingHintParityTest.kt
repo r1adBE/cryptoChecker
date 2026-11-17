@@ -1,13 +1,13 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.LogoLoadingHint
+import java.io.File
+import java.nio.file.Files
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.nio.file.Files
 
 /**
  * Hinweis «Logos werden geladen …» ([LogoLoadingHint]): gemeinsame Testfälle `coin_logos.json` › `loadingHint` (iOS:

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.watch.DexLiquidity
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Zuletzt gemessene Liquidität (USD) je DEX-Pool ([DexLiquidity]): aus der Suche beim Hinzufügen und aus jeder

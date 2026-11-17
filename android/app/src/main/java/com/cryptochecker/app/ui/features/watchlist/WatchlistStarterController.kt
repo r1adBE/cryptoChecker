@@ -5,18 +5,18 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.confirmUserWrite
+import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterSelection
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -161,7 +161,10 @@ internal class WatchlistStarterController @AssistedInject constructor(
             if (changed) {
                 pricesJob.cancel()
                 // Neue Coins: deren Logos noch dazu (die Liste bleibt dabei sichtbar)
-                launch { logosJob.join(); ensureStarterLogos(fresh) }
+                launch {
+                    logosJob.join()
+                    ensureStarterLogos(fresh)
+                }
                 loadStarterPrices(fresh)
             }
         }

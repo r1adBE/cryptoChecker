@@ -1,16 +1,21 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.logos.CoinLogoStorage
-import com.cryptochecker.app.data.logos.LogoFiles
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.data.logos.CoinLogoStorage
+import com.cryptochecker.app.data.logos.LogoFiles
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.logos.parseSymbolDirectory
+import com.cryptochecker.app.domain.logos.withStockNames
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,11 +26,6 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.domain.logos.parseSymbolDirectory
-import com.cryptochecker.app.domain.logos.withStockNames
 
 /**
  * Namen der Coins und TradFi-Paare ([names]) und welche Paare TradFi sind ([tradFiPairs]). Die Namen der Listen
@@ -201,7 +201,11 @@ class CoinNames @Inject constructor(
             publishNames()
         }
         val now = System.currentTimeMillis()
-        if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_TIME, 0L), now, CoinLogos.STOCK_NAMES_TTL_MILLIS) && !stockNames.isNullOrEmpty()) return@withLock
+        if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_TIME, 0L), now, CoinLogos.STOCK_NAMES_TTL_MILLIS) &&
+            !stockNames.isNullOrEmpty()
+        ) {
+            return@withLock
+        }
         if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_ATTEMPT, 0L), now, CoinLogoStorage.MAP_RETRY_MILLIS)) return@withLock
         prefs.edit { putLong(KEY_STOCK_NAMES_ATTEMPT, now) }
         val fresh = withContext(ioDispatcher) {

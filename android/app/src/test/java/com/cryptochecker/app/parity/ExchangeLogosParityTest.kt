@@ -4,11 +4,11 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.parseIconPack
 import com.cryptochecker.app.domain.market.ExchangeLogos
 import com.cryptochecker.marketdata.config.ExchangesConfig
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Börsen-Logos (`testdata/parity/exchange_logos.json`): jede registrierte Börse hat genau ein mitgeliefertes Logo

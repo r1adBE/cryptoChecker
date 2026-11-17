@@ -5,11 +5,11 @@ package com.cryptochecker.app.ui.features.settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.settings.SettingsSummary
 import com.cryptochecker.app.domain.settings.UpdateMode
+import com.cryptochecker.resources.R
 
 /** «Ein» / «Aus» als Kurzwert. */
 @Composable
@@ -19,8 +19,11 @@ internal fun onOff(on: Boolean): String =
 /** Kurzwert «Kurs-Aktualisierung»: die Wahl von «Wie aktuell?» («Sparsam» oder «Live, solange offen»). */
 @Composable
 internal fun updatesSummary(settings: AppSettings): String =
-    if (settings.updateMode == UpdateMode.SPARSAM) stringResource(R.string.update_mode_sparsam)
-    else stringResource(R.string.update_mode_live)
+    if (settings.updateMode == UpdateMode.SPARSAM) {
+        stringResource(R.string.update_mode_sparsam)
+    } else {
+        stringResource(R.string.update_mode_live)
+    }
 
 /** Kurzwert «Merkliste»: «Mini-Chart · ≈ CHF» oder «Nur Kurs». */
 @Composable

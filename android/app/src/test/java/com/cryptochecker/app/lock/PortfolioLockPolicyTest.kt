@@ -1,8 +1,8 @@
 package com.cryptochecker.app.lock
 
+import com.cryptochecker.app.data.local.SystemBackupScope
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
-import com.cryptochecker.app.data.local.SystemBackupScope
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -94,7 +94,9 @@ class PortfolioLockPolicyTest {
         assertTrue(v28.contains("path=\"cryptochecker_system_backup.db\" requireFlags=\"clientSideEncryption\""))
         // Sonst gleicher Umfang
         val onlyWithEncryption = setOf(
-            "portfolio_system_backup.json", "cryptochecker_system_backup.db", "datastore/settings.preferences_pb",
+            "portfolio_system_backup.json",
+            "cryptochecker_system_backup.db",
+            "datastore/settings.preferences_pb",
         )
         assertEquals(include.findAll(v28).map { it.groupValues[1] }.toSet() - onlyWithEncryption, basePaths)
     }
@@ -123,7 +125,13 @@ class PortfolioLockPolicyTest {
             // Kopie nur mit wirksamer Verschlüsselungs-Bedingung (nicht Android 8/8.1)
             assertEquals(rel, rel != "xml/backup_rules.xml", "cryptochecker_system_backup.db" in paths)
             // Widget-Aufnahme (versiegelt, Schlüssel im Keystore) und Widget-Zuordnung nie
-            assertFalse(rel, paths.any { it.startsWith("portfolio_widget") || it.startsWith("widgets") || it.startsWith("list_widget_snapshot") })
+            assertFalse(
+                rel,
+                paths.any {
+                    it.startsWith("portfolio_widget") || it.startsWith("widgets") ||
+                        it.startsWith("list_widget_snapshot")
+                }
+            )
             assertFalse(rel, paths.any { it.startsWith("cryptochecker.db") || it.startsWith("cryptochecker_portfolio") })
             assertFalse(rel, paths.any { "db_keys" in it || it.endsWith(".unreadable") })
         }

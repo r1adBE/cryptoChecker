@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.ui.theme.ChipShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,15 +21,15 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.util.ChangeBasisText
-import androidx.compose.runtime.remember
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.convert.CurrencyConversion
-import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.shownChange
+import com.cryptochecker.app.ui.theme.ChipShape
+import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.resources.R
 
 /**
  * Schmale Zeile über den Paaren: «Name ⇅ · Kurs ⇅ · 24h ⇅» wie an der Börse. Erster Tipp: Name
@@ -119,10 +119,11 @@ internal fun rememberColumnSorted(
     sortRates: Map<String, Double>,
     changeView: ChangeView,
     sortMode: Boolean,
-): List<WatchEntity> {
-    return remember(shown, columnSort, sortRates, changeView, sortMode) {
-        if (sortMode) shown
-        else ColumnSort.apply(
+): List<WatchEntity> = remember(shown, columnSort, sortRates, changeView, sortMode) {
+    if (sortMode) {
+        shown
+    } else {
+        ColumnSort.apply(
             shown,
             columnSort,
             favorite = { it.favorite },

@@ -2829,7 +2829,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   → `AppData+Watchlist`, `+Portfolio`, `+Refresh`, `+Live`, `+Settings`, `+CoinLogos` (next to `+Alarms`,
   `+Reading`, `+WatchEdits`, `+WatchedAddresses`); `BackupManager.swift` → `BackupLimits.swift` (as Android),
   `BackupManager+Portfolio`, `+Watchlist`, `+Settings`; `WatchlistScreen.kt` → `WatchlistScreenEffects.kt`.
-  Further splits: `PortfolioTxSheet.kt` (frame only; `TxFormState` in `PortfolioTxFormState.kt`, sections in
+  Further splits: `PortfolioTxSheet.kt` (frame only; `TxFormState` in `TxFormState.kt`, sections in
   `PortfolioTxSections.kt`, save checks in `PortfolioTxForm.check`), `TaxEngines` (one file per country engine),
   `TaxExport` (Rows/Summary/Csv; iOS in `App/Features/Portfolio/Tax/`), `PriceRefresher` (`RefreshLock` with a
   `RefreshLockScope` token, `LivePriceApplier`, `ChartRefresher`, `RefreshResultProcessor`, `RefreshSideChecks`),
@@ -3266,6 +3266,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 281: A-01 part 2 (11): eleven iOS XCTest source checks as the table of source rule ios-wiring.
 * Build 282: A-01 part 2 (12): more iOS XCTest source checks into rule ios-wiring (portfolio alarm notification, portfolio storage notice and hidden amounts, watch without iPhone app, backup and restore, Live Activity, full refresh time); the rule also counts occurrences.
 * Build 283: References to audits, reviews, findings and build numbers removed from comments, tests and shared test cases.
+* Build 284: Kotlin style: ktlint 1.7.1 in CI (Android Studio style, 140 columns, android/.editorconfig, download checked by SHA-256); all Kotlin formatted, files named after their class, constant names, wildcard imports resolved; files over 400 lines after formatting split into helper/extension files; long functions shortened.
 
 ## Known warnings
 

@@ -3,9 +3,9 @@ package com.cryptochecker.app.widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.widget.WidgetReconnectWorker
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
@@ -57,8 +57,11 @@ object WidgetOffline {
 
     /** «Keine Verbindung · Stand 14:05» (bzw. mit Tag, [WidgetOutdated.stamp]); ohne Zeit «Keine Verbindung». */
     fun label(context: Context, time: Long): String =
-        if (time > 0) context.getString(R.string.offline_status_since, WidgetOutdated.stamp(context, time))
-        else short(context)
+        if (time > 0) {
+            context.getString(R.string.offline_status_since, WidgetOutdated.stamp(context, time))
+        } else {
+            short(context)
+        }
 
     /** «Keine Verbindung» — enge Stufe, wenn die Zeit nicht mehr passt (das Wort bleibt). */
     fun short(context: Context): String = context.getString(R.string.offline_status)

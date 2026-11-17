@@ -48,8 +48,8 @@ class Change24hTest {
         assertNull(Change24h.fraction(Double.NaN))
         assertNull(Change24h.fromOpen(100.0, Double.NaN))
         assertNull(Change24h.fromOpen(100.0, 0.0))
-        assertNull(Change24h.fromOpen(100.0, -1.0))   // NO_DATA
-        assertNull(Change24h.fromOpen(-1.0, 100.0))   // letzter Kurs fehlt
+        assertNull(Change24h.fromOpen(100.0, -1.0)) // NO_DATA
+        assertNull(Change24h.fromOpen(-1.0, 100.0)) // letzter Kurs fehlt
         assertNull(Change24h.fromOpen(Double.NaN, 100.0))
         assertNull(Change24h.fromAbsolute(100.0, Double.NaN))
         assertNull(Change24h.fromAbsolute(100.0, 100.0)) // Eröffnung wäre 0

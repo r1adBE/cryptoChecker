@@ -2,24 +2,24 @@
 // aus den Binance-Listen, Seiten der Rangliste. Erweiterungsfunktionen; Sperre ([CoinListSync.symbolMap]) und Zustand in der Klasse.
 package com.cryptochecker.app.data
 
+import androidx.core.content.edit
+import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_ATTEMPT
+import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_TIME
+import com.cryptochecker.app.data.CoinListSync.NetState
 import com.cryptochecker.app.data.logos.CoinLogoStorage
 import com.cryptochecker.app.data.logos.LogoFiles
-import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callExchange
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import kotlinx.coroutines.sync.withLock
-import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_ATTEMPT
-import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_TIME
-import com.cryptochecker.app.data.CoinListSync.NetState
 
 /**
  * Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus

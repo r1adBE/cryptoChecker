@@ -5,15 +5,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.TimedPrice
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Stundenkurse für den 24-h-Wertverlauf des Portfolio-Widgets ([PortfolioSnapshotUpdater]): fehlende Stundenkerzen

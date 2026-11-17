@@ -205,12 +205,16 @@ object DepegAlarm {
     enum class CardNoteKind {
         /** Frische Messung weicht um mindestens die Schwelle ab: «USDT = 1 angenommen – Markt bei …» (Warnfarbe). */
         DEVIATION,
+
         /** Werte hängen an USDT = USD (Anzeigewährung, USD, gemischte Börsen): «Kurse: Binance · USDT = 1». */
         PRICE_SOURCE,
+
         /** Der Bestand enthält USDT (zählt 1) bzw. mit USDT zum Marktkurs: Ersatz 1 ohne Kurs — «USDT = 1 angenommen». */
         USDT_ASSUMED,
+
         /** Bestätigter USDT-Einbruch: die Werte rechnen mit dem Marktkurs — «USDT-Einbruch – Markt bei …» (Warnfarbe). */
         USDT_BREAK,
+
         /** Live-Kurs nur aus Binance USDC/USDT (USDC = 1 angenommen): «USDT/USD über USDC/USDT …». */
         VIA_USDC,
     }

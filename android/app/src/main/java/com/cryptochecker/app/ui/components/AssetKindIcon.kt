@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.resources.R
 
 /**
  * Symbol der Art eines Paars ([AssetKind]) — dasselbe in den Gruppen-Chips, vor der Glocke in der
@@ -19,13 +19,24 @@ import com.cryptochecker.app.domain.watch.AssetKind
 @Composable
 fun AssetKindIcon(kind: AssetKind, tint: Color, size: Dp, modifier: Modifier = Modifier) {
     when (kind) {
-        AssetKind.TOKEN -> Icon(painterResource(R.drawable.ic_token), contentDescription = null, tint = tint,
-            modifier = modifier.size(size))
-        AssetKind.TRADFI -> Icon(painterResource(R.drawable.ic_bank), contentDescription = null, tint = tint,
-            modifier = modifier.size(size))
+        AssetKind.TOKEN -> Icon(
+            painterResource(R.drawable.ic_token),
+            contentDescription = null,
+            tint = tint,
+            modifier = modifier.size(size)
+        )
+        AssetKind.TRADFI -> Icon(
+            painterResource(R.drawable.ic_bank),
+            contentDescription = null,
+            tint = tint,
+            modifier = modifier.size(size)
+        )
         // Vektor statt Schriftzeichen: gleich gross und auf gleicher Höhe wie Raute und Bank
-        AssetKind.ALPHA -> Icon(painterResource(R.drawable.ic_alpha), contentDescription = null, tint = tint,
-            modifier = modifier.size(size))
+        AssetKind.ALPHA -> Icon(
+            painterResource(R.drawable.ic_alpha),
+            contentDescription = null,
+            tint = tint,
+            modifier = modifier.size(size)
+        )
     }
 }
-

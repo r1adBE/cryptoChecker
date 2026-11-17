@@ -1,10 +1,10 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

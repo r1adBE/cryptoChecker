@@ -10,9 +10,7 @@ fun TaxEngines.frPta(
     outflows: MutableList<TaxOutflow>,
     /** Adress-Einträge (beobachtete Adressen, «im Portfolio zählen»): Teil des Gesamtwerts, keine Abtretungen. */
     addressTrades: List<PortfolioTrade> = emptyList(),
-): List<PortfolioDisposal> {
-    return FrPtaRun(priceAt, outflows, addressTrades).run(real)
-}
+): List<PortfolioDisposal> = FrPtaRun(priceAt, outflows, addressTrades).run(real)
 
 /** Ein Lauf von [frPta]: Erwerbspreis-Summe, Bestände und Guthaben beobachteter Adressen, Transaktion für Transaktion. */
 private class FrPtaRun(
@@ -23,6 +21,7 @@ private class FrPtaRun(
     val zero = BigDecimal.ZERO
     val mc = PortfolioDecimal.MC
     val books = LinkedHashMap<String, PortfolioHoldingsBook>()
+
     // Guthaben beobachteter Adressen je Coin bis zum laufenden Zeitpunkt (Einzahlung +, Auszahlung −, nie unter 0)
     val addrSorted = addressTrades.filter { it.amount.signum() > 0 }
         .sortedWith(compareBy(PortfolioLedger.ORDER) { PortfolioLedgerEvent(it, false) })
@@ -38,6 +37,7 @@ private class FrPtaRun(
     }
     var pta = zero
     var ptaParts: List<PortfolioCostPart> = emptyList()
+
     // Die Summe enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]) — bis sie ganz abgegangen ist; jede
     // Kürzung daraus trägt «Wert geschätzt»
     var ptaEstimated = false
@@ -107,19 +107,23 @@ private class FrPtaRun(
 
     /** Eine Transaktion mit Menge > 0: ihre Kurse und der Wert der Gebühr-Abtretungen, die sie schon ausgelöst hat. */
     private inner class Tx(private val t: PortfolioTrade) {
-    val coin = PortfolioCalculator.normalizeCoin(t.coin)
+        val coin = PortfolioCalculator.normalizeCoin(t.coin)
         val price = t.validPrice
+
         // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
         // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
         val thirdPrice = t.thirdFeeCoin?.let { tc -> t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 } }
         val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
+
         // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
         val unit = price ?: t.swapValue?.divide(t.amount, mc)
             ?: BigDecimal.ONE.takeIf { !PortfolioStables.needsQuote(coin) }
             ?: priceAt?.invoke(coin, t.time)?.takeIf { it.signum() >= 0 }
+
         // Netzwerkgebühr im Coin zum Tagesschluss (kein Preis und kein erfasster Wert des Tauschs, kein Stablecoin): geschätzt
         val coinFeeEstimated = unit != null && PortfolioStables.needsQuote(coin) &&
             (price == null && t.swapValue == null || t.valueEstimated)
+
         // Wert der Gebühr-Abtretungen dieser Transaktion: der Gesamtwert danach ist um so viel kleiner
         var spent = zero
 

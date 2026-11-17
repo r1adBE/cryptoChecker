@@ -4,17 +4,17 @@
 // sie und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.watch.assetKind
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.domain.activity.ActivityReport
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.settings.WatchlistSettings
+import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.assetKind
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -153,7 +153,8 @@ internal class WatchlistContentFlows(
         activity,
     ) { base, latest, reports -> base.copy(latestAlarmTrigger = latest, activity = reports) }
         .stateIn(
-            scope, SharingStarted.WhileSubscribed(5_000),
+            scope,
+            SharingStarted.WhileSubscribed(5_000),
             WatchlistContent(
                 watches = watchesOrNull.value,
                 groupFilter = groupFilter.value,

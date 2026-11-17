@@ -4,7 +4,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,12 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.DropdownField
-import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
+import com.cryptochecker.app.ui.components.ambiguousNumberText
+import com.cryptochecker.resources.R
 
 /**
  * Gebühr und Börse je Art ([PortfolioTxForm.Fields]):
@@ -68,13 +68,23 @@ internal fun LedgerFields(
                         )
                     )
                 },
-                suffix = if (fields.coinFeeOnly && coin.isNotEmpty()) { { Text(coin) } } else null,
+                suffix = if (fields.coinFeeOnly && coin.isNotEmpty()) {
+                    { Text(coin) }
+                } else {
+                    null
+                },
                 singleLine = true,
                 isError = !feeValid || feeConsumes,
                 supportingText = when {
-                    !feeValid -> { { Text(ambiguousNumberText(feeText) ?: stringResource(R.string.portfolio_tx_price_invalid)) } }
-                    feeConsumes -> { { Text(stringResource(R.string.portfolio_tx_fee_consumes_amount)) } }
-                    fields.feeWithUnit -> { { Text(stringResource(R.string.ledger_fee_hint)) } }
+                    !feeValid -> {
+                        { Text(ambiguousNumberText(feeText) ?: stringResource(R.string.portfolio_tx_price_invalid)) }
+                    }
+                    feeConsumes -> {
+                        { Text(stringResource(R.string.portfolio_tx_fee_consumes_amount)) }
+                    }
+                    fields.feeWithUnit -> {
+                        { Text(stringResource(R.string.ledger_fee_hint)) }
+                    }
                     else -> null
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),

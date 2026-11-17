@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import android.app.NotificationManager
 import android.view.View
 import androidx.compose.ui.semantics.SemanticsActions
@@ -17,17 +16,19 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.lock.AppLockAuth
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.ui.MainActivity
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -36,7 +37,6 @@ import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Kernablauf auf Gerät/Emulator (Hilt + Compose UI Test, Netz durch feste Kurse ersetzt):

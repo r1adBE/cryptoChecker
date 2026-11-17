@@ -9,8 +9,8 @@ import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.MultiResponseSource
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
-import okhttp3.OkHttpClient
 import java.util.concurrent.ConcurrentHashMap
+import okhttp3.OkHttpClient
 
 /**
  * Kurse einer [MultiResponseSource] (Referenzkurse von NBU und NBP): alle Antworten zusammen holen — eine Anfrage je

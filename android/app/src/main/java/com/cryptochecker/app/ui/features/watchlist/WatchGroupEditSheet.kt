@@ -2,8 +2,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -50,6 +49,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -58,12 +58,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
+import com.cryptochecker.resources.R
 
 /**
  * «Gruppe bearbeiten»: Name ändern und per Häkchen festlegen, welche Paare
@@ -121,7 +121,10 @@ internal fun GroupEditSheet(
             confirmButton = {
                 TextButton(onClick = {
                     askDelete = false
-                    if (!saving) { saving = true; onDelete { saving = false } }
+                    if (!saving) {
+                        saving = true
+                        onDelete { saving = false }
+                    }
                 }) {
                     Text(stringResource(R.string.group_delete), color = MaterialTheme.colorScheme.error)
                 }
@@ -268,7 +271,12 @@ internal fun GroupEditSheet(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { if (!saving) { saving = true; onDone(name, checked) { saving = false } } }) {
+            Button(onClick = {
+                if (!saving) {
+                    saving = true
+                    onDone(name, checked) { saving = false }
+                }
+            }) {
                 Text(stringResource(R.string.group_done))
             }
         }

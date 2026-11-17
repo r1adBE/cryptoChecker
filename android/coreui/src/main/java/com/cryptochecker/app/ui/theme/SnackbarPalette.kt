@@ -39,8 +39,11 @@ object SnackbarPalette {
     ): Int? = when (kind) {
         SnackbarKind.SUCCESS -> scheme.up(dark, highContrast, inverted = false, accent = accent)
         SnackbarKind.ERROR ->
-            if (colorVision(scheme)) scheme.down(dark, highContrast, inverted = false, accent = accent)
-            else (if (dark) ErrorDark else ErrorLight).toArgb()
+            if (colorVision(scheme)) {
+                scheme.down(dark, highContrast, inverted = false, accent = accent)
+            } else {
+                (if (dark) ErrorDark else ErrorLight).toArgb()
+            }
         SnackbarKind.INFO -> null
     }
 }

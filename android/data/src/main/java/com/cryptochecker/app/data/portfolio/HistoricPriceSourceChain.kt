@@ -9,10 +9,10 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain.Outcome
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain.Verdict
-import kotlinx.coroutines.CancellationException
-import timber.log.Timber
 import java.time.LocalDate
 import java.time.ZoneOffset
+import kotlinx.coroutines.CancellationException
+import timber.log.Timber
 
 /** Eigene Börse je Coin so lange gemerkt (Wege ändern sich nur mit neuen Transaktionen). */
 private const val ROUTE_MEMO_MILLIS = 60_000L
@@ -97,8 +97,12 @@ internal suspend fun HistoricPriceSource.ownOutcome(
     fetch: DayCloseFetch,
 ): Outcome {
     val nameOk = HistoricCloseChain.nameAllowed(
-        b, own = true, exchangeKey = own.exchangeKey, ownName = ownName,
-        binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(own.exchangeKey, b),
+        b,
+        own = true,
+        exchangeKey = own.exchangeKey,
+        ownName = ownName,
+        binanceName = tokenIdentityStore.binanceName(b),
+        providerName = tokenIdentityStore.pairName(own.exchangeKey, b),
     )
     var outcome = if (!nameOk) Outcome(null, rejected = true) else ownDayClose(own, date, start, reference, fetch)
     val inChain = own.exchangeKey in HistoricCloseChain.CHAIN && own.exchangeKey != HistoricCloseChain.BINANCE
@@ -149,8 +153,12 @@ suspend fun HistoricPriceSource.chainOutcome(source: String, b: String, start: L
     val pairs = HistoricCloseChain.pairs(source, b)
     if (pairs.isEmpty()) return Outcome(null)
     val nameOk = HistoricCloseChain.nameAllowed(
-        b, own = false, exchangeKey = source, ownName = ownName,
-        binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(source, b),
+        b,
+        own = false,
+        exchangeKey = source,
+        ownName = ownName,
+        binanceName = tokenIdentityStore.binanceName(b),
+        providerName = tokenIdentityStore.pairName(source, b),
     )
     // Klar anderer Name: diese Quelle führt unter dem Kürzel einen anderen Token — keine Abfrage
     if (!nameOk) return Outcome(null, rejected = true)

@@ -39,8 +39,11 @@ class HostGroupBackoffTest {
         val now = data["now"].num()!!.toLong()
         data["cases"].list().forEach { raw ->
             val c = raw.obj()
-            assertEquals(c["name"] as String, states(c["expected"]),
-                ExchangeBackoff.withHostGroupPauses(states(c["states"]), now))
+            assertEquals(
+                c["name"] as String,
+                states(c["expected"]),
+                ExchangeBackoff.withHostGroupPauses(states(c["states"]), now)
+            )
         }
     }
 

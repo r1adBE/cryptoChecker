@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.watch.QuickView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -13,7 +13,12 @@ import org.junit.Test
 class WatchlistHeaderStateTest {
 
     private fun watch(id: Long, favorite: Boolean = false) = WatchEntity(
-        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT", favorite = favorite,
+        id = id,
+        exchangeKey = "Binance",
+        exchangeName = "Binance",
+        baseAsset = "C$id",
+        quoteAsset = "USDT",
+        favorite = favorite,
     )
 
     private fun uiState(
@@ -25,17 +30,30 @@ class WatchlistHeaderStateTest {
         usageDays: Int = 0,
     ) = WatchlistUiState(
         content = WatchlistContent.Initial.copy(
-            watches = watches, groupFilter = filter, alarmCounts = alarmCounts, alarmTotal = alarmTotal,
+            watches = watches,
+            groupFilter = filter,
+            alarmCounts = alarmCounts,
+            alarmTotal = alarmTotal,
         ),
         display = WatchlistDisplay.initial(AppSettings(usageDays = usageDays)),
         live = WatchlistLive(
-            refreshing = refreshing, online = true, liveExchanges = emptyList(), liveWatchIds = emptySet(),
-            convertRates = emptyMap(), convertFxTimes = emptyMap(), sortRates = emptyMap(), changeStamp = null,
+            refreshing = refreshing,
+            online = true,
+            liveExchanges = emptyList(),
+            liveWatchIds = emptySet(),
+            convertRates = emptyMap(),
+            convertFxTimes = emptyMap(),
+            sortRates = emptyMap(),
+            changeStamp = null,
         ),
         starter = StarterUiState(
-            coins = emptyList(), deselected = emptySet(),
+            coins = emptyList(),
+            deselected = emptySet(),
             prices = StarterPricesState(loading = false, prices = emptyMap()),
-            adding = false, logosReady = true, quote = "USDT", exchangeName = "Binance",
+            adding = false,
+            logosReady = true,
+            quote = "USDT",
+            exchangeName = "Binance",
         ),
     )
 
@@ -59,8 +77,11 @@ class WatchlistHeaderStateTest {
         val filter = GroupFilter(groups = listOf("DeFi"), selected = "DeFi", tokens = true, alpha = true)
         val h = header(
             uiState(
-                listOf(watch(1, favorite = true), watch(2)), filter,
-                alarmCounts = mapOf(1L to 2, 2L to 1), alarmTotal = 5, refreshing = true,
+                listOf(watch(1, favorite = true), watch(2)),
+                filter,
+                alarmCounts = mapOf(1L to 2, 2L to 1),
+                alarmTotal = 5,
+                refreshing = true,
             ),
             notTradedCount = 1,
         )
@@ -117,8 +138,12 @@ class WatchlistHeaderStateTest {
     @Test
     fun passesScreenFlags() {
         val h = header(
-            uiState(listOf(watch(1))), quickView = QuickView.STALE, sortMode = true, selecting = true,
-            searching = true, selectedCount = 1,
+            uiState(listOf(watch(1))),
+            quickView = QuickView.STALE,
+            sortMode = true,
+            selecting = true,
+            searching = true,
+            selectedCount = 1,
         )
         assertEquals(QuickView.STALE, h.quickView)
         assertTrue(h.sortMode)
@@ -133,7 +158,14 @@ class WatchlistHeaderStateTest {
         for (count in 0..4) {
             val h = header(uiState((1L..count.toLong()).map { watch(it) }, alarmTotal = 0, usageDays = 1))
             val hint = showsGroupsHint(
-                h.groups, h.selectedGroup, h.hasFavorites, h.hasActivity, h.quickView, h.searching, h.sortMode, h.hasAlpha,
+                h.groups,
+                h.selectedGroup,
+                h.hasFavorites,
+                h.hasActivity,
+                h.quickView,
+                h.searching,
+                h.sortMode,
+                h.hasAlpha,
             )
             assertTrue("$count Paare", hint)
         }

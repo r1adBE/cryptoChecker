@@ -1,8 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import com.cryptochecker.app.ui.components.CardPadding
-import com.cryptochecker.app.ui.components.AppCard
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,7 +47,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.market.CycleSource
@@ -57,14 +54,17 @@ import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketSection
 import com.cryptochecker.app.domain.market.MarketSections
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.notification.MacroTexts
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.readableWidth
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 import java.time.ZoneId
 
 /** Titel der Unterseite bzw. ihrer Zeile im Markt-Tab. */
@@ -141,8 +141,21 @@ internal fun MarketMoreToggle(expanded: Boolean, onToggle: () -> Unit) {
                 stateDescription = state
                 role = Role.Button
                 heading()
-                onClick { onToggle(); true }
-                if (expanded) collapse { onToggle(); true } else expand { onToggle(); true }
+                onClick {
+                    onToggle()
+                    true
+                }
+                if (expanded) {
+                    collapse {
+                        onToggle()
+                        true
+                    }
+                } else {
+                    expand {
+                        onToggle()
+                        true
+                    }
+                }
             }
             .padding(horizontal = Spacing.lg, vertical = 8.dp)
     ) {

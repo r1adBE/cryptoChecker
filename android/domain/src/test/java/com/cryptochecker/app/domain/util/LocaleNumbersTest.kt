@@ -2,11 +2,11 @@ package com.cryptochecker.app.domain.util
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class LocaleNumbersTest {
 

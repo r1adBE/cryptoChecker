@@ -3,20 +3,20 @@
 // denselben Weg wie die Kursalarme ([AlarmCheckRun.report]).
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.alarm.DerivativesValues
+import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.alarm.DerivativesValues
+import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.remote.WindowRanges
-import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
-import com.cryptochecker.app.domain.alarm.DerivativesAlarm
-import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.settings.AppSettings
-import kotlinx.coroutines.CancellationException
 import com.cryptochecker.app.domain.util.DomainLog
-import com.cryptochecker.app.domain.model.convertCurrency
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -121,18 +121,23 @@ suspend fun RefreshEffects.checkDerivativesAlarm(
     // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
     alarmCheckStatus.markChecked(alarm.id)
     // Open Interest: ohne alte genug Messung (Verlauf im Aufbau) null — geprüft, aber noch keine Entscheidung
-    val value = if (alarm.condition.isFunding) values.fundingPercent
-    else derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
-    when (val decision = DerivativesAlarm.decide(
-        condition = alarm.condition,
-        threshold = alarm.threshold,
-        value = value,
-        armed = alarm.referenceAt <= 0L,
-        enabled = alarm.enabled,
-        lastTriggeredAt = alarm.lastTriggeredAt,
-        now = now,
-        cooldownMinutes = settings.alarmCooldownMinutes,
-    )) {
+    val value = if (alarm.condition.isFunding) {
+        values.fundingPercent
+    } else {
+        derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
+    }
+    when (
+        val decision = DerivativesAlarm.decide(
+            condition = alarm.condition,
+            threshold = alarm.threshold,
+            value = value,
+            armed = alarm.referenceAt <= 0L,
+            enabled = alarm.enabled,
+            lastTriggeredAt = alarm.lastTriggeredAt,
+            now = now,
+            cooldownMinutes = settings.alarmCooldownMinutes,
+        )
+    ) {
         DerivativesAlarm.Decision.None -> Unit
         DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
         is DerivativesAlarm.Decision.Fire -> run.report(
@@ -140,7 +145,9 @@ suspend fun RefreshEffects.checkDerivativesAlarm(
             mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
             show = {
                 notifier.showAlarm(
-                    watch, alarm, price,
+                    watch,
+                    alarm,
+                    price,
                     derivativesValue = decision.value,
                     derivativesReference = values.referenceSource,
                 )
@@ -245,6 +252,8 @@ suspend fun RefreshEffects.checkVolumeAlarm(
         alarm,
         mark = { watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime) },
         // Kerzen einer anderen Börse: im Text genannt («… · Binance (Kerzen)»)
-        show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio, textNote = AlarmTextNote.of(candleSource = spike.source)) },
+        show = {
+            notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio, textNote = AlarmTextNote.of(candleSource = spike.source))
+        },
     )
 }

@@ -33,7 +33,12 @@ class RefreshLockTimeoutBoundaryTest {
         runCurrent()
         assertTrue(lock.isLocked)
         var ran = false
-        val waiter = async { lock.withLockWithin(TIMEOUT) { ran = true; "gelaufen" } }
+        val waiter = async {
+            lock.withLockWithin(TIMEOUT) {
+                ran = true
+                "gelaufen"
+            }
+        }
         advanceUntilIdle()
         val result = waiter.await()
         assertEquals(result != null, ran)
@@ -47,7 +52,12 @@ class RefreshLockTimeoutBoundaryTest {
         launch { lock.withLock { delay(TIMEOUT) } }
         runCurrent()
         var ran = false
-        val waiter = async { lock.withLockWithinThen(TIMEOUT, this) { _ -> ran = true; 2 to null } }
+        val waiter = async {
+            lock.withLockWithinThen(TIMEOUT, this) { _ ->
+                ran = true
+                2 to null
+            }
+        }
         advanceUntilIdle()
         val result = waiter.await()
         assertEquals(result != null, ran)

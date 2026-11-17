@@ -10,6 +10,9 @@ import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.util.IoDispatcher
+import java.net.URLEncoder
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -22,9 +25,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import timber.log.Timber
-import java.net.URLEncoder
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Daten für die Karte «Crypto Pulse» — nur Quellen, die die App schon nutzt:
@@ -116,8 +116,11 @@ class PulseDataSource @Inject constructor(
                 rank = if (o.isNull("market_cap_rank")) null else o.optInt("market_cap_rank"),
                 marketCap = null,
             )
-            val change = if (o.isNull("price_change_percentage_24h")) null
-            else o.optDouble("price_change_percentage_24h").takeIf { it.isFinite() }
+            val change = if (o.isNull("price_change_percentage_24h")) {
+                null
+            } else {
+                o.optDouble("price_change_percentage_24h").takeIf { it.isFinite() }
+            }
             coins += MoverCoin(coin.symbol, coin.name, coin.rank, change)
             if (change != null && !StarterCoins.isExcluded(coin) && changes.size < CryptoPulse.BREADTH_COINS) changes += change
         }
@@ -180,6 +183,7 @@ class PulseDataSource @Inject constructor(
 
     private companion object {
         val COINS = listOf("BTC", "ETH", "SOL")
+
         /** per_page = [MarketMovers.UNIVERSE] (Top 100; die ersten 30 gültigen tragen die Marktbreite). */
         const val COINGECKO_TOP_URL = "https://api.coingecko.com/api/v3/coins/markets" +
             "?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"

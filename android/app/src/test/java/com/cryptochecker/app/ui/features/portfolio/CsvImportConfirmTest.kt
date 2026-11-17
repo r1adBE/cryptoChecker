@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
+import java.math.BigDecimal
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.launch
@@ -20,7 +21,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * «Importieren» ohne ViewModel: Vorbereiten ([prepareCsvImport]), Ablauf und Ergebnis ([runCsvImportSave]),
@@ -82,7 +82,8 @@ class CsvImportConfirmTest {
         assertNull(prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L))
         val refused = CsvRateConsent(accepted = false, priceNote = "Preis ohne Tageskurs", feeNote = "Gebühr ohne Tageskurs")
         assertNull(prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L, consent = refused))
-        val plan = prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L, consent = refused.copy(accepted = true))
+        val plan =
+            prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L, consent = refused.copy(accepted = true))
         assertNotNull(plan)
         plan ?: return
         // Älteste zuerst: Zeile 4, dann Zeile 2 mit Vermerk
@@ -97,7 +98,10 @@ class CsvImportConfirmTest {
             prepare = { plan() },
             cancelled = { false },
             save = { CsvImportSaveOutcome.Saved(inserted = 3, count = 4) },
-            enable = { enableCalls++; true },
+            enable = {
+                enableCalls++
+                true
+            },
         )
         assertEquals(CsvImportState.Done(count = 4, enabled = true), done)
         // Nur verknüpfte gespeicherte Seiten: nichts neu angelegt, Portfolio bleibt wie es ist
@@ -105,7 +109,10 @@ class CsvImportConfirmTest {
             prepare = { plan() },
             cancelled = { false },
             save = { CsvImportSaveOutcome.Saved(inserted = 0, count = 2) },
-            enable = { enableCalls++; true },
+            enable = {
+                enableCalls++
+                true
+            },
         )
         assertEquals(CsvImportState.Done(count = 2, enabled = false), linkedOnly)
         assertEquals(1, enableCalls)
@@ -117,7 +124,10 @@ class CsvImportConfirmTest {
         val early = runCsvImportSave(
             prepare = { plan() },
             cancelled = { true },
-            save = { saveCalls++; CsvImportSaveOutcome.Saved(1, 1) },
+            save = {
+                saveCalls++
+                CsvImportSaveOutcome.Saved(1, 1)
+            },
             enable = { true },
         )
         assertEquals(CsvImportState.Cancelled, early)
@@ -142,10 +152,16 @@ class CsvImportConfirmTest {
     @Test
     fun preparationFailureOrMissingChoice() = runTest {
         var saveCalls = 0
-        val failed = runCsvImportSave({ error("kaputt") }, { false }, { saveCalls++; CsvImportSaveOutcome.Saved(1, 1) }, { true })
+        val failed = runCsvImportSave({ error("kaputt") }, { false }, {
+            saveCalls++
+            CsvImportSaveOutcome.Saved(1, 1)
+        }, { true })
         assertEquals(CsvImportState.SaveFailed, failed)
         // Nicht jede Auszahlung gewählt: null = Vorschau bleibt
-        val open = runCsvImportSave({ null }, { false }, { saveCalls++; CsvImportSaveOutcome.Saved(1, 1) }, { true })
+        val open = runCsvImportSave({ null }, { false }, {
+            saveCalls++
+            CsvImportSaveOutcome.Saved(1, 1)
+        }, { true })
         assertNull(open)
         assertEquals(0, saveCalls)
     }
@@ -156,7 +172,10 @@ class CsvImportConfirmTest {
         var saveCalls = 0
         // Im Vordergrund gestartet (advanceUntilIdle wartet darauf); ViewModel endet während des Vorbereitens
         val job = launch {
-            result = runCsvImportSave({ awaitCancellation() }, { false }, { saveCalls++; CsvImportSaveOutcome.Saved(1, 1) }, { true })
+            result = runCsvImportSave({ awaitCancellation() }, { false }, {
+                saveCalls++
+                CsvImportSaveOutcome.Saved(1, 1)
+            }, { true })
         }
         advanceUntilIdle()
         job.cancel()

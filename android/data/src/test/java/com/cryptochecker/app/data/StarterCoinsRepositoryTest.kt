@@ -43,7 +43,9 @@ class StarterCoinsRepositoryTest {
     private val ranking = listOf(
         "btc" to "Bitcoin", "eth" to "Ethereum", "usdt" to "Tether", "wbtc" to "Wrapped Bitcoin", "xrp" to "XRP",
         "bnb" to "BNB", "sol" to "Solana", "doge" to "Dogecoin", "ada" to "Cardano", "trx" to "TRON", "link" to "Chainlink",
-    ).mapIndexed { i, (symbol, name) -> """{"symbol":"$symbol","name":"$name","market_cap_rank":${i + 1},"market_cap":${1e12 / (i + 1)}}""" }
+    ).mapIndexed { i, (symbol, name) ->
+        """{"symbol":"$symbol","name":"$name","market_cap_rank":${i + 1},"market_cap":${1e12 / (i + 1)}}"""
+    }
         .joinToString(",", "[", """,{"symbol":"","name":"leer"},{"symbol":"x","market_cap_rank":null,"market_cap":null}]""")
 
     private val usdtPairs = listOf("BTC", "ETH", "XRP", "BNB", "SOL", "DOGE", "ADA", "TRX", "LINK")
@@ -108,8 +110,10 @@ class StarterCoinsRepositoryTest {
             when {
                 markets in url -> Reply(ranking)
                 url == "https://api.binance.us/api/v3/ticker/price" ->
-                    Reply("""[{"symbol":"BTCUSDT"},{"symbol":"ETHUSDT"},{"symbol":"BNBUSDT"},{"symbol":"SOLUSDT"},""" +
-                        """{"symbol":"DOGEUSDT"},{"symbol":"USDT"},{"symbol":"ETHBTC"}]""")
+                    Reply(
+                        """[{"symbol":"BTCUSDT"},{"symbol":"ETHUSDT"},{"symbol":"BNBUSDT"},{"symbol":"SOLUSDT"},""" +
+                            """{"symbol":"DOGEUSDT"},{"symbol":"USDT"},{"symbol":"ETHBTC"}]"""
+                    )
                 else -> null
             }
         }
@@ -142,7 +146,9 @@ class StarterCoinsRepositoryTest {
         assertEquals(coins, starter.universe(force = true))
         assertEquals(2, http.requested.size)
         // Ohne Stand und offline: nichts
-        assertNull(StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges(1L), ioDispatcher = Dispatchers.IO).universe())
+        assertNull(
+            StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges(1L), ioDispatcher = Dispatchers.IO).universe()
+        )
     }
 
     @Test

@@ -30,13 +30,13 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
-import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.convertCurrency
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
@@ -44,8 +44,8 @@ import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 // Karten der Alarm-Übersicht («Alle Alarme»): je Paar und «Portfolio» — wie iOS `AlarmsOverviewScreen.groupCard`
 // bzw. `portfolioCard`. Eigene Datei, damit `AlarmsOverviewScreen.kt` unter 400 Zeilen bleibt.
@@ -124,7 +124,9 @@ internal fun AlarmGroupCard(
             // «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus — kennzeichnen
             val invalidText = if (AlarmJson.exceedsFall(alarm.condition, alarm.threshold)) {
                 stringResource(R.string.alarm_threshold_invalid_fix)
-            } else null
+            } else {
+                null
+            }
             // TalkBack: vollständig, inkl. Wiederholung, Ton und Ansage (sichtbare Texte stumm)
             val description = alarmA11yDescription(context, alarm, title, sentence) +
                 (invalidText?.let { ". $it" } ?: "")
@@ -155,8 +157,11 @@ internal fun AlarmGroupCard(
                     Text(
                         title,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = if (alarm.enabled) MaterialTheme.colorScheme.onSurface
-                        else MaterialTheme.colorScheme.onSurfaceVariant
+                        color = if (alarm.enabled) {
+                            MaterialTheme.colorScheme.onSurface
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        }
                     )
                     // Der Alarm als Satz, wie in der Alarmliste des Paars
                     Text(
@@ -236,7 +241,9 @@ internal fun PortfolioAlarmsCard(
                     .then(
                         if (highlighted) {
                             Modifier.background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)).semantics { selected = true }
-                        } else Modifier
+                        } else {
+                            Modifier
+                        }
                     )
             ) {
                 Row(
@@ -244,7 +251,9 @@ internal fun PortfolioAlarmsCard(
                     modifier = Modifier
                         .weight(1f)
                         .toggleable(
-                            value = alarm.enabled, enabled = !invalid || alarm.enabled, role = Role.Switch,
+                            value = alarm.enabled,
+                            enabled = !invalid || alarm.enabled,
+                            role = Role.Switch,
                             onValueChange = { onToggle(alarm.id, it) },
                         )
                         .padding(start = 16.dp, top = Spacing.sm, bottom = Spacing.sm, end = 8.dp)
@@ -253,8 +262,11 @@ internal fun PortfolioAlarmsCard(
                         Text(
                             sentence(alarm),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = if (alarm.enabled) MaterialTheme.colorScheme.onSurface
-                            else MaterialTheme.colorScheme.onSurfaceVariant
+                            color = if (alarm.enabled) {
+                                MaterialTheme.colorScheme.onSurface
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            }
                         )
                         Text(
                             stringResource(portfolioAlarmLineRes(invalid = invalid, repeating = alarm.repeating)),

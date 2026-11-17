@@ -13,13 +13,13 @@ import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 /**
  * «Akku & Aktivität» › Uhr: die Uhr legt ihre eigenen Zähler der letzten 24 h unter [PATH] in die Wear-Daten-Schicht
@@ -60,8 +60,11 @@ class PhoneWatchUsage @Inject constructor(
     /** Neuesten Stand aus der Daten-Schicht holen (alle Uhren, der jüngste zählt); ohne Play-Dienste der gemerkte. */
     suspend fun pull(): UsageReport? = withContext(ioDispatcher) {
         runCatchingCancellable {
-            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
-                TIMEOUT_S, TimeUnit.SECONDS)
+            val buffer = Tasks.await(
+                Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
+                TIMEOUT_S,
+                TimeUnit.SECONDS
+            )
             val texts = try {
                 buffer.map { DataMapItem.fromDataItem(it).dataMap.getString(KEY) }
             } finally {
@@ -86,7 +89,8 @@ class PhoneWatchUsage @Inject constructor(
             val withApp = Tasks.await(
                 Wearable.getCapabilityClient(context)
                     .getCapability(PhoneWatchSync.CAPABILITY, CapabilityClient.FILTER_REACHABLE),
-                TIMEOUT_S, TimeUnit.SECONDS
+                TIMEOUT_S,
+                TimeUnit.SECONDS
             ).nodes
             if (withApp.isEmpty()) Presence.NO_APP else Presence.APP
         }.getOrDefault(Presence.NO_WATCH)
@@ -102,13 +106,17 @@ class PhoneWatchUsage @Inject constructor(
             val nodes = Tasks.await(
                 Wearable.getCapabilityClient(context)
                     .getCapability(PhoneWatchSync.CAPABILITY, CapabilityClient.FILTER_REACHABLE),
-                TIMEOUT_S, TimeUnit.SECONDS
+                TIMEOUT_S,
+                TimeUnit.SECONDS
             ).nodes
             val client = Wearable.getMessageClient(context)
             nodes.count { node ->
                 try {
-                    Tasks.await(client.sendMessage(node.id, REQUEST_PATH, ByteArray(0)), TIMEOUT_S,
-                        TimeUnit.SECONDS)
+                    Tasks.await(
+                        client.sendMessage(node.id, REQUEST_PATH, ByteArray(0)),
+                        TIMEOUT_S,
+                        TimeUnit.SECONDS
+                    )
                     true
                 } catch (e: CancellationException) {
                     throw e

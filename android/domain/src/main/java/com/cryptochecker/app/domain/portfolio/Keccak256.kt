@@ -72,12 +72,16 @@ object Keccak256 {
                 for (y in 0 until 5) a[x + 5 * y] = a[x + 5 * y] xor d
             }
             // ρ und π
-            for (x in 0 until 5) for (y in 0 until 5) {
-                b[y + 5 * ((2 * x + 3 * y) % 5)] = java.lang.Long.rotateLeft(a[x + 5 * y], ROT[x + 5 * y])
+            for (x in 0 until 5) {
+                for (y in 0 until 5) {
+                    b[y + 5 * ((2 * x + 3 * y) % 5)] = java.lang.Long.rotateLeft(a[x + 5 * y], ROT[x + 5 * y])
+                }
             }
             // χ
-            for (x in 0 until 5) for (y in 0 until 5) {
-                a[x + 5 * y] = b[x + 5 * y] xor (b[(x + 1) % 5 + 5 * y].inv() and b[(x + 2) % 5 + 5 * y])
+            for (x in 0 until 5) {
+                for (y in 0 until 5) {
+                    a[x + 5 * y] = b[x + 5 * y] xor (b[(x + 1) % 5 + 5 * y].inv() and b[(x + 2) % 5 + 5 * y])
+                }
             }
             // ι
             a[0] = a[0] xor RC[round]

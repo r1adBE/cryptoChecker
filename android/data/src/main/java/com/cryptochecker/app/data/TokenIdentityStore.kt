@@ -4,11 +4,11 @@ import android.content.Context
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.domain.watch.TokenIdentity
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CancellationException
-import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
+import timber.log.Timber
 
 /**
  * Volle Namen der Coins für die Prüfung «gleicher Token» ([TokenIdentity]): je Börse aus ihrer

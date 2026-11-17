@@ -5,9 +5,8 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.data.MarketExtraCodecs
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.CoinIndicatorModel
 import com.cryptochecker.app.domain.market.CryptoPulse
@@ -18,6 +17,7 @@ import com.cryptochecker.app.domain.market.HalvingMath
 import com.cryptochecker.app.domain.market.MarketUnusual
 import com.cryptochecker.app.domain.market.OnChainValues
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -201,16 +201,23 @@ fun InfoViewModel.loadMarket(force: Boolean = false): Job = sync(
     failed = { _market.value = MarketState.Failed },
     fetch = {
         val now = System.currentTimeMillis()
-        val known = if (force) null else cacheStore.read(CycleSource.ON_CHAIN.key, CycleCacheCodecs.onChain)
-            ?.takeIf { CycleCachePolicy.isFresh(it.savedAt, now, CycleSource.ON_CHAIN.ttlMillis) }
-            ?.value
+        val known = if (force) {
+            null
+        } else {
+            cacheStore.read(CycleSource.ON_CHAIN.key, CycleCacheCodecs.onChain)
+                ?.takeIf { CycleCachePolicy.isFresh(it.savedAt, now, CycleSource.ON_CHAIN.ttlMillis) }
+                ?.value
+        }
         val sourced = cycleDataSource.fetchSourced(knownOnChain = known)
         val inputs = sourced.value
         if (known == null) {
             val onChain = OnChainValues(inputs.mvrv, inputs.puell, inputs.hash30d, inputs.hash60d)
             if (onChain.hasAny) {
                 cacheStore.write(
-                    CycleSource.ON_CHAIN.key, onChain, System.currentTimeMillis(), CycleCacheCodecs.onChain,
+                    CycleSource.ON_CHAIN.key,
+                    onChain,
+                    System.currentTimeMillis(),
+                    CycleCacheCodecs.onChain,
                     provider = DataFreshness.COIN_METRICS,
                 )
             }

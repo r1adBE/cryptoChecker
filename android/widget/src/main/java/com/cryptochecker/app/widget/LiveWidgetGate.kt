@@ -1,6 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetScreenGate
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,12 +8,13 @@ import androidx.core.content.ContextCompat
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.domain.widget.WidgetScreenGate
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Einziger Weg, auf dem Live-Takte die Widgets neu zeichnen: WebSocket-Sammelpunkt (LivePriceApplier.applyLive).
@@ -71,7 +71,10 @@ class LiveWidgetGate @Inject constructor(
             receiverRegistered = runCatching {
                 // Systemmeldung: kommt auch mit NOT_EXPORTED an
                 ContextCompat.registerReceiver(
-                    context, screenOnReceiver, IntentFilter(Intent.ACTION_SCREEN_ON), ContextCompat.RECEIVER_NOT_EXPORTED
+                    context,
+                    screenOnReceiver,
+                    IntentFilter(Intent.ACTION_SCREEN_ON),
+                    ContextCompat.RECEIVER_NOT_EXPORTED
                 )
             }.onFailure { Timber.w(it, "Widgets: Empfänger für «Bildschirm an» nicht angemeldet") }.isSuccess
         }

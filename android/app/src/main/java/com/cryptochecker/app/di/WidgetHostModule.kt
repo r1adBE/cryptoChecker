@@ -1,17 +1,17 @@
 package com.cryptochecker.app.di
 
 import com.cryptochecker.app.alarm.PortfolioAlarmChecker
+import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.wearable.PhoneWatchFeed
 import com.cryptochecker.app.widget.PortfolioAlarmCheck
 import com.cryptochecker.app.widget.PortfolioWatchFeed
-import com.cryptochecker.app.widget.WidgetScheduler
-import com.cryptochecker.app.work.PriceUpdateScheduler
-import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.widget.WidgetReconnectCheck
+import com.cryptochecker.app.widget.WidgetScheduler
 import com.cryptochecker.app.work.BackgroundCheck
+import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.Binds
-import dagger.Provides
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 

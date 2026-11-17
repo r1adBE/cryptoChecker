@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,21 +23,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.data.portfolio.PortfolioJson
+import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.util.TextLimit
 import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.SwitchRow
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 import java.time.ZoneId
-import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /** Tausch: Wert des Tauschs (optional, gesamt); sonst Preis pro Coin in USDT bzw. in der Anzeigewährung (Umbuchung, Tausch: keiner). */
 @Composable
@@ -53,7 +53,9 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
         if (d.fiatActive && usdt != null && fxDay != null) {
             (if (perCoin) PortfolioFormat.price(usdt.toDouble()) else PortfolioFormat.usdt(usdt.toDouble())) to
                 PortfolioFormat.date(fxDay.atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())
-        } else null
+        } else {
+            null
+        }
     }
 
     if (d.isSwap) {
@@ -71,7 +73,8 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
                         !d.swapValueValid -> ambiguousNumberText(state.swapValueText, state.decimalSeparator)
                             ?: stringResource(R.string.portfolio_tx_price_invalid)
                         converted != null -> listOfNotNull(
-                            stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second), usdtAssumed,
+                            stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second),
+                            usdtAssumed,
                         ).joinToString(" · ")
                         else -> stringResource(R.string.portfolio_tx_swap_value_hint)
                     }
@@ -114,7 +117,8 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
                         !d.priceValid -> ambiguousNumberText(state.priceText, state.decimalSeparator, d.priceHintEntry)
                             ?: stringResource(R.string.portfolio_tx_price_invalid)
                         converted != null -> listOfNotNull(
-                            stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second), usdtAssumed,
+                            stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second),
+                            usdtAssumed,
                         ).joinToString(" · ")
                         // Geprüfter Tagesschluss vorbelegt: so markiert
                         historicDay != null -> stringResource(R.string.portfolio_tx_price_historic, historicDay)

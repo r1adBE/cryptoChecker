@@ -1,7 +1,5 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.components.EmptyState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,13 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -26,25 +23,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
-import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
-import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.AppSnackbarHost
+import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.components.EmptyState
+import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /** Grösste Systemschrift, bei der Titel und Zahl der aktiven Alarme zweizeilig in die Leiste passen. */
 private const val COUNT_IN_BAR_MAX_SCALE = 1.3f
@@ -83,7 +83,9 @@ fun AlarmsOverviewScreen(
     com.cryptochecker.app.ui.lock.HideOverlaysEffect(showsPortfolioAmounts)
     com.cryptochecker.app.ui.lock.SecureWindowEffect(
         com.cryptochecker.app.domain.lock.PortfolioLockPolicy.secureWindow(
-            lockSetting = lockEnabled, portfolioVisible = showsPortfolioAmounts, sdkInt = android.os.Build.VERSION.SDK_INT,
+            lockSetting = lockEnabled,
+            portfolioVisible = showsPortfolioAmounts,
+            sdkInt = android.os.Build.VERSION.SDK_INT,
         )
     )
     var askDeletePortfolio by remember { mutableStateOf<PortfolioAlarmEntity?>(null) }
@@ -104,7 +106,10 @@ fun AlarmsOverviewScreen(
                 }
             },
             confirmButton = {
-                TextButton(onClick = { viewModel.deletePortfolioAlarm(alarm.id); askDeletePortfolio = null }) {
+                TextButton(onClick = {
+                    viewModel.deletePortfolioAlarm(alarm.id)
+                    askDeletePortfolio = null
+                }) {
                     Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
                 }
             },
@@ -183,7 +188,10 @@ fun AlarmsOverviewScreen(
                 val pickerRows by viewModel.pickerRows.collectAsStateWithLifecycle()
                 AlarmPairPicker(
                     rows = pickerRows,
-                    onPick = { id -> pickPair = false; onOpenWatch(id) },
+                    onPick = { id ->
+                        pickPair = false
+                        onOpenWatch(id)
+                    },
                     onDismiss = { pickPair = false },
                 )
             }

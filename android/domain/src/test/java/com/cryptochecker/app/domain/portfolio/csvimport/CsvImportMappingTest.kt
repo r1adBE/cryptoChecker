@@ -5,23 +5,25 @@ import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Zuordnung importierter Zeilen zu Transaktionen ([CsvImportMapping]) — wie `CsvImportMappingTests.swift`. */
 class CsvImportMappingTest {
 
-    private val csv = "Date,Transaction Type,BTC Amount,BTC Price,Currency Pair,Fiat Amount (excl. fees),Fiat Currency,Fee,Fee Currency,Destination,Operation ID,Counterparty\r\n" +
-        "2024-09-15T14:23:17Z,Sell,-0.02847593,92341.28,BTC/CHF,2629.45,CHF,0.00,CHF,CH00,op-0001,Relai\r\n" +
-        "2024-07-22T09:41:06Z,Buy,0.00284516,95287.63,BTC/CHF,271.05,CHF,2.45,CHF,bc1q1,op-0002,Relai\r\n" +
-        "2024-06-20T08:00:00Z,Withdrawal,0.00500000,,,,,0.00001000,BTC,bc1q3,op-0004,\r\n" +
-        "2024-06-21T10:00:00Z,Referral bonus,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,bc1q4,op-0005,Relai\r\n" +
-        "2024-06-22T10:00:00Z,Cancelled,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,,op-0006,Relai\r\n" +
-        "2024-06-23T10:00:00Z,Buy,0.001,,BTC/EUR,,EUR,,EUR,,op-0009,Relai\r\n"
+    private val csv =
+        "Date,Transaction Type,BTC Amount,BTC Price,Currency Pair,Fiat Amount (excl. fees),Fiat Currency,Fee,Fee Currency," +
+            "Destination,Operation ID,Counterparty\r\n" +
+            "2024-09-15T14:23:17Z,Sell,-0.02847593,92341.28,BTC/CHF,2629.45,CHF,0.00,CHF,CH00,op-0001,Relai\r\n" +
+            "2024-07-22T09:41:06Z,Buy,0.00284516,95287.63,BTC/CHF,271.05,CHF,2.45,CHF,bc1q1,op-0002,Relai\r\n" +
+            "2024-06-20T08:00:00Z,Withdrawal,0.00500000,,,,,0.00001000,BTC,bc1q3,op-0004,\r\n" +
+            "2024-06-21T10:00:00Z,Referral bonus,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,bc1q4,op-0005,Relai\r\n" +
+            "2024-06-22T10:00:00Z,Cancelled,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,,op-0006,Relai\r\n" +
+            "2024-06-23T10:00:00Z,Buy,0.001,,BTC/EUR,,EUR,,EUR,,op-0009,Relai\r\n"
 
     /** CHF: 0.8 je USD; EUR fehlt. */
     private val fx: (String, Long) -> BigDecimal? = { c, _ -> if (c == "CHF") BigDecimal("0.8") else null }
@@ -76,13 +78,17 @@ class CsvImportMappingTest {
         val p = CsvImportMapping.preview(CsvImportParser.parse(csv), emptySet(), fx = { _, _ -> null })
         assertEquals(listOf(2, 3, 5), p.missingFx)
         val buy = p.transactions.first { it.line == 3 }
-        assertNull(buy.priceUsdt); assertNull(buy.fee); assertNull(buy.feeUnit)
+        assertNull(buy.priceUsdt)
+        assertNull(buy.fee)
+        assertNull(buy.feeUnit)
     }
 
     @Test
     fun thirdCoinFeeAndFeeRows() {
-        val row = CsvImportRow(1, CsvImportKind.BUY, "Buy", "ETH", BigDecimal("1"), BigDecimal("3000"), "USDT",
-            BigDecimal("0.01"), "BNB", 5L, null, "k")
+        val row = CsvImportRow(
+            1, CsvImportKind.BUY, "Buy", "ETH", BigDecimal("1"), BigDecimal("3000"), "USDT",
+            BigDecimal("0.01"), "BNB", 5L, null, "k"
+        )
         val tx = CsvImportMapping.toTx(CsvImport.priceInUsdt(listOf(row)) { _, _ -> null }.single())
         assertEquals("BNB", tx.feeCoin)
         assertEquals(0, BigDecimal("0.01").compareTo(tx.feeCoinAmount))
@@ -123,7 +129,9 @@ class CsvImportMappingTest {
     fun withdrawalsCanBecomeTransfers() {
         val result = CsvImportParser.parse(csv)
         val plain = CsvImportMapping.preview(result, emptySet(), fx = fx).transactions.associateBy { it.line }
-        val asTransfer = CsvImportMapping.preview(result, emptySet(), withdrawalsAsTransfer = true, fx = fx).transactions.associateBy { it.line }
+        val asTransfer = CsvImportMapping.preview(result, emptySet(), withdrawalsAsTransfer = true, fx = fx).transactions.associateBy {
+            it.line
+        }
         assertEquals(PortfolioTxType.WITHDRAWAL, plain.getValue(4).type)
         assertEquals(PortfolioTxType.TRANSFER, asTransfer.getValue(4).type)
         assertNull(asTransfer.getValue(4).transferTo) // die Formate liefern kein Ziel
@@ -137,8 +145,12 @@ class CsvImportMappingTest {
     }
 
     private fun address(label: String?, change: String, count: Boolean = true) = WatchedAddress(
-        id = 1, chain = AddressChain.BTC, address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq", label = label,
-        observations = listOf(AddressObservation(1_718_900_000_000, BigDecimal(change))), countInPortfolio = count,
+        id = 1,
+        chain = AddressChain.BTC,
+        address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+        label = label,
+        observations = listOf(AddressObservation(1_718_900_000_000, BigDecimal(change))),
+        countInPortfolio = count,
     )
 
     /**
@@ -155,7 +167,10 @@ class CsvImportMappingTest {
         assertEquals(CsvWithdrawalChoice.TRANSFER, hit.choice)
         assertEquals("Ledger", hit.transferTo)
         // ± 1 %: 0.00504 passt noch, 0.0051 nicht
-        assertEquals(CsvWithdrawalChoice.TRANSFER, CsvImportMapping.proposeWithdrawals(txs, listOf(address(null, "0.00504"))).single().choice)
+        assertEquals(
+            CsvWithdrawalChoice.TRANSFER,
+            CsvImportMapping.proposeWithdrawals(txs, listOf(address(null, "0.00504"))).single().choice
+        )
         assertNull(CsvImportMapping.proposeWithdrawals(txs, listOf(address("X", "0.0051"))).single().choice)
         // Ohne Bezeichnung: gekürzte Adresse als Ziel
         assertEquals("bc1qar…5mdq", CsvImportMapping.proposeWithdrawals(txs, listOf(address(null, "0.005"))).single().transferTo)
@@ -168,7 +183,11 @@ class CsvImportMappingTest {
         assertFalse(CsvImportMapping.allWithdrawalsDecided(txs, emptyMap()))
         assertTrue(CsvImportMapping.allWithdrawalsDecided(txs, mapOf(w.importKey to CsvWithdrawalChoice.WITHDRAWAL)))
         // Übernehmen: Umbuchung mit Ziel bzw. Auszahlung; andere Zeilen unverändert
-        val asTransfer = CsvImportMapping.applyWithdrawalChoices(txs, mapOf(w.importKey to CsvWithdrawalChoice.TRANSFER), mapOf(w.importKey to "Ledger"))
+        val asTransfer = CsvImportMapping.applyWithdrawalChoices(
+            txs,
+            mapOf(w.importKey to CsvWithdrawalChoice.TRANSFER),
+            mapOf(w.importKey to "Ledger")
+        )
         val t = asTransfer.single { it.importKey == w.importKey }
         assertEquals(PortfolioTxType.TRANSFER, t.type)
         assertEquals("Ledger", t.transferTo)

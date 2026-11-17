@@ -1,10 +1,10 @@
 package com.cryptochecker.app.security
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /** Handy- und Uhr-App: nur verschlüsselte Verbindungen (Manifest und network_security_config), kein Pinning. */
 class NetworkSecurityConfigTest {

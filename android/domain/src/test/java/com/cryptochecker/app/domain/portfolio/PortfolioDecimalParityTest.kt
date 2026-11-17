@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Teilung und Multiplikation einmal auf 34 Stellen gerundet (`testdata/parity/portfolio_decimal.json`): `divide`,

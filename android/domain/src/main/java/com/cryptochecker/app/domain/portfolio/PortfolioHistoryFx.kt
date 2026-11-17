@@ -199,8 +199,12 @@ object PortfolioHistoryFx {
         val percent = if (change != null && first > PortfolioCalculator.EPS) change / first * 100.0 else null
         return PortfolioHistoryConverted(
             series.copy(
-                points = points, change = change, changePercent = percent, cashFlows = flows,
-                pnlValues = pnlValues, pnlFlows = pnlFlows,
+                points = points,
+                change = change,
+                changePercent = percent,
+                cashFlows = flows,
+                pnlValues = pnlValues,
+                pnlFlows = pnlFlows,
             ),
             approximate,
             usdtApproximate = usdtApprox,

@@ -1,13 +1,13 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.marketdata.util.EcbRates
+import java.time.LocalDate
+import kotlin.math.abs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import kotlin.math.abs
 
 /**
  * Euro-Referenzkurse der EZB ([EcbRates]) als gemeinsame Testfälle (`testdata/parity/ecb_rates.json`, Kopie in iOS

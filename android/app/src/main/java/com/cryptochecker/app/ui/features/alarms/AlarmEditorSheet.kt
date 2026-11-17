@@ -26,17 +26,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
-import com.cryptochecker.app.domain.model.WatchEntity
-import androidx.compose.ui.semantics.heading
+import com.cryptochecker.resources.R
 
 /**
  * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur das Nötige: Paar und Kurs, die einfachen
@@ -79,7 +79,10 @@ internal fun AlarmEditorSheet(
     val otherCurrency = (draft.currency ?: targetCurrency).uppercase()
     // Nie für eine Quote ohne Umrechnung (Fiat ohne Devisenkurs wie NGN): der Alarm wartete sonst für immer
     val offerCurrency = AlarmEdit.offersCurrency(
-        draft.condition.isPriceThreshold, quoteAsset, otherCurrency, FxRateSource.CURRENCIES,
+        draft.condition.isPriceThreshold,
+        quoteAsset,
+        otherCurrency,
+        FxRateSource.CURRENCIES,
     )
     if (offerCurrency) {
         LaunchedEffect(otherCurrency) { onLoadRate(otherCurrency) }
@@ -187,25 +190,27 @@ internal fun AlarmEditorSheet(
                 // Live-Region: der Screenreader läse sonst nach jeder getippten Ziffer den ganzen Satz vor
                 // Leeres Feld: nur der Hinweis «Wert eingeben» unter dem Knopf, nicht zusätzlich die Karte ([AlarmDraft.showsSentence])
                 val sentenceCurrency = if (offerCurrency && draft.currency != null) otherCurrency else quoteAsset.uppercase()
-                if (draft.showsSentence) Text(
-                    text = alarmSentence(
-                        context = context,
-                        condition = draft.condition,
-                        symbol = baseAsset,
-                        threshold = draft.threshold,
-                        currency = sentenceCurrency,
-                        windowHours = draft.windowHours,
-                    ),
-                    style = MaterialTheme.typography.bodyMedium,
-                    // Ganzer Satz: normale Textfarbe (dunkel wäre onSecondaryContainer die Akzentfarbe)
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = Spacing.md, bottom = Spacing.sm)
-                        .clip(MaterialTheme.shapes.medium)
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
-                        .padding(horizontal = Spacing.md, vertical = Spacing.md)
-                )
+                if (draft.showsSentence) {
+                    Text(
+                        text = alarmSentence(
+                            context = context,
+                            condition = draft.condition,
+                            symbol = baseAsset,
+                            threshold = draft.threshold,
+                            currency = sentenceCurrency,
+                            windowHours = draft.windowHours,
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        // Ganzer Satz: normale Textfarbe (dunkel wäre onSecondaryContainer die Akzentfarbe)
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Spacing.md, bottom = Spacing.sm)
+                            .clip(MaterialTheme.shapes.medium)
+                            .background(MaterialTheme.colorScheme.secondaryContainer)
+                            .padding(horizontal = Spacing.md, vertical = Spacing.md)
+                    )
+                }
                 // Ehrlich: bei geschlossener App meldet der Alarm erst beim nächsten Abruf
                 // «Zuletzt geprüft» nur einmal: steht die ausführliche Zeile oben (Bearbeiten), hier nicht (wie iOS)
                 ClosedAppHint(showLastChecked = !lastCheckDetail)

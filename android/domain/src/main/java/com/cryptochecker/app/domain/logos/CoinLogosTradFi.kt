@@ -42,11 +42,19 @@ private const val STOCK_LOGO_BASE = "https://bin.bnbstatic.com/static/stock/"
  *  3. Gleichnamiger Eintrag, den CoinGecko nicht kennt ([crypto], z. B. Gold, Silber).
  * Nie über [normalize] («1000CAT» ist ein Krypto-Token, nicht die Aktie CAT).
  */
-fun CoinLogos.pickTradFi(entries: List<BinanceEntry>, crypto: Set<String>, into: MutableMap<String, String> = LinkedHashMap()): Map<String, String> =
+fun CoinLogos.pickTradFi(
+    entries: List<BinanceEntry>,
+    crypto: Set<String>,
+    into: MutableMap<String, String> = LinkedHashMap()
+): Map<String, String> =
     pickTradFi(entries, crypto, into) { e -> e.logo?.takeIf { isAllowedUrl(it) }?.trim() }
 
 /** Namen der TradFi-Paare in derselben Reihenfolge wie [pickTradFi] («NVDAB» → «NVIDIA»). */
-fun CoinLogos.pickTradFiNames(entries: List<BinanceEntry>, crypto: Set<String>, into: MutableMap<String, String> = LinkedHashMap()): Map<String, String> =
+fun CoinLogos.pickTradFiNames(
+    entries: List<BinanceEntry>,
+    crypto: Set<String>,
+    into: MutableMap<String, String> = LinkedHashMap()
+): Map<String, String> =
     pickTradFi(entries, crypto, into) { e -> cleanName(e.fullName) }
 
 private fun CoinLogos.pickTradFi(

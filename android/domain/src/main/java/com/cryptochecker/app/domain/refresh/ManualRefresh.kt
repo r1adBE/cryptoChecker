@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.util.AppVisibility
+import com.cryptochecker.app.domain.util.DomainLog
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.domain.util.DomainLog
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer
@@ -98,10 +98,16 @@ class ManualRefresh(
     private fun start() {
         scope.launch {
             val startedAt = System.currentTimeMillis()
+
             // «Letzte Prüfungen»: auch der Knopf in der App zählt (Auslöser «App»)
             fun log(result: CheckResult) = checkRuns.add(
-                CheckRun(System.currentTimeMillis(), CheckTrigger.FOREGROUND, result, System.currentTimeMillis() - startedAt,
-                    CheckRunLog.reasonFor(result))
+                CheckRun(
+                    System.currentTimeMillis(),
+                    CheckTrigger.FOREGROUND,
+                    result,
+                    System.currentTimeMillis() - startedAt,
+                    CheckRunLog.reasonFor(result)
+                )
             )
             try {
                 // Offline überspringt refreshAll (gleicher Netzstatus) — als «übersprungen» vermerken

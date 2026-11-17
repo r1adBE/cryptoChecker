@@ -8,18 +8,18 @@ import android.app.Notification
 import android.os.Bundle
 import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.notification.AppNotifier.Companion.PRICE_SUMMARY_ID
-import com.cryptochecker.app.notification.AppNotifier.Companion.PRICE_OVERFLOW_ID
-import com.cryptochecker.app.notification.AppNotifier.Companion.EXTRA_WATCH_ID
+import com.cryptochecker.app.notification.AppNotifier.ActiveState
 import com.cryptochecker.app.notification.AppNotifier.Companion.EXTRA_OVERFLOW_IDS
 import com.cryptochecker.app.notification.AppNotifier.Companion.EXTRA_OVERFLOW_LINES
+import com.cryptochecker.app.notification.AppNotifier.Companion.EXTRA_WATCH_ID
+import com.cryptochecker.app.notification.AppNotifier.Companion.PRICE_OVERFLOW_ID
+import com.cryptochecker.app.notification.AppNotifier.Companion.PRICE_SUMMARY_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.RECENT_MILLIS
 import com.cryptochecker.app.notification.AppNotifier.Companion.priceNotificationId
-import com.cryptochecker.app.notification.AppNotifier.ActiveState
 import com.cryptochecker.app.notification.AppNotifier.Group
+import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Titel einer Kurs-Mitteilung und Zeile der Sammelmeldung: «BTC: 98’450 USDT • Binance». */
 internal fun AppNotifier.priceTitle(watch: WatchEntity, price: Double): String =
@@ -101,10 +101,12 @@ internal fun AppNotifier.postOverflow(lines: LinkedHashMap<Long, String>, ongoin
         .setShowWhen(false)
         .setCategory(NotificationCompat.CATEGORY_STATUS)
         .setGroup(Group.PRICES.key)
-        .addExtras(Bundle().apply {
-            putLongArray(EXTRA_OVERFLOW_IDS, lines.keys.toLongArray())
-            putStringArray(EXTRA_OVERFLOW_LINES, lines.values.toTypedArray())
-        })
+        .addExtras(
+            Bundle().apply {
+                putLongArray(EXTRA_OVERFLOW_IDS, lines.keys.toLongArray())
+                putStringArray(EXTRA_OVERFLOW_LINES, lines.values.toTypedArray())
+            }
+        )
         .setContentIntent(openAppIntent(null))
     if (settings.appLock) {
         builder.privateOnLockScreen(NotificationChannels.PRICES, R.drawable.ic_stat_logo, context.getString(R.string.channel_prices))

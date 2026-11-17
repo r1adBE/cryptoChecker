@@ -35,8 +35,11 @@ object WatchlistRestoreCleanup {
         val redirect = HashMap<Long, Long>()
         byId.values.forEach { w ->
             val kept = keptByPair[pairKey(w)]
-            if (kept == null) keptByPair[pairKey(w)] = w
-            else if (watchId(w) > 0) redirect[watchId(w)] = watchId(kept)
+            if (kept == null) {
+                keptByPair[pairKey(w)] = w
+            } else if (watchId(w) > 0) {
+                redirect[watchId(w)] = watchId(kept)
+            }
         }
         val keptWatches = keptByPair.values.toList()
         val keptIds = keptWatches.map(watchId).filter { it > 0 }.toSet()

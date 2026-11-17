@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.logos
 
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -12,8 +14,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 /**
  * Einordnung einer Bild-Antwort ([LogoImageDownload.png]): Pause des Servers, Fehler mit Code (kurze Störung oder

@@ -5,15 +5,21 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
+import com.cryptochecker.app.data.portfolio.coins
+import com.cryptochecker.app.data.portfolio.spotExchangeNames
+import com.cryptochecker.app.data.portfolio.stored
 import com.cryptochecker.app.data.portfolio.withAddresses
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFx
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZoneOffset
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -26,12 +32,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZoneOffset
-import com.cryptochecker.app.data.portfolio.coins
-import com.cryptochecker.app.data.portfolio.spotExchangeNames
-import com.cryptochecker.app.data.portfolio.stored
 
 /**
  * «Heute» (und «Grösste Bewegungen» bleibt leer) aus der zuletzt gespeicherten Momentaufnahme,
@@ -59,7 +59,10 @@ internal fun PortfolioViewModel.mayRecord(input: PortfolioWidgetInput): Boolean 
     val open = snapshotUpdater.summaries.summarize(input.transactions.map { it.toTrade() }, input.prices.prices, costMethod.value).open
     val values = open.mapNotNull { p -> p.value?.let { PortfolioCalculator.normalizeCoin(p.coin) to it } }.toMap()
     return PortfolioPriceFallback.mayRecordShare(
-        values, input.prices.times, System.currentTimeMillis(), staleAfterMillis.value,
+        values,
+        input.prices.times,
+        System.currentTimeMillis(),
+        staleAfterMillis.value,
         anyPrice = input.prices.updatedAt > 0L,
     )
 }
@@ -127,9 +130,13 @@ internal suspend fun PortfolioViewModel.loadCostFx(code: String, from: LocalDate
     val utcToday = LocalDate.now(ZoneOffset.UTC)
     if (known != null && known.currency == code && !known.from.isAfter(from) && known.rates != null &&
         !PortfolioHistoryFx.fxLoadOutdated(known.to, utcToday)
-    ) return
+    ) {
+        return
+    }
     val today = PortfolioHistoryFx.fxRequestEnd(LocalDate.now(ZoneId.systemDefault()), utcToday)
-    val rates = if (code == "USD") emptyMap() else {
+    val rates = if (code == "USD") {
+        emptyMap()
+    } else {
         safe { historicSource.usdToSeries(code, from.minusDays(PortfolioHistoryFx.LEAD_DAYS.toLong()), today) }
             ?.takeIf { it.isNotEmpty() }
             ?.mapNotNull { (day, rate) -> PortfolioDecimal.of(rate)?.let { day to it } }?.toMap()
@@ -212,7 +219,10 @@ internal suspend fun <T> PortfolioViewModel.safe(block: suspend () -> T): T? = t
 } catch (e: CancellationException) {
     throw e
 } catch (e: Exception) {
-    if (e.isDatabaseKeyUnavailable()) Timber.d(e, "Portfolio: Datenbank-Schlüssel nicht verfügbar")
-    else Timber.w(e, "Portfolio: Abruf fehlgeschlagen")
+    if (e.isDatabaseKeyUnavailable()) {
+        Timber.d(e, "Portfolio: Datenbank-Schlüssel nicht verfügbar")
+    } else {
+        Timber.w(e, "Portfolio: Abruf fehlgeschlagen")
+    }
     null
 }

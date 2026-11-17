@@ -40,19 +40,26 @@ object AddressValidation {
         UNKNOWN_FORMAT,
         BAD_CHECKSUM,
         TESTNET,
+
         /** Erweiterter Schlüssel, der nicht unterstützt wird (Multisig Ypub/Zpub). */
         EXTENDED_KEY,
+
         /** Segwit v1 ohne 32 Byte oder v2…16. */
         UNSUPPORTED_VERSION,
         ENS_NAME,
+
         /** Privater Schlüssel oder Seed-Wörter — nie speichern. */
         SECRET,
+
         /** Gültig, aber anderes Netz als verlangt. */
         WRONG_CHAIN,
+
         /** BNB Beacon Chain (BEP-2, «bnb1…») — 2024 abgeschaltet, Guthaben liegen auf BNB Smart Chain (0x…). */
         BEP2_SHUTDOWN,
+
         /** Dogecoin: kein freier öffentlicher Dienst ohne Schlüssel, dessen Bedingungen eine App erlauben. */
         DOGE_UNSUPPORTED,
+
         /** Bitcoin Cash: dito. */
         BCH_UNSUPPORTED,
     }
@@ -126,7 +133,9 @@ object AddressValidation {
         val lower = s.lowercase()
         if (lower.startsWith("bc1") || lower.startsWith("tb1") || lower.startsWith("bcrt1") ||
             lower.startsWith("ltc1") || lower.startsWith("tltc1")
-        ) return segwit(s)
+        ) {
+            return segwit(s)
+        }
         if (lower.startsWith("bnb1") || lower.startsWith("tbnb1")) return invalid(Problem.BEP2_SHUTDOWN)
         if (lower.startsWith("addr1") || lower.startsWith("addr_test1") || lower.startsWith("stake1") || lower.startsWith("stake_test1")) {
             return cardano(s)

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.parity
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Play-Texte (`fastlane/metadata/android/<Sprache>/`): Längen wie die Play Console zählt (Zeichen samt Zeilenende,

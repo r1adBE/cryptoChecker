@@ -10,13 +10,32 @@ import org.junit.Test
 class WatchSearchIndexTest {
     private val watches = listOf(
         WatchEntity(id = 1, exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR"),
-        WatchEntity(id = 2, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "PEPE", quoteAsset = "USDT",
-            note = "Pépé Einstieg"),
-        WatchEntity(id = 3, exchangeKey = "BinanceFutures", exchangeName = "Binance Futures", baseAsset = "ETH",
-            quoteAsset = "USDT", contractType = FuturesContractType.PERPETUAL, note = "Hedge ÉTÉ"),
+        WatchEntity(
+            id = 2,
+            exchangeKey = "Binance",
+            exchangeName = "Binance",
+            baseAsset = "PEPE",
+            quoteAsset = "USDT",
+            note = "Pépé Einstieg"
+        ),
+        WatchEntity(
+            id = 3,
+            exchangeKey = "BinanceFutures",
+            exchangeName = "Binance Futures",
+            baseAsset = "ETH",
+            quoteAsset = "USDT",
+            contractType = FuturesContractType.PERPETUAL,
+            note = "Hedge ÉTÉ"
+        ),
         WatchEntity(id = 4, exchangeKey = "Bitstamp", exchangeName = "Bitstamp", baseAsset = "XRP", quoteAsset = "CHF"),
-        WatchEntity(id = 5, exchangeKey = "Coinbase", exchangeName = "Coinbase", baseAsset = "SOL", quoteAsset = "USDC",
-            note = "langfristig"),
+        WatchEntity(
+            id = 5,
+            exchangeKey = "Coinbase",
+            exchangeName = "Coinbase",
+            baseAsset = "SOL",
+            quoteAsset = "USDC",
+            note = "langfristig"
+        ),
     )
     private val names = mapOf(1L to "Bitcoin", 2L to "Pépé", 3L to "Ethereum", 5L to "Solana")
     private val queries = listOf(

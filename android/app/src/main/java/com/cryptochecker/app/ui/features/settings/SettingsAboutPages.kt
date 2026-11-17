@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.domain.settings.AboutExtras
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -25,16 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.settings.AboutExtras
+import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.SwitchRow
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.features.about.AboutContent
 import com.cryptochecker.app.ui.features.about.AboutFeatures
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
 import com.cryptochecker.app.ui.features.about.PRIVACY_POLICY_URL
-import com.cryptochecker.app.ui.features.about.TERMS_OF_USE_URL
 import com.cryptochecker.app.ui.features.about.SOURCE_CODE_URL
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.features.about.TERMS_OF_USE_URL
+import com.cryptochecker.resources.R
 
 // ── Über ─────────────────────────────────────────────────────────────────────
 
@@ -221,16 +221,18 @@ internal fun WidgetsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
 internal fun DeveloperPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     SettingsSubPage(title = stringResource(R.string.settings_section_developer), onBack = onBack) {
-        if (BuildConfig.DEBUG) GroupCard {
-            SettingsAnchor("developer.http_log") {
-                SwitchRow(
-                    title = stringResource(R.string.settings_http_log),
-                    subtitle = stringResource(R.string.settings_http_log_hint),
-                    checked = settings.showHttpLog,
-                    onCheckedChange = viewModel::setShowHttpLog
-                )
+        if (BuildConfig.DEBUG) {
+            GroupCard {
+                SettingsAnchor("developer.http_log") {
+                    SwitchRow(
+                        title = stringResource(R.string.settings_http_log),
+                        subtitle = stringResource(R.string.settings_http_log_hint),
+                        checked = settings.showHttpLog,
+                        onCheckedChange = viewModel::setShowHttpLog
+                    )
+                }
+                RetirementPreviewRow()
             }
-            RetirementPreviewRow()
         }
     }
 }

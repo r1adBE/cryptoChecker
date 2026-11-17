@@ -10,6 +10,9 @@ import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.marketdata.usage.UsageLog
 import com.cryptochecker.marketdata.usage.UsageMeter
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.random.Random
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -25,9 +28,6 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicLong
-import kotlin.random.Random
 
 /** Eine Verbindung mit eigener Schleife: verbinden, abonnieren, bei Abbruch neu verbinden (für [LivePriceStream]). */
 class LiveConnection(

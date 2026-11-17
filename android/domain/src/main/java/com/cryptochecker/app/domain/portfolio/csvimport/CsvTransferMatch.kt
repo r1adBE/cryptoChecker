@@ -5,106 +5,6 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import java.math.BigDecimal
 
 /**
- * Gespeicherte, importierte Auszahlung, Einzahlung oder Umbuchung ohne Gegenstück — mögliche zweite Seite einer neuen
- * Zeile ([CsvTransferMatch.candidates]). Nur importierte Transaktionen ([importKey]): von Hand erfasste Einzahlungen
- * tragen oft bewusst einen Kaufpreis oder ein Kaufdatum, das eine Umbuchung verwerfen würde. Die Felder ab [priceUsdt]
- * braucht nur der Zustand für «Import rückgängig» ([CsvTransferMatch.restoreState]). [linkedImportKey] gesetzt = schon
- * eine verknüpfte Umbuchung (kein Kandidat mehr). [stakingMove]: Staking-Umbuchung der Datei ([CsvTransferMatch.storedWithdrawal]).
- */
-data class CsvStoredMove(
-    val id: Long,
-    val coin: String,
-    val type: PortfolioTxType,
-    val amount: BigDecimal,
-    val fee: BigDecimal?,
-    val feeUnit: PortfolioFeeUnit?,
-    val feeCoin: String?,
-    val feeCoinAmount: BigDecimal?,
-    val time: Long,
-    val importKey: String,
-    val transferFrom: String?,
-    val transferTo: String?,
-    val priceUsdt: BigDecimal? = null,
-    val feeCoinPrice: BigDecimal? = null,
-    val acquiredTime: Long? = null,
-    val exchange: String? = null,
-    val importBatch: String? = null,
-    val linkedImportKey: String? = null,
-    val stakingMove: Boolean = false,
-)
-
-/** Importierte Transaktion für «Import rückgängig» ([CsvTransferMatch.undoPlan]): Id, Importlauf, Zustand vor einer Verknüpfung. */
-data class CsvImportedRef(val id: Long, val importBatch: String?, val restoreState: CsvRestoreState?)
-
-/**
- * Was «Import rückgängig» tut ([CsvTransferMatch.undoPlan]): [delete] löschen, [revert] auf den Zustand vor der
- * Verknüpfung zurücksetzen, [detach] in die aufgegangene Zeile der späteren Datei zurückverwandeln (bleibt in ihrem Lauf).
- */
-data class CsvUndoPlan(val delete: Set<Long>, val revert: Map<Long, CsvRestoreState>, val detach: Map<Long, CsvAbsorbedRow>)
-
-/**
- * Vorgeschlagene Umbuchung: Auszahlung an Ort A und passende Einzahlung desselben Coins an Ort B ([CsvTransferMatch]).
- * [key] = Kennung in der Vorschau ([CsvTransferMatch.linkId], nie gespeichert). [withdrawalId] / [depositId]: gespeicherte
- * Seite (höchstens eine), sonst eine neue Zeile der Datei ([withdrawalKey] / [depositKey]).
- * [sent] = was A verlässt (Menge + Gebühr im Coin), [received] = was bei B ankommt; [fee]/[feeUnit] = Gebühr der
- * Umbuchung (Differenz im Coin, sonst eine USDT-Gebühr der Auszahlung), [feeCoin]/[feeCoinAmount] = Gebühr der
- * Auszahlung in einem dritten Coin. [unambiguous]: beide Seiten haben genau diesen einen Kandidaten (vorausgewählt).
- */
-data class CsvTransferLink(
-    val key: String,
-    val coin: String,
-    val withdrawalKey: String,
-    val depositKey: String,
-    val withdrawalId: Long?,
-    val depositId: Long?,
-    val sent: BigDecimal,
-    val received: BigDecimal,
-    val fee: BigDecimal?,
-    val feeUnit: PortfolioFeeUnit?,
-    val feeCoin: String?,
-    val feeCoinAmount: BigDecimal?,
-    val withdrawalTime: Long,
-    val depositTime: Long,
-    val from: String?,
-    val to: String?,
-    val unambiguous: Boolean,
-    /** Gespeicherte Seite (bei [withdrawalId] bzw. [depositId]); ihr Zustand wird der Zustand für «Rückgängig». */
-    val stored: CsvStoredMove? = null,
-    /**
-     * Ausserhalb der üblichen Grenzen (Gebühr über [CsvTransferMatch.MAX_FEE_SHARE] oder später als
-     * [CsvTransferMatch.WINDOW_MILLIS]) zwischen zwei sonst unverbundenen Seiten: gezeigt, nie vorausgewählt.
-     */
-    val loose: Boolean = false,
-    /** Neue Zeile, die gegen [stored] aufgeht; ihr Zustand kommt ebenfalls in den Zustand für «Rückgängig». */
-    val absorbed: CsvImportTx? = null,
-)
-
-/**
- * Gespeicherte Transaktion [id] wird die verknüpfte Umbuchung (Felder wie die neue Umbuchung in [CsvTransferMatch.apply]):
- * Herkunft der Auszahlung in [importKey], der Einzahlung in [linkedImportKey], Zustand davor in [restoreState]; die App
- * setzt dazu den Importlauf des verknüpfenden Imports, damit «Import rückgängig» dieses Laufs die Verknüpfung löst.
- * [absorbed] = die darin aufgehende neue Zeile; ohne Verknüpfung beim Speichern eigene Zeile ([CsvTransferMatch.withFallbacks]).
- */
-data class CsvStoredTransfer(
-    val id: Long,
-    val amount: BigDecimal,
-    val fee: BigDecimal?,
-    val feeUnit: PortfolioFeeUnit?,
-    val feeCoin: String?,
-    val feeCoinAmount: BigDecimal?,
-    val time: Long,
-    val transferFrom: String?,
-    val transferTo: String?,
-    val importKey: String,
-    val linkedImportKey: String,
-    val restoreState: CsvRestoreState,
-    val absorbed: CsvImportTx? = null,
-)
-
-/** Ergebnis der gewählten Umbuchungen: neue Transaktionen und Änderungen gespeicherter. */
-data class CsvTransferPlan(val transactions: List<CsvImportTx>, val storedUpdates: List<CsvStoredTransfer>)
-
-/**
  * Umbuchungen über Börsen und Dateien hinweg (reines Kotlin; iOS `CsvTransferMatch.swift`): Eine Auszahlung an A und eine
  * Einzahlung desselben Coins an B werden EINE Umbuchung — Kaufpreis und Haltedauer bleiben (die Umbuchung verändert die
  * Posten nicht), die Differenz ist die Netzwerkgebühr im Coin ([com.cryptochecker.app.domain.portfolio.PortfolioTxType.TRANSFER]).
@@ -209,16 +109,40 @@ object CsvTransferMatch {
     private fun quoteFee(fee: BigDecimal?, unit: PortfolioFeeUnit?): BigDecimal? =
         fee?.takeIf { unit == PortfolioFeeUnit.QUOTE && it.signum() > 0 }
 
-    private fun withdrawal(key: String, coin: String, amount: BigDecimal, fee: BigDecimal?, unit: PortfolioFeeUnit?,
-                           feeCoin: String?, feeCoinAmount: BigDecimal?, time: Long, place: String?,
-                           stored: CsvStoredMove? = null, tx: CsvImportTx? = null) =
-        End(key, stored?.id, coin, time, place, amount + coinFee(fee, unit), quoteFee(fee, unit), feeCoin, feeCoinAmount,
-            foreignFee = false, stored = stored, tx = tx)
+    private fun withdrawal(
+        key: String,
+        coin: String,
+        amount: BigDecimal,
+        fee: BigDecimal?,
+        unit: PortfolioFeeUnit?,
+        feeCoin: String?,
+        feeCoinAmount: BigDecimal?,
+        time: Long,
+        place: String?,
+        stored: CsvStoredMove? = null,
+        tx: CsvImportTx? = null
+    ) =
+        End(
+            key, stored?.id, coin, time, place, amount + coinFee(fee, unit), quoteFee(fee, unit), feeCoin, feeCoinAmount,
+            foreignFee = false, stored = stored, tx = tx
+        )
 
-    private fun deposit(key: String, coin: String, amount: BigDecimal, fee: BigDecimal?, unit: PortfolioFeeUnit?,
-                        feeCoin: String?, time: Long, place: String?, stored: CsvStoredMove? = null, tx: CsvImportTx? = null) =
-        End(key, stored?.id, coin, time, place, amount - coinFee(fee, unit), null, null, null,
-            foreignFee = quoteFee(fee, unit) != null || feeCoin != null, stored = stored, tx = tx)
+    private fun deposit(
+        key: String,
+        coin: String,
+        amount: BigDecimal,
+        fee: BigDecimal?,
+        unit: PortfolioFeeUnit?,
+        feeCoin: String?,
+        time: Long,
+        place: String?,
+        stored: CsvStoredMove? = null,
+        tx: CsvImportTx? = null
+    ) =
+        End(
+            key, stored?.id, coin, time, place, amount - coinFee(fee, unit), null, null, null,
+            foreignFee = quoteFee(fee, unit) != null || feeCoin != null, stored = stored, tx = tx
+        )
 
     /**
      * Kandidaten zwischen den neuen Zeilen [txs] (aus einer Datei des Formats mit Herkunft [place]) und untereinander bzw.
@@ -227,20 +151,24 @@ object CsvTransferMatch {
     fun candidates(txs: List<CsvImportTx>, place: String?, stored: List<CsvStoredMove>): List<CsvTransferLink> {
         val outs = ArrayList<End>()
         val ins = ArrayList<End>()
-        for (t in txs) when (t.type) {
-            PortfolioTxType.WITHDRAWAL ->
-                outs += withdrawal(t.importKey, t.coin, t.amount, t.fee, t.feeUnit, t.feeCoin, t.feeCoinAmount, t.time, place, tx = t)
-            PortfolioTxType.DEPOSIT ->
-                ins += deposit(t.importKey, t.coin, t.amount, t.fee, t.feeUnit, t.feeCoin, t.time, place, tx = t)
-            else -> Unit
+        for (t in txs) {
+            when (t.type) {
+                PortfolioTxType.WITHDRAWAL ->
+                    outs += withdrawal(t.importKey, t.coin, t.amount, t.fee, t.feeUnit, t.feeCoin, t.feeCoinAmount, t.time, place, tx = t)
+                PortfolioTxType.DEPOSIT ->
+                    ins += deposit(t.importKey, t.coin, t.amount, t.fee, t.feeUnit, t.feeCoin, t.time, place, tx = t)
+                else -> Unit
+            }
         }
         for (s in stored) {
             // Schon verknüpft (zweiter Herkunftsschlüssel): kein Kandidat mehr
             if (s.linkedImportKey != null) continue
             when {
                 storedWithdrawal(s) ->
-                    outs += withdrawal(s.importKey, s.coin, s.amount, s.fee, s.feeUnit, s.feeCoin, s.feeCoinAmount, s.time,
-                        s.transferFrom ?: placeOf(s.importKey), s)
+                    outs += withdrawal(
+                        s.importKey, s.coin, s.amount, s.fee, s.feeUnit, s.feeCoin, s.feeCoinAmount, s.time,
+                        s.transferFrom ?: placeOf(s.importKey), s
+                    )
                 s.type == PortfolioTxType.DEPOSIT ->
                     ins += deposit(s.importKey, s.coin, s.amount, s.fee, s.feeUnit, s.feeCoin, s.time, placeOf(s.importKey), s)
                 else -> Unit
@@ -280,7 +208,13 @@ object CsvTransferMatch {
                 to = d.place,
                 unambiguous = false,
                 stored = w.stored ?: d.stored,
-                absorbed = if (w.stored != null) d.tx else if (d.stored != null) w.tx else null,
+                absorbed = if (w.stored != null) {
+                    d.tx
+                } else if (d.stored != null) {
+                    w.tx
+                } else {
+                    null
+                },
                 loose = pairInfo.second,
             )
         }
@@ -310,8 +244,13 @@ object CsvTransferMatch {
      * wirbt. Weitere ([CsvTransferLink.loose]) und mehrdeutige nie automatisch, nur über den Schalter; nach Ausschalten
      * ([declined]) bleibt «Auf eigene Wallet» ohne Verknüpfung. Schon verknüpft oder sonst: unverändert.
      */
-    fun linkOwnWallet(links: List<CsvTransferLink>, chosen: Set<String>, withdrawalKey: String,
-                      declined: Set<String> = emptySet(), wanting: Set<String> = setOf(withdrawalKey)): Set<String> {
+    fun linkOwnWallet(
+        links: List<CsvTransferLink>,
+        chosen: Set<String>,
+        withdrawalKey: String,
+        declined: Set<String> = emptySet(),
+        wanting: Set<String> = setOf(withdrawalKey)
+    ): Set<String> {
         val active = links.filter { it.key in chosen }
         if (withdrawalKey in declined || active.any { it.withdrawalKey == withdrawalKey }) return chosen
         val linkedOut = active.mapTo(HashSet()) { it.withdrawalKey }

@@ -9,17 +9,17 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.notification.NotificationBudget
-import com.cryptochecker.app.ui.MainActivity
-import kotlinx.coroutines.delay
-import timber.log.Timber
-import com.cryptochecker.app.notification.AppNotifier.Companion.ALARM_SUMMARY_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.ACTION_OPEN_NOTIFICATION
+import com.cryptochecker.app.notification.AppNotifier.Companion.ALARM_SUMMARY_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.WHY_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Group
+import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.withOpenToken
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.delay
+import timber.log.Timber
 
 /**
  * Platz für den Alarm [id] schaffen — welche Mitteilungen weichen, entscheidet
@@ -49,7 +49,9 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
         plan.evictAlarms.forEach { cancelId(it) }
         Timber.d(
             "Platz für Alarm: %d Kurs-Mitteilungen verschoben, Sammelmeldung entfernt: %b, ältere Alarme entfernt: %d",
-            plan.demote.size, plan.removeOverflow, plan.evictAlarms.size,
+            plan.demote.size,
+            plan.removeOverflow,
+            plan.evictAlarms.size,
         )
     }
 }

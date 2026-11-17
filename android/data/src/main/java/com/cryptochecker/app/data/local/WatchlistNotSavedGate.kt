@@ -38,7 +38,8 @@ object WatchlistNotSavedGate {
 
     /** Gerade [WatchlistStorageLock.Notice.NOT_SAVED]? Erst nach dem Öffnen der Datenbank verlässlich. */
     fun notSavedNow(): Boolean = WatchlistStorageLock.notice(
-        DatabaseEncryptionNotice.inMemory.value, DatabaseEncryptionNotice.storedKept.value,
+        DatabaseEncryptionNotice.inMemory.value,
+        DatabaseEncryptionNotice.storedKept.value,
     ) == WatchlistStorageLock.Notice.NOT_SAVED
 
     @Volatile

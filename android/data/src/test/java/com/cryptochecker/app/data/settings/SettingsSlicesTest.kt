@@ -67,8 +67,12 @@ class SettingsSlicesTest {
     @Test
     fun otherSlicesCopyFields() {
         val s = AppSettings(
-            hidePortfolioAmounts = true, portfolioCoinLogos = false, taxTemplateConfirmed = true,
-            exactChecks = true, ttsEnabled = true, alarmCooldownMinutes = 15,
+            hidePortfolioAmounts = true,
+            portfolioCoinLogos = false,
+            taxTemplateConfirmed = true,
+            exactChecks = true,
+            ttsEnabled = true,
+            alarmCooldownMinutes = 15,
         )
         val p = PortfolioSettings.of(s)
         assertEquals(true, p.hideAmounts)

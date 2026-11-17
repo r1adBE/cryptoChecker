@@ -20,11 +20,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.ui.theme.DisabledColors
+import com.cryptochecker.resources.R
 
 /**
  * Name einer Gruppe eingeben (neue Gruppe oder Umbenennen).

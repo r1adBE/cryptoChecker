@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Einstellungen ersetzt (unlesbar) → eigener Bitcoin-Server unbekannt: Bitcoin-Adressen werden nicht abgefragt,
@@ -13,8 +13,10 @@ import java.io.File
 class AddressServerUnknownTest {
 
     private fun source(path: String): String = listOf(
-        File("src/main/java/com/cryptochecker/app/$path"), File("data/src/main/java/com/cryptochecker/app/$path"),
-        File("../app/src/main/java/com/cryptochecker/app/$path"), File("app/src/main/java/com/cryptochecker/app/$path"),
+        File("src/main/java/com/cryptochecker/app/$path"),
+        File("data/src/main/java/com/cryptochecker/app/$path"),
+        File("../app/src/main/java/com/cryptochecker/app/$path"),
+        File("app/src/main/java/com/cryptochecker/app/$path"),
     ).first { it.exists() }.readText()
 
     @Test
@@ -35,10 +37,14 @@ class AddressServerUnknownTest {
     @Test
     fun eingetragenerServerOderBestaetigungHebtAuf() {
         val repo = source("data/settings/SettingsRepository.kt")
-        assertTrue(repo.substringAfter("override suspend fun setAddressServer(").substringBefore("\n    }\n")
-            .contains("if (url != null) confirmAddressServer()"))
+        assertTrue(
+            repo.substringAfter("override suspend fun setAddressServer(").substringBefore("\n    }\n")
+                .contains("if (url != null) confirmAddressServer()")
+        )
         val card = source("ui/features/settings/SettingsAddressServer.kt")
-        assertTrue(card.contains("if (unknown && state.server == null) viewModel.confirmPublic(onSaved) else viewModel.save(null, onSaved)"))
+        assertTrue(
+            card.contains("if (unknown && state.server == null) viewModel.confirmPublic(onSaved) else viewModel.save(null, onSaved)")
+        )
         assertTrue(card.contains("stringResource(R.string.settings_address_server_unknown)"))
         val dialog = source("ui/features/settings/StorageRecoveryNoticeDialog.kt")
         assertTrue(dialog.contains("if (serverUnknown) \"\\n\\n\" + stringResource(R.string.settings_address_server_unknown)"))

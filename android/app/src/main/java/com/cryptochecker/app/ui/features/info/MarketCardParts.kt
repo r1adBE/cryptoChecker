@@ -1,9 +1,5 @@
 package com.cryptochecker.app.ui.features.info
 
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.heading
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
@@ -17,7 +13,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import com.cryptochecker.app.ui.components.AppCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,12 +22,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.MarketReveal
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Einheitliche Karte für die Bereiche des Markt-Tabs; mit [info] steht das Info-Zeichen

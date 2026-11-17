@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.remote
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import java.util.concurrent.ConcurrentHashMap
 import com.cryptochecker.app.domain.util.DomainLog
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Quellen, die mit 451/403 geantwortet haben (Geo-Sperre, z. B. Binance in den USA).
@@ -63,7 +63,10 @@ object BlockedSources {
             }
             DomainLog.i(
                 "Zu viele Anfragen (HTTP %d) von %s: alle Endpunkte von %s pausiert bis %d",
-                error.httpCode, key, group, state?.pausedUntil ?: now,
+                error.httpCode,
+                key,
+                group,
+                state?.pausedUntil ?: now,
             )
             return true
         }

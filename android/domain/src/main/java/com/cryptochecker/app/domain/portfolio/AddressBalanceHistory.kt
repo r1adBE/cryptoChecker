@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigDecimal
 
 /** Eine Beobachtung des Guthabens einer Adresse: Zeitpunkt (ms) und Guthaben (exakt, ≥ 0). */
@@ -98,15 +98,31 @@ data class AddressBalanceHistory(
             val out = ArrayList<PortfolioTrade>()
             val kept = ArrayList<AddressBalanceHistory>()
             for (h in histories) {
-                if (kept.any { it.chain == h.chain && it.series == h.series && WatchedAddressRules.sameAddress(h.chain, it.address, h.address) }) continue
+                if (kept.any {
+                        it.chain == h.chain && it.series == h.series &&
+                            WatchedAddressRules.sameAddress(h.chain, it.address, h.address)
+                    }
+                ) {
+                    continue
+                }
                 kept += h
             }
             var nextId = -1_000_001L
             for (h in kept) {
-                val sameWallet = kept.filter { it.wallet == h.wallet && PortfolioCalculator.normalizeCoin(it.coin) == PortfolioCalculator.normalizeCoin(h.coin) }
+                val sameWallet = kept.filter {
+                    it.wallet == h.wallet &&
+                        PortfolioCalculator.normalizeCoin(it.coin) == PortfolioCalculator.normalizeCoin(h.coin)
+                }
                 val ledger = sameWallet.firstOrNull { it.ledger.isNotEmpty() }?.ledger
-                val steps = if (ledger == null) partSteps(h, kept) ?: continue
-                else if (sameWallet.first() === h) AddressSurplus.steps(sameWallet.mapNotNull { partSteps(it, kept, floor = false) }, ledger) else continue
+                val steps = if (ledger == null) {
+                    partSteps(h, kept) ?: continue
+                } else if (sameWallet.first() ===
+                    h
+                ) {
+                    AddressSurplus.steps(sameWallet.mapNotNull { partSteps(it, kept, floor = false) }, ledger)
+                } else {
+                    continue
+                }
                 var previous = BigDecimal.ZERO
                 for (o in steps) {
                     if (o.balance.signum() < 0) continue
@@ -130,10 +146,19 @@ data class AddressBalanceHistory(
          * Stufen der Reihe [h] in [trades]: ohne gebuchte Bewegungen ihrer Adresse und ihres Coins die Beobachtungen; mit
          * ihnen alle Reihen dieser Adresse und dieses Coins zusammen ohne sie ([AddressBooked.held]) an der ersten, sonst null.
          */
-        private fun partSteps(h: AddressBalanceHistory, kept: List<AddressBalanceHistory>, floor: Boolean = true): List<AddressObservation>? {
+        private fun partSteps(
+            h: AddressBalanceHistory,
+            kept: List<AddressBalanceHistory>,
+            floor: Boolean = true
+        ): List<AddressObservation>? {
             val group = kept.filter { AddressBooked.sameGroup(it, h) }
-            return if (group.all { it.moves.isEmpty() }) h.observations.filter { it.balance.signum() >= 0 }.sortedBy { it.time }
-            else if (group.first() === h) AddressBooked.held(group, floor) else null
+            return if (group.all { it.moves.isEmpty() }) {
+                h.observations.filter { it.balance.signum() >= 0 }.sortedBy { it.time }
+            } else if (group.first() === h) {
+                AddressBooked.held(group, floor)
+            } else {
+                null
+            }
         }
 
         /**
@@ -193,8 +218,11 @@ data class AddressBalanceHistory(
         /** Spalte der Datenbank: Text von [toJson]; leer = null. */
         // Von Hand geschrieben (feste Reihenfolge «t», «b»): org.json ordnet Schlüssel je nach Laufzeit anders – wie iOS
         fun encode(observations: List<AddressObservation>): String? =
-            if (observations.isEmpty()) null
-            else observations.joinToString(",", "[", "]") { "{\"t\":${it.time},\"b\":\"${PortfolioDecimal.text(it.balance)}\"}" }
+            if (observations.isEmpty()) {
+                null
+            } else {
+                observations.joinToString(",", "[", "]") { "{\"t\":${it.time},\"b\":\"${PortfolioDecimal.text(it.balance)}\"}" }
+            }
 
         /** Spalte der Datenbank lesen; unlesbar = leer. */
         fun decode(text: String?): List<AddressObservation> {
@@ -214,8 +242,11 @@ data class AddressBalanceHistory(
                 sums[t.coin] = sum
                 val list = out.getOrPut(t.coin) { ArrayList() }
                 // Gleiche Zeit (zwei Adressen): eine Stufe
-                if (list.isNotEmpty() && list.last().time == t.time) list[list.size - 1] = AddressObservation(t.time, sum)
-                else list += AddressObservation(t.time, sum)
+                if (list.isNotEmpty() && list.last().time == t.time) {
+                    list[list.size - 1] = AddressObservation(t.time, sum)
+                } else {
+                    list += AddressObservation(t.time, sum)
+                }
             }
             return out
         }
@@ -235,7 +266,13 @@ data class AddressBalanceHistory(
             val unobserved = LinkedHashSet<String>()
             val seen = ArrayList<AddressBalanceHistory>()
             for (h in histories) {
-                if (seen.any { it.chain == h.chain && it.series == h.series && WatchedAddressRules.sameAddress(h.chain, it.address, h.address) }) continue
+                if (seen.any {
+                        it.chain == h.chain && it.series == h.series &&
+                            WatchedAddressRules.sameAddress(h.chain, it.address, h.address)
+                    }
+                ) {
+                    continue
+                }
                 seen += h
                 val coin = PortfolioCalculator.normalizeCoin(h.coin)
                 val obs = clean(h.observations)

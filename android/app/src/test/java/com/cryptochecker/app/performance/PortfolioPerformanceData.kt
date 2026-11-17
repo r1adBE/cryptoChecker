@@ -145,8 +145,13 @@ internal object PortfolioPerformanceData {
         }
 
         private fun base(type: PortfolioTxType, units: Long, priced: Boolean) = PortfolioTrade(
-            id = id, coin = coin, type = type, amount = amount(units), priceUsdt = if (priced) money(price) else null,
-            time = time, exchange = wallet,
+            id = id,
+            coin = coin,
+            type = type,
+            amount = amount(units),
+            priceUsdt = if (priced) money(price) else null,
+            time = time,
+            exchange = wallet,
         )
 
         private fun buy(held: Array<LongArray>): PortfolioTrade {
@@ -204,8 +209,14 @@ internal object PortfolioPerformanceData {
             held[c][w] -= units + coinFee
             held[c][to] += units
             val t = PortfolioTrade(
-                id = id, coin = coin, type = PortfolioTxType.TRANSFER, amount = amount(units), priceUsdt = null,
-                time = time, transferFrom = wallet, transferTo = WALLETS[to],
+                id = id,
+                coin = coin,
+                type = PortfolioTxType.TRANSFER,
+                amount = amount(units),
+                priceUsdt = null,
+                time = time,
+                transferFrom = wallet,
+                transferTo = WALLETS[to],
             )
             return when {
                 coinFee > 0 -> t.copy(fee = amount(coinFee), feeUnit = PortfolioFeeUnit.COIN)
@@ -229,8 +240,11 @@ internal object PortfolioPerformanceData {
 
         private fun spend(units: Long, payment: Boolean, held: Array<LongArray>): PortfolioTrade {
             held[c][w] -= units
-            return if (payment) base(PortfolioTxType.PAYMENT, units, priced = true)
-            else base(PortfolioTxType.GIFT, units, priced = true).copy(giftToSpouse = variant == 0)
+            return if (payment) {
+                base(PortfolioTxType.PAYMENT, units, priced = true)
+            } else {
+                base(PortfolioTxType.GIFT, units, priced = true).copy(giftToSpouse = variant == 0)
+            }
         }
     }
 }

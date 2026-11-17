@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
 
 /**
  * Adress-Guthaben im Stichtag-Export ([AddressBalanceHistory.balancesAt], [CutoffExport.addressRows]): heute das
@@ -20,11 +20,16 @@ class CutoffAddressTest {
     private val histories = listOf(
         // BTC: 0.5 seit 10 Tagen vor dem Stichtag, danach 0.7
         AddressBalanceHistory(
-            AddressChain.BTC, "bc1qexampleaddress",
+            AddressChain.BTC,
+            "bc1qexampleaddress",
             listOf(AddressObservation(t(day - 10), BigDecimal("0.5")), AddressObservation(t(day + 2), BigDecimal("0.7"))),
         ),
         // ETH: erst nach dem Stichtag beobachtet
-        AddressBalanceHistory(AddressChain.ETH, "0x00000000000000000000000000000000000000aa", listOf(AddressObservation(t(day + 1), BigDecimal("2")))),
+        AddressBalanceHistory(
+            AddressChain.ETH,
+            "0x00000000000000000000000000000000000000aa",
+            listOf(AddressObservation(t(day + 1), BigDecimal("2")))
+        ),
     )
 
     private val texts = CutoffCsvTexts(
@@ -97,7 +102,10 @@ class CutoffAddressTest {
         val note = "Hinweis: Posten nach der letzten Beobachtung"
         val withText = texts.copy(addressLots = note)
         val rows = CutoffExport.rows(listOf(CutoffHolding("BTC", BigDecimal("1"))), mapOf("BTC" to BigDecimal("100")), BigDecimal("0.9"))
-        fun lines(t: CutoffCsvTexts, lots: Boolean) = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, t, addressLots = lots)
+        fun lines(
+            t: CutoffCsvTexts,
+            lots: Boolean
+        ) = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, t, addressLots = lots)
             .removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
         val marked = lines(withText, true)
         assertEquals(note, marked[1])
@@ -130,8 +138,13 @@ class CutoffAddressTest {
         val early = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
         val late = early.copy(id = 2, time = t(day + 5))
         fun address(lots: List<AddressCostLot>, observedAt: Long?, fetchedAt: Long = 0) = WatchedAddress(
-            id = 2, chain = AddressChain.BTC, address = "bc1qsecondexampleaddress", lastBalance = "0.5", lastUpdated = fetchedAt,
-            observations = observedAt?.let { listOf(AddressObservation(it, BigDecimal("0.5"))) }.orEmpty(), costLots = lots,
+            id = 2,
+            chain = AddressChain.BTC,
+            address = "bc1qsecondexampleaddress",
+            lastBalance = "0.5",
+            lastUpdated = fetchedAt,
+            observations = observedAt?.let { listOf(AddressObservation(it, BigDecimal("0.5"))) }.orEmpty(),
+            costLots = lots,
         )
         fun note(vararg a: WatchedAddress) = AddressCutoff.at(a.toList(), emptyList(), cutoff).lotsAfterObservation
         assertTrue(note(address(listOf(early), t(day - 30))))

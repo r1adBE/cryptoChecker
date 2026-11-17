@@ -1,6 +1,5 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.fakePortfolioDao
 import com.cryptochecker.app.data.fakeWatchDao
@@ -10,6 +9,7 @@ import com.cryptochecker.app.data.remote.Reply
 import com.cryptochecker.app.data.remote.RouteHttp
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -41,7 +41,13 @@ class PortfolioCoinListTest {
     }
 
     private fun source(http: RouteHttp, exchanges: ExchangeRepository = unusedExchangeRepository()) = PortfolioPriceSource(
-        context, http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO), exchanges,
+        context, http.client,
+        CandleDataSource(
+            http.client,
+            testTokenIdentityStore(temp.newFolder()),
+            ioDispatcher = Dispatchers.IO
+        ),
+        exchanges,
         fakeWatchDao { emptyList() }, fakePortfolioDao(), FxRateSource(http.client, ioDispatcher = Dispatchers.IO),
         testTokenIdentityStore(temp.newFolder()), DepegReadingStore { error("keine Messung nötig") },
         ioDispatcher = Dispatchers.IO,

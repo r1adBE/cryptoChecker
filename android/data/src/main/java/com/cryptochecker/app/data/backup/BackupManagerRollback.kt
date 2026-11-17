@@ -2,20 +2,20 @@
 // Ersetzen der Merkliste. Erweiterungsfunktionen; Datenbanken und Sperren bleiben in der Klasse.
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.backup.BackupJournalCodec.PreviousState
 import androidx.room.withTransaction
+import com.cryptochecker.app.data.FavoriteKind
+import com.cryptochecker.app.data.backup.BackupJournalCodec.PreviousState
+import com.cryptochecker.app.data.backup.BackupJournalCodec.journalJson
+import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
+import com.cryptochecker.app.data.backup.BackupManager.Step
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.backup.BackupManager.Step
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
-import com.cryptochecker.app.data.backup.BackupJournalCodec.journalJson
-import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
-import com.cryptochecker.app.data.FavoriteKind
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import kotlin.coroutines.cancellation.CancellationException
 
 /** Stand vor dem Wiederherstellen, für das Zurückrollen (die Merkliste darin frisch unter der Sperre: [watchlistUnderLock]). */
@@ -41,7 +41,12 @@ internal suspend fun BackupManager.watchlistUnderLock(previous: PreviousState): 
     val alarms = watchDao.getAllAlarms()
     if (watches == previous.watches && alarms == previous.alarms) return previous
     val locked = PreviousState(
-        watches, alarms, previous.portfolio, previous.portfolioAlarms, previous.watchedAddresses, previous.favorites,
+        watches,
+        alarms,
+        previous.portfolio,
+        previous.portfolioAlarms,
+        previous.watchedAddresses,
+        previous.favorites,
         previous.settings,
     )
     val written = try {
@@ -71,7 +76,7 @@ internal suspend fun BackupManager.writeWatchlist(
         locked()
         livePriceStream.forgetAll()
         database.withTransaction {
-            watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg
+            watchDao.deleteAllWatches() // Alarme fallen per Fremdschlüssel mit weg
             watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
             alarms.forEach { watchDao.insertAlarm(it) }
         }
@@ -88,28 +93,32 @@ internal suspend fun BackupManager.writeWatchlist(
 internal suspend fun BackupManager.rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable): Boolean {
     // Nie in eine Datenbank, die nur leer im Arbeitsspeicher liegt: unvollständig, das Journal bleibt
     openBoth()
-    return RestoreRollback.run(touched, cause, object : RestoreRollback.Parts {
-        override fun mayWritePortfolio() = rollBackTarget(PortfolioDatabase.DB_NAME)
-        override fun mayWriteWatchlist() = rollBackTarget(AppDatabase.DB_NAME)
-        override suspend fun settings() {
-            settingsCodec.restoreSettings(previous.settings, trusted = true)
-        }
-        override suspend fun favorites() {
-            previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
-        }
-        override suspend fun portfolio() {
-            portfolioDatabase.withTransaction {
-                portfolioDao.deleteAll()
-                previous.portfolio.forEach { portfolioDao.insert(it) }
-                portfolioAlarmDao.deleteAll()
-                previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
-                // Samt letztem Guthaben (unverändert zurück)
-                watchedAddressDao.deleteAll()
-                previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
+    return RestoreRollback.run(
+        touched,
+        cause,
+        object : RestoreRollback.Parts {
+            override fun mayWritePortfolio() = rollBackTarget(PortfolioDatabase.DB_NAME)
+            override fun mayWriteWatchlist() = rollBackTarget(AppDatabase.DB_NAME)
+            override suspend fun settings() {
+                settingsCodec.restoreSettings(previous.settings, trusted = true)
             }
-            // Portfolio-Alarme ersetzt — alte Vermerke «wird gemeldet» gelten nicht mehr
-            PrefsAlarmDeliveryMarkers.clearAll(context, PortfolioAlarmDeliveryMarkers.PREFS)
+            override suspend fun favorites() {
+                previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
+            }
+            override suspend fun portfolio() {
+                portfolioDatabase.withTransaction {
+                    portfolioDao.deleteAll()
+                    previous.portfolio.forEach { portfolioDao.insert(it) }
+                    portfolioAlarmDao.deleteAll()
+                    previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
+                    // Samt letztem Guthaben (unverändert zurück)
+                    watchedAddressDao.deleteAll()
+                    previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
+                }
+                // Portfolio-Alarme ersetzt — alte Vermerke «wird gemeldet» gelten nicht mehr
+                PrefsAlarmDeliveryMarkers.clearAll(context, PortfolioAlarmDeliveryMarkers.PREFS)
+            }
+            override suspend fun watchlist() = writeWatchlist(previous.watches, previous.alarms)
         }
-        override suspend fun watchlist() = writeWatchlist(previous.watches, previous.alarms)
-    })
+    )
 }

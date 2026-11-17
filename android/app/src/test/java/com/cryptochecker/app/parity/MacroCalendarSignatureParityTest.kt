@@ -4,13 +4,13 @@ import com.cryptochecker.app.data.remote.MirrorLoader
 import com.cryptochecker.app.data.remote.MirrorTrust
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.mirror.MirrorManifest
+import java.io.File
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.io.File
 
 /**
  * Wirtschaftskalender nur mit SHA-256 im signierten Spiegel-Manifest (`macro_calendar_signature.json`, gleich in

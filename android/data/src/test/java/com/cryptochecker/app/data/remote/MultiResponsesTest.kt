@@ -3,6 +3,8 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.exchange.NbpReference
+import java.util.Collections
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -13,8 +15,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.util.Collections
-import java.util.concurrent.TimeUnit
 
 /**
  * Referenzkurse aus mehreren Antworten ([MultiResponses], NBP: Tabelle A und B): eine Anfrage je Adresse, egal wie viele
@@ -41,12 +41,14 @@ class MultiResponsesTest {
 
     private fun client(): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(5_000, TimeUnit.MILLISECONDS)
-        .addInterceptor(Interceptor { chain ->
-            val original = chain.request()
-            requested += original.url.toString()
-            val target = server.url(original.url.encodedPath).newBuilder().encodedQuery(original.url.encodedQuery).build()
-            chain.proceed(original.newBuilder().url(target).build())
-        })
+        .addInterceptor(
+            Interceptor { chain ->
+                val original = chain.request()
+                requested += original.url.toString()
+                val target = server.url(original.url.encodedPath).newBuilder().encodedQuery(original.url.encodedQuery).build()
+                chain.proceed(original.newBuilder().url(target).build())
+            }
+        )
         .build()
 
     private fun respond(body: String) = server.enqueue(MockResponse.Builder().code(200).body(body).build())

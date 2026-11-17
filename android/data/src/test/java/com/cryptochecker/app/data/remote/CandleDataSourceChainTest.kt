@@ -27,7 +27,11 @@ class CandleDataSourceChainTest {
     @Before
     fun chainOpen() = RouteHttp.releaseChain()
 
-    private fun source(http: RouteHttp) = CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO)
+    private fun source(http: RouteHttp) = CandleDataSource(
+        http.client,
+        testTokenIdentityStore(temp.newFolder()),
+        ioDispatcher = Dispatchers.IO
+    )
 
     private val notFound = Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 404)
 

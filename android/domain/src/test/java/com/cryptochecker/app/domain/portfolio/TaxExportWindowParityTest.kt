@@ -7,17 +7,17 @@ import com.cryptochecker.app.domain.portfolio.TaxMatch
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.gainRows
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle `tax_export.json` → `ukBbWindow` (iOS: `TaxExportWindowTests.swift`): UK 30-Tage-Regel über das
@@ -93,7 +93,16 @@ class TaxExportWindowParityTest {
         }
         // Kurse nur bis zum Ende des Steuerjahrs: Zugänge nach dem 5. April ohne Devisenkurs
         val truncated = rates.filterKeys { it <= period.end.toEpochDay() }
-        val old = TaxExport.gainRows(trades, TaxMethod.UK_POOL, period, zone, currency, truncated, priceAt, rules = TaxTemplate.UK.eventRules)
+        val old = TaxExport.gainRows(
+            trades,
+            TaxMethod.UK_POOL,
+            period,
+            zone,
+            currency,
+            truncated,
+            priceAt,
+            rules = TaxTemplate.UK.eventRules
+        )
         assertEquals(data["truncatedFxMissing"].num()!!.toInt(), old.count { it.fxMissing })
     }
 }

@@ -156,9 +156,13 @@ data class ChangeView(
      * vorherigen Kurs ([ChangeBasisMath.sinceLast]). [change] null (nicht gehandelt) bleibt «—».
      */
     fun shown(change: Double?, last: Double?, previous: Double?, traded: Boolean = true): Double? =
-        if (!traded) null
-        else if (basis.isSinceLast) ChangeBasisMath.sinceLast(last, previous)
-        else shown(change)
+        if (!traded) {
+            null
+        } else if (basis.isSinceLast) {
+            ChangeBasisMath.sinceLast(last, previous)
+        } else {
+            shown(change)
+        }
 
     companion object {
         fun of(
@@ -301,6 +305,7 @@ object ChangeBasisMath {
      * Gelten die gespeicherten Werte noch? Ohne Stempel (noch nichts berechnet)
      * gelten sie als rollend. Tages-Basen: gleicher Tagesbeginn wie jetzt.
      */
+
     /**
      * Veränderung für die Uhr, die sie als «24 h» beschriftet und bei eigenem Abruf ebenfalls rollend rechnet:
      * nur, wenn die gespeicherten Werte rollend sind (Basis rollend bzw. «seit letzter Aktualisierung», Stempel ebenso);

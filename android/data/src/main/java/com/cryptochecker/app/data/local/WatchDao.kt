@@ -6,14 +6,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.AlarmRow
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.local.model.AlarmWithWatchRow
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.local.model.WatchRow
 import com.cryptochecker.app.data.local.model.toDomain
 import com.cryptochecker.app.data.local.model.toRow
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -319,7 +319,13 @@ interface WatchDao {
             "AND currency IS :currency"
     )
     suspend fun setAlarmReferenceIfUnchanged(
-        id: Long, price: Double, time: Long, condition: String, threshold: Double, windowHours: Int, currency: String?,
+        id: Long,
+        price: Double,
+        time: Long,
+        condition: String,
+        threshold: Double,
+        windowHours: Int,
+        currency: String?,
     ): Int
 
     /**
@@ -347,7 +353,11 @@ interface WatchDao {
             "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
     )
     suspend fun rearmAlarmIfUnchanged(
-        id: Long, condition: String, threshold: Double, windowHours: Int, currency: String?,
+        id: Long,
+        condition: String,
+        threshold: Double,
+        windowHours: Int,
+        currency: String?,
     ): Int
 
     @Query("SELECT * FROM alarms ORDER BY id ASC")

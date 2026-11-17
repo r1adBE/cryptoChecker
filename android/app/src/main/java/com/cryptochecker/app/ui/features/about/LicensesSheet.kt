@@ -2,9 +2,6 @@
 
 package com.cryptochecker.app.ui.features.about
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,8 +28,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

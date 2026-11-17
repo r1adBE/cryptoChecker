@@ -4,17 +4,17 @@ import com.cryptochecker.app.domain.watch.SheetCandleRequest
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
+import kotlin.math.abs
+import kotlin.math.max
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.math.abs
-import kotlin.math.max
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Gemeinsame Fälle für Chart im Aktionsblatt und Mini-Chart (`testdata/parity/sheet_chart.json`):
@@ -52,14 +52,18 @@ class SheetChartParityTest {
             if (assumed != null) {
                 assertNotNull("$name: note needs a chart", result)
                 val note = SheetChart.usdtParityNote(
-                    SheetChart.fxMode(request, rates), "BTC/USDT", SheetChart.usdtApproximate(result!!, usdt, today),
+                    SheetChart.fxMode(request, rates),
+                    "BTC/USDT",
+                    SheetChart.usdtApproximate(result!!, usdt, today),
                 )
                 assertEquals("$name: note «USDT = 1 assumed»", assumed, note)
             }
             (c["usdtHistoryMissing"] as Boolean?)?.let { missing ->
                 assertNotNull("$name: note needs a chart", result)
                 val note = SheetChart.usdtHistoryNote(
-                    SheetChart.fxMode(request, rates), "BTC/USDT", SheetChart.usdtSeries(result!!, usdt, today).historyMissing,
+                    SheetChart.fxMode(request, rates),
+                    "BTC/USDT",
+                    SheetChart.usdtSeries(result!!, usdt, today).historyMissing,
                 )
                 assertEquals("$name: note «USDT/USD history not available»", missing, note)
             }

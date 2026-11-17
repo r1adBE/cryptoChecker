@@ -15,7 +15,13 @@ class ExactFiredStep @Inject constructor(
     private val scheduler: ExactCheckScheduler,
     private val backgroundCheck: BackgroundCheck,
 ) {
-    fun apply(action: BackgroundWorkPolicy.FiredAction, enabled: Boolean, hasWork: Boolean, intervalMinutes: Int, startedAt: Long): Boolean =
+    fun apply(
+        action: BackgroundWorkPolicy.FiredAction,
+        enabled: Boolean,
+        hasWork: Boolean,
+        intervalMinutes: Int,
+        startedAt: Long
+    ): Boolean =
         when (action) {
             // Aus, keine Berechtigung mehr oder nichts zu prüfen (ExactCheckDemand): absagen, nicht neu stellen
             BackgroundWorkPolicy.FiredAction.CANCEL -> {

@@ -1,14 +1,14 @@
 package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Grundbausteine von [PriceFormat]: Pfeil zur Kursbewegung, Kurs, Schwellwert und Bestandswert mit Währung, exakte

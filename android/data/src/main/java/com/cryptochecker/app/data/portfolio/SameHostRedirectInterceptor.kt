@@ -18,8 +18,12 @@ class SameHostRedirectInterceptor : Interceptor {
         while (response.isRedirect && hops < AddressRedirect.MAX_HOPS) {
             val target = response.header("Location")?.let { request.url.resolve(it) } ?: return response
             val same = AddressRedirect.allowed(
-                original.url.scheme, original.url.host, target.scheme, target.host,
-                fromPort = original.url.port, toPort = target.port,
+                original.url.scheme,
+                original.url.host,
+                target.scheme,
+                target.host,
+                fromPort = original.url.port,
+                toPort = target.port,
             )
             if (!same) return response
             val keepMethod = response.code == HTTP_TEMPORARY_REDIRECT || response.code == HTTP_PERMANENT_REDIRECT

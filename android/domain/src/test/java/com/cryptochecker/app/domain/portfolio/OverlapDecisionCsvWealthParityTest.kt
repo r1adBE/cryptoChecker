@@ -1,5 +1,4 @@
 package com.cryptochecker.app.domain.portfolio
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.TaxLine
@@ -7,12 +6,13 @@ import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxWealthRow
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.wealthCoinNote
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import java.math.BigDecimal
+import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Sicherung mit Überschneidungs-Entscheid (`address_balance.json` «backupOverlap»), Formelschutz nach führenden
@@ -74,8 +74,13 @@ class OverlapDecisionCsvWealthParityTest {
             incomplete = "incomplete", noFx = "nofx", wealthMissing = "nc", wealthAddressUnobserved = "unobserved",
         )
         val partial = TaxWealthRow(
-            "BTC", BigDecimal("0.1"), BigDecimal("60000"), BigDecimal("6000"), BigDecimal("4800"),
-            addressUnobserved = true, incomplete = true,
+            "BTC",
+            BigDecimal("0.1"),
+            BigDecimal("60000"),
+            BigDecimal("6000"),
+            BigDecimal("4800"),
+            addressUnobserved = true,
+            incomplete = true,
         )
         assertEquals("incomplete – unobserved", texts.wealthCoinNote(partial))
         val missing = partial.copy(valueUsdt = null, valueTarget = null, incomplete = false)

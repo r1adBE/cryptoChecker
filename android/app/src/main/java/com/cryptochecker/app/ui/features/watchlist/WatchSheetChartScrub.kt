@@ -19,17 +19,17 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.CompactAmount
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.widget.WidgetCandle
-import com.cryptochecker.app.domain.widget.WidgetChartType
+import com.cryptochecker.resources.R
 import java.util.Date
 import kotlin.math.roundToInt
 
@@ -113,10 +113,16 @@ private fun OhlcReadout(candle: WidgetCandle, labelColor: Color) {
     val low = stringResource(R.string.ticker_low)
     val close = stringResource(R.string.sheet_chart_close)
     fun line(a: String, av: Double, b: String, bv: Double) = buildAnnotatedString {
-        withStyle(SpanStyle(color = labelColor)) { append(a); append(' ') }
+        withStyle(SpanStyle(color = labelColor)) {
+            append(a)
+            append(' ')
+        }
         withStyle(SpanStyle(color = valueColor)) { append(BidiText.isolate(PriceFormat.price(av))) }
         append("  ")
-        withStyle(SpanStyle(color = labelColor)) { append(b); append(' ') }
+        withStyle(SpanStyle(color = labelColor)) {
+            append(b)
+            append(' ')
+        }
         withStyle(SpanStyle(color = valueColor)) { append(BidiText.isolate(PriceFormat.price(bv))) }
     }
     val style = MaterialTheme.typography.labelSmall.amountNumbers()

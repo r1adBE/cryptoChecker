@@ -38,15 +38,22 @@ object AddressBooked {
             val wallet = AddressCostLots.walletName(a)
             val lots = AddressCostLots.coverage(a, real, addresses)
             // Nur bis zum Abruf des Guthabens: spätere Buchungen stecken noch nicht darin
-            val recorded = if (owners[PortfolioWallets.key(wallet)] != a.id) emptyList()
-            else real.filter { a.lastUpdated <= 0 || it.time <= a.lastUpdated }
-            val mine = out.indices.filter { out[it].chain == a.chain && WatchedAddressRules.sameAddress(a.chain, out[it].address, a.address) }
+            val recorded = if (owners[PortfolioWallets.key(wallet)] != a.id) {
+                emptyList()
+            } else {
+                real.filter { a.lastUpdated <= 0 || it.time <= a.lastUpdated }
+            }
+            val mine = out.indices.filter {
+                out[it].chain == a.chain && WatchedAddressRules.sameAddress(a.chain, out[it].address, a.address)
+            }
             for (coin in mine.map { PortfolioCalculator.normalizeCoin(out[it].coin) }.distinct()) {
                 val series = mine.filter { PortfolioCalculator.normalizeCoin(out[it].coin) == coin }
                 val last = series.maxOf { i -> out[i].observations.maxOf { it.time } }
                 val moves = lots.filter { it.coin == coin }.flatMap { it.lots }.map { AddressMove(minOf(it.time, last), it.amount) } +
                     recorded.mapNotNull { t ->
-                        AddressCostLots.recordedMove(coin, wallet, t).takeIf { it.signum() != 0 }?.let { AddressMove(minOf(t.time, last), it) }
+                        AddressCostLots.recordedMove(coin, wallet, t).takeIf {
+                            it.signum() != 0
+                        }?.let { AddressMove(minOf(t.time, last), it) }
                     }
                 if (moves.isNotEmpty()) out[series.first()] = out[series.first()].copy(moves = moves)
             }
@@ -69,7 +76,10 @@ object AddressBooked {
             val net = m.all[coin] ?: continue
             val series = out.indices.filter { out[it].wallet == wallet && PortfolioCalculator.normalizeCoin(out[it].coin) == coin }
             val last = series.maxOf { i -> out[i].observations.maxOf { it.time } }
-            val absorbed = series.any { out[it].chain == m.owner.chain && WatchedAddressRules.sameAddress(m.owner.chain, out[it].address, m.owner.address) }
+            val absorbed = series.any {
+                out[it].chain == m.owner.chain &&
+                    WatchedAddressRules.sameAddress(m.owner.chain, out[it].address, m.owner.address)
+            }
             val steps = AddressSurplus.ledgerSteps(net, m.fetched[coin].orEmpty(), last, absorbed)
             out[series.first()] = out[series.first()].copy(ledger = steps)
         }
@@ -89,7 +99,9 @@ object AddressBooked {
         val series = group.map { h -> h.observations.filter { it.balance.signum() >= 0 }.sortedBy { it.time } }
         val moves = group.flatMap { it.moves }
         return series.flatten().map { it.time }.distinct().sorted().map { t ->
-            val observed = series.fold(BigDecimal.ZERO) { sum, list -> sum + (list.lastOrNull { it.time <= t }?.balance ?: BigDecimal.ZERO) }
+            val observed = series.fold(BigDecimal.ZERO) { sum, list ->
+                sum + (list.lastOrNull { it.time <= t }?.balance ?: BigDecimal.ZERO)
+            }
             val booked = moves.filter { it.time <= t }.fold(BigDecimal.ZERO) { sum, m -> sum + m.amount }
             AddressObservation(t, if (floor) (observed - booked).max(BigDecimal.ZERO) else observed - booked)
         }

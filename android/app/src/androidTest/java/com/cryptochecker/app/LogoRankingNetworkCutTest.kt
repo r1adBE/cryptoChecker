@@ -8,11 +8,13 @@ import com.cryptochecker.app.data.CoinListSync
 import com.cryptochecker.app.data.CoinNames
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.logos.LogoImageStore
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.data.symbolMap
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -25,8 +27,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
-import javax.inject.Inject
 
 /**
  * Rangliste der Coin-Logos ([CoinListSync.symbolMap]) bei einem Netzfehler auf einer Folgeseite: das Teil-Ergebnis wird
@@ -44,9 +44,13 @@ class LogoRankingNetworkCutTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var connectivity: ConnectivityMonitor
+
     @Inject lateinit var tokenIdentityStore: TokenIdentityStore
+
     @Inject lateinit var imageStore: LogoImageStore
+
     @Inject lateinit var names: CoinNames
+
     @Inject lateinit var alpha: AlphaTokens
 
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -62,13 +66,20 @@ class LogoRankingNetworkCutTest {
             if (url.host != "api.coingecko.com" || page == null) return@addInterceptor respond(chain.request(), 404, "")
             if (page == 2 && cutSecondPage) throw IOException("Verbindung abgebrochen (Test)")
             val rows = if (page == 1) firstPageRows else 0
-            respond(chain.request(), 200, (0 until rows).joinToString(",", "[", "]") { i ->
-                """{"symbol":"c$page$i","name":"Coin $page $i","image":"https://coin-images.coingecko.com/coins/images/$page$i/large/c.png"}"""
-            })
+            respond(
+                chain.request(),
+                200,
+                (0 until rows).joinToString(",", "[", "]") { i ->
+                    """{"symbol":"c$page$i","name":"Coin $page $i","image":"https://coin-images.coingecko.com/coins/images/$page$i/large/c.png"}"""
+                }
+            )
         }.build()
         val sync = CoinListSync(context, client, connectivity, tokenIdentityStore, imageStore, names, alpha)
         // Kein gemerkter Stand und kein Versuch: die Rangliste wird abgefragt
-        sync.prefs.edit { remove(CoinListSync.KEY_MAP_TIME); remove(CoinListSync.KEY_MAP_ATTEMPT) }
+        sync.prefs.edit {
+            remove(CoinListSync.KEY_MAP_TIME)
+            remove(CoinListSync.KEY_MAP_ATTEMPT)
+        }
         return sync
     }
 

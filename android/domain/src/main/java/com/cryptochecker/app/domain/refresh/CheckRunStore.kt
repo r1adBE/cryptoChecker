@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.marketdata.usage.UsageMeter
+import java.io.File
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.io.File
 
 /**
  * Speicher von «Letzte Prüfungen» ([CheckRunLog]): kleine Textdatei, auf Android in `noBackupFilesDir`

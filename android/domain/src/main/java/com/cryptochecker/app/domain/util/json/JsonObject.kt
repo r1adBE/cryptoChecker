@@ -61,10 +61,14 @@ class JsonObject() {
     fun getLong(name: String): Long = get(name).let { JsonCoerce.toLong(it) ?: throw JsonCoerce.typeMismatch(name, it, "long") }
     fun optLong(name: String, fallback: Long = 0L): Long = JsonCoerce.toLong(opt(name)) ?: fallback
 
-    fun getString(name: String): String = get(name).let { JsonCoerce.toStringValue(it) ?: throw JsonCoerce.typeMismatch(name, it, "String") }
+    fun getString(name: String): String = get(name).let {
+        JsonCoerce.toStringValue(it) ?: throw JsonCoerce.typeMismatch(name, it, "String")
+    }
     fun optString(name: String, fallback: String = ""): String = JsonCoerce.toStringValue(opt(name)) ?: fallback
 
-    fun getJSONObject(name: String): JsonObject = get(name).let { it as? JsonObject ?: throw JsonCoerce.typeMismatch(name, it, "JSONObject") }
+    fun getJSONObject(name: String): JsonObject = get(name).let {
+        it as? JsonObject ?: throw JsonCoerce.typeMismatch(name, it, "JSONObject")
+    }
     fun optJSONObject(name: String): JsonObject? = opt(name) as? JsonObject
 
     fun getJSONArray(name: String): JsonArray = get(name).let { it as? JsonArray ?: throw JsonCoerce.typeMismatch(name, it, "JSONArray") }

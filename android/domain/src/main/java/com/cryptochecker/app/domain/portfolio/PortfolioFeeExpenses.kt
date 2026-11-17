@@ -6,8 +6,10 @@ import java.math.BigDecimal
 enum class PortfolioFeeExpense {
     /** Gebühr im Coin verbraucht den ganzen Zugang (Kauf/Belohnung/Einzahlung bzw. erhaltener Coin eines Tauschs). */
     CONSUMED,
+
     /** Gebühr USDT + Wert der Gebühr im dritten Coin einer Auszahlung. */
     WITHDRAWAL,
+
     /**
      * Nur Steuer-Vorlagen mit [TaxEventRules.quoteFeeIsInfo]: Gebühr USDT einer Umbuchung zwischen eigenen
      * Wallets — nicht im Einstand, Zeile nur zur Information ([TaxEngines.disposals]). Das Portfolio rechnet sie weiter
@@ -51,7 +53,11 @@ object PortfolioFeeExpenses {
         if (!t.type.isInflow || t.received.signum() > 0) return null
         val price = t.validPrice ?: return null
         val feeValue = t.thirdFeeValue
-        return Expense(t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: BigDecimal.ZERO), feeValue == null, t.costEstimated())
+        return Expense(
+            t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: BigDecimal.ZERO),
+            feeValue == null,
+            t.costEstimated()
+        )
     }
 
     /**
@@ -146,9 +152,14 @@ object PortfolioFeeExpenses {
         val out = ArrayList<PortfolioDisposal>()
         val book = PortfolioHoldingsBook(CostMethod.FIFO)
         for (e in events) {
-            consumed(e)?.takeIf { swaps || !e.swapIn }?.let { out += disposal(symbol, e, PortfolioFeeExpense.CONSUMED, it, CostMethod.FIFO) }
+            consumed(e)?.takeIf {
+                swaps || !e.swapIn
+            }?.let { out += disposal(symbol, e, PortfolioFeeExpense.CONSUMED, it, CostMethod.FIFO) }
             if (!e.feeLeg && !e.swapIn && book.capFor(e).signum() > 0) {
-                withdrawal(e.trade, book.capFor(e), withdrawalThirdFee)?.let { out += disposal(symbol, e, PortfolioFeeExpense.WITHDRAWAL, it, CostMethod.FIFO) }
+                withdrawal(e.trade, book.capFor(e), withdrawalThirdFee)?.let {
+                    out +=
+                        disposal(symbol, e, PortfolioFeeExpense.WITHDRAWAL, it, CostMethod.FIFO)
+                }
             }
             book.apply(e)
         }

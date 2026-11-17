@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,6 +13,7 @@ import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.components.SkeletonList
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertTrue
@@ -70,7 +70,8 @@ class SkeletonMotionTest {
         val loading = compose.activity.getString(R.string.loading_hint)
         show { SkeletonList(reduceMotion = true) }
         val indeterminate = SemanticsMatcher.expectValue(
-            SemanticsProperties.ProgressBarRangeInfo, ProgressBarRangeInfo.Indeterminate
+            SemanticsProperties.ProgressBarRangeInfo,
+            ProgressBarRangeInfo.Indeterminate
         )
         compose.onNode(hasContentDescription(loading) and indeterminate, useUnmergedTree = true).assertExists()
     }

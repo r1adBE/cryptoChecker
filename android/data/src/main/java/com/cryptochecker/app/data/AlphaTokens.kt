@@ -1,20 +1,20 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.logos.CoinLogoStorage
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.data.logos.CoinLogoStorage
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
-import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 import com.cryptochecker.app.domain.logos.alphaNames
 import com.cryptochecker.app.domain.logos.alphaSymbols
 import com.cryptochecker.app.domain.logos.alphaTokens
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 /**
  * Binance-Alpha-Liste als Ergebnis: Kürzel für «α» ([symbols], gespeichert), Token für die Alpha-Paare von
@@ -87,6 +87,7 @@ class AlphaTokens @Inject constructor(
 
     private companion object {
         const val KEY_ALPHA_SYMBOLS = "alpha_symbols"
+
         /** Zeitpunkt der zuletzt geholten Alpha-Liste bzw. des letzten Versuchs allein ([CoinListSync.refreshAlphaOnly]). */
         const val KEY_ALPHA_TIME = "alpha_time"
     }

@@ -10,8 +10,8 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.RemoteViews
 import android.widget.TextView
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.hilt.work.HiltWorkerFactory
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.ListenableWorker
 import androidx.work.NetworkType
 import androidx.work.WorkInfo
@@ -48,6 +48,8 @@ import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -58,8 +60,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
 
 /**
  * Widgets, wie sie gezeichnet werden: Die echten Renderer zeichnen, [WidgetPublish.testSink] fängt die [RemoteViews]
@@ -81,15 +81,25 @@ class WidgetDrawDeviceTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var single: SingleWidgetRenderer
+
     @Inject lateinit var list: ListWidgetRenderer
+
     @Inject lateinit var portfolio: PortfolioWidgetRenderer
+
     @Inject lateinit var pulse: PulseWidgetRenderer
+
     @Inject lateinit var connectivity: WidgetConnectivity
+
     @Inject lateinit var widgetPrefs: WidgetPrefs
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var priceRefresher: PriceRefresher
+
     @Inject lateinit var refreshStats: RefreshStats
+
     @Inject lateinit var workerFactory: HiltWorkerFactory
+
     @Inject lateinit var checkRuns: CheckRunStore
 
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -133,14 +143,27 @@ class WidgetDrawDeviceTest {
         list.update(intArrayOf(LIST_A))
         val short = WidgetOffline.short(context)
         val singleTexts = texts(drawnView(SINGLE_A))
-        assertTrue(singleTexts.toString(), singleTexts.any { it.startsWith(WidgetOffline.label(context, watch.lastUpdate)) || it.startsWith(short) })
+        assertTrue(
+            singleTexts.toString(),
+            singleTexts.any {
+                it.startsWith(WidgetOffline.label(context, watch.lastUpdate)) ||
+                    it.startsWith(short)
+            }
+        )
         val listTexts = texts(drawnView(LIST_A))
-        assertTrue(listTexts.toString(), listTexts.any { it.startsWith(WidgetOffline.label(context, refreshStats.lastRefresh())) || it.startsWith(short) })
+        assertTrue(
+            listTexts.toString(),
+            listTexts.any {
+                it.startsWith(WidgetOffline.label(context, refreshStats.lastRefresh())) ||
+                    it.startsWith(short)
+            }
+        )
         // Portfolio und Puls: dieselbe Zeile aus ihren Textregeln (Daten dieser Widgets kommen nicht aus dem Test-Netz)
         val time = System.currentTimeMillis() - 90_000
         portfolio.update(intArrayOf(PORTFOLIO))
         assertTrue("Portfolio-Widget hat das Netz gefragt", portfolio.offline)
-        val snapshot = PortfolioSnapshot(total = 1_000.0, changeAmount = null, changePercent = null, currency = "USD", time = time, empty = false)
+        val snapshot =
+            PortfolioSnapshot(total = 1_000.0, changeAmount = null, changePercent = null, currency = "USD", time = time, empty = false)
         assertEquals(WidgetOffline.label(context, time), portfolio.timeText(snapshot, outdated = true))
         assertEquals(WidgetOffline.label(context, time), PulseWidgetTexts.stand(context, time, online = false))
         // Neu zeichnen, sobald das Netz zurück ist: einmal geplant, nur mit Netz
@@ -219,7 +242,10 @@ class WidgetDrawDeviceTest {
             assertEquals(name, dp(16), spinner.layoutParams.width)
             assertEquals(name, dp(16), spinner.layoutParams.height)
             assertEquals(name, context.getColor(R.color.widget_initial_text_secondary), spinner.indeterminateTintList?.defaultColor)
-            val label = descendants(group).filterIsInstance<TextView>().single { it.text.toString() == context.getString(R.string.starter_loading_prices) }
+            val label = descendants(group).filterIsInstance<TextView>().single {
+                it.text.toString() ==
+                    context.getString(R.string.starter_loading_prices)
+            }
             assertEquals(name, context.getColor(R.color.widget_initial_text_secondary), label.currentTextColor)
             assertEquals(name, sp(12), label.textSize, 0.5f)
             // Eng: der Text kürzt (Auslassung), der Kreisel steht vorn
@@ -238,7 +264,12 @@ class WidgetDrawDeviceTest {
             }
         }
         // Vorschauen im Widget-Auswahlmenü bleiben ohne Skelett
-        for (preview in listOf(R.layout.widget_preview_list, R.layout.widget_preview_single, R.layout.widget_preview_portfolio, R.layout.widget_preview_pulse)) {
+        for (preview in listOf(
+            R.layout.widget_preview_list,
+            R.layout.widget_preview_single,
+            R.layout.widget_preview_portfolio,
+            R.layout.widget_preview_pulse
+        )) {
             assertNull(apply(RemoteViews(context.packageName, preview)).findViewById<View>(R.id.widget_skeleton))
         }
     }
@@ -287,7 +318,11 @@ class WidgetDrawDeviceTest {
             }
             val themed = context.createConfigurationContext(config)
             val widget = WidgetColors.of(AccentColor.ORANGE, dark)
-            assertEquals("dark=$dark", widget.colorWithOpacity(WidgetColors.DEFAULT_OPACITY), themed.getColor(R.color.widget_initial_background))
+            assertEquals(
+                "dark=$dark",
+                widget.colorWithOpacity(WidgetColors.DEFAULT_OPACITY),
+                themed.getColor(R.color.widget_initial_background)
+            )
             assertEquals("dark=$dark", widget.textColor, themed.getColor(R.color.widget_initial_text))
             assertEquals("dark=$dark", widget.secondaryTextColor, themed.getColor(R.color.widget_initial_text_secondary))
             // Lesbar: Text und Nebentext mindestens 4.5:1; Skelett sichtbar, aber ruhiger als jeder Text
@@ -314,7 +349,10 @@ class WidgetDrawDeviceTest {
     }
 
     private fun descendants(root: ViewGroup): List<View> =
-        (0 until root.childCount).map(root::getChildAt).flatMap { child -> listOf(child) + ((child as? ViewGroup)?.let(::descendants) ?: emptyList()) }
+        (0 until root.childCount).map(root::getChildAt).flatMap { child ->
+            listOf(child) +
+                ((child as? ViewGroup)?.let(::descendants) ?: emptyList())
+        }
 
     /** Alle Texte, die ein sichtbarer Teil des Widgets zeigt. */
     private fun texts(root: View): List<String> =

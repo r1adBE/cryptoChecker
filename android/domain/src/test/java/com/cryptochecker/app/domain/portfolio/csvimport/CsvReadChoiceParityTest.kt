@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen

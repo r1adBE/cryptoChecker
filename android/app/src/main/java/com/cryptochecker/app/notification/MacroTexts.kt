@@ -1,10 +1,10 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.macro.MacroEventType
 import com.cryptochecker.app.domain.macro.MacroHint
+import com.cryptochecker.resources.R
 import java.util.Date
 
 /**

@@ -3,12 +3,12 @@ import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Art des Fehlers neben dem Text (`testdata/parity/exchange_failure.json`): Die Art entscheidet, wo sie kann; sonst

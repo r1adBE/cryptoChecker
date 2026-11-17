@@ -71,8 +71,11 @@ object CycleExtremes {
         return ordered.firstOrNull { i ->
             val between = (minOf(i, main) + 1 until maxOf(i, main)).map { daily[it].second }
             if (between.isEmpty()) return@firstOrNull false
-            if (isTop) between.min() <= daily[i].second * (1 - DOUBLE_TOLERANCE)
-            else between.max() >= daily[i].second * (1 + DOUBLE_TOLERANCE)
+            if (isTop) {
+                between.min() <= daily[i].second * (1 - DOUBLE_TOLERANCE)
+            } else {
+                between.max() >= daily[i].second * (1 + DOUBLE_TOLERANCE)
+            }
         }
     }
 }

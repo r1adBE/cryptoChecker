@@ -6,7 +6,10 @@ package com.cryptochecker.app.domain.watch
  * Zeile des veralteten Paars, gescheiterte Paare wieder ein Fehler. Kein gehandeltes Paar bzw. Gerät offline: neutral.
  */
 enum class StatusPillTone {
-    NEUTRAL, ERROR, WARNING, NORMAL;
+    NEUTRAL,
+    ERROR,
+    WARNING,
+    NORMAL;
 
     companion object {
         fun of(none: Boolean, deviceOffline: Boolean, offline: Boolean, stale: Int, failed: Int): StatusPillTone = when {

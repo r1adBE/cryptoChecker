@@ -1,6 +1,5 @@
 package com.cryptochecker.app.overlay
 
-import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -9,8 +8,8 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.provider.Settings
 import android.text.SpannableStringBuilder
-import android.text.format.DateUtils
 import android.text.Spanned
+import android.text.format.DateUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.TypedValue
@@ -23,32 +22,33 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.overlay.PriceOverlayRules
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.shownChange24h
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.features.watchlist.midSentence
-import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.WidgetColors
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Preis-Overlay (nur Android): die Paare der dauerhaften Kurs-Mitteilung ([PriceOverlayRules.pairs]) als
@@ -122,8 +122,13 @@ class PriceOverlay @Inject constructor(
             hide()
             return false
         }
-        val colors = WidgetColors.of(settings.accentColor, true, settings.priceColorScheme, settings.highContrast,
-            settings.priceColorsInverted)
+        val colors = WidgetColors.of(
+            settings.accentColor,
+            true,
+            settings.priceColorScheme,
+            settings.highContrast,
+            settings.priceColorsInverted
+        )
         val view = pill ?: create(colors)?.also { pill = it } ?: return true
         // Farben folgen den Einstellungen (Akzent, Farbschema, Kontrast), nicht nur beim Anlegen
         (view.background as? GradientDrawable)?.setColor(colors.colorWithOpacity(OPACITY_PERCENT))
@@ -139,8 +144,11 @@ class PriceOverlay @Inject constructor(
             line.append("  ")
             // Veraltet: Kurs und Änderung grau, dahinter das Alter
             if (stale != null) {
-                line.append(PriceFormat.price(w.lastPrice), ForegroundColorSpan(colors.secondaryTextColor),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                line.append(
+                    PriceFormat.price(w.lastPrice),
+                    ForegroundColorSpan(colors.secondaryTextColor),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             } else {
                 line.append(PriceFormat.price(w.lastPrice))
             }
@@ -152,15 +160,20 @@ class PriceOverlay @Inject constructor(
             }
             line.append(PriceFormat.changeArrow(change) + changeText, ForegroundColorSpan(color), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             stale?.let {
-                line.append("  " + ago(it.since, now, DateUtils.FORMAT_ABBREV_RELATIVE),
-                    ForegroundColorSpan(colors.secondaryTextColor), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                line.append(
+                    "  " + ago(it.since, now, DateUtils.FORMAT_ABBREV_RELATIVE),
+                    ForegroundColorSpan(colors.secondaryTextColor),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
-            view.addView(TextView(context).apply {
-                text = line
-                setTextColor(colors.textColor)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, TEXT_SP)
-                maxLines = 1
-            })
+            view.addView(
+                TextView(context).apply {
+                    text = line
+                    setTextColor(colors.textColor)
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, TEXT_SP)
+                    maxLines = 1
+                }
+            )
             val value = listOfNotNull(PriceFormat.price(w.lastPrice), changeText, stale?.let { spokenStale(w, it, now) })
             spoken += context.getString(R.string.label_value, w.displayName, value.joinToString(", "))
         }
@@ -188,7 +201,8 @@ class PriceOverlay @Inject constructor(
 
     /** Relative Zeit mitten in der Zeile («vor 47 Min.»; ohne [flags] ausgeschrieben «vor 47 Minuten»). */
     private fun ago(time: Long, now: Long, flags: Int = 0): String = midSentence(
-        DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS, flags).toString(), now - time,
+        DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS, flags).toString(),
+        now - time,
     )
 
     /**
@@ -199,7 +213,9 @@ class PriceOverlay @Inject constructor(
         PriceFreshness.StaleReason.FETCH -> A11yText.freshness(
             context,
             if (w.lastError != null) A11ySpeech.Freshness.UNREACHABLE_OUTDATED else A11ySpeech.Freshness.OUTDATED,
-            w.lastUpdate, now, w.exchangeName,
+            w.lastUpdate,
+            now,
+            w.exchangeName,
         )
         PriceFreshness.StaleReason.TRADE -> context.getString(R.string.watchlist_row_last_trade_age, ago(stale.since, now))
     }
@@ -285,8 +301,14 @@ class PriceOverlay @Inject constructor(
                     hideCloseTarget()
                     dragging = false
                     val zone = (CLOSE_ZONE_DP * metrics.density).toInt()
-                    if (PriceOverlayRules.inCloseZone(params.x + view.width / 2, params.y + view.height / 2,
-                            metrics.widthPixels, metrics.heightPixels, zone)) {
+                    if (PriceOverlayRules.inCloseZone(
+                            params.x + view.width / 2,
+                            params.y + view.height / 2,
+                            metrics.widthPixels,
+                            metrics.heightPixels,
+                            zone
+                        )
+                    ) {
                         turnOff()
                     } else {
                         params.x = PriceOverlayRules.snapX(params.x, view.width, metrics.widthPixels)
@@ -318,7 +340,9 @@ class PriceOverlay @Inject constructor(
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         }
         val params = WindowManager.LayoutParams(
-            size, size, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            size,
+            size,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             PixelFormat.TRANSLUCENT,
         ).apply {
@@ -349,8 +373,10 @@ class PriceOverlay @Inject constructor(
 
     private fun openApp() {
         runCatching {
-            context.startActivity(Intent(context, MainActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+            context.startActivity(
+                Intent(context, MainActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            )
         }
     }
 

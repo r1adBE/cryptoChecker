@@ -8,12 +8,12 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.performance.PerformanceTiming.TRANSACTIONS
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.ZoneOffset
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Bestände eines grossen Portfolios (bis 10 000 Transaktionen, [PortfolioPerformanceData]): Gesamtsicht der Karte
@@ -76,7 +76,11 @@ class PortfolioPerformanceTest {
             val trades = PortfolioPerformanceData.trades(n)
             medianMillis {
                 PortfolioCalculator.summarize(
-                    trades, prices, CostMethod.AVERAGE, PortfolioPerformanceData::priceAtDouble, withParts = false,
+                    trades,
+                    prices,
+                    CostMethod.AVERAGE,
+                    PortfolioPerformanceData::priceAtDouble,
+                    withParts = false,
                 )
             }
         }

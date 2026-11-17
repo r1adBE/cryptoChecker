@@ -37,7 +37,11 @@ class WatchLinkParityTest {
     private fun quote(v: Any?): WatchPhoneQuotes.Quote {
         val o = v.obj()
         return WatchPhoneQuotes.Quote(
-            o["symbol"] as String, o["price"].num()!!, o["change24h"].num(), o["exchange"] as String, o["time"].num()!!.toLong(),
+            o["symbol"] as String,
+            o["price"].num()!!,
+            o["change24h"].num(),
+            o["exchange"] as String,
+            o["time"].num()!!.toLong(),
         )
     }
 
@@ -46,8 +50,13 @@ class WatchLinkParityTest {
         "clear" -> WatchPortfolio.Message.Clear
         else -> v.obj().let { o ->
             WatchPortfolio.Message.Value(
-                WatchPortfolio(o["total"].num(), o["changePercent"].num(), o["currency"] as String, o["time"].num()!!.toLong(),
-                    o["hidden"] as Boolean)
+                WatchPortfolio(
+                    o["total"].num(),
+                    o["changePercent"].num(),
+                    o["currency"] as String,
+                    o["time"].num()!!.toLong(),
+                    o["hidden"] as Boolean
+                )
             )
         }
     }
@@ -83,8 +92,11 @@ class WatchLinkParityTest {
     @Test
     fun phoneSideDiffers() {
         for (c in data.getValue("phoneSideDiffers").list().map { it.obj() }) {
-            assertEquals(c["name"] as String, c["expected"] as Boolean,
-                WatchSettings.phoneSideDiffers(settings(c["phone"]), settings(c["watch"])))
+            assertEquals(
+                c["name"] as String,
+                c["expected"] as Boolean,
+                WatchSettings.phoneSideDiffers(settings(c["phone"]), settings(c["watch"]))
+            )
         }
     }
 
@@ -139,7 +151,12 @@ class WatchLinkParityTest {
         val phoneCoins = strings(s["phoneCoins"]).toSet()
         for (c in s.getValue("cases").list().map { it.obj() }) {
             val got = WatchPhoneQuotes.selfFetch(
-                strings(s["shown"]), times, phoneCoins, c["usePhone"] as Boolean, c["interval"].num()!!.toInt(), now,
+                strings(s["shown"]),
+                times,
+                phoneCoins,
+                c["usePhone"] as Boolean,
+                c["interval"].num()!!.toInt(),
+                now,
                 c["force"] as Boolean,
             )
             assertEquals(c["name"] as String, strings(c["expected"]), got)
@@ -160,7 +177,10 @@ class WatchLinkParityTest {
         }
         for (c in u.getValue("cases").list().map { it.obj() }) {
             val got = WatchPhoneQuotes.usePhone(
-                source(c["source"]), c["connected"] as Boolean, c["lastDelivery"].num()!!.toLong(), now,
+                source(c["source"]),
+                c["connected"] as Boolean,
+                c["lastDelivery"].num()!!.toLong(),
+                now,
                 c["interval"].num()!!.toInt(),
             )
             assertEquals(c["name"] as String, c["expected"] as Boolean, got)

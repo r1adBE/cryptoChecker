@@ -5,13 +5,13 @@
 package com.cryptochecker.app.notification
 
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.notification.AppNotifier.Companion.FNG_NOTIFICATION_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.INDICATOR_NOTIFICATION_BASE_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.TARGET_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Companion.activityNotificationId
+import com.cryptochecker.resources.R
 
 // ---------------- Ungewöhnliche Aktivität ----------------
 
@@ -68,7 +68,12 @@ fun AppNotifier.showFearGreed(value: Int, below: Int? = null, above: Int? = null
  * Eigene Grenze einer Bitcoin-Kennzahl erreicht ([com.cryptochecker.app.domain.exchange.IndicatorAlertKind]): Titel
  * «Mayer Multiple: 2.43×», Text «Über deiner Grenze 2.40× – Messwert, keine Empfehlung.» Eine Meldung je Art.
  */
-fun AppNotifier.showIndicatorAlert(kind: com.cryptochecker.app.domain.market.IndicatorAlertKind, name: String, value: String, threshold: String): Boolean {
+fun AppNotifier.showIndicatorAlert(
+    kind: com.cryptochecker.app.domain.market.IndicatorAlertKind,
+    name: String,
+    value: String,
+    threshold: String
+): Boolean {
     val quiet = isQuietNow()
     val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
         .setSmallIcon(R.drawable.ic_stat_logo)

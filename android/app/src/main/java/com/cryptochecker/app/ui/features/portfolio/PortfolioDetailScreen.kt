@@ -5,8 +5,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.ui.platform.testTag
-import com.cryptochecker.app.ui.UiTestTags
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,13 +14,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -37,7 +35,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,25 +45,25 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppFab
-import com.cryptochecker.app.ui.components.rememberFabScroll
+import com.cryptochecker.app.ui.components.AppSnackbarHost
+import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.SkeletonList
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.app.ui.components.rememberFabScroll
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
-import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen (oder TalkBack «Löschen») =
@@ -119,6 +119,7 @@ fun PortfolioDetailScreen(
     var sheet by rememberSaveable(stateSaver = TxDraftSaver) { mutableStateOf<TxDraft?>(null) }
 
     val haptics = rememberHaptics()
+
     // Erst nach der Rückfrage: löschen wie der Editor (ohne «Rückgängig»); Banner «entfernt» und Haptik erst nach dem
     // Ergebnis (wie iOS)
     fun deleteTx(tx: PortfolioTxEntity) {
@@ -152,8 +153,13 @@ fun PortfolioDetailScreen(
     var lotsFor by rememberSaveable { mutableStateOf<Long?>(null) }
     if (costGapsOpen) {
         PortfolioCostGapsSheet(
-            viewModel, all.orEmpty(), coin = symbol,
-            onEdit = { tx -> costGapsOpen = false; sheet = tx.toDraft() },
+            viewModel,
+            all.orEmpty(),
+            coin = symbol,
+            onEdit = { tx ->
+                costGapsOpen = false
+                sheet = tx.toDraft()
+            },
             onDismiss = { costGapsOpen = false },
         )
     }
@@ -179,7 +185,9 @@ fun PortfolioDetailScreen(
         snackbarHost = { AppSnackbarHost(banner.host) },
         floatingActionButton = {
             // «+» wählt den Coin schon vor
-            AppFab(onClick = { sheet = TxDraft(coin = symbol) }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
+            AppFab(onClick = {
+                sheet = TxDraft(coin = symbol)
+            }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
         }
     ) { padding ->
         val d = detail
@@ -199,12 +207,20 @@ fun PortfolioDetailScreen(
                     LazyColumn(
                         state = listState,
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = Spacing.fabClearance),
+                        contentPadding = PaddingValues(
+                            start = 16.dp + inset,
+                            top = 4.dp,
+                            end = 16.dp + inset,
+                            bottom = Spacing.fabClearance
+                        ),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         item(key = "summary") {
                             PositionCard(
-                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(), retarget = d.retarget,
+                                ledger.position,
+                                d.addressAmount,
+                                overlap = d.own.isNotEmpty(),
+                                retarget = d.retarget,
                                 onMissingCost = { costGapsOpen = true },
                                 onAddressCost = d.lotAddress?.let { a -> { lotsFor = a.id } },
                                 onRetarget = { r ->

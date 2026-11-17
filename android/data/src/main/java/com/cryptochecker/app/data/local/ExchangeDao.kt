@@ -52,16 +52,18 @@ abstract class ExchangeDao {
             insertExchange(ExchangeEntity(id = 0L, exchangeKey = exchangeKey, updateDate = exchangeData.lastSyncDate))
         }
 
-        insertExchangePairs(exchangeData.pairs.map { pair ->
-            ExchangePairEntity(
-                exchangeId = exchangeId,
-                baseAsset = pair.base,
-                quoteAsset = pair.quote,
-                contractType = pair.contractType,
-                exchangePairId = pair.pairId,
-                tradFi = pair.tradFi,
-            )
-        })
+        insertExchangePairs(
+            exchangeData.pairs.map { pair ->
+                ExchangePairEntity(
+                    exchangeId = exchangeId,
+                    baseAsset = pair.base,
+                    quoteAsset = pair.quote,
+                    contractType = pair.contractType,
+                    exchangePairId = pair.pairId,
+                    tradFi = pair.tradFi,
+                )
+            }
+        )
         return exchangeId
     }
 }

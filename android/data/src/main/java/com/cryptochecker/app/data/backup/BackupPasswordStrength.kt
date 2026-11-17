@@ -12,12 +12,23 @@ import java.util.Locale
 object BackupPasswordStrength {
     /** Häufige Folgen (klein geschrieben); kommt eine davon vor, ist das Passwort schwach. */
     private val COMMON = listOf(
-        "password", "passwort", "12345678", "87654321", "abcdefgh",
+        "password",
+        "passwort",
+        "12345678",
+        "87654321",
+        "abcdefgh",
     )
 
     /** Tastaturreihen (QWERTZ, QWERTY, AZERTY); 6 Zeichen in Folge (auch rückwärts) gelten als Tastatur-Spaziergang. */
     private val KEYBOARD_ROWS = listOf(
-        "qwertzuiop", "qwertyuiop", "azertyuiop", "asdfghjkl", "qsdfghjklm", "yxcvbnm", "zxcvbnm", "wxcvbn",
+        "qwertzuiop",
+        "qwertyuiop",
+        "azertyuiop",
+        "asdfghjkl",
+        "qsdfghjklm",
+        "yxcvbnm",
+        "zxcvbnm",
+        "wxcvbn",
     )
     private const val WALK = 6
 

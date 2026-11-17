@@ -3,6 +3,9 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.marketdata.util.EcbRates
+import java.io.IOException
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -16,9 +19,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Devisenkurse ([FxRateSource]) mit einem Interceptor als Anbieter: Referenzkurse der EZB zuerst (eine Abfrage für alle
@@ -41,14 +41,16 @@ class FxRateSourceTest {
             "</Cube></Cube></gesmes:Envelope>"
 
     private fun source(replies: Map<String, String>) = FxRateSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            hits[url] = (hits[url] ?: 0) + 1
-            val body = replies[url] ?: throw IOException("offline: $url")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
-                .body(body.toResponseBody("text/xml".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                hits[url] = (hits[url] ?: 0) + 1
+                val body = replies[url] ?: throw IOException("offline: $url")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
+                    .body(body.toResponseBody("text/xml".toMediaType())).build()
+            }
+        ).build(),
         ioDispatcher = Dispatchers.IO,
     )
 

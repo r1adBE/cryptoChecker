@@ -6,6 +6,9 @@ import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.portfolio.AddressRedirect
+import java.net.InetSocketAddress
+import java.net.Proxy
+import java.net.URI
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -16,9 +19,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.net.InetSocketAddress
-import java.net.Proxy
-import java.net.URI
 
 /**
  * Neutraler User-Agent der Adressabfragen (`testdata/parity/address_privacy.json`): gleicher Wert wie
@@ -95,7 +95,11 @@ class AddressPrivacyParityTest {
             val c = case as Map<*, *>
             val from = URI(c["from"] as String)
             val to = URI(c["to"] as String)
-            assertEquals("${c["from"]} → ${c["to"]}", c["follow"], AddressRedirect.allowed(from.scheme, from.host, to.scheme, to.host, from.port, to.port))
+            assertEquals(
+                "${c["from"]} → ${c["to"]}",
+                c["follow"],
+                AddressRedirect.allowed(from.scheme, from.host, to.scheme, to.host, from.port, to.port)
+            )
         }
     }
 

@@ -60,10 +60,14 @@ class JsonArray() {
     fun getLong(index: Int): Long = get(index).let { JsonCoerce.toLong(it) ?: throw JsonCoerce.typeMismatch(index, it, "long") }
     fun optLong(index: Int, fallback: Long = 0L): Long = JsonCoerce.toLong(opt(index)) ?: fallback
 
-    fun getString(index: Int): String = get(index).let { JsonCoerce.toStringValue(it) ?: throw JsonCoerce.typeMismatch(index, it, "String") }
+    fun getString(index: Int): String = get(index).let {
+        JsonCoerce.toStringValue(it) ?: throw JsonCoerce.typeMismatch(index, it, "String")
+    }
     fun optString(index: Int, fallback: String = ""): String = JsonCoerce.toStringValue(opt(index)) ?: fallback
 
-    fun getJSONObject(index: Int): JsonObject = get(index).let { it as? JsonObject ?: throw JsonCoerce.typeMismatch(index, it, "JSONObject") }
+    fun getJSONObject(index: Int): JsonObject = get(index).let {
+        it as? JsonObject ?: throw JsonCoerce.typeMismatch(index, it, "JSONObject")
+    }
     fun optJSONObject(index: Int): JsonObject? = opt(index) as? JsonObject
 
     fun getJSONArray(index: Int): JsonArray = get(index).let { it as? JsonArray ?: throw JsonCoerce.typeMismatch(index, it, "JSONArray") }

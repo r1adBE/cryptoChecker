@@ -70,8 +70,14 @@ class PortfolioWidgetViewsTest {
                 30 to PortfolioChange(50.0, 1.0),
             ),
         )
-        assertEquals(PortfolioChartRange.WEEK to listOf("ADA", "SOL"), PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.DAY), overview = true))
-        assertEquals(PortfolioChartRange.WEEK to listOf("ADA", "SOL"), PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.WEEK), overview = false))
+        assertEquals(
+            PortfolioChartRange.WEEK to listOf("ADA", "SOL"),
+            PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.DAY), overview = true)
+        )
+        assertEquals(
+            PortfolioChartRange.WEEK to listOf("ADA", "SOL"),
+            PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.WEEK), overview = false)
+        )
         // 30 T ohne fehlende Coins, 24 h ohne Tages-Zahl, Zeitraum ohne Betrag: kein Hinweis
         assertEquals(null, PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.MONTH), overview = false))
         assertEquals(null, PortfolioWidgetViews.periodSkipped(s, plan(PortfolioChartRange.DAY), overview = false))
@@ -153,7 +159,9 @@ class PortfolioWidgetViewsTest {
         assertFalse(figures[2].incomplete)
         // Andere Währung eingestellt (umgerechnet beim Zeichnen): Werte der alten Währung gelten nicht
         val rebased = PortfolioWidgetChart.rebased(
-            snapshot(unrealizedDisplay = PortfolioChange(-80.0, -8.5), weekDisplay = PortfolioChange(95.0, 2.1)), "EUR", 0.95,
+            snapshot(unrealizedDisplay = PortfolioChange(-80.0, -8.5), weekDisplay = PortfolioChange(95.0, 2.1)),
+            "EUR",
+            0.95,
         )
         assertNull(rebased.unrealizedDisplay)
         assertNull(rebased.weekDisplay)
@@ -163,8 +171,10 @@ class PortfolioWidgetViewsTest {
     fun figuresInUsdtDisplayKeepUsdtValues() {
         val s = PortfolioWidgetChart.inUsdt(
             snapshot(
-                periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0)), unrealized = PortfolioChange(-50.0, -5.0),
-                unrealizedDisplay = PortfolioChange(-80.0, -8.5), weekDisplay = PortfolioChange(95.0, 2.1),
+                periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0)),
+                unrealized = PortfolioChange(-50.0, -5.0),
+                unrealizedDisplay = PortfolioChange(-80.0, -8.5),
+                weekDisplay = PortfolioChange(95.0, 2.1),
             ),
         )
         val figures = PortfolioWidgetViews.figures(s)
@@ -198,7 +208,13 @@ class PortfolioWidgetViewsTest {
         assertFalse(tight.footer)
         assertFalse(tight.wide)
         // Dazu Kennzahlen und Fusszeile, aber kein ≈ USDT
-        val mid = PortfolioWidgetViews.overviewLayout(150, (base + change + figures + footer + 1).toInt(), fs, hasChange = true, wantUsdt = true)
+        val mid = PortfolioWidgetViews.overviewLayout(
+            150,
+            (base + change + figures + footer + 1).toInt(),
+            fs,
+            hasChange = true,
+            wantUsdt = true
+        )
         assertTrue(mid.figures)
         assertTrue(mid.footer)
         assertFalse(mid.usdt)
@@ -265,7 +281,13 @@ class PortfolioWidgetViewsTest {
         val fs = 1f
         val base = 24f + PortfolioWidgetMath.headerHeightDp(fs) + PortfolioWidgetViews.LIST_GAP_DP
         // Platz für Kopf und Total-Fusszeile, aber für keine Zeile: keine Zeilen, alle als «weitere»
-        val tight = PortfolioWidgetViews.listLayout(positions, 0, 320, (base + PortfolioWidgetViews.listTotalHeightDp(fs, wide = true) + 2f).toInt(), fs)
+        val tight = PortfolioWidgetViews.listLayout(
+            positions,
+            0,
+            320,
+            (base + PortfolioWidgetViews.listTotalHeightDp(fs, wide = true) + 2f).toInt(),
+            fs
+        )
         assertTrue(tight.shown.isEmpty())
         assertEquals(8, tight.more)
         // Noch kleiner (Total passt nicht ganz): weiterhin keine Zeilen, nie negativ
@@ -314,7 +336,15 @@ class PortfolioWidgetViewsTest {
         val pnl = PortfolioWidgetViews.rowPnl(p)!!
         assertEquals(1, pnl.direction)
         val texts = PortfolioWidgetViews.pnlTexts(pnl, "CHF", hideAmounts = false, locale = java.util.Locale.US)
-        assertEquals(listOf("+1,250.00 CHF · +1.52%", "+1,250.00 CHF"), texts.map { it.filter { c -> c.code >= 32 && c !in "\u200E\u200F\u2066\u2067\u2068\u2069" } })
+        assertEquals(
+            listOf("+1,250.00 CHF · +1.52%", "+1,250.00 CHF"),
+            texts.map {
+                it.filter { c ->
+                    c.code >= 32 &&
+                        c !in "\u200E\u200F\u2066\u2067\u2068\u2069"
+                }
+            }
+        )
         // Beträge verborgen: Betrag «•••», Prozent bleibt
         val hidden = PortfolioWidgetViews.pnlTexts(pnl, "CHF", hideAmounts = true, locale = java.util.Locale.US)
         assertEquals("•••", hidden.last())
@@ -324,7 +354,10 @@ class PortfolioWidgetViewsTest {
         assertNull(PortfolioWidgetViews.rowPnl(p.copy(pnlAmount = null)))
         assertNull(PortfolioWidgetViews.rowPnl(p.copy(pnlAmount = Double.NaN)))
         // Ohne Prozent nur der Betrag
-        assertEquals(1, PortfolioWidgetViews.pnlTexts(PortfolioWidgetViews.rowPnl(p.copy(pnlPercent = null))!!, "CHF", false, java.util.Locale.US).size)
+        assertEquals(
+            1,
+            PortfolioWidgetViews.pnlTexts(PortfolioWidgetViews.rowPnl(p.copy(pnlPercent = null))!!, "CHF", false, java.util.Locale.US).size
+        )
     }
 
     @Test

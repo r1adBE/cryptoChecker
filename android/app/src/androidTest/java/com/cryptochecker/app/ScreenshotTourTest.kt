@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import android.net.Uri
 import android.util.Log
 import androidx.compose.ui.test.hasClickAction
@@ -9,20 +8,25 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.data.backup.BackupManager
 import com.cryptochecker.app.data.CoinListSync
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.backup.BackupManager
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.File
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
+import org.json.JSONArray
+import org.json.JSONObject
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
@@ -30,10 +34,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runners.model.Statement
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.File
-import javax.inject.Inject
 
 /**
  * Bildschirmfotos aller Hauptseiten, hell und dunkel — für den Workflow «Screenshots», der sie auf den Zweig
@@ -52,7 +52,7 @@ import javax.inject.Inject
  * Jedes Bild ist ein eigener Schritt, der von einer frisch gestarteten Activity ausgeht ([TourNavigator.toWatchlist]
  * bzw. [TourNavigator.toSettings]) — kein Schritt hängt davon ab, wie der vorige endete. Der erste Schritt, der
  * scheitert, beendet die Tour: Die Meldung nennt das Bild, die gesehene Seite, die sichtbaren Kennungen und den
- * Zustand von Activity und Bildschirm. Bedienung in [TourNavigator] (`ScreenshotTourSteps.kt`).
+ * Zustand von Activity und Bildschirm. Bedienung in [TourNavigator] (`TourNavigator.kt`).
  *
  * Die Bilder schreibt `screencap` als Shell-Benutzer nach [OUTPUT_ROOT]`/<light|dark>/NN_name.png` — dort bleiben sie
  * nach dem Deinstallieren der App durch Gradle liegen, der Workflow holt sie mit `adb pull`. Keine Berechtigung nötig.
@@ -371,7 +371,10 @@ class ScreenshotTourTest {
         val size = AppTestEnvironmentRule.shell("stat -c %s $file").trim().toLongOrNull() ?: 0L
         assertTrue("Bildschirmfoto $name fehlt oder ist leer ($file)", size > 0)
         if (checkForeground) {
-            runCatching { nav.requireForeground() }.onFailure { AppTestEnvironmentRule.shell("rm -f $file"); throw it }
+            runCatching { nav.requireForeground() }.onFailure {
+                AppTestEnvironmentRule.shell("rm -f $file")
+                throw it
+            }
         }
     }
 
@@ -384,13 +387,17 @@ class ScreenshotTourTest {
     private companion object {
         /** Argument des Test-Runners, das die Tour einschaltet. */
         const val ARGUMENT = "screenshotTour"
+
         /** Ablage auf dem Gerät (Shell-Benutzer), bleibt nach dem Deinstallieren; der Workflow holt sie ab. */
         const val OUTPUT_ROOT = "/data/local/tmp/cc-screenshots"
         const val TAG = "ScreenshotTour"
+
         /** Paarlisten aller Börsen laden (die meisten antworten 404) bzw. Kurse holen. */
         const val LIST_TIMEOUT = 60_000L
+
         /** Ausblenden von Blättern, Nachladen von Kursen und Logos vor dem Foto. */
         const val SETTLE_MILLIS = 1_200L
+
         /** Demo-Sicherung der Store-Bilder: Asset des Test-APK (`docs/store/screenshots`, build.gradle.kts). */
         const val DEMO_FILE = "demo-backup.json"
 

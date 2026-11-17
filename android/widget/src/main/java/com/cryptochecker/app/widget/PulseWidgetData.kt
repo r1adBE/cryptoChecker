@@ -8,13 +8,13 @@ import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.PulseInput
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Daten des Widgets «Was gerade auffällt» (wie iOS `PulseWidgetData`): der Zwischenspeicher des Markt-Tabs

@@ -22,11 +22,11 @@ import com.cryptochecker.app.ui.features.portfolio.AddressLotEditor
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Posten einer Adresse: «Löschen» fragt erst nach («Posten löschen?»), und Eingaben
@@ -91,7 +91,9 @@ class AddressLotEditorDeviceTest {
         compose.waitForIdle()
         compose.onAllNodes(hasText(text(R.string.address_lots_delete_title))).assertCountEquals(1)
         assertEquals("ohne Bestätigung nichts gelöscht", 0, deleted)
-        compose.onNode(hasText(text(R.string.action_cancel)) and hasAnyAncestor(hasAnyDescendant(hasText(text(R.string.address_lots_delete_title)))))
+        compose.onNode(
+            hasText(text(R.string.action_cancel)) and hasAnyAncestor(hasAnyDescendant(hasText(text(R.string.address_lots_delete_title))))
+        )
             .performClick()
         compose.waitForIdle()
         compose.onAllNodes(hasText(text(R.string.address_lots_delete_title))).assertCountEquals(0)

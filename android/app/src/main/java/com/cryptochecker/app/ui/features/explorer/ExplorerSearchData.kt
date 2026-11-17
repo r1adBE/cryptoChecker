@@ -2,9 +2,9 @@ package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Worin die Suche über alle Börsen sucht (nur gespeicherte Listen) und was dafür gerade läuft: Paarlisten je Börse,

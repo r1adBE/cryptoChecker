@@ -15,8 +15,14 @@ buildscript {
         // (Liste und Gründe im Versionskatalog, Abschnitt «buildtool»)
         constraints {
             listOf(
-                libs.buildtool.bcprov, libs.buildtool.bcpkix, libs.buildtool.bcutil, libs.buildtool.guava,
-                libs.buildtool.jose4j, libs.buildtool.jdom2, libs.buildtool.commons.lang3, libs.buildtool.freemarker,
+                libs.buildtool.bcprov,
+                libs.buildtool.bcpkix,
+                libs.buildtool.bcutil,
+                libs.buildtool.guava,
+                libs.buildtool.jose4j,
+                libs.buildtool.jdom2,
+                libs.buildtool.commons.lang3,
+                libs.buildtool.freemarker,
             ).forEach { classpath(it) }
         }
     }

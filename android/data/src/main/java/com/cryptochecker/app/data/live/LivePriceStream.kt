@@ -1,7 +1,9 @@
 package com.cryptochecker.app.data.live
 
-import com.cryptochecker.app.domain.PairIdentity
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.PairIdentity
 import com.cryptochecker.app.domain.live.LiveBackoff
 import com.cryptochecker.app.domain.live.LiveBuffer
 import com.cryptochecker.app.domain.live.LiveCoverage
@@ -13,11 +15,11 @@ import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.AppVisibility
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -37,8 +39,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.WebSocket
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Live-Kurse per WebSocket für die SICHTBARE Merkliste, nur solange die App im
@@ -282,8 +282,11 @@ class LivePriceStream @Inject constructor(
         val saved = try {
             // Mit dem abonnierten Paar je Id: ohne Zuordnung (sollte nicht vorkommen) wird verworfen
             val pairs = keys.filterKeys { it in batch }
-            if (final) livePriceApplier.applyLiveFinal(batch, redrawWidgets = redraw, pairs = pairs)
-            else livePriceApplier.applyLive(batch, redrawWidgets = redraw, pairs = pairs)
+            if (final) {
+                livePriceApplier.applyLiveFinal(batch, redrawWidgets = redraw, pairs = pairs)
+            } else {
+                livePriceApplier.applyLive(batch, redrawWidgets = redraw, pairs = pairs)
+            }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

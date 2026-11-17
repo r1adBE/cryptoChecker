@@ -7,8 +7,8 @@ package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.backup.BackupRestorePolicy
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.clearAlarmSnoozes
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.features.portfolio.UriExportTarget
@@ -59,7 +59,10 @@ private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri, withPass
         return
     }
     // Mit Portfolio-Daten nie ohne Passwort (das Formular erzwingt es schon; hier nochmals vor dem Schreiben)
-    val allowed = PortfolioLockPolicy.backupExportAllowed(hasPassword = request.password != null, hasPortfolioData = backupHasPortfolioData())
+    val allowed = PortfolioLockPolicy.backupExportAllowed(
+        hasPassword = request.password != null,
+        hasPortfolioData = backupHasPortfolioData()
+    )
     // Gescheitert: «Die Sicherung konnte nicht gespeichert werden» — nicht die Frage nach der Datei, die erst entstehen sollte
     val message = if (!allowed) {
         BackupMessage.SaveFailed
@@ -95,8 +98,11 @@ private suspend fun SettingsViewModel.readPicked(uri: android.net.Uri) {
         return
     }
     _restoreStep.value = try {
-        if (backupManager.needsPassword(uri)) RestoreStep.Password(uri)
-        else RestoreStep.Confirm(uri, null, backupManager.preview(uri, null))
+        if (backupManager.needsPassword(uri)) {
+            RestoreStep.Password(uri)
+        } else {
+            RestoreStep.Confirm(uri, null, backupManager.preview(uri, null))
+        }
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -174,8 +180,14 @@ private suspend fun SettingsViewModel.replaceFromBackup(uri: android.net.Uri, pa
                 // warteten sonst bis zur nächsten Hintergrund-Aktualisierung (bis 15 Min. und mehr)
                 if (result.watches > 0) scheduler.refreshNow()
                 BackupMessage.Restored(
-                    result.watches, result.alarms, result.appLockKept, result.droppedPairs, result.droppedAlarms,
-                    result.addressServerNote, result.addressServerHost, result.lowered,
+                    result.watches,
+                    result.alarms,
+                    result.appLockKept,
+                    result.droppedPairs,
+                    result.droppedAlarms,
+                    result.addressServerNote,
+                    result.addressServerHost,
+                    result.lowered,
                 )
             },
             onFailure = { BackupMessage.failure(it) }
@@ -241,6 +253,7 @@ sealed interface RestoreStep {
     ) : RestoreStep {
         /** Ungültige Einträge: Wiederherstellen lässt sie nur mit dieser bestätigten Anzahl weg (`acceptInvalid`). */
         val invalid: Int get() = preview.invalid
+
         /** Sicherung ohne Passwort: keine Echtheitsprüfung — die Rückfrage warnt davor. */
         val unencrypted: Boolean get() = password == null
     }
@@ -248,6 +261,7 @@ sealed interface RestoreStep {
 
 sealed interface BackupMessage {
     data object Exported : BackupMessage
+
     /**
      * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
      * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen.
@@ -265,27 +279,37 @@ sealed interface BackupMessage {
         val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
     ) : BackupMessage
     data object Failed : BackupMessage
+
     /** Sichern gescheitert (Datei nicht geschrieben: Speicher voll, Ablage-Anbieter streikt) — eigener kurzer Text. */
     data object SaveFailed : BackupMessage
+
     /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.backup.BackupLimits]). */
     data object TooLarge : BackupMessage
+
     /** Zu schreibende Sicherung über 64 MB ([com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException]): nicht geschrieben. */
     data object ExportTooLarge : BackupMessage
+
     /** Sicherung einer neueren App-Version ([com.cryptochecker.app.data.backup.BackupVersion]): nichts übernommen. */
     data object NewerVersion : BackupMessage
+
     /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.backup.BackupNotVerifiedException]): neue Datei wählen. */
     data object NotVerified : BackupMessage
+
     /**
      * Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.backup.BackupCrypto.NotEnoughMemoryException]) oder
      * zum Lesen bzw. Schreiben einer grossen Sicherung ([OutOfMemoryError]).
      */
     data object NotEnoughMemory : BackupMessage
+
     /** Gespeicherter Stand gerade nicht lesbar ([com.cryptochecker.app.data.backup.BackupStorageKeptException]): nach Neustart. */
     data object StorageKept : BackupMessage
+
     /** Einspielen in eine Datenbank nur im Arbeitsspeicher ([com.cryptochecker.app.data.backup.BackupStorageInMemoryException]). */
     data object StorageInMemory : BackupMessage
+
     /** Journal nicht geschrieben ([com.cryptochecker.app.data.backup.BackupJournalUnavailableException]): nichts ersetzt, später erneut. */
     data object JournalUnavailable : BackupMessage
+
     /** Speicher beim Einspielen nicht beschreibbar ([com.cryptochecker.app.data.backup.BackupRestoreStorageException]): unverändert. */
     data object StorageUnavailable : BackupMessage
 

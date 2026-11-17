@@ -5,10 +5,10 @@ import com.cryptochecker.app.data.DexTokenAddressStore
 import com.cryptochecker.app.data.ExchangeRankingStore
 import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.StarterCoinsRepository
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
 
 /** Was ein DEX-Pool aus der Suche beim Übernehmen hinterlegt. Ohne eigenen Zustand. */
 class ExplorerDexStores @Inject constructor(

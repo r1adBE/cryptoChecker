@@ -43,7 +43,10 @@ class WatchSparklines @Inject constructor(
         } else {
             null
         }
-        return com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(watch.exchangeKey, watch.exchangeName), chartProvider)
+        return com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
+            listOf(watch.exchangeKey, watch.exchangeName),
+            chartProvider
+        )
     }
 
     /**
@@ -66,7 +69,9 @@ class WatchSparklines @Inject constructor(
         if (!com.cryptochecker.app.data.remote.candles.OwnCandlePolicy.allowsFallback(pair)) return null
         if (!fallbackSeriesAllowed(watch, sparklineRepository.sparklineProvider(watch.baseAsset))) return null
         return SheetChart.sparklineFor(
-            sparklineRepository.cached(watch.baseAsset), watch.lastPrice, currencyConverter.cachedRate(watch.conversionQuote, USD),
+            sparklineRepository.cached(watch.baseAsset),
+            watch.lastPrice,
+            currencyConverter.cachedRate(watch.conversionQuote, USD),
             currencyConverter.liveUsdtUsd(),
         )
     }

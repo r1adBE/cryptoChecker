@@ -1,18 +1,21 @@
 package com.cryptochecker.app.data.remote.candles
 
-import com.cryptochecker.app.domain.BoundedCache
-import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callExchange
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.PostRequest
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext
@@ -23,9 +26,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Pausen nach «zu viele Anfragen» (429/418 oder Fehlertext in der Antwort) je Host der eigenen
@@ -105,7 +105,10 @@ class OwnCandleDataSource @Inject constructor(
     fun invalidateAll() = cache.clear()
 
     private suspend fun fetch(
-        source: ExchangeCandleSource, pair: CandlePair, interval: CandleInterval, limit: Int,
+        source: ExchangeCandleSource,
+        pair: CandlePair,
+        interval: CandleInterval,
+        limit: Int,
     ): Load {
         // Gescheitert mit Fehler-Antwort bzw. Pause ([answered]) oder ganz ohne Antwort ([silent])
         var answered = false

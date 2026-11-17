@@ -4,27 +4,44 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.settings.AssetScope
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.scoped
-import com.cryptochecker.app.ui.features.watchlist.groupsOf
-import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.marketdata.model.exchange.DexPool
 import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.ui.features.watchlist.groupsOf
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.exchange.DexPool
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 
 /**
  * Zustand der Seite «Paar hinzufügen»: Coin-Suche (Coin zuerst, dann seine Paare über alle Börsen), Markt-Chips,
@@ -90,6 +107,7 @@ class ExplorerViewModel @Inject constructor(
     /** Suche über alle Börsen (nur gespeicherte Listen): Paarlisten, Namensverzeichnis und laufende Arbeit ([ExplorerSearchData]). */
     internal val searchData = ExplorerSearchData()
     internal val query = MutableStateFlow("")
+
     /** Treffer der Suche und der gewählte Coin ([ExplorerSearchHits]). */
     internal val hits = ExplorerSearchHits()
 
@@ -153,7 +171,6 @@ class ExplorerViewModel @Inject constructor(
     /** Markt-Chip über Börsen und Treffern ([setMarketFilter]); «Alle» zu Beginn. */
     val marketFilter: StateFlow<MarketFilter> = hits.market.asStateFlow()
 
-
     /** «Zuletzt genutzte Börsen» (Schlüssel, neueste zuerst), nur auf dem Gerät. */
     val recentExchanges: StateFlow<List<String>> = recentSearchStore.exchanges
 
@@ -168,7 +185,9 @@ class ExplorerViewModel @Inject constructor(
 
     /** Schon beobachtete Paare (Schlüssel: [watchKey]) für das Häkchen bei den Treffern. */
     val watchedKeys: StateFlow<Set<String>> = watchRepository.observeWatches()
-        .map { watches -> watches.mapTo(LinkedHashSet<String>()) { watchKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name) } }
+        .map { watches ->
+            watches.mapTo(LinkedHashSet<String>()) { watchKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name) }
+        }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptySet())
 
@@ -212,8 +231,11 @@ class ExplorerViewModel @Inject constructor(
             selected?.let {
                 val info = exchangeRepository.getExchangeCurrencyPairsInfo(it, withAlpha = true)
                     .scoped(scope, it.key, hidden, tokenIdentityStore.exchangeNames(it.key), alphaNames)
-                if (market != MarketFilter.FOREX || !ForexLive.isLive(it.key)) info
-                else info.copy(pairs = info.pairs.filter { p -> !p.tradFi && ForexLive.isFiatPair(p.base, p.quote) })
+                if (market != MarketFilter.FOREX || !ForexLive.isLive(it.key)) {
+                    info
+                } else {
+                    info.copy(pairs = info.pairs.filter { p -> !p.tradFi && ForexLive.isFiatPair(p.base, p.quote) })
+                }
             }
         }
         .flowOn(defaultDispatcher)
@@ -240,18 +262,24 @@ class ExplorerViewModel @Inject constructor(
 
     internal val contracts: StateFlow<List<FuturesContractType>> =
         combine(pairList, coin, quote) { info, base, counter ->
-            if (info == null || base == null || counter == null) emptyList()
-            else info.getAvailableFuturesContractsTypes(base, counter)
+            if (info == null || base == null || counter == null) {
+                emptyList()
+            } else {
+                info.getAvailableFuturesContractsTypes(base, counter)
+            }
         }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /** Das vollständig gewählte Paar (ohne Kontrakt = Spot), sonst null. */
     internal val selectedPair: StateFlow<ExchangePair?> =
         combine(pairList, coin, quote, contract) { info, base, counter, type ->
-            if (info == null || base == null || counter == null) null
-            else info.getExchangePair(base, counter, type ?: FuturesContractType.NONE)
+            if (info == null || base == null || counter == null) {
+                null
+            } else {
+                info.getExchangePair(base, counter, type ?: FuturesContractType.NONE)
+            }
         }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     val httpLogText: StateFlow<String> = httpLog.text
 

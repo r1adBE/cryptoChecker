@@ -9,7 +9,11 @@ import com.cryptochecker.marketdata.model.ExchangeCategory
 
 /** Markt-Chip über den Börsen und Treffern; [ALL] = alles (Standard), [FOREX] = Devisen (Referenzkurse, live: [ForexLive]). */
 enum class MarketFilter {
-    ALL, SPOT, FUTURES, DEX, FOREX;
+    ALL,
+    SPOT,
+    FUTURES,
+    DEX,
+    FOREX;
 
     /** Zeigt dieser Chip Börsen der Art [category]? */
     fun allows(category: ExchangeCategory): Boolean = when (this) {

@@ -80,9 +80,7 @@ class DatabaseOpenPlanner(
          * Früheren Schlüssel [id] wieder zum gespeicherten machen; der bisher gespeicherte bleibt als «ersetzt» daneben
          * (er gehört zur beiseitegelegten neuen Datei).
          */
-        fun promote(database: String, id: String) {
-            throw UnsupportedOperationException("promote")
-        }
+        fun promote(database: String, id: String): Unit = throw UnsupportedOperationException("promote")
 
         /** Als «ersetzt» behaltene Schlüssel löschen — nur, wenn keine ersetzte Datei mehr auf einen wartet; Fehler werfen. */
         fun discardReplaced(database: String) {}
@@ -115,22 +113,16 @@ class DatabaseOpenPlanner(
          * neuem Namen erhalten (gelöscht erst nach Frist, [pruneReplaced]). Scheitert das zweite Umbenennen, kommt die
          * bisherige zurück.
          */
-        fun restoreAside(database: String, copy: String) {
-            throw UnsupportedOperationException("restoreAside")
-        }
+        fun restoreAside(database: String, copy: String): Unit = throw UnsupportedOperationException("restoreAside")
 
         /** Beiseitegelegte Kopie [copy] samt Nebendateien löschen (nur über [pruneAside], nie die aktuelle Datei). */
-        fun deleteAside(database: String, copy: String) {
-            throw UnsupportedOperationException("deleteAside")
-        }
+        fun deleteAside(database: String, copy: String): Unit = throw UnsupportedOperationException("deleteAside")
 
         /** Von [restoreAside] ersetzte, inzwischen neu begonnene Dateien (`<db>.replaced…`), neueste zuerst. */
         fun replacedCopies(database: String): List<String> = emptyList()
 
         /** Ersetzte Datei [copy] samt Nebendateien löschen (nur über [pruneReplaced]). */
-        fun deleteReplaced(database: String, copy: String) {
-            throw UnsupportedOperationException("deleteReplaced")
-        }
+        fun deleteReplaced(database: String, copy: String): Unit = throw UnsupportedOperationException("deleteReplaced")
 
         /** Liegt für [database] eine wiederhergestellte, unverschlüsselte Kopie der Systemsicherung bereit? */
         fun hasRestoredCopy(database: String): Boolean = false
@@ -140,9 +132,7 @@ class DatabaseOpenPlanner(
          * Zeilen und Prüfsumme je Tabelle), dann die Kopie löschen. Wirft bei jedem Fehler; die Kopie bleibt dann, eine
          * Datei entsteht nicht.
          */
-        fun encryptRestoredCopy(database: String, passphrase: ByteArray) {
-            throw UnsupportedOperationException("encryptRestoredCopy")
-        }
+        fun encryptRestoredCopy(database: String, passphrase: ByteArray): Unit = throw UnsupportedOperationException("encryptRestoredCopy")
     }
 
     sealed interface Decision {

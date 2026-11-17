@@ -21,8 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.notification.AlarmTestResult
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.launch
 
 /**
@@ -95,6 +95,8 @@ fun rememberAlarmTest(run: suspend () -> AlarmTestResult, showMessage: ((String)
             // Gefragt: die Erklärung vor der Abfrage ([NotificationPrePrompt]) erscheint danach nicht mehr
             NotificationPrePrompt.markSystemAsked(context)
             launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else execute()
+        } else {
+            execute()
+        }
     }
 }

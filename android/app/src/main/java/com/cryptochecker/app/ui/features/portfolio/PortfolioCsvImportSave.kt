@@ -6,7 +6,6 @@ package com.cryptochecker.app.ui.features.portfolio
 import com.cryptochecker.app.data.portfolio.CsvImportWritten
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -21,6 +20,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.fallbacks
 import com.cryptochecker.app.domain.portfolio.csvimport.withFallbacks
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import timber.log.Timber
 
 /** Ergebnis von [saveCsvImport]. */

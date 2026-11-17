@@ -32,12 +32,16 @@ class PortfolioAlarmCreateGuardTest {
         val release = CompletableDeferred<Unit>()
         var inserts = 0
         // Wie addAlarm: jeder Tipp «Speichern» startet über den Wächter (angelegt wird immer neu)
-        repeat(2) { guard.launch(this, guarded = true) { release.await(); inserts++ } }
+        repeat(2) {
+            guard.launch(this, guarded = true) {
+                release.await()
+                inserts++
+            }
+        }
         release.complete(Unit)
         while (guard.busy) kotlinx.coroutines.yield()
         assertEquals(1, inserts)
     }
-
 }
 
 // ---- aus PortfolioEmptyStateTest
@@ -75,7 +79,6 @@ class PortfolioEmptyStateTest {
             assertFalse("$folder: doppelter Absatz", strings.containsKey("portfolio_empty_text"))
         }
     }
-
 }
 
 // ---- aus PortfolioTxDraftSaverTest

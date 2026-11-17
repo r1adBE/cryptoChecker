@@ -164,7 +164,15 @@ class ExchangeBackoffTest {
 
     @Test
     fun binanceHostsAndExchangesShareOneGroup() {
-        for (key in listOf("api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com", "www.binance.com", "Binance", "BinanceFutures")) {
+        for (key in listOf(
+            "api.binance.com",
+            "data-api.binance.vision",
+            "fapi.binance.com",
+            "dapi.binance.com",
+            "www.binance.com",
+            "Binance",
+            "BinanceFutures"
+        )) {
             assertEquals(key, ExchangeBackoff.BINANCE_GROUP, ExchangeBackoff.sharedGroup(key))
         }
         // Binance.US ist eine eigene Börse; andere Hosts ohne gemeinsame Pause
@@ -217,13 +225,19 @@ class ExchangeBackoffTest {
     fun tickerBanAndRetryAfterMatchCandles() {
         // 418 beim Ticker: mindestens 2 Min. wie bei Kerzen (groupPause), nicht 30 s
         assertEquals(now + 120_000L, ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, banned = true)!!.pausedUntil)
-        assertEquals(ExchangeBackoff.groupPause(null, now, 418, null).pausedUntil,
-            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, banned = true, shared = true)!!.pausedUntil)
+        assertEquals(
+            ExchangeBackoff.groupPause(null, now, 418, null).pausedUntil,
+            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, banned = true, shared = true)!!.pausedUntil
+        )
         // Gemeinsame Gruppe (Binance): Retry-After bis 6 h wie bei Kerzen
-        assertEquals(now + 3_600_000L,
-            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, 3_600_000L, shared = true)!!.pausedUntil)
-        assertEquals(ExchangeBackoff.groupPause(null, now, 429, 3_600L).pausedUntil,
-            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, 3_600_000L, shared = true)!!.pausedUntil)
+        assertEquals(
+            now + 3_600_000L,
+            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, 3_600_000L, shared = true)!!.pausedUntil
+        )
+        assertEquals(
+            ExchangeBackoff.groupPause(null, now, 429, 3_600L).pausedUntil,
+            ExchangeBackoff.next(null, Outcome.RATE_LIMITED, now, 3_600_000L, shared = true)!!.pausedUntil
+        )
         // Laufende längere Pause wird nie verkürzt
         val running = ExchangeBackoff.State(1, now + 600_000L, RefreshFailure.RATE_LIMIT, 0)
         assertEquals(now + 600_000L, ExchangeBackoff.next(running, Outcome.RATE_LIMITED, now)!!.pausedUntil)

@@ -7,7 +7,6 @@ import java.time.ZoneId
 // Jahresübersicht je Steuer-Vorlage ([TaxExport.yearSummary]): Posten, Freigrenzen, Orientierung. Modell in
 // TaxSummaryModel.kt, Texte in TaxSummaryTexts.kt, Teile (Summen, FR-Abgänge) in TaxExportSummaryHelpers.kt.
 
-
 /**
  * Jahresübersicht der Vorlage [template] für das Steuerjahr ab [startYear] — ORIENTIERUNG, KEINE STEUERBERATUNG.
  * Aus den Zeilen ([gainRows] nach [method], in [currency] mit [rates]; null = keine Kurse) und den Einkünften:
@@ -60,9 +59,7 @@ fun TaxExport.yearSummary(
     yearEndAddresses: AddressCutoffView? = null,
     /** Veräusserungen aller Jahre aus [TaxExport.allDisposals] (für [gainRows]); null = dort rechnen. */
     disposals: List<PortfolioDisposal>? = null,
-): TaxYearSummary {
-    return TaxYearSummaryBuilder(
-        trades, template, method, startYear, zone, currency, rates, priceAt, walletFrom, usdtUsd, today, yearEndCloses,
-        yearEndAddresses, disposals,
-    ).build()
-}
+): TaxYearSummary = TaxYearSummaryBuilder(
+    trades, template, method, startYear, zone, currency, rates, priceAt, walletFrom, usdtUsd, today, yearEndCloses,
+    yearEndAddresses, disposals,
+).build()

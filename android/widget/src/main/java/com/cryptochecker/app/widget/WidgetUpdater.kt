@@ -1,19 +1,19 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.PortfolioDrawState
-import com.cryptochecker.app.domain.widget.WidgetFreshness
-import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import android.content.Context
 import android.os.PowerManager
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.widget.PortfolioDrawState
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -97,7 +97,11 @@ class WidgetUpdater @Inject constructor(
                     .forEach { addAll(WidgetFreshness.outdatedTimes(it, WidgetOutdated.afterMillis(settings))) }
             }
             // Portfolio aus bzw. gesperrt: zeigt keinen Stand, also kein Wecker dafür
-            if (hasPortfolio && settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(settings.appLock)) portfolioSnapshotStore.snapshot()?.let { add(it.time) }
+            if (hasPortfolio && settings.portfolioEnabled &&
+                !PortfolioLockPolicy.widgetLocked(settings.appLock)
+            ) {
+                portfolioSnapshotStore.snapshot()?.let { add(it.time) }
+            }
         }
         WidgetOutdated.schedule(context, times, WidgetOutdated.afterMillis(settings))
     }
@@ -179,7 +183,12 @@ class WidgetUpdater @Inject constructor(
             // inzwischen gelöscht: alle Listen, damit es überall verschwindet
             listWidgets.update(listIds) { watches ->
                 WidgetRefreshScope.listsShowing(
-                    listIds, watchId, watches, { it.id }, { it.groupName }, widgetPrefs::getGroup,
+                    listIds,
+                    watchId,
+                    watches,
+                    { it.id },
+                    { it.groupName },
+                    widgetPrefs::getGroup,
                 )
             }?.let { scheduleOutdatedCheck(it.watches) }
         }

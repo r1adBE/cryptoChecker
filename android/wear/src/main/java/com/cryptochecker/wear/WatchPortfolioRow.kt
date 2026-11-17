@@ -86,11 +86,18 @@ internal fun PortfolioRow(p: WatchPortfolio, now: Long, interval: Int) {
             .padding(ChipDefaults.ContentPadding)
             .clearAndSetSemantics { contentDescription = spoken },
     ) {
-        Text(stringResource(R.string.watch_portfolio), maxLines = 1, style = MaterialTheme.typography.caption2,
-            color = MaterialTheme.colors.onSurfaceVariant)
+        Text(
+            stringResource(R.string.watch_portfolio),
+            maxLines = 1,
+            style = MaterialTheme.typography.caption2,
+            color = MaterialTheme.colors.onSurfaceVariant
+        )
         // Zu eng: Schrift schrumpft bis 60 % statt Ziffern abzuschneiden (wie iOS minimumScaleFactor)
-        FitText(WatchPortfolioText.total(p), style = MaterialTheme.typography.button,
-            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface)
+        FitText(
+            WatchPortfolioText.total(p),
+            style = MaterialTheme.typography.button,
+            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface
+        )
         Text(detail, maxLines = 1, style = MaterialTheme.typography.caption2, color = MaterialTheme.colors.onSurface)
     }
 }

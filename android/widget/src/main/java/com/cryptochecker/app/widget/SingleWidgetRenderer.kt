@@ -1,48 +1,48 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.LatestPerWidget
-import com.cryptochecker.app.domain.widget.WidgetFreshness
-import com.cryptochecker.app.domain.widget.WidgetStatusRule
-import com.cryptochecker.app.domain.widget.WidgetTextFit
-import com.cryptochecker.app.domain.widget.WidgetType
-import androidx.core.net.toUri
-import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.domain.BoundedCache
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
+import androidx.core.net.toUri
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.TimedPrice
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
+import com.cryptochecker.app.domain.widget.LatestPerWidget
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
-import com.cryptochecker.app.util.AppIntents
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.util.AppIntents
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Einzel-Widget: ein Paar mit Kurs, Veränderung und Chart (Kerzen oder Linie; 24 h / 7 / 30 Tage).
@@ -131,7 +131,16 @@ class SingleWidgetRenderer @Inject constructor(
             }
             // Noch ohne Paar (z. B. aus der App hinzugefügt, Einrichten nicht geöffnet): Tippen öffnet das Einrichten;
             // sonst das Paar in der Merkliste mit seinem Aktionsblatt (wie eine Zeile des Listen-Widgets, iOS `widgetURL`)
-            views.setOnClickPendingIntent(R.id.single_root, if (watch == null) configureSingle(appWidgetId) else openPair(appWidgetId, watch.id))
+            views.setOnClickPendingIntent(
+                R.id.single_root,
+                if (watch ==
+                    null
+                ) {
+                    configureSingle(appWidgetId)
+                } else {
+                    openPair(appWidgetId, watch.id)
+                }
+            )
 
             if (watch == null) {
                 views.setTextViewText(R.id.single_pair, context.getString(R.string.single_widget_choose))
@@ -223,8 +232,11 @@ class SingleWidgetRenderer @Inject constructor(
 
                 val chartType = widgetPrefs.getChartType(appWidgetId)
                 // Nur Kerzen desselben Tokens (Kurs des Paars ±25 %), sonst kein Chart
-                val sourced = if (watch.isNotTraded || off) null
-                else chartCandles(watch, range, fetch)
+                val sourced = if (watch.isNotTraded || off) {
+                    null
+                } else {
+                    chartCandles(watch, range, fetch)
+                }
                 val candles = sourced?.value
                 val chartProvider = sourced?.provider
                 // Screenreader: Verlauf als Satz (Zeitraum, Start, Ende, Änderung, Hoch, Tief);
@@ -248,11 +260,15 @@ class SingleWidgetRenderer @Inject constructor(
                     }
                 }
                 // Kerzen einer anderen Börse (Ausweich-Kette): in der Börsen-Zeile nennen, «Kraken · Chart: Binance»
-                val foreignChart = if (chartBitmap == null) null
-                else com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
-                    listOf(watch.exchangeKey, watch.exchangeName), chartProvider,
-                )
-                    ?.let { context.getString(R.string.watch_row_source_chart, BidiText.isolate(it)) }
+                val foreignChart = if (chartBitmap == null) {
+                    null
+                } else {
+                    com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
+                        listOf(watch.exchangeKey, watch.exchangeName),
+                        chartProvider,
+                    )
+                        ?.let { context.getString(R.string.watch_row_source_chart, BidiText.isolate(it)) }
+                }
                 if (foreignChart != null) {
                     views.setTextViewText(R.id.single_exchange, watch.exchangeName + " · " + foreignChart)
                 }
@@ -285,8 +301,11 @@ class SingleWidgetRenderer @Inject constructor(
                         extras = listOf(
                             chartDescription,
                             foreignChart,
-                            if (offline || outdated || unchangedSince != null) null
-                            else PriceFormat.time(WidgetFreshness.priceTime(watch, now, outdatedAfter)).takeIf { it != "—" },
+                            if (offline || outdated || unchangedSince != null) {
+                                null
+                            } else {
+                                PriceFormat.time(WidgetFreshness.priceTime(watch, now, outdatedAfter)).takeIf { it != "—" }
+                            },
                         ),
                     )
                 )
@@ -357,20 +376,7 @@ class SingleWidgetRenderer @Inject constructor(
         appWidgetIds.forEach { chartBitmaps.remove(it) }
     }
 
-    /**
-     * «↘ −0.30% 24h»: Wert in der Farbe der Zeile, [period] dahinter verkleinert ([PERIOD_SCALE]) und
-     * grau [grey] — der Zeitraum ist nie rot/grün. Ohne Zeitraum nur der Wert.
-     */
-    private fun periodSuffixed(value: String, period: String, grey: Int): CharSequence {
-        if (period.isEmpty()) return value
-        val text = "$value $period"
-        return android.text.SpannableString(text).apply {
-            setSpan(android.text.style.RelativeSizeSpan(PERIOD_SCALE), value.length, text.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            setSpan(android.text.style.ForegroundColorSpan(grey), value.length, text.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-    }
-
-    private companion object {
+    internal companion object {
         /** Zeitraum hinter der Veränderung: 80 % der Schrift (wie iOS `WidgetChangeLabel.suffix`). */
         const val PERIOD_SCALE = 0.8f
 
@@ -378,11 +384,3 @@ class SingleWidgetRenderer @Inject constructor(
         const val ACTION_OPEN_SINGLE_WIDGET = "com.cryptochecker.app.action.OPEN_FROM_SINGLE_WIDGET"
     }
 }
-
-/** Paar eines Eintrags als Text für das Einzel-Widget ([WidgetPrefs.chosenWatch]). */
-fun widgetPairText(watch: com.cryptochecker.app.domain.model.WatchEntity): String =
-    com.cryptochecker.app.domain.watch.WatchIdentity.text(
-        com.cryptochecker.app.domain.watch.WatchIdentity.key(
-            watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
-        ),
-    )

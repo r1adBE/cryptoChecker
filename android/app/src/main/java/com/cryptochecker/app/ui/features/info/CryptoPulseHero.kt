@@ -26,13 +26,14 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PulseDetail
 import com.cryptochecker.app.domain.market.PulseFunding
 import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.PillTone
 import com.cryptochecker.app.ui.components.TonePill
@@ -43,9 +44,8 @@ import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.format.CompactAmount
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Leitsatz aus [CryptoPulse.leadSentence]: ein oder zwei ganze Sätze. */
 @Composable

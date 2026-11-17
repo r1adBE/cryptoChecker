@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.activity.FundingTrend
@@ -27,14 +26,15 @@ import com.cryptochecker.app.domain.activity.WhyHeadline
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.activity.WhySourceItem
 import com.cryptochecker.app.domain.activity.WhySourceRole
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import kotlin.math.roundToInt
 
 /**

@@ -29,7 +29,11 @@ class WooLastTradeTest {
     @Test
     fun lastTradeReplacesTheCandleCloseAndKeepsTheOpening() {
         // Nach den Kerzen: Kurs 80 000, +10 % → Eröffnung 72 727,27
-        val ticker = MutableTicker().apply { last = 80_000.0; change24hPercent = 10.0; exchangeTime = 1_792_533_600_000 }
+        val ticker = MutableTicker().apply {
+            last = 80_000.0
+            change24hPercent = 10.0
+            exchangeTime = 1_792_533_600_000
+        }
         exchange.readTicker(1, REAL_TRADES, ticker, info)
         assertEquals(83_081.96, ticker.last, 0.0)
         assertEquals(1_792_534_030_272L, ticker.exchangeTime)
@@ -41,7 +45,10 @@ class WooLastTradeTest {
     @Test
     fun unreadableTradeTimeKeepsTheCandleTime() {
         for (raw in listOf("inf", "1e300")) {
-            val ticker = MutableTicker().apply { last = 80_000.0; exchangeTime = 1_792_533_600_000 }
+            val ticker = MutableTicker().apply {
+                last = 80_000.0
+                exchangeTime = 1_792_533_600_000
+            }
             exchange.readTicker(1, """{"success":true,"rows":[{"executed_price":83081.96,"executed_timestamp":"$raw"}]}""", ticker, info)
             assertEquals(raw, 83_081.96, ticker.last, 0.0)
             assertEquals(raw, 1_792_533_600_000L, ticker.exchangeTime)
@@ -50,7 +57,10 @@ class WooLastTradeTest {
 
     @Test
     fun emptyTradesLeaveTheCandlePrice() {
-        val ticker = MutableTicker().apply { last = 80_000.0; change24hPercent = 10.0 }
+        val ticker = MutableTicker().apply {
+            last = 80_000.0
+            change24hPercent = 10.0
+        }
         assertThrows(Exception::class.java) { exchange.readTicker(1, """{"success":true,"rows":[]}""", ticker, info) }
         assertEquals(80_000.0, ticker.last, 0.0)
         assertEquals(10.0, ticker.change24hPercent!!, 0.0)
@@ -94,6 +104,7 @@ class WooLastTradeTest {
         const val HOUR = 60 * MINUTE
         const val START = 1_792_530_000_000L
         const val NO_TRADES = """{"success":true,"rows":[]}"""
-        const val REAL_TRADES = """{"success":true,"rows":[{"symbol":"SPOT_BTC_USDT","side":"SELL","executed_price":83081.96,"executed_quantity":0.174010,"executed_timestamp":"1792534030.272","source":0,"rpi":false}]}"""
+        const val REAL_TRADES = """{"success":true,"rows":[{"symbol":"SPOT_BTC_USDT","side":"SELL","executed_price":83081.96,""" +
+            """"executed_quantity":0.174010,"executed_timestamp":"1792534030.272","source":0,"rpi":false}]}"""
     }
 }

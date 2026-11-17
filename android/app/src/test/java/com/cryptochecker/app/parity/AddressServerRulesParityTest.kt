@@ -4,11 +4,11 @@ import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Regeln zum eigenen Bitcoin-Server (`testdata/parity/address_server_ui.json`): Eingabe kürzen, Pausen-Schlüssel,
@@ -54,7 +54,14 @@ class AddressServerRulesParityTest {
     fun rueckfrageVorOeffentlichenKnoten() {
         for (c in cases("confirmPublic")) {
             // «chains» statt «btcCount»: Zahl aus der Liste (null = nicht lesbar → fragen)
-            val count = if (c.containsKey("btcCount")) c["btcCount"].num()!!.toInt() else AddressServerRules.btcCount(addresses(c["chains"]))
+            val count = if (c.containsKey(
+                    "btcCount"
+                )
+            ) {
+                c["btcCount"].num()!!.toInt()
+            } else {
+                AddressServerRules.btcCount(addresses(c["chains"]))
+            }
             val ask = AddressServerRules.confirmPublicSwitch(c["current"] as String?, c["next"] as String?, count)
             assertEquals("$c", c["ask"], ask)
         }
@@ -71,7 +78,16 @@ class AddressServerRulesParityTest {
     @Test
     fun keinStandardwertFuerBitcoinServer() {
         val path = "src/main/java/com/cryptochecker/app/data/portfolio/WatchedAddressSource.kt"
-        val text = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
+        val text = listOf(
+            File(path),
+            File("app/$path"),
+            File("../data/$path"),
+            File("data/$path"),
+            File("../domain/$path"),
+            File("domain/$path")
+        ).first {
+            it.exists()
+        }.readText()
         assertFalse(text.contains("btcServer: String? = null"))
     }
 

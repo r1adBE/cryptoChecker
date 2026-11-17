@@ -1,29 +1,29 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.PairEditResult
-import com.cryptochecker.app.domain.WatchMove
-import com.cryptochecker.app.domain.WatchSnapshot
-import com.cryptochecker.app.domain.watch.WatchFilter
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.data.refresh.AlarmLogStore
+import com.cryptochecker.app.domain.PairEditResult
+import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.WatchSnapshot
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.data.refresh.AlarmLogStore
-import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.domain.watch.WatchEdit
+import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.marketdata.model.ExchangePair
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /** Zugriff auf Watchlist und Alarme; Schreibwege des Nutzers fragen zuerst [userWriteRefused] (Sperre der Merkliste). */
 @Singleton
@@ -31,10 +31,10 @@ class WatchRepository @Inject constructor(
     val database: AppDatabase,
     val watchDao: WatchDao,
     /** Alarm-Protokoll: letzte Prüfungen gelöschter Paare entfernen ([forgetDeletedAlarms]). */
-    private val alarmLogStore: AlarmLogStore,
+    internal val alarmLogStore: AlarmLogStore,
     /** Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
-    private val deliveryMarkers: AlarmDeliveryMarkers,
-    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    internal val deliveryMarkers: AlarmDeliveryMarkers,
+    @param:IoDispatcher internal val ioDispatcher: CoroutineDispatcher,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
 
@@ -64,46 +64,56 @@ class WatchRepository @Inject constructor(
      * ([userWriteRefused]): [PairEditResult.LOCKED].
      */
     suspend fun changePair(id: Long, exchange: ExchangeInfo, pair: ExchangePair): PairEditResult =
-        if (userWriteRefused()) PairEditResult.LOCKED else guardedWrite(PairEditResult.LOCKED) { database.withTransaction {
-            val watch = watchDao.getWatch(id)
-            if (watch == null) {
-                PairEditResult.MISSING
-            } else {
-                val current = WatchEdit.Key.of(
-                    watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
-                )
-                val target = WatchEdit.Key.of(exchange.key, pair.base, pair.quote, pair.contractType.name, pair.pairId)
-                val existing =
-                    watchDao.findWatchId(target.exchangeKey, target.base, target.quote, target.contract, target.pool)
-                when (WatchEdit.decide(id, current, target, existing)) {
-                    WatchEdit.Outcome.UNCHANGED -> PairEditResult.UNCHANGED
-                    WatchEdit.Outcome.DUPLICATE -> PairEditResult.DUPLICATE
-                    WatchEdit.Outcome.CHANGED -> {
-                        watchDao.updateWatch(
-                            watch.copy(
-                                exchangeKey = exchange.key,
-                                exchangeName = exchange.name,
-                                baseAsset = pair.base,
-                                quoteAsset = pair.quote,
-                                contractType = pair.contractType,
-                                pairId = pair.pairId,
-                                lastPrice = null,
-                                previousPrice = null,
-                                lastUpdate = 0,
-                                notifiedPrice = null,
-                                notifiedAt = 0,
-                                lastError = null,
-                                change24h = null,
-                                priceChangedAt = 0,
-                                exchangeTime = null,
-                            )
+        if (userWriteRefused()) {
+            PairEditResult.LOCKED
+        } else {
+            guardedWrite(PairEditResult.LOCKED) {
+                database.withTransaction {
+                    val watch = watchDao.getWatch(id)
+                    if (watch == null) {
+                        PairEditResult.MISSING
+                    } else {
+                        val current = WatchEdit.Key.of(
+                            watch.exchangeKey,
+                            watch.baseAsset,
+                            watch.quoteAsset,
+                            watch.contractType.name,
+                            watch.pairId,
                         )
-                        watchDao.resetPriceReferences(id)
-                        PairEditResult.SAVED
+                        val target = WatchEdit.Key.of(exchange.key, pair.base, pair.quote, pair.contractType.name, pair.pairId)
+                        val existing =
+                            watchDao.findWatchId(target.exchangeKey, target.base, target.quote, target.contract, target.pool)
+                        when (WatchEdit.decide(id, current, target, existing)) {
+                            WatchEdit.Outcome.UNCHANGED -> PairEditResult.UNCHANGED
+                            WatchEdit.Outcome.DUPLICATE -> PairEditResult.DUPLICATE
+                            WatchEdit.Outcome.CHANGED -> {
+                                watchDao.updateWatch(
+                                    watch.copy(
+                                        exchangeKey = exchange.key,
+                                        exchangeName = exchange.name,
+                                        baseAsset = pair.base,
+                                        quoteAsset = pair.quote,
+                                        contractType = pair.contractType,
+                                        pairId = pair.pairId,
+                                        lastPrice = null,
+                                        previousPrice = null,
+                                        lastUpdate = 0,
+                                        notifiedPrice = null,
+                                        notifiedAt = 0,
+                                        lastError = null,
+                                        change24h = null,
+                                        priceChangedAt = 0,
+                                        exchangeTime = null,
+                                    )
+                                )
+                                watchDao.resetPriceReferences(id)
+                                PairEditResult.SAVED
+                            }
+                        }
                     }
                 }
             }
-        } }
+        }
 
     /** Nach dem ersten Kurs des bearbeiteten Paars: Prozentalarme messen ab diesem Kurs. */
     suspend fun setMissingPercentReferences(watchId: Long, price: Double) {
@@ -130,20 +140,6 @@ class WatchRepository @Inject constructor(
         }
     }
 
-    /**
-     * Nach dem Löschen von Paaren (Alarme per Fremdschlüssel weg): deren letzte Prüfungen aus dem Alarm-Protokoll
-     * entfernen — sonst wüchse der Stand, den jeder Durchlauf versiegelt schreibt, mit jedem gelöschten
-     * Paar. Versiegeltes Schreiben nicht auf dem Hauptfaden.
-     */
-    private suspend fun forgetDeletedAlarms() {
-        val ids = watchDao.getAlarmIds().toHashSet()
-        withContext(ioDispatcher) {
-            alarmLogStore.retainAlarms(ids)
-            // Nicht bei Kopie im Speicher — der nächste Prozess bringt die Alarme der Datei zurück
-            if (AlarmDeliveryMarkers.prunable()) deliveryMarkers.retain(ids)
-        }
-    }
-
     /** Paar mit allen Alarmen festhalten (vor dem Löschen); null, wenn es das Paar nicht gibt. */
     suspend fun snapshot(id: Long): WatchSnapshot? = database.withTransaction {
         watchDao.getWatch(id)?.let { WatchSnapshot(it, watchDao.getAlarms(id)) }
@@ -164,13 +160,19 @@ class WatchRepository @Inject constructor(
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung zeigen/entfernen). */
     suspend fun setNotificationEnabled(id: Long, enabled: Boolean): Boolean {
         if (userWriteRefused()) return false
-        return guardedWrite(false) { watchDao.setNotificationEnabled(id, enabled); true }
+        return guardedWrite(false) {
+            watchDao.setNotificationEnabled(id, enabled)
+            true
+        }
     }
 
     /** true = geschrieben, false = abgelehnt (wie [setDisabled]): dann keine Rückmeldung (Banner, Haptik). */
     suspend fun setFavorite(id: Long, favorite: Boolean): Boolean {
         if (userWriteRefused()) return false
-        return guardedWrite(false) { watchDao.setFavorite(id, favorite); true }
+        return guardedWrite(false) {
+            watchDao.setFavorite(id, favorite)
+            true
+        }
     }
 
     /**
@@ -188,7 +190,7 @@ class WatchRepository @Inject constructor(
         isAlpha: (WatchEntity) -> Boolean = { false },
     ) {
         if (userWriteRefused()) return
-        val all = watchDao.getWatches()                     // schon in Anzeige-Reihenfolge
+        val all = watchDao.getWatches() // schon in Anzeige-Reihenfolge
         val watch = all.firstOrNull { it.id == id } ?: return
         val section = all.filter {
             it.favorite == watch.favorite && WatchFilter.matches(group, it.groupName, it.favorite, isAlpha(it))
@@ -254,7 +256,10 @@ class WatchRepository @Inject constructor(
      */
     suspend fun setGroup(id: Long, groupName: String?): Boolean {
         if (userWriteRefused()) return false
-        return guardedWrite(false) { watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX)); true }
+        return guardedWrite(false) {
+            watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
+            true
+        }
     }
 
     /**
@@ -283,7 +288,10 @@ class WatchRepository @Inject constructor(
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Sprachausgabe umstellen). */
     suspend fun setTtsEnabled(id: Long, enabled: Boolean): Boolean {
         if (userWriteRefused()) return false
-        return guardedWrite(false) { watchDao.setTtsEnabled(id, enabled); true }
+        return guardedWrite(false) {
+            watchDao.setTtsEnabled(id, enabled)
+            true
+        }
     }
 
     /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben. In Blöcken ([SQL_ID_CHUNK]). */
@@ -342,7 +350,13 @@ class WatchRepository @Inject constructor(
     /** true = gelöscht; false = abgelehnt (dann keine Folgeaktionen wie Mitteilung/Protokoll entfernen). */
     suspend fun deleteAlarm(id: Long): Boolean {
         if (userWriteRefused()) return false
-        if (!guardedWrite(false) { watchDao.deleteAlarm(id); true }) return false
+        if (!guardedWrite(false) {
+                watchDao.deleteAlarm(id)
+                true
+            }
+        ) {
+            return false
+        }
         // Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); nicht bei
         // Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
         if (AlarmDeliveryMarkers.prunable()) withContext(ioDispatcher) { deliveryMarkers.remove(listOf(id)) }

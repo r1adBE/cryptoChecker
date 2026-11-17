@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.util.DomainLog
 import com.cryptochecker.app.domain.util.appScope
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.domain.util.DomainLog
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Charts der Einzel-Widgets nachladen. Unter der Refresh-Sperre ([RefreshLock]) zeichnen Aktualisierung und

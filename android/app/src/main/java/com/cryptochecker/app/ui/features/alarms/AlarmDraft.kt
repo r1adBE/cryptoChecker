@@ -4,12 +4,12 @@
 // (wie `AlarmDraft.swift`).
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import java.math.BigDecimal
 import java.math.MathContext
@@ -76,16 +76,22 @@ data class AlarmDraft(
      * Funding mit Vorzeichen (auch 0), siehe [DerivativesAlarm.parseFunding].
      */
     val threshold: Double?
-        get() = if (condition.isNearExtreme && newExtremeOnly) NearExtreme.NEW_ONLY_DISTANCE
-        else if (condition.isFunding) DerivativesAlarm.parseFunding(thresholdText, decimalSeparator)
-        else if (exceedsFall || exceedsLimit) null
-        else if (condition.isOpenInterest) ThresholdParser.parse(thresholdText, decimalSeparator)
-            ?.takeIf { DerivativesAlarm.isValidThreshold(condition, it) }
-        else ThresholdParser.parse(
-            thresholdText,
-            decimalSeparator,
-            priceHint.takeIf { condition.isPriceThreshold },
-        )
+        get() = if (condition.isNearExtreme && newExtremeOnly) {
+            NearExtreme.NEW_ONLY_DISTANCE
+        } else if (condition.isFunding) {
+            DerivativesAlarm.parseFunding(thresholdText, decimalSeparator)
+        } else if (exceedsFall || exceedsLimit) {
+            null
+        } else if (condition.isOpenInterest) {
+            ThresholdParser.parse(thresholdText, decimalSeparator)
+                ?.takeIf { DerivativesAlarm.isValidThreshold(condition, it) }
+        } else {
+            ThresholdParser.parse(
+                thresholdText,
+                decimalSeparator,
+                priceHint.takeIf { condition.isPriceThreshold },
+            )
+        }
 
     /** Fallender Prozent-Alarm mit gültiger Zahl ab [MAX_FALL_PERCENT] (auch genau 100)? */
     private val exceedsFall: Boolean
@@ -198,43 +204,50 @@ data class AlarmDraft(
         return copy(thresholdText = text, suggestedText = text)
     }
 
-    private fun switchCondition(newCondition: AlarmCondition): AlarmDraft {
-        return when {
-            // Funding: Schwelle in % mit Vorzeichen (Vorschlag 0,05 %)
-            newCondition.isFunding -> copy(
-                condition = newCondition,
-                thresholdText = if (condition.isFunding) thresholdText
-                else formatThreshold(DerivativesAlarm.DEFAULT_FUNDING_PERCENT, decimalSeparator),
-                windowHours = if (condition.isNearExtreme) DEFAULT_WINDOW_HOURS else windowHours,
-            )
-            // Open Interest: Veränderung in % (Vorschlag 10 %), Fenster 1, 4 oder 24 Stunden
-            newCondition.isOpenInterest -> copy(
-                condition = newCondition,
-                thresholdText = if (condition.isOpenInterest) thresholdText
-                else formatThreshold(DerivativesAlarm.DEFAULT_OI_PERCENT, decimalSeparator),
-                windowHours = DerivativesAlarm.oiWindowHours(
-                    if (condition.isNearExtreme) DerivativesAlarm.DEFAULT_OI_WINDOW_HOURS else windowHours
-                ),
-            )
-            newCondition == AlarmCondition.VOLUME_SPIKE ->
-                copy(condition = newCondition, thresholdText = formatFactor(DEFAULT_VOLUME_FACTOR))
-            // Nahe am Hoch/Tief: Abstand in % (Standard 2 %), Zeitraum in Tagen (Standard 30)
-            newCondition.isNearExtreme -> copy(
-                condition = newCondition,
-                thresholdText = if (condition.isPercent || condition.isNearExtreme) thresholdText
-                else formatFactor(NearExtreme.DEFAULT_DISTANCE_PERCENT),
-                windowHours = if (condition.isNearExtreme) windowHours else NearExtreme.DEFAULT_WINDOW_DAYS,
-            )
-            condition.isNearExtreme -> copy(
-                condition = newCondition,
-                thresholdText = if (newCondition.isPercent) thresholdText else "",
-                windowHours = DEFAULT_WINDOW_HOURS,
-            )
-            condition == AlarmCondition.VOLUME_SPIKE -> copy(condition = newCondition, thresholdText = "")
-            // Funding/Open Interest zurück auf eine andere Bedingung: deren Wert passt nicht
-            condition.isDerivatives -> copy(condition = newCondition, thresholdText = "")
-            else -> copy(condition = newCondition)
-        }
+    private fun switchCondition(newCondition: AlarmCondition): AlarmDraft = when {
+        // Funding: Schwelle in % mit Vorzeichen (Vorschlag 0,05 %)
+        newCondition.isFunding -> copy(
+            condition = newCondition,
+            thresholdText = if (condition.isFunding) {
+                thresholdText
+            } else {
+                formatThreshold(DerivativesAlarm.DEFAULT_FUNDING_PERCENT, decimalSeparator)
+            },
+            windowHours = if (condition.isNearExtreme) DEFAULT_WINDOW_HOURS else windowHours,
+        )
+        // Open Interest: Veränderung in % (Vorschlag 10 %), Fenster 1, 4 oder 24 Stunden
+        newCondition.isOpenInterest -> copy(
+            condition = newCondition,
+            thresholdText = if (condition.isOpenInterest) {
+                thresholdText
+            } else {
+                formatThreshold(DerivativesAlarm.DEFAULT_OI_PERCENT, decimalSeparator)
+            },
+            windowHours = DerivativesAlarm.oiWindowHours(
+                if (condition.isNearExtreme) DerivativesAlarm.DEFAULT_OI_WINDOW_HOURS else windowHours
+            ),
+        )
+        newCondition == AlarmCondition.VOLUME_SPIKE ->
+            copy(condition = newCondition, thresholdText = formatFactor(DEFAULT_VOLUME_FACTOR))
+        // Nahe am Hoch/Tief: Abstand in % (Standard 2 %), Zeitraum in Tagen (Standard 30)
+        newCondition.isNearExtreme -> copy(
+            condition = newCondition,
+            thresholdText = if (condition.isPercent || condition.isNearExtreme) {
+                thresholdText
+            } else {
+                formatFactor(NearExtreme.DEFAULT_DISTANCE_PERCENT)
+            },
+            windowHours = if (condition.isNearExtreme) windowHours else NearExtreme.DEFAULT_WINDOW_DAYS,
+        )
+        condition.isNearExtreme -> copy(
+            condition = newCondition,
+            thresholdText = if (newCondition.isPercent) thresholdText else "",
+            windowHours = DEFAULT_WINDOW_HOURS,
+        )
+        condition == AlarmCondition.VOLUME_SPIKE -> copy(condition = newCondition, thresholdText = "")
+        // Funding/Open Interest zurück auf eine andere Bedingung: deren Wert passt nicht
+        condition.isDerivatives -> copy(condition = newCondition, thresholdText = "")
+        else -> copy(condition = newCondition)
     }
 
     /** Funding: Vorzeichen der Eingabe wechseln («0,01» ↔ «-0,01»), da Zifferntastaturen oft kein Minus haben. */
@@ -334,9 +347,11 @@ data class AlarmDraft(
             condition = alarm.condition,
             // Nur neue Hochs/Tiefs: Abstand 0 → Schalter an, Feld mit dem Standardabstand
             newExtremeOnly = alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold),
-            thresholdText = if (alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold))
+            thresholdText = if (alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold)) {
                 formatFactor(NearExtreme.DEFAULT_DISTANCE_PERCENT)
-            else formatThreshold(alarm.threshold),
+            } else {
+                formatThreshold(alarm.threshold)
+            },
             repeating = alarm.repeating,
             sound = alarm.sound,
             vibrate = alarm.vibrate,

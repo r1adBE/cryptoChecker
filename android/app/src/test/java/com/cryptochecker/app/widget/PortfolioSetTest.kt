@@ -40,8 +40,11 @@ class PortfolioRefreshGateTest {
     @Test
     fun recordOnlyWithTheCurrentLedger() {
         fun tx(id: Long, amount: String = "1") = com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
-            id = id, coin = "BTC", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
-            amount = java.math.BigDecimal(amount), time = id,
+            id = id,
+            coin = "BTC",
+            type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
+            amount = java.math.BigDecimal(amount),
+            time = id,
         )
         val stored = listOf(tx(2), tx(1))
         // Gleiche Transaktionen, andere Reihenfolge, dazu ein Adress-Eintrag (negative Id): gilt
@@ -93,7 +96,9 @@ class PortfolioSnapshotCodecTest {
         assertTrue(PortfolioSnapshotCodec.readCoinPnl(null).isEmpty())
         assertTrue(PortfolioSnapshotCodec.readCoinPnl("kaputt").isEmpty())
         // Nicht endliche Beträge werden nicht gespeichert
-        assertTrue(PortfolioSnapshotCodec.readCoinPnl(PortfolioSnapshotCodec.coinPnlJson(mapOf("X" to PortfolioChange(Double.NaN, 1.0)))).isEmpty())
+        assertTrue(
+            PortfolioSnapshotCodec.readCoinPnl(PortfolioSnapshotCodec.coinPnlJson(mapOf("X" to PortfolioChange(Double.NaN, 1.0)))).isEmpty()
+        )
     }
 
     /** «Seit Kauf»/«7 T» in der Anzeigewährung samt Merkzettel überstehen einen Neustart; fehlen sie, lädt sie ohne. */
@@ -107,7 +112,13 @@ class PortfolioSnapshotCodecTest {
         assertNull(PortfolioSnapshotCodec.displayChangeJson(PortfolioChange(Double.NaN, 1.0)))
         assertNull(PortfolioSnapshotCodec.readDisplayChange(null))
         assertNull(PortfolioSnapshotCodec.readDisplayChange("kaputt"))
-        val fx = PortfolioDisplayFx("CHF", mapOf("BTC" to PortfolioDisplayCost(20_000.0, 18_000.0)), mapOf(20_193L to 0.8, 20_199L to 0.81), 20_200L)
+        val fx =
+            PortfolioDisplayFx(
+                "CHF",
+                mapOf("BTC" to PortfolioDisplayCost(20_000.0, 18_000.0)),
+                mapOf(20_193L to 0.8, 20_199L to 0.81),
+                20_200L
+            )
         assertEquals(fx, PortfolioSnapshotCodec.readDisplayFx(PortfolioSnapshotCodec.displayFxJson(fx)))
         assertNull(PortfolioSnapshotCodec.readDisplayFx(null))
         assertNull(PortfolioSnapshotCodec.readDisplayFx("kaputt"))

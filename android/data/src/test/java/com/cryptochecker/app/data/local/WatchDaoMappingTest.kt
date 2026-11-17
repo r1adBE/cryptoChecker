@@ -7,14 +7,14 @@ import com.cryptochecker.app.data.local.model.toRow
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import java.lang.invoke.MethodHandles
+import java.lang.reflect.Proxy
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.lang.invoke.MethodHandles
-import java.lang.reflect.Proxy
 
 /**
  * [WatchDao] bildet an der Grenze zu Room ab: Die Funktionen für die Fachmodelle rufen die gleichnamigen
@@ -28,7 +28,12 @@ class WatchDaoMappingTest {
         lastPrice = 99_800.0, favorite = true, note = "Notiz", priceChangedAt = 5,
     )
     private val alarm = AlarmEntity(
-        id = 9, watchId = 7, condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0, windowHours = 4, currency = "CHF",
+        id = 9,
+        watchId = 7,
+        condition = AlarmCondition.PRICE_ABOVE,
+        threshold = 100_000.0,
+        windowHours = 4,
+        currency = "CHF",
     )
 
     /** Aufrufe der Room-Seite: Name → Argumente (ohne die Fortsetzung der suspend-Funktionen). */
@@ -97,8 +102,10 @@ class WatchDaoMappingTest {
         dao.updateAlarm(alarm)
         assertEquals(
             listOf<Pair<String, List<Any?>>>(
-                "insertWatchRow" to listOf(watch.toRow()), "updateWatchRow" to listOf(watch.toRow()),
-                "insertAlarmRow" to listOf(alarm.toRow()), "updateAlarmRow" to listOf(alarm.toRow()),
+                "insertWatchRow" to listOf(watch.toRow()),
+                "updateWatchRow" to listOf(watch.toRow()),
+                "insertAlarmRow" to listOf(alarm.toRow()),
+                "updateAlarmRow" to listOf(alarm.toRow()),
             ),
             calls,
         )

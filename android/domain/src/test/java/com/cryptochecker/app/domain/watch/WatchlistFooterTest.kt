@@ -34,8 +34,11 @@ class WatchlistFooterTest {
             val total = c["total"].num()!!.toInt()
             val selecting = c["selecting"] as Boolean
             val max = c["max"].num()?.toInt()
-            val actual = if (max == null) WatchlistFooter.of(shown, total, selecting)
-            else WatchlistFooter.of(shown, total, selecting, max)
+            val actual = if (max == null) {
+                WatchlistFooter.of(shown, total, selecting)
+            } else {
+                WatchlistFooter.of(shown, total, selecting, max)
+            }
             val expected = c["expected"]
             if (expected == null) {
                 assertNull(name, actual)

@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.components
 
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -24,9 +23,10 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddButtonScroll
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Der eine «+»-Knopf unten rechts (Portfolio, Coin-Seite, Alarme): immer gefüllt in der

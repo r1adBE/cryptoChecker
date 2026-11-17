@@ -1,13 +1,13 @@
 package com.cryptochecker.wear
 
-import android.content.ComponentName
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
 import android.os.Build
-import androidx.core.app.ActivityCompat
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.app.ActivityCompat
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import kotlinx.coroutines.flow.MutableStateFlow
 

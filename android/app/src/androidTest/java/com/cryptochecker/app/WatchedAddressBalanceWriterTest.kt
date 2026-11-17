@@ -62,8 +62,11 @@ class WatchedAddressBalanceWriterTest {
         WatchedAddressSource.Update(snapshot.id, time, fetched, error, snapshot.countTokens, snapshot.networks)
 
     private fun evm(lastAttempt: Long, networks: List<String>?, countTokens: Boolean = true) = WatchedAddress(
-        chain = AddressChain.ETH, address = "0x0000000000000000000000000000000000000001",
-        lastAttempt = lastAttempt, networks = networks, countTokens = countTokens,
+        chain = AddressChain.ETH,
+        address = "0x0000000000000000000000000000000000000001",
+        lastAttempt = lastAttempt,
+        networks = networks,
+        countTokens = countTokens,
     )
 
     @Test

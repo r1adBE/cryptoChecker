@@ -122,8 +122,10 @@ object BackgroundErrors {
             }
         }
         if (merged.isEmpty()) return null
-        val areas = merged.entries.sortedWith(compareByDescending<Map.Entry<String, Map<String, Int>>> { it.value.values.sum() }
-            .thenBy { it.key })
+        val areas = merged.entries.sortedWith(
+            compareByDescending<Map.Entry<String, Map<String, Int>>> { it.value.values.sum() }
+                .thenBy { it.key }
+        )
         return "Background error kinds: " + areas.joinToString("; ") { (code, kinds) ->
             code + " " + kinds.entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
                 .joinToString(", ") { "${it.key} ${it.value}" }

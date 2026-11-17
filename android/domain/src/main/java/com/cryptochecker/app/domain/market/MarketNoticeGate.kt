@@ -38,8 +38,13 @@ object MarketNoticeGate {
      * Die unveränderte andere Grenze bewertet weiter mit [last] (keine Doppelmeldung).
      */
     fun fearGreed(
-        value: Int, last: Int?, below: Int, above: Int, canNotify: Boolean,
-        belowChanged: Boolean = false, aboveChanged: Boolean = false,
+        value: Int,
+        last: Int?,
+        below: Int,
+        above: Int,
+        canNotify: Boolean,
+        belowChanged: Boolean = false,
+        aboveChanged: Boolean = false,
     ): FearGreedStep {
         val kind = when {
             below > 0 && value <= below && (last == null || belowChanged || last > below) -> FearGreedKind.BELOW

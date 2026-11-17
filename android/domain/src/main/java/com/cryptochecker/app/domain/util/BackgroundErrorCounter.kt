@@ -49,9 +49,11 @@ object BackgroundErrorCounter {
                 if (p == null) {
                     pending[code] = (pending[code] ?: 0) + 1
                     pendingLastAt = now
-                    if (errorKind != null) pendingKinds.getOrPut(code) { HashMap() }.let { kinds ->
-                        val slot = BackgroundErrors.kindSlot(kinds.keys, errorKind)
-                        kinds[slot] = (kinds[slot] ?: 0) + 1
+                    if (errorKind != null) {
+                        pendingKinds.getOrPut(code) { HashMap() }.let { kinds ->
+                            val slot = BackgroundErrors.kindSlot(kinds.keys, errorKind)
+                            kinds[slot] = (kinds[slot] ?: 0) + 1
+                        }
                     }
                 } else {
                     val n = p.getInt(COUNT_PREFIX + code, 0)

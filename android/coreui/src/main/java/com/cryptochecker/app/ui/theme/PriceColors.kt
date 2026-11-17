@@ -17,19 +17,25 @@ import androidx.compose.ui.graphics.Color
  */
 object PriceColors {
     val up: Color
-        @Composable @ReadOnlyComposable get() =
+        @Composable @ReadOnlyComposable
+        get() =
             Color(
                 LocalPriceColorScheme.current.up(
-                    LocalDarkTheme.current, LocalHighContrast.current, LocalPriceColorsInverted.current,
+                    LocalDarkTheme.current,
+                    LocalHighContrast.current,
+                    LocalPriceColorsInverted.current,
                     LocalAccentColor.current,
                 )
             )
 
     val down: Color
-        @Composable @ReadOnlyComposable get() =
+        @Composable @ReadOnlyComposable
+        get() =
             Color(
                 LocalPriceColorScheme.current.down(
-                    LocalDarkTheme.current, LocalHighContrast.current, LocalPriceColorsInverted.current,
+                    LocalDarkTheme.current,
+                    LocalHighContrast.current,
+                    LocalPriceColorsInverted.current,
                     LocalAccentColor.current,
                 )
             )
@@ -39,10 +45,13 @@ object PriceColors {
      * aber nie getauscht — sonst stünde «aktuell» in Rot.
      */
     val ok: Color
-        @Composable @ReadOnlyComposable get() =
+        @Composable @ReadOnlyComposable
+        get() =
             Color(
                 LocalPriceColorScheme.current.up(
-                    LocalDarkTheme.current, LocalHighContrast.current, accent = LocalAccentColor.current
+                    LocalDarkTheme.current,
+                    LocalHighContrast.current,
+                    accent = LocalAccentColor.current
                 )
             )
 }

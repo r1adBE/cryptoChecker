@@ -34,7 +34,10 @@ class PortfolioComplicationService : SuspendingComplicationDataSourceService() {
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val tap = PendingIntent.getActivity(
-            this, 1, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            this,
+            1,
+            Intent(this, WatchActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         val store = WatchStore(this)
         val p = store.portfolioFlow.value ?: return off(request.complicationType, tap)
@@ -86,7 +89,8 @@ class PortfolioComplicationService : SuspendingComplicationDataSourceService() {
     /** Titel mit Alter in einer Einheit («USD 47m»), vom Zifferblatt fortgezählt. */
     private fun aged(prefix: String, time: Long): ComplicationText =
         TimeDifferenceComplicationText.Builder(
-            TimeDifferenceStyle.SHORT_SINGLE_UNIT, CountUpTimeReference(Instant.ofEpochMilli(time)),
+            TimeDifferenceStyle.SHORT_SINGLE_UNIT,
+            CountUpTimeReference(Instant.ofEpochMilli(time)),
         )
             .setText("$prefix ^1")
             .setMinimumTimeUnit(TimeUnit.MINUTES)

@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * «Seit Kauf» und «7 T» des Portfolio-Widgets in der Anzeigewährung aus dem Merkzettel der App ([PortfolioDisplayFigures]):
@@ -19,7 +19,11 @@ class PortfolioDisplayFxTest {
     private val today = 20_200L
 
     private fun trade(id: Long, coin: String, amount: String, price: String, epochDay: Long) = PortfolioTrade(
-        id = id, coin = coin, type = PortfolioTxType.BUY, amount = BigDecimal(amount), priceUsdt = BigDecimal(price),
+        id = id,
+        coin = coin,
+        type = PortfolioTxType.BUY,
+        amount = BigDecimal(amount),
+        priceUsdt = BigDecimal(price),
         time = epochDay * day + day / 2,
     )
 

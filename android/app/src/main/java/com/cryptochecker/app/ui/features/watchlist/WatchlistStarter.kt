@@ -1,10 +1,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.foundation.layout.Arrangement
-import com.cryptochecker.app.settings.logoRes
-import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.segmentLines
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -37,17 +35,19 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.platform.testTag
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterSelection
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.settings.logoRes
+import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.readableWidth
+import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 
 /**
  * Leere Merkliste: die fünf grössten Coins (ohne Stablecoins) als Auswahlliste im Stil

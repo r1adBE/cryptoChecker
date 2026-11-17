@@ -28,13 +28,13 @@ private class AverageBook(private val symbol: String, private val withParts: Boo
     val zero = BigDecimal.ZERO
     val mc = PortfolioDecimal.MC
 
-    var priced = zero       // Menge mit Kaufpreis
-    var unpriced = zero     // Menge ohne Kaufpreis
-    var cost = zero         // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
+    var priced = zero // Menge mit Kaufpreis
+    var unpriced = zero // Menge ohne Kaufpreis
+    var cost = zero // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
     val parts = PortfolioCostPartPool() // Herkunft von [cost]
     var poolEstimated = false // [cost] enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]), bis der Topf leer ist
     var realized = zero
-    var unknownSold = zero  // verkaufte Menge mit unbekanntem Gewinn/Verlust
+    var unknownSold = zero // verkaufte Menge mit unbekanntem Gewinn/Verlust
     var soldTotal = zero
     var withdrawn = zero
     var oversold = false
@@ -66,7 +66,10 @@ private class AverageBook(private val symbol: String, private val withParts: Boo
 
     /** Kein Teil mit Kaufpreis mehr: Einstand, Herkunft und Merker leeren. */
     fun clearPriced() {
-        priced = zero; cost = zero; parts.clear(); poolEstimated = false
+        priced = zero
+        cost = zero
+        parts.clear()
+        poolEstimated = false
     }
 
     /** Gibt [requested] ab (gekappt auf den Bestand > 0), beide Teile anteilig samt Einstand. */
@@ -139,10 +142,26 @@ private class AverageBook(private val symbol: String, private val withParts: Boo
             } else {
                 val pricedProceeds = coveredProceeds?.let { if (taken.allPriced) it else it.multiply(taken.share, mc) }
                 add(
-                    taken.removedPriced, taken.costRemoved, pricedProceeds, pricedProceeds?.let { it - taken.costRemoved },
-                    taken.partsRemoved, partEstimated = taken.estimated,
+                    taken.removedPriced,
+                    taken.costRemoved,
+                    pricedProceeds,
+                    pricedProceeds?.let { it - taken.costRemoved },
+                    taken.partsRemoved,
+                    partEstimated = taken.estimated,
                 )
-                if (!taken.allPriced) add(taken.removed - taken.removedPriced, null, coveredProceeds?.let { c -> pricedProceeds?.let { c - it } }, null)
+                if (!taken.allPriced) {
+                    add(
+                        taken.removed - taken.removedPriced,
+                        null,
+                        coveredProceeds?.let { c ->
+                            pricedProceeds?.let {
+                                c -
+                                    it
+                            }
+                        },
+                        null
+                    )
+                }
             }
         }
         // Ungedeckter Rest: Erlös bekannt, Kaufpreis fehlt
@@ -323,14 +342,22 @@ private class AverageBook(private val symbol: String, private val withParts: Boo
         val assigned = if (priced.signum() > 0) {
             if (feeValue == null) feeValueMissing = true
             if (allPriced) extra else extra.multiply(priced).divide(holdings, mc)
-        } else zero
+        } else {
+            zero
+        }
         if (extra.signum() > 0) addCost(t.time, assigned, t.feePriceEstimated)
         val noted = extra - assigned + lost
         if (noted.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, noted)
         // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
         if (coinFee.signum() > 0) {
             val removed = coinFee.min(holdings)
-            val removedPriced = if (allPriced) removed else PortfolioDecimal.amount(removed.multiply(priced).divide(holdings, mc)).min(priced)
+            val removedPriced = if (allPriced) {
+                removed
+            } else {
+                PortfolioDecimal.amount(
+                    removed.multiply(priced).divide(holdings, mc)
+                ).min(priced)
+            }
             priced -= removedPriced
             if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
                 // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken

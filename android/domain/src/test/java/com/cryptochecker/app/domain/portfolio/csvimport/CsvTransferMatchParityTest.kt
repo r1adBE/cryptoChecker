@@ -5,10 +5,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
@@ -18,6 +18,10 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.fallbacks
 import com.cryptochecker.app.domain.portfolio.csvimport.withFallbacks
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import java.io.File
 import java.math.BigDecimal
 import java.time.Instant
@@ -26,10 +30,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `csv_transfers.json` (iOS: `CsvTransferMatchTests.swift`). */
 class CsvTransferMatchParityTest {
@@ -81,12 +81,16 @@ class CsvTransferMatchParityTest {
     private fun restoreState(v: Any?): CsvRestoreState? = v?.let { CsvRestoreState.decode(JSONObject(it.obj()).toString()) }
 
     /** Zeile für «Import rückgängig». */
-    private fun ref(o: Map<String, Any?>) = CsvImportedRef(o["id"].num()!!.toLong(), o["importBatch"] as String?, restoreState(o["restoreState"]))
+    private fun ref(
+        o: Map<String, Any?>
+    ) = CsvImportedRef(o["id"].num()!!.toLong(), o["importBatch"] as String?, restoreState(o["restoreState"]))
 
     private fun cases() = data["cases"].list().map { it.obj() }
 
     private fun linksOf(c: Map<String, Any?>): List<CsvTransferLink> = CsvTransferMatch.candidates(
-        c["txs"].list().map { tx(it.obj()) }, c["place"] as String?, c["stored"].list().map { stored(it.obj()) },
+        c["txs"].list().map { tx(it.obj()) },
+        c["place"] as String?,
+        c["stored"].list().map { stored(it.obj()) },
     )
 
     private fun assertLinks(m: String, expected: List<Map<String, Any?>>, links: List<CsvTransferLink>) {
@@ -125,8 +129,11 @@ class CsvTransferMatchParityTest {
         all.forEach { c ->
             val links = linksOf(c)
             c["ownWallet"].list().map { it.obj() }.forEach { t ->
-                assertEquals("${c["name"]} ownWallet $t", keys(t["expected"]),
-                    CsvTransferMatch.linkOwnWallet(links, keys(t["chosen"]), t["withdrawal"] as String, keys(t["declined"])))
+                assertEquals(
+                    "${c["name"]} ownWallet $t",
+                    keys(t["expected"]),
+                    CsvTransferMatch.linkOwnWallet(links, keys(t["chosen"]), t["withdrawal"] as String, keys(t["declined"]))
+                )
             }
         }
     }
@@ -140,8 +147,11 @@ class CsvTransferMatchParityTest {
             val links = linksOf(c)
             c["ownWallets"].list().map { it.obj() }.forEach { t ->
                 val choices = t["choices"].obj().mapValues { CsvWithdrawalChoice.valueOf(it.value as String) }
-                assertEquals("${c["name"]} ownWallets $t", keys(t["expected"]),
-                    CsvImportMapping.linkOwnWallets(links, keys(t["chosen"]), choices, keys(t["declined"])))
+                assertEquals(
+                    "${c["name"]} ownWallets $t",
+                    keys(t["expected"]),
+                    CsvImportMapping.linkOwnWallets(links, keys(t["chosen"]), choices, keys(t["declined"]))
+                )
             }
         }
     }
@@ -162,8 +172,11 @@ class CsvTransferMatchParityTest {
             val links = linksOf(c)
             c["toggle"].list().map { it.obj() }.forEach { t ->
                 val chosen = t["chosen"].list().map { it as String }.toSet()
-                assertEquals("${c["name"]} toggle $t", t["expected"].list().map { it as String }.toSet(),
-                    CsvTransferMatch.toggle(links, chosen, t["key"] as String, t["on"] == true))
+                assertEquals(
+                    "${c["name"]} toggle $t",
+                    t["expected"].list().map { it as String }.toSet(),
+                    CsvTransferMatch.toggle(links, chosen, t["key"] as String, t["on"] == true)
+                )
             }
         }
     }
@@ -206,17 +219,32 @@ class CsvTransferMatchParityTest {
                 // Zustand davor kommt unverändert zurück (gespeicherte Seite und aufgegangene neue Zeile)
                 val before = stored(c["stored"].list().map { it.obj() }.first { it["id"].num()!!.toLong() == u.id })
                 val o = CsvRestoreState.decode(u.restoreState.encode())!!
-                assertEquals("$m ${u.id} origin", listOf(before.type, before.amount, before.priceUsdt, before.time, before.fee,
-                    before.feeUnit, before.feeCoin, before.feeCoinAmount, before.transferFrom, before.transferTo, before.acquiredTime,
-                    before.exchange, before.importKey, before.importBatch),
-                    listOf(o.type, o.amount, o.priceUsdt, o.time, o.fee, o.feeUnit, o.feeCoin, o.feeCoinAmount, o.transferFrom,
-                        o.transferTo, o.acquiredTime, o.exchange, o.importKey, o.importBatch))
+                assertEquals(
+                    "$m ${u.id} origin",
+                    listOf(
+                        before.type, before.amount, before.priceUsdt, before.time, before.fee,
+                        before.feeUnit, before.feeCoin, before.feeCoinAmount, before.transferFrom, before.transferTo, before.acquiredTime,
+                        before.exchange, before.importKey, before.importBatch
+                    ),
+                    listOf(
+                        o.type, o.amount, o.priceUsdt, o.time, o.fee, o.feeUnit, o.feeCoin, o.feeCoinAmount, o.transferFrom,
+                        o.transferTo, o.acquiredTime, o.exchange, o.importKey, o.importBatch
+                    )
+                )
                 val link = links.first { it.withdrawalId == u.id || it.depositId == u.id }
                 val n = link.absorbed!!
                 val r = o.absorbed!!
-                assertEquals("$m ${u.id} absorbed", listOf(n.type, n.amount, n.priceUsdt, n.time, n.fee, n.feeUnit, n.feeCoin,
-                    n.feeCoinAmount, n.importKey), listOf(r.type, r.amount, r.priceUsdt, r.time, r.fee, r.feeUnit, r.feeCoin,
-                    r.feeCoinAmount, r.importKey))
+                assertEquals(
+                    "$m ${u.id} absorbed",
+                    listOf(
+                        n.type, n.amount, n.priceUsdt, n.time, n.fee, n.feeUnit, n.feeCoin,
+                        n.feeCoinAmount, n.importKey
+                    ),
+                    listOf(
+                        r.type, r.amount, r.priceUsdt, r.time, r.fee, r.feeUnit, r.feeCoin,
+                        r.feeCoinAmount, r.importKey
+                    )
+                )
             }
         }
     }
@@ -233,13 +261,22 @@ class CsvTransferMatchParityTest {
             val links = linksOf(c)
             val plan = CsvTransferMatch.apply(c["txs"].list().map { tx(it.obj()) }, links, CsvTransferMatch.defaultChoice(links))
             val base = f["trades"].list().map { it.obj() }.map { o ->
-                PortfolioTrade(o["id"].num()!!.toLong(), o["coin"] as String, PortfolioTxType.valueOf(o["type"] as String),
-                    dec(o["amount"])!!, dec(o["priceUsdt"]), millis(o["time"]), exchange = o["exchange"] as String?)
+                PortfolioTrade(
+                    o["id"].num()!!.toLong(),
+                    o["coin"] as String,
+                    PortfolioTxType.valueOf(o["type"] as String),
+                    dec(o["amount"])!!,
+                    dec(o["priceUsdt"]),
+                    millis(o["time"]),
+                    exchange = o["exchange"] as String?
+                )
             }
             val moves = plan.storedUpdates.map { u ->
-                PortfolioTrade(u.id, links.first().coin, PortfolioTxType.TRANSFER,
+                PortfolioTrade(
+                    u.id, links.first().coin, PortfolioTxType.TRANSFER,
                     u.amount, null, u.time, fee = u.fee, feeUnit = u.feeUnit, feeCoin = u.feeCoin, feeCoinAmount = u.feeCoinAmount,
-                    transferFrom = u.transferFrom, transferTo = u.transferTo)
+                    transferFrom = u.transferFrom, transferTo = u.transferTo
+                )
             }
             val ledger = PortfolioCalculator.ledger(links.first().coin, base + moves, null, CostMethod.FIFO_WALLET)
             val wallets = ledger.lots.groupBy { it.wallet }.mapValues { (_, l) -> text(l.fold(BigDecimal.ZERO) { a, x -> a + x.amount }) }
@@ -277,17 +314,36 @@ class CsvTransferMatchParityTest {
     fun carryOverKeepsShownChoices() {
         data["carryOver"].list().map { it.obj() }.forEach { o ->
             val links = linksOf(cases().first { it["name"] == o["case"] })
-            assertEquals("carryOver $o", o["expected"].list().map { it as String }.toSet(),
-                CsvTransferMatch.carryOver(links, o["seen"].list().map { it as String }.toSet(), o["chosen"].list().map { it as String }.toSet()))
+            assertEquals(
+                "carryOver $o",
+                o["expected"].list().map { it as String }.toSet(),
+                CsvTransferMatch.carryOver(
+                    links,
+                    o["seen"].list().map {
+                        it as String
+                    }.toSet(),
+                    o["chosen"].list().map { it as String }.toSet()
+                )
+            )
         }
     }
 
     /** Gespeicherte Zeile im Ablauf von [undoBothImportsInSequence]: Id, Lauf, Schlüssel, Zustand. */
-    private data class Row(val id: Long, val importBatch: String?, val importKey: String?, val linkedImportKey: String?,
-                           val restoreState: CsvRestoreState?)
+    private data class Row(
+        val id: Long,
+        val importBatch: String?,
+        val importKey: String?,
+        val linkedImportKey: String?,
+        val restoreState: CsvRestoreState?
+    )
 
-    private fun row(o: Map<String, Any?>) = Row(o["id"].num()!!.toLong(), o["importBatch"] as String?, o["importKey"] as String?,
-        o["linkedImportKey"] as String?, restoreState(o["restoreState"]))
+    private fun row(o: Map<String, Any?>) = Row(
+        o["id"].num()!!.toLong(),
+        o["importBatch"] as String?,
+        o["importKey"] as String?,
+        o["linkedImportKey"] as String?,
+        restoreState(o["restoreState"])
+    )
 
     /** Beide Läufe nacheinander rückgängig (beide Reihenfolgen): Zustand nach jedem Schritt, am Ende nichts aus ihnen. */
     @Test
@@ -312,7 +368,9 @@ class CsvTransferMatchParityTest {
     fun linkedKeysCountAsImported() {
         val d = data["duplicates"].obj()
         val existing = d["existing"].list().map { it as String }.toSet()
-        fun row(key: String) = CsvImportRow(1, CsvImportKind.DEPOSIT, "Deposit", "BTC", BigDecimal.ONE, null, null, null, null, 0L, null, key)
+        fun row(
+            key: String
+        ) = CsvImportRow(1, CsvImportKind.DEPOSIT, "Deposit", "BTC", BigDecimal.ONE, null, null, null, null, 0L, null, key)
         val known = d["known"].list().map { it as String }
         val split = CsvImport.splitDuplicates((known + d["unknown"].list().map { it as String }).map { row(it) }, existing)
         assertEquals(known, split.duplicates.map { it.key })
@@ -335,11 +393,14 @@ class CsvTransferMatchParityTest {
     fun endToEndAcrossFiles() {
         val e = data["endToEnd"].obj()
         fun preview(name: String) = CsvImportMapping.preview(
-            CsvImportParser.parse(File(ParityJson.dir().parentFile, "csv/$name").readText(Charsets.UTF_8)), emptySet(),
+            CsvImportParser.parse(File(ParityJson.dir().parentFile, "csv/$name").readText(Charsets.UTF_8)),
+            emptySet(),
         ) { _, _ -> null }
         val old = preview(e["storedFile"] as String).transactions.first { it.type.name == e["storedType"] }
-        val stored = CsvStoredMove(1, old.coin, old.type, old.amount, old.fee, old.feeUnit, old.feeCoin, old.feeCoinAmount, old.time,
-            old.importKey, null, null)
+        val stored = CsvStoredMove(
+            1, old.coin, old.type, old.amount, old.fee, old.feeUnit, old.feeCoin, old.feeCoinAmount, old.time,
+            old.importKey, null, null
+        )
         val fresh = preview(e["importFile"] as String)
         val links = CsvTransferMatch.candidates(fresh.transactions, fresh.format.exchangeName, listOf(stored))
         assertLinks("endToEnd", e["links"].list().map { it.obj() }, links)
@@ -369,15 +430,19 @@ class CsvTransferMatchParityTest {
         assertEquals(listOf(e["storedExchange"]), first.transactions.map { it.exchange }.distinct())
         assertEquals(listOf(e["importExchange"]), fresh.transactions.map { it.exchange }.distinct())
         val w = first.transactions.single { it.type == PortfolioTxType.WITHDRAWAL }
-        val stored = CsvStoredMove(1, w.coin, w.type, w.amount, w.fee, w.feeUnit, w.feeCoin, w.feeCoinAmount, w.time,
-            w.importKey, null, null, exchange = w.exchange)
+        val stored = CsvStoredMove(
+            1, w.coin, w.type, w.amount, w.fee, w.feeUnit, w.feeCoin, w.feeCoinAmount, w.time,
+            w.importKey, null, null, exchange = w.exchange
+        )
         val links = CsvTransferMatch.candidates(fresh.transactions, fresh.format.exchangeName, listOf(stored))
         val plan = CsvTransferMatch.apply(fresh.transactions, links, CsvTransferMatch.defaultChoice(links))
         val u = plan.storedUpdates.single()
         val t = e["transfer"].obj()
         assertEquals(listOf(t["from"], t["to"], t["amount"], t["fee"]), listOf(u.transferFrom, u.transferTo, text(u.amount), text(u.fee)))
-        val move = PortfolioTrade(1, w.coin, PortfolioTxType.TRANSFER, u.amount, null, u.time, fee = u.fee, feeUnit = u.feeUnit,
-            transferFrom = u.transferFrom, transferTo = u.transferTo)
+        val move = PortfolioTrade(
+            1, w.coin, PortfolioTxType.TRANSFER, u.amount, null, u.time, fee = u.fee, feeUnit = u.feeUnit,
+            transferFrom = u.transferFrom, transferTo = u.transferTo
+        )
         val all = first.transactions.filter { it !== w }.mapIndexed { i, x -> trade(10L + i, x) } + move +
             plan.transactions.mapIndexed { i, x -> trade(100L + i, x) }
         val coin = e["coin"] as String

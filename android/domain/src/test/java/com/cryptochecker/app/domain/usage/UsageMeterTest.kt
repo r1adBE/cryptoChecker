@@ -7,12 +7,12 @@ import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.marketdata.usage.UsageLog
 import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.usage.UsageTotals
+import java.io.File
+import java.nio.file.Files
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.nio.file.Files
 
 /**
  * Zähler von «Akku & Aktivität» ([UsageMeter]): bis zur Datei im Speicher, höchstens jede Minute geschrieben, sofort

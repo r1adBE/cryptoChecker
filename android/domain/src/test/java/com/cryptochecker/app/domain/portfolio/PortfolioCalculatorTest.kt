@@ -23,7 +23,7 @@ class PortfolioCalculatorTest {
         val trades = listOf(buy("BTC", 1.0, 100.0, 1), buy("BTC", 3.0, 200.0, 2))
         val p = PortfolioCalculator.position("BTC", trades, 250.0)
         assertEquals(4.0, p.holdings, d)
-        assertEquals(175.0, p.avgCost!!, d)          // (100 + 600) / 4
+        assertEquals(175.0, p.avgCost!!, d) // (100 + 600) / 4
         assertEquals(700.0, p.costBasis!!, d)
         assertEquals(1000.0, p.value!!, d)
         assertEquals(300.0, p.unrealized!!, d)
@@ -42,8 +42,8 @@ class PortfolioCalculatorTest {
         )
         val p = PortfolioCalculator.position("ETH", trades, 300.0)
         assertEquals(1.0, p.holdings, d)
-        assertEquals(300.0, p.avgCost!!, d)          // erster Lot ganz verkauft
-        assertEquals(100.0, p.realized, d)           // (200 − 100) × 1
+        assertEquals(300.0, p.avgCost!!, d) // erster Lot ganz verkauft
+        assertEquals(100.0, p.realized, d) // (200 − 100) × 1
         assertFalse(p.oversold)
     }
 
@@ -56,9 +56,9 @@ class PortfolioCalculatorTest {
         )
         val p = PortfolioCalculator.position("BTC", trades, 150.0, CostMethod.AVERAGE)
         assertEquals(3.0, p.holdings, d)
-        assertEquals(150.0, p.avgCost!!, d)          // Ø bleibt
+        assertEquals(150.0, p.avgCost!!, d) // Ø bleibt
         assertEquals(450.0, p.costBasis!!, d)
-        assertEquals(150.0, p.realized, d)           // (300 − 150) × 1
+        assertEquals(150.0, p.realized, d) // (300 − 150) × 1
         assertEquals(0.0, p.unrealized!!, d)
     }
 
@@ -76,7 +76,7 @@ class PortfolioCalculatorTest {
         val trades = listOf(buy("BTC", 1.0, null, 1), buy("BTC", 1.0, 100.0, 2))
         val p = PortfolioCalculator.position("BTC", trades, 120.0)
         assertEquals(2.0, p.holdings, d)
-        assertEquals(100.0, p.avgCost!!, d)          // nur über Käufe mit Preis
+        assertEquals(100.0, p.avgCost!!, d) // nur über Käufe mit Preis
         assertTrue(p.priceMissing)
         assertNull(p.costBasis)
         // «Seit Kauf» nur für den Teil mit Kaufpreis: 1 × 120 − 100, markiert «ohne 1 BTC ohne Kaufpreis»
@@ -84,7 +84,7 @@ class PortfolioCalculatorTest {
         assertEquals(20.0, p.unrealizedPercent!!, d)
         assertTrue(p.unrealizedPartial)
         assertEquals(1.0, p.unpricedHoldingsExact.toDouble(), d)
-        assertEquals(240.0, p.value!!, d)            // Wert trotzdem bekannt
+        assertEquals(240.0, p.value!!, d) // Wert trotzdem bekannt
     }
 
     @Test
@@ -109,7 +109,7 @@ class PortfolioCalculatorTest {
         assertEquals(100.0, p.realized, d)
         assertEquals(0.5, p.realizedUnknownAmount, d)
         assertTrue(p.realizedIncomplete)
-        assertTrue(p.priceMissing)                   // anteilig verkauft, Rest weiter ohne Preis
+        assertTrue(p.priceMissing) // anteilig verkauft, Rest weiter ohne Preis
         assertEquals(100.0, p.avgCost!!, d)
     }
 
@@ -168,7 +168,7 @@ class PortfolioCalculatorTest {
         assertTrue(p.oversold)
         assertEquals(0.0, p.holdings, d)
         assertFalse(p.isOpen)
-        assertEquals(50.0, p.realized, d)            // nur die gehaltene Menge zählt
+        assertEquals(50.0, p.realized, d) // nur die gehaltene Menge zählt
         assertNull(p.costBasis)
         assertEquals(0.0, p.value!!, d)
     }
@@ -178,7 +178,7 @@ class PortfolioCalculatorTest {
         val trades = listOf(
             buy("BTC", 0.1, 100.0, 1),
             buy("BTC", 0.2, 100.0, 2),
-            sell("BTC", 0.3, 100.0, 3),             // 0.1 + 0.2 ≠ 0.3 in Double
+            sell("BTC", 0.3, 100.0, 3), // 0.1 + 0.2 ≠ 0.3 in Double
         )
         val p = PortfolioCalculator.position("BTC", trades, 100.0)
         assertFalse(p.oversold)
@@ -212,10 +212,10 @@ class PortfolioCalculatorTest {
             buy("BTC", 1.0, 100.0, 1),
             buy("ETH", 10.0, 10.0, 1),
             buy("DOGE", 100.0, 1.0, 1),
-            sell("DOGE", 100.0, 2.0, 2),             // geschlossen, realisiert +100
+            sell("DOGE", 100.0, 2.0, 2), // geschlossen, realisiert +100
         )
         val s = PortfolioCalculator.summarize(trades, mapOf("BTC" to 150.0, "ETH" to 30.0, "DOGE" to 3.0))
-        assertEquals(listOf("ETH", "BTC"), s.open.map { it.coin })   // 300 vor 150
+        assertEquals(listOf("ETH", "BTC"), s.open.map { it.coin }) // 300 vor 150
         assertEquals(listOf("DOGE"), s.closed.map { it.coin })
         assertEquals(450.0, s.totalValue, d)
         assertEquals(200.0, s.invested!!, d)
@@ -269,7 +269,7 @@ class PortfolioCalculatorTest {
         assertTrue(s.open.isEmpty())
         assertEquals(listOf("SOL"), s.closed.map { it.coin })
         val p = s.closed[0]
-        assertEquals(10.0, p.realized, d)            // (20 − 10) × 1
+        assertEquals(10.0, p.realized, d) // (20 − 10) × 1
         assertEquals(1.0, p.realizedUnknownAmount, d)
         assertTrue(p.realizedIncomplete)
         assertTrue(s.realizedIncomplete)

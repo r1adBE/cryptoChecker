@@ -1,12 +1,12 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.spot.SpotMarket
+import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.time.Instant
 
 /**
  * Spot-Kennzahlen ([SpotDataSource]): zuerst die CoinGecko-Top-40 (für alle gleich), sonst EINE Anfrage nach

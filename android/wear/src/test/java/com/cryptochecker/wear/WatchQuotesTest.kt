@@ -1,9 +1,9 @@
 package com.cryptochecker.wear
 
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.util.Locale
 
 /** Uhr-App: Antworten der drei Börsen, Zusammenführen und Zahlen (Listen: `WatchSettingsParityTest`). */
 class WatchQuotesTest {

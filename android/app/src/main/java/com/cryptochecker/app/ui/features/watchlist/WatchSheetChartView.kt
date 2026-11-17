@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
@@ -19,42 +18,43 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.SheetChart
-import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.watch.SheetChartFx
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.shownChange24h
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.components.ChangePill
-import com.cryptochecker.app.ui.components.ChartTypeSwitch
 import com.cryptochecker.app.ui.components.ChangePillSize
+import com.cryptochecker.app.ui.components.ChartTypeSwitch
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.widget.WidgetChartRange
-import com.cryptochecker.app.domain.widget.WidgetChartType
+import com.cryptochecker.resources.R
 import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
@@ -164,7 +164,10 @@ internal fun SheetPriceChart(
                     )
                 }
                 SheetChartCaption(
-                    r, widgetRange.intervalMillis, ChangeBasisMath.chartZone(basis), listOf(watch.exchangeKey, watch.exchangeName),
+                    r,
+                    widgetRange.intervalMillis,
+                    ChangeBasisMath.chartZone(basis),
+                    listOf(watch.exchangeKey, watch.exchangeName),
                     quote = watch.quoteAsset,
                 )
             }
@@ -290,8 +293,11 @@ private fun SheetChartCaption(
     val fx = when (result.fx) {
         SheetChartFx.DAILY -> stringResource(R.string.sheet_chart_converted_daily, BidiText.isolate(pair))
         SheetChartFx.CURRENT ->
-            if (todayRate != null) null
-            else stringResource(R.string.sheet_chart_converted_current, BidiText.isolate(pair))
+            if (todayRate != null) {
+                null
+            } else {
+                stringResource(R.string.sheet_chart_converted_current, BidiText.isolate(pair))
+            }
         SheetChartFx.NONE -> null
     }
     // Kerzen einer anderen Börse (Ausweich-Kette): als fremd kennzeichnen, «Chart: Binance» statt nur «Binance»

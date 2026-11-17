@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.util.KeyValueStores
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Letzte Messung USDT in USD ([DepegAlarm.Reading]): schreibt [DepegAlarmChecker] nach jeder erfolgreichen Messung
@@ -44,6 +44,7 @@ class DepegReadingStore @Inject constructor(
         const val PREFS = "depeg_alarm"
         const val KEY_PRICE_BITS = "last_price_bits"
         const val KEY_AT = "last_price_at"
+
         /** Messung nur aus Binance USDC/USDT ([DepegAlarm.Measurement.viaUsdc]); mit jeder Messung gespeichert. */
         const val KEY_VIA_USDC = "last_price_via_usdc"
     }

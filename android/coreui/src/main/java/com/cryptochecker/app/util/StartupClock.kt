@@ -10,6 +10,7 @@ import com.cryptochecker.app.domain.refresh.AppStartTiming
  */
 object StartupClock {
     @Volatile private var uiCreatedAt = 0L
+
     @Volatile private var pending = false
 
     /** MainActivity.onCreate ohne gespeicherten Zustand (kein Drehen). */

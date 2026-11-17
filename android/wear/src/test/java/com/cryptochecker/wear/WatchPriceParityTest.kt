@@ -1,13 +1,13 @@
 package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchSettings
+import java.io.File
+import java.util.Locale
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.util.Locale
 
 /**
  * Kurs der Komplikation (`testdata/parity/watch_price.json`): knapp für die kurze Form ([WatchFormat.compactPrice]),
@@ -43,8 +43,11 @@ class WatchPriceParityTest {
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
             val value = c.getDouble("value")
-            assertEquals("${c.getString("locale")} $value", c.getString("expected"),
-                WatchFormat.compactPrice(value, locale(c.getString("locale"))))
+            assertEquals(
+                "${c.getString("locale")} $value",
+                c.getString("expected"),
+                WatchFormat.compactPrice(value, locale(c.getString("locale")))
+            )
         }
     }
 
@@ -64,9 +67,18 @@ class WatchPriceParityTest {
             val price = if (c.isNull("price")) null else c.getDouble("price")
             val change = if (c.isNull("change")) null else c.getDouble("change")
             val detail = if (c.isNull("detail")) null else c.getString("detail")
-            assertEquals(c.toString(), c.getString("expected"),
-                WatchFormat.priceLine(c.getString("coin"), price, c.getString("quote"), change, detail,
-                    locale(c.getString("locale"))))
+            assertEquals(
+                c.toString(),
+                c.getString("expected"),
+                WatchFormat.priceLine(
+                    c.getString("coin"),
+                    price,
+                    c.getString("quote"),
+                    change,
+                    detail,
+                    locale(c.getString("locale"))
+                )
+            )
         }
     }
 

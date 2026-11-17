@@ -22,12 +22,12 @@ import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.frHeldBefore
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.flow.map
-import timber.log.Timber
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.map
+import timber.log.Timber
 
 /** Devisen-Tageskurse USD → [currency] von [from] bis [to] (höchstens heute); USD = leer; Fehler = null. */
 internal suspend fun PortfolioExportViewModel.rates(currency: String, from: LocalDate, to: LocalDate): Map<Long, BigDecimal>? {
@@ -138,9 +138,10 @@ internal suspend fun PortfolioExportViewModel.networkFeePrices(
     period: TaxPeriod,
     zone: ZoneId = ZoneId.systemDefault(),
     until: LocalDate = period.end,
-): (String, Long) -> BigDecimal? {
-    return dailyCloses(TaxDayClose.networkFeeNeeds(trades, CutoffExport.endOfDayMillis(maxOf(until, period.end), zone)))
-}
+): (
+    String,
+    Long
+) -> BigDecimal? = dailyCloses(TaxDayClose.networkFeeNeeds(trades, CutoffExport.endOfDayMillis(maxOf(until, period.end), zone)))
 
 /**
  * FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende [period] — je Verkauf, Auszahlung und

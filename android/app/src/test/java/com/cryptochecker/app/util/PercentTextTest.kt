@@ -1,10 +1,10 @@
 package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.util.PercentText
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.util.Locale
 
 /** Zentrale Prozent-Schreibweise ([PercentText]) und kompakter Abstand ([PriceFormat.age]). */
 class PercentTextTest {

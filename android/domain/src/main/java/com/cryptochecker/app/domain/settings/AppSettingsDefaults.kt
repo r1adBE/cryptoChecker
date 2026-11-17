@@ -55,9 +55,12 @@ fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): S
 }
 
 /**
- * Wahlmöglichkeiten der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
+ * Wahlmöglichkeiten der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei über 400 Zeilen). `AppSettings.Companion`
+ * erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw. Die Namen sind Konstanten (Grossbuchstaben); als Listen
+ * können sie nicht `const` sein.
  */
-open class AppSettingsChoices constructor() {
+@Suppress("ktlint:standard:property-naming")
+open class AppSettingsChoices {
     val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
     val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
     val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)

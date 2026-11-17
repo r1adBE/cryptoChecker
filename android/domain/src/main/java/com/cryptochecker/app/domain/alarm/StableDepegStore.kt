@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.util.KeyValueStores
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Weitere Stablecoins des Depeg-Alarms ([StableDepeg]): zuletzt geprüfte Liste und letzte Messung je Stablecoin in USD.

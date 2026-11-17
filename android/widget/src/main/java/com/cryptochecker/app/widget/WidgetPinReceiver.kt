@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Rückmeldung des Startbildschirms nach [WidgetPinner.request]: Das Widget liegt jetzt dort.

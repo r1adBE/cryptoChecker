@@ -1,33 +1,33 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
+import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxLine
+import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.gainRows
 import com.cryptochecker.app.domain.portfolio.gainsCsv
 import com.cryptochecker.app.domain.portfolio.incomeCsv
 import com.cryptochecker.app.domain.portfolio.incomeRows
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
-import com.cryptochecker.app.domain.portfolio.TaxLine
-import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
-import com.cryptochecker.app.domain.portfolio.TaxMethod
-import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Gemeinsame Testfälle `tax_export.json` (iOS: `TaxExportTests.swift`). */
 class TaxExportParityTest {
@@ -75,7 +75,16 @@ class TaxExportParityTest {
             gainTarget = s("gainTarget"), date = s("date"), valueUsdt = s("valueUsdt"), valueTarget = s("valueTarget"),
             note = s("note"), total = s("total"), yes = s("yes"), no = s("no"), costMissing = s("costMissing"),
             proceedsMissing = s("proceedsMissing"), feeLeg = s("feeLeg"), feeValueMissing = s("feeValueMissing"),
-            avgCostRates = s("avgCostRates"), oversold = s("oversold"), proceedsWithoutCost = s("proceedsWithoutCost"), timeZone = s("timeZone"), valueMissing = s("valueMissing"), noFx = s("noFx"),
+            avgCostRates = s(
+                "avgCostRates"
+            ),
+            oversold = s(
+                "oversold"
+            ),
+            proceedsWithoutCost = s(
+                "proceedsWithoutCost"
+            ),
+            timeZone = s("timeZone"), valueMissing = s("valueMissing"), noFx = s("noFx"),
             incomplete = s("incomplete"),
             swap = s("swap"), wallet = s("wallet"), walletUnspecified = s("walletUnspecified"),
         )
@@ -94,7 +103,10 @@ class TaxExportParityTest {
     fun yearsAndRules() {
         assertEquals(data["years"].list().map { it.num()!!.toInt() }, TaxExport.years(trades, zone))
         val d = data["defaultYear"].obj()
-        assertEquals(d["expected"].num()!!.toInt(), TaxExport.defaultYear(TaxExport.years(trades, zone), LocalDate.parse(d["today"] as String)))
+        assertEquals(
+            d["expected"].num()!!.toInt(),
+            TaxExport.defaultYear(TaxExport.years(trades, zone), LocalDate.parse(d["today"] as String))
+        )
         assertEquals(null, TaxExport.defaultYear(emptyList(), LocalDate.of(2026, 1, 1)))
         data["longTerm"].list().map { it.list() }.forEach { c ->
             assertEquals("longTerm $c", c[2], TaxExport.isLongTerm(LocalDate.parse(c[0] as String), LocalDate.parse(c[1] as String)))
@@ -106,7 +118,11 @@ class TaxExportParityTest {
         assertEquals(BigDecimal.ONE, TaxExport.rateOn(null, LocalDate.of(2025, 1, 1), "USD"))
         assertEquals(null, TaxExport.rateOn(null, LocalDate.of(2025, 1, 1), "CHF"))
         data["fxFrom"].obj().forEach { (method, expected) ->
-            assertEquals("fxFrom $method", LocalDate.parse(expected as String), TaxExport.fxFrom(trades, CostMethod.fromName(method), year, zone))
+            assertEquals(
+                "fxFrom $method",
+                LocalDate.parse(expected as String),
+                TaxExport.fxFrom(trades, CostMethod.fromName(method), year, zone)
+            )
         }
     }
 
@@ -116,8 +132,12 @@ class TaxExportParityTest {
         val c = data["frOutflowSpan"].obj()
         val prices = c["prices"].obj().mapValues { BigDecimal(it.value as String) }
         val (from, until) = TaxExport.fxSpan(
-            parseTrades(c["trades"]), TaxMethod.FR_PTA, TaxTemplate.FR.period(c["year"].num()!!.toInt()), zone,
-            priceAt = { coin, _ -> prices[coin] }, today = LocalDate.parse(c["today"] as String),
+            parseTrades(c["trades"]),
+            TaxMethod.FR_PTA,
+            TaxTemplate.FR.period(c["year"].num()!!.toInt()),
+            zone,
+            priceAt = { coin, _ -> prices[coin] },
+            today = LocalDate.parse(c["today"] as String),
         )
         assertEquals(LocalDate.parse(c["from"] as String), from)
         assertEquals(LocalDate.parse(c["until"] as String), until)
@@ -181,8 +201,10 @@ class TaxExportParityTest {
         val rows = TaxExport.incomeRows(txs, period, zone, currency, rates)
         val at = a["atTexts"].obj().let { x ->
             texts.copy(
-                incomeInterest = x["incomeInterest"] as String, incomeStaking = x["incomeStaking"] as String,
-                totalInterest = x["totalInterest"] as String, totalStaking = x["totalStaking"] as String,
+                incomeInterest = x["incomeInterest"] as String,
+                incomeStaking = x["incomeStaking"] as String,
+                totalInterest = x["totalInterest"] as String,
+                totalStaking = x["totalStaking"] as String,
             )
         }
         assertEquals("AT", a["at"].list(), lines(TaxExport.incomeCsv(rows, at, header)))
@@ -200,8 +222,10 @@ class TaxExportParityTest {
         val rows = TaxExport.incomeRows(parseTrades(b["trades"]), TaxTemplate.NEUTRAL.period(2022), zone, b["currency"] as String, null)
         val at = a["atTexts"].obj().let { x ->
             texts.copy(
-                incomeInterest = x["incomeInterest"] as String, incomeStaking = x["incomeStaking"] as String,
-                totalInterest = x["totalInterest"] as String, totalStaking = x["totalStaking"] as String,
+                incomeInterest = x["incomeInterest"] as String,
+                incomeStaking = x["incomeStaking"] as String,
+                totalInterest = x["totalInterest"] as String,
+                totalStaking = x["totalStaking"] as String,
                 incomeBeforeNewLaw = b["incomeBeforeNewLaw"] as String,
             )
         }
@@ -257,7 +281,15 @@ class TaxExportParityTest {
                 val net = s.lines.filter { it.line in setOf(TaxLine.SHORT_NET, TaxLine.LONG_NET, TaxLine.UNCLASSIFIED, TaxLine.NET) }
                     .fold(BigDecimal.ZERO) { a, l -> a + (l.usdt ?: BigDecimal.ZERO) }
                 assertEquals("$tpl net", total[8], CutoffExport.money(net))
-                assertEquals("$tpl fees", feesLine?.get(8), CutoffExport.money(s.lines.single { it.line == TaxLine.WITHDRAWAL_FEES }.usdt!!))
+                assertEquals(
+                    "$tpl fees",
+                    feesLine?.get(8),
+                    CutoffExport.money(
+                        s.lines.single {
+                            it.line == TaxLine.WITHDRAWAL_FEES
+                        }.usdt!!
+                    )
+                )
             }
         }
     }
@@ -306,7 +338,13 @@ class TaxExportParityTest {
             b["cases"].list().map { it.obj() }.forEach { c ->
                 val method = CostMethod.fromName(c["method"] as String)
                 val rows = TaxExport.gainRows(
-                    bTrades, TaxMethod.of(method), template.period(y), z, cur, bRates, rules = template.eventRules,
+                    bTrades,
+                    TaxMethod.of(method),
+                    template.period(y),
+                    z,
+                    cur,
+                    bRates,
+                    rules = template.eventRules,
                 )
                 val csv = TaxExport.gainsCsv(rows, texts, emptyList(), zone = z)
                 assertEquals("$name $method", c["gains"].list(), lines(csv))
@@ -358,12 +396,19 @@ class TaxExportParityTest {
             val method = CostMethod.fromName(c["method"] as String)
             val eur = c["eur"] == true
             val sum = TaxExport.yearSummary(
-                deTrades, TaxTemplate.DE, TaxMethod.of(method), y, deZone, "EUR", if (eur) eurRates else null,
+                deTrades,
+                TaxTemplate.DE,
+                TaxMethod.of(method),
+                y,
+                deZone,
+                "EUR",
+                if (eur) eurRates else null,
             )
             val label = "de $y $method eur=$eur"
             val e = c["expected"].obj()
             fun line(l: TaxLine) = sum.lines.firstOrNull { it.line == l }
             fun m(v: BigDecimal?): String? = v?.let { CutoffExport.money(it) }
+
             // Posten fehlt (z. B. ohne Haltedauer): Betrag 0, in EUR nur mit Kursen
             fun usdt(l: TaxLine): String? = m(line(l)?.usdt ?: BigDecimal.ZERO)
             fun eurOf(l: TaxLine): String? = if (!eur) null else m(line(l)?.target ?: BigDecimal.ZERO)
@@ -420,8 +465,10 @@ class TaxExportParityTest {
     fun chWealthNoteInFirstLines() {
         val header = listOf("Title", "Info", "Disclaimer")
         val note = "Wealth tax not calculated – ESTV price list: https://example"
-        assertEquals(listOf("Title", note, "Info", "Disclaimer"),
-            TaxExport.withChWealthNote(com.cryptochecker.app.domain.portfolio.TaxTemplate.CH, header, note))
+        assertEquals(
+            listOf("Title", note, "Info", "Disclaimer"),
+            TaxExport.withChWealthNote(com.cryptochecker.app.domain.portfolio.TaxTemplate.CH, header, note)
+        )
         assertEquals(header, TaxExport.withChWealthNote(com.cryptochecker.app.domain.portfolio.TaxTemplate.DE, header, note))
         assertEquals(header, TaxExport.withChWealthNote(com.cryptochecker.app.domain.portfolio.TaxTemplate.CH, header, ""))
         // Nicht doppelt
@@ -443,8 +490,14 @@ class TaxExportParityTest {
             PortfolioTrade(2, "BTC", PortfolioTxType.SELL, BigDecimal("1"), BigDecimal("2020"), t0 + 50 * 86_400_000L),
             PortfolioTrade(3, "ETH", PortfolioTxType.BUY, BigDecimal("1"), BigDecimal("100"), t0),
             PortfolioTrade(
-                4, "ETH", PortfolioTxType.WITHDRAWAL, BigDecimal("0.5"), null, t0 + 80 * 86_400_000L,
-                fee = BigDecimal("25"), feeUnit = PortfolioFeeUnit.QUOTE,
+                4,
+                "ETH",
+                PortfolioTxType.WITHDRAWAL,
+                BigDecimal("0.5"),
+                null,
+                t0 + 80 * 86_400_000L,
+                fee = BigDecimal("25"),
+                feeUnit = PortfolioFeeUnit.QUOTE,
             ),
         )
         // EUR = USD (Kurs 1) an jedem Tag des Jahres

@@ -194,22 +194,9 @@ object CutoffExport {
         if (addressLots && texts.addressLots.isNotEmpty()) sb.append(line(listOf(texts.addressLots)))
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         EstvKursliste.noteLine(texts.estvNoteFormat, date, currency, texts.estvLanguage)?.let { sb.append(line(listOf(it))) }
-        sb.append(
-            line(
-                listOf(
-                    texts.coin, texts.amount, texts.priceUsdt, texts.valueUsdt,
-                    texts.rate, texts.valueTarget, texts.note,
-                )
-            )
-        )
+        sb.append(line(texts.columns()))
         for (r in rows) {
-            val notes = listOfNotNull(
-                texts.fromAddress.takeIf { r.fromAddress && it.isNotEmpty() },
-                texts.addressUnobserved.takeIf { r.addressUnobserved && it.isNotEmpty() },
-                (texts.unavailable.takeIf { r.unavailable && it.isNotEmpty() } ?: texts.noPrice).takeIf { r.noPrice },
-                texts.unchecked.takeIf { r.unchecked },
-                texts.noFx.takeIf { r.noFx },
-            ).joinToString(", ")
+            val notes = rowNotes(r, texts)
             sb.append(
                 cells(
                     listOf(
@@ -234,7 +221,9 @@ object CutoffExport {
         val anyValue = rows.any { it.valueUsdt != null }
         val totalTarget = if (rows.any { it.valueTarget != null }) {
             rows.fold(BigDecimal.ZERO) { sum, r -> r.valueTarget?.let { sum + roundedMoney(it) } ?: sum }
-        } else null
+        } else {
+            null
+        }
         val totalNotes = listOfNotNull(
             texts.incomplete.takeIf { addressesUnreadable || rows.any { it.noPrice || it.unchecked || it.addressUnobserved } },
             texts.noFx.takeIf { rows.isNotEmpty() && rows.all { it.noFx } },
@@ -254,6 +243,18 @@ object CutoffExport {
         )
         return sb.toString()
     }
+
+    /** Spaltenköpfe der Stichtag-Datei. */
+    private fun CutoffCsvTexts.columns(): List<String> = listOf(coin, amount, priceUsdt, valueUsdt, rate, valueTarget, note)
+
+    /** Bemerkungen einer Zeile: von Adresse, nicht beobachtet, ohne Kurs, ungeprüft, ohne Devisenkurs. */
+    private fun rowNotes(r: CutoffRow, texts: CutoffCsvTexts): String = listOfNotNull(
+        texts.fromAddress.takeIf { r.fromAddress && it.isNotEmpty() },
+        texts.addressUnobserved.takeIf { r.addressUnobserved && it.isNotEmpty() },
+        (texts.unavailable.takeIf { r.unavailable && it.isNotEmpty() } ?: texts.noPrice).takeIf { r.noPrice },
+        texts.unchecked.takeIf { r.unchecked },
+        texts.noFx.takeIf { r.noFx },
+    ).joinToString(", ")
 
     /** Zeile aus Zellen ohne Zeilenende: Text über [escape], Zahlen nur über [escapeNumber]. */
     fun joinCells(cells: List<CsvCell>, separator: Char): String =
@@ -280,7 +281,9 @@ object CutoffExport {
     private fun quote(field: String, separator: Char): String =
         if (field.any { it == separator || it == '"' || it == '\n' || it == '\r' }) {
             "\"" + field.replace("\"", "\"\"") + "\""
-        } else field
+        } else {
+            field
+        }
 
     // ---------------- Zahlen (Dezimalpunkt, ohne Tausendertrennung; Komma erst in [csv]) ----------------
     // Gerundet wird nur hier, kaufmännisch (HALF_UP) ab dem exakten Wert, gleich wie iOS

@@ -2,20 +2,20 @@
 // letzte abgerechnete Funding Rates mit Ausweich-Kette. Erweiterungsfunktionen; Client und Zwischenspeicher in der Klasse.
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BINANCE
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BINANCE_COIN_M
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BYBIT
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.HISTORY_CACHE_MILLIS
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.OKX
+import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.historyCache
 import com.cryptochecker.app.domain.activity.FundingHistory
 import com.cryptochecker.app.domain.activity.FundingPoint
 import com.cryptochecker.app.domain.activity.FundingTrendRules
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.FuturesSources
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import timber.log.Timber
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BINANCE
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BINANCE_COIN_M
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.BYBIT
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.OKX
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.HISTORY_CACHE_MILLIS
-import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.historyCache
 
 /**
  * Die letzten [FundingTrendRules.LIMIT] abgerechneten Funding Rates — gleiche Ausweich-Kette
@@ -38,18 +38,22 @@ suspend fun FuturesDataSource.fundingHistory(watch: WatchEntity): FundingHistory
             source(BINANCE) { binanceHistory(usdt) },
             source(OKX) { okxHistory("$base-USDT-SWAP") },
         )
-        "BinanceFutures" -> if (FuturesSources.isCoinM(watch.pairId)) arrayOf(
-            source(BINANCE_COIN_M) { binanceCoinMHistory(watch.pairId.orEmpty().removePrefix(FuturesSources.COIN_M_PREFIX)) },
-            source(BINANCE) { binanceHistory(usdt) },
-            source(BYBIT) { bybitHistory(usdt) },
-            source(OKX) { okxHistory("$base-USDT-SWAP") },
-        ) else arrayOf(
-            source(BINANCE) {
-                binanceHistory(watch.pairId?.takeIf { it.endsWith("USDT") || it.endsWith("USDC") } ?: usdt)
-            },
-            source(BYBIT) { bybitHistory(usdt) },
-            source(OKX) { okxHistory("$base-USDT-SWAP") },
-        )
+        "BinanceFutures" -> if (FuturesSources.isCoinM(watch.pairId)) {
+            arrayOf(
+                source(BINANCE_COIN_M) { binanceCoinMHistory(watch.pairId.orEmpty().removePrefix(FuturesSources.COIN_M_PREFIX)) },
+                source(BINANCE) { binanceHistory(usdt) },
+                source(BYBIT) { bybitHistory(usdt) },
+                source(OKX) { okxHistory("$base-USDT-SWAP") },
+            )
+        } else {
+            arrayOf(
+                source(BINANCE) {
+                    binanceHistory(watch.pairId?.takeIf { it.endsWith("USDT") || it.endsWith("USDC") } ?: usdt)
+                },
+                source(BYBIT) { bybitHistory(usdt) },
+                source(OKX) { okxHistory("$base-USDT-SWAP") },
+            )
+        }
         "OkexFutures" -> arrayOf(
             source(OKX) { okxHistory(watch.pairId?.takeIf { it.endsWith("-SWAP") } ?: "$base-USDT-SWAP") },
             source(BINANCE) { binanceHistory(usdt) },

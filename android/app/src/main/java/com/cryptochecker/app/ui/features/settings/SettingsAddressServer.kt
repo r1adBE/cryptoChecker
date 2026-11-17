@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,23 +32,24 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.WatchedAddressSource
 import com.cryptochecker.app.data.portfolio.clearServerPauses
 import com.cryptochecker.app.data.portfolio.testBtcServer
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.ChainBalance
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,7 +61,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 // Einstellungen › Portfolio › «Eigener Server für Adressen» (nur Bitcoin, [AddressServer]) — wie iOS
 // `SettingsAddressServerCard`. Leer = öffentliche Knoten; gesetzt = nur dorthin, ohne Rückfall.
@@ -71,7 +71,9 @@ data class AddressServerState(val loaded: Boolean = false, val server: String? =
 /** Ergebnis von «Testen» samt geprüfter [url] (angezeigt nur zur gleichen Eingabe, [AddressServerRules.testShown]). */
 sealed interface AddressServerTest {
     val url: String?
-    data object Idle : AddressServerTest { override val url: String? = null }
+    data object Idle : AddressServerTest {
+        override val url: String? = null
+    }
     data class Running(override val url: String) : AddressServerTest
     data class Ok(override val url: String, val height: Long) : AddressServerTest
     data class Failed(override val url: String) : AddressServerTest

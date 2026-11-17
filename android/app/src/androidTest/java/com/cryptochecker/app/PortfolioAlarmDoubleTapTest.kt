@@ -20,6 +20,9 @@ import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -27,9 +30,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 /**
  * Doppeltipp beim Anlegen eines Portfolio-Alarms: zweimal «Speichern», solange das
@@ -46,17 +46,30 @@ class PortfolioAlarmDoubleTapTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var repository: PortfolioRepository
+
     @Inject lateinit var sources: PortfolioPriceSources
+
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var snapshotUpdater: PortfolioSnapshotUpdater
+
     @Inject lateinit var alarmSaving: PortfolioAlarmSaving
+
     @Inject lateinit var connectivity: ConnectivityMonitor
+
     @Inject lateinit var snapshotStore: PortfolioSnapshotStore
+
     @Inject lateinit var coinLogoSync: CoinLogoSync
+
     @Inject lateinit var addressRefresher: WatchedAddressRefresher
+
     @Inject lateinit var usdtPeg: UsdtPeg
+
     @Inject lateinit var costGapStore: PortfolioCostGapStore
-    @Inject @DefaultDispatcher lateinit var defaultDispatcher: CoroutineDispatcher
+
+    @Inject @DefaultDispatcher
+    lateinit var defaultDispatcher: CoroutineDispatcher
+
     @Inject lateinit var alarms: PortfolioAlarmRepository
 
     @Before

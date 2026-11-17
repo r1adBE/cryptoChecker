@@ -10,11 +10,13 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,17 +24,15 @@ import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
-import kotlinx.coroutines.delay
-import androidx.activity.compose.BackHandler
-import androidx.compose.runtime.mutableLongStateOf
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.delay
 
 /**
  * Erst-Moment (Start-Merkliste, allererstes Paar): einmal abspielen, sobald die neuen Zeilen da

@@ -43,17 +43,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Einrichten des Portfolio-Widgets: Ansicht (Übersicht / Chart / Liste), Anzeige («Nur USDT» / «Umrechnung» / «Umrechnung + USDT»),
@@ -292,7 +292,11 @@ private fun PortfolioWidgetConfigureContent(
                                 .padding(vertical = 2.dp)
                         ) {
                             RadioButton(selected = entries == value, onClick = null)
-                            Text(stringResource(label), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 12.dp))
+                            Text(
+                                stringResource(label),
+                                style = MaterialTheme.typography.bodyLarge,
+                                modifier = Modifier.padding(start = 12.dp)
+                            )
                         }
                     }
                 }

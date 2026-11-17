@@ -1,15 +1,17 @@
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.parity.ParityJson
+import java.io.File
+import java.math.BigDecimal
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -18,8 +20,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.math.BigDecimal
 
 /** Grenzen beim Einlesen einer Sicherung und gezählte ungültige Portfolio-Einträge; Swift: `BackupLimitsTests`. */
 class BackupLimitsTest {
@@ -144,13 +144,17 @@ class BackupLimitsTest {
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
             val entry = BackupFields.ENTRIES.single { it.part == c.getString("part") }
-            val sample = JSONObject(fixture.getJSONObject(entry.part).getJSONObject("sample").toString()).put(c.getString("key"), c.get("value"))
+            val sample = JSONObject(
+                fixture.getJSONObject(entry.part).getJSONObject("sample").toString()
+            ).put(c.getString("key"), c.get("value"))
             assertThrows(c.getString("name"), IllegalArgumentException::class.java) { BackupFields.checkEntry(entry, sample) }
         }
         // Was der Schreiber schreibt, besteht die Prüfung
         BackupFields.checkEntry(
             BackupFields.WATCH,
-            BackupWatchlistCodec.watchToJson(WatchEntity(id = 1, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = "USDT")),
+            BackupWatchlistCodec.watchToJson(
+                WatchEntity(id = 1, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = "USDT")
+            ),
         )
         BackupFields.checkEntry(
             BackupFields.ALARM,

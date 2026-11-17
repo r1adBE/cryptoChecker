@@ -26,7 +26,6 @@ import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import kotlinx.coroutines.flow.first
 
-
 /**
  * Mini-Chart: Linie mit sanfter Fläche darunter (Verlauf von der Kursfarbe zu
  * transparent), ohne Achsen und Punkte. Farbe nach Richtung über die
@@ -45,9 +44,21 @@ internal fun Sparkline(
     progress: () -> Float = { 1f },
 ) {
     val up = values.last() >= values.first()
-    val color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else if (up) PriceColors.up else PriceColors.down
+    val color = if (stale) {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    } else if (up) {
+        PriceColors.up
+    } else {
+        PriceColors.down
+    }
     // Veraltet: keine Fläche (Deckkraft 0), nur die graue Linie
-    val fillAlpha = if (stale) 0f else if (LocalHighContrast.current) 0.18f else 0.12f
+    val fillAlpha = if (stale) {
+        0f
+    } else if (LocalHighContrast.current) {
+        0.18f
+    } else {
+        0.12f
+    }
     // Pfade nur neu, wenn sich Verlauf, Farbe oder Grösse ändern (drawWithCache) — nicht bei
     // jedem Zeichnen und nicht bei jeder Neuzusammensetzung der Zeile (30-s-Uhr, Kurs-Takt).
     // Der Block selbst ist gemerkt; ein neuer Block würde den Zwischenspeicher verwerfen.

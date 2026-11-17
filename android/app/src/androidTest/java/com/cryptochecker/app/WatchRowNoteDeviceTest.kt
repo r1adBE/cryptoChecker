@@ -16,13 +16,13 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Notiz unter einem Paar der Merkliste: eine Zeile über die ganze Breite der Zeile
@@ -42,6 +42,7 @@ class WatchRowNoteDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
 
     @Before

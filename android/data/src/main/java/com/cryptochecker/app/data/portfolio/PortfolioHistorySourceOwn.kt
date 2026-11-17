@@ -2,30 +2,34 @@
 // Tageskerzen in USDT und das Zusammenführen mit Binance. Erweiterungsfunktionen; Speicher und Abhängigkeiten in der Klasse.
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.MAX_OWN_DAYS
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.OWN_CODEC
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.TTL_MILLIS
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.ownCacheName
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.domain.market.CycleCachePolicy
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioCoinDaily
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
-import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.time.LocalDate
 import kotlinx.coroutines.CancellationException
 import timber.log.Timber
-import java.time.LocalDate
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.MAX_OWN_DAYS
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.OWN_CODEC
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.TTL_MILLIS
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.ownCacheName
 
 /**
  * Binance-Reihen [binance] mit den eigenen Reihen [own] zusammenführen: eigene Reihe ersetzt Binance,
  * reicht sie nicht so weit zurück, davor Binance angeglichen ([PortfolioExchangeRoute.stitch]).
  */
-fun PortfolioHistorySource.mergeOwn(binance: Map<String, CoinCloses>, own: Map<String, CoinCloses>, routed: Set<String>): PortfolioDailyPrices {
+fun PortfolioHistorySource.mergeOwn(
+    binance: Map<String, CoinCloses>,
+    own: Map<String, CoinCloses>,
+    routed: Set<String>
+): PortfolioDailyPrices {
     val closes = LinkedHashMap<String, Map<Long, Double>>()
     val ranges = LinkedHashMap<String, Map<Long, PortfolioDayRange>>()
     val before = HashMap<String, Long>()
@@ -96,7 +100,8 @@ suspend fun resolveHistoryRoutes(
             val pairs = exchangeRepository.getExchangeCurrencyPairsInfo(ExchangeInfo(key = exchange.first, name = exchange.second))
                 .pairs.filter { it.contractType == FuturesContractType.NONE }
             PortfolioExchangeRoute.pickPair(
-                coin, pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) },
+                coin,
+                pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) },
             )
         } catch (e: CancellationException) {
             throw e

@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data
 
+import java.io.File
+import java.io.IOException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -7,8 +9,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import java.io.IOException
 
 /**
  * Schreibweg des Nutzers bei vollem Speicher: kein Absturz, Hinweis, «nicht geschrieben» ([guardedWrite]).
@@ -44,7 +44,8 @@ class GuardedWriteTest {
     @Test
     fun alleSchreibwegeGeschuetzt() {
         fun source(name: String) = listOf(
-            File("src/main/java/com/cryptochecker/app/data/$name"), File("data/src/main/java/com/cryptochecker/app/data/$name"),
+            File("src/main/java/com/cryptochecker/app/data/$name"),
+            File("data/src/main/java/com/cryptochecker/app/data/$name"),
         ).first { it.exists() }.readText()
         val repo = source("WatchRepository.kt")
         val guarded = listOf(
@@ -58,7 +59,11 @@ class GuardedWriteTest {
             assertTrue(signature, repo.substringAfter(signature).substringBefore("\n    /**").contains("guardedWrite("))
         }
         val add = source("WatchRepositoryAdd.kt")
-        for (signature in listOf("fun WatchRepository.tryAddWatch(", "fun WatchRepository.restore(", "fun WatchRepository.deleteWatchesWithoutAlarms(")) {
+        for (signature in listOf(
+            "fun WatchRepository.tryAddWatch(",
+            "fun WatchRepository.restore(",
+            "fun WatchRepository.deleteWatchesWithoutAlarms("
+        )) {
             assertTrue(signature, add.substringAfter(signature).substringBefore("\n}\n").contains("guardedWrite"))
         }
         val save = source("WatchRepositoryAlarmSave.kt")

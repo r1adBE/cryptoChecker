@@ -2,8 +2,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,13 +32,15 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.RefreshHeadline
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import java.util.Locale
 
 /**

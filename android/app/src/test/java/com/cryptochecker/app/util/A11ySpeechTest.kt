@@ -4,12 +4,12 @@ import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.format.A11ySpeech.Age
 import com.cryptochecker.app.domain.format.A11ySpeech.Freshness
 import com.cryptochecker.app.domain.format.A11ySpeech.StatusKind
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /** Screenreader-Sätze ohne Android — wie `A11ySpeechTests.swift`. */
 class A11ySpeechTest {

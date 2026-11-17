@@ -36,8 +36,10 @@ object Bip32 {
 
     /** Multisig (Ypub/Zpub): nicht unterstützt. */
     private val MULTISIG = setOf(0x0295B43F, 0x02AA7ED3)
+
     /** Testnet tpub/upub/vpub/Upub/Vpub. */
     private val TESTNET = setOf(0x043587CF, 0x044A5262, 0x045F1CF6, 0x024289EF, 0x02575483)
+
     /** Private Versionen (xprv … Vprv) — nie annehmen. */
     private val PRIVATE = setOf(
         0x0488ADE4, 0x049D7878, 0x04B2430C, 0x0295B005, 0x02AA7A99,

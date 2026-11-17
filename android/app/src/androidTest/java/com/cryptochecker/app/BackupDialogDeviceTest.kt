@@ -12,17 +12,19 @@ import androidx.compose.ui.test.performTextInput
 import androidx.core.content.FileProvider
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.DocumentPickerStub
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.lock.OverlayShield
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.File
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertArrayEquals
@@ -30,8 +32,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
-import javax.inject.Inject
 
 /**
  * Sichern: der Dialog übersteht das Neuerstellen des Bildschirms (Drehen), und eine
@@ -55,7 +55,9 @@ class BackupDialogDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
     private val files = mutableListOf<File>()
@@ -76,7 +78,10 @@ class BackupDialogDeviceTest {
 
     @After
     fun tearDown() {
-        files.forEach { it.setWritable(true); it.delete() }
+        files.forEach {
+            it.setWritable(true)
+            it.delete()
+        }
     }
 
     /** Schreibgeschützte Datei im freigegebenen Ordner des FileProviders (cache/diagnostics) als `content://`-Adresse. */

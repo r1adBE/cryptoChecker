@@ -43,11 +43,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleMarker
 import com.cryptochecker.app.domain.market.CycleSeries
 import com.cryptochecker.app.domain.market.CycleShades
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
@@ -55,10 +57,8 @@ import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle

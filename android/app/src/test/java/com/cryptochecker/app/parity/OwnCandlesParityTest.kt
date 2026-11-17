@@ -6,14 +6,14 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.ExchangeCandleRegistry
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.marketdata.model.FuturesContractType
+import kotlin.math.abs
+import kotlin.math.max
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.math.abs
-import kotlin.math.max
 
 /**
  * Eigene Kerzen je Börse (`testdata/parity/own_candles.json`): Adressen der Anfragen und gelesene
@@ -53,7 +53,10 @@ class OwnCandlesParityTest {
             val fixedNow = c["now"].num()?.toLong() ?: 0L
             // POST: Schlüssel «POST <Adresse> <Inhalt>»
             val http = object : CandleHttp {
-                override suspend fun get(url: String): String? { requested += url; return responses[url] as String? }
+                override suspend fun get(url: String): String? {
+                    requested += url
+                    return responses[url] as String?
+                }
                 override suspend fun post(url: String, json: String): String? {
                     val key = "POST $url $json"
                     requested += key
@@ -84,8 +87,11 @@ class OwnCandlesParityTest {
                 near("$name[$i] close", r[4].num()!!, k.close)
                 near("$name[$i] volume", r[5].num()!!, k.volume)
                 val qv = r[6].num()
-                if (qv == null) assertNull("$name[$i] quoteVolume", k.quoteVolume)
-                else near("$name[$i] quoteVolume", qv, k.quoteVolume ?: Double.NaN)
+                if (qv == null) {
+                    assertNull("$name[$i] quoteVolume", k.quoteVolume)
+                } else {
+                    near("$name[$i] quoteVolume", qv, k.quoteVolume ?: Double.NaN)
+                }
             }
         }
     }
@@ -100,8 +106,11 @@ class OwnCandlesParityTest {
             val pair = pair(c["pair"])
             val source = ExchangeCandleRegistry.sourceFor(pair)
             val expected = c["source"] as String?
-            if (expected == null) assertNull("$name: no own source", source)
-            else assertTrue("$name: source for $expected", source != null && expected in source.exchangeKeys)
+            if (expected == null) {
+                assertNull("$name: no own source", source)
+            } else {
+                assertTrue("$name: source for $expected", source != null && expected in source.exchangeKeys)
+            }
             assertEquals("$name: fallback", c["fallback"] as Boolean, OwnCandlePolicy.allowsFallback(pair))
             // Eigene Kerzen nur in 1 h, 4 h und 1 Tag
             if (source != null) {

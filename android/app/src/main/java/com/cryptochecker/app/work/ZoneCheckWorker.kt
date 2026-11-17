@@ -1,28 +1,28 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.countedRun
-import com.cryptochecker.app.data.settings.MarketAlertReset
-import com.cryptochecker.app.data.settings.ZoneCheckPrefs
-import androidx.core.content.edit
 import android.content.Context
+import androidx.core.content.edit
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.remote.InsightsDataSource
+import com.cryptochecker.app.data.settings.MarketAlertReset
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.ZoneCheckPrefs
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
-import com.cryptochecker.app.notification.IndicatorTexts
+import com.cryptochecker.app.domain.work.countedRun
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.notification.IndicatorTexts
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showFearGreed
+import com.cryptochecker.app.notification.showIndicatorAlert
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
-import com.cryptochecker.app.notification.canShowMarketNotice
-import com.cryptochecker.app.notification.showIndicatorAlert
-import com.cryptochecker.app.notification.showFearGreed
 
 /**
  * Prüft zweimal täglich den Fear & Greed Index und die eigenen Grenzen der Bitcoin-Kennzahlen und meldet,
@@ -80,7 +80,9 @@ class ZoneCheckWorker @AssistedInject constructor(
             // Gemerkter Zustand gilt nur für die Grenze, zu der er gehört: eine neue Grenze bewertet neu
             val storedThreshold = stored[kind] ?: 0
             val wasCrossed = IndicatorAlertRules.wasCrossed(
-                prefs.getBoolean(crossedKey(kind), false), storedInt(prefs, thresholdKey(kind)), storedThreshold,
+                prefs.getBoolean(crossedKey(kind), false),
+                storedInt(prefs, thresholdKey(kind)),
+                storedThreshold,
             )
             val decision = IndicatorAlertRules.decide(kind, value, threshold, wasCrossed)
             var crossed = decision.crossed
@@ -94,11 +96,15 @@ class ZoneCheckWorker @AssistedInject constructor(
                 // Nicht angekommen: später erneut versuchen
                 if (!posted) crossed = null
             }
-            crossed?.let { c -> prefs.edit { putBoolean(crossedKey(kind), c); putInt(thresholdKey(kind), storedThreshold) } }
+            crossed?.let { c ->
+                prefs.edit {
+                    putBoolean(crossedKey(kind), c)
+                    putInt(thresholdKey(kind), storedThreshold)
+                }
+            }
         }
         return true
     }
-
 
     /**
      * Fear & Greed: einmal melden, wenn der Index die eingestellte Grenze
@@ -107,7 +113,11 @@ class ZoneCheckWorker @AssistedInject constructor(
      */
     private suspend fun checkFearGreed(below: Int, above: Int, prefs: android.content.SharedPreferences): Boolean {
         if (below <= 0 && above <= 0) {
-            prefs.edit { remove(KEY_FNG); remove(KEY_FNG_BELOW); remove(KEY_FNG_ABOVE) }
+            prefs.edit {
+                remove(KEY_FNG)
+                remove(KEY_FNG_BELOW)
+                remove(KEY_FNG_ABOVE)
+            }
             return true
         }
         val value = runCatching { insightsDataSource.fearGreed().value }
@@ -124,7 +134,9 @@ class ZoneCheckWorker @AssistedInject constructor(
         val pending = decide(canNotify = true)
         val decision = if (pending.step == MarketNoticeGate.Step.NOTIFY) {
             decide(canNotify = notifier.canShowMarketNotice())
-        } else pending
+        } else {
+            pending
+        }
         val posted = when (decision.kind.takeIf { decision.step == MarketNoticeGate.Step.NOTIFY }) {
             MarketNoticeGate.FearGreedKind.BELOW -> notifier.showFearGreed(value, below = below)
             MarketNoticeGate.FearGreedKind.ABOVE -> notifier.showFearGreed(value, above = above)
@@ -132,7 +144,11 @@ class ZoneCheckWorker @AssistedInject constructor(
         }
         // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird
         if (MarketNoticeGate.storeAfterNotify(decision.step, posted)) {
-            prefs.edit { putInt(KEY_FNG, value); putInt(KEY_FNG_BELOW, below); putInt(KEY_FNG_ABOVE, above) }
+            prefs.edit {
+                putInt(KEY_FNG, value)
+                putInt(KEY_FNG_BELOW, below)
+                putInt(KEY_FNG_ABOVE, above)
+            }
         }
         return true
     }
@@ -142,9 +158,11 @@ class ZoneCheckWorker @AssistedInject constructor(
 
     companion object {
         const val WORK_NAME = "zone-check"
+
         /** Gemerkter Stand; beim Ausschalten in den Einstellungen zurückgesetzt (MarketAlertReset). */
         internal const val PREFS = ZoneCheckPrefs.PREFS
         internal const val KEY_FNG = ZoneCheckPrefs.KEY_FNG
+
         /** Grenzen, zu denen der gemerkte Stand gehört. */
         internal const val KEY_FNG_BELOW = ZoneCheckPrefs.KEY_FNG_BELOW
         internal const val KEY_FNG_ABOVE = ZoneCheckPrefs.KEY_FNG_ABOVE

@@ -5,8 +5,8 @@ import android.app.Instrumentation
 import android.content.Intent
 import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.rules.ExternalResource
 import java.io.File
+import org.junit.rules.ExternalResource
 
 /**
  * Ersetzt die Dateiauswahl des Systems (SAF) in den instrumentierten Tests: Jeder Start von

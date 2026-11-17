@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.domain.portfolio.PortfolioCompare
 import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
 import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Vergleich in Prozent seit dem Ausgangspunkt mit demselben Gitter wie [HistoryChart]: Stufen in
@@ -68,7 +68,13 @@ internal fun HistoryCompareChart(
                 if (count < 2) return@drawWithCache onDrawBehind { }
                 val format: (Double) -> String = { PortfolioFormat.signedPercent(it) }
                 val (frame, texts) = measureFrame(
-                    measurer, paint, spans, bounds.first, bounds.second, format, format(compare.currency.last())
+                    measurer,
+                    paint,
+                    spans,
+                    bounds.first,
+                    bounds.second,
+                    format,
+                    format(compare.currency.last())
                 )
                 holder.frame = frame
                 drawContent(frame, paint) {
@@ -97,7 +103,13 @@ internal fun HistoryCompareChart(
                         drawScrubMarker(frame, paint, i, compare.currency[i])
                     }
                     // Etikett ohne eigene Linie (die 0-%-Linie ist schon gestrichelt)
-                    drawAxis(frame, paint, texts, frame.y(compare.currency.last()).coerceIn(frame.plotTop, frame.plotBottom), dashed = false)
+                    drawAxis(
+                        frame,
+                        paint,
+                        texts,
+                        frame.y(compare.currency.last()).coerceIn(frame.plotTop, frame.plotBottom),
+                        dashed = false
+                    )
                 }
             }
     ) {

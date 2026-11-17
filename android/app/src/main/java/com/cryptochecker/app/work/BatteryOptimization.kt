@@ -54,7 +54,10 @@ object BatteryOptimization {
     }
 
     private fun start(context: Context, intent: Intent): Boolean =
-        runCatching { context.startActivity(intent); true }
+        runCatching {
+            context.startActivity(intent)
+            true
+        }
             .onFailure { Timber.w(it, "Akku-Einstellungen nicht erreichbar") }
             .getOrDefault(false)
 }

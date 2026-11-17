@@ -1,12 +1,12 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.widget.WidgetConfigureGuard
 import com.cryptochecker.app.domain.widget.WidgetFreshness
 import com.cryptochecker.app.domain.widget.WidgetQuoteText
 import com.cryptochecker.app.domain.widget.WidgetScreenGate
 import com.cryptochecker.app.domain.widget.WidgetTextFit
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -156,9 +156,14 @@ class WidgetFreshnessTest {
         // Wecker: Handel so verschoben, dass er mit derselben Grenze genau nach 2 h wechselt
         val w = watch(exchangeTime = now - hour)
         assertEquals(listOf(w.lastUpdate, now - hour + 2 * hour - after), WidgetFreshness.outdatedTimes(w, after))
-        assertEquals(now + hour + 1, com.cryptochecker.app.domain.refresh.OutdatedRule.nextChangeAt(
-            listOf(now - hour + 2 * hour - after), now, after,
-        ))
+        assertEquals(
+            now + hour + 1,
+            com.cryptochecker.app.domain.refresh.OutdatedRule.nextChangeAt(
+                listOf(now - hour + 2 * hour - after),
+                now,
+                after,
+            )
+        )
     }
 }
 
@@ -305,8 +310,10 @@ class WidgetRefreshUnlockTest {
 
     @Test
     fun shortRestWaitsOnceThenRedraws() {
-        assertEquals(WidgetRefreshUnlock.HoldStep(2_000 + slack, redraw = true),
-            WidgetRefreshUnlock.holdStep(now + 2_000, now))
+        assertEquals(
+            WidgetRefreshUnlock.HoldStep(2_000 + slack, redraw = true),
+            WidgetRefreshUnlock.holdStep(now + 2_000, now)
+        )
     }
 
     @Test

@@ -1,17 +1,17 @@
 package com.cryptochecker.app.domain.alarm
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.AlarmLogState
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Alarm-Protokoll (`testdata/parity/alarm_log.json`): Ergebnis je beobachteter Prüfung, Melde-Ablauf, Zusammenfassen

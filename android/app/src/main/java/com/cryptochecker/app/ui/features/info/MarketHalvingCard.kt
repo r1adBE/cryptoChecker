@@ -12,12 +12,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.HalvingEstimate
 import com.cryptochecker.app.domain.market.HalvingInfo
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.format.MonthYearFormat
+import com.cryptochecker.resources.R
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

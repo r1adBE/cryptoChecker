@@ -1,42 +1,42 @@
 package com.cryptochecker.app.ui
 
-import com.cryptochecker.app.util.OpenTargetGuard
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.util.AppVisibility
-import com.cryptochecker.app.util.StartupClock
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
-import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.AppVisibility
+import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.ui.components.CoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
-import com.cryptochecker.app.ui.components.LocalPortfolioCoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import com.cryptochecker.app.ui.components.LocalCoinSearchNameSource
+import com.cryptochecker.app.ui.components.LocalPortfolioCoinLogoSource
 import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.setup.AppearanceApplier
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.util.OpenTargetGuard
+import com.cryptochecker.app.util.StartupClock
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

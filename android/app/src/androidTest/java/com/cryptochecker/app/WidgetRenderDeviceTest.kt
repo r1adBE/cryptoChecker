@@ -17,12 +17,12 @@ import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Widgets auf dem Gerät: Was der Launcher zeigt, ist ein [RemoteViews], den das System aufbläht — erlaubt sind

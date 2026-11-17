@@ -1,8 +1,6 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.remote.BlockedSources
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
@@ -10,8 +8,14 @@ import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EpochTime
+import java.time.Instant
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -20,10 +24,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import timber.log.Timber
-import java.time.Instant
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /** Kerzenintervall, unabhängig von der Börse. */
 enum class CandleInterval(val binanceCode: String, val millis: Long) {
@@ -126,8 +126,11 @@ class CandleDataSource @Inject constructor(
             val preferred = working[memoKey]
                 ?.takeIf { System.currentTimeMillis() - it.second in 0 until WORKING_MILLIS }
                 ?.first
-            val chain = if (preferFutures) listOf(Source.BINANCE_FUTURES) + (Source.entries - Source.BINANCE_FUTURES)
-            else Source.entries
+            val chain = if (preferFutures) {
+                listOf(Source.BINANCE_FUTURES) + (Source.entries - Source.BINANCE_FUTURES)
+            } else {
+                Source.entries
+            }
             val order = if (preferred == null) chain else listOf(preferred) + (chain - preferred)
 
             for (source in order) {
@@ -151,7 +154,12 @@ class CandleDataSource @Inject constructor(
     }
 
     private suspend fun fetchFrom(
-        source: Source, b: String, q: String, interval: CandleInterval, limit: Int, attempt: Attempt?,
+        source: Source,
+        b: String,
+        q: String,
+        interval: CandleInterval,
+        limit: Int,
+        attempt: Attempt?,
     ): List<HourCandle>? {
         val binanceSymbol = b + binanceQuote(q)
         return when (source) {
@@ -171,7 +179,12 @@ class CandleDataSource @Inject constructor(
     }
 
     private suspend fun binance(
-        source: Source, endpoint: String, symbols: List<String>, interval: CandleInterval, limit: Int, attempt: Attempt?,
+        source: Source,
+        endpoint: String,
+        symbols: List<String>,
+        interval: CandleInterval,
+        limit: Int,
+        attempt: Attempt?,
     ): List<HourCandle>? {
         for (symbol in symbols) {
             if (BlockedSources.isBlocked(source.key)) return null

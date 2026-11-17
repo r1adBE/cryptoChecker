@@ -80,11 +80,15 @@ object ThresholdParser {
                 val decimal = if (cleaned.lastIndexOf('.') > cleaned.lastIndexOf(',')) '.' else ','
                 val grouping = if (decimal == '.') ',' else '.'
                 val decimalIndex = cleaned.lastIndexOf(decimal)
-                if (cleaned.count { it == decimal } != 1) null
-                else {
+                if (cleaned.count { it == decimal } != 1) {
+                    null
+                } else {
                     val intPart = cleaned.substring(0, decimalIndex)
-                    if (!validGrouping(intPart, grouping, indianGrouping)) null
-                    else number(intPart.replace(grouping.toString(), ""), cleaned.substring(decimalIndex + 1))
+                    if (!validGrouping(intPart, grouping, indianGrouping)) {
+                        null
+                    } else {
+                        number(intPart.replace(grouping.toString(), ""), cleaned.substring(decimalIndex + 1))
+                    }
                 }
             }
             else -> {

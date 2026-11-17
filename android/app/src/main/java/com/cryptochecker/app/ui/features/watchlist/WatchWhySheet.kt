@@ -41,18 +41,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhyFactors
 import com.cryptochecker.app.domain.activity.WhyReport
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Ladezustand des «Was bewegt sich mit?»-Blatts. */
 private sealed interface WhyState {
@@ -100,132 +100,133 @@ internal fun WhySheet(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-      Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.why_title), fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    IconButton(onClick = onDismiss) {
-                        Icon(
-                            painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.action_back)
-                        )
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.why_title), fontWeight = FontWeight.SemiBold) },
+                    navigationIcon = {
+                        IconButton(onClick = onDismiss) {
+                            Icon(
+                                painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = stringResource(R.string.action_back)
+                            )
+                        }
                     }
-                }
-            )
-        }
-      ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
-        ) {
-            // Kopf: Frage, Paar, Kurs, 1h/24h
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painterResource(R.drawable.ic_lightbulb), null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(18.dp)
-                )
-                Text(
-                    watch.baseAsset.takeIf { it.isNotBlank() }
-                        ?.let { stringResource(R.string.why_title_coin, it) }
-                        ?: stringResource(R.string.why_title),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 8.dp)
                 )
             }
-            Text(
-                watch.displayName,
-                style = MaterialTheme.typography.headline,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = Spacing.xs)
-            )
-            Text(
-                watch.exchangeName,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            val report = (state as? WhyState.Loaded)?.report
-            val candleNote = candleSource?.takeIf { report?.change24h != null }
-                ?.let { stringResource(R.string.change_candle_source, it) }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
+        ) { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(rememberScrollState())
+                    .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             ) {
+                // Kopf: Frage, Paar, Kurs, 1h/24h
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painterResource(R.drawable.ic_lightbulb),
+                        null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        watch.baseAsset.takeIf { it.isNotBlank() }
+                            ?.let { stringResource(R.string.why_title_coin, it) }
+                            ?: stringResource(R.string.why_title),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
                 Text(
-                    PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-                    style = MaterialTheme.typography.titleLarge.tabularNumbers(),
+                    watch.displayName,
+                    style = MaterialTheme.typography.headline,
                     fontWeight = FontWeight.SemiBold,
-                    // Grosse Schrift: Kurs bricht um statt abgeschnitten zu werden
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.padding(top = Spacing.xs)
                 )
-                ChangeBadge(stringResource(R.string.why_change_1h), report?.change1h)
-                Spacer(Modifier.width(8.dp))
-                ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h, note = candleNote)
-            }
-            // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
-            if (candleNote != null) {
                 Text(
-                    candleNote,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = Spacing.sm),
-                    textAlign = TextAlign.End
+                    watch.exchangeName,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            }
+                val report = (state as? WhyState.Loaded)?.report
+                val candleNote = candleSource?.takeIf { report?.change24h != null }
+                    ?.let { stringResource(R.string.change_candle_source, it) }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
+                ) {
+                    Text(
+                        PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
+                        style = MaterialTheme.typography.titleLarge.tabularNumbers(),
+                        fontWeight = FontWeight.SemiBold,
+                        // Grosse Schrift: Kurs bricht um statt abgeschnitten zu werden
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f)
+                    )
+                    ChangeBadge(stringResource(R.string.why_change_1h), report?.change1h)
+                    Spacer(Modifier.width(8.dp))
+                    ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h, note = candleNote)
+                }
+                // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+                if (candleNote != null) {
+                    Text(
+                        candleNote,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = Spacing.sm),
+                        textAlign = TextAlign.End
+                    )
+                }
 
-            // Oben kurz: «Kurz gesagt · Stand …» mit Satz und auffälligen Faktoren;
-            // darunter zugeklappt «Alle Werte und Quellen» (Beobachtung, Mögliche Einordnung,
-            // Quellen). Beim Laden ein form-gleicher Platzhalter
-            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyBrief") { s ->
-                when (s) {
-                    WhyState.Loading -> WhyBriefSkeleton()
-                    WhyState.Failed -> Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
-                        EmptyReasons(failure = WhyCandlesFailure.TIMEOUT, exchange = watch.exchangeName, onRetry = { attempt++ })
-                        WhySignals(signals)
-                    }
-                    is WhyState.Loaded -> {
-                        val r = s.report
-                        val factors = remember(r) { WhyFactors.rank(r) }
-                        Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
-                            if (!r.hasMarketData) {
-                                // Nicht abrufbar (offline, Zeitgrenze): mit «Erneut versuchen»; sonst führt es keine Quelle
-                                EmptyReasons(
-                                    failure = r.candlesFailure,
-                                    exchange = watch.exchangeName,
-                                    onRetry = if (r.candlesFailure != null) ({ attempt += 1 }) else null,
-                                )
-                            }
-                            WhyBriefCard(r, factors)
-                            WhyAllValuesCard(
-                                expanded = allValues,
-                                onToggle = {
-                                    allValues = !allValues
-                                    WhyAllValuesState.expanded = allValues
-                                },
-                                animate = motion,
-                            ) {
-                                WhyAllValues(r, factors, signals, watch.baseAsset, motion)
+                // Oben kurz: «Kurz gesagt · Stand …» mit Satz und auffälligen Faktoren;
+                // darunter zugeklappt «Alle Werte und Quellen» (Beobachtung, Mögliche Einordnung,
+                // Quellen). Beim Laden ein form-gleicher Platzhalter
+                Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyBrief") { s ->
+                    when (s) {
+                        WhyState.Loading -> WhyBriefSkeleton()
+                        WhyState.Failed -> Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
+                            EmptyReasons(failure = WhyCandlesFailure.TIMEOUT, exchange = watch.exchangeName, onRetry = { attempt++ })
+                            WhySignals(signals)
+                        }
+                        is WhyState.Loaded -> {
+                            val r = s.report
+                            val factors = remember(r) { WhyFactors.rank(r) }
+                            Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
+                                if (!r.hasMarketData) {
+                                    // Nicht abrufbar (offline, Zeitgrenze): mit «Erneut versuchen»; sonst führt es keine Quelle
+                                    EmptyReasons(
+                                        failure = r.candlesFailure,
+                                        exchange = watch.exchangeName,
+                                        onRetry = if (r.candlesFailure != null) ({ attempt += 1 }) else null,
+                                    )
+                                }
+                                WhyBriefCard(r, factors)
+                                WhyAllValuesCard(
+                                    expanded = allValues,
+                                    onToggle = {
+                                        allValues = !allValues
+                                        WhyAllValuesState.expanded = allValues
+                                    },
+                                    animate = motion,
+                                ) {
+                                    WhyAllValues(r, factors, signals, watch.baseAsset, motion)
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            // Fusszeile kurz; der ausführliche Hinweis steht unter «Alle Werte und Quellen»
-            Text(
-                stringResource(R.string.why_footer_short),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 16.dp)
-            )
+                // Fusszeile kurz; der ausführliche Hinweis steht unter «Alle Werte und Quellen»
+                Text(
+                    stringResource(R.string.why_footer_short),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
         }
-    }
     }
 }

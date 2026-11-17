@@ -4,15 +4,15 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportSkipReason
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import java.io.File
 import java.math.BigDecimal
 import java.time.Instant
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Börsen-Exporte (Binance, Coinbase, Bitpanda) aus den synthetischen Dateien `testdata/csv/` gegen die Erwartungen in
@@ -86,11 +86,20 @@ class CsvExchangeImportParityTest {
         data["bothExports"].list().map { it.obj() }.forEach { c ->
             val none: (String, Long) -> BigDecimal? = { _, _ -> null }
             val first = CsvImportMapping.preview(parse(c["first"] as String), emptySet(), fx = none)
-            val second = CsvImportMapping.preview(parse(c["second"] as String), first.transactions.mapTo(HashSet()) { it.importKey }, fx = none)
+            val second = CsvImportMapping.preview(
+                parse(c["second"] as String),
+                first.transactions.mapTo(HashSet()) {
+                    it.importKey
+                },
+                fx = none
+            )
             val m = "${c["first"]} → ${c["second"]}"
             assertEquals("$m duplicates", c["duplicates"].num()!!.toInt(), second.duplicates)
-            assertEquals("$m possible duplicates", c["possibleDuplicates"].list().map { it.num()!!.toInt() },
-                second.skipped.filter { it.reason == CsvImportSkipReason.POSSIBLE_DUPLICATE }.map { it.line })
+            assertEquals(
+                "$m possible duplicates",
+                c["possibleDuplicates"].list().map { it.num()!!.toInt() },
+                second.skipped.filter { it.reason == CsvImportSkipReason.POSSIBLE_DUPLICATE }.map { it.line }
+            )
             assertEquals("$m transactions", c["transactions"].list().map { it.num()!!.toInt() }, second.transactions.map { it.line })
         }
     }

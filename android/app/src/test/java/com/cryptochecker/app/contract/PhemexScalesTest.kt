@@ -99,7 +99,10 @@ class PhemexScalesTest {
     fun loadsMissingScalesForSingleTickersAndRefreshesDaily() {
         val exchange = com.cryptochecker.marketdata.model.exchange.Phemex()
         val info = com.cryptochecker.marketdata.model.PairQuery(
-            "BTC", "USDT", "sBTCUSDT", com.cryptochecker.marketdata.model.FuturesContractType.NONE,
+            "BTC",
+            "USDT",
+            "sBTCUSDT",
+            com.cryptochecker.marketdata.model.FuturesContractType.NONE,
         )
         val products = """{"code":0,"data":$data}"""
         val single = """{"error":null,"id":0,"result":{"lastEp":6200010000000,"symbol":"sBTCUSDT"}}"""
@@ -175,7 +178,10 @@ class PhemexScalesTest {
             assertEquals(setOf("sMISSINGUSDT", "sNOSCALEUSDT"), parsed.failed)
             // Einzelabfrage: Fehler mit Symbol
             val info = com.cryptochecker.marketdata.model.PairQuery(
-                "MISSING", "USDT", "sMISSINGUSDT", com.cryptochecker.marketdata.model.FuturesContractType.NONE,
+                "MISSING",
+                "USDT",
+                "sMISSINGUSDT",
+                com.cryptochecker.marketdata.model.FuturesContractType.NONE,
             )
             val single = """{"error":null,"id":0,"result":{"lastEp":123456,"symbol":"sMISSINGUSDT"}}"""
             val err = assertThrows(Exception::class.java) {

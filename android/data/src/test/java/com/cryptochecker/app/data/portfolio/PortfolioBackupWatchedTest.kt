@@ -4,13 +4,13 @@ import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import java.math.BigDecimal
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Herkunftsschlüssel (CSV-Import) und beobachtete Adressen in Sicherung und Systemsicherungs-Kopie. */
 class PortfolioBackupWatchedTest {
@@ -19,8 +19,13 @@ class PortfolioBackupWatchedTest {
     private val eth = "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"
 
     private val imported = PortfolioTxEntity(
-        id = 3, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal("0.001"),
-        priceUsdt = BigDecimal("60000"), time = 1_000L, importKey = "relai:2024-01-05T10:00:00:0.001",
+        id = 3,
+        coin = "BTC",
+        type = PortfolioTxType.BUY,
+        amount = BigDecimal("0.001"),
+        priceUsdt = BigDecimal("60000"),
+        time = 1_000L,
+        importKey = "relai:2024-01-05T10:00:00:0.001",
     )
 
     @Test

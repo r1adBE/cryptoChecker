@@ -1,9 +1,9 @@
 package com.cryptochecker.marketdata.model.exchange
 
 import com.cryptochecker.marketdata.model.ExchangeCategory
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.generic.SimpleExchange
 import com.cryptochecker.marketdata.util.TradFi
@@ -72,8 +72,11 @@ class HtxFutures : HtxBase(
 
     /** `tradfi_labels` kommt als Liste oder als Text; nicht leer = Aktie, Rohstoff … (TradFi). */
     private fun tradFiLabels(entry: JSONObject): List<String> =
-        if (entry.optJSONArray("tradfi_labels") == null) listOf(entry.optText("tradfi_labels"))
-        else entry.optStrings("tradfi_labels")
+        if (entry.optJSONArray("tradfi_labels") == null) {
+            listOf(entry.optText("tradfi_labels"))
+        } else {
+            entry.optStrings("tradfi_labels")
+        }
 }
 
 /**

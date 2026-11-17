@@ -20,15 +20,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.ui.components.PriceWithQuote
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CoinReport
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.ui.components.DropdownField
+import com.cryptochecker.app.ui.components.PriceWithQuote
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 // ───────────────────────── Coin-Analyse ─────────────────────────
 

@@ -5,14 +5,17 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -20,9 +23,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Quelle nicht abrufbar, auch nach einer Wiederholung ([HistoricCloseChain.fetchFailure]): Fehler-Antwort (5xx, «zu
@@ -48,7 +48,10 @@ internal suspend fun HistoricPriceSource.getDay(host: String, url: String): Stri
     repeat(2) {
         if (BlockedSources.groupPausedUntil(host) != null) throw HistoricSourceUnavailable(host, error)
         var failed = false
-        val body = get(host, url) { failed = true; error = it }
+        val body = get(host, url) {
+            failed = true
+            error = it
+        }
         if (body != null || !failed) return body
         kind = HistoricCloseChain.fetchFailure((error as? HttpExchangeError)?.httpCode)
         if (kind != HistoricCloseChain.FetchFailure.TRANSIENT && kind != HistoricCloseChain.FetchFailure.UNREACHABLE) return null

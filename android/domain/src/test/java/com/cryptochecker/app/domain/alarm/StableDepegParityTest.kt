@@ -3,14 +3,14 @@ import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.StableDepeg
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Gemeinsame Testfälle `stable_depeg.json` (iOS: `StableDepegParityTests.swift`). */
 class StableDepegParityTest {
@@ -45,10 +45,18 @@ class StableDepegParityTest {
     @Test
     fun pickPair() {
         data["pickPair"].list().map { it.obj() }.forEach { c ->
-            val pairs = c["pairs"].list().map { p -> p.list().let { PortfolioExchangeRoute.Pair3(it[0] as String, it[1] as String, it[2] as String?) } }
+            val pairs = c["pairs"].list().map { p ->
+                p.list().let { PortfolioExchangeRoute.Pair3(it[0] as String, it[1] as String, it[2] as String?) }
+            }
             val got = StableDepeg.pickPair(c["coin"] as String, pairs)
             val expected = c["expected"]?.list()
-            if (expected == null) assertNull("pickPair: $c", got) else assertEquals("pickPair: $c", expected, listOf(got?.base, got?.quote, got?.pairId))
+            if (expected ==
+                null
+            ) {
+                assertNull("pickPair: $c", got)
+            } else {
+                assertEquals("pickPair: $c", expected, listOf(got?.base, got?.quote, got?.pairId))
+            }
         }
     }
 

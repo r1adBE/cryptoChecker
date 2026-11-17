@@ -9,13 +9,13 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import java.math.BigDecimal
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * «Nur Mehrbestand, gleiche Wallet» ([AddressSurplus], `testdata/parity/address_surplus.json`): Karte, Detail, Reihe
@@ -29,8 +29,12 @@ class AddressSurplusParityTest {
     private fun address(raw: Any?): WatchedAddress {
         val o = raw.obj()
         return WatchedAddress(
-            id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
-            label = o["label"] as String?, lastBalance = o["lastBalance"] as String?, lastUpdated = o["lastUpdated"].num()!!.toLong(),
+            id = o["id"].num()!!.toLong(),
+            chain = AddressChain.valueOf(o["chain"] as String),
+            address = o["address"] as String,
+            label = o["label"] as String?,
+            lastBalance = o["lastBalance"] as String?,
+            lastUpdated = o["lastUpdated"].num()!!.toLong(),
         )
     }
 

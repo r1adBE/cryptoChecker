@@ -1,6 +1,5 @@
 package com.cryptochecker.app.testing
 
-import okhttp3.HttpUrl
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Locale
@@ -9,6 +8,7 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.sin
+import okhttp3.HttpUrl
 
 /**
  * Ein Coin der Bildschirmfoto-Tour: Kürzel, Name, Kurs in USD(T), Marktkapitalisierung, 24-h-Veränderung in % und

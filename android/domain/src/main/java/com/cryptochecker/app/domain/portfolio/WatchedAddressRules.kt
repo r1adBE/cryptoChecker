@@ -1,8 +1,8 @@
 // Regeln der beobachteten Adressen (Teil von `WatchedAddress.kt`, gespiegelt in `WatchedAddressRules.swift`).
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigDecimal
 
 /** Regeln der beobachteten Adressen (Anzahl, Bezeichnung, Anzeige, Sicherung). */
@@ -46,7 +46,11 @@ object WatchedAddressRules {
      * höchstens bis [MAX_ADDRESSES]. Vorhandene bleiben unverändert (auch ihre Bezeichnung).
      * Ungültige Einträge fallen weg. [now] = [WatchedAddress.pendingSince] (auf diesem Gerät eingespielt).
      */
-    fun merge(existing: List<WatchedAddress>, incoming: List<WatchedAddressBackupEntry>, now: Long = System.currentTimeMillis()): List<WatchedAddress> {
+    fun merge(
+        existing: List<WatchedAddress>,
+        incoming: List<WatchedAddressBackupEntry>,
+        now: Long = System.currentTimeMillis()
+    ): List<WatchedAddress> {
         val result = ArrayList<WatchedAddress>()
         for (entry in incoming) {
             if (existing.size + result.size >= MAX_ADDRESSES) break
@@ -148,7 +152,11 @@ object WatchedAddressRules {
         // Sprung auf 0 erst mit dem zweiten gleichen Abruf ([ZeroConfirm])
         val zero = ZeroConfirm.apply(a, balance, tokens)
         var out = a.copy(
-            lastBalance = zero.balance, lastUpdated = time, lastAttempt = time, lastError = null, lastProvider = provider,
+            lastBalance = zero.balance,
+            lastUpdated = time,
+            lastAttempt = time,
+            lastError = null,
+            lastProvider = provider,
             zeroPending = zero.pending,
         )
         PortfolioDecimal.parse(zero.balance)?.let { out = out.copy(observations = AddressBalanceHistory.record(a.observations, time, it)) }

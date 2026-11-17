@@ -101,7 +101,9 @@ fun TaxExport.chWealth(
         val partial = known.isNotEmpty() && (unobserved || known.size < list.size)
         // Jeder Teil gerundet wie seine Zeile in der Bestandsdatei, erst dann zusammengezählt
         val valueUsdt = if (known.isEmpty()) null else known.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueUsdt!!) }
-        val valueTarget = if (known.isEmpty() || known.any { it.valueTarget == null }) null else {
+        val valueTarget = if (known.isEmpty() || known.any { it.valueTarget == null }) {
+            null
+        } else {
             known.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueTarget!!) }
         }
         TaxWealthRow(
@@ -120,7 +122,9 @@ fun TaxExport.chWealth(
     // Summen aus den gerundeten Zeilenwerten (wie sie in der Datei stehen), wie CutoffExport.csv
     val totalUsdt = rows.fold(BigDecimal.ZERO) { a, r -> r.valueUsdt?.let { a + CutoffExport.roundedMoney(it) } ?: a }
     val fx = rate?.takeIf { it.signum() > 0 }
-    val totalTarget = if (fx == null && rows.isNotEmpty()) null else {
+    val totalTarget = if (fx == null && rows.isNotEmpty()) {
+        null
+    } else {
         rows.fold(BigDecimal.ZERO) { a, r -> r.valueTarget?.let { a + CutoffExport.roundedMoney(it) } ?: a }
     }
     return TaxWealth(date, rows, totalUsdt, totalTarget, addressNote = addresses?.lotsAfterObservation == true)
@@ -137,7 +141,11 @@ fun chWealthLine(wealth: TaxWealth?, fx: Boolean): TaxSummaryLine =
         TaxSummaryLine(TaxLine.CH_WEALTH_VALUE, notCalculated = true, note = TaxSummaryNote.CH_WEALTH_ORIENTATION)
     } else {
         TaxSummaryLine(
-            TaxLine.CH_WEALTH_VALUE, wealth.totalUsdt, wealth.totalTarget.takeIf { fx },
-            incomplete = wealth.incomplete, noFx = fx && wealth.noFx, note = TaxSummaryNote.CH_WEALTH_ORIENTATION,
+            TaxLine.CH_WEALTH_VALUE,
+            wealth.totalUsdt,
+            wealth.totalTarget.takeIf { fx },
+            incomplete = wealth.incomplete,
+            noFx = fx && wealth.noFx,
+            note = TaxSummaryNote.CH_WEALTH_ORIENTATION,
         )
     }

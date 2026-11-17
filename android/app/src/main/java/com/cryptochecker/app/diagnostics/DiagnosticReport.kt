@@ -57,7 +57,6 @@ data class DiagnosticInput(
     val logos: LogoDiagnostics? = null,
 )
 
-
 /**
  * «Diagnose teilen»: reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
  * Teilen-Menü weitergegeben — nichts wird automatisch gesendet. Bezeichnungen fest auf Englisch (für den Support in
@@ -132,10 +131,14 @@ object DiagnosticReport {
         val runs = input.checkRuns.take(MAX_CHECK_RUNS)
         if (runs.isEmpty()) lines += NONE
         runs.forEach { run ->
-            lines += (listOf(
-                at(run.at), run.trigger.code, run.result.code,
-                String.format(Locale.ROOT, "%.1f s", run.durationMillis.coerceAtLeast(0) / 1000.0),
-            ) + listOfNotNull(CheckRunLog.cleanReason(run.reason))).joinToString(" | ")
+            lines += (
+                listOf(
+                    at(run.at),
+                    run.trigger.code,
+                    run.result.code,
+                    String.format(Locale.ROOT, "%.1f s", run.durationMillis.coerceAtLeast(0) / 1000.0),
+                ) + listOfNotNull(CheckRunLog.cleanReason(run.reason))
+                ).joinToString(" | ")
         }
 
         lines += ""
@@ -159,10 +162,18 @@ object DiagnosticReport {
             lines += "== Coin logos =="
             lines += "On device: ${logos.onDevice} | locked after failure: ${logos.locked}"
             val pass = logos.lastPass
-            lines += if (pass == null) "Last pass: $NONE" else listOf(
-                "Last pass: ${at(pass.at)}", "new ${pass.added}", "failed ${pass.failed}", "paused ${pass.paused}",
-                "open ${pass.open}", "unsaved ${pass.unsaved}",
-            ).joinToString(" | ")
+            lines += if (pass == null) {
+                "Last pass: $NONE"
+            } else {
+                listOf(
+                    "Last pass: ${at(pass.at)}",
+                    "new ${pass.added}",
+                    "failed ${pass.failed}",
+                    "paused ${pass.paused}",
+                    "open ${pass.open}",
+                    "unsaved ${pass.unsaved}",
+                ).joinToString(" | ")
+            }
         }
 
         lines += ""

@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.exceptions
 
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.io.IOException
 import java.net.ProtocolException
 import java.net.SocketException
 import java.net.UnknownHostException
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Verbindung mitten in der Antwort getrennt: jede Ein-/Ausgabe-Ausnahme beim Transport ist «keine

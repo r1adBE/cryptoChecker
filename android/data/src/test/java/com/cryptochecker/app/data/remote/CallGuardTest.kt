@@ -4,6 +4,8 @@ import com.cryptochecker.app.data.remote.util.CallGuard
 import com.cryptochecker.app.data.remote.util.CallStart
 import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import com.cryptochecker.app.data.remote.util.await
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -27,8 +29,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 /**
  * Wache der Börsenanfragen ([CallGuard]): Die Frist läuft erst ab der Ausführung ([CallStart]); wer in der
@@ -94,19 +94,21 @@ class CallGuardTest {
         val client = OkHttpClient.Builder()
             .dispatcher(dispatcher)
             .addInterceptor(CallStartInterceptor)
-            .addInterceptor(Interceptor { chain ->
-                if (chain.request().url.encodedPath == "/1") {
-                    firstRunning.countDown()
-                    releaseFirst.await(LATCH_SECONDS, TimeUnit.SECONDS)
+            .addInterceptor(
+                Interceptor { chain ->
+                    if (chain.request().url.encodedPath == "/1") {
+                        firstRunning.countDown()
+                        releaseFirst.await(LATCH_SECONDS, TimeUnit.SECONDS)
+                    }
+                    Response.Builder()
+                        .request(chain.request())
+                        .protocol(Protocol.HTTP_1_1)
+                        .code(200)
+                        .message("OK")
+                        .body("{}".toResponseBody("application/json".toMediaType()))
+                        .build()
                 }
-                Response.Builder()
-                    .request(chain.request())
-                    .protocol(Protocol.HTTP_1_1)
-                    .code(200)
-                    .message("OK")
-                    .body("{}".toResponseBody("application/json".toMediaType()))
-                    .build()
-            })
+            )
             .build()
 
         fun call(n: Int, guardMillis: Long) = async(Dispatchers.IO) {

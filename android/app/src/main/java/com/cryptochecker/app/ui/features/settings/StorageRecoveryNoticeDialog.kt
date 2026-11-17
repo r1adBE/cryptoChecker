@@ -14,10 +14,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,10 +46,14 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
     LaunchedEffect(changes, shown) {
         val open = shown != null
         val (unknown, next) = withContext(Dispatchers.IO) {
-            val pending = if (open) null else StorageRecoveryNotice.pending(context)?.also { kind ->
-                // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden», «Einstellungen
-                // zurückgesetzt» erst beim Schliessen (der Nutzer soll die Sperre sicher prüfen können)
-                if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) StorageRecoveryNotice.acknowledge(context, kind)
+            val pending = if (open) {
+                null
+            } else {
+                StorageRecoveryNotice.pending(context)?.also { kind ->
+                    // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden», «Einstellungen
+                    // zurückgesetzt» erst beim Schliessen (der Nutzer soll die Sperre sicher prüfen können)
+                    if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) StorageRecoveryNotice.acknowledge(context, kind)
+                }
             }
             StorageRecoveryNotice.isAddressServerUnknown(context) to pending
         }

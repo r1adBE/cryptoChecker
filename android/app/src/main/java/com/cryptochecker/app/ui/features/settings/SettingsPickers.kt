@@ -50,29 +50,29 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.settings.labelRes
-import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.domain.util.PercentText
-import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.setup.AppLanguages
-import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.DropdownField
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * «↗↘» in den Farben eines Stils (getauscht: [inverted]) — die schrägen Pfeile wie überall in

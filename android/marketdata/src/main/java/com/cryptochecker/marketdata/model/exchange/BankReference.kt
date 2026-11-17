@@ -75,10 +75,12 @@ abstract class BankReference(name: String, ttsName: String) : Exchange(name, tts
         val published = publications(MultiResponseSource.split(body))?.takeIf { it.isNotEmpty() }
             ?: throw ExchangeParseException(ExchangeParseException.NO_DATA)
         val codes = published.last().keys.filter { ReferenceRates.isCode(it) && it !in ReferenceRates.EXCLUDED }
-        for (base in codes.sorted()) for (quote in ReferenceRates.QUOTES) {
-            if (base == quote) continue
-            bulkRow("$base$quote", tickers, failed) {
-                if (!ReferenceRates.copy(published, base, quote, it)) throw ExchangeParseException(ExchangeParseException.NO_DATA)
+        for (base in codes.sorted()) {
+            for (quote in ReferenceRates.QUOTES) {
+                if (base == quote) continue
+                bulkRow("$base$quote", tickers, failed) {
+                    if (!ReferenceRates.copy(published, base, quote, it)) throw ExchangeParseException(ExchangeParseException.NO_DATA)
+                }
             }
         }
     }

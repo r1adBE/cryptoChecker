@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.util
 import com.cryptochecker.app.domain.util.PercentText
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.util.Locale
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.util.Locale
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Prozent in der Schreibweise der Sprache (`testdata/parity/percent_text.json`): Abstand vor «%» (de, fr …, nicht

@@ -2,10 +2,10 @@
 package com.cryptochecker.marketdata.model.exchange
 
 import com.cryptochecker.marketdata.util.forEachJSONObject
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
 import kotlin.math.pow
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Faktoren der Phemex-Spot-Produkte aus `/public/products`, geladen mit der Paarliste und im Speicher wie als Datei
@@ -179,8 +179,11 @@ class PhemexScales(
                     val price = scaleMap(root.optJSONObject("price"))
                     val value = scaleMap(root.optJSONObject("value"))
                     val pairs = pairMap(root.optJSONObject("pairs"))
-                    if (price.isEmpty() && value.isEmpty() && pairs.isEmpty()) null
-                    else PhemexScales(price, value, pairs, true, root.optLong("t", 0L))
+                    if (price.isEmpty() && value.isEmpty() && pairs.isEmpty()) {
+                        null
+                    } else {
+                        PhemexScales(price, value, pairs, true, root.optLong("t", 0L))
+                    }
                 }
             } catch (_: Exception) {
                 // Kaputte Kopie: wie keine Kopie behandeln, die Produktliste wird neu geladen

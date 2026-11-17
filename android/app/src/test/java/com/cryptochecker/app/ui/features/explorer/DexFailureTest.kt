@@ -3,10 +3,10 @@ package com.cryptochecker.app.ui.features.explorer
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /** Einordnung einer gescheiterten DEX-Suche ([DexFailure]) — wie `DexFailureTests` (iOS). */
 class DexFailureTest {

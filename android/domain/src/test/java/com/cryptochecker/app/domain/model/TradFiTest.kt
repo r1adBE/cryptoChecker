@@ -68,8 +68,14 @@ class TradFiTest {
     @Test
     fun aster() {
         listOf(
-            listOf("STOCK"), listOf("STOCK", "Semiconductor"), listOf("STOCK", "ETF"), listOf("ETF"),
-            listOf("Commodities"), listOf("STOCK", "AOS2", "USD1-RWA"), listOf("pre-launch", "STOCK"), listOf("stock"),
+            listOf("STOCK"),
+            listOf("STOCK", "Semiconductor"),
+            listOf("STOCK", "ETF"),
+            listOf("ETF"),
+            listOf("Commodities"),
+            listOf("STOCK", "AOS2", "USD1-RWA"),
+            listOf("pre-launch", "STOCK"),
+            listOf("stock"),
         ).forEach { assertTrue("$it", TradFi.aster(it)) }
         listOf(listOf("Top"), listOf("Meme"), listOf("AI"), emptyList(), listOf("AOS2"), listOf("pre-launch"))
             .forEach { assertFalse("$it", TradFi.aster(it)) }
@@ -80,9 +86,14 @@ class TradFiTest {
         listOf("NCSKAAPL2USD", "NCSINIKKEI2252USD", "NCCOGOLD2USD", "NCFXEUR2USD").forEach { assertTrue(it, TradFi.bingx(it)) }
         listOf("BTC", "NEIROCTO", "PAXG", "NC", "NCT", "NCSK", "").forEach { assertFalse(it, TradFi.bingx(it)) }
         mapOf(
-            "AAPL-USDT" to "AAPL", "GOLD(XAU)-USDT" to "XAU", "SILVER(XAG)-USDT" to "XAG",
-            "Palladium(XPD)-USDT" to "XPD", "Oil Brent-USDT" to "OILBRENT", "Nikkei 225-USDT" to "NIKKEI225",
-            "EURUSD-USDT" to "EURUSD", "" to "NCSKX2USD",
+            "AAPL-USDT" to "AAPL",
+            "GOLD(XAU)-USDT" to "XAU",
+            "SILVER(XAG)-USDT" to "XAG",
+            "Palladium(XPD)-USDT" to "XPD",
+            "Oil Brent-USDT" to "OILBRENT",
+            "Nikkei 225-USDT" to "NIKKEI225",
+            "EURUSD-USDT" to "EURUSD",
+            "" to "NCSKX2USD",
         ).forEach { (name, base) -> assertEquals(name, base, TradFi.bingxBase(name, "NCSKX2USD")) }
     }
 

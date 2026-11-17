@@ -4,20 +4,20 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.util.DefaultDispatcher
-import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * «Neuer Versuch um 14:32» im Kopf der Listen-Widgets, solange die Aktualisierung aus dem Widget nach «erneut

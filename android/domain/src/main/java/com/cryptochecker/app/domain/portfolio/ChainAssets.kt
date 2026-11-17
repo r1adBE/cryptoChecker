@@ -44,7 +44,9 @@ object ChainAssets {
      */
     val EVM: List<EvmNetwork> = listOf(
         EvmNetwork(
-            "BSC", "BNB Smart Chain", "BNB",
+            "BSC",
+            "BNB Smart Chain",
+            "BNB",
             listOf("https://bsc-rpc.publicnode.com", "https://bsc-dataseed.bnbchain.org"),
             listOf(
                 t("USDT", "0x55d398326f99059ff775485246999027b3197955", 18),
@@ -58,7 +60,9 @@ object ChainAssets {
             ),
         ),
         EvmNetwork(
-            "POLYGON", "Polygon PoS", "POL",
+            "POLYGON",
+            "Polygon PoS",
+            "POL",
             listOf("https://polygon-bor-rpc.publicnode.com", "https://polygon-rpc.com"),
             listOf(
                 t("USDT", "0xc2132d05d31c914a87c6611c10748aeb04b58e8f", 6),
@@ -72,7 +76,9 @@ object ChainAssets {
             ),
         ),
         EvmNetwork(
-            "ARBITRUM", "Arbitrum One", "ETH",
+            "ARBITRUM",
+            "Arbitrum One",
+            "ETH",
             listOf("https://arbitrum-one-rpc.publicnode.com", "https://arb1.arbitrum.io/rpc"),
             listOf(
                 t("USDT", "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9", 6),
@@ -85,7 +91,9 @@ object ChainAssets {
             ),
         ),
         EvmNetwork(
-            "BASE", "Base", "ETH",
+            "BASE",
+            "Base",
+            "ETH",
             listOf("https://base-rpc.publicnode.com", "https://mainnet.base.org"),
             listOf(
                 t("USDC", "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", 6),
@@ -95,7 +103,9 @@ object ChainAssets {
             ),
         ),
         EvmNetwork(
-            "OPTIMISM", "OP Mainnet", "ETH",
+            "OPTIMISM",
+            "OP Mainnet",
+            "ETH",
             listOf("https://optimism-rpc.publicnode.com", "https://mainnet.optimism.io"),
             listOf(
                 t("USDT", "0x94b008aa00579c1307b0ef2c499ad98a8ce58e58", 6),
@@ -108,7 +118,9 @@ object ChainAssets {
             ),
         ),
         EvmNetwork(
-            "AVALANCHE", "Avalanche C-Chain", "AVAX",
+            "AVALANCHE",
+            "Avalanche C-Chain",
+            "AVAX",
             listOf("https://avalanche-c-chain-rpc.publicnode.com", "https://api.avax.network/ext/bc/C/rpc"),
             listOf(
                 t("USDT", "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7", 6),
@@ -160,7 +172,12 @@ object ChainAssets {
     data class Jetton(val symbol: String, val master: String, val rawHex: String, val decimals: Int, val coin: String = symbol)
 
     val TON_JETTONS: List<Jetton> = listOf(
-        Jetton("USDT", "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs", "b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe", 6),
+        Jetton(
+            "USDT",
+            "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
+            "b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe",
+            6
+        ),
     )
 
     /**
@@ -213,8 +230,13 @@ object ChainAssets {
      * Basis (anderes Risiko: Brücke/Verwahrer); nur wenn kein eigener Kurs da ist, gilt ersatzweise der Kurs der Basis.
      */
     val WRAPPED: Map<String, String> = mapOf(
-        "WBTC" to "BTC", "BTCB" to "BTC", "BTC.B" to "BTC",
-        "WETH" to "ETH", "WBNB" to "BNB", "WAVAX" to "AVAX", "WSOL" to "SOL",
+        "WBTC" to "BTC",
+        "BTCB" to "BTC",
+        "BTC.B" to "BTC",
+        "WETH" to "ETH",
+        "WBNB" to "BNB",
+        "WAVAX" to "AVAX",
+        "WSOL" to "SOL",
     )
 
     /** Basis eines gekapselten Coins ([WRAPPED]); null = kein gekapselter Coin. */

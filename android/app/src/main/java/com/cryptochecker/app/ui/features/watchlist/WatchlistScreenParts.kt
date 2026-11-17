@@ -1,24 +1,24 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import android.content.res.Resources
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.withFrameNanos
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LifecycleStartEffect
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
+import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.DisabledView
 import com.cryptochecker.app.domain.watch.QuickView
-import com.cryptochecker.app.domain.starter.AddMoment
-import androidx.lifecycle.compose.LifecycleStartEffect
-import com.cryptochecker.app.domain.refresh.RefreshDebounce
-import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.ui.components.RowHighlight
 import com.cryptochecker.app.ui.components.SkeletonList
@@ -72,11 +72,13 @@ internal fun rememberPullRefresh(
     val request: () -> Unit = {
         val decision = viewModel.refreshAllByUser()
         val ago = RefreshDebounce.pullEchoSeconds(decision, viewModel.lastFullRefreshAt(), System.currentTimeMillis())
-        if (ago != null && !echo.value) scope.launch {
-            echo.value = true
-            delay(RefreshDebounce.PULL_ECHO_MILLIS)
-            echo.value = false
-            banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
+        if (ago != null && !echo.value) {
+            scope.launch {
+                echo.value = true
+                delay(RefreshDebounce.PULL_ECHO_MILLIS)
+                echo.value = false
+                banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
+            }
         }
     }
     return PullRefresh(request, echo)

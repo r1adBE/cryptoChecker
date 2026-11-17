@@ -74,6 +74,7 @@ class SharedPreferencesStoreTest {
 
         override fun getAll(): MutableMap<String, *> = HashMap(values)
         override fun getString(key: String, defValue: String?): String? = values[key] as? String ?: defValue
+
         @Suppress("UNCHECKED_CAST")
         override fun getStringSet(key: String, defValues: MutableSet<String>?): MutableSet<String>? =
             values[key] as? MutableSet<String> ?: defValues
@@ -89,14 +90,41 @@ class SharedPreferencesStoreTest {
             private val changes = HashMap<String, Any?>()
             private val removed = HashSet<String>()
             private var clear = false
-            override fun putString(key: String, value: String?): SharedPreferences.Editor { changes[key] = value; return this }
-            override fun putStringSet(key: String, values: MutableSet<String>?): SharedPreferences.Editor { changes[key] = values; return this }
-            override fun putInt(key: String, value: Int): SharedPreferences.Editor { changes[key] = value; return this }
-            override fun putLong(key: String, value: Long): SharedPreferences.Editor { changes[key] = value; return this }
-            override fun putFloat(key: String, value: Float): SharedPreferences.Editor { changes[key] = value; return this }
-            override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor { changes[key] = value; return this }
-            override fun remove(key: String): SharedPreferences.Editor { removed += key; return this }
-            override fun clear(): SharedPreferences.Editor { clear = true; return this }
+            override fun putString(key: String, value: String?): SharedPreferences.Editor {
+                changes[key] = value
+                return this
+            }
+            override fun putStringSet(
+                key: String,
+                values: MutableSet<String>?
+            ): SharedPreferences.Editor {
+                changes[key] = values
+                return this
+            }
+            override fun putInt(key: String, value: Int): SharedPreferences.Editor {
+                changes[key] = value
+                return this
+            }
+            override fun putLong(key: String, value: Long): SharedPreferences.Editor {
+                changes[key] = value
+                return this
+            }
+            override fun putFloat(key: String, value: Float): SharedPreferences.Editor {
+                changes[key] = value
+                return this
+            }
+            override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor {
+                changes[key] = value
+                return this
+            }
+            override fun remove(key: String): SharedPreferences.Editor {
+                removed += key
+                return this
+            }
+            override fun clear(): SharedPreferences.Editor {
+                clear = true
+                return this
+            }
             override fun commit(): Boolean {
                 if (clear) values.clear()
                 removed.forEach { values.remove(it) }

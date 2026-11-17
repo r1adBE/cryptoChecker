@@ -7,13 +7,13 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.resources.R
 
 /** Netzwerk-Fehler (kein Internet, Server nicht erreichbar, Zeitüberschreitung)? */
 internal fun isConnectionError(error: String?): Boolean {
@@ -43,12 +43,17 @@ internal fun isNotTraded(error: String?): Boolean = NotTraded.isMarker(error)
 internal fun isRetryableExchangeError(error: String?): Boolean {
     if (error == null || isNotTraded(error) || RefreshReportLogic.isRegionBlocked(error) ||
         RefreshReportLogic.isAccessDenied(error)
-    ) return false
+    ) {
+        return false
+    }
     return isConnectionError(error) || RefreshReportLogic.classify(error) in RETRYABLE_FAILURES
 }
 
 private val RETRYABLE_FAILURES = setOf(
-    RefreshFailure.TIMEOUT, RefreshFailure.OFFLINE, RefreshFailure.RATE_LIMIT, RefreshFailure.SERVER,
+    RefreshFailure.TIMEOUT,
+    RefreshFailure.OFFLINE,
+    RefreshFailure.RATE_LIMIT,
+    RefreshFailure.SERVER,
 )
 
 /** Technische Fehlermeldung → verständlicher Text (z. B. «Keine Verbindung»). */

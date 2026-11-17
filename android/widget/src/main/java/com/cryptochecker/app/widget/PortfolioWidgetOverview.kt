@@ -5,12 +5,12 @@ package com.cryptochecker.app.widget
 
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.resources.R
 
 /**
  * Ansicht «Übersicht» (wie die Gesamtkarte im Portfolio-Tab): Kopfzeile, Gesamtwert,

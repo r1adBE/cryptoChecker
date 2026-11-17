@@ -19,9 +19,24 @@ enum class WidgetKind(
     val previewRes: Int,
 ) {
     LIST(PriceWidgetProvider::class.java, R.string.tab_watchlist, R.string.widget_description, R.drawable.widget_preview_list_img),
-    SINGLE(SingleWidgetProvider::class.java, R.string.widget_kind_single, R.string.single_widget_description, R.drawable.widget_preview_single_img),
-    PORTFOLIO(PortfolioWidgetProvider::class.java, R.string.widget_portfolio_name, R.string.widget_portfolio_description, R.drawable.widget_preview_portfolio_img),
-    PULSE(PulseWidgetProvider::class.java, R.string.pulse_now_title, R.string.widget_pulse_description, R.drawable.widget_preview_pulse_img),
+    SINGLE(
+        SingleWidgetProvider::class.java,
+        R.string.widget_kind_single,
+        R.string.single_widget_description,
+        R.drawable.widget_preview_single_img
+    ),
+    PORTFOLIO(
+        PortfolioWidgetProvider::class.java,
+        R.string.widget_portfolio_name,
+        R.string.widget_portfolio_description,
+        R.drawable.widget_preview_portfolio_img
+    ),
+    PULSE(
+        PulseWidgetProvider::class.java,
+        R.string.pulse_now_title,
+        R.string.widget_pulse_description,
+        R.drawable.widget_preview_pulse_img
+    ),
 }
 
 /**

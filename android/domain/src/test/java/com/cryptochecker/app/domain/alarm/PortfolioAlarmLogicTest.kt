@@ -153,18 +153,25 @@ class PortfolioAlarmLogicTest {
     fun `missing coin price skips value alarms, neither fire nor rearm`() {
         // Ein Coin ohne Kurs zählt als 0: «unter Betrag» darf nicht auslösen, «über» nicht wieder scharf werden
         val missing = reading(50.0).copy(missingPrices = 1)
-        assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), missing, start, 0))
+        assertEquals(
+            PortfolioAlarmDecision.None,
+            PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), missing, start, 0)
+        )
         val fired = alarm(PortfolioAlarmKind.VALUE_ABOVE, 100.0).copy(referenceAt = start)
         assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(fired, missing, start, 0))
         val firedBelow = alarm(PortfolioAlarmKind.VALUE_BELOW, 10.0).copy(referenceAt = start)
         assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(firedBelow, missing, start, 0))
         // Mit allen Kursen wie bisher
-        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), reading(50.0), start, 0) is PortfolioAlarmDecision.Fire)
+        assertTrue(
+            PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), reading(50.0), start, 0) is PortfolioAlarmDecision.Fire
+        )
         assertEquals(PortfolioAlarmDecision.Rearm, PortfolioAlarmLogic.decide(firedBelow, reading(50.0), start, 0))
         // Fehlender Vergleichskurs in «heute» betrifft nur die %-Alarme
         val partial = reading(50.0, change = 12.0).copy(todaySkipped = 1)
         assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.CHANGE_UP, 10.0), partial, start, 0))
-        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), partial, start, 0) is PortfolioAlarmDecision.Fire)
+        assertTrue(
+            PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), partial, start, 0) is PortfolioAlarmDecision.Fire
+        )
     }
 
     @Test
@@ -174,10 +181,20 @@ class PortfolioAlarmLogicTest {
         for (kind in PortfolioAlarmKind.entries) {
             val threshold = if (kind.isValue) 100.0 else 10.0
             assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold), stale, start, 0))
-            assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold).copy(referenceAt = start), stale, start, 0))
+            assertEquals(
+                PortfolioAlarmDecision.None,
+                PortfolioAlarmLogic.decide(alarm(kind, threshold).copy(referenceAt = start), stale, start, 0)
+            )
         }
         // Alle frisch: wie bisher
-        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), stale.copy(stalePrices = 0), start, 0) is PortfolioAlarmDecision.Fire)
+        assertTrue(
+            PortfolioAlarmLogic.decide(
+                alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0),
+                stale.copy(stalePrices = 0),
+                start,
+                0
+            ) is PortfolioAlarmDecision.Fire
+        )
     }
 
     @Test
@@ -185,7 +202,12 @@ class PortfolioAlarmLogicTest {
         // Frisch wiederhergestellt: Guthaben nie geladen — der Gesamtwert ist zu tief, «unter Betrag» löste sonst aus
         val addresses = listOf(
             WatchedAddress(chain = AddressChain.BTC, address = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", lastBalance = null),
-            WatchedAddress(chain = AddressChain.ETH, address = "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed", lastBalance = null, countInPortfolio = false),
+            WatchedAddress(
+                chain = AddressChain.ETH,
+                address = "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+                lastBalance = null,
+                countInPortfolio = false
+            ),
         )
         val pending = AddressBalance.pendingCount(addresses, start)
         assertEquals(1, pending)
@@ -193,12 +215,22 @@ class PortfolioAlarmLogicTest {
         for (kind in PortfolioAlarmKind.entries) {
             val threshold = if (kind.isValue) 100.0 else 10.0
             assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold), r, start, 0))
-            assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold).copy(referenceAt = start), r, start, 0))
+            assertEquals(
+                PortfolioAlarmDecision.None,
+                PortfolioAlarmLogic.decide(alarm(kind, threshold).copy(referenceAt = start), r, start, 0)
+            )
         }
         // Guthaben geladen: wie bisher
         val loaded = addresses.map { it.copy(lastBalance = "0.1") }
         assertEquals(0, AddressBalance.pendingCount(loaded, start))
-        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), r.copy(addressesPending = 0), start, 0) is PortfolioAlarmDecision.Fire)
+        assertTrue(
+            PortfolioAlarmLogic.decide(
+                alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0),
+                r.copy(addressesPending = 0),
+                start,
+                0
+            ) is PortfolioAlarmDecision.Fire
+        )
     }
 
     @Test
@@ -210,7 +242,10 @@ class PortfolioAlarmLogicTest {
         assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.CHANGE_UP, 10.0), small, start, 0) is PortfolioAlarmDecision.Fire)
         val material = small.copy(staleValueUsdt = 0.6)
         assertTrue(PortfolioAlarmLogic.staleMaterial(material))
-        assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), material, start, 0))
+        assertEquals(
+            PortfolioAlarmDecision.None,
+            PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), material, start, 0)
+        )
         // Ohne bekannten Gesamtwert: wesentlich
         assertTrue(PortfolioAlarmLogic.staleMaterial(small.copy(totalUsdt = null)))
         // Hinweis: nur die wesentlichen alten Kurse und (bei Wert-Alarmen) die Coins ohne Kurs
@@ -227,7 +262,9 @@ class PortfolioAlarmLogicTest {
         // Alarm in EUR, Stand in CHF, keine Messung USDT/USD: USDT = 1 angenommen
         assertTrue(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "EUR"), chfReading))
         // Gemessen: nichts angenommen
-        assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "EUR"), chfReading.copy(usdtUsdLive = 0.999)))
+        assertFalse(
+            PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "EUR"), chfReading.copy(usdtUsdLive = 0.999))
+        )
         // Gleiche Währung wie der Stand, USDT selbst und %-Alarme: kein Vermerk
         assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "CHF"), chfReading))
         assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_BELOW, 900.0, "USDT"), chfReading))

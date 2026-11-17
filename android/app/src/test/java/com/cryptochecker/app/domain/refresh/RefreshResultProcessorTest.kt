@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
 import com.cryptochecker.app.domain.watch.DexLiquidity

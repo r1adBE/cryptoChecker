@@ -71,7 +71,13 @@ data class WatchSettings(
             val interval = WatchInterval.clamp(o.optInt("i", WatchInterval.DEFAULT_MINUTES))
             val phone = WatchCoins.fromFavorites(list("phone"))
             return WatchSettings(
-                mode, WatchCoins.cleanOwn(list("own")), phone, o.optLong("r"), source, interval, pairs(o, phone),
+                mode,
+                WatchCoins.cleanOwn(list("own")),
+                phone,
+                o.optLong("r"),
+                source,
+                interval,
+                pairs(o, phone),
             )
         }
 
@@ -95,7 +101,10 @@ data class WatchSettings(
             val winner = if (remoteWins) remote else local
             val phoneSide = if (remoteIsPhone) remote else local
             return winner.copy(
-                phone = phoneSide.phone, source = phoneSide.source, interval = phoneSide.interval, pairs = phoneSide.pairs,
+                phone = phoneSide.phone,
+                source = phoneSide.source,
+                interval = phoneSide.interval,
+                pairs = phoneSide.pairs,
             )
         }
 

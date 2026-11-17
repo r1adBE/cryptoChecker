@@ -21,14 +21,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
 
 /**

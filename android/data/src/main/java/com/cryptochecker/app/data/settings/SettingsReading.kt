@@ -1,11 +1,12 @@
 // Einstellungen aus der DataStore-Ablage lesen (Teil von `SettingsRepository`): Schlüssel → [AppSettings] samt
 // Standardwerten und Grenzen.
 package com.cryptochecker.app.data.settings
-import com.cryptochecker.app.domain.market.IndicatorAlertKind
+import androidx.datastore.preferences.core.Preferences
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
@@ -17,7 +18,6 @@ import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.settings.clampAlarmCooldown
 import com.cryptochecker.app.domain.settings.clampBackgroundInterval
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import androidx.datastore.preferences.core.Preferences
 
 /**
  * Einstellungen aus der Ablage [prefs]: fehlende Werte als Standard ([AppSettings]), Grenzen wie beim Setzen.

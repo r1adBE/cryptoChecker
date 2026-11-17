@@ -115,8 +115,11 @@ object TaxEngines {
         val input = applyRules(dayCloseValued(trades, priceAt), rules, priceAt)
         val rows = method.costMethod?.let {
             val valued = PortfolioLedger.valueAtDayClose(input, priceAt)
-            if (walletFrom != null && it == CostMethod.FIFO_WALLET) usTransition(valued, walletFrom, zone)
-            else PortfolioCalculator.disposals(valued, it)
+            if (walletFrom != null && it == CostMethod.FIFO_WALLET) {
+                usTransition(valued, walletFrom, zone)
+            } else {
+                PortfolioCalculator.disposals(valued, it)
+            }
         } ?: run(input, method, zone, priceAt, fx).disposals
         if (!rules.quoteFeeIsInfo) return rows
         // Gebühr USDT einer Umbuchung: nicht im Einstand ([applyRules]), aber als Zeile zur Information
@@ -124,20 +127,6 @@ object TaxEngines {
         if (fees.isEmpty()) return rows
         return (rows + fees).sortedWith(compareBy<PortfolioDisposal> { it.sellTime }.thenBy { it.sellTxId }.thenBy { it.coin })
     }
-
-    /**
-     * [TaxEventRules.quoteFeeIsInfo]: je Umbuchung mit Gebühr USDT eine Zeile [PortfolioFeeExpense.TRANSFER] (Menge 0,
-     * «Einstand» = Gebühr, Erlös 0) — der Export führt sie nur zur Information, nicht in den Summen.
-     */
-    private fun transferFeeRows(trades: List<PortfolioTrade>): List<PortfolioDisposal> =
-        AddressBalance.split(trades).first
-            .filter { it.type == PortfolioTxType.TRANSFER && it.amount.signum() > 0 && it.quoteFee.signum() > 0 }
-            .map { t ->
-                PortfolioFeeExpenses.disposal(
-                    PortfolioCalculator.normalizeCoin(t.coin), PortfolioLedgerEvent(t, false), PortfolioFeeExpense.TRANSFER,
-                    PortfolioFeeExpenses.Expense(t.quoteFee, false), CostMethod.FIFO,
-                )
-            }
 
     /**
      * US-Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor): alles vor [walletFrom] (Ortszeit) FIFO über alle Wallets;
@@ -203,29 +192,6 @@ object TaxEngines {
         return words(Normalizer.normalize(text, Normalizer.Form.NFC)).any { it in INTEREST_WORDS }
     }
 
-    /** Wörter in Kleinbuchstaben: Trenner ist alles ausser Buchstaben/Ziffern und der Wechsel klein → gross. */
-    private fun words(text: String): List<String> {
-        val out = ArrayList<String>()
-        val word = StringBuilder()
-        fun flush() {
-            if (word.isNotEmpty()) out += word.toString().lowercase()
-            word.clear()
-        }
-        var prevLower = false
-        for (c in text) {
-            if (!c.isLetterOrDigit()) {
-                flush()
-                prevLower = false
-                continue
-            }
-            if (prevLower && c.isUpperCase()) flush()
-            word.append(c)
-            prevLower = c.isLowerCase()
-        }
-        flush()
-        return out
-    }
-
     private val INTEREST_WORDS = setOf(
         "interest", "interests", "lending", "zins", "zinsen", "zinsertrag", "zinserträge", "zinsgutschrift",
         "interet", "interets", "intérêt", "intérêts",
@@ -266,40 +232,6 @@ object TaxEngines {
     }
 
     /**
-     * Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung: je
-     * Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw. Gebühr-Preis, Stablecoin 1, sonst
-     * [priceAt] = Tagesschluss des UTC-Tags, [TaxDayClose], «Wert geschätzt»; ohne Kurs Erlös unbekannt) mit Id und Zeit
-     * der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR ihr in die Liste, damit die
-     * Gebühr-Coins (stabil sortiert, [PortfolioLedger.ORDER]) die Quelle zuerst verlassen. Die Transaktion selbst verliert diese Gebühr: eine Umbuchung
-     * ändert danach weder Menge noch Einstand, die Gebühr im dritten Coin erhöht keinen Einstand und ist bei einer
-     * Auszahlung kein Aufwand mehr — sonst zählte ihr Wert ein zweites Mal als Verlust. Die Gebühr USDT bleibt wie sie ist.
-     * Der Export erkennt die Zeilen an der Id einer Transaktion ohne Verkauf (Vermerk «Gebühr», [TaxExport.gainRows]).
-     */
-    private fun networkFeeSales(t: PortfolioTrade, priceAt: ((String, Long) -> BigDecimal?)?, out: MutableList<PortfolioTrade>) {
-        if ((t.type != PortfolioTxType.TRANSFER && !t.type.isWithdrawalLike) || t.amount.signum() <= 0) {
-            out += t
-            return
-        }
-        val wallet = if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange
-        // Kurs zum Tagesschluss (kein erfasster Preis, kein Stablecoin) bzw. schon geschätzter Gebühr-Preis: «Wert geschätzt»
-        fun sale(coin: String, qty: BigDecimal, recorded: BigDecimal?, estimated: Boolean) = feePrice(coin, recorded, t.time, priceAt).let { p ->
-            val atClose = p != null && recorded?.takeIf { it.signum() >= 0 } == null && PortfolioStables.needsQuote(coin)
-            PortfolioTrade(t.id, coin, PortfolioTxType.SELL, qty, p, t.time, exchange = wallet, valueEstimated = estimated || atClose)
-        }
-        var rest = t
-        if (t.coinFee.signum() > 0) {
-            out += sale(PortfolioCalculator.normalizeCoin(t.coin), t.coinFee, t.validPrice, false)
-            rest = rest.copy(fee = null, feeUnit = null)
-        }
-        t.thirdFeeCoin?.let { c ->
-            // Gebühr-Preis schon zum Tagesschluss gesetzt ([dayCloseValued]): Merker mitgeben
-            out += sale(c, t.thirdFeeAmount, t.thirdFeePrice, t.feePriceEstimated)
-            rest = rest.copy(feeCoin = null, feeCoinAmount = null, feeCoinPrice = null)
-        }
-        out += rest
-    }
-
-    /**
      * Einstand von Netzwerkgebühren ohne Rest mit Kaufpreis ([PortfolioLostFeeCost]) der eigenen Rechnungen, zeitlich;
      * Einstandsmethoden des Portfolios: leer (dort [PortfolioCalculator.ledger]). Mit [TaxEventRules.networkFeeIsDisposal]
      * ist die Gebühr eine Veräusserung — dann bleibt kein Einstand liegen.
@@ -327,8 +259,11 @@ object TaxEngines {
 
     /** [TaxMethod.FR_PTA]: Abgänge ohne Verkauf mit Kürzung der Erwerbspreis-Summe, zeitlich; sonst leer. */
     fun outflows(trades: List<PortfolioTrade>, method: TaxMethod, priceAt: ((String, Long) -> BigDecimal?)? = null): List<TaxOutflow> =
-        if (method != TaxMethod.FR_PTA) emptyList()
-        else run(applyRules(dayCloseValued(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
+        if (method != TaxMethod.FR_PTA) {
+            emptyList()
+        } else {
+            run(applyRules(dayCloseValued(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
+        }
 
     /**
      * Nur Steuer-Export, vor jeder Rechnung: Belohnungen ohne Wert ([PortfolioLedger.valueRewardsAtDayClose]) und jede
@@ -359,8 +294,12 @@ object TaxEngines {
         val unassigned = ArrayList<PortfolioUnassignedFee>()
         val outflows = ArrayList<TaxOutflow>()
         val out = when (method) {
-            TaxMethod.UK_POOL -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> ukPool(coin, steps(ev), zone, lost, unassigned) }
-            TaxMethod.CA_ACB -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> caAcb(coin, steps(ev), zone, lost, unassigned, fx) }
+            TaxMethod.UK_POOL -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) ->
+                ukPool(coin, steps(ev), zone, lost, unassigned)
+            }
+            TaxMethod.CA_ACB -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) ->
+                caAcb(coin, steps(ev), zone, lost, unassigned, fx)
+            }
             TaxMethod.JP_TOTAL_AVERAGE -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> jpTotal(coin, steps(ev), zone, lost) }
             // FR: Gesamtwert samt beobachteter Adressen ohne Einstand ([AddressBalance.isAddressPart]); Eröffnungsposten
             // stecken schon in `real` (Erwerbspreis-Summe und Bestand)
@@ -383,7 +322,9 @@ object TaxEngines {
                 // anzusetzen (§ 27a Abs. 4 Z 2 EStG), also kein abziehbarer Verlust
                 if (method == TaxMethod.AT_MOVING_AVERAGE && d.feeExpense == PortfolioFeeExpense.CONSUMED &&
                     (byId[d.sellTxId]?.acquisitionTime ?: d.sellTime) >= atNewFrom
-                ) return@mapNotNull null
+                ) {
+                    return@mapNotNull null
+                }
                 if (!fr) return@mapNotNull d
                 // FR: der ganze Kaufpreis samt Gebühr steckt schon in der Erwerbspreis-Summe (frPta) — eine Verlust-Zeile
                 // für den verbrauchten Zugang zählte ihn ein zweites Mal

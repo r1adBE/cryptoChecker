@@ -20,13 +20,13 @@ import com.cryptochecker.app.performance.PerformanceTiming.TRANSACTIONS
 import com.cryptochecker.app.performance.PerformanceTiming.assertLimitOnly
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * Steuer-Arbeitsunterlage eines grossen Portfolios (bis 10 000 Transaktionen über 2019–2025,
@@ -49,7 +49,8 @@ class TaxPerformanceTest {
     )
 
     private fun inputs(n: Int, template: TaxTemplate) = Inputs(
-        PortfolioPerformanceData.trades(n), PortfolioPerformanceData.rates(currency(template)),
+        PortfolioPerformanceData.trades(n),
+        PortfolioPerformanceData.rates(currency(template)),
         PortfolioPerformanceData.usdtUsd(),
     )
 
@@ -80,7 +81,12 @@ class TaxPerformanceTest {
         )
         val fees = TaxExport.feesIn(trades, method, period, zone, rules)
         val gainsCsv = TaxExport.gainsCsv(
-            rows, CSV_TEXTS, HEADER, FORMAT, lostFeeCosts = fees.lostFeeCosts, zone = zone,
+            rows,
+            CSV_TEXTS,
+            HEADER,
+            FORMAT,
+            lostFeeCosts = fees.lostFeeCosts,
+            zone = zone,
             unassignedFees = fees.unassignedFees,
         )
         val income = TaxExport.incomeRows(trades, period, zone, currency, input.rates, priceAt, input.usdtUsd)

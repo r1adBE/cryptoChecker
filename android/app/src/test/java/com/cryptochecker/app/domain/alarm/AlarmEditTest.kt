@@ -48,7 +48,10 @@ class AlarmEditTest {
 
     /** So speichert der Editor: Eingaben + Zustand «neu scharf». */
     private fun edited(from: AlarmEntity) = from.copy(
-        enabled = true, lastTriggeredAt = 0L, lastTriggeredPrice = null, referenceAt = 0L,
+        enabled = true,
+        lastTriggeredAt = 0L,
+        lastTriggeredPrice = null,
+        referenceAt = 0L,
     )
 
     @Test
@@ -131,8 +134,12 @@ class AlarmEditTest {
     @Test
     fun percentAlarmKeepsReferenceWhenOnlyOptionsChange() {
         val percent = triggered.copy(
-            condition = AlarmCondition.CHANGE_PERCENT_UP, threshold = 5.0, enabled = true, repeating = true,
-            referencePrice = 58_000.0, referenceAt = 0L,
+            condition = AlarmCondition.CHANGE_PERCENT_UP,
+            threshold = 5.0,
+            enabled = true,
+            repeating = true,
+            referencePrice = 58_000.0,
+            referenceAt = 0L,
         )
         val saved = AlarmEdit.merged(percent, edited(percent).copy(referencePrice = 63_000.0, speak = true))
         assertEquals(58_000.0, saved.referencePrice!!, 0.0)
@@ -190,9 +197,11 @@ class AlarmEditTest {
         assertEquals(ThresholdProblem.OI_RANGE, oi.copy(thresholdText = "2000").thresholdProblem)
         assertEquals(ThresholdProblem.INVALID, oi.copy(thresholdText = "0").thresholdProblem)
         // Jeder Fehler sperrt, kein Fehler gibt frei
-        for (d in listOf(price, funding, oi)) for (t in listOf("", "1", "abc", "5000")) {
-            val draft = d.copy(thresholdText = t)
-            assertEquals(draft.isValid, draft.thresholdProblem == null)
+        for (d in listOf(price, funding, oi)) {
+            for (t in listOf("", "1", "abc", "5000")) {
+                val draft = d.copy(thresholdText = t)
+                assertEquals(draft.isValid, draft.thresholdProblem == null)
+            }
         }
     }
 

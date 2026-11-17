@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.TaxLimitStatus
 import com.cryptochecker.app.domain.portfolio.TaxLine
 import com.cryptochecker.app.domain.portfolio.TaxSummaryLine
@@ -30,6 +29,7 @@ import com.cryptochecker.app.domain.portfolio.wealthCoinNote
 import com.cryptochecker.app.domain.portfolio.wealthCoinNoteBelowValue
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 
 /**

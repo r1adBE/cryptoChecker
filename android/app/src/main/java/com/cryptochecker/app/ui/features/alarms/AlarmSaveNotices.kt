@@ -5,8 +5,8 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -74,7 +74,9 @@ internal class AlarmSaveNotices(
     private val _timingHint = MutableStateFlow(false)
     val timingHint: StateFlow<Boolean> = _timingHint.asStateFlow()
 
-    fun dismissTimingHint() { _timingHint.value = false }
+    fun dismissTimingHint() {
+        _timingHint.value = false
+    }
 
     /**
      * Nach erfolgreichem Speichern: Hinweis merken; true = jetzt zeigen. Nach jedem Speichern gilt er als
@@ -88,7 +90,9 @@ internal class AlarmSaveNotices(
     }
 
     /** Nach dem Speichern: Hinweis «Wann Alarme geprüft werden» zeigen ([markTimingHint] hat true geliefert). */
-    fun showTimingHint() { _timingHint.value = true }
+    fun showTimingHint() {
+        _timingHint.value = true
+    }
 
     /**
      * Vor dem Speichern: Wäre es der allererste Alarm (Bestätigung zeigen)? Merkt noch nichts — das tut

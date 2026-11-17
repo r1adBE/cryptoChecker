@@ -88,9 +88,12 @@ object PortfolioCalculator {
      * unbekannt ([PortfolioLedger.valueAtDayClose]).
      */
     private fun feeValued(trades: List<PortfolioTrade>, price: ((String, Long) -> Double?)?): List<PortfolioTrade> =
-        PortfolioLedger.valueAtDayClose(trades, price?.let { f ->
-            { coin: String, time: Long -> f(coin, time)?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) } }
-        })
+        PortfolioLedger.valueAtDayClose(
+            trades,
+            price?.let { f ->
+                { coin: String, time: Long -> f(coin, time)?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) } }
+            }
+        )
 
     /**
      * [ledger] aller Coins ([PortfolioLedger.coins], ohne aktuellen Kurs und Tageskurs) in einem Durchgang: die
@@ -102,101 +105,6 @@ object PortfolioCalculator {
         val byCoin = PortfolioLedger.eventsByCoin(real)
         return PortfolioLedger.coins(trades)
             .map { coin -> ledgerOf(coin, byCoin[coin].orEmpty(), address[coin], null, method, withParts) }
-    }
-
-    /** [ledger] aus den schon gesammelten Schritten [events] des Coins (ohne Adress-Einträge). */
-    private fun ledgerOf(
-        symbol: String,
-        events: List<PortfolioLedgerEvent>,
-        addressAmount: BigDecimal?,
-        currentPrice: Double?,
-        method: CostMethod,
-        withParts: Boolean = true,
-    ): CoinLedger {
-        val book = when (method) {
-            CostMethod.FIFO -> PortfolioFifo.run(symbol, events)
-            CostMethod.FIFO_WALLET -> PortfolioFifo.run(symbol, events, perWallet = true)
-            CostMethod.AVERAGE -> average(symbol, events, withParts)
-        }
-        val zero = BigDecimal.ZERO
-        val mc = PortfolioDecimal.MC
-        val priced = book.priced
-        val unpriced = book.unpriced
-        val cost = book.cost
-
-        val ledgerHoldings = (priced + unpriced).let { if (PortfolioDecimal.isDust(it)) zero else it }
-        val addressHoldings = addressAmount?.takeIf { it.signum() > 0 } ?: zero
-        val holdings = ledgerHoldings + addressHoldings
-        // Stablecoin-Regel: USDT = 1, andere Stablecoins Marktkurs, sonst kein Wert ([PortfolioStables])
-        val price = PortfolioStables.price(symbol, currentPrice)
-        val open = holdings.signum() > 0
-        val ledgerOpen = ledgerHoldings.signum() > 0
-        val priceMissing = ledgerOpen && unpriced.signum() > 0
-        val avgCost = if (priced.signum() > 0) cost.divide(priced, mc).toDouble() else null
-        val costBasisExact = if (ledgerOpen && !priceMissing) cost else null
-        val costBasis = costBasisExact?.toDouble()
-        // Einstand des Teils mit Kaufpreis: «Seit Kauf» auch dann, wenn nur ein Teil ohne Kaufpreis ist
-        val pricedHoldings = if (ledgerOpen) priced else zero
-        val pricedCostExact = if (pricedHoldings.signum() > 0) cost else null
-        // Wert und unrealisierter Gewinn exakt (Kurs über seine kürzeste Darstellung); Double nur für die Anzeige.
-        // Wert = ganzer Bestand (mit Adressen), «Seit Kauf» nur auf den eigenen Teil mit Kaufpreis.
-        val priceExact = price?.let { PortfolioDecimal.of(it) }
-        val valueExact = priceExact?.let { holdings.multiply(it, PortfolioDecimal.MC) }
-        val value = valueExact?.toDouble()
-        // Ganz mit Kaufpreis: ganzer eigener Bestand (Staub inklusive), sonst nur der Teil mit Kaufpreis
-        val pricedValueExact = priceExact?.let { (if (priceMissing) pricedHoldings else ledgerHoldings).multiply(it, PortfolioDecimal.MC) }
-        val unrealizedExact = if (pricedCostExact != null && pricedValueExact != null) pricedValueExact - pricedCostExact else null
-        val unrealized = unrealizedExact?.toDouble()
-        val unrealizedPercent = if (unrealizedExact != null && pricedCostExact != null && pricedCostExact.signum() > 0) {
-            unrealizedExact.divide(pricedCostExact, mc).toDouble() * 100.0
-        } else null
-
-        val position = CoinPosition(
-            coin = symbol,
-            holdings = holdings.toDouble(),
-            avgCost = avgCost,
-            costBasis = costBasis,
-            currentPrice = price,
-            value = value,
-            unrealized = unrealized,
-            unrealizedPercent = unrealizedPercent,
-            realized = book.realized.toDouble(),
-            priceMissing = priceMissing,
-            oversold = book.oversold,
-            tradeCount = events.count { !it.feeLeg },
-            realizedUnknownAmount = if (PortfolioDecimal.isDust(book.unknownSold)) 0.0 else book.unknownSold.toDouble(),
-            soldAmount = if (PortfolioDecimal.isDust(book.soldTotal)) 0.0 else book.soldTotal.toDouble(),
-            holdingsExact = holdings,
-            costBasisExact = costBasisExact,
-            realizedExact = book.realized,
-            pricedHoldingsExact = pricedHoldings,
-            valueExact = valueExact,
-            unrealizedExact = unrealizedExact,
-            feeValueMissing = book.feeValueMissing,
-            realizedFeeMissing = book.realizedFeeMissing,
-            withdrawnAmount = if (PortfolioDecimal.isDust(book.withdrawn)) 0.0 else book.withdrawn.toDouble(),
-            addressHoldingsExact = addressHoldings,
-            addressValueExact = priceExact?.let { addressHoldings.multiply(it, PortfolioDecimal.MC) },
-            method = method,
-            lostFeeCostUsdt = book.lostFeeCosts.fold(zero) { acc, l -> acc + l.costUsdt },
-            unassignedFeeUsdt = book.unassignedFees.fold(zero) { acc, f -> acc + f.usdt },
-            // Aus denselben Veräusserungen wie der Steuer-Export: ein Teil ohne Einstand/Erlös → unvollständig
-            disposalsIncomplete = book.disposals.any { it.costUsdt == null || it.proceedsUsdt == null || it.feeValueMissing },
-            pricedCostExact = pricedCostExact,
-            pricedCostParts = if (pricedCostExact != null) book.openParts else emptyList(),
-        )
-        // Offene Posten für die Anzeige: FIFO je Posten, Ø zusammengefasst (Teil mit / ohne Kaufpreis)
-        val openLots = if (method.isFifo) {
-            book.lots.map { PortfolioOpenLot(symbol, it.txId, it.acquiredTime, it.kind, it.amount, it.costUsdt, it.wallet, aggregated = false) }
-        } else {
-            listOfNotNull(
-                PortfolioOpenLot(symbol, null, null, null, priced, cost, null, aggregated = true).takeIf { priced.signum() > 0 && ledgerOpen },
-                PortfolioOpenLot(symbol, null, null, null, unpriced, null, null, aggregated = true).takeIf { unpriced.signum() > 0 && ledgerOpen },
-            )
-        }
-        return CoinLedger(
-            position, book.lots, book.disposals, book.withdrawals, openLots, book.shortfalls, book.lostFeeCosts, book.unassignedFees,
-        )
     }
 
     /**
@@ -255,13 +163,21 @@ object PortfolioCalculator {
             count++
             val t = w.trade
             val price = t.validPrice
-                ?: marketPrice?.invoke(normalizeCoin(t.coin), t.time)?.takeIf { it >= 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) }
-            if (price == null || w.pricedRemoved.signum() <= 0) { incomplete = true; continue }
+                ?: marketPrice?.invoke(normalizeCoin(t.coin), t.time)?.takeIf {
+                    it >= 0.0 && it.isFinite()
+                }?.let { PortfolioDecimal.of(it) }
+            if (price == null || w.pricedRemoved.signum() <= 0) {
+                incomplete = true
+                continue
+            }
             if (w.pricedRemoved < w.removed) incomplete = true
             // Gebühren: realisierter Aufwand, nicht hier
             val value = w.sold.multiply(price, PortfolioDecimal.MC)
-            val pricedValue = if (w.pricedRemoved.compareTo(w.removed) == 0) value
-            else value.multiply(w.pricedRemoved).divide(w.removed, PortfolioDecimal.MC)
+            val pricedValue = if (w.pricedRemoved.compareTo(w.removed) == 0) {
+                value
+            } else {
+                value.multiply(w.pricedRemoved).divide(w.removed, PortfolioDecimal.MC)
+            }
             sum += pricedValue - w.cost
         }
         return WithdrawnGain(sum, incomplete, count)
@@ -346,7 +262,14 @@ object PortfolioCalculator {
         val partialCost = open.filter { it.priceMissing && it.pricedCostExact != null && it.unpricedHoldingsExact.signum() > 0 }
             .map { PortfolioUnpricedPart(it.coin, it.unpricedHoldingsExact) }
         val withCost = open.filter { it.costBasis != null }
-        val investedExact = if (withCost.isEmpty()) null else withCost.fold(BigDecimal.ZERO) { acc, p -> acc + (p.costBasisExact ?: BigDecimal.ZERO) }
+        val investedExact = if (withCost.isEmpty()) {
+            null
+        } else {
+            withCost.fold(BigDecimal.ZERO) { acc, p ->
+                acc +
+                    (p.costBasisExact ?: BigDecimal.ZERO)
+            }
+        }
         val invested = investedExact?.toDouble()
         // Gewinn seit Kauf über die Teile mit Kaufpreis der Coins mit Kurs; die übrigen nennt der Hinweis
         // («ohne 1 Coin (kein Kaufpreis)», «ohne 0.5 BTC ohne Kaufpreis», «Kein aktueller Kurs für …»).
@@ -354,12 +277,17 @@ object PortfolioCalculator {
         val included = open.filter { it.unrealizedExact != null && it.pricedCostExact != null }
         // Exakt summiert (Einstand und Gewinn je Coin als BigDecimal), Double nur für die Anzeige
         val includedCost = included.fold(BigDecimal.ZERO) { acc, p -> acc + (p.pricedCostExact ?: BigDecimal.ZERO) }
-        val unrealizedExact = if (included.isEmpty()) null
-        else included.fold(BigDecimal.ZERO) { acc, p -> acc + (p.unrealizedExact ?: BigDecimal.ZERO) }
+        val unrealizedExact = if (included.isEmpty()) {
+            null
+        } else {
+            included.fold(BigDecimal.ZERO) { acc, p -> acc + (p.unrealizedExact ?: BigDecimal.ZERO) }
+        }
         val unrealized = unrealizedExact?.toDouble()
         val unrealizedPercent = if (unrealizedExact != null && includedCost.signum() > 0) {
             unrealizedExact.divide(includedCost, PortfolioDecimal.MC).toDouble() * 100.0
-        } else null
+        } else {
+            null
+        }
 
         val realizedExact = positions.fold(BigDecimal.ZERO) { acc, p -> acc + p.realizedExact }
         return PortfolioSummary(

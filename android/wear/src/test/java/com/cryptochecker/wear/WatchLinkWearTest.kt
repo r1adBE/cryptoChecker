@@ -1,5 +1,6 @@
 package com.cryptochecker.wear
 
+import java.io.File
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import org.json.JSONArray
@@ -8,7 +9,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Kurse vom Handy auf der Uhr: Zusammenführen je Coin nach der Zeit des Handys ([WatchCache.mergeTimed],
@@ -33,8 +33,12 @@ class WatchLinkWearTest {
     private fun objects(a: JSONArray): List<JSONObject> = (0 until a.length()).map { a.getJSONObject(it) }
 
     private fun cached(o: JSONObject): WatchCached = WatchCached(
-        WatchQuote(o.getString("symbol"), o.getDouble("price"), if (o.isNull("change24h")) null else o.getDouble("change24h"),
-            o.getString("source")),
+        WatchQuote(
+            o.getString("symbol"),
+            o.getDouble("price"),
+            if (o.isNull("change24h")) null else o.getDouble("change24h"),
+            o.getString("source")
+        ),
         o.getLong("time"),
     )
 
@@ -62,8 +66,16 @@ class WatchLinkWearTest {
     fun nothingDueMeansNoFetchAndNoError() {
         runBlocking {
             var fetched = 0
-            val fetcher = WatchFetcher(this, shown = { listOf("BTC") }, fetch = { fetched++; emptyMap() },
-                save = { _, _ -> }, plan = { _, _ -> emptyList() })
+            val fetcher = WatchFetcher(
+                this,
+                shown = { listOf("BTC") },
+                fetch = {
+                    fetched++
+                    emptyMap()
+                },
+                save = { _, _ -> },
+                plan = { _, _ -> emptyList() }
+            )
             fetcher.refresh(force = false)
             settle(fetcher)
             assertEquals(0, fetched)

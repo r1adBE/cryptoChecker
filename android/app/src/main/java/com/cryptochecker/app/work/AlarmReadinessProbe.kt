@@ -1,7 +1,5 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.work.BatteryOptimization
-import com.cryptochecker.app.work.OemBatterySettings
 import android.Manifest
 import android.app.ActivityManager
 import android.app.NotificationManager
@@ -18,7 +16,9 @@ import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.work.BatteryOptimization
 import com.cryptochecker.app.work.ExactCheckScheduler
+import com.cryptochecker.app.work.OemBatterySettings
 import timber.log.Timber
 
 /**
@@ -116,7 +116,10 @@ object AlarmReadinessProbe {
     }
 
     private fun start(context: Context, intent: Intent): Boolean =
-        runCatching { context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true }
+        runCatching {
+            context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            true
+        }
             .onFailure { Timber.w(it, "Systemseite nicht erreichbar") }
             .getOrDefault(false)
 }

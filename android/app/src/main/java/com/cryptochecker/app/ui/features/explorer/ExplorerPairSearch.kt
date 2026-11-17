@@ -4,9 +4,9 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
-import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import java.text.Normalizer
@@ -107,13 +107,17 @@ object PairSearch {
     private val GOLD = listOf("PAXG", "XAUT")
     private val SILVER = listOf("KAG", "XAG")
     private val ALIASES: Map<String, List<String>> =
-        listOf("GOLD", "ORO", "OURO", "GULD", "KULTA", "ZLATO", "ZŁOTO", "ARANY", "ALTIN", "EMAS", "VÀNG",
-            "ЗОЛОТО", "ΧΡΥΣΟΣ", "ΧΡΥΣΌΣ", "זהב", "ذهب", "طلا", "सोना", "ทองคำ", "金", "黄金", "골드", "금")
+        listOf(
+            "GOLD", "ORO", "OURO", "GULD", "KULTA", "ZLATO", "ZŁOTO", "ARANY", "ALTIN", "EMAS", "VÀNG",
+            "ЗОЛОТО", "ΧΡΥΣΟΣ", "ΧΡΥΣΌΣ", "זהב", "ذهب", "طلا", "सोना", "ทองคำ", "金", "黄金", "골드", "금"
+        )
             .associateWith { GOLD } +
-        listOf("SILVER", "SILBER", "ARGENT", "ARGENTO", "PLATA", "PRATA", "ZILVER", "SØLV", "HOPEA", "STŘÍBRO", "SREBRO",
-            "EZÜST", "ARGINT", "GÜMÜŞ", "PERAK", "BẠC", "СЕРЕБРО", "СРІБЛО", "ΑΣΗΜΙ", "כסף", "فضة", "نقره", "चाँदी",
-            "เงิน", "銀", "银", "白银", "실버", "은")
-            .associateWith { SILVER }
+            listOf(
+                "SILVER", "SILBER", "ARGENT", "ARGENTO", "PLATA", "PRATA", "ZILVER", "SØLV", "HOPEA", "STŘÍBRO", "SREBRO",
+                "EZÜST", "ARGINT", "GÜMÜŞ", "PERAK", "BẠC", "СЕРЕБРО", "СРІБЛО", "ΑΣΗΜΙ", "כסף", "فضة", "نقره", "चाँदी",
+                "เงิน", "銀", "银", "白银", "실버", "은"
+            )
+                .associateWith { SILVER }
 
     /** Coins, die das Wort [word] (gross) meint: «GOLD» → PAXG, XAUT; sonst keine. */
     internal fun aliasesOf(word: String): List<String> = ALIASES[word].orEmpty()
@@ -274,16 +278,23 @@ object PairSearch {
                 }
                 val quoteRank = QUOTE_RANK.indexOf(c).let { if (it < 0) QUOTE_RANK.size else it }
                 val alpha = AssetKind.of(
-                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
-                    names[TokenIdentity.key(pair.base)], alphaNames,
+                    exchange.key,
+                    pair.base,
+                    pair.tradFi,
+                    alphaSymbols,
+                    pair.pairId,
+                    names[TokenIdentity.key(pair.base)],
+                    alphaNames,
                 ) == AssetKind.ALPHA
                 hits += (tier * 1000 + quoteRank * 10 + contractRank(pair.contractType)) to SearchHit(exchange, pair, alpha)
             }
         }
         return hits
-            .sortedWith(compareBy<Pair<Int, SearchHit>> { it.first }
-                .thenBy { it.second.pair.base }
-                .thenBy { it.second.exchange.name.lowercase() })
+            .sortedWith(
+                compareBy<Pair<Int, SearchHit>> { it.first }
+                    .thenBy { it.second.pair.base }
+                    .thenBy { it.second.exchange.name.lowercase() }
+            )
             // Manche Börsen führen ein Paar doppelt — Listen-Schlüssel müssen eindeutig sein.
             .distinctBy { (_, hit) ->
                 listOf(hit.exchange.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name)

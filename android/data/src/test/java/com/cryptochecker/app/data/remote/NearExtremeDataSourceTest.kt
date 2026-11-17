@@ -1,10 +1,11 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.TokenIdentityStore
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.market.DataFreshness
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -15,7 +16,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
 
 /**
  * Hoch/Tief je Zeitraum für den Hoch/Tief-Alarm ([NearExtremeDataSource]): Tageskerzen der Kette (Paar, sonst
@@ -40,14 +40,26 @@ class NearExtremeDataSourceTest {
     }
 
     private fun source(http: RouteHttp) =
-        NearExtremeDataSource(CandleDataSource(http.client, names, ioDispatcher = Dispatchers.IO), CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO), names)
+        NearExtremeDataSource(
+            CandleDataSource(http.client, names, ioDispatcher = Dispatchers.IO),
+            CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO),
+            names
+        )
 
     /** 370 Tageskerzen: Schluss 100 + Index, die laufende (heutige) Kerze zählt nicht zu den Zeiträumen. */
     private val year = Klines.binance(370) { 100.0 + it }
 
     @Test
     fun rangesPerWindowAreKeptInMemoryAndOnDisk() = runBlocking {
-        val http = RouteHttp { url -> if ("binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=370" in url) Reply(year) else null }
+        val http = RouteHttp { url ->
+            if ("binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=370" in
+                url
+            ) {
+                Reply(year)
+            } else {
+                null
+            }
+        }
         val first = source(http)
         val ranges = first.ranges(" btc ", "usdt")!!
         assertEquals("USDT", ranges.currency)

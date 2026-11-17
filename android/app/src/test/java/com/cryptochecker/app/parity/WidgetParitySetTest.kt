@@ -1,15 +1,15 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.util.DecimalText
-import com.cryptochecker.app.domain.format.WidgetQuantityFormat
+import com.cryptochecker.app.domain.widget.WidgetListRows
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import com.cryptochecker.app.widget.PortfolioChartRange
 import com.cryptochecker.app.widget.PortfolioDisplay
 import com.cryptochecker.app.widget.PortfolioWidgetOptions
 import com.cryptochecker.app.widget.PortfolioWidgetView
-import com.cryptochecker.app.domain.widget.WidgetListRows
-import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -89,10 +89,16 @@ class WidgetPortfolioOptionsParityTest {
             val c = raw.obj()
             val v = view(c["view"])
             val label = "${c["view"]} ${c["display"]} ${c["range"]}"
-            assertEquals("display $label", display(c["effectiveDisplay"]),
-                PortfolioWidgetOptions.effectiveDisplay(v, display(c["display"])))
-            assertEquals("range $label", range(c["effectiveRange"]),
-                PortfolioWidgetOptions.effectiveRange(v, range(c["range"])))
+            assertEquals(
+                "display $label",
+                display(c["effectiveDisplay"]),
+                PortfolioWidgetOptions.effectiveDisplay(v, display(c["display"]))
+            )
+            assertEquals(
+                "range $label",
+                range(c["effectiveRange"]),
+                PortfolioWidgetOptions.effectiveRange(v, range(c["range"]))
+            )
         }
     }
 

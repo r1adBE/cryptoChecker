@@ -6,9 +6,9 @@ import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.ExchangePair
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Börsen, deren `bulkTickersComplete` sich auf eine Aufzeichnung stützt: In `recorded_*.json` muss jedes Paar der
@@ -72,7 +72,10 @@ class RecordedBulkCompletenessTest {
                 val body = c["body"] as String
                 when (c["kind"]) {
                     "pairs" -> exchange.readPairList(call, body, pairs)
-                    "bulk" -> exchange.parseBulkTickersDetailed(call, body).let { listed += it.tickers.keys; listed += it.failed }
+                    "bulk" -> exchange.parseBulkTickersDetailed(call, body).let {
+                        listed += it.tickers.keys
+                        listed += it.failed
+                    }
                 }
             }
             if (pairs.isEmpty() || listed.isEmpty()) failures += "$key: recording lacks pair list or bulk response"

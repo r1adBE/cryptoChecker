@@ -4,12 +4,12 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
 
 class EstvKurslisteTest {
 
@@ -33,8 +33,11 @@ class EstvKurslisteTest {
         val applies = data["applies"].list()
         applies.forEach { raw ->
             val c = raw.obj()
-            assertEquals("applies ${c["date"]} ${c["currency"]}", c["expected"],
-                EstvKursliste.applies(LocalDate.parse(c["date"] as String), c["currency"] as String))
+            assertEquals(
+                "applies ${c["date"]} ${c["currency"]}",
+                c["expected"],
+                EstvKursliste.applies(LocalDate.parse(c["date"] as String), c["currency"] as String)
+            )
         }
         assertTrue(urls.size >= 5 && applies.size >= 4)
     }
@@ -54,14 +57,24 @@ class EstvKurslisteTest {
 
     @Test
     fun csvHasNoteLineAfterCommentInChf() {
-        val rows = CutoffExport.rows(listOf(CutoffHolding("BTC", BigDecimal("0.5"))), mapOf("BTC" to BigDecimal("100000")), BigDecimal("0.8"))
+        val rows = CutoffExport.rows(
+            listOf(CutoffHolding("BTC", BigDecimal("0.5"))),
+            mapOf("BTC" to BigDecimal("100000")),
+            BigDecimal("0.8")
+        )
         val lines = CutoffExport.csv(LocalDate.of(2025, 12, 31), "CHF", "2025-12-31", rows, texts)
             .removePrefix("\uFEFF").split("\r\n")
         assertEquals("ESTV-Kursliste 2025: https://www.ictax.admin.ch/extern/de.html#/ratelist/2025", lines[1])
         assertEquals("Coin;Menge;Kurs USDT;Wert USDT;Kurs;Wert;Hinweis", lines[2])
         // Mit «,» als Trennzeichen bleibt die Zeile ein Feld
-        val comma = CutoffExport.csv(LocalDate.of(2025, 12, 31), "CHF", null, rows,
-            texts.copy(estvNoteFormat = "ESTV, %1\$s: %2\$s"), CutoffCsvFormat.COMMA_POINT)
+        val comma = CutoffExport.csv(
+            LocalDate.of(2025, 12, 31),
+            "CHF",
+            null,
+            rows,
+            texts.copy(estvNoteFormat = "ESTV, %1\$s: %2\$s"),
+            CutoffCsvFormat.COMMA_POINT
+        )
             .removePrefix("\uFEFF").split("\r\n")
         assertEquals("\"ESTV, 2025: https://www.ictax.admin.ch/extern/de.html#/ratelist/2025\"", comma[1])
     }

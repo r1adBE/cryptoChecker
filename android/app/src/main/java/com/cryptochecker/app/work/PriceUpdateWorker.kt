@@ -1,6 +1,5 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.content.Context
 import android.os.Build
 import androidx.hilt.work.HiltWorker
@@ -8,15 +7,16 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.RetryWait
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.refreshNotification
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.ListWidgetRetry
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -65,7 +65,10 @@ class PriceUpdateWorker @AssistedInject constructor(
                 intervalMillis = BackgroundSchedule.exactIntervalMillis(settingsRepository.current().backgroundIntervalMinutes),
             )
             val summary = backgroundCheck.run(
-                trigger, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS, dedupeWindowMillis = window,
+                trigger,
+                networkGuaranteed = true,
+                ttsWaitMillis = TTS_WAIT_MILLIS,
+                dedupeWindowMillis = window,
                 // Abbruch durch das System: Grund für «Letzte Prüfungen» im Diagnosebericht (Kontingent, Netz weg …)
                 stopDetail = ::stopDetail,
             )
@@ -80,7 +83,9 @@ class PriceUpdateWorker @AssistedInject constructor(
             }
             Timber.d(
                 "Hintergrund-Aktualisierung: %d geprüft, %d fehlgeschlagen, %d Alarme",
-                summary.checked, summary.failed, summary.alarmsTriggered
+                summary.checked,
+                summary.failed,
+                summary.alarmsTriggered
             )
 
             if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
@@ -118,7 +123,9 @@ class PriceUpdateWorker @AssistedInject constructor(
         runCatchingCancellable {
             val settings = settingsRepository.current()
             exactScheduler.sync(
-                settings.exactChecks, hasWork = backgroundCheck.hasWork(), intervalMinutes = settings.backgroundIntervalMinutes,
+                settings.exactChecks,
+                hasWork = backgroundCheck.hasWork(),
+                intervalMinutes = settings.backgroundIntervalMinutes,
             )
         }
     }

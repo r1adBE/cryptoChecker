@@ -1,9 +1,10 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.data.asOrgJson
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
+import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
@@ -11,11 +12,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
-import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.util.TextLimit
+import java.math.BigDecimal
 import org.json.JSONArray
 import org.json.JSONObject
-import java.math.BigDecimal
 
 /**
  * JSON-Form von Portfolio-Transaktionen und -Alarmen — gleiches Format wie in der eigenen
@@ -49,7 +49,10 @@ object PortfolioJson {
         // Tausch: erhaltener Coin, Menge und Wert (exakt als Text)
         .put("toCoin", t.toCoin?.takeIf { t.type == PortfolioTxType.SWAP } ?: JSONObject.NULL)
         .put("toAmountText", t.toAmount?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
-        .put("swapValueText", t.swapValueUsdt?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
+        .put(
+            "swapValueText",
+            t.swapValueUsdt?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL
+        )
         // CSV-Importlauf: «Import rückgängig» auch nach dem Wiederherstellen
         .put("importBatch", t.importBatch ?: JSONObject.NULL)
         // Partner-Merker und Verknüpfung (zweiter Herkunftsschlüssel, Zustand davor) als eigene Felder
@@ -128,7 +131,9 @@ object PortfolioJson {
             transferTo = cleanExchange(text(o, "transferTo")),
             feeCoin = third?.first,
             feeCoinAmount = third?.second,
-            feeCoinPriceUsdt = third?.let { text(o, "feeCoinPriceText")?.let { t -> PortfolioDecimal.parse(t) }?.takeIf { it.signum() >= 0 } },
+            feeCoinPriceUsdt = third?.let {
+                text(o, "feeCoinPriceText")?.let { t -> PortfolioDecimal.parse(t) }?.takeIf { it.signum() >= 0 }
+            },
             importKey = importKey,
             acquiredTime = cleanAcquiredTime(type, if (o.isNull("acquiredTime")) null else o.getLong("acquiredTime")),
             toCoin = toCoin,
@@ -148,7 +153,8 @@ object PortfolioJson {
 
     /** Tausch: erhaltener Coin normalisiert (höchstens [MAX_FEE_COIN] Zeichen, nicht [coin]); sonst null. */
     fun cleanToCoin(toCoin: String?, coin: String): String? {
-        val c = toCoin?.let { PortfolioCalculator.normalizeCoin(it) }?.takeIf { it.isNotEmpty() && it.length <= MAX_FEE_COIN } ?: return null
+        val c =
+            toCoin?.let { PortfolioCalculator.normalizeCoin(it) }?.takeIf { it.isNotEmpty() && it.length <= MAX_FEE_COIN } ?: return null
         return c.takeIf { it != PortfolioCalculator.normalizeCoin(coin) }
     }
 
@@ -164,7 +170,8 @@ object PortfolioJson {
      * der Transaktion [coin]) und Menge > 0 — sonst null (keine solche Gebühr).
      */
     fun cleanFeeCoin(feeCoin: String?, coin: String, amount: BigDecimal?): Pair<String, BigDecimal>? {
-        val c = feeCoin?.let { PortfolioCalculator.normalizeCoin(it) }?.takeIf { it.isNotEmpty() && it.length <= MAX_FEE_COIN } ?: return null
+        val c =
+            feeCoin?.let { PortfolioCalculator.normalizeCoin(it) }?.takeIf { it.isNotEmpty() && it.length <= MAX_FEE_COIN } ?: return null
         if (c == PortfolioCalculator.normalizeCoin(coin)) return null
         val a = amount?.takeIf { it.signum() > 0 } ?: return null
         return c to a

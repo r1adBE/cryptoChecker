@@ -12,6 +12,7 @@ import org.json.JSONTokener
  */
 object BackupFormat {
     const val FORMAT = "cryptochecker-backup"
+
     /** Geschriebene Version = höchste lesbare ([BackupVersion.SUPPORTED]). */
     const val VERSION = BackupVersion.SUPPORTED
 

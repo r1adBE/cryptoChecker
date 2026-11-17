@@ -2,6 +2,10 @@ package com.cryptochecker.wear
 
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
+import java.io.File
+import java.io.IOException
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeoutException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineStart
@@ -16,10 +20,6 @@ import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import java.io.IOException
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeoutException
 
 /**
  * [WatchTaskAwait]: wartet ohne blockierten Thread auf eine Aufgabe der Play-Dienste — Ergebnis, Fehler und Frist wie

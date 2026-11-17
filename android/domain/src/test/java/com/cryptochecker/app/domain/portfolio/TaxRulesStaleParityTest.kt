@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.TaxRulesDate
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.time.YearMonth
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.time.YearMonth
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Regelstand der Länder-Vorlagen als gemeinsame Testfälle (`testdata/parity/tax_rules_stale.json`, Kopie in iOS

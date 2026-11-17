@@ -4,26 +4,30 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.portfolio.clearStored
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import com.cryptochecker.app.domain.portfolio.entryRate
+import com.cryptochecker.app.domain.portfolio.entryUsdtAssumed
+import com.cryptochecker.app.domain.portfolio.walletHoldings
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.notification.alarmsAllowed
+import com.cryptochecker.app.widget.record
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import timber.log.Timber
-import com.cryptochecker.app.notification.alarmsAllowed
-import com.cryptochecker.app.data.portfolio.clearStored
 
 /** Aktueller USDT-Kurs zum Vorbelegen; null, wenn keiner zu haben ist. */
 suspend fun PortfolioViewModel.currentPrice(coin: String): Double? = safe { priceSource.price(coin) }
@@ -203,8 +207,11 @@ enum class PortfolioWriteResult { OK, LOCKED, FAILED }
 
 /** Hinweis zu einem nicht geschriebenen Ergebnis: gesperrt → Sperr-Text, sonst «Konnte nicht gespeichert werden» (wie iOS). */
 internal fun PortfolioWriteResult.notSavedText(): Int =
-    if (this == PortfolioWriteResult.LOCKED) com.cryptochecker.resources.R.string.portfolio_storage_locked
-    else com.cryptochecker.resources.R.string.portfolio_write_failed
+    if (this == PortfolioWriteResult.LOCKED) {
+        com.cryptochecker.resources.R.string.portfolio_storage_locked
+    } else {
+        com.cryptochecker.resources.R.string.portfolio_write_failed
+    }
 
 /** [block] schreiben; Fehler werden protokolliert und als [PortfolioWriteResult] gemeldet statt still verschluckt. */
 internal suspend fun <T> portfolioWrite(label: String, block: suspend () -> T): Pair<PortfolioWriteResult, T?> = try {
@@ -240,8 +247,11 @@ fun PortfolioViewModel.deleteCoin(
 ) {
     viewModelScope.launch {
         val (result, removed) = portfolioWrite("Coin löschen") { repository.deleteCoin(coin) }
-        if (result != PortfolioWriteResult.OK) onFailed(result)
-        else if (!removed.isNullOrEmpty()) onDeleted(removed)
+        if (result != PortfolioWriteResult.OK) {
+            onFailed(result)
+        } else if (!removed.isNullOrEmpty()) {
+            onDeleted(removed)
+        }
     }
 }
 
@@ -256,8 +266,11 @@ fun PortfolioViewModel.undoImport(
 ) {
     viewModelScope.launch {
         val (result, removed) = portfolioWrite("Import rückgängig") { repository.undoImport(batch) }
-        if (result != PortfolioWriteResult.OK) onFailed(result)
-        else if (!removed.isNullOrEmpty()) onDeleted(removed)
+        if (result != PortfolioWriteResult.OK) {
+            onFailed(result)
+        } else if (!removed.isNullOrEmpty()) {
+            onDeleted(removed)
+        }
     }
 }
 
@@ -306,7 +319,11 @@ fun PortfolioViewModel.addAlarm(
         val id = safe { alarmSaving.add(kind, threshold, code, repeating) }
         if (id != null) {
             val saved = PortfolioAlarmEntity(
-                id = id, kind = kind, threshold = threshold, currency = code.takeIf { kind.isValue }, repeating = repeating,
+                id = id,
+                kind = kind,
+                threshold = threshold,
+                currency = code.takeIf { kind.isValue },
+                repeating = repeating,
             )
             onSaved(saved, runCatchingCancellable { alarmSaving.alarmsAllowed() }.getOrDefault(true))
         }
@@ -315,7 +332,12 @@ fun PortfolioViewModel.addAlarm(
         if (txs.isNotEmpty() && _prices.value.updatedAt > 0L) {
             safe {
                 snapshotUpdater.record(
-                    txs, _prices.value.prices, currency.value, _fxRate.value, routing = _prices.value, displayFx = widgetDisplayFx.value,
+                    txs,
+                    _prices.value.prices,
+                    currency.value,
+                    _fxRate.value,
+                    routing = _prices.value,
+                    displayFx = widgetDisplayFx.value,
                 )
             }
         }

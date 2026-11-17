@@ -2,13 +2,16 @@
 // Erweiterungsfunktionen; Client, Pausen und Hosts bleiben in der Klasse.
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_PAUSE_BACKGROUND_MILLIS
+import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_PAUSE_MILLIS
+import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Fetched
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
-import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Bip32
+import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.XpubCache
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
@@ -16,9 +19,6 @@ import com.cryptochecker.app.domain.portfolio.XpubScan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Fetched
-import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_PAUSE_MILLIS
-import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_PAUSE_BACKGROUND_MILLIS
 
 /**
  * xpub/ypub/zpub/Taproot-Konto: Adressen auf dem Gerät ableiten ([XpubDeriver]) und einzeln wie eine Adresse fragen
@@ -91,7 +91,12 @@ suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline: Long?): 
 }
 
 /** Eine Suche über die Adressen eines Adresstyps ([deriver]). */
-suspend fun WatchedAddressSource.scanXpub(deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode, deadline: Long?): Pair<XpubScan, Fetched> {
+suspend fun WatchedAddressSource.scanXpub(
+    deriver: XpubDeriver,
+    cache: XpubCache?,
+    mode: XpubScan.Mode,
+    deadline: Long?
+): Pair<XpubScan, Fetched> {
     val lists = listOf(ArrayList(cache?.receive.orEmpty()), ArrayList(cache?.change.orEmpty()))
     val scan = XpubScan(mode, cache)
     // Eigener Server oder die öffentlichen Hosts, für die ganze Suche gleich

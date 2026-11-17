@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Wert der Positions-Karte: zu eng → Schrift schrumpft bis 60 % (wie iOS `minimumScaleFactor(0.6)`), nie abgeschnittene
@@ -15,7 +15,9 @@ class PositionHeadlineFitTest {
     fun wertSchrumpftStattAbzuschneiden() {
         val rel = "ui/features/portfolio/PortfolioPositionCard.kt"
         val src = SourceGuard.android(findUp(rel), rel).readText(Charsets.UTF_8)
-        val headline = src.substringAfter("val headline = MaterialTheme.typography.headlineSmall").substringBefore("R.string.portfolio_holdings")
+        val headline = src.substringAfter(
+            "val headline = MaterialTheme.typography.headlineSmall"
+        ).substringBefore("R.string.portfolio_holdings")
         assertTrue(headline.contains("autoSize = TextAutoSize.StepBased("))
         assertTrue(headline.contains("minFontSize = headline.fontSize * 0.6f"))
         assertTrue(headline.contains("overflow = TextOverflow.Ellipsis"))

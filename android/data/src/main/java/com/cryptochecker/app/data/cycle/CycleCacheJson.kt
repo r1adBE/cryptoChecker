@@ -3,8 +3,8 @@
 package com.cryptochecker.app.data.cycle
 
 import com.cryptochecker.app.domain.market.CycleMarker
-import org.json.JSONObject
 import java.time.LocalDate
+import org.json.JSONObject
 
 /** JSON-Hilfen für [CycleCacheCodecs]. */
 object CycleCacheJson {

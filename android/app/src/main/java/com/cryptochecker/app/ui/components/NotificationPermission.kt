@@ -24,15 +24,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 
 /** Anlass der Frage nach der Benachrichtigungs-Erlaubnis ([rememberNotificationPermissionRequest]). */
 enum class NotificationAsk {
     /** Ausdrücklich eingeschaltet (Schalter in den Einstellungen, Meldung eines Paars): gleich die System-Abfrage. */
     DIRECT,
+
     /** Neue Paare (mit Kurs-Mitteilungen) hinzugefügt: vorher einmal kurz erklären ([NotificationPrePrompt]). */
     PAIRS_ADDED,
+
     /** Alarm angelegt: erklärt, falls noch nie gezeigt — nach «Später» noch genau einmal. */
     ALARM_CREATED,
 }
@@ -45,10 +47,13 @@ enum class NotificationAsk {
 object NotificationPrePrompt {
     /** Noch nie gezeigt. */
     const val STAGE_NEW = 0
+
     /** Einmal «Später»: beim ersten Alarm noch einmal. */
     const val STAGE_LATER_ONCE = 1
+
     /** Zweimal «Später»: nicht mehr erklären, nicht fragen. */
     const val STAGE_DONE = 2
+
     /** «Weiter» getippt: würde das System trotzdem noch fragen, gleich die System-Abfrage. */
     const val STAGE_CONTINUED = 3
 
@@ -103,7 +108,9 @@ object NotificationPrePrompt {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
             PackageManager.PERMISSION_GRANTED
-        ) return false
+        ) {
+            return false
+        }
         if (prefs(context).getBoolean(KEY_SYSTEM_ASKED, false)) return false
         val activity = context.findActivity() ?: return true
         return !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS)
@@ -133,7 +140,8 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
     return remember(launcher, reason) {
         {
             val granted = ContextCompat.checkSelfPermission(
-                context, Manifest.permission.POST_NOTIFICATIONS
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
             if (!granted) {
                 // Erklären übernimmt die eine Erklärung der App (Stufe schon beim Zeigen fortgeschrieben)

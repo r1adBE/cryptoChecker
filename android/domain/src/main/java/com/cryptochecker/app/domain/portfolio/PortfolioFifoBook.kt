@@ -1,6 +1,5 @@
 package com.cryptochecker.app.domain.portfolio
 
-import java.math.BigDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.Lot
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.Queue
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.Slice
@@ -9,6 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.consume
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.insert
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spreadQueue
+import java.math.BigDecimal
 
 /**
  * Ein Lauf von [PortfolioFifo.run]: Warteschlangen je Wallet und die laufenden Summen eines Coins; ein Ereignis nach dem
@@ -53,7 +53,16 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
         if (requested <= q.held) return
         oversold = true
         if (perWallet) {
-            shortfalls += PortfolioWalletShortfall(symbol, walletOf(q) ?: PortfolioWallets.UNSPECIFIED, t.id, t.time, t.type, feeLeg, requested - q.held.max(zero))
+            shortfalls +=
+                PortfolioWalletShortfall(
+                    symbol,
+                    walletOf(q) ?: PortfolioWallets.UNSPECIFIED,
+                    t.id,
+                    t.time,
+                    t.type,
+                    feeLeg,
+                    requested - q.held.max(zero)
+                )
         }
     }
 
@@ -118,7 +127,9 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
                 holdingDays = PortfolioFifo.holdingDays(s.lot.acquired, t.time),
                 feeLeg = feeLeg, feeValueMissing = feeMissing, method = method,
                 costParts = if (s.cost != null && s.entries.isNotEmpty()) PortfolioFifoParts(s.entries, s.cost) else emptyList(),
-                wallet = wallet, swap = swap, gift = gift, payment = payment, valueEstimated = estimated || (s.cost != null && s.lot.estimated),
+                wallet = wallet, swap = swap, gift = gift, payment = payment,
+                valueEstimated =
+                estimated || (s.cost != null && s.lot.estimated),
             )
         }
         if (uncovered.signum() > 0) {
@@ -144,7 +155,11 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
     /** Anfangsposten (Übergang): mit Erwerb und Rest-Einstand in ihre Wallet. */
     fun seed(lots: List<PortfolioLot>) {
         for (l in lots) {
-            if (l.amount.signum() > 0) insert(queue(l.wallet), Lot(l.txId, l.acquiredTime, l.acquiredTime, l.kind, l.amount, l.costUsdt, estimated = l.estimated))
+            if (l.amount.signum() >
+                0
+            ) {
+                insert(queue(l.wallet), Lot(l.txId, l.acquiredTime, l.acquiredTime, l.kind, l.amount, l.costUsdt, estimated = l.estimated))
+            }
         }
     }
 
@@ -171,7 +186,18 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
         check(q, fee, t, feeLeg = true)
         val slices = consume(q, fee)
         val removed = slices.fold(zero) { acc, s -> acc + s.amount }
-        dispose(t, q, slices, fee - removed, t.thirdFeePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }, removed, feeLeg = true, feeMissing = false)
+        dispose(
+            t,
+            q,
+            slices,
+            fee - removed,
+            t.thirdFeePrice?.let {
+                fee.multiply(it, PortfolioDecimal.MC)
+            },
+            removed,
+            feeLeg = true,
+            feeMissing = false
+        )
         soldTotal += removed
     }
 
@@ -185,7 +211,10 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
             expense(e, queue(t.exchange), PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
             return
         }
-        insert(queue(t.exchange), Lot(t.id, t.time, t.time, PortfolioTxType.SWAP, received, t.swapValue, estimated = t.costEstimated(swapIn = true)))
+        insert(
+            queue(t.exchange),
+            Lot(t.id, t.time, t.time, PortfolioTxType.SWAP, received, t.swapValue, estimated = t.costEstimated(swapIn = true))
+        )
     }
 
     private fun acquire(e: PortfolioLedgerEvent) {
@@ -256,7 +285,9 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
         val sold = if (removed.compareTo(requested) == 0) amount else removed.multiply(amount).divide(requested, mc)
         withdrawn += sold
         withdrawals += PortfolioWithdrawalCost(
-            trade = t, sold = sold, removed = removed,
+            trade = t,
+            sold = sold,
+            removed = removed,
             pricedRemoved = slices.filter { it.cost != null }.fold(zero) { acc, s -> acc + s.amount },
             cost = slices.fold(zero) { acc, s -> acc + (s.cost ?: zero) },
         )
@@ -272,7 +303,10 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
             // Je Wallet: Posten wandern mit Kaufdatum und Einstand von der Quelle zum Ziel
             check(src, amount + coinFee, t, feeLeg = false)
             // Leere Quelle → die ganze Gebühr vermerkt statt still verworfen
-            if (src.held.signum() <= 0) { unassign(t, PortfolioFeeExpenses.transferUncovered(t, zero)); return }
+            if (src.held.signum() <= 0) {
+                unassign(t, PortfolioFeeExpenses.transferUncovered(t, zero))
+                return
+            }
             // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
             val carried = consume(src, coinFee)
             val moved = consume(src, amount).map { s ->
@@ -298,7 +332,10 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
         // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
         check(q, amount + coinFee, t, feeLeg = false)
         val lost = PortfolioFeeExpenses.transferUncovered(t, (h - coinFee).max(zero))
-        if (h.signum() <= 0) { unassign(t, lost); return }
+        if (h.signum() <= 0) {
+            unassign(t, lost)
+            return
+        }
         // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der
         // Anteil der Posten ohne Kaufpreis wird vermerkt
         if (feeValue == null && q.hasPriced) feeValueMissing = true
@@ -313,31 +350,36 @@ internal class PortfolioFifoBook(private val symbol: String, private val perWall
 
     /** Offene Posten und Summen nach dem letzten Ereignis. */
     fun result(): PortfolioBookResult {
-    var priced = zero
-    var unpriced = zero
-    var cost = zero
-    val outLots = ArrayList<PortfolioLot>()
-    // Gebühr-Einstand, für den bis zum Ende kein Posten mit Kaufpreis kam: vermerkt (zeitlich)
-    queues.values.flatMapTo(lostFeeCosts) { it.pendingLost }
-    lostFeeCosts.sortWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId })
-    for (q in queues.values) {
-        for (l in q.lots) {
-            val lotCost = l.cost
-            if (lotCost != null) { priced += l.amount; cost += lotCost } else unpriced += l.amount
-            outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q), l.estimated)
+        var priced = zero
+        var unpriced = zero
+        var cost = zero
+        val outLots = ArrayList<PortfolioLot>()
+        // Gebühr-Einstand, für den bis zum Ende kein Posten mit Kaufpreis kam: vermerkt (zeitlich)
+        queues.values.flatMapTo(lostFeeCosts) { it.pendingLost }
+        lostFeeCosts.sortWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId })
+        for (q in queues.values) {
+            for (l in q.lots) {
+                val lotCost = l.cost
+                if (lotCost != null) {
+                    priced += l.amount
+                    cost += lotCost
+                } else {
+                    unpriced += l.amount
+                }
+                outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q), l.estimated)
+            }
         }
-    }
-    return PortfolioBookResult(
-        priced = priced, unpriced = unpriced, cost = cost, realized = realized,
-        unknownSold = unknownSold, soldTotal = soldTotal, withdrawn = withdrawn, oversold = oversold,
-        feeValueMissing = feeValueMissing, realizedFeeMissing = realizedFeeMissing,
-        lots = outLots,
-        disposals = disposals,
-        withdrawals = withdrawals,
-        shortfalls = shortfalls,
-        lostFeeCosts = lostFeeCosts,
-        unassignedFees = unassignedFees,
-        openParts = PortfolioFifoParts.openParts(queues.values, cost),
-    )
+        return PortfolioBookResult(
+            priced = priced, unpriced = unpriced, cost = cost, realized = realized,
+            unknownSold = unknownSold, soldTotal = soldTotal, withdrawn = withdrawn, oversold = oversold,
+            feeValueMissing = feeValueMissing, realizedFeeMissing = realizedFeeMissing,
+            lots = outLots,
+            disposals = disposals,
+            withdrawals = withdrawals,
+            shortfalls = shortfalls,
+            lostFeeCosts = lostFeeCosts,
+            unassignedFees = unassignedFees,
+            openParts = PortfolioFifoParts.openParts(queues.values, cost),
+        )
     }
 }

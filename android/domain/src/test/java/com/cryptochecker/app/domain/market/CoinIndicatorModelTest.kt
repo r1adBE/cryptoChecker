@@ -31,8 +31,14 @@ class CoinIndicatorModelTest {
         assertEquals("ETH", r.symbol)
         assertEquals(
             listOf(
-                IndicatorId.MAYER, IndicatorId.MA200W, IndicatorId.ATH_DISTANCE, IndicatorId.CHANGE_30D,
-                IndicatorId.SMA50_VS_200, IndicatorId.RSI_WEEKLY, IndicatorId.RSI_DAILY, IndicatorId.VS_BTC,
+                IndicatorId.MAYER,
+                IndicatorId.MA200W,
+                IndicatorId.ATH_DISTANCE,
+                IndicatorId.CHANGE_30D,
+                IndicatorId.SMA50_VS_200,
+                IndicatorId.RSI_WEEKLY,
+                IndicatorId.RSI_DAILY,
+                IndicatorId.VS_BTC,
             ),
             r.indicators.map { it.id }
         )
@@ -50,8 +56,16 @@ class CoinIndicatorModelTest {
     fun `neuer Coin ohne Verlauf hat Kennzahlen ohne Wert`() {
         val r = CoinIndicatorModel.evaluate(
             "NEW",
-            inputs(sma50d = null, sma200d = null, sma200w = null, ath = null, price30dAgo = null,
-                rsiDaily = null, rsiWeekly = null, vsBtc90d = null)
+            inputs(
+                sma50d = null,
+                sma200d = null,
+                sma200w = null,
+                ath = null,
+                price30dAgo = null,
+                rsiDaily = null,
+                rsiWeekly = null,
+                vsBtc90d = null
+            )
         )
         assertEquals(8, r.indicators.size)
         assertTrue(r.indicators.all { it.value == null })

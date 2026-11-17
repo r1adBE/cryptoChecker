@@ -1,13 +1,14 @@
 package com.cryptochecker.app.domain
-import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.marketdata.model.exchange.DexPool
 import com.cryptochecker.app.domain.model.BulkTickers
-import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.DexPool
 
 interface ExchangeRepository {
     suspend fun getExchangeList(): List<ExchangeInfo>
+
     /**
      * Paarliste einer Börse. [withAlpha] (Paar-Auswahl): bei Binance dazu die Alpha-Token, die Binance
      * nicht am Spot führt ([com.cryptochecker.marketdata.model.exchange.BinanceAlpha]); ob sie erscheinen,

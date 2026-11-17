@@ -1,6 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.BackoffPolicy
@@ -11,13 +10,14 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.widget.WidgetUpdater
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import timber.log.Timber
 
 /**
  * Netz wieder da, nachdem ein Widget «Keine Verbindung» gezeichnet hat ([com.cryptochecker.app.widget.WidgetConnectivity]):

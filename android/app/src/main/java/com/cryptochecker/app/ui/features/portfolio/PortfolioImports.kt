@@ -25,12 +25,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatchInfo
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportFormat
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 
 /**
  * ⋯ › «Importe»: CSV-Importläufe (Format, Datum/Zeit, Anzahl), je Lauf «Rückgängig» mit Rückfrage. [onUndo] löscht den
@@ -54,7 +54,11 @@ fun PortfolioImportsDialog(
             },
             confirmButton = {
                 TextButton(
-                    onClick = { confirm = null; onUndo(batch); onDismiss() },
+                    onClick = {
+                        confirm = null
+                        onUndo(batch)
+                        onDismiss()
+                    },
                     modifier = Modifier.testTag(UiTestTags.IMPORT_UNDO_CONFIRM),
                 ) {
                     Text(stringResource(R.string.portfolio_import_undo), color = MaterialTheme.colorScheme.error)
@@ -74,11 +78,18 @@ fun PortfolioImportsDialog(
                 batches.forEach { batch ->
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                         Column(modifier = Modifier.weight(1f)) {
-                            val format = CsvImportFormat.entries.firstOrNull { it.name == batch.format }?.displayName() ?: batch.format ?: "CSV"
+                            val format =
+                                CsvImportFormat.entries.firstOrNull { it.name == batch.format }?.displayName() ?: batch.format ?: "CSV"
                             val time = batch.time?.let {
-                                java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(it))
+                                java.text.DateFormat.getDateTimeInstance(
+                                    java.text.DateFormat.MEDIUM,
+                                    java.text.DateFormat.SHORT
+                                ).format(java.util.Date(it))
                             }
-                            Text(listOfNotNull(format, time).joinToString(" · "), style = MaterialTheme.typography.bodyMedium.tabularNumbers())
+                            Text(
+                                listOfNotNull(format, time).joinToString(" · "),
+                                style = MaterialTheme.typography.bodyMedium.tabularNumbers()
+                            )
                             Text(
                                 pluralStringResource(R.plurals.portfolio_imports_count, batch.count, batch.count),
                                 style = MaterialTheme.typography.bodySmall,

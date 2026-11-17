@@ -7,11 +7,11 @@ import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Zuletzt gezeichnete Paare der Listen-Widgets, damit ein neuer Prozess (z. B. nach dem Neustart des Geräts) sofort

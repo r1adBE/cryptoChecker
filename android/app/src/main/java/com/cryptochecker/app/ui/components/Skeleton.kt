@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.components
 
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -39,8 +38,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Drei graue, sanft pulsierende Zeilen statt eines Kreisels — Puls über [SkeletonPulse], bei reduzierter Bewegung
@@ -98,12 +98,16 @@ fun SkeletonPulse(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     // Wechselt «Animationen entfernen» zur Laufzeit, baut Compose den Zweig neu auf (bedingter Aufruf als eigene Gruppe)
-    val pulse = if (reduceMotion) null else rememberInfiniteTransition(label = "skeleton").animateFloat(
-        initialValue = 0.45f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
-        label = "pulse"
-    )
+    val pulse = if (reduceMotion) {
+        null
+    } else {
+        rememberInfiniteTransition(label = "skeleton").animateFloat(
+            initialValue = 0.45f,
+            targetValue = 1f,
+            animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
+            label = "pulse"
+        )
+    }
     Column(
         modifier = modifier.graphicsLayer { alpha = pulse?.value ?: STILL_ALPHA },
         horizontalAlignment = horizontalAlignment,

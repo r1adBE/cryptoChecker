@@ -123,8 +123,12 @@ class CryptoPulseTest {
     }
 
     private fun lead(
-        btc: Double, eth: Double, sol: Double,
-        ratio: Double? = null, funding: Double? = null, market: Double? = null,
+        btc: Double,
+        eth: Double,
+        sol: Double,
+        ratio: Double? = null,
+        funding: Double? = null,
+        market: Double? = null,
     ): PulseLead = CryptoPulse.leadSentence(
         CryptoPulse.evaluate(input(btc, eth, sol, ratio = ratio, funding = funding, market = market))!!
     )

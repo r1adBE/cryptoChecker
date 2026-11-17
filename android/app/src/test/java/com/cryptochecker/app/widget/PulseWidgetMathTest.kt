@@ -1,16 +1,16 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetTextFit
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 class PulseWidgetMathTest {
 
@@ -149,7 +149,9 @@ class PulseWidgetMathTest {
         // Gemessene Breiten (dp): Fear & Greed 120, Marktbreite 130, beides mit « · » 260
         fun layout(width: Int, height: Int, headlineLines: Int = 1, fng: Float? = 120f, breadth: Float? = 130f) =
             PulseWidgetMath.sideLayout(
-                width, height, headlineLines,
+                width,
+                height,
+                headlineLines,
                 fearGreedWidthDp = fng,
                 breadthWidthDp = breadth,
                 bothWidthDp = if (fng != null && breadth != null) 260f else null,
@@ -185,7 +187,9 @@ class PulseWidgetMathTest {
         // 250 dp: nutzbar 250 − Innenabstand − Sicherheit; die Marktbreite passt ohne Punkt knapp, mit Punkt nicht
         val usable = 250f - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
         fun layout(height: Int, fng: Float?) = PulseWidgetMath.sideLayout(
-            250, height, 1,
+            250,
+            height,
+            1,
             fearGreedWidthDp = fng,
             breadthWidthDp = usable,
             bothWidthDp = fng?.let { it + usable },

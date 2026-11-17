@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import java.io.IOException
+import java.net.UnknownHostException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -7,8 +9,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import java.net.UnknownHostException
 
 /**
  * Ablauf eines Exports ([ExportRunner]): Abbrechen während des Laufs → Idle und die angefangene Datei gelöscht;

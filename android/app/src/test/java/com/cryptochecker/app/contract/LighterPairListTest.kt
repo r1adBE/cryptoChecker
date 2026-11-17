@@ -1,7 +1,7 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.exchange.Lighter
 import com.cryptochecker.marketdata.util.TradFi
 import org.junit.Assert.assertEquals

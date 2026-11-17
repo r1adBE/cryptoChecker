@@ -41,7 +41,9 @@ object WidgetTextFit {
     ): String {
         val available = if (widgetWidthDp > 0) {
             widgetWidthDp - SINGLE_HEADER_FIXED_DP - changeWidthDp - SAFETY_DP
-        } else null
+        } else {
+            null
+        }
         return firstFitting(listOf(pair, base), available, measureDp)
     }
 
@@ -158,8 +160,11 @@ object WidgetTextFit {
         val name = maxOf(nameWidthDp, 0f)
         if (price + name <= availableDp || price == 0f) return ListPriceFit(baseSp, availableDp - price)
         if (fontScale <= 1f) {
-            return if (price <= availableDp) ListPriceFit(baseSp, availableDp - price)
-            else ListPriceFit(baseSp * availableDp / price, 0f)
+            return if (price <= availableDp) {
+                ListPriceFit(baseSp, availableDp - price)
+            } else {
+                ListPriceFit(baseSp * availableDp / price, 0f)
+            }
         }
         val floor = minOf(listPriceFloorSp(baseSp, fontScale), baseSp)
         val keepName = baseSp * (availableDp - name) / price

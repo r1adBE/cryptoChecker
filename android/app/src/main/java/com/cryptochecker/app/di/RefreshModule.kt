@@ -7,17 +7,19 @@ import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.alarm.DerivativesAlarmData
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
+import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
-import com.cryptochecker.app.data.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.live.LiveCoverage
-import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.ChartRefresher
 import com.cryptochecker.app.domain.refresh.CheckRunStore
-import com.cryptochecker.app.refresh.DayReferences
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
 import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceFetcher
@@ -30,7 +32,8 @@ import com.cryptochecker.app.domain.refresh.RefresherDrawing
 import com.cryptochecker.app.domain.refresh.RefresherState
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.refresh.DayReferences
 import com.cryptochecker.app.refresh.RefreshSideChecks
 import com.cryptochecker.app.refresh.asAlarmDerivativesSource
 import com.cryptochecker.app.refresh.asAlarmMoveHistory
@@ -61,12 +64,8 @@ import com.cryptochecker.app.refresh.asRefresherSparklines
 import com.cryptochecker.app.refresh.asRefresherStats
 import com.cryptochecker.app.refresh.asRefresherStore
 import com.cryptochecker.app.refresh.asRefresherWatchWidgets
-import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.tts.SpokenText
 import com.cryptochecker.app.tts.TtsSpeaker
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.app.widget.WidgetUpdater
 import dagger.Module
@@ -74,6 +73,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Aktualisierung ([PriceRefresher]) und Auswertung nach einem neuen Kurs ([RefreshEffects], [RefreshResultProcessor],

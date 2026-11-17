@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigInteger
 
 /**
@@ -106,7 +106,9 @@ object ChainBalance {
 
     /** Einzelanfragen (Rückfall ohne Stapel), gleiche Reihenfolge. */
     fun solanaSingles(address: String): List<String> = listOf(
-        solanaBalanceRequest(1, address), solanaTokensRequest(1, address, SPL_TOKEN), solanaTokensRequest(1, address, SPL_TOKEN_2022),
+        solanaBalanceRequest(1, address),
+        solanaTokensRequest(1, address, SPL_TOKEN),
+        solanaTokensRequest(1, address, SPL_TOKEN_2022),
     )
 
     /** Lamports, bekannte Token (Symbol → Text) und Anzahl unbekannter Token mit Guthaben > 0. */
@@ -134,7 +136,9 @@ object ChainBalance {
             val info = accounts.optJSONObject(i)?.optJSONObject("account")?.optJSONObject("data")
                 ?.optJSONObject("parsed")?.optJSONObject("info") ?: continue
             val mint = info.optString("mint").takeIf { it.isNotEmpty() } ?: continue
-            val amount = info.optJSONObject("tokenAmount")?.optString("amount")?.takeIf { s -> s.isNotEmpty() && s.all { it in '0'..'9' } } ?: continue
+            val amount =
+                info.optJSONObject("tokenAmount")?.optString("amount")?.takeIf { s -> s.isNotEmpty() && s.all { it in '0'..'9' } }
+                    ?: continue
             sums[mint] = (sums[mint] ?: BigInteger.ZERO) + BigInteger(amount)
         }
         return sums.mapValues { it.value.toString() }
@@ -211,8 +215,11 @@ object ChainBalance {
     fun percent(s: String): String {
         val sb = StringBuilder()
         for (c in s) {
-            if (c in 'a'..'z' || c in 'A'..'Z' || c in '0'..'9' || c == '-' || c == '_' || c == '.') sb.append(c)
-            else for (b in c.toString().toByteArray(Charsets.UTF_8)) sb.append('%').append("%02X".format(b.toInt() and 0xff))
+            if (c in 'a'..'z' || c in 'A'..'Z' || c in '0'..'9' || c == '-' || c == '_' || c == '.') {
+                sb.append(c)
+            } else {
+                for (b in c.toString().toByteArray(Charsets.UTF_8)) sb.append('%').append("%02X".format(b.toInt() and 0xff))
+            }
         }
         return sb.toString()
     }
@@ -243,7 +250,13 @@ object ChainBalance {
         val sep = address.indexOf(':')
         if (sep >= 0) {
             val hex = address.substring(sep + 1)
-            return if (address.substring(0, sep) == "0" && hex.length == 64 && hex.all { it.isDigit() || it.lowercaseChar() in 'a'..'f' }) hex.lowercase() else null
+            return if (address.substring(0, sep) == "0" && hex.length == 64 &&
+                hex.all { it.isDigit() || it.lowercaseChar() in 'a'..'f' }
+            ) {
+                hex.lowercase()
+            } else {
+                null
+            }
         }
         val raw = AddressValidation.base64Decode(address) ?: return null
         if (raw.size != 36 || raw[1].toInt() != 0) return null

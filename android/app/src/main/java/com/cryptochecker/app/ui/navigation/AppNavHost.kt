@@ -29,12 +29,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.findFragmentActivity
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
@@ -45,6 +43,8 @@ import com.cryptochecker.app.ui.features.settings.SettingsPage
 import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.SecureWindowEffect
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /** Überblendung beim Wechsel von Tab oder Seite (ms). */
 private const val NAV_FADE_MILLIS = 200

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetType
+import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
@@ -10,7 +10,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.util.PriceFormat
 import java.util.Locale
 import kotlin.math.floor
@@ -122,7 +122,9 @@ object PortfolioWidgetViews {
     fun figures(shown: PortfolioSnapshot): List<PortfolioFigure> {
         fun valid(value: Double?): Double? = value?.takeIf { it.isFinite() }
         val today = PortfolioFigure(
-            PortfolioFigureKind.TODAY, valid(shown.changeAmount), valid(shown.changePercent).takeIf { shown.changeAmount != null },
+            PortfolioFigureKind.TODAY,
+            valid(shown.changeAmount),
+            valid(shown.changePercent).takeIf { shown.changeAmount != null },
         )
         val weekUsdt = shown.periodChanges[PortfolioChartRange.WEEK.days]
         if (shown.currency == PortfolioWidgetChart.USDT_CODE) {
@@ -138,7 +140,9 @@ object PortfolioWidgetViews {
             PortfolioFigure(PortfolioFigureKind.WEEK, valid(weekShown.amount), valid(weekShown.percent))
         } else {
             PortfolioFigure(
-                PortfolioFigureKind.WEEK, valid(weekUsdt?.amount), valid(weekUsdt?.percent).takeIf { weekUsdt != null },
+                PortfolioFigureKind.WEEK,
+                valid(weekUsdt?.amount),
+                valid(weekUsdt?.percent).takeIf { weekUsdt != null },
                 unit = PortfolioWidgetChart.USDT_CODE.takeIf { weekUsdt != null },
             )
         }
@@ -147,7 +151,9 @@ object PortfolioWidgetViews {
             today,
             week,
             PortfolioFigure(
-                PortfolioFigureKind.TOTAL, valid(total?.amount), valid(total?.percent).takeIf { total != null },
+                PortfolioFigureKind.TOTAL,
+                valid(total?.amount),
+                valid(total?.percent).takeIf { total != null },
                 incomplete = total?.skipped?.isNotEmpty() == true,
             ),
         )
@@ -199,8 +205,11 @@ object PortfolioWidgetViews {
      * 12 sp + 12 sp ([WidgetType.LABEL]); je 8 dp Abstand (Innenrand und Trennlinie).
      */
     fun rowHeightDp(wide: Boolean, fontScale: Float): Float =
-        if (wide) maxOf(20f, WidgetType.LABEL * 1.3f * fontScale) + 8f
-        else maxOf(24f, (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f) + 8f
+        if (wide) {
+            maxOf(20f, WidgetType.LABEL * 1.3f * fontScale) + 8f
+        } else {
+            maxOf(24f, (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f) + 8f
+        }
 
     /**
      * Zeilen und Fusszeile in [available] (dp für Zeilen und Fusszeile; null = unbekannt): so viele
@@ -222,8 +231,11 @@ object PortfolioWidgetViews {
      * zweizeilig 12 sp + 12 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
      */
     fun listTotalHeightDp(fontScale: Float, wide: Boolean = false): Float =
-        if (wide) WidgetType.LABEL * 1.3f * fontScale + 8f + 1f
-        else (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f + 8f + 1f
+        if (wide) {
+            WidgetType.LABEL * 1.3f * fontScale + 8f + 1f
+        } else {
+            (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f + 8f + 1f
+        }
 
     /**
      * Gewinn/Verlust «Heute» bzw. 24 h des Gesamtwerts ([PortfolioSnapshot.changeAmount], schon um Käufe/
@@ -249,7 +261,12 @@ object PortfolioWidgetViews {
      * Betrag vor): «+1’250.00 CHF · +1.50%», «+1’250.00 CHF». «Beträge verbergen»: Betrag «•••», das
      * Prozent bleibt (wie bei den Gesamtzahlen). Ohne Prozent nur der Betrag.
      */
-    fun pnlTexts(change: PortfolioListTotalChange, currency: String, hideAmounts: Boolean, locale: Locale = Locale.getDefault()): List<String> {
+    fun pnlTexts(
+        change: PortfolioListTotalChange,
+        currency: String,
+        hideAmounts: Boolean,
+        locale: Locale = Locale.getDefault()
+    ): List<String> {
         val amount = PortfolioInsights.mask(PortfolioSnapshotMath.signedAmount(change.amount, currency, locale), hideAmounts)
         val percent = change.percent?.let { PortfolioSnapshotMath.signedPercent(it, locale) }
         return if (percent != null) listOf("$amount · $percent", amount) else listOf(amount)
@@ -275,8 +292,10 @@ object PortfolioWidgetViews {
         val rowDp = rowHeightDp(wide, fontScale)
         var available = 0f
         val rows = if (heightDp > 0) {
-            available = (heightDp - PADDING_DP - PortfolioWidgetMath.headerHeightDp(fontScale) - LIST_GAP_DP -
-                listTotalHeightDp(fontScale, wide) - PortfolioWidgetMath.footerHeightDp(fontScale)).coerceAtLeast(0f)
+            available = (
+                heightDp - PADDING_DP - PortfolioWidgetMath.headerHeightDp(fontScale) - LIST_GAP_DP -
+                    listTotalHeightDp(fontScale, wide) - PortfolioWidgetMath.footerHeightDp(fontScale)
+                ).coerceAtLeast(0f)
             minOf(sorted.size, floor(available / rowDp).toInt().coerceAtLeast(0))
         } else {
             minOf(sorted.size, PortfolioWidgetMath.LARGE_ROWS)
@@ -303,8 +322,11 @@ object PortfolioWidgetViews {
      * 2 dp, Wert 12 sp; als Zeilen je 2 dp und 12 sp (widget_portfolio_figure_*.xml).
      */
     fun figuresHeightDp(wide: Boolean, fontScale: Float): Float =
-        if (wide) FIGURES_GAP_DP + line(12f, fontScale) + 2f + line(12f, fontScale)
-        else FIGURES_GAP_DP + 3 * (line(12f, fontScale) + 2f)
+        if (wide) {
+            FIGURES_GAP_DP + line(12f, fontScale) + 2f + line(12f, fontScale)
+        } else {
+            FIGURES_GAP_DP + 3 * (line(12f, fontScale) + 2f)
+        }
 
     /**
      * Wert einer Kennzahl als Text (keine Pille): «↗ +1.50%» / «↘ −0.85%» — Pfeil nach der Richtung

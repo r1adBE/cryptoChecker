@@ -1,13 +1,13 @@
 package com.cryptochecker.app.data.local
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
+import javax.xml.parsers.DocumentBuilderFactory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.w3c.dom.Element
-import java.io.File
-import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * Auto-Backup-Regeln für Android 8/8.1 (res/xml/backup_rules.xml): Dort wirkt `requireFlags` nicht, jede

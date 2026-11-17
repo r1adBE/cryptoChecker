@@ -112,7 +112,14 @@ class PortfolioPriceFallbackTest {
     @Test
     fun unverifiedInheritedViaBase() {
         val entries = mapOf("BEAM" to StoredPrice(0.02, now, unverified = true), "BTC" to StoredPrice(65_000.0, now))
-        val got = PortfolioPriceFallback.unverified(listOf("BEAM", "BTC", "BEAM.E", "BTC.B", "X"), entries, mapOf("BEAM.E" to "BEAM", "BTC.B" to "BTC"))
+        val got = PortfolioPriceFallback.unverified(
+            listOf("BEAM", "BTC", "BEAM.E", "BTC.B", "X"),
+            entries,
+            mapOf(
+                "BEAM.E" to "BEAM",
+                "BTC.B" to "BTC"
+            )
+        )
         assertEquals(setOf("BEAM", "BEAM.E"), got)
     }
 

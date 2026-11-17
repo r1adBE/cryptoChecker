@@ -2,6 +2,8 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.parity.ParityJson
+import java.util.Collections
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -13,8 +15,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.util.Collections
-import java.util.concurrent.TimeUnit
 
 /**
  * Grössengrenzen von Manifest und Signatur über den echten Ladeweg ([mirrorLoader] → OkHttp → Server): zu gross
@@ -53,11 +53,13 @@ class MirrorLoadLimitTest {
     /** Leitet die GitHub-Adressen auf den Server um; Antworten in Reihenfolge der Warteschlange. */
     private fun client(): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(5_000, TimeUnit.MILLISECONDS)
-        .addInterceptor(Interceptor { chain ->
-            val original = chain.request()
-            requested += original.url.toString()
-            chain.proceed(original.newBuilder().url(server.url("/" + original.url.host + original.url.encodedPath)).build())
-        })
+        .addInterceptor(
+            Interceptor { chain ->
+                val original = chain.request()
+                requested += original.url.toString()
+                chain.proceed(original.newBuilder().url(server.url("/" + original.url.host + original.url.encodedPath)).build())
+            }
+        )
         .build()
 
     private fun respond(body: String) = server.enqueue(MockResponse.Builder().code(200).body(body).build())

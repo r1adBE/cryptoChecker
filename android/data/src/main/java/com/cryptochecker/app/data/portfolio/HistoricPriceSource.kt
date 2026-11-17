@@ -1,15 +1,14 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.domain.BoundedCache
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.market.DataFreshness
@@ -21,8 +20,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -35,11 +40,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /** Devisenkurs eines Stichtags mit dem tatsächlichen Kursdatum (Wochenende → Freitag). */
 data class HistoricFx(val rate: Double, val date: String?)

@@ -55,8 +55,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.DayChange
@@ -70,8 +70,8 @@ import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.body
-import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Coin-Plakette in der Zeile: in allen Coin-Listen gleich gross ([ListSegment.Logo]). */
 internal val ROW_BADGE_SIZE = ListSegment.Logo
@@ -127,8 +127,11 @@ internal fun RowLeading(
                 .size(22.dp)
                 .clip(CircleShape)
                 .then(
-                    if (selected) Modifier.background(accent)
-                    else Modifier.border(1.5.dp, MaterialTheme.colorScheme.outline, CircleShape)
+                    if (selected) {
+                        Modifier.background(accent)
+                    } else {
+                        Modifier.border(1.5.dp, MaterialTheme.colorScheme.outline, CircleShape)
+                    }
                 )
         ) {
             if (selected) {
@@ -313,12 +316,18 @@ internal fun RowSortMenu(onMove: (WatchMove) -> Unit) {
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.sort_move_top)) },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_move_top), null) },
-                onClick = { menu = false; onMove(WatchMove.TOP) }
+                onClick = {
+                    menu = false
+                    onMove(WatchMove.TOP)
+                }
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.sort_move_bottom)) },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_move_bottom), null) },
-                onClick = { menu = false; onMove(WatchMove.BOTTOM) }
+                onClick = {
+                    menu = false
+                    onMove(WatchMove.BOTTOM)
+                }
             )
         }
     }

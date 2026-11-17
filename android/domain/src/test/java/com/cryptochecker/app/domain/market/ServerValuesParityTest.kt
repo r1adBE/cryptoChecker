@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.market
 import com.cryptochecker.app.domain.market.HalvingMath
-import com.cryptochecker.marketdata.util.EpochTime
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import com.cryptochecker.marketdata.util.EpochTime
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle `server_values.json` (iOS: `ServerValuesParityTests.swift`): unplausible Server-Werte werden
@@ -30,7 +30,11 @@ class ServerValuesParityTest {
     @Test
     fun parseTimeToMillis() {
         data["parseTimeToMillis"].list().map { it.obj() }.forEach { c ->
-            assertEquals("parseTimeToMillis: $c", (c["expected"] as String).toLong(), EpochTime.parseTimeToMillis((c["time"] as String).toLong()))
+            assertEquals(
+                "parseTimeToMillis: $c",
+                (c["expected"] as String).toLong(),
+                EpochTime.parseTimeToMillis((c["time"] as String).toLong())
+            )
         }
     }
 

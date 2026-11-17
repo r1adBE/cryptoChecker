@@ -7,11 +7,6 @@ import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.TaxEventRules
 import com.cryptochecker.app.domain.portfolio.TaxExport
-import com.cryptochecker.app.domain.portfolio.frHeldBefore
-import com.cryptochecker.app.domain.portfolio.gainRows
-import com.cryptochecker.app.domain.portfolio.noteText
-import com.cryptochecker.app.domain.portfolio.summaryCsv
-import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.domain.portfolio.TaxLimitStatus
 import com.cryptochecker.app.domain.portfolio.TaxLine
 import com.cryptochecker.app.domain.portfolio.TaxMatch
@@ -19,18 +14,23 @@ import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryNote
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import com.cryptochecker.app.domain.portfolio.frHeldBefore
+import com.cryptochecker.app.domain.portfolio.gainRows
+import com.cryptochecker.app.domain.portfolio.noteText
+import com.cryptochecker.app.domain.portfolio.summaryCsv
+import com.cryptochecker.app.domain.portfolio.yearSummary
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Gemeinsame Testfälle `tax_templates.json` (iOS: `TaxTemplatesTests.swift`). */
 class TaxTemplatesParityTest {
@@ -126,7 +126,16 @@ class TaxTemplatesParityTest {
             assertEquals("eventRules $c", expected, TaxTemplate.valueOf(c[0] as String).eventRules)
         }
         data["spouseFlag"].list().map { it.list() }.forEach { c ->
-            val trade = PortfolioTrade(1, "BTC", PortfolioTxType.fromName(c[0] as String)!!, BigDecimal.ONE, null, 0L, giftToSpouse = c[1] as Boolean)
+            val trade =
+                PortfolioTrade(
+                    1,
+                    "BTC",
+                    PortfolioTxType.fromName(c[0] as String)!!,
+                    BigDecimal.ONE,
+                    null,
+                    0L,
+                    giftToSpouse = c[1] as Boolean
+                )
             assertEquals("spouseFlag $c", c[2] as Boolean, trade.isGiftToSpouse)
         }
         assertEquals(TaxTemplate.NEUTRAL, TaxTemplate.fromName(null))
@@ -163,7 +172,9 @@ class TaxTemplatesParityTest {
             val name = c["name"] as String
             val method = TaxMethod.valueOf(c["method"] as String)
             // CA: Superficial Loss in der Steuerwährung (Kurse je Tag wie im Export)
-            val fx = rates(c["fx"])?.let { r -> { t: Long -> TaxExport.rateOn(r, Instant.ofEpochMilli(t).atZone(zone).toLocalDate(), "CAD") } }
+            val fx = rates(c["fx"])?.let { r ->
+                { t: Long -> TaxExport.rateOn(r, Instant.ofEpochMilli(t).atZone(zone).toLocalDate(), "CAD") }
+            }
             // Schenkung und Netzwerkgebühr nach der Vorlage («template», z. B. AU/US mit FIFO), sonst nach der Rechnung
             val rules = (c["template"] as String?)?.let { TaxTemplate.valueOf(it).eventRules } ?: TaxEventRules.of(method)
             val got = TaxEngines.disposals(parseTrades(c["trades"]), method, zone, priceAt(c["prices"]), fx, rules)
@@ -220,8 +231,14 @@ class TaxTemplatesParityTest {
             c["feeRows"]?.let { raw ->
                 val fr = raw.list()
                 val rows = TaxExport.gainRows(
-                    parseTrades(c["trades"]), method, TaxTemplate.NEUTRAL.period(fr[0].num()!!.toInt()), zone, "USD", null,
-                    priceAt(c["prices"]), rules = rules,
+                    parseTrades(c["trades"]),
+                    method,
+                    TaxTemplate.NEUTRAL.period(fr[0].num()!!.toInt()),
+                    zone,
+                    "USD",
+                    null,
+                    priceAt(c["prices"]),
+                    rules = rules,
                 )
                 assertEquals("$name feeRows", fr[1].num()!!.toInt(), rows.count { it.feeRow })
             }
@@ -273,8 +290,11 @@ class TaxTemplatesParityTest {
         val period = TaxTemplate.NEUTRAL.period(lf["year"].num()!!.toInt())
         lf["expected"].obj().forEach { (m, v) ->
             val got = TaxExport.lostFeeCostsIn(trades, TaxMethod.valueOf(m), period, zone)
-            if (v == null) assertTrue("$m lost", got.isEmpty())
-            else assertEquals("$m lost", listOf(r8(dec(v))), got.map { r8(it.costUsdt) })
+            if (v == null) {
+                assertTrue("$m lost", got.isEmpty())
+            } else {
+                assertEquals("$m lost", listOf(r8(dec(v))), got.map { r8(it.costUsdt) })
+            }
         }
     }
 
@@ -299,7 +319,15 @@ class TaxTemplatesParityTest {
                 }
                 dec(c["disposalCost"])?.let { cost ->
                     val sells = TaxEngines.disposals(trades, m, zone, null, null, rules).filter { it.coin == "BTC" && !it.feeLeg }
-                    assertEquals("$label disposalCost", r8(cost), r8(sells.mapNotNull { it.costUsdt }.fold(BigDecimal.ZERO, BigDecimal::add)))
+                    assertEquals(
+                        "$label disposalCost",
+                        r8(cost),
+                        r8(
+                            sells.mapNotNull {
+                                it.costUsdt
+                            }.fold(BigDecimal.ZERO, BigDecimal::add)
+                        )
+                    )
                 }
             }
         }

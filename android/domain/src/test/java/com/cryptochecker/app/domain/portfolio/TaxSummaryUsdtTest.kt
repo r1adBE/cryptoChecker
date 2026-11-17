@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.ZoneId
 
 /**
  * Jahresübersicht mit USDT = 1 an einem Tag ohne USDT/USD-Schluss (z. B. Kauf vor dem Fenster der Quellen): nie still —
@@ -34,7 +34,7 @@ class TaxSummaryUsdtTest {
     fun allDaysCoveredStaysQuiet() {
         val s = summary(mapOf(buyDay to BigDecimal("0.97"), sellDay to BigDecimal("0.98")))
         assertFalse(s.usdtApproximate)
-        val lines = TaxExport.summaryCsv(s, texts, emptyList()).removePrefix("﻿").split("\r\n")
+        val lines = TaxExport.summaryCsv(s, texts, emptyList()).removePrefix("").split("\r\n")
         assertFalse(lines.contains("USDT dollar rate missing"))
     }
 

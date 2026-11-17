@@ -3,12 +3,12 @@ import com.cryptochecker.app.domain.market.MarketMovers
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.starter.CoinExclusion
 import com.cryptochecker.app.domain.starter.StarterCoins
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Stablecoins und Doppelgänger aus `stable_exclusion.json` (iOS: `StableExclusionParityTests.swift`). */
 class StableExclusionParityTest {

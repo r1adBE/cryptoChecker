@@ -1,10 +1,5 @@
 package com.cryptochecker.marketdata.util
 
-import org.json.JSONArray
-import org.json.JSONObject
-import org.xml.sax.Attributes
-import org.xml.sax.InputSource
-import org.xml.sax.helpers.DefaultHandler
 import java.io.StringReader
 import java.time.LocalDate
 import java.util.TreeMap
@@ -12,6 +7,11 @@ import javax.xml.parsers.SAXParserFactory
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.pow
+import org.json.JSONArray
+import org.json.JSONObject
+import org.xml.sax.Attributes
+import org.xml.sax.InputSource
+import org.xml.sax.helpers.DefaultHandler
 
 /**
  * Euro-Referenzkurse direkt von der Europäischen Zentralbank (frei, ohne Schlüssel, ohne Drittanbieter). Alle Werte

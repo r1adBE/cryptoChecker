@@ -8,9 +8,9 @@ import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Synthetische Fehlerantworten der Börsen (`testdata/exchanges/exchange_errors_synthetic.json`): kaputtes JSON,

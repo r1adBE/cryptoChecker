@@ -199,7 +199,9 @@ object MarketUnusual {
                 out += UnusualFact(UnusualFactKind.FUNDING_HIGH, funding / FUNDING_HIGH_PERCENT, fundingPercent = funding)
             } else if (funding <= FUNDING_NEGATIVE_PERCENT) {
                 out += UnusualFact(
-                    UnusualFactKind.FUNDING_NEGATIVE, funding / FUNDING_NEGATIVE_PERCENT, fundingPercent = funding
+                    UnusualFactKind.FUNDING_NEGATIVE,
+                    funding / FUNDING_NEGATIVE_PERCENT,
+                    fundingPercent = funding
                 )
             }
         }

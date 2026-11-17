@@ -33,6 +33,7 @@ object DataFreshness {
     const val COIN_METRICS = "Coin Metrics"
     const val MEMPOOL = "mempool.space"
     const val BINANCE = "Binance"
+
     /** USDⓈ-M-Kerzen (`fapi.binance.com`) — getrennt von Spot, damit ein Perp-Wert nicht als Spot gilt und umgekehrt. */
     const val BINANCE_FUTURES = "Binance Futures"
     const val BINANCE_US = "Binance.US"

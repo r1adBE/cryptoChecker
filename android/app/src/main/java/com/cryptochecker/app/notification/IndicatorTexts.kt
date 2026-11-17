@@ -1,11 +1,11 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.IndicatorId
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Name und Wert einer Bitcoin-Kennzahl für Mitteilungen (ohne Compose) — wie `indicatorName`/`indicatorValue`. */
 object IndicatorTexts {

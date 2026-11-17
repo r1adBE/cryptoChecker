@@ -29,15 +29,24 @@ suspend fun PriceRefresher.afterRefresh(prices: Job?, awaitPortfolioSnapshot: Bo
         // WorkManager-Job: abwarten, parallel und mit Zeitgrenze.
         // Mit Frist: nur die verbleibende Zeit (Reserve für Ansagen und Vermerk)
         val sideTimeout = CheckBudget.waitMillis(
-            deadlineAt, System.currentTimeMillis(), SIDE_CHECK_TIMEOUT_MILLIS, reserve = SIDE_CHECK_RESERVE_MILLIS
+            deadlineAt,
+            System.currentTimeMillis(),
+            SIDE_CHECK_TIMEOUT_MILLIS,
+            reserve = SIDE_CHECK_RESERVE_MILLIS
         )
         sideChecks.awaitAll(
             sideTimeout,
             chartTimeout?.let { SideCheckExtra("Widget-Charts", it) { chartRefresher.refreshUnlocked() } },
         )
     } else {
-        if (prices == null || prices.isCompleted) sideChecks.launchDetached()
-        else lateFillScope.launch { prices.join(); sideChecks.launchDetached() }
+        if (prices == null || prices.isCompleted) {
+            sideChecks.launchDetached()
+        } else {
+            lateFillScope.launch {
+                prices.join()
+                sideChecks.launchDetached()
+            }
+        }
         if (chartTimeout != null) chartRefresher.launch(chartTimeout)
     }
 }

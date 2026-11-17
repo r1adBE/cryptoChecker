@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 
 /**
  * «Zu viele Anfragen» auch ohne HTTP 429/418 erkennen — für Kurse und Kerzen gleich: Kraken meldet es mit
@@ -22,7 +22,11 @@ object RateLimitSignal {
     const val MAX_OK_BODY = 4096
 
     private val TEXTS = listOf(
-        "too many requests", "rate limit exceeded", "rate limit reached", "too many visits", "access too frequent",
+        "too many requests",
+        "rate limit exceeded",
+        "rate limit reached",
+        "too many visits",
+        "access too frequent",
     )
 
     /**
@@ -30,7 +34,11 @@ object RateLimitSignal {
      * bitbank data.code 10009.
      */
     private val CODES = listOf(
-        "\"retcode\":10006", "\"code\":\"50011\"", "\"code\":100410,", "\"code\":100410}", "\"code\":\"100410\"",
+        "\"retcode\":10006",
+        "\"code\":\"50011\"",
+        "\"code\":100410,",
+        "\"code\":100410}",
+        "\"code\":\"100410\"",
         "\"success\":0,\"data\":{\"code\":10009}",
     )
 

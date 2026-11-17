@@ -2,73 +2,6 @@ package com.cryptochecker.app.domain.activity
 
 import kotlin.math.abs
 
-/** Faktor im «Warum?»-Blatt; Reihenfolge = Rang bei gleicher Stärke. */
-enum class WhyFactorKind {
-    VOLUME, MARKET, VOLATILITY, OPEN_INTEREST, NEAR_HIGH, FUNDING, SENTIMENT,
-    NEAR_LOW, POSITION_3D, PEG,
-}
-
-/** Pfeil vor dem Titel: ↗ / ↘ oder keiner. */
-enum class WhyFactorDirection { UP, DOWN, NONE }
-
-/** Kurze Nebenzeile eines Faktors («höher als üblich», «BTC zieht den Markt mit» …). */
-enum class WhyFactorNote {
-    VOLUME_HIGHER, VOLUME_LOWER, VOLUME_USUAL,
-    MARKET_PULLS, MARKET_COIN_LAGS, MARKET_COIN_ALONE, MARKET_AGAINST, MARKET_CALM,
-    MARKET_LEADER_MOVES, MARKET_LEADER_CALM,
-    VOLATILITY_STRONGER, VOLATILITY_USUAL,
-    OI_UP, OI_DOWN, OI_FLAT,
-    HIGH_AT, HIGH_BELOW,
-    FUNDING_LONGS, FUNDING_SHORTS, FUNDING_NEUTRAL,
-    SENTIMENT,
-    /** Markt (ETH oder breiter Markt) bewegt sich in dieselbe Richtung wie der Coin. */
-    MARKET_MOVES,
-    /** Open Interest gegenüber den älteren Messungen uneinheitlich. */
-    OI_MIXED,
-    LOW_AT, LOW_ABOVE,
-    RANGE_NEAR_HIGH, RANGE_NEAR_LOW, RANGE_BELOW_HIGH, RANGE_ABOVE_LOW,
-    PEG_NEAR, PEG_BELOW, PEG_ABOVE,
-    /** Stunde ungewöhnlich für diesen Coin (|z| ≥ 2), aber absolut unter 0,5 % — kein Ausschlag. */
-    VOLATILITY_TINY,
-}
-
-/**
- * Ein Faktor als Daten; Text und Zahlenformat macht die Oberfläche.
- *
- * [value] / [secondary] je Art:
- *  - VOLUME: value = Volumen-Verhältnis (3.4 = 3,4×)
- *  - MARKET: value = Referenz 24h % ([ref]: BTC, ETH oder breiter Markt; bei Bitcoin selbst: BTC),
- *    secondary = Coin 24h % bzw. ETH 24h % (oder null)
- *  - VOLATILITY: value = Faktor gegenüber üblich (|z|)
- *  - OPEN_INTEREST: value = Open-Interest-Veränderung %
- *  - NEAR_HIGH: value = Abstand zum 30-Tage-Hoch in % (≥ 0, 0 = auf dem Hoch)
- *  - NEAR_LOW: value = Abstand zum 30-Tage-Tief in % (≥ 0, 0 = auf dem Tief)
- *  - POSITION_3D: value = Abstand zum 3-Tage-Hoch (≤ 0) bzw. -Tief (≥ 0) in %
- *  - PEG: value = Abweichung von 1:1 in % (mit Vorzeichen)
- *  - FUNDING: value = Funding Rate % je Periode der Börse ([intervalHours]: Hyperliquid pro Stunde)
- *  - SENTIMENT: value = Fear & Greed (0–100), secondary = Veränderung zu gestern (oder null)
- *
- * @param strength Rang: wie deutlich der Faktor über seiner Schwelle liegt (≥ 1 = auffällig)
- * @param neutral unauffällig — wird abgeblendet und nach den auffälligen gezeigt
- */
-data class WhyFactor(
-    val kind: WhyFactorKind,
-    val direction: WhyFactorDirection,
-    val note: WhyFactorNote,
-    val value: Double,
-    val secondary: Double? = null,
-    val strength: Double,
-    val neutral: Boolean,
-    /** MARKET: Referenz von [value]; null = BTC. */
-    val ref: MarketRef? = null,
-    /** VOLUME: nur genähert («geschätzt»). */
-    val approximate: Boolean = false,
-    /** FUNDING: Verlauf («seit 24 Std. steigend»); null = keiner. */
-    val trend: FundingTrend? = null,
-    /** FUNDING: Abrechnungsintervall in Stunden, wenn nicht 8 (Hyperliquid: 1 → «pro Std.»); null = 8. */
-    val intervalHours: Int? = null,
-)
-
 /**
  * Reine Regeln für die Faktorliste im «Warum?»-Blatt: aus denselben Gründen wie «Kurz gesagt»
  * ([WhyReport.reasons]) plus Open Interest und Nähe zum 30-Tage-Hoch, wenn es
@@ -148,16 +81,28 @@ object WhyFactors {
 
     private fun volume(r: Reason): WhyFactor = when (r.kind) {
         ReasonKind.VOLUME_HIGH -> WhyFactor(
-            WhyFactorKind.VOLUME, WhyFactorDirection.UP, WhyFactorNote.VOLUME_HIGHER, r.value,
-            strength = r.value / ActivityAnalyzer.VOLUME_HIGH_RATIO, neutral = false,
+            WhyFactorKind.VOLUME,
+            WhyFactorDirection.UP,
+            WhyFactorNote.VOLUME_HIGHER,
+            r.value,
+            strength = r.value / ActivityAnalyzer.VOLUME_HIGH_RATIO,
+            neutral = false,
         )
         ReasonKind.VOLUME_LOW -> WhyFactor(
-            WhyFactorKind.VOLUME, WhyFactorDirection.DOWN, WhyFactorNote.VOLUME_LOWER, r.value,
-            strength = if (r.value > 0.0) ActivityAnalyzer.VOLUME_LOW_RATIO / r.value else 1.0, neutral = false,
+            WhyFactorKind.VOLUME,
+            WhyFactorDirection.DOWN,
+            WhyFactorNote.VOLUME_LOWER,
+            r.value,
+            strength = if (r.value > 0.0) ActivityAnalyzer.VOLUME_LOW_RATIO / r.value else 1.0,
+            neutral = false,
         )
         else -> WhyFactor(
-            WhyFactorKind.VOLUME, WhyFactorDirection.NONE, WhyFactorNote.VOLUME_USUAL, r.value,
-            strength = 0.0, neutral = true,
+            WhyFactorKind.VOLUME,
+            WhyFactorDirection.NONE,
+            WhyFactorNote.VOLUME_USUAL,
+            r.value,
+            strength = 0.0,
+            neutral = true,
         )
     }.copy(approximate = r.approximate)
 
@@ -175,54 +120,86 @@ object WhyFactors {
                     else -> WhyFactorNote.MARKET_MOVES
                 }
                 WhyFactor(
-                    WhyFactorKind.MARKET, direction(r.value), note, r.value, r.secondary,
+                    WhyFactorKind.MARKET,
+                    direction(r.value),
+                    note,
+                    r.value,
+                    r.secondary,
                     // Coin zieht nicht mit: der Markt erklärt die Bewegung nur halb
                     strength = abs(r.value) / marketThreshold * (if (follows) 1.0 else 0.5),
-                    neutral = false, ref = r.ref,
+                    neutral = false,
+                    ref = r.ref,
                 )
             }
             // value = Coin, secondary = Referenz → Faktor zeigt den Markt
             ReasonKind.COIN_ONLY -> WhyFactor(
-                WhyFactorKind.MARKET, WhyFactorDirection.NONE, WhyFactorNote.MARKET_COIN_ALONE,
-                r.secondary ?: 0.0, r.value,
-                strength = abs(r.value) / coinThreshold, neutral = false, ref = r.ref,
+                WhyFactorKind.MARKET,
+                WhyFactorDirection.NONE,
+                WhyFactorNote.MARKET_COIN_ALONE,
+                r.secondary ?: 0.0,
+                r.value,
+                strength = abs(r.value) / coinThreshold,
+                neutral = false,
+                ref = r.ref,
             )
             ReasonKind.AGAINST_MARKET -> {
                 val market = r.secondary ?: 0.0
                 WhyFactor(
-                    WhyFactorKind.MARKET, direction(market), WhyFactorNote.MARKET_AGAINST, market, r.value,
-                    strength = abs(r.value) / coinThreshold, neutral = false, ref = r.ref,
+                    WhyFactorKind.MARKET,
+                    direction(market),
+                    WhyFactorNote.MARKET_AGAINST,
+                    market,
+                    r.value,
+                    strength = abs(r.value) / coinThreshold,
+                    neutral = false,
+                    ref = r.ref,
                 )
             }
             // Bitcoin selbst: value = BTC, secondary = ETH
             ReasonKind.MARKET_LEADER -> {
                 val moves = abs(r.value) >= marketThreshold
                 WhyFactor(
-                    WhyFactorKind.MARKET, if (moves) direction(r.value) else WhyFactorDirection.NONE,
+                    WhyFactorKind.MARKET,
+                    if (moves) direction(r.value) else WhyFactorDirection.NONE,
                     if (moves) WhyFactorNote.MARKET_LEADER_MOVES else WhyFactorNote.MARKET_LEADER_CALM,
-                    r.value, r.secondary,
-                    strength = if (moves) abs(r.value) / marketThreshold else 0.0, neutral = !moves,
+                    r.value,
+                    r.secondary,
+                    strength = if (moves) abs(r.value) / marketThreshold else 0.0,
+                    neutral = !moves,
                 )
             }
             // MARKET_CALM: value = Referenz, secondary = Coin
             else -> WhyFactor(
-                WhyFactorKind.MARKET, WhyFactorDirection.NONE, WhyFactorNote.MARKET_CALM, r.value, r.secondary,
-                strength = 0.0, neutral = true, ref = r.ref,
+                WhyFactorKind.MARKET,
+                WhyFactorDirection.NONE,
+                WhyFactorNote.MARKET_CALM,
+                r.value,
+                r.secondary,
+                strength = 0.0,
+                neutral = true,
+                ref = r.ref,
             )
         }
     }
 
     private fun volatility(r: Reason): WhyFactor = if (r.kind == ReasonKind.VOLATILITY_HIGH) {
         WhyFactor(
-            WhyFactorKind.VOLATILITY, WhyFactorDirection.UP, WhyFactorNote.VOLATILITY_STRONGER, r.value,
-            strength = r.value / ActivityAnalyzer.VOLATILITY_HIGH_Z, neutral = false,
+            WhyFactorKind.VOLATILITY,
+            WhyFactorDirection.UP,
+            WhyFactorNote.VOLATILITY_STRONGER,
+            r.value,
+            strength = r.value / ActivityAnalyzer.VOLATILITY_HIGH_Z,
+            neutral = false,
         )
     } else {
         WhyFactor(
-            WhyFactorKind.VOLATILITY, WhyFactorDirection.NONE,
+            WhyFactorKind.VOLATILITY,
+            WhyFactorDirection.NONE,
             // |z| über der Schwelle, aber unter der Mindestbewegung: nicht «wie üblich» nennen
             if (r.value >= ActivityAnalyzer.VOLATILITY_HIGH_Z) WhyFactorNote.VOLATILITY_TINY else WhyFactorNote.VOLATILITY_USUAL,
-            r.value, strength = 0.0, neutral = true,
+            r.value,
+            strength = 0.0,
+            neutral = true,
         )
     }
 
@@ -231,16 +208,34 @@ object WhyFactors {
         val strength = abs(ActivityAnalyzer.fundingPer8h(r.value, r.intervalHours)) / ActivityAnalyzer.FUNDING_EXTREME_PERCENT
         return when (r.kind) {
             ReasonKind.LEVERAGE_LONGS -> WhyFactor(
-                WhyFactorKind.FUNDING, WhyFactorDirection.UP, WhyFactorNote.FUNDING_LONGS, r.value,
-                strength = strength, neutral = false, trend = trend, intervalHours = r.intervalHours,
+                WhyFactorKind.FUNDING,
+                WhyFactorDirection.UP,
+                WhyFactorNote.FUNDING_LONGS,
+                r.value,
+                strength = strength,
+                neutral = false,
+                trend = trend,
+                intervalHours = r.intervalHours,
             )
             ReasonKind.LEVERAGE_SHORTS -> WhyFactor(
-                WhyFactorKind.FUNDING, WhyFactorDirection.DOWN, WhyFactorNote.FUNDING_SHORTS, r.value,
-                strength = strength, neutral = false, trend = trend, intervalHours = r.intervalHours,
+                WhyFactorKind.FUNDING,
+                WhyFactorDirection.DOWN,
+                WhyFactorNote.FUNDING_SHORTS,
+                r.value,
+                strength = strength,
+                neutral = false,
+                trend = trend,
+                intervalHours = r.intervalHours,
             )
             else -> WhyFactor(
-                WhyFactorKind.FUNDING, WhyFactorDirection.NONE, WhyFactorNote.FUNDING_NEUTRAL, r.value,
-                strength = 0.0, neutral = true, trend = trend, intervalHours = r.intervalHours,
+                WhyFactorKind.FUNDING,
+                WhyFactorDirection.NONE,
+                WhyFactorNote.FUNDING_NEUTRAL,
+                r.value,
+                strength = 0.0,
+                neutral = true,
+                trend = trend,
+                intervalHours = r.intervalHours,
             )
         }
     }
@@ -255,8 +250,12 @@ object WhyFactors {
             else -> WhyFactorNote.OI_DOWN
         }
         return WhyFactor(
-            WhyFactorKind.OPEN_INTEREST, if (notable) direction(change) else WhyFactorDirection.NONE, note, change,
-            strength = if (notable) abs(change) / ActivityAnalyzer.OI_JUMP_PERCENT else 0.0, neutral = !notable,
+            WhyFactorKind.OPEN_INTEREST,
+            if (notable) direction(change) else WhyFactorDirection.NONE,
+            note,
+            change,
+            strength = if (notable) abs(change) / ActivityAnalyzer.OI_JUMP_PERCENT else 0.0,
+            neutral = !notable,
         )
     }
 
@@ -272,7 +271,8 @@ object WhyFactors {
         val distance = distanceToHighPercent(price, high) ?: return null
         val near = distance <= NEAR_HIGH_PERCENT
         return WhyFactor(
-            WhyFactorKind.NEAR_HIGH, WhyFactorDirection.NONE,
+            WhyFactorKind.NEAR_HIGH,
+            WhyFactorDirection.NONE,
             if (distance <= AT_HIGH_PERCENT) WhyFactorNote.HIGH_AT else WhyFactorNote.HIGH_BELOW,
             distance,
             // Näher am Hoch = stärker (1 bei 5 % Abstand, 2 auf dem Hoch)
@@ -297,7 +297,8 @@ object WhyFactors {
         val distance = distanceToLowPercent(price, low) ?: return null
         if (distance > NEAR_LOW_PERCENT) return null
         return WhyFactor(
-            WhyFactorKind.NEAR_LOW, WhyFactorDirection.NONE,
+            WhyFactorKind.NEAR_LOW,
+            WhyFactorDirection.NONE,
             if (distance <= AT_LOW_PERCENT) WhyFactorNote.LOW_AT else WhyFactorNote.LOW_ABOVE,
             distance,
             // Näher am Tief = stärker (1 bei 5 % Abstand, 2 auf dem Tief)
@@ -311,21 +312,37 @@ object WhyFactors {
         val near = ActivityAnalyzer.RANGE_NEAR_PERCENT
         return when (p.kind) {
             Position3dKind.NEAR_HIGH -> WhyFactor(
-                WhyFactorKind.POSITION_3D, WhyFactorDirection.NONE, WhyFactorNote.RANGE_NEAR_HIGH, p.percent,
+                WhyFactorKind.POSITION_3D,
+                WhyFactorDirection.NONE,
+                WhyFactorNote.RANGE_NEAR_HIGH,
+                p.percent,
                 // 1 bei 1 % Abstand, 1,5 auf dem Hoch — schwächer als das 30-Tage-Hoch
-                strength = 1.0 + (near - abs(p.percent)) / near * 0.5, neutral = false,
+                strength = 1.0 + (near - abs(p.percent)) / near * 0.5,
+                neutral = false,
             )
             Position3dKind.NEAR_LOW -> WhyFactor(
-                WhyFactorKind.POSITION_3D, WhyFactorDirection.NONE, WhyFactorNote.RANGE_NEAR_LOW, p.percent,
-                strength = 1.0 + (near - abs(p.percent)) / near * 0.5, neutral = false,
+                WhyFactorKind.POSITION_3D,
+                WhyFactorDirection.NONE,
+                WhyFactorNote.RANGE_NEAR_LOW,
+                p.percent,
+                strength = 1.0 + (near - abs(p.percent)) / near * 0.5,
+                neutral = false,
             )
             Position3dKind.BELOW_HIGH -> WhyFactor(
-                WhyFactorKind.POSITION_3D, WhyFactorDirection.DOWN, WhyFactorNote.RANGE_BELOW_HIGH, p.percent,
-                strength = abs(p.percent) / p.threshold, neutral = false,
+                WhyFactorKind.POSITION_3D,
+                WhyFactorDirection.DOWN,
+                WhyFactorNote.RANGE_BELOW_HIGH,
+                p.percent,
+                strength = abs(p.percent) / p.threshold,
+                neutral = false,
             )
             Position3dKind.ABOVE_LOW -> WhyFactor(
-                WhyFactorKind.POSITION_3D, WhyFactorDirection.UP, WhyFactorNote.RANGE_ABOVE_LOW, p.percent,
-                strength = abs(p.percent) / p.threshold, neutral = false,
+                WhyFactorKind.POSITION_3D,
+                WhyFactorDirection.UP,
+                WhyFactorNote.RANGE_ABOVE_LOW,
+                p.percent,
+                strength = abs(p.percent) / p.threshold,
+                neutral = false,
             )
         }
     }
@@ -342,7 +359,8 @@ object WhyFactors {
         return WhyFactor(
             WhyFactorKind.PEG,
             if (notable) direction(deviation) else WhyFactorDirection.NONE,
-            note, deviation,
+            note,
+            deviation,
             strength = if (notable) abs(deviation) / StablePeg.NOTABLE_PERCENT else 0.0,
             neutral = !notable,
         )
@@ -353,8 +371,13 @@ object WhyFactors {
         val change = r.secondary
         val arrow = if (change != null && abs(change) >= SENTIMENT_ARROW_POINTS) direction(change) else WhyFactorDirection.NONE
         return WhyFactor(
-            WhyFactorKind.SENTIMENT, arrow, WhyFactorNote.SENTIMENT, r.value, change,
-            strength = if (extreme) 1.0 else 0.0, neutral = !extreme,
+            WhyFactorKind.SENTIMENT,
+            arrow,
+            WhyFactorNote.SENTIMENT,
+            r.value,
+            change,
+            strength = if (extreme) 1.0 else 0.0,
+            neutral = !extreme,
         )
     }
 }

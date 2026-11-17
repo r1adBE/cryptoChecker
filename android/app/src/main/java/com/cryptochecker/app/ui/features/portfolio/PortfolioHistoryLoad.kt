@@ -16,10 +16,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.RoutedHistory
+import com.cryptochecker.app.domain.portfolio.candleDays
+import java.time.LocalDate
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import java.time.LocalDate
-import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
  * Wertverlauf für die Karte über den Positionen: [series] in [unit]
@@ -131,7 +131,13 @@ internal data class HistoryCloses(
      * Börse, sonst Binance skaliert — ohne Binance-Bezugskurs jetzt fehlt der Coin («ohne …»).
      */
     fun routed(p: PortfolioPrices): RoutedHistory = PortfolioExchangeRoute.historyCloses(
-        daily.closes, daily.ranges, daily.own, daily.routed + p.sources.keys, p.exchangeFailed.keys, p.prices, p.binance,
+        daily.closes,
+        daily.ranges,
+        daily.own,
+        daily.routed + p.sources.keys,
+        p.exchangeFailed.keys,
+        p.prices,
+        p.binance,
     )
 
     /** Deckt diese Ladung [needed] ab (alle Coins, genug Tage)? */

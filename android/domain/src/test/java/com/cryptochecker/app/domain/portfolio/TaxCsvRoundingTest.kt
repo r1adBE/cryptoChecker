@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.math.BigDecimal
 import java.time.LocalDate
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Summenzeilen der CSV-Exporte aus den GERUNDETEN Zeilenwerten: drei Zeilen zu 0.335 stehen als 0.34 in der
@@ -24,7 +24,7 @@ class TaxCsvRoundingTest {
         val holdings = listOf("AAA", "BBB", "CCC").map { CutoffHolding(it, BigDecimal.ONE) }
         val rows = CutoffExport.rows(holdings, holdings.associate { it.coin to third }, BigDecimal.ONE)
         val lines = CutoffExport.csv(LocalDate.of(2025, 12, 31), "CHF", "2025-12-31", rows, texts)
-            .removePrefix("﻿").split("\r\n")
+            .removePrefix("").split("\r\n")
         assertEquals("AAA;1;0.335;0.34;1;0.34;", lines[2])
         assertEquals("Total;;;1.02;1;1.02;", lines[5])
     }

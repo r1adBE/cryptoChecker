@@ -2,26 +2,26 @@
 // anderer Börsen und Namen je Coin. Erweiterungsfunktionen, der Zustand bleibt in der Klasse.
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
-import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
+import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
 
 /**
  * Unabhängige Bezüge für Kerzenkurse ([PricePlausibility.candleReference]): Kurse aktiver
@@ -132,6 +132,8 @@ suspend fun PortfolioPriceSource.watchNamesFor(coins: List<String>): Map<String,
     }
     return PortfolioPriceIdentity.watchNames(
         coins,
-        watches.map { PortfolioPriceIdentity.WatchName(it.baseAsset, tokenIdentityStore.pairName(it.exchangeKey, it.baseAsset), it.disabled) },
+        watches.map {
+            PortfolioPriceIdentity.WatchName(it.baseAsset, tokenIdentityStore.pairName(it.exchangeKey, it.baseAsset), it.disabled)
+        },
     )
 }

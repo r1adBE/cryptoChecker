@@ -6,8 +6,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 
 /*
  * Eine Schriftskala für die ganze App (wie `AppFont` in iOS). Grundlage sind die
@@ -70,8 +70,11 @@ val AmountFontFamily = FontFamily(
  * Schriften (Ziffern aus der Systemschrift, «USDT» und Vorzeichen aus Rubik).
  */
 fun TextStyle.amountNumbers(): TextStyle =
-    if (LocaleNumbers.hasLatinDigits()) copy(fontFamily = AmountFontFamily, fontFeatureSettings = "tnum")
-    else tabularNumbers()
+    if (LocaleNumbers.hasLatinDigits()) {
+        copy(fontFamily = AmountFontFamily, fontFeatureSettings = "tnum")
+    } else {
+        tabularNumbers()
+    }
 
 /** Numeric: Ziffern gleich breit (OpenType `tnum`), damit Kurse beim Aktualisieren nicht springen. */
 fun TextStyle.tabularNumbers(): TextStyle = copy(fontFeatureSettings = "tnum")

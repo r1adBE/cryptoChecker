@@ -4,17 +4,17 @@ import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.app.domain.util.json.JsonException
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.app.domain.util.json.JsonException
 import java.io.EOFException
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.net.ConnectException
 import java.net.NoRouteToHostException
 import java.net.UnknownHostException
-import javax.net.ssl.SSLException
 import java.util.concurrent.CancellationException
+import javax.net.ssl.SSLException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -68,8 +68,11 @@ fun parseExchangeError(ex: Throwable): ExchangeError = when (ex) {
  */
 fun Throwable.toExchangeFailure(): ExchangeFailure = when (this) {
     is HttpExchangeError ->
-        if (ExchangeBackoff.isRateLimitCode(httpCode)) ExchangeFailure.RateLimited(retryAfterSeconds, httpCode)
-        else ExchangeFailure.HttpStatus(httpCode)
+        if (ExchangeBackoff.isRateLimitCode(httpCode)) {
+            ExchangeFailure.RateLimited(retryAfterSeconds, httpCode)
+        } else {
+            ExchangeFailure.HttpStatus(httpCode)
+        }
     // Hülle: die Ursache sagt, was geschah (Host unbekannt, TLS, Zeit …)
     is TimeoutError -> ExchangeFailure.Timeout
     // Übrige Ein-/Ausgabefehler beim Transport (Verbindung mitten in der Antwort getrennt: «Software caused connection

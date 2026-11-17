@@ -20,8 +20,13 @@ class LiveHeartbeatTest {
 
     /** Kurs seit 10 Min. unverändert (Binance schickt jede Sekunde denselben Kurs). */
     private fun quiet(id: Long = 1) = WatchEntity(
-        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = "USDT",
-        lastPrice = 50_000.0, lastUpdate = now - 10 * min,
+        id = id,
+        exchangeKey = "Binance",
+        exchangeName = "Binance",
+        baseAsset = "BTC",
+        quoteAsset = "USDT",
+        lastPrice = 50_000.0,
+        lastUpdate = now - 10 * min,
     )
 
     @Test
@@ -39,7 +44,9 @@ class LiveHeartbeatTest {
         assertEquals(LiveStatus.freshnessTime(now - 10 * min, onLiveSocket = true, now = now), shown.lastUpdate)
         assertFalse(
             com.cryptochecker.app.domain.watch.PriceFreshness.isStale(
-                shown, now, LiveStatus.staleAfterMillis(onLiveSocket = true, pollingAfter = polling),
+                shown,
+                now,
+                LiveStatus.staleAfterMillis(onLiveSocket = true, pollingAfter = polling),
             ),
         )
     }

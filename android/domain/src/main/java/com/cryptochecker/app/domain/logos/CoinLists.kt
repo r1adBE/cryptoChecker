@@ -75,12 +75,18 @@ object CoinLists {
     ): Result {
         val (b, a) = coroutineScope {
             val binance = async {
-                if (!request.binanceDue) Attempt<List<CoinLogos.BinanceEntry>>(null, false)
-                else attempt(isNetworkError) { CoinMeta.parseBinanceList(fetcher(CoinLogos.BINANCE_LIST_URL))?.takeIf { it.isNotEmpty() } }
+                if (!request.binanceDue) {
+                    Attempt<List<CoinLogos.BinanceEntry>>(null, false)
+                } else {
+                    attempt(isNetworkError) { CoinMeta.parseBinanceList(fetcher(CoinLogos.BINANCE_LIST_URL))?.takeIf { it.isNotEmpty() } }
+                }
             }
             val alpha = async {
-                if (!request.alphaDue) Attempt<List<CoinLogos.AlphaEntry>>(null, false)
-                else attempt(isNetworkError) { CoinLogos.parseAlpha(fetcher(CoinLogos.ALPHA_LIST_URL)) }
+                if (!request.alphaDue) {
+                    Attempt<List<CoinLogos.AlphaEntry>>(null, false)
+                } else {
+                    attempt(isNetworkError) { CoinLogos.parseAlpha(fetcher(CoinLogos.ALPHA_LIST_URL)) }
+                }
             }
             binance.await() to alpha.await()
         }
@@ -123,6 +129,9 @@ object CoinLists {
      * Auszug ([knownIsSnapshot]), haben die frischen Listen Vorrang.
      */
     fun publishNames(known: Map<String, String>, knownIsSnapshot: Boolean, listNames: Map<String, String>): Map<String, String> =
-        if (knownIsSnapshot || known.isEmpty()) CoinLogos.withKnown(listNames, known)
-        else CoinLogos.withKnown(known, listNames)
+        if (knownIsSnapshot || known.isEmpty()) {
+            CoinLogos.withKnown(listNames, known)
+        } else {
+            CoinLogos.withKnown(known, listNames)
+        }
 }

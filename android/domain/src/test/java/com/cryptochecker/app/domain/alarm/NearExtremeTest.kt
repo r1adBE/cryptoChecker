@@ -4,12 +4,12 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.alarm.NearExtreme.Decision
 import com.cryptochecker.app.domain.alarm.NearExtreme.Range
 import com.cryptochecker.app.domain.alarm.NearExtreme.Side
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 class NearExtremeTest {
 
@@ -187,7 +187,10 @@ class NearExtremeTest {
         assertEquals(AlarmSentence.Kind.NEW_LOW, newLow.kind)
         assertEquals("", newLow.value)
         assertEquals(30, newLow.windowHours)
-        assertEquals(AlarmSentence.Kind.NEW_HIGH, AlarmSentence.parts(AlarmSentence.Kind.NEAR_HIGH, "BTC", 0.0, "USDT", 1, Locale.US, price)!!.kind)
+        assertEquals(
+            AlarmSentence.Kind.NEW_HIGH,
+            AlarmSentence.parts(AlarmSentence.Kind.NEAR_HIGH, "BTC", 0.0, "USDT", 1, Locale.US, price)!!.kind
+        )
         assertNull(AlarmSentence.parts(AlarmSentence.Kind.NEAR_LOW, "BTC", -1.0, "USDT", 30, Locale.US, price))
         assertNull(AlarmSentence.parts(AlarmSentence.Kind.NEAR_HIGH, " ", 0.0, "USDT", 30, Locale.US, price))
     }
@@ -230,8 +233,20 @@ class NearExtremeTest {
         // Erst über der Marke wieder neu
         assertTrue(decide(price = 101.2, threshold = 0.0, armed = true, lastLevel = mark, lastTriggeredAt = reportedAt) is Decision.Fire)
         // Tief spiegelbildlich
-        assertEquals(Decision.None, decide(side = Side.LOW, price = 49.9, threshold = 0.0, armed = true, lastLevel = 49.0, lastTriggeredAt = reportedAt))
-        assertTrue(decide(side = Side.LOW, price = 48.9, threshold = 0.0, armed = true, lastLevel = 49.0, lastTriggeredAt = reportedAt) is Decision.Fire)
+        assertEquals(
+            Decision.None,
+            decide(side = Side.LOW, price = 49.9, threshold = 0.0, armed = true, lastLevel = 49.0, lastTriggeredAt = reportedAt)
+        )
+        assertTrue(
+            decide(
+                side = Side.LOW,
+                price = 48.9,
+                threshold = 0.0,
+                armed = true,
+                lastLevel = 49.0,
+                lastTriggeredAt = reportedAt
+            ) is Decision.Fire
+        )
     }
 
     @Test

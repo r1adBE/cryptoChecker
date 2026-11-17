@@ -3,13 +3,13 @@ package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.activity.WhyInput
+import com.cryptochecker.app.domain.activity.explain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.domain.activity.explain
 
 class NotTradedTest {
 
@@ -53,8 +53,14 @@ class NotTradedTest {
         // Frische Kerzen mit kräftiger Bewegung und Umsatzsprung — trotzdem kein Urteil
         val candles = (0 until 48).map { i ->
             val close = if (i == 47) 113.9 else 100.0 + (i % 2) * 0.1
-            HourCandle(openTime = now - (47 - i) * h, open = 100.0, high = close, low = 99.0, close = close,
-                volume = if (i == 47) 3360.0 else 1000.0)
+            HourCandle(
+                openTime = now - (47 - i) * h,
+                open = 100.0,
+                high = close,
+                low = 99.0,
+                close = close,
+                volume = if (i == 47) 3360.0 else 1000.0
+            )
         }
         val input = WhyInput(
             baseAsset = "BOND",

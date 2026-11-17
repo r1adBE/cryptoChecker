@@ -31,15 +31,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.work.BatteryOptimization
 import com.cryptochecker.app.wearable.PhoneWatchUsage
+import com.cryptochecker.app.work.BatteryOptimization
 import com.cryptochecker.app.work.ExactCheckScheduler
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import com.cryptochecker.marketdata.usage.UsageDriver
@@ -48,7 +47,9 @@ import com.cryptochecker.marketdata.usage.UsageLog
 import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.usage.UsageReport
 import com.cryptochecker.marketdata.usage.UsageTotals
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -59,7 +60,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 /**
  * «Akku & Aktivität»: eigene Zähler der letzten 24 h ([UsageMeter.shared]) und die der Uhr ([PhoneWatchUsage]), dazu
@@ -181,8 +181,12 @@ internal fun UsagePage(onBack: () -> Unit, viewModel: UsageViewModel = hiltViewM
                     }
                 }
             } else {
-                UsageCard(stringResource(R.string.usage_watch), report.totals, stringResource(R.string.usage_driver_watch),
-                    asOf = report.at)
+                UsageCard(
+                    stringResource(R.string.usage_watch),
+                    report.totals,
+                    stringResource(R.string.usage_driver_watch),
+                    asOf = report.at
+                )
             }
         }
         Spacer(Modifier.height(12.dp))
@@ -232,8 +236,11 @@ private fun UsageCard(title: String, totals: UsageTotals, driver: String, asOf: 
         )
         Hint(driver)
         if (asOf != null) {
-            val flags = if (DateUtils.isToday(asOf)) DateUtils.FORMAT_SHOW_TIME
-            else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+            val flags = if (DateUtils.isToday(asOf)) {
+                DateUtils.FORMAT_SHOW_TIME
+            } else {
+                DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+            }
             Hint(stringResource(R.string.usage_as_of, DateUtils.formatDateTime(context, asOf, flags)))
         }
     }

@@ -49,7 +49,10 @@ object PortfolioWalletNames {
         if (q.isEmpty()) return known(used).take(limit)
         val all = known(used + catalog).filter { fold(it) != q }
         val starts = all.filter { fold(it).startsWith(q) }
-        val contains = all.filter { val f = fold(it); !f.startsWith(q) && f.contains(q) }
+        val contains = all.filter {
+            val f = fold(it)
+            !f.startsWith(q) && f.contains(q)
+        }
         return (starts + contains).take(limit)
     }
 

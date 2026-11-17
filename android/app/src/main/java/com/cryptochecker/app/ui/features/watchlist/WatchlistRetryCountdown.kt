@@ -12,8 +12,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.RetryWait
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
 
 /**

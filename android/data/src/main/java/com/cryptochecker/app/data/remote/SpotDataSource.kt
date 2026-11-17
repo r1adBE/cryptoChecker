@@ -4,12 +4,12 @@ import com.cryptochecker.app.domain.activity.BroadMarket
 import com.cryptochecker.app.domain.activity.BroadMarketSnapshot
 import com.cryptochecker.app.domain.spot.SpotData
 import com.cryptochecker.app.domain.spot.SpotMarket
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Spot-Kennzahlen (Marktkapitalisierung, Volumen, Umlauf …) für den Spot-Tab der Karte «Marktdaten».

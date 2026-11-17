@@ -1,8 +1,8 @@
 package com.cryptochecker.app.wearable
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * «App zurücksetzen» räumt auch die Uhr auf: die Einträge des Handys liegen bei den Play-Diensten, nicht im App-Speicher

@@ -1,15 +1,15 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.market.PulseBreadth
-import com.cryptochecker.app.ui.theme.MarketScalePalette
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.theme.MarketScalePalette
 import com.cryptochecker.app.util.PriceFormat
 
 /** Nebenzeile(n) des Widgets «Was gerade auffällt» mit Farben (wie iOS `PulseSideLine`); gezeichnet in [PulseWidgetRenderer]. */
 object PulseSideLine {
 
-        /** Stufenpunkt vor Fear & Greed (wie iOS `PulseSideLine.dot`). */
-        const val FNG_DOT = "\u25CF"
+    /** Stufenpunkt vor Fear & Greed (wie iOS `PulseSideLine.dot`). */
+    const val FNG_DOT = "\u25CF"
 
     /**
      * Nebenzeile mit Farben wie in der App: die Fear-&-Greed-Zahl in der Textfarbe (wie
@@ -28,7 +28,12 @@ object PulseSideLine {
         val out = android.text.SpannableString(text)
         fun color(start: Int, length: Int, value: Int) {
             if (start >= 0) {
-                out.setSpan(android.text.style.ForegroundColorSpan(value), start, start + length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                out.setSpan(
+                    android.text.style.ForegroundColorSpan(value),
+                    start,
+                    start + length,
+                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
         }
         if (fearGreedValue != null && fearGreedText != null) {

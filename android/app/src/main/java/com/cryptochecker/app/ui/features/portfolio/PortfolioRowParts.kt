@@ -4,38 +4,38 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.background
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import kotlin.math.abs
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.format.WidgetQuantityFormat
+import com.cryptochecker.resources.R
 import java.util.Locale
+import kotlin.math.abs
 
 /**
  * MEIN Gewinn/Verlust einer Position über die %-Basis: Zeitraum grau («24h»), daneben «+1’250.00 CHF · +1.50%»
@@ -146,15 +146,23 @@ internal fun coinRowSpoken(
         note.takeIf { it != value },
         // «Seit Kauf» wie die Pille der Zeile; fehlt bei einem Teil der Kaufpreis, «Preis fehlt»
         if (!position.priceMissing || position.unrealizedPartial) {
-            stringResource(R.string.label_value, stringResource(R.string.portfolio_unrealized), A11yText.change(context, position.unrealizedPercent))
-        } else null,
+            stringResource(
+                R.string.label_value,
+                stringResource(R.string.portfolio_unrealized),
+                A11yText.change(context, position.unrealizedPercent)
+            )
+        } else {
+            null
+        },
         stringResource(R.string.portfolio_price_missing).takeIf { position.priceMissing },
         basis?.let { rowPnlSpoken(pnl, it, unit) },
         stringResource(R.string.a11y_price_outdated).takeIf { stale },
         exchange?.takeIf { it.isNotBlank() },
         if (txCount > 0) {
             stringResource(R.string.label_value, stringResource(R.string.portfolio_transactions), LocaleNumbers.integer(txCount))
-        } else null,
+        } else {
+            null
+        },
     )
     return parts.joinToString(", ")
 }

@@ -4,16 +4,16 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.BINAN
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.UNLISTED_RETRY_MILLIS
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.callExchange
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.portfolio.BinanceBatchSplit
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.net.URLEncoder
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull
 import org.json.JSONArray
 import timber.log.Timber
-import java.net.URLEncoder
 
 // Binance-Sammelabfrage der Portfolio-Kurse (Teil von [PortfolioPriceSource]): Filter auf die Binance-Coin-Liste, Halbieren
 // bei HTTP 400 ([BinanceBatchSplit]). Erweiterungsfunktionen; der Zustand bleibt in der Klasse. Wie iOS

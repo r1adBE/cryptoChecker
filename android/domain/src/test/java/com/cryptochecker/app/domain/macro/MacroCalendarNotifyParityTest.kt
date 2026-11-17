@@ -3,12 +3,12 @@ package com.cryptochecker.app.domain.macro
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Morgen-Meldung «Wirtschaftstermine» in der Zone der Termine (`testdata/parity/macro_notify.json`): 08:00 Ortszeit,

@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.settings.AccentColor
 import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 /**
  * Setzt Erscheinungsbild-Einstellungen um, die ausserhalb von Compose wirken:

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.model.AlarmCondition
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

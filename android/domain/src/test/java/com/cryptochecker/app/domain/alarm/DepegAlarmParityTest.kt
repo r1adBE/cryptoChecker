@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.alarm
 import com.cryptochecker.app.domain.alarm.DepegAlarm
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `depeg_alarm.json` (iOS: `DepegAlarmParityTests.swift`). */
 class DepegAlarmParityTest {
@@ -47,7 +47,10 @@ class DepegAlarmParityTest {
         assertTrue(cases.size >= 8)
         cases.forEach { c ->
             val d = DepegAlarm.evaluate(
-                c["deviation"].num()!!, c["threshold"].num()!!, c["armed"] as Boolean, c["mayFire"] as Boolean
+                c["deviation"].num()!!,
+                c["threshold"].num()!!,
+                c["armed"] as Boolean,
+                c["mayFire"] as Boolean
             )
             assertEquals("fire: $c", c["fire"], d.fire)
             assertEquals("armed: $c", c["armedAfter"], d.armed)
@@ -94,12 +97,18 @@ class DepegAlarmParityTest {
                 DepegAlarm.Reading(it, now - c["ageMillis"].num()!!.toLong(), viaUsdc = c["viaUsdc"] as? Boolean ?: false)
             }
             val note = DepegAlarm.cardNote(
-                c["holdings"].list().map { it as String }, c["valuesViaUsdt"] as Boolean, reading,
-                c["thresholdTenths"].num()!!.toInt(), now, usdtMarket = c["usdtMarket"] as? Boolean ?: false,
+                c["holdings"].list().map { it as String },
+                c["valuesViaUsdt"] as Boolean,
+                reading,
+                c["thresholdTenths"].num()!!.toInt(),
+                now,
+                usdtMarket = c["usdtMarket"] as? Boolean ?: false,
             )
             assertEquals("cardNote: $c", c["kind"], note?.kind?.name)
             val withReading = note?.kind in setOf(
-                DepegAlarm.CardNoteKind.DEVIATION, DepegAlarm.CardNoteKind.USDT_BREAK, DepegAlarm.CardNoteKind.VIA_USDC,
+                DepegAlarm.CardNoteKind.DEVIATION,
+                DepegAlarm.CardNoteKind.USDT_BREAK,
+                DepegAlarm.CardNoteKind.VIA_USDC,
             )
             assertEquals("cardNote reading: $c", if (withReading) reading else null, note?.reading)
         }
@@ -144,8 +153,11 @@ class DepegAlarmParityTest {
         assertTrue(cases.size >= 3)
         cases.forEach { c ->
             // "exchangeTime" direkt (0 = unbekannt) oder als Alter "exchangeAgeMillis" (null = Börse liefert keine Zeit)
-            val exchangeTime = if (c.containsKey("exchangeTime")) c["exchangeTime"].num()?.toLong()
-            else c["exchangeAgeMillis"].num()?.let { now - it.toLong() }
+            val exchangeTime = if (c.containsKey("exchangeTime")) {
+                c["exchangeTime"].num()?.toLong()
+            } else {
+                c["exchangeAgeMillis"].num()?.let { now - it.toLong() }
+            }
             val used = DepegAlarm.usablePrice(c["last"].num(), exchangeTime, now)
             val expected = c["expected"].num()
             if (expected == null) assertNull("usablePrice: $c", used) else assertEquals("usablePrice: $c", expected, used!!, 1e-12)

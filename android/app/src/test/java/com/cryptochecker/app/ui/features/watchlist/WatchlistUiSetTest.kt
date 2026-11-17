@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartFx

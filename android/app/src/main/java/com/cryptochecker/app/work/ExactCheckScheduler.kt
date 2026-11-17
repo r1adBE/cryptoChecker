@@ -1,6 +1,5 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -10,12 +9,13 @@ import android.provider.Settings
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
-import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 /**
  * «Pünktlich prüfen»: exakter Wecker ([AlarmManager.setExactAndAllowWhileIdle]) im gewählten Intervall

@@ -15,6 +15,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.TodayChange
+import java.time.LocalDate
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -23,11 +24,13 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import java.time.LocalDate
 
 /** «Seit Kauf» und Einstand in der Anzeigewährung zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]). */
 internal fun PortfolioViewModel.costFxFlow(): StateFlow<com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures?> = combine(
-    summary, currency, displayFxRate, _costFx,
+    summary,
+    currency,
+    displayFxRate,
+    _costFx,
 ) { s, code, rate, load ->
     if (s == null || !cardUnit(code, rate).converted) return@combine null
     val current = rate?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) } ?: return@combine null
@@ -40,13 +43,22 @@ internal fun PortfolioViewModel.costFxFlow(): StateFlow<com.cryptochecker.app.do
     val usable = load?.takeIf { it.currency == code && (first == null || !it.from.isAfter(LocalDate.ofEpochDay(first))) }
     if (first != null && usable == null) return@combine null
     com.cryptochecker.app.domain.portfolio.PortfolioCostFx.figures(
-        s, code, current, today, usable?.rates, usable?.usdtUsd ?: emptyMap(),
+        s,
+        code,
+        current,
+        today,
+        usable?.rates,
+        usable?.usdtUsd ?: emptyMap(),
     )
 }.flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
 /** Merkzettel fürs Portfolio-Widget in der Anzeigewährung ([PortfolioViewModel.widgetDisplayFx]). */
 internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDisplayFx?> = combine(
-    summary, currency, costFx, _fxRate, combine(_fxSeries, _closes) { series, loaded -> series to loaded },
+    summary,
+    currency,
+    costFx,
+    _fxRate,
+    combine(_fxSeries, _closes) { series, loaded -> series to loaded },
 ) { s, code, figures, fxRate, (fxSeries, loaded) ->
     if (s == null || figures == null) return@combine null
     val today = PortfolioHistory.utcToday()
@@ -61,7 +73,9 @@ internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDispla
     val usdt = loaded?.daily?.usdtUsd
     val dayFactor = if (rate != null && rates != null && usdt != null) {
         PortfolioHistoryFx.rateFunction(rates, rate, today, com.cryptochecker.app.domain.portfolio.UsdtUsdRates(null, usdt))
-    } else null
+    } else {
+        null
+    }
     PortfolioDisplayFigures.memo(code, figures, s.open, dayFactor, today)
 }.distinctUntilChanged().flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
@@ -72,7 +86,10 @@ internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDispla
  * dem heutigen Kurs anzeigt. Ohne passende Tageskurse USDT (× heutiger Kurs in der Karte).
  */
 internal fun PortfolioViewModel.periodChange(days: Int, display: Boolean): StateFlow<TodayChange?> = combine(
-    summary, _closes, calcTransactions, _prices,
+    summary,
+    _closes,
+    calcTransactions,
+    _prices,
     combine(addressHistories, currency, _fxRate, _fxSeries, liveUsdtUsd) { a, code, fx, series, live ->
         PeriodFx(a, code, fx, series, live)
     },
@@ -101,7 +118,12 @@ internal fun PortfolioViewModel.periodChange(days: Int, display: Boolean): State
     val fx = if (rate != null && !rates.isNullOrEmpty()) PortfolioHistoryFx.rateFunction(rates, rate, today, usdt) else null
     // Bestände nach derselben Einstandsmethode wie die Karte (FIFO je Wallet: je Wallet gekappt)
     val change = PortfolioPeriodChange.gain(
-        txs.map { it.toTrade() }, prices, loaded.routed(p).closes, today - days, addresses = addresses, method = current.method,
+        txs.map { it.toTrade() },
+        prices,
+        loaded.routed(p).closes,
+        today - days,
+        addresses = addresses,
+        method = current.method,
         fx = fx,
     )
     // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, [displayFxRate])
@@ -115,7 +137,9 @@ internal fun PortfolioViewModel.periodScaledFlow(): StateFlow<List<String>> = co
     if (current == null || loaded == null) return@combine emptyList()
     val today = PortfolioHistory.utcToday()
     PortfolioExchangeRoute.scaledHint(
-        loaded.routed(p).scaled, loaded.daily.binanceBefore, today - PortfolioPeriodChange.YEAR_DAYS,
+        loaded.routed(p).scaled,
+        loaded.daily.binanceBefore,
+        today - PortfolioPeriodChange.YEAR_DAYS,
         current.open.map { it.coin },
     )
 }
@@ -160,13 +184,20 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
     }.orEmpty()
     // Eigene Börse nicht erreichbar: älterer Stand — «Stand …» statt eines scheinbar heutigen Verlaufs
     val staleSince = com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf.of(
-        loaded.daily.ownStale.filterKeys { it in routed.closes }, drawn,
+        loaded.daily.ownStale.filterKeys { it in routed.closes },
+        drawn,
     )
     // Tageskurse aus der Ausweich-Kette (Binance führt den Coin nicht): Anbieter nennen
     val chainSources = loaded.daily.chainSources.filterKeys { it in drawn }
     if (!converted) {
         return@combine PortfolioHistoryUi(
-            range, series, PortfolioFormat.USDT, false, scaled = scaled, staleSince = staleSince, chainSources = chainSources,
+            range,
+            series,
+            PortfolioFormat.USDT,
+            false,
+            scaled = scaled,
+            staleSince = staleSince,
+            chainSources = chainSources,
         )
     }
     // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)

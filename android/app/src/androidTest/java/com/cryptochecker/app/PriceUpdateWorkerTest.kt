@@ -21,6 +21,7 @@ import com.cryptochecker.app.work.PriceUpdateWorker
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -31,7 +32,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Hintergrund-Prüfung von Anfang bis Ende: Der echte [PriceUpdateWorker] (über die
@@ -51,8 +51,11 @@ class PriceUpdateWorkerTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var workerFactory: HiltWorkerFactory
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var priceRefresher: PriceRefresher
+
     @Inject lateinit var refreshStats: RefreshStats
 
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext

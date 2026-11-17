@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatchInfo
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppMenuHead
+import com.cryptochecker.resources.R
 
 /**
  * Knöpfe oben rechts im Portfolio-Tab: «Beträge verbergen» und das Menü ⋯ (App, Aktualisieren, Umrechnen,
@@ -79,12 +79,18 @@ internal fun PortfolioToolbarActions(
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.portfolio_convert_to_value, currency)) },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_swap_horiz), null) },
-                onClick = { onMenuOpenChange(false); onPickCurrency() }
+                onClick = {
+                    onMenuOpenChange(false)
+                    onPickCurrency()
+                }
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.portfolio_addresses_title)) },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_portfolio), null) },
-                onClick = { onMenuOpenChange(false); onOpenAddresses() }
+                onClick = {
+                    onMenuOpenChange(false)
+                    onOpenAddresses()
+                }
             )
             // Import = in die App hinein (Pfeil nach unten); darunter die unterstützten Quellen
             DropdownMenuItem(
@@ -99,14 +105,20 @@ internal fun PortfolioToolbarActions(
                     }
                 },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_download), null) },
-                onClick = { onMenuOpenChange(false); onOpenCsvImport() }
+                onClick = {
+                    onMenuOpenChange(false)
+                    onOpenCsvImport()
+                }
             )
             // Importläufe (nur mit importierten Transaktionen): «Rückgängig» je Lauf
             if (importBatches.isNotEmpty()) {
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.portfolio_imports_title)) },
                     leadingIcon = { Icon(painterResource(R.drawable.ic_list), null) },
-                    onClick = { onMenuOpenChange(false); onOpenImports() },
+                    onClick = {
+                        onMenuOpenChange(false)
+                        onOpenImports()
+                    },
                     modifier = Modifier.testTag(UiTestTags.PORTFOLIO_IMPORTS)
                 )
             }
@@ -115,14 +127,20 @@ internal fun PortfolioToolbarActions(
                     text = { Text(stringResource(R.string.portfolio_cutoff_export_action)) },
                     // Export = aus der App hinaus (Pfeil nach oben)
                     leadingIcon = { Icon(painterResource(R.drawable.ic_upload), null) },
-                    onClick = { onMenuOpenChange(false); onOpenExport() },
+                    onClick = {
+                        onMenuOpenChange(false)
+                        onOpenExport()
+                    },
                     modifier = Modifier.testTag(UiTestTags.PORTFOLIO_CUTOFF_EXPORT)
                 )
                 // Steuer-Arbeitsunterlage: eigene Seite
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.portfolio_tax_worksheet_action)) },
                     leadingIcon = { Icon(painterResource(R.drawable.ic_note), null) },
-                    onClick = { onMenuOpenChange(false); onOpenTaxWorksheet() },
+                    onClick = {
+                        onMenuOpenChange(false)
+                        onOpenTaxWorksheet()
+                    },
                     modifier = Modifier.testTag(UiTestTags.PORTFOLIO_TAX_EXPORT)
                 )
             }
@@ -131,7 +149,10 @@ internal fun PortfolioToolbarActions(
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.portfolio_alarm_action)) },
                     leadingIcon = { Icon(painterResource(R.drawable.ic_notifications_active), null) },
-                    onClick = { onMenuOpenChange(false); onOpenAlarm() }
+                    onClick = {
+                        onMenuOpenChange(false)
+                        onOpenAlarm()
+                    }
                 )
                 HorizontalDivider()
                 // Wie «Merkliste leeren»: zuunterst, rot, mit Rückfrage
@@ -142,7 +163,10 @@ internal fun PortfolioToolbarActions(
                     leadingIcon = {
                         Icon(painterResource(R.drawable.ic_delete), null, tint = MaterialTheme.colorScheme.error)
                     },
-                    onClick = { onMenuOpenChange(false); onAskClear() }
+                    onClick = {
+                        onMenuOpenChange(false)
+                        onAskClear()
+                    }
                 )
             }
         }

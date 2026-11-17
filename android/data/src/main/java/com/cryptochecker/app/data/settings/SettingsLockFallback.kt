@@ -6,12 +6,12 @@ import androidx.datastore.preferences.core.mutablePreferencesOf
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.AppSettings
+import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import timber.log.Timber
-import java.io.IOException
 
 /**
  * Die Portfolio-Sperre ist kein «fail-open»: Stünde sie nach einer beschädigten Einstellungsdatei (ersetzt durch

@@ -3,12 +3,12 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.data.backup.BackupManager.Step
 import com.cryptochecker.app.data.backup.RestoreRollback
 import com.cryptochecker.app.data.backup.RestoreRun
+import java.io.IOException
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Reihenfolge der Schreibschritte beim Wiederherstellen samt Journal und Zurückrollen (`testdata/parity/restore_steps.json`):

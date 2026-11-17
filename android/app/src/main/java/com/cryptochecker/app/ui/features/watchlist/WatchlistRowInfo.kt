@@ -5,16 +5,11 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.app.ui.components.LocalCoinNameSource
-import com.cryptochecker.app.ui.theme.body
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.layout.Column
-import androidx.compose.ui.platform.LocalDensity
-import com.cryptochecker.app.domain.format.DenseRowText
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -24,35 +19,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.graphics.Color
-import com.cryptochecker.app.domain.util.TextLimit
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.ui.components.AssetKindIcon
-import com.cryptochecker.app.ui.components.LocalRowHighlight
-import com.cryptochecker.app.ui.components.coinName
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.PriceFreshness
+import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.ui.components.AssetKindIcon
+import com.cryptochecker.app.ui.components.LocalCoinNameSource
+import com.cryptochecker.app.ui.components.LocalRowHighlight
+import com.cryptochecker.app.ui.components.coinName
+import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.body
+import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /** Mitte: Paar (mit Häkchen des Erst-Moments und ⚡), Börse und Zeit bzw. Warnung, Fehler, Notiz. */
 @Composable
@@ -120,11 +120,17 @@ internal fun RowInfo(
             val why = measurables.firstOrNull { it.layoutId == PAIR_WHY }
             val checkW = checkP?.width ?: 0
             val whyMin = if (why != null) (WHY_CHIP_ICON_ONLY_WIDTH + Spacing.sm).roundToPx() else 0
-            val nameMax = if (constraints.hasBoundedWidth) (constraints.maxWidth - checkW - whyMin).coerceAtLeast(0)
-            else Constraints.Infinity
+            val nameMax = if (constraints.hasBoundedWidth) {
+                (constraints.maxWidth - checkW - whyMin).coerceAtLeast(0)
+            } else {
+                Constraints.Infinity
+            }
             val nameP = measurables.first { it.layoutId == PAIR_NAME }.measure(loose.copy(maxWidth = nameMax))
-            val whyMax = if (constraints.hasBoundedWidth) (constraints.maxWidth - nameP.width - checkW).coerceAtLeast(0)
-            else Constraints.Infinity
+            val whyMax = if (constraints.hasBoundedWidth) {
+                (constraints.maxWidth - nameP.width - checkW).coerceAtLeast(0)
+            } else {
+                Constraints.Infinity
+            }
             val whyP = why?.measure(loose.copy(maxWidth = whyMax))
             val width = nameP.width + checkW + (whyP?.width ?: 0)
             val height = maxOf(nameP.height, checkP?.height ?: 0, whyP?.height ?: 0)
@@ -132,8 +138,12 @@ internal fun RowInfo(
             // (Arabisch, Hebräisch, Persisch) wie der Kopf daneben
             layout(width.coerceIn(constraints.minWidth, constraints.maxWidth), height.coerceAtLeast(constraints.minHeight)) {
                 var x = 0
-                nameP.placeRelative(x, (height - nameP.height) / 2); x += nameP.width
-                checkP?.let { it.placeRelative(x, (height - it.height) / 2); x += it.width }
+                nameP.placeRelative(x, (height - nameP.height) / 2)
+                x += nameP.width
+                checkP?.let {
+                    it.placeRelative(x, (height - it.height) / 2)
+                    x += it.width
+                }
                 whyP?.let { it.placeRelative(x, (height - it.height) / 2) }
             }
         }
@@ -256,8 +266,11 @@ internal fun RowInfo(
             Text(
                 text = friendlyError(error),
                 style = MaterialTheme.typography.bodySmall,
-                color = if (isNotTraded(error)) MaterialTheme.colorScheme.onSurfaceVariant
-                else MaterialTheme.colorScheme.error,
+                color = if (isNotTraded(error)) {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                } else {
+                    MaterialTheme.colorScheme.error
+                },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.clearAndSetSemantics { }
@@ -276,7 +289,10 @@ internal fun WatchRowNote(note: String, accent: Color, off: Boolean, modifier: M
     val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth().testTag(com.cryptochecker.app.ui.UiTestTags.WATCH_NOTE).padding(top = 2.dp).clearAndSetSemantics { }
+        modifier = modifier.fillMaxWidth().testTag(
+            com.cryptochecker.app.ui.UiTestTags.WATCH_NOTE
+        ).padding(top = 2.dp).clearAndSetSemantics {
+        }
     ) {
         Icon(
             painterResource(R.drawable.ic_note),

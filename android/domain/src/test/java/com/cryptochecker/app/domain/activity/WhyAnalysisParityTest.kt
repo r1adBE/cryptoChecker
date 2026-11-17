@@ -16,15 +16,15 @@ import com.cryptochecker.app.domain.activity.WhyHeadline
 import com.cryptochecker.app.domain.activity.WhyInput
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.activity.WhySummary
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import kotlin.math.abs
-import kotlin.math.floor
 import com.cryptochecker.app.domain.activity.explain
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import kotlin.math.abs
+import kotlin.math.floor
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle der «Warum?»-Auswertung (`testdata/parity/why_analysis.json`, Kopie in
@@ -56,11 +56,16 @@ class WhyAnalysisParityTest {
         data["oiChange"].list().forEach { raw ->
             val c = raw.obj()
             val r = OiSeries.change(
-                WhyParityBuilder.samples(c["series"], now), c["current"] as Double?, c["source"] as String?, now,
+                WhyParityBuilder.samples(c["series"], now),
+                c["current"] as Double?,
+                c["source"] as String?,
+                now,
             )
             val actual = mapOf(
-                "change" to r.changePercent, "minutes" to r.minutes?.toDouble(),
-                "consistent" to r.consistent, "samples" to r.samples.toDouble(),
+                "change" to r.changePercent,
+                "minutes" to r.minutes?.toDouble(),
+                "consistent" to r.consistent,
+                "samples" to r.samples.toDouble(),
             )
             assertEquals(c["name"] as String, WhyParityBuilder.normalize(c["expected"]), WhyParityBuilder.normalize(actual))
         }
@@ -82,7 +87,10 @@ class WhyAnalysisParityTest {
         data["fundingTrend"].list().forEach { raw ->
             val c = raw.obj()
             val trend = FundingTrendRules.trend(
-                WhyParityBuilder.history(c["history"], now), c["current"] as Double?, c["currentSource"] as String?, now,
+                WhyParityBuilder.history(c["history"], now),
+                c["current"] as Double?,
+                c["currentSource"] as String?,
+                now,
             )
             val actual = trend?.let { mapOf("direction" to it.direction.name, "hours" to it.hours.toDouble()) }
             assertEquals(c["name"] as String, WhyParityBuilder.normalize(c["expected"]), WhyParityBuilder.normalize(actual))
@@ -216,7 +224,11 @@ internal object WhyParityBuilder {
 
     fun input(s: Map<String, Any?>, now: Long): WhyInput {
         val broad = s["broad"]?.obj()?.let {
-            BroadMarketSnapshot(it["change24h"].num() ?: 0.0, it["coins"].num()?.toInt() ?: 0, now + (it["timeMin"].num() ?: 0.0).toLong() * 60_000L)
+            BroadMarketSnapshot(
+                it["change24h"].num() ?: 0.0,
+                it["coins"].num()?.toInt() ?: 0,
+                now + (it["timeMin"].num() ?: 0.0).toLong() * 60_000L
+            )
         }
         return WhyInput(
             baseAsset = s["base"] as String,
@@ -266,38 +278,36 @@ internal object WhyParityBuilder {
     }
 
     /** Ergebnis als JSON-artige Struktur (Namen = Kotlin-Enum-Namen). */
-    fun describe(r: WhyReport): Map<String, Any?> {
-        return linkedMapOf(
-            "hasMarketData" to r.hasMarketData,
-            "stable" to r.stable,
-            "price" to r.price,
-            "change1h" to r.change1h,
-            "change24h" to r.change24h,
-            "high30d" to r.high30d,
-            "low30d" to r.low30d,
-            "btcLink" to r.btcLink?.name,
-            "oiMinutes" to r.oiMinutes?.toDouble(),
-            "candleTimeMin" to r.candleTime?.let { ((it - r.dataTime) / 60_000L).toDouble() },
-            "reasons" to r.reasons.map {
-                linkedMapOf(
-                    "kind" to it.kind.name, "tone" to it.tone.name, "value" to it.value, "secondary" to it.secondary,
-                    "strong" to it.strong, "ref" to it.ref?.name, "threshold" to it.threshold, "approximate" to it.approximate,
-                    "similarOnly" to WhySummary.isSimilarOnly(it), "mark" to WhySummary.mark(it).name,
-                )
-            },
-            "position3d" to r.position3d?.let { linkedMapOf("kind" to it.kind.name, "percent" to it.percent, "threshold" to it.threshold) },
-            "fundingTrend" to r.fundingTrend?.let { linkedMapOf("direction" to it.direction.name, "hours" to it.hours.toDouble()) },
-            "factors" to WhyFactors.rank(r).map {
-                linkedMapOf(
-                    "kind" to it.kind.name, "note" to it.note.name, "direction" to it.direction.name,
-                    "value" to it.value, "secondary" to it.secondary, "strength" to it.strength, "neutral" to it.neutral,
-                    "ref" to it.ref?.name, "approximate" to it.approximate,
-                    "trend" to it.trend?.let { t -> "${t.direction.name}/${t.hours}" },
-                )
-            },
-            "brief" to briefKeys(WhySummary.brief(r.reasons)),
-        )
-    }
+    fun describe(r: WhyReport): Map<String, Any?> = linkedMapOf(
+        "hasMarketData" to r.hasMarketData,
+        "stable" to r.stable,
+        "price" to r.price,
+        "change1h" to r.change1h,
+        "change24h" to r.change24h,
+        "high30d" to r.high30d,
+        "low30d" to r.low30d,
+        "btcLink" to r.btcLink?.name,
+        "oiMinutes" to r.oiMinutes?.toDouble(),
+        "candleTimeMin" to r.candleTime?.let { ((it - r.dataTime) / 60_000L).toDouble() },
+        "reasons" to r.reasons.map {
+            linkedMapOf(
+                "kind" to it.kind.name, "tone" to it.tone.name, "value" to it.value, "secondary" to it.secondary,
+                "strong" to it.strong, "ref" to it.ref?.name, "threshold" to it.threshold, "approximate" to it.approximate,
+                "similarOnly" to WhySummary.isSimilarOnly(it), "mark" to WhySummary.mark(it).name,
+            )
+        },
+        "position3d" to r.position3d?.let { linkedMapOf("kind" to it.kind.name, "percent" to it.percent, "threshold" to it.threshold) },
+        "fundingTrend" to r.fundingTrend?.let { linkedMapOf("direction" to it.direction.name, "hours" to it.hours.toDouble()) },
+        "factors" to WhyFactors.rank(r).map {
+            linkedMapOf(
+                "kind" to it.kind.name, "note" to it.note.name, "direction" to it.direction.name,
+                "value" to it.value, "secondary" to it.secondary, "strength" to it.strength, "neutral" to it.neutral,
+                "ref" to it.ref?.name, "approximate" to it.approximate,
+                "trend" to it.trend?.let { t -> "${t.direction.name}/${t.hours}" },
+            )
+        },
+        "brief" to briefKeys(WhySummary.brief(r.reasons)),
+    )
 
     /** Zahlen als ganze Millionstel (Text), damit der Vergleich robust gegen Rundung ist. */
     fun normalize(value: Any?): Any? = when (value) {

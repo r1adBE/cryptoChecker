@@ -27,10 +27,20 @@ class SharedPreferencesStore(private val prefs: SharedPreferences) : KeyValueSto
     }
 
     private class Writer(private val e: SharedPreferences.Editor) : KeyValueStore.Editor {
-        override fun putInt(key: String, value: Int) { e.putInt(key, value) }
-        override fun putLong(key: String, value: Long) { e.putLong(key, value) }
-        override fun putBoolean(key: String, value: Boolean) { e.putBoolean(key, value) }
-        override fun putString(key: String, value: String?) { e.putString(key, value) }
-        override fun remove(key: String) { e.remove(key) }
+        override fun putInt(key: String, value: Int) {
+            e.putInt(key, value)
+        }
+        override fun putLong(key: String, value: Long) {
+            e.putLong(key, value)
+        }
+        override fun putBoolean(key: String, value: Boolean) {
+            e.putBoolean(key, value)
+        }
+        override fun putString(key: String, value: String?) {
+            e.putString(key, value)
+        }
+        override fun remove(key: String) {
+            e.remove(key)
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.app.KeyguardManager
@@ -26,6 +25,7 @@ import androidx.test.runner.lifecycle.Stage
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 
 /**
  * Bedienung der App für [ScreenshotTourTest]: Knoten über Kennungen und Texte aus den String-Ressourcen, Warten und
@@ -332,22 +332,37 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
 
         /** Texte solcher Fenster (Englisch und Deutsch; der Emulator des Workflows läuft in en-US). */
         private val COVER_TEXTS = listOf(
-            "isn't responding", "isn’t responding", "reagiert nicht", "keeps stopping", "wird wiederholt beendet",
+            "isn't responding",
+            "isn’t responding",
+            "reagiert nicht",
+            "keeps stopping",
+            "wird wiederholt beendet",
         )
 
         /** Kennungen von Blättern und Seiten über der Merkliste (Paarseite, Alarme, Editor, Übersicht, Suche). */
         val OVERLAY_TAGS = listOf(
-            UiTestTags.PAIR_SCREEN, UiTestTags.ALARM_SAVE, UiTestTags.ALARM_CARD,
-            UiTestTags.ALARMS_OVERVIEW, UiTestTags.EXPLORER_SEARCH,
+            UiTestTags.PAIR_SCREEN,
+            UiTestTags.ALARM_SAVE,
+            UiTestTags.ALARM_CARD,
+            UiTestTags.ALARMS_OVERVIEW,
+            UiTestTags.EXPLORER_SEARCH,
         )
 
         private val TABS = listOf(
-            UiTestTags.TAB_WATCHLIST, UiTestTags.TAB_CYCLE, UiTestTags.TAB_PORTFOLIO, UiTestTags.TAB_SETTINGS,
+            UiTestTags.TAB_WATCHLIST,
+            UiTestTags.TAB_CYCLE,
+            UiTestTags.TAB_PORTFOLIO,
+            UiTestTags.TAB_SETTINGS,
         )
 
         /** Lebende Activity (nicht DESTROYED). */
         private val LIVE_STAGES = listOf(
-            Stage.PRE_ON_CREATE, Stage.CREATED, Stage.STARTED, Stage.RESUMED, Stage.PAUSED, Stage.STOPPED,
+            Stage.PRE_ON_CREATE,
+            Stage.CREATED,
+            Stage.STARTED,
+            Stage.RESUMED,
+            Stage.PAUSED,
+            Stage.STOPPED,
             Stage.RESTARTED,
         )
     }

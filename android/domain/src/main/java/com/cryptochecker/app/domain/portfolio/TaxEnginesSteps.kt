@@ -34,7 +34,12 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
         }
         if (e.swapIn) {
             val r = t.swapReceived
-            if (r.signum() > 0) out += TaxStep(TaxStepKind.ACQUIRE, t, r, cost = t.swapValue, swap = true, costEstimated = t.costEstimated(swapIn = true))
+            if (r.signum() >
+                0
+            ) {
+                out +=
+                    TaxStep(TaxStepKind.ACQUIRE, t, r, cost = t.swapValue, swap = true, costEstimated = t.costEstimated(swapIn = true))
+            }
             continue
         }
         val price = t.validPrice
@@ -51,7 +56,13 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
             PortfolioTxType.SELL, PortfolioTxType.PAYMENT, PortfolioTxType.SWAP -> {
                 val swap = t.type == PortfolioTxType.SWAP
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
+                val gross = if (swap) {
+                    t.swapValue?.takeIf {
+                        t.swapToCoin != null
+                    }
+                } else {
+                    price?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
+                }
                 out += TaxStep(
                     TaxStepKind.DISPOSE, t, t.amount + t.coinFee,
                     proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }, gross = gross,
@@ -82,7 +93,12 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
 fun TaxEngines.piecesOf(taken: TaxTaken, match: TaxMatch? = null, matchedTime: Long? = null, oldHolding: Boolean? = null): List<TaxPiece> =
     listOfNotNull(
         TaxPiece(
-            taken.removedPriced, taken.cost, taken.parts, match = match, matchedTime = matchedTime, oldHolding = oldHolding,
+            taken.removedPriced,
+            taken.cost,
+            taken.parts,
+            match = match,
+            matchedTime = matchedTime,
+            oldHolding = oldHolding,
             estimated = taken.estimated,
         ).takeIf { taken.removedPriced.signum() > 0 },
         TaxPiece(taken.removedUnpriced, null, match = match, matchedTime = matchedTime, oldHolding = oldHolding)
@@ -109,14 +125,22 @@ fun TaxEngines.emit(
     var left = proceeds
     var grossLeft = gross
     return pieces.mapIndexed { i, p ->
-        val share = if (s.spouseGift) p.cost else proceeds?.let {
-            val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
-            if (i == pieces.size - 1) left ?: even else even
+        val share = if (s.spouseGift) {
+            p.cost
+        } else {
+            proceeds?.let {
+                val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                if (i == pieces.size - 1) left ?: even else even
+            }
         }
         if (share != null && !s.spouseGift) left = left?.minus(share)
-        val grossShare = if (s.spouseGift) null else gross?.let {
-            val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
-            if (i == pieces.size - 1) grossLeft ?: even else even
+        val grossShare = if (s.spouseGift) {
+            null
+        } else {
+            gross?.let {
+                val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                if (i == pieces.size - 1) grossLeft ?: even else even
+            }
         }
         if (grossShare != null) grossLeft = grossLeft?.minus(grossShare)
         val d = PortfolioDisposal(

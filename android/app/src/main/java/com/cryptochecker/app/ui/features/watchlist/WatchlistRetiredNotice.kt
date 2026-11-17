@@ -26,11 +26,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.RetiredNoticeStore
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.resources.R
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val RETIRED_NOTICE_TAG = "retired_exchange_line"

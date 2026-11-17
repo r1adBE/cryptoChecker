@@ -6,10 +6,10 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
-import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
+import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
+import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import java.math.BigDecimal

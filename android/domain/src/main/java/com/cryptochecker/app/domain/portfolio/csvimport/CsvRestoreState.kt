@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigDecimal
 
 /**

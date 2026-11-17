@@ -9,9 +9,16 @@ object PortfolioTxFirstInvalid {
 
     /** Felder, die einen Fehler tragen können — Reihenfolge wie im Blatt (Coin oben, Gebühren im Abschnitt unten). */
     enum class Field {
-        COIN, AMOUNT, TO_COIN, TO_AMOUNT, SWAP_VALUE, PRICE,
+        COIN,
+        AMOUNT,
+        TO_COIN,
+        TO_AMOUNT,
+        SWAP_VALUE,
+        PRICE,
+
         /** Gebühr im Abschnitt «Gebühr und Börse». */
         FEE,
+
         /** Gebühr im dritten (bzw. beim Tausch im erhaltenen) Coin, ebenfalls im Abschnitt. */
         FEE_COIN;
 

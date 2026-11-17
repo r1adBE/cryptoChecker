@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -336,7 +336,12 @@ object PortfolioSnapshotMath {
             // Stundenwerte ab Tagesbeginn schon ab zwei Punkten (der Chart wächst über den Tag)
             history = raw.takeIf { PortfolioWidgetSeries.drawableDay(it) }
                 ?: PortfolioWidgetMath.valueHistory(
-                    open, history.filter { it.time >= dayStart }, current, now, fxRate, addressSteps = addressSteps,
+                    open,
+                    history.filter { it.time >= dayStart },
+                    current,
+                    now,
+                    fxRate,
+                    addressSteps = addressSteps,
                 ),
             stamp = stamp,
             coinChanges = coinChanges,

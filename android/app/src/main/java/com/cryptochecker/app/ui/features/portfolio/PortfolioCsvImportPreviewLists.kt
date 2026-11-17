@@ -22,7 +22,6 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -43,19 +42,20 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 
 /** So viele Auszahlungen bzw. Umbuchungen einzeln im Vorschau-Blatt; alle über «Alle anzeigen». Wie iOS. */
 internal const val PREVIEW_LIST_ROWS = 10
@@ -116,7 +116,9 @@ internal fun WithdrawalChoices(
     if (showAll) {
         FullListSheet(stringResource(R.string.portfolio_csv_import_withdrawals_title), onDismiss = { showAll = false }) {
             // Schlüssel: Zeilen behalten ihren Zustand beim Neuordnen; importKey ist je Vorschau eindeutig
-            items(withdrawals, key = { it.importKey }) { tx -> WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled) }
+            items(withdrawals, key = {
+                it.importKey
+            }) { tx -> WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled) }
         }
     }
 }
@@ -207,16 +209,22 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
             // Börsen nur, wenn beide bekannt sind (eigene CSV hat keine)
             if (link.from != null && link.to != null) PreviewHint("${link.from} → ${link.to}")
             link.fee?.let { fee ->
-                val text = if (link.feeUnit == PortfolioFeeUnit.COIN) PortfolioFormat.amount(fee, link.coin)
-                else PortfolioFormat.usdt(fee.toDouble())
+                val text = if (link.feeUnit == PortfolioFeeUnit.COIN) {
+                    PortfolioFormat.amount(fee, link.coin)
+                } else {
+                    PortfolioFormat.usdt(fee.toDouble())
+                }
                 PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_fee, text))
             }
             if (link.withdrawalId != null || link.depositId != null) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_stored))
             }
             // Weitere Kandidaten (hohe Gebühr, späte Einzahlung): eigener Hinweis statt «mehrere Treffer»
-            if (link.loose) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_loose))
-            else if (!link.unambiguous) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_ambiguous))
+            if (link.loose) {
+                PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_loose))
+            } else if (!link.unambiguous) {
+                PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_ambiguous))
+            }
         }
         Spacer(Modifier.width(12.dp))
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur, Screenreader liest «Als eine Umbuchung buchen»

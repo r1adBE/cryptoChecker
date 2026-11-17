@@ -59,12 +59,13 @@ object PortfolioSnapshotCodec {
             val row = root.optJSONArray(key) ?: return@forEach
             val amount = row.optDouble(0).takeIf { it.isFinite() } ?: return@forEach
             val percent = if (row.length() > 1) row.optDouble(1).takeIf { it.isFinite() } else null
-            val skipped = row.optJSONArray(2)?.let { a -> (0 until a.length()).mapNotNull { a.optString(it).takeIf { s -> s.isNotBlank() } } }
+            val skipped = row.optJSONArray(2)?.let { a ->
+                (0 until a.length()).mapNotNull { a.optString(it).takeIf { s -> s.isNotBlank() } }
+            }
             out[days] = PortfolioChange(amount, percent, skipped.orEmpty())
         }
         out
     }.onFailure { Timber.d(it, "Portfolio-Widget: Veränderung je Zeitraum nicht lesbar") }.getOrDefault(emptyMap())
-
 
     fun readValueHistory(json: String?): List<PortfolioValuePoint> = runCatching {
         if (json == null) return emptyList()

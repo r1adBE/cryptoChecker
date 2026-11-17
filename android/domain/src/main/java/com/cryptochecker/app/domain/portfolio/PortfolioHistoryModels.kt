@@ -110,7 +110,13 @@ data class PortfolioHistorySeries(
             var invested = anchor
             return pnlValues.map { p ->
                 while (next < flows.size && flows[next].epochDay <= p.epochDay) invested += flows[next++].amount
-                PortfolioHistoryPoint(p.epochDay, p.value - invested, p.open?.minus(invested), p.high?.minus(invested), p.low?.minus(invested))
+                PortfolioHistoryPoint(
+                    p.epochDay,
+                    p.value - invested,
+                    p.open?.minus(invested),
+                    p.high?.minus(invested),
+                    p.low?.minus(invested)
+                )
             }
         }
 
@@ -129,7 +135,9 @@ data class PortfolioHistorySeries(
     val pnlCapital: Double?
         get() = if (hasPnlChart) {
             (if (pnlSinceFirst) 0.0 else pnlValues.first().value) + pnlFlows.filter { it.amount > 0.0 }.sumOf { it.amount }
-        } else null
+        } else {
+            null
+        }
 
     /**
      * [pnlChange] in Prozent von [pnlCapital]; null, wenn diese Basis höchstens ~0 ist — dann nur der Betrag.

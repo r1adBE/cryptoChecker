@@ -3,23 +3,23 @@
 // soll (wie `PortfolioWidgetList.swift`).
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetTextFit
-import com.cryptochecker.app.domain.widget.WidgetType
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntry
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.domain.format.WidgetQuantityFormat
+import com.cryptochecker.resources.R
 
 /**
  * Ansicht «Liste» (wie die Positionen im Portfolio-Tab): Kopfzeile, so viele Positionen
@@ -53,7 +53,16 @@ fun PortfolioWidgetRenderer.listViews(
         val lastCoin = index == layout.shown.size - 1
         val entries = layout.entries.getOrElse(index) { emptyList() }
         // Mit Buchungen: Trennlinie erst nach der letzten Buchung des Coins
-        val (row, spoken) = listRow(position, lastCoin || entries.isNotEmpty(), layout.wide, snapshot.currency, style, logos, rowBasis, textWidth)
+        val (row, spoken) = listRow(
+            position,
+            lastCoin || entries.isNotEmpty(),
+            layout.wide,
+            snapshot.currency,
+            style,
+            logos,
+            rowBasis,
+            textWidth
+        )
         views.addView(R.id.portfolio_list_rows, row)
         val spokenEntries = entries.mapIndexed { i, entry ->
             val (entryRow, entrySpoken) = entryRow(entry, snapshot.currency, style, divider = i == entries.size - 1 && !lastCoin)
@@ -152,9 +161,12 @@ fun PortfolioWidgetRenderer.bindListTotal(
         // Platz wie in den Zeilen ([listRow]): schmal neben dem Anteil, breit neben «Gesamt», Anteil und Wert
         val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
         val budget = textWidth?.let {
-            if (wide) it - toolkit.textWidthDp(totalLabel, WidgetType.LABEL) - 4f - shareDp - 4f -
-                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
-            else it - shareDp - 4f
+            if (wide) {
+                it - toolkit.textWidthDp(totalLabel, WidgetType.LABEL) - 4f - shareDp - 4f -
+                    toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
+            } else {
+                it - shareDp - 4f
+            }
         }
         row.setViewVisibility(R.id.pl_change, View.VISIBLE)
         row.setAmountText(R.id.pl_change, periodPrefixed(label, fitPnl(change, currency, style, label, budget), colors))
@@ -221,9 +233,12 @@ fun PortfolioWidgetRenderer.listRow(
         // Breit: Menge steht in derselben Zeile (12 sp, 3 dp Abstand zum Kürzel)
         val quantityDp = if (wide && quantity != null) toolkit.textWidthDp(quantity, 12f, bold = false, tabular = true) + 3f else 0f
         val budget = textWidth?.let {
-            if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, WidgetType.LABEL) - 4f - shareDp - 4f -
-                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
-            else it - logoDp - shareDp - 4f
+            if (wide) {
+                it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, WidgetType.LABEL) - 4f - shareDp - 4f -
+                    toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
+            } else {
+                it - logoDp - shareDp - 4f
+            }
         }
         // Zeitraum klein und grau davor: «24h +1’250.00 CHF · +1.50%»
         row.setAmountText(R.id.pl_change, periodPrefixed(label, fitPnl(pnl, currency, style, label, budget), colors))
@@ -236,8 +251,14 @@ fun PortfolioWidgetRenderer.listRow(
     row.setViewVisibility(R.id.pl_divider, if (last) View.GONE else View.VISIBLE)
 
     val spokenValue = if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden) else value
-    val spoken = context.getString(R.string.a11y_portfolio_position, WidgetQuantityFormat.spokenName(position.symbol, quantity), spokenValue, share) +
-        ", " + (pnl?.let { spokenPnl(it, currency, style, rowBasis) } ?: ChangeBasisText.spoken(context, rowBasis, null))
+    val spoken =
+        context.getString(
+            R.string.a11y_portfolio_position,
+            WidgetQuantityFormat.spokenName(position.symbol, quantity),
+            spokenValue,
+            share
+        ) +
+            ", " + (pnl?.let { spokenPnl(it, currency, style, rowBasis) } ?: ChangeBasisText.spoken(context, rowBasis, null))
     return row to spoken
 }
 
@@ -272,7 +293,10 @@ fun PortfolioWidgetRenderer.entryRow(
     }
     val kind = context.getString(if (entry.quantity < 0) R.string.a11y_portfolio_entry_out else R.string.a11y_portfolio_entry_in)
     val spoken = context.getString(
-        R.string.a11y_portfolio_entry, kind, amount ?: context.getString(R.string.a11y_amount_hidden), spokenValue,
+        R.string.a11y_portfolio_entry,
+        kind,
+        amount ?: context.getString(R.string.a11y_amount_hidden),
+        spokenValue,
     ) + (entry.note?.let { ", " + context.getString(R.string.a11y_portfolio_entry_note, it) } ?: "")
     return row to spoken
 }
@@ -281,7 +305,13 @@ fun PortfolioWidgetRenderer.entryRow(
 private const val MINUS = "\u2212"
 
 /** Gewinn/Verlust, der in [budget] dp passt (samt Zeitraum [label] davor): Betrag · Prozent, sonst nur der Betrag. */
-fun PortfolioWidgetRenderer.fitPnl(change: PortfolioListTotalChange, currency: String, style: PortfolioStyle, label: String, budget: Float?): String {
+fun PortfolioWidgetRenderer.fitPnl(
+    change: PortfolioListTotalChange,
+    currency: String,
+    style: PortfolioStyle,
+    label: String,
+    budget: Float?
+): String {
     val candidates = PortfolioWidgetViews.pnlTexts(change, currency, style.hideAmounts)
     val prefixDp = if (label.isEmpty()) 0f else toolkit.textWidthDp("$label ", 12f * PERIOD_SCALE, bold = false)
     return WidgetTextFit.firstFitting(candidates, budget?.minus(prefixDp + WidgetTextFit.SAFETY_DP)) {
@@ -292,8 +322,15 @@ fun PortfolioWidgetRenderer.fitPnl(change: PortfolioListTotalChange, currency: S
 /**
  * Gewinn/Verlust für den Screenreader: «up 1’250.00 CHF, up 1.50% in 24 hours» (Betrag verborgen: «amount hidden»).
  */
-fun PortfolioWidgetRenderer.spokenPnl(change: PortfolioListTotalChange, currency: String, style: PortfolioStyle, basis: ChangeBasis): String {
-    val amount = if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden) else {
+fun PortfolioWidgetRenderer.spokenPnl(
+    change: PortfolioListTotalChange,
+    currency: String,
+    style: PortfolioStyle,
+    basis: ChangeBasis
+): String {
+    val amount = if (style.hideAmounts) {
+        context.getString(R.string.a11y_amount_hidden)
+    } else {
         val text = PriceFormat.valueWithCurrency(kotlin.math.abs(change.amount), currency)
         when (change.direction) {
             0 -> context.getString(R.string.a11y_change_flat)
@@ -310,7 +347,12 @@ fun PortfolioWidgetRenderer.periodPrefixed(period: String, value: String, colors
     val text = "$period $value"
     return android.text.SpannableString(text).apply {
         setSpan(android.text.style.RelativeSizeSpan(PERIOD_SCALE), 0, period.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        setSpan(android.text.style.ForegroundColorSpan(colors.secondaryTextColor), 0, period.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        setSpan(
+            android.text.style.ForegroundColorSpan(colors.secondaryTextColor),
+            0,
+            period.length,
+            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
     }
 }
 

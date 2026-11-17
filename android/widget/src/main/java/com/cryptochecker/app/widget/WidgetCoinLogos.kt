@@ -12,15 +12,15 @@ import androidx.core.graphics.createBitmap
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withTimeoutOrNull
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.math.min
-import kotlin.math.roundToInt
 
 /**
  * Coin-Logos für die Widgets «Merkliste» und «Einzelner Coin» (Schalter «In Widgets»

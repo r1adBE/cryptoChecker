@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.fillChange
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.ChartRefresher
 import com.cryptochecker.app.domain.refresh.ChartWidgets
@@ -24,7 +25,6 @@ import com.cryptochecker.app.domain.refresh.RefresherWatchWidgets
 import com.cryptochecker.app.domain.refresh.SideCheckExtra
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.Job
 

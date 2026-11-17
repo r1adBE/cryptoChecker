@@ -27,21 +27,21 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.features.about.FEEDBACK_LABEL
 import com.cryptochecker.app.ui.features.about.FEEDBACK_URL
 import com.cryptochecker.app.ui.features.about.linkedText
-import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -95,7 +95,10 @@ internal fun TaxWorksheetTemplateSection(
             TaxTemplate.entries.forEach { t ->
                 DropdownMenuItem(
                     text = { Text(stringResource(taxTemplateLabel(t))) },
-                    onClick = { onSelect(t); open = false },
+                    onClick = {
+                        onSelect(t)
+                        open = false
+                    },
                     modifier = Modifier.testTag(UiTestTags.taxTemplateOption(t.name)),
                 )
             }
@@ -178,7 +181,10 @@ internal fun TaxWorksheetYearSection(
         )
         DropdownMenu(expanded = yearMenu, onDismissRequest = { yearMenu = false }) {
             years.forEach { y ->
-                DropdownMenuItem(text = { Text(template.label(y)) }, onClick = { onYear(y); yearMenu = false })
+                DropdownMenuItem(text = { Text(template.label(y)) }, onClick = {
+                    onYear(y)
+                    yearMenu = false
+                })
             }
         }
     }

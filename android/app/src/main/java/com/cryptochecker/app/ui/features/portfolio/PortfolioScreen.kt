@@ -2,39 +2,39 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.foundation.lazy.rememberLazyListState
-import com.cryptochecker.app.ui.navigation.ScreenRoute
-import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.cryptochecker.app.ui.components.AppFab
-import com.cryptochecker.app.ui.components.rememberFabScroll
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.navigation.OnTabReselect
+import com.cryptochecker.app.ui.navigation.ScreenRoute
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». Bedienung wie in der
@@ -160,8 +160,12 @@ fun PortfolioScreen(
 
     if (costGapsOpen) {
         PortfolioCostGapsSheet(
-            viewModel, transactions.orEmpty(),
-            onEdit = { tx -> costGapsOpen = false; sheet = tx.toDraft() },
+            viewModel,
+            transactions.orEmpty(),
+            onEdit = { tx ->
+                costGapsOpen = false
+                sheet = tx.toDraft()
+            },
             onDismiss = { costGapsOpen = false },
         )
     }
@@ -262,8 +266,11 @@ fun PortfolioScreen(
             periodScaled = periodScaled,
             walletShortfalls = walletShortfalls,
             onShortfall = { id ->
-                if (id == COST_GAPS_HINT_ID) costGapsOpen = true
-                else transactions?.firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
+                if (id == COST_GAPS_HINT_ID) {
+                    costGapsOpen = true
+                } else {
+                    transactions?.firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
+                }
             },
             depegReading = depegReading,
             depegThreshold = depegThreshold,

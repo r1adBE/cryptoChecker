@@ -134,7 +134,9 @@ fun TaxExport.gainRows(
 /**
  * Zeilen «Realisierte Veräusserungen» des Steuerjahrs [period] nach [method]. Einstand in der Anzeigewährung: mit
  * Herkunftsteilen ([PortfolioDisposal.costParts]) jeder Teil zum Kurs seines Datums, sonst zum Kurs des Kaufdatums;
- * Erlös, nicht abziehbarer Verlust, Gesamtwert und Abtretungspreis zum Kurs des Verkaufsdatums.
+ * Erlös, nicht abziehbarer Verlust, Gesamtwert und Abtretungspreis zum Kurs des Verkaufsdatums. Herkunftsteile: Kurs
+ * und USDT-Näherung je Teil, ein Objekt für alle Zeilen ([weightedSum]/[anyTime] ohne Auslesen). Schenkung an Ehe-/
+ * Lebenspartner (TCGA 1992 s. 58, ITA 73(1)): Erlös = umgerechneter Einstand, kein Gewinn.
  */
 fun TaxExport.gainRows(
     trades: List<PortfolioTrade>,
@@ -165,76 +167,76 @@ fun TaxExport.gainRows(
      */
     disposals: List<PortfolioDisposal>? = null,
 ): List<TaxGainRow> {
-    // Herkunftsteile: Kurs und USDT-Näherung je Teil, je ein Objekt für alle Zeilen (grosse Ansichten eines Pools
-    // rechnet [weightedSum]/[anyTime] so ohne Auslesen)
     val partRate = PortfolioPartWeight { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) }
     val partUsdtApproximate = PortfolioPartTest { t -> usdtApproximateOn(usdtUsd, localDate(t, zone)) }
     return (
-    disposals?.takeIf { method != TaxMethod.CA_ACB }?.filter { localDate(it.sellTime, zone) in period }
-        ?: disposalsIn(
-            trades, method, period, zone, priceAt,
-            // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
-            fx = { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) },
-            rules = rules,
-            walletFrom = walletFrom,
+        disposals?.takeIf { method != TaxMethod.CA_ACB }?.filter { localDate(it.sellTime, zone) in period }
+            ?: disposalsIn(
+                trades,
+                method,
+                period,
+                zone,
+                priceAt,
+                // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
+                fx = { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) },
+                rules = rules,
+                walletFrom = walletFrom,
+            )
+        ).map { d ->
+        val sold = localDate(d.sellTime, zone)
+        val acquired = d.acquiredTime?.let { localDate(it, zone) }
+        val saleRate = rateOn(rates, sold, currency, usdtUsd)
+        fun atSale(v: BigDecimal?): BigDecimal? = v?.let { x -> saleRate?.let { x.multiply(it, PortfolioDecimal.MC) } }
+        val costTarget = costTargetOf(d, partRate, acquired?.let { rateOn(rates, it, currency, usdtUsd) }, acquired != null, saleRate)
+        val costFxMissing = d.costUsdt != null && costTarget == null
+        val proceedsTarget = if (d.spouseGift) costTarget else atSale(d.proceedsUsdt)
+        TaxGainRow(
+            coin = d.coin,
+            acquiredDate = acquired ?: d.matchedTime?.let { localDate(it, zone) },
+            soldDate = sold,
+            // Dieselbe Rechnung wie PortfolioFifo (dort UTC), hier in der Zeitzone der Liste
+            holdingDays = d.acquiredTime?.let { PortfolioFifo.holdingDays(it, d.sellTime, zone) },
+            longTerm = acquired?.let { isLongTerm(it, sold) },
+            amount = d.amount,
+            costUsdt = d.costUsdt,
+            proceedsUsdt = d.proceedsUsdt,
+            gainUsdt = d.gainUsdt,
+            costTarget = costTarget,
+            proceedsTarget = proceedsTarget,
+            gainTarget = if (costTarget != null && proceedsTarget != null) proceedsTarget - costTarget else null,
+            fxMissing = costFxMissing || (!d.spouseGift && d.proceedsUsdt != null && saleRate == null),
+            feeLeg = d.feeLeg,
+            feeValueMissing = d.feeValueMissing,
+            method = d.method,
+            uncovered = d.uncovered,
+            swap = d.swap,
+            wallet = d.wallet,
+            match = d.match,
+            adjustmentUsdt = d.adjustmentUsdt,
+            adjustmentTarget = atSale(d.adjustmentUsdt),
+            oldHolding = d.oldHolding,
+            costIncomplete = d.costIncomplete,
+            portfolioValueUsdt = d.portfolioValueUsdt,
+            portfolioValueTarget = atSale(d.portfolioValueUsdt),
+            grossProceedsUsdt = d.grossProceedsUsdt,
+            grossProceedsTarget = atSale(d.grossProceedsUsdt),
+            addressValueIncluded = d.addressValueIncluded,
+            pooled = (d.method == CostMethod.AVERAGE && d.feeExpense == null) || (d.costParts.isNotEmpty() && d.acquiredTime == null),
+            feeExpense = d.feeExpense,
+            feeRow = isFeeRow(d, feeSales, nonSales),
+            gift = d.gift,
+            payment = d.payment,
+            valueEstimated = d.valueEstimated,
+            spouseGift = d.spouseGift,
+            feeInfoOnly = isFeeInfoOnly(d, rules, method),
+            // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
+            usdtApproximate =
+            usdtApproximateOn(usdtUsd, sold) || (acquired != null && usdtApproximateOn(usdtUsd, acquired)) ||
+                d.costParts.anyTime(partUsdtApproximate),
+            proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt,
+            proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt),
         )
-    ).map { d ->
-    val sold = localDate(d.sellTime, zone)
-    val acquired = d.acquiredTime?.let { localDate(it, zone) }
-    val saleRate = rateOn(rates, sold, currency, usdtUsd)
-    fun atSale(v: BigDecimal?): BigDecimal? = v?.let { x -> saleRate?.let { x.multiply(it, PortfolioDecimal.MC) } }
-    val costTarget = costTargetOf(d, partRate, acquired?.let { rateOn(rates, it, currency, usdtUsd) }, acquired != null, saleRate)
-    // Einstand vorhanden, aber ein Kurs fehlt
-    val costFxMissing = d.costUsdt != null && costTarget == null
-    // Schenkung an Ehe-/Lebenspartner: kein Gewinn/Verlust auch in der Steuerwährung (TCGA 1992 s. 58, ITA 73(1)) —
-    // der Erlös gilt als genau der umgerechnete Einstand, nicht als Einstand in USDT zum Kurs des Schenkungstags
-    val proceedsTarget = if (d.spouseGift) costTarget else atSale(d.proceedsUsdt)
-    TaxGainRow(
-        coin = d.coin,
-        acquiredDate = acquired ?: d.matchedTime?.let { localDate(it, zone) },
-        soldDate = sold,
-        // Dieselbe Rechnung wie PortfolioFifo (dort UTC), hier in der Zeitzone der Liste
-        holdingDays = d.acquiredTime?.let { PortfolioFifo.holdingDays(it, d.sellTime, zone) },
-        longTerm = acquired?.let { isLongTerm(it, sold) },
-        amount = d.amount,
-        costUsdt = d.costUsdt,
-        proceedsUsdt = d.proceedsUsdt,
-        gainUsdt = d.gainUsdt,
-        costTarget = costTarget,
-        proceedsTarget = proceedsTarget,
-        gainTarget = if (costTarget != null && proceedsTarget != null) proceedsTarget - costTarget else null,
-        fxMissing = costFxMissing || (!d.spouseGift && d.proceedsUsdt != null && saleRate == null),
-        feeLeg = d.feeLeg,
-        feeValueMissing = d.feeValueMissing,
-        method = d.method,
-        uncovered = d.uncovered,
-        swap = d.swap,
-        wallet = d.wallet,
-        match = d.match,
-        adjustmentUsdt = d.adjustmentUsdt,
-        adjustmentTarget = atSale(d.adjustmentUsdt),
-        oldHolding = d.oldHolding,
-        costIncomplete = d.costIncomplete,
-        portfolioValueUsdt = d.portfolioValueUsdt,
-        portfolioValueTarget = atSale(d.portfolioValueUsdt),
-        grossProceedsUsdt = d.grossProceedsUsdt,
-        grossProceedsTarget = atSale(d.grossProceedsUsdt),
-        addressValueIncluded = d.addressValueIncluded,
-        // Durchschnitt/Pool (Herkunftsteile ohne Posten-Datum); FIFO-Posten tragen ihre Teile ohne diesen Vermerk
-        pooled = (d.method == CostMethod.AVERAGE && d.feeExpense == null) || (d.costParts.isNotEmpty() && d.acquiredTime == null),
-        feeExpense = d.feeExpense,
-        feeRow = isFeeRow(d, feeSales, nonSales),
-        gift = d.gift,
-        payment = d.payment,
-        valueEstimated = d.valueEstimated,
-        spouseGift = d.spouseGift,
-        feeInfoOnly = isFeeInfoOnly(d, rules, method),
-        // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
-        usdtApproximate = usdtApproximateOn(usdtUsd, sold) || (acquired != null && usdtApproximateOn(usdtUsd, acquired)) || d.costParts.anyTime(partUsdtApproximate),
-        proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt,
-        proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt),
-    )
-}
+    }
 }
 
 /**

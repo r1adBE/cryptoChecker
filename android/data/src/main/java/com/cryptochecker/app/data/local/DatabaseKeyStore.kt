@@ -75,8 +75,11 @@ class DatabaseKeyStore(
         return when (outcome) {
             is DatabaseKeyRetry.Outcome.Value -> {
                 suspects.clear(database)
-                if (outcome.value.size != DatabaseOpenPlanner.KEY_BYTES) KeyLookup.Absent
-                else KeyLookup.Found(DatabaseOpenPlanner.rawKeyLiteral(outcome.value))
+                if (outcome.value.size != DatabaseOpenPlanner.KEY_BYTES) {
+                    KeyLookup.Absent
+                } else {
+                    KeyLookup.Found(DatabaseOpenPlanner.rawKeyLiteral(outcome.value))
+                }
             }
             // Endgültig: Keystore-Schlüssel ungültig gemacht oder ein anderer als beim Verschlüsseln
             is DatabaseKeyRetry.Outcome.Permanent -> KeyLookup.Absent
@@ -84,10 +87,14 @@ class DatabaseKeyStore(
             is DatabaseKeyRetry.Outcome.Suspect -> {
                 val error = outcome.error ?: IllegalStateException("$database: Keystore liefert keinen Schlüssel")
                 // Eintrag noch da, nur gerade nicht herausgegeben: nie als verloren werten (Datei bleibt unberührt)
-                if (outcome.error == null && aliasPresent(database) != false) KeyLookup.Unavailable(error)
-                // Erst im nächsten Lauf als verloren werten: dann legt [DatabaseOpenPlanner] die Datei beiseite
-                else if (suspects.escalate(database)) KeyLookup.Absent
-                else KeyLookup.Unavailable(error)
+                if (outcome.error == null && aliasPresent(database) != false) {
+                    KeyLookup.Unavailable(error)
+                } // Erst im nächsten Lauf als verloren werten: dann legt [DatabaseOpenPlanner] die Datei beiseite
+                else if (suspects.escalate(database)) {
+                    KeyLookup.Absent
+                } else {
+                    KeyLookup.Unavailable(error)
+                }
             }
         }
     }
@@ -269,6 +276,7 @@ class DatabaseKeyStore(
         private const val IV_BYTES = 12
         private const val TAG_BYTES = 16
         private const val ATTEMPTS = 3
+
         /** 3 × 500 ms: ein nach Start oder Update noch beschäftigter Keystore braucht oft mehr als 150 ms. */
         private const val RETRY_DELAY_MILLIS = 500L
 

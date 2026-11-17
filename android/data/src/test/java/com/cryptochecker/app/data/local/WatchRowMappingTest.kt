@@ -1,11 +1,11 @@
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.AlarmWithWatchRow
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.local.model.toDomain
 import com.cryptochecker.app.data.local.model.toRow
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.junit.Assert.assertEquals
 import org.junit.Test

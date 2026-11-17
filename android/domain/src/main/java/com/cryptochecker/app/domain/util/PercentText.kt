@@ -85,7 +85,11 @@ object PercentText {
         grouping: Boolean = false,
     ): String = wrap(
         LocaleNumbers.decimal(
-            DecimalText.rounded(abs(value), decimals), decimals, minDecimals, locale = locale, grouping = grouping,
+            DecimalText.rounded(abs(value), decimals),
+            decimals,
+            minDecimals,
+            locale = locale,
+            grouping = grouping,
         ),
         locale,
     )

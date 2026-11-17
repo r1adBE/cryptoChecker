@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.model.AlarmCondition
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -108,8 +108,9 @@ class DerivativesParityTest {
             val c = raw.obj()
             val result = DerivativesAlarm.oiChangePercent(points(c["history"]), c["current"].num(), c["hours"].num()!!.toInt(), now)
             val expected = c["expected"].num()
-            if (expected == null) assertNull("oiChange: ${c["name"]}", result)
-            else {
+            if (expected == null) {
+                assertNull("oiChange: ${c["name"]}", result)
+            } else {
                 assertNotNull("oiChange: ${c["name"]}", result)
                 assertEquals("oiChange: ${c["name"]}", expected, result!!, 1e-9)
             }
@@ -133,8 +134,11 @@ class DerivativesParityTest {
             val c = raw.obj()
             val result = DerivativesAlarm.parseFunding(c["text"] as String, (c["decimalSeparator"] as String).single())
             val expected = c["expected"].num()
-            if (expected == null) assertNull("parseFunding: ${c["text"]}", result)
-            else assertEquals("parseFunding: ${c["text"]}", expected, result!!, 1e-12)
+            if (expected == null) {
+                assertNull("parseFunding: ${c["text"]}", result)
+            } else {
+                assertEquals("parseFunding: ${c["text"]}", expected, result!!, 1e-12)
+            }
         }
         data["supports"].list().forEach { raw ->
             val c = raw.obj()

@@ -1,19 +1,19 @@
 package com.cryptochecker.marketdata.model.exchange
 
-import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.PairQuery
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.generic.SimpleExchange
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
+import java.net.URLEncoder
 import org.json.JSONArray
 import org.json.JSONObject
-import java.net.URLEncoder
 
 private const val BYBIT_API = "https://api.bybit.com/v5/market"
 

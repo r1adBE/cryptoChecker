@@ -1,25 +1,25 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.GroupNameDialog
-import com.cryptochecker.app.ui.components.canonicalGroupName
-import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.canonicalGroupName
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
+import com.cryptochecker.resources.R
 
 /**
  * Alles, was sich über die Merkliste legt: Bericht, Rückfragen, Gruppen anlegen und bearbeiten, «Was bewegt sich
@@ -70,10 +70,15 @@ internal fun WatchlistSheets(
             onConfirm = {
                 ui.askRemoveNotTraded = false
                 viewModel.deleteNotTradedWithUndo { count ->
-                    if (count > 0) uiEvents.send(
-                        WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
-                        WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_removed_not_traded, count = count), NOT_TRADED_UNDO_KEY),
-                    )
+                    if (count > 0) {
+                        uiEvents.send(
+                            WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                            WatchUiEvent.Banner(
+                                BannerText(plural = R.plurals.watchlist_removed_not_traded, count = count),
+                                NOT_TRADED_UNDO_KEY
+                            ),
+                        )
+                    }
                 }
             },
             onDismiss = { ui.askRemoveNotTraded = false }
@@ -89,10 +94,12 @@ internal fun WatchlistSheets(
             onConfirm = {
                 ui.askClearAll = false
                 viewModel.deleteAllWithUndo { count ->
-                    if (count > 0) uiEvents.send(
-                        WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
-                        WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_removed_count, count = count), CLEAR_ALL_UNDO_KEY),
-                    )
+                    if (count > 0) {
+                        uiEvents.send(
+                            WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                            WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_removed_count, count = count), CLEAR_ALL_UNDO_KEY),
+                        )
+                    }
                 }
             },
             onDismiss = { ui.askClearAll = false }

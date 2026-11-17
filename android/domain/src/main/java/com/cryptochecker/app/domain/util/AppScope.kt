@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.util
-import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -21,8 +21,11 @@ fun appScope(dispatcher: CoroutineDispatcher, label: String): CoroutineScope =
 fun appExceptionHandler(
     label: String,
     log: (Throwable) -> Unit = { e ->
-        if (e.isDatabaseKeyUnavailable()) DomainLog.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
-        else DomainLog.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
+        if (e.isDatabaseKeyUnavailable()) {
+            DomainLog.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
+        } else {
+            DomainLog.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
+        }
     },
 ): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
     // Im Release sonst unsichtbar — nur zählen je Bereich und Art (BackgroundErrorCounter), keine Texte

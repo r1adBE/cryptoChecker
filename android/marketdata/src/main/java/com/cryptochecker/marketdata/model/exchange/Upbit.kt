@@ -1,7 +1,7 @@
 package com.cryptochecker.marketdata.model.exchange
 
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.generic.SimpleExchange
 import com.cryptochecker.marketdata.util.BulkPairChunks
@@ -9,9 +9,9 @@ import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.getText
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
 import com.cryptochecker.marketdata.util.optText
+import java.time.LocalDate
 import org.json.JSONArray
 import org.json.JSONObject
-import java.time.LocalDate
 
 /** Upbit (Südkorea). Kennung «QUOTE-BASE», z. B. KRW-BTC. Doku: docs.upbit.com */
 class Upbit : UpbitStyleExchange(

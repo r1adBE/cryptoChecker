@@ -6,14 +6,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntry
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
-import java.math.BigDecimal
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Test
 
 /**
  * Buchungen unter den Coins im Portfolio-Widget (`widget_portfolio_entries.json`) — wie
@@ -70,7 +70,13 @@ class WidgetPortfolioEntriesParityTest {
                 assertEquals("$name [$i] Menge", 0, BigDecimal(e["quantity"] as String).compareTo(BigDecimal(actual.quantity.toString())))
                 assertEquals("$name [$i] Notiz", e["note"] as String?, actual.note)
                 val value = e["value"].num()
-                if (value == null) assertNull("$name [$i] Wert", actual.value) else assertEquals("$name [$i] Wert", value, actual.value!!, 1e-9)
+                if (value ==
+                    null
+                ) {
+                    assertNull("$name [$i] Wert", actual.value)
+                } else {
+                    assertEquals("$name [$i] Wert", value, actual.value!!, 1e-9)
+                }
             }
             assertEquals("$name: Summe", 0, BigDecimal(c["total"] as String).compareTo(PortfolioWidgetEntries.total(entries)))
         }

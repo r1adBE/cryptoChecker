@@ -76,7 +76,12 @@ class AlarmLogTest {
     fun repeatedHoldIsOneEntryWithRange() {
         var state = AlarmLogState.EMPTY
         for (i in 0 until 30) {
-            state = AlarmLog.record(state, listOf(entry(1, now + i * 900_000L, AlarmLogOutcome.QUIET_HOURS, notable = true)), now + i * 900_000L)
+            state =
+                AlarmLog.record(
+                    state,
+                    listOf(entry(1, now + i * 900_000L, AlarmLogOutcome.QUIET_HOURS, notable = true)),
+                    now + i * 900_000L
+                )
         }
         assertEquals(1, state.events.size)
         assertEquals(now, state.events.single().at)
@@ -136,8 +141,11 @@ class AlarmLogTest {
         val covered = AlarmCondition.entries.filter(AlarmLog::covers).toSet()
         assertEquals(
             setOf(
-                AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW,
-                AlarmCondition.CHANGE_PERCENT_UP, AlarmCondition.CHANGE_PERCENT_DOWN, AlarmCondition.MOVE_PERCENT_WINDOW,
+                AlarmCondition.PRICE_ABOVE,
+                AlarmCondition.PRICE_BELOW,
+                AlarmCondition.CHANGE_PERCENT_UP,
+                AlarmCondition.CHANGE_PERCENT_DOWN,
+                AlarmCondition.MOVE_PERCENT_WINDOW,
             ),
             covered,
         )

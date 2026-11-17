@@ -3,12 +3,12 @@ package com.cryptochecker.app.widget
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.format.WidgetQuantityFormat
+import com.cryptochecker.resources.R
 import kotlin.math.roundToInt
 
 /**
@@ -74,7 +74,10 @@ object PortfolioWidgetPositions {
                 views.setTextViewText(ids.change, "—")
                 views.setTextColor(ids.change, colors.secondaryTextColor)
                 spoken += context.getString(
-                    R.string.a11y_portfolio_position_24h, name, share, ChangeBasisText.spoken(context, basis, null)
+                    R.string.a11y_portfolio_position_24h,
+                    name,
+                    share,
+                    ChangeBasisText.spoken(context, basis, null)
                 )
             }
         }
@@ -101,10 +104,31 @@ private class PortfolioRowIds(
 
 /** Die drei festen Zeilen der Positionsliste (statisch statt Liste mit RemoteViewsService). */
 private val PORTFOLIO_ROWS = listOf(
-    PortfolioRowIds(R.id.portfolio_pos_1, R.id.portfolio_pos_1_quantity, R.id.portfolio_pos_1_symbol, R.id.portfolio_pos_1_track, R.id.portfolio_pos_1_bar,
-        R.id.portfolio_pos_1_share, R.id.portfolio_pos_1_change),
-    PortfolioRowIds(R.id.portfolio_pos_2, R.id.portfolio_pos_2_quantity, R.id.portfolio_pos_2_symbol, R.id.portfolio_pos_2_track, R.id.portfolio_pos_2_bar,
-        R.id.portfolio_pos_2_share, R.id.portfolio_pos_2_change),
-    PortfolioRowIds(R.id.portfolio_pos_3, R.id.portfolio_pos_3_quantity, R.id.portfolio_pos_3_symbol, R.id.portfolio_pos_3_track, R.id.portfolio_pos_3_bar,
-        R.id.portfolio_pos_3_share, R.id.portfolio_pos_3_change),
+    PortfolioRowIds(
+        R.id.portfolio_pos_1,
+        R.id.portfolio_pos_1_quantity,
+        R.id.portfolio_pos_1_symbol,
+        R.id.portfolio_pos_1_track,
+        R.id.portfolio_pos_1_bar,
+        R.id.portfolio_pos_1_share,
+        R.id.portfolio_pos_1_change
+    ),
+    PortfolioRowIds(
+        R.id.portfolio_pos_2,
+        R.id.portfolio_pos_2_quantity,
+        R.id.portfolio_pos_2_symbol,
+        R.id.portfolio_pos_2_track,
+        R.id.portfolio_pos_2_bar,
+        R.id.portfolio_pos_2_share,
+        R.id.portfolio_pos_2_change
+    ),
+    PortfolioRowIds(
+        R.id.portfolio_pos_3,
+        R.id.portfolio_pos_3_quantity,
+        R.id.portfolio_pos_3_symbol,
+        R.id.portfolio_pos_3_track,
+        R.id.portfolio_pos_3_bar,
+        R.id.portfolio_pos_3_share,
+        R.id.portfolio_pos_3_change
+    ),
 )

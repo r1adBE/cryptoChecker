@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
 import com.cryptochecker.app.domain.watch.DexLiquidity
@@ -90,8 +90,13 @@ class AlarmLogRecordingTest {
     @Test
     fun percentAlarmInCooldownIsNotable() {
         val alarm = AlarmEntity(
-            id = 5, watchId = 1, condition = AlarmCondition.CHANGE_PERCENT_UP, threshold = 5.0, repeating = true,
-            referencePrice = 100.0, lastTriggeredAt = System.currentTimeMillis() - 60_000L,
+            id = 5,
+            watchId = 1,
+            condition = AlarmCondition.CHANGE_PERCENT_UP,
+            threshold = 5.0,
+            repeating = true,
+            referencePrice = 100.0,
+            lastTriggeredAt = System.currentTimeMillis() - 60_000L,
         )
         val f = RefreshFixture(listOf(watch(price = 100.0)), listOf(alarm))
         assertEquals(0, f.process(mapOf(1L to Fetched(ticker(110.0), null))).alarms)

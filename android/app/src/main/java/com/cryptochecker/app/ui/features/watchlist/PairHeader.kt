@@ -30,12 +30,12 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.convert.Sats
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.CoinBadge
@@ -43,12 +43,12 @@ import com.cryptochecker.app.ui.components.ReferenceSourceLine
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.display
 import com.cryptochecker.app.ui.theme.headline
-import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.model.ReferenceSource
+import com.cryptochecker.resources.R
 
 /**
  * Deaktiviertes Paar: ruhiger Hinweis unter dem Kurs («Deaktiviert · Keine Abfragen, keine Meldungen», Stand des
@@ -136,7 +136,12 @@ internal fun PairHeader(
     val headerChangeView = LocalChangeView.current
     val candleNote = candleSource?.takeIf { watch.lastPrice != null }
         ?.let { stringResource(R.string.change_candle_source, it) }
-    Column(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = spoken; heading() }) {
+    Column(
+        modifier = Modifier.fillMaxWidth().clearAndSetSemantics {
+            contentDescription = spoken
+            heading()
+        }
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CoinBadge(
                 watch.baseAsset,
@@ -149,8 +154,11 @@ internal fun PairHeader(
                 Text(watch.displayName, style = MaterialTheme.typography.headline, fontWeight = FontWeight.SemiBold)
                 Text(
                     // Vorschau: «Binance · Nicht in der Merkliste»
-                    if (preview) "${watch.exchangeName} · ${stringResource(R.string.watch_preview_not_watched)}"
-                    else watch.exchangeName,
+                    if (preview) {
+                        "${watch.exchangeName} · ${stringResource(R.string.watch_preview_not_watched)}"
+                    } else {
+                        watch.exchangeName
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -184,7 +192,9 @@ internal fun PairHeader(
                 com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
                 com.cryptochecker.app.domain.watch.PriceKindLabel.HOURLY -> " · " + stringResource(R.string.watch_price_hourly)
                 com.cryptochecker.app.domain.watch.PriceKindLabel.DAILY_REFERENCE -> " · " + stringResource(R.string.watch_price_reference)
-                com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE -> " · " + stringResource(R.string.watch_price_reference_weekly)
+                com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE ->
+                    " · " +
+                        stringResource(R.string.watch_price_reference_weekly)
                 null -> ""
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -199,8 +209,11 @@ internal fun PairHeader(
                     )
                 }
                 // Wöchentlicher Referenzkurs: Veränderung gegen die Vorwoche — kein «24h», der Takt steht in midText
-                val basisText = if (kind == com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE) ""
-                else " · ${ChangeBasisText.shortLabel(headerChangeView.basis)}"
+                val basisText = if (kind == com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE) {
+                    ""
+                } else {
+                    " · ${ChangeBasisText.shortLabel(headerChangeView.basis)}"
+                }
                 Text(
                     text = "$basisText$midText",
                     style = MaterialTheme.typography.bodySmall,

@@ -30,6 +30,7 @@ object AlarmReadiness {
         EXACT("exact"),
         BATTERY("battery"),
         BACKGROUND("background"),
+
         /** Akkusparen des Herstellers (nur Android, nur auf bekannten Geräten: [OemBattery]). */
         OEM_BATTERY("oem_battery"),
         BACKGROUND_REFRESH("background_refresh"),
@@ -67,6 +68,7 @@ object AlarmReadiness {
         CHECK_OLD("check_old"),
         CHECK_NEVER("check_never"),
         NOTE("note"),
+
         /** Weg zur Einstellung des Herstellers; der Text hängt vom Hersteller ab. */
         OEM_NOTE("oem_note"),
     }
@@ -83,6 +85,7 @@ object AlarmReadiness {
         APP_SETTINGS("app_settings"),
         ALARM_SETTINGS("alarm_settings"),
         CHECK_RUNS("check_runs"),
+
         /** Seite des Herstellers (Autostart, Tiefschlaf …); fehlt sie, die App-Info. */
         OEM_SETTINGS("oem_settings"),
     }
@@ -236,12 +239,18 @@ object AlarmReadiness {
 
     /** Nur zur Kenntnis: die App bittet bewusst nicht um die Ausnahme, sie öffnet nur die Akku-Seite der App. */
     private fun battery(input: Input): Item =
-        if (input.batteryUnrestricted) Item(Row.BATTERY, State.OK, Detail.BATTERY_UNRESTRICTED)
-        else Item(Row.BATTERY, State.INFO, Detail.BATTERY_OPTIMIZED, Action.BATTERY_SETTINGS)
+        if (input.batteryUnrestricted) {
+            Item(Row.BATTERY, State.OK, Detail.BATTERY_UNRESTRICTED)
+        } else {
+            Item(Row.BATTERY, State.INFO, Detail.BATTERY_OPTIMIZED, Action.BATTERY_SETTINGS)
+        }
 
     private fun background(input: Input): Item =
-        if (input.backgroundRestricted) Item(Row.BACKGROUND, State.WARN, Detail.RESTRICTED, Action.APP_SETTINGS)
-        else Item(Row.BACKGROUND, State.OK, Detail.ALLOWED)
+        if (input.backgroundRestricted) {
+            Item(Row.BACKGROUND, State.WARN, Detail.RESTRICTED, Action.APP_SETTINGS)
+        } else {
+            Item(Row.BACKGROUND, State.OK, Detail.ALLOWED)
+        }
 
     /** Nur zur Kenntnis: ob der Hersteller die App beendet, kann sie nicht lesen. */
     private fun oemBattery(input: Input): Item? =
@@ -298,10 +307,16 @@ object AlarmReadiness {
     }
 
     private fun backgroundRefresh(input: Input): Item =
-        if (input.backgroundRefresh) Item(Row.BACKGROUND_REFRESH, State.OK, Detail.ON)
-        else Item(Row.BACKGROUND_REFRESH, State.WARN, Detail.OFF, Action.APP_SETTINGS)
+        if (input.backgroundRefresh) {
+            Item(Row.BACKGROUND_REFRESH, State.OK, Detail.ON)
+        } else {
+            Item(Row.BACKGROUND_REFRESH, State.WARN, Detail.OFF, Action.APP_SETTINGS)
+        }
 
     private fun lowPower(input: Input): Item =
-        if (input.lowPower) Item(Row.LOW_POWER, State.WARN, Detail.ON)
-        else Item(Row.LOW_POWER, State.OK, Detail.OFF)
+        if (input.lowPower) {
+            Item(Row.LOW_POWER, State.WARN, Detail.ON)
+        } else {
+            Item(Row.LOW_POWER, State.OK, Detail.OFF)
+        }
 }

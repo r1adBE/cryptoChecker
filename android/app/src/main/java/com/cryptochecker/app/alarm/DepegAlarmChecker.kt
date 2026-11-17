@@ -1,25 +1,29 @@
 package com.cryptochecker.app.alarm
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.settings.DepegAlarmPrefs
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.convertCurrency
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.settings.DepegAlarmPrefs
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.notification.canShowDepegAlarm
+import com.cryptochecker.app.notification.showDepeg
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -27,10 +31,6 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.notification.canShowDepegAlarm
-import com.cryptochecker.app.notification.showDepeg
 
 /**
  * Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm
@@ -84,7 +84,12 @@ class DepegAlarmChecker @Inject constructor(
         // Alarm aus: nur gemessen (Portfolio), nichts melden
         if (!settings.depegAlarm) return@withLock
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
-        val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
+        val hold = QuietHours.holdsAlarms(
+            settings.quietHoursEnabled,
+            settings.quietHoursStart,
+            settings.quietHoursEnd,
+            QuietHours.minuteOfDay()
+        )
         val mayFire = QuietHours.mayFire(hold, notifier.canShowDepegAlarm())
         // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
         if (DepegAlarm.mayAlarm(measurement)) evaluateUsdt(settings, measurement.price, mayFire)
@@ -115,11 +120,18 @@ class DepegAlarmChecker @Inject constructor(
         val byId = watches.associateBy { it.id }
         val conversions = watchRepository.getAllEnabledAlarms().mapNotNull { alarm ->
             val currency = alarm.convertCurrency ?: return@mapNotNull null
-            byId[alarm.watchId]?.let { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) to currency }
+            byId[alarm.watchId]?.let {
+                com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) to
+                    currency
+            }
         }
         com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement(
-            settings.showConverted, settings.portfolioCurrency,
-            watches.map { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) }, conversions,
+            settings.showConverted,
+            settings.portfolioCurrency,
+            watches.map {
+                com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset)
+            },
+            conversions,
             com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES,
         )
     } catch (e: CancellationException) {
@@ -140,7 +152,9 @@ class DepegAlarmChecker @Inject constructor(
     }
 
     private suspend fun notify(price: Double, deviation: Double): Boolean {
-        val keys = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled }.map { it.exchangeKey } }.getOrDefault(emptyList())
+        val keys = runCatchingCancellable {
+            watchRepository.getWatches().filterNot { it.disabled }.map { it.exchangeKey }
+        }.getOrDefault(emptyList())
         val sign = if (deviation < 0) "−" else "+"
         val title = context.getString(
             R.string.notification_depeg_title,
@@ -198,8 +212,10 @@ class DepegAlarmChecker @Inject constructor(
         const val PREFS = DepegAlarmPrefs.PREFS
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ARMED = "armed"
+
         /** Schwelle (Zehntelprozent), zu der [KEY_ARMED] gehört; 0 = zwischendurch ausgeschaltet. */
         const val KEY_ARMED_TENTHS = DepegAlarmPrefs.KEY_ARMED_TENTHS
+
         /** Höchstens alle 5 Minuten (Vordergrund kann viel öfter aktualisieren). */
         const val MIN_INTERVAL_MILLIS = 5 * 60_000L
         const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L

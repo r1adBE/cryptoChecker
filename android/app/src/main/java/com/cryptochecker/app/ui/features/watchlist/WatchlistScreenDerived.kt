@@ -7,17 +7,19 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.watch.AlarmBellRoute
-import com.cryptochecker.app.ui.features.alarms.AlarmPairPicker
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
+import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.activity.ActivitySensitivity
+import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ActivityView
+import com.cryptochecker.app.domain.watch.AlarmBellRoute
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.DisabledView
 import com.cryptochecker.app.domain.watch.NotTraded
@@ -25,9 +27,7 @@ import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
-import com.cryptochecker.app.domain.activity.ActivityReport
-import com.cryptochecker.app.domain.activity.ActivitySensitivity
-import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.ui.features.alarms.AlarmPairPicker
 
 /**
  * Glocke im Kopf und in der Start-Auswahl: mit Alarmen die Übersicht, ohne einen einzigen gleich zum Anlegen — ein
@@ -54,7 +54,10 @@ internal fun rememberBellClick(
         AlarmPairPicker(
             // Zeilen ohne Kurs im Hintergrund, nur bei echter Änderung neu
             rows = com.cryptochecker.app.ui.features.alarms.rememberAlarmPickerRows(watches),
-            onPick = { id -> pickAlarmPair = false; onOpenAlarms(id) },
+            onPick = { id ->
+                pickAlarmPair = false
+                onOpenAlarms(id)
+            },
             onDismiss = { pickAlarmPair = false },
         )
     }
@@ -150,17 +153,16 @@ internal fun rememberWatchPulse(
     sortMode: Boolean,
     changeView: ChangeView,
     onboardingPulse: Boolean,
-): WatchPulse? {
-    return remember(visible, searching, sortMode, changeView, onboardingPulse) {
-        if (searching || sortMode || !onboardingPulse) null
-        else {
-            // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
-            // deaktivierte gar nicht
-            val counted = DisabledView.active(visible) { it.disabled }
-            WatchPulse.of(
-                changes = counted.map { it.shownChange(changeView) },
-                hasPrice = counted.map { it.lastPrice != null && !isNotTraded(it.lastError) },
-            )
-        }
+): WatchPulse? = remember(visible, searching, sortMode, changeView, onboardingPulse) {
+    if (searching || sortMode || !onboardingPulse) {
+        null
+    } else {
+        // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
+        // deaktivierte gar nicht
+        val counted = DisabledView.active(visible) { it.disabled }
+        WatchPulse.of(
+            changes = counted.map { it.shownChange(changeView) },
+            hasPrice = counted.map { it.lastPrice != null && !isNotTraded(it.lastError) },
+        )
     }
 }

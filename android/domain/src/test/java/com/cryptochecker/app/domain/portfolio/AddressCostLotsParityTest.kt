@@ -21,16 +21,16 @@ import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
-import java.time.ZoneOffset
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import java.time.ZoneOffset
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Einstand für Adressguthaben und Einträge ohne Einstand (`testdata/parity/address_cost_lots.json`): Abdeckung der Posten,
@@ -47,8 +47,12 @@ class AddressCostLotsParityTest {
     private fun lot(raw: Any?): AddressCostLot {
         val o = raw.obj()
         return AddressCostLot(
-            id = o["id"].num()!!.toLong(), coin = o["coin"] as String, time = o["t"].num()!!.toLong(),
-            amount = dec(o["amount"])!!, priceUsdt = dec(o["price"]), costUsdt = dec(o["cost"]),
+            id = o["id"].num()!!.toLong(),
+            coin = o["coin"] as String,
+            time = o["t"].num()!!.toLong(),
+            amount = dec(o["amount"])!!,
+            priceUsdt = dec(o["price"]),
+            costUsdt = dec(o["cost"]),
         )
     }
 
@@ -58,7 +62,9 @@ class AddressCostLotsParityTest {
             id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
             label = o["label"] as String?, lastBalance = o["lastBalance"] as String?,
             lastUpdated = o["lastUpdated"].num()?.toLong() ?: 0L,
-            observations = o["observations"]?.list()?.map { it.obj() }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
+            observations = o["observations"]?.list()?.map {
+                it.obj()
+            }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
             countInPortfolio = o["countInPortfolio"] as Boolean? ?: true,
             costLots = o["costLots"]?.list()?.map(::lot).orEmpty(),
         )
@@ -132,7 +138,11 @@ class AddressCostLotsParityTest {
                 coins.obj().forEach { (coin, spec) ->
                     val x = spec.obj()
                     val p = PortfolioCalculator.position(coin, all, null, method)
-                    near("$name/$m today = card", p.holdingsExact.toPlainString(), p.ledgerHoldingsExact + (booked[coin] ?: BigDecimal.ZERO))
+                    near(
+                        "$name/$m today = card",
+                        p.holdingsExact.toPlainString(),
+                        p.ledgerHoldingsExact + (booked[coin] ?: BigDecimal.ZERO)
+                    )
                     near("$name/$m holdings", x["holdings"], p.holdingsExact)
                     near("$name/$m address", x["address"], p.addressHoldingsExact)
                     if ("cost" in x) near("$name/$m cost", x["cost"], p.costBasisExact)
@@ -224,7 +234,15 @@ class AddressCostLotsParityTest {
             val gain = PortfolioPeriodChange.gain(all, current, closes, today - PortfolioPeriodChange.DAYS, histories, method)
             nearDouble("$name gain", e["gain"].num(), gain?.amountUsd)
             nearDouble("$name percent", e["percent"].num(), gain?.percent)
-            val history = PortfolioHistory.build(all, closes, current, PortfolioHistoryRange.WEEK, today, addresses = histories, method = method)
+            val history = PortfolioHistory.build(
+                all,
+                closes,
+                current,
+                PortfolioHistoryRange.WEEK,
+                today,
+                addresses = histories,
+                method = method
+            )
             nearDouble("$name first point", e["firstPoint"].num(), history.points.firstOrNull()?.value)
             nearDouble("$name last point", e["lastPoint"].num(), history.points.lastOrNull()?.value)
             nearDouble("$name history pnl", e["gain"].num(), history.pnlChange)

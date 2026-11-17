@@ -14,15 +14,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.BidAskSpread
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.CurrencyText
 import com.cryptochecker.marketdata.util.DisplayFormat
+import com.cryptochecker.resources.R
 
 /**
  * Letzter Kurs gross, darunter Hoch/Tief, Bid/Ask (mit einem erklärenden Satz) und Volumen kleiner in
@@ -65,14 +65,18 @@ fun Ticker(
         val baseSymbol = CurrencyText.symbol(base)
         if (high > Ticker.MISSING) {
             StatRow(
-                R.string.ticker_high, StatValue(DisplayFormat.formatDouble(high), quoteSymbol),
-                R.string.ticker_low, StatValue(DisplayFormat.formatDouble(low), quoteSymbol)
+                R.string.ticker_high,
+                StatValue(DisplayFormat.formatDouble(high), quoteSymbol),
+                R.string.ticker_low,
+                StatValue(DisplayFormat.formatDouble(low), quoteSymbol)
             )
         }
         if (ask > Ticker.MISSING) {
             StatRow(
-                R.string.ticker_bid, StatValue(DisplayFormat.formatDouble(bid), quoteSymbol),
-                R.string.ticker_ask, StatValue(DisplayFormat.formatDouble(ask), quoteSymbol)
+                R.string.ticker_bid,
+                StatValue(DisplayFormat.formatDouble(bid), quoteSymbol),
+                R.string.ticker_ask,
+                StatValue(DisplayFormat.formatDouble(ask), quoteSymbol)
             )
             // Ein Satz, was Geld und Brief heissen (wie iOS)
             Text(

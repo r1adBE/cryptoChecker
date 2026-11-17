@@ -1,21 +1,21 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.live.LiveCoverage
+import com.cryptochecker.app.domain.util.DomainLog
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.util.appScope
+import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import com.cryptochecker.app.domain.util.DomainLog
-import java.util.concurrent.atomic.AtomicReference
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Holt die Kurse aller beobachteten Paare und stösst danach alles an, was daran hängt:
@@ -196,8 +196,7 @@ class PriceRefresher(
             enabledAlarms,
             startedAt,
         )
-        // Je Börse Paare mit aktivem Alarm zuerst abfragen (FetchOrder): im kurzen Netz-Fenster des Ruhemodus
-        // kommen so die Alarme durch
+        // Je Börse Paare mit aktivem Alarm zuerst (FetchOrder): so kommen sie im kurzen Netz-Fenster des Ruhemodus durch
         val alarmedIds = enabledAlarms.mapTo(HashSet()) { it.watchId }
 
         // 1) Netz: alle Börsen gleichzeitig; pausierte Börsen bleiben diesmal aussen vor (PriceRefresherFetch.kt)
@@ -207,20 +206,24 @@ class PriceRefresher(
         val groupReports = prices.reports
         val activeWatches = watches.filter { it.id !in pausedIds }
         val lateLoads = dayReferences.startDayReferenceLoads(
-            dayReferences.watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true), startedKeys, dayStart
+            dayReferences.watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true),
+            startedKeys,
+            dayStart
         )
         val dayLoads = earlyLoads + lateLoads
         // Mit Frist: nur so lange, dass das Auswerten noch Platz hat (fehlende Bezüge aus dem Zwischenspeicher)
         dayReferences.awaitDayReferenceLoads(
             dayLoads + alarmLoads,
             CheckBudget.waitMillis(
-                deadlineAt, System.currentTimeMillis(), Long.MAX_VALUE, reserve = CheckBudget.EVALUATE_RESERVE_MILLIS,
+                deadlineAt,
+                System.currentTimeMillis(),
+                Long.MAX_VALUE,
+                reserve = CheckBudget.EVALUATE_RESERVE_MILLIS,
             ),
         )
         val networkMillis = System.currentTimeMillis() - startedAt
 
-        // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern,
-        //    dann Alarme, Benachrichtigungen und Ansagen.
+        // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern, dann Alarme, Meldungen und Ansagen.
         // Paare pausierter Börsen nicht anfassen: kein Fehler, letzter Kurs bleibt
         val processed = resultProcessor.process(lock, activeWatches, fetched, settings, dayStart, deferPrices = true)
         // Kurs-Meldungen gleich vormerken: Sie laufen nach dem Durchlauf (gedrosselt bis einige Sekunden, die Sperre
@@ -228,14 +231,17 @@ class PriceRefresher(
         // trägt die Nacharbeit in den Bericht dieses Durchlaufs nach (sofern es ihn gibt)
         val report = AtomicReference<RefreshReport?>(null)
         refreshLock.stageTail(
-            lock, resultProcessor.pricesTail(processed) { shown -> report.get()?.let { noteShownPrices(it, shown) } },
+            lock,
+            resultProcessor.pricesTail(processed) { shown -> report.get()?.let { noteShownPrices(it, shown) } },
         )
         noteChangeStamp(changeStamp, processed.failedIds + pausedIds)
         // Mit Frist: Kerzen-Nachlader nicht über die Frist laufen lassen; sonst Tages-Basen: späte Bezüge nachtragen («—»)
-        if (deadlineAt != null) dayLoads.forEach { it.cancel() }
-        else if (dayStart != null) fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp)
-        // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen —
-        // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
+        if (deadlineAt != null) {
+            dayLoads.forEach { it.cancel() }
+        } else if (dayStart != null) {
+            fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp)
+        }
+        // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen (sonst neue Kurse mit alter Uhrzeit)
         val duration = System.currentTimeMillis() - startedAt
         noteRefreshed(processed, prices.cutByBudget, duration)
         val widgetMillis = drawAllWidgets()

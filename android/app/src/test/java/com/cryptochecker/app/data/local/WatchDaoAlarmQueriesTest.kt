@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.local
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Bedingte Alarm-UPDATEs der Aktualisierung prüfen alle die Alarm-Währung (Room-Abfragen laufen nur auf dem Gerät,
@@ -12,7 +12,16 @@ class WatchDaoAlarmQueriesTest {
 
     private fun source(): String {
         val path = "src/main/java/com/cryptochecker/app/data/local/WatchDao.kt"
-        return listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
+        return listOf(
+            File(path),
+            File("app/$path"),
+            File("../data/$path"),
+            File("data/$path"),
+            File("../domain/$path"),
+            File("domain/$path")
+        ).first {
+            it.exists()
+        }.readText()
     }
 
     /** Text der @Query direkt vor `fun name(`. */
@@ -34,11 +43,23 @@ class WatchDaoAlarmQueriesTest {
     @Test
     fun paarLoeschenRaeumtDasAlarmProtokollAuf() {
         val path = "src/main/java/com/cryptochecker/app/data/WatchRepository.kt"
-        val text = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
+        val file = listOf(
+            File(path),
+            File("app/$path"),
+            File("../data/$path"),
+            File("data/$path"),
+            File("../domain/$path"),
+            File("domain/$path")
+        ).first {
+            it.exists()
+        }
+        val text = file.readText()
         for (name in listOf("deleteWatch(id: Long)", "deleteWatches(ids: Collection<Long>)", "deleteAllWatches()")) {
             val body = text.substringAfter("suspend fun $name").substringBefore("\n    }\n")
             assertTrue(name, body.contains("forgetDeletedAlarms()"))
         }
-        assertTrue(text.substringAfter("private suspend fun forgetDeletedAlarms()").contains("alarmLogStore.retainAlarms("))
+        // Aufräumen in der Erweiterungsdatei neben dem Repository
+        val cleanup = File(file.parentFile, "WatchRepositoryAlarmCleanup.kt").readText()
+        assertTrue(cleanup.substringAfter("suspend fun WatchRepository.forgetDeletedAlarms()").contains("alarmLogStore.retainAlarms("))
     }
 }

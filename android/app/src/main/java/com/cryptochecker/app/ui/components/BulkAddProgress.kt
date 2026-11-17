@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 
 /**
  * Fortschritt von «Mehrere Paare auf einmal» ([com.cryptochecker.app.data.BulkAddRunner]): Balken und

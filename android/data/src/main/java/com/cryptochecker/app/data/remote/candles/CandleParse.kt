@@ -3,9 +3,9 @@ package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.domain.activity.HourCandle
+import java.time.Instant
 import org.json.JSONArray
 import org.json.JSONObject
-import java.time.Instant
 
 /** Gemeinsames für die Quellen: Zahlen lesen, Kennungen prüfen, Reihe abschliessen. */
 object CandleParse {
@@ -62,7 +62,10 @@ object CandleParse {
             val k = array.optJSONArray(i) ?: return@mapNotNull null
             HourCandle(
                 openTime = k.numAt(0).toLong(),
-                open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
+                open = k.numAt(1),
+                high = k.numAt(2),
+                low = k.numAt(3),
+                close = k.numAt(4),
                 volume = if (coinM) k.numAt(7) else k.numAt(5),
                 quoteVolume = if (coinM) null else quoteVolume(k.numAt(7)),
             )

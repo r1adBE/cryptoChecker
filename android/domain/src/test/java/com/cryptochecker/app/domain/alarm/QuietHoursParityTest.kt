@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.alarm
 import com.cryptochecker.app.domain.alarm.QuietHours
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.time.Instant
-import java.util.TimeZone
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.time.Instant
+import java.util.TimeZone
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Nachtruhe als gemeinsame Testfälle (`testdata/parity/quiet_hours.json`, Kopie in iOS `Tests/Parity/`, gelesen von

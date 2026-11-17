@@ -23,7 +23,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
@@ -32,6 +31,7 @@ import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 internal data class TotalHintItem(val text: String, val error: Boolean = false, val txId: Long? = null)
 
@@ -138,26 +138,30 @@ internal fun totalHintItems(
     }
     // Was im Gewinn seit Kauf fehlt (nur diese Coins, nicht das ganze Portfolio)
     if (summary.missingCostCoins.isNotEmpty()) {
-        add(TotalHintItem(
-            pluralStringResource(
-                R.plurals.ledger_without_cost,
-                summary.missingCostCoins.size,
-                summary.missingCostCoins.size,
-                summary.missingCostCoins.joinToString(", ")
-            ),
-            // Antippen: Einträge ohne Einstand
-            txId = COST_GAPS_HINT_ID,
-        ))
+        add(
+            TotalHintItem(
+                pluralStringResource(
+                    R.plurals.ledger_without_cost,
+                    summary.missingCostCoins.size,
+                    summary.missingCostCoins.size,
+                    summary.missingCostCoins.joinToString(", ")
+                ),
+                // Antippen: Einträge ohne Einstand
+                txId = COST_GAPS_HINT_ID,
+            )
+        )
     }
     // Nur ein Teil ohne Kaufpreis: «Seit Kauf» zählt den Teil mit Kaufpreis, der Rest fehlt
     if (summary.partialCostParts.isNotEmpty()) {
-        add(TotalHintItem(
-            stringResource(
-                R.string.ledger_partial_cost,
-                summary.partialCostParts.map { maskAmount(PortfolioFormat.amount(it.amount, it.coin)) }.joinToString(", ")
-            ),
-            txId = COST_GAPS_HINT_ID,
-        ))
+        add(
+            TotalHintItem(
+                stringResource(
+                    R.string.ledger_partial_cost,
+                    summary.partialCostParts.map { maskAmount(PortfolioFormat.amount(it.amount, it.coin)) }.joinToString(", ")
+                ),
+                txId = COST_GAPS_HINT_ID,
+            )
+        )
     }
     // Heute / 7 T / 1 J: Coins ohne passenden Kurs am Anfang fehlen nur dort, die übrigen zählen
     val periodSkipped = (todaySkipped + weekChange?.skipped.orEmpty() + yearChange?.skipped.orEmpty()).distinct().sorted()
@@ -189,10 +193,14 @@ internal fun totalHintItems(
     }
     // Umbuchungsgebühren auf Bestand ohne Kaufpreis: offener Posten (je Coin auf der Detailseite)
     if (summary.unassignedFeeUsdt.signum() != 0) {
-        add(TotalHintItem(stringResource(
-            R.string.portfolio_unassigned_fee,
-            maskAmount(PortfolioFormat.usdt(summary.unassignedFeeUsdt.toDouble())),
-        )))
+        add(
+            TotalHintItem(
+                stringResource(
+                    R.string.portfolio_unassigned_fee,
+                    maskAmount(PortfolioFormat.usdt(summary.unassignedFeeUsdt.toDouble())),
+                )
+            )
+        )
     }
     if (summary.missingCurrentPrices.isNotEmpty()) {
         add(TotalHintItem(stringResource(R.string.portfolio_current_missing, summary.missingCurrentPrices.joinToString(", "))))

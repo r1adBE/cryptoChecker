@@ -2,20 +2,22 @@ package com.cryptochecker.app
 
 import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
+import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.backup.BackupManager
 import com.cryptochecker.app.data.backup.RestoreJournal
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.File
+import javax.inject.Inject
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,8 +32,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
-import javax.inject.Inject
 
 /**
  * Wiederherstellen einer Sicherung von Anfang bis Ende mit den echten Datenbanken (Hilt, Gerät/Emulator): Merkliste

@@ -34,5 +34,4 @@ class WidgetOfflineTest {
         assertEquals(ListWidgetHeader.Layout(12f, "Keine Verbindung"), layout(fixed + 50f + 16 * 5f))
         assertEquals(ListWidgetHeader.Layout(12f, ""), layout(fixed + 50f))
     }
-
 }

@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.io.File
 
 /**
  * Gleiche Einstellungen auf Android und iOS: Die Einträge der Einstellungs-Suche (`add("…"` in beiden Katalogen, ohne
@@ -15,8 +15,10 @@ class PlatformSettingsParityTest {
 
     @Test
     fun searchEntriesMatchExceptDocumentedDifferences() {
-        val android = File(SourceGuard.android(findUp("android/app/src/main/java/com/cryptochecker/app"), "Android-Quellen"),
-            "ui/features/settings/SettingsSearchCatalog.kt").readText()
+        val app = SourceGuard.android(findUp("android/app/src/main/java/com/cryptochecker/app"), "Android-Quellen")
+        // Katalog nach Bereichen auf Dateien verteilt
+        val android = listOf("Catalog", "Appearance", "Alarms", "More")
+            .joinToString("\n") { File(app, "ui/features/settings/SettingsSearch$it.kt").readText() }
         val ios = File(SourceGuard.ios(findUp("ios/App"), "ios/App"), "Features/Settings/SettingsSearchCatalog.swift").readText()
         val androidIds = ids(android)
         val iosIds = ids(ios)
@@ -25,7 +27,7 @@ class PlatformSettingsParityTest {
     }
 
     private fun ids(source: String): Set<String> =
-        Regex("""add\("([^"]+)"""").findAll(source).map { it.groupValues[1] }.filterNot { it.startsWith("page.") }.toSet()
+        Regex("""add\(\s*"([^"]+)"""").findAll(source).map { it.groupValues[1] }.filterNot { it.startsWith("page.") }.toSet()
 
     private fun findUp(rel: String): File? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

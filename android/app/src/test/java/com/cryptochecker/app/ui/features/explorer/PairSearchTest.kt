@@ -15,17 +15,23 @@ class PairSearchTest {
     private val spot = ExchangeInfo("Binance", "Binance")
     private val futures = ExchangeInfo("BinanceFutures", "Binance Futures")
     private val cache = mapOf(
-        "Binance" to ExchangePairsInfo(1, listOf(
-            ExchangePair("BTC", "USDT", "BTCUSDT"),
-            ExchangePair("BTC", "EUR", "BTCEUR"),
-            ExchangePair("ETH", "USDT", "ETHUSDT"),
-        )),
-        "BinanceFutures" to ExchangePairsInfo(1, listOf(
-            ExchangePair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY),
-            ExchangePair("BTC", "USDT", "BTCUSDT_270326", FuturesContractType.BIQUARTERLY),
-            ExchangePair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL),
-            ExchangePair("BTC", "USD", "2:BTCUSD_PERP", FuturesContractType.INVERSE_PERPETUAL),
-        )),
+        "Binance" to ExchangePairsInfo(
+            1,
+            listOf(
+                ExchangePair("BTC", "USDT", "BTCUSDT"),
+                ExchangePair("BTC", "EUR", "BTCEUR"),
+                ExchangePair("ETH", "USDT", "ETHUSDT"),
+            )
+        ),
+        "BinanceFutures" to ExchangePairsInfo(
+            1,
+            listOf(
+                ExchangePair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY),
+                ExchangePair("BTC", "USDT", "BTCUSDT_270326", FuturesContractType.BIQUARTERLY),
+                ExchangePair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL),
+                ExchangePair("BTC", "USD", "2:BTCUSD_PERP", FuturesContractType.INVERSE_PERPETUAL),
+            )
+        ),
     )
     private val exchanges = listOf(spot, futures)
 
@@ -105,36 +111,47 @@ class PairSearchTest {
 
     private val kraken = ExchangeInfo("Kraken", "Kraken")
     private val nameCache = mapOf(
-        "Binance" to ExchangePairsInfo(1, listOf(
-            ExchangePair("BTC", "USDT", "BTCUSDT"),
-            ExchangePair("ETH", "USDT", "ETHUSDT"),
-            ExchangePair("ETC", "USDT", "ETCUSDT"),
-            ExchangePair("SOL", "USDT", "SOLUSDT"),
-            ExchangePair("USDT", "EUR", "USDTEUR"),
-            ExchangePair("SHIB", "USDT", "SHIBUSDT"),
-            ExchangePair("BITCOIN", "USDT", "BITCOINUSDT"),
-        )),
-        "Kraken" to ExchangePairsInfo(1, listOf(
-            ExchangePair("BTC", "EUR", "XBTEUR"),
-            ExchangePair("ETH", "EUR", "ETHEUR"),
-        )),
-        "BinanceFutures" to ExchangePairsInfo(1, listOf(
-            ExchangePair("NVDA", "USDT", "NVDAUSDT", FuturesContractType.PERPETUAL, tradFi = true),
-            ExchangePair("PEPE", "USDT", "1000PEPEUSDT", FuturesContractType.PERPETUAL),
-        )),
+        "Binance" to ExchangePairsInfo(
+            1,
+            listOf(
+                ExchangePair("BTC", "USDT", "BTCUSDT"),
+                ExchangePair("ETH", "USDT", "ETHUSDT"),
+                ExchangePair("ETC", "USDT", "ETCUSDT"),
+                ExchangePair("SOL", "USDT", "SOLUSDT"),
+                ExchangePair("USDT", "EUR", "USDTEUR"),
+                ExchangePair("SHIB", "USDT", "SHIBUSDT"),
+                ExchangePair("BITCOIN", "USDT", "BITCOINUSDT"),
+            )
+        ),
+        "Kraken" to ExchangePairsInfo(
+            1,
+            listOf(
+                ExchangePair("BTC", "EUR", "XBTEUR"),
+                ExchangePair("ETH", "EUR", "ETHEUR"),
+            )
+        ),
+        "BinanceFutures" to ExchangePairsInfo(
+            1,
+            listOf(
+                ExchangePair("NVDA", "USDT", "NVDAUSDT", FuturesContractType.PERPETUAL, tradFi = true),
+                ExchangePair("PEPE", "USDT", "1000PEPEUSDT", FuturesContractType.PERPETUAL),
+            )
+        ),
     )
-    private val names = NameIndex(mapOf(
-        "BTC" to "Bitcoin",
-        "ETH" to "Ethereum",
-        "ETC" to "Ethereum Classic",
-        "SOL" to "Solana",
-        "USDT" to "Tether",
-        "SHIB" to "Shiba Inu",
-        "PEPE" to "Pépé",
-        "TRADFI:NVDA" to "NVIDIA",
-        // Krypto-Token gleichen Kürzels: nie für das TradFi-Paar
-        "NVDA" to "Nvidia Token",
-    ))
+    private val names = NameIndex(
+        mapOf(
+            "BTC" to "Bitcoin",
+            "ETH" to "Ethereum",
+            "ETC" to "Ethereum Classic",
+            "SOL" to "Solana",
+            "USDT" to "Tether",
+            "SHIB" to "Shiba Inu",
+            "PEPE" to "Pépé",
+            "TRADFI:NVDA" to "NVIDIA",
+            // Krypto-Token gleichen Kürzels: nie für das TradFi-Paar
+            "NVDA" to "Nvidia Token",
+        )
+    )
 
     private fun findNamed(q: String, n: NameIndex = names) =
         PairSearch.find(q, listOf(spot, kraken, futures), nameCache, names = n).map {

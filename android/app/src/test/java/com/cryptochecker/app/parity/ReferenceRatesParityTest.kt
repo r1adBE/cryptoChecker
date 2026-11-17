@@ -6,14 +6,14 @@ import com.cryptochecker.marketdata.model.ReferenceSource
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.BankReference
 import com.cryptochecker.marketdata.util.ReferenceRates
+import java.time.LocalDate
+import kotlin.math.abs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import kotlin.math.abs
 
 /**
  * Referenzkurse von NBU und NBP ([ReferenceRates], [ReferenceSource], [BankReference]) als gemeinsame Testfälle

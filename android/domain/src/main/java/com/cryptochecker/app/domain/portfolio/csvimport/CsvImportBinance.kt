@@ -122,7 +122,16 @@ object CsvImportBinance {
                 change == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER)
                 time == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE)
                 else -> {
-                    val leg = Leg(rec.line, op(CsvImportParser.normalize(rawKind)), rawKind, coin, change, time, CsvImportParser.localTime(timeText))
+                    val leg =
+                        Leg(
+                            rec.line,
+                            op(CsvImportParser.normalize(rawKind)),
+                            rawKind,
+                            coin,
+                            change,
+                            time,
+                            CsvImportParser.localTime(timeText)
+                        )
                     when (leg.op) {
                         Op.TRADE, Op.FEE -> groups.getOrPut(timeText.trim() + "|" + cell(iAccount).trim()) { ArrayList() } += leg
                         Op.DEPOSIT, Op.WITHDRAWAL -> move(leg, rows, skipped)
@@ -184,8 +193,14 @@ object CsvImportBinance {
                 val outSum = outLegs.fold(BigDecimal.ZERO) { s, l -> s + l.change }.abs()
                 val inSum = inLegs.fold(BigDecimal.ZERO) { s, l -> s + l.change }
                 val ownFeeLegs = feeLegs.filter { it.coin == inn }
-                emit((outLegs + inLegs + ownFeeLegs).sortedBy { it.line }, out to outSum, inn to inSum,
-                    fees.filter { it.first == inn }, rows, skipped)
+                emit(
+                    (outLegs + inLegs + ownFeeLegs).sortedBy { it.line },
+                    out to outSum,
+                    inn to inSum,
+                    fees.filter { it.first == inn },
+                    rows,
+                    skipped
+                )
             }
             return
         }
@@ -194,8 +209,14 @@ object CsvImportBinance {
         val given = nets.filterValues { it.signum() < 0 }
         val received = nets.filterValues { it.signum() > 0 }
         if (given.size > 1 || received.size > 1) return skipAll(CsvImportSkipReason.AMBIGUOUS_GROUP)
-        emit(group, given.entries.firstOrNull()?.let { it.key to it.value.abs() }, received.entries.firstOrNull()?.toPair(),
-            fees, rows, skipped)
+        emit(
+            group,
+            given.entries.firstOrNull()?.let { it.key to it.value.abs() },
+            received.entries.firstOrNull()?.toPair(),
+            fees,
+            rows,
+            skipped
+        )
     }
 
     /**
@@ -214,6 +235,7 @@ object CsvImportBinance {
         fun skipAll(reason: CsvImportSkipReason) = legs.forEach { skipped += CsvImportSkip(it.line, reason) }
         val first = legs.first()
         val line = legs.minOf { it.line }
+
         // Art wie in der Datei: Zeile des gekauften Coins beim Kauf, sonst des abgegebenen
         fun rawKind(coin: String) = legs.firstOrNull { it.op == Op.TRADE && it.coin == coin }?.rawKind ?: first.rawKind
         fun feeRow(unit: String, amount: BigDecimal, at: Int) {
@@ -227,8 +249,11 @@ object CsvImportBinance {
             if (fees.size == 1) return feeRow(fees[0].first, fees[0].second, line)
             for ((unit, amount) in fees) {
                 val own = legs.filter { it.coin == unit }
-                if (CsvImport.isFiat(unit)) own.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
-                else feeRow(unit, amount, own.minOfOrNull { it.line } ?: line)
+                if (CsvImport.isFiat(unit)) {
+                    own.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
+                } else {
+                    feeRow(unit, amount, own.minOfOrNull { it.line } ?: line)
+                }
             }
             return
         }

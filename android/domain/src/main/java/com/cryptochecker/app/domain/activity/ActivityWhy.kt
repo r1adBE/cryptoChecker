@@ -44,7 +44,9 @@ fun ActivityAnalyzer.explain(input: WhyInput): WhyReport {
         StablePeg.deviationPercent(candles?.last()?.close)?.let { deviation ->
             val notable = StablePeg.isNotable(deviation)
             reasons += Reason(
-                ReasonKind.PEG, if (notable) ReasonTone.WARNING else ReasonTone.NEUTRAL, deviation,
+                ReasonKind.PEG,
+                if (notable) ReasonTone.WARNING else ReasonTone.NEUTRAL,
+                deviation,
                 strong = notable,
             )
         }
@@ -111,8 +113,11 @@ private fun ActivityAnalyzer.volumeReason(stats: HourStats, moving: Boolean): Re
     val approximate = stats.volumeApproximate
     return when {
         ratio >= VOLUME_HIGH_RATIO -> Reason(
-            ReasonKind.VOLUME_HIGH, ReasonTone.WARNING, ratio,
-            strong = ratio >= VOLUME_SPIKE_RATIO, approximate = approximate,
+            ReasonKind.VOLUME_HIGH,
+            ReasonTone.WARNING,
+            ratio,
+            strong = ratio >= VOLUME_SPIKE_RATIO,
+            approximate = approximate,
         )
         ratio <= VOLUME_LOW_RATIO && moving ->
             Reason(ReasonKind.VOLUME_LOW, ReasonTone.WARNING, ratio, approximate = approximate)
@@ -131,15 +136,28 @@ private fun ActivityAnalyzer.leverageReason(input: WhyInput): Reason? {
     val per8h = fundingPer8h(funding, interval)
     return when {
         per8h >= FUNDING_EXTREME_PERCENT -> Reason(
-            ReasonKind.LEVERAGE_LONGS, ReasonTone.WARNING, funding, oi,
-            strong = per8h >= FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
+            ReasonKind.LEVERAGE_LONGS,
+            ReasonTone.WARNING,
+            funding,
+            oi,
+            strong = per8h >= FUNDING_STRONG_PERCENT || oiJump,
+            intervalHours = interval,
         )
         per8h <= -FUNDING_EXTREME_PERCENT -> Reason(
-            ReasonKind.LEVERAGE_SHORTS, ReasonTone.WARNING, funding, oi,
-            strong = per8h <= -FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
+            ReasonKind.LEVERAGE_SHORTS,
+            ReasonTone.WARNING,
+            funding,
+            oi,
+            strong = per8h <= -FUNDING_STRONG_PERCENT || oiJump,
+            intervalHours = interval,
         )
         else -> Reason(
-            ReasonKind.LEVERAGE_BALANCED, ReasonTone.NEUTRAL, funding, oi, strong = oiJump, intervalHours = interval,
+            ReasonKind.LEVERAGE_BALANCED,
+            ReasonTone.NEUTRAL,
+            funding,
+            oi,
+            strong = oiJump,
+            intervalHours = interval,
         )
     }
 }
@@ -149,7 +167,10 @@ private fun ActivityAnalyzer.volatilityReason(stats: HourStats, volatile: Boolea
     val factor = abs(stats.zScore)
     return if (volatile) {
         Reason(
-            ReasonKind.VOLATILITY_HIGH, toneOf(stats.movePercent), factor, stats.movePercent,
+            ReasonKind.VOLATILITY_HIGH,
+            toneOf(stats.movePercent),
+            factor,
+            stats.movePercent,
             strong = factor >= PRICE_Z_THRESHOLD,
         )
     } else {
@@ -204,7 +225,6 @@ private fun ActivityAnalyzer.marketRefs(input: WhyInput, reference: List<HourCan
     return out
 }
 
-
 /** Erste Referenz mit dem grössten Wert von [score] (bei Gleichstand die frühere — wie in Swift). */
 private fun ActivityAnalyzer.firstMax(refs: List<RefMove>, score: (RefMove) -> Double): RefMove {
     var best = refs.first()
@@ -230,16 +250,26 @@ private fun ActivityAnalyzer.marketReason(coin: Double, coinThreshold: Double, r
     if (coinMoves && moving.isNotEmpty() && moving.all { sameSign(it.change, -coin) }) {
         val m = firstMax(moving, ::ratio)
         return Reason(
-            ReasonKind.AGAINST_MARKET, toneOf(coin), coin, m.change,
-            strong = true, ref = m.ref, threshold = coinThreshold,
+            ReasonKind.AGAINST_MARKET,
+            toneOf(coin),
+            coin,
+            m.change,
+            strong = true,
+            ref = m.ref,
+            threshold = coinThreshold,
         )
     }
     if (moving.isNotEmpty()) {
         val same = moving.filter { sameSign(it.change, coin) }
         val d = firstMax(same.ifEmpty { moving }, ::ratio)
         return Reason(
-            ReasonKind.MARKET_WIDE, toneOf(d.change), d.change, coin,
-            strong = abs(d.change) >= RelativeMove.STRONG_FACTOR * d.threshold, ref = d.ref, threshold = d.threshold,
+            ReasonKind.MARKET_WIDE,
+            toneOf(d.change),
+            d.change,
+            coin,
+            strong = abs(d.change) >= RelativeMove.STRONG_FACTOR * d.threshold,
+            ref = d.ref,
+            threshold = d.threshold,
         )
     }
     if (coinMoves) {
@@ -247,18 +277,32 @@ private fun ActivityAnalyzer.marketReason(coin: Double, coinThreshold: Double, r
         if (similar.isNotEmpty()) {
             val d = firstMax(similar) { abs(it.change) }
             return Reason(
-                ReasonKind.MARKET_WIDE, toneOf(d.change), d.change, coin,
-                strong = false, ref = d.ref, threshold = d.threshold,
+                ReasonKind.MARKET_WIDE,
+                toneOf(d.change),
+                d.change,
+                coin,
+                strong = false,
+                ref = d.ref,
+                threshold = d.threshold,
             )
         }
         return Reason(
-            ReasonKind.COIN_ONLY, toneOf(coin), coin, display.change,
-            strong = true, ref = display.ref, threshold = coinThreshold,
+            ReasonKind.COIN_ONLY,
+            toneOf(coin),
+            coin,
+            display.change,
+            strong = true,
+            ref = display.ref,
+            threshold = coinThreshold,
         )
     }
     return Reason(
-        ReasonKind.MARKET_CALM, ReasonTone.NEUTRAL, display.change, coin,
-        ref = display.ref, threshold = display.threshold,
+        ReasonKind.MARKET_CALM,
+        ReasonTone.NEUTRAL,
+        display.change,
+        coin,
+        ref = display.ref,
+        threshold = display.threshold,
     )
 }
 

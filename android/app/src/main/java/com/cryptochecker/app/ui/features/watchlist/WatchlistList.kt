@@ -5,20 +5,14 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
-import androidx.compose.ui.graphics.Shape
-import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,33 +22,39 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.platform.testTag
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AutoOrder
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.WatchlistFooter
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 @Composable
 private fun HintText(text: String, highlight: Boolean = false) {
@@ -129,8 +129,11 @@ private fun GestureHint(onDismiss: () -> Unit) {
  */
 @Composable
 private fun FirstAlarmCardView(pair: String?, onSetAlarm: () -> Unit, onDismiss: () -> Unit) {
-    val title = if (pair != null) stringResource(R.string.watchlist_first_alarm_title_pair, pair)
-    else stringResource(R.string.watchlist_first_alarm_title)
+    val title = if (pair != null) {
+        stringResource(R.string.watchlist_first_alarm_title_pair, pair)
+    } else {
+        stringResource(R.string.watchlist_first_alarm_title)
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -270,7 +273,11 @@ internal fun WatchlistList(
                     item(key = "group_empty") {
                         val edit = onEditGroup?.takeIf { !favoritesEmpty }
                         if (edit == null) {
-                            ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
+                            ListNote(
+                                stringResource(
+                                    if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint
+                                )
+                            )
                         } else {
                             // Langes Drücken ist nicht auffindbar: derselbe Weg als sichtbarer Knopf (wie iOS)
                             Column(
@@ -308,8 +315,11 @@ private fun FooterLine(footer: WatchlistFooter) {
         pluralStringResource(R.plurals.watchlist_footer_count, footer.shown, footer.shown)
     }
     val room = footer.remaining?.let { free ->
-        if (free == 0) stringResource(R.string.watchlist_footer_full)
-        else pluralStringResource(R.plurals.watchlist_footer_remaining, free, free)
+        if (free == 0) {
+            stringResource(R.string.watchlist_footer_full)
+        } else {
+            pluralStringResource(R.plurals.watchlist_footer_remaining, free, free)
+        }
     }
     val parts = listOfNotNull(count, room)
     Text(

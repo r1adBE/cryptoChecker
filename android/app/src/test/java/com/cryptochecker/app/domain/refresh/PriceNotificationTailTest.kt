@@ -51,7 +51,11 @@ class PriceNotificationTailTest {
         val deferred = fixture()
         val (processed, shown) = deferred.lock.withLock { proof ->
             val p = deferred.processor.process(
-                proof, deferred.store.getWatches(), fetched(), deferred.settings.settings, dayStart = null,
+                proof,
+                deferred.store.getWatches(),
+                fetched(),
+                deferred.settings.settings,
+                dayStart = null,
                 deferPrices = true,
             )
             // Alarm sofort, Kurs-Meldungen noch nicht
@@ -82,8 +86,12 @@ class PriceNotificationTailTest {
         val f = RefreshFixture(listOf(watch(price = 100.0)))
         val processed = f.lock.withLock { proof ->
             f.processor.process(
-                proof, f.store.getWatches(), mapOf(1L to Fetched(ticker(110.0), null)), f.settings.settings,
-                dayStart = null, deferPrices = true,
+                proof,
+                f.store.getWatches(),
+                mapOf(1L to Fetched(ticker(110.0), null)),
+                f.settings.settings,
+                dayStart = null,
+                deferPrices = true,
             )
         }
         assertNull(processed.pendingPrices)

@@ -39,7 +39,14 @@ fun PortfolioSnapshot.withHonestToday(
     val trades = transactions.map { t -> t.toTrade() }
     val adjusted = raw?.let {
         PortfolioPeriodChange.todayAdjusted(
-            it, trades, current, coinChanges, start, addresses = addresses, method = method, coinStart = coinChangeSince,
+            it,
+            trades,
+            current,
+            coinChanges,
+            start,
+            addresses = addresses,
+            method = method,
+            coinStart = coinChangeSince,
         )
     }
     val byCoin = PortfolioPeriodChange.todayByCoin(holdings, trades, current, coinChanges, start, addresses, method, coinChangeSince)

@@ -13,13 +13,13 @@ import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.resources.R
+import java.util.Locale
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.Locale
 
 /**
  * Sprachwechsel in der App: bis Android 12 spricht der App-Kontext
@@ -34,7 +34,11 @@ class LanguageSwitchDeviceTest {
     private val manager: NotificationManager = checkNotNull(app.getSystemService())
 
     private fun inLocale(tag: String): Context =
-        app.createConfigurationContext(Configuration(app.resources.configuration).apply { setLocales(LocaleList(Locale.forLanguageTag(tag))) })
+        app.createConfigurationContext(
+            Configuration(app.resources.configuration).apply {
+                setLocales(LocaleList(Locale.forLanguageTag(tag)))
+            }
+        )
 
     private fun select(tag: String) = instrumentation.runOnMainSync { AppLanguages.select(app, tag) }
 

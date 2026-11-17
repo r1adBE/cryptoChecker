@@ -9,8 +9,8 @@ import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.InFlightRequests
 import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.data.remote.util.await
-import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.exceptions.ExchangeError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.exceptions.ParseError
 import com.cryptochecker.app.domain.exceptions.ResponseTooLargeError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
@@ -21,15 +21,15 @@ import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
 import com.cryptochecker.marketdata.model.PostRequest
+import java.io.IOException
+import java.io.InterruptedIOException
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CancellationException
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import timber.log.Timber
-import java.io.IOException
-import java.io.InterruptedIOException
-import java.util.concurrent.TimeUnit
 
 /** Kopie des Clients mit gleicher Gesamt- und Lesefrist. */
 fun OkHttpClient.withTimeouts(seconds: Long): OkHttpClient =

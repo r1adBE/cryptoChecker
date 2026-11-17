@@ -19,7 +19,10 @@ class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boolean) {
     init {
         for (r in rows) {
             val g = r.gainUsdt
-            if (g == null) { unknown++; continue }
+            if (g == null) {
+                unknown++
+                continue
+            }
             // Gewinn oder Verlust entscheidet die Steuerwährung (ein USDT-Verlust kann in CAD/EUR ein Gewinn sein);
             // ohne Kurs USDT
             val gT = r.gainTarget
@@ -27,7 +30,11 @@ class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boolean) {
             usdt += g
             // Gewinn aus unvollständigem Einstand: gezählt, aber der Posten ist «unvollständig»
             if (r.costIncomplete) partial++
-            if (gT != null) target += gT else if (fx) fxMissing++
+            if (gT != null) {
+                target += gT
+            } else if (fx) {
+                fxMissing++
+            }
         }
     }
 
@@ -36,7 +43,11 @@ class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boolean) {
 
     fun line(l: TaxLine, fx: Boolean, countUnknown: Boolean = true, note: TaxSummaryNote? = null): TaxSummaryLine =
         TaxSummaryLine(
-            l, usdt, target.takeIf { fx }, incomplete = (countUnknown && unknown > 0) || partial > 0, noFx = fxMissing > 0,
+            l,
+            usdt,
+            target.takeIf { fx },
+            incomplete = (countUnknown && unknown > 0) || partial > 0,
+            noFx = fxMissing > 0,
             note = note,
         )
 }
@@ -83,11 +94,20 @@ fun TaxExport.frOutflowLine(
                 if (acc == null || rate == null) null else acc + p.usdt.multiply(rate, PortfolioDecimal.MC)
             }
         }
-        if (t != null) outTarget += t else if (fx) outFx = true
+        if (t != null) {
+            outTarget += t
+        } else if (fx) {
+            outFx = true
+        }
     }
     return TaxSummaryLine(
-        TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx,
-        usdtApproximate = fx && outUsdtApproximate, estimated = outEstimated,
+        TaxLine.FR_OUTFLOW,
+        outUsdt,
+        outTarget.takeIf { fx },
+        incomplete = true,
+        noFx = outFx,
+        usdtApproximate = fx && outUsdtApproximate,
+        estimated = outEstimated,
     )
 }
 
@@ -103,10 +123,13 @@ fun TaxExport.frOutflowTimes(
     zone: ZoneId,
     priceAt: ((String, Long) -> BigDecimal?)?,
 ): List<Long> =
-    if (method != TaxMethod.FR_PTA) emptyList()
-    else TaxEngines.outflows(trades.filter { it.amount.signum() > 0 }, method, priceAt)
-        .filter { localDate(it.time, zone) in period }
-        .flatMap { it.ptaReductionParts.timeBounds() }
+    if (method != TaxMethod.FR_PTA) {
+        emptyList()
+    } else {
+        TaxEngines.outflows(trades.filter { it.amount.signum() > 0 }, method, priceAt)
+            .filter { localDate(it.time, zone) in period }
+            .flatMap { it.ptaReductionParts.timeBounds() }
+    }
 
 /**
  * FR: Belohnungen mit Erwerb bis zum Ende von [period] — sie stecken zum Wert beim Erhalt in der Erwerbspreis-Summe

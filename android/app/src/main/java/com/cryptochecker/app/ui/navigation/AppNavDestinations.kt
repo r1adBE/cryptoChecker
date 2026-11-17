@@ -9,14 +9,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.cryptochecker.app.domain.lock.PortfolioAccess
+import com.cryptochecker.app.ui.features.alarms.AlarmDeliveryScreen
+import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
-import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen
-import com.cryptochecker.app.ui.features.alarms.AlarmDeliveryScreen
 import com.cryptochecker.app.ui.features.settings.MarketAlertsSettingsScreen
 import com.cryptochecker.app.ui.features.settings.ProvideSettingsHighlight
 import com.cryptochecker.app.ui.features.settings.SettingsPage
@@ -27,7 +28,6 @@ import com.cryptochecker.app.ui.features.settings.SpeechSettingsScreen
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.PortfolioLockedState
 import com.cryptochecker.app.ui.lock.PortfolioPendingState
-import androidx.navigation.NavGraphBuilder
 
 /**
  * Einstellungen mit Unterseiten, Markt-Meldungen und Sprachausgabe. [anchor]: Punkt aus der Suche, den die nächste
@@ -105,7 +105,7 @@ internal fun NavGraphBuilder.alarmDestinations(
     openAlarmDelivery: () -> Unit,
     openUpdateSettings: () -> Unit,
 ) {
-    // AlarmsViewModel liest die Watch-Id selbst aus dem SavedStateHandle (ScreenRoute.AlarmsArgWatchId)
+    // AlarmsViewModel liest die Watch-Id selbst aus dem SavedStateHandle (ScreenRoute.ALARMS_ARG_WATCH_ID)
     composable<ScreenRoute.Alarms> {
         AlarmsScreen(onBack = { navigation.popBackStack() })
     }

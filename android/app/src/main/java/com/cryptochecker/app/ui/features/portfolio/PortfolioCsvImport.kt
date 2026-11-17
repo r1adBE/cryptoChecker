@@ -28,15 +28,15 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.BulkAddProgress
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.launch
 
 /**
@@ -44,8 +44,13 @@ import kotlinx.coroutines.launch
  * der Inhalt wird ohnehin geprüft (sonst «nicht lesbar»).
  */
 private val CSV_MIME_TYPES = arrayOf(
-    "text/csv", "text/comma-separated-values", "text/plain", "text/*",
-    "application/csv", "application/vnd.ms-excel", "application/octet-stream",
+    "text/csv",
+    "text/comma-separated-values",
+    "text/plain",
+    "text/*",
+    "application/csv",
+    "application/vnd.ms-excel",
+    "application/octet-stream",
 )
 
 /**
@@ -84,14 +89,20 @@ fun PortfolioCsvImportFlow(
             // Das ViewModel lebt länger als der Ablauf: keine Vorschau eines früheren Imports stehen lassen
             viewModel.reset()
             runCatchingCancellable { launcher.launch(CSV_MIME_TYPES) }
-                .onFailure { awaitingPick = false; onDismiss() }
+                .onFailure {
+                    awaitingPick = false
+                    onDismiss()
+                }
         } else if (csvImportOrphaned(picked, awaitingPick, viewModel.state.value)) {
             // Prozess beendet und neu gestartet: das neue ViewModel kennt den Ablauf nicht mehr — schliessen statt
             // unsichtbar offen zu bleiben (ein erneutes «CSV importieren» startet dann wieder)
             onDismiss()
         }
     }
-    val close = { viewModel.reset(); onDismiss() }
+    val close = {
+        viewModel.reset()
+        onDismiss()
+    }
     // Ergebnis des Speicherns als Zustand: übersteht ein Drehen, gemeldet mit den Rückrufen der aktuellen Komposition
     LaunchedEffect(state) {
         when (val s = state) {
@@ -115,7 +126,12 @@ fun PortfolioCsvImportFlow(
         CsvImportState.Loading, CsvImportState.Saving -> {
             val saving = s == CsvImportState.Saving
             val cancellable = canCancelSave(saving, progress)
-            val cancel = { if (cancellable) { viewModel.cancelLoad(); if (!saving) onDismiss() } }
+            val cancel = {
+                if (cancellable) {
+                    viewModel.cancelLoad()
+                    if (!saving) onDismiss()
+                }
+            }
             AlertDialog(
                 onDismissRequest = cancel,
                 properties = androidx.compose.ui.window.DialogProperties(dismissOnClickOutside = false),
@@ -124,7 +140,9 @@ fun PortfolioCsvImportFlow(
                 confirmButton = {},
                 dismissButton = if (cancellable) {
                     { TextButton(onClick = cancel) { Text(stringResource(R.string.action_cancel)) } }
-                } else null,
+                } else {
+                    null
+                },
             )
         }
         // Nicht lesbar, zu gross, Portfolio gesperrt (PortfolioStorageLock) oder Schreiben gescheitert: Grund statt «0 importiert»

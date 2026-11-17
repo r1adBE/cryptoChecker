@@ -9,10 +9,10 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportSkipReason
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.ui.features.portfolio.toEntity
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Zeilen, die das Speichern ablehnen würde, stehen schon in der Vorschau unter «übersprungen»

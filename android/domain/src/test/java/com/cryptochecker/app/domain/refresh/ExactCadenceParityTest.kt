@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckTrigger
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * «Pünktlich prüfen» im gewählten Intervall und Sperrfenster gegen doppelte Läufe (`testdata/parity/exact_cadence.json`):
@@ -40,8 +40,11 @@ class ExactCadenceParityTest {
             val c = raw.obj()
             val interval = BackgroundSchedule.exactIntervalMillis(c["minutes"].int())
             val armedFor = now + c["armedIn"].num()!!.toLong()
-            assertEquals(c["name"] as String, c["expected"] as Boolean,
-                BackgroundSchedule.needsArm(armedFor, now, intervalMillis = interval))
+            assertEquals(
+                c["name"] as String,
+                c["expected"] as Boolean,
+                BackgroundSchedule.needsArm(armedFor, now, intervalMillis = interval)
+            )
         }
     }
 
@@ -54,7 +57,8 @@ class ExactCadenceParityTest {
         for (raw in cases) {
             val c = raw.obj()
             val window = BackgroundSchedule.dedupeWindowMillis(
-                CheckTrigger.fromCode(c["trigger"] as String)!!, exactArmed = c["exactArmed"] as Boolean,
+                CheckTrigger.fromCode(c["trigger"] as String)!!,
+                exactArmed = c["exactArmed"] as Boolean,
                 intervalMillis = BackgroundSchedule.exactIntervalMillis(c["minutes"].int()),
             )
             assertEquals(c["name"] as String, c["expected"].num()!!.toLong(), window)
@@ -75,7 +79,8 @@ class ExactCadenceParityTest {
             val c = raw.obj()
             val trigger = CheckTrigger.fromCode(c["trigger"] as String)!!
             val window = BackgroundSchedule.dedupeWindowMillis(
-                trigger, exactArmed = c["exactArmed"] as Boolean,
+                trigger,
+                exactArmed = c["exactArmed"] as Boolean,
                 intervalMillis = BackgroundSchedule.exactIntervalMillis(c["minutes"].int()),
             )
             val last = c["age"].num()?.let { now - it.toLong() } ?: 0L

@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -32,25 +32,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.openAppNotificationSettings
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.MomentText
+import com.cryptochecker.resources.R
 
 @Composable
 internal fun AlarmCard(
@@ -91,19 +91,26 @@ internal fun AlarmCard(
     val statusLine: Pair<Int, Int>? =
         if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine
     val statusText = statusLine?.let {
-        if (it.first == R.string.exchange_retired_short) stringResource(it.first, retiredExchange.orEmpty())
-        else stringResource(it.first)
+        if (it.first == R.string.exchange_retired_short) {
+            stringResource(it.first, retiredExchange.orEmpty())
+        } else {
+            stringResource(it.first)
+        }
     }
     val title = AlarmTexts.describe(context, alarm) +
         if (alarm.condition.isPriceThreshold && alarm.convertCurrency == null) " $quoteAsset" else ""
-    val sentence = if (baseAsset.isEmpty()) null else alarmSentence(
-        context = context,
-        condition = alarm.condition,
-        symbol = baseAsset,
-        threshold = alarm.threshold,
-        currency = alarm.convertCurrency ?: quoteAsset,
-        windowHours = alarm.windowHours,
-    )
+    val sentence = if (baseAsset.isEmpty()) {
+        null
+    } else {
+        alarmSentence(
+            context = context,
+            condition = alarm.condition,
+            symbol = baseAsset,
+            threshold = alarm.threshold,
+            currency = alarm.convertCurrency ?: quoteAsset,
+            windowHours = alarm.windowHours,
+        )
+    }
     // TalkBack: eine Beschreibung mit allen Angaben (inkl. Ton, Ansage, Wiederholung); die
     // sichtbaren Texte unten bleiben dafür stumm, Menü und Schalter sind eigene Elemente
     val description = alarmA11yDescription(context, alarm, title, sentence) +
@@ -141,7 +148,10 @@ internal fun AlarmCard(
                             leadingIcon = {
                                 Icon(painterResource(R.drawable.ic_delete), null, tint = MaterialTheme.colorScheme.error)
                             },
-                            onClick = { menu = false; onDelete() }
+                            onClick = {
+                                menu = false
+                                onDelete()
+                            }
                         )
                     }
                 }
@@ -173,7 +183,10 @@ internal fun AlarmCard(
                                     .clearAndSetSemantics {
                                         contentDescription = statusText
                                         role = Role.Button
-                                        onClick(label = turnOnLabel) { openAppNotificationSettings(context); true }
+                                        onClick(label = turnOnLabel) {
+                                            openAppNotificationSettings(context)
+                                            true
+                                        }
                                     }
                                     .clickable { openAppNotificationSettings(context) }
                             } else {
@@ -181,8 +194,11 @@ internal fun AlarmCard(
                             }
                         )
                 ) {
-                    val lineColor = if (invalidThreshold) MaterialTheme.colorScheme.error
-                    else MaterialTheme.colorScheme.onSurfaceVariant
+                    val lineColor = if (invalidThreshold) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    }
                     Icon(
                         painterResource(statusLine.second),
                         contentDescription = null,
@@ -202,8 +218,11 @@ internal fun AlarmCard(
                     text = buildString {
                         append(
                             stringResource(
-                                if (alarm.repeating) R.string.alarm_repeating
-                                else R.string.alarm_once
+                                if (alarm.repeating) {
+                                    R.string.alarm_repeating
+                                } else {
+                                    R.string.alarm_once
+                                }
                             )
                         )
                         if (alarm.lastTriggeredAt > 0) {

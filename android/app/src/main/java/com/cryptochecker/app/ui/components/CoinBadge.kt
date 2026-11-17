@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.components
 
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import android.graphics.Bitmap
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -16,17 +15,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -35,10 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -170,8 +170,11 @@ fun CoinBadge(
         if (bitmap == null || shown.value < 1f) PlaceholderCircle(coin, size)
         if (bitmap != null) {
             val image = remember(bitmap) { bitmap.asImageBitmap() }
-            val backing = if (LocalDarkTheme.current) MaterialTheme.colorScheme.onSurface.copy(alpha = LOGO_BACKING_DARK_ALPHA)
-            else MaterialTheme.colorScheme.surfaceContainerHigh
+            val backing = if (LocalDarkTheme.current) {
+                MaterialTheme.colorScheme.onSurface.copy(alpha = LOGO_BACKING_DARK_ALPHA)
+            } else {
+                MaterialTheme.colorScheme.surfaceContainerHigh
+            }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -237,8 +240,11 @@ private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
         Icon(
             painterResource(R.drawable.ic_star),
             contentDescription = null,
-            tint = if (LocalRowHighlight.current.favorites) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.onSurface,
+            tint = if (LocalRowHighlight.current.favorites) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
             modifier = Modifier.fillMaxSize()
         )
     }

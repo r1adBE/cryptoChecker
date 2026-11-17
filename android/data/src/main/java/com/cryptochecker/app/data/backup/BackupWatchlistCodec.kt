@@ -6,8 +6,8 @@ import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
@@ -76,8 +76,11 @@ object BackupWatchlistCodec {
         val parsedWatches = root.getJSONArray("watches").let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
         val alarmsRead = AlarmJson.parse(root.getJSONArray("alarms"))
         val accepted = BackupRestoreLimits.accept(
-            parsedWatches, alarmsRead.items, BackupRestoreLimits::acceptsWatch,
-            watchId = { it.id }, alarmWatchId = { it.watchId },
+            parsedWatches,
+            alarmsRead.items,
+            BackupRestoreLimits::acceptsWatch,
+            watchId = { it.id },
+            alarmWatchId = { it.watchId },
         )
         val (cleanWatches, cleanAlarms) = WatchlistRestoreCleanup.clean(
             watches = accepted.watches,
@@ -91,7 +94,9 @@ object BackupWatchlistCodec {
         val limited = BackupRestoreLimits.limit(cleanWatches, cleanAlarms, watchId = { it.id }, alarmWatchId = { it.watchId })
         val named = limited.watches.map { it.copy(exchangeName = catalogueName(it.exchangeKey, it.exchangeName)) }
         return Watchlist(
-            named, limited.alarms, invalidAlarms = alarmsRead.invalid,
+            named,
+            limited.alarms,
+            invalidAlarms = alarmsRead.invalid,
             droppedPairs = accepted.droppedPairs + limited.droppedPairs,
             droppedAlarms = accepted.droppedAlarms + limited.droppedAlarms,
         )

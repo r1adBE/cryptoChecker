@@ -5,16 +5,17 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.CheckResult
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.work.BackgroundCheck
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -22,7 +23,6 @@ import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * «Letzte Prüfungen» ehrlich: Bremst die einzige Börse (429, pausiert), vermerkt
@@ -40,9 +40,13 @@ class BackgroundRunLogTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var backgroundCheck: BackgroundCheck
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var priceRefresher: PriceRefresher
+
     @Inject lateinit var refreshStats: RefreshStats
+
     @Inject lateinit var checkRuns: CheckRunStore
 
     @Before
@@ -66,7 +70,13 @@ class BackgroundRunLogTest {
     }
 
     private suspend fun run(deadlineAt: Long? = null): CheckResult {
-        backgroundCheck.run(CheckTrigger.WORKER, networkGuaranteed = true, ttsWaitMillis = 0, deadlineAt = deadlineAt, dedupeWindowMillis = 0)
+        backgroundCheck.run(
+            CheckTrigger.WORKER,
+            networkGuaranteed = true,
+            ttsWaitMillis = 0,
+            deadlineAt = deadlineAt,
+            dedupeWindowMillis = 0
+        )
         return checkRuns.runs.value.maxBy { it.at }.result
     }
 

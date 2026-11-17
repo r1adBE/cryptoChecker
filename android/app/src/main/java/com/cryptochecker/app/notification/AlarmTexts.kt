@@ -1,15 +1,15 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** Beschreibt eine Alarmbedingung als Text – für Liste und Benachrichtigung. */
 object AlarmTexts {
@@ -75,8 +75,11 @@ object AlarmTexts {
      * Funding «0,061 %», Open-Interest-Veränderung «+12,3 %».
      */
     fun derivativesValue(context: Context, condition: AlarmCondition, value: Double): String =
-        if (condition.isFunding) AlarmSentence.fundingPercent(value, locale(context))
-        else AlarmSentence.signedPercent(value, locale(context))
+        if (condition.isFunding) {
+            AlarmSentence.fundingPercent(value, locale(context))
+        } else {
+            AlarmSentence.signedPercent(value, locale(context))
+        }
 
     /** Sprache der App (kann von der Systemsprache abweichen). */
     private fun locale(context: Context): java.util.Locale =
@@ -84,8 +87,11 @@ object AlarmTexts {
 
     /** «30 Tage», «90 Tage», «1 Jahr» — Zeitraum des Alarms «Nahe am Hoch/Tief». */
     fun windowLabel(context: Context, days: Int): String =
-        if (days >= 365) context.getString(R.string.alarm_near_window_year)
-        else context.resources.getQuantityString(R.plurals.alarm_near_window_days, days, days)
+        if (days >= 365) {
+            context.getString(R.string.alarm_near_window_year)
+        } else {
+            context.resources.getQuantityString(R.plurals.alarm_near_window_days, days, days)
+        }
 
     /** «30-Tage-Hoch», «Jahrestief» … für Satz und Benachrichtigung. */
     fun extremeLabel(context: Context, high: Boolean, days: Int): String = context.getString(
@@ -123,7 +129,11 @@ object AlarmTexts {
         val distance = AlarmSentence.percent(roundDistance(fire.distancePercent), locale)
         return context.getString(
             if (high) R.string.alarm_near_notification_high else R.string.alarm_near_notification_low,
-            symbol, distance, label, PriceFormat.price(price), extreme,
+            symbol,
+            distance,
+            label,
+            PriceFormat.price(price),
+            extreme,
         )
     }
 

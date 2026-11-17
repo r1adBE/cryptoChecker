@@ -23,8 +23,11 @@ internal object AlarmUserChange {
      * eines gespeicherten Alarms sein — Mitteilung und Protokoll bleiben.
      */
     fun afterDelete(storedKept: Boolean): Cleanup =
-        if (storedKept) Cleanup(cancelNotification = false, removeLog = false)
-        else Cleanup(cancelNotification = true, removeLog = true)
+        if (storedKept) {
+            Cleanup(cancelNotification = false, removeLog = false)
+        } else {
+            Cleanup(cancelNotification = true, removeLog = true)
+        }
 
     /** Ein- oder ausgeschaltet bzw. bearbeitet ([enabled] null): Mitteilung weg, ausser beim Einschalten. */
     fun cancelsNotification(enabled: Boolean?, storedKept: Boolean): Boolean = !storedKept && enabled != true

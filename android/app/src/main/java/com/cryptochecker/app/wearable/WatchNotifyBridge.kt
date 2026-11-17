@@ -1,24 +1,24 @@
 package com.cryptochecker.app.wearable
 
-import com.cryptochecker.app.domain.wearable.WatchNotifyPolicy
 import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.domain.wearable.WatchNotifyPolicy
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * «Auf der Uhr zeigen» (nur Android, Inhaber 15.11.): Kurs-Mitteilungen, Alarme und Markt-Mitteilungen gehen als
@@ -73,11 +73,15 @@ class WatchNotifyBridge @Inject constructor(
             else -> WatchNotifyPolicy.Visibility.PUBLIC
         }
         val payload = WatchNotifyPolicy.payload(
-            visibility, texts(notification), notification.publicVersion?.let(::texts),
+            visibility,
+            texts(notification),
+            notification.publicVersion?.let(::texts),
             alarm = notification.category == NotificationCompat.CATEGORY_ALARM,
         ) ?: return
-        send(JSONObject().put(KEY_OP, OP_SHOW).put(KEY_ID, id).put(KEY_TITLE, payload.title)
-            .put(KEY_TEXT, payload.text).put(KEY_ALARM, payload.alarm))
+        send(
+            JSONObject().put(KEY_OP, OP_SHOW).put(KEY_ID, id).put(KEY_TITLE, payload.title)
+                .put(KEY_TEXT, payload.text).put(KEY_ALARM, payload.alarm)
+        )
     }
 
     private fun texts(notification: Notification): Pair<String?, String?> {
@@ -103,7 +107,8 @@ class WatchNotifyBridge @Inject constructor(
                 val nodes = Tasks.await(
                     Wearable.getCapabilityClient(context)
                         .getCapability(PhoneWatchSync.CAPABILITY, CapabilityClient.FILTER_REACHABLE),
-                    TIMEOUT_S, TimeUnit.SECONDS
+                    TIMEOUT_S,
+                    TimeUnit.SECONDS
                 ).nodes
                 val client = Wearable.getMessageClient(context)
                 var delivered = false

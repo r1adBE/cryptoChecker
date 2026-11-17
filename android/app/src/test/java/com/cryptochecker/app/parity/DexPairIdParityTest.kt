@@ -5,8 +5,8 @@ import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.exchange.DexScreener
-import org.junit.Assert.assertEquals
 import okhttp3.HttpUrl.Companion.toHttpUrl
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail

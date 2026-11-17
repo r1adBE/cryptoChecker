@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.util.DomainLog
 
 /** Nimmt beobachtete Alarm-Prüfungen entgegen ([RefreshEffects.checkAlarms]); darf nie werfen. */
@@ -80,7 +80,8 @@ class AlarmLogCollector(private val now: Long) {
                         evaluator.shouldTrigger(alarm, price, watch.previousPrice, now, cooldownMinutes)
                 }
                 note(
-                    watch, alarm,
+                    watch,
+                    alarm,
                     AlarmLogTrace(lowLiquidity = lowLiquidity, markPrice = markFallback, stale = stale, due = due),
                 )
             }

@@ -7,13 +7,13 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.io.File
+import kotlin.math.abs
+import kotlin.math.max
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import kotlin.math.abs
-import kotlin.math.max
 
 /**
  * Funding/Open Interest der Börsen mit eigenen Futures-Daten: Antworten im Format der Börsen aus
@@ -41,7 +41,9 @@ class FuturesParsersTest {
         "hyperliquid" -> FuturesParsers.hyperliquid(b["body"] as String, b["coin"] as String)
         "deribit" -> FuturesParsers.deribit(b["body"] as String)
         "binanceCoinM" -> FuturesParsers.binanceCoinM(
-            b["premium"] as String, b["openInterest"] as String?, b["symbol"] as String,
+            b["premium"] as String,
+            b["openInterest"] as String?,
+            b["symbol"] as String,
             (b["exchangeInfo"] as String?)?.let { FuturesParsers.binanceCoinMContractSizes(it) },
         )
         else -> throw IllegalArgumentException("unknown parser $parser")
@@ -86,11 +88,16 @@ class FuturesParsersTest {
         val f = fixture()["intervals"].obj()
         val binance = FuturesParsers.binanceFundingInfo(f["binanceFundingInfo"] as String)
         for (c in f["binance"].list().map { it.obj() }) {
-            assertEquals("binance ${c["symbol"]}", c["expected"].num()?.toInt(), FuturesParsers.binanceIntervalHours(binance, c["symbol"] as String))
+            assertEquals(
+                "binance ${c["symbol"]}",
+                c["expected"].num()?.toInt(),
+                FuturesParsers.binanceIntervalHours(binance, c["symbol"] as String)
+            )
         }
         for (c in f["okx"].list().map { it.obj() }) {
             assertEquals(
-                "okx ${c["name"]}", c["expected"].num()?.toInt(),
+                "okx ${c["name"]}",
+                c["expected"].num()?.toInt(),
                 FuturesParsers.okxIntervalHours(c["fundingTime"].num()?.toLong(), c["nextFundingTime"].num()?.toLong()),
             )
         }
@@ -104,7 +111,12 @@ class FuturesParsersTest {
     @Test
     fun notesMatchFixtures() {
         for (c in fixture()["notes"].list().map { it.obj() }) {
-            val note = FuturesSources.note(c["perpetual"] as Boolean, c["exchangeKey"] as String, c["source"] as String, c["pairId"] as String?)
+            val note = FuturesSources.note(
+                c["perpetual"] as Boolean,
+                c["exchangeKey"] as String,
+                c["source"] as String,
+                c["pairId"] as String?
+            )
             assertEquals("note ${c["exchangeKey"]} ${c["pairId"]} / ${c["source"]}", c["expected"], note?.name)
         }
     }

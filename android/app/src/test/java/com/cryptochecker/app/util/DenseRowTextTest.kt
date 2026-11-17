@@ -78,7 +78,8 @@ class DenseRowTextTest {
         assertTrue(cases.isNotEmpty())
         for (c in cases) {
             assertEquals(
-                c["name"] as String, c["expected"] as Boolean,
+                c["name"] as String,
+                c["expected"] as Boolean,
                 DenseRowText.metaWraps(
                     available = (c["available"] as Double?)?.toFloat(),
                     lead = (c["lead"] as Double).toFloat(),

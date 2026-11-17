@@ -93,7 +93,9 @@ internal fun PairName(
         val fit = PairRestFit.choose(room, restM.maxIntrinsicWidth(Constraints.Infinity), rest.isNotEmpty(), contractWidth)
         val baseMax = if (fit == PairRestFit.CONTRACT_SHRINK_BASE) {
             (constraints.maxWidth - (contractWidth ?: 0)).coerceAtLeast(0)
-        } else constraints.maxWidth
+        } else {
+            constraints.maxWidth
+        }
         val baseP = baseM.measure(loose.copy(maxWidth = baseMax))
         val restRoom = (constraints.maxWidth - baseP.width).coerceAtLeast(0)
         val restP = when (fit) {

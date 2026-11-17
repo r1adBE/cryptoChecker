@@ -1,8 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.market.CryptoPulse
@@ -19,7 +17,9 @@ import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Texte des Widgets «Was gerade auffällt» — dieselben Schlüssel wie die Karte im Markt-Tab

@@ -28,6 +28,7 @@ object BackupRestoreLimits {
     const val MAX_EXCHANGE_NAME = 60
     const val MAX_ASSET = 30
     const val MAX_PAIR_ID = 128
+
     /** Gleiche Grenzen wie im Rest der App ([WatchlistLimits]), hier nur weitergereicht. */
     const val MAX_PAIRS = WatchlistLimits.MAX_PAIRS
     const val MAX_ALARMS_PER_PAIR = WatchlistLimits.MAX_ALARMS_PER_PAIR
@@ -74,7 +75,11 @@ object BackupRestoreLimits {
      * Paar kein gültiges verdrängt). Alarme ohne Paar in der Datei zählen nicht: die fielen schon immer weg.
      */
     fun <W, A> accept(
-        watches: List<W>, alarms: List<A>, accepts: (W) -> Boolean, watchId: (W) -> Long, alarmWatchId: (A) -> Long,
+        watches: List<W>,
+        alarms: List<A>,
+        accepts: (W) -> Boolean,
+        watchId: (W) -> Long,
+        alarmWatchId: (A) -> Long,
     ): Limited<W, A> {
         val (kept, rejected) = watches.partition(accepts)
         if (rejected.isEmpty()) return Limited(watches, alarms)

@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.mirror
 import com.cryptochecker.app.domain.mirror.DataMirror
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /** Gemeinsame Testfälle `data_mirror.json` (iOS: `DataMirrorTests.swift`). */
 class DataMirrorParityTest {
@@ -44,7 +44,11 @@ class DataMirrorParityTest {
             @Suppress("UNCHECKED_CAST")
             val e = c["expected"] as Map<String, Any?>?
             val expected = e?.let {
-                DataMirror.AltSeasonValue((it["outperformers"] as Number).toInt(), (it["total"] as Number).toInt(), it["provider"] as String?)
+                DataMirror.AltSeasonValue(
+                    (it["outperformers"] as Number).toInt(),
+                    (it["total"] as Number).toInt(),
+                    it["provider"] as String?
+                )
             }
             assertEquals("altSeason: $c", expected, DataMirror.parseAltSeason(c["body"] as String?))
         }

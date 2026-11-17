@@ -3,10 +3,10 @@ package com.cryptochecker.app.data.local
 import androidx.room.migration.Migration
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.parity.ParityJson
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Regel für jede Datenbank-Version: Zur aktuellen Version N gehört das Golden-Schema `app/schemas/<Datenbank>/N.json`

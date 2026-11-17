@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 
 /**
  * Zwischenspeicher eines beobachteten xpub/ypub/zpub: abgeleitete Adressen je Kette (0 = Empfang, 1 = Wechselgeld,
@@ -167,16 +167,34 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
             val ask = known.filter { it !in empty }
             when (mode) {
                 Mode.FULL -> ChainState(
-                    ArrayDeque(), java.util.TreeSet(), java.util.TreeSet(),
-                    gap = true, nextIndex = 0, unusedRun = 0, lastUsedBefore = -1, lastQueried = -1,
+                    ArrayDeque(),
+                    java.util.TreeSet(),
+                    java.util.TreeSet(),
+                    gap = true,
+                    nextIndex = 0,
+                    unusedRun = 0,
+                    lastUsedBefore = -1,
+                    lastQueried = -1,
                 )
                 Mode.QUICK -> ChainState(
-                    ArrayDeque(ask + (last + 1..last + LOOKAHEAD)), java.util.TreeSet(known), empty,
-                    gap = false, nextIndex = 0, unusedRun = 0, lastUsedBefore = last, lastQueried = -1,
+                    ArrayDeque(ask + (last + 1..last + LOOKAHEAD)),
+                    java.util.TreeSet(known),
+                    empty,
+                    gap = false,
+                    nextIndex = 0,
+                    unusedRun = 0,
+                    lastUsedBefore = last,
+                    lastQueried = -1,
                 )
                 Mode.BACKGROUND -> ChainState(
-                    ArrayDeque(ask + (last + 1..last + BACKGROUND_LOOKAHEAD)), java.util.TreeSet(known), empty,
-                    gap = false, nextIndex = 0, unusedRun = 0, lastUsedBefore = last, lastQueried = -1,
+                    ArrayDeque(ask + (last + 1..last + BACKGROUND_LOOKAHEAD)),
+                    java.util.TreeSet(known),
+                    empty,
+                    gap = false,
+                    nextIndex = 0,
+                    unusedRun = 0,
+                    lastUsedBefore = last,
+                    lastQueried = -1,
                 )
             }
         }
@@ -188,7 +206,10 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
         while (current < states.size) {
             val s = states[current]
             if (s.queue.isNotEmpty()) {
-                return Target(current, s.queue.removeFirst()).also { pending = it; count() }
+                return Target(current, s.queue.removeFirst()).also {
+                    pending = it
+                    count()
+                }
             }
             if (!s.gap && mode == Mode.QUICK) {
                 // Vorausblick fertig: neue benutzte dahinter → weiter bis GAP unbenutzte in Folge
@@ -200,7 +221,10 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
                 }
             }
             if (s.gap && s.unusedRun < GAP) {
-                return Target(current, s.nextIndex).also { pending = it; count() }
+                return Target(current, s.nextIndex).also {
+                    pending = it
+                    count()
+                }
             }
             current++
         }
@@ -247,17 +271,22 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
     companion object {
         /** Gap-Limit (BIP44). */
         const val GAP = 20
+
         /** QUICK: so viele Adressen nach der letzten benutzten je Kette — das volle Gap-Limit (BIP44). */
         const val LOOKAHEAD = GAP
+
         /**
          * BACKGROUND: so viele Adressen nach der letzten benutzten je Kette (Empfang und Wechselgeld) — fängt das
          * Wechselgeld einer Ausgabe auf der nächsten neuen Adresse, kostet je xpub nur vier Anfragen mehr.
          */
         const val BACKGROUND_LOOKAHEAD = 2
+
         /** Vollständige Suche höchstens einmal täglich. */
         const val FULL_SCAN_MILLIS = 24 * 60 * 60_000L
+
         /** Grenze je Aktualisierung (schont die Anbieter). */
         const val MAX_REQUESTS = 400
+
         /** Gespeicherter Fehler nach [TooMany] (sprachunabhängig, Anzeige «Zu viele Adressen»). Wie iOS. */
         const val TOO_MANY_MARKER = "XPUB_TOO_MANY"
 

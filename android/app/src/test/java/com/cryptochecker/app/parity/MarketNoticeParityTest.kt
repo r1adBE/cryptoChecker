@@ -1,11 +1,11 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.gas.GasAlertLogic
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
+import com.cryptochecker.app.gas.GasAlertLogic
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -25,7 +25,8 @@ class MarketNoticeParityTest {
     fun boundChanged() {
         cases("boundChanged").forEach { c ->
             assertEquals(
-                c["name"] as String, c["changed"],
+                c["name"] as String,
+                c["changed"],
                 MarketNoticeGate.boundChanged(c["stored"].num()?.toInt(), c["current"].num()!!.toInt()),
             )
         }
@@ -35,9 +36,12 @@ class MarketNoticeParityTest {
     fun indicatorWasCrossed() {
         cases("indicatorWasCrossed").forEach { c ->
             assertEquals(
-                c["name"] as String, c["wasCrossed"],
+                c["name"] as String,
+                c["wasCrossed"],
                 IndicatorAlertRules.wasCrossed(
-                    c["storedCrossed"] as Boolean, c["storedThreshold"].num()?.toInt(), c["current"].num()!!.toInt(),
+                    c["storedCrossed"] as Boolean,
+                    c["storedThreshold"].num()?.toInt(),
+                    c["current"].num()!!.toInt(),
                 ),
             )
         }
@@ -47,7 +51,8 @@ class MarketNoticeParityTest {
     fun gasArmedFor() {
         cases("gasArmedFor").forEach { c ->
             assertEquals(
-                c["name"] as String, c["armed"],
+                c["name"] as String,
+                c["armed"],
                 GasAlertLogic.armedFor(c["storedArmed"] as Boolean, c["storedThreshold"].num(), c["threshold"].num()!!),
             )
         }
@@ -57,7 +62,8 @@ class MarketNoticeParityTest {
     fun depegArmedFor() {
         cases("depegArmedFor").forEach { c ->
             assertEquals(
-                c["name"] as String, c["armed"],
+                c["name"] as String,
+                c["armed"],
                 DepegAlarm.armedFor(c["storedArmed"] as Boolean, c["storedTenths"].num()?.toInt(), c["tenths"].num()!!.toInt()),
             )
         }

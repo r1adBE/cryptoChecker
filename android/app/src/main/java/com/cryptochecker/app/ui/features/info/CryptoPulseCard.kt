@@ -22,7 +22,6 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PulseAlts
@@ -31,12 +30,13 @@ import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ExpandToggleButton
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * «Was gerade auffällt», die eine Heldenkarte oben im Markt-Tab (nur diese Karte
@@ -70,9 +70,13 @@ internal fun CryptoPulseCard(state: LoadState<PulseReport>, plain: PlainSummary?
                 .fillMaxWidth()
                 .semantics { isTraversalGroup = true }
                 .then(
-                    if (tint != null) Modifier.background(
-                        Brush.verticalGradient(listOf(tint.copy(alpha = 0.08f), Color.Transparent))
-                    ) else Modifier
+                    if (tint != null) {
+                        Modifier.background(
+                            Brush.verticalGradient(listOf(tint.copy(alpha = 0.08f), Color.Transparent))
+                        )
+                    } else {
+                        Modifier
+                    }
                 )
                 .sizeAnimation(animate)
                 .padding(Spacing.lg)
@@ -84,8 +88,11 @@ internal fun CryptoPulseCard(state: LoadState<PulseReport>, plain: PlainSummary?
                     Modifier
                         .weight(1f, fill = false)
                         .then(
-                            if (state is LoadState.Loaded) Modifier.clearAndSetSemantics { }
-                            else Modifier.semantics { heading() }
+                            if (state is LoadState.Loaded) {
+                                Modifier.clearAndSetSemantics { }
+                            } else {
+                                Modifier.semantics { heading() }
+                            }
                         )
                 )
                 MarketInfoButton(MarketInfoTopic.PULSE, Modifier.padding(start = 2.dp))

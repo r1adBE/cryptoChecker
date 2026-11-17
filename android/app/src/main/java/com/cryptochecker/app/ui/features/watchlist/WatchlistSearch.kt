@@ -46,12 +46,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.LocalCoinSearchNameSource
 import com.cryptochecker.app.ui.features.explorer.NameMatch
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.resources.R
 
 /** Gemeinsame Höhe von Statuszeile und Suchfeld, damit nichts springt; auch Kreis von «+» und Lupe (wie iOS). */
 internal val SearchRowHeight = 34.dp

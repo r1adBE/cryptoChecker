@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.remote.util
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Wie [runCatching], schluckt aber keinen Abbruch: Ist die eigene Coroutine abgebrochen (Bildschirm

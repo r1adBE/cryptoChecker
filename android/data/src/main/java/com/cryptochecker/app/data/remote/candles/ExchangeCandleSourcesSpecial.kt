@@ -3,8 +3,8 @@
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONArray
 import org.json.JSONObject
@@ -29,12 +29,15 @@ object UpbitCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val url = "https://api.upbit.com/v1/candles/$path?market=$id"
-        val first = http.get("$url&count=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: return null
+        val first =
+            http.get("$url&count=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: return null
         var all = first
         if (limit > PAGE && first.size >= PAGE) {
             val oldest = first.minOf { it.openTime }
             val to = CandleTime.formatIso(oldest).substring(0, 19) + "Z"
-            val older = http.get("$url&count=${(limit - first.size).coerceIn(1, PAGE)}&to=$to")?.let { runCatchingCancellable { parse(it) }.getOrNull() }
+            val older = http.get("$url&count=${(limit - first.size).coerceIn(1, PAGE)}&to=$to")?.let {
+                runCatchingCancellable { parse(it) }.getOrNull()
+            }
             if (older != null) all = older + first
         }
         return CandleParse.finish(all, limit)
@@ -45,10 +48,15 @@ object UpbitCandles : ExchangeCandleSource {
         return (0 until a.length()).mapNotNull { i ->
             val o = a.optJSONObject(i) ?: return@mapNotNull null
             val time = CandleTime.parseIso(o.optString("candle_date_time_utc")) ?: return@mapNotNull null
-            HourCandle(openTime = time, open = CandleParse.num(o.opt("opening_price")), high = CandleParse.num(o.opt("high_price")),
-                low = CandleParse.num(o.opt("low_price")), close = CandleParse.num(o.opt("trade_price")),
+            HourCandle(
+                openTime = time,
+                open = CandleParse.num(o.opt("opening_price")),
+                high = CandleParse.num(o.opt("high_price")),
+                low = CandleParse.num(o.opt("low_price")),
+                close = CandleParse.num(o.opt("trade_price")),
                 volume = CandleParse.num(o.opt("candle_acc_trade_volume")),
-                quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("candle_acc_trade_price"))))
+                quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("candle_acc_trade_price")))
+            )
         }
     }
 }
@@ -84,9 +92,15 @@ object WooCandles : ExchangeCandleSource {
         val rows = root.optJSONObject("data")?.optJSONArray("rows") ?: return null
         return (0 until rows.length()).mapNotNull { i ->
             val o = rows.optJSONObject(i) ?: return@mapNotNull null
-            HourCandle(openTime = CandleParse.num(o.opt("startTimestamp")).toLong(), open = CandleParse.num(o.opt("open")),
-                high = CandleParse.num(o.opt("high")), low = CandleParse.num(o.opt("low")), close = CandleParse.num(o.opt("close")),
-                volume = CandleParse.num(o.opt("volume")), quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("amount"))))
+            HourCandle(
+                openTime = CandleParse.num(o.opt("startTimestamp")).toLong(),
+                open = CandleParse.num(o.opt("open")),
+                high = CandleParse.num(o.opt("high")),
+                low = CandleParse.num(o.opt("low")),
+                close = CandleParse.num(o.opt("close")),
+                volume = CandleParse.num(o.opt("volume")),
+                quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("amount")))
+            )
         }
     }
 }
@@ -116,8 +130,15 @@ object PoloniexCandles : ExchangeCandleSource {
         val a = JSONArray(json)
         (0 until a.length()).mapNotNull { i ->
             val k = a.optJSONArray(i) ?: return@mapNotNull null
-            HourCandle(openTime = k.numAt(12).toLong(), open = k.numAt(2), high = k.numAt(1), low = k.numAt(0),
-                close = k.numAt(3), volume = k.numAt(5), quoteVolume = quoteVolume(k.numAt(4)))
+            HourCandle(
+                openTime = k.numAt(12).toLong(),
+                open = k.numAt(2),
+                high = k.numAt(1),
+                low = k.numAt(0),
+                close = k.numAt(3),
+                volume = k.numAt(5),
+                quoteVolume = quoteVolume(k.numAt(4))
+            )
         }
     }
 }
@@ -152,11 +173,18 @@ object DeribitCandles : ExchangeCandleSource {
         val r = JSONObject(json).optJSONObject("result") ?: return null
         if (r.optString("status") != "ok") return null
         val ticks = r.optJSONArray("ticks") ?: return null
-        fun col(name: String, i: Int): Double = r.optJSONArray(name)?.let { if (i < it.length()) CandleParse.num(it.opt(i)) else Double.NaN } ?: Double.NaN
+        fun col(name: String, i: Int): Double =
+            r.optJSONArray(name)?.let { if (i < it.length()) CandleParse.num(it.opt(i)) else Double.NaN } ?: Double.NaN
         return (0 until ticks.length()).map { i ->
-            HourCandle(openTime = CandleParse.num(ticks.opt(i)).toLong(), open = col("open", i), high = col("high", i),
-                low = col("low", i), close = col("close", i), volume = col("volume", i),
-                quoteVolume = CandleParse.quoteVolume(col("cost", i)))
+            HourCandle(
+                openTime = CandleParse.num(ticks.opt(i)).toLong(),
+                open = col("open", i),
+                high = col("high", i),
+                low = col("low", i),
+                close = col("close", i),
+                volume = col("volume", i),
+                quoteVolume = CandleParse.quoteVolume(col("cost", i))
+            )
         }
     }
 }
@@ -185,9 +213,14 @@ object HyperliquidCandles : ExchangeCandleSource {
         val a = JSONArray(json)
         return (0 until a.length()).mapNotNull { i ->
             val o = a.optJSONObject(i) ?: return@mapNotNull null
-            HourCandle(openTime = CandleParse.num(o.opt("t")).toLong(), open = CandleParse.num(o.opt("o")),
-                high = CandleParse.num(o.opt("h")), low = CandleParse.num(o.opt("l")), close = CandleParse.num(o.opt("c")),
-                volume = CandleParse.num(o.opt("v")))
+            HourCandle(
+                openTime = CandleParse.num(o.opt("t")).toLong(),
+                open = CandleParse.num(o.opt("o")),
+                high = CandleParse.num(o.opt("h")),
+                low = CandleParse.num(o.opt("l")),
+                close = CandleParse.num(o.opt("c")),
+                volume = CandleParse.num(o.opt("v"))
+            )
         }
     }
 }
@@ -227,9 +260,15 @@ object OneTradingCandles : ExchangeCandleSource {
             val time = CandleTime.parseIso(o.optString("start_time")) ?: return@mapNotNull null
             val close = CandleParse.num(o.opt("close"))
             val quote = CandleParse.num(o.opt("volume"))
-            HourCandle(openTime = time, open = CandleParse.num(o.opt("open")), high = CandleParse.num(o.opt("high")),
-                low = CandleParse.num(o.opt("low")), close = close, volume = CandleTime.baseFromQuote(quote, close),
-                quoteVolume = CandleParse.quoteVolume(quote))
+            HourCandle(
+                openTime = time,
+                open = CandleParse.num(o.opt("open")),
+                high = CandleParse.num(o.opt("high")),
+                low = CandleParse.num(o.opt("low")),
+                close = close,
+                volume = CandleTime.baseFromQuote(quote, close),
+                quoteVolume = CandleParse.quoteVolume(quote)
+            )
         }
     }
 }

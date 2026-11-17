@@ -2,13 +2,13 @@ package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.performance.PerformanceTiming.TRANSACTIONS
 import com.cryptochecker.app.performance.PortfolioPerformanceData
+import java.math.BigDecimal
+import java.time.ZoneOffset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.ZoneOffset
 
 /**
  * Schnelle Wege liefern dieselben Zahlen wie die Referenz-Wege:
@@ -34,7 +34,9 @@ class PortfolioLinearPathsTest {
         trade(4, "ETH", PortfolioTxType.TRANSFER, "1", null, T0 + DAY, fee = "5", unit = PortfolioFeeUnit.QUOTE),
         trade(5, "BNB", PortfolioTxType.BUY, "1", "300", T0),
         trade(6, "SOL", PortfolioTxType.BUY, "10", "10", T0 + DAY).copy(
-            feeCoin = "BNB", feeCoinAmount = BigDecimal("0.1"), feeCoinPrice = BigDecimal("300"),
+            feeCoin = "BNB",
+            feeCoinAmount = BigDecimal("0.1"),
+            feeCoinPrice = BigDecimal("300"),
         ),
     )
 
@@ -42,7 +44,11 @@ class PortfolioLinearPathsTest {
     fun averageWithoutPartsSameNumbers() {
         val with = PortfolioCalculator.summarize(trades, prices, CostMethod.AVERAGE, PortfolioPerformanceData::priceAtDouble)
         val without = PortfolioCalculator.summarize(
-            trades, prices, CostMethod.AVERAGE, PortfolioPerformanceData::priceAtDouble, withParts = false,
+            trades,
+            prices,
+            CostMethod.AVERAGE,
+            PortfolioPerformanceData::priceAtDouble,
+            withParts = false,
         )
         assertTrue("Testdaten führen Herkunftsteile", with.open.any { it.pricedCostParts.isNotEmpty() })
         assertTrue(without.open.all { it.pricedCostParts.isEmpty() })
@@ -171,8 +177,14 @@ class PortfolioLinearPathsTest {
             fee: String? = null,
             unit: PortfolioFeeUnit? = null,
         ) = PortfolioTrade(
-            id = id, coin = coin, type = type, amount = BigDecimal(amount), priceUsdt = price?.let { BigDecimal(it) },
-            time = time, fee = fee?.let { BigDecimal(it) }, feeUnit = unit,
+            id = id,
+            coin = coin,
+            type = type,
+            amount = BigDecimal(amount),
+            priceUsdt = price?.let { BigDecimal(it) },
+            time = time,
+            fee = fee?.let { BigDecimal(it) },
+            feeUnit = unit,
         )
     }
 }

@@ -3,12 +3,12 @@ package com.cryptochecker.marketdata.util
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.ReferenceSource
 import com.cryptochecker.marketdata.model.Ticker
-import org.json.JSONArray
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
+import org.json.JSONArray
 
 /**
  * Referenzkurse der Zentralbanken neben der EZB ([EcbRates]), frei und ohne Schlüssel. iOS: `ReferenceRates.swift`,

@@ -18,7 +18,10 @@ data class PortfolioWidgetEntry(
 
 /** Welche Buchungen das Listen-Widget unter den Coins zeigt (Wahl beim Einrichten; voreingestellt [OFF]). */
 enum class PortfolioWidgetEntryFilter(val key: String) {
-    OFF("off"), BUYS("buys"), SELLS("sells"), BOTH("both");
+    OFF("off"),
+    BUYS("buys"),
+    SELLS("sells"),
+    BOTH("both");
 
     /** Gehört [entry] zu dieser Wahl? Zugänge (Kauf, Einzahlung, Belohnung, Tausch hinein) = Käufe, Abgänge = Verkäufe. */
     fun accepts(entry: PortfolioWidgetEntry): Boolean = when (this) {

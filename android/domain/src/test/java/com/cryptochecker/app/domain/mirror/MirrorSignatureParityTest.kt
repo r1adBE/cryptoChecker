@@ -1,6 +1,8 @@
 package com.cryptochecker.app.domain.mirror
 import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.mirror.MirrorManifest
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -8,8 +10,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
 
 /** Gemeinsame Testfälle `mirror_signature.json` (iOS: `MirrorSignatureTests.swift`), signiert mit einem Test-Schlüssel. */
 class MirrorSignatureParityTest {

@@ -1,15 +1,15 @@
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.KeyedMutex
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.DayReferenceCache
-import com.cryptochecker.app.domain.BoundedCache
-import com.cryptochecker.app.domain.KeyedMutex
-import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
 
 /**
  * Reine Regeln für die Stundenkerzen der eigenen Börse (Mini-Chart und 24-h-Bezug), wie

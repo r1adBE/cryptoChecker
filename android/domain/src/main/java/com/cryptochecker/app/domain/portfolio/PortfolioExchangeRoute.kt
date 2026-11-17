@@ -263,7 +263,9 @@ object PortfolioExchangeRoute {
         val q = quote.uppercase()
         if (q !in QUOTES) return null
         val direct = q == "USDT" || q == "USD"
-        val sorted = if (direct) emptyList() else {
+        val sorted = if (direct) {
+            emptyList()
+        } else {
             usdToByDay.orEmpty().filter { it.value > 0.0 && it.value.isFinite() }.entries
                 .sortedBy { it.key }.map { it.key to it.value }
                 .takeIf { it.isNotEmpty() } ?: return null
@@ -301,7 +303,11 @@ object PortfolioExchangeRoute {
         closes.putAll(own.closes)
         val ranges = HashMap<Long, PortfolioDayRange>()
         binance.ranges.forEach { (day, r) ->
-            if (day < first) PortfolioDayRange(r.open * factor, r.high * factor, r.low * factor).takeIf { it.valid }?.let { ranges[day] = it }
+            if (day <
+                first
+            ) {
+                PortfolioDayRange(r.open * factor, r.high * factor, r.low * factor).takeIf { it.valid }?.let { ranges[day] = it }
+            }
         }
         ranges.putAll(own.ranges)
         return StitchedDaily(PortfolioCoinDaily(closes, ranges), first)

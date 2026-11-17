@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,15 +20,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.wearable.PhoneWatchFeed
 import com.cryptochecker.app.wearable.PhoneWatchSync
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchSettings
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -43,9 +43,15 @@ internal class WatchSettingsViewModel @Inject constructor(private val sync: Phon
         sync.refreshFromWatch()
     }
 
-    fun setMode(mode: WatchSettings.Mode) { sync.setMode(mode) }
-    fun toggle(coin: String) { sync.toggleOwn(coin) }
-    fun setSource(source: WatchSettings.Source) { sync.setSource(source) }
+    fun setMode(mode: WatchSettings.Mode) {
+        sync.setMode(mode)
+    }
+    fun toggle(coin: String) {
+        sync.toggleOwn(coin)
+    }
+    fun setSource(source: WatchSettings.Source) {
+        sync.setSource(source)
+    }
 }
 
 /**
@@ -126,7 +132,9 @@ internal fun WatchSettingsCard(viewModel: WatchSettingsViewModel = hiltViewModel
 internal class WatchPortfolioViewModel @Inject constructor(private val feed: PhoneWatchFeed) : ViewModel() {
     val on = feed.portfolioOnWatch
 
-    fun set(on: Boolean) { feed.setPortfolioOnWatch(on) }
+    fun set(on: Boolean) {
+        feed.setPortfolioOnWatch(on)
+    }
 }
 
 /**

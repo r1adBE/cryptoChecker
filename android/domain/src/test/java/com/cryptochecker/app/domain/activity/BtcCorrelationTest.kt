@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.activity
 
+import kotlin.math.exp
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.math.exp
 
 /** Swift-Spiegel: BtcCorrelationTests.swift (gleiche Reihen und Erwartungen). */
 class BtcCorrelationTest {

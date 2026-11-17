@@ -17,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CostGapKind
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
@@ -25,6 +24,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 
 /**
@@ -38,8 +38,15 @@ import java.math.BigDecimal
 internal fun TxCostSuggestion(state: TxFormState, coin: String, coinValid: Boolean, amount: BigDecimal?, viewModel: PortfolioViewModel) {
     if (!state.isEdit || state.initial.priceUsdt != null || state.priceText.isNotBlank() || !coinValid) return
     val template = rememberTaxTemplate(viewModel)
-    val probe = PortfolioTrade(state.initial.id, coin, state.type, amount ?: BigDecimal.ONE, null, state.time,
-        interestIncome = state.interest)
+    val probe = PortfolioTrade(
+        state.initial.id,
+        coin,
+        state.type,
+        amount ?: BigDecimal.ONE,
+        null,
+        state.time,
+        interestIncome = state.interest
+    )
     if (!PortfolioCostGaps.isGap(probe)) return
     val kind = PortfolioCostGaps.kind(probe, template)
     if (kind != CostGapKind.EDITABLE) {
@@ -60,7 +67,8 @@ internal fun TxCostSuggestion(state: TxFormState, coin: String, coinValid: Boole
         val value = amount?.let { PortfolioCostGaps.suggestion(probe, price) }
         Text(
             stringResource(
-                R.string.cost_gap_suggestion, day,
+                R.string.cost_gap_suggestion,
+                day,
                 maskAmount(value?.let { PortfolioFormat.usdt(it.toDouble()) } ?: PortfolioFormat.price(price.toDouble())),
             ),
             style = MaterialTheme.typography.body,

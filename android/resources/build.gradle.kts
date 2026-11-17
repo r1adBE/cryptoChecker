@@ -23,8 +23,14 @@ android {
         checkReleaseBuilds = true
         // Wie in :app
         disable += setOf(
-            "GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion", "OldTargetApi", "Typos",
-            "TypographyDashes", "TypographyFractions", "UnusedTranslation",
+            "GradleDependency",
+            "NewerVersionAvailable",
+            "AndroidGradlePluginVersion",
+            "OldTargetApi",
+            "Typos",
+            "TypographyDashes",
+            "TypographyFractions",
+            "UnusedTranslation",
         )
     }
 }

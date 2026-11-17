@@ -47,7 +47,9 @@ fun observeReduceMotion(): Boolean {
         }
         val registered = runCatching {
             resolver.registerContentObserver(
-                Settings.Global.getUriFor(Settings.Global.ANIMATOR_DURATION_SCALE), false, observer
+                Settings.Global.getUriFor(Settings.Global.ANIMATOR_DURATION_SCALE),
+                false,
+                observer
             )
         }.isSuccess
         // Zwischen erstem Lesen und Anmelden geändert? Einmal nachlesen.

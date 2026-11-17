@@ -10,9 +10,9 @@ import android.os.ParcelFileDescriptor
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
-import timber.log.Timber
 import java.io.File
 import java.io.IOException
+import timber.log.Timber
 
 /**
  * Systemsicherung der Hauptdatenbank (Merkliste, Alarme, Gruppen, Notizen) trotz Verschlüsselung.
@@ -57,8 +57,11 @@ class SystemBackupAgent : BackupAgent() {
             }
             // Portfolio nur mit dem Schalter; ohne Kopie ebenso abbrechen (die vorige Sicherung mit Portfolio bleibt)
             try {
-                if (PortfolioBackupMirror.isEnabled(this)) PortfolioBackupMirror.writeForBackup(this)
-                else PortfolioBackupMirror.deleteNow(this)
+                if (PortfolioBackupMirror.isEnabled(this)) {
+                    PortfolioBackupMirror.writeForBackup(this)
+                } else {
+                    PortfolioBackupMirror.deleteNow(this)
+                }
             } catch (e: Exception) {
                 Timber.w(e, "Systemsicherung: Kopie des Portfolios fehlgeschlagen")
                 throw IOException("Kopie des Portfolios fehlgeschlagen", e)

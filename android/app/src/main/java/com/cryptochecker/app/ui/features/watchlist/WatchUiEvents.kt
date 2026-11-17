@@ -10,13 +10,13 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.CollectScreenEvents
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.ScreenEvents
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
 
 /** Text eines Banners, erst im aktuellen Bildschirm aufgelöst (Sprache kann inzwischen gewechselt haben). */
 internal data class BannerText(
@@ -131,9 +131,12 @@ internal fun WatchUiEventsHolder.handleShared(
         is WatchUiEvent.Haptic -> haptics.play(event.event)
         is WatchUiEvent.Banner -> {
             val key = event.undoKey
-            if (key == null) banner.show(event.text.resolve(resources), event.kind)
-            else banner.show(event.text.resolve(resources), event.kind) {
-                viewModel.undoDelete(key) { n -> send(undoFull(n)) }
+            if (key == null) {
+                banner.show(event.text.resolve(resources), event.kind)
+            } else {
+                banner.show(event.text.resolve(resources), event.kind) {
+                    viewModel.undoDelete(key) { n -> send(undoFull(n)) }
+                }
             }
         }
         is WatchUiEvent.Removed -> {

@@ -54,10 +54,10 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 internal data class BottomTab(
     val route: ScreenRoute,
@@ -202,7 +202,11 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
                                     Icon(
                                         painterResource(tab.iconRes),
                                         contentDescription = null,
-                                        tint = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        tint = if (selected) {
+                                            MaterialTheme.colorScheme.onPrimary
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurfaceVariant
+                                        },
                                         modifier = Modifier
                                             .size(TAB_ICON_SIZE)
                                             .graphicsLayer {
@@ -249,7 +253,9 @@ private fun TabLabel(text: String, color: Color, selected: Boolean, maxWidthPx: 
                 val probe = style.copy(fontWeight = weight, fontSize = px.toSp(), lineHeight = targetLine * (px / targetPx))
                 words.all { measurer.measure(it, probe, softWrap = false, maxLines = 1).size.width <= maxWidthPx } &&
                     !measurer.measure(
-                        text, probe.copy(textAlign = TextAlign.Center), maxLines = TAB_LABEL_MAX_LINES,
+                        text,
+                        probe.copy(textAlign = TextAlign.Center),
+                        maxLines = TAB_LABEL_MAX_LINES,
                         constraints = Constraints(maxWidth = maxWidthPx),
                     ).hasVisualOverflow
             }

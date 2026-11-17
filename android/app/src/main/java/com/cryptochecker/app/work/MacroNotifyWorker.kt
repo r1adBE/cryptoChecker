@@ -1,7 +1,5 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
-import com.cryptochecker.app.domain.work.countedRun
 import android.content.Context
 import androidx.core.content.edit
 import androidx.hilt.work.HiltWorker
@@ -10,20 +8,22 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.MacroCalendarRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.macro.MacroCalendar
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
+import com.cryptochecker.app.domain.work.countedRun
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.MacroTexts
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.notification.showGas
 import com.cryptochecker.app.ui.MainActivity
+import com.cryptochecker.resources.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.CancellationException
-import timber.log.Timber
 import java.time.ZoneId
 import java.util.concurrent.TimeUnit
-import com.cryptochecker.app.notification.showGas
+import kotlinx.coroutines.CancellationException
+import timber.log.Timber
 
 /**
  * Morgen-Meldung «Wirtschaftstermine»: läuft täglich um 08:00 Ortszeit (spätestens 08:00 New York, nicht vor 05:00:

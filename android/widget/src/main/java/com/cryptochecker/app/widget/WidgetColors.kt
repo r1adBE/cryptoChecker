@@ -1,10 +1,10 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetContrast
 import android.graphics.Color
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.domain.widget.WidgetContrast
 import com.cryptochecker.app.ui.theme.MarketScalePalette
 
 /**
@@ -63,8 +63,11 @@ class WidgetColors(
      * dunkle Logos sichtbar bleiben; hell ein zarter grauer Kreis.
      */
     val logoBackingColor: Int
-        get() = if (dark) Color.argb(235, Color.red(textColor), Color.green(textColor), Color.blue(textColor))
-        else Color.argb(28, Color.red(secondaryTextColor), Color.green(secondaryTextColor), Color.blue(secondaryTextColor))
+        get() = if (dark) {
+            Color.argb(235, Color.red(textColor), Color.green(textColor), Color.blue(textColor))
+        } else {
+            Color.argb(28, Color.red(secondaryTextColor), Color.green(secondaryTextColor), Color.blue(secondaryTextColor))
+        }
 
     /** Ersatz-Kreis ohne Logo ([CoinLogoPlaceholder]): Füllung fest aus dem Kürzel, wie in der App. */
     fun placeholderFill(symbol: String): Int = CoinLogoPlaceholder.fill(symbol, dark)
@@ -203,7 +206,7 @@ class WidgetColors(
                     neutralColor = 0xFF5F5F5F.toInt(),
                     dark = false,
                 )
-                    else -> error("unerreichbar")
+                else -> error("unerreichbar")
             }
     }
 }

@@ -12,7 +12,10 @@ import org.junit.Test
 class WatchSearchTest {
     private val btc = WatchEntity(exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR")
     private val nvda = WatchEntity(
-        exchangeKey = "BinanceFutures", exchangeName = "Binance Futures", baseAsset = "NVDA", quoteAsset = "USDT",
+        exchangeKey = "BinanceFutures",
+        exchangeName = "Binance Futures",
+        baseAsset = "NVDA",
+        quoteAsset = "USDT",
         contractType = FuturesContractType.PERPETUAL,
     )
     private val dex = WatchEntity(exchangeKey = "DexScreener", exchangeName = "DEX", baseAsset = "BTC", quoteAsset = "SOL")

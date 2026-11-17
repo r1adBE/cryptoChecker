@@ -2,7 +2,6 @@
 
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -32,16 +31,17 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.market.GasFees
+import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsSummary
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 
 /*
  * Unterseiten der Einstellungen: Markt-Meldungen und Sprachausgabe stehen je auf einer eigenen
@@ -64,8 +64,11 @@ internal fun AppSettings.activeMarketAlerts(): Int = SettingsSummary.marketAlert
 @Composable
 internal fun marketAlertsSummary(settings: AppSettings): String {
     val count = settings.activeMarketAlerts()
-    return if (count == 0) stringResource(R.string.option_off)
-    else pluralStringResource(R.plurals.settings_market_alerts_active, count, count)
+    return if (count == 0) {
+        stringResource(R.string.option_off)
+    } else {
+        pluralStringResource(R.plurals.settings_market_alerts_active, count, count)
+    }
 }
 
 /** Beschriftung der Zeile einer eigenen Kennzahl-Grenze («Mayer Multiple über»). */
@@ -212,8 +215,11 @@ fun MarketAlertsSettingsScreen(
                     options = AppSettings.GAS_ETH_CHOICES,
                     selected = settings.gasAlertEthTenths,
                     optionLabel = {
-                        if (it == 0) stringResource(R.string.option_off)
-                        else GasFees.formatGwei(it / 10.0)
+                        if (it == 0) {
+                            stringResource(R.string.option_off)
+                        } else {
+                            GasFees.formatGwei(it / 10.0)
+                        }
                     },
                     onSelected = {
                         if (it > 0) requestNotifications()
@@ -239,7 +245,15 @@ fun MarketAlertsSettingsScreen(
             RowDivider()
             // Eigene Grenzen für Bitcoin-Kennzahlen: feste Zahlen zur Wahl, keine Zonen und keine Wertung
             IndicatorAlertKind.entries.forEach { kind ->
-                SettingsAnchor(if (kind == IndicatorAlertKind.entries.first()) "market.indicators" else "market.indicators.${kind.key.lowercase()}") {
+                SettingsAnchor(
+                    if (kind ==
+                        IndicatorAlertKind.entries.first()
+                    ) {
+                        "market.indicators"
+                    } else {
+                        "market.indicators.${kind.key.lowercase()}"
+                    }
+                ) {
                     ChoiceRow(
                         label = stringResource(indicatorAlertLabel(kind)),
                         options = kind.choices,

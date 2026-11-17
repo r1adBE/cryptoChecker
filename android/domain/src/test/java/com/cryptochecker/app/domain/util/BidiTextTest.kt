@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.util
 import com.cryptochecker.app.domain.util.BidiText
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /** Spiegel: Tests/ThresholdParserTests.swift (`testBidiTextOnlyForRightToLeftLanguages`). */
 class BidiTextTest {

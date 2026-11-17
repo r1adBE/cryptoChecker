@@ -2,10 +2,10 @@ package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import org.json.JSONArray
@@ -35,7 +35,9 @@ object BinanceCandles : ExchangeCandleSource {
         val code = CandleParse.binanceInterval(interval) ?: return null
         for (endpoint in endpoints) {
             val body = http.get("$endpoint?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}") ?: continue
-            val candles = runCatchingCancellable { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+            val candles = runCatchingCancellable {
+                CandleParse.binance(body, coinM = false)
+            }.getOrNull()?.let { CandleParse.finish(it, limit) }
             if (candles != null && candles.size >= 2) return candles
         }
         return null
@@ -70,7 +72,8 @@ object BinanceUsCandles : ExchangeCandleSource {
     override suspend fun fetch(pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHttp): List<HourCandle>? {
         val symbol = BinanceCandles.symbol(pair) ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
-        val body = http.get("https://api.binance.us/api/v3/klines?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}") ?: return null
+        val body =
+            http.get("https://api.binance.us/api/v3/klines?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}") ?: return null
         return runCatchingCancellable { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 }
@@ -190,7 +193,10 @@ object KrakenCandles : ExchangeCandleSource {
                 val volume = k.numAt(6)
                 HourCandle(
                     openTime = k.numAt(0).toLong() * 1000L,
-                    open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
+                    open = k.numAt(1),
+                    high = k.numAt(2),
+                    low = k.numAt(3),
+                    close = k.numAt(4),
                     volume = volume,
                     quoteVolume = quoteVolume(vwap * volume),
                 )
@@ -234,8 +240,10 @@ object BitstampCandles : ExchangeCandleSource {
             val o = list.optJSONObject(i) ?: return@mapNotNull null
             HourCandle(
                 openTime = CandleParse.num(o.opt("timestamp")).toLong() * 1000L,
-                open = CandleParse.num(o.opt("open")), high = CandleParse.num(o.opt("high")),
-                low = CandleParse.num(o.opt("low")), close = CandleParse.num(o.opt("close")),
+                open = CandleParse.num(o.opt("open")),
+                high = CandleParse.num(o.opt("high")),
+                low = CandleParse.num(o.opt("low")),
+                close = CandleParse.num(o.opt("close")),
                 volume = CandleParse.num(o.opt("volume")),
             )
         }
@@ -267,15 +275,21 @@ object BitvavoCandles : ExchangeCandleSource {
                 array.optJSONArray(i)?.let { k ->
                     HourCandle(
                         openTime = k.numAt(0).toLong(),
-                        open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
+                        open = k.numAt(1),
+                        high = k.numAt(2),
+                        low = k.numAt(3),
+                        close = k.numAt(4),
                         volume = k.numAt(5),
                     )
                 } ?: array.optJSONObject(i)?.let { o ->
                     // Laut Dokumentation auch als Objekt mit Namen möglich
                     HourCandle(
                         openTime = num(o.opt("timestamp")).toLong(),
-                        open = num(o.opt("open")), high = num(o.opt("high")), low = num(o.opt("low")),
-                        close = num(o.opt("close")), volume = num(o.opt("volume")),
+                        open = num(o.opt("open")),
+                        high = num(o.opt("high")),
+                        low = num(o.opt("low")),
+                        close = num(o.opt("close")),
+                        volume = num(o.opt("volume")),
                     )
                 }
             }
@@ -323,7 +337,10 @@ object BybitCandles : ExchangeCandleSource {
                 val k = list.optJSONArray(i) ?: return@mapNotNull null
                 HourCandle(
                     openTime = k.numAt(0).toLong(),
-                    open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
+                    open = k.numAt(1),
+                    high = k.numAt(2),
+                    low = k.numAt(3),
+                    close = k.numAt(4),
                     volume = k.numAt(5),
                     quoteVolume = quoteVolume(k.numAt(6)),
                 )

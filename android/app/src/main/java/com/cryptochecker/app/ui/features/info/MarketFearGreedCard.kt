@@ -27,9 +27,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.FearGreed
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.theme.MarketScaleColors
 import com.cryptochecker.app.ui.theme.MarketScalePalette
@@ -37,7 +37,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 
 // ───────────────────────── Fear & Greed ─────────────────────────
 

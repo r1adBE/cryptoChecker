@@ -2,10 +2,10 @@
 // Bech32/Bech32m. Erweiterungsfunktionen des Objekts.
 package com.cryptochecker.app.domain.portfolio
 
-import java.security.MessageDigest
 import com.cryptochecker.app.domain.portfolio.AddressValidation.Check
 import com.cryptochecker.app.domain.portfolio.AddressValidation.Kind
 import com.cryptochecker.app.domain.portfolio.AddressValidation.Problem
+import java.security.MessageDigest
 
 // ---------------- Bitcoin Base58Check ----------------
 
@@ -61,7 +61,13 @@ fun AddressValidation.base58(s: String): Check {
             }
         }
         // WIF: privater Schlüssel (0x80 Bitcoin, 0xb0 Litecoin, 0xef Testnet; 33 bzw. 34 Byte + Prüfsumme)
-        37, 38 -> if ((version == 0x80 || version == 0xb0 || version == 0x9e || version == 0xef) && checksumOk(raw)) invalid(Problem.SECRET) else invalid(Problem.UNKNOWN_FORMAT)
+        37, 38 -> if ((version == 0x80 || version == 0xb0 || version == 0x9e || version == 0xef) &&
+            checksumOk(raw)
+        ) {
+            invalid(Problem.SECRET)
+        } else {
+            invalid(Problem.UNKNOWN_FORMAT)
+        }
         // Solana: öffentlicher Schlüssel (32 Byte, ohne Prüfsumme) bzw. privater Schlüssel (64 Byte)
         32 -> if (s.length in 32..44) Check(AddressChain.SOL, Kind.SOL, s, null) else invalid(Problem.UNKNOWN_FORMAT)
         64 -> invalid(Problem.SECRET)

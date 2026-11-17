@@ -5,11 +5,11 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * 15-s-Sperre für «Aktualisieren» liest nur das Ende der letzten VOLLSTÄNDIGEN Aktualisierung
@@ -47,7 +47,10 @@ class RefreshDebounceParityTest {
         // ManualRefresh liegt in :domain (gleiches Paket)
         val domainRoot = SourceGuard.android(domainSources(), "android/domain/src/main/java")
         callers.forEach { path ->
-            val file = File(root, path).takeIf { it.isFile } ?: File(root, "../../../../../../../widget/src/main/java/com/cryptochecker/app/$path").takeIf { it.isFile } ?: File(domainRoot, path)
+            val file =
+                File(root, path).takeIf { it.isFile }
+                    ?: File(root, "../../../../../../../widget/src/main/java/com/cryptochecker/app/$path").takeIf { it.isFile }
+                    ?: File(domainRoot, path)
             assertTrue(path, file.readText().contains("lastFinishedAt = refreshStats.lastFullRefresh()"))
         }
         val controller = File(root, "ui/features/watchlist/WatchlistRefreshController.kt").readText()

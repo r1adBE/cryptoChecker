@@ -34,8 +34,13 @@ object CsvImportCoinbase {
     private val WITHDRAWAL = setOf("send", "withdrawal")
     private val DEPOSIT = setOf("receive", "deposit")
     private val INTERNAL = setOf(
-        "prodeposit", "prowithdrawal", "exchangedeposit", "exchangewithdrawal", "retailstakingtransfer",
-        "retailunstakingtransfer", "retaileth2deprecation",
+        "prodeposit",
+        "prowithdrawal",
+        "exchangedeposit",
+        "exchangewithdrawal",
+        "retailstakingtransfer",
+        "retailunstakingtransfer",
+        "retaileth2deprecation",
     )
 
     /** Teilwörter einer Gutschrift («Rewards Income», «Coinbase Earn», «Subscription Rebate» …). */
@@ -99,8 +104,11 @@ object CsvImportCoinbase {
                 if (fee != null && quote == null) throw Skip(CsvImportSkipReason.MISSING_FIELD)
                 val externalId = cell(iId).ifEmpty { null }
                 val priced = kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || kind == CsvImportKind.REWARD
-                val price = if (!priced) null
-                else subtotal?.let { CsvImport.derive(it, amount) } ?: spot
+                val price = if (!priced) {
+                    null
+                } else {
+                    subtotal?.let { CsvImport.derive(it, amount) } ?: spot
+                }
                 if (price != null && quote == null) throw Skip(CsvImportSkipReason.MISSING_FIELD)
                 var draft = CsvImportRow(
                     line = rec.line,
@@ -124,7 +132,10 @@ object CsvImportCoinbase {
                     val toAmount = CsvImportParser.parseNumber(m.groupValues[3], '.')?.abs()?.takeIf { it.signum() > 0 }
                         ?: throw Skip(CsvImportSkipReason.BAD_NUMBER)
                     if (toCoin == coin) throw Skip(CsvImportSkipReason.MISSING_FIELD)
-                    val value = (subtotal ?: spot?.multiply(amount, PortfolioDecimal.MC))?.takeIf { quote != null && quote in CsvImport.MONEY }
+                    val value = (subtotal ?: spot?.multiply(amount, PortfolioDecimal.MC))?.takeIf {
+                        quote != null &&
+                            quote in CsvImport.MONEY
+                    }
                     draft = draft.copy(
                         quote = quote.takeIf { value != null || fee != null },
                         toCoin = toCoin,

@@ -1,11 +1,11 @@
 package com.cryptochecker.wear
 
+import java.io.File
+import java.util.Locale
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.util.Locale
 
 /**
  * Prozent auf der Uhr wie in der Phone-App (`testdata/parity/percent_text.json`): dieselben Fälle wie `PercentText`
@@ -53,8 +53,11 @@ class WatchPercentParityTest {
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
             val value = if (c.isNull("value")) null else c.getDouble("value")
-            assertEquals("${c.getString("locale")} $value", c.getString("expected"),
-                WatchFormat.change(value, locale(c.getString("locale"))))
+            assertEquals(
+                "${c.getString("locale")} $value",
+                c.getString("expected"),
+                WatchFormat.change(value, locale(c.getString("locale")))
+            )
         }
     }
 }

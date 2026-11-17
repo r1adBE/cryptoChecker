@@ -111,7 +111,10 @@ object PriceFormat {
     }
 
     /** Formatierer für [amount] (exakte Menge). */
-    fun exactAmountFormat(): DecimalFormat = DecimalFormat("#,##0").apply { maximumFractionDigits = 18; minimumFractionDigits = 0 }
+    fun exactAmountFormat(): DecimalFormat = DecimalFormat("#,##0").apply {
+        maximumFractionDigits = 18
+        minimumFractionDigits = 0
+    }
 
     /**
      * Pfeil zur Kursbewegung, überall gleich: «↗» steigend, «↘» fallend (schräg wie iOS
@@ -157,13 +160,19 @@ object PriceFormat {
      * [is24] = null: wie die Sprache.
      */
     fun time(millis: Long, is24: Boolean? = ClockText.systemIs24Hour(), locale: Locale = LocaleNumbers.appLocale): String =
-        if (millis <= 0) "—"
-        else ClockText.format(locale, withSeconds = true, is24 = is24).format(Date(millis))
+        if (millis <= 0) {
+            "—"
+        } else {
+            ClockText.format(locale, withSeconds = true, is24 = is24).format(Date(millis))
+        }
 
     /** Uhrzeit ohne Sekunden in der Sprache des Geräts, z. B. «19:41» («Offline · Stand 19:41»); 12/24 h wie [time]. */
     fun shortTime(millis: Long, is24: Boolean? = ClockText.systemIs24Hour(), locale: Locale = LocaleNumbers.appLocale): String =
-        if (millis <= 0) "—"
-        else ClockText.format(locale, withSeconds = false, is24 = is24).format(Date(millis))
+        if (millis <= 0) {
+            "—"
+        } else {
+            ClockText.format(locale, withSeconds = false, is24 = is24).format(Date(millis))
+        }
 
     /**
      * Prozentwert für Benachrichtigungen: mit Vorzeichen (echtes Minus U+2212), drei Nachkommastellen; gerundet 0

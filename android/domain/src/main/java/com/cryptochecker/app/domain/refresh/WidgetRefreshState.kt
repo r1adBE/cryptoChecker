@@ -32,10 +32,14 @@ object WidgetRefreshState {
      * zum Ende des Fensters.
      */
     fun onTap(online: Boolean, running: Boolean, lastFinishedAt: Long, now: Long, windowMillis: Long = RefreshDebounce.WINDOW_MILLIS): Tap =
-        if (!online) Tap.Offline else when (RefreshDebounce.decide(running, lastFinishedAt, now, windowMillis)) {
-            RefreshDebounce.Decision.START -> Tap.Start
-            RefreshDebounce.Decision.RUNNING -> Tap.Running
-            RefreshDebounce.Decision.RECENT -> Tap.Blocked(lastFinishedAt + windowMillis)
+        if (!online) {
+            Tap.Offline
+        } else {
+            when (RefreshDebounce.decide(running, lastFinishedAt, now, windowMillis)) {
+                RefreshDebounce.Decision.START -> Tap.Start
+                RefreshDebounce.Decision.RUNNING -> Tap.Running
+                RefreshDebounce.Decision.RECENT -> Tap.Blocked(lastFinishedAt + windowMillis)
+            }
         }
 
     /**

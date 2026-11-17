@@ -68,8 +68,11 @@ fun EmptyState(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.widthIn(max = ReadableMaxWidth)
             ) {
-                val circle = if (LocalDarkTheme.current) AppColors.accentTint(0.3f)
-                    else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                val circle = if (LocalDarkTheme.current) {
+                    AppColors.accentTint(0.3f)
+                } else {
+                    MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                }
                 Icon(
                     painterResource(iconRes),
                     contentDescription = null,

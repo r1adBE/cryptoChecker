@@ -7,8 +7,8 @@ import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
+import kotlinx.coroutines.withTimeoutOrNull
 
 /** Einzel-Widget: ein Paar gross mit Kurs, Änderung und Mini-Chart. */
 @AndroidEntryPoint

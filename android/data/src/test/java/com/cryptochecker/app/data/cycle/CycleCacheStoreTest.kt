@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.cycle
 
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.domain.market.CycleCachePolicy
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
@@ -12,7 +13,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
 
 /**
  * Zwischenspeicher des Markt-Tabs ([CycleCacheStore]): eine JSON-Datei je Bereich unter `cacheDir/cycle`, mit

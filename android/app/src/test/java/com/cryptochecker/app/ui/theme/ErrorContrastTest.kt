@@ -2,12 +2,12 @@ package com.cryptochecker.app.ui.theme
 
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.domain.widget.WidgetContrast
+import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Fehlerfarben: hell wie dunkel warmes Orange-Rot, für jede Akzentfarbe gleich.
@@ -47,8 +47,13 @@ class ErrorContrastTest {
             val s = appColorScheme(accent, dark = false)
             val error = s.error.toArgb()
             val surfaces = listOf(
-                s.surfaceContainerLowest, s.surface, s.surfaceContainerLow, s.surfaceContainer,
-                s.surfaceContainerHigh, s.surfaceContainerHighest, s.surfaceVariant,
+                s.surfaceContainerLowest,
+                s.surface,
+                s.surfaceContainerLow,
+                s.surfaceContainer,
+                s.surfaceContainerHigh,
+                s.surfaceContainerHighest,
+                s.surfaceVariant,
             ).map { it.toArgb() }
             for (bg in surfaces) {
                 val r = ratio(error, bg)

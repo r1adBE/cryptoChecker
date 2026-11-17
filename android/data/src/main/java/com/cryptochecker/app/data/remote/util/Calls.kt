@@ -1,15 +1,15 @@
 package com.cryptochecker.app.data.remote.util
 
+import java.io.IOException
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import java.io.IOException
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 /**
  * Führt die OkHttp-Anfrage aus, ohne einen Thread zu blockieren. Wird die Coroutine abgebrochen,

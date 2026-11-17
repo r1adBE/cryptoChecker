@@ -7,10 +7,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
+import java.util.regex.Pattern
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.regex.Pattern
 
 /**
  * Zwei Wege, beide fliessen ins Baseline Profile (`baseline-prof.txt`, ART kompiliert sie bei der Installation vor):

@@ -80,7 +80,10 @@ class WhySummaryTest {
         assertEquals(WhyMark.CAUTION, WhySummary.mark(r(ReasonKind.SENTIMENT, 10.0, tone = ReasonTone.WARNING)))
         assertEquals(WhyMark.NEUTRAL, WhySummary.mark(r(ReasonKind.SENTIMENT, 50.0)))
         listOf(
-            ReasonKind.VOLUME_NORMAL, ReasonKind.LEVERAGE_BALANCED, ReasonKind.MARKET_CALM, ReasonKind.VOLATILITY_NORMAL,
+            ReasonKind.VOLUME_NORMAL,
+            ReasonKind.LEVERAGE_BALANCED,
+            ReasonKind.MARKET_CALM,
+            ReasonKind.VOLATILITY_NORMAL,
         ).forEach { assertEquals(WhyMark.NEUTRAL, WhySummary.mark(r(it))) }
     }
 }

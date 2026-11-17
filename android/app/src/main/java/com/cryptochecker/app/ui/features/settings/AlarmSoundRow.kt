@@ -34,10 +34,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /** Anzeigename eines «Alarm-Signals». */
 @androidx.annotation.StringRes
@@ -156,8 +156,11 @@ internal fun AlarmSoundRow(
             Column(modifier = Modifier.weight(1f)) {
                 Text(stringResource(R.string.settings_alarm_sound), style = MaterialTheme.typography.bodyLarge)
                 Text(
-                    text = if (isCustom) soundName ?: stringResource(R.string.settings_alarm_sound_custom)
-                    else stringResource(R.string.settings_alarm_sound_default),
+                    text = if (isCustom) {
+                        soundName ?: stringResource(R.string.settings_alarm_sound_custom)
+                    } else {
+                        stringResource(R.string.settings_alarm_sound_default)
+                    },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -203,7 +206,10 @@ internal fun AlarmSoundRow(
             if (isCustom) {
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.settings_alarm_sound_reset)) },
-                    onClick = { menu = false; onPicked(null) }
+                    onClick = {
+                        menu = false
+                        onPicked(null)
+                    }
                 )
             }
         }

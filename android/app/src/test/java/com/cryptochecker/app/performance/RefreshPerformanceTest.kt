@@ -1,8 +1,8 @@
 package com.cryptochecker.app.performance
 
+import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.refresh.Fetched
 import com.cryptochecker.app.domain.refresh.RefreshFixture
 import com.cryptochecker.app.domain.refresh.RefreshResultProcessor
@@ -135,7 +135,9 @@ class RefreshPerformanceTest {
                 if (evaluator.needsReference(alarm, now) ||
                     evaluator.shouldRearmLevel(alarm, price, now) ||
                     evaluator.shouldTrigger(alarm, price, w.lastPrice, now, cooldownMinutes = 15)
-                ) count++
+                ) {
+                    count++
+                }
             }
         }
         return count

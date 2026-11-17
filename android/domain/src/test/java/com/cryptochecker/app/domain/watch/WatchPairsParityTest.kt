@@ -1,5 +1,9 @@
 package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.watch.WatchIdentity
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -7,10 +11,6 @@ import com.cryptochecker.marketdata.watch.WatchSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * «Wie Handy» mit dem Paar des Favoriten (`watch_pairs.json`) — wie `WatchPairsParityTests.swift`: Paar-Schlüssel und
@@ -106,7 +106,10 @@ class WatchPairsParityTest {
         }
         val expected = p.getValue("expected").list().map { it.obj() }.map { o ->
             WatchPhoneQuotes.Quote(
-                o["symbol"] as String, o["price"].num()!!, o["change24h"].num(), o["exchange"] as String,
+                o["symbol"] as String,
+                o["price"].num()!!,
+                o["change24h"].num(),
+                o["exchange"] as String,
                 o["time"].num()!!.toLong(),
             )
         }
@@ -119,9 +122,13 @@ class WatchPairsParityTest {
     fun selfFetch() {
         val s = data.getValue("selfFetch").obj()
         val got = WatchPhoneQuotes.selfFetch(
-            strings(s["shown"]), s.getValue("times").obj().mapValues { it.value.num()!!.toLong() },
-            strings(s["phoneCoins"]).toSet(), s["usePhone"] as Boolean, s["interval"].num()!!.toInt(),
-            s["now"].num()!!.toLong(), s["force"] as Boolean,
+            strings(s["shown"]),
+            s.getValue("times").obj().mapValues { it.value.num()!!.toLong() },
+            strings(s["phoneCoins"]).toSet(),
+            s["usePhone"] as Boolean,
+            s["interval"].num()!!.toInt(),
+            s["now"].num()!!.toLong(),
+            s["force"] as Boolean,
         )
         assertEquals(strings(s["expected"]), got)
     }

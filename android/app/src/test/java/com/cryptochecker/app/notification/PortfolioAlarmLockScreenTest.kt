@@ -1,12 +1,12 @@
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.util.SourceGuard
+import com.cryptochecker.resources.R
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Portfolio-Alarme sind immer neutral — wie iOS `PortfolioAlarmNotice.content()`: keine Zahl des Alarms (Schwelle,
@@ -25,7 +25,7 @@ class PortfolioAlarmLockScreenTest {
     }
 
     // Die echte Mitteilung (alle Textfelder, öffentliche Fassung, privat): Gerätetest PortfolioAlarmNoticeDeviceTest
-    //; die Funktion bekommt nur die Kennung des Alarms (Signatur).
+    // ; die Funktion bekommt nur die Kennung des Alarms (Signatur).
 
     /** Titel und neutraler Satz enthalten in keiner Sprache eine Ziffer oder einen Platzhalter. */
     @Test

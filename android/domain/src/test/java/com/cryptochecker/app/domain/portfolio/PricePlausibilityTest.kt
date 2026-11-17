@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.watch.DayChange
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneId
 
 /** 25-%-Prüfung (Stichtag) und Identitätsprüfung Faktor 3 (Wertverlauf) aus [PricePlausibility]. */
 class PricePlausibilityTest {
@@ -84,7 +84,11 @@ class PricePlausibilityTest {
         // Zwischengespeicherte Kerzen enden gestern bei 100, jetzt +30 %
         val closes = mapOf("BTC" to (1..5).associate { (today - it) to 100.0 })
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 130.0), PortfolioHistoryRange.WEEK, today,
+            trades,
+            closes,
+            mapOf("BTC" to 130.0),
+            PortfolioHistoryRange.WEEK,
+            today,
         )
         assertTrue(s.skipped.isEmpty())
         assertEquals(100.0, s.points.first().value, 1e-9)
@@ -123,7 +127,11 @@ class PricePlausibilityTest {
             "FOO" to (0..5).associate { (today - it) to 50.0 },
         )
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 101.0, "FOO" to 1.0), PortfolioHistoryRange.WEEK, today,
+            trades,
+            closes,
+            mapOf("BTC" to 101.0, "FOO" to 1.0),
+            PortfolioHistoryRange.WEEK,
+            today,
         )
         assertEquals(listOf("FOO"), s.skipped)
         assertEquals(100.0, s.points.first().value, 1e-9)
@@ -135,8 +143,11 @@ class PricePlausibilityTest {
         // Kein stilles 1 mehr: passt die Reihe nicht, fehlt auch ein Stablecoin (ausser USDT)
         val trades = listOf(buy("USDC", 10.0, noon(today - 1)))
         val s = PortfolioHistory.build(
-            trades, mapOf("USDC" to mapOf(today - 1 to 7.0, today to 7.0)), mapOf("USDC" to 1.0),
-            PortfolioHistoryRange.WEEK, today,
+            trades,
+            mapOf("USDC" to mapOf(today - 1 to 7.0, today to 7.0)),
+            mapOf("USDC" to 1.0),
+            PortfolioHistoryRange.WEEK,
+            today,
         )
         assertEquals(listOf("USDC"), s.skipped)
         assertTrue(s.points.isEmpty())

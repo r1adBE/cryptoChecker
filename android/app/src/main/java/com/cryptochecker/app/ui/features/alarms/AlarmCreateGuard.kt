@@ -1,10 +1,10 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Ein neuer Alarm zur Zeit: Ein zweiter Tipp auf «Speichern» bzw. eine Vorlage, während das erste Anlegen noch läuft,

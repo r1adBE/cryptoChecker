@@ -12,65 +12,6 @@ import com.cryptochecker.app.domain.util.TextLimit
 import java.math.BigDecimal
 
 /**
- * Importierte Zeile als Portfolio-Transaktion (vor dem Speichern). Preis und USDT-Gebühr schon umgerechnet.
- * [importKey] = [CsvImportRow.key] (erkennt die Zeile beim nächsten Import als doppelt).
- */
-data class CsvImportTx(
-    val line: Int,
-    val coin: String,
-    val type: PortfolioTxType,
-    val amount: BigDecimal,
-    val priceUsdt: BigDecimal?,
-    val time: Long,
-    val fee: BigDecimal?,
-    val feeUnit: PortfolioFeeUnit?,
-    val feeCoin: String?,
-    val feeCoinAmount: BigDecimal?,
-    val note: String?,
-    val importKey: String,
-    /**
-     * Umbuchung: wohin ([CsvImportMapping.applyWithdrawalChoices]: passende beobachtete Adresse; verknüpfte Umbuchung
-     * [CsvTransferMatch]: Börse der Einzahlung); null = keine Angabe.
-     */
-    val transferTo: String? = null,
-    /** Verknüpfte Umbuchung ([CsvTransferMatch]): Börse der Auszahlung; null = keine Angabe. */
-    val transferFrom: String? = null,
-    /** Tausch ([PortfolioTxType.SWAP]): erhaltener Coin und Menge, Wert in USDT (null = unbekannt). */
-    val toCoin: String? = null,
-    val toAmount: BigDecimal? = null,
-    val swapValueUsdt: BigDecimal? = null,
-    /** Verknüpfte Umbuchung zweier neuer Zeilen ([CsvTransferMatch.apply]): Herkunft der Einzahlung; sonst null. */
-    val linkedImportKey: String? = null,
-    /** Gebühr-Zeile (CSV «Fee»): Veräusserung zum Tageskurs, gespeichert als Verkauf mit Merker. */
-    val feeRow: Boolean = false,
-    /** Belohnung, die die Börse als Zins (Lending) ausweist ([TaxEngines.interestReward] auf der Art der Datei). */
-    val interest: Boolean = false,
-    /** Staking-Umbuchung ([CsvImportKind.TRANSFER]: «Unstaking», «Redeem»): nie eine Auszahlung ([CsvTransferMatch.storedWithdrawal]). */
-    val stakingMove: Boolean = false,
-    /** Preis bzw. Gebühr fehlt, weil der Tageskurs fehlt ([CsvImportRateGate.missing]); beim Speichern Vermerk in der Notiz. */
-    val missingRate: CsvMissingRate? = null,
-    /**
-     * Wallet der Zeile (FIFO je Wallet, Steuer-Vorlagen DE/AT/US): die Börse der Datei ([CsvTransferMatch.placeOf]; freie
-     * Vorlage: keine) — dieselbe, die eine verknüpfte Umbuchung als Quelle bzw. Ziel trägt. Umbuchungen: [transferFrom].
-     */
-    val exchange: String? = null,
-)
-
-/** Wahl je Auszahlung der Vorschau ([CsvImportMapping.proposeWithdrawals]). */
-enum class CsvWithdrawalChoice {
-    /** «Auf eigene Wallet (Umbuchung)»: bleibt im Portfolio. */
-    TRANSFER,
-    /** «Verlässt das Portfolio (Auszahlung)». */
-    WITHDRAWAL,
-}
-
-/**
- * Vorschlag für eine Auszahlung ([CsvImportTx.importKey]): [choice] null = keine Vorauswahl (muss gewählt werden);
- * [transferTo] = Ziel der Umbuchung (Bezeichnung bzw. gekürzte Adresse der passenden beobachteten Adresse).
- */
-data class CsvWithdrawalProposal(val importKey: String, val choice: CsvWithdrawalChoice?, val transferTo: String?)
-
-/**
  * Zuordnung importierter Zeilen zu den Buchungsarten des Portfolios (reines Kotlin; iOS `CsvImportMapping.swift`):
  *  - Kauf → Kauf, Verkauf → Verkauf, Belohnung → Belohnung, Einzahlung → Einzahlung,
  *    Auszahlung → Auszahlung (auch an eine eigene Wallet: einfach und vorsichtig; wer die Coins weiter
@@ -129,11 +70,23 @@ object CsvImportMapping {
             ?.takeIf { row.kind == CsvImportKind.SWAP && it.isNotEmpty() && it != coin }
         if (rowFee != null && unit != null) {
             when {
-                unit == coin -> { fee = rowFee; feeUnit = PortfolioFeeUnit.COIN }
-                unit == swapTo -> { feeCoin = unit; feeCoinAmount = rowFee }
-                p.feeUsdt != null -> { fee = p.feeUsdt.takeIf { it.signum() > 0 }; feeUnit = fee?.let { PortfolioFeeUnit.QUOTE } }
+                unit == coin -> {
+                    fee = rowFee
+                    feeUnit = PortfolioFeeUnit.COIN
+                }
+                unit == swapTo -> {
+                    feeCoin = unit
+                    feeCoinAmount = rowFee
+                }
+                p.feeUsdt != null -> {
+                    fee = p.feeUsdt.takeIf { it.signum() > 0 }
+                    feeUnit = fee?.let { PortfolioFeeUnit.QUOTE }
+                }
                 // Jede Fiat-Währung mit Tageskurs ([CsvImport.isFiat]) ist Geld, nie ein «dritter Coin»
-                !CsvImport.isFiat(unit) && unit != row.quote && unit != "USDT" -> { feeCoin = unit; feeCoinAmount = rowFee }
+                !CsvImport.isFiat(unit) && unit != row.quote && unit != "USDT" -> {
+                    feeCoin = unit
+                    feeCoinAmount = rowFee
+                }
                 else -> Unit // Fiat-Gebühr ohne Tageskurs: fehlt, Zeile unter missingFx, Vermerk beim Speichern ([CsvImportRateGate])
             }
         }
@@ -145,8 +98,11 @@ object CsvImportMapping {
             type = txType,
             amount = row.amount,
             // Gebühr-Zeile: Kennzeichen Preis 0 ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.valueFeeDisposals])
-            priceUsdt = if (row.kind == CsvImportKind.FEE) BigDecimal.ZERO
-            else p.priceUsdt?.takeIf { it.signum() >= 0 && row.kind != CsvImportKind.TRANSFER },
+            priceUsdt = if (row.kind == CsvImportKind.FEE) {
+                BigDecimal.ZERO
+            } else {
+                p.priceUsdt?.takeIf { it.signum() >= 0 && row.kind != CsvImportKind.TRANSFER }
+            },
             time = row.timeMillis,
             fee = fee,
             feeUnit = feeUnit,
@@ -155,7 +111,11 @@ object CsvImportMapping {
             // Gebühr/Umbuchung: Art als Notiz; Belohnung nur als Zins (AT: Anschaffungskosten = Wert, [TaxEngines.interestReward])
             note = if (row.kind == CsvImportKind.FEE || row.kind == CsvImportKind.TRANSFER ||
                 (row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind))
-            ) TextLimit.takeGraphemes(row.rawKind.trim(), NOTE_MAX).trim().ifEmpty { null } else null,
+            ) {
+                TextLimit.takeGraphemes(row.rawKind.trim(), NOTE_MAX).trim().ifEmpty { null }
+            } else {
+                null
+            },
             importKey = row.key,
             toCoin = row.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.takeIf { row.kind == CsvImportKind.SWAP },
             toAmount = row.toAmount.takeIf { row.kind == CsvImportKind.SWAP },
@@ -195,7 +155,9 @@ object CsvImportMapping {
         val split = CsvImport.splitDuplicates(result.rows, existingKeys)
         val held = if (result.format == CsvImportFormat.BINANCE) {
             CsvImportBinance.possibleDuplicates(split.fresh, existingKeys).mapTo(HashSet()) { it.key }
-        } else emptySet()
+        } else {
+            emptySet()
+        }
         val kept = if (keepDuplicates) CsvImport.keptAnyway(split.duplicates, existingKeys) else emptyList()
         // Übernommene Doppelte an ihrer Stelle der Datei (Reihenfolge wie gelesen)
         val keptFor = split.duplicates.map { it.key }.zip(kept).toMap()
@@ -264,8 +226,11 @@ object CsvImportMapping {
         val swap = tx.type == PortfolioTxType.SWAP
         // Was das Speichern behält: erhaltene Menge und Wert nur beim Tausch, Gebühr im dritten Coin nur mit Coin
         val amounts = listOfNotNull(
-            tx.amount, tx.fee, tx.feeCoinAmount?.takeIf { tx.feeCoin != null },
-            tx.toAmount?.takeIf { swap }, tx.swapValueUsdt?.takeIf { swap },
+            tx.amount,
+            tx.fee,
+            tx.feeCoinAmount?.takeIf { tx.feeCoin != null },
+            tx.toAmount?.takeIf { swap },
+            tx.swapValueUsdt?.takeIf { swap },
         )
         val priceOk = tx.priceUsdt?.let { PortfolioDecimal.storablePrice(it) } != false
         if (!priceOk || !amounts.all { PortfolioDecimal.storableAmount(it) }) return CsvImportSkipReason.BAD_NUMBER
@@ -285,7 +250,11 @@ object CsvImportMapping {
         var up = 0
         for (i in 1 until txs.size) {
             val d = txs[i].time.compareTo(txs[i - 1].time)
-            if (d < 0) down++ else if (d > 0) up++
+            if (d < 0) {
+                down++
+            } else if (d > 0) {
+                up++
+            }
         }
         return if (down > up) txs.asReversed().toList() else txs
     }
@@ -340,8 +309,12 @@ object CsvImportMapping {
      * Jede Auszahlung mit «Auf eigene Wallet» ([choices]) und eindeutiger üblicher Einzahlung wird deren Umbuchung
      * ([CsvTransferMatch.linkOwnWallet]; nicht die in [declined], deren Verknüpfung der Nutzer ausgeschaltet hat). Wie iOS.
      */
-    fun linkOwnWallets(links: List<CsvTransferLink>, chosen: Set<String>, choices: Map<String, CsvWithdrawalChoice>,
-                       declined: Set<String> = emptySet()): Set<String> {
+    fun linkOwnWallets(
+        links: List<CsvTransferLink>,
+        chosen: Set<String>,
+        choices: Map<String, CsvWithdrawalChoice>,
+        declined: Set<String> = emptySet()
+    ): Set<String> {
         val wanting = choices.filterValues { it == CsvWithdrawalChoice.TRANSFER }.keys
         return wanting.sorted().fold(chosen) { acc, key -> CsvTransferMatch.linkOwnWallet(links, acc, key, declined, wanting) }
     }
@@ -362,9 +335,14 @@ object CsvImportMapping {
         if (tx.type == PortfolioTxType.WITHDRAWAL && choices[tx.importKey] == CsvWithdrawalChoice.TRANSFER) {
             // Quelle der Umbuchung = Wallet der Auszahlung (FIFO je Wallet nimmt sie von dort)
             tx.copy(
-                type = PortfolioTxType.TRANSFER, transferTo = destinations[tx.importKey], transferFrom = tx.exchange, exchange = null,
+                type = PortfolioTxType.TRANSFER,
+                transferTo = destinations[tx.importKey],
+                transferFrom = tx.exchange,
+                exchange = null,
             )
-        } else tx
+        } else {
+            tx
+        }
     }
 
     /**

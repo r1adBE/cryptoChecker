@@ -1,6 +1,5 @@
 package com.cryptochecker.app.tts
 
-import com.cryptochecker.app.domain.tts.AnnouncementQueue
 import android.content.Context
 import android.media.AudioAttributes
 import android.os.SystemClock
@@ -8,9 +7,14 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.tts.AnnouncementQueue
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicInteger
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,10 +30,6 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicInteger
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Kapselt die Android-Sprachausgabe. Die Engine wird beim ersten Aufruf gestartet und

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.domain.widget.ChartGridUnit
+import com.cryptochecker.resources.R
 
 /**
  * Zeitraum des Mini-Charts im Einzel-Widget: Kerzenintervall und Anzahl,
@@ -22,5 +22,13 @@ enum class WidgetChartRange(
     DAY(CandleInterval.H1, 24, R.string.widget_range_24h, R.string.widget_range_short_24h, 3_600_000L, ChartGridUnit.HOUR),
     WEEK(CandleInterval.H4, 42, R.string.widget_range_7d, R.string.widget_range_short_7d, 4 * 3_600_000L, ChartGridUnit.DAY),
     MONTH(CandleInterval.D1, 30, R.string.widget_range_30d, R.string.widget_range_short_30d, 24 * 3_600_000L, ChartGridUnit.WEEK),
-    YEAR(CandleInterval.D1, 365, R.string.widget_range_1y, R.string.widget_range_short_1y, 24 * 3_600_000L, ChartGridUnit.MONTH, inWidget = false),
+    YEAR(
+        CandleInterval.D1,
+        365,
+        R.string.widget_range_1y,
+        R.string.widget_range_short_1y,
+        24 * 3_600_000L,
+        ChartGridUnit.MONTH,
+        inWidget = false
+    ),
 }

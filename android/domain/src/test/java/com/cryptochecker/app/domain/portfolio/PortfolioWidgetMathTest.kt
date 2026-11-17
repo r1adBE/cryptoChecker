@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 class PortfolioWidgetMathTest {
 
@@ -220,7 +220,12 @@ class PortfolioWidgetMathTest {
         assertEquals(25f, xy[2].second, 1e-4f)
         assertFalse(PortfolioWidgetMath.isUp(listOf(PortfolioValuePoint(0, 2.0), PortfolioValuePoint(1, 1.0))))
         // Flach: mittig; ein Punkt: nichts
-        assertTrue(PortfolioWidgetMath.linePoints(listOf(PortfolioValuePoint(0, 1.0), PortfolioValuePoint(1, 1.0)), 10f, 20f, 0f).all { it.second == 10f })
+        assertTrue(
+            PortfolioWidgetMath.linePoints(listOf(PortfolioValuePoint(0, 1.0), PortfolioValuePoint(1, 1.0)), 10f, 20f, 0f).all {
+                it.second ==
+                    10f
+            }
+        )
         assertTrue(PortfolioWidgetMath.linePoints(points.take(1), 10f, 10f, 0f).isEmpty())
     }
 
@@ -232,7 +237,14 @@ class PortfolioWidgetMathTest {
         assertEquals(0f, xy[0].first, 1e-4f)
         assertEquals(40f, xy[1].first, 1e-4f)
         // Erster Wert erst nach Tagesbeginn: beginnt weiter rechts; ausserhalb wird geklemmt
-        val late = PortfolioWidgetMath.linePoints(listOf(PortfolioValuePoint(20L, 1.0), PortfolioValuePoint(120L, 2.0)), 100f, 50f, 5f, 0L, 100L)
+        val late = PortfolioWidgetMath.linePoints(
+            listOf(PortfolioValuePoint(20L, 1.0), PortfolioValuePoint(120L, 2.0)),
+            100f,
+            50f,
+            5f,
+            0L,
+            100L
+        )
         assertEquals(20f, late[0].first, 1e-4f)
         assertEquals(100f, late[1].first, 1e-4f)
         // Ungültige Achse: wie ohne

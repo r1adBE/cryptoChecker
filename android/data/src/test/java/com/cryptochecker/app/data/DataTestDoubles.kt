@@ -3,10 +3,10 @@ package com.cryptochecker.app.data
 import android.content.ContextWrapper
 import android.content.SharedPreferences
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.model.WatchEntity
 import java.io.File
 import java.lang.reflect.Proxy
 
@@ -33,6 +33,7 @@ internal class MemoryPrefs : SharedPreferences {
 
     override fun getAll(): MutableMap<String, *> = synchronized(values) { HashMap(values) }
     override fun getString(key: String, defValue: String?): String? = read(key) as? String ?: defValue
+
     @Suppress("UNCHECKED_CAST")
     override fun getStringSet(key: String, defValues: MutableSet<String>?): MutableSet<String>? =
         read(key) as? MutableSet<String> ?: defValues
@@ -50,14 +51,38 @@ internal class MemoryPrefs : SharedPreferences {
         private val changes = HashMap<String, Any?>()
         private val removed = HashSet<String>()
         private var clear = false
-        override fun putString(key: String, value: String?): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putStringSet(key: String, values: MutableSet<String>?): SharedPreferences.Editor { changes[key] = values; return this }
-        override fun putInt(key: String, value: Int): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putLong(key: String, value: Long): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putFloat(key: String, value: Float): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor { changes[key] = value; return this }
-        override fun remove(key: String): SharedPreferences.Editor { removed += key; return this }
-        override fun clear(): SharedPreferences.Editor { clear = true; return this }
+        override fun putString(key: String, value: String?): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putStringSet(key: String, values: MutableSet<String>?): SharedPreferences.Editor {
+            changes[key] = values
+            return this
+        }
+        override fun putInt(key: String, value: Int): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putLong(key: String, value: Long): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putFloat(key: String, value: Float): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor {
+            changes[key] = value
+            return this
+        }
+        override fun remove(key: String): SharedPreferences.Editor {
+            removed += key
+            return this
+        }
+        override fun clear(): SharedPreferences.Editor {
+            clear = true
+            return this
+        }
         override fun commit(): Boolean {
             synchronized(values) {
                 if (clear) values.clear()
@@ -78,17 +103,19 @@ internal class MemoryPrefs : SharedPreferences {
  * direkt ihr Ergebnis zurückgeben (sie unterbricht dann nicht).
  */
 internal fun <T> proxyOf(type: Class<T>, answers: Map<String, () -> Any?>): T =
-    requireNotNull(type.cast(
-        Proxy.newProxyInstance(type.classLoader, arrayOf(type)) { proxy, method, args ->
-            when (method.name) {
-                in answers -> answers.getValue(method.name)()
-                "toString" -> "Fake${type.simpleName}"
-                "hashCode" -> System.identityHashCode(proxy)
-                "equals" -> proxy === args?.firstOrNull()
-                else -> throw UnsupportedOperationException("${type.simpleName}.${method.name} im Test nicht vorgesehen")
-            }
-        },
-    ))
+    requireNotNull(
+        type.cast(
+            Proxy.newProxyInstance(type.classLoader, arrayOf(type)) { proxy, method, args ->
+                when (method.name) {
+                    in answers -> answers.getValue(method.name)()
+                    "toString" -> "Fake${type.simpleName}"
+                    "hashCode" -> System.identityHashCode(proxy)
+                    "equals" -> proxy === args?.firstOrNull()
+                    else -> throw UnsupportedOperationException("${type.simpleName}.${method.name} im Test nicht vorgesehen")
+                }
+            },
+        )
+    )
 
 private val NO_WATCHLIST: () -> List<WatchEntity> = { throw IllegalStateException("keine Merkliste") }
 

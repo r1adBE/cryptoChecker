@@ -1,9 +1,5 @@
 package com.cryptochecker.app.widget
 
-import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.selectable
-import com.cryptochecker.app.domain.widget.WidgetChartType
-import com.cryptochecker.app.ui.theme.AppColors
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
@@ -22,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,26 +42,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.widget.WidgetChartType
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /** Einrichten des Einzel-Widgets: Paar, Chart-Zeitraum und -Art, Hintergrund und Deckkraft wählen. */
 @AndroidEntryPoint
@@ -178,8 +178,11 @@ private fun SingleWidgetConfigureContent(
                             .fillMaxWidth()
                             .clip(MaterialTheme.shapes.small)
                             .background(
-                                if (selected == watch.id) AppColors.accentTint(0.12f)
-                                else MaterialTheme.colorScheme.surface
+                                if (selected == watch.id) {
+                                    AppColors.accentTint(0.12f)
+                                } else {
+                                    MaterialTheme.colorScheme.surface
+                                }
                             )
                             // Eine Zeile, ein Fokus für TalkBack: Zeile als Optionsfeld mit Zustand, das innere Element ohne eigenen Klick
                             .selectable(selected = selected == watch.id, role = Role.RadioButton) { selected = watch.id }

@@ -1,19 +1,17 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.domain.util.PercentText
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -24,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -33,16 +32,17 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.notification.AlarmTexts
-import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Kopf «Mehr» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»); [subtitle]: grau darunter, was drin steht
@@ -130,8 +130,11 @@ internal fun ThresholdField(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Un
         label = {
             Text(
                 stringResource(
-                    if (draft.condition.isNearExtreme) R.string.alarm_near_field_distance
-                    else R.string.alarm_field_percent
+                    if (draft.condition.isNearExtreme) {
+                        R.string.alarm_near_field_distance
+                    } else {
+                        R.string.alarm_field_percent
+                    }
                 )
             )
         },
@@ -320,7 +323,6 @@ internal fun MoreConditionOptions(
             modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
         )
     }
-
 }
 
 /** «Erweitert»: Währung der Kursmarke (Betrag steht im Satz oben), Ton, Vibration, Vorlesen. */

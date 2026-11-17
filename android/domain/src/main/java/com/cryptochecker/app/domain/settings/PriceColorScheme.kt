@@ -113,7 +113,8 @@ enum class PriceColorScheme(
     CALM_COLOR_VISION(
         listOf(
             PriceTone(0xFF1460AB.toInt(), 0xFF64B5F6.toInt(), 0xFF093D83.toInt(), 0xFFA6D4FF.toInt()),
-            PriceTones.PETROL, PriceTones.VIVID_BLUE,
+            PriceTones.PETROL,
+            PriceTones.VIVID_BLUE,
         ),
         listOf(
             PriceTone(0xFF9F4300.toInt(), 0xFFFFA040.toInt(), 0xFF6C2E00.toInt(), 0xFFFFC685.toInt()),
@@ -224,8 +225,12 @@ object PriceTones {
      * Hoher Kontrast: ΔE 15.2 / 15.0 zum Akzent mit hohem Kontrast.
      */
     val CALM_CRIMSON = PriceTone(
-        0xFF77212F.toInt(), 0xFFFFAFBB.toInt(), 0xFF51000D.toInt(), 0xFFFFE3E7.toInt(),
-        minAccentLight = 19.0, minAccentDark = 20.0,
+        0xFF77212F.toInt(),
+        0xFFFFAFBB.toInt(),
+        0xFF51000D.toInt(),
+        0xFFFFE3E7.toInt(),
+        minAccentLight = 19.0,
+        minAccentDark = 20.0,
     )
 
     /**

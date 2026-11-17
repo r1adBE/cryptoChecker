@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckResult
 import com.cryptochecker.app.domain.refresh.CheckRun
@@ -26,6 +25,7 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.work.ExactCheckScheduler
+import com.cryptochecker.resources.R
 
 // «Aktualisierung»: Pünktlich prüfen, Akku-Hinweis, Letzte Prüfungen — wie iOS
 // `SettingsUpdateChecks.swift` (dort ohne Wecker und Akku: iOS entscheidet allein).
@@ -92,13 +92,19 @@ internal fun CheckRunsCard(runs: List<CheckRun>) {
 private fun CheckRunRow(run: CheckRun) {
     val context = LocalContext.current
     // Heute nur die Uhrzeit, sonst mit Datum
-    val flags = if (DateUtils.isToday(run.at)) DateUtils.FORMAT_SHOW_TIME
-    else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    val flags = if (DateUtils.isToday(run.at)) {
+        DateUtils.FORMAT_SHOW_TIME
+    } else {
+        DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    }
     val time = DateUtils.formatDateTime(context, run.at, flags)
     val trigger = stringResource(run.trigger.labelRes)
     val result = stringResource(run.result.labelRes)
-    val duration = if (run.result == CheckResult.SKIPPED || run.result == CheckResult.OFFLINE) ""
-    else stringResource(R.string.settings_seconds, ((run.durationMillis + 500) / 1000).toInt())
+    val duration = if (run.result == CheckResult.SKIPPED || run.result == CheckResult.OFFLINE) {
+        ""
+    } else {
+        stringResource(R.string.settings_seconds, ((run.durationMillis + 500) / 1000).toInt())
+    }
     // Pausiert (nichts geprüft) warnt wie ein Fehler; offline übersprungen ist neutral (Grund steht im Text)
     val ok = run.result == CheckResult.OK || run.result == CheckResult.SKIPPED || run.result == CheckResult.OFFLINE
     val description = listOf(time, trigger, result, duration).filter { it.isNotEmpty() }.joinToString(", ")

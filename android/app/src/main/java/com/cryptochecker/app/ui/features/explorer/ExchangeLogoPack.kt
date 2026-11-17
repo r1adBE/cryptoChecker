@@ -6,8 +6,8 @@ import android.graphics.BitmapFactory
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.parseIconPack
 import com.cryptochecker.app.domain.market.ExchangeLogos
-import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
+import timber.log.Timber
 
 /**
  * Mitgelieferte Börsen-Logos ([ExchangeLogos.PACK_FILE] in `assets/`): Paket einmal gelesen, jedes Logo einmal
@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap
 internal object ExchangeLogoPack {
 
     @Volatile private var pack: Pair<ByteArray, Map<String, CoinLogos.IconSlice>>? = null
+
     @Volatile private var unreadable = false
     private val bitmaps = ConcurrentHashMap<String, Bitmap>()
 

@@ -27,7 +27,8 @@ class AppTestEnvironmentRule : TestRule {
             val context = instrumentation.targetContext
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 instrumentation.uiAutomation.grantRuntimePermission(
-                    context.packageName, Manifest.permission.POST_NOTIFICATIONS
+                    context.packageName,
+                    Manifest.permission.POST_NOTIFICATIONS
                 )
             }
             WorkManagerTestInitHelper.initializeTestWorkManager(

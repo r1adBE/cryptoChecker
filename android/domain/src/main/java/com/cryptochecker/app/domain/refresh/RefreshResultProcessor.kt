@@ -1,19 +1,19 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import com.cryptochecker.app.domain.ErrorWrite
 import com.cryptochecker.app.domain.PriceWrite
-import com.cryptochecker.app.domain.pairIdentity
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
-import com.cryptochecker.app.domain.watch.PriceFreshness
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.DomainLog
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
-import com.cryptochecker.app.domain.util.DomainLog
 
 /**
  * Geholte Kurse speichern und auswerten — gemeinsamer letzter Schritt von voller und einzelner Aktualisierung
@@ -142,8 +142,11 @@ class RefreshResultProcessor constructor(
         // «Nicht wegwischbar», aber verschwunden (Neustart, Update, Wegwischen ab Android 14): wieder zeigen, alter Bezug
         val priceRestores = HashSet<Long>()
 
-        val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) emptyMap()
-        else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
+        val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) {
+            emptyMap()
+        } else {
+            watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
+        }
 
         var alarms = 0
         // Alarm-Protokoll: nur mitschreiben, am Ende einmal speichern
@@ -152,7 +155,8 @@ class RefreshResultProcessor constructor(
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
             // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
-            val triggered = checkWatchAlarms(watch, price, alarmsByWatch[watch.id].orEmpty(), watch.id in markFallbackIds, settings, now, live, log)
+            val triggered =
+                checkWatchAlarms(watch, price, alarmsByWatch[watch.id].orEmpty(), watch.id in markFallbackIds, settings, now, live, log)
             alarms += triggered
 
             val priceShown = !settings.ongoingNotifications || notifier.priceMaybeShown(watch.id, shownNotifications)
@@ -279,29 +283,40 @@ class RefreshResultProcessor constructor(
         now: Long,
         live: Boolean,
         log: AlarmLogCollector,
-    ): Int {
-        return if (!ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).allowsAlarms) {
-            // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
-            0
-        } else if (dexLiquidity.blocksAlarms(watch.exchangeKey, watch.pairId)) {
-            // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
-            log.noteBlocked(
-                watch, alarms, lowLiquidity = true,
-                markFallback = markFallback, cooldownMinutes = settings.alarmCooldownMinutes,
-            )
-            0
-        } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, markFallback, now)) {
-            // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
-            DomainLog.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
-            log.noteBlocked(
-                watch, alarms, lowLiquidity = false,
-                markFallback = markFallback, cooldownMinutes = settings.alarmCooldownMinutes,
-            )
-            0
-        } else try {
+    ): Int = if (!ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).allowsAlarms) {
+        // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
+        0
+    } else if (dexLiquidity.blocksAlarms(watch.exchangeKey, watch.pairId)) {
+        // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
+        log.noteBlocked(
+            watch,
+            alarms,
+            lowLiquidity = true,
+            markFallback = markFallback,
+            cooldownMinutes = settings.alarmCooldownMinutes,
+        )
+        0
+    } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, markFallback, now)) {
+        // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
+        DomainLog.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
+        log.noteBlocked(
+            watch,
+            alarms,
+            lowLiquidity = false,
+            markFallback = markFallback,
+            cooldownMinutes = settings.alarmCooldownMinutes,
+        )
+        0
+    } else {
+        try {
             effects.checkAlarms(
-                watch, price, watch.previousPrice,
-                alarms, settings, now, live,
+                watch,
+                price,
+                watch.previousPrice,
+                alarms,
+                settings,
+                now,
+                live,
                 trace = log.sinkFor(watch),
             )
         } catch (e: CancellationException) {
@@ -362,6 +377,7 @@ class RefreshResultProcessor constructor(
     )
 
     /** Kurs-Meldungen eines Durchlaufs (Reihenfolge = Vorrang), gemeldet mit [ongoing], Meldekurs-Zeit [now]. */
+
     /** Zu zeigende Kurs-Mitteilungen; [restored] = nur wieder angeheftet (Bezug bleibt, [PriceUpdateRule]). */
     class PendingPrices(
         val watches: List<WatchEntity>,

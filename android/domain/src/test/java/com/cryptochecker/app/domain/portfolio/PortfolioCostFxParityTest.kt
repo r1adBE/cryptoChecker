@@ -4,15 +4,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFx
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import java.math.BigDecimal
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle `cost_fx.json` (iOS: `PortfolioCostFxTests`): «Seit Kauf» und Einstand der Gesamtkarte in
@@ -41,8 +41,11 @@ class PortfolioCostFxParityTest {
     }
 
     private fun exact(label: String, expected: Any?, actual: BigDecimal?) {
-        if (expected == null) assertNull(label, actual)
-        else assertEquals("$label $actual", 0, BigDecimal(expected as String).compareTo(actual!!))
+        if (expected == null) {
+            assertNull(label, actual)
+        } else {
+            assertEquals("$label $actual", 0, BigDecimal(expected as String).compareTo(actual!!))
+        }
     }
 
     @Test
@@ -59,8 +62,11 @@ class PortfolioCostFxParityTest {
             exact("$name unrealized", e["unrealized"], f.unrealized)
             exact("$name invested", e["invested"], f.invested)
             val percent = e["percent"].num()
-            if (percent == null) assertNull("$name percent", f.unrealizedPercent)
-            else assertEquals("$name percent", percent, f.unrealizedPercent!!, 1e-9)
+            if (percent == null) {
+                assertNull("$name percent", f.unrealizedPercent)
+            } else {
+                assertEquals("$name percent", percent, f.unrealizedPercent!!, 1e-9)
+            }
             assertEquals("$name unrealizedFxMissing", e["unrealizedFxMissing"], f.unrealizedFxMissing)
             assertEquals("$name investedFxMissing", e["investedFxMissing"], f.investedFxMissing)
             assertEquals("$name fxMissingCoins", e["fxMissingCoins"].list(), f.fxMissingCoins)

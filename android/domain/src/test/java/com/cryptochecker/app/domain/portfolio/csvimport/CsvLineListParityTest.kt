@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Zeilennummern der CSV-Vorschau (`testdata/parity/csv_line_list.json`): [CsvLineList.of] und [CsvLineList.moreAfter].

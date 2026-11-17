@@ -9,14 +9,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.candleDays
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneOffset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Hilfen der Verlaufs-Abfragen im Portfolio (PortfolioHistoryLoad): Tagesende in einer Zeitzone, benötigte Coins und
@@ -57,7 +57,9 @@ class PortfolioHistoryLoadTest {
         )
         val request = historyRequest(txs, PortfolioHistoryRange.SINCE_FIRST)
         val expected = PortfolioHistory.candleDays(
-            PortfolioHistoryRange.SINCE_FIRST, first, PortfolioHistory.utcToday(),
+            PortfolioHistoryRange.SINCE_FIRST,
+            first,
+            PortfolioHistory.utcToday(),
         )
         assertEquals(expected, request.days)
         assertTrue(request.days > PortfolioHistory.MAX_DAYS)

@@ -1,28 +1,28 @@
 package com.cryptochecker.app.refresh
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.data.remote.candles.OwnHourlyCandles
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.Fetched
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayChange
-import com.cryptochecker.app.domain.util.IoDispatcher
-import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.marketdata.model.Ticker
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 24-h- und Tages-Bezüge aus Kerzen für die %-Veränderung: welche Paare Kerzen brauchen,
@@ -99,8 +99,11 @@ class DayReferences @Inject constructor(
             .map { (base, quote) ->
                 loadScope.launch {
                     runCatchingCancellable {
-                        if (dayStart != null) sparklineRepository.dayStartReference(base, quote, dayStart)
-                        else sparklineRepository.dayReference(base, quote)
+                        if (dayStart != null) {
+                            sparklineRepository.dayStartReference(base, quote, dayStart)
+                        } else {
+                            sparklineRepository.dayReference(base, quote)
+                        }
                     }
                 }
             }
@@ -149,7 +152,16 @@ class DayReferences @Inject constructor(
      */
     internal fun change24h(watch: WatchEntity, price: Double, ticker: Ticker, basis: ChangeBasis, dayStart: Long?): Double? {
         val value = ChangeBasisMath.choose(basis, ticker.change24hPercent) { candleChange(watch, price, dayStart) }
-        notePillSource(watch.id, if (value != null && ChangeBasisMath.needsCandles(basis, ticker.change24hPercent)) candleProvider(watch, price, dayStart) else null)
+        notePillSource(
+            watch.id,
+            if (value != null &&
+                ChangeBasisMath.needsCandles(basis, ticker.change24hPercent)
+            ) {
+                candleProvider(watch, price, dayStart)
+            } else {
+                null
+            }
+        )
         return value
     }
 
@@ -189,8 +201,11 @@ class DayReferences @Inject constructor(
     private fun reference(watch: WatchEntity, q: String, dayStart: Long?): com.cryptochecker.app.domain.watch.DayReference? {
         val provider = sparklineRepository.cachedProvider(watch.baseAsset, q)
         if (!tokenIdentityStore.fallbackChangeAllowed(watch.exchangeKey, watch.exchangeName, watch.baseAsset, provider)) return null
-        return if (dayStart != null) sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
-        else sparklineRepository.cachedDayReference(watch.baseAsset, q)
+        return if (dayStart != null) {
+            sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
+        } else {
+            sparklineRepository.cachedDayReference(watch.baseAsset, q)
+        }
     }
 
     /** Veränderung aus gemerkten Kerzen der eigenen Börse ([DayChange.fromPrice], Kursabstand-Prüfung); null = keine. */

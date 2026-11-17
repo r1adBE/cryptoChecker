@@ -38,7 +38,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.MarketReveal
@@ -46,11 +45,12 @@ import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.title
+import com.cryptochecker.resources.R
 
 /** Art einer [MarketRow]: Platzhalter, Inhalt, Fehler — nur ein Wechsel der Art wird überblendet. */
 internal const val ROW_LOADING = 0
@@ -151,10 +151,16 @@ internal fun MarketRow(
             // Auf-/Zuklappen so lang wie das Überblenden einer Zeile; ohne Animation bei reduzierter Bewegung
             AnimatedVisibility(
                 visible = expandable && expanded,
-                enter = if (reduceMotion) EnterTransition.None
-                else expandVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeIn(tween(MarketReveal.SWAP_MILLIS)),
-                exit = if (reduceMotion) ExitTransition.None
-                else shrinkVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeOut(tween(MarketReveal.SWAP_MILLIS)),
+                enter = if (reduceMotion) {
+                    EnterTransition.None
+                } else {
+                    expandVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeIn(tween(MarketReveal.SWAP_MILLIS))
+                },
+                exit = if (reduceMotion) {
+                    ExitTransition.None
+                } else {
+                    shrinkVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeOut(tween(MarketReveal.SWAP_MILLIS))
+                },
             ) {
                 Column(
                     modifier = Modifier.fillMaxWidth().padding(start = Spacing.lg, end = Spacing.lg, bottom = Spacing.lg),

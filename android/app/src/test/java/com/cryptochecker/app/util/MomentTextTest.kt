@@ -1,12 +1,12 @@
 package com.cryptochecker.app.util
 
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.Locale
 
 /** «zuletzt um …»: heute nur die Uhrzeit, an einem anderen Tag mit Datum ([MomentText]). Gegenstück: `MomentTextTests.swift`. */
 class MomentTextTest {

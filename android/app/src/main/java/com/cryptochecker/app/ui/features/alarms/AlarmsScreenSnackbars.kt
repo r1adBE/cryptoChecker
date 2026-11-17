@@ -16,21 +16,21 @@ import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
+import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.resources.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.HapticPlayer
-import com.cryptochecker.app.ui.components.rememberHaptics
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.ui.components.showAppSnackbar
-import com.cryptochecker.app.ui.theme.SnackbarKind
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Snackbar [text] mit Aktion [actionLabel], [millis] lang — mit Screenreader ggf. länger (Systemeinstellung «Zeit
@@ -46,7 +46,10 @@ internal suspend fun SnackbarHostState.showTimed(
 ): SnackbarResult? {
     currentSnackbarData?.dismiss()
     val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-        millis, containsIcons = false, containsText = true, containsControls = true
+        millis,
+        containsIcons = false,
+        containsText = true,
+        containsControls = true
     ) ?: millis
     return withTimeoutOrNull(timeout) {
         showAppSnackbar(text, kind, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)

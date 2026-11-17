@@ -7,6 +7,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.widget.record
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -64,7 +65,11 @@ internal fun PortfolioViewModel.recordWidgetSnapshots() {
                 }
                 safe {
                     snapshotUpdater.record(
-                        input.transactions, input.prices.prices, input.currency, input.fxRate, routing = input.prices,
+                        input.transactions,
+                        input.prices.prices,
+                        input.currency,
+                        input.fxRate,
+                        routing = input.prices,
                         displayFx = input.displayFx,
                     )
                 }

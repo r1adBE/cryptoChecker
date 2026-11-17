@@ -14,8 +14,13 @@ import org.junit.Test
 class PairIdentityTest {
 
     private val btc = WatchEntity(
-        id = 7, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = "USDT",
-        contractType = FuturesContractType.NONE, pairId = "BTCUSDT",
+        id = 7,
+        exchangeKey = "Binance",
+        exchangeName = "Binance",
+        baseAsset = "BTC",
+        quoteAsset = "USDT",
+        contractType = FuturesContractType.NONE,
+        pairId = "BTCUSDT",
     )
 
     @Test

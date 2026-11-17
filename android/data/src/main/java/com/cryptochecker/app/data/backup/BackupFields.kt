@@ -14,7 +14,20 @@ import org.json.JSONObject
 object BackupFields {
 
     /** Typ eines Felds; «…_OR_NULL» = der Schreiber schreibt JSON null, wenn kein Wert da ist. */
-    enum class Type { BOOL, INT, DOUBLE, STRING, ARRAY, OBJECT, INT_MAP, BOOL_OR_NULL, INT_OR_NULL, DOUBLE_OR_NULL, STRING_OR_NULL, OBJECT_OR_NULL }
+    enum class Type {
+        BOOL,
+        INT,
+        DOUBLE,
+        STRING,
+        ARRAY,
+        OBJECT,
+        INT_MAP,
+        BOOL_OR_NULL,
+        INT_OR_NULL,
+        DOUBLE_OR_NULL,
+        STRING_OR_NULL,
+        OBJECT_OR_NULL,
+    }
 
     /** Einträge einer Liste [part] der Sicherung mit ihren Pflicht- und wahlfreien Feldern. */
     class Entry(val part: String, val required: Map<String, Type>, val optional: Map<String, Type> = emptyMap())
@@ -60,8 +73,12 @@ object BackupFields {
     val PORTFOLIO_ALARM = Entry(
         "portfolioAlarms",
         fields(
-            "id" to Type.INT, "kind" to Type.STRING, "threshold" to Type.DOUBLE, "currency" to Type.STRING_OR_NULL,
-            "enabled" to Type.BOOL, "repeating" to Type.BOOL,
+            "id" to Type.INT,
+            "kind" to Type.STRING,
+            "threshold" to Type.DOUBLE,
+            "currency" to Type.STRING_OR_NULL,
+            "enabled" to Type.BOOL,
+            "repeating" to Type.BOOL,
         ),
     )
 
@@ -69,9 +86,14 @@ object BackupFields {
         WatchedAddressRules.BACKUP_KEY,
         fields("chain" to Type.STRING, "address" to Type.STRING, "addedAt" to Type.INT),
         fields(
-            "label" to Type.STRING, "observations" to Type.ARRAY, "countTokens" to Type.BOOL,
-            "tokenObservations" to Type.OBJECT, "networks" to Type.ARRAY, "countInPortfolio" to Type.BOOL,
-            "costLots" to Type.ARRAY, "overlapChecked" to Type.BOOL,
+            "label" to Type.STRING,
+            "observations" to Type.ARRAY,
+            "countTokens" to Type.BOOL,
+            "tokenObservations" to Type.OBJECT,
+            "networks" to Type.ARRAY,
+            "countInPortfolio" to Type.BOOL,
+            "costLots" to Type.ARRAY,
+            "overlapChecked" to Type.BOOL,
         ),
     )
 

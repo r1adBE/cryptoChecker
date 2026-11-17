@@ -3,13 +3,13 @@
 // Börsen, die die App ohnehin anfragt, über deren eigene Kerzen. Erweiterungsfunktionen; Speicher in der Klasse.
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.OWN_CODEC
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.TTL_MILLIS
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.chainCacheName
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import kotlinx.coroutines.CancellationException
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.OWN_CODEC
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.TTL_MILLIS
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.chainCacheName
 
 /** Nach einer Abfrage ohne Treffer so lange nicht erneut alle Börsen fragen (nur im Speicher). */
 private const val CHAIN_MISS_MILLIS = 60 * 60_000L
@@ -74,8 +74,12 @@ private suspend fun PortfolioHistorySource.fetchChain(coin: String, span: Int, n
     for (source in HistoricCloseChain.SERIES_CHAIN) {
         val pairs = HistoricCloseChain.pairs(source, coin)
         val nameOk = HistoricCloseChain.nameAllowed(
-            coin, own = false, exchangeKey = source, ownName = ownName,
-            binanceName = binanceName, providerName = tokenIdentityStore.pairName(source, coin),
+            coin,
+            own = false,
+            exchangeKey = source,
+            ownName = ownName,
+            binanceName = binanceName,
+            providerName = tokenIdentityStore.pairName(source, coin),
         )
         if (!nameOk) continue
         for (p in pairs) {

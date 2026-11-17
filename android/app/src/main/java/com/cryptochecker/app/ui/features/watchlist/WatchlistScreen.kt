@@ -5,21 +5,16 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.runtime.getValue
 import android.annotation.SuppressLint
-import androidx.compose.ui.zIndex
-import com.cryptochecker.app.domain.watch.FirstAlarmCard
-import com.cryptochecker.app.ui.navigation.ScreenRoute
-import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -30,15 +25,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.DisabledView
+import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.domain.watch.QuickView
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.LocalRowHighlight
+import com.cryptochecker.app.ui.navigation.OnTabReselect
+import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -93,12 +93,8 @@ fun WatchlistScreen(
     val refreshing = live.refreshing
     // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
     val staleAfter = display.staleAfterMillis
-    // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit])
-    // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
-    @SuppressLint("ConfigurationScreenWidthHeight")
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val fontScale = LocalDensity.current.fontScale
-    val fetchSparklines = sparklinesFit(display.sparklineEnabled, screenWidthDp, fontScale)
+
+    val fetchSparklines = rememberSparklinesFit(display.sparklineEnabled)
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu ([rememberWatchlistClock])
     val now = rememberWatchlistClock()
@@ -184,12 +180,9 @@ fun WatchlistScreen(
     // Kein Sprungknopf in der Mehrfachauswahl: unten steht dann die Leiste
     val jump = rememberWatchlistJump(listState, shown.size, ui.sortMode || ui.selecting, reduceMotion, scope)
 
-    // Keine Kopfzeile mit Logo und App-Namen mehr (kostete eine ganze Zeile): ihre Knöpfe
-    // stehen rechts in der Gruppen-Zeile oben in der Liste. Den Bildschirmtitel bekommt der
-    // Screenreader als paneTitle; den Abstand zur Statusleiste liefert das Scaffold-Padding.
+    // Ohne eigene Kopfzeile: den Titel bekommt der Screenreader als paneTitle (Knöpfe in der Gruppen-Zeile)
     val screenTitle = stringResource(R.string.tab_watchlist)
-    // %-Basis für Änderungen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
-    // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
+    // %-Basis für Änderungen; passt der Stempel nicht (Basis gewechselt, neuer Tag), «—» bis neu gerechnet
     val changeBasis = display.changeBasis
     val changeStamp = live.changeStamp
     val changeView = remember(changeBasis, changeStamp, now) { ChangeView.of(changeStamp, changeBasis, now) }
@@ -236,12 +229,19 @@ fun WatchlistScreen(
 
             // Noch nicht geladen (Gerüst) bzw. leer (Start-Auswahl): [showsNotListed]
             if (showsNotListed(
-                    loaded, watches.isEmpty(), Modifier.padding(padding), starter, viewModel, onAddClick,
+                    loaded,
+                    watches.isEmpty(),
+                    Modifier.padding(padding),
+                    starter,
+                    viewModel,
+                    onAddClick,
                     // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
                     onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
                     onStartersAdded = starterMoment.askAfterHint,
                 )
-            ) return@Scaffold
+            ) {
+                return@Scaffold
+            }
 
             // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
             PullToRefreshBox(
@@ -300,3 +300,12 @@ fun WatchlistScreen(
         }
     }
 }
+
+/**
+ * Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit]). Bewusst die
+ * Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung.
+ */
+@SuppressLint("ConfigurationScreenWidthHeight")
+@Composable
+private fun rememberSparklinesFit(enabled: Boolean): Boolean =
+    sparklinesFit(enabled, LocalConfiguration.current.screenWidthDp, LocalDensity.current.fontScale)

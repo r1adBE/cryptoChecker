@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.refresh
 
+import java.io.File
+import java.nio.file.Files
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.nio.file.Files
 
 /** Datei von «Letzte Prüfungen»: schreiben, neu lesen, höchstens 20, kaputte Datei. */
 class CheckRunStoreTest {

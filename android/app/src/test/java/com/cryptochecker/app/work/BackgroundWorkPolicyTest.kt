@@ -1,18 +1,18 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckTrigger
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.ExactAction
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.FiredAction
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.WorkOutcome
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 class BackgroundWorkPolicyTest {
 
@@ -64,7 +64,14 @@ class BackgroundWorkPolicyTest {
         // Neustart/Update/Berechtigung: Android hat ihn gelöscht → neu ab jetzt
         assertEquals(
             ExactAction.Arm(now + fifteenMin),
-            BackgroundWorkPolicy.exactAction(enabled = true, permitted = true, hasWork = true, armedFor = now + 60_000, now = now, force = true),
+            BackgroundWorkPolicy.exactAction(
+                enabled = true,
+                permitted = true,
+                hasWork = true,
+                armedFor = now + 60_000,
+                now = now,
+                force = true
+            ),
         )
         // Abgelaufen bzw. Uhr zurückgestellt
         assertEquals(
@@ -81,8 +88,14 @@ class BackgroundWorkPolicyTest {
 
     @Test
     fun firedAlarm() {
-        assertEquals(FiredAction.REARM_AND_CHECK, BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = true, online = true))
-        assertEquals(FiredAction.REARM_SKIP_OFFLINE, BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = true, online = false))
+        assertEquals(
+            FiredAction.REARM_AND_CHECK,
+            BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = true, online = true)
+        )
+        assertEquals(
+            FiredAction.REARM_SKIP_OFFLINE,
+            BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = true, online = false)
+        )
         assertEquals(FiredAction.CANCEL, BackgroundWorkPolicy.firedAction(enabled = true, permitted = false, hasWork = true, online = true))
         assertEquals(FiredAction.CANCEL, BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = false, online = true))
         assertEquals(FiredAction.CANCEL, BackgroundWorkPolicy.firedAction(enabled = false, permitted = true, hasWork = true, online = true))
@@ -286,10 +299,12 @@ class BackgroundWorkPolicyTest {
     @Test
     fun `exact need never falls below the alarm part of the periodic need`() {
         // Jeder Alarm-Bedarf der periodischen Aktualisierung ohne Paare hält auch den Wecker: gleiche Eingaben, beide ja
-        for (portfolioAlarm in listOf(false, true)) for (market in listOf(false, true)) {
-            val periodic = BackgroundWorkPolicy.periodicNeeded(demand(portfolioWork = portfolioAlarm, marketAlarms = market))
-            val exact = BackgroundWorkPolicy.exactNeeded(activePairs = false, portfolioAlarm = portfolioAlarm, marketAlarms = market)
-            assertEquals("portfolio=$portfolioAlarm market=$market", periodic, exact)
+        for (portfolioAlarm in listOf(false, true)) {
+            for (market in listOf(false, true)) {
+                val periodic = BackgroundWorkPolicy.periodicNeeded(demand(portfolioWork = portfolioAlarm, marketAlarms = market))
+                val exact = BackgroundWorkPolicy.exactNeeded(activePairs = false, portfolioAlarm = portfolioAlarm, marketAlarms = market)
+                assertEquals("portfolio=$portfolioAlarm market=$market", periodic, exact)
+            }
         }
         // Und der Wecker wird damit gestellt bzw. nach dem Auslösen neu gestellt statt abgesagt
         val hasWork = BackgroundWorkPolicy.exactNeeded(activePairs = false, portfolioAlarm = true, marketAlarms = false)
@@ -297,8 +312,14 @@ class BackgroundWorkPolicyTest {
             ExactAction.Arm(now + fifteenMin),
             BackgroundWorkPolicy.exactAction(enabled = true, permitted = true, hasWork = hasWork, armedFor = 0, now = now),
         )
-        assertEquals(FiredAction.REARM_AND_CHECK, BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = hasWork, online = true))
-        assertEquals(BackgroundSchedule.ExactState.ACTIVE, BackgroundSchedule.exactState(enabled = true, permitted = true, hasWork = hasWork))
+        assertEquals(
+            FiredAction.REARM_AND_CHECK,
+            BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = hasWork, online = true)
+        )
+        assertEquals(
+            BackgroundSchedule.ExactState.ACTIVE,
+            BackgroundSchedule.exactState(enabled = true, permitted = true, hasWork = hasWork)
+        )
     }
 
     // Wecker, Abgleich, Schalter und Text lesen denselben Bedarf (ExactCheckDemand): Regel wiring (source_rules.py)

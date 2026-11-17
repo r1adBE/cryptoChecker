@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.market.GasNetwork
+import java.io.IOException
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,8 +19,6 @@ import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Netzwerkgebühren ([GasDataSource]) mit einem Interceptor als Anbieter: eth_feeHistory, sonst eth_gasPrice je
@@ -43,14 +43,16 @@ class GasDataSourceTest {
     }
 
     private fun source(replies: Map<String, String>) = GasDataSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val key = key(request)
-            hits.merge(key, 1) { a, b -> a + b }
-            val body = replies[key] ?: throw IOException("offline: $key")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
-                .body(body.toResponseBody("application/json".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val key = key(request)
+                hits.merge(key, 1) { a, b -> a + b }
+                val body = replies[key] ?: throw IOException("offline: $key")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
+                    .body(body.toResponseBody("application/json".toMediaType())).build()
+            }
+        ).build(),
     )
 
     // Grundgebühr des nächsten Blocks 2 gwei, Trinkgelder 1/2/3 gwei

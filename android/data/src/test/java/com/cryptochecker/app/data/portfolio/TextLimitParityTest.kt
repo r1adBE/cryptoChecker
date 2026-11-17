@@ -1,15 +1,15 @@
 package com.cryptochecker.app.data.portfolio
+import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX
-import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.util.TextLimit
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Längengrenze von Notizen in sichtbaren Zeichen (`testdata/parity/text_limit.json`): Emoji, ZWJ-Familie,

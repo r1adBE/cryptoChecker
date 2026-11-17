@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -123,7 +123,7 @@ class RetryWaitTest {
 
     @Test
     fun widgetLayoutHasNoCountdown() {
-        val path = listOf("", "app/", "android/app/").map { "${it}../resources/src/main/res/layout/widget_list.xml" }
+        val path = listOf("", "app/", "android/app/").map { "$it../resources/src/main/res/layout/widget_list.xml" }
             .firstOrNull { java.io.File(it).isFile }
         val layout = java.io.File(SourceGuard.android(path, "widget_list.xml")).readText()
         // Uhrzeit des Versuchs als einfacher Text, nicht als herunterzählender Chronometer

@@ -43,7 +43,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.ui.components.RollingNumberText
 import com.cryptochecker.app.ui.components.pillArrow
@@ -54,6 +53,7 @@ import com.cryptochecker.app.ui.theme.display
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Kleine Überschrift «Gewinn/Verlust» über Heute · 7 T · Seit Kauf, rechts ein (i): erklärt in
@@ -122,8 +122,11 @@ internal fun FittedTotal(
             val width = measurer.measure(text, base, maxLines = 1, softWrap = false).size.width
             val quoteWidth = quote?.let { measurer.measure(it, quoteStyle, maxLines = 1, softWrap = false).size.width + gapPx } ?: 0
             val room = maxPx - quoteWidth
-            if (!constraints.hasBoundedWidth || width <= room || width == 0 || room <= 0) base
-            else base.copy(fontSize = base.fontSize * (room.toFloat() / width * 0.98f).coerceAtLeast(0.5f))
+            if (!constraints.hasBoundedWidth || width <= room || width == 0 || room <= 0) {
+                base
+            } else {
+                base.copy(fontSize = base.fontSize * (room.toFloat() / width * 0.98f).coerceAtLeast(0.5f))
+            }
         }
         val spoken = if (quote != null) "$text $quote" else text
         // Immer «Zahl Währung» von links nach rechts (wie PriceWithQuote), ein Element für den Screenreader
@@ -182,8 +185,13 @@ internal fun TotalChangeLine(
         if (validPercent != null) {
             append((if (amount != null) "  " else "") + PortfolioFormat.signedPercent(validPercent))
         }
-        withStyle(SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Normal,
-            fontSize = MaterialTheme.typography.label.fontSize)) {
+        withStyle(
+            SpanStyle(
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontWeight = FontWeight.Normal,
+                fontSize = MaterialTheme.typography.label.fontSize
+            )
+        ) {
             append(" · $period")
         }
     }
@@ -290,8 +298,10 @@ private fun signedPlain(value: Double): String =
  */
 internal class CardUnit(val code: String, private val rate: Double) {
     fun of(usdt: Double): Double = usdt * rate
+
     /** Gross umgerechnet (dann «≈ … USDT» darunter). */
     val converted: Boolean get() = code != PortfolioFormat.USDT
+
     /** «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF». */
     fun signed(value: Double): String = signedPlain(value) + " " + code
 }

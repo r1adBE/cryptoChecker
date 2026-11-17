@@ -19,6 +19,7 @@ enum class AccentColor(
     RED(0xFFE8414D.toInt(), "Red"),
     BLUE(0xFF3B78F0.toInt(), "Blue"),
     GREEN(0xFF22A96C.toInt(), "Green"),
+
     /** Marrs Green (#4BACA5), «Lieblingsfarbe der Welt» der G.F-Smith-Umfrage 2017. Am Ende angehängt: gespeicherte Namen bleiben gültig. */
     MARRS_GREEN(0xFF4BACA5.toInt(), "MarrsGreen"),
     ;

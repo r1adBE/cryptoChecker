@@ -1,8 +1,8 @@
 package com.cryptochecker.app.contract
 
 import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.marketdata.model.pairListPaging
 import com.cryptochecker.marketdata.model.exchange.Gemini
+import com.cryptochecker.marketdata.model.pairListPaging
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
@@ -109,7 +109,9 @@ class GeminiDetailsTest {
         val exchange = Gemini()
         val symbols = (1..12).map { "x${'a' + it}gusd" }
         val listBody = symbols.joinToString(",", "[", "]") { "\"$it\"" }
-        val detail = { s: String -> """{"symbol":"${s.uppercase()}","base_currency":"${s.dropLast(4).uppercase()}","quote_currency":"GUSD"}""" }
+        val detail = { s: String ->
+            """{"symbol":"${s.uppercase()}","base_currency":"${s.dropLast(4).uppercase()}","quote_currency":"GUSD"}"""
+        }
 
         // 1. Synchronisierung: 9 Details, die übrigen 3 fehlen (ungeklärt statt geraten)
         val first = parse(exchange, listBody).toMutableList()

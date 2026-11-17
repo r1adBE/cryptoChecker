@@ -8,11 +8,11 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.model.SimpleTicker
+import java.io.File
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Reihenfolge der Kurs-Schreiber ([PriceWriteOrder], `price_write_order.json`, geteilt mit iOS): Ein älterer Kurs

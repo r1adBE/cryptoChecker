@@ -14,7 +14,12 @@ import org.junit.Test
 class PortfolioWatchPairTest {
 
     private fun w(
-        exchange: String, base: String, quote: String, spot: Boolean = true, disabled: Boolean = false, at: Long = 0,
+        exchange: String,
+        base: String,
+        quote: String,
+        spot: Boolean = true,
+        disabled: Boolean = false,
+        at: Long = 0,
     ) = Candidate(exchange, base, quote, null, spot, disabled, at)
 
     @Test
@@ -69,9 +74,14 @@ class PortfolioWatchPairTest {
         for (c in cases) {
             val watches = c["watches"].list().map { it.obj() }.map { x ->
                 Candidate(
-                    exchangeKey = x["exchange"] as String, base = x["base"] as String, quote = x["quote"] as String,
-                    pairId = null, spot = x["spot"] as Boolean? ?: true, disabled = x["disabled"] as Boolean? ?: false,
-                    lastUpdate = x["at"].num()!!.toLong(), notTraded = x["notTraded"] as Boolean? ?: false,
+                    exchangeKey = x["exchange"] as String,
+                    base = x["base"] as String,
+                    quote = x["quote"] as String,
+                    pairId = null,
+                    spot = x["spot"] as Boolean? ?: true,
+                    disabled = x["disabled"] as Boolean? ?: false,
+                    lastUpdate = x["at"].num()!!.toLong(),
+                    notTraded = x["notTraded"] as Boolean? ?: false,
                 )
             }
             val got = PortfolioWatchPair.pick(c["coin"] as String, watches)?.let { "${it.exchangeKey}|${it.quote}" }

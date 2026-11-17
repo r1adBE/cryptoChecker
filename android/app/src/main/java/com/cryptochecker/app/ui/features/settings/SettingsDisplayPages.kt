@@ -19,14 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.resources.R
 
 // ── Darstellung ──────────────────────────────────────────────────────────────
 
@@ -141,7 +141,10 @@ internal fun ChangeBasisPage(onBack: () -> Unit, viewModel: SettingsViewModel = 
         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = Spacing.md)) {
             NumberedHint(1, stringResource(R.string.settings_change_basis_hint_1))
             NumberedHint(2, stringResource(R.string.settings_change_basis_hint_2, stringResource(R.string.change_basis_rolling)))
-            NumberedHint(3, stringResource(R.string.settings_change_basis_hint_since_last, stringResource(R.string.change_basis_since_last)))
+            NumberedHint(
+                3,
+                stringResource(R.string.settings_change_basis_hint_since_last, stringResource(R.string.change_basis_since_last))
+            )
             NumberedHint(4, stringResource(R.string.settings_change_basis_hint_3))
         }
         GroupCard {

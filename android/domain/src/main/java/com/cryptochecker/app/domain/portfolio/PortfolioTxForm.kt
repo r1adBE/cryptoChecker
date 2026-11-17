@@ -70,7 +70,8 @@ object PortfolioTxForm {
             amount != null && amount.signum() > 0 && f.signum() > 0 && f >= amount
         }
         type == PortfolioTxType.SWAP ->
-            toAmount != null && toAmount.signum() > 0 && receivedCoinFee != null && receivedCoinFee.signum() > 0 && receivedCoinFee >= toAmount
+            toAmount != null && toAmount.signum() > 0 && receivedCoinFee != null && receivedCoinFee.signum() > 0 &&
+                receivedCoinFee >= toAmount
         else -> false
     }
 
@@ -107,24 +108,6 @@ object PortfolioTxForm {
         val outflow: Boolean,
     )
 
-    fun fields(type: PortfolioTxType): Fields = when (type) {
-        PortfolioTxType.BUY, PortfolioTxType.SELL ->
-            Fields(price = true, feeWithUnit = true, coinFeeOnly = false, thirdCoinFee = true, route = false, exchange = true, outflow = type == PortfolioTxType.SELL)
-        PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT ->
-            Fields(price = true, feeWithUnit = false, coinFeeOnly = false, thirdCoinFee = false, route = false, exchange = true, outflow = false)
-        // Verschenkt: wie eine Auszahlung (Marktwert je Coin optional, Netzwerkgebühr im Coin)
-        PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT ->
-            Fields(price = true, feeWithUnit = false, coinFeeOnly = true, thirdCoinFee = true, route = false, exchange = true, outflow = true)
-        // Damit bezahlt: Marktwert je Coin (Erlös = Menge × Wert, kein Geld erhalten); Gebühren wie beim Verkauf
-        PortfolioTxType.PAYMENT ->
-            Fields(price = true, feeWithUnit = true, coinFeeOnly = false, thirdCoinFee = true, route = false, exchange = true, outflow = true)
-        PortfolioTxType.TRANSFER ->
-            Fields(price = false, feeWithUnit = false, coinFeeOnly = true, thirdCoinFee = true, route = true, exchange = false, outflow = true)
-        // Tausch: statt Preis der Wert des Tauschs ([swapValue]); Gebühr USDT/Coin, dazu dritter Coin oder erhaltener Coin
-        PortfolioTxType.SWAP ->
-            Fields(price = false, feeWithUnit = true, coinFeeOnly = false, thirdCoinFee = true, route = false, exchange = true, outflow = true)
-    }
-
     /**
      * Tausch: Wert in USDT (gesamt) aus den Eingaben — ein eingegebener Gesamtwert [valueUsdt] (≥ 0) zuerst, sonst
      * USDT je abgegebenem Coin × [amount], sonst USDT je erhaltenem Coin × [toAmount]; null = unbekannt (wird so
@@ -138,8 +121,16 @@ object PortfolioTxForm {
         valueUsdt: BigDecimal? = null,
     ): BigDecimal? {
         valueUsdt?.takeIf { it.signum() >= 0 }?.let { return it }
-        if (amount != null && amount.signum() > 0 && priceUsdt != null && priceUsdt.signum() >= 0) return amount.multiply(priceUsdt, PortfolioDecimal.MC)
-        if (toAmount != null && toAmount.signum() > 0 && toPriceUsdt != null && toPriceUsdt.signum() >= 0) return toAmount.multiply(toPriceUsdt, PortfolioDecimal.MC)
+        if (amount != null && amount.signum() > 0 && priceUsdt != null &&
+            priceUsdt.signum() >= 0
+        ) {
+            return amount.multiply(priceUsdt, PortfolioDecimal.MC)
+        }
+        if (toAmount != null && toAmount.signum() > 0 && toPriceUsdt != null &&
+            toPriceUsdt.signum() >= 0
+        ) {
+            return toAmount.multiply(toPriceUsdt, PortfolioDecimal.MC)
+        }
         return null
     }
 
@@ -151,7 +142,13 @@ object PortfolioTxForm {
      * Abgang grösser als der Bestand? Verkauf und Auszahlung: Menge + Gebühr im Coin; Umbuchung: Menge
      * (muss da sein, um sie zu verschieben) + Netzwerkgebühr. Zugänge: nie.
      */
-    fun outflowExceeds(type: PortfolioTxType, amount: BigDecimal?, fee: BigDecimal?, feeUnit: PortfolioFeeUnit, holdings: BigDecimal?): Boolean {
+    fun outflowExceeds(
+        type: PortfolioTxType,
+        amount: BigDecimal?,
+        fee: BigDecimal?,
+        feeUnit: PortfolioFeeUnit,
+        holdings: BigDecimal?
+    ): Boolean {
         if (!fields(type).outflow) return false
         return sellExceeds(amount, fee, feeUnitFor(type, feeUnit), holdings)
     }
@@ -160,14 +157,23 @@ object PortfolioTxForm {
     enum class ThirdFee {
         /** Nichts eingegeben. */
         NONE,
+
         /** Coin und Menge, Preis fehlt: wird gespeichert, Hinweis «unvollständig». */
         INCOMPLETE,
         COMPLETE,
+
         /** Coin fehlt/ungültig/gleich dem Coin der Transaktion oder Menge fehlt/≤ 0: nicht speicherbar. */
         INVALID,
     }
 
-    fun thirdFee(feeCoin: String, coin: String, amount: BigDecimal?, amountBlank: Boolean, price: BigDecimal?, priceBlank: Boolean): ThirdFee {
+    fun thirdFee(
+        feeCoin: String,
+        coin: String,
+        amount: BigDecimal?,
+        amountBlank: Boolean,
+        price: BigDecimal?,
+        priceBlank: Boolean,
+    ): ThirdFee {
         val c = PortfolioCalculator.normalizeCoin(feeCoin)
         if (c.isEmpty() && amountBlank && priceBlank) return ThirdFee.NONE
         val coinOk = c.isNotEmpty() && c.length <= 15 && c.all { it.isLetterOrDigit() } && c != PortfolioCalculator.normalizeCoin(coin)
@@ -185,8 +191,10 @@ object PortfolioTxForm {
      * bisher nur mit Hinweis.
      */
     fun mayPrefillHistoricClose(type: PortfolioTxType, isEdit: Boolean, isToday: Boolean, priceBlank: Boolean): Boolean =
-        (type == PortfolioTxType.REWARD || type == PortfolioTxType.DEPOSIT || type == PortfolioTxType.GIFT ||
-            type == PortfolioTxType.PAYMENT) &&
+        (
+            type == PortfolioTxType.REWARD || type == PortfolioTxType.DEPOSIT || type == PortfolioTxType.GIFT ||
+                type == PortfolioTxType.PAYMENT
+            ) &&
             !isEdit && !isToday && priceBlank
 
     /** Von/Nach: getrimmt, höchstens 40 Zeichen (wie die Börse). */
@@ -217,52 +225,6 @@ object PortfolioTxForm {
      * (z. B. wertlosen Coin zu 0 verkaufen).
      */
     fun priceZero(entered: BigDecimal?, imported: Boolean): Boolean = imported && entered != null && entered.signum() == 0
-
-    /**
-     * Faktor USDT → Anzeigewährung für die Eingabe (wie CSV-Import, Steuer-Export
-     * `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung [usdToFiat] × USDT/USD [usdtUsd] (heute der
-     * Live-Kurs, sonst der Tagesschluss DES Tags). Ohne gültigen USDT/USD-Kurs im Einbruch-Bereich 0.05…3 ([PortfolioStables.usdtUsd])
-     * × 1 (Näherung). [fiatToUsdt]/[usdtToFiat] rechnen mit diesem Faktor. null ohne Devisenkurs. Wie iOS.
-     */
-    fun entryRate(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): BigDecimal? {
-        if (usdToFiat == null || usdToFiat.signum() <= 0) return null
-        val usdt = plausibleUsdt(usdtUsd) ?: return usdToFiat
-        return usdToFiat.multiply(usdt, PortfolioDecimal.MC)
-    }
-
-    /**
-     * Rechnet [entryRate] mit USDT = 1 (Devisenkurs da, USDT/USD fehlt oder ist unplausibel)? Dann nennt das Blatt
-     * «USDT = 1 angenommen» wie Summen und Steuer-Export — die Näherung soll nie still sein. Wie iOS.
-     */
-    fun entryUsdtAssumed(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): Boolean =
-        usdToFiat != null && usdToFiat.signum() > 0 && plausibleUsdt(usdtUsd) == null
-
-    private fun plausibleUsdt(usdtUsd: BigDecimal?): BigDecimal? =
-        usdtUsd?.takeIf { it.signum() > 0 && !PortfolioStables.usdtUsd(it.toDouble()).approximate }
-
-    /**
-     * Eingabe in der Anzeigewährung (CHF/EUR/…) → USDT: Betrag ÷ Faktor USDT → Währung ([usdToFiat] > 0, aus
-     * [entryRate]: Devisenkurs × USDT/USD), 34 Stellen ([PortfolioDecimal.MC]). null ohne Betrag oder Kurs.
-     */
-    fun fiatToUsdt(fiat: BigDecimal?, usdToFiat: BigDecimal?): BigDecimal? {
-        if (fiat == null || usdToFiat == null || usdToFiat.signum() <= 0) return null
-        return fiat.divide(usdToFiat, PortfolioDecimal.MC).stripTrailingZeros()
-    }
-
-    /** USDT → Anzeigewährung (Umschalten des Felds): Betrag × Kurs; null ohne Betrag oder Kurs. */
-    fun usdtToFiat(usdt: BigDecimal?, usdToFiat: BigDecimal?): BigDecimal? {
-        if (usdt == null || usdToFiat == null || usdToFiat.signum() <= 0) return null
-        return usdt.multiply(usdToFiat).round(PortfolioDecimal.MC).stripTrailingZeros()
-    }
-
-    /**
-     * Bestand von [wallet] aus den offenen Posten ([PortfolioCalculator.openLots], [CostMethod.FIFO_WALLET]): Summe der
-     * Posten derselben Wallet ([PortfolioWallets.key]; leer = «ohne Angabe»).
-     */
-    fun walletHoldings(lots: List<PortfolioOpenLot>, wallet: String?): BigDecimal {
-        val key = PortfolioWallets.key(wallet)
-        return lots.filter { PortfolioWallets.key(it.wallet) == key }.fold(BigDecimal.ZERO) { a, l -> a + l.amount }
-    }
 
     // ---- Prüfung der Eingaben (Spiegel: `PortfolioTxForm.check` in Swift) ----
 
@@ -359,10 +321,26 @@ object PortfolioTxForm {
         val feeValid = !hasFee || e.feeBlank || fee != null
         val feeUnit = PortfolioTxForm.feeUnitFor(e.type, e.feeUnit)
         val feeInReceived = PortfolioTxForm.feeInReceivedCoin(e.type, e.feeCoin, e.toCoinQuery)
-        val thirdFee = if (!fields.thirdCoinFee) ThirdFee.NONE else PortfolioTxForm.thirdFee(
-            e.feeCoin, coin, e.feeCoinAmount, e.feeCoinAmountBlank, e.feeCoinPrice, e.feeCoinPriceBlank,
-        ).let { if (feeInReceived && it == ThirdFee.INCOMPLETE) ThirdFee.COMPLETE else it }
-        val feeConsumes = PortfolioTxForm.feeConsumesReceived(e.type, e.amount, fee, feeUnit, e.toAmount, if (feeInReceived) e.feeCoinAmount else null)
+        val thirdFee = if (!fields.thirdCoinFee) {
+            ThirdFee.NONE
+        } else {
+            PortfolioTxForm.thirdFee(
+                e.feeCoin,
+                coin,
+                e.feeCoinAmount,
+                e.feeCoinAmountBlank,
+                e.feeCoinPrice,
+                e.feeCoinPriceBlank,
+            ).let { if (feeInReceived && it == ThirdFee.INCOMPLETE) ThirdFee.COMPLETE else it }
+        }
+        val feeConsumes = PortfolioTxForm.feeConsumesReceived(
+            e.type,
+            e.amount,
+            fee,
+            feeUnit,
+            e.toAmount,
+            if (feeInReceived) e.feeCoinAmount else null
+        )
         val valid = coinValid && e.amount != null && priceValid && feeValid && thirdFee != ThirdFee.INVALID &&
             toCoinValid && toAmountValid && swapValueValid && !feeConsumes
         return Check(

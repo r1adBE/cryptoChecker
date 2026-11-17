@@ -2,14 +2,14 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressServer
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Eigener Bitcoin-Server für Adressabfragen (`testdata/parity/address_server.json`): Prüfung der Eingabe, Adress-URL,
@@ -55,7 +55,9 @@ class AddressServerParityTest {
     fun zustimmungVorDemErstenXpub() {
         for (c in fixture["consent"].list().map { it.obj() }) {
             val needed = AddressServer.consentNeeded(
-                c["addresses"].num()!!.toInt(), c["xpubs"].num()!!.toInt(), c["newIsKey"] as Boolean,
+                c["addresses"].num()!!.toInt(),
+                c["xpubs"].num()!!.toInt(),
+                c["newIsKey"] as Boolean,
             )
             assertEquals(c.toString(), c["needed"], needed)
         }

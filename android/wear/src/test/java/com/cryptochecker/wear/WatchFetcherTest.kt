@@ -1,5 +1,6 @@
 package com.cryptochecker.wear
 
+import java.net.SocketTimeoutException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.runBlocking
@@ -9,7 +10,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.net.SocketTimeoutException
 
 /**
  * Abrufe der Uhr-App ([WatchFetcher]): ein langsamer erster Abruf überschreibt den schnelleren zweiten nicht, ein
@@ -114,7 +114,8 @@ class WatchFetcherTest {
                     when {
                         "binance" in url && solTimesOut ->
                             """[{"symbol":"BTCUSDT","lastPrice":"67000","priceChangePercent":"1"}]"""
-                        "binance" in url -> """[{"symbol":"BTCUSDT","lastPrice":"66000","priceChangePercent":"1"},
+                        "binance" in url ->
+                            """[{"symbol":"BTCUSDT","lastPrice":"66000","priceChangePercent":"1"},
                             {"symbol":"SOLUSDT","lastPrice":"150","priceChangePercent":"2"}]"""
                         else -> throw SocketTimeoutException("timeout")
                     }

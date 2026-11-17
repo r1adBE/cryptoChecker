@@ -1,15 +1,15 @@
 package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Gemeinsame Testfälle des Volumen-Spikes (`testdata/parity/volume_spike.json`): Stundenraster,

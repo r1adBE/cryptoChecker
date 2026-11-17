@@ -7,7 +7,6 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
 import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE
@@ -19,6 +18,7 @@ import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryNote
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.resources.R
 import java.time.ZoneId
 
 /**
@@ -26,7 +26,11 @@ import java.time.ZoneId
  * AT: Einkünfte getrennt nach Zins und Staking (Vermerke, zwei Summen); sonst eine Summe.
  */
 @Composable
-internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault(), template: TaxTemplate = TaxTemplate.NEUTRAL): TaxCsvTexts = TaxCsvTexts(
+internal fun taxCsvTexts(
+    currency: String,
+    zone: ZoneId = ZoneId.systemDefault(),
+    template: TaxTemplate = TaxTemplate.NEUTRAL
+): TaxCsvTexts = TaxCsvTexts(
     coin = stringResource(R.string.portfolio_export_col_coin),
     acquired = stringResource(R.string.tax_export_col_acquired),
     sold = stringResource(R.string.tax_export_col_sold),

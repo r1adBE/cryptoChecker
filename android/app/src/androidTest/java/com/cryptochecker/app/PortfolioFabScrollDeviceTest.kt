@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasTestTag
@@ -8,7 +9,6 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import com.cryptochecker.app.data.WatchRepository
@@ -22,13 +22,13 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.math.BigDecimal
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.math.BigDecimal
-import javax.inject.Inject
 
 /**
  * «+»-Knopf des Portfolios verdeckt beim Lesen keine Beträge (Regel
@@ -48,7 +48,9 @@ class PortfolioFabScrollDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
     @Before
@@ -77,7 +79,11 @@ class PortfolioFabScrollDeviceTest {
     }
 
     private fun tx(coin: String, time: Long) = PortfolioTxEntity(
-        coin = coin, type = PortfolioTxType.BUY, amount = BigDecimal.ONE, priceUsdt = BigDecimal("100"), time = time,
+        coin = coin,
+        type = PortfolioTxType.BUY,
+        amount = BigDecimal.ONE,
+        priceUsdt = BigDecimal("100"),
+        time = time,
     )
 
     /** Irgendeine Coin-Zeile der Übersicht. */
@@ -92,8 +98,11 @@ class PortfolioFabScrollDeviceTest {
     /** Ein Stück scrollen (nicht bis ans Ende: dort zeigt sich der Knopf wieder, damit nichts verdeckt bleibt). */
     private fun scroll(down: Boolean) {
         compose.onAllNodes(hasScrollAction()).onFirst().performTouchInput {
-            if (down) swipeUp(startY = centerY + height / 4f, endY = centerY - height / 8f)
-            else swipeDown(startY = centerY - height / 8f, endY = centerY + height / 4f)
+            if (down) {
+                swipeUp(startY = centerY + height / 4f, endY = centerY - height / 8f)
+            } else {
+                swipeDown(startY = centerY - height / 8f, endY = centerY + height / 4f)
+            }
         }
         compose.waitForIdle()
     }

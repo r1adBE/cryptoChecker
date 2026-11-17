@@ -9,20 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceState
 import com.cryptochecker.app.ui.components.DataStatusPill
 import com.cryptochecker.app.ui.components.DataStatusTone
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.features.watchlist.spokenAgo
-import com.cryptochecker.app.domain.format.A11ySpeech
+import com.cryptochecker.resources.R
 
 /** Uhrzeit des Stands, bei älteren Kursen (nicht von heute) mit Datum — «Stand 14:05» bzw. «Stand 3. Okt., 14:05». */
 @Composable
 internal fun portfolioStampTime(millis: Long): String {
     val context = LocalContext.current
-    val flags = if (DateUtils.isToday(millis)) DateUtils.FORMAT_SHOW_TIME
-    else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    val flags = if (DateUtils.isToday(millis)) {
+        DateUtils.FORMAT_SHOW_TIME
+    } else {
+        DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    }
     return DateUtils.formatDateTime(context, millis, flags)
 }
 

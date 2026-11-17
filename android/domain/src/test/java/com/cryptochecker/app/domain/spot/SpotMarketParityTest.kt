@@ -2,15 +2,15 @@ package com.cryptochecker.app.domain.spot
 import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.spot.SpotData
 import com.cryptochecker.app.domain.spot.SpotMarket
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
 
 /** Gemeinsame Testfälle `spot_market.json` (iOS: `SpotMarketTests.swift`). */
 class SpotMarketParityTest {

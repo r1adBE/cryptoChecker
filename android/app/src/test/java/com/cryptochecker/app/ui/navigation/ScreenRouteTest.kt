@@ -12,9 +12,9 @@ class ScreenRouteTest {
 
     @Test
     fun argumentKeysMatchFieldNames() {
-        assertEquals(ScreenRoute.AlarmsArgWatchId, ScreenRoute.Alarms.serializer().descriptor.getElementName(0))
+        assertEquals(ScreenRoute.ALARMS_ARG_WATCH_ID, ScreenRoute.Alarms.serializer().descriptor.getElementName(0))
         val subpage = ScreenRoute.MarketSubpage.serializer().descriptor
-        assertEquals(ScreenRoute.MarketSubpageArgMacro, subpage.getElementName(1))
+        assertEquals(ScreenRoute.MARKET_SUBPAGE_ARG_MACRO, subpage.getElementName(1))
     }
 
     @Test

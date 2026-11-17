@@ -100,10 +100,19 @@ data class OiSample(val units: Double, val time: Long, val source: String)
  * breite Markt); [Reason.threshold] ist die Schwelle, gegen die verglichen wurde.
  */
 enum class ReasonKind {
-    MARKET_WIDE, COIN_ONLY, AGAINST_MARKET, MARKET_CALM, MARKET_LEADER,
-    VOLUME_HIGH, VOLUME_LOW, VOLUME_NORMAL,
-    LEVERAGE_LONGS, LEVERAGE_SHORTS, LEVERAGE_BALANCED,
-    VOLATILITY_HIGH, VOLATILITY_NORMAL,
+    MARKET_WIDE,
+    COIN_ONLY,
+    AGAINST_MARKET,
+    MARKET_CALM,
+    MARKET_LEADER,
+    VOLUME_HIGH,
+    VOLUME_LOW,
+    VOLUME_NORMAL,
+    LEVERAGE_LONGS,
+    LEVERAGE_SHORTS,
+    LEVERAGE_BALANCED,
+    VOLATILITY_HIGH,
+    VOLATILITY_NORMAL,
     SENTIMENT,
     PEG,
 }

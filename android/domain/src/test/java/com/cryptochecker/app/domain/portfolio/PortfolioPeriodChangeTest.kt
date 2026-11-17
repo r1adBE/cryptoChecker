@@ -59,7 +59,10 @@ class PortfolioPeriodChangeTest {
         // Reihe beginnt erst nach dem Stichtag: gleiche Regel
         assertNull(
             PortfolioPeriodChange.change(
-                mapOf("USDC" to 10.0), mapOf("USDC" to 0.99), mapOf("USDC" to closes(today - 3, 0.99)), base,
+                mapOf("USDC" to 10.0),
+                mapOf("USDC" to 0.99),
+                mapOf("USDC" to closes(today - 3, 0.99)),
+                base,
             )
         )
         // USDT gilt immer 1 (keine Kerzen nötig)
@@ -83,7 +86,8 @@ class PortfolioPeriodChangeTest {
         assertEquals(listOf("NEW"), missing.skipped)
         // Reihe beginnt erst nach dem Stichtag (frisch gelistet): ebenso
         val late = PortfolioPeriodChange.change(
-            holdings, current,
+            holdings,
+            current,
             mapOf("BTC" to closes(today - 30, 90.0), "NEW" to closes(today - 3, 2.0)),
             base,
         )!!

@@ -318,7 +318,9 @@ object PortfolioAlarmLogic {
         }
         if (alarm.lastTriggeredAt > 0 && cooldownMinutes > 0 &&
             now - alarm.lastTriggeredAt in 0 until cooldownMinutes * 60_000L
-        ) return PortfolioAlarmDecision.None
+        ) {
+            return PortfolioAlarmDecision.None
+        }
         val crossed = if (below(alarm.kind)) value <= threshold else value >= threshold
         return if (crossed) PortfolioAlarmDecision.Fire(value) else PortfolioAlarmDecision.None
     }

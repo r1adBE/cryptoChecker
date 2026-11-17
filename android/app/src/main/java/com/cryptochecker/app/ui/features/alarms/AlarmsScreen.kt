@@ -1,8 +1,5 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
-import com.cryptochecker.app.domain.watch.RetiredWatch
-import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -35,17 +31,21 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.AppFab
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.BidiText
-import kotlinx.coroutines.delay
 import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.marketdata.util.ExchangesConfigUtils
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,7 +117,8 @@ fun AlarmsScreen(
         draft = null
         val locked = viewModel.alarmSaveBlocked()
         android.widget.Toast.makeText(
-            context, if (locked) lockedText else missingText,
+            context,
+            if (locked) lockedText else missingText,
             if (locked) android.widget.Toast.LENGTH_LONG else android.widget.Toast.LENGTH_SHORT,
         ).show()
         onBack()

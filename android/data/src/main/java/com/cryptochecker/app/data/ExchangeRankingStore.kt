@@ -7,6 +7,8 @@ import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.market.ExchangeOrder
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +17,6 @@ import kotlinx.coroutines.sync.withLock
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Handelsvolumen der Börsen am Tag der Installation für die Reihenfolge der Börsenauswahl

@@ -1,27 +1,29 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.fakePortfolioDao
 import com.cryptochecker.app.data.fakeWatchDao
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.proxyOf
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.Klines
 import com.cryptochecker.app.data.remote.Reply
 import com.cryptochecker.app.data.remote.RouteHttp
 import com.cryptochecker.app.data.unusedExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.util.KeyValueStore
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
+import java.io.File
+import java.math.BigDecimal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -32,8 +34,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
-import java.math.BigDecimal
 
 /**
  * Aktuelle Portfolio-Kurse ([PortfolioPriceSource.prices]) über einen Interceptor: Binance-Sammelabfrage nur für
@@ -88,8 +88,12 @@ class PortfolioPriceSourceTest {
         ExchangeTickerResult(MutableTicker().apply { this.last = last }, PairQuery("X", "USDT", null, FuturesContractType.NONE), error)
 
     private fun watch(base: String, price: Double, exchangeKey: String = "Kraken") = WatchEntity(
-        exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = base, quoteAsset = "USDT",
-        lastPrice = price, lastUpdate = System.currentTimeMillis(),
+        exchangeKey = exchangeKey,
+        exchangeName = exchangeKey,
+        baseAsset = base,
+        quoteAsset = "USDT",
+        lastPrice = price,
+        lastUpdate = System.currentTimeMillis(),
     )
 
     /** Zwei laufende Stundenkerzen XYZ/USDT mit Schluss [close] beim Binance-Spiegel. */
@@ -200,9 +204,11 @@ class PortfolioPriceSourceTest {
             if (!url.startsWith(tickers)) return@RouteHttp Reply("", 404)
             val asked = java.net.URLDecoder.decode(url.removePrefix(tickers), "UTF-8")
             if ("FUTUSDT" in asked) return@RouteHttp Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 400)
-            Reply(known.filterKeys { "\"$it\"" in asked }.entries.joinToString(",", "[", "]") {
-                """{"symbol":"${it.key}","price":"${it.value}"}"""
-            })
+            Reply(
+                known.filterKeys { "\"$it\"" in asked }.entries.joinToString(",", "[", "]") {
+                    """{"symbol":"${it.key}","price":"${it.value}"}"""
+                }
+            )
         }
         val result = source(http, context = FolderContext(temp.newFolder())).prices(listOf("BTC", "IOTA", "FUT"))
         assertEquals(60000.5, result.prices["BTC"]!!, 0.0)

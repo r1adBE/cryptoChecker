@@ -1,20 +1,21 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckTrigger
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -22,7 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Wecker «Pünktlich prüfen» ([ExactCheckScheduler]) ist abgelaufen: zuerst den nächsten stellen
@@ -79,7 +79,11 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 // Netz frisch abfragen (der Prozess kann eingefroren gewesen sein) — nur wenn es zählt
                 val online = BackgroundSchedule.shouldArmExact(enabled, permitted, hasWork) && connectivity.isOnlineNow()
                 val check = firedStep.apply(
-                    BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online), enabled, hasWork, interval, startedAt,
+                    BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online),
+                    enabled,
+                    hasWork,
+                    interval,
+                    startedAt,
                 )
                 // Wecker ist neu gestellt bzw. bewusst abgesagt (ExactFiredStep)
                 chainHandled = true
@@ -89,10 +93,14 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 val deadlineAt = startedAt + timeoutMillis - DEADLINE_MARGIN_MILLIS
                 val done = withTimeoutOrNull(timeoutMillis - (System.currentTimeMillis() - startedAt)) {
                     backgroundCheck.run(
-                        CheckTrigger.EXACT, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS, deadlineAt = deadlineAt,
+                        CheckTrigger.EXACT,
+                        networkGuaranteed = true,
+                        ttsWaitMillis = TTS_WAIT_MILLIS,
+                        deadlineAt = deadlineAt,
                         // Hat WorkManager eben voll geprüft (weniger als ein halbes Intervall her): Wecker setzt aus
                         dedupeWindowMillis = BackgroundSchedule.dedupeWindowMillis(
-                            CheckTrigger.EXACT, exactArmed = true,
+                            CheckTrigger.EXACT,
+                            exactArmed = true,
                             intervalMillis = BackgroundSchedule.exactIntervalMillis(interval),
                         ),
                     )

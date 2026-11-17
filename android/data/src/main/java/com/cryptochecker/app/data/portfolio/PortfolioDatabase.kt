@@ -8,8 +8,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
-import timber.log.Timber
 import java.io.File
+import timber.log.Timber
 
 /**
  * Portfolio in einer eigenen Datenbankdatei ([DB_NAME]): Transaktionen, Portfolio-Alarme und beobachtete Adressen.

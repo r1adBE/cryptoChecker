@@ -6,27 +6,30 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.AlarmSaveResult
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
-import com.cryptochecker.app.data.trySaveAlarm
-import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.trySaveAlarm
+import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmSaveBuilder
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.notification.alarmsAllowed
+import com.cryptochecker.app.notification.canShowAlarm
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -39,14 +42,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import com.cryptochecker.app.notification.alarmsAllowed
-import com.cryptochecker.app.notification.canShowAlarm
 
 @HiltViewModel
 class AlarmsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val watchRepository: WatchRepository,
+    internal val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val currencyConverter: CurrencyConverter,
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
@@ -78,9 +78,11 @@ class AlarmsViewModel @Inject constructor(
     val unchecked: StateFlow<Map<Long, AlarmCheckStatus.Unchecked>> = alarmCheckStatus.state
 
     /** Bestätigung nach dem ersten Alarm, «Pünktlich prüfen» und «Wann Alarme geprüft werden» ([AlarmSaveNotices]). */
-    private val notices = AlarmSaveNotices(viewModelScope, watchRepository, settingsRepository, exactScheduler)
+    internal val notices = AlarmSaveNotices(viewModelScope, watchRepository, settingsRepository, exactScheduler)
+
     /** Doppeltipp beim Anlegen: ein zweites «Speichern»/eine Vorlage, solange das erste läuft, bleibt ohne Wirkung. */
-    private val createGuard = AlarmCreateGuard()
+    internal val createGuard = AlarmCreateGuard()
+
     /** Offener Editor und Ergebnisse fürs aktuelle Bild, statt Rückrufe des Bildschirms. */
     internal val editor = AlarmEditorState(savedStateHandle)
 
@@ -88,6 +90,7 @@ class AlarmsViewModel @Inject constructor(
     val firstAlarm: StateFlow<Boolean> = notices.firstAlarm
 
     fun dismissFirstAlarm() = notices.dismissFirstAlarm()
+
     /** «Rückgängig» nach einem Schnell-Alarm, auch nach «Prüfen» noch zu zeigen ([PendingUndoSnackbar]). */
     internal val undo = AlarmUndoOffer()
 
@@ -110,10 +113,10 @@ class AlarmsViewModel @Inject constructor(
     /** «Alarm testen» aus der Bestätigung heraus. */
     suspend fun testAlarm(): com.cryptochecker.app.notification.AlarmTestResult = alarmTester.run()
 
-    private val watchId: Long = savedStateHandle.get<Long>(ScreenRoute.AlarmsArgWatchId) ?: 0L
+    internal val watchId: Long = savedStateHandle.get<Long>(ScreenRoute.ALARMS_ARG_WATCH_ID) ?: 0L
 
     /** «Anpassen» aus der Alarm-Mitteilung: dieser Alarm wird gleich bearbeitet (0 = keiner). */
-    val editAlarmId: Long = savedStateHandle.get<Long>(ScreenRoute.AlarmsArgEditAlarmId) ?: 0L
+    val editAlarmId: Long = savedStateHandle.get<Long>(ScreenRoute.ALARMS_ARG_EDIT_ALARM_ID) ?: 0L
 
     val watch: StateFlow<WatchEntity?> = watchRepository.observeWatch(watchId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -136,7 +139,8 @@ class AlarmsViewModel @Inject constructor(
      */
     val lowLiquidity: StateFlow<Boolean?> = combine(watchRepository.observeWatch(watchId), dexLiquidityStore.liquidity) { w, levels ->
         w != null && com.cryptochecker.app.domain.watch.DexLiquidity.blocksAlarms(
-            w.exchangeKey, com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
+            w.exchangeKey,
+            com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
         )
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
@@ -152,7 +156,8 @@ class AlarmsViewModel @Inject constructor(
         .map { com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(it.backgroundIntervalMinutes) }
         .distinctUntilChanged()
         .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
             com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(settingsRepository.cached.backgroundIntervalMinutes),
         )
 
@@ -180,7 +185,11 @@ class AlarmsViewModel @Inject constructor(
         val code = CurrencyConversion.normalize(currency)
         if (code.isEmpty() || code in _rates.value) return
         viewModelScope.launch {
-            val quote = (watch.value ?: watchRepository.getWatch(watchId))?.let { CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) } ?: return@launch
+            val quote =
+                (watch.value ?: watchRepository.getWatch(watchId))?.let {
+                    CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset)
+                }
+                    ?: return@launch
             val rate = currencyConverter.cachedRate(quote, code) ?: currencyConverter.rate(quote, code)
             if (rate != null) _rates.update { it + (code to rate) }
         }
@@ -242,41 +251,10 @@ class AlarmsViewModel @Inject constructor(
     fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
 
     /**
-     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). Ergebnis als
-     * [AlarmEditorEvent.Created] (Id für «Rückgängig», Bedingung für die Bestätigung) bzw. [AlarmEditorEvent.Limit] (Paar
-     * voll). Editor zu gleich nach bestätigter Rückfrage «nicht gespeichert», nicht bei «Abbrechen».
-     */
-    fun createFromTemplate(template: AlarmTemplates.Template) {
-        if (alarmSaveBlocked()) return
-        createGuard.launch(viewModelScope, guarded = true) {
-            // Rückfrage «nicht gespeichert» vor der Aktion; «Abbrechen» = nichts, keine Meldung, der Editor bleibt offen
-            if (!watchRepository.confirmUserWrite()) return@launch else editor.close()
-            val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
-            val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
-            val firstEver = notices.isFirstAlarm(existing = false)
-            val alarm = AlarmEntity(
-                watchId = watchId,
-                condition = def.condition,
-                threshold = def.threshold,
-                enabled = true,
-                repeating = def.repeating,
-                referencePrice = def.referencePrice,
-                windowHours = def.windowHours,
-            )
-            val id = saveIfWatchExists(alarm, editor::limit) ?: return@launch
-            val timingHint = notices.markSaved(firstEver)
-            // Dialoge zuerst: Die Bestätigung mit «Rückgängig» wartet, bis sie geschlossen sind (sonst liefe sie dahinter ab)
-            if (firstEver) notices.showFirstAlarm()
-            if (timingHint) notices.showTimingHint()
-            editor.events.send(AlarmEditorEvent.Created(alarm.copy(id = id)))
-        }
-    }
-
-    /**
      * Alarm speichern, solange das Paar noch besteht; sonst nichts (null). Der Fremdschlüssel würde das Einfügen
      * sonst mit einem Fehler abbrechen. Neuer Alarm an einem vollen Paar ([WatchlistLimits]): nichts, [onLimit] (Hinweis).
      */
-    private suspend fun saveIfWatchExists(alarm: AlarmEntity, onLimit: () -> Unit): Long? {
+    internal suspend fun saveIfWatchExists(alarm: AlarmEntity, onLimit: () -> Unit): Long? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
             watchRepository.trySaveAlarm(alarm).savedOr(onLimit)?.id
@@ -296,7 +274,6 @@ class AlarmsViewModel @Inject constructor(
             null
         }
     }
-
 
     /** Eigene Währung nur bei Kursalarmen und nur, wenn sie von der Quote abweicht. */
     private fun alarmCurrency(draft: AlarmDraft): String? = draft.currency
@@ -341,14 +318,19 @@ class AlarmsViewModel @Inject constructor(
             val firstEver = notices.isFirstAlarm(existing = existing != null)
             val now = System.currentTimeMillis()
             // Nur ein frischer Kurs taugt als Bezug neuer Prozentalarme; sonst setzt ihn die nächste Abfrage
-            val freshReference = if (!draft.condition.isPercent) null
-            else (watch.value ?: watchRepository.getWatch(watchId)).let { w ->
-                AlarmEdit.freshReference(
-                    w?.lastPrice, w?.lastUpdate ?: 0L, now,
-                    com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(
-                        settingsRepository.current().backgroundIntervalMinutes,
-                    ),
-                )
+            val freshReference = if (!draft.condition.isPercent) {
+                null
+            } else {
+                (watch.value ?: watchRepository.getWatch(watchId)).let { w ->
+                    AlarmEdit.freshReference(
+                        w?.lastPrice,
+                        w?.lastUpdate ?: 0L,
+                        now,
+                        com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(
+                            settingsRepository.current().backgroundIntervalMinutes,
+                        ),
+                    )
+                }
             }
             val input = AlarmSaveBuilder.Input(
                 id = draft.id, watchId = watchId, condition = draft.condition, threshold = threshold,
@@ -394,6 +376,9 @@ class AlarmsViewModel @Inject constructor(
 /** Gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still (AlarmSaveOutcomeTest). */
 internal fun AlarmSaveResult.savedOr(onLimit: () -> Unit): AlarmEntity? = when (this) {
     is AlarmSaveResult.Saved -> alarm
-    AlarmSaveResult.Full -> { onLimit(); null }
+    AlarmSaveResult.Full -> {
+        onLimit()
+        null
+    }
     AlarmSaveResult.Refused -> null
 }

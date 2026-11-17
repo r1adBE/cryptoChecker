@@ -1,10 +1,13 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.PAIR_LIST_RETRY_MILLIS
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
-import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.remembersPairListAttempt
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -12,9 +15,6 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.PAIR_LIST_RETRY_MILLIS
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
 
 // Kurse eingetragener Börsen (Teil von [PortfolioPriceSource]): Börsen-Route je Coin, Kurs an einer Spot-Börse,
 // Namen der Spot-Börsen. Erweiterungsfunktionen; der Zustand bleibt in der Klasse.
@@ -48,7 +48,8 @@ suspend fun PortfolioPriceSource.applyExchangeRoutes(coins: List<String>, fetche
                     // Binance oder freier Text: Binance, ohne Hinweis. Stillgelegte Börse (ExchangeRetirement): ebenfalls
                     // Binance, aber mit dem Hinweis eines Abruffehlers («Bitpanda liefert keine Kurse mehr – mit Binance
                     // bewertet»); Verlauf, 7 T und 1 J dann wie dort mit Binance
-                    sourceOf.remove(coin); binanceOf.remove(coin)
+                    sourceOf.remove(coin)
+                    binanceOf.remove(coin)
                     val retired = PortfolioExchangeRoute.retiredExchange(name, exchanges)
                     if (retired != null) failedOf[coin] = retired else failedOf.remove(coin)
                     return@async

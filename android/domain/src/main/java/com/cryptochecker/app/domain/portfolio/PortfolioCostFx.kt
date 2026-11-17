@@ -74,8 +74,11 @@ object PortfolioCostFx {
         rates: Map<Long, BigDecimal>?,
         usdtUsd: Map<Long, BigDecimal>?,
     ): BigDecimal? =
-        if (day >= todayEpochDay) currentRate
-        else TaxExport.rateOn(rates, LocalDate.ofEpochDay(day), currency, usdtUsd)
+        if (day >= todayEpochDay) {
+            currentRate
+        } else {
+            TaxExport.rateOn(rates, LocalDate.ofEpochDay(day), currency, usdtUsd)
+        }
 
     /**
      * Kennzahlen der Karte in [currency] ([PortfolioCostFxFigures]); [currentRate] = heutiger Faktor USDT → Währung der
@@ -92,6 +95,7 @@ object PortfolioCostFx {
         val mc = PortfolioDecimal.MC
         var usdtApproximate = false
         val missing = sortedSetOf<String>()
+
         /** Einstand des Teils mit Kaufpreis in der Währung; null = ein Kurs fehlt. */
         fun costTarget(p: CoinPosition): BigDecimal? {
             val cost = p.pricedCostExact ?: return null
@@ -125,7 +129,10 @@ object PortfolioCostFx {
             val unrealizedExact = p.unrealizedExact ?: continue
             val pricedCostExact = p.pricedCostExact ?: continue
             val cost = target(p)
-            if (cost == null) { unrealizedFxMissing = true; continue }
+            if (cost == null) {
+                unrealizedFxMissing = true
+                continue
+            }
             coinCosts[p.coin] = cost
             val pricedValue = unrealizedExact + pricedCostExact
             unrealized = (unrealized ?: BigDecimal.ZERO) + pricedValue.multiply(currentRate, mc) - cost
@@ -138,7 +145,10 @@ object PortfolioCostFx {
         var investedFxMissing = false
         for (p in summary.open.filter { it.costBasis != null }) {
             val cost = target(p)
-            if (cost == null) { investedFxMissing = true; continue }
+            if (cost == null) {
+                investedFxMissing = true
+                continue
+            }
             invested = (invested ?: BigDecimal.ZERO) + cost
         }
         return PortfolioCostFxFigures(

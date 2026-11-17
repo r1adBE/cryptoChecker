@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.MarketExtraCodecs
 import com.cryptochecker.app.data.StarterCoinsRepository
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.MarketUnusual
 import com.cryptochecker.app.domain.market.UnusualCoin
@@ -10,6 +10,10 @@ import com.cryptochecker.app.domain.market.UnusualInput
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.starter.MarketUniverse
 import com.cryptochecker.app.domain.util.IoDispatcher
+import java.net.URLEncoder
+import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
@@ -21,10 +25,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import timber.log.Timber
-import java.net.URLEncoder
-import java.time.LocalDate
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Daten für «Heute auffällig» — nur Quellen, die die App schon nutzt, je ein Abruf:

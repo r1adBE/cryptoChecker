@@ -47,7 +47,11 @@ class PortfolioFifoPartsTest {
                 }
                 val open = book.position.pricedCostParts
                 val cost = book.position.pricedCostExact
-                if (open.isNotEmpty() && cost != null) assertEquals("${method.name} ${book.position.coin} open", 0, cost.compareTo(sum(open)))
+                if (open.isNotEmpty() &&
+                    cost != null
+                ) {
+                    assertEquals("${method.name} ${book.position.coin} open", 0, cost.compareTo(sum(open)))
+                }
             }
             assertTrue("${method.name}: Veräusserungen mit Teilen geprüft", checked > 100)
         }
@@ -78,9 +82,14 @@ class PortfolioFifoPartsTest {
     }
 
     private fun trade(id: Long, type: String, amount: String, price: String?, time: Long, fee: String? = null) = PortfolioTrade(
-        id = id, coin = "BTC", type = PortfolioTxType.valueOf(type), amount = BigDecimal(amount),
-        priceUsdt = price?.let(::BigDecimal), time = time,
-        fee = fee?.let(::BigDecimal), feeUnit = if (fee != null) PortfolioFeeUnit.QUOTE else null,
+        id = id,
+        coin = "BTC",
+        type = PortfolioTxType.valueOf(type),
+        amount = BigDecimal(amount),
+        priceUsdt = price?.let(::BigDecimal),
+        time = time,
+        fee = fee?.let(::BigDecimal),
+        feeUnit = if (fee != null) PortfolioFeeUnit.QUOTE else null,
     )
 }
 
@@ -153,8 +162,12 @@ class PortfolioInsightsTest {
     @Test
     fun allocation_topFourAndOthers() {
         val open = listOf(
-            position("BTC", 500.0), position("ETH", 200.0), position("SOL", 100.0),
-            position("ADA", 100.0), position("DOT", 60.0), position("XRP", 40.0),
+            position("BTC", 500.0),
+            position("ETH", 200.0),
+            position("SOL", 100.0),
+            position("ADA", 100.0),
+            position("DOT", 60.0),
+            position("XRP", 40.0),
         )
         val slices = PortfolioInsights.allocation(open)
         assertEquals(listOf("BTC", "ETH", "ADA", "SOL", null), slices.map { it.coin })
@@ -185,7 +198,8 @@ class PortfolioInsightsTest {
 
     @Test
     fun movers_byAbsoluteValueChange() {
-        val open = listOf(position("BTC", 1000.0), position("ETH", 500.0), position("SOL", 50.0), position("ADA", 200.0), position("DOT", 80.0))
+        val open =
+            listOf(position("BTC", 1000.0), position("ETH", 500.0), position("SOL", 50.0), position("ADA", 200.0), position("DOT", 80.0))
         val changes = mapOf("BTC" to 1.0, "ETH" to -10.0, "SOL" to 50.0, "ADA" to 0.0, "XRP" to 99.0)
         val movers = PortfolioInsights.movers(open, changes)
         // ETH −55.56, SOL +16.67, BTC +9.90; ADA ohne Bewegung, DOT ohne Veränderung
@@ -263,7 +277,11 @@ class PortfolioTxFirstInvalidTest {
     private fun buy() = Entry(type = PortfolioTxType.BUY, coinQuery = "btc", amount = dec("1"))
 
     private val swap = Entry(
-        type = PortfolioTxType.SWAP, coinQuery = "BTC", amount = dec("1"), toCoinQuery = "ETH", toAmount = dec("2"),
+        type = PortfolioTxType.SWAP,
+        coinQuery = "BTC",
+        amount = dec("1"),
+        toCoinQuery = "ETH",
+        toAmount = dec("2"),
     )
 
     private fun first(e: Entry): Field? =
@@ -313,8 +331,13 @@ class PortfolioTxFirstInvalidTest {
     @Test
     fun keinFehlerfeldGenauDannWennSpeicherbar() {
         val entries = listOf(
-            buy(), buy().copy(coinQuery = ""), buy().copy(amount = null), buy().copy(priceBlank = false),
-            buy().copy(feeBlank = false), swap, swap.copy(toAmount = null),
+            buy(),
+            buy().copy(coinQuery = ""),
+            buy().copy(amount = null),
+            buy().copy(priceBlank = false),
+            buy().copy(feeBlank = false),
+            swap,
+            swap.copy(toAmount = null),
             swap.copy(feeCoin = "ETH", feeCoinAmountBlank = false, feeCoinAmount = dec("2")),
         )
         for (e in entries) {

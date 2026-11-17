@@ -18,13 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.portfolio.TaxRulesDate
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.format.MonthYearFormat
+import com.cryptochecker.resources.R
 import java.time.format.DateTimeFormatter
 
 /**

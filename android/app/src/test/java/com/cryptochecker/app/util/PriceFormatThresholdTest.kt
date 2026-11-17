@@ -1,13 +1,13 @@
 package com.cryptochecker.app.util
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * [PriceFormat.threshold] mit einem Formatierer je Region (einmal angelegt) gibt Zeichen für Zeichen dasselbe wie die
@@ -35,8 +35,10 @@ class PriceFormatThresholdTest {
     @Test
     fun cachedFormatterGivesTheSameText() {
         repeat(2) {
-            for (locale in locales) for (v in values) {
-                assertEquals("$locale $v", reference(v, locale), PriceFormat.threshold(v, locale))
+            for (locale in locales) {
+                for (v in values) {
+                    assertEquals("$locale $v", reference(v, locale), PriceFormat.threshold(v, locale))
+                }
             }
         }
         assertEquals("—", PriceFormat.threshold(0.0, Locale.US))

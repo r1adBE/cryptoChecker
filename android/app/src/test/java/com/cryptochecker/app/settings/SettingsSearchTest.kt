@@ -2,10 +2,10 @@ package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.domain.settings.SettingsSearch
 import com.cryptochecker.app.domain.settings.SettingsSearchEntry
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /** Wie `SettingsSearchTests.swift`. */
 class SettingsSearchTest {
@@ -14,12 +14,16 @@ class SettingsSearchTest {
     private val entries = listOf(
         SettingsSearchEntry("updates", "Aktualisierung", "Allgemein"),
         SettingsSearchEntry(
-            "updates.background", "Im Hintergrund aktualisieren", "Aktualisierung",
+            "updates.background",
+            "Im Hintergrund aktualisieren",
+            "Aktualisierung",
             listOf("Prüft Kurse und Alarme regelmässig, auch wenn die App zu ist.")
         ),
         SettingsSearchEntry("alarms", "Alarme", "Alarme & Mitteilungen"),
         SettingsSearchEntry(
-            "alarms.quiet", "Ruhezeit", "Alarme",
+            "alarms.quiet",
+            "Ruhezeit",
+            "Alarme",
             listOf("In dieser Zeit klingeln Alarme nicht.")
         ),
         SettingsSearchEntry("display.contrast", "Hoher Kontrast", "Modus", listOf("Kräftigere Farben und Linien.")),

@@ -4,8 +4,8 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.lock.AppLockAuth
 import kotlinx.coroutines.launch
 
 /**

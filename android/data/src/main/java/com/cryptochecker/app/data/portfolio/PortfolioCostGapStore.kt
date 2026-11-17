@@ -3,11 +3,11 @@ package com.cryptochecker.app.data.portfolio
 import android.content.Context
 import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * «Unbekannt lassen» bei Einträgen ohne Einstand ([com.cryptochecker.app.domain.portfolio.PortfolioCostGaps]): Ids der

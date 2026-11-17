@@ -6,7 +6,10 @@ import java.time.ZoneOffset
 
 // CSV-Import ([CsvImportParser]): Zeitpunkte (ISO, Tag zuerst/Monat zuerst) in der Zeitzone der Datei lesen.
 
-private val ISO = Regex("^([0-9]{4})-([0-9]{2})-([0-9]{2})(?:[T ]([0-9]{2}):([0-9]{2})(?::([0-9]{2})(?:[.,]([0-9]{1,9}))?)?)?\\s*(Z|UTC|[+-][0-9]{2}:?[0-9]{2})?$")
+private val ISO =
+    Regex(
+        "^([0-9]{4})-([0-9]{2})-([0-9]{2})(?:[T ]([0-9]{2}):([0-9]{2})(?::([0-9]{2})(?:[.,]([0-9]{1,9}))?)?)?\\s*(Z|UTC|[+-][0-9]{2}:?[0-9]{2})?$"
+    )
 private val DAY_FIRST = Regex("^([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{4})(?:[ T,]+([0-9]{1,2}):([0-9]{2})(?::([0-9]{2}))?)?$")
 
 /**
@@ -30,8 +33,9 @@ private fun CsvImportParser.parseClock(text: String, monthFirst: Boolean): Pair<
     ISO.matchEntire(t)?.let { m ->
         val g = m.groupValues
         val frac = g[7].padEnd(3, '0').take(3)
-        val local = localMillis(g[1].toInt(), g[2].toInt(), g[3].toInt(), g[4].toIntOr0(), g[5].toIntOr0(), g[6].toIntOr0(), frac.toIntOr0())
-            ?: return null
+        val local =
+            localMillis(g[1].toInt(), g[2].toInt(), g[3].toInt(), g[4].toIntOr0(), g[5].toIntOr0(), g[6].toIntOr0(), frac.toIntOr0())
+                ?: return null
         val off = g[8]
         if (off.isEmpty()) return local to null
         if (off == "Z" || off == "UTC") return local to 0

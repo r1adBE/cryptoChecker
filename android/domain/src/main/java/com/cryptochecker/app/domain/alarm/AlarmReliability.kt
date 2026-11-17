@@ -27,26 +27,34 @@ object AlarmReliability {
     enum class Kind(val code: String) {
         /** Keine Alarme: keine Zeile. */
         HIDDEN("hidden"),
+
         /** Ruhig: «Letzte Prüfung vor 12 Min.». */
         RECENT("recent"),
+
         /** Ruhig: noch keine (gelungene) Prüfung im Hintergrund (eben angelegt; die Seite zeigt den Rest). */
         NEVER("never"),
+
         /** Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android). */
         NOTIFICATIONS_OFF("notifications_off"),
+
         /**
          * Android: Merkliste ohne Schlüssel nur im Arbeitsspeicher — Prüfungen im Hintergrund sehen ihre Paare nicht, bis
          * ein Start mit Schlüssel die Datei anlegt. Geht dem Akku vor: Der wäre hier nicht der Grund.
          */
         STORAGE_NO_KEY("storage_no_key"),
+
         /** Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers. */
         BATTERY("battery"),
+
         /** iOS: Hintergrundaktualisierung aus. */
         BACKGROUND_REFRESH("background_refresh"),
+
         /**
          * Letzte Prüfung älter als [staleMillis] (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
          * geplanten Läufe gescheitert und das seit länger als [staleMillis] ([AlarmReadiness.Input.failingSince]).
          */
         STALE("stale"),
+
         /** Prüfung zu alt, der neueste geplante Lauf fand kein Netz ([AlarmReadiness.Input.offline]): Grund Netz, nicht Akku. */
         OFFLINE("offline"),
     }
@@ -77,7 +85,16 @@ object AlarmReliability {
             // Verspätung: bis dahin die ruhige Zeile.
             val since = input.failingSince ?: input.lastFailedBackgroundCheck
             val overdue = since != null && !withinLimit(since, input)
-            return Status(if (!overdue) Kind.NEVER else if (input.offline) Kind.OFFLINE else Kind.STALE, warn = overdue)
+            return Status(
+                if (!overdue) {
+                    Kind.NEVER
+                } else if (input.offline) {
+                    Kind.OFFLINE
+                } else {
+                    Kind.STALE
+                },
+                warn = overdue
+            )
         }
         if (withinLimit(at, input)) return Status(Kind.RECENT, warn = false)
         // Zu alt, aber der letzte geplante Lauf fand kein Netz: das Netz ist der Grund (nicht Akku)

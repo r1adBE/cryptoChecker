@@ -29,15 +29,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.domain.portfolio.PortfolioCandle
 import com.cryptochecker.app.domain.portfolio.PortfolioChartAxis
-import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.ui.theme.LocalHighContrast
-import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.domain.widget.LevelKind
 import com.cryptochecker.app.domain.widget.PlacedLabel
 import com.cryptochecker.app.domain.widget.VSpan
 import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.LocalHighContrast
+import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.util.PriceFormat
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -80,7 +80,9 @@ internal class ChartFrame(
     }
 
     /** Senkrechte Gitterlinien an Kalendergrenzen ([PortfolioChartAxis.gridDays]), nur innerhalb der Fläche. */
-    val gridXs: List<Float> = if (spans.isEmpty()) emptyList() else {
+    val gridXs: List<Float> = if (spans.isEmpty()) {
+        emptyList()
+    } else {
         PortfolioChartAxis.gridDays(spans.first().first, spans.last().last)
             .mapNotNull { PortfolioChartAxis.slotPosition(spans, it) }
             .map { plotLeft + it.toFloat() * slot }

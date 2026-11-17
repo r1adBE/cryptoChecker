@@ -7,12 +7,16 @@ import java.time.ZoneId
 enum class TaxStepKind {
     /** Zugang (Kauf, Belohnung, Einzahlung, Zugang aus Tausch). */
     ACQUIRE,
+
     /** Veräusserung (Verkauf, Tausch, Gebühr im dritten Coin). */
     DISPOSE,
+
     /** Auszahlung: Menge und Einstand verlassen den Topf, keine Veräusserung. */
     REMOVE,
+
     /** Netzwerkgebühr im Coin (Umbuchung): Menge sinkt, Einstand bleibt. */
     NETWORK_FEE,
+
     /** Gebühr USDT + Wert der Gebühr im dritten Coin einer Umbuchung: erhöht den Einstand. */
     ADD_FEE,
 }
@@ -180,7 +184,11 @@ class TaxPool(
         val rest = h - removed
         priced -= removedPriced
         cost -= costRemoved
-        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) { priced = zero; cost = zero; clearParts() }
+        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
+            priced = zero
+            cost = zero
+            clearParts()
+        }
         unpriced = (rest - priced).max(zero)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
         return TaxTaken(removed, removedPriced, costRemoved, partsRemoved, est)
@@ -194,13 +202,18 @@ class TaxPool(
         val h = held
         if (qty.signum() <= 0 || h.signum() <= 0) return BigDecimal.ZERO
         val removed = qty.min(h)
-        val removedPriced = if (unpriced.signum() == 0) removed
-            else PortfolioDecimal.amount(removed.multiply(priced).divide(h, PortfolioDecimal.MC)).min(priced)
+        val removedPriced = if (unpriced.signum() == 0) {
+            removed
+        } else {
+            PortfolioDecimal.amount(removed.multiply(priced).divide(h, PortfolioDecimal.MC)).min(priced)
+        }
         priced -= removedPriced
         var lost = BigDecimal.ZERO
         if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
             lost = cost
-            priced = BigDecimal.ZERO; cost = BigDecimal.ZERO; clearParts()
+            priced = BigDecimal.ZERO
+            cost = BigDecimal.ZERO
+            clearParts()
         }
         unpriced = (h - removed - priced).max(BigDecimal.ZERO)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = BigDecimal.ZERO

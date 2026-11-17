@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.convert.CurrencyConversion
 import kotlin.math.abs
 import kotlin.math.max
 

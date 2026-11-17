@@ -1,8 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.foundation.background
-import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,16 +24,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.AltSeason
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.Dominance
-import com.cryptochecker.app.ui.theme.AssetColors
-import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.ui.theme.AssetColors
+import com.cryptochecker.app.ui.theme.DisabledColors
+import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
 
 // ───────────────────────── Dominanz & Altcoin-Saison ─────────────────────────

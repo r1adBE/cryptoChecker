@@ -1,5 +1,11 @@
 package com.cryptochecker.app.alarm
 
+import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.data.portfolio.toInput
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.alarm.AlarmDelivery
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmDecision
@@ -8,27 +14,21 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioReading
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
-import com.cryptochecker.app.notification.activePostTimes
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.notification.activePostTimes
+import com.cryptochecker.app.notification.canShowPortfolioAlarm
+import com.cryptochecker.app.notification.showPortfolioAlarm
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.notification.canShowPortfolioAlarm
-import com.cryptochecker.app.notification.showPortfolioAlarm
-import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
-import com.cryptochecker.app.data.portfolio.toInput
 
 /**
  * Prüft die Portfolio-Alarme nach jeder neuen Momentaufnahme (PortfolioSnapshotUpdater: in der
@@ -64,7 +64,8 @@ class PortfolioAlarmChecker @Inject constructor(
         if (alarms.isEmpty()) return@withLock
         // Alarme in einer anderen Währung als der Stand (z. B. nach Wechsel CHF → EUR): mit Devisenkurs umrechnen
         val needed = PortfolioAlarmLogic.currenciesNeedingRate(
-            alarms.filter { it.kind.isValue }.map { it.currency }, snapshot.currency
+            alarms.filter { it.kind.isValue }.map { it.currency },
+            snapshot.currency
         )
         // Devisenkurse zusammen höchstens FX_TIMEOUT_MILLIS (je Währung bis zu zwei Quellen mit langen Timeouts);
         // was nicht kommt, gilt aus dem Zwischenspeicher (höchstens 24 h alt) — wie iOS im Hintergrund
@@ -75,7 +76,10 @@ class PortfolioAlarmChecker @Inject constructor(
         val now = System.currentTimeMillis()
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (wie Paar-Alarme)
         val holdAlarms = QuietHours.holdsAlarms(
-            settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay()
+            settings.quietHoursEnabled,
+            settings.quietHoursStart,
+            settings.quietHoursEnd,
+            QuietHours.minuteOfDay()
         )
         for (alarm in alarms) {
             // Ein scheiternder Alarm hält die übrigen nicht auf

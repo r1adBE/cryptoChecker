@@ -1,10 +1,10 @@
 package com.cryptochecker.app.data
 
+import android.content.Context
+import androidx.core.content.edit
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import androidx.core.content.edit
-import android.content.Context
-import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.starter.MarketUniverse
 import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
@@ -13,6 +13,9 @@ import com.cryptochecker.app.domain.starter.StarterPrices
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.net.URLEncoder
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
@@ -21,9 +24,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import timber.log.Timber
-import java.net.URLEncoder
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Coins der Start-Merkliste: die fünf grössten nach Marktkapitalisierung

@@ -22,8 +22,11 @@ object QuietHours {
         if (!isValidMinute(start) || !isValidMinute(end)) return false
         if (start == end) return false
         val now = Math.floorMod(minuteOfDay, MINUTES_PER_DAY)
-        return if (start < end) now in start until end
-        else now >= start || now < end
+        return if (start < end) {
+            now in start until end
+        } else {
+            now >= start || now < end
+        }
     }
 
     /**

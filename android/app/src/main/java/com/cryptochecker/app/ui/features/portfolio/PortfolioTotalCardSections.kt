@@ -22,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
@@ -32,6 +31,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Zeile zu USDT auf der Karte selbst ([DepegAlarm.cardNote] mit USDT zum Marktkurs): Kursquelle, «USDT = 1 angenommen»,
@@ -134,7 +134,13 @@ internal fun TotalCardDetails(
         if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
             Metric(
                 label = stringResource(R.string.portfolio_realized),
-                value = maskAmount(PortfolioFormat.realizedText(summary.realized, summary.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+                value = maskAmount(
+                    PortfolioFormat.realizedText(
+                        summary.realized,
+                        summary.realizedIncomplete,
+                        stringResource(R.string.portfolio_export_incomplete)
+                    )
+                ),
                 valueTone = plTone(summary.realized),
                 modifier = Modifier.weight(1f)
             )
@@ -155,7 +161,13 @@ internal fun TotalCardDetails(
         Text(
             stringResource(
                 R.string.portfolio_withdrawn_gain,
-                maskAmount(PortfolioFormat.realizedText(gain, summary.withdrawnGainIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+                maskAmount(
+                    PortfolioFormat.realizedText(
+                        gain,
+                        summary.withdrawnGainIncomplete,
+                        stringResource(R.string.portfolio_export_incomplete)
+                    )
+                ),
             ),
             style = MaterialTheme.typography.bodySmall.amountNumbers(),
             color = MaterialTheme.colorScheme.onSurfaceVariant,

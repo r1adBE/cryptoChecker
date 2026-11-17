@@ -20,6 +20,7 @@ import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.OnChainValues
+import java.time.LocalDate
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -28,7 +29,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
 
 /**
  * Speicherformate der Markt-Bereiche ([CycleCacheCodecs], Hilfen [CycleCacheJson]): Hin und zurück über den Text der

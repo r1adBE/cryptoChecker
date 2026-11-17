@@ -46,8 +46,14 @@ fun Modifier.chartPointSemantics(
     if (pointCount > 0) {
         if (pointText != null) stateDescription = pointText
         customActions = listOf(
-            CustomAccessibilityAction(nextLabel) { onStep(true); true },
-            CustomAccessibilityAction(previousLabel) { onStep(false); true },
+            CustomAccessibilityAction(nextLabel) {
+                onStep(true)
+                true
+            },
+            CustomAccessibilityAction(previousLabel) {
+                onStep(false)
+                true
+            },
         )
     }
 }

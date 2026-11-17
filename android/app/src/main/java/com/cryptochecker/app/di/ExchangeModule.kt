@@ -1,7 +1,7 @@
 package com.cryptochecker.app.di
 
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.ExchangeRepositoryImpl
+import com.cryptochecker.app.domain.ExchangeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

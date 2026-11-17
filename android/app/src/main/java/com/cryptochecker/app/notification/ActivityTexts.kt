@@ -1,11 +1,11 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.SignalKind
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 
 /**
  * Texte und Zahlenformate für «Ungewöhnliche Aktivität». Dieselben Sätze in
@@ -23,8 +23,11 @@ object ActivityTexts {
         SignalKind.VOLUME_SPIKE -> context.getString(R.string.activity_signal_volume, factor(signal.value))
         SignalKind.OPEN_INTEREST_JUMP -> {
             val minutes = signal.factor?.toInt()
-            if (minutes != null) context.getString(R.string.activity_signal_open_interest, percent(signal.value, 1), minutes)
-            else context.getString(R.string.activity_signal_open_interest_no_time, percent(signal.value, 1))
+            if (minutes != null) {
+                context.getString(R.string.activity_signal_open_interest, percent(signal.value, 1), minutes)
+            } else {
+                context.getString(R.string.activity_signal_open_interest_no_time, percent(signal.value, 1))
+            }
         }
         SignalKind.FUNDING_EXTREME -> context.getString(
             if (signal.value >= 0) R.string.activity_signal_funding_long else R.string.activity_signal_funding_short,

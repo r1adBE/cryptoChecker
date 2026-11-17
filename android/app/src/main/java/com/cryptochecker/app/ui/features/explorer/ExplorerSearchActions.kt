@@ -4,17 +4,26 @@
 // Erweiterungsfunktionen auf dem ViewModel, der Zustand bleibt in der Klasse (wie `ExplorerSearchActions.swift`).
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.domain.market.ExchangeOrder
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.market.ExchangeOrder
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
-import com.cryptochecker.app.domain.starter.StarterPairs
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.withContext
 
 // =============================================================================================
 // Coin-Suche
@@ -140,17 +149,23 @@ internal fun ExplorerViewModel.runSearch() {
                 includeUnlisted = includeUnlisted,
             )
             val showPairs = CoinSearch.showPairHits(text, foundCoins.isNotEmpty())
-            val foundPairs = if (!showPairs) emptyList() else PairSearch.find(
-                text, exchanges, searchData.pairsByExchange,
-                scope = scope,
-                names = searchData.names,
-                hiddenAlpha = hidden,
-                alphaSymbols = alphaSymbols,
-                alphaNames = alphaNames,
-                pairNames = pairNames,
-            )
+            val foundPairs = if (!showPairs) {
+                emptyList()
+            } else {
+                PairSearch.find(
+                    text, exchanges, searchData.pairsByExchange,
+                    scope = scope,
+                    names = searchData.names,
+                    hiddenAlpha = hidden,
+                    alphaSymbols = alphaSymbols,
+                    alphaNames = alphaNames,
+                    pairNames = pairNames,
+                )
+            }
             val coinPairs = picked?.let {
-                CoinSearch.pairsFor(it, exchanges, searchData.pairsByExchange, preference, scope, hidden, alphaSymbols, alphaNames, pairNames)
+                CoinSearch.pairsFor(
+                    it, exchanges, searchData.pairsByExchange, preference, scope, hidden, alphaSymbols, alphaNames, pairNames,
+                )
             }.orEmpty()
             SearchResult(foundCoins, showPairs, foundPairs, coinPairs)
         }

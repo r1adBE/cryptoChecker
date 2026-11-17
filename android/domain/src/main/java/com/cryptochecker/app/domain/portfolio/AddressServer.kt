@@ -100,7 +100,10 @@ object AddressServer {
     private const val SCHEME = "https://"
     private const val PATH_EXTRA = "/-._~"
     private val KEY_KINDS = setOf(
-        AddressValidation.Kind.XPUB, AddressValidation.Kind.YPUB, AddressValidation.Kind.ZPUB, AddressValidation.Kind.TR_XPUB,
+        AddressValidation.Kind.XPUB,
+        AddressValidation.Kind.YPUB,
+        AddressValidation.Kind.ZPUB,
+        AddressValidation.Kind.TR_XPUB,
     )
 
     private fun invalid(problem: Problem) = Check(null, problem)

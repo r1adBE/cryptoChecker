@@ -4,18 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.starter.AddMoment
@@ -27,9 +29,8 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -40,7 +41,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * ViewModel der Merkliste. Setzt sich aus Teilen mit je eigener Aufgabe zusammen, die ihren Zustand privat
@@ -241,7 +241,8 @@ class WatchlistViewModel @Inject internal constructor(
     val uiState: StateFlow<WatchlistUiState> = combine(content, display, live, starter.state) { c, d, l, s ->
         WatchlistUiState(content = c, display = d, live = l, starter = s)
     }.stateIn(
-        viewModelScope, SharingStarted.WhileSubscribed(5_000),
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
         WatchlistUiState(content.value, display.value, live.value, starter.state.value),
     )
 
@@ -275,7 +276,13 @@ class WatchlistViewModel @Inject internal constructor(
 
     fun selectGroup(group: String?) = edits.selectGroup(group)
 
-    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.setNote(watch, note, onProceed, cancelled)
+    fun setNote(
+        watch: WatchEntity,
+        note: String?,
+        onProceed: () -> Unit = {
+        },
+        cancelled: () -> Unit = {}
+    ) = edits.setNote(watch, note, onProceed, cancelled)
     fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) =
         edits.setGroup(watch, group, onProceed, cancelled)
 
@@ -283,7 +290,13 @@ class WatchlistViewModel @Inject internal constructor(
     fun setGroup(ids: Collection<Long>, group: String?, onDone: (Boolean) -> Unit = {}) = edits.setGroup(ids, group, onDone)
 
     /** «Gruppe bearbeiten» übernehmen; [oldName] null für eine neue Gruppe. */
-    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.saveGroup(oldName, newName, memberIds, onDone, cancelled)
+    fun saveGroup(
+        oldName: String?,
+        newName: String,
+        memberIds: Set<Long>,
+        onDone: () -> Unit = {},
+        cancelled: () -> Unit = {}
+    ) = edits.saveGroup(oldName, newName, memberIds, onDone, cancelled)
 
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
     fun deleteGroup(name: String, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.deleteGroup(name, onDone, cancelled)
@@ -358,7 +371,6 @@ class WatchlistViewModel @Inject internal constructor(
 
 /** Gemeinsame Währung fürs Sortieren nach Kurs (nur intern, nie angezeigt). */
 internal const val SORT_CURRENCY = "CHF"
-
 
 /** «Rückgängig»-Schlüssel für «Nicht gehandelte Paare entfernen» (Watch-Ids sind immer positiv). */
 internal const val NOT_TRADED_UNDO_KEY = -1L

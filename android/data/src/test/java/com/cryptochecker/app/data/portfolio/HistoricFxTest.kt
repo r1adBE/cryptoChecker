@@ -8,6 +8,8 @@ import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.marketdata.util.EcbRates
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -17,8 +19,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Devisenkurse des Stichtags und des Wertverlaufs ([HistoricPriceSource.usdTo], [HistoricPriceSource.usdToSeries]):
@@ -32,7 +32,10 @@ class HistoricFxTest {
     val temp = TemporaryFolder()
 
     private fun source(http: RouteHttp) = HistoricPriceSource(
-        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(),
+        http.client,
+        testTokenIdentityStore(temp.newFolder()),
+        OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO),
+        fakePortfolioDao(),
         unusedExchangeRepository(),
         ioDispatcher = Dispatchers.IO,
     )

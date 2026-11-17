@@ -1,16 +1,16 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.NOW
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
+import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.marketdata.model.SimpleTicker
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -1,0 +1,16 @@
+root = true
+
+[*.{kt,kts}]
+indent_size = 4
+max_line_length = 140
+ktlint_code_style = android_studio
+ktlint_function_naming_ignore_when_annotated_with = Composable,Test
+ktlint_standard_function-signature = disabled
+ktlint_standard_class-signature = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_chain-method-continuation = disabled
+# ViewModels geben ihren Zustand als `internal val _name` an ihre Erweiterungsdateien weiter (eine Klasse über mehrere
+# Dateien); die Regel verlangt `private`. Fällt mit dem Umbau der ViewModels weg.
+ktlint_standard_backing-property-naming = disabled

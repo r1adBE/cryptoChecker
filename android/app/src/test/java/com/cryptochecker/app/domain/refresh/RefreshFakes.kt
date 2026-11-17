@@ -1,29 +1,29 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.alarm.DerivativesValues
+import com.cryptochecker.app.data.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.ErrorWrite
 import com.cryptochecker.app.domain.PriceWrite
-import com.cryptochecker.app.domain.pairIdentity
+import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
+import com.cryptochecker.app.domain.alarm.DerivativesValues
+import com.cryptochecker.app.domain.alarm.MoveWindow
+import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.remote.WindowRanges
-import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
-import com.cryptochecker.app.domain.alarm.AlarmEvaluator
-import com.cryptochecker.app.data.alarm.DerivativesAlarmData
-import com.cryptochecker.app.domain.alarm.MoveWindow
-import com.cryptochecker.app.domain.alarm.NearExtreme
-import com.cryptochecker.app.domain.alarm.AlarmTextNote
-import com.cryptochecker.app.domain.convert.FiatAlarmGuard
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
+import java.util.Collections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.util.Collections
 
 /*
  * Fakes für die Auswertung nach einem neuen Kurs (Schnittstellen aus RefreshPorts.kt): im Speicher, ohne
@@ -99,7 +99,9 @@ internal class FakeRefreshStore(
         val stored = alarms[alarm.id] ?: return false
         if (!stored.enabled || stored.condition != alarm.condition || stored.threshold != alarm.threshold ||
             stored.windowHours != alarm.windowHours || stored.repeating != alarm.repeating || stored.currency != alarm.currency
-        ) return false
+        ) {
+            return false
+        }
         alarms[alarm.id] = AlarmEvaluator.triggered(stored, price, time, candleOpenTime, nearLevel)
         return true
     }
@@ -122,6 +124,7 @@ internal class FakeRefreshNotifier(
 ) : RefreshNotifier {
     /** Gezeigte Alarm-Meldungen: Alarm-Id, gemeldeter Kurs, Währung des Kurses. */
     val alarmPosts: MutableList<Triple<Long, Double, String?>> = Collections.synchronizedList(ArrayList())
+
     /** Zusatz am Alarmtext je Meldung (gleiche Reihenfolge wie [alarmPosts]). */
     val textNotes: MutableList<AlarmTextNote?> = Collections.synchronizedList(ArrayList())
     val cancelledAlarms: MutableList<Long> = Collections.synchronizedList(ArrayList())
@@ -209,6 +212,7 @@ internal class FakeVolumeSource(var spike: VolumeSpike? = null) : AlarmVolumeSou
 internal class FakeRateSource(val rates: Map<String, Double> = emptyMap()) : AlarmRateSource {
     /** Fiat-Alarme auslassen ([FiatAlarmGuard.skip]); null = prüfen. */
     var skip: FiatAlarmGuard.Skip? = null
+
     /** Faktor mit USDT = 1 (keine Messung). */
     var usdtAssumed: Boolean = false
     override suspend fun rate(quote: String, target: String): Double? =
@@ -301,8 +305,10 @@ internal class RefreshFixture(
     val moveHistory = FakeMoveHistory()
     val checkStatus = AlarmCheckStatus()
     val dex = FakeDexLiquidity()
+
     /** Letzter gemerkter Mark-Ersatz je Watch-Id. */
     val markFallback = HashMap<Long, Boolean>()
+
     /** Letzter gemerkter Stundenkurs je Watch-Id. */
     val hourlyClose = HashMap<Long, Boolean>()
     val settings = FakeRefreshSettings(AppSettings(alarmCooldownMinutes = 15))
@@ -356,8 +362,14 @@ internal class RefreshFixture(
         const val NOW = 1_700_000_000_000L
 
         fun watch(id: Long = 1, price: Double? = 99.0, exchangeKey: String = "Binance", pairId: String? = null) = WatchEntity(
-            id = id, exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = "BTC", quoteAsset = "USDT",
-            pairId = pairId, lastPrice = price, notificationEnabled = false,
+            id = id,
+            exchangeKey = exchangeKey,
+            exchangeName = exchangeKey,
+            baseAsset = "BTC",
+            quoteAsset = "USDT",
+            pairId = pairId,
+            lastPrice = price,
+            notificationEnabled = false,
         )
 
         fun above(level: Double, id: Long = 7, watchId: Long = 1, repeating: Boolean = false) =

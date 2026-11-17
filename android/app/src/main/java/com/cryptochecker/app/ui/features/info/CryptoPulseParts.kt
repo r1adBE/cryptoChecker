@@ -27,7 +27,6 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.PulseBreadthNote
 import com.cryptochecker.app.domain.market.PulseFactor
 import com.cryptochecker.app.domain.market.PulseFactorKind
@@ -49,6 +48,7 @@ import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import kotlin.math.abs
 
 /**

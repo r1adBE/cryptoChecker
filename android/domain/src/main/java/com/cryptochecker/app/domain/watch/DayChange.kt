@@ -150,8 +150,10 @@ object DayChange {
     enum class CandleSeries {
         /** Kerzen des Paars selbst (bzw. USDT-Reihe bei USD-artigen Quotes). */
         PAIR,
+
         /** Fiat-Quote ohne eigene Kerzen: USDT-Reihe des Basis-Assets (andere Quote!). */
         USDT,
+
         /** Keine passende Reihe. */
         NONE,
     }

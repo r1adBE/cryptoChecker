@@ -3,14 +3,14 @@ package com.cryptochecker.app.ui.theme
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.PriceColorScheme
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.domain.widget.WidgetContrast
+import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Meldungen unten ([SnackbarPalette], `AppSnackbarHost`): Art → Farbe und Kontrast auf der Fläche
@@ -25,12 +25,16 @@ class SnackbarColorsTest {
     /** Erfolg ist keine Kursrichtung: bei «Farben tauschen» (Rot = steigend) bleibt er die Steigend-Farbe. */
     @Test
     fun `Erfolg bleibt die Steigend-Farbe auch bei getauschten Kursfarben`() {
-        for (scheme in PriceColorScheme.entries) for (accent in accents) for (dark in listOf(false, true)) {
-            for (hc in listOf(false, true)) {
-                val success = SnackbarPalette.tone(SnackbarKind.SUCCESS, scheme, dark, hc, accent)
-                val key = "${scheme.name}/${accent?.name}/dark=$dark/hc=$hc"
-                assertEquals(key, scheme.up(dark, hc, inverted = false, accent = accent), success)
-                assertNotEquals(key, scheme.up(dark, hc, inverted = true, accent = accent), success)
+        for (scheme in PriceColorScheme.entries) {
+            for (accent in accents) {
+                for (dark in listOf(false, true)) {
+                    for (hc in listOf(false, true)) {
+                        val success = SnackbarPalette.tone(SnackbarKind.SUCCESS, scheme, dark, hc, accent)
+                        val key = "${scheme.name}/${accent?.name}/dark=$dark/hc=$hc"
+                        assertEquals(key, scheme.up(dark, hc, inverted = false, accent = accent), success)
+                        assertNotEquals(key, scheme.up(dark, hc, inverted = true, accent = accent), success)
+                    }
+                }
             }
         }
         // «Frisch» getauscht: steigend wäre rot, Erfolg bleibt grün
@@ -41,13 +45,20 @@ class SnackbarColorsTest {
     /** Fehler: Fehlerfarbe der App; mit Farbsehschwäche-Schema dessen Fallend-Ton (Orange), nie getauscht. */
     @Test
     fun `Fehler nimmt die Fehlerfarbe, bei Farbsehschwaeche den Ton des Schemas`() {
-        for (scheme in PriceColorScheme.entries) for (accent in accents) for (dark in listOf(false, true)) {
-            for (hc in listOf(false, true)) {
-                val error = SnackbarPalette.tone(SnackbarKind.ERROR, scheme, dark, hc, accent)
-                val expected =
-                    if (SnackbarPalette.colorVision(scheme)) scheme.down(dark, hc, inverted = false, accent = accent)
-                    else appColorScheme(accent ?: AccentColor.DEFAULT, dark).error.toArgb()
-                assertEquals("${scheme.name}/${accent?.name}/dark=$dark/hc=$hc", expected, error)
+        for (scheme in PriceColorScheme.entries) {
+            for (accent in accents) {
+                for (dark in listOf(false, true)) {
+                    for (hc in listOf(false, true)) {
+                        val error = SnackbarPalette.tone(SnackbarKind.ERROR, scheme, dark, hc, accent)
+                        val expected =
+                            if (SnackbarPalette.colorVision(scheme)) {
+                                scheme.down(dark, hc, inverted = false, accent = accent)
+                            } else {
+                                appColorScheme(accent ?: AccentColor.DEFAULT, dark).error.toArgb()
+                            }
+                        assertEquals("${scheme.name}/${accent?.name}/dark=$dark/hc=$hc", expected, error)
+                    }
+                }
             }
         }
         assertEquals(
@@ -62,8 +73,10 @@ class SnackbarColorsTest {
 
     @Test
     fun `Info hat keinen farbigen Ton`() {
-        for (scheme in PriceColorScheme.entries) for (dark in listOf(false, true)) {
-            assertNull(SnackbarPalette.tone(SnackbarKind.INFO, scheme, dark, false, null))
+        for (scheme in PriceColorScheme.entries) {
+            for (dark in listOf(false, true)) {
+                assertNull(SnackbarPalette.tone(SnackbarKind.INFO, scheme, dark, false, null))
+            }
         }
     }
 
@@ -73,19 +86,23 @@ class SnackbarColorsTest {
      */
     @Test
     fun `Text, Aktion und Rahmen erreichen den Kontrast auf der Flaeche`() {
-        for (accent in AccentColor.entries) for (dark in listOf(false, true)) {
-            val s = appColorScheme(accent, dark)
-            val bg = s.surfaceContainerHighest.toArgb()
-            val key = "${accent.name}/dark=$dark"
-            assertTrue("$key onSurface", ratio(s.onSurface.toArgb(), bg) >= 4.5)
-            assertTrue("$key primary", ratio(s.primary.toArgb(), bg) >= 4.5)
-            val hcPrimary = withContrast(s.primary, s.surfaceContainerHighest, dark).toArgb()
-            assertTrue("$key primary hc", ratio(hcPrimary, bg) >= 4.5)
-            for (scheme in PriceColorScheme.entries) for (hc in listOf(false, true)) {
-                for (kind in listOf(SnackbarKind.SUCCESS, SnackbarKind.ERROR)) {
-                    val tone = SnackbarPalette.tone(kind, scheme, dark, hc, accent)!!
-                    val r = ratio(tone, bg)
-                    assertTrue("$key ${scheme.name} ${kind.name} hc=$hc: %.2f".format(r), r >= 3.0)
+        for (accent in AccentColor.entries) {
+            for (dark in listOf(false, true)) {
+                val s = appColorScheme(accent, dark)
+                val bg = s.surfaceContainerHighest.toArgb()
+                val key = "${accent.name}/dark=$dark"
+                assertTrue("$key onSurface", ratio(s.onSurface.toArgb(), bg) >= 4.5)
+                assertTrue("$key primary", ratio(s.primary.toArgb(), bg) >= 4.5)
+                val hcPrimary = withContrast(s.primary, s.surfaceContainerHighest, dark).toArgb()
+                assertTrue("$key primary hc", ratio(hcPrimary, bg) >= 4.5)
+                for (scheme in PriceColorScheme.entries) {
+                    for (hc in listOf(false, true)) {
+                        for (kind in listOf(SnackbarKind.SUCCESS, SnackbarKind.ERROR)) {
+                            val tone = SnackbarPalette.tone(kind, scheme, dark, hc, accent)!!
+                            val r = ratio(tone, bg)
+                            assertTrue("$key ${scheme.name} ${kind.name} hc=$hc: %.2f".format(r), r >= 3.0)
+                        }
+                    }
                 }
             }
         }

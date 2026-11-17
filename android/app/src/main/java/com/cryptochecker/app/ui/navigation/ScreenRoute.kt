@@ -54,7 +54,7 @@ sealed interface ScreenRoute {
     data class SettingsSubpage(val page: String) : ScreenRoute
 
     /**
-     * Alarme eines Paars; `AlarmsViewModel` liest [watchId] unter [AlarmsArgWatchId] aus dem SavedStateHandle.
+     * Alarme eines Paars; `AlarmsViewModel` liest [watchId] unter [ALARMS_ARG_WATCH_ID] aus dem SavedStateHandle.
      * [editAlarmId] > 0: «Anpassen» aus der Alarm-Mitteilung — der Editor dieses Alarms öffnet sich einmal.
      */
     @Serializable
@@ -62,7 +62,7 @@ sealed interface ScreenRoute {
 
     /**
      * Seite eines Paars (Tipp auf eine Zeile, Mitteilung, Widget, «Heute auffällig»). [watchId] steht wie bei [Alarms]
-     * unter [AlarmsArgWatchId] im SavedStateHandle: das `AlarmsViewModel` der Seite liest ihn für die Alarme des Paars.
+     * unter [ALARMS_ARG_WATCH_ID] im SavedStateHandle: das `AlarmsViewModel` der Seite liest ihn für die Alarme des Paars.
      * [preview]: Coin aus dem Markt-Tab, der nicht in der Merkliste steht (Binance «COIN/USDT», nur im Speicher;
      * [watchId] 0). [askNotifications]: eben aus der Vorschau hinzugefügt — einmal nach der Erlaubnis fragen.
      */
@@ -82,15 +82,15 @@ sealed interface ScreenRoute {
 
     companion object {
         /** Schlüssel von [Alarms.watchId] im SavedStateHandle (= Feldname). */
-        const val AlarmsArgWatchId = "watchId"
+        const val ALARMS_ARG_WATCH_ID = "watchId"
 
         /** Schlüssel von [Alarms.editAlarmId] im SavedStateHandle (= Feldname). */
-        const val AlarmsArgEditAlarmId = "editAlarmId"
+        const val ALARMS_ARG_EDIT_ALARM_ID = "editAlarmId"
 
         /** Schlüssel von [PairPage.askNotifications] im SavedStateHandle (= Feldname); nach dem Fragen false. */
-        const val PairPageArgAskNotifications = "askNotifications"
+        const val PAIR_PAGE_ARG_ASK_NOTIFICATIONS = "askNotifications"
 
         /** Schlüssel von [MarketSubpage.macro] im SavedStateHandle (= Feldname); nach dem Scrollen false. */
-        const val MarketSubpageArgMacro = "macro"
+        const val MARKET_SUBPAGE_ARG_MACRO = "macro"
     }
 }

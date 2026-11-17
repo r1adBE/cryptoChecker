@@ -1,11 +1,11 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.work.AlarmReadinessProbe
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.cryptochecker.app.domain.alarm.OemBattery
+import com.cryptochecker.app.work.AlarmReadinessProbe
 import timber.log.Timber
 
 /**
@@ -23,7 +23,10 @@ object OemBatterySettings {
             val intent = Intent()
                 .setComponent(ComponentName(page.packageName, page.className))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            runCatching { context.startActivity(intent); true }
+            runCatching {
+                context.startActivity(intent)
+                true
+            }
                 .onFailure { Timber.i("Herstellerseite fehlt: %s", page.className) }
                 .getOrDefault(false)
         }

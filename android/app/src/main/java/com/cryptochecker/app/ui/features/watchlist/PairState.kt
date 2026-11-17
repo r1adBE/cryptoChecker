@@ -13,8 +13,8 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalResources
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.CollectScreenEvents
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -22,7 +22,7 @@ import com.cryptochecker.app.ui.components.NotificationAsk
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.theme.SnackbarKind
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 
 /** Schlüssel der Paarseite für [rememberWatchUiEvents] (eigener Empfänger je Seite). */
 internal const val PAIR_UI_EVENTS = "pair_ui_events"
@@ -102,7 +102,10 @@ internal fun PairUiEffects(
                 addState.pending = false
                 haptics.play(HapticEvent.WARNING)
                 banner.show(
-                    resources.getString(R.string.watchlist_limit_reached, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true)),
+                    resources.getString(
+                        R.string.watchlist_limit_reached,
+                        LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true)
+                    ),
                     SnackbarKind.ERROR,
                 )
             }

@@ -71,7 +71,9 @@ class ClosedAppHintDeviceTest {
         var openedUpdates = false
         compose.runOnUiThread {
             compose.activity.setContent {
-                MaterialTheme { AlarmDeliveryScreen(onBack = {}, onOpenAlarmSettings = {}, onOpenUpdateSettings = { openedUpdates = true }) }
+                MaterialTheme {
+                    AlarmDeliveryScreen(onBack = {}, onOpenAlarmSettings = {}, onOpenUpdateSettings = { openedUpdates = true })
+                }
             }
         }
         compose.waitForIdle()

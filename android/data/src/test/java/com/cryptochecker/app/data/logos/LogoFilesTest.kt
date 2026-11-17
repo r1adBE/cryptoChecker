@@ -1,5 +1,9 @@
 package com.cryptochecker.app.data.logos
 
+import java.io.File
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -7,10 +11,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 /**
  * Logo-Dateien schreiben ([LogoFiles.write]): Erfolg nur mit Datei, Fehlschlag gemeldet (sonst zählte das Bild als neu
@@ -90,9 +90,18 @@ class LogoFilesTest {
     fun staleTempsAreRemoved() {
         val dir = folder.newFolder("coin_logos")
         val now = 10L * LogoFiles.STALE_TEMP_MILLIS
-        val old = File(dir, "map.txt.123.tmp").apply { writeText("x"); setLastModified(now - LogoFiles.STALE_TEMP_MILLIS - 1) }
-        val young = File(dir, "BTC.png.456.tmp").apply { writeText("x"); setLastModified(now - 1_000) }
-        val logo = File(dir, "ETH.png").apply { writeText("x"); setLastModified(0) }
+        val old = File(dir, "map.txt.123.tmp").apply {
+            writeText("x")
+            setLastModified(now - LogoFiles.STALE_TEMP_MILLIS - 1)
+        }
+        val young = File(dir, "BTC.png.456.tmp").apply {
+            writeText("x")
+            setLastModified(now - 1_000)
+        }
+        val logo = File(dir, "ETH.png").apply {
+            writeText("x")
+            setLastModified(0)
+        }
         assertEquals(1, LogoFiles.removeStaleTemps(dir, now))
         assertFalse(old.exists())
         assertTrue(young.exists())

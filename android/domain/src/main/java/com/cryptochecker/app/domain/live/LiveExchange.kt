@@ -44,8 +44,11 @@ enum class LiveExchange(
             OKX_SWAP -> id?.takeIf { it.endsWith("-SWAP") }
             COINBASE -> id ?: "${pair.base}-${pair.quote}".uppercase()
             // v2 nennt Paare «BTC/USD» (nicht die REST-Kennung XXBTZUSD); Basis und Quote sind normalisiert
-            KRAKEN -> if (pair.base.isBlank() || pair.quote.isBlank()) null
-            else "${pair.base.trim().uppercase()}/${pair.quote.trim().uppercase()}"
+            KRAKEN -> if (pair.base.isBlank() || pair.quote.isBlank()) {
+                null
+            } else {
+                "${pair.base.trim().uppercase()}/${pair.quote.trim().uppercase()}"
+            }
         }
     }
 
@@ -54,7 +57,9 @@ enum class LiveExchange(
         symbols.chunked(maxSymbolsPerMessage).mapIndexed { index, chunk ->
             when (this) {
                 BINANCE, BINANCE_FUTURES ->
-                    """{"method":"SUBSCRIBE","params":[${chunk.joinToString(",") { quoted(it.lowercase() + "@ticker") }}],"id":${index + 1}}"""
+                    """{"method":"SUBSCRIBE","params":[${chunk.joinToString(",") {
+                        quoted(it.lowercase() + "@ticker")
+                    }}],"id":${index + 1}}"""
                 BYBIT, BYBIT_FUTURES ->
                     """{"op":"subscribe","args":[${chunk.joinToString(",") { quoted("tickers.$it") }}]}"""
                 OKX, OKX_SWAP ->

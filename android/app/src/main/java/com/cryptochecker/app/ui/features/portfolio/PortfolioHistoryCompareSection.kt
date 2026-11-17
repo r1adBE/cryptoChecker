@@ -32,13 +32,13 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
 import com.cryptochecker.app.ui.components.ChartPointStep
 import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.resources.R
 
 /**
  * «Vergleich»: Legende, beide Kurven in Prozent seit dem Ausgangspunkt, Achse und darunter
@@ -92,8 +92,11 @@ internal fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompare
                 stringResource(R.string.a11y_chart_next_point),
                 stringResource(R.string.a11y_chart_previous_point),
             ) { forward ->
-                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, pointCount)
-                else ChartPointStep.previous(a11yPoint, pointCount)
+                a11yPoint = if (forward) {
+                    ChartPointStep.next(a11yPoint, pointCount)
+                } else {
+                    ChartPointStep.previous(a11yPoint, pointCount)
+                }
             }
     )
     // Beginn (Ausgangspunkt) und Ende der Achse; wie der Chart immer von links nach rechts

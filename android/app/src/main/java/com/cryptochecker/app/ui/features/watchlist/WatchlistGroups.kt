@@ -5,18 +5,16 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.foundation.layout.heightIn
-import com.cryptochecker.app.ui.navigation.cappedTabSize
-import com.cryptochecker.app.ui.theme.ChipShape
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
@@ -38,21 +36,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.AutoGroup
-import com.cryptochecker.app.ui.components.AssetKindIcon
-import com.cryptochecker.app.domain.watch.QuickView
-import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.ui.theme.Spacing
-import kotlinx.coroutines.delay
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.AutoGroup
+import com.cryptochecker.app.domain.watch.QuickView
+import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.ui.components.AssetKindIcon
+import com.cryptochecker.app.ui.navigation.cappedTabSize
+import com.cryptochecker.app.ui.theme.ChipShape
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.delay
 
 /**
  * Gruppen-Auswahl oben: «Alle · ★ · ⚡ · Token · Gruppe 1 · Gruppe 2 … · +».
@@ -113,7 +113,10 @@ internal fun GroupChips(
                 icon = R.drawable.ic_category,
                 description = stringResource(R.string.group_all),
                 selected = groupSelected(null),
-                onClick = { onSelect(null); showHint("all") },
+                onClick = {
+                    onSelect(null)
+                    showHint("all")
+                },
                 showHint = hintShown("all")
             )
         }
@@ -125,7 +128,10 @@ internal fun GroupChips(
                     icon = R.drawable.ic_star,
                     description = stringResource(R.string.group_favorites),
                     selected = groupSelected(WatchFilter.FAVORITES),
-                    onClick = { onSelect(WatchFilter.FAVORITES); showHint("favorites") },
+                    onClick = {
+                        onSelect(WatchFilter.FAVORITES)
+                        showHint("favorites")
+                    },
                     showHint = hintShown("favorites")
                 )
             }
@@ -140,7 +146,10 @@ internal fun GroupChips(
                     kind = AssetKind.TOKEN,
                     description = stringResource(R.string.group_tokens),
                     selected = groupSelected(WatchFilter.TOKENS),
-                    onClick = { onSelect(WatchFilter.TOKENS); showHint("tokens") },
+                    onClick = {
+                        onSelect(WatchFilter.TOKENS)
+                        showHint("tokens")
+                    },
                     showHint = hintShown("tokens")
                 )
             }
@@ -151,7 +160,10 @@ internal fun GroupChips(
                     kind = AssetKind.TRADFI,
                     description = AutoGroup.TRADFI,
                     selected = groupSelected(AutoGroup.TRADFI),
-                    onClick = { onSelect(AutoGroup.TRADFI); showHint("tradfi") },
+                    onClick = {
+                        onSelect(AutoGroup.TRADFI)
+                        showHint("tradfi")
+                    },
                     onLongClick = { onEdit(AutoGroup.TRADFI) },
                     showHint = hintShown("tradfi")
                 )
@@ -165,7 +177,10 @@ internal fun GroupChips(
                     kind = AssetKind.ALPHA,
                     description = stringResource(R.string.group_alpha),
                     selected = groupSelected(WatchFilter.ALPHA),
-                    onClick = { onSelect(WatchFilter.ALPHA); showHint("alpha") },
+                    onClick = {
+                        onSelect(WatchFilter.ALPHA)
+                        showHint("alpha")
+                    },
                     showHint = hintShown("alpha")
                 )
             }
@@ -178,7 +193,10 @@ internal fun GroupChips(
                     icon = R.drawable.ic_bolt,
                     description = stringResource(R.string.activity_card_title),
                     selected = activitySelected,
-                    onClick = { onToggleActivity(); showHint("activity") },
+                    onClick = {
+                        onToggleActivity()
+                        showHint("activity")
+                    },
                     showHint = hintShown("activity")
                 )
             }
@@ -192,29 +210,31 @@ internal fun GroupChips(
                 onLongClick = { onEdit(group) }
             )
         }
-        if (groups.isNotEmpty()) item(key = "add") {
-            // Druck-Rückmeldung nur auf dem sichtbaren Feld, nicht auf der grösseren Tippfläche
-            val addInteraction = remember { MutableInteractionSource() }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig das kleine Feld
-                    .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
-                    .clickable(interactionSource = addInteraction, indication = null, onClick = onAdd)
-                    .wrapContentSize()
-                    .size(32.dp)
-                    .clip(ChipShape)
-                    // Rand ist die einzige Kontur: outline (≥ 3:1, WCAG 1.4.11) statt outlineVariant (≈ 2:1)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, ChipShape)
-                    .indication(addInteraction, LocalIndication.current)
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_add),
-                    contentDescription = stringResource(R.string.group_add),
-                    // Neutral wie die übrigen Chips
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(18.dp)
-                )
+        if (groups.isNotEmpty()) {
+            item(key = "add") {
+                // Druck-Rückmeldung nur auf dem sichtbaren Feld, nicht auf der grösseren Tippfläche
+                val addInteraction = remember { MutableInteractionSource() }
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig das kleine Feld
+                        .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+                        .clickable(interactionSource = addInteraction, indication = null, onClick = onAdd)
+                        .wrapContentSize()
+                        .size(32.dp)
+                        .clip(ChipShape)
+                        // Rand ist die einzige Kontur: outline (≥ 3:1, WCAG 1.4.11) statt outlineVariant (≈ 2:1)
+                        .border(1.dp, MaterialTheme.colorScheme.outline, ChipShape)
+                        .indication(addInteraction, LocalIndication.current)
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_add),
+                        contentDescription = stringResource(R.string.group_add),
+                        // Neutral wie die übrigen Chips
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
         }
     }

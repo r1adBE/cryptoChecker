@@ -14,7 +14,7 @@ import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.insertImportedLinked
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -31,10 +31,12 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import com.cryptochecker.app.domain.util.DefaultDispatcher
+import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -45,8 +47,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicBoolean
-import javax.inject.Inject
 
 /**
  * CSV-Import (Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda): Datei lesen ([CsvImportParser]), Preise mit den
@@ -59,7 +59,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PortfolioCsvImportViewModel @Inject constructor(
     @ApplicationContext context: Context,
-    private val repository: PortfolioRepository,
+    internal val repository: PortfolioRepository,
     historic: HistoricPriceSource,
     historySource: PortfolioHistorySource,
     private val settingsRepository: SettingsRepository,
@@ -103,7 +103,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * zeichnete Compose sonst auf dem Hintergrund-Thread («CalledFromWrongThread») und stürzte beim Beenden der
      * Activity ab (UiFlowsTest.importCsvAndUndo).
      */
-    private var progressRun = 0
+    internal var progressRun = 0
 
     private fun clearProgress() {
         progressRun++
@@ -111,12 +111,12 @@ class PortfolioCsvImportViewModel @Inject constructor(
     }
 
     /** Fortschritt [p] des Laufs [run] auf dem Main-Thread setzen (nur, solange dieser Lauf gilt). */
-    private fun postProgress(p: CsvImportProgress, run: Int) {
+    internal fun postProgress(p: CsvImportProgress, run: Int) {
         viewModelScope.launch(Dispatchers.Main.immediate) { if (run == progressRun) _progress.value = p }
     }
 
     /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioRepository.insertImported]), dann nichts gespeichert. */
-    private val saveCancelled = AtomicBoolean(false)
+    internal val saveCancelled = AtomicBoolean(false)
 
     /** Gewählte Lesart (Zeitzone ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel); «Importieren» nur gleich [CsvImportInput.choice]. */
     private var chosen = CsvReadChoice()
@@ -149,7 +149,10 @@ class PortfolioCsvImportViewModel @Inject constructor(
             _state.value = when (CsvImportRefusal.of(built.exceptionOrNull() is BackupLimits.TooLargeException, preview)) {
                 CsvImportRefusal.TOO_LARGE -> CsvImportState.TooLarge
                 CsvImportRefusal.UNREADABLE -> CsvImportState.Unreadable
-                null -> preview?.let { propose(it); CsvImportState.Preview(it, choice = input?.choice ?: CsvReadChoice()) }
+                null -> preview?.let {
+                    propose(it)
+                    CsvImportState.Preview(it, choice = input?.choice ?: CsvReadChoice())
+                }
                     ?: CsvImportState.Unreadable
             }
         }
@@ -324,24 +327,6 @@ class PortfolioCsvImportViewModel @Inject constructor(
             if (result == CsvImportState.Locked || result == CsvImportState.SaveFailed) reset()
             if (result is CsvImportState.Done) clearProgress()
             _state.value = result
-        }
-    }
-
-    /**
-     * Anlegen und Verknüpfen ([saveCsvImport]) mit gedrosseltem Fortschritt. Abgebrochen wird nur über `saveCancelled`
-     * (vor jeder Zeile, Transaktion rollt zurück): so steht nie ein Teil-Import und das Ergebnis passt immer zum
-     * Gespeicherten.
-     */
-    private suspend fun save(plan: CsvImportSavePlan): CsvImportSaveOutcome {
-        val run = progressRun
-        val throttle = CsvProgressThrottle(CsvImportStep.SAVE, plan.entities.size) { postProgress(it, run) }
-        throttle.start()
-        return withContext(NonCancellable) {
-            saveCsvImport {
-                repository.insertImportedLinked(
-                    plan.entities, plan.batch, plan.storedUpdates, plan.fallbacks, throttle::row, saveCancelled::get,
-                )
-            }
         }
     }
 

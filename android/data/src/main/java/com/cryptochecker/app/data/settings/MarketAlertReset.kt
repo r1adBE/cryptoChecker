@@ -24,7 +24,10 @@ object MarketAlertReset {
 
     /** Grenze einer Bitcoin-Kennzahl aus: «schon gemeldet» und die zugehörige Grenze vergessen. */
     fun indicatorOff(prefs: SharedPreferences, kind: IndicatorAlertKind) {
-        prefs.edit { remove(ZoneCheckPrefs.crossedKey(kind)); remove(ZoneCheckPrefs.thresholdKey(kind)) }
+        prefs.edit {
+            remove(ZoneCheckPrefs.crossedKey(kind))
+            remove(ZoneCheckPrefs.thresholdKey(kind))
+        }
     }
 
     /** Gas-Alarm Ethereum ([eth]) bzw. Bitcoin aus: «aus» (0) merken — beim Wiedereinschalten ist er scharf. */

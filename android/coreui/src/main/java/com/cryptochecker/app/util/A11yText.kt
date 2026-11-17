@@ -1,10 +1,10 @@
 package com.cryptochecker.app.util
 
-import com.cryptochecker.app.domain.format.A11ySpeech
 import android.content.Context
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.util.ChangeDirection
 import com.cryptochecker.app.domain.util.ChartSummary
+import com.cryptochecker.resources.R
 import java.util.Locale
 
 /**
@@ -17,10 +17,12 @@ object A11yText {
     fun change(context: Context, percent: Double?, decimals: Int = 2): String =
         when (ChartSummary.direction(percent)) {
             ChangeDirection.UP -> context.getString(
-                R.string.a11y_change_up, ChartSummary.unsignedPercent(percent ?: 0.0, decimals)
+                R.string.a11y_change_up,
+                ChartSummary.unsignedPercent(percent ?: 0.0, decimals)
             )
             ChangeDirection.DOWN -> context.getString(
-                R.string.a11y_change_down, ChartSummary.unsignedPercent(percent ?: 0.0, decimals)
+                R.string.a11y_change_down,
+                ChartSummary.unsignedPercent(percent ?: 0.0, decimals)
             )
             ChangeDirection.FLAT -> context.getString(R.string.a11y_change_flat)
         }
@@ -30,8 +32,11 @@ object A11yText {
      * «24-hour change not available» (Anzeige «—»).
      */
     fun change24h(context: Context, percent: Double?): String =
-        if (percent == null || !percent.isFinite()) context.getString(R.string.a11y_change_24h_none)
-        else context.getString(R.string.a11y_change_24h, change(context, percent))
+        if (percent == null || !percent.isFinite()) {
+            context.getString(R.string.a11y_change_24h_none)
+        } else {
+            context.getString(R.string.a11y_change_24h, change(context, percent))
+        }
 
     /**
      * «Chart 24h: from 100 to 110, up 10.00%. High 112, low 98.» — oder

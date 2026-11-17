@@ -16,7 +16,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SnackbarDuration
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -40,17 +39,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
-import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
-import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.launch
 
 /**
  * Transaktion erfassen bzw. bearbeiten (id ≠ 0): Kauf, Verkauf, Umbuchung, Belohnung, Ein-/Auszahlung —
@@ -104,11 +104,22 @@ fun PortfolioTxSheet(
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
         confirmValueChange = { target ->
-            if (target == SheetValue.Hidden && dirtyNow) { askDiscard = true; false } else true
+            if (target == SheetValue.Hidden && dirtyNow) {
+                askDiscard = true
+                false
+            } else {
+                true
+            }
         },
     )
     // Abbrechen bzw. Schliessen: mit Änderungen erst nachfragen
-    val requestClose: () -> Unit = { if (d.dirty) { askDiscard = true } else { onDismiss() } }
+    val requestClose: () -> Unit = {
+        if (d.dirty) {
+            askDiscard = true
+        } else {
+            onDismiss()
+        }
+    }
     // Speichern läuft bzw. diese Eingaben sind gespeichert: im ViewModel ([TxSaveGuard]), damit Drehen mitten im Schreiben
     // weder ein zweites Anlegen erlaubt noch das Blatt offen lässt (die Sitzung übersteht das Drehen)
     val saveSession = rememberSaveable { java.util.UUID.randomUUID().toString() }
@@ -161,7 +172,10 @@ fun PortfolioTxSheet(
     }
 
     if (askDiscard) {
-        DiscardChangesDialog(onDiscard = { askDiscard = false; onDismiss() }, onKeep = { askDiscard = false })
+        DiscardChangesDialog(onDiscard = {
+            askDiscard = false
+            onDismiss()
+        }, onKeep = { askDiscard = false })
     }
 
     if (askDelete) {
@@ -199,88 +213,91 @@ fun PortfolioTxSheet(
         // Im Blatt (eigenes Fenster): Fokus und Ansage dort, wo die Felder sind
         TxFocusFirstInvalidEffect(focusTargets)
         // Box: Meldung «nicht gespeichert» unten über dem Inhalt des Blatts
-        CompositionLocalProvider(LocalTxFocusTargets provides focusTargets) { Box {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
-                    .fillMaxHeight()
-                    .verticalScroll(rememberScrollState())
-                    .navigationBarsPadding()
-                    .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
-            ) {
-                Text(
-                    stringResource(if (isEdit) R.string.portfolio_edit_tx else R.string.portfolio_add_tx),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
-                )
-                TxTypeSection(state)
-                TxCoinSection(state, d, coins, onPicked = { focus.clearFocus() })
-                // Datum (nicht in der Zukunft) — vor Menge und Preis: ein Datumswechsel kann den Preis leeren,
-                // das soll nicht unbemerkt über dem sichtbaren Bereich geschehen
-                TxDateSection(state, onPickDate = { pickDate = true }, onPickAcquired = { pickAcquired = true })
-                TxAmountSection(state, d, viewModel)
-                // Tausch: erhaltener Coin und Menge
-                if (d.isSwap) TxSwapReceivedSection(state, d, coins)
-                // Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
-                if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
-                TxPriceValueSection(state, d, currency)
-                // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
-                TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
-                // Notiz direkt unter dem Preis, bei allen Arten
-                TxNoteField(state, 12.dp)
-                TxSwitchesSection(state)
-                // Umbuchung: von / nach
-                if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
-                TxLedgerSection(state, d, exchanges, noteInLedger = false)
-                TxTotalLine(d)
-                TxActionsRow(
-                    isEdit = isEdit,
-                    saving = saving,
-                    onDelete = { askDelete = true },
-                    onCancel = requestClose,
-                    onSave = {
-                        state.tried = true
-                        // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
-                        if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
-                        PortfolioTxFirstInvalid.of(d.check, amountValid = d.amount != null, isSwap = d.isSwap)?.let { field ->
-                            // Gebühren liegen im Abschnitt: erst aufklappen, sonst gibt es kein Feld für den Fokus
-                            if (field.inLedger) state.showLedger = true
-                            focusTargets.jumpTo(
-                                field,
-                                resources.getString(txFieldLabelRes(field, d)) + ". " + resources.getString(txFieldErrorRes(field, d)),
-                            )
-                        }
-                        // Haptik wie iOS: mit Fehlern Warnung, gespeichert Erfolg, Schreiben gescheitert Fehler
-                        if (!d.valid) haptics.play(HapticEvent.WARNING)
-                        if (d.valid) {
-                            viewModel.save(
-                                state.toDraft(d),
-                                onAskEnablePortfolio,
-                                onSaved = {
-                                    haptics.play(HapticEvent.SUCCESS)
-                                    closedAfterSave = true
-                                    onDismiss()
-                                },
-                                // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
-                                onFailed = {
-                                    haptics.play(HapticEvent.ERROR)
-                                    val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
-                                    // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
-                                    scope.launch {
-                                        saveErrorHost.showAppSnackbar(
-                                            if (locked) storageLockedText else saveFailedText, SnackbarKind.ERROR,
-                                            duration = SnackbarDuration.Long,
-                                        )
-                                    }
-                                },
-                                session = saveSession,
-                            )
-                        }
-                    },
-                )
+        CompositionLocalProvider(LocalTxFocusTargets provides focusTargets) {
+            Box {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
+                        .fillMaxHeight()
+                        .verticalScroll(rememberScrollState())
+                        .navigationBarsPadding()
+                        .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
+                ) {
+                    Text(
+                        stringResource(if (isEdit) R.string.portfolio_edit_tx else R.string.portfolio_add_tx),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    TxTypeSection(state)
+                    TxCoinSection(state, d, coins, onPicked = { focus.clearFocus() })
+                    // Datum (nicht in der Zukunft) — vor Menge und Preis: ein Datumswechsel kann den Preis leeren,
+                    // das soll nicht unbemerkt über dem sichtbaren Bereich geschehen
+                    TxDateSection(state, onPickDate = { pickDate = true }, onPickAcquired = { pickAcquired = true })
+                    TxAmountSection(state, d, viewModel)
+                    // Tausch: erhaltener Coin und Menge
+                    if (d.isSwap) TxSwapReceivedSection(state, d, coins)
+                    // Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
+                    if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
+                    TxPriceValueSection(state, d, currency)
+                    // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
+                    TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
+                    // Notiz direkt unter dem Preis, bei allen Arten
+                    TxNoteField(state, 12.dp)
+                    TxSwitchesSection(state)
+                    // Umbuchung: von / nach
+                    if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
+                    TxLedgerSection(state, d, exchanges, noteInLedger = false)
+                    TxTotalLine(d)
+                    TxActionsRow(
+                        isEdit = isEdit,
+                        saving = saving,
+                        onDelete = { askDelete = true },
+                        onCancel = requestClose,
+                        onSave = {
+                            state.tried = true
+                            // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
+                            if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
+                            PortfolioTxFirstInvalid.of(d.check, amountValid = d.amount != null, isSwap = d.isSwap)?.let { field ->
+                                // Gebühren liegen im Abschnitt: erst aufklappen, sonst gibt es kein Feld für den Fokus
+                                if (field.inLedger) state.showLedger = true
+                                focusTargets.jumpTo(
+                                    field,
+                                    resources.getString(txFieldLabelRes(field, d)) + ". " + resources.getString(txFieldErrorRes(field, d)),
+                                )
+                            }
+                            // Haptik wie iOS: mit Fehlern Warnung, gespeichert Erfolg, Schreiben gescheitert Fehler
+                            if (!d.valid) haptics.play(HapticEvent.WARNING)
+                            if (d.valid) {
+                                viewModel.save(
+                                    state.toDraft(d),
+                                    onAskEnablePortfolio,
+                                    onSaved = {
+                                        haptics.play(HapticEvent.SUCCESS)
+                                        closedAfterSave = true
+                                        onDismiss()
+                                    },
+                                    // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
+                                    onFailed = {
+                                        haptics.play(HapticEvent.ERROR)
+                                        val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
+                                        // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
+                                        scope.launch {
+                                            saveErrorHost.showAppSnackbar(
+                                                if (locked) storageLockedText else saveFailedText,
+                                                SnackbarKind.ERROR,
+                                                duration = SnackbarDuration.Long,
+                                            )
+                                        }
+                                    },
+                                    session = saveSession,
+                                )
+                            }
+                        },
+                    )
+                }
+                AppSnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
             }
-            AppSnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
-        } }
+        }
     }
 }

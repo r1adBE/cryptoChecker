@@ -17,7 +17,9 @@ import java.math.BigDecimal
  * Name wird so gespeichert (wie iOS); ein unbekannter Name gilt als [DEFAULT].
  */
 enum class CostMethod {
-    FIFO, FIFO_WALLET, AVERAGE;
+    FIFO,
+    FIFO_WALLET,
+    AVERAGE;
 
     /** Rechnet mit Posten (FIFO universell oder je Wallet). */
     val isFifo: Boolean get() = this != AVERAGE

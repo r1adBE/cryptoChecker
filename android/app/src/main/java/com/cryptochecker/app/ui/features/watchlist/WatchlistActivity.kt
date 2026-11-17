@@ -2,9 +2,8 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.ui.components.LocalRowHighlight
-import androidx.compose.foundation.background
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -21,8 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -30,7 +27,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.offset
+import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.resources.R
 
@@ -45,8 +45,11 @@ import com.cryptochecker.resources.R
 @Composable
 internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
     // Weiss (Textfarbe); in der Themenfarbe nur, solange der ⚡-Chip gewählt ist
-    val tint = if (LocalRowHighlight.current.activity) MaterialTheme.colorScheme.primary
-    else MaterialTheme.colorScheme.onSurface
+    val tint = if (LocalRowHighlight.current.activity) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.onSurface
+    }
     // Screenreader: «Ungewöhnliche Aktivität, Was bewegt sich mit?»
     val label = stringResource(R.string.activity_indicator) + ", " + stringResource(R.string.why_action)
     // Druck-Rückmeldung nur auf dem sichtbaren Chip (nicht auf der höheren Tippfläche)
@@ -82,7 +85,10 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
             .clearAndSetSemantics {
                 contentDescription = label
                 role = Role.Button
-                onClick { onClick(); true }
+                onClick {
+                    onClick()
+                    true
+                }
             }
             .padding(vertical = WHY_TOUCH_EXTRA, horizontal = WHY_TOUCH_SIDE)
             .heightIn(min = WHY_CHIP_HEIGHT)

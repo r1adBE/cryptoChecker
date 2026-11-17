@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.performance.PortfolioPerformanceData
+import kotlin.math.abs
+import kotlin.math.max
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.math.abs
-import kotlin.math.max
 
 /**
  * Schritte aller Coins in einem Durchgang ([PortfolioLedger.eventsByCoin]) ergeben dasselbe wie die Rechnung je Coin
@@ -19,7 +19,8 @@ class PortfolioEventsByCoinTest {
 
     /** Ohne Wert erfasste Vorgänge zum Tagesschluss wie in der App (mehr bekannte Zuflüsse). */
     private val valued = PortfolioLedger.valueRewardsAtDayClose(
-        PortfolioLedger.valueAtDayClose(raw, PortfolioPerformanceData::priceAt), PortfolioPerformanceData::priceAt,
+        PortfolioLedger.valueAtDayClose(raw, PortfolioPerformanceData::priceAt),
+        PortfolioPerformanceData::priceAt,
     )
 
     private val day = 86_400_000L
@@ -49,7 +50,11 @@ class PortfolioEventsByCoinTest {
             val end = PortfolioPerformanceData.END_MS
             for (windowStart in listOf(end - 7 * day, end - 365 * day)) {
                 fun parts(only: String?) = PortfolioPeriodParts.parts(
-                    raw, current, windowStart, only = only, method = method,
+                    raw,
+                    current,
+                    windowStart,
+                    only = only,
+                    method = method,
                     marketPrice = { coin, live, time -> live ?: PortfolioPerformanceData.priceAtDouble(coin, time) },
                     rates = PortfolioPeriodParts.Rates(0.9, 0.95) { 0.92 },
                     startPrice = { coin, _ -> PortfolioPerformanceData.priceAtDouble(coin, windowStart) },
@@ -88,8 +93,11 @@ class PortfolioEventsByCoinTest {
                         val single = mapOf(coin to PortfolioLedger.events(coin, trades))
                         PortfolioHistory.cashFlows(single, listOf(coin), start, today, dayEnd, 0.9, market, method)
                     }
-                    val expected = if (perCoin.any { it == null }) null
-                    else perCoin.flatMap { it!! }.sortedBy { it.epochDay }
+                    val expected = if (perCoin.any { it == null }) {
+                        null
+                    } else {
+                        perCoin.flatMap { it!! }.sortedBy { it.epochDay }
+                    }
                     assertEquals("$label cashFlows", expected, all)
                     for (sinceFirst in listOf(false, true)) {
                         coins.forEach { coin ->

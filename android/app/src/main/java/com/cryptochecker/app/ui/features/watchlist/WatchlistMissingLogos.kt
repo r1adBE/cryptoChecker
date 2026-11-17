@@ -42,12 +42,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.MissingLogoNotice
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val MISSING_LOGOS_TAG = "missing_logos_line"
@@ -85,8 +85,11 @@ internal fun WatchlistMissingLogos(watches: List<WatchEntity>, reduceMotion: Boo
     val notYet by produceState(emptySet<String>(), missing) { value = missing?.let { source.notYetLoaded(it) }.orEmpty() }
     val current = missing
     val stored = dismissed
-    val notice = if (current == null || stored == null) MissingLogoNotice.State.HIDDEN
-    else MissingLogoNotice.state(current, stored, loading = loadingLine, logosEnabled = true)
+    val notice = if (current == null || stored == null) {
+        MissingLogoNotice.State.HIDDEN
+    } else {
+        MissingLogoNotice.state(current, stored, loading = loadingLine, logosEnabled = true)
+    }
     // Zuletzt gezeigte Coins: beim Ausblenden bleibt der Text stehen (kein «0 Coins»)
     val shown = remember { arrayOf(emptyList<String>()) }
     if (notice.visible && current != null) shown[0] = current
@@ -139,8 +142,11 @@ private fun MissingLogosDialog(keys: List<String>, notYet: Set<String>, onClose:
         title = { Text(pluralStringResource(R.plurals.watchlist_missing_logos, keys.size, keys.size)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                val explain = if (keys.any { it in notYet }) R.string.watchlist_missing_logos_explain_pending
-                else R.string.watchlist_missing_logos_explain
+                val explain = if (keys.any { it in notYet }) {
+                    R.string.watchlist_missing_logos_explain_pending
+                } else {
+                    R.string.watchlist_missing_logos_explain
+                }
                 Text(stringResource(explain), style = MaterialTheme.typography.bodyMedium)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Spacing.xs),

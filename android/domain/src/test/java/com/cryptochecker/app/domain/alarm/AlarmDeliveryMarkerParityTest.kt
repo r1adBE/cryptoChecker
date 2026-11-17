@@ -2,16 +2,16 @@ package com.cryptochecker.app.domain.alarm
 import com.cryptochecker.app.domain.alarm.AlarmDelivery
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /**
  * Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
@@ -72,7 +72,13 @@ class AlarmDeliveryMarkerParityTest {
             val result = AlarmDelivery(store).deliver(
                 alarmId = 1, now = c["now"].num()!!.toLong(), cooldownMinutes = 0,
                 holdAlarms = c["holdAlarms"] as? Boolean ?: false,
-                canShow = { true }, show = { shows++; true }, mark = { marks++; true },
+                canShow = { true }, show = {
+                    shows++
+                    true
+                }, mark = {
+                    marks++
+                    true
+                },
                 isShown = { c["shown"] as Boolean },
                 savedSince = { AlarmDeliveryMarker.savedSinceMarker(lastTriggeredAt, it) },
             )
@@ -104,9 +110,20 @@ class AlarmDeliveryMarkerParityTest {
         var marks = 0
         var seenMarker: Long? = null
         val result = AlarmDelivery(store).deliver(
-            alarmId = 11, now = at + 60_000L, cooldownMinutes = 0, holdAlarms = false,
-            canShow = { true }, show = { true }, mark = { marks++; true },
-            isShown = { markerAt -> seenMarker = markerAt; AlarmDeliveryMarker.shownSinceMarker(at - 3_600_000L, markerAt) },
+            alarmId = 11,
+            now = at + 60_000L,
+            cooldownMinutes = 0,
+            holdAlarms = false,
+            canShow = { true },
+            show = { true },
+            mark = {
+                marks++
+                true
+            },
+            isShown = { markerAt ->
+                seenMarker = markerAt
+                AlarmDeliveryMarker.shownSinceMarker(at - 3_600_000L, markerAt)
+            },
         )
         assertFalse(result)
         assertEquals(at, seenMarker)
@@ -153,8 +170,13 @@ class AlarmDeliveryMarkerParityTest {
         // Lauf 1: «Prozess endet» in mark (Ausnahme), der Vermerk bleibt stehen
         runCatching {
             AlarmDelivery(store).deliver(
-                alarmId = 8, now = at, cooldownMinutes = 0, holdAlarms = false,
-                canShow = { true }, show = { true }, mark = { throw IllegalStateException("Prozess beendet") },
+                alarmId = 8,
+                now = at,
+                cooldownMinutes = 0,
+                holdAlarms = false,
+                canShow = { true },
+                show = { true },
+                mark = { throw IllegalStateException("Prozess beendet") },
             )
         }
         assertEquals(at, store.get(8))
@@ -162,8 +184,20 @@ class AlarmDeliveryMarkerParityTest {
         var shows = 0
         var marks = 0
         val result = AlarmDelivery(store).deliver(
-            alarmId = 8, now = at + 60_000L, cooldownMinutes = 0, holdAlarms = false,
-            canShow = { true }, show = { shows++; true }, mark = { marks++; true }, isShown = { true },
+            alarmId = 8,
+            now = at + 60_000L,
+            cooldownMinutes = 0,
+            holdAlarms = false,
+            canShow = { true },
+            show = {
+                shows++
+                true
+            },
+            mark = {
+                marks++
+                true
+            },
+            isShown = { true },
         )
         assertFalse(result)
         assertEquals(0, shows)
@@ -179,8 +213,17 @@ class AlarmDeliveryMarkerParityTest {
         store.set(9, at)
         var marks = 0
         val result = AlarmDelivery(store).deliver(
-            alarmId = 9, now = at + 60_000L, cooldownMinutes = 0, holdAlarms = false,
-            canShow = { true }, show = { true }, mark = { marks++; true }, isShown = { false },
+            alarmId = 9,
+            now = at + 60_000L,
+            cooldownMinutes = 0,
+            holdAlarms = false,
+            canShow = { true },
+            show = { true },
+            mark = {
+                marks++
+                true
+            },
+            isShown = { false },
         )
         assertFalse(result)
         assertEquals(0, marks)
@@ -192,8 +235,16 @@ class AlarmDeliveryMarkerParityTest {
         val store = AlarmDeliveryMarkerStore.InMemory()
         var seenDuringShow: Long? = null
         val result = AlarmDelivery(store).deliver(
-            alarmId = 10, now = 5_000L, cooldownMinutes = 0, holdAlarms = false,
-            canShow = { true }, show = { seenDuringShow = store.get(10); true }, mark = { true },
+            alarmId = 10,
+            now = 5_000L,
+            cooldownMinutes = 0,
+            holdAlarms = false,
+            canShow = { true },
+            show = {
+                seenDuringShow = store.get(10)
+                true
+            },
+            mark = { true },
         )
         assertTrue(result)
         assertEquals(5_000L, seenDuringShow)

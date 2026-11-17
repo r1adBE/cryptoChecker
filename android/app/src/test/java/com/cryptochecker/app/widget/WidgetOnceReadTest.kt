@@ -1,9 +1,9 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetOnceRead
-import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.widget.WidgetOnceRead
+import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -55,7 +55,12 @@ class WidgetOnceReadTest {
     }
 
     private fun watch(id: Long, group: String?) = WatchEntity(
-        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "B$id", quoteAsset = "USDT", groupName = group,
+        id = id,
+        exchangeKey = "Binance",
+        exchangeName = "Binance",
+        baseAsset = "B$id",
+        quoteAsset = "USDT",
+        groupName = group,
     )
 
     /** Auswahl wie bisher in `WidgetUpdater.updateForWatch` (Referenz). */
@@ -79,8 +84,12 @@ class WidgetOnceReadTest {
     fun selectionMatchesThePreviousWay() {
         val watches = listOf(watch(1, null), watch(2, "Majors"), watch(3, "Alts"), watch(4, "Majors"))
         val groupsByWidget = mapOf(
-            10 to null, 11 to "Majors", 12 to "Alts", 13 to "Gone",
-            14 to WatchFilter.FAVORITES, 15 to WatchFilter.TOKENS,
+            10 to null,
+            11 to "Majors",
+            12 to "Alts",
+            13 to "Gone",
+            14 to WatchFilter.FAVORITES,
+            15 to WatchFilter.TOKENS,
         )
         val listIds = groupsByWidget.keys.toIntArray()
         var checked = 0

@@ -25,6 +25,7 @@ object PortfolioSnapshotSeal {
     /** Ergebnis der Schlüsselsuche. */
     sealed interface KeyLookup {
         class Found(val key: SecretKey) : KeyLookup
+
         /** Keystore gerade nicht erreichbar (beschäftigt, gesperrt): nichts lesen, nichts schreiben. */
         object Unavailable : KeyLookup
     }
@@ -42,6 +43,7 @@ object PortfolioSnapshotSeal {
     sealed interface ReadPlan {
         /** Versiegelten Eintrag öffnen. */
         class Open(val sealed: String) : ReadPlan
+
         /** Nichts anzeigen (Leer-Zustand des Widgets, `widget_portfolio_empty`): keine Aufnahme oder Schlüssel nicht verfügbar. */
         object Empty : ReadPlan
     }
@@ -53,6 +55,7 @@ object PortfolioSnapshotSeal {
     enum class WritePlan {
         /** Neue Aufnahme versiegelt speichern. */
         SEAL,
+
         /** Ohne Schlüssel: nichts schreiben, ein vorhandener versiegelter Eintrag bleibt unverändert. */
         KEEP_SEALED,
     }

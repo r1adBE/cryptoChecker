@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.logos
 
-import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.logos.CoinLogos.AlphaEntry
 import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.util.json.JsonException
+import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
-import com.cryptochecker.app.domain.logos.CoinLogos.AlphaEntry
 
 // Binance-Alpha-Liste (Teil von [CoinLogos]): Antwort lesen, Kürzel bereinigen, Alpha-Kürzel und -Token, Kennungen
 // behalten, Namen und Logos in Lücken. Erweiterungsfunktionen, damit `CoinLogos.parseAlpha(…)` usw. bleiben;

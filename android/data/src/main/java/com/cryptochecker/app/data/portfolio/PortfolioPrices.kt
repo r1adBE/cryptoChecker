@@ -56,7 +56,8 @@ data class PortfolioPrices(
 
 /** Warum ein Coin keinen Kurs hat: [NO_PRICE] = keine Quelle führt ihn; [UNAVAILABLE] = Abfrage gerade gescheitert. */
 enum class PortfolioPriceIssue {
-    NO_PRICE, UNAVAILABLE;
+    NO_PRICE,
+    UNAVAILABLE;
 
     companion object {
         /**

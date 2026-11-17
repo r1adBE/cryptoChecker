@@ -2,12 +2,12 @@ package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm.Entry
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm.ThirdFee
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Prüfung des Erfassen-Blatts ([PortfolioTxForm.check]) ohne Oberfläche. Wie `PortfolioTxFormCheckTests` (iOS). */
 class PortfolioTxFormCheckTest {
@@ -93,8 +93,11 @@ class PortfolioTxFormCheckTest {
     @Test
     fun swapChecksReceivedSide() {
         val swap = Entry(
-            type = PortfolioTxType.SWAP, coinQuery = "BTC", amount = dec("1"),
-            toCoinQuery = "eth", toAmount = dec("20"),
+            type = PortfolioTxType.SWAP,
+            coinQuery = "BTC",
+            amount = dec("1"),
+            toCoinQuery = "eth",
+            toAmount = dec("20"),
         )
         val ok = PortfolioTxForm.check(swap)
         assertEquals("ETH", ok.toCoin)
@@ -120,8 +123,14 @@ class PortfolioTxFormCheckTest {
         assertFalse(PortfolioTxForm.check(buy).valid)
         assertFalse(PortfolioTxForm.check(buy.copy(fee = dec("0.5"))).feeConsumes)
         val swap = Entry(
-            type = PortfolioTxType.SWAP, coinQuery = "BTC", amount = dec("1"), toCoinQuery = "ETH", toAmount = dec("2"),
-            feeCoin = "ETH", feeCoinAmountBlank = false, feeCoinAmount = dec("2"),
+            type = PortfolioTxType.SWAP,
+            coinQuery = "BTC",
+            amount = dec("1"),
+            toCoinQuery = "ETH",
+            toAmount = dec("2"),
+            feeCoin = "ETH",
+            feeCoinAmountBlank = false,
+            feeCoinAmount = dec("2"),
         )
         assertTrue(PortfolioTxForm.check(swap).feeConsumes)
         assertFalse(PortfolioTxForm.check(swap).valid)

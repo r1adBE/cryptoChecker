@@ -26,11 +26,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import com.cryptochecker.resources.R
+import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
-import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /** Zustand und Aktion für «In Gruppe» beim Hinzufügen. */
 class GroupTargetUi(
@@ -117,7 +117,10 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.group_none)) },
                 trailingIcon = if (ui.target == null) check else null,
-                onClick = { menuOpen = false; ui.onSelect(null) }
+                onClick = {
+                    menuOpen = false
+                    ui.onSelect(null)
+                }
             )
             // Auch eine eben neu benannte (noch leere) Gruppe zur Auswahl anbieten
             val names = (ui.groups + listOfNotNull(ui.target))
@@ -127,7 +130,10 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 DropdownMenuItem(
                     text = { Text(name, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                     trailingIcon = if (ui.target == name) check else null,
-                    onClick = { menuOpen = false; ui.onSelect(name) }
+                    onClick = {
+                        menuOpen = false
+                        ui.onSelect(name)
+                    }
                 )
             }
             HorizontalDivider()
@@ -136,7 +142,10 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 leadingIcon = {
                     Icon(painterResource(R.drawable.ic_add), contentDescription = null, modifier = Modifier.size(18.dp))
                 },
-                onClick = { menuOpen = false; naming = true }
+                onClick = {
+                    menuOpen = false
+                    naming = true
+                }
             )
         }
     }

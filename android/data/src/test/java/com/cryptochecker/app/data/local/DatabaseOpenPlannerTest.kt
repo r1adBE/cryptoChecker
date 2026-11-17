@@ -31,10 +31,18 @@ class DatabaseOpenPlannerTest {
         }
 
         override fun kind(database: String) = kind
-        override fun setAside(database: String) { step("setAside"); setAsideCount++; kind = FileKind.ABSENT }
+        override fun setAside(database: String) {
+            step("setAside")
+            setAsideCount++
+            kind = FileKind.ABSENT
+        }
+
         /** Passt der gespeicherte Schlüssel zur Datei? */
         var keyMatches = true
-        override fun opens(database: String, passphrase: ByteArray): Boolean { step("opens"); return keyMatches }
+        override fun opens(database: String, passphrase: ByteArray): Boolean {
+            step("opens")
+            return keyMatches
+        }
         override fun hasRestoredCopy(database: String) = restoredCopy
         var encryptedWith: ByteArray? = null
         override fun encryptRestoredCopy(database: String, passphrase: ByteArray) {
@@ -165,7 +173,11 @@ class DatabaseOpenPlannerTest {
     @Test
     fun planOpenWithUnavailableKeyOfEncryptedFile() {
         fun plan(allowed: Boolean, foreground: Boolean) = DatabaseOpenPlanner.planOpen(
-            FileKind.ENCRYPTED, keyUsable = false, keyUnavailable = true, inMemoryAllowed = allowed, foreground = foreground,
+            FileKind.ENCRYPTED,
+            keyUsable = false,
+            keyUnavailable = true,
+            inMemoryAllowed = allowed,
+            foreground = foreground,
         )
         assertEquals(OpenPlan.KEEP_FILE_IN_MEMORY, plan(allowed = true, foreground = true))
         // Hintergrund (Worker, Widget, Systemsicherung): warten, nie eine leere Datenbank für den ganzen Prozess
@@ -302,11 +314,15 @@ class DatabaseOpenPlannerTest {
         val replaced = mutableListOf("$db.replaced", "$db.replaced-1")
         val files = object : DatabaseOpenPlanner.Files by FakeFiles(FileKind.ENCRYPTED) {
             override fun replacedCopies(database: String) = replaced.toList()
-            override fun deleteReplaced(database: String, copy: String) { replaced -= copy }
+            override fun deleteReplaced(database: String, copy: String) {
+                replaced -= copy
+            }
         }
         var discardedReplaced = 0
         val keys = object : DatabaseOpenPlanner.Keys by FakeKeys(found) {
-            override fun discardReplaced(database: String) { discardedReplaced++ }
+            override fun discardReplaced(database: String) {
+                discardedReplaced++
+            }
         }
         var expire = listOf("$db.replaced-1", "fremd.db.replaced")
         val planner = DatabaseOpenPlanner(files, keys, replacedExpired = { _, _ -> expire })

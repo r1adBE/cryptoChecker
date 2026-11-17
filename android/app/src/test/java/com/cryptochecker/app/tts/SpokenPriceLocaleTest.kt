@@ -1,9 +1,9 @@
 package com.cryptochecker.app.tts
 
 import com.cryptochecker.app.util.PriceFormat
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.Locale
 
 /** Vorgelesene Kurse im Dezimalzeichen der Sprache der Ansage, lateinische Ziffern. Wie iOS `SpokenPriceLocaleTests`. */
 class SpokenPriceLocaleTest {

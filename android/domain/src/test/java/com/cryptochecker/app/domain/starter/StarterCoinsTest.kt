@@ -82,8 +82,8 @@ class StarterCoinsTest {
     fun stablecoinHeuristic() {
         assertTrue(StarterCoins.isExcluded(c("USDE", "Ethena USDe", 20)))
         assertTrue(StarterCoins.isExcluded(c("PYUSD", "PayPal USD", 40)))
-        assertTrue(StarterCoins.isExcluded(c("USDQ", "Some new stable", 50)))       // beginnt mit USD
-        assertTrue(StarterCoins.isExcluded(c("XUSD", "Another", 51)))               // endet mit USD
+        assertTrue(StarterCoins.isExcluded(c("USDQ", "Some new stable", 50))) // beginnt mit USD
+        assertTrue(StarterCoins.isExcluded(c("XUSD", "Another", 51))) // endet mit USD
         assertTrue(StarterCoins.isExcluded(c("GLO", "Glo Dollar", 52)))
         assertTrue(StarterCoins.isExcluded(c("EURQ", "Quantoz Euro", 53)))
         assertTrue(StarterCoins.isExcluded(c("BSC-USD", "Binance Bridged USDT (BNB Smart Chain)", 9)))
@@ -110,9 +110,9 @@ class StarterCoinsTest {
     fun cacheRejectsBrokenContent() {
         assertNull(StarterCoins.decode(null))
         assertNull(StarterCoins.decode(""))
-        assertNull(StarterCoins.decode("BTC|Bitcoin;ETH|Ethereum"))               // zu wenige
-        assertNull(StarterCoins.decode("BTC|Bitcoin;BTC|Bitcoin;A|a;B|b;C|c"))   // doppelt
-        assertNull(StarterCoins.decode("BTC|;ETH|Ethereum;A|a;B|b;C|c"))         // ohne Namen
+        assertNull(StarterCoins.decode("BTC|Bitcoin;ETH|Ethereum")) // zu wenige
+        assertNull(StarterCoins.decode("BTC|Bitcoin;BTC|Bitcoin;A|a;B|b;C|c")) // doppelt
+        assertNull(StarterCoins.decode("BTC|;ETH|Ethereum;A|a;B|b;C|c")) // ohne Namen
     }
 
     @Test
@@ -122,6 +122,6 @@ class StarterCoinsTest {
         assertTrue(StarterCoins.isFresh(now - StarterCoins.TTL_MILLIS + 1, now))
         assertFalse(StarterCoins.isFresh(now - StarterCoins.TTL_MILLIS, now))
         assertFalse(StarterCoins.isFresh(0L, now))
-        assertFalse(StarterCoins.isFresh(now + 60_000, now))   // Uhr zurückgestellt
+        assertFalse(StarterCoins.isFresh(now + 60_000, now)) // Uhr zurückgestellt
     }
 }

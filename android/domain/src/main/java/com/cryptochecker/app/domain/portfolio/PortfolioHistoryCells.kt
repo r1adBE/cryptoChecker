@@ -68,12 +68,19 @@ internal fun PortfolioHistory.dayCells(
             // Kerze genau dieses Tags (nicht fortgeschrieben); Hoch/Tief schliessen den Tageswert ein
             val dayRange = if (PortfolioStables.needsQuote(coin) && series.isNotEmpty()) {
                 ranges[coin]?.get(day)?.takeIf { it.valid }
-            } else null
+            } else {
+                null
+            }
+
             // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag ([sumCells])
             fun times(p: Double): BigDecimal = amount.multiply(BigDecimal.valueOf(p), PortfolioDecimal.MC)
             row[index] = if (dayRange != null) {
                 PortfolioHistory.DayCell(
-                    times(price), times(dayRange.open), times(max(dayRange.high, price)), times(min(dayRange.low, price)), true,
+                    times(price),
+                    times(dayRange.open),
+                    times(max(dayRange.high, price)),
+                    times(min(dayRange.low, price)),
+                    true,
                 )
             } else {
                 val v = times(price)

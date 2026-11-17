@@ -10,16 +10,17 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.domain.mirror.MirrorRevocations
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.mirror.MirrorRevocations
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.setup.PortfolioDataCheck
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -29,7 +30,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import timber.log.Timber.DebugTree
-import javax.inject.Inject
 
 @HiltAndroidApp
 class CryptoCheckerApp : Application(), Configuration.Provider {
@@ -63,6 +63,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     /** Coin-Liste der Wear-OS-App: folgt den Favoriten und gleicht mit der Uhr ab, sobald der Prozess läuft. */
     @Inject lateinit var phoneWatchSync: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchSync>
+
     @Inject lateinit var phoneWatchFeed: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchFeed>
 
     /**

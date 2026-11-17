@@ -136,6 +136,7 @@ fun TaxEngines.caAcb(
     val out = ArrayList<PortfolioDisposal>()
     // Zugänge (Indizes, zeitlich): das Fenster per Binärsuche statt über alle Schritte je Verkauf
     val acquires = steps.indices.filter { steps[it].kind == TaxStepKind.ACQUIRE }
+
     /**
      * Nicht abziehbarer Betrag zum ACB des Bestands (ohne Teil mit Kaufpreis: zum nächsten Zugang mit Kaufpreis); [est] =
      * aus einer Zeile mit geschätztem Wert.
@@ -168,8 +169,7 @@ fun TaxEngines.caAcb(
                 val d = days[i]
                 val from = d.minusDays(TaxTemplate.CA_WINDOW_DAYS)
                 val to = d.plusDays(TaxTemplate.CA_WINDOW_DAYS)
-                // Noch nicht verbrauchte Ersatz-Zugänge im Fenster und Bestand am Ende des Fensters (Binärsuche über die
-                // aufsteigenden Tage: gleiche Indizes wie der frühere Durchlauf über alle Schritte)
+                // Unverbrauchte Ersatz-Zugänge im Fenster und Bestand am Fensterende (Binärsuche über aufsteigende Tage)
                 val lo = firstDayAtLeast(days, from)
                 val afterTo = firstDayAtLeast(days, to.plusDays(1))
                 val endIndex = maxOf(i, afterTo - 1)
@@ -201,7 +201,11 @@ fun TaxEngines.caAcb(
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
-            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: zero, s.trade.amount, s.trade.coinFee, s.costEstimated))
+            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(
+                coin,
+                s,
+                pool.addFee(s.time, s.cost ?: zero, s.trade.amount, s.trade.coinFee, s.costEstimated)
+            )
         }
     }
     return out

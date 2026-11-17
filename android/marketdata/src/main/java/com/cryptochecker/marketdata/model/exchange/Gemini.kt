@@ -31,12 +31,14 @@ private val GEMINI_QUOTE_ENDINGS =
  * was über der Grenze liegt oder eine Fehlerantwort bekam, fehlt vorerst in der Paarliste und kommt bei einer
  * späteren Synchronisierung dran.
  */
-class Gemini : SimpleExchange(
-    name = "Gemini",
-    pairListUrl = "$GEMINI_API/symbols",
-    tickerUrl = "$GEMINI_API/pubticker/%1\$s",
-    errorField = "message",
-), PagedPairList {
+class Gemini :
+    SimpleExchange(
+        name = "Gemini",
+        pairListUrl = "$GEMINI_API/symbols",
+        tickerUrl = "$GEMINI_API/pubticker/%1\$s",
+        errorField = "message",
+    ),
+    PagedPairList {
     override val key = "Gemini"
 
     /**

@@ -7,9 +7,9 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
+import java.io.File
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import timber.log.Timber
-import java.io.File
 
 /**
  * Öffnet die Room-Datenbanken verschlüsselt (SQLCipher). Entschieden wird erst beim ersten Zugriff auf die Datei
@@ -85,15 +85,17 @@ class EncryptingOpenHelperFactory(
             val name = requireNotNull(configuration.name)
             // Prozessweit je Datenbank nur eine Vorbereitung zugleich: Die Systemsicherung
             // (PortfolioBackupMirror) baut eine eigene Fabrik — @Synchronized gilt nur je Instanz
-            val decision = synchronized(prepareLock(name)) { DatabaseOpenPlanner(
-                files,
-                keys,
-                log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
-                // Beiseitegelegte und ersetzte Kopien erst nach bestätigtem Hinweis und Frist löschen (AsideRetention)
-                asideExpired = { db, copies -> retention(db, "aside-seen", copies) },
-                replacedExpired = { db, copies -> retention(db, "replaced-seen", copies) },
-                readOnly = readOnly,
-            ).prepare(name) }
+            val decision = synchronized(prepareLock(name)) {
+                DatabaseOpenPlanner(
+                    files,
+                    keys,
+                    log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
+                    // Beiseitegelegte und ersetzte Kopien erst nach bestätigtem Hinweis und Frist löschen (AsideRetention)
+                    asideExpired = { db, copies -> retention(db, "aside-seen", copies) },
+                    replacedExpired = { db, copies -> retention(db, "replaced-seen", copies) },
+                    readOnly = readOnly,
+                ).prepare(name)
+            }
             // Nur im Arbeitsspeicher nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
             DatabaseEncryptionNotice.note(context, name, decision)
             val helper = when (decision) {
@@ -135,7 +137,9 @@ class EncryptingOpenHelperFactory(
         private fun retention(db: String, kind: String, copies: List<String>): List<String> =
             AsideRetention.expired(
                 AsideRetention.SeenStore(File(context.noBackupFilesDir, "${DatabaseKeyStore.DIRECTORY}/$db.$kind")),
-                copies, System.currentTimeMillis(), allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
+                copies,
+                System.currentTimeMillis(),
+                allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
             )
 
         /** Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. */

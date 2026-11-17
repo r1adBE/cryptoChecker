@@ -10,14 +10,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.widget.ChartGridUnit
 import com.cryptochecker.app.domain.widget.WidgetChartType
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneId
-import java.util.Locale
 
 /** Anzeige, Zeitraum und Chart des Portfolio-Widgets ([PortfolioWidgetChart], [PortfolioWidgetChartGeometry]). */
 class PortfolioWidgetChartTest {
@@ -233,15 +233,28 @@ class PortfolioWidgetChartTest {
             "ETH" to (today - 400 until today - 5).associateWith { 10.0 },
         )
         val data = PortfolioWidgetChart.dailyData(
-            trades, closes, emptyMap(), mapOf("BTC" to 1.0, "ETH" to 1.0), mapOf("BTC" to 100.0, "ETH" to 10.0),
-            today, today,
+            trades,
+            closes,
+            emptyMap(),
+            mapOf("BTC" to 1.0, "ETH" to 1.0),
+            mapOf("BTC" to 100.0, "ETH" to 10.0),
+            today,
+            today,
         )
         assertTrue(data.points.isEmpty())
         // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (dieselbe Zahl)
         assertEquals(0.0, data.changes.getValue(7).amount, d)
         assertEquals(listOf("ETH"), data.changes.getValue(7).skipped)
-        assertEquals(PortfolioPeriodChange.gain(trades, mapOf("BTC" to 100.0, "ETH" to 10.0),
-            PortfolioWidgetChart.usableCloses(closes, today), today - 7)!!.amountUsd, data.changes.getValue(7).amount, d)
+        assertEquals(
+            PortfolioPeriodChange.gain(
+                trades,
+                mapOf("BTC" to 100.0, "ETH" to 10.0),
+                PortfolioWidgetChart.usableCloses(closes, today),
+                today - 7
+            )!!.amountUsd,
+            data.changes.getValue(7).amount,
+            d
+        )
     }
 
     @Test
@@ -334,14 +347,32 @@ class PortfolioWidgetChartTest {
 
     @Test
     fun percentTextCarriesTheSignWithoutArrow() {
-        val up = PortfolioWidgetChart.plan(snapshot(change = 9.0, percent = 2.314), PortfolioChartRange.DAY, WidgetChartType.LINE, today, zone)
+        val up = PortfolioWidgetChart.plan(
+            snapshot(change = 9.0, percent = 2.314),
+            PortfolioChartRange.DAY,
+            WidgetChartType.LINE,
+            today,
+            zone
+        )
         assertEquals("+2.31%", PortfolioWidgetChart.percentText(up, Locale.US))
         assertEquals(1, PortfolioWidgetChart.direction(up))
-        val down = PortfolioWidgetChart.plan(snapshot(change = -9.0, percent = -0.5), PortfolioChartRange.DAY, WidgetChartType.LINE, today, zone)
+        val down = PortfolioWidgetChart.plan(
+            snapshot(change = -9.0, percent = -0.5),
+            PortfolioChartRange.DAY,
+            WidgetChartType.LINE,
+            today,
+            zone
+        )
         assertEquals("−0.50%", PortfolioWidgetChart.percentText(down, Locale.US))
         // Schreibweise der Sprache (PercentText) wie überall: Deutsch mit geschütztem Abstand
         assertEquals("+2,31\u00A0%", PortfolioWidgetChart.percentText(up, Locale.GERMANY))
-        val none = PortfolioWidgetChart.plan(snapshot(change = null, percent = null), PortfolioChartRange.DAY, WidgetChartType.LINE, today, zone)
+        val none = PortfolioWidgetChart.plan(
+            snapshot(change = null, percent = null),
+            PortfolioChartRange.DAY,
+            WidgetChartType.LINE,
+            today,
+            zone
+        )
         assertNull(PortfolioWidgetChart.percentText(none))
     }
 

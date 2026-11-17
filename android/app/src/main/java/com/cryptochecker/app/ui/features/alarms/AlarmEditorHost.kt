@@ -17,11 +17,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.launch
 
 /** Öffnet Editor bzw. Rückfrage «Alarm löschen?» des [AlarmEditorHost] (Liste, «Neuer Alarm», «Alarm setzen»). */
@@ -59,6 +59,7 @@ internal fun AlarmEditorHost(host: AlarmEditorHostState, viewModel: AlarmsViewMo
     val firstAlarm by viewModel.firstAlarm.collectAsStateWithLifecycle()
     val timingHint by viewModel.timingHint.collectAsStateWithLifecycle()
     val exactOffer by viewModel.exactOffer.collectAsStateWithLifecycle()
+
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
     var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
     var draft by viewModel.editor

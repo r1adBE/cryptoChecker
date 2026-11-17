@@ -11,8 +11,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.lock.PortfolioAccess
+import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerSectionsState
 import com.cryptochecker.app.ui.features.explorer.ExplorerViewModel
@@ -143,14 +143,14 @@ internal fun NavGraphBuilder.marketDestinations(
     composable<ScreenRoute.MarketSubpage> { entry ->
         val route = entry.toRoute<ScreenRoute.MarketSubpage>()
         // Gelöscht wird im SavedStateHandle (übersteht Prozess-Neustart): kein zweites Scrollen
-        val macroJump by entry.savedStateHandle.getStateFlow(ScreenRoute.MarketSubpageArgMacro, route.macro)
+        val macroJump by entry.savedStateHandle.getStateFlow(ScreenRoute.MARKET_SUBPAGE_ARG_MACRO, route.macro)
             .collectAsStateWithLifecycle()
         MarketSectionScreen(
             section = MarketSections.subpage(route.section),
             viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
             onBack = { navigation.popBackStack() },
             macroJump = macroJump,
-            onMacroJumpHandled = { entry.savedStateHandle[ScreenRoute.MarketSubpageArgMacro] = false },
+            onMacroJumpHandled = { entry.savedStateHandle[ScreenRoute.MARKET_SUBPAGE_ARG_MACRO] = false },
         )
     }
 }

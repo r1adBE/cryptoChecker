@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.model.AlarmCondition
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /** Futures-Alarme: Satz, Schwellen und Open-Interest-Verlauf über einen Tag (Rest: DerivativesParityTest). */
 class DerivativesAlarmTest {

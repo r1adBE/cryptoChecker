@@ -151,6 +151,10 @@ jobs:
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/source_rules.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/source_rules.py" "$GITHUB_WORKSPACE"
 
+      # Kotlin style (ktlint, pinned and checked by SHA-256; rules in android/.editorconfig) — fails fast without Gradle
+      - name: Kotlin style
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/ktlint.sh" "$GITHUB_WORKSPACE"
+
       # Theme colours (every accent, light/dark, high contrast, selection tints, error fills, placeholders) against
       # WCAG 4.5:1 / 3:1; the script cross-checks its values with AppColorSchemes.kt, ErrorColors.kt and Theme.swift
       - name: Theme contrast

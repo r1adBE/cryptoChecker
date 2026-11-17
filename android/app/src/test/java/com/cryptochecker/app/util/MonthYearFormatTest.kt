@@ -2,10 +2,10 @@ package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.time.LocalDate
 import java.util.Locale
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Monat und Jahr ([MonthYearFormat]) ohne android.icu: Muster fest mitgegeben (wie es ICU liefert), geprüft werden
@@ -45,7 +45,10 @@ class MonthYearFormatTest {
     fun musterQuelleBekommtDieLocaleUndBestimmtDieAusgabe() {
         val asked = mutableListOf<Locale>()
         val fr = Locale.FRENCH
-        val f = MonthYearFormat.formatter(fr) { asked += it; "y MMMM" }
+        val f = MonthYearFormat.formatter(fr) {
+            asked += it
+            "y MMMM"
+        }
         assertEquals(listOf(fr), asked)
         assertEquals("2028 avril", date.format(f))
     }
@@ -53,7 +56,10 @@ class MonthYearFormatTest {
     /** Gleiche Vorlage wie iOS (`setLocalizedDateFormatFromTemplate`): sonst wichen Monat und Jahr je Plattform ab. */
     @Test
     fun vorlageWieIos() {
-        val ios = SourceGuard.ios(findUp("ios/App/Features/Cycle/MarketHalvingCard.swift"), "ios/App/Features/Cycle/MarketHalvingCard.swift")
+        val ios = SourceGuard.ios(
+            findUp("ios/App/Features/Cycle/MarketHalvingCard.swift"),
+            "ios/App/Features/Cycle/MarketHalvingCard.swift"
+        )
         val text = ios.readText(Charsets.UTF_8)
         assertEquals(true, text.contains("setLocalizedDateFormatFromTemplate(\"${MonthYearFormat.SKELETON}\")"))
     }

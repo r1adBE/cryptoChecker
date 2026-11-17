@@ -17,7 +17,9 @@ internal fun comboEntries(
 ): List<ComboEntry> {
     val needle = query?.trim().orEmpty()
     val all = items.mapIndexed { index, text -> ComboEntry(index, text) }
-    val matching = if (needle.isEmpty()) all else {
+    val matching = if (needle.isEmpty()) {
+        all
+    } else {
         val (prefix, rest) = all.partition { it.text.startsWith(needle, ignoreCase = true) }
         prefix + rest.filter { it.text.contains(needle, ignoreCase = true) }
     }

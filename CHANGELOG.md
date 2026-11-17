@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 284)
+
+- Kotlin code formatted with ktlint; long files split (no change in behaviour).
+
 ## 16.2.2 (build 283)
 
 - Comments without references to reviews and build numbers.

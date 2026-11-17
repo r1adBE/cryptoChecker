@@ -80,7 +80,14 @@ private val WITHDRAWAL = listOf(
     "withdraw*", "send*", "sent", "*auszahlung*", "transfer out", "retrait*", "outgoing", "*ausgang*", "envoi*",
 )
 private val DEPOSIT = listOf(
-    "deposit*", "receive*", "*einzahlung*", "transfer in", "depot", "incoming", "*eingang*", "reception*",
+    "deposit*",
+    "receive*",
+    "*einzahlung*",
+    "transfer in",
+    "depot",
+    "incoming",
+    "*eingang*",
+    "reception*",
 )
 
 /**

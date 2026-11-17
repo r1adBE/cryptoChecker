@@ -2,17 +2,17 @@ package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.domain.logos.CoinLogoQueue
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
+import java.io.File
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.util.concurrent.atomic.AtomicInteger
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /**
  * Sammel-Abruf der Logos ([CoinLogoQueue]): gemeinsame Testfälle `coin_logos.json` › `queue` (iOS:

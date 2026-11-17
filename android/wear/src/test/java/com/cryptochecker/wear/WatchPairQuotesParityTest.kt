@@ -1,15 +1,15 @@
 package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchPair
+import java.io.File
+import java.net.URI
+import java.net.URLDecoder
+import java.util.Collections
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.io.File
-import java.net.URI
-import java.net.URLDecoder
-import java.util.Collections
 
 /**
  * Selbst abgefragte Kurse für Favoriten des Handys (`testdata/parity/watch_pairs.json`, Abschnitte «venues», «urls»,
@@ -57,7 +57,12 @@ class WatchPairQuotesParityTest {
         for (c in objects(data.getJSONArray("venues"))) {
             val pair = WatchPair.parse(c.getString("key"))!!
             assertEquals(c.getString("key"), strings(c.getJSONArray("expected")), WatchPairQuotes.venues(pair).map { it.label })
-            if (c.has("asksOwn")) assertEquals("asksOwn ${c.getString("key")}", c.getBoolean("asksOwn"), WatchPairQuotes.asksOwnExchange(pair))
+            if (c.has(
+                    "asksOwn"
+                )
+            ) {
+                assertEquals("asksOwn ${c.getString("key")}", c.getBoolean("asksOwn"), WatchPairQuotes.asksOwnExchange(pair))
+            }
         }
     }
 

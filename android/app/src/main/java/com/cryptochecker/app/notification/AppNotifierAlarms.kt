@@ -8,14 +8,12 @@ import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_EXCHANGE_REQUEST_CODE
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_NOTIFICATION_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.PORTFOLIO_REQUEST_CODE
@@ -24,6 +22,8 @@ import com.cryptochecker.app.notification.AppNotifier.Companion.alarmNotificatio
 import com.cryptochecker.app.notification.AppNotifier.Companion.portfolioAlarmNotificationId
 import com.cryptochecker.app.notification.AppNotifier.Group
 import com.cryptochecker.app.ui.navigation.PortfolioAlarmTarget
+import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * @param volumeRatio nur beim Volumen-Spike: Volumen der letzten Stunde im Vergleich zum Schnitt.

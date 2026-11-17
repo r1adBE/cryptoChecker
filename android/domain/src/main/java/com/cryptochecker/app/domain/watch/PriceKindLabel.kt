@@ -11,7 +11,11 @@ package com.cryptochecker.app.domain.watch
  * null = gewöhnlicher letzter Kurs, kein Zusatz.
  */
 enum class PriceKindLabel {
-    MARK, MID, HOURLY, DAILY_REFERENCE, WEEKLY_REFERENCE;
+    MARK,
+    MID,
+    HOURLY,
+    DAILY_REFERENCE,
+    WEEKLY_REFERENCE;
 
     companion object {
         fun of(

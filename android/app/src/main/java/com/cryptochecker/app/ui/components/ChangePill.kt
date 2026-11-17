@@ -42,7 +42,10 @@ enum class ChangePillSize { SMALL, MEDIUM }
  * Durchschnitt «Ø +0.27%» — nicht Bernstein, das bleibt «Achtung» vorbehalten. Wie `PillTone` (iOS).
  */
 enum class PillTone {
-    UP, DOWN, NEUTRAL, AVERAGE;
+    UP,
+    DOWN,
+    NEUTRAL,
+    AVERAGE;
 
     companion object {
         /** Prozent-Änderung: Richtung erst ab sichtbarer Änderung (≥ 0.005 %, wie [PriceFormat.changePercent]). */

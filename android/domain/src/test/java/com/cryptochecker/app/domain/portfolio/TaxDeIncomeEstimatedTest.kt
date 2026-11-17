@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.ZoneId
 
 /**
  * DE 256-€-Grenze (§ 22 Nr. 3) mit zum Tagesschluss geschätzter Belohnung: Vermerk «geschätzt» an der Grenzzeile (Karte
@@ -24,7 +24,9 @@ class TaxDeIncomeEstimatedTest {
 
     private fun limit(price: BigDecimal?): Pair<TaxSummaryLine, String> {
         val reward = PortfolioTrade(1, "ETH", PortfolioTxType.REWARD, BigDecimal("0.01"), price, day * 86_400_000L + 43_200_000L)
-        val s = TaxExport.yearSummary(listOf(reward), TaxTemplate.DE, TaxMethod.FIFO, 2024, zone, "EUR", rates, priceAt = { _, _ -> BigDecimal("3000") })
+        val s = TaxExport.yearSummary(listOf(reward), TaxTemplate.DE, TaxMethod.FIFO, 2024, zone, "EUR", rates, priceAt = { _, _ ->
+            BigDecimal("3000")
+        })
         val line = s.lines.single { it.line == TaxLine.DE_INCOME_LIMIT }
         val csv = TaxExport.summaryCsv(s, texts, emptyList()).split("\r\n").single { it.contains("LIMIT;") }
         return line to csv

@@ -4,11 +4,11 @@ import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
 import com.cryptochecker.app.data.local.DatabaseKeyRetry
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal.KeyLookup
-import timber.log.Timber
 import java.security.KeyStore
 import java.security.UnrecoverableKeyException
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
+import timber.log.Timber
 
 /**
  * Schlüssel der versiegelten Widget-Aufnahme ([PortfolioSnapshotSeal]): ein AES-256-GCM-Schlüssel im Android Keystore

@@ -7,8 +7,8 @@ import com.cryptochecker.app.ui.features.explorer.CoinHit
 import com.cryptochecker.app.ui.features.explorer.CoinPairPreference
 import com.cryptochecker.app.ui.features.explorer.CoinSearch
 import com.cryptochecker.app.ui.features.explorer.NameIndex
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -26,16 +26,19 @@ class CoinSearchParityTest {
     }
 
     private val cache: Map<String, ExchangePairsInfo> = data["cache"].obj().mapValues { (_, rows) ->
-        ExchangePairsInfo(1, rows.list().map { raw ->
-            val p = raw.obj()
-            ExchangePair(
-                p["base"] as String,
-                p["quote"] as String,
-                p["pairId"] as String?,
-                FuturesContractType.valueOf(p["contract"] as String),
-                p["tradFi"] as Boolean,
-            )
-        })
+        ExchangePairsInfo(
+            1,
+            rows.list().map { raw ->
+                val p = raw.obj()
+                ExchangePair(
+                    p["base"] as String,
+                    p["quote"] as String,
+                    p["pairId"] as String?,
+                    FuturesContractType.valueOf(p["contract"] as String),
+                    p["tradFi"] as Boolean,
+                )
+            }
+        )
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -44,7 +47,9 @@ class CoinSearchParityTest {
     private fun scope(c: Map<String, Any?>) = (c["scope"] as String?)?.let(AssetScope::valueOf) ?: AssetScope.BOTH
 
     private fun coins(c: Map<String, Any?>): List<CoinHit> = CoinSearch.coins(
-        c["query"] as String, exchanges, cache,
+        c["query"] as String,
+        exchanges,
+        cache,
         names = names,
         scope = scope(c),
         includeUnlisted = c["includeUnlisted"] as Boolean? ?: false,
@@ -81,6 +86,7 @@ class CoinSearchParityTest {
         data["pairsFor"].list().forEach { raw ->
             val c = raw.obj()
             val coin = CoinHit(c["coin"] as String, c["tradFi"] as Boolean, name = null, exchanges = 0, pairs = 0)
+
             @Suppress("UNCHECKED_CAST")
             val preference = CoinPairPreference(
                 defaultExchange = c["defaultExchange"] as String?,

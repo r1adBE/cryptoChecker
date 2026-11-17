@@ -8,15 +8,15 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
 import com.cryptochecker.app.domain.portfolio.XpubScan
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Taproot: BIP86-Ableitung, Deskriptoren (BIP380/389) und Bech32m (BIP350) aus `taproot.json` (iOS: `TaprootTests.swift`). */
 class TaprootParityTest {
@@ -83,7 +83,11 @@ class TaprootParityTest {
                 // Normalform prüft sich wieder zu sich selbst (Sicherung zurückspielen)
                 assertEquals(note, check.normalized, AddressValidation.check(check.normalized).normalized)
                 assertTrue(note, AddressValidation.isExtendedKey(check.normalized!!))
-                assertEquals(note, AddressValidation.Problem.WRONG_CHAIN, AddressValidation.check(c["input"] as String, AddressChain.ETH).problem)
+                assertEquals(
+                    note,
+                    AddressValidation.Problem.WRONG_CHAIN,
+                    AddressValidation.check(c["input"] as String, AddressChain.ETH).problem
+                )
             } else {
                 assertEquals(note, c["problem"], check.problem?.name)
             }

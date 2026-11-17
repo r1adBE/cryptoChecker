@@ -1,19 +1,19 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
-import com.cryptochecker.app.domain.watch.ChangeStamp
-import androidx.core.content.edit
 import android.content.Context
+import androidx.core.content.edit
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.TimedPrice
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.json.JSONArray
-import org.json.JSONObject
-import timber.log.Timber
 import javax.crypto.SecretKey
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.json.JSONArray
+import org.json.JSONObject
+import timber.log.Timber
 
 /**
  * Letzte Momentaufnahme des Portfolios für das Widget, die Kursaufnahmen der
@@ -205,7 +205,11 @@ class PortfolioSnapshotStore @Inject constructor(
             val percent = change.percent?.takeIf { it.isFinite() }
             val skipped = change.skipped.filter { it.isNotBlank() }
             // [Betrag, Prozent?, [fehlende Coins]?]; ohne Prozent, aber mit Coins: null an zweiter Stelle
-            if (percent != null) row.put(percent) else if (skipped.isNotEmpty()) row.put(JSONObject.NULL)
+            if (percent != null) {
+                row.put(percent)
+            } else if (skipped.isNotEmpty()) {
+                row.put(JSONObject.NULL)
+            }
             if (skipped.isNotEmpty()) row.put(JSONArray(skipped))
             periodChanges.put(days.toString(), row)
         }
@@ -245,8 +249,10 @@ class PortfolioSnapshotStore @Inject constructor(
         PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY, it) }
         PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY, it) }
         for ((key, coins) in listOf(
-            KEY_MISSING_COINS to snapshot.missingCoins, KEY_STALE_COINS to snapshot.staleCoins,
-            KEY_ADDRESSES_FAILING to snapshot.addressesFailing, KEY_STALE_TOKEN_ADDRESSES to snapshot.staleTokenAddresses,
+            KEY_MISSING_COINS to snapshot.missingCoins,
+            KEY_STALE_COINS to snapshot.staleCoins,
+            KEY_ADDRESSES_FAILING to snapshot.addressesFailing,
+            KEY_STALE_TOKEN_ADDRESSES to snapshot.staleTokenAddresses,
             KEY_UNVERIFIED_COINS to snapshot.unverifiedCoins,
         )) {
             val list = coins.filter { it.isNotBlank() }
@@ -267,8 +273,11 @@ class PortfolioSnapshotStore @Inject constructor(
         key: String,
         value: Double?,
     ): android.content.SharedPreferences.Editor =
-        if (value == null || value.isNaN() || value.isInfinite()) remove(key)
-        else putLong(key, value.toRawBits())
+        if (value == null || value.isNaN() || value.isInfinite()) {
+            remove(key)
+        } else {
+            putLong(key, value.toRawBits())
+        }
 
     /** Zahl im versiegelten JSON; nicht endlich oder null = weggelassen. */
     private fun JSONObject.putNumber(key: String, value: Double?): JSONObject =
@@ -280,6 +289,7 @@ class PortfolioSnapshotStore @Inject constructor(
 
     private companion object {
         const val FILE_NAME = "portfolio_widget"
+
         // Die ganze Aufnahme versiegelt ([PortfolioSnapshotSeal]); die Schlüssel unten gelten im JSON
         const val KEY_SEALED = "sealed_snapshot"
         const val KEY_TOTAL = "total"
@@ -289,43 +299,55 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_TIME = "time"
         const val KEY_EMPTY = "empty"
         const val KEY_HISTORY = "history"
+
         // Grosses Widget: Gesamtwert in USDT, Positionen, Wertverlauf
         const val KEY_TOTAL_USDT = "total_usdt"
         const val KEY_POSITIONS = "positions"
         const val KEY_OTHER_POSITIONS = "other_positions"
         const val KEY_VALUE_HISTORY = "value_history"
+
         // Stundenkurse je Coin für den 24-h-Wertverlauf
         const val KEY_HOURLY_PRICES = "hourly_prices"
+
         // %-Basis der Veränderung (fehlt = rollende 24 Stunden)
         const val KEY_CHANGE_STAMP = "change_stamp"
+
         // Offene Coins ohne Kurs (fehlt = 0)
         const val KEY_MISSING_PRICES = "missing_prices"
         const val KEY_STALE_PRICES = "stale_prices"
+
         // Tagesverlauf (USDT) und Veränderung je Zeitraum für 7 T / 30 T / 1 J
         const val KEY_DAILY = "daily"
         const val KEY_PERIOD_CHANGES = "period_changes"
+
         // ± seit Kauf (USDT) für «Gesamt» der Übersicht; bis zu 12 Positionen für die Liste
         const val KEY_UNREALIZED = "unrealized"
+
         // Coins, die in «Heute» fehlen (Hinweis «Heute ohne …» wie die Gesamtkarte)
         const val KEY_TODAY_SKIPPED = "today_skipped"
+
         // MEIN Gewinn/Verlust je Coin (USDT) für die Zeilen des Portfolio-Tabs (wie iOS `coinPnl`);
         // je Position steht er in den Positionen («pa»/«pr»), das Total in «change»
         const val KEY_COIN_PNL = "coin_pnl"
+
         // «Seit Kauf» und «7 T» in der Anzeigewährung samt Merkzettel der App (Einstand je Coin, Tagesfaktoren)
         const val KEY_DISPLAY_FX = "display_fx"
         const val KEY_UNREALIZED_DISPLAY = "unrealized_display"
         const val KEY_WEEK_DISPLAY = "week_display"
+
         // Warum Portfolio-Alarme pausieren (Coins ohne aktuellen Kurs, Wert alter Kurse, nie geladene Adressen)
         const val KEY_MISSING_COINS = "missing_coins"
         const val KEY_STALE_COINS = "stale_coins"
         const val KEY_STALE_VALUE = "stale_value"
         const val KEY_ADDRESSES_PENDING = "addresses_pending"
+
         // Seit über 24 h scheiternde Adressen, nicht bestätigte Token-Guthaben (Namen, Wert)
         const val KEY_ADDRESSES_FAILING = "addresses_failing"
         const val KEY_STALE_TOKEN_ADDRESSES = "stale_token_addresses"
         const val KEY_STALE_TOKEN_VALUE = "stale_token_value"
         const val KEY_UNVERIFIED_COINS = "unverified_coins"
         const val KEY_UNVERIFIED_VALUE = "unverified_value"
+
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"

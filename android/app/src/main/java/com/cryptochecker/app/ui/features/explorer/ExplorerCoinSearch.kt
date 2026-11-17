@@ -3,9 +3,9 @@ package com.cryptochecker.app.ui.features.explorer
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
-import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
@@ -155,8 +155,13 @@ object CoinSearch {
                 t.exchanges += exchange.key
                 t.pairs++
                 val kind = AssetKind.of(
-                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
-                    exchangeNames[TokenIdentity.key(pair.base)], alphaNames,
+                    exchange.key,
+                    pair.base,
+                    pair.tradFi,
+                    alphaSymbols,
+                    pair.pairId,
+                    exchangeNames[TokenIdentity.key(pair.base)],
+                    alphaNames,
                 )
                 if (kind == AssetKind.ALPHA) t.alphaPairs++
             }
@@ -222,8 +227,13 @@ object CoinSearch {
                 if (pair.tradFi != coin.tradFi || pair.base.uppercase() != coin.symbol) continue
                 if (!scope.allows(pair, exchange.key, hiddenAlpha, exchangeNames, alphaNames)) continue
                 val kind = AssetKind.of(
-                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
-                    exchangeNames[TokenIdentity.key(pair.base)], alphaNames,
+                    exchange.key,
+                    pair.base,
+                    pair.tradFi,
+                    alphaSymbols,
+                    pair.pairId,
+                    exchangeNames[TokenIdentity.key(pair.base)],
+                    alphaNames,
                 )
                 found += SearchHit(exchange, pair, kind == AssetKind.ALPHA)
             }

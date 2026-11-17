@@ -44,18 +44,22 @@ data class SignalThresholds(
     val oiStrongPercent: Double,
 ) {
     /** Alle Schwellen mal [factor]. */
-    fun scaled(factor: Double): SignalThresholds = if (factor == 1.0) this else SignalThresholds(
-        priceZ = priceZ * factor,
-        priceMinMovePercent = priceMinMovePercent * factor,
-        priceStrongZ = priceStrongZ * factor,
-        priceStrongMovePercent = priceStrongMovePercent * factor,
-        volumeRatio = volumeRatio * factor,
-        volumeStrongRatio = volumeStrongRatio * factor,
-        fundingPercent = fundingPercent * factor,
-        fundingStrongPercent = fundingStrongPercent * factor,
-        oiPercent = oiPercent * factor,
-        oiStrongPercent = oiStrongPercent * factor,
-    )
+    fun scaled(factor: Double): SignalThresholds = if (factor == 1.0) {
+        this
+    } else {
+        SignalThresholds(
+            priceZ = priceZ * factor,
+            priceMinMovePercent = priceMinMovePercent * factor,
+            priceStrongZ = priceStrongZ * factor,
+            priceStrongMovePercent = priceStrongMovePercent * factor,
+            volumeRatio = volumeRatio * factor,
+            volumeStrongRatio = volumeStrongRatio * factor,
+            fundingPercent = fundingPercent * factor,
+            fundingStrongPercent = fundingStrongPercent * factor,
+            oiPercent = oiPercent * factor,
+            oiStrongPercent = oiStrongPercent * factor,
+        )
+    }
 
     /**
      * Stärke eines (möglichen) Signals unter diesen Schwellen; null = nicht auffällig.
@@ -69,9 +73,13 @@ data class SignalThresholds(
             SignalKind.PRICE_MOVE -> {
                 // Gespeicherte Signale ohne z (nicht endlich, als null gespeichert): nur nach der Bewegung beurteilen
                 val z = signal.factor?.let { abs(it) }
-                if ((z != null && z < priceZ) || value < priceMinMovePercent) null
-                else if ((z != null && z >= priceStrongZ) || value >= priceStrongMovePercent) SignalSeverity.STRONG
-                else SignalSeverity.NOTABLE
+                if ((z != null && z < priceZ) || value < priceMinMovePercent) {
+                    null
+                } else if ((z != null && z >= priceStrongZ) || value >= priceStrongMovePercent) {
+                    SignalSeverity.STRONG
+                } else {
+                    SignalSeverity.NOTABLE
+                }
             }
             SignalKind.VOLUME_SPIKE -> grade(signal.value, volumeRatio, volumeStrongRatio)
             SignalKind.OPEN_INTEREST_JUMP -> grade(value, oiPercent, oiStrongPercent)

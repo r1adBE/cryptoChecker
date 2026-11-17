@@ -217,7 +217,11 @@ object TokenIdentity {
         binanceName: String?,
         providerName: String? = null,
     ): Boolean = fallbackSeriesAllowed(
-        symbol, ownName, com.cryptochecker.app.domain.market.DataFreshness.candleProvider(host), binanceName, providerName,
+        symbol,
+        ownName,
+        com.cryptochecker.app.domain.market.DataFreshness.candleProvider(host),
+        binanceName,
+        providerName,
     )
 
     /** Gleicher Token? STRONG ohne Kursband, MEDIUM/WEAK nur mit [bandOk], MISMATCH nie. */
@@ -230,8 +234,10 @@ object TokenIdentity {
     /** Widersprechen sich bekannte Namen ([names], je Paar) desselben Kürzels? */
     fun conflicting(symbol: String, names: List<String?>): Boolean {
         val known = names.filter { normalizeName(it, symbol) != null }
-        for (i in known.indices) for (j in i + 1 until known.size) {
-            if (matchNames(symbol, known[i], known[j]) == Match.MISMATCH) return true
+        for (i in known.indices) {
+            for (j in i + 1 until known.size) {
+                if (matchNames(symbol, known[i], known[j]) == Match.MISMATCH) return true
+            }
         }
         return false
     }
@@ -294,7 +300,9 @@ object TokenIdentity {
             }
             val exchangesJson = root.optJSONObject("exchanges")
             val exchanges = LinkedHashMap<String, Map<String, String>>()
-            exchangesJson?.keys()?.forEach { k -> names(exchangesJson.optJSONObject(k)).takeIf { it.isNotEmpty() }?.let { exchanges[k] = it } }
+            exchangesJson?.keys()?.forEach { k ->
+                names(exchangesJson.optJSONObject(k)).takeIf { it.isNotEmpty() }?.let { exchanges[k] = it }
+            }
             NameIndex(exchanges, names(root.optJSONObject("binance")))
         }.getOrDefault(NameIndex())
     }

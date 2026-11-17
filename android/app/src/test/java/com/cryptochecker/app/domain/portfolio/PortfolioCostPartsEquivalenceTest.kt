@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.performance.PortfolioPerformanceData
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.ZoneId
 import kotlin.random.Random
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Durchschnittsmethode ([average]) und Steuer-Pool ([TaxPool]) mit [PortfolioCostPartPool] gegen die Referenzrechnung
@@ -155,20 +155,50 @@ class PortfolioCostPartsEquivalenceTest {
             out += when (rnd.nextInt(20)) {
                 in 0..6 -> PortfolioTrade(id, coin, PortfolioTxType.BUY, qty, price, time)
                     .let { if (rnd.nextBoolean()) it.copy(fee = amount(rnd, 2), feeUnit = PortfolioFeeUnit.QUOTE) else it }
-                7 -> PortfolioTrade(id, coin, PortfolioTxType.BUY, qty, price, time,
-                    fee = qty.divide(BigDecimal(1_000)), feeUnit = PortfolioFeeUnit.COIN)
+                7 -> PortfolioTrade(
+                    id,
+                    coin,
+                    PortfolioTxType.BUY,
+                    qty,
+                    price,
+                    time,
+                    fee = qty.divide(BigDecimal(1_000)),
+                    feeUnit = PortfolioFeeUnit.COIN
+                )
                 8 -> PortfolioTrade(id, coin, PortfolioTxType.REWARD, qty, price.takeIf { rnd.nextBoolean() }, time)
-                in 9..12 -> PortfolioTrade(id, coin, PortfolioTxType.SELL, qty.divide(BigDecimal(3), 8, RoundingMode.DOWN),
-                    price, time, fee = amount(rnd, 2), feeUnit = PortfolioFeeUnit.QUOTE)
-                13 -> PortfolioTrade(id, coin, PortfolioTxType.SWAP, qty.divide(BigDecimal(4)), null, time,
-                    toCoin = if (coin == "BTC") "ETH" else "BTC", toAmount = qty, swapValueUsdt = price)
-                14 -> PortfolioTrade(id, coin, PortfolioTxType.WITHDRAWAL, qty.divide(BigDecimal(5)), price, time,
-                    fee = BigDecimal.ONE, feeUnit = PortfolioFeeUnit.QUOTE)
-                15 -> PortfolioTrade(id, coin, PortfolioTxType.TRANSFER, qty.divide(BigDecimal(2)), null, time,
+                in 9..12 -> PortfolioTrade(
+                    id,
+                    coin,
+                    PortfolioTxType.SELL,
+                    qty.divide(BigDecimal(3), 8, RoundingMode.DOWN),
+                    price,
+                    time,
+                    fee = amount(rnd, 2),
+                    feeUnit = PortfolioFeeUnit.QUOTE
+                )
+                13 -> PortfolioTrade(
+                    id, coin, PortfolioTxType.SWAP, qty.divide(BigDecimal(4)), null, time,
+                    toCoin = if (coin == "BTC") "ETH" else "BTC", toAmount = qty, swapValueUsdt = price
+                )
+                14 -> PortfolioTrade(
+                    id,
+                    coin,
+                    PortfolioTxType.WITHDRAWAL,
+                    qty.divide(BigDecimal(5)),
+                    price,
+                    time,
+                    fee = BigDecimal.ONE,
+                    feeUnit = PortfolioFeeUnit.QUOTE
+                )
+                15 -> PortfolioTrade(
+                    id, coin, PortfolioTxType.TRANSFER, qty.divide(BigDecimal(2)), null, time,
                     fee = qty.divide(BigDecimal(2_000)), feeUnit = PortfolioFeeUnit.COIN,
-                    transferFrom = "A", transferTo = "B")
-                16 -> PortfolioTrade(id, coin, PortfolioTxType.TRANSFER, qty, null, time,
-                    fee = BigDecimal.ONE, feeUnit = PortfolioFeeUnit.QUOTE, transferFrom = "B", transferTo = "A")
+                    transferFrom = "A", transferTo = "B"
+                )
+                16 -> PortfolioTrade(
+                    id, coin, PortfolioTxType.TRANSFER, qty, null, time,
+                    fee = BigDecimal.ONE, feeUnit = PortfolioFeeUnit.QUOTE, transferFrom = "B", transferTo = "A"
+                )
                 17 -> PortfolioTrade(id, coin, PortfolioTxType.DEPOSIT, qty, price.takeIf { rnd.nextBoolean() }, time)
                 18 -> PortfolioTrade(id, coin, PortfolioTxType.PAYMENT, qty.divide(BigDecimal(10)), price, time)
                 else -> PortfolioTrade(id, coin, PortfolioTxType.SELL, qty.multiply(BigDecimal(5)), price, time)

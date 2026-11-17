@@ -16,6 +16,7 @@ class RowPauseTest {
     @Test
     fun shownUntilParity() {
         val now = long(data["now"])!!
+
         @Suppress("UNCHECKED_CAST")
         val cases = data["shownUntil"] as List<Map<String, Any?>>
         for (c in cases) {
@@ -39,6 +40,7 @@ class RowPauseTest {
                     timeoutRuns = long(s["timeoutRuns"])!!.toInt(),
                 )
             }
+
             @Suppress("UNCHECKED_CAST")
             val expected = (c["expected"] as Map<String, Any?>).mapValues { long(it.value)!! }
             assertEquals(c["name"] as String, expected, RowPause.pauses(states))

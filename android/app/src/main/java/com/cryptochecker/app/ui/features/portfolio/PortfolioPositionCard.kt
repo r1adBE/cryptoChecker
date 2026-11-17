@@ -33,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioOpenLot
@@ -45,6 +44,7 @@ import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.text.DateFormat
 import java.util.Date
 
@@ -128,7 +128,10 @@ internal fun PositionCard(
             // Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand über die Wallet zählt ([AddressSurplus])
             if (retarget != null) {
                 RetargetHint(
-                    retarget, MaterialTheme.typography.label, LocalHidePortfolioAmounts.current, onRetarget,
+                    retarget,
+                    MaterialTheme.typography.label,
+                    LocalHidePortfolioAmounts.current,
+                    onRetarget,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             } else if (overlap) {
@@ -171,7 +174,13 @@ internal fun PositionCard(
                             maskAmount(PortfolioFormat.amount(p.unpricedHoldingsExact, p.coin))
                         ),
                         style = MaterialTheme.typography.label,
-                        color = if (onMissingCost != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = if (onMissingCost !=
+                            null
+                        ) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
                         modifier = Modifier.costLink(onMissingCost).padding(top = 2.dp)
                     )
                 }
@@ -179,7 +188,9 @@ internal fun PositionCard(
             if (PortfolioFormat.showRealized(p.realized, p.realizedIncomplete)) {
                 Metric(
                     label = stringResource(R.string.portfolio_realized),
-                    value = maskAmount(PortfolioFormat.realizedText(p.realized, p.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+                    value = maskAmount(
+                        PortfolioFormat.realizedText(p.realized, p.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))
+                    ),
                     valueTone = plTone(p.realized),
                     modifier = Modifier.weight(1f)
                 )
@@ -203,7 +214,9 @@ internal fun PositionCard(
         }
         // Gebührenanteil auf Bestand ohne Kaufpreis: offener Posten statt still entfallen (Einstand unbekannt)
         if (p.unassignedFeeUsdt.signum() != 0) {
-            PortfolioHint(stringResource(R.string.portfolio_unassigned_fee, maskAmount(PortfolioFormat.usdt(p.unassignedFeeUsdt.toDouble()))))
+            PortfolioHint(
+                stringResource(R.string.portfolio_unassigned_fee, maskAmount(PortfolioFormat.usdt(p.unassignedFeeUsdt.toDouble())))
+            )
         }
         if (p.oversold) {
             Text(
@@ -272,12 +285,16 @@ private fun OpenLotRow(lot: PortfolioOpenLot, coin: String, formats: OpenLotForm
         lot.aggregated -> stringResource(if (cost != null) R.string.portfolio_open_lots_avg else R.string.portfolio_open_lots_no_cost)
         else -> lot.acquiredTime?.let { formats.date.format(Date(it)) } ?: "—"
     }
-    val walletText = lot.wallet?.let { w -> stringResource(R.string.tax_export_wallet, w.ifBlank { stringResource(R.string.tax_export_wallet_unspecified) }) }
+    val walletText = lot.wallet?.let { w ->
+        stringResource(R.string.tax_export_wallet, w.ifBlank { stringResource(R.string.tax_export_wallet_unspecified) })
+    }
     val costText = if (cost != null) {
         val perCoin = if (lot.amount.signum() > 0) cost.divide(lot.amount, java.math.MathContext.DECIMAL128) else null
         maskAmount(PriceFormat.valueWithCurrency(cost.toDouble(), PortfolioFormat.USDT, formats.value)) +
             (perCoin?.let { " · " + stringResource(R.string.portfolio_avg_only, PortfolioFormat.price(it.toDouble())) } ?: "")
-    } else stringResource(R.string.portfolio_open_lots_without_price)
+    } else {
+        stringResource(R.string.portfolio_open_lots_without_price)
+    }
     Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(modifier = Modifier.weight(1f)) {
             Text(title, style = MaterialTheme.typography.bodyMedium.tabularNumbers(), fontWeight = FontWeight.Medium)

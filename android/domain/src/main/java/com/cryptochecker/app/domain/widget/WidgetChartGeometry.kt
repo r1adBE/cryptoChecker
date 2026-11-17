@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.widget
+import com.cryptochecker.app.domain.util.ChartSummary
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
 import com.cryptochecker.app.domain.watch.SheetChart
-import com.cryptochecker.app.domain.util.ChartSummary
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
@@ -277,7 +277,10 @@ class WidgetChartGeometry(
                     val hour = 3_600_000L
                     var t = Math.floorDiv(start, hour) * hour + hour
                     buildList {
-                        while (t < end) { add(t); t += hour }
+                        while (t < end) {
+                            add(t)
+                            t += hour
+                        }
                     }
                 }
                 ChartGridUnit.DAY, ChartGridUnit.WEEK, ChartGridUnit.MONTH -> {

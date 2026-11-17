@@ -6,21 +6,21 @@ package com.cryptochecker.app.ui.features.watchlist
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.RestoreOutcome
-import com.cryptochecker.app.data.restore
-import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.data.confirmUserWrite
+import com.cryptochecker.app.data.restore
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.tryAddWatch
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.UndoSlot
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.domain.notification.PriceNotificationRule
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -35,11 +35,11 @@ import kotlinx.coroutines.sync.withLock
 
 internal class WatchlistEditController @AssistedInject constructor(
     @Assisted private val scope: CoroutineScope,
-    private val watchRepository: WatchRepository,
+    internal val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val priceRefresher: PriceRefresher,
-    private val notifier: AppNotifier,
-    private val widgetUpdater: WidgetUpdater,
+    internal val notifier: AppNotifier,
+    internal val widgetUpdater: WidgetUpdater,
     private val widgetPrefs: WidgetPrefs,
     private val addMoments: AddMoments,
     /** Aktuelle Gruppen-Auswahl ([WatchlistContentFlows.groupFilter]); null bis geladen. */
@@ -50,8 +50,11 @@ internal class WatchlistEditController @AssistedInject constructor(
     /** Erzeugt den Controller für ein ViewModel; die übrigen Abhängigkeiten setzt Hilt ein. */
     @AssistedFactory
     interface Factory {
-        fun create(scope: CoroutineScope, @Assisted("groupFilter") groupFilter: () -> GroupFilter?,
-                   @Assisted("refreshAll") refreshAll: () -> Unit): WatchlistEditController
+        fun create(
+            scope: CoroutineScope,
+            @Assisted("groupFilter") groupFilter: () -> GroupFilter?,
+            @Assisted("refreshAll") refreshAll: () -> Unit
+        ): WatchlistEditController
     }
 
     /** Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch Umbenennen, folgt die Auswahl dem neuen Namen. */
@@ -60,19 +63,19 @@ internal class WatchlistEditController @AssistedInject constructor(
     /** Neuer Name der umbenannten Gruppe [oldName]; null, wenn sie nicht umbenannt wurde. */
     fun renamedGroup(oldName: String): String? = renamedGroups[oldName]
 
-    private val undoMutex = Mutex()
+    internal val undoMutex = Mutex()
 
     /**
      * Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id), alle nicht gehandelten
      * ([NOT_TRADED_UNDO_KEY]), die Mehrfachauswahl ([SELECTION_UNDO_KEY]) oder die ganze Merkliste ([CLEAR_ALL_UNDO_KEY]).
      */
-    private val undo = UndoSlot<Long, List<WatchSnapshot>>()
+    internal val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
     /**
      * Rückfrage «nicht gespeichert» EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
      * ausser [cancelled] (Rückmeldung «nicht geschrieben» an den Bildschirm).
      */
-    private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
+    internal fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
         scope.launch { if (watchRepository.confirmUserWrite()) block() else cancelled() }
 
     fun selectGroup(group: String?) {
@@ -81,7 +84,10 @@ internal class WatchlistEditController @AssistedInject constructor(
 
     /** Notiz bzw. Gruppe eines Paars; [onProceed]: nach bestätigter Rückfrage (Dialog zu). */
     fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
-        launchWrite(cancelled) { onProceed(); watchRepository.setNote(watch.id, note) }
+        launchWrite(cancelled) {
+            onProceed()
+            watchRepository.setNote(watch.id, note)
+        }
     }
 
     fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
@@ -184,35 +190,6 @@ internal class WatchlistEditController @AssistedInject constructor(
         }
 
     /**
-     * «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. Nur bis zur
-     * Obergrenze der Merkliste: [onFull] bekommt die Zahl der deshalb nicht zurückgeholten Paare (nur wenn > 0).
-     */
-    fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) {
-        launchWrite {
-            undoMutex.withLock {
-                val snapshots = undo.take(watchId) ?: return@withLock
-                // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund 5 Meldungen
-                // pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die nächste Aktualisierung
-                val showPrices = restoresPriceNotifications(snapshots.size)
-                var any = false
-                var full = 0
-                for (snapshot in snapshots) {
-                    when (watchRepository.restore(snapshot)) {
-                        RestoreOutcome.RESTORED -> Unit
-                        RestoreOutcome.FULL -> { full++; continue }
-                        RestoreOutcome.BLOCKED -> continue
-                    }
-                    any = true
-                    // Kurs-Meldung wie vorher wieder zeigen (letzter bekannter Kurs) — nur nach den Einstellungen
-                    if (showPrices) notifier.showPriceNow(snapshot.watch)
-                }
-                if (any) widgetUpdater.updateAll()
-                if (full > 0) onFull(full)
-            }
-        }
-    }
-
-    /**
      * «Nicht gehandelte Paare entfernen» (Überlaufmenü, nach Rückfrage): alle Paare, die ihre Börse nicht mehr führt, samt
      * Alarmen löschen — wie [deleteWithUndo] festgehalten, damit «Rückgängig» ([undoDelete] mit [NOT_TRADED_UNDO_KEY]) alle
      * zurückholt. [onDone] bekommt die Zahl der gelöschten Paare (0 = nichts geschehen).
@@ -220,9 +197,13 @@ internal class WatchlistEditController @AssistedInject constructor(
     fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
         scope.launch {
             // Rückfrage vor der Sperre; «Abbrechen» bzw. abgelehnt = 0 (kein Banner, nichts weggeräumt)
-            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
-                val ids = watchRepository.getWatches().filter { it.isNotTraded }.map { it.id }
-                deleteSnapshots(NOT_TRADED_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
+            val count = if (!watchRepository.confirmUserWrite()) {
+                0
+            } else {
+                undoMutex.withLock {
+                    val ids = watchRepository.getWatches().filter { it.isNotTraded }.map { it.id }
+                    deleteSnapshots(NOT_TRADED_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
+                }
             }
             onDone(count)
         }
@@ -234,8 +215,12 @@ internal class WatchlistEditController @AssistedInject constructor(
      */
     fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) {
         scope.launch {
-            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
-                deleteSnapshots(SELECTION_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
+            val count = if (!watchRepository.confirmUserWrite()) {
+                0
+            } else {
+                undoMutex.withLock {
+                    deleteSnapshots(SELECTION_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
+                }
             }
             onDone(count)
         }
@@ -308,19 +293,23 @@ internal class WatchlistEditController @AssistedInject constructor(
      */
     fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) {
         scope.launch {
-            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
-                val snapshots = watchRepository.getWatches().mapNotNull { watchRepository.snapshot(it.id) }
-                // Ids vorher festhalten; die Mitteilungen gehen erst nach dem Löschen weg (abgelehnt: bleiben)
-                val ids = snapshots.map { it.watch.id }
-                val alarmIds = watchRepository.getAllAlarmIds()
-                if (!watchRepository.deleteAllWatches()) return@withLock 0
-                notifier.cancelAllPrices(ids)
-                // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
-                ids.forEach { notifier.cancelActivity(it) }
-                notifier.cancelAlarms(alarmIds)
-                if (snapshots.isNotEmpty()) undo.put(CLEAR_ALL_UNDO_KEY, snapshots)
-                widgetUpdater.updateAll()
-                snapshots.size
+            val count = if (!watchRepository.confirmUserWrite()) {
+                0
+            } else {
+                undoMutex.withLock {
+                    val snapshots = watchRepository.getWatches().mapNotNull { watchRepository.snapshot(it.id) }
+                    // Ids vorher festhalten; die Mitteilungen gehen erst nach dem Löschen weg (abgelehnt: bleiben)
+                    val ids = snapshots.map { it.watch.id }
+                    val alarmIds = watchRepository.getAllAlarmIds()
+                    if (!watchRepository.deleteAllWatches()) return@withLock 0
+                    notifier.cancelAllPrices(ids)
+                    // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
+                    ids.forEach { notifier.cancelActivity(it) }
+                    notifier.cancelAlarms(alarmIds)
+                    if (snapshots.isNotEmpty()) undo.put(CLEAR_ALL_UNDO_KEY, snapshots)
+                    widgetUpdater.updateAll()
+                    snapshots.size
+                }
             }
             onDone(count)
         }
@@ -396,4 +385,3 @@ internal class WatchlistEditController @AssistedInject constructor(
         return turnOnSpeech && !asksFirst
     }
 }
-

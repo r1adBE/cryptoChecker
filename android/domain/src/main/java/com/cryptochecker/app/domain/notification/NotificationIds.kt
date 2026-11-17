@@ -32,8 +32,11 @@ object NotificationIds {
     }
 
     fun id(kind: Kind, id: Long): Int =
-        if (id in 0 until SMALL_LIMIT) (kind.smallBase + id).toInt()
-        else (LARGE_START + kind.ordinal * LARGE_SPAN + Math.floorMod(id, LARGE_SPAN)).toInt()
+        if (id in 0 until SMALL_LIMIT) {
+            (kind.smallBase + id).toInt()
+        } else {
+            (LARGE_START + kind.ordinal * LARGE_SPAN + Math.floorMod(id, LARGE_SPAN)).toInt()
+        }
 
     /** Gehört die Mitteilungs-Nummer [notificationId] zur Art [kind] (kleiner oder grosser Bereich)? */
     fun isKind(kind: Kind, notificationId: Int): Boolean {

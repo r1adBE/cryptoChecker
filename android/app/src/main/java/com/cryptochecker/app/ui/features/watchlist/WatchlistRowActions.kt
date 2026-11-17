@@ -72,30 +72,72 @@ internal fun Modifier.watchRowActions(
 ): Modifier = this
     .then(
         // Auswahl: langes Drücken löst beim Loslassen wie ein Tipp aus (hakt an/ab)
-        if (selecting) Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onClick() })
-        // Lange drücken startet die Mehrfachauswahl; im Sortiermodus nicht (dort zieht man)
-        else if (!sortMode && onLongClick != null) Modifier.combinedClickable(
-            onClickLabel = labels.open,
-            onLongClickLabel = labels.select,
-            onLongClick = onLongClick,
-            onClick = onClick,
-        )
-        else Modifier.clickable(onClickLabel = labels.open.takeIf { !sortMode }, onClick = onClick)
+        if (selecting) {
+            Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onClick() })
+        } // Lange drücken startet die Mehrfachauswahl; im Sortiermodus nicht (dort zieht man)
+        else if (!sortMode && onLongClick != null) {
+            Modifier.combinedClickable(
+                onClickLabel = labels.open,
+                onLongClickLabel = labels.select,
+                onLongClick = onLongClick,
+                onClick = onClick,
+            )
+        } else {
+            Modifier.clickable(onClickLabel = labels.open.takeIf { !sortMode }, onClick = onClick)
+        }
     )
     .semantics {
         contentDescription = description
         val actions = buildList {
             // Wie die Wisch-Gesten; im Sortier- und Auswahlmodus nicht
             if (!sortMode && !selecting) {
-                onFavoriteAction?.let { action -> add(CustomAccessibilityAction(labels.favorite) { action(); true }) }
-                onDeleteAction?.let { action -> add(CustomAccessibilityAction(labels.delete) { action(); true }) }
+                onFavoriteAction?.let { action ->
+                    add(
+                        CustomAccessibilityAction(labels.favorite) {
+                            action()
+                            true
+                        }
+                    )
+                }
+                onDeleteAction?.let { action ->
+                    add(
+                        CustomAccessibilityAction(labels.delete) {
+                            action()
+                            true
+                        }
+                    )
+                }
                 // «Auswählen» wie langes Drücken (startet die Mehrfachauswahl mit dieser Zeile)
-                onLongClick?.let { action -> add(CustomAccessibilityAction(labels.select) { action(); true }) }
+                onLongClick?.let { action ->
+                    add(
+                        CustomAccessibilityAction(labels.select) {
+                            action()
+                            true
+                        }
+                    )
+                }
             }
-            onSourceHint?.let { action -> add(CustomAccessibilityAction(labels.sourceHint) { action(); true }) }
+            onSourceHint?.let { action ->
+                add(
+                    CustomAccessibilityAction(labels.sourceHint) {
+                        action()
+                        true
+                    }
+                )
+            }
             if (canReorder) {
-                add(CustomAccessibilityAction(labels.moveUp) { onMove(WatchMove.UP); true })
-                add(CustomAccessibilityAction(labels.moveDown) { onMove(WatchMove.DOWN); true })
+                add(
+                    CustomAccessibilityAction(labels.moveUp) {
+                        onMove(WatchMove.UP)
+                        true
+                    }
+                )
+                add(
+                    CustomAccessibilityAction(labels.moveDown) {
+                        onMove(WatchMove.DOWN)
+                        true
+                    }
+                )
             }
         }
         if (actions.isNotEmpty()) customActions = actions
@@ -112,8 +154,11 @@ internal fun RowScope.RowLogo(watch: WatchEntity, sortMode: Boolean, off: Boolea
             painterResource(R.drawable.ic_star),
             contentDescription = null,
             // Wie der Stern am Logo: weiss, in der Themenfarbe nur mit gewähltem ★-Chip
-            tint = if (LocalRowHighlight.current.favorites) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.onSurface,
+            tint = if (LocalRowHighlight.current.favorites) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 4.dp, end = Spacing.sm)

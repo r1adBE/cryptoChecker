@@ -4,14 +4,13 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.ui.semantics.Role
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -24,19 +23,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
-import kotlinx.coroutines.flow.map
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.flow.map
 
 /**
  * Blätter und Dialoge des Portfolio-Tabs: Erfassen, Adressen, CSV-Import, Importe, Umrechnungswährung, Export,
@@ -117,7 +117,10 @@ internal fun PortfolioScreenDialogs(
     if (pickCurrency) {
         CurrencyDialog(
             selected = currency,
-            onSelect = { viewModel.setCurrency(it); onPickCurrencyChange(false) },
+            onSelect = {
+                viewModel.setCurrency(it)
+                onPickCurrencyChange(false)
+            },
             onDismiss = { onPickCurrencyChange(false) }
         )
     }
@@ -144,7 +147,10 @@ internal fun PortfolioScreenDialogs(
                     if (off) {
                         // Info statt Erfolg: gespeichert, kommt aber nicht an (Mitteilungen aus)
                         banner.showAction(
-                            text, resources.getString(R.string.settings_title), SAVED_ALARM_MILLIS, SnackbarKind.INFO,
+                            text,
+                            resources.getString(R.string.settings_title),
+                            SAVED_ALARM_MILLIS,
+                            SnackbarKind.INFO,
                         ) {
                             com.cryptochecker.app.ui.components.openAppNotificationSettings(context)
                         }

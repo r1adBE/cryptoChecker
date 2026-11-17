@@ -1,8 +1,8 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.model.WatchEntity
-import androidx.core.content.edit
 import android.content.Context
+import androidx.core.content.edit
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -196,8 +196,11 @@ class WidgetPrefs @Inject constructor(
     var lastHighContrast: Boolean?
         get() = if (prefs.contains(KEY_LAST_HIGH_CONTRAST)) prefs.getBoolean(KEY_LAST_HIGH_CONTRAST, false) else null
         set(value) {
-            if (value == null) prefs.edit { remove(KEY_LAST_HIGH_CONTRAST) }
-            else prefs.edit { putBoolean(KEY_LAST_HIGH_CONTRAST, value) }
+            if (value == null) {
+                prefs.edit { remove(KEY_LAST_HIGH_CONTRAST) }
+            } else {
+                prefs.edit { putBoolean(KEY_LAST_HIGH_CONTRAST, value) }
+            }
         }
 
     private fun chartRangeKey(appWidgetId: Int) = "widget_chart_range_$appWidgetId"
@@ -212,8 +215,11 @@ class WidgetPrefs @Inject constructor(
     /** Listen-Widget: nur die Paare dieser Gruppe zeigen. null = «Alle». */
     fun setGroup(appWidgetId: Int, group: String?) {
         prefs.edit {
-            if (group == null) remove(groupKey(appWidgetId))
-            else putString(groupKey(appWidgetId), group)
+            if (group == null) {
+                remove(groupKey(appWidgetId))
+            } else {
+                putString(groupKey(appWidgetId), group)
+            }
         }
     }
 

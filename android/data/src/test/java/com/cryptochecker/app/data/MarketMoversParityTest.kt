@@ -7,14 +7,14 @@ import com.cryptochecker.app.domain.market.MarketMovers
 import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseInput
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** «Gewinner und Verlierer 24 h» aus `market_movers.json` (iOS: `MarketMoversTests`). */
 class MarketMoversParityTest {

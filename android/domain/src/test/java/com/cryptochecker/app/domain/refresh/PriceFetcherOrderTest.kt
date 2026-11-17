@@ -9,11 +9,11 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.KeyValueStore
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.exchange.DexPool
+import java.util.Collections
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Collections
 
 /**
  * [PriceFetcher.fetchGroup] als Verhalten: Paare mit Alarm werden zuerst
@@ -43,7 +43,10 @@ class PriceFetcherOrderTest {
     @Test
     fun spentBudgetCutsEveryPairAndIsNoFullCheck() = runBlocking {
         val (results, _) = fetcher.fetchGroup(
-            group, includeRollingFutures = false, deadlineAt = System.currentTimeMillis(), alarmed = emptySet(),
+            group,
+            includeRollingFutures = false,
+            deadlineAt = System.currentTimeMillis(),
+            alarmed = emptySet(),
         )
         assertTrue(results.values.all { it.budgetCut })
         val cut = results.values.count { it.budgetCut }
@@ -51,7 +54,12 @@ class PriceFetcherOrderTest {
     }
 
     private fun watch(id: Long) = WatchEntity(
-        id = id, exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "C$id", quoteAsset = "EUR", pairId = "C${id}EUR",
+        id = id,
+        exchangeKey = "Kraken",
+        exchangeName = "Kraken",
+        baseAsset = "C$id",
+        quoteAsset = "EUR",
+        pairId = "C${id}EUR",
     )
 
     /** Merkt die Reihenfolge der Einzelabfragen; Antworten bleiben aus (Fehler). */

@@ -1,9 +1,9 @@
 package com.cryptochecker.app.notification
 
 import android.content.Context
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.tts.TtsSpeaker
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

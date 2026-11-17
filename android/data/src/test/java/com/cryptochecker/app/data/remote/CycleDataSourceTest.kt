@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.OnChainValues
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -14,7 +15,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.time.LocalDate
 
 /**
  * Daten des Zyklus-Modells ([CycleDataSource]): BTC-Tages- und Wochenkerzen aus der Kette, On-Chain-Werte von

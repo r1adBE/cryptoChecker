@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.Bip32
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Referenz-Fuzz der xpub-Ableitung aus `bip32_fuzz.json` (erzeugt von `tools/gen_bip32_vectors.py`, Python-Referenz

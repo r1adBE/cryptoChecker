@@ -34,10 +34,12 @@ fun SingleWidgetRenderer.drawChart(
     val options = runCatching { manager.getAppWidgetOptions(appWidgetId) }.getOrNull()
     val landscape = config.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
     val widgetW = options?.getInt(
-        if (landscape) AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH else AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0
+        if (landscape) AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH else AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH,
+        0
     ) ?: 0
     val widgetH = options?.getInt(
-        if (landscape) AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT else AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0
+        if (landscape) AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT else AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT,
+        0
     ) ?: 0
     // Feste Teile des Layouts: Rand 2 × 12 dp; Kopfzeile 14 sp, Börse 12 sp, Kurs 24 sp
     // (+4 dp), Chart-Abstand 6 dp, Uhrzeit 12 sp (+2 dp). Zeilenhöhe ≈ 1.35 × Schriftgrösse.

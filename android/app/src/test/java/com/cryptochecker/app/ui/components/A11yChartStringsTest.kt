@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.components
 
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
-import java.io.File
 
 /**
  * Texte der Diagramme für Screenreader (`strings_a11y_charts.xml`): in allen 75 Sprachen alle Schlüssel; die Ansage
@@ -13,8 +13,13 @@ import java.io.File
 class A11yChartStringsTest {
 
     private val keys = listOf(
-        "a11y_chart_next_point", "a11y_chart_previous_point", "a11y_chart_two_series",
-        "a11y_chart_axis_time", "a11y_chart_axis_price", "a11y_chart_axis_value", "a11y_chart_axis_change",
+        "a11y_chart_next_point",
+        "a11y_chart_previous_point",
+        "a11y_chart_two_series",
+        "a11y_chart_axis_time",
+        "a11y_chart_axis_price",
+        "a11y_chart_axis_value",
+        "a11y_chart_axis_change",
     )
 
     @Test

@@ -2,14 +2,14 @@ package com.cryptochecker.app.ui.features.alarms
 
 import android.content.Context
 import android.text.format.DateUtils
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.refresh.CheckTrigger
-import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Texte des Alarm-Protokolls ([com.cryptochecker.app.domain.alarm.AlarmLog]): Ergebnis, Schwelle, gesehener Kurs und
@@ -84,8 +84,11 @@ internal object AlarmLogTexts {
         if (entry.until > entry.at) "${time(context, entry.at)}–${time(context, entry.until)}" else time(context, entry.at)
 
     fun time(context: Context, millis: Long): String {
-        val flags = if (DateUtils.isToday(millis)) DateUtils.FORMAT_SHOW_TIME
-        else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+        val flags = if (DateUtils.isToday(millis)) {
+            DateUtils.FORMAT_SHOW_TIME
+        } else {
+            DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+        }
         return DateUtils.formatDateTime(context, millis, flags)
     }
 

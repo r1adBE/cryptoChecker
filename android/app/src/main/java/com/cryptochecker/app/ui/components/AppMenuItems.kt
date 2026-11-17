@@ -14,11 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.resources.R
 
 /**
  * Gleicher Anfang im ⋯-Menü von Merkliste, Markt und Portfolio: App-Logo und Name (öffnet
@@ -51,7 +51,10 @@ fun AppMenuHead(
                 modifier = Modifier.size(24.dp)
             )
         },
-        onClick = { onClose(); onOpenAbout() }
+        onClick = {
+            onClose()
+            onOpenAbout()
+        }
     )
     HorizontalDivider()
     DropdownMenuItem(
@@ -65,6 +68,9 @@ fun AppMenuHead(
         },
         enabled = !refreshing && refreshEnabled,
         colors = DisabledColors.menuItem(),
-        onClick = { onClose(); onRefresh() }
+        onClick = {
+            onClose()
+            onRefresh()
+        }
     )
 }

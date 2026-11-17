@@ -3,27 +3,31 @@ import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
-import com.cryptochecker.app.domain.portfolio.TaxExport
-import com.cryptochecker.app.domain.portfolio.gainRows
-import com.cryptochecker.app.domain.portfolio.TaxMethod
-import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPriced
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.classify
 import com.cryptochecker.app.domain.portfolio.csvimport.parseNumber
 import com.cryptochecker.app.domain.portfolio.csvimport.parseTime
 import com.cryptochecker.app.domain.portfolio.csvimport.tokenize
+import com.cryptochecker.app.domain.portfolio.gainRows
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
@@ -31,10 +35,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `csv_import.json` (iOS: `CsvImportTests.swift`). */
 class CsvImportParityTest {
@@ -208,8 +208,13 @@ class CsvImportParityTest {
                 )
             }
             val rows = TaxExport.gainRows(
-                trades, TaxMethod.of(CostMethod.FIFO), template.period(c["year"].num()!!.toInt()),
-                template.zone(java.time.ZoneId.of(deviceZone)), currency, rates[currency] ?: emptyMap(), usdtUsd = usdtUsd,
+                trades,
+                TaxMethod.of(CostMethod.FIFO),
+                template.period(c["year"].num()!!.toInt()),
+                template.zone(java.time.ZoneId.of(deviceZone)),
+                currency,
+                rates[currency] ?: emptyMap(),
+                usdtUsd = usdtUsd,
             )
             val expected = c["gains"].list().map { it.obj() }
             assertEquals("$name rows", expected.size, rows.size)
@@ -513,8 +518,13 @@ class CsvImportParityTest {
                 val priceNeedsFx = r["priceNeedsFx"] as Boolean
                 val feeNeedsFx = r["feeNeedsFx"] as Boolean
                 val p = CsvImportPriced(
-                    row = row, priceUsdt = null, feeUsdt = null, needsFx = priceNeedsFx || feeNeedsFx, missingPrice = false,
-                    priceNeedsFx = priceNeedsFx, feeNeedsFx = feeNeedsFx,
+                    row = row,
+                    priceUsdt = null,
+                    feeUsdt = null,
+                    needsFx = priceNeedsFx || feeNeedsFx,
+                    missingPrice = false,
+                    priceNeedsFx = priceNeedsFx,
+                    feeNeedsFx = feeNeedsFx,
                 )
                 assertEquals("$r", r["missing"], CsvImportRateGate.missing(p)?.name)
                 p

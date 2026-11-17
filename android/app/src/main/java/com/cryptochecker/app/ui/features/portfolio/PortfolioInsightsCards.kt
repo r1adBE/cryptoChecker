@@ -1,16 +1,5 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
-import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.domain.util.PercentText
-import androidx.compose.ui.graphics.lerp
-import com.cryptochecker.app.ui.components.AppCard
-import com.cryptochecker.app.ui.components.withSmallQuote
-import com.cryptochecker.app.ui.theme.LocalDarkTheme
-import com.cryptochecker.app.domain.settings.inputDecimalSeparator
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -54,18 +44,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.portfolio.AllocationSlice
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.ambiguousNumberText
+import com.cryptochecker.app.ui.components.sectionTitleMarker
+import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.features.alarms.ClosedAppHint
+import com.cryptochecker.app.ui.theme.DisabledColors
+import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.resources.R
 
 /** Karte wie der Wertverlauf ([AppCard]), ruhiger Titel. */
 @Composable
@@ -210,8 +210,11 @@ internal fun PortfolioAlarmDialog(
                     singleLine = true,
                     label = {
                         Text(
-                            if (kind.isValue) stringResource(R.string.portfolio_alarm_amount, currency)
-                            else stringResource(R.string.alarm_field_percent)
+                            if (kind.isValue) {
+                                stringResource(R.string.portfolio_alarm_amount, currency)
+                            } else {
+                                stringResource(R.string.alarm_field_percent)
+                            }
                         )
                     },
                     suffix = { Text(if (kind.isValue) currency else PercentText.symbol()) },

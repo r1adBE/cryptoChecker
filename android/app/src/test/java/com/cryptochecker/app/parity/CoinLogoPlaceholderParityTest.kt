@@ -1,13 +1,13 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.domain.widget.WidgetContrast
+import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Ersatz-Kreis ohne Logo ([CoinLogoPlaceholder]), gemeinsame Testfälle `coin_placeholder.json` (iOS:

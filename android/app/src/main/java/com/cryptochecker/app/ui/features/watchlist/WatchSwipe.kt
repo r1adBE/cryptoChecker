@@ -36,13 +36,13 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.ui.theme.Spacing
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.math.abs
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
+import kotlin.math.abs
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /** Ab diesem Anteil der Breite löst das Wischen aus. */
 private const val SWIPE_THRESHOLD = 0.38f
@@ -119,14 +119,20 @@ internal fun SwipeActionsRow(
                             beyond(x) && isDelete(x) && confirmsDelete -> {
                                 // Rückfrage öffnen, Zeile zurück: verschwindet erst, wenn die Liste den Coin nicht mehr hat
                                 currentDelete()
-                                if (reduceMotion) offset = 0f
-                                else animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                if (reduceMotion) {
+                                    offset = 0f
+                                } else {
+                                    animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                }
                             }
                             beyond(x) && isDelete(x) -> {
                                 // Hinausgleiten, dann löschen (die Liste schliesst die Lücke)
                                 val target = width.toFloat() * if (x < 0f) -1f else 1f
-                                if (reduceMotion) offset = target
-                                else animate(x, target, animationSpec = tween(180)) { v, _ -> offset = v }
+                                if (reduceMotion) {
+                                    offset = target
+                                } else {
+                                    animate(x, target, animationSpec = tween(180)) { v, _ -> offset = v }
+                                }
                                 currentDelete()
                                 // Zeile nach dem Löschen noch da (Löschen gescheitert)? Nicht unsichtbar lassen
                                 delay(2_000)
@@ -134,12 +140,18 @@ internal fun SwipeActionsRow(
                             }
                             beyond(x) && currentFavorite != null -> {
                                 currentFavorite?.invoke()
-                                if (reduceMotion) offset = 0f
-                                else animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                if (reduceMotion) {
+                                    offset = 0f
+                                } else {
+                                    animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                }
                             }
                             else -> {
-                                if (reduceMotion) offset = 0f
-                                else animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                if (reduceMotion) {
+                                    offset = 0f
+                                } else {
+                                    animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                                }
                             }
                         }
                     }

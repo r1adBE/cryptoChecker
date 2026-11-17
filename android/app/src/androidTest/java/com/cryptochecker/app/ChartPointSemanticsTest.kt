@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -20,6 +19,7 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.components.ChartPointStep
 import com.cryptochecker.app.ui.components.chartPointSemantics
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
@@ -64,8 +64,11 @@ class ChartPointSemanticsTest {
                         compose.activity.getString(R.string.label_value, time, price)
                     }
                     val step: (Boolean) -> Unit = { forward ->
-                        index = if (forward) ChartPointStep.next(index, points.size)
-                        else ChartPointStep.previous(index, points.size)
+                        index = if (forward) {
+                            ChartPointStep.next(index, points.size)
+                        } else {
+                            ChartPointStep.previous(index, points.size)
+                        }
                     }
                     Box(Modifier.size(200.dp).chartPointSemantics(SUMMARY, points.size, text, next, previous, step))
                 }

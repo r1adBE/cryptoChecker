@@ -51,9 +51,11 @@ class ColumnSortTest {
 
     @Test
     fun encodeDecode() {
-        for (key in SortKey.entries) for (d in listOf(true, false)) {
-            val s = ColumnSort(key, d)
-            assertEquals(s, ColumnSort.decode(s.encode()))
+        for (key in SortKey.entries) {
+            for (d in listOf(true, false)) {
+                val s = ColumnSort(key, d)
+                assertEquals(s, ColumnSort.decode(s.encode()))
+            }
         }
         assertNull(ColumnSort.decode(null))
         assertNull(ColumnSort.decode("VOLUME_DESC"))

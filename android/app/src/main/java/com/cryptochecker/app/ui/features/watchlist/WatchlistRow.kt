@@ -31,12 +31,13 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.PriceFreshness
+import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
@@ -44,8 +45,7 @@ import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.watch.RowPause
-import com.cryptochecker.app.domain.format.DenseRowText
+import com.cryptochecker.resources.R
 
 /**
  * Kompakte Zeile: Coin-Logo (mit Stern bei Favoriten), Paar, Börse, Kurs und Prozent-Änderung.
@@ -154,7 +154,9 @@ internal fun WatchRow(
     // Stundenkurs (abgeschlossene Kerze ohne letzten Abschluss, WOO X Spot) bzw. Referenzkurs (EZB, NBU, NBP): wie im Blatt
     val rowExchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
     val hourlyPrice = !markPrice && watch.lastPrice != null && (rowExchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current)
-    val reference = com.cryptochecker.marketdata.model.ReferenceSource.of(watch.exchangeKey)?.takeIf { !markPrice && watch.lastPrice != null }
+    val reference = com.cryptochecker.marketdata.model.ReferenceSource.of(watch.exchangeKey)?.takeIf {
+        !markPrice && watch.lastPrice != null
+    }
     val rowDescription = watchRowDescription(
         watch = watch,
         name = name,
@@ -212,6 +214,7 @@ internal fun WatchRow(
         val namesOn = LocalCoinNameSource.current != null
         // Grösste Schrift (ab 1.5): Kurs unter das Paar statt daneben, links bleibt Breite ([DenseRowText])
         val stacked = DenseRowText.stacksTrailing(LocalDensity.current.fontScale)
+
         // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText]).
         // Breite einmal von der Liste ([LocalWatchRowWidth]) statt je Zeile gemessen
         // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung

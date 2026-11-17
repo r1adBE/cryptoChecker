@@ -4,14 +4,14 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
 import com.cryptochecker.app.domain.alarm.PortfolioReading
-import org.json.JSONObject
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.json.JSONObject
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Test
 
 /** Gemeinsame Testfälle `portfolio_alarm.json` (iOS: `PortfolioAlarmParityTests.swift`). */
 class PortfolioAlarmParityTest {
@@ -89,7 +89,8 @@ class PortfolioAlarmParityTest {
             assertEquals("Wert darüber: $name", c["value"], PortfolioAlarmLogic.incomplete(PortfolioAlarmKind.VALUE_ABOVE, reading))
             assertEquals("Veränderung: $name", c["change"], PortfolioAlarmLogic.incomplete(PortfolioAlarmKind.CHANGE_UP, reading))
             val pause = PortfolioAlarmLogic.pause(
-                c["kinds"].list().map { PortfolioAlarmKind.valueOf(it as String) }, reading,
+                c["kinds"].list().map { PortfolioAlarmKind.valueOf(it as String) },
+                reading,
                 (c["missingCoins"] as List<*>?)?.map { it as String }.orEmpty(),
                 (c["staleCoins"] as List<*>?)?.map { it as String }.orEmpty(),
             )

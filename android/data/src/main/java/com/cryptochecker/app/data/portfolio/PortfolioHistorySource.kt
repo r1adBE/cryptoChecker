@@ -1,16 +1,14 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.domain.BoundedCache
-import com.cryptochecker.app.data.cycle.CycleCacheStore
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
@@ -20,7 +18,13 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
+import com.cryptochecker.app.domain.portfolio.candleChunks
+import com.cryptochecker.app.domain.portfolio.candleDays
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -35,10 +39,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.domain.portfolio.candleChunks
-import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
  * Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden ([span]);
@@ -351,8 +351,11 @@ class PortfolioHistorySource @Inject constructor(
         /** USDT/USD-Tagesschlüsse: Kraken USDTZUSD (dasselbe Paar wie die Messung des Depeg-Alarms). */
         const val USDT_USD_KEY = "USDTZUSD"
         val USDT_USD_PAIR = CandlePair(
-            com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY, com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY,
-            "USDT", "USD", com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_PAIR_ID,
+            com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY,
+            com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY,
+            "USDT",
+            "USD",
+            com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_PAIR_ID,
         )
 
         /** Lückenfüller USDT/USD: Coinbase USDT-USD (eigene Tageskerzen, etwa 600 Tage). */

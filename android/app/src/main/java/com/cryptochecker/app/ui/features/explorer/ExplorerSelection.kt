@@ -1,20 +1,20 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.domain.market.ExchangeOrder
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.ExchangeCategory
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * Börsen und Paar-Auswahl nach dem Laden der Börsen: die feste Börsenliste und die laufend
@@ -93,6 +93,7 @@ enum class AddResult {
     ADDED,
     ALREADY_IN_LIST,
     NO_PAIR_SELECTED,
+
     /** Merkliste hat schon die Höchstzahl Paare ([com.cryptochecker.app.domain.watch.WatchlistLimits.MAX_PAIRS]). */
     WATCHLIST_FULL,
 }
@@ -148,7 +149,8 @@ internal fun ExplorerViewModel.buildSelection(
     // Startwert gleich aus den aktuellen Werten: sonst stünde im ersten Bild «Alle schon in der Merkliste»
     bulkNew = combine(bulk.pairs, watchedKeys, exchange) { pairs, keys, exchange -> bulkNewOf(pairs, keys, exchange) }
         .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
             bulkNewOf(bulk.pairs.value, watchedKeys.value, exchange.value),
         ),
 )

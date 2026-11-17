@@ -1,15 +1,15 @@
 package com.cryptochecker.app.wearable
 
-import com.cryptochecker.app.domain.wearable.SerialPublisher
 import android.content.Context
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.wearable.SerialPublisher
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchInterval
 import com.cryptochecker.marketdata.watch.WatchPair
@@ -24,6 +24,9 @@ import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,9 +38,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Coin-Liste der Wear-OS-App vom Handy aus (Einstellungen › Widgets › Uhr): Wahl «Wie Handy» (Basis-Coins
@@ -224,7 +224,8 @@ class PhoneWatchSync @Inject constructor(
             watchesWithApp = {
                 Tasks.await(
                     Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
-                    TIMEOUT_S, TimeUnit.SECONDS
+                    TIMEOUT_S,
+                    TimeUnit.SECONDS
                 ).nodes.size
             },
             put = {
@@ -238,8 +239,11 @@ class PhoneWatchSync @Inject constructor(
     /** Stand der Uhr (Einträge anderer Geräte unter [PATH]); null = keiner oder keine Play-Dienste. */
     private suspend fun watchSettings(): WatchSettings? = withContext(ioDispatcher) {
         runCatchingCancellable {
-            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
-                TIMEOUT_S, TimeUnit.SECONDS)
+            val buffer = Tasks.await(
+                Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
+                TIMEOUT_S,
+                TimeUnit.SECONDS
+            )
             val items = try {
                 buffer.map { Item(it.uri.host, DataMapItem.fromDataItem(it).dataMap.getString(DATA_KEY)) }
             } finally {
@@ -275,6 +279,7 @@ class PhoneWatchSync @Inject constructor(
          * «Wie Handy»: Basis-Coins der Favoriten ([WatchCoins.fromFavorites]) und je Coin das Paar des ersten Favoriten
          * ([WatchPair]: Börse und Kontrakt wie in der Merkliste, z. B. BANK/USDT Perp bei Binance Futures).
          */
+
         /** Beim Start ablegen? Nur, wenn der aktuelle Stand noch nicht erledigt ist (letztes Ablegen gescheitert). */
         internal fun republishAtStart(published: String?, current: String): Boolean = published != current
 
@@ -309,8 +314,11 @@ class PhoneWatchSync @Inject constructor(
         suspend fun clearWatch(context: Context): Boolean = runCatchingCancellable {
             val local = Tasks.await(Wearable.getNodeClient(context).localNode, CLEAR_TIMEOUT_S, TimeUnit.SECONDS).id
             val uri = "${PutDataRequest.WEAR_URI_SCHEME}://$local$PATH".toUri()
-            Tasks.await(Wearable.getDataClient(context).deleteDataItems(uri, DataClient.FILTER_PREFIX),
-                CLEAR_TIMEOUT_S, TimeUnit.SECONDS)
+            Tasks.await(
+                Wearable.getDataClient(context).deleteDataItems(uri, DataClient.FILTER_PREFIX),
+                CLEAR_TIMEOUT_S,
+                TimeUnit.SECONDS
+            )
             true
         }.getOrDefault(false)
 

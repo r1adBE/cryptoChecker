@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio
 
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeStamp
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.domain.watch.ChangeStamp
-import java.util.Locale
 
 class PortfolioSnapshotTest {
 
@@ -65,7 +65,7 @@ class PortfolioSnapshotTest {
             currency = "CHF",
         )
         assertEquals(85.0, s.total, 1e-9)
-        assertEquals(10.0, s.changeAmount!!, 1e-9)   // +20 USD × 0.5
+        assertEquals(10.0, s.changeAmount!!, 1e-9) // +20 USD × 0.5
         assertEquals(20.0 / 150.0 * 100.0, s.changePercent!!, 1e-9)
         assertEquals("CHF", s.currency)
         assertEquals(false, s.empty)
@@ -144,13 +144,22 @@ class PortfolioSnapshotTest {
         // Namen für den Hinweis «Portfolio-Alarme pausiert» (sortiert)
         assertEquals(listOf("ETH", "SOL"), s.missingCoins)
         val day = PortfolioSnapshotMath.snapshot(
-            mapOf("BTC" to 1.0, "ETH" to 2.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD",
+            mapOf("BTC" to 1.0, "ETH" to 2.0),
+            100.0,
+            mapOf("BTC" to 100.0),
+            emptyList(),
+            now,
+            1.0,
+            "USD",
             stamp = ChangeStamp(ChangeBasis.UTC_DAY, now - 5 * h),
         )
         assertEquals(1, day.missingPrices)
         assertEquals(listOf("ETH"), day.missingCoins)
         // alle mit Kurs bzw. Standardwert: kein Hinweis
-        assertEquals(0, PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD").missingPrices)
+        assertEquals(
+            0,
+            PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD").missingPrices
+        )
         assertEquals(0, PortfolioSnapshot(1.0, null, null, "USD", now, false).missingPrices)
         assertEquals(1, PortfolioSnapshotMath.missingPrices(mapOf("A" to 1.0, "B" to null)))
     }

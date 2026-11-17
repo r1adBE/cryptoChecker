@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
-import java.util.NavigableMap
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.util.NavigableMap
 
 /**
  * Steuer-Exporte eines Kalenderjahrs (reines Kotlin, Spiegel: `TaxExport.swift`) — keine Steuerberatung:
@@ -98,8 +98,11 @@ object TaxExport {
      * oder leerer Text: unverändert. Wie `TaxExport.withChWealthNote` (iOS).
      */
     fun withChWealthNote(template: TaxTemplate, header: List<String>, chWealthNote: String): List<String> =
-        if (template != TaxTemplate.CH || chWealthNote.isEmpty() || chWealthNote in header) header
-        else header.take(1) + chWealthNote + header.drop(1)
+        if (template != TaxTemplate.CH || chWealthNote.isEmpty() || chWealthNote in header) {
+            header
+        } else {
+            header.take(1) + chWealthNote + header.drop(1)
+        }
 
     /**
      * Freigrenze für private Veräusserungsgeschäfte (§ 23 Abs. 3 Satz 5 EStG) in EUR: steuerfrei, wenn der Gesamtgewinn
@@ -133,7 +136,9 @@ object TaxExport {
         currency: String,
         usdtUsd: Map<Long, BigDecimal>? = null,
     ): BigDecimal? {
-        val fx = if (currency.trim().uppercase() == "USD") BigDecimal.ONE else {
+        val fx = if (currency.trim().uppercase() == "USD") {
+            BigDecimal.ONE
+        } else {
             fxOnOrBefore(rates, date.toEpochDay()) ?: return null
         }
         if (usdtUsd == null) return fx
@@ -239,7 +244,9 @@ object TaxExport {
             val applied = TaxEngines.applyRules(r, rules, null)
             // Ein Buch je Coin aus den einmal gesammelten Schritten; Herkunftsteile braucht der Vermerk nicht
             PortfolioCalculator.ledgers(applied, cm, withParts = false).flatMap { it.lostFeeCosts }
-        } else TaxEngines.lostFeeCosts(r, method, zone, rules)
+        } else {
+            TaxEngines.lostFeeCosts(r, method, zone, rules)
+        }
         return all
             .filter { localDate(it.time, zone) in period }
             .sortedWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId }.thenBy { it.coin })
@@ -269,7 +276,9 @@ object TaxExport {
         val all = if (cm != null) {
             val applied = TaxEngines.applyRules(r, rules, null)
             PortfolioCalculator.ledgers(applied, cm, withParts = false).flatMap { it.unassignedFees }
-        } else TaxEngines.unassignedFees(r, method, zone, rules)
+        } else {
+            TaxEngines.unassignedFees(r, method, zone, rules)
+        }
         return all
             .filter { localDate(it.time, zone) in period }
             .sortedWith(compareBy<PortfolioUnassignedFee> { it.time }.thenBy { it.txId }.thenBy { it.coin })

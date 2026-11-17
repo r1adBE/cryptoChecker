@@ -4,9 +4,16 @@ import kotlin.math.abs
 
 /** Erster Satz von «Kurz gesagt». */
 enum class WhyHeadline {
-    CALM, COIN_VOLUME, COIN, AGAINST, MARKET_VOLUME, MARKET,
+    CALM,
+    COIN_VOLUME,
+    COIN,
+    AGAINST,
+    MARKET_VOLUME,
+    MARKET,
+
     /** Stablecoin nahe an seiner 1:1-Bindung. */
     PEG_NEAR,
+
     /** Stablecoin weicht spürbar von 1:1 ab. */
     PEG_OFF,
 }

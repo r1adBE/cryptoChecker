@@ -1,25 +1,25 @@
 package com.cryptochecker.app.data.logos
 
-import com.cryptochecker.app.data.AlphaTokens
-import com.cryptochecker.app.data.CoinListSync
-import com.cryptochecker.app.data.CoinNames
-import com.cryptochecker.app.data.starterMap
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
+import com.cryptochecker.app.data.AlphaTokens
+import com.cryptochecker.app.data.CoinListSync
+import com.cryptochecker.app.data.CoinNames
+import com.cryptochecker.app.data.starterMap
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.logos.withStockLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.domain.logos.withStockLogos
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 
 /**
  * Coin-Logos, Namen und Alpha-Kennzeichen (Regeln in [CoinLogos], [CoinMeta], [CoinLists]). Nichts

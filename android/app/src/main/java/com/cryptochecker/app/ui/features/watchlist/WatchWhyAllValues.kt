@@ -39,7 +39,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.WhyFactor
 import com.cryptochecker.app.domain.activity.WhyReport
@@ -52,6 +51,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * «Alle Werte und Quellen» auf-/zugeklappt; für die Dauer der Sitzung gemerkt (Prozess), Standard zu.
@@ -94,8 +94,21 @@ internal fun WhyAllValuesCard(
                     contentDescription = "$title, $hint"
                     stateDescription = state
                     role = Role.Button
-                    onClick { onToggle(); true }
-                    if (expanded) collapse { onToggle(); true } else expand { onToggle(); true }
+                    onClick {
+                        onToggle()
+                        true
+                    }
+                    if (expanded) {
+                        collapse {
+                            onToggle()
+                            true
+                        }
+                    } else {
+                        expand {
+                            onToggle()
+                            true
+                        }
+                    }
                 }
                 .padding(horizontal = Spacing.md, vertical = 12.dp)
         ) {
@@ -192,7 +205,8 @@ internal fun WhySignals(signals: List<ActivitySignal>) {
         signals.take(3).forEach { signal ->
             Row(verticalAlignment = Alignment.Top) {
                 Icon(
-                    painterResource(R.drawable.ic_bolt), null,
+                    painterResource(R.drawable.ic_bolt),
+                    null,
                     tint = AppColors.warning,
                     modifier = Modifier.padding(top = 2.dp).size(14.dp)
                 )

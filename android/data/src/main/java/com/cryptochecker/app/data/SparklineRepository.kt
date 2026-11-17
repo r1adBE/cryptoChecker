@@ -3,16 +3,20 @@ package com.cryptochecker.app.data
 import android.content.Context
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.domain.KeyedMutex
-import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.domain.watch.ChangeBasisMath
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.domain.watch.DayReference
-import com.cryptochecker.app.domain.watch.DayReferenceCache
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.DayReference
+import com.cryptochecker.app.domain.watch.DayReferenceCache
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Deferred
@@ -24,10 +28,6 @@ import kotlinx.coroutines.sync.withPermit
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Mini-Charts der Merkliste: 24 Stundenkurse (Schlusskurse) je Basis-Asset
@@ -178,7 +178,10 @@ class SparklineRepository @Inject constructor(
             val series = try {
                 permits.withPermit {
                     val sourced = candleDataSource.candlesSourced(
-                        base.trim().uppercase(), quote.trim().uppercase(), CandleInterval.H1, ChangeBasisMath.CANDLES,
+                        base.trim().uppercase(),
+                        quote.trim().uppercase(),
+                        CandleInterval.H1,
+                        ChangeBasisMath.CANDLES,
                     )
                     sourced?.value
                         ?.filter { it.close.isFinite() && it.close > 0.0 }
@@ -221,7 +224,9 @@ class SparklineRepository @Inject constructor(
         // bei jeder Aktualisierung erneut fragen
         if (needsHour != null && entry.series != null && needsHour !in entry.series.opens &&
             entry.time < needsHour + NEW_CANDLE_GRACE_MILLIS
-        ) return null
+        ) {
+            return null
+        }
         return entry.takeIf { age in 0 until limit }
     }
 
@@ -265,7 +270,15 @@ class SparklineRepository @Inject constructor(
             DayReferenceCache.restore(version, entries, System.currentTimeMillis()).forEach { (k, stored) ->
                 val day = DayReference.of(stored.open, stored.lastClose) ?: return@forEach
                 // Nie einen frischeren Wert aus dem Netz überschreiben
-                days.merge(k, TimedDay(stored.time, day, stored.starts, stored.provider)) { current, disk -> if (current.time >= disk.time) current else disk }
+                days.merge(k, TimedDay(stored.time, day, stored.starts, stored.provider)) { current, disk ->
+                    if (current.time >=
+                        disk.time
+                    ) {
+                        current
+                    } else {
+                        disk
+                    }
+                }
             }
         } catch (e: Exception) {
             Timber.d(e, "24-h-Bezüge: Zwischenspeicher unlesbar, wird ignoriert")
@@ -289,7 +302,12 @@ class SparklineRepository @Inject constructor(
             val dayStarts = ChangeBasisMath.keptDayStarts(settingsRepository.cached.changeBasis, now)
             val stored = days.snapshot().map { (k, v) ->
                 DayReferenceCache.Stored(
-                    k, v.time, v.day.open, v.day.lastClose, DayReferenceCache.keepStarts(v.opens, dayStarts), v.provider,
+                    k,
+                    v.time,
+                    v.day.open,
+                    v.day.lastClose,
+                    DayReferenceCache.keepStarts(v.opens, dayStarts),
+                    v.provider,
                 )
             }
             val list = JSONArray()
@@ -297,9 +315,12 @@ class SparklineRepository @Inject constructor(
                 val o = JSONObject().put("k", it.key).put("t", it.time).put("o", it.open).put("c", it.lastClose)
                 it.provider?.let { provider -> o.put("p", provider) }
                 if (it.starts.isNotEmpty()) {
-                    o.put("s", JSONArray().apply {
-                        it.starts.forEach { (t, open) -> put(JSONObject().put("t", t).put("o", open)) }
-                    })
+                    o.put(
+                        "s",
+                        JSONArray().apply {
+                            it.starts.forEach { (t, open) -> put(JSONObject().put("t", t).put("o", open)) }
+                        }
+                    )
                 }
                 list.put(o)
             }
@@ -322,9 +343,11 @@ class SparklineRepository @Inject constructor(
         /** Gültigkeit der Mini-Chart-Kurve (Zeilen laden danach neu). */
         const val TTL_MILLIS = 15 * 60_000L
         private const val FAILURE_TTL_MILLIS = 5 * 60_000L
+
         /** So lange nach Beginn einer Stunde darf ihre Kerze bei der Quelle noch fehlen. */
         private const val NEW_CANDLE_GRACE_MILLIS = 10 * 60_000L
         private const val MAX_PARALLEL = 6
+
         /** Höchstens so viele Paare im Speicher (Mini-Chart und 24-h-Bezug; mehr als jede übliche Merkliste). */
         const val MAX_ENTRIES = 512
         private const val QUOTE = "USDT"

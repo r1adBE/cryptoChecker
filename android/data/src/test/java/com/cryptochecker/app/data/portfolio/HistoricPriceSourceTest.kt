@@ -2,7 +2,6 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.fakePortfolioDao
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.Klines
 import com.cryptochecker.app.data.remote.Reply
 import com.cryptochecker.app.data.remote.RouteHttp
@@ -10,6 +9,9 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.model.WatchEntity
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -19,8 +21,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Tagesschlusskurse für den Stichtag-Export ([HistoricPriceSource.dailyCloseUsdt]) über einen Interceptor: USDT = 1,
@@ -39,7 +39,14 @@ class HistoricPriceSourceTest {
     private val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
 
     private fun source(http: RouteHttp, names: TokenIdentityStore = testTokenIdentityStore(temp.newFolder())) =
-        HistoricPriceSource(http.client, names, OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(), unusedExchangeRepository(), ioDispatcher = Dispatchers.IO)
+        HistoricPriceSource(
+            http.client,
+            names,
+            OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO),
+            fakePortfolioDao(),
+            unusedExchangeRepository(),
+            ioDispatcher = Dispatchers.IO
+        )
 
     /** Binance-Antwort: Tageskerze des Stichtags (Abfrage mit startTime) bzw. jüngste Kerze (ohne). */
     private fun binance(url: String, close: Double, latest: Double): Reply =
@@ -180,7 +187,11 @@ class HistoricPriceSourceTest {
         val http = RouteHttp { url ->
             when {
                 "binance" in url -> null
-                url.startsWith("https://api.exchange.coinbase.com/products/ETH-USD/") -> Reply(Klines.coinbase(1, Klines.DAY, start) { 3000.0 })
+                url.startsWith("https://api.exchange.coinbase.com/products/ETH-USD/") -> Reply(
+                    Klines.coinbase(1, Klines.DAY, start) {
+                        3000.0
+                    }
+                )
                 else -> notFound
             }
         }
@@ -190,7 +201,7 @@ class HistoricPriceSourceTest {
             historic.dailyCloseUsdt("ETH", date, current = 3100.0),
         )
         assertEquals(2, http.count("data-api.binance.vision"))
-        assertEquals(2, http.count("://api.binance.com"))  // nicht fapi.binance.com
+        assertEquals(2, http.count("://api.binance.com")) // nicht fapi.binance.com
         // Zweiter Tag: Binance nicht erneut abgewartet
         historic.dailyCloseUsdt("ETH", date.minusDays(1), current = 3100.0)
         assertEquals(2, http.count("data-api.binance.vision"))
@@ -210,7 +221,9 @@ class HistoricPriceSourceTest {
             when {
                 url.startsWith("https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&") && failures-- > 0 ->
                     Reply("busy", 503)
-                url.startsWith("https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&") -> binance(url, close = 2000.0, latest = 3000.0)
+                url.startsWith(
+                    "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&"
+                ) -> binance(url, close = 2000.0, latest = 3000.0)
                 else -> notFound
             }
         }

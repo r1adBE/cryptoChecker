@@ -14,19 +14,30 @@ class IndicatorAlertRulesTest {
         assertEquals(2.4, IndicatorAlertRules.threshold(IndicatorAlertKind.MAYER_ABOVE, 240)!!, 1e-12)
         assertEquals(5.0, IndicatorAlertRules.threshold(IndicatorAlertKind.ATH_WITHIN, 5)!!, 1e-12)
         assertNull(IndicatorAlertRules.threshold(IndicatorAlertKind.MVRV_BELOW, 0))
-        assertEquals(setOf(IndicatorAlertKind.MAYER_ABOVE), IndicatorAlertRules.active(mapOf(IndicatorAlertKind.MAYER_ABOVE to 240, IndicatorAlertKind.MVRV_ABOVE to 0)).keys)
+        assertEquals(
+            setOf(IndicatorAlertKind.MAYER_ABOVE),
+            IndicatorAlertRules.active(
+                mapOf(
+                    IndicatorAlertKind.MAYER_ABOVE to 240,
+                    IndicatorAlertKind.MVRV_ABOVE to 0
+                )
+            ).keys
+        )
     }
 
     @Test
     fun `notify once when crossing, rearm when back`() {
         val k = IndicatorAlertKind.MAYER_ABOVE
         val first = IndicatorAlertRules.decide(k, 2.5, 2.4, wasCrossed = false)
-        assertTrue(first.notify); assertEquals(true, first.crossed)
+        assertTrue(first.notify)
+        assertEquals(true, first.crossed)
         val again = IndicatorAlertRules.decide(k, 2.6, 2.4, wasCrossed = true)
         // Kein zweites Mal melden; Zustand bleibt
-        assertFalse(again.notify); assertNull(again.crossed)
+        assertFalse(again.notify)
+        assertNull(again.crossed)
         val back = IndicatorAlertRules.decide(k, 2.3, 2.4, wasCrossed = true)
-        assertFalse(back.notify); assertEquals(false, back.crossed)
+        assertFalse(back.notify)
+        assertEquals(false, back.crossed)
         // Fehlender Wert: nichts ändern
         assertNull(IndicatorAlertRules.decide(k, null, 2.4, wasCrossed = true).crossed)
     }

@@ -8,13 +8,13 @@ import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.ReferenceRates
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
 
 /** Bitunix Futures, Referenzkurse (EZB, NBU, NBP), Kategorien der Registry. Wie iOS `ExchangeListParityTests`. */
 class NewExchangesTest {

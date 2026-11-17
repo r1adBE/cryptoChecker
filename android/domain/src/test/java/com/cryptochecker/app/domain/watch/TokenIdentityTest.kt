@@ -24,7 +24,11 @@ class TokenIdentityTest {
     fun normalizeParity() {
         data["normalize"].list().forEach { raw ->
             val c = raw.obj()
-            assertEquals(c["name"] as String, c["expected"] as String?, TokenIdentity.normalizeName(c["input"] as String?, c["symbol"] as String))
+            assertEquals(
+                c["name"] as String,
+                c["expected"] as String?,
+                TokenIdentity.normalizeName(c["input"] as String?, c["symbol"] as String)
+            )
         }
     }
 
@@ -55,7 +59,11 @@ class TokenIdentityTest {
     fun acceptParity() {
         data["accept"].list().forEach { raw ->
             val c = raw.obj()
-            assertEquals(c.toString(), c["expected"] as Boolean, TokenIdentity.accept(Match.valueOf(c["match"] as String), c["band"] as Boolean))
+            assertEquals(
+                c.toString(),
+                c["expected"] as Boolean,
+                TokenIdentity.accept(Match.valueOf(c["match"] as String), c["band"] as Boolean)
+            )
         }
     }
 
@@ -64,9 +72,13 @@ class TokenIdentityTest {
         data["fallbackSeries"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                c["name"] as String, c["expected"] as Boolean,
+                c["name"] as String,
+                c["expected"] as Boolean,
                 TokenIdentity.fallbackSeriesAllowed(
-                    c["symbol"] as String, c["own"] as String?, c["provider"] as String?, c["binance"] as String?,
+                    c["symbol"] as String,
+                    c["own"] as String?,
+                    c["provider"] as String?,
+                    c["binance"] as String?,
                     c["providerName"] as String?,
                 ),
             )
@@ -78,9 +90,13 @@ class TokenIdentityTest {
         data["chainSources"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                c["name"] as String, c["expected"] as Boolean,
+                c["name"] as String,
+                c["expected"] as Boolean,
                 TokenIdentity.chainSourceAllowed(
-                    c["symbol"] as String, c["own"] as String?, c["host"] as String, c["binance"] as String?,
+                    c["symbol"] as String,
+                    c["own"] as String?,
+                    c["host"] as String,
+                    c["binance"] as String?,
                     c["providerName"] as String?,
                 ),
             )

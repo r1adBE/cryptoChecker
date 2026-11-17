@@ -34,14 +34,15 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
-import com.cryptochecker.app.data.refresh.AlarmLogStore
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.DialogText
@@ -49,8 +50,7 @@ import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -107,7 +107,10 @@ fun AlarmLogScreen(
             title = { Text(stringResource(R.string.alarm_log_clear_title)) },
             text = { DialogText { Text(stringResource(R.string.alarm_log_clear_message)) } },
             confirmButton = {
-                TextButton(onClick = { viewModel.clear(); askClear = false }) {
+                TextButton(onClick = {
+                    viewModel.clear()
+                    askClear = false
+                }) {
                     Text(stringResource(R.string.alarm_log_clear), color = MaterialTheme.colorScheme.error)
                 }
             },

@@ -29,11 +29,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Hauptknopf der Seite, volle Breite: «Alarm setzen» öffnet den Alarm-Editor ([enabled] false bei Referenzkurs,
@@ -164,7 +164,10 @@ internal fun PairOverflowMenu(
     actions: PairMenuActions,
 ) {
     DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
-        fun pick(action: () -> Unit): () -> Unit = { onDismiss(); action() }
+        fun pick(action: () -> Unit): () -> Unit = {
+            onDismiss()
+            action()
+        }
         MenuEntry(
             R.drawable.ic_list,
             watch.groupName?.let { stringResource(R.string.group_value, it) } ?: stringResource(R.string.group_title),

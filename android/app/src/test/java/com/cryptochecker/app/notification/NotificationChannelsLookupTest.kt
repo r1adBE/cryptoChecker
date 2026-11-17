@@ -1,8 +1,8 @@
 package com.cryptochecker.app.notification
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Alarm-Kanal: zuerst nur den einen Kanal abfragen; alle Kanäle listen und alte Versionen wegräumen

@@ -21,10 +21,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.format.A11ySpeech
 
 /** Ton der [DataStatusPill] — gleiche Farben wie die Status-Pille der Merkliste. */
 enum class DataStatusTone {

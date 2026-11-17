@@ -18,7 +18,10 @@ class ExchangeFailureFlowTest {
         gate.send { Fetched(null, "throttled", failure = limited) }
         assertEquals("throttled", gate.blocked)
         var sent = 0
-        val next = gate.send { sent++; Fetched(null, null) }
+        val next = gate.send {
+            sent++
+            Fetched(null, null)
+        }
         assertEquals(0, sent)
         assertEquals("throttled", next.error)
         assertEquals(limited, next.failure)

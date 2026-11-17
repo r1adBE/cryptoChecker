@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /** «Symbole erklärt»: die Liste nennt jedes Symbol der Zeile, in deren Reihenfolge — gleich wie iOS `WatchlistSymbol`. */
 class WatchlistSymbolTest {
@@ -35,8 +35,13 @@ class WatchlistSymbolTest {
     @Test
     fun `ios lists the same symbols and the menu opens the sheet on both platforms`() {
         val menu = SourceGuard.android(
-            findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app/ui/features/watchlist/WatchlistHeader.kt" }),
-            "WatchlistHeader.kt",
+            findUp(
+                listOf("", "app/", "android/app/").map {
+                    it +
+                        "src/main/java/com/cryptochecker/app/ui/features/watchlist/WatchlistMenu.kt"
+                }
+            ),
+            "WatchlistMenu.kt",
         ).readText(Charsets.UTF_8)
         assertTrue(menu.contains("R.string.watchlist_symbols_legend"))
         assertTrue(menu.contains("if (legendOpen) WatchlistSymbolLegendSheet(onDismiss = { legendOpen = false })"))

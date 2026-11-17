@@ -1,9 +1,9 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.backup.BackupFields
+import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.data.portfolio.PortfolioJson
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -89,8 +89,11 @@ object AlarmJson {
             // Auf 1 … 365 gekürzt (getInt würde grosse Zahlen still umbrechen), wie iOS `Alarm.clampWindowHours`
             windowHours = o.getLong("windowHours").coerceIn(1L, MAX_WINDOW_HOURS.toLong()).toInt(),
             // null = Quote-Währung
-            currency = if (o.isNull("currency")) null
-            else o.getString("currency").trim().uppercase().takeIf { c -> c.length == 3 && c.all { it in 'A'..'Z' } },
+            currency = if (o.isNull("currency")) {
+                null
+            } else {
+                o.getString("currency").trim().uppercase().takeIf { c -> c.length == 3 && c.all { it in 'A'..'Z' } }
+            },
         )
     }
 }

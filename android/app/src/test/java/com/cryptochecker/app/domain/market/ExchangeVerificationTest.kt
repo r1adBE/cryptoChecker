@@ -2,13 +2,13 @@ package com.cryptochecker.app.domain.market
 
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.obj
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.io.File
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Datum «zuletzt gegen echte Antworten geprüft» passt zu den Aufnahmen (iOS: `ExchangeVerificationTests`). */
 class ExchangeVerificationTest {

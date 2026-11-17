@@ -35,7 +35,10 @@ class OemBatteryTest {
     fun knownManufacturerAddsInfoRowWithButton() {
         val items = AlarmReadiness.rows(
             AlarmReadiness.Input(
-                AlarmReadiness.Platform.ANDROID, AlarmReadiness.Access.GRANTED, now = 0, minuteOfDay = 0,
+                AlarmReadiness.Platform.ANDROID,
+                AlarmReadiness.Access.GRANTED,
+                now = 0,
+                minuteOfDay = 0,
                 oemVendor = OemBattery.Vendor.SAMSUNG,
             )
         )
@@ -48,7 +51,10 @@ class OemBatteryTest {
         // Nur Android
         val ios = AlarmReadiness.rows(
             AlarmReadiness.Input(
-                AlarmReadiness.Platform.IOS, AlarmReadiness.Access.GRANTED, now = 0, minuteOfDay = 0,
+                AlarmReadiness.Platform.IOS,
+                AlarmReadiness.Access.GRANTED,
+                now = 0,
+                minuteOfDay = 0,
                 oemVendor = OemBattery.Vendor.SAMSUNG,
             )
         )

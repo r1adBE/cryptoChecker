@@ -4,14 +4,14 @@ import android.content.Context
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import timber.log.Timber
-import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Ein gespeicherter Wert, wann er geholt wurde (Epoch-ms) und von welchem Anbieter

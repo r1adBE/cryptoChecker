@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -31,11 +30,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HttpLogPanel
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.features.loading.SkeletonLoadingScreen
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -288,7 +288,8 @@ private fun ExplorerPage(
                 search.query.isNotBlank() && pickedCoin != null -> CoinPairs(pickedCoin, search, groupTarget)
                 // Während der Suche nur die Treffer
                 search.query.isNotBlank() -> SearchResults(
-                    search, groupTarget,
+                    search,
+                    groupTarget,
                     onChooseManually = { search.onQueryChange("") },
                     onOpenDex = onOpenDex,
                     exchangeRows = { list -> ExchangeRows(list, categoriesOf(selection), favorites, browse.onOpenExchange) },

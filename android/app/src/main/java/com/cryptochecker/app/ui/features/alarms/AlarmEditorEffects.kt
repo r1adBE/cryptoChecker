@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.CollectScreenEvents
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -17,9 +16,10 @@ import com.cryptochecker.app.ui.components.notificationPermissionMissing
 import com.cryptochecker.app.ui.components.openAppNotificationSettings
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
-import kotlinx.coroutines.launch
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.resources.R
+import kotlinx.coroutines.launch
 
 /**
  * Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
@@ -71,7 +71,11 @@ internal fun AlarmEditorEffects(
                     if (event.firstEver) return@CollectScreenEvents
                     scope.launch {
                         val result = snackbar.showTimed(
-                            activeText, testLabel, ACTIVE_MILLIS, accessibilityManager, SnackbarKind.SUCCESS,
+                            activeText,
+                            testLabel,
+                            ACTIVE_MILLIS,
+                            accessibilityManager,
+                            SnackbarKind.SUCCESS,
                         )
                         if (result == SnackbarResult.ActionPerformed) testAlarm()
                     }
@@ -85,7 +89,11 @@ internal fun AlarmEditorEffects(
                         // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App). Info statt Erfolg: der Alarm
                         // ist gespeichert, kommt so aber nicht an
                         val result = snackbar.showTimed(
-                            text, settingsLabel, SAVED_MILLIS, accessibilityManager, SnackbarKind.INFO,
+                            text,
+                            settingsLabel,
+                            SAVED_MILLIS,
+                            accessibilityManager,
+                            SnackbarKind.INFO,
                         )
                         if (result == SnackbarResult.ActionPerformed) openAppNotificationSettings(context)
                     } else {

@@ -1,11 +1,11 @@
 package com.cryptochecker.app.data.local
 import com.cryptochecker.app.data.local.AsideRetention
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Frist beiseitegelegter und ersetzter Dateien (`testdata/parity/aside_retention.json`): gleiche Auswahl wie iOS

@@ -97,11 +97,17 @@ fun CsvImportBinance.trades(names: List<String>, data: List<CsvImportParser.Reco
         val kind = when (side) {
             "buy" -> CsvImportKind.BUY
             "sell" -> CsvImportKind.SELL
-            else -> { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.UNSUPPORTED_KIND); continue }
+            else -> {
+                skipped += CsvImportSkip(rec.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+                continue
+            }
         }
         val timeText = cell(iTime)
         val time = CsvImportParser.parseTime(timeText, zone)
-        if (time == null) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE); continue }
+        if (time == null) {
+            skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE)
+            continue
+        }
         val pair = splitPair(cell(iPair))
         val known = pair?.toList().orEmpty()
         val executed = withUnit(cell(iAmount), known)
@@ -117,15 +123,29 @@ fun CsvImportBinance.trades(names: List<String>, data: List<CsvImportParser.Reco
         val base = executed.second ?: pair?.first
         val quote = total.second ?: pair?.second
         val amount = executed.first.abs()
-        if (base == null || quote == null) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD); continue }
-        if (CsvImport.isFiat(base)) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.NOT_CRYPTO); continue }
-        if (amount.signum() == 0 || price.signum() == 0) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER); continue }
+        if (base == null || quote == null) {
+            skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD)
+            continue
+        }
+        if (CsvImport.isFiat(base)) {
+            skipped += CsvImportSkip(rec.line, CsvImportSkipReason.NOT_CRYPTO)
+            continue
+        }
+        if (amount.signum() == 0 || price.signum() == 0) {
+            skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER)
+            continue
+        }
         val feeAmount = fee.first?.abs()?.takeIf { it.signum() > 0 }
         val feeUnit = (fee.second ?: cell(iFeeCoin).uppercase().ifEmpty { null }).takeIf { feeAmount != null }
-        if (feeAmount != null && feeUnit == null) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD); continue }
+        if (feeAmount != null && feeUnit == null) {
+            skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD)
+            continue
+        }
         val second = timeText.trim()
-        val fill = Fill(rec.line, kind, cell(iSide), base, quote, amount, total.first.abs(), price, feeAmount, feeUnit, time,
-            CsvImportParser.localTime(timeText), second)
+        val fill = Fill(
+            rec.line, kind, cell(iSide), base, quote, amount, total.first.abs(), price, feeAmount, feeUnit, time,
+            CsvImportParser.localTime(timeText), second
+        )
         groups.getOrPut("$second|$base|$quote|${kind.name}") { ArrayList() } += fill
     }
     val rows = groups.values.flatMap { order(it, skipped) }

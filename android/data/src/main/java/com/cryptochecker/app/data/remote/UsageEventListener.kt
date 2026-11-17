@@ -1,9 +1,9 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.marketdata.usage.UsageMeter
+import java.io.IOException
 import okhttp3.Call
 import okhttp3.EventListener
-import java.io.IOException
 
 /**
  * «Akku & Aktivität»: zählt je Abruf über den gemeinsamen OkHttp-Client eine Anfrage (am Ende, gelungen oder nicht) und

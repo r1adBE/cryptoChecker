@@ -4,10 +4,6 @@ import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.io.EOFException
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -15,6 +11,10 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Art des Fehlers am Ort des Fehlers ([toExchangeFailure]) — und dieselbe Einordnung wie bisher über den Text: Für

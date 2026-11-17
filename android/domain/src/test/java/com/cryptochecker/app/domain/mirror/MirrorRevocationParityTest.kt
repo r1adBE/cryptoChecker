@@ -1,16 +1,16 @@
 package com.cryptochecker.app.domain.mirror
 import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.domain.mirror.MirrorRevocations
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
+import java.io.File
+import java.nio.file.Files
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.nio.file.Files
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /**
  * Sperrliste des Spiegels, gemeinsame Testfälle `mirror_signature.json` → `revocation` (iOS:
@@ -46,7 +46,11 @@ class MirrorRevocationParityTest {
         cases.forEach { c ->
             val name = c["name"] as String
             val v = MirrorManifest.verify(
-                c["manifest"] as String, c["signature"] as String, now, testKeys, strings(c["revokedBefore"]).toSet(),
+                c["manifest"] as String,
+                c["signature"] as String,
+                now,
+                testKeys,
+                strings(c["revokedBefore"]).toSet(),
             )
             assertEquals(name, c["expected"], v.status.name.lowercase())
             assertEquals(name, strings(c["revoke"]).toSet(), v.revoke)

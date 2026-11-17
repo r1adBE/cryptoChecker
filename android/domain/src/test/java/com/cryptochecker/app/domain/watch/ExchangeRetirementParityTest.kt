@@ -101,7 +101,8 @@ class ExchangeRetirementParityTest {
         assertEquals(java.time.Instant.parse("2027-01-01T00:00:00Z").toEpochMilli(), ExchangeRetirement.BITPANDA_NOTICE_MILLIS)
         for (c in fixture["announced"].list().map { it.obj() }) {
             assertEquals(
-                c["name"] as String, c["expected"] as Boolean,
+                c["name"] as String,
+                c["expected"] as Boolean,
                 ExchangeRetirement.isAnnounced(c["exchange"] as String, c["now"].num()!!.toLong()),
             )
         }
@@ -218,8 +219,13 @@ class ExchangeRetirementParityTest {
     }
 
     private fun watch(id: Long, error: String? = null) = WatchEntity(
-        id = id, exchangeKey = "Bitpanda", exchangeName = "Bitpanda", baseAsset = "C$id", quoteAsset = "EUR",
-        pairId = "C${id}_EUR", lastError = error,
+        id = id,
+        exchangeKey = "Bitpanda",
+        exchangeName = "Bitpanda",
+        baseAsset = "C$id",
+        quoteAsset = "EUR",
+        pairId = "C${id}_EUR",
+        lastError = error,
     )
 
     /** Zählt jede Anfrage an die Börse; Antworten leer. */
@@ -238,7 +244,9 @@ class ExchangeRetirementParityTest {
             calls++
             return BulkTickers(complete = false, error = "HTTP 503")
         }
-        override suspend fun updateExchangeCurrencyPairs(exchange: ExchangeInfo) { calls++ }
+        override suspend fun updateExchangeCurrencyPairs(exchange: ExchangeInfo) {
+            calls++
+        }
         override suspend fun searchDexPools(query: String): List<DexPool> = emptyList()
     }
 

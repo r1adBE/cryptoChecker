@@ -50,8 +50,12 @@ enum class AssetScope {
         BinanceAlpha.isAlphaPair(exchangeKey, pair.pairId) -> hiddenAlpha.isEmpty()
         hiddenAlpha.isEmpty() -> true
         else -> AssetKind.of(
-            exchangeKey, pair.base, tradFi = false, alphaSymbols = hiddenAlpha,
-            pairName = pairNames[TokenIdentity.key(pair.base)], alphaNames = alphaNames,
+            exchangeKey,
+            pair.base,
+            tradFi = false,
+            alphaSymbols = hiddenAlpha,
+            pairName = pairNames[TokenIdentity.key(pair.base)],
+            alphaNames = alphaNames,
         ) != AssetKind.ALPHA
     }
 

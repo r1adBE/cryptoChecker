@@ -1,10 +1,10 @@
 package com.cryptochecker.marketdata.model.exchange
 
-import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Exchange
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
@@ -216,12 +216,18 @@ class Lighter : Exchange("Lighter", "Lighter") {
         if (symbol.isEmpty()) return null
         return when (type) {
             "perp" ->
-                if ('/' in symbol) null
-                else ExchangePair(symbol, LIGHTER_PERP_QUOTE, symbol, FuturesContractType.PERPETUAL, tradFi)
+                if ('/' in symbol) {
+                    null
+                } else {
+                    ExchangePair(symbol, LIGHTER_PERP_QUOTE, symbol, FuturesContractType.PERPETUAL, tradFi)
+                }
             "spot" -> {
                 val slash = symbol.indexOf('/')
-                if (slash <= 0 || slash == symbol.length - 1) null
-                else ExchangePair(symbol.substring(0, slash), symbol.substring(slash + 1), symbol, tradFi = tradFi)
+                if (slash <= 0 || slash == symbol.length - 1) {
+                    null
+                } else {
+                    ExchangePair(symbol.substring(0, slash), symbol.substring(slash + 1), symbol, tradFi = tradFi)
+                }
             }
             else -> null
         }

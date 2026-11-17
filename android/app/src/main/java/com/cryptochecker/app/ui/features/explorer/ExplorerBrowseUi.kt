@@ -37,7 +37,6 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.UiTestTags
@@ -50,6 +49,7 @@ import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.ReferenceSource
+import com.cryptochecker.resources.R
 
 /** Zustand und Aktionen der Übersicht (Markt-Chip, zuletzt genutzte Börsen). */
 class BrowseUi(

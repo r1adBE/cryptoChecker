@@ -29,19 +29,26 @@ suspend fun SingleWidgetRenderer.chartCandles(
         val entry = sparkCache[cacheKey]
         // Ohne Netz und fehlend bzw. veraltet: zum Nachladen vormerken ([SingleWidgetRenderer.takeStaleCharts])
         if (!fetch && !isFreshSpark(entry?.first)) staleCharts.set(true)
-        val cached = if (!fetch) entry?.second
-        else entry?.takeIf { isFreshSpark(it.first) }?.second
-        val own = cached ?: if (!fetch) null else try {
-            withTimeoutOrNull(SPARKLINE_TIMEOUT_MILLIS) {
-                ownCandles.candles(pair, range.candleInterval, range.limit)?.value?.map {
-                    WidgetCandle(openTime = it.openTime, open = it.open, high = it.high, low = it.low, close = it.close)
-                }
-            }
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.w(e, "Eigene Kerzen für Widget nicht verfügbar: %s", pair.cacheKey)
+        val cached = if (!fetch) {
+            entry?.second
+        } else {
+            entry?.takeIf { isFreshSpark(it.first) }?.second
+        }
+        val own = cached ?: if (!fetch) {
             null
+        } else {
+            try {
+                withTimeoutOrNull(SPARKLINE_TIMEOUT_MILLIS) {
+                    ownCandles.candles(pair, range.candleInterval, range.limit)?.value?.map {
+                        WidgetCandle(openTime = it.openTime, open = it.open, high = it.high, low = it.low, close = it.close)
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Eigene Kerzen für Widget nicht verfügbar: %s", pair.cacheKey)
+                null
+            }
         }
         val accepted = WidgetChartGeometry.pairCandles(own, watch.lastPrice)
         if (accepted != null) {
@@ -75,7 +82,11 @@ fun SingleWidgetRenderer.sparkCacheKey(base: String, quote: String, range: Widge
  * [price]: Kurs des Paars — passt die Reihe einer Quelle nicht (anderer Token), ist die nächste dran.
  */
 suspend fun SingleWidgetRenderer.sparkline(
-    base: String, quote: String, range: WidgetChartRange, preferFutures: Boolean = false, price: Double? = null,
+    base: String,
+    quote: String,
+    range: WidgetChartRange,
+    preferFutures: Boolean = false,
+    price: Double? = null,
     fetch: Boolean = true,
 ): List<WidgetCandle>? {
     val q = quote.uppercase().let { if (it == "USD") "USDT" else it }

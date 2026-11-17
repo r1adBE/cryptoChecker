@@ -1,12 +1,12 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmReliability
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.OemBattery
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.ui.features.alarms.alarmPairChoices
 import com.cryptochecker.app.ui.features.alarms.alarmPickerRows
@@ -200,9 +200,11 @@ class AlarmToggleParityTest {
         cases.forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                c["name"] as String, c["allowed"],
+                c["name"] as String,
+                c["allowed"],
                 AlarmJson.toggleAllowed(
-                    AlarmCondition.valueOf(c["condition"] as String), (c["threshold"] as Number).toDouble(),
+                    AlarmCondition.valueOf(c["condition"] as String),
+                    (c["threshold"] as Number).toDouble(),
                     enable = c["enable"] as Boolean,
                 ),
             )

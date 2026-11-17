@@ -88,7 +88,9 @@ class MissingEntryNotTradedTest {
     fun singleConfirms() {
         ParityJson.load("not_traded.json")["singleConfirms"].list().map { it.obj() }.forEach { c ->
             val actual = NotTraded.singleConfirms(
-                c["bulkTried"] as Boolean, c["singleReadsFullList"] as Boolean, c["contractExpired"] as Boolean,
+                c["bulkTried"] as Boolean,
+                c["singleReadsFullList"] as Boolean,
+                c["contractExpired"] as Boolean,
             )
             assertEquals(c["name"] as String, c["confirm"], actual)
         }
@@ -112,7 +114,8 @@ class MissingEntryNotTradedTest {
     fun shownContract() {
         ParityJson.load("not_traded.json")["shownContract"].list().map { it.obj() }.forEach { c ->
             val actual = FuturesContractType.shownContract(
-                FuturesContractType.valueOf(c["stored"] as String), c["pairId"] as String?,
+                FuturesContractType.valueOf(c["stored"] as String),
+                c["pairId"] as String?,
                 java.time.Instant.ofEpochMilli(c["now"].num()!!.toLong()),
             )
             assertEquals(c["name"] as String, c["shown"], actual.name)

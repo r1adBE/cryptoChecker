@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.overlay
 
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.notification.PriceNotificationRule
-import com.cryptochecker.app.domain.settings.AppSettings
 
 /**
  * Regeln des Preis-Overlays (nur Android, Wunsch 27.10.2026): dieselben Paare wie die dauerhafte Kurs-Mitteilung

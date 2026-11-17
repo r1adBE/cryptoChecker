@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
-import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
+import timber.log.Timber
 
 /** Pausen der Bild-Server und fehlgeschlagene Bilder für [LogoImageStore]; [prefs] erst beim ersten Zugriff gelesen. */
 class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
@@ -16,6 +16,7 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
 
     /** Laufende Pausen je Bild-Server (Host → bis, ms); gespeichert, damit ein Neustart sie beachtet. */
     private val imagePauses = ConcurrentHashMap<String, Long>()
+
     @Volatile private var pausesLoaded = false
 
     fun isPaused(host: String): Boolean {
@@ -104,8 +105,10 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
     companion object {
         /** Fehlgeschlagene Bilder ([loadFailures]): «Name:Zeitpunkt;…». */
         const val KEY_FAILED = "failed"
+
         /** Pausen je Bild-Server ([CoinLogoRetry.encodePauses]). */
         const val KEY_IMAGE_PAUSES = "image_pauses"
+
         /** Offene Durchgänge je Bild ([noteOpenPasses], [CoinLogoRetry.encodeOpenPasses]). */
         const val KEY_OPEN_PASSES = "open_passes"
     }

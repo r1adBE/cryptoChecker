@@ -110,7 +110,11 @@ class ExplorerRecentAndFilterTest {
 
     @Test
     fun statsFromTicker() {
-        val t = MutableTicker().apply { last = 2.0; vol = 10.0; change24hPercent = 1.5 }
+        val t = MutableTicker().apply {
+            last = 2.0
+            vol = 10.0
+            change24hPercent = 1.5
+        }
         // Kein Volumen in der Gegenwährung: Menge × Kurs
         assertEquals(PairStats(1.5, 20.0), QuickFilters.statsOf(t))
         t.volQuote = 33.0

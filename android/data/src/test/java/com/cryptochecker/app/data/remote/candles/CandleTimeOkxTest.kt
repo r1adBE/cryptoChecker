@@ -3,15 +3,15 @@ package com.cryptochecker.app.data.remote.candles
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 /**
  * Zeit- und Kennungs-Helfer der eigenen Kerzen ([CandleTime]) und die Grenzfälle der OKX-Kerzen ([OkxCandles]):
@@ -98,7 +98,9 @@ class CandleTimeOkxTest {
 
     @Test
     fun fourHoursDropsTheCutFirstBlock() {
-        fun h(i: Int) = HourCandle(i * hour, open = 10.0 + i, high = 20.0 + i, low = 5.0 + i, close = 11.0 + i, volume = 1.0, quoteVolume = 2.0)
+        fun h(
+            i: Int
+        ) = HourCandle(i * hour, open = 10.0 + i, high = 20.0 + i, low = 5.0 + i, close = 11.0 + i, volume = 1.0, quoteVolume = 2.0)
         assertNull(CandleTime.fourHours(null))
         // Stunden 3 … 7, ungeordnet: Block 0–4 h hat nur eine Kerze und fällt weg
         val four = CandleTime.fourHours(listOf(h(7), h(3), h(5), h(4), h(6)))!!

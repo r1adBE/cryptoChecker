@@ -6,10 +6,10 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.time.LocalDate
 
 /** Gemeinsame Fälle mit iOS (`FiatAlarmGuardTests.swift`, `testdata/parity/fiat_alarm_guard.json`). */
 class FiatAlarmGuardTest {
@@ -76,10 +76,16 @@ class FiatAlarmGuardTest {
     @Test
     fun needsUsdtMeasurementForFiatConversionOverUsdt() {
         cases("needsMeasurement").forEach { c ->
-            val alarms = c["alarms"].list().map { val pair = it.list(); pair[0] as String to pair[1] as String }
+            val alarms = c["alarms"].list().map {
+                val pair = it.list()
+                pair[0] as String to pair[1] as String
+            }
             val actual = FiatAlarmGuard.needsUsdtMeasurement(
-                c["showConverted"] as Boolean, c["displayCurrency"] as String,
-                c["watchQuotes"].list().map { it as String }, alarms, FxRateSource.CURRENCIES,
+                c["showConverted"] as Boolean,
+                c["displayCurrency"] as String,
+                c["watchQuotes"].list().map { it as String },
+                alarms,
+                FxRateSource.CURRENCIES,
             )
             assertEquals("needsMeasurement: ${c["name"]}", c["expected"] as Boolean, actual)
         }
@@ -89,7 +95,9 @@ class FiatAlarmGuardTest {
     fun skipFxStaleBeforeUnsure() {
         cases("skip").forEach { c ->
             val actual = FiatAlarmGuard.skip(
-                c["rateTime"].num()?.toLong(), FiatAlarmGuard.UsdtState.valueOf(c["usdt"] as String), c["now"].num()!!.toLong(),
+                c["rateTime"].num()?.toLong(),
+                FiatAlarmGuard.UsdtState.valueOf(c["usdt"] as String),
+                c["now"].num()!!.toLong(),
             )
             assertEquals("skip: ${c["name"]}", c["expected"] as String?, actual?.name)
         }

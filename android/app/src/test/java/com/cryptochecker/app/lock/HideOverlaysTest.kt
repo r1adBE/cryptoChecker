@@ -2,10 +2,10 @@ package com.cryptochecker.app.lock
 
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.util.SourceGuard
+import java.io.File
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /** Fremde Überlagerungen ausblenden (Tapjacking-Schutz, ab Android 12): Regel, Berechtigung und Einbaustellen. */
 class HideOverlaysTest {
@@ -21,7 +21,9 @@ class HideOverlaysTest {
 
     @Test
     fun `manifest declares the normal permission`() {
-        assertTrue(file("src/main/AndroidManifest.xml").contains("<uses-permission android:name=\"android.permission.HIDE_OVERLAY_WINDOWS\" />"))
+        assertTrue(
+            file("src/main/AndroidManifest.xml").contains("<uses-permission android:name=\"android.permission.HIDE_OVERLAY_WINDOWS\" />")
+        )
     }
 
     private fun file(rel: String): String {

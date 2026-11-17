@@ -2,9 +2,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,18 +17,19 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
-import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -40,24 +38,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
-import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
+import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.features.settings.AddressServerViewModel
-import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.features.settings.AddressServerViewModel
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — Liste mit Guthaben, Stand bzw.
@@ -99,7 +99,12 @@ internal fun PortfolioAddressSheet(
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
         confirmValueChange = { target ->
-            if (target == SheetValue.Hidden && dirtyNow) { askDiscard = true; false } else true
+            if (target == SheetValue.Hidden && dirtyNow) {
+                askDiscard = true
+                false
+            } else {
+                true
+            }
         },
     )
     // Fehler aus dem Speichern (doppelt, voll, ungültig)
@@ -128,7 +133,12 @@ internal fun PortfolioAddressSheet(
         val chain = check.chain ?: return
         busy = true
         viewModel.addWatchedAddress(
-            chain, input, label, countInPortfolio, onPortfolioEnabled = onPortfolioEnabled, overlapChecked = overlapChecked,
+            chain,
+            input,
+            label,
+            countInPortfolio,
+            onPortfolioEnabled = onPortfolioEnabled,
+            overlapChecked = overlapChecked,
         ) { result ->
             busy = false
             haptics.play(addWatchedHaptic(result))
@@ -154,12 +164,18 @@ internal fun PortfolioAddressSheet(
             // «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn;
             // «Zählen» nur, wenn die Adresse sicher nicht dieselben Coins hält
             confirmButton = {
-                TextButton(onClick = { askOverlap = null; add(countInPortfolio = false, overlapChecked = true) }) {
+                TextButton(onClick = {
+                    askOverlap = null
+                    add(countInPortfolio = false, overlapChecked = true)
+                }) {
                     Text(stringResource(R.string.portfolio_address_show_only_short), fontWeight = FontWeight.SemiBold)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { askOverlap = null; add(countInPortfolio = true, overlapChecked = true) }) {
+                TextButton(onClick = {
+                    askOverlap = null
+                    add(countInPortfolio = true, overlapChecked = true)
+                }) {
                     Text(stringResource(R.string.portfolio_address_count))
                 }
             }
@@ -167,7 +183,10 @@ internal fun PortfolioAddressSheet(
     }
 
     if (askDiscard) {
-        DiscardChangesDialog(onDiscard = { askDiscard = false; onDismiss() }, onKeep = { askDiscard = false })
+        DiscardChangesDialog(onDiscard = {
+            askDiscard = false
+            onDismiss()
+        }, onKeep = { askDiscard = false })
     }
     if (askPrivacy) {
         AlertDialog(
@@ -176,7 +195,10 @@ internal fun PortfolioAddressSheet(
             // Langer Hinweis (alle Hosts) bei grosser Schrift: scrollbar statt abgeschnitten
             text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(privacyText(check, btcServer)) } },
             confirmButton = {
-                TextButton(onClick = { askPrivacy = false; addChecked() }) { Text(stringResource(R.string.portfolio_address_add)) }
+                TextButton(onClick = {
+                    askPrivacy = false
+                    addChecked()
+                }) { Text(stringResource(R.string.portfolio_address_add)) }
             },
             dismissButton = {
                 TextButton(onClick = { askPrivacy = false }) { Text(stringResource(R.string.action_cancel)) }
@@ -205,7 +227,10 @@ internal fun PortfolioAddressSheet(
     }
 
     askRemove?.let { target ->
-        AddressRemoveDialog(target, onConfirm = { askRemove = null; remove(target) }, onDismiss = { askRemove = null })
+        AddressRemoveDialog(target, onConfirm = {
+            askRemove = null
+            remove(target)
+        }, onDismiss = { askRemove = null })
     }
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
@@ -244,7 +269,11 @@ internal fun PortfolioAddressSheet(
                             onCostLots = { lotsFor = a.id },
                             onRetarget = { r ->
                                 viewModel.retargetTransfer(r.trade.id, r.to) { result ->
-                                    if (result != PortfolioWriteResult.OK) banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+                                    if (result !=
+                                        PortfolioWriteResult.OK
+                                    ) {
+                                        banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+                                    }
                                 }
                             },
                             trades = trades,
@@ -256,7 +285,10 @@ internal fun PortfolioAddressSheet(
                     AddressAddForm(
                         addresses = addresses,
                         input = input,
-                        onInput = { input = it; saveError = null },
+                        onInput = {
+                            input = it
+                            saveError = null
+                        },
                         label = label,
                         onLabel = { label = it },
                         error = saveError ?: problemText,

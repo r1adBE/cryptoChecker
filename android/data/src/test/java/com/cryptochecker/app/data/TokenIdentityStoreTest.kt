@@ -1,7 +1,8 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.model.WatchEntity
+import java.io.File
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -10,7 +11,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
 
 /**
  * Namensliste für «gleicher Token» ([TokenIdentityStore]): Namen je Börse und von Binance, bereinigt,
@@ -158,6 +158,10 @@ class TokenIdentityStoreTest {
     }
 
     private fun watch(exchangeKey: String, base: String, disabled: Boolean = false) = WatchEntity(
-        exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = base, quoteAsset = "USDT", disabled = disabled,
+        exchangeKey = exchangeKey,
+        exchangeName = exchangeKey,
+        baseAsset = base,
+        quoteAsset = "USDT",
+        disabled = disabled,
     )
 }

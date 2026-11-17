@@ -49,7 +49,13 @@ object ColorDifference {
         val dC = c2p - c1p
         val product = c1p * c2p
         var dh = h2 - h1
-        if (product == 0.0) dh = 0.0 else if (dh > 180) dh -= 360 else if (dh < -180) dh += 360
+        if (product == 0.0) {
+            dh = 0.0
+        } else if (dh > 180) {
+            dh -= 360
+        } else if (dh < -180) {
+            dh += 360
+        }
         val dH = 2 * sqrt(product) * sin(rad(dh / 2))
         val lBar = (l1 + l2) / 2
         val cBarP = (c1p + c2p) / 2

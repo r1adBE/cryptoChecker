@@ -198,7 +198,11 @@ object PortfolioPeriodChange {
         // Kauf/Verkauf ohne Preis im Zeitraum: Zufluss unbekannt → Coin auslassen («—»-Hinweis), statt ihn
         // zum Anfangskurs anzunehmen (ergab oft eine glatte 0 und liess die USDT-Gebühr weg)
         val parts = parts(
-            trades, current, windowStart(baseDay), addresses = addresses, method = method,
+            trades,
+            current,
+            windowStart(baseDay),
+            addresses = addresses,
+            method = method,
             marketPrice = { coin, live, time -> marketClose(coin, live, closes, PortfolioHistory.epochDayOfUtcMillis(time)) },
             rates = fx?.let { rate ->
                 Rates(rate(baseDay), rate(Long.MAX_VALUE)) { time -> rate(PortfolioHistory.epochDayOfUtcMillis(time)) }

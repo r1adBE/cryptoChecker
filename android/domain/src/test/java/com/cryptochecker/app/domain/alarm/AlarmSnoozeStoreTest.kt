@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.util.KeyValueStore
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * «1 h später»-Pausen nach dem Wiederherstellen: [AlarmSnoozeStore.clear] entfernt alle (Ids der Sicherung können sich
@@ -23,11 +23,21 @@ class AlarmSnoozeStoreTest {
         override fun all(): Map<String, Any?> = HashMap(values)
         override fun edit(block: KeyValueStore.Editor.() -> Unit) {
             object : KeyValueStore.Editor {
-                override fun putInt(key: String, value: Int) { values[key] = value }
-                override fun putLong(key: String, value: Long) { values[key] = value }
-                override fun putBoolean(key: String, value: Boolean) { values[key] = value }
-                override fun putString(key: String, value: String?) { values[key] = value }
-                override fun remove(key: String) { values.remove(key) }
+                override fun putInt(key: String, value: Int) {
+                    values[key] = value
+                }
+                override fun putLong(key: String, value: Long) {
+                    values[key] = value
+                }
+                override fun putBoolean(key: String, value: Boolean) {
+                    values[key] = value
+                }
+                override fun putString(key: String, value: String?) {
+                    values[key] = value
+                }
+                override fun remove(key: String) {
+                    values.remove(key)
+                }
             }.block()
         }
     }

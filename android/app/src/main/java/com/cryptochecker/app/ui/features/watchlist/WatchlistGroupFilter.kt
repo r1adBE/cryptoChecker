@@ -3,8 +3,8 @@
 // Gruppen-Chips teilen.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.AutoGroup
 
@@ -23,4 +23,3 @@ data class GroupFilter(
     /** Art je Paar (Id → [AssetKind]); fehlt eines, gilt [AssetKind.TOKEN]. */
     val kinds: Map<Long, AssetKind> = emptyMap(),
 )
-

@@ -18,7 +18,9 @@ fun CsvImportParser.decimalHint(cells: List<String>): Char? {
         val commas = t.count { it == ',' }
         if (dots == 1 && commas == 0 && (t.length - t.indexOf('.') - 1 != 3 || zeroWhole(t, '.'))) dot = true
         if (commas == 1 && dots == 0 && (t.length - t.indexOf(',') - 1 != 3 || zeroWhole(t, ','))) comma = true
-        if (dots >= 1 && commas >= 1) { if (t.lastIndexOf('.') > t.lastIndexOf(',')) dot = true else comma = true }
+        if (dots >= 1 && commas >= 1) {
+            if (t.lastIndexOf('.') > t.lastIndexOf(',')) dot = true else comma = true
+        }
     }
     return when {
         dot && !comma -> '.'

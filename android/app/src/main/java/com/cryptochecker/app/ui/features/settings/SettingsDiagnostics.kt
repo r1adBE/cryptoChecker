@@ -27,22 +27,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.alarm.AlarmReadiness
+import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.data.refresh.AlarmLogStore
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.diagnostics.DiagnosticInput
 import com.cryptochecker.app.diagnostics.DiagnosticReport
 import com.cryptochecker.app.diagnostics.DiagnosticSettings
-import com.cryptochecker.app.data.refresh.AlarmLogStore
+import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.refresh.CheckRunStore
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.logos.CoinLogoUse
 import com.cryptochecker.app.work.AlarmReadinessProbe
-import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.time.ZoneId
@@ -93,7 +93,11 @@ class DiagnosticsViewModel @Inject constructor(
         )
         val readiness = AlarmReadiness.rows(
             AlarmReadinessProbe.read(
-                context, settings, com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs), hasAlarms, now,
+                context,
+                settings,
+                com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs),
+                hasAlarms,
+                now,
                 notificationsNotDetermined = com.cryptochecker.app.ui.components.NotificationPrePrompt.notDetermined(context),
             )
         )

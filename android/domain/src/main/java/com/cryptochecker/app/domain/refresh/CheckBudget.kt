@@ -26,8 +26,11 @@ object CheckBudget {
      * [GROUP_MILLIS]) im Netz-Fenster. Nie länger als [normalMillis].
      */
     fun exactTimeoutMillis(deviceIdle: Boolean, normalMillis: Long, marginMillis: Long): Long =
-        if (!deviceIdle) normalMillis
-        else minOf(normalMillis, IDLE_NETWORK_MILLIS + EVALUATE_RESERVE_MILLIS + marginMillis)
+        if (!deviceIdle) {
+            normalMillis
+        } else {
+            minOf(normalMillis, IDLE_NETWORK_MILLIS + EVALUATE_RESERVE_MILLIS + marginMillis)
+        }
 
     /** Fehlertext eines Paares, dessen Abfrage am Budget scheiterte (wie OkHttp → «Zeitüberschreitung»). */
     const val TIMEOUT_ERROR = "timeout"

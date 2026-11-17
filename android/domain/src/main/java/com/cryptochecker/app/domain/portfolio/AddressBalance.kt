@@ -111,28 +111,6 @@ object AddressBalance {
         return hexToDecimal(result.substring(2)) ?: throw IllegalStateException("result ungültig")
     }
 
-    /** Hex (ohne «0x», höchstens 64 Stellen) → Dezimalziffern ohne führende Nullen; ungültig = null. */
-    fun hexToDecimal(hex: String): String? {
-        if (hex.isEmpty() || hex.length > 64) return null
-        val digits = ArrayList<Int>() // Basis 10, niedrigste Stelle zuerst
-        digits.add(0)
-        for (c in hex) {
-            var carry = Character.digit(c, 16)
-            if (carry < 0 || !(c in '0'..'9' || c in 'a'..'f' || c in 'A'..'F')) return null
-            for (i in digits.indices) {
-                val v = digits[i] * 16 + carry
-                digits[i] = v % 10
-                carry = v / 10
-            }
-            while (carry > 0) {
-                digits.add(carry % 10)
-                carry /= 10
-            }
-        }
-        while (digits.size > 1 && digits.last() == 0) digits.removeAt(digits.size - 1)
-        return digits.asReversed().joinToString("")
-    }
-
     /** Ganze kleinste Einheiten (Ziffern) → Text mit [decimals] Stellen, ohne Nullen am Ende («0.0001»). */
     fun unitsText(digits: String, decimals: Int): String {
         val d = digits.trimStart('0')
@@ -162,7 +140,12 @@ object AddressBalance {
      * [WatchedAddressRules.applyFetched] übernimmt nur, was noch zählt. Verworfen bleibt die Adresse fällig (die
      * Änderung setzte lastAttempt 0), die wartende Runde lädt neu.
      */
-    fun discardFetched(countTokens: Boolean, networks: List<String>?, snapshotCountTokens: Boolean, snapshotNetworks: List<String>?): Boolean {
+    fun discardFetched(
+        countTokens: Boolean,
+        networks: List<String>?,
+        snapshotCountTokens: Boolean,
+        snapshotNetworks: List<String>?
+    ): Boolean {
         if (countTokens && !snapshotCountTokens) return true
         if (snapshotNetworks == null) return false
         return (networks ?: ChainAssets.EVM.map { it.id }).any { it !in snapshotNetworks }
@@ -364,7 +347,14 @@ object AddressBalance {
         val time = heldSince(realTrades, todayUtcDay)
         val ids = tradeIds(held.map { it.first })
         return AddressSurplus.parts(addresses, realTrades).map { (coin, amount) ->
-            PortfolioTrade(id = ids.getValue(coin), coin = coin, type = PortfolioTxType.DEPOSIT, amount = amount, priceUsdt = null, time = time)
+            PortfolioTrade(
+                id = ids.getValue(coin),
+                coin = coin,
+                type = PortfolioTxType.DEPOSIT,
+                amount = amount,
+                priceUsdt = null,
+                time = time
+            )
         } + AddressCostLots.trades(addresses, realTrades)
     }
 

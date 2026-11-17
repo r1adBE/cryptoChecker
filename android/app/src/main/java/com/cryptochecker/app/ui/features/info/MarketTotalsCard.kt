@@ -9,11 +9,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.format.CompactAmount
+import com.cryptochecker.resources.R
 
 // ───────────────────────── Krypto-Markt (Marktkapitalisierung, Volumen) ─────────────────────────
 
@@ -45,11 +45,15 @@ internal fun MarketTotalsRow(
     val volume = remember(values, locale) { values?.let { CompactAmount.format(it.volume, it.currency, locale) } }
     val change = totals?.changePercent24h
     // Screenreader: ein Satz mit Titel, Marktkapitalisierung samt Veränderung in Worten und Volumen
-    val spoken = if (cap != null && volume != null) buildString {
-        append(stringResource(R.string.label_value, title, "$capLabel $cap"))
-        if (change != null) append(", ").append(A11yText.change(context, change))
-        append("; ").append(volumeLabel).append(' ').append(volume)
-    } else null
+    val spoken = if (cap != null && volume != null) {
+        buildString {
+            append(stringResource(R.string.label_value, title, "$capLabel $cap"))
+            if (change != null) append(", ").append(A11yText.change(context, change))
+            append("; ").append(volumeLabel).append(' ').append(volume)
+        }
+    } else {
+        null
+    }
     MarketRow(
         title = title,
         secondary = volume?.let { "$volumeLabel $it" }.orEmpty(),

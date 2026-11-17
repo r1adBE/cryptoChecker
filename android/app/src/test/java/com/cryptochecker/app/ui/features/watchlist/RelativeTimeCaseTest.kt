@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.watchlist
 
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.Locale
 
 /**
  * Relative Zeit mitten im Satz ([midSentence]): klein beginnend, nur das erste Zeichen, nach den Regeln der Sprache.

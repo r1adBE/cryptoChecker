@@ -1,10 +1,13 @@
 package com.cryptochecker.app.data.refresh
 import com.cryptochecker.app.data.refresh.AlarmLogStore
-import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
-import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.model.AlarmCondition
+import java.io.File
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -13,9 +16,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
 
 /** Speicher des Alarm-Protokolls ([AlarmLogStore]): versiegelt, ohne Schlüssel nie Klartext, Live gedrosselt. */
 class AlarmLogStoreTest {

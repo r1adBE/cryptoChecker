@@ -1,24 +1,24 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.data.guardedWrite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.alarm.toAlarmReading
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
+import com.cryptochecker.app.data.guardedWrite
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.alarm.toAlarmReading
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
-import com.cryptochecker.app.widget.PortfolioSnapshotStore
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.withContext
 
 /** Alle Alarme über alle Paare, nach Paar gruppiert (scharfe zuerst). */
 @HiltViewModel
@@ -62,7 +62,9 @@ class AlarmsOverviewViewModel @Inject constructor(
                 null
             } else {
                 withContext(ioDispatcher) {
-                    snapshotStore.snapshot()?.let { s -> PortfolioAlarmLogic.pause(kinds, s.toAlarmReading(), s.missingCoins, s.staleCoins) }
+                    snapshotStore.snapshot()?.let { s ->
+                        PortfolioAlarmLogic.pause(kinds, s.toAlarmReading(), s.missingCoins, s.staleCoins)
+                    }
                 }
             }
         }
@@ -84,7 +86,13 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     fun deletePortfolioAlarm(id: Long) {
         viewModelScope.launch {
-            if (!guardedWrite(false) { portfolioAlarmRepository.delete(id); true }) return@launch
+            if (!guardedWrite(false) {
+                    portfolioAlarmRepository.delete(id)
+                    true
+                }
+            ) {
+                return@launch
+            }
             // Die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
             com.cryptochecker.app.domain.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
         }

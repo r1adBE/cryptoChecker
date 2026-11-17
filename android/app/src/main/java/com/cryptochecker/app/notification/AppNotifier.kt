@@ -1,29 +1,29 @@
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.domain.notification.NotificationIds
-import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.domain.notification.NotificationBudget
-import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.notification.NotificationBudget
+import com.cryptochecker.app.domain.notification.NotificationIds
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Erstellt und entfernt alle Benachrichtigungen der App. Hier Zustand, Kurs-Mitteilungen und Entfernen; als
@@ -44,11 +44,14 @@ class AppNotifier @Inject constructor(
     internal val manager get() = NotificationManagerCompat.from(context)
 
     fun hasPermission(): Boolean =
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) true
-        else ContextCompat.checkSelfPermission(
-            context,
-            Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
+            true
+        } else {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        }
 
     // ---------------- Kurs ----------------
 
@@ -84,73 +87,8 @@ class AppNotifier @Inject constructor(
     suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> =
         priceRunLock.withLock { showPricesLocked(watches, ongoing) }
 
-    /** [showPrices] unter [priceRunLock]. */
-    private suspend fun showPricesLocked(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
-        val posts = watches.filter { it.lastPrice != null }.distinctBy { it.id }
-        if (posts.isEmpty() || !hasPermission()) return emptySet()
-        // Die Objektsperre nur für kurze Schritte, nie während der Pausen: Sonst warteten Entfernen
-        // (Paar gelöscht, Mitteilung aus) und das Melden eines Alarms ([makeRoomForAlarm]) bis zu
-        // mehreren Sekunden. Durchläufe untereinander bleiben über [priceRunLock] nacheinander.
-        val (active, plan) = synchronized(this) {
-            priceRunActive = true
-            cancelledDuringRun.clear()
-            val active = activeState()
-            val plan = NotificationBudget.planPrices(
-                shown = active?.prices?.keys?.toList().orEmpty(),
-                overflowBefore = active?.overflow?.keys?.toList().orEmpty(),
-                posts = posts.map { it.id },
-                slots = NotificationBudget.priceSlots(active?.other ?: 0),
-            )
-            // Zuerst Platz schaffen, dann melden
-            plan.demoted.forEach { cancelPriceSingle(it) }
-            active to plan
-        }
-        try {
-            val byId = posts.associateBy { it.id }
-            val shown = HashSet<Long>()
-            // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
-            // aber als gezeigt). Die Pausen halten keinen Thread fest (delay statt sleep), brechen aber
-            // nicht mitten im Durchlauf ab (sonst Meldungen ohne gespeicherten Meldekurs); ein einzelnes Paar nie
-            val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
-            var posted = 0
-            suspend fun spaceOut() {
-                if (gap > 0 && posted > 0) withContext(NonCancellable) { delay(gap) }
-                posted++
-            }
-            for (id in plan.individual) {
-                spaceOut()
-                synchronized(this) {
-                    // Inzwischen entfernt (der Plan stammt von vorher): nicht wieder zeigen
-                    if (id !in cancelledDuringRun && postPrice(byId.getValue(id), ongoing)) shown += id
-                }
-            }
-            // Zeilen EINMAL bauen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene
-            // Einzelmeldung). Die Grundlage (Plan, Kurse, Zustand von vorher) bleibt gleich; nach der Pause fallen nur
-            // die inzwischen entfernten Paare weg
-            val (lines, unchanged) = synchronized(this) {
-                val built = overflowLines(plan.overflow, byId, active)
-                val same = active != null && active.overflowShown &&
-                    active.overflow.entries.toList() == built.entries.toList()
-                built to same
-            }
-            if (!unchanged && lines.isNotEmpty()) spaceOut()
-            synchronized(this) {
-                lines.keys.removeAll(cancelledDuringRun)
-                if (unchanged || postOverflow(lines, ongoing)) {
-                    lines.keys.filterTo(shown) { it in byId }
-                }
-            }
-            return shown
-        } finally {
-            synchronized(this) {
-                priceRunActive = false
-                cancelledDuringRun.clear()
-            }
-        }
-    }
-
     /** Zeilen der Sammelmeldung ([overflow] ohne entfernte Paare): frischer Kurs, sonst bisherige Zeile. */
-    private fun overflowLines(
+    internal fun overflowLines(
         overflow: List<Long>,
         byId: Map<Long, WatchEntity>,
         active: ActiveState?,
@@ -165,10 +103,10 @@ class AppNotifier @Inject constructor(
     private val priceRunLock = Mutex()
 
     /** Läuft gerade [showPrices]? Dann merkt sich [cancelPrices] die entfernten Paare. */
-    private var priceRunActive = false
+    internal var priceRunActive = false
 
     /** Während des laufenden [showPrices] entfernte Paare: werden in diesem Durchlauf nicht mehr gemeldet. */
-    private val cancelledDuringRun = HashSet<Long>()
+    internal val cancelledDuringRun = HashSet<Long>()
 
     /** Kurs-Meldung eines Paars entfernen; läuft nie auf dem Haupt-Thread (Systemdienst, Sperre). */
     suspend fun cancelPrice(watchId: Long) = cancelAllPrices(listOf(watchId))
@@ -335,8 +273,11 @@ class AppNotifier @Inject constructor(
      * Kennzeichen» — ganz aus nur über die Systemeinstellung der App.
      */
     internal fun NotificationCompat.Builder.appBadge(): NotificationCompat.Builder =
-        if (settingsRepository.cached.appIconBadge) setNumber(1)
-        else setNumber(0).setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
+        if (settingsRepository.cached.appIconBadge) {
+            setNumber(1)
+        } else {
+            setNumber(0).setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
+        }
 
     /**
      * Mitteilungs-Gruppen (wie `threadIdentifier` auf iOS): viele Kurs-Mitteilungen bzw. Alarme
@@ -351,18 +292,23 @@ class AppNotifier @Inject constructor(
         // Feste Mitteilungs-Nummern unter 100 000 (getrennt von den Bereichen in NotificationIds)
         const val REFRESH_NOTIFICATION_ID = 2
         const val FNG_NOTIFICATION_ID = 4
+
         /** Eigene Grenzen der Bitcoin-Kennzahlen: je Art eine Meldung (Basis + Ordnungszahl). */
         const val INDICATOR_NOTIFICATION_BASE_ID = 7_400
         const val GAS_ETH_NOTIFICATION_ID = 5
         const val GAS_BTC_NOTIFICATION_ID = 6
         const val TEST_ALARM_NOTIFICATION_ID = 7
+
         /** USDT-Depeg-Alarm (eine Meldung, ersetzt die vorige). */
         const val DEPEG_NOTIFICATION_ID = 8
+
         /** Weitere Stablecoins des Depeg-Alarms: je Stablecoin eine Meldung (Basis + `StableDepeg.notificationIndex`). */
         const val DEPEG_STABLE_NOTIFICATION_BASE_ID = 7_500
+
         /** Zusammenfassungen der Gruppen Kurs-Mitteilungen bzw. Alarme. */
         internal const val PRICE_SUMMARY_ID = 9
         internal const val ALARM_SUMMARY_ID = 10
+
         /** Sammelmeldung der Kurs-Mitteilungen über der Grenze von 20 (NotificationBudget). */
         internal const val PRICE_OVERFLOW_ID = 11
 
@@ -381,11 +327,14 @@ class AppNotifier @Inject constructor(
 
         /** Request-Code für [showGas] mit Ziel: Basis plus Mitteilungs-Nummer. */
         internal const val TARGET_REQUEST_BASE = 410_000
+
         /** Knopf «Börse öffnen» der Depeg-Meldung. */
         internal const val DEPEG_EXCHANGE_REQUEST_CODE = 420_000
+
         /** Knopf «Börse öffnen» der Meldung eines weiteren Stablecoins: Basis + `StableDepeg.notificationIndex`. */
         internal const val DEPEG_STABLE_EXCHANGE_REQUEST_BASE = 420_001
         internal const val WHY_REQUEST_BASE = 500_000L
+
         /** Knöpfe «1 h später» bzw. «Anpassen» der Alarm-Meldung: Basis plus Alarm-Id (eigene Bereiche). */
         internal const val SNOOZE_REQUEST_BASE = 600_000_000L
         internal const val EDIT_REQUEST_BASE = 700_000_000L

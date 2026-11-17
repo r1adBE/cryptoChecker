@@ -2,10 +2,6 @@
 // Eigene Datei, weil `MarketPhaseScreen` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.info
 
-import com.cryptochecker.app.ui.components.DataStatusPill
-import com.cryptochecker.app.ui.components.DataStatusTone
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.runtime.mutableLongStateOf
 import android.text.format.DateUtils
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -15,29 +11,33 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
+import com.cryptochecker.app.ui.components.DataStatusPill
+import com.cryptochecker.app.ui.components.DataStatusTone
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Ein Teil des Tabs ([slot]): erst da, wenn [MarketReveal] ihn freigibt (auf «Jetzt», [onNow],
@@ -156,7 +156,10 @@ internal fun MarketStatusPill(refreshingSince: Long?, updatedAt: Long?, online: 
 @Composable
 private fun dataTime(millis: Long): String {
     val context = LocalContext.current
-    val flags = if (DateUtils.isToday(millis)) DateUtils.FORMAT_SHOW_TIME
-    else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    val flags = if (DateUtils.isToday(millis)) {
+        DateUtils.FORMAT_SHOW_TIME
+    } else {
+        DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH
+    }
     return DateUtils.formatDateTime(context, millis, flags)
 }

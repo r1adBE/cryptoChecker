@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.alarm
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.QuietHours
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Seite «Damit Alarme ankommen» (`testdata/parity/alarm_delivery.json`): gelesener Zustand → Zeilen mit Zustand, Text
@@ -88,8 +88,13 @@ class AlarmReadinessParityTest {
     fun warningSummary() {
         val good = AlarmReadiness.rows(
             AlarmReadiness.Input(
-                AlarmReadiness.Platform.ANDROID, AlarmReadiness.Access.GRANTED, now = 10, minuteOfDay = 600,
-                lastBackgroundCheck = 5, exactEnabled = true, batteryUnrestricted = true,
+                AlarmReadiness.Platform.ANDROID,
+                AlarmReadiness.Access.GRANTED,
+                now = 10,
+                minuteOfDay = 600,
+                lastBackgroundCheck = 5,
+                exactEnabled = true,
+                batteryUnrestricted = true,
             )
         )
         assertFalse(AlarmReadiness.hasWarning(good))

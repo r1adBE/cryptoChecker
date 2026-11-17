@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.alarm.toAlarmReading
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
@@ -9,7 +10,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.alarm.toAlarmReading
 
 /**
  * «Kurs ungeprüft» (Binance-Kurs mit unbestätigtem Token) zählt für die Portfolio-Alarme wie ein alter

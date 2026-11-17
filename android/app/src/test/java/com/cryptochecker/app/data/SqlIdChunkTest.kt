@@ -1,9 +1,9 @@
 package com.cryptochecker.app.data
 
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Eine Regel für alle `IN (:ids)`-Abfragen der Merkliste: Jeder Aufruf mit einer Id-Liste läuft in Blöcken von

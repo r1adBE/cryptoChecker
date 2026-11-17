@@ -1,22 +1,22 @@
 package com.cryptochecker.app.gas
-import com.cryptochecker.app.data.settings.GasAlertPrefs
-import androidx.core.content.edit
 import android.content.Context
-import com.cryptochecker.resources.R
+import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.GasDataSource
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.GasAlertPrefs
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showGas
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.notification.canShowMarketNotice
-import com.cryptochecker.app.notification.showGas
 
 /**
  * Wann ein Gas-Alarm auslöst: sobald die Gebühr auf oder unter die Grenze
@@ -76,7 +76,10 @@ class GasAlertChecker @Inject constructor(
             // «Aus» merken, damit beim Wiedereinschalten (auch mit gleicher Grenze) der Alarm scharf ist
             val off = 0.0.toRawBits()
             if (prefs.getLong(KEY_ETH_THRESHOLD, -1) != off || prefs.getLong(KEY_BTC_THRESHOLD, -1) != off) {
-                prefs.edit { putThreshold(KEY_ETH_THRESHOLD, 0.0); putThreshold(KEY_BTC_THRESHOLD, 0.0) }
+                prefs.edit {
+                    putThreshold(KEY_ETH_THRESHOLD, 0.0)
+                    putThreshold(KEY_BTC_THRESHOLD, 0.0)
+                }
             }
             return@withLock
         }
@@ -101,8 +104,11 @@ class GasAlertChecker @Inject constructor(
                 notifier.showGas(
                     AppNotifier.GAS_ETH_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_eth_title, GasFees.formatGwei(eth.normalGwei)),
-                    context.getString(R.string.notification_gas_eth_text, GasFees.formatGwei(ethThreshold),
-                        eth.transferUsd?.let(GasFees::formatUsd) ?: "–"),
+                    context.getString(
+                        R.string.notification_gas_eth_text,
+                        GasFees.formatGwei(ethThreshold),
+                        eth.transferUsd?.let(GasFees::formatUsd) ?: "–"
+                    ),
                     iconRes = R.drawable.ic_stat_gas_eth,
                 )
             }
@@ -112,8 +118,11 @@ class GasAlertChecker @Inject constructor(
                 notifier.showGas(
                     AppNotifier.GAS_BTC_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_btc_title, GasFees.formatGwei(btc.normal)),
-                    context.getString(R.string.notification_gas_btc_text, GasFees.formatGwei(btcThreshold),
-                        btc.transferUsd?.let(GasFees::formatUsd) ?: "–"),
+                    context.getString(
+                        R.string.notification_gas_btc_text,
+                        GasFees.formatGwei(btcThreshold),
+                        btc.transferUsd?.let(GasFees::formatUsd) ?: "–"
+                    ),
                     iconRes = R.drawable.ic_stat_fee_btc,
                 )
             }
@@ -121,7 +130,12 @@ class GasAlertChecker @Inject constructor(
     }
 
     private inline fun check(
-        key: String, thresholdKey: String, value: Double, threshold: Double, deliverable: Boolean, notify: () -> Boolean,
+        key: String,
+        thresholdKey: String,
+        value: Double,
+        threshold: Double,
+        deliverable: Boolean,
+        notify: () -> Boolean,
     ) {
         val stored = if (prefs.contains(thresholdKey)) Double.fromBits(prefs.getLong(thresholdKey, 0)) else null
         val before = GasAlertLogic.armedFor(prefs.getBoolean(key, true), stored, threshold)
@@ -156,10 +170,12 @@ class GasAlertChecker @Inject constructor(
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ETH_ARMED = "eth_armed"
         const val KEY_BTC_ARMED = "btc_armed"
+
         /** Grenze, zu der der gemerkte Zustand gehört (Double als Bits). */
         const val KEY_ETH_THRESHOLD = GasAlertPrefs.KEY_ETH_THRESHOLD
         const val KEY_BTC_THRESHOLD = GasAlertPrefs.KEY_BTC_THRESHOLD
         const val MIN_INTERVAL_MILLIS = 10 * 60_000L
+
         /** Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (statt der vollen Pause). */
         const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L
     }

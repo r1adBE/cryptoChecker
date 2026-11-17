@@ -7,6 +7,9 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.market.DataFreshness
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -16,9 +19,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 /**
  * Steuer-Export: die Tagesschlüsse je Coin auf einmal ([dayClosesUsdt], Kerzen je Quelle in Stücken) sind für dieselben
@@ -60,7 +60,8 @@ class HistoricDayClosesBatchTest {
                 u.host == "api.exchange.coinbase.com" -> coinbase(u.pathSegments[1], u.queryParameter("start"), u.queryParameter("end"))
                 "binance" in u.host && u.encodedPath.endsWith("/klines") -> binance(
                     "${u.host}|${u.queryParameter("symbol")}",
-                    u.queryParameter("startTime")?.toLong(), u.queryParameter("endTime")?.toLong(),
+                    u.queryParameter("startTime")?.toLong(),
+                    u.queryParameter("endTime")?.toLong(),
                     u.queryParameter("limit")?.toInt() ?: 500,
                 )
                 else -> null
@@ -122,7 +123,10 @@ class HistoricDayClosesBatchTest {
     }
 
     private fun source(http: RouteHttp) = HistoricPriceSource(
-        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(),
+        http.client,
+        testTokenIdentityStore(temp.newFolder()),
+        OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO),
+        fakePortfolioDao(),
         unusedExchangeRepository(),
         ioDispatcher = Dispatchers.IO,
     )
@@ -149,7 +153,13 @@ class HistoricDayClosesBatchTest {
         val wanted = listOf("ETH", "eth", "NEW", "FOO", "GAP", "BAR", "NOREF", "USDT", "BAD COIN").associateWith { days() }
         // Aktuelle Kurse wie CutoffExport.referencePrices: Schlüssel wie verlangt; NOREF ohne Bezug
         val current = mapOf(
-            "ETH" to 3100.0, "eth" to 3100.0, "NEW" to 10.5, "FOO" to 50.0, "GAP" to 2.0, "BAR" to 5.0, "BAD COIN" to 1.0,
+            "ETH" to 3100.0,
+            "eth" to 3100.0,
+            "NEW" to 10.5,
+            "FOO" to 50.0,
+            "GAP" to 2.0,
+            "BAR" to 5.0,
+            "BAD COIN" to 1.0,
         )
 
         val perDayHttp = RouteHttp(m::reply)
@@ -177,6 +187,9 @@ class HistoricDayClosesBatchTest {
         assertTrue(ethSpot.toString(), ethSpot.size in 3..6)
         // Binance und Coinbase (die Kettenbörsen dahinter fragen beide Wege gleich über die eigenen Kerzen)
         val marketRequests = { h: RouteHttp -> h.requested.count { "binance" in it || "coinbase" in it } }
-        assertTrue("${marketRequests(batchHttp)} / ${marketRequests(perDayHttp)}", marketRequests(batchHttp) * 10 < marketRequests(perDayHttp))
+        assertTrue(
+            "${marketRequests(batchHttp)} / ${marketRequests(perDayHttp)}",
+            marketRequests(batchHttp) * 10 < marketRequests(perDayHttp)
+        )
     }
 }

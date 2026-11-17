@@ -2,9 +2,6 @@
 // Eigene Datei, weil die Auswahl sonst zu lang würde.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.ui.theme.label
-import com.cryptochecker.app.ui.components.PriceWithQuote
-import com.cryptochecker.app.ui.components.ListSegment
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,19 +30,22 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
+import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.components.ChangePill
+import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.components.PriceWithQuote
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonPulse
-import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /** [parts] (je das erste Vorkommen) in [text] mit [style] hervorheben. */
 internal fun emphasized(text: String, parts: List<String>, style: SpanStyle): AnnotatedString = buildAnnotatedString {

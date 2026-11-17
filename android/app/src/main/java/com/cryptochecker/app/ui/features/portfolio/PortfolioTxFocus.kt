@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalView
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.resources.R
 
 /** Ein Sprung zum Feld [field]; [seq] zählt hoch, damit erneutes Speichern mit demselben Fehler wieder springt. */
 internal data class TxFocusRequest(val field: Field, val announcement: String, val seq: Int)

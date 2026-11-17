@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.AddButtonScroll
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Schwebender «+»-Knopf des Portfolios beim Scrollen (`testdata/parity/add_button_scroll.json`): nach unten weg, nach

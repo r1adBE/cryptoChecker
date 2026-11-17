@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneId
 
 /** Kerzen und Achsen des Wertverlaufs ([PortfolioCandles], [PortfolioChartAxis]) samt Eröffnung/Hoch/Tief aus [PortfolioHistory.build]. */
 class PortfolioChartTest {
@@ -144,7 +144,12 @@ class PortfolioChartTest {
     @Test
     fun buildSumsHoldingsTimesCoinOhlc() {
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = ranges,
+            trades,
+            closes,
+            mapOf("BTC" to 121.0),
+            PortfolioHistoryRange.MONTH,
+            today,
+            ranges = ranges,
         )
         val p = s.points
         assertEquals(3, p.size)
@@ -176,7 +181,12 @@ class PortfolioChartTest {
         // Tag ohne Coin-Kerze: kein Hoch/Tief (nur fortgeschriebener Schluss)
         val gap = ranges.mapValues { (_, m) -> m - (today - 1) }
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = gap,
+            trades,
+            closes,
+            mapOf("BTC" to 121.0),
+            PortfolioHistoryRange.MONTH,
+            today,
+            ranges = gap,
         )
         assertNull(s.points[1].high)
         assertEquals(plain.points.map { it.value }, s.points.map { it.value })
@@ -185,7 +195,12 @@ class PortfolioChartTest {
     @Test
     fun fxConvertsOhlcWithSameDailyRate() {
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = ranges,
+            trades,
+            closes,
+            mapOf("BTC" to 121.0),
+            PortfolioHistoryRange.MONTH,
+            today,
+            ranges = ranges,
         )
         val r = PortfolioHistoryFx.convert(s, mapOf(today - 2 to 0.9, today - 1 to 0.8), 0.5, today)
         val p = r.series.points

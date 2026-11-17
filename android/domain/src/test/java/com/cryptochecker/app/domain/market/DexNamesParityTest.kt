@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.market
 import com.cryptochecker.app.domain.market.DexNames
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * DEX-Namen in der Coin-Suche (`testdata/parity/dex_names.json`): «uniswap pepe» → DexScreener mit Hinweis «Pools von

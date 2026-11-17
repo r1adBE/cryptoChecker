@@ -22,8 +22,10 @@ class MarketUniverseTest {
     @Test
     fun pick_withoutStablecoinsWrappedAndMissingPairs_inRankOrder() {
         val picked = MarketUniverse.pick(ranked.shuffled(), binance)!!
-        assertEquals(listOf("BTC", "ETH", "XRP", "BNB", "SOL", "DOGE", "TRX", "ADA", "LINK", "XLM", "BCH"),
-            picked.map { it.symbol })
+        assertEquals(
+            listOf("BTC", "ETH", "XRP", "BNB", "SOL", "DOGE", "TRX", "ADA", "LINK", "XLM", "BCH"),
+            picked.map { it.symbol }
+        )
         assertEquals(1.2e12, picked.first().marketCap!!, 0.0)
         assertEquals("Bitcoin", picked.first().name)
     }

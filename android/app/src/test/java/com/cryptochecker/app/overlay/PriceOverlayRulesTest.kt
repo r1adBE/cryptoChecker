@@ -1,9 +1,9 @@
 package com.cryptochecker.app.overlay
 
-import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.PriceFreshness
+import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -16,13 +16,28 @@ class PriceOverlayRulesTest {
     private val on = AppSettings(priceOverlay = true, ongoingNotifications = true, priceNotifications = true)
 
     private fun watch(id: Long, notify: Boolean = true, disabled: Boolean = false, price: Double? = 1.0) =
-        WatchEntity(id = id, exchangeKey = "binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
-            notificationEnabled = notify, disabled = disabled, lastPrice = price)
+        WatchEntity(
+            id = id,
+            exchangeKey = "binance",
+            exchangeName = "Binance",
+            baseAsset = "C$id",
+            quoteAsset = "USDT",
+            notificationEnabled = notify,
+            disabled = disabled,
+            lastPrice = price
+        )
 
     @Test
     fun pairsFollowTheOngoingNotification() {
-        val watches = listOf(watch(1), watch(2, notify = false), watch(3, disabled = true), watch(4, price = null),
-            watch(5), watch(6), watch(7))
+        val watches = listOf(
+            watch(1),
+            watch(2, notify = false),
+            watch(3, disabled = true),
+            watch(4, price = null),
+            watch(5),
+            watch(6),
+            watch(7)
+        )
         assertEquals(listOf(1L, 5L, 6L), PriceOverlayRules.pairs(watches, on, canDraw = true).map { it.id })
         assertTrue(PriceOverlayRules.pairs(watches, on, canDraw = false).isEmpty())
         assertTrue(PriceOverlayRules.pairs(watches, on.copy(ongoingNotifications = false), canDraw = true).isEmpty())
@@ -60,8 +75,10 @@ class PriceOverlayRulesTest {
         assertNull(PriceOverlayRules.stale(watch(1).copy(lastUpdate = now - 120 * minute), now, 60))
         // Abruf frisch, letzter Handel laut Börse älter als 2 h: seit dem Handel
         val trade = watch(1).copy(lastUpdate = now - minute, exchangeTime = now - 180 * minute)
-        assertEquals(PriceOverlayRules.Stale(PriceFreshness.StaleReason.TRADE, now - 180 * minute),
-            PriceOverlayRules.stale(trade, now, 15))
+        assertEquals(
+            PriceOverlayRules.Stale(PriceFreshness.StaleReason.TRADE, now - 180 * minute),
+            PriceOverlayRules.stale(trade, now, 15)
+        )
         // Nie abgefragt: nicht «veraltet»
         assertNull(PriceOverlayRules.stale(watch(1), now, 15))
     }

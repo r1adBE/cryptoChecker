@@ -11,6 +11,10 @@ import com.cryptochecker.app.domain.logos.LogoLoadingHint
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -26,10 +30,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
-import javax.inject.Inject
 
 /**
  * Hinweis «Logos werden geladen» am echten Bild-Abruf: Geladene, nicht
@@ -92,7 +92,8 @@ class LogoLoadingHintDeviceTest {
     fun loadedMissingAndStillDisturbedImagesAllCountAsDone() = runBlocking {
         val store = store()
         val wanted = mapOf(
-            "OKA" to url("ok1", "OKA"), "OKB" to url("ok2", "OKB"),
+            "OKA" to url("ok1", "OKA"),
+            "OKB" to url("ok2", "OKB"),
             "GONEA" to url("gone1", "GONEA"),
             "SLOWA" to url("slow1", "SLOWA"),
         )

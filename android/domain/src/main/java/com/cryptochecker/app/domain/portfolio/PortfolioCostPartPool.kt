@@ -91,8 +91,11 @@ fun List<PortfolioCostPart>.weightedSum(weight: PortfolioPartWeight): BigDecimal
 
 /** Erfüllt ein Teil [test]? Grosse Ansichten ohne Auslesen. */
 fun List<PortfolioCostPart>.anyTime(test: PortfolioPartTest): Boolean =
-    if (this is PortfolioScaledParts && size > PortfolioScaledParts.EXACT_MAX) store.anyTime(this, test)
-    else any { test.of(it.time) }
+    if (this is PortfolioScaledParts && size > PortfolioScaledParts.EXACT_MAX) {
+        store.anyTime(this, test)
+    } else {
+        any { test.of(it.time) }
+    }
 
 /** Frühester und spätester Zeitpunkt der Teile (leer = keine). Ansichten ohne Auslesen. */
 fun List<PortfolioCostPart>.timeBounds(): List<Long> = when {
@@ -209,7 +212,13 @@ class PortfolioPartStore {
             r = r shr 1
             h++
         }
-        return if (left == null) right else if (right == null) left else left.multiply(right, mc)
+        return if (left == null) {
+            right
+        } else if (right == null) {
+            left
+        } else {
+            left.multiply(right, mc)
+        }
     }
 
     /** Teile einer Ansicht ([PortfolioScaledParts]); die Produkte von hinten nach vorn, je Bereich einmal. */

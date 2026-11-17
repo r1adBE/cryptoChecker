@@ -43,7 +43,13 @@ class PortfolioHoldingsBook(val method: CostMethod = CostMethod.DEFAULT) {
     fun capFor(e: PortfolioLedgerEvent): BigDecimal {
         if (!perWallet) return held(potOf(e))
         val t = e.trade
-        val raw = if (e.feeLeg) PortfolioWallets.of(e) else if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange
+        val raw = if (e.feeLeg) {
+            PortfolioWallets.of(e)
+        } else if (t.type == PortfolioTxType.TRANSFER) {
+            t.transferFrom
+        } else {
+            t.exchange
+        }
         return held(walletKey(e, raw))
     }
 

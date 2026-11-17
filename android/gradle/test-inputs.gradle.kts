@@ -53,7 +53,12 @@ val testInputRoots: List<String> = listOf(
 // Nur für die Ordner neben `android/` (beginnen mit `../`). Nie Quelltext: Build-Ergebnisse von Xcode/SwiftPM,
 // Nutzerdaten von Xcode, Python-Zwischenspeicher und die Angaben für die App-Prüfung (liest kein Test).
 val testInputExcludes: List<String> = listOf(
-    "**/build/**", "**/.build/**", "**/DerivedData/**", "**/xcuserdata/**", "**/__pycache__/**", "**/.DS_Store",
+    "**/build/**",
+    "**/.build/**",
+    "**/DerivedData/**",
+    "**/xcuserdata/**",
+    "**/__pycache__/**",
+    "**/.DS_Store",
     "**/review_information/**",
 )
 

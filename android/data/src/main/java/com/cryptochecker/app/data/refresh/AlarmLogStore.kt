@@ -1,16 +1,16 @@
 package com.cryptochecker.app.data.refresh
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogState
-import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import java.io.File
+import javax.crypto.SecretKey
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.io.File
-import javax.crypto.SecretKey
 
 /**
  * Speicher des Alarm-Protokolls ([AlarmLog]), neben «Letzte Prüfungen» ([CheckRunStore]): eine Datei in

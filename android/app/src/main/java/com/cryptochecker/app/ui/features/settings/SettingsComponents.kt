@@ -2,10 +2,7 @@
 
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.CardPadding
-import com.cryptochecker.app.ui.components.AppCard
-import com.cryptochecker.app.ui.components.sectionTitleMarker
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,20 +25,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.annotation.DrawableRes
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.CardPadding
+import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Gruppe der Hauptseite als Karte wie die Karten im Markt-Tab «Jetzt» (Fläche surfaceContainer,

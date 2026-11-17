@@ -1,6 +1,5 @@
 package com.cryptochecker.app
 
-import com.cryptochecker.resources.R
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -15,15 +14,17 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.DocumentPickerStub
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -31,7 +32,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Die wichtigsten Abläufe über die Oberfläche (wie `CryptoCheckerUITests` in iOS, gleiche Schritte, gleiche
@@ -62,10 +62,10 @@ class UiFlowsTest {
     @get:Rule(order = 2)
     val picker = DocumentPickerStub()
 
-    @get:Rule(order = 3)
     // v2-Regel: Compose-Koroutinen laufen über den Testtakt auf dem UI-Thread. Die alte Regel liess sie auf
     // dem Thread weiterlaufen, der sie weckte (Flows mit flowOn, DataStore) — daher die seltenen Compose-Abstürze
     // («Reentrant composition», SlotTable) in importCsvAndUndo.
+    @get:Rule(order = 3)
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject
@@ -339,11 +339,13 @@ class UiFlowsTest {
 
     private companion object {
         const val TIMEOUT = 15_000L
+
         /** Paarlisten aller Börsen laden (die meisten antworten 404) bzw. Datei lesen und Kurse holen. */
         const val LIST_TIMEOUT = 60_000L
         const val DIALOG_TIMEOUT = 3_000L
         const val ALARM_THRESHOLD = 200_000
         const val CSV_FIXTURE = "uitest_portfolio.csv"
+
         /** Zeilen in [CSV_FIXTURE]: Kauf BTC, Kauf ETH. */
         const val FIXTURE_TRANSACTIONS = 2
         const val BACKUP_FILE = "uitest_backup.json"

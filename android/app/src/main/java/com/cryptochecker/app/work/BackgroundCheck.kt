@@ -1,13 +1,12 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckOrigin
@@ -18,18 +17,19 @@ import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshSummary
-import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.domain.util.BackgroundErrorCounter
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
+import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.PulseWidgetRenderer
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Eine Kurs- und Alarmprüfung im Hintergrund: gemeinsamer Weg für WorkManager
@@ -100,9 +100,16 @@ class BackgroundCheck @Inject constructor(
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
-        val summary = running.withLock { runLocked(
-            trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis, stopDetail,
-        ) } ?: return null
+        val summary = running.withLock {
+            runLocked(
+                trigger,
+                networkGuaranteed,
+                startedAt,
+                deadlineAt,
+                dedupeWindowMillis,
+                stopDetail,
+            )
+        } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu
         // 20 s und mehr, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg
         try {
@@ -158,7 +165,9 @@ class BackgroundCheck @Inject constructor(
             // Herkunft fürs Alarm-Protokoll («im Hintergrund», «pünktlich», «über Widget»), siehe CheckOrigin
             return withContext(CheckOrigin(trigger)) {
                 priceRefresher.refreshAll(
-                    awaitPortfolioSnapshot = true, networkGuaranteed = networkGuaranteed, deadlineAt = deadlineAt,
+                    awaitPortfolioSnapshot = true,
+                    networkGuaranteed = networkGuaranteed,
+                    deadlineAt = deadlineAt,
                 )
             }
         } catch (e: CancellationException) {

@@ -1,11 +1,11 @@
 package com.cryptochecker.app.wearable
 
+import java.io.File
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import java.io.File
 
 /**
  * Der Stand des Handys erreicht auch eine Uhr, deren App erst später dazukommt: die Fähigkeit der Uhr-App meldet sich
@@ -29,7 +29,11 @@ class PhoneWatchRepublishTest {
     fun watchAppChangeRepublishesEverything() {
         val calls = mutableListOf<String>()
         fun change(name: String, reachable: Boolean) = PhoneWatchListener.watchAppChanged(
-            name, reachable, { calls += "reachable=$it" }, republish = { calls += "republish" }, resend = { calls += "resend" },
+            name,
+            reachable,
+            { calls += "reachable=$it" },
+            republish = { calls += "republish" },
+            resend = { calls += "resend" },
         )
         change(PhoneWatchSync.CAPABILITY, reachable = true)
         assertEquals(listOf("reachable=true", "republish", "resend"), calls)
@@ -63,8 +67,20 @@ class PhoneWatchRepublishTest {
     fun portfolioRemembersOnlyWhatWasPut() = runBlocking<Unit> {
         val sent = mutableListOf<String>()
         assertEquals(null, PhoneWatchFeed.sentIfNew("A", null) { false })
-        assertEquals("A", PhoneWatchFeed.sentIfNew("A", null) { sent += it; true })
-        assertEquals("A", PhoneWatchFeed.sentIfNew("A", "A") { sent += it; true })
+        assertEquals(
+            "A",
+            PhoneWatchFeed.sentIfNew("A", null) {
+                sent += it
+                true
+            }
+        )
+        assertEquals(
+            "A",
+            PhoneWatchFeed.sentIfNew("A", "A") {
+                sent += it
+                true
+            }
+        )
         assertEquals(listOf("A"), sent)
     }
 

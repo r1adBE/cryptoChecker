@@ -37,15 +37,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Einrichten des Widgets «Was gerade auffällt»: Hintergrund und Deckkraft wie bei den

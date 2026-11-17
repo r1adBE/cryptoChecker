@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONArray
 import org.json.JSONObject
@@ -36,8 +36,14 @@ object BitfinexCandles : ExchangeCandleSource {
         val a = JSONArray(json)
         (0 until a.length()).mapNotNull { i ->
             val k = a.optJSONArray(i) ?: return@mapNotNull null
-            HourCandle(openTime = k.numAt(0).toLong(), open = k.numAt(1), close = k.numAt(2), high = k.numAt(3),
-                low = k.numAt(4), volume = k.numAt(5))
+            HourCandle(
+                openTime = k.numAt(0).toLong(),
+                open = k.numAt(1),
+                close = k.numAt(2),
+                high = k.numAt(3),
+                low = k.numAt(4),
+                volume = k.numAt(5)
+            )
         }
     }
 }
@@ -90,8 +96,15 @@ object BitgetCandles : ExchangeCandleSource {
         return with(CandleParse) {
             (0 until data.length()).mapNotNull { i ->
                 val k = data.optJSONArray(i) ?: return@mapNotNull null
-                HourCandle(openTime = k.numAt(0).toLong(), open = k.numAt(1), high = k.numAt(2), low = k.numAt(3),
-                    close = k.numAt(4), volume = k.numAt(5), quoteVolume = quoteVolume(k.numAt(6)))
+                HourCandle(
+                    openTime = k.numAt(0).toLong(),
+                    open = k.numAt(1),
+                    high = k.numAt(2),
+                    low = k.numAt(3),
+                    close = k.numAt(4),
+                    volume = k.numAt(5),
+                    quoteVolume = quoteVolume(k.numAt(6))
+                )
             }
         }
     }
@@ -106,8 +119,9 @@ object GateIoCandles : ExchangeCandleSource {
     override suspend fun fetch(pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHttp): List<HourCandle>? {
         val id = CandleTime.pairId(pair) ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
-        val body = http.get("https://api.gateio.ws/api/v4/spot/candlesticks?currency_pair=$id&interval=$code&limit=${limit.coerceAtMost(1000)}")
-            ?: return null
+        val body =
+            http.get("https://api.gateio.ws/api/v4/spot/candlesticks?currency_pair=$id&interval=$code&limit=${limit.coerceAtMost(1000)}")
+                ?: return null
         return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
@@ -115,8 +129,15 @@ object GateIoCandles : ExchangeCandleSource {
         val a = JSONArray(json)
         (0 until a.length()).mapNotNull { i ->
             val k = a.optJSONArray(i) ?: return@mapNotNull null
-            HourCandle(openTime = k.numAt(0).toLong() * 1000L, open = k.numAt(5), high = k.numAt(3), low = k.numAt(4),
-                close = k.numAt(2), volume = k.numAt(6), quoteVolume = quoteVolume(k.numAt(1)))
+            HourCandle(
+                openTime = k.numAt(0).toLong() * 1000L,
+                open = k.numAt(5),
+                high = k.numAt(3),
+                low = k.numAt(4),
+                close = k.numAt(2),
+                volume = k.numAt(6),
+                quoteVolume = quoteVolume(k.numAt(1))
+            )
         }
     }
 }
@@ -152,8 +173,15 @@ object KucoinCandles : ExchangeCandleSource {
         return with(CandleParse) {
             (0 until data.length()).mapNotNull { i ->
                 val k = data.optJSONArray(i) ?: return@mapNotNull null
-                HourCandle(openTime = k.numAt(0).toLong() * 1000L, open = k.numAt(1), close = k.numAt(2), high = k.numAt(3),
-                    low = k.numAt(4), volume = k.numAt(5), quoteVolume = quoteVolume(k.numAt(6)))
+                HourCandle(
+                    openTime = k.numAt(0).toLong() * 1000L,
+                    open = k.numAt(1),
+                    close = k.numAt(2),
+                    high = k.numAt(3),
+                    low = k.numAt(4),
+                    volume = k.numAt(5),
+                    quoteVolume = quoteVolume(k.numAt(6))
+                )
             }
         }
     }
@@ -208,13 +236,20 @@ object MexcFuturesCandles : ExchangeCandleSource {
         if (!root.optBoolean("success", false)) return null
         val d = root.optJSONObject("data") ?: return null
         val time = d.optJSONArray("time") ?: return null
-        fun col(name: String, i: Int): Double = d.optJSONArray(name)?.let { if (i < it.length()) CandleParse.num(it.opt(i)) else Double.NaN } ?: Double.NaN
+        fun col(name: String, i: Int): Double =
+            d.optJSONArray(name)?.let { if (i < it.length()) CandleParse.num(it.opt(i)) else Double.NaN } ?: Double.NaN
         return (0 until time.length()).map { i ->
             val close = col("close", i)
             val amount = col("amount", i)
-            HourCandle(openTime = CandleParse.num(time.opt(i)).toLong() * 1000L, open = col("open", i), high = col("high", i),
-                low = col("low", i), close = close, volume = CandleTime.baseFromQuote(amount, close),
-                quoteVolume = CandleParse.quoteVolume(amount))
+            HourCandle(
+                openTime = CandleParse.num(time.opt(i)).toLong() * 1000L,
+                open = col("open", i),
+                high = col("high", i),
+                low = col("low", i),
+                close = close,
+                volume = CandleTime.baseFromQuote(amount, close),
+                quoteVolume = CandleParse.quoteVolume(amount)
+            )
         }
     }
 }
@@ -248,9 +283,15 @@ object HtxCandles : ExchangeCandleSource {
         val data = root.optJSONArray("data") ?: return null
         return (0 until data.length()).mapNotNull { i ->
             val o = data.optJSONObject(i) ?: return@mapNotNull null
-            HourCandle(openTime = CandleParse.num(o.opt("id")).toLong() * 1000L, open = CandleParse.num(o.opt("open")),
-                high = CandleParse.num(o.opt("high")), low = CandleParse.num(o.opt("low")), close = CandleParse.num(o.opt("close")),
-                volume = CandleParse.num(o.opt("amount")), quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("vol"))))
+            HourCandle(
+                openTime = CandleParse.num(o.opt("id")).toLong() * 1000L,
+                open = CandleParse.num(o.opt("open")),
+                high = CandleParse.num(o.opt("high")),
+                low = CandleParse.num(o.opt("low")),
+                close = CandleParse.num(o.opt("close")),
+                volume = CandleParse.num(o.opt("amount")),
+                quoteVolume = CandleParse.quoteVolume(CandleParse.num(o.opt("vol")))
+            )
         }
     }
 }
@@ -272,7 +313,9 @@ object GeminiCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         for (frame in frames) {
-            val raw = http.get("https://api.gemini.com/v2/candles/$id/$frame")?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: continue
+            val raw =
+                http.get("https://api.gemini.com/v2/candles/$id/$frame")?.let { runCatchingCancellable { parse(it) }.getOrNull() }
+                    ?: continue
             val candles = (if (interval == CandleInterval.H4) CandleTime.fourHours(raw) else raw) ?: continue
             return CandleParse.finish(candles, limit)
         }
@@ -283,8 +326,14 @@ object GeminiCandles : ExchangeCandleSource {
         val a = JSONArray(json)
         (0 until a.length()).mapNotNull { i ->
             val k = a.optJSONArray(i) ?: return@mapNotNull null
-            HourCandle(openTime = k.numAt(0).toLong(), open = k.numAt(1), high = k.numAt(2), low = k.numAt(3),
-                close = k.numAt(4), volume = k.numAt(5))
+            HourCandle(
+                openTime = k.numAt(0).toLong(),
+                open = k.numAt(1),
+                high = k.numAt(2),
+                low = k.numAt(3),
+                close = k.numAt(4),
+                volume = k.numAt(5)
+            )
         }
     }
 }
@@ -320,9 +369,14 @@ object CryptoComCandles : ExchangeCandleSource {
         val data = root.optJSONObject("result")?.optJSONArray("data") ?: return null
         return (0 until data.length()).mapNotNull { i ->
             val o = data.optJSONObject(i) ?: return@mapNotNull null
-            HourCandle(openTime = CandleParse.num(o.opt("t")).toLong(), open = CandleParse.num(o.opt("o")),
-                high = CandleParse.num(o.opt("h")), low = CandleParse.num(o.opt("l")), close = CandleParse.num(o.opt("c")),
-                volume = CandleParse.num(o.opt("v")))
+            HourCandle(
+                openTime = CandleParse.num(o.opt("t")).toLong(),
+                open = CandleParse.num(o.opt("o")),
+                high = CandleParse.num(o.opt("h")),
+                low = CandleParse.num(o.opt("l")),
+                close = CandleParse.num(o.opt("c")),
+                volume = CandleParse.num(o.opt("v"))
+            )
         }
     }
 }

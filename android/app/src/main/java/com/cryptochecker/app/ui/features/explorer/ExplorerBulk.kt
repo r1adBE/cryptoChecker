@@ -1,13 +1,16 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.components.ExpandChevronIcon
-import com.cryptochecker.app.ui.components.ExpandToggleButton
-import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.layout.*
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -17,7 +20,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,17 +40,20 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.saveable.rememberSaveable
-import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.domain.format.CompactAmount
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.FavoriteKind
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.ui.components.ChangePill
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.DropdownField
-import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.components.ExpandChevronIcon
+import com.cryptochecker.app.ui.components.ExpandToggleButton
+import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.resources.R
 
 /** So viele Paare zeigt die Vorschau, bevor «Alle anzeigen» den Rest aufklappt. */
 private const val BULK_PREVIEW_ROWS = 25
@@ -92,21 +105,23 @@ internal fun BulkPairsCard(
     val showBulk = asTab || bulkOpen
     val gap = 12.dp
     StepCard {
-        if (!asTab) Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(MaterialTheme.shapes.small)
-                .clickable { onBulkOpenChange(!showBulk) }
-                .padding(vertical = 4.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.explorer_bulk_title),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.weight(1f)
-            )
-            // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie ExpandToggleButton)
-            ExpandChevronIcon(expanded = showBulk)
+        if (!asTab) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.small)
+                    .clickable { onBulkOpenChange(!showBulk) }
+                    .padding(vertical = 4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.explorer_bulk_title),
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.weight(1f)
+                )
+                // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie ExpandToggleButton)
+                ExpandChevronIcon(expanded = showBulk)
+            }
         }
         if (showBulk) {
             if (!asTab) Spacer(modifier = Modifier.size(gap))
@@ -255,8 +270,11 @@ private fun BulkPairRow(
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .background(
-                if (selected) AppColors.accentTint(0.12f)
-                else Color.Transparent
+                if (selected) {
+                    AppColors.accentTint(0.12f)
+                } else {
+                    Color.Transparent
+                }
             )
             // Einzelauswahl: TalkBack sagt «ausgewählt» an (nicht nur die Hinterlegung zeigt es),
             // Trefferfläche mind. 48 dp

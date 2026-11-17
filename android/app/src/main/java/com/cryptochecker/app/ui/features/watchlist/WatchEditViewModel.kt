@@ -5,23 +5,24 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.live.LivePriceStream
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -31,7 +32,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 /** Zustand des Formulars «Paar bearbeiten». */
 data class WatchEditState(
@@ -53,8 +53,11 @@ data class WatchEditState(
     val bases: List<String> get() = pairs?.baseCurrencies?.toList().orEmpty()
     val quotes: List<String> get() = base?.let { pairs?.getQuoteCurrencies(it)?.toList() }.orEmpty()
     val contracts: List<FuturesContractType>
-        get() = if (base == null || quote == null) emptyList()
-        else pairs?.getAvailableFuturesContractsTypes(base, quote).orEmpty()
+        get() = if (base == null || quote == null) {
+            emptyList()
+        } else {
+            pairs?.getAvailableFuturesContractsTypes(base, quote).orEmpty()
+        }
 
     /** Gewähltes Paar der Börse; null, solange nichts Vollständiges gewählt ist. */
     val pair: ExchangePair?

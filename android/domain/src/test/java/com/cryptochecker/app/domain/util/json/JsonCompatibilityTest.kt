@@ -117,8 +117,11 @@ class JsonCompatibilityTest {
         // Einzelwerte mit dem Schreiber ihrer eigenen Umsetzung (Zahlen, Text-Escapes, null)
         JSONObject.NULL -> "null"
         JsonNull -> JsonArray().put(JsonNull).toString().removeSurrounding("[", "]")
-        else -> if (ownScalar) JsonArray().put(value).toString().removeSurrounding("[", "]")
-        else JSONArray().put(value).toString().removeSurrounding("[", "]")
+        else -> if (ownScalar) {
+            JsonArray().put(value).toString().removeSurrounding("[", "]")
+        } else {
+            JSONArray().put(value).toString().removeSurrounding("[", "]")
+        }
     }
 
     /** true, solange [canon] einen Wert aus [JsonObject]/[JsonArray] schreibt (gesetzt in [canonOwn]). */
@@ -126,7 +129,11 @@ class JsonCompatibilityTest {
 
     private fun canonOwn(value: Any): String {
         ownScalar = true
-        return try { canon(value) } finally { ownScalar = false }
+        return try {
+            canon(value)
+        } finally {
+            ownScalar = false
+        }
     }
 
     /** Ergebnis oder «Fehler» (Meldungen dürfen sich unterscheiden). */

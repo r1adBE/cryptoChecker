@@ -100,8 +100,10 @@ object WatchDataLayer {
     /** Einträge aller Geräte unter [path]; leer = keine, null = nicht lesbar (keine Play-Dienste, Fehler). */
     private suspend fun items(context: Context, path: String): List<Item>? = withContext(Dispatchers.IO) {
         WatchTaskAwait.catching {
-            val buffer = WatchTaskAwait.await(Wearable.getDataClient(context).getDataItems("wear://*$path".toUri()),
-                TIMEOUT_S)
+            val buffer = WatchTaskAwait.await(
+                Wearable.getDataClient(context).getDataItems("wear://*$path".toUri()),
+                TIMEOUT_S
+            )
             try {
                 buffer.map { Item(it.uri.host, DataMapItem.fromDataItem(it).dataMap.getString(KEY), path) }
             } finally {
@@ -148,8 +150,12 @@ object WatchDataLayer {
      */
     suspend fun take(context: Context, store: WatchStore, items: List<Item>): Taken {
         val settings = items.filter { it.path == PATH }
-        val phone = if (settings.isEmpty()) null else withContext(Dispatchers.IO) {
-            WatchTaskAwait.catching { newestRemote(context, settings) }.getOrNull()
+        val phone = if (settings.isEmpty()) {
+            null
+        } else {
+            withContext(Dispatchers.IO) {
+                WatchTaskAwait.catching { newestRemote(context, settings) }.getOrNull()
+            }
         }
         phone?.let { take(store, it) }
         val gone = phone == null && settings.isNotEmpty() && forgotten(context, settings)

@@ -201,7 +201,10 @@ class ActivityAnalyzerTest {
         assertEquals(SignalKind.FUNDING_EXTREME, hourly.kind)
         assertEquals(0.0125, hourly.value, 1e-12)
         assertEquals(1.0, hourly.factor!!, 1e-12)
-        assertEquals(SignalSeverity.STRONG, ActivityAnalyzer.signals(null, -0.03, null, null, now, fundingSource = "Hyperliquid").single().severity)
+        assertEquals(
+            SignalSeverity.STRONG,
+            ActivityAnalyzer.signals(null, -0.03, null, null, now, fundingSource = "Hyperliquid").single().severity
+        )
         // Derselbe Satz einer 8-Stunden-Börse ist unauffällig
         assertTrue(ActivityAnalyzer.signals(null, 0.0125, null, null, now, fundingSource = "Bybit").isEmpty())
         assertNull(ActivityAnalyzer.signals(null, 0.1, null, null, now, fundingSource = "Bybit").single().factor)
@@ -273,7 +276,8 @@ class ActivityAnalyzerTest {
     fun undeliverableNotice_staysPendingWhileSignalActive() {
         val move = setOf(SignalKind.PRICE_MOVE)
         val report = ActivityReport(
-            listOf(ActivitySignal(SignalKind.PRICE_MOVE, SignalSeverity.STRONG, 5.0, seenAt = now)), now
+            listOf(ActivitySignal(SignalKind.PRICE_MOVE, SignalSeverity.STRONG, 5.0, seenAt = now)),
+            now
         )
         // Nicht zugestellt: Arten bleiben offen; zugestellt bzw. nicht fällig: nichts offen
         assertEquals(move, ActivityAnalyzer.pendingAfter(move, notify = true, posted = false))
@@ -283,10 +287,14 @@ class ActivityAnalyzerTest {
         assertEquals(move, ActivityAnalyzer.noticeKinds(emptySet(), move, report, now + 10 * 60_000L))
         assertTrue(ActivityAnalyzer.shouldNotify(true, ActivityAnalyzer.noticeKinds(emptySet(), move, report, now), 0, now))
         // Abgelaufen oder nicht mehr im Bericht: fällt weg
-        assertEquals(emptySet<SignalKind>(),
-            ActivityAnalyzer.noticeKinds(emptySet(), move, report, now + ActivityAnalyzer.SIGNAL_TTL_MILLIS + 1))
-        assertEquals(setOf(SignalKind.VOLUME_SPIKE),
-            ActivityAnalyzer.noticeKinds(setOf(SignalKind.VOLUME_SPIKE), setOf(SignalKind.FUNDING_EXTREME), report, now))
+        assertEquals(
+            emptySet<SignalKind>(),
+            ActivityAnalyzer.noticeKinds(emptySet(), move, report, now + ActivityAnalyzer.SIGNAL_TTL_MILLIS + 1)
+        )
+        assertEquals(
+            setOf(SignalKind.VOLUME_SPIKE),
+            ActivityAnalyzer.noticeKinds(setOf(SignalKind.VOLUME_SPIKE), setOf(SignalKind.FUNDING_EXTREME), report, now)
+        )
     }
 
     @Test

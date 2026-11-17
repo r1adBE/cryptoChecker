@@ -10,6 +10,7 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -20,7 +21,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Portfolio-Alarm auf dem Gerät: die echte Mitteilung trägt nur den Titel und den
@@ -50,8 +50,13 @@ class PortfolioAlarmNoticeDeviceTest {
     fun tearDown() = manager.cancel(id)
 
     private fun texts(n: Notification): List<CharSequence?> = listOf(
-        Notification.EXTRA_TITLE, Notification.EXTRA_TITLE_BIG, Notification.EXTRA_TEXT, Notification.EXTRA_BIG_TEXT,
-        Notification.EXTRA_SUB_TEXT, Notification.EXTRA_INFO_TEXT, Notification.EXTRA_SUMMARY_TEXT,
+        Notification.EXTRA_TITLE,
+        Notification.EXTRA_TITLE_BIG,
+        Notification.EXTRA_TEXT,
+        Notification.EXTRA_BIG_TEXT,
+        Notification.EXTRA_SUB_TEXT,
+        Notification.EXTRA_INFO_TEXT,
+        Notification.EXTRA_SUMMARY_TEXT,
     ).map { n.extras.getCharSequence(it) } + n.tickerText
 
     @Test

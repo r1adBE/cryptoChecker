@@ -2,8 +2,8 @@
 // Gewinn/Verlust und Bestand im Zeitraum. Erweiterungsfunktionen, der Ablauf bleibt in `PortfolioHistory`.
 package com.cryptochecker.app.domain.portfolio
 
-import java.math.BigDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory.DayCell
+import java.math.BigDecimal
 
 /** Punkte je Tag als Summe der [coins] (× [rate]); Eröffnung/Hoch/Tief nur, wenn ein Coin eine Kerze hatte. */
 fun PortfolioHistory.sumCells(
@@ -31,7 +31,13 @@ fun PortfolioHistory.sumCells(
         }
         val day = start + index
         out += if (withRange) {
-            PortfolioHistoryPoint(day, total.toDouble() * rate, totalOpen.toDouble() * rate, totalHigh.toDouble() * rate, totalLow.toDouble() * rate)
+            PortfolioHistoryPoint(
+                day,
+                total.toDouble() * rate,
+                totalOpen.toDouble() * rate,
+                totalHigh.toDouble() * rate,
+                totalLow.toDouble() * rate
+            )
         } else {
             PortfolioHistoryPoint(day, total.toDouble() * rate)
         }

@@ -86,8 +86,11 @@ class DatabaseFreshInstallTest {
                 // Einzahlung mit ursprünglichem Kaufdatum (Spalte `acquiredTime`)
                 dao.insert(
                     com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
-                        coin = "ETH", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.DEPOSIT,
-                        amount = java.math.BigDecimal("1"), time = 3, acquiredTime = 1_600_000_000_000L,
+                        coin = "ETH",
+                        type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.DEPOSIT,
+                        amount = java.math.BigDecimal("1"),
+                        time = 3,
+                        acquiredTime = 1_600_000_000_000L,
                     )
                 )
                 assertEquals(
@@ -97,9 +100,13 @@ class DatabaseFreshInstallTest {
                 // Tausch und Importlauf (Spalten `toCoin`, `toAmount`, `swapValueUsdt`, `importBatch`)
                 dao.insert(
                     com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
-                        coin = "BTC", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.SWAP,
-                        amount = java.math.BigDecimal("0.01"), time = 4, toCoin = "ETH",
-                        toAmount = java.math.BigDecimal("0.25000001"), swapValueUsdt = java.math.BigDecimal("600.5"),
+                        coin = "BTC",
+                        type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.SWAP,
+                        amount = java.math.BigDecimal("0.01"),
+                        time = 4,
+                        toCoin = "ETH",
+                        toAmount = java.math.BigDecimal("0.25000001"),
+                        swapValueUsdt = java.math.BigDecimal("600.5"),
                         importBatch = "RELAI:5:0000abcd",
                     )
                 )
@@ -113,7 +120,10 @@ class DatabaseFreshInstallTest {
                 // Beobachtete Adressen über Room; gleiche Adresse ein zweites Mal wird ignoriert
                 val addresses = room.getWatchedAddressDao()
                 val row = com.cryptochecker.app.data.portfolio.WatchedAddressEntity(
-                    chain = "BTC", address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq", label = "Cold", addedAt = 5,
+                    chain = "BTC",
+                    address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+                    label = "Cold",
+                    addedAt = 5,
                 )
                 assertTrue(addresses.insert(row) > 0)
                 assertEquals(-1L, addresses.insert(row))
@@ -128,7 +138,11 @@ class DatabaseFreshInstallTest {
                 )
                 // Eröffnungsposten (Spalte `costLots`, JSON); ein Abruf (observations) lässt sie stehen
                 val lot = com.cryptochecker.app.domain.portfolio.AddressCostLot(
-                    1, "BTC", 1_600_000_000_000L, java.math.BigDecimal("0.3"), java.math.BigDecimal("10000"),
+                    1,
+                    "BTC",
+                    1_600_000_000_000L,
+                    java.math.BigDecimal("0.3"),
+                    java.math.BigDecimal("10000"),
                 )
                 addresses.setCostLots(id, com.cryptochecker.app.domain.portfolio.AddressCostLots.encode(listOf(lot)))
                 addresses.setObservations(id, "[{\"t\":6,\"b\":\"0.2\"}]")
@@ -146,15 +160,23 @@ class DatabaseFreshInstallTest {
             com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.encode(
                 txs = listOf(
                     com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
-                        id = 4, coin = "ETH", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
-                        amount = java.math.BigDecimal("2"), priceUsdt = java.math.BigDecimal("3000"),
-                        time = 1_700_000_000_000L, note = "Ledger",
+                        id = 4,
+                        coin = "ETH",
+                        type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
+                        amount = java.math.BigDecimal("2"),
+                        priceUsdt = java.math.BigDecimal("3000"),
+                        time = 1_700_000_000_000L,
+                        note = "Ledger",
                     )
                 ),
                 alarms = listOf(
                     com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity(
-                        id = 2, kind = com.cryptochecker.app.domain.alarm.PortfolioAlarmKind.VALUE_BELOW,
-                        threshold = 5_000.0, currency = "EUR", referenceAt = 123, lastTriggeredAt = 456,
+                        id = 2,
+                        kind = com.cryptochecker.app.domain.alarm.PortfolioAlarmKind.VALUE_BELOW,
+                        threshold = 5_000.0,
+                        currency = "EUR",
+                        referenceAt = 123,
+                        lastTriggeredAt = 456,
                     )
                 ),
             )
@@ -196,7 +218,8 @@ class DatabaseFreshInstallTest {
 
         // Nächster Start: ein zweiter Versuch, dann gelöscht (kein dauerhafter Klartext) — und die App nennt es einmal
         com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledge(
-            context, com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
+            context,
+            com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
         )
         withPortfolio { portfolio -> assertEquals(0, count(portfolio, "portfolio_tx")) }
         assertFalse(failed.exists())
@@ -205,7 +228,8 @@ class DatabaseFreshInstallTest {
             com.cryptochecker.app.data.local.StorageRecoveryNotice.pending(context),
         )
         com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledge(
-            context, com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
+            context,
+            com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
         )
     }
 
@@ -241,7 +265,10 @@ class DatabaseFreshInstallTest {
             .use { it.moveToFirst() }
 
     private fun count(db: SupportSQLiteDatabase, from: String): Int =
-        db.query("SELECT COUNT(*) FROM $from").use { c -> c.moveToFirst(); c.getInt(0) }
+        db.query("SELECT COUNT(*) FROM $from").use { c ->
+            c.moveToFirst()
+            c.getInt(0)
+        }
 
     internal companion object {
         const val TEST_DB = "fresh-install-test.db"

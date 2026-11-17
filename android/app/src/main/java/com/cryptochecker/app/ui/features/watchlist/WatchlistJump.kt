@@ -42,18 +42,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.watch.WatchJump
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
 
 /** Sprungknopf: sichtbarer Durchmesser und Abstand des sichtbaren Kreises zum unteren und seitlichen Rand. */
 internal val JumpButtonSize = 40.dp

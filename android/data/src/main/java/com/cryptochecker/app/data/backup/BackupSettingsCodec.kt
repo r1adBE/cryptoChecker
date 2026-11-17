@@ -1,12 +1,12 @@
 package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.backup.BackupFields.Type
-import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.domain.portfolio.AddressServer
-import com.cryptochecker.app.domain.watch.ColumnSort
-import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.data.settings.SettingsBackupTarget
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.watch.ColumnSort
 import javax.inject.Inject
 import org.json.JSONObject
 

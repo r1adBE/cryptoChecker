@@ -28,12 +28,14 @@ private data class UkDays(
 
 private fun TaxEngines.ukDays(steps: List<TaxStep>, zone: ZoneId): UkDays {
     val days = UkDays(sortedMapOf(), HashMap(), HashMap(), HashMap())
-    for (s in steps) if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
-        val d = day(s.acquired, zone)
-        days.pools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired, s.costEstimated)
-        days.first[d] = minOf(days.first[d] ?: Long.MAX_VALUE, s.acquired)
-        days.left[d] = (days.left[d] ?: BigDecimal.ZERO) + s.qty
-        if (!moved(s, zone)) days.own[d] = (days.own[d] ?: BigDecimal.ZERO) + s.qty
+    for (s in steps) {
+        if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
+            val d = day(s.acquired, zone)
+            days.pools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired, s.costEstimated)
+            days.first[d] = minOf(days.first[d] ?: Long.MAX_VALUE, s.acquired)
+            days.left[d] = (days.left[d] ?: BigDecimal.ZERO) + s.qty
+            if (!moved(s, zone)) days.own[d] = (days.own[d] ?: BigDecimal.ZERO) + s.qty
+        }
     }
     return days
 }
@@ -60,14 +62,20 @@ private fun ukSplit(remaining: Map<TaxStep, BigDecimal>, group: List<TaxStep>, q
 private fun TaxEngines.ukDeferred(steps: List<TaxStep>, groups: Map<LocalDate, List<TaxStep>>, zone: ZoneId): Map<TaxStep, List<TaxStep>> {
     val index = steps.withIndex().associate { (i, s) -> s to i }
     val deferred = HashMap<TaxStep, ArrayList<TaxStep>>()
-    for (s in steps) if (s.kind == TaxStepKind.REMOVE) {
-        val group = groups[day(s.time, zone)] ?: continue
-        val i = index.getValue(s)
-        if (index.getValue(group.first()) < i && i < index.getValue(group.last())) deferred.getOrPut(group.last()) { ArrayList() } += s
+    for (s in steps) {
+        if (s.kind == TaxStepKind.REMOVE) {
+            val group = groups[day(s.time, zone)] ?: continue
+            val i = index.getValue(s)
+            if (index.getValue(group.first()) < i && i < index.getValue(group.last())) deferred.getOrPut(group.last()) { ArrayList() } += s
+        }
     }
     return deferred
 }
 
+/**
+ * Britische Regeln je Coin: gleicher Tag, 30 Tage, Section-104-Pool. Netzwerkgebühren sind schon eigene Verkäufe
+ * ([applyRules], HMRC CRYPTO22280) und zählen wie andere Abgänge; Gruppen je Tag zeitlich (Abgänge sind sortiert).
+ */
 fun TaxEngines.ukPool(
     coin: String,
     steps: List<TaxStep>,
@@ -75,18 +83,17 @@ fun TaxEngines.ukPool(
     lost: MutableList<PortfolioLostFeeCost>,
     unassigned: MutableList<PortfolioUnassignedFee>,
 ): List<PortfolioDisposal> {
-    // Netzwerkgebühren sind hier schon eigene Verkäufe ([applyRules], HMRC CRYPTO22280) — sie zählen so in der
-    // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
     val (dayPools, dayFirst, dayLeft, dayOwn) = ukDays(steps, zone)
     val disposes = steps.filter { it.kind == TaxStepKind.DISPOSE }
     val remaining = HashMap<TaxStep, BigDecimal>()
     val pieces = HashMap<TaxStep, ArrayList<TaxPiece>>()
-    disposes.forEach { remaining[it] = it.qty; pieces[it] = ArrayList() }
-    // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200): jede Zuordnung (gleicher Tag, 30 Tage, Pool) gilt der
-    // Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt ([ukSplit])
+    disposes.forEach {
+        remaining[it] = it.qty
+        pieces[it] = ArrayList()
+    }
+    // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200); Zuordnung anteilig nach offenem Rest ([ukSplit])
     fun split(group: List<TaxStep>, q: BigDecimal, take: (TaxStep, BigDecimal) -> Unit) = ukSplit(remaining, group, q, take)
     fun openOf(group: List<TaxStep>): BigDecimal = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
-    // Gruppen je Tag, zeitlich (Abgänge sind zeitlich sortiert)
     val groups = disposes.groupBy { day(it.time, zone) }
     // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
     for ((d, group) in groups) {
@@ -112,15 +119,14 @@ fun TaxEngines.ukPool(
     }
     // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
     val groupAt = groups.values.associateBy { it.last() }
-    // Auszahlung zwischen zwei Abgängen derselben Gruppe: erst nach deren Pool-Teil gebucht (die Abgänge des Tags sind
-    // EINE Veräusserung und werden zuerst zugeordnet) — sonst leerte sie den Pool vor dem früheren Abgang
+    // Auszahlung zwischen zwei Abgängen der Gruppe: erst nach deren Pool-Teil (sonst leerte sie den Pool vorher)
     val deferred = ukDeferred(steps, groups, zone)
     val deferredSteps = deferred.values.flatten().toHashSet()
-    // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
-    // Buchungstag), Rest der Abgänge aus dem Pool
+    // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Nachbuchungen am Buchungstag), Abgänge daraus
     val pool = TaxPool(zone)
     val added = HashSet<LocalDate>()
     val out = ArrayList<PortfolioDisposal>()
+
     // Anteil [q] der noch nicht übernommenen Menge des Tages [d] vom Rest seines Tages-Zugangs in den Pool (zuletzt: alles)
     fun enter(d: LocalDate, q: BigDecimal) {
         val dp = dayPools[d] ?: return
@@ -162,7 +168,9 @@ fun TaxEngines.ukPool(
             TaxStepKind.REMOVE -> if (s !in deferredSteps) pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
             TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(
-                coin, s, pool.addFee(s.time, s.cost ?: BigDecimal.ZERO, s.trade.amount, s.trade.coinFee, s.costEstimated),
+                coin,
+                s,
+                pool.addFee(s.time, s.cost ?: BigDecimal.ZERO, s.trade.amount, s.trade.coinFee, s.costEstimated),
             )
         }
     }

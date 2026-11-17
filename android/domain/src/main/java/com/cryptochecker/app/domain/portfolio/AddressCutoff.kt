@@ -40,7 +40,16 @@ object AddressCutoff {
             part[key] = (part[key] ?: BigDecimal.ZERO) + AddressBalanceHistory.balanceAt(steps, cutoffMillis)
         }
         val unobserved = AddressBalanceHistory.balancesAt(histories, cutoffMillis).unobserved
-        return AddressCutoffView(lots, AddressBalancesAt(part.filterValues { it.signum() > 0 }, unobserved), lateLots(addresses, cutoffMillis))
+        return AddressCutoffView(
+            lots,
+            AddressBalancesAt(
+                part.filterValues {
+                    it.signum() > 0
+                },
+                unobserved
+            ),
+            lateLots(addresses, cutoffMillis)
+        )
     }
 
     /** Ein Posten mit Zeit ≤ Stichtag nach der letzten Beobachtung seines Coins ≤ Stichtag (siehe [AddressCutoffView]). */
@@ -52,7 +61,12 @@ object AddressCutoff {
                 val coin = PortfolioCalculator.normalizeCoin(h.coin)
                 seen[coin] = maxOf(seen[coin] ?: Long.MIN_VALUE, at.time)
             }
-            if (AddressCostLots.clean(a.costLots).any { l -> l.time <= cutoffMillis && seen[l.coin]?.let { l.time > it } == true }) return true
+            if (AddressCostLots.clean(a.costLots).any { l ->
+                    l.time <= cutoffMillis && seen[l.coin]?.let { l.time > it } == true
+                }
+            ) {
+                return true
+            }
         }
         return false
     }

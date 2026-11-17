@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /** Gemeinsame Testfälle `historic_close_chain.json` (iOS: `HistoricCloseChainParityTests.swift`). */
 class HistoricCloseChainParityTest {
@@ -44,8 +44,12 @@ class HistoricCloseChainParityTest {
     fun names() {
         data["names"].list().map { it.obj() }.forEach { c ->
             val allowed = HistoricCloseChain.nameAllowed(
-                c["base"] as String, c["own"] as Boolean, c["exchangeKey"] as String,
-                c["ownName"] as String?, c["binanceName"] as String?, c["providerName"] as String?,
+                c["base"] as String,
+                c["own"] as Boolean,
+                c["exchangeKey"] as String,
+                c["ownName"] as String?,
+                c["binanceName"] as String?,
+                c["providerName"] as String?,
             )
             assertEquals("names: $c", c["expected"], allowed)
         }
@@ -57,7 +61,11 @@ class HistoricCloseChainParityTest {
         assertTrue(cases.size >= 10)
         cases.forEach { c ->
             val verdict = HistoricCloseChain.decide(
-                c["close"].num(), c["latest"].num(), c["current"].num(), c["primary"] as Boolean, c["nameOk"] as Boolean,
+                c["close"].num(),
+                c["latest"].num(),
+                c["current"].num(),
+                c["primary"] as Boolean,
+                c["nameOk"] as Boolean,
             )
             assertEquals("decide: $c", c["expected"], verdict.name)
         }
@@ -73,7 +81,9 @@ class HistoricCloseChainParityTest {
                 asked += source
                 val o = outcomes[source]?.obj()
                 HistoricCloseChain.Outcome(
-                    o?.get("price").num(), o?.get("rejected") as Boolean? ?: false, o?.get("provider") as String?,
+                    o?.get("price").num(),
+                    o?.get("rejected") as Boolean? ?: false,
+                    o?.get("provider") as String?,
                     failed = o?.get("failed") as Boolean? ?: false,
                     unreachable = o?.get("unreachable") as Boolean? ?: false,
                 )
@@ -102,7 +112,8 @@ class HistoricCloseChainParityTest {
     fun acceptSeries() {
         data["acceptSeries"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "acceptSeries: $c", c["expected"],
+                "acceptSeries: $c",
+                c["expected"],
                 HistoricCloseChain.acceptSeries(c["latest"].num(), c["current"].num(), c["nameOk"] as Boolean),
             )
         }

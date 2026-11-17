@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Umbuchung, Belohnung, Ein-/Auszahlung und Gebühr in einem dritten Coin ([PortfolioLedger]).
@@ -18,9 +18,17 @@ class PortfolioTxTypesTest {
         assertEquals("expected $expected, got ${actual?.toPlainString()}", 0, dec(expected).compareTo(actual))
 
     private fun tx(
-        id: Long, coin: String, type: PortfolioTxType, amount: String, price: String?, time: Long,
-        fee: String? = null, unit: PortfolioFeeUnit? = null,
-        feeCoin: String? = null, feeAmount: String? = null, feePrice: String? = null,
+        id: Long,
+        coin: String,
+        type: PortfolioTxType,
+        amount: String,
+        price: String?,
+        time: Long,
+        fee: String? = null,
+        unit: PortfolioFeeUnit? = null,
+        feeCoin: String? = null,
+        feeAmount: String? = null,
+        feePrice: String? = null,
     ) = PortfolioTrade(
         id, coin, type, dec(amount), price?.let(::dec), time, fee?.let(::dec), unit,
         feeCoin, feeAmount?.let(::dec), feePrice?.let(::dec),
@@ -302,8 +310,14 @@ class PortfolioTxTypesTest {
     @Test
     fun `swap without value is estimated at the day close`() {
         val swap = PortfolioTrade(
-            id = 2, coin = "ETH", type = PortfolioTxType.SWAP, amount = dec("1"), priceUsdt = null, time = 2 * day,
-            toCoin = "BTC", toAmount = dec("0.05"),
+            id = 2,
+            coin = "ETH",
+            type = PortfolioTxType.SWAP,
+            amount = dec("1"),
+            priceUsdt = null,
+            time = 2 * day,
+            toCoin = "BTC",
+            toAmount = dec("0.05"),
         )
         val trades = listOf(tx(1, "ETH", PortfolioTxType.BUY, "1", "1000", day), swap)
         assertEquals(setOf("ETH" to 2 * day, "BTC" to 2 * day), PortfolioLedger.dayCloseNeeds(trades))

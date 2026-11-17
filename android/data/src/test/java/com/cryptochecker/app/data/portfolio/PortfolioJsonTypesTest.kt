@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
+import java.math.BigDecimal
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -10,7 +11,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Neue Arten und Felder in Sicherung und Systemsicherungs-Kopie ([PortfolioJson]). */
 class PortfolioJsonTypesTest {
@@ -34,9 +34,14 @@ class PortfolioJsonTypesTest {
 
     @Test
     fun nullFieldsReadAsNone() {
-        val o = PortfolioJson.txToJson(PortfolioTxEntity(id = 1, coin = "eth", type = PortfolioTxType.BUY, amount = BigDecimal("2"), time = 7L))
+        val o = PortfolioJson.txToJson(
+            PortfolioTxEntity(id = 1, coin = "eth", type = PortfolioTxType.BUY, amount = BigDecimal("2"), time = 7L)
+        )
         val t = PortfolioJson.jsonToTx(o)!!
-        assertNull(t.transferFrom); assertNull(t.transferTo); assertNull(t.feeCoin); assertNull(t.feeCoinAmount)
+        assertNull(t.transferFrom)
+        assertNull(t.transferTo)
+        assertNull(t.feeCoin)
+        assertNull(t.feeCoinAmount)
         assertEquals("ETH", t.coin)
     }
 
@@ -54,7 +59,9 @@ class PortfolioJsonTypesTest {
     fun incompleteOrSameCoinFeeIsDropped() {
         val sameCoin = PortfolioJson.txToJson(transfer.copy(feeCoin = "btc"))
         val t = PortfolioJson.jsonToTx(sameCoin)!!
-        assertNull(t.feeCoin); assertNull(t.feeCoinAmount); assertNull(t.feeCoinPriceUsdt)
+        assertNull(t.feeCoin)
+        assertNull(t.feeCoinAmount)
+        assertNull(t.feeCoinPriceUsdt)
         val negativePrice = PortfolioJson.txToJson(transfer).put("feeCoinPriceText", "-1")
         assertNull(PortfolioJson.jsonToTx(negativePrice)!!.feeCoinPriceUsdt)
         assertEquals("BNB" to BigDecimal("2"), PortfolioJson.cleanFeeCoin(" bnb ", "BTC", BigDecimal("2")))
@@ -63,7 +70,8 @@ class PortfolioJsonTypesTest {
 
     @Test
     fun originalPurchaseDateRoundTripsOnlyForDeposits() {
-        val deposit = PortfolioTxEntity(id = 4, coin = "BTC", type = PortfolioTxType.DEPOSIT, amount = BigDecimal("1"), time = 9L, acquiredTime = 3L)
+        val deposit =
+            PortfolioTxEntity(id = 4, coin = "BTC", type = PortfolioTxType.DEPOSIT, amount = BigDecimal("1"), time = 9L, acquiredTime = 3L)
         assertEquals(3L, PortfolioJson.jsonToTx(PortfolioJson.txToJson(deposit))!!.acquiredTime)
         assertEquals(3L, deposit.toTrade().acquiredTime)
         // Andere Arten: verworfen
@@ -77,7 +85,12 @@ class PortfolioJsonTypesTest {
     @Test
     fun spouseGiftFlagRoundTrips() {
         val gift = PortfolioTxEntity(
-            id = 8, coin = "BTC", type = PortfolioTxType.GIFT, amount = BigDecimal("0.1"), time = 12L, exchange = "Ledger",
+            id = 8,
+            coin = "BTC",
+            type = PortfolioTxType.GIFT,
+            amount = BigDecimal("0.1"),
+            time = 12L,
+            exchange = "Ledger",
             giftToSpouse = true,
         )
         val json = PortfolioJson.txToJson(gift)
@@ -102,7 +115,9 @@ class PortfolioJsonTypesTest {
                 "\"absorbed\":{\"type\":\"DEPOSIT\",\"amount\":\"0.0049\",\"time\":1704989100000,\"importKey\":\"COINBASE|D\"}}",
         )!!
         val linked = transfer.copy(
-            importKey = "BINANCE|W", linkedImportKey = "COINBASE|D", importRestoreState = state,
+            importKey = "BINANCE|W",
+            linkedImportKey = "COINBASE|D",
+            importRestoreState = state,
             importBatch = "COINBASE:1729100000000:1b2c3d4e",
         )
         // Übersteht Sicherung und Systemsicherungs-Kopie unverändert

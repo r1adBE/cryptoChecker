@@ -12,14 +12,26 @@ package com.cryptochecker.app.domain.logos
 object CoinLogoPlaceholder {
     /** Füllungen hell: kräftige, eher dunkle Töne (blau, petrol, grün, violett, beere, rost, braun, indigo). */
     val FILLS_LIGHT = intArrayOf(
-        0xFF2B5FC8.toInt(), 0xFF00796B.toInt(), 0xFF2E7D32.toInt(), 0xFF6A3FB5.toInt(),
-        0xFFAD1457.toInt(), 0xFFB3401A.toInt(), 0xFF6D4C41.toInt(), 0xFF3949AB.toInt(),
+        0xFF2B5FC8.toInt(),
+        0xFF00796B.toInt(),
+        0xFF2E7D32.toInt(),
+        0xFF6A3FB5.toInt(),
+        0xFFAD1457.toInt(),
+        0xFFB3401A.toInt(),
+        0xFF6D4C41.toInt(),
+        0xFF3949AB.toInt(),
     )
 
     /** Füllungen dunkel: dieselben Töne hell und gedämpft. */
     val FILLS_DARK = intArrayOf(
-        0xFF9DBBF5.toInt(), 0xFF7FCBC2.toInt(), 0xFFA5D6A7.toInt(), 0xFFC6AEF2.toInt(),
-        0xFFF4A3C0.toInt(), 0xFFFFAE8F.toInt(), 0xFFC9B3AA.toInt(), 0xFFA7B0E6.toInt(),
+        0xFF9DBBF5.toInt(),
+        0xFF7FCBC2.toInt(),
+        0xFFA5D6A7.toInt(),
+        0xFFC6AEF2.toInt(),
+        0xFFF4A3C0.toInt(),
+        0xFFFFAE8F.toInt(),
+        0xFFC9B3AA.toInt(),
+        0xFFA7B0E6.toInt(),
     )
 
     /** Schrift hell (weiss) bzw. dunkel (fast schwarz). */
@@ -31,8 +43,11 @@ object CoinLogoPlaceholder {
      * «1000PEPE» wie «PEPE»), TradFi ohne [CoinLogos.TRADFI_PREFIX] («TRADFI:NVDA» wie «NVDA»), gross.
      */
     fun key(symbol: String): String =
-        if (symbol.startsWith(CoinLogos.TRADFI_PREFIX)) CoinLogos.displaySymbol(symbol).trim().uppercase()
-        else CoinLogos.stripMultiplier(symbol)
+        if (symbol.startsWith(CoinLogos.TRADFI_PREFIX)) {
+            CoinLogos.displaySymbol(symbol).trim().uppercase()
+        } else {
+            CoinLogos.stripMultiplier(symbol)
+        }
 
     /** Stelle in der Palette: FNV-1a (32 Bit) über die UTF-8-Bytes von [key], modulo Anzahl Farben. */
     fun index(symbol: String): Int {

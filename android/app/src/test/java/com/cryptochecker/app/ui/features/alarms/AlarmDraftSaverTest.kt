@@ -1,15 +1,15 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.runtime.saveable.SaverScope
-import com.cryptochecker.app.domain.model.AlarmCondition
 import androidx.lifecycle.SavedStateHandle
+import com.cryptochecker.app.domain.model.AlarmCondition
+import java.io.Serializable
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
-import org.junit.Assert.assertFalse
 import org.junit.Test
-import java.io.Serializable
 
 /**
  * Alarm-Editor übersteht Drehen: Entwurf als Bundle-taugliche Liste ([AlarmDraftSaver]) und Wächter auf die

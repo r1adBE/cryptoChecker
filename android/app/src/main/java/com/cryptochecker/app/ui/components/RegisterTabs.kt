@@ -68,8 +68,11 @@ fun RegisterTabs(
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelLarge,
-                    color = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer
-                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (isSelected) {
+                        MaterialTheme.colorScheme.onSecondaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
                     textAlign = TextAlign.Center,
                     maxLines = 2
                 )

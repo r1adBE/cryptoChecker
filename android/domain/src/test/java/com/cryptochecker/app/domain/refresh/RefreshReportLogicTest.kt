@@ -16,8 +16,12 @@ class RefreshReportLogicTest {
     ) = ExchangeRefresh(name, millis, pairs, updated, notTraded, failed)
 
     private fun report(vararg exchanges: ExchangeRefresh, aborted: String? = null) = RefreshReport(
-        at = 0, totalMillis = 1_800, pairs = exchanges.sumOf { it.pairs }, networkMillis = 1_700,
-        exchanges = exchanges.toList(), aborted = aborted,
+        at = 0,
+        totalMillis = 1_800,
+        pairs = exchanges.sumOf { it.pairs },
+        networkMillis = 1_700,
+        exchanges = exchanges.toList(),
+        aborted = aborted,
     )
 
     @Test

@@ -2,12 +2,12 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.util.DisplayFormat
+import java.util.Locale
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.util.Locale
 
 /**
  * Kurs der Merkliste (`testdata/parity/price_format.json`, [DisplayFormat.formatDouble] hinter [PriceFormat.price]): ab 10

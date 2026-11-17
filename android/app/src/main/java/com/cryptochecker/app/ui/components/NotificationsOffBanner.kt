@@ -28,8 +28,8 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.compose.LifecycleResumeEffect
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /** Mitteilungen für die App an? Wird bei jeder Rückkehr in die App neu geprüft. */
 @Composable

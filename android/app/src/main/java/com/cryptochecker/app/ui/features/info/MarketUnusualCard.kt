@@ -1,11 +1,5 @@
 package com.cryptochecker.app.ui.features.info
 
-import androidx.compose.ui.graphics.Shape
-import com.cryptochecker.app.ui.theme.body
-import com.cryptochecker.app.ui.theme.label
-import com.cryptochecker.app.ui.components.AppCard
-import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.segmentLines
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,9 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.semantics.heading
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,18 +24,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.market.UnusualFact
@@ -53,15 +45,23 @@ import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.market.UnusualRow
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.notification.MacroTexts
+import com.cryptochecker.app.ui.components.AppCard
+import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
-import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.sectionTitleMarker
+import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.features.portfolio.PlPill
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.body
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
-import kotlinx.coroutines.delay
+import com.cryptochecker.resources.R
 import java.time.ZoneId
+import kotlinx.coroutines.delay
 
 /**
  * «Heute auffällig»: bis zu fünf Coins (aus den rund 30 grössten), die sich heute

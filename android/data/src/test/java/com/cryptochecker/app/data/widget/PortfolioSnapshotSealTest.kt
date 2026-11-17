@@ -2,6 +2,9 @@ package com.cryptochecker.app.data.widget
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal.ReadPlan
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal.WritePlan
+import java.util.Base64
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -10,9 +13,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Base64
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
 
 /** Versiegelte Widget-Aufnahme: Behälterformat, Manipulation, Lese-/Schreibregeln. */
 class PortfolioSnapshotSealTest {

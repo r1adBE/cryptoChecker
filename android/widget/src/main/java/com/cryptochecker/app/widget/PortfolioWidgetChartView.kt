@@ -9,21 +9,21 @@ import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.os.BundleCompat
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSize
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
+import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import kotlin.math.roundToInt
 
 /**
  * Ansicht «Chart»: ein Portfolio-Widget in der Grösse [widthDp] × [heightDp] (0 = unbekannt) aus
@@ -92,7 +92,9 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
             spanAtMostDay(plan.bars) -> context.getString(R.string.widget_range_short_24h)
             else -> context.getString(R.string.widget_portfolio_range_short_48h)
         }
-    } else null
+    } else {
+        null
+    }
     // Gewählter Zeitraum ohne Tageskurse: 24 h als Linie, dazu «7T folgt» in der Fusszeile
     val fallbackHint = fallbackHint(plan)
     val chartDescription = if (drawable) {
@@ -106,7 +108,9 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
         A11yText.chart(context, periodLong, plan.bars.map { it.close }) {
             if (style.hideAmounts) hiddenSpoken else PriceFormat.valueWithCurrency(it, snapshot.currency)
         }
-    } else null
+    } else {
+        null
+    }
     if (layout.chart) {
         views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
         val chartUp = direction?.let { it >= 0 } ?: (plan.bars.isNotEmpty() && plan.bars.last().close >= plan.bars.first().open)
@@ -118,7 +122,9 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
                     .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
                     .getOrNull()
             }
-        } else null
+        } else {
+            null
+        }
         if (bitmap != null) {
             views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
             views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
@@ -142,11 +148,18 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
     val positionsText = if (layout.size == PortfolioWidgetSize.LARGE) {
         val budget = textWidth?.let { it - 3 * 12f - 16f - 24f - 3 * 12f - 8f }
         PortfolioWidgetPositions.render(
-            context, views, snapshot.positions.take(layout.rows), colors, style.basis, style.hideAmounts,
+            context,
+            views,
+            snapshot.positions.take(layout.rows),
+            colors,
+            style.basis,
+            style.hideAmounts,
             pnlText = { change -> fitPnl(change, snapshot.currency, style, "", budget) },
             spokenPnl = { change -> spokenPnl(change, snapshot.currency, style, style.basis) },
         )
-    } else null
+    } else {
+        null
+    }
 
     // «Stand 15:19 · 24h»; Hinweis ohne Platz unter dem Betrag: in die Fusszeile, vor der Zeitspanne
     val timeText = timeText(snapshot, outdated)

@@ -18,9 +18,9 @@ import com.cryptochecker.marketdata.watch.WatchFreshness
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchSettings
-import kotlinx.coroutines.CancellationException
 import java.time.Instant
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CancellationException
 
 /**
  * Komplikation: der erste Favorit — kurz «BTC / 84’450» (Kurs knapp, [WatchFormat.compactPrice]; die Änderung nennt die
@@ -45,7 +45,10 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val settings = store.settings
         val favorites = settings.shown
         val tap = PendingIntent.getActivity(
-            this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            this,
+            0,
+            Intent(this, WatchActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         val coin = when (val first = ComplicationPlan.first(favorites, settings.mode)) {
             is ComplicationPlan.First.Empty -> return empty(request.complicationType, first.phoneMode, tap)
@@ -53,10 +56,21 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         }
         var cached = store.quotes()[coin]
         val usePhone = settings.source == WatchSettings.Source.PHONE && WatchPhoneQuotes.usePhone(
-            settings.source, WatchDataLayer.phoneConnected(this), store.phoneTime, System.currentTimeMillis(), settings.interval,
+            settings.source,
+            WatchDataLayer.phoneConnected(this),
+            store.phoneTime,
+            System.currentTimeMillis(),
+            settings.interval,
         )
-        val need = WatchPhoneQuotes.selfFetch(favorites, store.quotes().mapValues { it.value.time }, store.phoneCoins,
-            usePhone, settings.interval, System.currentTimeMillis(), force = false)
+        val need = WatchPhoneQuotes.selfFetch(
+            favorites,
+            store.quotes().mapValues { it.value.time },
+            store.phoneCoins,
+            usePhone,
+            settings.interval,
+            System.currentTimeMillis(),
+            force = false
+        )
         if (need.isNotEmpty()) {
             // Komplikation ruft selbst ab: zählt für «Akku & Aktivität» als Hintergrund-Lauf
             WatchUsage.attach(this)
@@ -91,8 +105,16 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         // Paar des Handys wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert (gegen USDT)
         // Börse, die den Kurs geliefert hat (wie die Zeile der Uhr-App), nicht nur das Paar
         val quote = WatchPair.parse(coin)?.quote ?: WatchPair.USDT
-        return data(request.complicationType, WatchPair.label(coin), quote, q.price, q.change24h,
-            q.source.takeIf { it.isNotBlank() }, age, tap)
+        return data(
+            request.complicationType,
+            WatchPair.label(coin),
+            quote,
+            q.price,
+            q.change24h,
+            q.source.takeIf { it.isNotBlank() },
+            age,
+            tap
+        )
     }
 
     /**
@@ -128,7 +150,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
                 .setTapAction(tap)
                 .build()
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
-                text("$label • $NO_PRICE  ·  ${missingShort(this, key)}"), description,
+                text("$label • $NO_PRICE  ·  ${missingShort(this, key)}"),
+                description,
             )
                 .setTitle(text(label))
                 .setTapAction(tap)
@@ -161,7 +184,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
                 .apply { tap?.let { setTapAction(it) } }
                 .build()
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
-                text(WatchFormat.priceLine(coin, price, quote, change, detail)), description,
+                text(WatchFormat.priceLine(coin, price, quote, change, detail)),
+                description,
             )
                 .setTitle(text(coin))
                 .apply { tap?.let { setTapAction(it) } }
@@ -178,12 +202,12 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
      */
     private fun shortTitle(coin: String, time: Long): ComplicationText =
         TimeDifferenceComplicationText.Builder(
-            TimeDifferenceStyle.SHORT_SINGLE_UNIT, CountUpTimeReference(Instant.ofEpochMilli(time)),
+            TimeDifferenceStyle.SHORT_SINGLE_UNIT,
+            CountUpTimeReference(Instant.ofEpochMilli(time)),
         )
             .setText("$coin ^1")
             .setMinimumTimeUnit(TimeUnit.MINUTES)
             .build()
-
 }
 
 /** Platzhalter ohne Kurs (wie die Zeile der Uhr-App). */

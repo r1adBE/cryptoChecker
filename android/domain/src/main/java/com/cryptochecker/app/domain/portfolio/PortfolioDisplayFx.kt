@@ -101,7 +101,13 @@ object PortfolioDisplayFigures {
      * [currentRate] — nur, wenn der Merkzettel heute ([todayEpochDay]) gemerkt wurde und jeden Tag von heute − [days]
      * bis gestern hat; sonst null («7 T» dann in USDT).
      */
-    fun periodFx(memo: PortfolioDisplayFx?, currency: String, currentRate: Double, todayEpochDay: Long, days: Int = WEEK_DAYS): ((Long) -> Double)? {
+    fun periodFx(
+        memo: PortfolioDisplayFx?,
+        currency: String,
+        currentRate: Double,
+        todayEpochDay: Long,
+        days: Int = WEEK_DAYS
+    ): ((Long) -> Double)? {
         if (memo == null || !same(memo.currency, currency) || memo.day != todayEpochDay) return null
         if (!(currentRate > 0.0) || !currentRate.isFinite()) return null
         if ((todayEpochDay - days until todayEpochDay).any { it !in memo.dayFactors }) return null
@@ -111,5 +117,7 @@ object PortfolioDisplayFigures {
 
     /** [change] aus [PortfolioPeriodChange.gain] mit `fx` (Betrag schon in der Anzeigewährung) für die Aufnahme. */
     fun periodChange(change: TodayChange?): PortfolioChange? =
-        change?.takeIf { it.amountUsd.isFinite() }?.let { PortfolioChange(it.amountUsd, it.percent?.takeIf { p -> p.isFinite() }, it.skipped) }
+        change?.takeIf {
+            it.amountUsd.isFinite()
+        }?.let { PortfolioChange(it.amountUsd, it.percent?.takeIf { p -> p.isFinite() }, it.skipped) }
 }

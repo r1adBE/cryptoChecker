@@ -22,6 +22,7 @@ internal class TaxPoolReference(
     var cost: BigDecimal = BigDecimal.ZERO
         private set
     val parts = ArrayList<PortfolioCostPart>()
+
     /** Mit [zone]: Tag → Index in [parts] (erster Zeitpunkt des Tags bleibt). */
     private val dayIndex = HashMap<LocalDate, Int>()
     val held: BigDecimal get() = priced + unpriced
@@ -119,7 +120,11 @@ internal class TaxPoolReference(
         val rest = h - removed
         priced -= removedPriced
         cost -= costRemoved
-        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) { priced = zero; cost = zero; clearParts() }
+        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
+            priced = zero
+            cost = zero
+            clearParts()
+        }
         unpriced = (rest - priced).max(zero)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
         return TaxTaken(removed, removedPriced, costRemoved, partsRemoved)
@@ -133,13 +138,18 @@ internal class TaxPoolReference(
         val h = held
         if (qty.signum() <= 0 || h.signum() <= 0) return BigDecimal.ZERO
         val removed = qty.min(h)
-        val removedPriced = if (unpriced.signum() == 0) removed
-            else PortfolioDecimal.amount(removed.multiply(priced).divide(h, PortfolioDecimal.MC)).min(priced)
+        val removedPriced = if (unpriced.signum() == 0) {
+            removed
+        } else {
+            PortfolioDecimal.amount(removed.multiply(priced).divide(h, PortfolioDecimal.MC)).min(priced)
+        }
         priced -= removedPriced
         var lost = BigDecimal.ZERO
         if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
             lost = cost
-            priced = BigDecimal.ZERO; cost = BigDecimal.ZERO; clearParts()
+            priced = BigDecimal.ZERO
+            cost = BigDecimal.ZERO
+            clearParts()
         }
         unpriced = (h - removed - priced).max(BigDecimal.ZERO)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = BigDecimal.ZERO

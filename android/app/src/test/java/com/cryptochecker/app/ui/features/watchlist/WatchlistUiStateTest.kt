@@ -1,15 +1,15 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.settings.WatchlistSettings
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.SortKey
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.WatchlistSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -20,8 +20,13 @@ import org.junit.Test
 class WatchlistUiStateTest {
 
     private fun watch(id: Long, group: String? = null, favorite: Boolean = false) = WatchEntity(
-        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
-        groupName = group, favorite = favorite,
+        id = id,
+        exchangeKey = "Binance",
+        exchangeName = "Binance",
+        baseAsset = "C$id",
+        quoteAsset = "USDT",
+        groupName = group,
+        favorite = favorite,
     )
 
     private val settings = WatchlistSettings.of(AppSettings())
@@ -78,14 +83,24 @@ class WatchlistUiStateTest {
     @Test
     fun loadedOnlyWithListAndGroups() {
         val starter = StarterUiState(
-            coins = emptyList(), deselected = emptySet(),
+            coins = emptyList(),
+            deselected = emptySet(),
             prices = StarterPricesState(loading = true, prices = emptyMap()),
-            adding = false, logosReady = false, quote = "USDT", exchangeName = "Binance",
+            adding = false,
+            logosReady = false,
+            quote = "USDT",
+            exchangeName = "Binance",
         )
         val display = WatchlistDisplay.initial(AppSettings())
         val live = WatchlistLive(
-            refreshing = false, online = true, liveExchanges = emptyList(), liveWatchIds = emptySet(),
-            convertRates = emptyMap(), convertFxTimes = emptyMap(), sortRates = emptyMap(), changeStamp = null,
+            refreshing = false,
+            online = true,
+            liveExchanges = emptyList(),
+            liveWatchIds = emptySet(),
+            convertRates = emptyMap(),
+            convertFxTimes = emptyMap(),
+            sortRates = emptyMap(),
+            changeStamp = null,
         )
         val initial = WatchlistUiState(WatchlistContent.Initial, display, live, starter)
         assertFalse(initial.loaded)

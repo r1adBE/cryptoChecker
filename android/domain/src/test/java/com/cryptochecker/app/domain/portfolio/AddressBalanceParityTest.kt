@@ -1,9 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
-import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.Keccak256
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -14,16 +13,17 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.math.BigDecimal
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `address_balance.json` (iOS: `AddressBalanceTests.swift`). */
 class AddressBalanceParityTest {
@@ -98,8 +98,10 @@ class AddressBalanceParityTest {
         val p = data["pendingCount"].obj()
         val list = p["addresses"].list().map { it.obj() }.map {
             WatchedAddress(
-                chain = AddressChain.valueOf(it["chain"] as String), address = it["address"] as String,
-                lastBalance = it["lastBalance"] as String?, countInPortfolio = it["countInPortfolio"] == true,
+                chain = AddressChain.valueOf(it["chain"] as String),
+                address = it["address"] as String,
+                lastBalance = it["lastBalance"] as String?,
+                countInPortfolio = it["countInPortfolio"] == true,
             )
         }
         val now = p["now"].num()!!.toLong()
@@ -113,10 +115,25 @@ class AddressBalanceParityTest {
         val d = data["dueOrder"].obj()
         val now = d["now"].num()!!.toLong()
         val list = d["addresses"].list().map { it.obj() }.map {
-            WatchedAddress(id = it["id"].num()!!.toLong(), chain = AddressChain.BTC, address = "x${it["id"]}", lastAttempt = it["lastAttempt"].num()!!.toLong())
+            WatchedAddress(
+                id = it["id"].num()!!.toLong(),
+                chain = AddressChain.BTC,
+                address = "x${it["id"]}",
+                lastAttempt = it["lastAttempt"].num()!!.toLong()
+            )
         }
-        assertEquals(d["foreground"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = false).map { it.id })
-        assertEquals(d["background"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = true).map { it.id })
+        assertEquals(
+            d["foreground"].list().map {
+                it.num()!!.toLong()
+            },
+            AddressBalance.dueOrder(list, now, force = false, background = false).map { it.id }
+        )
+        assertEquals(
+            d["background"].list().map {
+                it.num()!!.toLong()
+            },
+            AddressBalance.dueOrder(list, now, force = false, background = true).map { it.id }
+        )
     }
 
     /** Während des Abrufs etwas dazugenommen (Tokens an, Netz neu): Ergebnis verwerfen (Single-Flight, wie iOS). */
@@ -127,7 +144,10 @@ class AddressBalanceParityTest {
         fun nets(v: Any?): List<String>? = (v as List<*>?)?.map { it as String }
         for (c in cases) {
             val discard = AddressBalance.discardFetched(
-                c["countTokens"] as Boolean, nets(c["networks"]), c["snapshotCountTokens"] as Boolean, nets(c["snapshotNetworks"]),
+                c["countTokens"] as Boolean,
+                nets(c["networks"]),
+                c["snapshotCountTokens"] as Boolean,
+                nets(c["snapshotNetworks"]),
             )
             assertEquals("discard: ${c["_note"]}", c["discard"], discard)
         }
@@ -206,8 +226,11 @@ class AddressBalanceParityTest {
     }
 
     private fun trade(m: Map<String, Any?>) = PortfolioTrade(
-        id = 0, coin = m["coin"] as String, type = PortfolioTxType.fromName(m["type"] as String)!!,
-        amount = BigDecimal(m["amount"] as String), priceUsdt = (m["price"] as String?)?.let { BigDecimal(it) },
+        id = 0,
+        coin = m["coin"] as String,
+        type = PortfolioTxType.fromName(m["type"] as String)!!,
+        amount = BigDecimal(m["amount"] as String),
+        priceUsdt = (m["price"] as String?)?.let { BigDecimal(it) },
         time = m["time"].num()!!.toLong(),
     )
 
@@ -241,7 +264,8 @@ class AddressBalanceParityTest {
         val s = m["summary"].obj()
         val prices = s["prices"].obj().mapValues { it.value.num()!! }
         val summary = PortfolioCalculator.summarize(
-            AddressBalance.withAddresses(s["trades"].list().map { trade(it.obj()) }, addresses, today), prices,
+            AddressBalance.withAddresses(s["trades"].list().map { trade(it.obj()) }, addresses, today),
+            prices,
         )
         assertEquals(s["totalValue"].num()!!, summary.totalValue, 1e-9)
         val btc = summary.open.first { it.coin == "BTC" }
@@ -310,7 +334,10 @@ class AddressBalanceParityTest {
         val g = h["periodGain"].obj()
         val closes = g["closes"].obj().mapValues { (_, v) -> v.obj().entries.associate { it.key.toLong() to it.value.num()!! } }
         val gain = PortfolioPeriodChange.gain(
-            emptyList(), g["current"].obj().mapValues { it.value.num()!! }, closes, g["baseDay"].num()!!.toLong(),
+            emptyList(),
+            g["current"].obj().mapValues { it.value.num()!! },
+            closes,
+            g["baseDay"].num()!!.toLong(),
             addresses = histories,
         )!!
         assertEquals(g["amount"].num()!!, gain.amountUsd, 1e-9)
@@ -321,8 +348,11 @@ class AddressBalanceParityTest {
         val of = h["of"].obj()
         val addresses = of["addresses"].list().map { it.obj() }.map {
             WatchedAddress(
-                chain = chain(it["chain"])!!, address = it["address"] as String, lastBalance = it["lastBalance"] as String?,
-                lastUpdated = it["lastUpdated"].num()!!.toLong(), observations = obs(it["observations"]),
+                chain = chain(it["chain"])!!,
+                address = it["address"] as String,
+                lastBalance = it["lastBalance"] as String?,
+                lastUpdated = it["lastUpdated"].num()!!.toLong(),
+                observations = obs(it["observations"]),
             )
         }
         val built = AddressBalanceHistory.of(addresses)
@@ -330,19 +360,38 @@ class AddressBalanceParityTest {
         assertEquals(expectedOf.size, built.size)
         expectedOf.zip(built).forEach { (e, a) ->
             assertEquals(e["chain"], a.chain.name)
-            assertEquals(obs(e["observations"]).map { it.time to PortfolioDecimal.text(it.balance) }, a.observations.map { it.time to PortfolioDecimal.text(it.balance) })
+            assertEquals(
+                obs(e["observations"]).map { it.time to PortfolioDecimal.text(it.balance) },
+                a.observations.map {
+                    it.time to
+                        PortfolioDecimal.text(it.balance)
+                }
+            )
         }
 
         // Speichern nach einem Abruf: nur bei geändertem Guthaben
         h["record"].list().map { it.obj() }.forEachIndexed { i, c ->
             val after = AddressBalanceHistory.record(obs(c["before"]), c["time"].num()!!.toLong(), BigDecimal(c["balance"] as String))
-            assertEquals("record $i", obs(c["expected"]).map { it.time to PortfolioDecimal.text(it.balance) }, after.map { it.time to PortfolioDecimal.text(it.balance) })
+            assertEquals(
+                "record $i",
+                obs(c["expected"]).map { it.time to PortfolioDecimal.text(it.balance) },
+                after.map {
+                    it.time to
+                        PortfolioDecimal.text(it.balance)
+                }
+            )
         }
 
         // Speicherformat
         val j = h["json"].obj()
         val decoded = AddressBalanceHistory.decode(j["text"] as String)
-        assertEquals(obs(j["expected"]).map { it.time to PortfolioDecimal.text(it.balance) }, decoded.map { it.time to PortfolioDecimal.text(it.balance) })
+        assertEquals(
+            obs(j["expected"]).map { it.time to PortfolioDecimal.text(it.balance) },
+            decoded.map {
+                it.time to
+                    PortfolioDecimal.text(it.balance)
+            }
+        )
         assertEquals(j["encoded"], AddressBalanceHistory.encode(decoded))
         assertNull(AddressBalanceHistory.encode(emptyList()))
         assertEquals(emptyList<AddressObservation>(), AddressBalanceHistory.decode("kaputt"))
@@ -356,7 +405,10 @@ class AddressBalanceParityTest {
         )
         h["amountAt"].list().map { it.obj() }.forEach { c ->
             val actual = com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries.amountAt(
-                c["coin"] as String, c["amount"].num()!!, c["time"].num()!!.toLong(), steps,
+                c["coin"] as String,
+                c["amount"].num()!!,
+                c["time"].num()!!.toLong(),
+                steps,
             )
             assertEquals("amountAt $c", c["expected"].num()!!, actual, 1e-12)
         }
@@ -384,13 +436,18 @@ class AddressBalanceParityTest {
     }
 
     private fun entry(m: Map<String, Any?>) = WatchedAddressBackupEntry(
-        chain(m["chain"])!!, m["address"] as String, m["label"] as String?, m["addedAt"].num()?.toLong() ?: 0L,
+        chain(m["chain"])!!,
+        m["address"] as String,
+        m["label"] as String?,
+        m["addedAt"].num()?.toLong() ?: 0L,
     )
 
     @Test
     fun mergeAndBackup() {
         val m = data["merge"].obj()
-        val existing = m["existing"].list().map { it.obj() }.map { WatchedAddress(chain = chain(it["chain"])!!, address = it["address"] as String) }
+        val existing = m["existing"].list().map {
+            it.obj()
+        }.map { WatchedAddress(chain = chain(it["chain"])!!, address = it["address"] as String) }
         val incoming = m["incoming"].list().map { entry(it.obj()) }
         val merged = WatchedAddressRules.merge(existing, incoming)
         val expected = m["expected"].list().map { entry(it.obj()) }
@@ -405,7 +462,9 @@ class AddressBalanceParityTest {
 
     @Test
     fun mergeStopsAtLimit() {
-        val existing = (1..WatchedAddressRules.MAX_ADDRESSES - 1).map { WatchedAddress(id = it.toLong(), chain = AddressChain.BTC, address = "x$it") }
+        val existing = (1..WatchedAddressRules.MAX_ADDRESSES - 1).map {
+            WatchedAddress(id = it.toLong(), chain = AddressChain.BTC, address = "x$it")
+        }
         val incoming = listOf(
             WatchedAddressBackupEntry(AddressChain.BTC, "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"),
             WatchedAddressBackupEntry(AddressChain.BTC, "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"),
@@ -416,34 +475,47 @@ class AddressBalanceParityTest {
         assertTrue(!WatchedAddressRules.canAdd(existing + merged))
         assertNull(AddressValidation.check(null).normalized)
     }
+
     /** Einzahlung/Umbuchung gleich Guthaben oder beobachtetem Zugang (± 1 %) — gleiche Fälle wie iOS. */
     @Test
     fun transferMatchesAddress() {
         fun d(text: String) = PortfolioDecimal.parse(text)!!
         fun tx(id: Long, coin: String, type: PortfolioTxType, amount: String, time: Long, coinFee: String? = null) =
             PortfolioTrade(
-                id = id, coin = coin, type = type, amount = d(amount), priceUsdt = null, time = time,
-                fee = coinFee?.let { d(it) }, feeUnit = coinFee?.let { com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit.COIN },
+                id = id,
+                coin = coin,
+                type = type,
+                amount = d(amount),
+                priceUsdt = null,
+                time = time,
+                fee = coinFee?.let { d(it) },
+                feeUnit = coinFee?.let { com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit.COIN },
             )
         val a = WatchedAddress(
-            id = 1, chain = AddressChain.BTC, address = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
-            lastBalance = "0.5", lastUpdated = 2000,
+            id = 1,
+            chain = AddressChain.BTC,
+            address = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+            lastBalance = "0.5",
+            lastUpdated = 2000,
             observations = listOf(AddressObservation(1000, d("0.3")), AddressObservation(2000, d("0.5"))),
         )
         val trades = listOf(
-            tx(1, "BTC", PortfolioTxType.DEPOSIT, "0.5", 500),          // = Guthaben
-            tx(2, "BTC", PortfolioTxType.DEPOSIT, "0.2015", 400),       // Zunahme 0.2 (+0.75 %)
-            tx(3, "BTC", PortfolioTxType.DEPOSIT, "0.21", 300),         // +5 % daneben
+            tx(1, "BTC", PortfolioTxType.DEPOSIT, "0.5", 500), // = Guthaben
+            tx(2, "BTC", PortfolioTxType.DEPOSIT, "0.2015", 400), // Zunahme 0.2 (+0.75 %)
+            tx(3, "BTC", PortfolioTxType.DEPOSIT, "0.21", 300), // +5 % daneben
             tx(4, "BTC", PortfolioTxType.TRANSFER, "0.52", 600, "0.02"), // erhalten 0.50
-            tx(5, "BTC", PortfolioTxType.BUY, "0.5", 700),              // Kauf: keine Umbuchung
-            tx(6, "ETH", PortfolioTxType.DEPOSIT, "0.5", 800),          // anderer Coin
-            tx(-1, "BTC", PortfolioTxType.DEPOSIT, "0.5", 900),         // Adress-Einzahlung
-            tx(8, "btc", PortfolioTxType.DEPOSIT, "0.3", 100),          // erste Beobachtung
+            tx(5, "BTC", PortfolioTxType.BUY, "0.5", 700), // Kauf: keine Umbuchung
+            tx(6, "ETH", PortfolioTxType.DEPOSIT, "0.5", 800), // anderer Coin
+            tx(-1, "BTC", PortfolioTxType.DEPOSIT, "0.5", 900), // Adress-Einzahlung
+            tx(8, "btc", PortfolioTxType.DEPOSIT, "0.3", 100), // erste Beobachtung
         )
         assertEquals(listOf(8L, 2L, 1L, 4L), WatchedAddressRules.transferMatches(a, trades).map { it.id })
         // «Nur anzeigen» ändert die Erkennung nicht
         assertEquals(4, WatchedAddressRules.transferMatches(a.copy(countInPortfolio = false), trades).size)
         // Ohne geladenes Guthaben: nichts
-        assertEquals(emptyList<PortfolioTrade>(), WatchedAddressRules.transferMatches(WatchedAddress(chain = AddressChain.BTC, address = "x"), trades))
+        assertEquals(
+            emptyList<PortfolioTrade>(),
+            WatchedAddressRules.transferMatches(WatchedAddress(chain = AddressChain.BTC, address = "x"), trades)
+        )
     }
 }

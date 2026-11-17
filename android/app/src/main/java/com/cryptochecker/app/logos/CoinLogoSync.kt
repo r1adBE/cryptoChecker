@@ -1,14 +1,18 @@
 package com.cryptochecker.app.logos
 
+import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
+import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -20,10 +24,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.WatchRepository
 
 /**
  * Startet den Abgleich aller Coin-Logos ([CoinLogoRepository.startSync]), sofern Logos irgendwo
@@ -57,8 +57,10 @@ class CoinLogoSync @Inject constructor(
     private val lock = Any()
     private var tradFiJob: Job? = null
     private var retryJob: Job? = null
+
     /** Nachholen am Ende einer Bild-Server-Pause ([schedulePauseRetry]); null = keines geplant. */
     private var pauseJob: Job? = null
+
     /** Börsen, deren Liste in diesem Lauf schon geladen wurde (nicht bei jeder Änderung erneut). */
     private val fetched = HashSet<String>()
 
@@ -78,13 +80,15 @@ class CoinLogoSync @Inject constructor(
         // «Namen anzeigen» braucht nur die Liste (Namen stehen darin), keine Bilder
         if (!logos && !settings.watchlistNames) {
             // Nur «inkl. Alpha-Tokens»: allein die Alpha-Liste (ohne Rangliste und Bilder), sonst nichts
-            if (CoinLogos.alphaOnly(logos, settings.watchlistNames, settings.includeAlphaTokens)) scope.launch {
-                try {
-                    repository.refreshAlphaOnly()
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Exception) {
-                    Timber.w(e, "Alpha-Liste nicht geladen")
+            if (CoinLogos.alphaOnly(logos, settings.watchlistNames, settings.includeAlphaTokens)) {
+                scope.launch {
+                    try {
+                        repository.refreshAlphaOnly()
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        Timber.w(e, "Alpha-Liste nicht geladen")
+                    }
                 }
             }
             return
@@ -92,13 +96,15 @@ class CoinLogoSync @Inject constructor(
         watchTradFi()
         watchConnectivity()
         // «Namen anzeigen» gerade eingeschaltet: Aktiennamen holen, falls es TradFi-Kürzel gibt
-        if (settings.watchlistNames) scope.launch {
-            try {
-                repository.refreshStockNames()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.w(e, "Aktiennamen nicht geladen")
+        if (settings.watchlistNames) {
+            scope.launch {
+                try {
+                    repository.refreshStockNames()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    Timber.w(e, "Aktiennamen nicht geladen")
+                }
             }
         }
         // Zuerst Binance- und Alpha-Liste (Namen, «α»), dann Rangliste und Bilder
@@ -174,7 +180,9 @@ class CoinLogoSync @Inject constructor(
             // Läuft schon einer (z. B. vom Öffnen der App): sein Ergebnis abwarten
             while (repository.isSyncing) delay(SYNC_POLL_MILLIS)
             val wait = CoinLogoRetry.retryDelayMillis(
-                repository.networkFailures, repository.lastNetworkFailureAt, System.currentTimeMillis()
+                repository.networkFailures,
+                repository.lastNetworkFailureAt,
+                System.currentTimeMillis()
             )
             if (wait > 0) delay(wait)
             if (repository.isSyncing) continue

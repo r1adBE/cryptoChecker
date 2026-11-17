@@ -2,12 +2,12 @@
 // prüfen, Tausch gegen Stablecoin, Tausch-Hälften paaren. Erweiterungsfunktionen des Objekts.
 package com.cryptochecker.app.domain.portfolio.csvimport
 
-import java.math.BigDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Record
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Header
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Record
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Role
+import java.math.BigDecimal
 
 // ---------- Zeilen ----------
 
@@ -30,8 +30,11 @@ fun CsvImportParser.build(
     }
     val dateIndex = h.index[Role.DATE]
     // Tag/Monat je Datei: Swissquote immer Tag zuerst; sonst aus den Daten, nur mehrdeutige → Auswahl der Vorschau
-    val detected = if (format == CsvImportFormat.SWISSQUOTE || dateIndex == null) CsvDateOrder.DAY_FIRST
-    else detectDateOrder(data.map { it.cells.getOrNull(dateIndex).orEmpty() })
+    val detected = if (format == CsvImportFormat.SWISSQUOTE || dateIndex == null) {
+        CsvDateOrder.DAY_FIRST
+    } else {
+        detectDateOrder(data.map { it.cells.getOrNull(dateIndex).orEmpty() })
+    }
     val ambiguous = detected == null
     val order = detected ?: chosenOrder ?: CsvDateOrder.DAY_FIRST
     val monthFirst = order == CsvDateOrder.MONTH_FIRST
@@ -126,7 +129,11 @@ private fun CsvImportParser.pairSwapLegs(
     var i = 0
     while (i < parsed.size) {
         val (a, signA) = parsed[i]
-        if (!isLeg(a)) { out += a; i++; continue }
+        if (!isLeg(a)) {
+            out += a
+            i++
+            continue
+        }
         val next = parsed.getOrNull(i + 1)
         val b = next?.first
         val matches = b != null && isLeg(b) && a.coin != b.coin &&
@@ -177,7 +184,14 @@ private fun CsvImportParser.pairSwapLegs(
             timeMillis = given.timeMillis,
             externalId = externalId,
             key = CsvImport.key(
-                format, CsvImportKind.SWAP, given.coin, given.amount, null, given.timeMillis, externalId, given.localTime,
+                format,
+                CsvImportKind.SWAP,
+                given.coin,
+                given.amount,
+                null,
+                given.timeMillis,
+                externalId,
+                given.localTime,
             ),
             toCoin = received.coin,
             toAmount = received.amount,
@@ -263,8 +277,14 @@ private fun CsvImportParser.row(
     if (price == null && (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || rewardValue)) {
         // Belohnung mit unlesbarem Betrag: ohne Preis, nicht übersprungen
         val fiat = if (kind == CsvImportKind.REWARD) {
-            try { number(Role.FIAT_AMOUNT) } catch (_: Skip) { null }
-        } else number(Role.FIAT_AMOUNT)
+            try {
+                number(Role.FIAT_AMOUNT)
+            } catch (_: Skip) {
+                null
+            }
+        } else {
+            number(Role.FIAT_AMOUNT)
+        }
         price = fiat?.abs()?.takeIf { it.signum() > 0 }?.let { CsvImport.derive(it, amount) }
     }
     // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
@@ -277,7 +297,10 @@ private fun CsvImportParser.row(
         price = null
         toCoin = cell(Role.TO_COIN).uppercase().ifEmpty { null }
         toAmount = number(Role.TO_AMOUNT)?.abs()?.takeIf { it.signum() > 0 }
-        if (toCoin == null || toAmount == null || toCoin == coin) { toCoin = null; toAmount = null }
+        if (toCoin == null || toAmount == null || toCoin == coin) {
+            toCoin = null
+            toAmount = null
+        }
     }
     if (price != null && quote == null) throw Skip(CsvImportSkipReason.MISSING_FIELD)
 
@@ -309,6 +332,8 @@ private fun CsvImportParser.row(
         (CsvImport.isStable(quote) || CsvImport.isCryptoQuote(quote))
     ) {
         number(Role.FIAT_AMOUNT)?.abs()?.takeIf { it.signum() > 0 }
-    } else null
+    } else {
+        null
+    }
     return (stableSwap(format, draft, stableAmount) ?: draft) to (if (signed.signum() < 0) -1 else 1)
 }

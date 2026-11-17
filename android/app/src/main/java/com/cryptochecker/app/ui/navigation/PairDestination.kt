@@ -52,7 +52,7 @@ internal fun NavGraphBuilder.pairDestination(
         val originEvents: WatchUiEventsHolder = viewModel(viewModelStoreOwner = origin, key = originKey) { WatchUiEventsHolder() }
         // Gelöscht wird im SavedStateHandle (übersteht Prozess-Neustart): nur einmal fragen
         val askNotifications by entry.savedStateHandle
-            .getStateFlow(ScreenRoute.PairPageArgAskNotifications, route.askNotifications)
+            .getStateFlow(ScreenRoute.PAIR_PAGE_ARG_ASK_NOTIFICATIONS, route.askNotifications)
             .collectAsStateWithLifecycle()
         val preview = route.preview?.let { symbol ->
             rememberPairPreview(
@@ -78,7 +78,7 @@ internal fun NavGraphBuilder.pairDestination(
             onBack = { navigation.popBackStack() },
             preview = preview,
             askNotifications = askNotifications,
-            onAskNotificationsHandled = { entry.savedStateHandle[ScreenRoute.PairPageArgAskNotifications] = false },
+            onAskNotificationsHandled = { entry.savedStateHandle[ScreenRoute.PAIR_PAGE_ARG_ASK_NOTIFICATIONS] = false },
         )
     }
 }

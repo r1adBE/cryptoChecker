@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui
 
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Statische App-Verknüpfungen (res/xml/shortcuts.xml): Manifest-Platzhalter wie `${applicationId}` werden dort nicht

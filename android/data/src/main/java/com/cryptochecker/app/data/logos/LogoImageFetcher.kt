@@ -2,18 +2,18 @@
 // Pausen gebremster Server, Einordnung der Antwort ([LogoImageFetcher.Fetched]).
 package com.cryptochecker.app.data.logos
 
+import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import com.cryptochecker.app.domain.logos.CoinLogoQueue
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.sync.Semaphore
-import kotlinx.coroutines.sync.withPermit
-import com.cryptochecker.app.data.remote.util.CallStartInterceptor
-import okhttp3.OkHttpClient
-import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
+import okhttp3.OkHttpClient
+import timber.log.Timber
 
 /**
  * Bild-Abrufe von [LogoImageStore]: [imageDir] = Ablage der Bilder, [pauses] = Pausen je Server (dieselben wie im Store).
@@ -30,7 +30,10 @@ internal class LogoImageFetcher(
      * Wache ([CallStartInterceptor]) bleibt.
      */
     private val client: OkHttpClient = httpClient.newBuilder()
-        .apply { interceptors().removeAll { it !is LogoTestInterceptor }; addInterceptor(CallStartInterceptor) }.build()
+        .apply {
+            interceptors().removeAll { it !is LogoTestInterceptor }
+            addInterceptor(CallStartInterceptor)
+        }.build()
 
     /** Harte Grenzen auch für Ersatz-Adressen und Start-Logos ([CoinLogoQueue] ordnet nur nach dem ersten Server). */
     private val downloads = Semaphore(CoinLogoQueue.MAX_PARALLEL)
@@ -39,8 +42,12 @@ internal class LogoImageFetcher(
     private val hostPermits = ConcurrentHashMap<String, Semaphore>()
 
     /** Erst [url], scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als gebremst. */
-    suspend fun fetchWithAlternates(name: String, url: String, alternates: List<String>,
-                                            streaks: LogoImagePauses.ForbiddenStreaks): Fetched {
+    suspend fun fetchWithAlternates(
+        name: String,
+        url: String,
+        alternates: List<String>,
+        streaks: LogoImagePauses.ForbiddenStreaks
+    ): Fetched {
         var result = fetchLimited(name, url, streaks)
         if (result != Fetched.FAILED && result != Fetched.OPEN) return result
         var paused = false
@@ -103,7 +110,10 @@ internal class LogoImageFetcher(
                 // Nicht gespeichert (Speicher voll, Ordner weg): eigene Art — keine Tagessperre, kein Netzfehler (sonst
                 // lüde das Nachholen alle 15 Min. alles neu und verwürfe es); der Durchgang lädt nichts mehr (wie iOS)
                 if (LogoFiles.write(file, png)) {
-                    host?.let { streaks.note(it, forbidden = false); streaks.noteTransient(it, false) }
+                    host?.let {
+                        streaks.note(it, forbidden = false)
+                        streaks.noteTransient(it, false)
+                    }
                     return Fetched.OK
                 }
                 Timber.d("Logo %s: nicht gespeichert", name)

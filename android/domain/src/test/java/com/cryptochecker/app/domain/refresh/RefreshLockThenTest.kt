@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
+import java.util.Collections
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +17,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Collections
 
 /**
  * Sperre mit Nacharbeit ([RefreshLock.withLockThen] und Varianten): Der Aufrufer ist vor der Nacharbeit fertig, die

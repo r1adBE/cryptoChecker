@@ -26,6 +26,7 @@ object ActivityAnalyzer {
     // --- Signale ---
     const val PRICE_Z_THRESHOLD = 3.0
     const val VOLUME_SPIKE_RATIO = 3.0
+
     /** Funding in % je 8 Stunden (stündliches Funding wird umgerechnet: [fundingPer8h]). */
     const val FUNDING_EXTREME_PERCENT = 0.05
     const val FUNDING_STRONG_PERCENT = 0.1
@@ -100,6 +101,7 @@ object ActivityAnalyzer {
     const val WHY_HOURLY_LIMIT = 100
 
     // --- Lage in den letzten drei Tagen ---
+
     /** Fenster in Stunden. */
     const val RANGE_HOURS = 72
 
@@ -244,8 +246,11 @@ object ActivityAnalyzer {
         if (fundingPercent != null) {
             // Wert der Börse (Anzeige), Intervall für den Vergleich auf 8 Stunden
             candidates += ActivitySignal(
-                SignalKind.FUNDING_EXTREME, SignalSeverity.NOTABLE, fundingPercent,
-                factor = fundingIntervalHours(fundingSource, fundingIntervalHours)?.toDouble(), seenAt = now,
+                SignalKind.FUNDING_EXTREME,
+                SignalSeverity.NOTABLE,
+                fundingPercent,
+                factor = fundingIntervalHours(fundingSource, fundingIntervalHours)?.toDouble(),
+                seenAt = now,
             )
         }
         return applySensitivity(candidates, sensitivity)

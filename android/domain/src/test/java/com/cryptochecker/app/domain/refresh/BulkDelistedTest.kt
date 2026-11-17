@@ -28,7 +28,10 @@ class BulkDelistedTest {
         data["plan"].list().map { it.obj() }.forEach { c ->
             val name = c["name"] as String
             val plan = BulkDelisted.plan(
-                state(c["state"]), strings(c["pairIds"]), strings(c["notTraded"]).toSet(), c["now"].num()!!.toLong(),
+                state(c["state"]),
+                strings(c["pairIds"]),
+                strings(c["notTraded"]).toSet(),
+                c["now"].num()!!.toLong(),
             )
             assertEquals(name, strings(c["request"]), plan.request)
             assertEquals(name, c["recheck"] as Boolean, plan.recheck)
@@ -43,8 +46,12 @@ class BulkDelistedTest {
             val p = c["plan"].obj()
             val plan = BulkDelisted.Plan(strings(p["all"]), strings(p["request"]), p["recheck"] as Boolean)
             val next = BulkDelisted.learn(
-                state(c["state"]), plan, strings(c["tickers"]).toSet(), strings(c["failed"]).toSet(),
-                c["complete"] as Boolean, c["now"].num()!!.toLong(),
+                state(c["state"]),
+                plan,
+                strings(c["tickers"]).toSet(),
+                strings(c["failed"]).toSet(),
+                c["complete"] as Boolean,
+                c["now"].num()!!.toLong(),
                 // Teilabfrage gescheitert (z. B. Alpha): keine Aussage über diese Paare
                 (c["incomplete"] as? List<*>).orEmpty().map { it as String }.toSet(),
             )

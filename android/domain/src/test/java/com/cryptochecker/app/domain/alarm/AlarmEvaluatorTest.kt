@@ -146,9 +146,17 @@ class AlarmEvaluatorTest {
     @Test
     fun `fields after triggering`() {
         val t = now
-        val percent = AlarmEvaluator.triggered(alarm(AlarmCondition.CHANGE_PERCENT_UP, 5.0, referencePrice = 100.0).copy(referenceAt = 7), 105.0, t)
+        val percent = AlarmEvaluator.triggered(
+            alarm(AlarmCondition.CHANGE_PERCENT_UP, 5.0, referencePrice = 100.0).copy(referenceAt = 7),
+            105.0,
+            t
+        )
         assertTrue(percent.referencePrice == 105.0 && percent.referenceAt == 7L && !percent.enabled && percent.lastTriggeredAt == t)
-        val move = AlarmEvaluator.triggered(alarm(AlarmCondition.MOVE_PERCENT_WINDOW, 5.0, referencePrice = 100.0).copy(repeating = true), 106.0, t)
+        val move = AlarmEvaluator.triggered(
+            alarm(AlarmCondition.MOVE_PERCENT_WINDOW, 5.0, referencePrice = 100.0).copy(repeating = true),
+            106.0,
+            t
+        )
         assertTrue(move.referencePrice == 106.0 && move.referenceAt == t && move.enabled)
         val volume = AlarmEvaluator.triggered(alarm(AlarmCondition.VOLUME_SPIKE, 3.0), 50.0, t, candleOpenTime = 123L)
         assertTrue(volume.referenceAt == 123L && volume.referencePrice == null && volume.lastTriggeredPrice == 50.0)

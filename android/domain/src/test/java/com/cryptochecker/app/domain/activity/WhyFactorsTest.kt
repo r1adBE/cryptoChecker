@@ -33,8 +33,11 @@ class WhyFactorsTest {
         // Volumen 3,4/2 = 1,7; Nähe zum Hoch 1,7 % → 1,66; Markt 2,4/1,5 = 1,6; Schwankung 2,1/2 = 1,05; OI 8/10 = 0,8
         assertEquals(
             listOf(
-                WhyFactorKind.VOLUME, WhyFactorKind.NEAR_HIGH, WhyFactorKind.MARKET,
-                WhyFactorKind.VOLATILITY, WhyFactorKind.OPEN_INTEREST,
+                WhyFactorKind.VOLUME,
+                WhyFactorKind.NEAR_HIGH,
+                WhyFactorKind.MARKET,
+                WhyFactorKind.VOLATILITY,
+                WhyFactorKind.OPEN_INTEREST,
             ),
             factors.map { it.kind },
         )

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data
 
-import androidx.core.content.edit
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.OiSample
@@ -9,6 +9,8 @@ import com.cryptochecker.app.domain.activity.SignalKind
 import com.cryptochecker.app.domain.activity.SignalSeverity
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,8 +18,6 @@ import kotlinx.coroutines.flow.update
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Ergebnisse der Auswertung «Ungewöhnliche Aktivität» je Paar (Watch-Id),
@@ -35,6 +35,7 @@ class ActivityRepository @Inject constructor(
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     private val _reports = MutableStateFlow<Map<Long, ActivityReport>>(emptyMap())
+
     @Volatile private var loaded = false
     private val lock = Any()
 

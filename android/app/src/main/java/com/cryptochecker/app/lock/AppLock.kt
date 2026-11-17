@@ -1,6 +1,5 @@
 package com.cryptochecker.app.lock
 
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.ContextWrapper
@@ -13,12 +12,13 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Portfolio-Sperre: Entsperren mit Biometrie ODER Geräte-Sperre (PIN, Muster, Passwort), über androidx.biometric

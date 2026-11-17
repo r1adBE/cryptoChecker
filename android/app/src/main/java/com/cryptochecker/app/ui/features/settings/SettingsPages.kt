@@ -1,35 +1,35 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
-import com.cryptochecker.resources.R
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /*
  * Unterseiten hinter den Zeilen der Hauptseite. Inhalt und Schlüssel wie
@@ -41,12 +41,25 @@ import com.cryptochecker.app.ui.theme.Spacing
 
 /** Unterseiten der Einstellungen; der Name steht in der Route `settings/page/{page}`. */
 enum class SettingsPage {
-    LANGUAGE, CURRENCY, UPDATES, USAGE, WATCHLIST,
-    DISPLAY_MODE, THEME, PRICE_COLORS, CHANGE_BASIS, COIN_LOGOS,
-    ALARMS, PRICE_PAIRS,
+    LANGUAGE,
+    CURRENCY,
+    UPDATES,
+    USAGE,
+    WATCHLIST,
+    DISPLAY_MODE,
+    THEME,
+    PRICE_COLORS,
+    CHANGE_BASIS,
+    COIN_LOGOS,
+    ALARMS,
+    PRICE_PAIRS,
     PORTFOLIO,
     BACKUP,
-    ABOUT, LICENSES, WIDGETS, DEVELOPER,
+    ABOUT,
+    LICENSES,
+    WIDGETS,
+    DEVELOPER,
+
     // «Token & TradFi» (Zeile auf «Merkliste»)
     EXCHANGES;
 
@@ -177,7 +190,9 @@ private const val SELECTED_ALPHA = 0.16f
 private fun Modifier.bleed(amount: Dp): Modifier = layout { measurable, constraints ->
     val extra = amount.roundToPx() * 2
     val maxWidth = if (constraints.hasBoundedWidth) constraints.maxWidth + extra else constraints.maxWidth
-    val placeable = measurable.measure(constraints.copy(minWidth = (constraints.minWidth + extra).coerceAtMost(maxWidth), maxWidth = maxWidth))
+    val placeable = measurable.measure(
+        constraints.copy(minWidth = (constraints.minWidth + extra).coerceAtMost(maxWidth), maxWidth = maxWidth)
+    )
     layout((placeable.width - extra).coerceAtLeast(0), placeable.height) { placeable.place(-amount.roundToPx(), 0) }
 }
 

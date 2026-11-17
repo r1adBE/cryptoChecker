@@ -4,20 +4,21 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.lock.AppLockState
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.setup.AppLanguages
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.setup.AppearanceApplier
-import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.setup.AppLanguages
+import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -55,7 +55,9 @@ class SettingsViewModel @Inject constructor(
     internal val _backupMessage = MutableStateFlow<BackupMessage?>(null)
     val backupMessage: StateFlow<BackupMessage?> = _backupMessage.asStateFlow()
 
-    fun clearBackupMessage() { _backupMessage.value = null }
+    fun clearBackupMessage() {
+        _backupMessage.value = null
+    }
 
     /** Sichern bzw. Wiederherstellen läuft (Datei lesen, Argon2id, Ersetzen): Knöpfe aus, Fortschrittskreis — wie iOS. */
     internal val _backupWorking = MutableStateFlow(false)
@@ -90,11 +92,18 @@ class SettingsViewModel @Inject constructor(
         // Wiederherstellen (restoreBackup) hat den Schritt schon geleert und läuft zu Ende.
         viewModelScope.launch {
             // Gesperrt: auch die gelesene Sicherung (bis 64 MB samt Klartext) aus dem Speicher
-            sessionLocked.collect { locked -> if (locked) { _restoreStep.value = null; backupManager.forgetPickedBackup() } }
+            sessionLocked.collect { locked ->
+                if (locked) {
+                    _restoreStep.value = null
+                    backupManager.forgetPickedBackup()
+                }
+            }
         }
     }
 
-    override fun onCleared() { backupManager.forgetPickedBackup() }
+    override fun onCleared() {
+        backupManager.forgetPickedBackup()
+    }
 
     // Start mit dem zuletzt gelesenen Stand statt Werks-Defaults: sonst springen Schalter beim Öffnen kurz um
     val settings: StateFlow<AppSettings> = settingsRepository.settings
@@ -123,20 +132,6 @@ class SettingsViewModel @Inject constructor(
         widgetUpdater.updateAll()
     }
 
-    /**
-     * Akzentfarbe: Farbschema, Widgets und Benachrichtigungen sofort.
-     * Das App-Icon folgt erst beim Verlassen der App (MainActivity.onStop) —
-     * umgeschaltet im laufenden Betrieb schliessen manche Android-Versionen
-     * sonst die App.
-     */
-    fun setAccentColor(accent: AccentColor) = update {
-        settingsRepository.setAccentColor(accent)
-        // Frisch lesen: aktualisiert auch die zwischengespeicherte Farbe der Meldungen
-        val settings = settingsRepository.current()
-        widgetUpdater.updateAll()
-        notifier.refreshColors(watchRepository.getWatches(), ongoing = settings.ongoingNotifications)
-    }
-
     fun unlockDeveloper() = update {
         settingsRepository.setDeveloperUnlocked(true)
     }
@@ -161,7 +156,9 @@ class SettingsViewModel @Inject constructor(
 
     internal val _soundError = MutableStateFlow(false)
     val soundError: StateFlow<Boolean> = _soundError.asStateFlow()
-    fun clearSoundError() { _soundError.value = false }
+    fun clearSoundError() {
+        _soundError.value = false
+    }
 
     fun setFearGreedBelow(value: Int) = update {
         settingsRepository.setFearGreedBelow(value)
@@ -241,17 +238,6 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun setWatchlistActivityCard(show: Boolean) = update { settingsRepository.setWatchlistActivityCard(show) }
-
-    /**
-     * «Basis der %-Änderung»: Bis neu gerechnet ist, zeigen Änderungen und Widgets «—» (der Stempel
-     * passt nicht mehr); gleich eine Aktualisierung anstossen, Widgets und Portfolio-Widget folgen.
-     */
-    fun setChangeBasis(basis: com.cryptochecker.app.domain.watch.ChangeBasis) = update {
-        if (settingsRepository.current().changeBasis == basis) return@update
-        settingsRepository.setChangeBasis(basis)
-        widgetUpdater.updateAll()
-        scheduler.refreshNow()
-    }
 
     /** «Zahl am App-Symbol» (gilt für neue Mitteilungen). */
     fun setAppIconBadge(show: Boolean) = update { settingsRepository.setAppIconBadge(show) }
@@ -394,7 +380,10 @@ class SettingsViewModel @Inject constructor(
      */
     internal fun update(block: suspend () -> Unit) {
         viewModelScope.launch {
-            runCatchingCancellable { block() }.onFailure { Timber.w(it, "Einstellungen: nicht gespeichert"); com.cryptochecker.app.data.reportWriteFailure(it) }
+            runCatchingCancellable { block() }.onFailure {
+                Timber.w(it, "Einstellungen: nicht gespeichert")
+                com.cryptochecker.app.data.reportWriteFailure(it)
+            }
         }
     }
 }

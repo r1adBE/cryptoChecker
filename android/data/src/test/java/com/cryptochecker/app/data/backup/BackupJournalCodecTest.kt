@@ -1,20 +1,20 @@
 package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.FavoriteKind
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.parity.ParityJson
+import java.io.File
+import java.math.BigDecimal
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.math.BigDecimal
 
 /**
  * Stand vor dem Wiederherstellen im Journal ([BackupJournalCodec]): Hin und zurück über den Text, Kennung und Zeitpunkt
@@ -98,7 +98,11 @@ class BackupJournalCodecTest {
         assertTrue(back.watchedAddresses.isEmpty())
         // Alle Arten von Favoriten, fehlende leer
         assertEquals(
-            mapOf(FavoriteKind.EXCHANGE to emptySet<String>(), FavoriteKind.COIN to setOf("BTC", "ETH"), FavoriteKind.QUOTE to emptySet<String>()),
+            mapOf(
+                FavoriteKind.EXCHANGE to emptySet<String>(),
+                FavoriteKind.COIN to setOf("BTC", "ETH"),
+                FavoriteKind.QUOTE to emptySet<String>()
+            ),
             back.favorites,
         )
         assertEquals("JPY", back.settings.getString("portfolioCurrency"))
@@ -116,8 +120,10 @@ class BackupJournalCodecTest {
     @Test
     fun journalWithoutAPartIsRejected() {
         val full = BackupJournalCodec.journalJson(previous(), createdAt = 1L)
-        for (key in listOf("version", "createdAt", "watches", "alarms", "portfolio", "portfolioAlarms",
-            WatchedAddressRules.BACKUP_KEY, "favorites", "settings")) {
+        for (key in listOf(
+            "version", "createdAt", "watches", "alarms", "portfolio", "portfolioAlarms",
+            WatchedAddressRules.BACKUP_KEY, "favorites", "settings"
+        )) {
             val without = JSONObject(full.toString()).apply { remove(key) }
             assertThrows(key, IllegalArgumentException::class.java) { BackupJournalCodec.previousFromJournal(without) }
         }

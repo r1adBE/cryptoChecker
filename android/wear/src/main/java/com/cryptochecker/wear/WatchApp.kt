@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import kotlinx.coroutines.flow.StateFlow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -45,9 +44,10 @@ import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
-import kotlinx.coroutines.delay
 import java.text.DateFormat
 import java.util.Date
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
@@ -87,10 +87,21 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
                 plan = { coins, force ->
                     val s = store.settings
                     val usePhone = s.source == WatchSettings.Source.PHONE && WatchPhoneQuotes.usePhone(
-                        s.source, WatchDataLayer.phoneConnected(context), store.phoneTime, System.currentTimeMillis(), s.interval,
+                        s.source,
+                        WatchDataLayer.phoneConnected(context),
+                        store.phoneTime,
+                        System.currentTimeMillis(),
+                        s.interval,
                     )
-                    WatchPhoneQuotes.selfFetch(coins, store.quotes().mapValues { it.value.time }, store.phoneCoins, usePhone,
-                        s.interval, System.currentTimeMillis(), force)
+                    WatchPhoneQuotes.selfFetch(
+                        coins,
+                        store.quotes().mapValues { it.value.time },
+                        store.phoneCoins,
+                        usePhone,
+                        s.interval,
+                        System.currentTimeMillis(),
+                        force
+                    )
                 },
             )
         }
@@ -146,7 +157,8 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
                     change { it.copy(own = WatchCoins.toggle(it.own, coin)) }
                 }
             } else {
-                QuoteList(settings, cache, portfolio, now, loading, failed,
+                QuoteList(
+                    settings, cache, portfolio, now, loading, failed,
                     state = listState,
                     onRefresh = { fetcher.refresh() },
                     onToggleMode = {
@@ -154,7 +166,8 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
                         val target = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
                         change { it.copy(mode = target) }
                     },
-                    onChoose = { choosing = true })
+                    onChoose = { choosing = true }
+                )
             }
         }
     }
@@ -211,8 +224,12 @@ private fun QuoteList(
         }
         if (!phone) {
             item {
-                Chip(onClick = onChoose, label = { Text(stringResource(R.string.watch_choose)) },
-                    colors = ChipDefaults.secondaryChipColors(), modifier = Modifier.fillMaxWidth())
+                Chip(
+                    onClick = onChoose,
+                    label = { Text(stringResource(R.string.watch_choose)) },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
         item {
@@ -266,10 +283,17 @@ private fun QuoteRow(key: String, stored: WatchCached?, now: Long, interval: Int
             .clearAndSetSemantics { contentDescription = spoken },
     ) {
         // Zu eng: Schrift schrumpft bis 60 % statt Ziffern abzuschneiden (wie iOS minimumScaleFactor)
-        FitText("$coin  $price", style = MaterialTheme.typography.button,
-            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface)
-        Text(second, maxLines = if (missing) 2 else 1, style = MaterialTheme.typography.caption2,
-            color = MaterialTheme.colors.onSurface)
+        FitText(
+            "$coin  $price",
+            style = MaterialTheme.typography.button,
+            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface
+        )
+        Text(
+            second,
+            maxLines = if (missing) 2 else 1,
+            style = MaterialTheme.typography.caption2,
+            color = MaterialTheme.colors.onSurface
+        )
     }
 }
 
@@ -277,8 +301,11 @@ private fun QuoteRow(key: String, stored: WatchCached?, now: Long, interval: Int
 private fun ChooseList(own: List<String>, state: ScalingLazyListState, onToggle: (String) -> Unit) {
     ScalingLazyColumn(state = state, modifier = Modifier.fillMaxWidth()) {
         item {
-            Text(stringResource(R.string.watch_choose_hint, WatchCoins.MAX), textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.caption2)
+            Text(
+                stringResource(R.string.watch_choose_hint, WatchCoins.MAX),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.caption2
+            )
         }
         WatchCoins.TOP.forEach { coin ->
             item {

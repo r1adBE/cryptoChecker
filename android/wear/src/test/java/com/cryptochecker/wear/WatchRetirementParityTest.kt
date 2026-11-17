@@ -2,12 +2,12 @@ package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
+import java.io.File
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Uhr bei stillgelegter Börse (`testdata/parity/exchange_retirement.json`, Abschnitt «watchMissing»; iOS:

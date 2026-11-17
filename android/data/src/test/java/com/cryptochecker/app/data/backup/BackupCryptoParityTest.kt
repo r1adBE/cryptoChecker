@@ -3,15 +3,15 @@ import com.cryptochecker.app.data.backup.Argon2id
 import com.cryptochecker.app.data.backup.BackupCrypto
 import com.cryptochecker.app.data.backup.BackupFormat
 import com.cryptochecker.app.data.backup.BackupVersion
+import com.cryptochecker.app.parity.ParityJson
+import java.io.File
+import java.util.Base64
 import org.json.JSONException
 import org.json.JSONObject
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import java.util.Base64
-import com.cryptochecker.app.parity.ParityJson
 
 /**
  * Verschlüsselte Sicherungen v3 (Argon2id + AAD) mit festen Prüfwerten
@@ -63,7 +63,13 @@ class BackupCryptoParityTest {
         for (i in 0 until files.length()) {
             val f = files.getJSONObject(i)
             val kdf = BackupCrypto.Kdf.Argon2(f.getInt("m"), f.getInt("t"), f.getInt("p"))
-            val env = BackupCrypto.encrypt(plain.toByteArray(Charsets.UTF_8), password(), b64(f.getString("salt")), b64(f.getString("iv")), kdf)
+            val env = BackupCrypto.encrypt(
+                plain.toByteArray(Charsets.UTF_8),
+                password(),
+                b64(f.getString("salt")),
+                b64(f.getString("iv")),
+                kdf
+            )
             assertEquals(f.getString("data"), Base64.getEncoder().encodeToString(env.data))
             // Geschriebenes JSON trägt dieselben Felder wie die Prüfdatei
             val written = JSONObject(BackupCrypto.toJson(env))

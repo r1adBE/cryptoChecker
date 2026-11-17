@@ -1,5 +1,4 @@
 package com.cryptochecker.app.data.settings
-import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
@@ -13,19 +12,23 @@ import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_PORT
 import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_SHOW_CONVERTED
 import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_UPDATE_MODE
 import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_WATCHLIST_NAMES
+import com.cryptochecker.app.domain.market.IndicatorAlertKind
 
 /** Schlüssel der Einstellungen im DataStore ([SettingsRepository], [settingsDataStore]). */
 object SettingsKeys {
     /** «Wie aktuell?» ([UpdateMode.name]). */
     val updateMode = stringPreferencesKey(KEY_UPDATE_MODE)
     val backgroundInterval = intPreferencesKey("background_interval_minutes")
+
     /** «Pünktlich prüfen». */
     val exactChecks = booleanPreferencesKey("exact_checks")
     val priceNotifications = booleanPreferencesKey("price_notifications")
     val ongoingNotifications = booleanPreferencesKey(KEY_ONGOING_NOTIFICATIONS)
+
     /** Preis-Overlay (nur Android, gerätebezogen, nicht in der Sicherung). */
     val priceOverlay = booleanPreferencesKey("price_overlay")
     val watchNotifications = booleanPreferencesKey("watch_notifications")
+
     /** Freie Eingabe mit Nachkommastellen, z. B. 2,5 %. */
     val notificationChange = doublePreferencesKey("notification_change_percent_exact")
     val tts = booleanPreferencesKey("tts_enabled")
@@ -33,8 +36,10 @@ object SettingsKeys {
     val ttsSpeechRate = floatPreferencesKey("tts_speech_rate")
     val alarmCooldown = intPreferencesKey("alarm_cooldown_minutes")
     val includeRollingFutures = booleanPreferencesKey("include_rolling_futures")
+
     /** «Token & TradFi» ([AssetScope.name]). */
     val assetScope = stringPreferencesKey("asset_scope")
+
     /** «inkl. Alpha-Tokens». */
     val includeAlphaTokens = booleanPreferencesKey(KEY_INCLUDE_ALPHA_TOKENS)
     val accentColor = stringPreferencesKey("accent_color")

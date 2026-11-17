@@ -1,15 +1,15 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import android.content.Context
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.alarm.AlarmSavedText
+import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.convertCurrency
-import com.cryptochecker.app.domain.alarm.AlarmSavedText
-import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.util.MomentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * «Sag mir Bescheid, wenn BTC über 60’000 CHF steigt.» — der Alarm als Satz für
@@ -59,25 +59,35 @@ fun alarmSentence(
         AlarmSentence.Kind.UP_PERCENT -> context.getString(R.string.alarm_sentence_up_percent, parts.symbol, parts.value)
         AlarmSentence.Kind.DOWN_PERCENT -> context.getString(R.string.alarm_sentence_down_percent, parts.symbol, parts.value)
         AlarmSentence.Kind.MOVE_PERCENT -> context.resources.getQuantityString(
-            R.plurals.alarm_sentence_move_percent, parts.windowHours, parts.symbol, parts.value, parts.windowHours
+            R.plurals.alarm_sentence_move_percent,
+            parts.windowHours,
+            parts.symbol,
+            parts.value,
+            parts.windowHours
         )
         AlarmSentence.Kind.VOLUME -> context.getString(R.string.alarm_sentence_volume, parts.symbol, parts.value)
         // «Sag mir Bescheid, wenn BTC höchstens 2 % unter dem 30-Tage-Hoch liegt.» (windowHours = Tage)
         AlarmSentence.Kind.NEAR_HIGH -> context.getString(
-            R.string.alarm_sentence_near_high, parts.symbol, parts.value,
+            R.string.alarm_sentence_near_high,
+            parts.symbol,
+            parts.value,
             AlarmTexts.extremeLabel(context, high = true, days = parts.windowHours)
         )
         AlarmSentence.Kind.NEAR_LOW -> context.getString(
-            R.string.alarm_sentence_near_low, parts.symbol, parts.value,
+            R.string.alarm_sentence_near_low,
+            parts.symbol,
+            parts.value,
             AlarmTexts.extremeLabel(context, high = false, days = parts.windowHours)
         )
         // Nur neue Hochs/Tiefs: «Sag mir Bescheid, wenn BTC ein neues 30-Tage-Hoch erreicht.»
         AlarmSentence.Kind.NEW_HIGH -> context.getString(
-            R.string.alarm_sentence_new_extreme, parts.symbol,
+            R.string.alarm_sentence_new_extreme,
+            parts.symbol,
             AlarmTexts.extremeLabel(context, high = true, days = parts.windowHours)
         )
         AlarmSentence.Kind.NEW_LOW -> context.getString(
-            R.string.alarm_sentence_new_extreme, parts.symbol,
+            R.string.alarm_sentence_new_extreme,
+            parts.symbol,
             AlarmTexts.extremeLabel(context, high = false, days = parts.windowHours)
         )
         // «Sag mir Bescheid, wenn das Funding von BTC über 0,05 % steigt.»
@@ -85,10 +95,18 @@ fun alarmSentence(
         AlarmSentence.Kind.FUNDING_BELOW -> context.getString(R.string.alarm_sentence_funding_below, parts.symbol, parts.value)
         // «Sag mir Bescheid, wenn das Open Interest von BTC innerhalb von 4 Stunden um 10 % steigt.»
         AlarmSentence.Kind.OI_UP -> context.resources.getQuantityString(
-            R.plurals.alarm_sentence_oi_up, parts.windowHours, parts.symbol, parts.value, parts.windowHours
+            R.plurals.alarm_sentence_oi_up,
+            parts.windowHours,
+            parts.symbol,
+            parts.value,
+            parts.windowHours
         )
         AlarmSentence.Kind.OI_DOWN -> context.resources.getQuantityString(
-            R.plurals.alarm_sentence_oi_down, parts.windowHours, parts.symbol, parts.value, parts.windowHours
+            R.plurals.alarm_sentence_oi_down,
+            parts.windowHours,
+            parts.symbol,
+            parts.value,
+            parts.windowHours
         )
     }
 }

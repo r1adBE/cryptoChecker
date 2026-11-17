@@ -3,6 +3,7 @@ package com.cryptochecker.app.util
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.domain.util.appExceptionHandler
 import com.cryptochecker.app.domain.util.appScope
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +14,6 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * Prozessweiter Bereich fängt Ausnahmen ab und läuft danach weiter. Ebenso der Bereich der
@@ -27,7 +27,10 @@ class AppScopeTest {
         val handled = CompletableDeferred<Unit>()
         val scope = kotlinx.coroutines.CoroutineScope(
             kotlinx.coroutines.SupervisorJob() + Dispatchers.Default +
-                appExceptionHandler("Test") { caught += it; handled.complete(Unit) }
+                appExceptionHandler("Test") {
+                    caught += it
+                    handled.complete(Unit)
+                }
         )
         scope.launch { throw IllegalStateException("kaputt") }
         withTimeout(5_000) { handled.await() }

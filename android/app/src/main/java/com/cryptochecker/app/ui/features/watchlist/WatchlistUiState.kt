@@ -4,9 +4,11 @@
 // Eigene Datei, weil es reine Daten und Abbildungen ohne Android-Bezug sind (Unit-Tests in WatchlistUiStateTest).
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.settings.WatchlistSettings
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeBasis
@@ -15,8 +17,6 @@ import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.WatchlistSettings
 
 /** Alles, was der Merkliste-Bildschirm vom ViewModel liest (ohne die Live-Kurse). */
 data class WatchlistUiState(
@@ -191,9 +191,12 @@ internal fun filterByGroup(
     selectedGroup: String?,
     kinds: Map<Long, AssetKind>,
 ): List<WatchEntity> =
-    if (selectedGroup == null) watches
-    else watches.filter {
-        WatchFilter.matches(selectedGroup, it.groupName, it.favorite, alpha = kinds[it.id] == AssetKind.ALPHA)
+    if (selectedGroup == null) {
+        watches
+    } else {
+        watches.filter {
+            WatchFilter.matches(selectedGroup, it.groupName, it.favorite, alpha = kinds[it.id] == AssetKind.ALPHA)
+        }
     }
 
 /**

@@ -4,6 +4,8 @@ import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import com.cryptochecker.marketdata.model.exchange.Kraken
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +25,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 /**
  * Netzschicht ohne Netz: Ein Interceptor spielt die Börse. Geprüft werden die Zeitgrenzen (OkHttp-callTimeout
@@ -34,11 +34,13 @@ class ExchangeCallTimeoutTest {
 
     private fun client(callTimeoutMillis: Long = 0, reply: (String) -> Response?) = OkHttpClient.Builder()
         .callTimeout(callTimeoutMillis, TimeUnit.MILLISECONDS)
-        .addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            reply(url)?.newBuilder()?.request(request)?.build() ?: throw IOException("offline: $url")
-        })
+        .addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                reply(url)?.newBuilder()?.request(request)?.build() ?: throw IOException("offline: $url")
+            }
+        )
         .build()
 
     private fun ok(body: String): Response = Response.Builder()
@@ -52,7 +54,10 @@ class ExchangeCallTimeoutTest {
     @Test
     fun okHttpCallTimeoutArrivesAsTimeoutError() = runBlocking {
         // Antwort kommt erst nach dem callTimeout: OkHttp bricht selbst ab (call.isCanceled() == true)
-        val slow = client(callTimeoutMillis = 100) { Thread.sleep(600); ok("{}") }
+        val slow = client(callTimeoutMillis = 100) {
+            Thread.sleep(600)
+            ok("{}")
+        }
         val started = System.currentTimeMillis()
         try {
             withTimeout(4_000) { slow.callExchange("https://example.invalid/slow", null) }
@@ -105,8 +110,10 @@ class ExchangeCallTimeoutTest {
 
     @Test
     fun failedCoinMListKeepsTheOldList() = runBlocking {
-        val usdM = """{"symbols":[{"symbol":"BTCUSDT","baseAsset":"BTC","quoteAsset":"USDT","contractType":"PERPETUAL","status":"TRADING"}]}"""
-        val coinM = """{"symbols":[{"symbol":"BTCUSD_PERP","baseAsset":"BTC","quoteAsset":"USD","contractType":"PERPETUAL","contractStatus":"TRADING"}]}"""
+        val usdM = """{"symbols":[{"symbol":"BTCUSDT","baseAsset":"BTC","quoteAsset":"USDT",""" +
+            """"contractType":"PERPETUAL","status":"TRADING"}]}"""
+        val coinM = """{"symbols":[{"symbol":"BTCUSD_PERP","baseAsset":"BTC","quoteAsset":"USD",""" +
+            """"contractType":"PERPETUAL","contractStatus":"TRADING"}]}"""
 
         // dapi fällt aus: Abgleich scheitert (die gespeicherte Liste bleibt), statt nur USDⓈ-M zu speichern
         val dapiDown = ExchangeRemoteDataSource(client { url -> if (url.contains("fapi")) ok(usdM) else null })

@@ -4,14 +4,16 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.exchange.DexPool
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 // =============================================================================================
@@ -75,6 +77,7 @@ private const val MAX_DEX_RESULTS = 25
 /** Rückmeldung der DEX-Suche. */
 sealed interface DexMessage {
     data object NoResults : DexMessage
+
     /** Suche gescheitert: Art für den Text, [query] für «Erneut versuchen». */
     data class Failed(val kind: DexFailure, val query: String) : DexMessage
     data class Added(val symbol: String) : DexMessage
@@ -89,7 +92,9 @@ internal const val DEX_KEY = "DexScreener"
  * Gleich wie `DexFailure` (iOS).
  */
 enum class DexFailure {
-    OFFLINE, UNREACHABLE, OTHER;
+    OFFLINE,
+    UNREACHABLE,
+    OTHER;
 
     companion object {
         fun of(cause: RefreshFailure): DexFailure = when (cause) {

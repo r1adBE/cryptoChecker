@@ -1,12 +1,12 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.backup.BackupPasswordStrength
 import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.data.backup.BackupVersion
 import com.cryptochecker.app.ui.features.settings.BackupMessage
 import com.cryptochecker.app.ui.features.settings.BackupResultPresentation
+import com.cryptochecker.resources.R
 import java.io.File
 import org.json.JSONArray
 import org.json.JSONObject
@@ -83,11 +83,13 @@ class BackupPasswordParityTest {
             when (val expected = c.get("result")) {
                 is Number -> assertEquals(name, expected.toInt(), BackupVersion.check(raw))
                 "newer" -> try {
-                    BackupVersion.check(raw); fail(name)
+                    BackupVersion.check(raw)
+                    fail(name)
                 } catch (_: BackupVersion.NewerVersionException) {
                 }
                 else -> try {
-                    BackupVersion.check(raw); fail(name)
+                    BackupVersion.check(raw)
+                    fail(name)
                 } catch (_: IllegalArgumentException) {
                 }
             }

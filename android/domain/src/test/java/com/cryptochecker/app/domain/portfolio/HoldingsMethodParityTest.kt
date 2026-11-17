@@ -11,17 +11,17 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxExport
-import com.cryptochecker.app.domain.portfolio.gainRows
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
-import java.math.BigDecimal
+import com.cryptochecker.app.domain.portfolio.gainRows
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Test
 
 /**
  * Bestand je Einstandsmethode überall gleich (`testdata/parity/holdings_method.json`): Karte, Stichtag, «7 T» und
@@ -89,7 +89,8 @@ class HoldingsMethodParityTest {
                 assertHoldings("$label card", expected, card(trades, method))
                 assertHoldings("$label holdingsAt", expected, PortfolioCalculator.holdingsAt(trades, method = method))
                 assertHoldings(
-                    "$label cutoff", expected,
+                    "$label cutoff",
+                    expected,
                     CutoffExport.holdingsAt(trades, Long.MAX_VALUE, method).associate { it.coin to it.amount },
                 )
                 val today = c["today"].num()!!.toLong()
@@ -112,7 +113,9 @@ class HoldingsMethodParityTest {
                     val list = PortfolioCalculator.disposals(valued, method).filter { it.coin == coin }
                     val position = PortfolioCalculator.ledger(coin, valued, null, method).position
                     // Karte bewertet Gebühr-Zeilen selbst (withdrawalPrice) — gleiche Zahl
-                    val card = PortfolioCalculator.summarize(trades, live, method) { c2, t2 -> PortfolioPeriodChange.marketPriceAt(c2, live[c2], closes, t2) }
+                    val card = PortfolioCalculator.summarize(trades, live, method) { c2, t2 ->
+                        PortfolioPeriodChange.marketPriceAt(c2, live[c2], closes, t2)
+                    }
                     val cardRealized = (card.open + card.closed).first { it.coin == coin }.realizedExact
                     assertNear("$label $coin card realized", x["realized"], cardRealized)
                     // Coin-Ansicht bewertet Gebühr-Zeilen ebenso (ledger feePrice) — gleiche Zahl
@@ -129,7 +132,13 @@ class HoldingsMethodParityTest {
                 s["feeRows"]?.num()?.let { n ->
                     val year = java.time.Instant.ofEpochMilli(trades.maxOf { it.time }).atZone(java.time.ZoneOffset.UTC).year
                     val rows = TaxExport.gainRows(
-                        trades, TaxMethod.of(method), TaxTemplate.NEUTRAL.period(year), java.time.ZoneOffset.UTC, "USD", null, feePrice,
+                        trades,
+                        TaxMethod.of(method),
+                        TaxTemplate.NEUTRAL.period(year),
+                        java.time.ZoneOffset.UTC,
+                        "USD",
+                        null,
+                        feePrice,
                     )
                     assertEquals("$label feeRows", n.toInt(), rows.count { it.feeRow })
                 }
@@ -143,7 +152,8 @@ class HoldingsMethodParityTest {
                     val until = trades.filter { it.time <= time }
                     assertHoldings("$label card", expected.obj(), card(until, method))
                     assertHoldings(
-                        "$label cutoff", expected.obj(),
+                        "$label cutoff",
+                        expected.obj(),
                         CutoffExport.holdingsAt(trades, time, method).associate { it.coin to it.amount },
                     )
                 }

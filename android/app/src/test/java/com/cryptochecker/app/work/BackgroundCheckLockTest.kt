@@ -1,10 +1,10 @@
 package com.cryptochecker.app.work
 
+import java.io.File
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Warten auf Pulse-Widget und Ansagen gehört nicht unter die Prüf-Sperre von [BackgroundCheck]: sonst hielte jeder Lauf
@@ -26,9 +26,10 @@ class BackgroundCheckLockTest {
         assertFalse("Ansagen-Warten unter der Sperre", "awaitQueued" in locked)
         // Gewartet wird weiterhin — nur danach: in run() nach dem Block unter der Sperre
         assertTrue("awaitBackgroundFetch" in text && "awaitQueued" in text)
-        val lockAt = text.indexOf("running.withLock { runLocked(")
+        val flat = text.squashed()
+        val lockAt = flat.indexOf("running.withLock{runLocked(")
         assertTrue("runLocked läuft nicht unter running.withLock", lockAt >= 0)
-        val waitAt = text.indexOf("awaitSideEffects(", lockAt)
+        val waitAt = flat.indexOf("awaitSideEffects(", lockAt)
         assertTrue("awaitSideEffects nicht nach der Sperre aufgerufen", waitAt > lockAt)
         assertFalse("awaitSideEffects unter der Sperre", "awaitSideEffects" in locked)
     }
@@ -63,4 +64,7 @@ class BackgroundCheckLockTest {
     private companion object {
         const val SOURCE = "src/main/java/com/cryptochecker/app/work/BackgroundCheck.kt"
     }
+
+    /** Ohne Leerraum und Komma vor «)»: Vergleich unabhängig vom Umbruch des Formatierers. */
+    private fun String.squashed(): String = replace(Regex("\\s+"), "").replace(",)", ")")
 }

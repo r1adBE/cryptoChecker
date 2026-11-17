@@ -2,12 +2,12 @@ package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Speichern aus dem Editor mit dem GESPEICHERTEN Stand: ein eben ausgelöster Alarm bleibt ausgelöst,
@@ -67,7 +67,18 @@ class AlarmSaveBuilderTest {
 
     @Test
     fun speichernLiestUndSchreibtInEinerTransaktion() {
-        fun source(path: String) = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
+        fun source(
+            path: String
+        ) = listOf(
+            File(path),
+            File("app/$path"),
+            File("../data/$path"),
+            File("data/$path"),
+            File("../domain/$path"),
+            File("domain/$path")
+        ).first {
+            it.exists()
+        }.readText()
         val vm = source("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsViewModel.kt")
         val save = vm.substringAfter("fun save(draft: AlarmDraft").substringBefore("\n    fun delete(")
         assertTrue(save.contains("saveMergedIfWatchExists("))

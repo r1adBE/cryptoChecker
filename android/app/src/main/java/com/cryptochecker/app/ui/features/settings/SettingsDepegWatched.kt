@@ -6,11 +6,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.alarm.StableDepeg
 import com.cryptochecker.app.domain.alarm.StableDepegStore
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

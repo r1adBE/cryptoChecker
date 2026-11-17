@@ -1,15 +1,15 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
+import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.watch.DayChange
 import javax.inject.Inject
@@ -56,19 +56,27 @@ class VolumeDataSource @Inject constructor(
     ): Sourced<List<HourCandle>>? {
         val key = "P|${pair.cacheKey}|${interval.name}|$limit"
         val now = System.currentTimeMillis()
-        if (!refresh) cache[key]?.let { (time, value) ->
-            if (now - time in 0 until CACHE_MILLIS) return value
+        if (!refresh) {
+            cache[key]?.let { (time, value) ->
+                if (now - time in 0 until CACHE_MILLIS) return value
+            }
         }
         val result = pairCandlesOf(
-            pair, price,
+            pair,
+            price,
             // Name des Coins an der Börse des Paars (gleicher Token) — wie der Chart
             identityName = tokenIdentityStore.pairName(pair.exchangeKey, pair.base),
             ownSupported = ownCandles.supports(pair, interval),
             own = { ownCandles.candles(pair, interval, limit) },
             chain = { name, accept ->
                 candleDataSource.candlesSourced(
-                    pair.base, pair.quote, interval, limit, preferFutures = pair.isFutures,
-                    identityName = name, accept = accept,
+                    pair.base,
+                    pair.quote,
+                    interval,
+                    limit,
+                    preferFutures = pair.isFutures,
+                    identityName = name,
+                    accept = accept,
                 )
             },
         )

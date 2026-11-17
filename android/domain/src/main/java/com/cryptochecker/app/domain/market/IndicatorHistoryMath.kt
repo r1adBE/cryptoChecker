@@ -50,7 +50,10 @@ object IndicatorHistoryMath {
             val p = values[i]
             runningMax = maxOf(runningMax, p)
             ath += (1.0 - p / runningMax) * 100.0
-            sma(i, 200)?.let { mayer += p / it; if (firstDay == null) firstDay = clean[i].first }
+            sma(i, 200)?.let {
+                mayer += p / it
+                if (firstDay == null) firstDay = clean[i].first
+            }
             if (i >= 30) change += (p / values[i - 30] - 1.0) * 100.0
             val s111 = sma(i, 111)
             val s350 = sma(i, 350)

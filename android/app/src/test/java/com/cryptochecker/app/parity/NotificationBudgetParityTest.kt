@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.notification.AppNotifierDeliveryPlan
 import com.cryptochecker.app.domain.notification.NotificationBudget
+import com.cryptochecker.app.notification.AppNotifierDeliveryPlan
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -35,7 +35,8 @@ class NotificationBudgetParityTest {
             val postTime = c["postTime"].num()?.toLong()
             val times = if (c["queryable"] == true) postTime?.let { mapOf(7 to it) } ?: emptyMap() else null
             assertEquals(
-                c["name"] as String, c["confirmed"],
+                c["name"] as String,
+                c["confirmed"],
                 NotificationBudget.confirmedPost(times, 7, c["postedAt"].num()!!.toLong()),
             )
         }
@@ -53,7 +54,10 @@ class NotificationBudgetParityTest {
         data["planPrices"].list().map { it.obj() }.forEach { c ->
             val name = c["name"] as String
             val plan = NotificationBudget.planPrices(
-                ids(c["shown"]), ids(c["overflowBefore"]), ids(c["posts"]), c["slots"].num()!!.toInt(),
+                ids(c["shown"]),
+                ids(c["overflowBefore"]),
+                ids(c["posts"]),
+                c["slots"].num()!!.toInt(),
             )
             assertEquals(name, ids(c["individual"]), plan.individual)
             assertEquals(name, ids(c["overflow"]), plan.overflow)

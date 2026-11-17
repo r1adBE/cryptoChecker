@@ -30,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.FearGreed
@@ -46,10 +45,11 @@ import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PlainSummaryInput
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
-import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
 
 /** So oft wird neu geprüft, ob ein Satz inzwischen auf veralteten Daten stünde. */

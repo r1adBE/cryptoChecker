@@ -33,7 +33,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
@@ -54,6 +53,7 @@ import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.resources.R
 
 /**
  * Liste des Portfolio-Tabs mit Daten: Status der Kurse, Gesamtkarte, Wertverlauf, Aufteilung, Positionen (nach links
@@ -130,8 +130,10 @@ internal fun PortfolioList(
                         hasOpenCoins = current.open.isNotEmpty(),
                     )
                     val stale = priceState == PortfolioPriceState.STALE ||
-                        (priceState == PortfolioPriceState.OFFLINE &&
-                            PortfolioPriceFallback.isStale(prices.updatedAt, now, staleAfter))
+                        (
+                            priceState == PortfolioPriceState.OFFLINE &&
+                                PortfolioPriceFallback.isStale(prices.updatedAt, now, staleAfter)
+                            )
                     if (priceState != PortfolioPriceState.NONE) {
                         item(key = "status") {
                             PortfolioStatusPill(
@@ -144,29 +146,31 @@ internal fun PortfolioList(
                         }
                     }
                     item(key = "total") {
-                        Box(Modifier.padding(bottom = ListSegment.Spacing)) { TotalCard(
-                            summary = current,
-                            updatedAt = prices.updatedAt,
-                            currency = currency,
-                            fxRate = fxRate,
-                            costFx = costFx,
-                            todayPercent = todayPercent,
-                            todayAmount = todayAmount,
-                            todaySkipped = todaySkipped,
-                            weekChange = weekChange,
-                            yearChange = yearChange,
-                            stale = stale,
-                            priceSources = prices.sources,
-                            exchangeFailed = prices.exchangeFailed,
-                            mixedExchange = prices.mixedExchange,
-                            periodScaled = periodScaled,
-                            walletShortfalls = walletShortfalls,
-                            onShortfall = onShortfall,
-                            // «USDT = 1 angenommen»: Messung 6 Std. gültig, Uhr alle 30 s ([DepegAlarm.cardNote] in der Karte)
-                            depegReading = depegReading,
-                            depegThresholdTenths = depegThreshold,
-                            now = now,
-                        ) }
+                        Box(Modifier.padding(bottom = ListSegment.Spacing)) {
+                            TotalCard(
+                                summary = current,
+                                updatedAt = prices.updatedAt,
+                                currency = currency,
+                                fxRate = fxRate,
+                                costFx = costFx,
+                                todayPercent = todayPercent,
+                                todayAmount = todayAmount,
+                                todaySkipped = todaySkipped,
+                                weekChange = weekChange,
+                                yearChange = yearChange,
+                                stale = stale,
+                                priceSources = prices.sources,
+                                exchangeFailed = prices.exchangeFailed,
+                                mixedExchange = prices.mixedExchange,
+                                periodScaled = periodScaled,
+                                walletShortfalls = walletShortfalls,
+                                onShortfall = onShortfall,
+                                // «USDT = 1 angenommen»: Messung 6 Std. gültig, Uhr alle 30 s ([DepegAlarm.cardNote] in der Karte)
+                                depegReading = depegReading,
+                                depegThresholdTenths = depegThreshold,
+                                now = now,
+                            )
+                        }
                     }
                     // Einträge ohne Einstand: sanfte Karte zum Ergänzen
                     if (costGapsPending > 0) {

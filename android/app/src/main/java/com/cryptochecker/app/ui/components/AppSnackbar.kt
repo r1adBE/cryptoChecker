@@ -29,7 +29,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
@@ -38,6 +37,7 @@ import com.cryptochecker.app.ui.theme.LocalPriceColorScheme
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.ui.theme.SnackbarPalette
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 /**
  * Meldung mit Art ([SnackbarKind]) für [AppSnackbarHost]. Ein gewöhnliches `showSnackbar(String)` kommt ohne Art an

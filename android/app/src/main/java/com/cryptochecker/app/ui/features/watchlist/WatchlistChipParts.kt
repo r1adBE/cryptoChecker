@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 
 // Teile der Gruppen-Chips ([GroupChips]): Ausblend-Rand der Zeile und Namenshinweis unter einem Symbol-Chip.
 
@@ -53,7 +53,9 @@ internal fun Modifier.fadeEnd(scrollsOn: () -> Boolean): Modifier = this
             Brush.horizontalGradient(listOf(Color.Transparent, Color.Black), startX = 0f, endX = fade)
         } else {
             Brush.horizontalGradient(
-                listOf(Color.Black, Color.Transparent), startX = size.width - fade, endX = size.width,
+                listOf(Color.Black, Color.Transparent),
+                startX = size.width - fade,
+                endX = size.width,
             )
         }
         drawRect(brush = brush, blendMode = BlendMode.DstIn)

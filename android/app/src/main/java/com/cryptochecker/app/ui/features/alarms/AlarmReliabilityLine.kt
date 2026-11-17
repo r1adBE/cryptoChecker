@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.alarm.AlarmReliability
@@ -38,6 +37,7 @@ import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.work.AlarmReadinessProbe
+import com.cryptochecker.resources.R
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val ALARM_RELIABILITY_TAG = "alarm_reliability_line"
@@ -97,13 +97,20 @@ private fun AlarmReliabilityContent(
     // Systemzustand nur bei Änderung bzw. Rückkehr lesen; die Uhr ([now]) nur für «zu alt» und die Zeitangabe
     val input = remember(settings, lastCheck, hasAlarms, readAt) {
         AlarmReadinessProbe.read(
-            context, settings, lastCheck, hasAlarms, readAt,
+            context,
+            settings,
+            lastCheck,
+            hasAlarms,
+            readAt,
             notificationsNotDetermined = NotificationPrePrompt.notDetermined(context),
         )
     }
     val status = AlarmReliability.status(
         input.copy(
-            now = now, lastFailedBackgroundCheck = lastFailedCheck, failingSince = failingSince, storageNoKey = storageNoKey,
+            now = now,
+            lastFailedBackgroundCheck = lastFailedCheck,
+            failingSince = failingSince,
+            storageNoKey = storageNoKey,
             offline = offlineSkipped,
         ),
     )

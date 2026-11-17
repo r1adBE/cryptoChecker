@@ -1,31 +1,31 @@
 @file:Suppress("UNCHECKED_CAST")
 
 package com.cryptochecker.app.domain.portfolio
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
+import com.cryptochecker.app.domain.portfolio.Erc20Tokens
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import com.cryptochecker.app.domain.portfolio.Erc20Tokens
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.math.BigDecimal
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** Weitere Netze (EVM, TRON, Solana, LTC, XRP, TON) und «Nur anzeigen» aus `address_balance.json` (iOS: `ChainTests.swift`). */
 class ChainParityTest {
@@ -51,7 +51,9 @@ class ChainParityTest {
             assertEquals(e["native"], n.native)
             assertEquals(e["rpcs"], n.rpcs)
             assertEquals(
-                e["tokens"].list().map { it.obj() }.map { listOf(it["symbol"], it["contract"], it["decimals"].num()!!.toInt(), it["coin"]) },
+                e["tokens"].list().map {
+                    it.obj()
+                }.map { listOf(it["symbol"], it["contract"], it["decimals"].num()!!.toInt(), it["coin"]) },
                 n.tokens.map { listOf(it.symbol, it.contract, it.decimals, it.coin) },
             )
             // Kein Token heisst wie das Netz-Guthaben (Schlüssel eindeutig)
@@ -66,7 +68,9 @@ class ChainParityTest {
             ChainAssets.SOLANA_TOKENS.map { listOf(it.symbol, it.mint, it.decimals, it.coin) },
         )
         assertEquals(
-            c["ton"].list().map { it.obj() }.map { listOf(it["symbol"], it["master"], it["rawHex"], it["decimals"].num()!!.toInt(), it["coin"]) },
+            c["ton"].list().map {
+                it.obj()
+            }.map { listOf(it["symbol"], it["master"], it["rawHex"], it["decimals"].num()!!.toInt(), it["coin"]) },
             ChainAssets.TON_JETTONS.map { listOf(it.symbol, it.master, it.rawHex, it.decimals, it.coin) },
         )
         c["resolve"].list().map { it.obj() }.forEach { r ->
@@ -93,12 +97,18 @@ class ChainParityTest {
         assertEquals(t["accountRequest"], ChainBalance.tronAccountRequest(address))
         assertEquals(t["tokenRequest"], ChainBalance.tronTokenRequest(address, ChainAssets.TRON_TOKENS[0]))
         t["accounts"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["body"] as String) { ChainBalance.parseTronAccount(c["body"] as String) }
-            else assertEquals(c["sun"], ChainBalance.parseTronAccount(c["body"] as String))
+            if (c["error"] == true) {
+                expectError(c["body"] as String) { ChainBalance.parseTronAccount(c["body"] as String) }
+            } else {
+                assertEquals(c["sun"], ChainBalance.parseTronAccount(c["body"] as String))
+            }
         }
         t["calls"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["body"] as String) { ChainBalance.parseTronCall(c["body"] as String) }
-            else assertEquals(c["digits"], ChainBalance.parseTronCall(c["body"] as String))
+            if (c["error"] == true) {
+                expectError(c["body"] as String) { ChainBalance.parseTronCall(c["body"] as String) }
+            } else {
+                assertEquals(c["digits"], ChainBalance.parseTronCall(c["body"] as String))
+            }
         }
     }
 
@@ -137,30 +147,44 @@ class ChainParityTest {
         assertEquals(xrp["rpcs"], ChainBalance.XRP_RPCS)
         assertEquals(xrp["request"], ChainBalance.xrpRequest(xrp["address"] as String))
         xrp["cases"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["body"] as String) { ChainBalance.parseXrp(c["body"] as String) }
-            else assertEquals(c["drops"], ChainBalance.parseXrp(c["body"] as String))
+            if (c["error"] == true) {
+                expectError(c["body"] as String) { ChainBalance.parseXrp(c["body"] as String) }
+            } else {
+                assertEquals(c["drops"], ChainBalance.parseXrp(c["body"] as String))
+            }
         }
         val ton = b["ton"].obj()
         assertEquals(ton["hosts"], ChainBalance.TON_HOSTS)
         assertEquals(ton["url"], ChainBalance.tonUrl("https://toncenter.com", ton["address"] as String))
         assertEquals(ton["rawUrl"], ChainBalance.tonUrl("https://toncenter.com", "0:" + (ton["rawUrl"] as String).substringAfter("%3A")))
         ton["cases"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["body"] as String) { ChainBalance.parseTon(c["body"] as String) }
-            else assertEquals(c["nano"], ChainBalance.parseTon(c["body"] as String))
+            if (c["error"] == true) {
+                expectError(c["body"] as String) { ChainBalance.parseTon(c["body"] as String) }
+            } else {
+                assertEquals(c["nano"], ChainBalance.parseTon(c["body"] as String))
+            }
         }
         assertEquals(ton["jettonsUrl"], ChainBalance.tonJettonsUrl("https://toncenter.com", ton["jettonsAddress"] as String))
         assertEquals(ton["jettonLimit"].num()!!.toInt(), ChainBalance.TON_JETTON_LIMIT)
         ton["jettons"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["name"] as String) { ChainBalance.parseTonJettons(c["body"] as String) }
-            else assertEquals(c["name"] as String, c["tokens"].obj(), ChainBalance.parseTonJettons(c["body"] as String))
+            if (c["error"] == true) {
+                expectError(c["name"] as String) { ChainBalance.parseTonJettons(c["body"] as String) }
+            } else {
+                assertEquals(c["name"] as String, c["tokens"].obj(), ChainBalance.parseTonJettons(c["body"] as String))
+            }
         }
         val ada = b["ada"].obj()
         assertEquals(ada["hosts"], ChainBalance.ADA_HOSTS)
         assertEquals(ada["url"], ChainBalance.adaUrl("https://api.koios.rest"))
         assertEquals(ada["request"], ChainBalance.adaRequest(ada["address"] as String))
         ada["cases"].list().map { it.obj() }.forEach { c ->
-            if (c["error"] == true) expectError(c["body"] as String) { ChainBalance.parseAda(c["body"] as String, ada["address"] as String) }
-            else assertEquals(c["lovelace"], ChainBalance.parseAda(c["body"] as String, ada["address"] as String))
+            if (c["error"] ==
+                true
+            ) {
+                expectError(c["body"] as String) { ChainBalance.parseAda(c["body"] as String, ada["address"] as String) }
+            } else {
+                assertEquals(c["lovelace"], ChainBalance.parseAda(c["body"] as String, ada["address"] as String))
+            }
         }
         assertEquals(data["privacyHosts"], AddressBalance.PRIVACY_HOSTS)
         // Die Datenschutzerklärung nennt jeden Host, der eine Adresse sieht
@@ -236,16 +260,30 @@ class ChainParityTest {
         val shownStored = WatchedAddressExtras.decode(WatchedAddressExtras.encode(switched), switched.chain)
         assertTrue(shownStored.overlapChecked && !shownStored.countInPortfolio)
         h["overlapAtAdd"].list().map { it.obj() }.forEach { c ->
-            assertEquals(c["ask"], WatchedAddressRules.overlapAtAdd(AddressChain.fromName(c["chain"] as String)!!, c["ownCoins"].list().map { it as String }.toSet()))
+            assertEquals(
+                c["ask"],
+                WatchedAddressRules.overlapAtAdd(
+                    AddressChain.fromName(c["chain"] as String)!!,
+                    c["ownCoins"].list().map {
+                        it as String
+                    }.toSet()
+                )
+            )
         }
         // Reihen je Schlüssel: ETH auf Ethereum und Arbitrum getrennt, gleicher Coin
         val a = list[0].copy(
             observations = listOf(AddressObservation(10, BigDecimal.ONE)),
-            tokenObservations = mapOf("ARBITRUM:ETH" to listOf(AddressObservation(10, BigDecimal("0.5"))), "BASE:ETH" to listOf(AddressObservation(10, BigDecimal("9")))),
+            tokenObservations = mapOf(
+                "ARBITRUM:ETH" to listOf(AddressObservation(10, BigDecimal("0.5"))),
+                "BASE:ETH" to listOf(AddressObservation(10, BigDecimal("9")))
+            ),
         )
         val histories = AddressBalanceHistory.of(listOf(a))
         assertEquals(listOf("ETH", "ETH"), histories.map { it.coin })
-        assertEquals("1.5", com.cryptochecker.app.domain.portfolio.PortfolioDecimal.text(AddressBalanceHistory.latestByCoin(histories).getValue("ETH")))
+        assertEquals(
+            "1.5",
+            com.cryptochecker.app.domain.portfolio.PortfolioDecimal.text(AddressBalanceHistory.latestByCoin(histories).getValue("ETH"))
+        )
     }
 
     @Test
@@ -254,15 +292,24 @@ class ChainParityTest {
         val f = r["firstScan"].obj()
         val fresh = WatchedAddress(chain = AddressChain.ETH, address = f["address"] as String)
         val after = WatchedAddressRules.applyFetched(
-            fresh, 100, "1", "publicnode.com", (f["tokens"] as Map<String, Any?>).mapValues { it.value as String },
+            fresh,
+            100,
+            "1",
+            "publicnode.com",
+            (f["tokens"] as Map<String, Any?>).mapValues { it.value as String },
             networks = f["networks"].list().map { it as String },
         )
         assertEquals(f["expectedNetworks"], after.networks)
         // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl
         r["discovered"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "discovered $c", c["expected"],
-                WatchedAddressRules.discoveredNetworks(c["found"].list().map { it as String }, c["unanswered"].list().map { it as String }, c["background"] == true),
+                "discovered $c",
+                c["expected"],
+                WatchedAddressRules.discoveredNetworks(
+                    c["found"].list().map { it as String },
+                    c["unanswered"].list().map { it as String },
+                    c["background"] == true
+                ),
             )
         }
         assertEquals(f["expectedBalances"].obj(), after.tokenBalances)

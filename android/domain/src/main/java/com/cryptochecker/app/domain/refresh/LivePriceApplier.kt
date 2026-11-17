@@ -1,17 +1,17 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.PairIdentity
-import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
+import com.cryptochecker.app.domain.pairIdentity
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.app.domain.util.appScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Live-Kurse aus dem WebSocket-Strom ([com.cryptochecker.app.data.live.LivePriceStream]) speichern und wie eine
@@ -118,16 +118,24 @@ class LivePriceApplier constructor(
                     timestamp = LiveRules.updateTime(quote, watch.lastPrice, watch.lastUpdate)
                     exchangeTime = LiveRules.exchangeTime(quote, watch.lastPrice, watch.exchangeTime)
                     change24hPercent = LiveRules.chooseChange(
-                        rollingBasis, stampCurrent,
+                        rollingBasis,
+                        stampCurrent,
                         LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
-                        quote.change24h, watch.change24h,
+                        quote.change24h,
+                        watch.change24h,
                     )
                 }
                 fetched[watch.id] = Fetched(ticker, null)
             }
             if (watches.isEmpty()) return@withContext Unit to null
             val processed = resultProcessor.process(
-                lock, watches, fetched, settings, dayStart = null, live = true, deferPrices = true,
+                lock,
+                watches,
+                fetched,
+                settings,
+                dayStart = null,
+                live = true,
+                deferPrices = true,
             )
             // Kurs-Meldungen gleich vormerken: Sie laufen nach den Widgets (die Sperre bleibt bis zu ihrem Ende
             // gehalten) — auch wenn das Zeichnen scheitert, denn die Kurse sind gespeichert

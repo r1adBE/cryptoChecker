@@ -29,7 +29,11 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
 
     /** [price] = Kurs des Paars beim Laden (Bezug für den Sprung). */
     fun put(
-        base: String, quote: String, range: SheetChartRange, value: SheetChartResult.Ready, price: Double? = null,
+        base: String,
+        quote: String,
+        range: SheetChartRange,
+        value: SheetChartResult.Ready,
+        price: Double? = null,
         exchange: String = "",
     ) {
         entries[key(base, quote, range, exchange)] = Entry(now(), value, price?.takeIf { it.isFinite() && it > 0.0 })

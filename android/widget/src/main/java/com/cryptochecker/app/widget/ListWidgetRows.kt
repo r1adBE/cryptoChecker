@@ -1,32 +1,32 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.ListWidgetDataVersion
-import com.cryptochecker.app.domain.widget.WidgetFreshness
-import com.cryptochecker.app.domain.widget.WidgetTextFit
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.widget.WidgetGroupSelection
-import com.cryptochecker.app.domain.watch.assetKind
 import android.appwidget.AppWidgetManager
 import android.content.Context
-import android.util.TypedValue
 import android.content.Intent
+import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.watch.ChangeView
-import com.cryptochecker.app.domain.watch.shownChange
-import com.cryptochecker.app.settings.HighContrast
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.util.AppIntents
-import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.RetiredWatch
+import com.cryptochecker.app.domain.watch.assetKind
+import com.cryptochecker.app.domain.watch.shownChange
+import com.cryptochecker.app.domain.widget.ListWidgetDataVersion
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import com.cryptochecker.app.settings.HighContrast
+import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.AppIntents
+import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -171,8 +171,11 @@ class ListWidgetRows @Inject constructor(
         val outdatedAt = if (grey) null else WidgetFreshness.outdatedTime(watch, now, data.outdatedAfter)
         val outdated = outdatedAt != null
         // Börse ohne eigene Zeit, Kurs steht lange: «Kraken · Kurs unverändert seit 14:05» (wie die Zeile der App)
-        val unchanged = if (grey || outdated) null
-        else WidgetFreshness.unchangedSince(watch, now, data.outdatedAfter)?.let { WidgetOutdated.unchanged(context, it) }
+        val unchanged = if (grey || outdated) {
+            null
+        } else {
+            WidgetFreshness.unchangedSince(watch, now, data.outdatedAfter)?.let { WidgetOutdated.unchanged(context, it) }
+        }
         views.setTextViewText(
             R.id.item_exchange,
             when {

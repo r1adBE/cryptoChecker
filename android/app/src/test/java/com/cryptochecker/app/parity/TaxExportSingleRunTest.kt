@@ -18,12 +18,12 @@ import com.cryptochecker.app.domain.portfolio.incomeRows
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.performance.PortfolioPerformanceData
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Steuer-Export aus einem Lauf der Veräusserungen ([TaxExport.allDisposals] für Spanne, Übersicht und Zeilen) und einem
@@ -71,7 +71,10 @@ class TaxExportSingleRunTest {
             walletFrom = c.walletFrom, usdtUsd = c.usdtUsd,
         )
         val gains = TaxExport.gainsCsv(
-            rows, CSV_TEXTS, HEADER, FORMAT,
+            rows,
+            CSV_TEXTS,
+            HEADER,
+            FORMAT,
             lostFeeCosts = TaxExport.lostFeeCostsIn(c.trades, c.method, period, c.zone, rules),
             zone = c.zone,
             unassignedFees = TaxExport.unassignedFeesIn(c.trades, c.method, period, c.zone, rules),
@@ -102,7 +105,12 @@ class TaxExportSingleRunTest {
         val unassigned = TaxExport.unassignedFeesIn(c.trades, c.method, period, c.zone, rules)
         assertEquals("${c.label} nicht zugeordnet", unassigned, fees.unassignedFees)
         val gains = TaxExport.gainsCsv(
-            rows, CSV_TEXTS, HEADER, FORMAT, lostFeeCosts = fees.lostFeeCosts, zone = c.zone,
+            rows,
+            CSV_TEXTS,
+            HEADER,
+            FORMAT,
+            lostFeeCosts = fees.lostFeeCosts,
+            zone = c.zone,
             unassignedFees = fees.unassignedFees,
         )
         return Files(span, summaryCsv(summary, c), gains, incomeCsv(c))
@@ -113,7 +121,9 @@ class TaxExportSingleRunTest {
 
     private fun incomeCsv(c: Case): String = TaxExport.incomeCsv(
         TaxExport.incomeRows(c.trades, c.template.period(c.year), c.zone, c.currency, c.rates, c.priceAt, c.usdtUsd),
-        CSV_TEXTS, HEADER, FORMAT,
+        CSV_TEXTS,
+        HEADER,
+        FORMAT,
     )
 
     /** Prüft [c]; Rückgabe: Zahl der Gewinne-Zeilen (Abdeckung). */

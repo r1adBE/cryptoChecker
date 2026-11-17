@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote.candles
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha

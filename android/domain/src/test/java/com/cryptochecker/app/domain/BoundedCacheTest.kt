@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain
 import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.domain.KeyedMutex
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -9,7 +10,6 @@ import kotlinx.coroutines.yield
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.util.concurrent.atomic.AtomicInteger
 
 /** Begrenzte Zwischenspeicher der Kerzen (Mini-Chart, 24-h-Bezug) und Sperren je Paar. */
 class BoundedCacheTest {

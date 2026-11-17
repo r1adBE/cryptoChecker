@@ -27,14 +27,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -73,7 +73,10 @@ fun PortfolioExportDialog(
     ) { uri -> uri?.let { viewModel.retryExport(it) } }
 
     // Schliessen ohne Lauf: eine stehende Fehlermeldung gilt nicht fürs nächste Öffnen
-    val close = { viewModel.dismissFailure(); onDismiss() }
+    val close = {
+        viewModel.dismissFailure()
+        onDismiss()
+    }
     val doneText = stringResource(R.string.portfolio_export_done)
     val haptics = rememberHaptics()
     LaunchedEffect(state) {
@@ -94,7 +97,10 @@ fun PortfolioExportDialog(
     if (pickDate) {
         DateDialog(
             selected = date.atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-            onSelect = { epochDay = it.toEpochDay(); pickDate = false },
+            onSelect = {
+                epochDay = it.toEpochDay()
+                pickDate = false
+            },
             onDismiss = { pickDate = false }
         )
     }
@@ -114,8 +120,11 @@ fun PortfolioExportDialog(
                     date.format(LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))),
                     style = MaterialTheme.typography.titleMedium.tabularNumbers(),
                     fontWeight = FontWeight.SemiBold,
-                    color = if (running) MaterialTheme.colorScheme.onSurfaceVariant
-                    else MaterialTheme.colorScheme.primary,
+                    color = if (running) {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable(enabled = !running) { pickDate = true }
@@ -161,7 +170,10 @@ fun PortfolioExportDialog(
             TextButton(
                 enabled = !running,
                 colors = DisabledColors.textButton(),
-                onClick = { viewModel.dismissFailure(); launcher.launch(CutoffExport.fileName(date)) }
+                onClick = {
+                    viewModel.dismissFailure()
+                    launcher.launch(CutoffExport.fileName(date))
+                }
             ) { Text(stringResource(R.string.portfolio_export_button)) }
         },
         dismissButton = {

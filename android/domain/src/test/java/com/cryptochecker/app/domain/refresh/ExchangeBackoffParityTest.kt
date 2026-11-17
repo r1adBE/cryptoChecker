@@ -33,9 +33,12 @@ class ExchangeBackoffParityTest {
         data["next"].list().forEach { raw ->
             val c = raw.obj()
             val result = ExchangeBackoff.next(
-                state(c["state"]), ExchangeBackoff.Outcome.RATE_LIMITED, now,
+                state(c["state"]),
+                ExchangeBackoff.Outcome.RATE_LIMITED,
+                now,
                 retryAfterMillis = c["retryAfterMillis"].num()?.toLong(),
-                banned = c["banned"] as Boolean, shared = c["shared"] as Boolean,
+                banned = c["banned"] as Boolean,
+                shared = c["shared"] as Boolean,
             )
             assertEquals(c["name"] as String, state(c["expected"]), result)
         }
@@ -46,7 +49,10 @@ class ExchangeBackoffParityTest {
         data["groupPause"].list().forEach { raw ->
             val c = raw.obj()
             val result = ExchangeBackoff.groupPause(
-                state(c["state"]), now, c["httpCode"].num()!!.toInt(), c["retryAfterSeconds"].num()?.toLong(),
+                state(c["state"]),
+                now,
+                c["httpCode"].num()!!.toInt(),
+                c["retryAfterSeconds"].num()?.toLong(),
             )
             assertEquals(c["name"] as String, state(c["expected"]), result)
         }

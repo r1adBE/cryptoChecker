@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.logos
 
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import java.io.File
+import kotlin.math.abs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import java.io.File
-import kotlin.math.abs
 
 /**
  * Hinweis «Logos werden geladen …» unter dem Kopf der Merkliste — nur beim ersten Laden der Logos nach der

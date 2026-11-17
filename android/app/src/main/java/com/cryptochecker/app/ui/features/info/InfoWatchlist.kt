@@ -4,9 +4,9 @@ import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.model.WatchEntity
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
 /**
  * Was der Info-Tab von der Merkliste liest: ihre Paare (Tippen auf eine Zeile) und die Signale «Ungewöhnliche

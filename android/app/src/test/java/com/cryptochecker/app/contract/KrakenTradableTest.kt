@@ -4,18 +4,18 @@ import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.Kraken
+import java.io.File
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Kraken-Paare, die nicht «online» sind (z. B. «cancel_only»), an der echten Aufnahme vom 16.10.2026
@@ -74,7 +74,8 @@ class KrakenTradableTest {
         for (id in cancelOnly) {
             // Einzelantwort = dieselbe Zeile unter `result`, wie Kraken sie für ?pair=<id> liefert
             val body = JSONObject().put("error", org.json.JSONArray()).put(
-                "result", JSONObject().put(id, bulk.getJSONObject(id)),
+                "result",
+                JSONObject().put(id, bulk.getJSONObject(id)),
             ).toString()
             val ticker = SimpleTicker()
             kraken.readTicker(0, body, ticker, PairQuery("ACA", "USD", id, FuturesContractType.NONE))

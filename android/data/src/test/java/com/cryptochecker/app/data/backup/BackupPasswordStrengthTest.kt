@@ -10,13 +10,13 @@ class BackupPasswordStrengthTest {
     @Test
     fun shortPasswordsAreWeak() {
         assertTrue(BackupPasswordStrength.isWeak("Abc!def9"))
-        assertTrue(BackupPasswordStrength.isWeak("Abc!def9x"))        // 9 Zeichen
-        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen
-        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ"))      // 11 Zeichen
-        assertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2"))    // 12 Zeichen
+        assertTrue(BackupPasswordStrength.isWeak("Abc!def9x")) // 9 Zeichen
+        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy")) // 10 Zeichen
+        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ")) // 11 Zeichen
+        assertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2")) // 12 Zeichen
         // Emoji zählt als ein Zeichen
-        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy🔒"))     // 11 Zeichen
-        assertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ🔒"))   // 12 Zeichen
+        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy🔒")) // 11 Zeichen
+        assertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ🔒")) // 12 Zeichen
     }
 
     @Test
@@ -46,7 +46,7 @@ class BackupPasswordStrengthTest {
     @Test
     fun hintOnlyFromMinimumLength() {
         assertFalse(BackupPasswordStrength.showWeakHint(""))
-        assertFalse(BackupPasswordStrength.showWeakHint("12345678901"))     // noch «mindestens 12 Zeichen»
+        assertFalse(BackupPasswordStrength.showWeakHint("12345678901")) // noch «mindestens 12 Zeichen»
         assertFalse(BackupPasswordStrength.showWeakHint("Abc!def9"))
         assertTrue(BackupPasswordStrength.showWeakHint("123456789012"))
         assertTrue(BackupPasswordStrength.showWeakHint("Passwort1234"))

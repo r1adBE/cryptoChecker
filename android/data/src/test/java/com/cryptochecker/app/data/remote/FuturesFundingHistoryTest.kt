@@ -1,11 +1,13 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingPoint
 import com.cryptochecker.app.domain.activity.FundingTrendRules
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.io.IOException
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -18,8 +20,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Funding-Verlauf für «Warum?» ([fundingHistory]): gleiche Ausweich-Kette wie die Kennzahlen, leere Antwort zählt
@@ -36,18 +36,27 @@ class FuturesFundingHistoryTest {
     private fun okx(id: String) = "https://www.okx.com/api/v5/public/funding-rate-history?instId=$id&limit=$limit"
 
     private fun source(replies: Map<String, String>) = FuturesDataSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            hits.merge(url, 1) { a, b -> a + b }
-            val body = replies[url] ?: throw IOException("offline: $url")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
-                .body(body.toResponseBody("application/json".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                hits.merge(url, 1) { a, b -> a + b }
+                val body = replies[url] ?: throw IOException("offline: $url")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
+                    .body(body.toResponseBody("application/json".toMediaType())).build()
+            }
+        ).build(),
     )
 
     private fun watch(exchangeKey: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
-        WatchEntity(exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = "btc", quoteAsset = "USDT", contractType = contract, pairId = pairId)
+        WatchEntity(
+            exchangeKey = exchangeKey,
+            exchangeName = exchangeKey,
+            baseAsset = "btc",
+            quoteAsset = "USDT",
+            contractType = contract,
+            pairId = pairId
+        )
 
     private val spot = watch("Kraken", null, FuturesContractType.NONE)
 

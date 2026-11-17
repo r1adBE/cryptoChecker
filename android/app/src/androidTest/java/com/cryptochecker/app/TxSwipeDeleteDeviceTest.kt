@@ -3,11 +3,11 @@ package com.cryptochecker.app
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDialog
-import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
@@ -23,14 +23,14 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.math.BigDecimal
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.math.BigDecimal
-import javax.inject.Inject
 
 /**
  * Löschen einer Buchungszeile (Wischen bzw. TalkBack «Löschen»): erst die Rückfrage
@@ -51,7 +51,9 @@ class TxSwipeDeleteDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var settingsRepository: SettingsRepository
+
     @Inject lateinit var watchRepository: WatchRepository
+
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
     @Before
@@ -66,7 +68,10 @@ class TxSwipeDeleteDeviceTest {
             portfolioRepository.clearAll()
             portfolioRepository.save(
                 PortfolioTxEntity(
-                    coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal("0.5"), priceUsdt = BigDecimal("30000"),
+                    coin = "BTC",
+                    type = PortfolioTxType.BUY,
+                    amount = BigDecimal("0.5"),
+                    priceUsdt = BigDecimal("30000"),
                     time = System.currentTimeMillis() - 86_400_000L,
                 ),
             )
@@ -92,7 +97,9 @@ class TxSwipeDeleteDeviceTest {
         }
         compose.waitUntil(TIMEOUT) { compose.onAllNodes(row).fetchSemanticsNodes().isNotEmpty() }
         compose.onAllNodes(row).onFirst().performCustomAccessibilityActionWithLabel(delete)
-        compose.waitUntil(TIMEOUT) { compose.onAllNodes(hasText(text(R.string.portfolio_tx_delete_title))).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(TIMEOUT) {
+            compose.onAllNodes(hasText(text(R.string.portfolio_tx_delete_title))).fetchSemanticsNodes().isNotEmpty()
+        }
         assertEquals("vor der Bestätigung nichts gelöscht", 1, transactions().size)
         // Knopf «Löschen» der Rückfrage (Text und Klick im zusammengeführten Baum)
         val confirm = hasText(delete) and hasClickAction() and hasAnyAncestor(isDialog())

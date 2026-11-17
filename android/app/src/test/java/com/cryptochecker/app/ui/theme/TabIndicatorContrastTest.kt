@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.theme
 
 import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.domain.widget.WidgetContrast
+import com.cryptochecker.app.widget.WidgetColors
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -15,20 +15,24 @@ class TabIndicatorContrastTest {
 
     @Test
     fun `Pille hebt sich mit 3 zu 1 von der Leiste ab`() {
-        for (accent in AccentColor.entries) for (dark in listOf(false, true)) {
-            val pill = WidgetColors.of(accent, dark).accentColor
-            val bar = if (dark) BAR_DARK else BAR_LIGHT
-            val r = WidgetContrast.ratio(pill, bar)
-            assertTrue("${accent.name}/dark=$dark: %.2f".format(r), r >= 3.0)
+        for (accent in AccentColor.entries) {
+            for (dark in listOf(false, true)) {
+                val pill = WidgetColors.of(accent, dark).accentColor
+                val bar = if (dark) BAR_DARK else BAR_LIGHT
+                val r = WidgetContrast.ratio(pill, bar)
+                assertTrue("${accent.name}/dark=$dark: %.2f".format(r), r >= 3.0)
+            }
         }
     }
 
     @Test
     fun `Symbol auf der Pille mit 3 zu 1`() {
-        for (accent in AccentColor.entries) for (dark in listOf(false, true)) {
-            val colors = WidgetColors.of(accent, dark)
-            val r = WidgetContrast.ratio(colors.onAccentColor, colors.accentColor)
-            assertTrue("${accent.name}/dark=$dark: %.2f".format(r), r >= 3.0)
+        for (accent in AccentColor.entries) {
+            for (dark in listOf(false, true)) {
+                val colors = WidgetColors.of(accent, dark)
+                val r = WidgetContrast.ratio(colors.onAccentColor, colors.accentColor)
+                assertTrue("${accent.name}/dark=$dark: %.2f".format(r), r >= 3.0)
+            }
         }
     }
 

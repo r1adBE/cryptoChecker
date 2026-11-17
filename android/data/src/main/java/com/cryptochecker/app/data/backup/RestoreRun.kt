@@ -3,15 +3,15 @@
 // Gespiegelt in `BackupManager.restore` (iOS, `RestoreSteps`).
 package com.cryptochecker.app.data.backup
 
+import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.data.backup.BackupManager.Step
+import com.cryptochecker.app.data.backup.BackupRestoreStorageException
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import kotlin.coroutines.cancellation.CancellationException
-import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
-import com.cryptochecker.app.data.backup.BackupRestoreStorageException
-import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 
 object RestoreRun {
 
@@ -100,8 +100,11 @@ object RestoreRun {
 
     /** SQLite-Fehler (android.database.sqlite und net.zetetic.database.sqlite), die den Speicher betreffen. */
     private val STORAGE_EXCEPTIONS = setOf(
-        "SQLiteFullException", "SQLiteDiskIOException", "SQLiteReadOnlyDatabaseException",
-        "SQLiteCantOpenDatabaseException", "SQLiteAccessPermException",
+        "SQLiteFullException",
+        "SQLiteDiskIOException",
+        "SQLiteReadOnlyDatabaseException",
+        "SQLiteCantOpenDatabaseException",
+        "SQLiteAccessPermException",
     )
 
     private const val MAX_CAUSE_DEPTH = 16
@@ -140,6 +143,7 @@ object RestoreRollback {
                 if (it !== cause) cause.addSuppressed(it)
             }
         }
+
         // Nie in eine Datenbank, die nur leer im Arbeitsspeicher liegt: unvollständig, das Journal bleibt
         fun target(ok: Boolean, what: String): Boolean = ok.also {
             if (!it) {

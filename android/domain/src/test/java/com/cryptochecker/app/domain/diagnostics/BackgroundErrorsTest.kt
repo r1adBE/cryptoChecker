@@ -1,15 +1,15 @@
 package com.cryptochecker.app.domain.diagnostics
 
+import com.cryptochecker.app.domain.util.BackgroundErrorCounter
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.app.domain.util.BackgroundErrorCounter
+import java.time.Instant
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.Instant
 
 /** Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTests.swift`. */
 class BackgroundErrorsTest {

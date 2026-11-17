@@ -7,19 +7,19 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.ErrorWrite
 import com.cryptochecker.app.domain.PriceWrite
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.VolumeSpike
-import com.cryptochecker.app.domain.remote.WindowRanges
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.alarm.DerivativesValues
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.VolumeSpike
+import com.cryptochecker.app.domain.remote.WindowRanges
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.flow.StateFlow
 
@@ -58,14 +58,17 @@ interface RefreshNotifier {
     fun cancelAlarms(alarmIds: Collection<Long>)
     fun activeNotificationIds(): Set<Int>?
     fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?)
+
     /**
      * Kurs-Mitteilung des Paars laut [shown] ([activeNotificationIds]) vielleicht noch da (einzeln, in der Sammelmeldung
      * oder eben erst gemeldet)? [shown] null = unbekannt: ja. Für «Nicht wegwischbar» ([PriceUpdateRule]).
      */
     fun priceMaybeShown(watchId: Long, shown: Set<Int>?): Boolean = true
     suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long>
+
     /** Ende einer laufenden «1 h später»-Pause des Alarms ([com.cryptochecker.app.domain.alarm.AlarmSnooze]); null = keine. */
     fun alarmSnoozeUntil(alarmId: Long): Long? = null
+
     /** Meldezeit der offenen Mitteilung des Alarms; null = keine offen bzw. nicht abfragbar. */
     fun alarmPostedAt(alarmId: Long): Long? = null
 }

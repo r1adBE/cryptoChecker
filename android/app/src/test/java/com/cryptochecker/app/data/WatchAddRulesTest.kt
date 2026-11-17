@@ -19,7 +19,10 @@ class WatchAddRulesTest {
     @Test
     fun duplicateGoesBeforeFullAndCountIsOnlyReadWithoutDuplicate() {
         var reads = 0
-        val full = { reads++; WatchlistLimits.MAX_PAIRS }
+        val full = {
+            reads++
+            WatchlistLimits.MAX_PAIRS
+        }
         assertEquals(AddWatchOutcome.Duplicate, addBlocker(exists = true, count = full))
         assertEquals("Zählen nur ohne Dublette", 0, reads)
         assertEquals(AddWatchOutcome.Full, addBlocker(exists = false, count = full))

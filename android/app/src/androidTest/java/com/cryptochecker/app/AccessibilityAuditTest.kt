@@ -8,11 +8,11 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.LayoutDirection
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.ComposeA11yAudit
 import com.cryptochecker.app.testing.DeviceOverride
@@ -22,6 +22,7 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -29,7 +30,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Automatische Barrierefreiheits-Prüfung ([ComposeA11yAudit]) der Hauptbereiche Merkliste, Portfolio, Einstellungen und

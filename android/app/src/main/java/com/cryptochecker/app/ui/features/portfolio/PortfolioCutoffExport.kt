@@ -20,11 +20,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
+import java.time.LocalDate
+import java.time.ZoneId
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * CH: Tagesschlüsse des 31.12. ([end]) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter

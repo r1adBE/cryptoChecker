@@ -1,18 +1,18 @@
 package com.cryptochecker.marketdata.model.exchange
 
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.ExchangeCategory
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.GeckoTerminalNetworks
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.forEachOptJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
-import org.json.JSONObject
 import java.net.URLEncoder
 import java.util.SortedSet
+import org.json.JSONObject
 
 private const val DEXSCREENER_API = "https://api.dexscreener.com"
 

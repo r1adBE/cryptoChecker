@@ -2,8 +2,8 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.marketdata.config.ExchangesConfig
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.exchange.Binance
 import com.cryptochecker.marketdata.model.exchange.BinanceFutures
@@ -30,9 +30,15 @@ class PriceFetchRulesTest {
     fun gateBlocksRemainingSinglesAfterRateLimit() = runBlocking {
         val gate = SingleRateGate()
         var sent = 0
-        val first = gate.send { sent++; Fetched(null, "HttpCode: 429 (retry-after 30 s)", fromSingle = true) }
+        val first = gate.send {
+            sent++
+            Fetched(null, "HttpCode: 429 (retry-after 30 s)", fromSingle = true)
+        }
         assertEquals("HttpCode: 429 (retry-after 30 s)", first.error)
-        val second = gate.send { sent++; Fetched(SimpleTicker().apply { last = 1.0 }, null, fromSingle = true) }
+        val second = gate.send {
+            sent++
+            Fetched(SimpleTicker().apply { last = 1.0 }, null, fromSingle = true)
+        }
         // Nicht gesendet, derselbe Fehler (samt retry-after für ExchangeBackoff), zählt nicht als Einzelabfrage
         assertEquals(1, sent)
         assertNull(second.ticker)
@@ -53,9 +59,18 @@ class PriceFetchRulesTest {
     fun gateIgnoresOtherErrors() = runBlocking {
         val gate = SingleRateGate()
         var sent = 0
-        gate.send { sent++; Fetched(null, "HttpCode: 404") }
-        gate.send { sent++; Fetched(null, "timeout") }
-        gate.send { sent++; Fetched(SimpleTicker().apply { last = 2.0 }, null) }
+        gate.send {
+            sent++
+            Fetched(null, "HttpCode: 404")
+        }
+        gate.send {
+            sent++
+            Fetched(null, "timeout")
+        }
+        gate.send {
+            sent++
+            Fetched(SimpleTicker().apply { last = 2.0 }, null)
+        }
         assertEquals(3, sent)
         assertNull(gate.blocked)
     }

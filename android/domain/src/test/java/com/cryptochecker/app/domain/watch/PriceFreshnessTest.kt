@@ -56,7 +56,11 @@ class PriceFreshnessTest {
                 c["name"] as String,
                 c["expected"].num()?.let { now - it.toLong() },
                 PriceFreshness.unchangedSince(
-                    c["exchangeTime"].num()?.toLong(), changedAt, lastUpdate, now, c["outdatedAfter"].num()!!.toLong(),
+                    c["exchangeTime"].num()?.toLong(),
+                    changedAt,
+                    lastUpdate,
+                    now,
+                    c["outdatedAfter"].num()!!.toLong(),
                 ),
             )
         }
@@ -84,8 +88,10 @@ class PriceFreshnessTest {
                 c["name"] as String,
                 c["expected"].num()!!.toLong(),
                 PriceFreshness.nextPriceChangedAt(
-                    c["previousPrice"].num(), c["previousChangedAt"].num()!!.toLong(),
-                    c["price"].num()!!, c["time"].num()!!.toLong(),
+                    c["previousPrice"].num(),
+                    c["previousChangedAt"].num()!!.toLong(),
+                    c["price"].num()!!,
+                    c["time"].num()!!.toLong(),
                 ),
             )
         }

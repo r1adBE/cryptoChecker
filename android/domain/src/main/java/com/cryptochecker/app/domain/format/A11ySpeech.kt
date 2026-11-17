@@ -50,10 +50,13 @@ object A11ySpeech {
         FRESH,
         DISABLED,
         NOT_TRADED,
+
         /** Älter als die Grenze ([OutdatedRule]). */
         OUTDATED,
+
         /** Letzte Abfrage gescheitert, älterer Kurs steht (noch nicht veraltet). */
         UNREACHABLE,
+
         /** Letzte Abfrage gescheitert und der Kurs ist veraltet. */
         UNREACHABLE_OUTDATED,
     }
@@ -121,8 +124,11 @@ object A11ySpeech {
      * 3 Minuten») wie die Zeitzeile der Zeile; noch nie aktualisiert null. Wie iOS `rowFreshnessText`.
      */
     fun rowFreshnessText(freshness: Freshness, lastUpdate: Long, now: Long, exchange: String, texts: Texts): String? =
-        if (freshness == Freshness.FRESH) lastUpdate.takeIf { it > 0 }?.let { texts.updated(age(it, now)) }
-        else freshnessText(freshness, lastUpdate, now, exchange, texts)
+        if (freshness == Freshness.FRESH) {
+            lastUpdate.takeIf { it > 0 }?.let { texts.updated(age(it, now)) }
+        } else {
+            freshnessText(freshness, lastUpdate, now, exchange, texts)
+        }
 
     /**
      * Alarm dieses Paars eben ausgelöst (innerhalb von [FIRED_MILLIS])? [lastTriggeredAt] ≤ 0 = nie;

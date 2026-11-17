@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm.PriceAction
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
 
 /** Erfassen-Blatt: heutiger Kurs nur für heute, Verkaufswarnung mit Gebühr im Coin. Wie `PortfolioTxFormTests` (iOS). */
 class PortfolioTxFormTest {
@@ -32,7 +32,10 @@ class PortfolioTxFormTest {
 
     @Test
     fun backToTodayWithEmptyFieldPrefillsAgain() {
-        assertEquals(PriceAction.PREFILL, PortfolioTxForm.onDateChange(isEdit = false, isToday = true, priceAuto = false, priceBlank = true))
+        assertEquals(
+            PriceAction.PREFILL,
+            PortfolioTxForm.onDateChange(isEdit = false, isToday = true, priceAuto = false, priceBlank = true)
+        )
         // Getippter bzw. noch vorbelegter Preis bleibt
         assertEquals(PriceAction.KEEP, PortfolioTxForm.onDateChange(isEdit = false, isToday = true, priceAuto = false, priceBlank = false))
         assertEquals(PriceAction.KEEP, PortfolioTxForm.onDateChange(isEdit = false, isToday = true, priceAuto = true, priceBlank = false))
@@ -40,8 +43,15 @@ class PortfolioTxFormTest {
 
     @Test
     fun editModeNeverTouchesThePrice() {
-        for (today in listOf(true, false)) for (auto in listOf(true, false)) for (blank in listOf(true, false)) {
-            assertEquals(PriceAction.KEEP, PortfolioTxForm.onDateChange(isEdit = true, isToday = today, priceAuto = auto, priceBlank = blank))
+        for (today in listOf(true, false)) {
+            for (auto in listOf(true, false)) {
+                for (blank in listOf(true, false)) {
+                    assertEquals(
+                        PriceAction.KEEP,
+                        PortfolioTxForm.onDateChange(isEdit = true, isToday = today, priceAuto = auto, priceBlank = blank)
+                    )
+                }
+            }
         }
         assertFalse(PortfolioTxForm.showPastPriceHint(isEdit = true, isToday = false))
     }
@@ -82,14 +92,21 @@ class PortfolioTxFormTest {
         assertTrue(PortfolioCalculator.position("BTC", trades, 100.0).oversold)
         assertTrue(PortfolioTxForm.sellExceeds(dec("1"), dec("0.001"), PortfolioFeeUnit.COIN, dec("1")))
     }
+
     @Test
     fun fieldsPerType() {
         assertEquals(9, PortfolioTxForm.TYPES.size)
         assertEquals(PortfolioTxType.SWAP, PortfolioTxForm.TYPES.last())
         val transfer = PortfolioTxForm.fields(PortfolioTxType.TRANSFER)
-        assertFalse(transfer.price); assertTrue(transfer.route); assertTrue(transfer.coinFeeOnly); assertFalse(transfer.exchange)
+        assertFalse(transfer.price)
+        assertTrue(transfer.route)
+        assertTrue(transfer.coinFeeOnly)
+        assertFalse(transfer.exchange)
         val reward = PortfolioTxForm.fields(PortfolioTxType.REWARD)
-        assertTrue(reward.price); assertFalse(reward.feeWithUnit); assertFalse(reward.coinFeeOnly); assertFalse(reward.thirdCoinFee)
+        assertTrue(reward.price)
+        assertFalse(reward.feeWithUnit)
+        assertFalse(reward.coinFeeOnly)
+        assertFalse(reward.thirdCoinFee)
         assertTrue(PortfolioTxForm.fields(PortfolioTxType.WITHDRAWAL).coinFeeOnly)
         assertTrue(PortfolioTxForm.fields(PortfolioTxType.BUY).feeWithUnit)
         // Auszahlung/Umbuchung: Gebühr immer im Coin
@@ -109,7 +126,6 @@ class PortfolioTxFormTest {
 
     @Test
     fun thirdCoinFeeStates() {
-
         assertEquals(PortfolioTxForm.ThirdFee.NONE, PortfolioTxForm.thirdFee("", "BTC", null, true, null, true))
         assertEquals(PortfolioTxForm.ThirdFee.INCOMPLETE, PortfolioTxForm.thirdFee("bnb", "BTC", dec("0.1"), false, null, true))
         assertEquals(PortfolioTxForm.ThirdFee.COMPLETE, PortfolioTxForm.thirdFee("BNB", "BTC", dec("0.1"), false, dec("600"), false))

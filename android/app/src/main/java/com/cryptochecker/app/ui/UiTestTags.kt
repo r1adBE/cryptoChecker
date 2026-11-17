@@ -15,6 +15,7 @@ object UiTestTags {
     const val TAB_SETTINGS = "tab_settings"
 
     // ── Markt ──
+
     /** Inhalt des Tabs «Markt», sobald Crypto Pulse geladen ist und alles Sichtbare auf «Jetzt» steht. */
     const val MARKET_LOADED = "market_loaded"
 
@@ -36,6 +37,7 @@ object UiTestTags {
     const val WATCH_BELL = "watch_bell"
 
     // ── Mitteilungen ──
+
     /** «Weiter» der Erklärung vor der System-Abfrage (`NotificationPrePrompt`). */
     const val NOTIFICATION_PREPROMPT_CONTINUE = "notification_preprompt_continue"
 
@@ -90,6 +92,7 @@ object UiTestTags {
     const val TAX_WORKSHEET_INCOME = "tax_worksheet_income"
     const val TAX_WORKSHEET_HOLDINGS = "tax_worksheet_holdings"
     const val TAX_WORKSHEET_SUMMARY = "tax_worksheet_summary"
+
     /** «Abbrechen» eines laufenden Exports bzw. «Erneut versuchen» nach einem Fehler. */
     const val EXPORT_CANCEL = "export_cancel"
     const val EXPORT_RETRY = "export_retry"

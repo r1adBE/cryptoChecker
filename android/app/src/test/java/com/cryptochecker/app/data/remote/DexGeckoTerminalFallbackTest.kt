@@ -9,6 +9,8 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.exchange.DexScreener
 import com.cryptochecker.marketdata.model.exchange.OneTrading
+import java.io.File
+import java.io.IOException
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -21,8 +23,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.io.File
-import java.io.IOException
 
 /**
  * GeckoTerminal als Reserve der DEX-Kurse ([SingleTickerFallback.loadAfterMissing]): kennt DexScreener den
@@ -40,21 +40,25 @@ class DexGeckoTerminalFallbackTest {
     private fun geckoBody(): String {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null && !File(dir, "testdata/exchanges").isDirectory) dir = dir.parentFile
-        val file = File(dir ?: throw IllegalStateException("testdata/exchanges nicht gefunden"),
-            "testdata/exchanges/exchange_dexscreener.json")
+        val file = File(
+            dir ?: throw IllegalStateException("testdata/exchanges nicht gefunden"),
+            "testdata/exchanges/exchange_dexscreener.json"
+        )
         return ParityJson.parse(file.readText(Charsets.UTF_8)).obj()["cases"].list().map { it.obj() }
             .first { it["kind"] == "singleFallback" && it["expect"].obj()["error"] != true }["body"] as String
     }
 
     private fun source(replies: Map<String, Pair<Int, String>>) = ExchangeRemoteDataSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            hits[url] = (hits[url] ?: 0) + 1
-            val (code, body) = replies[url] ?: throw IOException("offline: $url")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
-                .body(body.toResponseBody("application/json".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                hits[url] = (hits[url] ?: 0) + 1
+                val (code, body) = replies[url] ?: throw IOException("offline: $url")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
+                    .body(body.toResponseBody("application/json".toMediaType())).build()
+            }
+        ).build(),
     )
 
     @Test

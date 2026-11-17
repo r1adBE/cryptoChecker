@@ -3,10 +3,10 @@ package com.cryptochecker.app.domain.diagnostics
 import com.cryptochecker.app.diagnostics.DiagnosticInput
 import com.cryptochecker.app.diagnostics.DiagnosticReport
 import com.cryptochecker.app.diagnostics.DiagnosticSettings
-import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.refresh.CheckResult
 import com.cryptochecker.app.domain.refresh.CheckRun
 import com.cryptochecker.app.domain.refresh.CheckTrigger
@@ -15,11 +15,11 @@ import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import java.time.Instant
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.Instant
 
 /** «Diagnose teilen»: Inhalt des Berichts und vor allem, was nie hineinkommt. Gegenstück: `DiagnosticReportTests.swift`. */
 class DiagnosticReportTest {
@@ -66,7 +66,9 @@ class DiagnosticReportTest {
         readiness = listOf(
             AlarmReadiness.Item(AlarmReadiness.Row.NOTIFICATIONS, AlarmReadiness.State.OK, AlarmReadiness.Detail.ALLOWED),
             AlarmReadiness.Item(
-                AlarmReadiness.Row.CHANNEL, AlarmReadiness.State.WARN, AlarmReadiness.Detail.CHANNEL_LOW,
+                AlarmReadiness.Row.CHANNEL,
+                AlarmReadiness.State.WARN,
+                AlarmReadiness.Detail.CHANNEL_LOW,
                 AlarmReadiness.Action.CHANNEL_SETTINGS,
             ),
         ),
@@ -115,7 +117,9 @@ class DiagnosticReportTest {
         // Ohne gezählte Arten keine eigene Zeile
         assertFalse(text.contains("Background error kinds"))
         val withKinds = DiagnosticReport.build(
-            input().copy(backgroundErrors = BackgroundErrorSummary(mapOf("refresh" to 2), now, mapOf("refresh" to mapOf("IOException" to 2))))
+            input().copy(
+                backgroundErrors = BackgroundErrorSummary(mapOf("refresh" to 2), now, mapOf("refresh" to mapOf("IOException" to 2)))
+            )
         )
         assertTrue(withKinds.contains("(last 2026-10-18 12:00 UTC)\nBackground error kinds: refresh IOException 2\n"))
     }
@@ -150,7 +154,9 @@ class DiagnosticReportTest {
                     entry("BTC/CHF", AlarmLogOutcome.COOLDOWN, now - 120_000),
                 ),
                 pauses = mapOf("bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq" to ExchangeBackoff.State(strikes = 1)),
-                errorLog = listOf("lookup failed for xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz"),
+                errorLog = listOf(
+                    "lookup failed for xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz"
+                ),
             )
         )
         // Kurse, Schwellen und umgerechnete Kurse des Protokolls kommen nie in den Text

@@ -1,11 +1,16 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.EpochTime
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
@@ -15,11 +20,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio.

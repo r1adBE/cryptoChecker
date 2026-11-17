@@ -26,17 +26,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.alarms.AlarmEditorHostState
 import com.cryptochecker.app.ui.features.alarms.AlarmsViewModel
 import com.cryptochecker.app.ui.features.alarms.PairAlarmLimits
 import com.cryptochecker.app.ui.features.alarms.PairAlarmsSection
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
+import com.cryptochecker.resources.R
 
 /** Was der Inhalt der Paarseite auslöst (Dialoge und Schreibwege hält `PairScreen`). */
 internal class PairPageCallbacks(
@@ -95,7 +95,11 @@ internal fun PairPageContent(
                 satsRate = viewModel::satsRate,
             )
             PairStatusLine(
-                watch, isPreview, off, onRetry = callbacks.onRetry, onEnable = callbacks.onToggleDisabled,
+                watch,
+                isPreview,
+                off,
+                onRetry = callbacks.onRetry,
+                onEnable = callbacks.onToggleDisabled,
                 onChangeExchange = callbacks.onChangeExchange.takeIf { !isPreview },
             )
             Spacer(Modifier.height(Spacing.lg))

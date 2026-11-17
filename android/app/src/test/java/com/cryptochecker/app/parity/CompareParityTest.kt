@@ -62,10 +62,15 @@ class CompareParityTest {
         for (raw in data.getValue("bounds").list()) {
             val c = raw.obj()
             val name = c["name"] as String
-            val series = c["series"].list().map { s -> s.list().map { p -> p.list().let { ComparePoint(it[0].num()!!.toLong(), it[1].num()!!) } } }
+            val series = c["series"].list().map { s ->
+                s.list().map { p -> p.list().let { ComparePoint(it[0].num()!!.toLong(), it[1].num()!!) } }
+            }
             val b = CompareMath.bounds(series)
             val e = c["expected"]
-            if (e == null) { assertNull(name, b); continue }
+            if (e == null) {
+                assertNull(name, b)
+                continue
+            }
             val o = e.obj()
             assertEquals(name, o["minTime"].num()!!.toLong(), b!!.minTime)
             assertEquals(name, o["maxTime"].num()!!.toLong(), b.maxTime)

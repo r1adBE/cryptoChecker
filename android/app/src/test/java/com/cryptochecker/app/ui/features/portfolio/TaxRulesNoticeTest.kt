@@ -1,13 +1,13 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.format.MonthYearFormat
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import java.io.File
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.util.Locale
 
 /**
  * Regelstand auf der Seite «Steuer-Arbeitsunterlage» und in der CSV-Kopfzeile ([taxRulesDateLabel]): Monat und Jahr

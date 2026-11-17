@@ -8,8 +8,8 @@ import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Widget «Was gerade auffällt» (Crypto Pulse): Schlagzeile, Leitsatz und Coin-Chips wie die
@@ -38,13 +38,15 @@ class PulseWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
-        launchAsync("Pulse-Widget aktualisieren") { com.cryptochecker.app.domain.work.countedRun {
-            // goAsync erlaubt nur rund 10 s: sofort aus dem Zwischenspeicher, dann frisch
-            val done = withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.updatePulse(appWidgetIds, fetch = true) }
-            // Zeitgrenze erreicht (ohne Zwischenspeicher bliebe das Widget sonst leer):
-            // Zwischenspeicher oder ruhig «nicht verfügbar» zeigen, ohne Netz
-            if (done == null) widgetUpdater.updatePulse(appWidgetIds, fetch = false)
-        } }
+        launchAsync("Pulse-Widget aktualisieren") {
+            com.cryptochecker.app.domain.work.countedRun {
+                // goAsync erlaubt nur rund 10 s: sofort aus dem Zwischenspeicher, dann frisch
+                val done = withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.updatePulse(appWidgetIds, fetch = true) }
+                // Zeitgrenze erreicht (ohne Zwischenspeicher bliebe das Widget sonst leer):
+                // Zwischenspeicher oder ruhig «nicht verfügbar» zeigen, ohne Netz
+                if (done == null) widgetUpdater.updatePulse(appWidgetIds, fetch = false)
+            }
+        }
     }
 
     /** Grösse geändert: neu zeichnen (ein oder drei Coin-Chips), ohne Netz. */

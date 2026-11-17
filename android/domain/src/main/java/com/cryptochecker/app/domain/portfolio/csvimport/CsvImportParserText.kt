@@ -62,12 +62,25 @@ fun CsvImportParser.tokenizeOrNull(
     while (i < n && out.size < maxRecords && !tooLarge) {
         val c = text[i]
         when {
-            inQuotes && c == '"' && i + 1 < n && text[i + 1] == '"' -> { cell.append('"'); i++ }
+            inQuotes && c == '"' && i + 1 < n && text[i + 1] == '"' -> {
+                cell.append('"')
+                i++
+            }
             inQuotes && c == '"' -> inQuotes = false
-            inQuotes -> { if (c == '\n') line++; cell.append(c) }
-            c == '"' && cell.isBlank() -> { cell.setLength(0); inQuotes = true }
+            inQuotes -> {
+                if (c == '\n') line++
+                cell.append(c)
+            }
+            c == '"' && cell.isBlank() -> {
+                cell.setLength(0)
+                inQuotes = true
+            }
             c == delimiter -> endCell()
-            c == '\n' -> { endRecord(); line++; startLine = line }
+            c == '\n' -> {
+                endRecord()
+                line++
+                startLine = line
+            }
             else -> cell.append(c)
         }
         i++

@@ -74,7 +74,11 @@ internal object PerformanceData {
 
     /** Börsen der gemischten Merkliste: Schlüssel und Anzeigename. */
     val EXCHANGES = listOf(
-        "Binance" to "Binance", "Kraken" to "Kraken", "Bybit" to "Bybit", "Okex" to "OKX", "Coinbase" to "Coinbase",
+        "Binance" to "Binance",
+        "Kraken" to "Kraken",
+        "Bybit" to "Bybit",
+        "Okex" to "OKX",
+        "Coinbase" to "Coinbase",
     )
 
     val BINANCE = EXCHANGES[0]
@@ -156,20 +160,32 @@ internal object PerformanceData {
                 id++
                 out += when ((i + k) % 4) {
                     0 -> AlarmEntity(
-                        id = id, watchId = w.id, condition = AlarmCondition.PRICE_ABOVE,
-                        threshold = if (i % 25 == 0) price * 0.5 else price * (1.1 + u), currency = currency,
+                        id = id,
+                        watchId = w.id,
+                        condition = AlarmCondition.PRICE_ABOVE,
+                        threshold = if (i % 25 == 0) price * 0.5 else price * (1.1 + u),
+                        currency = currency,
                     )
                     1 -> AlarmEntity(
-                        id = id, watchId = w.id, condition = AlarmCondition.PRICE_BELOW,
-                        threshold = price * (0.9 - 0.5 * u), currency = currency,
+                        id = id,
+                        watchId = w.id,
+                        condition = AlarmCondition.PRICE_BELOW,
+                        threshold = price * (0.9 - 0.5 * u),
+                        currency = currency,
                     )
                     2 -> AlarmEntity(
-                        id = id, watchId = w.id, condition = AlarmCondition.CHANGE_PERCENT_UP,
-                        threshold = 5.0 + 10.0 * u, referencePrice = if (i % 3 == 0) null else price,
+                        id = id,
+                        watchId = w.id,
+                        condition = AlarmCondition.CHANGE_PERCENT_UP,
+                        threshold = 5.0 + 10.0 * u,
+                        referencePrice = if (i % 3 == 0) null else price,
                     )
                     else -> AlarmEntity(
-                        id = id, watchId = w.id, condition = AlarmCondition.CHANGE_PERCENT_DOWN,
-                        threshold = 5.0 + 10.0 * u, referencePrice = if (i % 3 == 0) null else price,
+                        id = id,
+                        watchId = w.id,
+                        condition = AlarmCondition.CHANGE_PERCENT_DOWN,
+                        threshold = 5.0 + 10.0 * u,
+                        referencePrice = if (i % 3 == 0) null else price,
                     )
                 }
             }

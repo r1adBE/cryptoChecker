@@ -32,7 +32,9 @@ internal fun PortfolioBannerEffects(viewModel: PortfolioViewModel, banner: Watch
         val notice = overlapNotice?.takeIf { !addressesOpen } ?: return@LaunchedEffect
         viewModel.consumeAddressOverlapNotice()
         val text = resources.getString(
-            R.string.portfolio_address_overlap_auto, notice.names.joinToString(", "), notice.coins.joinToString(", "),
+            R.string.portfolio_address_overlap_auto,
+            notice.names.joinToString(", "),
+            notice.coins.joinToString(", "),
         )
         banner.show(text) { viewModel.undoAddressOverlap(notice) }
     }
@@ -90,7 +92,10 @@ internal fun DeleteCoinFlow(
         coin = coin,
         count = txCounts[PortfolioCalculator.normalizeCoin(coin)] ?: 0,
         feeRefs = PortfolioCoinDeletion.counts(transactions, coin).second,
-        onConfirm = { onClose(); deleteCoin() },
+        onConfirm = {
+            onClose()
+            deleteCoin()
+        },
         onDismiss = onClose,
     )
 }

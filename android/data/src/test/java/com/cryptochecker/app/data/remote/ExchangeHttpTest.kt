@@ -12,13 +12,18 @@ import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.refreshFailure
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.exchange.BinanceFutures
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Collections
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -36,11 +41,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Collections
-import java.util.concurrent.TimeUnit
 
 /**
  * HTTP-Schicht gegen einen echten lokalen Server (MockWebServer) statt Interceptor-Antworten: callExchange über
@@ -67,22 +67,26 @@ class ExchangeHttpTest {
 
     private fun client(callTimeoutMillis: Long = 5_000): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(callTimeoutMillis, TimeUnit.MILLISECONDS)
-        .addInterceptor(Interceptor { chain ->
-            requested += chain.request().url.toString()
-            chain.proceed(chain.request())
-        })
+        .addInterceptor(
+            Interceptor { chain ->
+                requested += chain.request().url.toString()
+                chain.proceed(chain.request())
+            }
+        )
         .build()
 
     /** Leitet Anfragen an feste Börsen-Hosts (z. B. Binance Futures) auf den Server um; Reihenfolge = Warteschlange. */
     private fun redirectingClient(): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(5_000, TimeUnit.MILLISECONDS)
-        .addInterceptor(Interceptor { chain ->
-            val original = chain.request()
-            requested += original.url.toString()
-            val target = server.url("/" + original.url.host + original.url.encodedPath)
-                .newBuilder().encodedQuery(original.url.encodedQuery).build()
-            chain.proceed(original.newBuilder().url(target).build())
-        })
+        .addInterceptor(
+            Interceptor { chain ->
+                val original = chain.request()
+                requested += original.url.toString()
+                val target = server.url("/" + original.url.host + original.url.encodedPath)
+                    .newBuilder().encodedQuery(original.url.encodedQuery).build()
+                chain.proceed(original.newBuilder().url(target).build())
+            }
+        )
         .build()
 
     private fun url(path: String): String = server.url(path).toString()
@@ -342,7 +346,9 @@ class ExchangeHttpTest {
         respond(502, body = "bad gateway")
         val e = expect<HttpExchangeError> {
             runBlocking {
-                ExchangeRemoteDataSource(client()).fetchExchangeCurrencyPairsInfo(StubExchange(url("").trimEnd('/'), allCallsRequired = true))
+                ExchangeRemoteDataSource(
+                    client()
+                ).fetchExchangeCurrencyPairsInfo(StubExchange(url("").trimEnd('/'), allCallsRequired = true))
             }
         }
         assertEquals(502, e.httpCode)
@@ -350,8 +356,10 @@ class ExchangeHttpTest {
 
     @Test
     fun binanceFuturesWithoutCoinMKeepsTheOldList() = runBlocking {
-        val usdM = """{"symbols":[{"symbol":"BTCUSDT","baseAsset":"BTC","quoteAsset":"USDT","contractType":"PERPETUAL","status":"TRADING"}]}"""
-        val coinM = """{"symbols":[{"symbol":"BTCUSD_PERP","baseAsset":"BTC","quoteAsset":"USD","contractType":"PERPETUAL","contractStatus":"TRADING"}]}"""
+        val usdM = """{"symbols":[{"symbol":"BTCUSDT","baseAsset":"BTC","quoteAsset":"USDT",""" +
+            """"contractType":"PERPETUAL","status":"TRADING"}]}"""
+        val coinM = """{"symbols":[{"symbol":"BTCUSD_PERP","baseAsset":"BTC","quoteAsset":"USD",""" +
+            """"contractType":"PERPETUAL","contractStatus":"TRADING"}]}"""
         val source = ExchangeRemoteDataSource(redirectingClient())
 
         // USDⓈ-M (fapi) zuerst, COIN-M (dapi) fällt aus: Abgleich scheitert, die gespeicherte Liste bleibt

@@ -1,11 +1,11 @@
 package com.cryptochecker.app.ui.navigation
 
 import androidx.lifecycle.Lifecycle
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /** Doppel-Tipp legt Alarm-, «Alle Alarme»- und «Paar hinzufügen»-Seite nur einmal auf den Stapel. */
 class NavigateOnceTest {

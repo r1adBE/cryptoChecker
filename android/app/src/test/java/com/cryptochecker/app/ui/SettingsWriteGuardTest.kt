@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui
 
+import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Einstellungen aus anderen Bildschirmen als «Einstellungen»: Gruppe wählen bzw. löschen, Währung, «Beträge
@@ -17,15 +17,23 @@ class SettingsWriteGuardTest {
 
     @Test
     fun guardedFaengtSchreibfehlerAb() {
-        val repo = File(dir("data/src/main/java/com/cryptochecker/app/data/settings"), "SettingsRepository.kt").readText()
-        assertTrue(repo.contains("suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block(); true }"))
+        val repo = File(dir("data/src/main/java/com/cryptochecker/app/data/settings"), "SettingsRepository.kt").readText().squashed()
+        assertTrue(
+            repo.contains(
+                "suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block()\n true }"
+                    .squashed(),
+            ),
+        )
         // Gruppe löschen: die Einstellung zuerst, aber ein Fehler darin hält das Auflösen der Gruppe nicht auf
         val edit = File(dir("app/src/main/java/com/cryptochecker/app/ui/features/watchlist"), "WatchlistEditController.kt").readText()
-        val delete = edit.substringAfter("fun deleteGroup(").substringBefore("\n    }\n")
-        assertTrue(delete.indexOf("settingsRepository.guarded { setWatchlistGroup(null) }") in 0 until delete.indexOf("watchRepository.clearGroup(name)"))
+        val delete = edit.substringAfter("fun deleteGroup(").substringBefore("\n    }\n").squashed()
+        assertTrue(
+            delete.indexOf("settingsRepository.guarded { setWatchlistGroup(null) }".squashed()) in
+                0 until delete.indexOf("watchRepository.clearGroup(name)".squashed())
+        )
         // Sperre ohne Displaysperre: nur nach geschriebener Einstellung entsperren
-        val lock = File(dir("app/src/main/java/com/cryptochecker/app/ui/lock"), "PortfolioLock.kt").readText()
-        assertTrue(lock.contains("if (settingsRepository.guarded { setAppLock(false) }) appLockState.unlock()"))
+        val lock = File(dir("app/src/main/java/com/cryptochecker/app/ui/lock"), "PortfolioLock.kt").readText().squashed()
+        assertTrue(lock.contains("if (settingsRepository.guarded { setAppLock(false) }) appLockState.unlock()".squashed()))
     }
 
     private fun dir(path: String): File {
@@ -39,4 +47,7 @@ class SettingsWriteGuardTest {
         }
         throw AssertionError("$path nicht gefunden")
     }
+
+    /** Ohne Leerraum und Komma vor «)»: Vergleich unabhängig vom Umbruch des Formatierers. */
+    private fun String.squashed(): String = replace(Regex("\\s+"), "").replace(",)", ")")
 }

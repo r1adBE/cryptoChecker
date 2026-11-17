@@ -1,13 +1,12 @@
 package com.cryptochecker.app.data.portfolio
 
 import android.content.Context
-import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callExchange
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
@@ -17,8 +16,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.app.domain.portfolio.StoredPrice
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
@@ -32,11 +37,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.io.File
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Kurse und Coin-Liste für das Portfolio, immer in USDT.
@@ -175,7 +175,10 @@ class PortfolioPriceSource @Inject constructor(
                     // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»; mehrdeutig laut anderen
                     // Paarlisten: Binance-Kurs, aber «Kurs ungeprüft»
                     val split = PortfolioPriceIdentity.binanceSplit(
-                        toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName, tokenIdentityStore::otherNames,
+                        toFetch,
+                        watchNamesFor(toFetch),
+                        tokenIdentityStore::binanceName,
+                        tokenIdentityStore::otherNames,
                     )
                     val batch = binanceBatch(split.use)
                     batchFailed = batch.failed
@@ -229,7 +232,11 @@ class PortfolioPriceSource @Inject constructor(
                     // «Portfolio leeren» lief während der Abfrage: nichts übernehmen (auch nicht die Börsen-Herkunft)
                     val kept = storeMutex.withLock {
                         if (generation != clearGeneration) {
-                            toFetch.forEach { sourceOf.remove(it); failedOf.remove(it); binanceOf.remove(it) }
+                            toFetch.forEach {
+                                sourceOf.remove(it)
+                                failedOf.remove(it)
+                                binanceOf.remove(it)
+                            }
                             return@withLock false
                         }
                         keep(fetched, toFetch, split.unverified, fromBinance, unavailable, rejected, unchecked, skipped.noMarket)
@@ -332,7 +339,12 @@ class PortfolioPriceSource @Inject constructor(
         // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token)
         val attempt = CandleDataSource.Attempt()
         val price = candleDataSource.candlesSourced(
-            coin, STABLE, CandleInterval.H1, 2, identityName = tokenIdentityStore.watchName(coin), attempt = attempt,
+            coin,
+            STABLE,
+            CandleInterval.H1,
+            2,
+            identityName = tokenIdentityStore.watchName(coin),
+            attempt = attempt,
         )?.value?.lastOrNull()?.close?.takeIf { it > 0.0 }
         price to (price == null && attempt.failed)
     } catch (e: CancellationException) {
@@ -358,6 +370,7 @@ class PortfolioPriceSource @Inject constructor(
     companion object {
         const val STABLE = "USDT"
         const val BINANCE_HOST = "data-api.binance.vision"
+
         /** Quellen der Kerzen-Kette ([CandleDataSource]) — Binance, Binance.US, Coinbase. */
         val CANDLE_HOSTS = listOf("data-api.binance.vision", "api.binance.com", "api.binance.us", "api.exchange.coinbase.com")
         const val COINBASE_HOST = "api.exchange.coinbase.com"

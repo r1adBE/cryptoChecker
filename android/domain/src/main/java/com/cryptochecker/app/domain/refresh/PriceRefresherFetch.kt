@@ -39,7 +39,10 @@ internal suspend fun PriceRefresher.liveCoveredIds(
     val rollingBasis = !settings.changeBasis.isDay
     val liveIds = allWatches.filter { watch ->
         LiveRules.skipRest(
-            liveCoverage.lastTickAt(watch.id), startedAt, rollingBasis, stampUnchanged,
+            liveCoverage.lastTickAt(watch.id),
+            startedAt,
+            rollingBasis,
+            stampUnchanged,
             LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
         )
     }.mapTo(HashSet()) { it.id }
@@ -96,12 +99,19 @@ internal suspend fun PriceRefresher.fetchAllGroups(
         val key = fetchedGroup.exchangeKey
         // Nur am eigenen Budget gescheitert: Pause unverändert lassen (CheckBudget.backoffOutcome)
         val outcome = CheckBudget.backoffOutcome(fetchedGroup.failures, fetchedGroup.report.updated, fetchedGroup.cutByBudget)
-        val state = if (outcome == null) backoff[key] else ExchangeBackoff.next(
-            backoff[key], outcome,
-            System.currentTimeMillis(), fetchedGroup.retryAfterMillis,
-            // 418 und «Retry-After» wie bei Kerzen (gemeinsame Binance-Pause)
-            banned = fetchedGroup.banned, shared = ExchangeBackoff.sharedGroup(key) != null,
-        )
+        val state = if (outcome == null) {
+            backoff[key]
+        } else {
+            ExchangeBackoff.next(
+                backoff[key],
+                outcome,
+                System.currentTimeMillis(),
+                fetchedGroup.retryAfterMillis,
+                // 418 und «Retry-After» wie bei Kerzen (gemeinsame Binance-Pause)
+                banned = fetchedGroup.banned,
+                shared = ExchangeBackoff.sharedGroup(key) != null,
+            )
+        }
         if (state == null) backoff.remove(key) else backoff[key] = state
         // 429/418 beim Ticker: Kerzen, Futures und Aktivität an dieselben Hosts pausieren mit
         if (state != null && state.reason == RefreshFailure.RATE_LIMIT &&

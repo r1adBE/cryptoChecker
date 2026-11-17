@@ -19,12 +19,16 @@ class NotificationPrePromptTest {
     @Test
     fun ruleTable() {
         val all = listOf(
-            NotificationPrePrompt.STAGE_NEW, NotificationPrePrompt.STAGE_LATER_ONCE,
-            NotificationPrePrompt.STAGE_DONE, NotificationPrePrompt.STAGE_CONTINUED,
+            NotificationPrePrompt.STAGE_NEW,
+            NotificationPrePrompt.STAGE_LATER_ONCE,
+            NotificationPrePrompt.STAGE_DONE,
+            NotificationPrePrompt.STAGE_CONTINUED,
         )
-        for (s in all) for (r in NotificationAsk.entries) {
-            // Würde das System nicht fragen oder ausdrücklich: immer gleich die System-Abfrage (fragt dann nicht)
-            assertEquals(Action.SYSTEM, NotificationPrePrompt.action(notDetermined = false, stage = s, reason = r))
+        for (s in all) {
+            for (r in NotificationAsk.entries) {
+                // Würde das System nicht fragen oder ausdrücklich: immer gleich die System-Abfrage (fragt dann nicht)
+                assertEquals(Action.SYSTEM, NotificationPrePrompt.action(notDetermined = false, stage = s, reason = r))
+            }
         }
         for (s in all) assertEquals(Action.SYSTEM, NotificationPrePrompt.action(true, s, NotificationAsk.DIRECT))
         val ask = { s: Int, r: NotificationAsk -> NotificationPrePrompt.action(true, s, r) }

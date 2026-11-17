@@ -27,10 +27,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.market.ExchangeLogos
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -73,8 +73,11 @@ private fun exchangeLogo(key: String): Bitmap? {
 private fun LogoMark(bitmap: Bitmap) {
     val image = remember(bitmap) { bitmap.asImageBitmap() }
     // Heller Grund hinter dem Logo wie bei den Coins (dunkel: onSurface leicht gedämpft)
-    val backing = if (LocalDarkTheme.current) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.92f)
-    else MaterialTheme.colorScheme.surfaceContainerHigh
+    val backing = if (LocalDarkTheme.current) {
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.92f)
+    } else {
+        MaterialTheme.colorScheme.surfaceContainerHigh
+    }
     Box(modifier = Modifier.fillMaxSize().background(backing)) {
         Image(bitmap = image, contentDescription = null, contentScale = ContentScale.Fit, modifier = Modifier.fillMaxSize())
     }

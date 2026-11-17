@@ -33,9 +33,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.DataStamp
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.SkeletonLine
@@ -45,13 +45,13 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.ui.theme.title
-import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import kotlinx.coroutines.delay
+import com.cryptochecker.resources.R
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import kotlinx.coroutines.delay
 
 /** Nebenzeile links und Wert rechts unter dem Titel; wird bei einem Wechsel der Art überblendet. */
 @Composable

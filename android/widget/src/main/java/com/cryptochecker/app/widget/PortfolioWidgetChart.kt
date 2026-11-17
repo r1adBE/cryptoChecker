@@ -95,7 +95,8 @@ object PortfolioWidgetChart {
             currency = USDT_CODE,
             positions = snapshot.positions.map {
                 it.copy(
-                    value = it.value / f, pnlAmount = it.pnlAmount?.div(f),
+                    value = it.value / f,
+                    pnlAmount = it.pnlAmount?.div(f),
                     entries = it.entries?.map { e -> e.copy(value = e.value?.div(f)) },
                 )
             },
@@ -140,7 +141,8 @@ object PortfolioWidgetChart {
     fun usdtFactor(currency: String, fx: Double, usdtLive: Double?): Double {
         if (collapsesToUsdt(currency)) return fx
         return com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(
-            fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(usdtLive),
+            fx,
+            com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(usdtLive),
         ) ?: fx
     }
 
@@ -172,7 +174,8 @@ object PortfolioWidgetChart {
             currency = CurrencyConversion.normalize(currency),
             positions = snapshot.positions.map {
                 it.copy(
-                    value = it.value * k, pnlAmount = it.pnlAmount?.times(k),
+                    value = it.value * k,
+                    pnlAmount = it.pnlAmount?.times(k),
                     entries = it.entries?.map { e -> e.copy(value = e.value?.times(k)) },
                 )
             },

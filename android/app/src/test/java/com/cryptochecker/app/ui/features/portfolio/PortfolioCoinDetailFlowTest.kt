@@ -5,6 +5,8 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import java.math.BigDecimal
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,8 +16,6 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import java.math.BigDecimal
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Die Coin-Ansicht rechnet bei Kurs-Ticks fremder Coins nicht neu, wohl aber bei Ticks des
@@ -51,8 +51,14 @@ class PortfolioCoinDetailFlowTest {
         val list = MutableStateFlow<List<PortfolioTxEntity>?>(txs)
         val p = MutableStateFlow(prices("BTC" to 40_000.0, "SOL" to 100.0, "ETH" to 2_000.0))
         val flow = coinDetailFlowOf(
-            "BTC", list, list, MutableStateFlow<List<WatchedAddress>>(emptyList()), p, MutableStateFlow<HistoryCloses?>(null),
-            MutableStateFlow(CostMethod.FIFO), Dispatchers.Default,
+            "BTC",
+            list,
+            list,
+            MutableStateFlow<List<WatchedAddress>>(emptyList()),
+            p,
+            MutableStateFlow<HistoryCloses?>(null),
+            MutableStateFlow(CostMethod.FIFO),
+            Dispatchers.Default,
         ) { s, all, calc, addresses, price, method, fee ->
             calls.incrementAndGet()
             coinDetail(s, all, calc, addresses, price, method, fee)
@@ -80,6 +86,11 @@ class PortfolioCoinDetailFlowTest {
     private fun prices(vararg values: Pair<String, Double>) = PortfolioPrices(prices = mapOf(*values), updatedAt = 1)
 
     private fun tx(id: Long, coin: String, type: PortfolioTxType, price: String?) = PortfolioTxEntity(
-        id = id, coin = coin, type = type, amount = BigDecimal.ONE, priceUsdt = price?.let(::BigDecimal), time = id * 86_400_000L,
+        id = id,
+        coin = coin,
+        type = type,
+        amount = BigDecimal.ONE,
+        priceUsdt = price?.let(::BigDecimal),
+        time = id * 86_400_000L,
     )
 }

@@ -1,4 +1,5 @@
 package com.cryptochecker.app.domain.widget
+import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.widget.ChartGridUnit
 import com.cryptochecker.app.domain.widget.ChartLevels
 import com.cryptochecker.app.domain.widget.LevelKind
@@ -7,14 +8,13 @@ import com.cryptochecker.app.domain.widget.VSpan
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import com.cryptochecker.app.domain.widget.WidgetChartType
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.domain.watch.SheetChart
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
 
 class WidgetChartGeometryTest {
 
@@ -254,10 +254,16 @@ class WidgetChartGeometryTest {
         assertEquals(1.0, stable.high - stable.low, 1e-9)
         // Bewegte Reihe bleibt unverändert
         val moving = listOf(candle(0, 100.0, 110.0, 90.0, 105.0), candle(hour, 105.0, 120.0, 100.0, 118.0))
-        assertEquals(WidgetChartGeometry.levels(moving, WidgetChartType.CANDLES), WidgetChartGeometry.axisLevels(moving, WidgetChartType.CANDLES))
+        assertEquals(
+            WidgetChartGeometry.levels(moving, WidgetChartType.CANDLES),
+            WidgetChartGeometry.axisLevels(moving, WidgetChartType.CANDLES)
+        )
         // Gleiche Regel wie das Aktionsblatt
         for (s in listOf(false, true)) {
-            assertEquals(SheetChart.axisLevels(calm, WidgetChartType.LINE, s), WidgetChartGeometry.axisLevels(calm, WidgetChartType.LINE, s))
+            assertEquals(
+                SheetChart.axisLevels(calm, WidgetChartType.LINE, s),
+                WidgetChartGeometry.axisLevels(calm, WidgetChartType.LINE, s)
+            )
         }
     }
 }

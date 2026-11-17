@@ -1,23 +1,23 @@
 package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.logos.applyAlpha
+import com.cryptochecker.app.domain.logos.cleanName
+import com.cryptochecker.app.domain.logos.cleanStockName
+import com.cryptochecker.app.domain.logos.parseSymbolDirectory
+import com.cryptochecker.app.domain.logos.pickNames
+import com.cryptochecker.app.domain.logos.pickTradFi
+import com.cryptochecker.app.domain.logos.pickTradFiNames
+import com.cryptochecker.app.domain.logos.rankAlpha
+import com.cryptochecker.app.domain.logos.stockLogoUrl
+import com.cryptochecker.app.domain.logos.withStockLogos
+import com.cryptochecker.app.domain.logos.withStockNames
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.domain.logos.applyAlpha
-import com.cryptochecker.app.domain.logos.cleanStockName
-import com.cryptochecker.app.domain.logos.parseSymbolDirectory
-import com.cryptochecker.app.domain.logos.rankAlpha
-import com.cryptochecker.app.domain.logos.withStockNames
-import com.cryptochecker.app.domain.logos.cleanName
-import com.cryptochecker.app.domain.logos.pickNames
-import com.cryptochecker.app.domain.logos.pickTradFi
-import com.cryptochecker.app.domain.logos.pickTradFiNames
-import com.cryptochecker.app.domain.logos.stockLogoUrl
-import com.cryptochecker.app.domain.logos.withStockLogos
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /** Gemeinsame Testfälle `coin_logos.json` (iOS: `CoinLogosTests.swift`) plus Zwischenspeicher. */
 class CoinLogosParityTest {
@@ -195,6 +195,7 @@ class CoinLogosParityTest {
         assertTrue(CoinLogos.isFresh(now - 24L * 60 * 60 * 1000 + 1, now))
         assertEquals(7L * 24 * 60 * 60 * 1000, CoinLogos.STOCK_NAMES_TTL_MILLIS)
     }
+
     @Test
     fun alphaList() {
         val a = data["alpha"].obj()
@@ -219,16 +220,18 @@ class CoinLogosParityTest {
     @Test
     fun alphaApply() {
         val a = data["alpha"].obj()
-        val ranked = CoinLogos.rankAlpha(a["entries"].list().map { it.obj() }.map {
-            CoinLogos.AlphaEntry(
-                symbol = it["symbol"] as String,
-                name = it["name"] as String?,
-                icon = it["iconUrl"] as String?,
-                marketCap = (it["marketCap"] as String?)?.toDoubleOrNull(),
-                offline = it["offline"] as Boolean,
-                listingCex = it["listingCex"] as Boolean? ?: false,
-            )
-        })
+        val ranked = CoinLogos.rankAlpha(
+            a["entries"].list().map { it.obj() }.map {
+                CoinLogos.AlphaEntry(
+                    symbol = it["symbol"] as String,
+                    name = it["name"] as String?,
+                    icon = it["iconUrl"] as String?,
+                    marketCap = (it["marketCap"] as String?)?.toDoubleOrNull(),
+                    offline = it["offline"] as Boolean,
+                    listingCex = it["listingCex"] as Boolean? ?: false,
+                )
+            }
+        )
         val map = LinkedHashMap(a["known"].obj().mapValues { it.value as String })
         val names = LinkedHashMap<String, String>()
         val symbols = CoinLogos.applyAlpha(ranked, map, names)
@@ -240,10 +243,19 @@ class CoinLogosParityTest {
     @Test
     fun partialList() {
         val p = data["partial"].obj()
-        val merged = CoinLogos.withKnown(p["fresh"].obj().mapValues { it.value as String }, p["known"].obj().mapValues { it.value as String })
+        val merged = CoinLogos.withKnown(
+            p["fresh"].obj().mapValues {
+                it.value as String
+            },
+            p["known"].obj().mapValues { it.value as String }
+        )
         assertEquals(p["expected"].obj().mapValues { it.value as String }, merged)
         p["rateLimit"].list().map { it.obj() }.forEach { c ->
-            assertEquals("rateLimit: $c", (c["expected"] as Number).toLong(), CoinLogos.rateLimitWaitMillis((c["retryAfter"] as Number?)?.toLong()))
+            assertEquals(
+                "rateLimit: $c",
+                (c["expected"] as Number).toLong(),
+                CoinLogos.rateLimitWaitMillis((c["retryAfter"] as Number?)?.toLong())
+            )
         }
         val now = 10L * CoinLogos.MAP_TTL_MILLIS
         assertEquals(now, CoinLogos.savedAtFor(now, complete = true))
@@ -251,6 +263,7 @@ class CoinLogosParityTest {
         assertTrue(CoinLogos.isFresh(partial, now + CoinLogos.PARTIAL_TTL_MILLIS - 1))
         assertFalse(CoinLogos.isFresh(partial, now + CoinLogos.PARTIAL_TTL_MILLIS))
     }
+
     @Test
     fun changedKeys() {
         val c = data["changed"].obj()

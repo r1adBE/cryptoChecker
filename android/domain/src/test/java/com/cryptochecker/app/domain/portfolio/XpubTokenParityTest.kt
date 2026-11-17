@@ -1,8 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
 package com.cryptochecker.app.domain.portfolio
-import com.cryptochecker.app.domain.util.json.JsonObject
-import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressChain
@@ -18,16 +16,18 @@ import com.cryptochecker.app.domain.portfolio.XpubCache
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
 import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.domain.portfolio.ripemd160
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.math.BigDecimal
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.num
-import com.cryptochecker.app.parity.obj
 
 /** ERC-20, xpub (BIP32/49/84) und Gap-Suche aus `address_balance.json` (iOS: `XpubTokenTests.swift`). */
 class XpubTokenParityTest {
@@ -99,7 +99,10 @@ class XpubTokenParityTest {
         val batch = t["batchRequest"].obj()
         assertEquals(batch["body"], Erc20Tokens.batchRequest(batch["address"] as String))
         val single = t["singleRequest"].obj()
-        assertEquals(single["body"], Erc20Tokens.singleRequest(single["address"] as String, Erc20Tokens.bySymbol(single["symbol"] as String)!!))
+        assertEquals(
+            single["body"],
+            Erc20Tokens.singleRequest(single["address"] as String, Erc20Tokens.bySymbol(single["symbol"] as String)!!)
+        )
         t["tradeIds"].obj().forEach { (symbol, id) -> assertEquals(id.num()!!.toLong(), AddressBalance.tokenTradeId(symbol)) }
     }
 
@@ -193,7 +196,13 @@ class XpubTokenParityTest {
             val tokens = (s["tokens"] as Map<String, Any?>?)?.mapValues { it.value as String }
             a = WatchedAddressRules.applyFetched(a, s["time"].num()!!.toLong(), s["balance"] as String, "publicnode.com", tokens)
             assertEquals("tokenBalances $i", s["tokenBalances"].obj(), a.tokenBalances)
-            assertEquals("tokenObservations $i", tokenObs(s["tokenObservations"]).mapValues { obsText(it.value) }, a.tokenObservations.mapValues { obsText(it.value) })
+            assertEquals(
+                "tokenObservations $i",
+                tokenObs(s["tokenObservations"]).mapValues {
+                    obsText(it.value)
+                },
+                a.tokenObservations.mapValues { obsText(it.value) }
+            )
             assertEquals("observations $i", obsText(obs(s["observations"])), obsText(a.observations))
             assertEquals(s["time"].num()!!.toLong(), a.lastUpdated)
             // Sprung auf 0 wartet auf den zweiten gleichen Abruf (ZeroConfirm)
@@ -278,7 +287,12 @@ class XpubTokenParityTest {
         assertEquals(g["fullScanMillis"].num()!!.toLong(), XpubScan.FULL_SCAN_MILLIS)
         g["cases"].list().map { it.obj() }.forEach { c ->
             val name = c["name"] as String
-            val used = c["used"].obj().mapValues { (_, v) -> v.list().map { it.list() }.associate { it[0].num()!!.toInt() to it[1].num()!!.toLong() } }
+            val used = c["used"].obj().mapValues { (_, v) ->
+                v.list().map { it.list() }.associate {
+                    it[0].num()!!.toInt() to
+                        it[1].num()!!.toLong()
+                }
+            }
             val scan = XpubScan(XpubScan.Mode.valueOf(c["mode"] as String), scanCache(c["cache"] as Map<String, Any?>?))
             val e = c["expected"].obj()
             val maxIndex = intArrayOf(-1, -1)
@@ -311,7 +325,8 @@ class XpubTokenParityTest {
         assertEquals(g["backgroundLookahead"].num()!!.toInt(), XpubScan.BACKGROUND_LOOKAHEAD)
         g["keepBackground"].list().map { it.obj() }.forEach { c ->
             assertEquals(
-                "keepBackground $c", c["keep"],
+                "keepBackground $c",
+                c["keep"],
                 XpubScan.keepBackground(c["complete"] == true, c["sats"].num()!!.toLong(), c["lastBalance"] as String?),
             )
         }
@@ -319,7 +334,11 @@ class XpubTokenParityTest {
         fun ints(v: Any?) = v?.list()?.map { it.num()!!.toInt() }.orEmpty()
         g["modeFor"].list().map { it.obj() }.forEach { c ->
             val cache = (c["cache"] as Map<String, Any?>?)?.let {
-                XpubCache(fullScan = it["fullScan"].num()!!.toLong(), usedReceive = ints(it["usedReceive"]), usedChange = ints(it["usedChange"]))
+                XpubCache(
+                    fullScan = it["fullScan"].num()!!.toLong(),
+                    usedReceive = ints(it["usedReceive"]),
+                    usedChange = ints(it["usedChange"])
+                )
             }
             assertEquals("modeFor $c", c["mode"], XpubScan.modeFor(cache, c["now"].num()!!.toLong(), c["background"] == true)?.name)
         }
@@ -330,17 +349,27 @@ class XpubTokenParityTest {
         // Zwischenspeicher hin und zurück; unpassende Indizes fallen weg
         val cache = XpubCache(listOf("a", "b"), listOf("c"), listOf(1), listOf(0), 42)
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
-        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1,5,-1,1],\"cu\":[],\"f\":0}"))!!.usedReceive)
+        assertEquals(
+            listOf(1),
+            XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1,5,-1,1],\"cu\":[],\"f\":0}"))!!.usedReceive
+        )
         // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
-        val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
+        val withEmpty =
+            XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
         assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
-        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1],\"cu\":[],\"f\":0,\"re\":[0,1,7]}"))!!.emptyReceive)
+        assertEquals(
+            listOf(1),
+            XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1],\"cu\":[],\"f\":0,\"re\":[0,1,7]}"))!!.emptyReceive
+        )
         // Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         val limited = cache.copy(limitedFallback = true)
         assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
         assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
         assertTrue(!XpubCache.toJson(cache).has("lf"))
-        assertEquals(false, XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"c\":[],\"ru\":[],\"cu\":[],\"f\":0,\"lf\":\"ja\"}"))!!.limitedFallback)
+        assertEquals(
+            false,
+            XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"c\":[],\"ru\":[],\"cu\":[],\"f\":0,\"lf\":\"ja\"}"))!!.limitedFallback
+        )
         assertEquals(true, XpubScan(XpubScan.Mode.QUICK, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
         assertEquals(false, XpubScan(XpubScan.Mode.FULL, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
     }
@@ -356,7 +385,9 @@ class XpubTokenParityTest {
         assertTrue(cases.any { (it["key"] as String).startsWith("zpub") } && cases.any { (it["key"] as String).startsWith("ypub") })
         cases.forEach { c ->
             val key = Bip32.parse(c["key"] as String)!!
-            val asXpub = Bip32.serialize(Bip32.ExtendedKey(Bip32.XPUB, key.depth, key.parentFingerprint, key.childNumber, key.chainCode, key.publicKey))
+            val asXpub = Bip32.serialize(
+                Bip32.ExtendedKey(Bip32.XPUB, key.depth, key.parentFingerprint, key.childNumber, key.chainCode, key.publicKey)
+            )
             assertTrue(asXpub.startsWith("xpub"))
             val chain = c["chain"].num()!!.toInt()
             val index = c["index"].num()!!.toInt()
@@ -373,7 +404,11 @@ class XpubTokenParityTest {
     /** Adresstypen der Suche und gemerkter Typ (xpub). */
     @Test
     fun xpubScriptSearch() {
-        val xpub = Bip32.parse(data["bip32"].obj()["addresses"].list().map { it.obj() }.first { (it["key"] as String).startsWith("xpub") }["key"] as String)!!
+        val xpub = Bip32.parse(
+            data["bip32"].obj()["addresses"].list().map {
+                it.obj()
+            }.first { (it["key"] as String).startsWith("xpub") }["key"] as String
+        )!!
         val all = listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
         assertEquals(all, XpubScan.scripts(xpub, null))
         assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), fullScan = 5)))
@@ -381,7 +416,17 @@ class XpubTokenParityTest {
         assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), usedReceive = listOf(0))))
         assertEquals(listOf(Bip32.Script.P2WPKH), XpubScan.scripts(xpub, XpubCache(script = Bip32.Script.P2WPKH)))
         // Erster Typ mit Verlauf; keiner = null (wieder alle prüfen); nur einer = dieser
-        assertEquals(Bip32.Script.P2WPKH, XpubScan.pickScript(xpub, listOf(Bip32.Script.P2PKH to 0, Bip32.Script.P2SH_P2WPKH to 0, Bip32.Script.P2WPKH to 2)))
+        assertEquals(
+            Bip32.Script.P2WPKH,
+            XpubScan.pickScript(
+                xpub,
+                listOf(
+                    Bip32.Script.P2PKH to 0,
+                    Bip32.Script.P2SH_P2WPKH to 0,
+                    Bip32.Script.P2WPKH to 2
+                )
+            )
+        )
         assertNull(XpubScan.pickScript(xpub, all.map { it to 0 }))
         assertEquals(Bip32.Script.P2PKH, XpubScan.pickScript(xpub, listOf(Bip32.Script.P2PKH to 0)))
         // Gespeichert als «s»; ohne Typ kein «s»; unbekannt = keiner

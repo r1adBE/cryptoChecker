@@ -72,8 +72,11 @@ const val TAX_WEALTH_AMOUNT = "{amount}"
 
 /** Bezeichnung der Zeile eines Coins im Vermögenswert; [amount] schon als Text (Dezimalzeichen der Ausgabe). */
 fun TaxSummaryTexts.wealthCoinLabel(coin: String, amount: String): String =
-    if (wealthCoin.isEmpty()) "$coin $amount"
-    else wealthCoin.replace(TAX_WEALTH_COIN, coin).replace(TAX_WEALTH_AMOUNT, amount)
+    if (wealthCoin.isEmpty()) {
+        "$coin $amount"
+    } else {
+        wealthCoin.replace(TAX_WEALTH_COIN, coin).replace(TAX_WEALTH_AMOUNT, amount)
+    }
 
 /**
  * Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw., nur teilweise gerechnet «unvollständig – Adresse

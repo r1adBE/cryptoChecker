@@ -2,11 +2,11 @@ package com.cryptochecker.app.domain.model
 
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import kotlin.random.Random
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Test
-import kotlin.random.Random
 
 /** Die Verzeichnisse liefern dasselbe wie die frühere Suche über die ganze Liste. */
 class ExchangePairsInfoTest {

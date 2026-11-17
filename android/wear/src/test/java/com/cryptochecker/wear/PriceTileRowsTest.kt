@@ -1,17 +1,23 @@
 package com.cryptochecker.wear
 
+import java.util.Locale
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.util.Locale
 
 /** Kachel: höchstens drei Favoriten, Kurs knapp mit Änderung, ohne Kurs «—» (wie die Zeile der Uhr-App). */
 class PriceTileRowsTest {
     private lateinit var saved: Locale
 
-    @Before fun setUp() { saved = Locale.getDefault(); Locale.setDefault(Locale.US) }
-    @After fun tearDown() { Locale.setDefault(saved) }
+    @Before fun setUp() {
+        saved = Locale.getDefault()
+        Locale.setDefault(Locale.US)
+    }
+
+    @After fun tearDown() {
+        Locale.setDefault(saved)
+    }
 
     @Test
     fun firstThreeFavoritesWithPriceAndChange() {

@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.marketdata.model.PostRequest
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -12,7 +13,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.TimeUnit
 
 /**
  * Gleiche gleichzeitige POST-Abfragen gehen nur einmal ins Netz (InFlightRequests), etwa Hyperliquid

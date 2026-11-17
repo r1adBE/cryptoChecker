@@ -1,10 +1,11 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
 import com.cryptochecker.marketdata.model.SimpleTicker
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Live-Kurse ([LivePriceApplier]) neben einer laufenden Aktualisierung — beide über dieselbe [RefreshLock] und

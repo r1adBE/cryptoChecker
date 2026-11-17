@@ -10,8 +10,11 @@ import org.junit.Test
 class PortfolioExchangeRouteTest {
 
     private val exchanges = mapOf(
-        "Binance" to "Binance", "Kraken" to "Kraken", "BinanceFutures" to "Binance Futures",
-        "Bitstamp" to "Bitstamp", "DexScreener" to "DEX",
+        "Binance" to "Binance",
+        "Kraken" to "Kraken",
+        "BinanceFutures" to "Binance Futures",
+        "Bitstamp" to "Bitstamp",
+        "DexScreener" to "DEX",
     )
 
     @Test
@@ -80,8 +83,13 @@ class PortfolioExchangeRouteTest {
         )
         // BTC Ausweich mit Bezug, SOL Ausweich ohne Binance-Kurs (Neustart), ETH ohne eigene Börse
         val result = PortfolioExchangeRoute.historyCloses(
-            closes, ranges, own = emptySet(), routed = setOf("BTC", "SOL"), failed = emptySet(),
-            prices = mapOf("BTC" to 102.0, "SOL" to 21.0, "ETH" to 10.0), binance = mapOf("BTC" to 100.0),
+            closes,
+            ranges,
+            own = emptySet(),
+            routed = setOf("BTC", "SOL"),
+            failed = emptySet(),
+            prices = mapOf("BTC" to 102.0, "SOL" to 21.0, "ETH" to 10.0),
+            binance = mapOf("BTC" to 100.0),
         )
         assertEquals(setOf("BTC", "ETH"), result.closes.keys)
         assertEquals(setOf("BTC", "ETH"), result.ranges.keys)

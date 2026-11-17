@@ -1,9 +1,10 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import android.content.res.Resources
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
@@ -16,19 +17,18 @@ import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.refresh.refreshFailure
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.config.ExchangesConfig
-import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.Exchange
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.marketdata.model.exchange.DexPool
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 /** Börsen, Paarlisten und Kurse: gespeicherte Listen aus Room, alles Übrige über das Netz. */
 class ExchangeRepositoryImpl @Inject constructor(
@@ -148,8 +148,11 @@ private fun requireExchange(exchangeKey: String): Exchange =
  * («SocketException: Software caused connection abort») und die Zeile zeigte «Etwas ist schiefgelaufen».
  */
 private fun Exception.textForUser(failure: ExchangeFailure): String =
-    if (failure.refreshFailure() == RefreshFailure.OFFLINE) RefreshReportLogic.OFFLINE_MARKER
-    else message ?: javaClass.simpleName
+    if (failure.refreshFailure() == RefreshFailure.OFFLINE) {
+        RefreshReportLogic.OFFLINE_MARKER
+    } else {
+        message ?: javaClass.simpleName
+    }
 
 private fun ExchangePair.asPairQuery(): PairQuery =
     PairQuery(base, quote, pairId, contractType)

@@ -2,7 +2,6 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,10 +15,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.ChangePillSize
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.resources.R
 
 /**
  * Veränderung gemäss %-Basis (`WatchEntity.shownChange`, [LocalChangeView]): [ChangePill] und

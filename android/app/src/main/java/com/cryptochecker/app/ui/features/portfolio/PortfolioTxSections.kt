@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,13 +35,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.ExpandToggleButton
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
+import com.cryptochecker.resources.R
 
 /** Art als eine kompakte Wahl «Art: Kauf ▾» (die übrigen Arten im Menü) samt Erklärung. */
 @Composable
@@ -60,10 +60,15 @@ internal fun TxTypeSection(state: TxFormState) {
                 // Gewählte Art mit Häkchen (wie das Menü in iOS)
                 DropdownMenuItem(
                     text = { Text(stringResource(option.labelRes())) },
-                    onClick = { state.type = option; typeMenu = false },
+                    onClick = {
+                        state.type = option
+                        typeMenu = false
+                    },
                     leadingIcon = if (option == type) {
                         { Icon(painterResource(R.drawable.ic_check), contentDescription = null) }
-                    } else null,
+                    } else {
+                        null
+                    },
                 )
             }
         }
@@ -99,7 +104,9 @@ internal fun TxCoinSection(state: TxFormState, d: TxFormDerived, coins: List<Str
         isError = tried && !d.coinValid,
         supportingText = if (tried && !d.coinValid) {
             { Text(stringResource(R.string.portfolio_coin_invalid)) }
-        } else null,
+        } else {
+            null
+        },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Characters,
             autoCorrectEnabled = false
@@ -115,7 +122,10 @@ internal fun TxCoinSection(state: TxFormState, d: TxFormDerived, coins: List<Str
         ) {
             items(matches, key = { it }) { symbol ->
                 AssistChip(
-                    onClick = { state.coinQuery = symbol; onPicked() },
+                    onClick = {
+                        state.coinQuery = symbol
+                        onPicked()
+                    },
                     label = { Text(symbol, maxLines = 1) }
                 )
             }
@@ -177,7 +187,13 @@ internal fun TxAmountSection(state: TxFormState, d: TxFormDerived, viewModel: Po
     val holdings = if (d.fields.outflow && coinValid) viewModel.holdingsOf(coin, state.initial.id) else null
     val exceeds = PortfolioTxForm.outflowExceeds(type, amount, d.fee, state.feeUnit, holdings)
     val walletName = (if (type == PortfolioTxType.TRANSFER) state.transferFrom else state.exchange).trim()
-    val walletHoldings = if (d.fields.outflow && coinValid && !exceeds) viewModel.walletHoldingsOf(coin, walletName, state.initial.id) else null
+    val walletHoldings = if (d.fields.outflow && coinValid &&
+        !exceeds
+    ) {
+        viewModel.walletHoldingsOf(coin, walletName, state.initial.id)
+    } else {
+        null
+    }
     val walletExceeds = walletHoldings != null && PortfolioTxForm.outflowExceeds(type, amount, d.fee, state.feeUnit, walletHoldings)
     val amountError = (state.tried || state.amountText.isNotBlank()) && amount == null
     val amountMessage: String? = when {
@@ -201,10 +217,18 @@ internal fun TxAmountSection(state: TxFormState, d: TxFormDerived, viewModel: Po
         value = state.amountText,
         onValueChange = { state.amountText = it },
         label = { Text(stringResource(if (d.isSwap) R.string.portfolio_tx_swap_given_amount else R.string.portfolio_tx_amount)) },
-        suffix = if (coinValid) { { Text(coin) } } else null,
+        suffix = if (coinValid) {
+            { Text(coin) }
+        } else {
+            null
+        },
         singleLine = true,
         isError = amountError || exceeds || walletExceeds,
-        supportingText = if (amountMessage != null) { { Text(amountMessage) } } else null,
+        supportingText = if (amountMessage != null) {
+            { Text(amountMessage) }
+        } else {
+            null
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.AMOUNT)
     )

@@ -1,10 +1,15 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.parseAlpha
+import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.watch.AssetKind
+import java.io.File
+import java.io.IOException
+import java.util.Collections
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -14,11 +19,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.io.IOException
-import java.util.Collections
-import com.cryptochecker.app.domain.logos.alphaSymbols
-import com.cryptochecker.app.domain.logos.parseAlpha
 
 /**
  * Ende-zu-Ende mit Antworten wie vom Server (`coin_meta.json`; iOS: `CoinListsTests.swift`): Namen und
@@ -59,10 +59,12 @@ class CoinListsTest {
 
     @Test
     fun namesAndAlpha_beforeCoinGeckoAndImages() {
-        val server = FakeServer(mapOf(
-            CoinLogos.BINANCE_LIST_URL to { raw("binanceList") },
-            CoinLogos.ALPHA_LIST_URL to { raw("alphaList") },
-        ))
+        val server = FakeServer(
+            mapOf(
+                CoinLogos.BINANCE_LIST_URL to { raw("binanceList") },
+                CoinLogos.ALPHA_LIST_URL to { raw("alphaList") },
+            )
+        )
         val result = run(server, request())
         assertEquals(CoinLists.Source.DIRECT, result.binanceSource)
         assertEquals(CoinLists.Source.DIRECT, result.alphaSource)
@@ -92,11 +94,13 @@ class CoinListsTest {
 
     @Test
     fun oneSourceFails_otherStillArrives() {
-        val server = FakeServer(mapOf(
-            CoinLogos.BINANCE_LIST_URL to { throw IllegalStateException("HTTP 500") },
-            CoinLogos.ALPHA_LIST_URL to { raw("alphaList") },
-            CoinMeta.URL to { throw IllegalStateException("HTTP 404") },
-        ))
+        val server = FakeServer(
+            mapOf(
+                CoinLogos.BINANCE_LIST_URL to { throw IllegalStateException("HTTP 500") },
+                CoinLogos.ALPHA_LIST_URL to { raw("alphaList") },
+                CoinMeta.URL to { throw IllegalStateException("HTTP 404") },
+            )
+        )
         val result = run(server, request())
         assertNull(result.binance)
         assertEquals(CoinLists.Source.NONE, result.binanceSource)
@@ -109,11 +113,13 @@ class CoinListsTest {
 
     @Test
     fun directListsFail_mirrorFills() {
-        val server = FakeServer(mapOf(
-            CoinLogos.BINANCE_LIST_URL to { throw IOException("offline") },
-            CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 451") },
-            CoinMeta.URL to { raw("coinMeta") },
-        ))
+        val server = FakeServer(
+            mapOf(
+                CoinLogos.BINANCE_LIST_URL to { throw IOException("offline") },
+                CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 451") },
+                CoinMeta.URL to { raw("coinMeta") },
+            )
+        )
         val result = run(server, request())
         assertEquals(CoinLists.Source.MIRROR, result.binanceSource)
         assertEquals(CoinLists.Source.MIRROR, result.alphaSource)
@@ -137,11 +143,13 @@ class CoinListsTest {
     fun mirrorWithoutNames_keepsSavedNames() {
         val saved = CoinMeta.parseBinanceList(raw("binanceList")).orEmpty()
         val mirrorText = org.json.JSONObject(raw("mirrorSymbolsOnly")).getJSONObject("coinMeta").toString()
-        val server = FakeServer(mapOf(
-            CoinLogos.BINANCE_LIST_URL to { throw IOException("offline") },
-            CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 500") },
-            CoinMeta.URL to { mirrorText },
-        ))
+        val server = FakeServer(
+            mapOf(
+                CoinLogos.BINANCE_LIST_URL to { throw IOException("offline") },
+                CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 500") },
+                CoinMeta.URL to { mirrorText },
+            )
+        )
         val request = request(lastBinance = generated - CoinMeta.DIRECT_STALE_MILLIS - 1).copy(savedBinance = saved)
         val result = run(server, request)
         assertEquals(CoinLists.Source.MIRROR, result.binanceSource)
@@ -177,11 +185,13 @@ class CoinListsTest {
 
     @Test
     fun mirrorOlderThanDirect_isIgnored() {
-        val server = FakeServer(mapOf(
-            CoinLogos.BINANCE_LIST_URL to { raw("binanceList") },
-            CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 500") },
-            CoinMeta.URL to { raw("coinMeta") },
-        ))
+        val server = FakeServer(
+            mapOf(
+                CoinLogos.BINANCE_LIST_URL to { raw("binanceList") },
+                CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 500") },
+                CoinMeta.URL to { raw("coinMeta") },
+            )
+        )
         val result = run(server, request(lastAlpha = generated + 1))
         assertEquals(CoinLists.Source.DIRECT, result.binanceSource)
         assertNull(result.alpha)

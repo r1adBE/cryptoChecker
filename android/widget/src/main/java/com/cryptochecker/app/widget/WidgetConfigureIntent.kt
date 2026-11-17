@@ -1,9 +1,9 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetConfigureGuard
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import com.cryptochecker.app.domain.widget.WidgetConfigureGuard
 
 /**
  * Widget-Id aus dem Intent der Einrichten-Activity, wenn sie zu einem eigenen Widget des Anbieters [provider] gehört
@@ -15,7 +15,12 @@ fun Activity.ownWidgetId(provider: Class<out AppWidgetProvider>): Int? {
     if (widgetId == invalid) return null
     val owner = runCatching { AppWidgetManager.getInstance(this).getAppWidgetInfo(widgetId)?.provider }.getOrNull()
     val ok = WidgetConfigureGuard.accepts(
-        widgetId, invalid, owner?.packageName, owner?.className, packageName, provider.name,
+        widgetId,
+        invalid,
+        owner?.packageName,
+        owner?.className,
+        packageName,
+        provider.name,
     )
     return widgetId.takeIf { ok }
 }

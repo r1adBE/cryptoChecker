@@ -1,8 +1,5 @@
 package com.cryptochecker.app.ui.features.info
 
-import androidx.compose.ui.platform.LocalConfiguration
-import java.util.Locale
-import java.time.LocalDate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,22 +14,25 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.Indicator
 import com.cryptochecker.app.domain.market.IndicatorId
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.domain.format.MonthYearFormat
-import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
+import java.time.LocalDate
+import java.util.Locale
 
 /*
  * Reine Messwerte, keine «Marktphase» (keine Zonen, Hoch-/Tief-Punkte, Skala, Phasen nach dem

@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
+import com.cryptochecker.resources.R
 
 /**
  * Frage «Änderungen werden gerade nicht gespeichert …» vor der ersten Änderung der Merkliste je

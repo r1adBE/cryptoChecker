@@ -35,7 +35,10 @@ class DayChangeSourceTest {
         val name = DayChange.candleSourceName("Binance", DayChange.CandleSeries.USDT)
         assertEquals("Binance USDT", name)
         assertEquals("Binance USDT", DayChange.foreignCandleSource(listOf("binance", "Binance"), name))
-        assertEquals("Kraken USDT", DayChange.foreignCandleSource(listOf("Binance"), DayChange.candleSourceName(" Kraken ", DayChange.CandleSeries.USDT)))
+        assertEquals(
+            "Kraken USDT",
+            DayChange.foreignCandleSource(listOf("Binance"), DayChange.candleSourceName(" Kraken ", DayChange.CandleSeries.USDT))
+        )
         // eigene Reihe: nur bei fremder Börse
         assertNull(DayChange.foreignCandleSource(listOf("Binance"), DayChange.candleSourceName("Binance", DayChange.CandleSeries.PAIR)))
         assertNull(DayChange.candleSourceName("Binance", DayChange.CandleSeries.NONE))

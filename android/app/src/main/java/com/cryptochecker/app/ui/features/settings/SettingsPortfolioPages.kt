@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.ui.components.DialogText
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -13,15 +12,13 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.compose.LifecycleResumeEffect
-import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -29,24 +26,27 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.resources.R
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.settings.SettingsConfirm
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
-import com.cryptochecker.app.ui.features.portfolio.taxMethodName
-import com.cryptochecker.app.ui.features.portfolio.TaxTemplateConfirmDialog
-import com.cryptochecker.app.ui.features.portfolio.taxTemplateLabel
 import com.cryptochecker.app.lock.AppLockAuth
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
-import com.cryptochecker.app.ui.components.SwitchRow
-import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.features.portfolio.TaxTemplateConfirmDialog
+import com.cryptochecker.app.ui.features.portfolio.taxMethodName
+import com.cryptochecker.app.ui.features.portfolio.taxTemplateLabel
 import com.cryptochecker.app.ui.lock.HideOverlaysEffect
+import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 
 // ── Portfolio ────────────────────────────────────────────────────────────────
 
@@ -209,15 +209,21 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 SwitchRow(
                     title = stringResource(R.string.settings_portfolio_system_backup),
                     subtitle = stringResource(
-                        if (systemBackupSupported) R.string.settings_portfolio_system_backup_hint
-                        else R.string.settings_portfolio_system_backup_unavailable
+                        if (systemBackupSupported) {
+                            R.string.settings_portfolio_system_backup_hint
+                        } else {
+                            R.string.settings_portfolio_system_backup_unavailable
+                        }
                     ),
                     checked = settings.portfolioSystemBackup && systemBackupSupported,
                     enabled = systemBackupSupported,
                     onCheckedChange = { on ->
                         // Einschalten erst nach der Rückfrage (Daten gehen in die Gerätesicherung); aus sofort
-                        if (SettingsConfirm.systemBackup(enabling = on)) confirmSystemBackup = true
-                        else viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, on)
+                        if (SettingsConfirm.systemBackup(enabling = on)) {
+                            confirmSystemBackup = true
+                        } else {
+                            viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, on)
+                        }
                     }
                 )
             }
@@ -261,7 +267,10 @@ private fun TaxTemplateRow(selected: TaxTemplate, costMethod: CostMethod, onSele
                 TaxTemplate.entries.forEach { t ->
                     DropdownMenuItem(
                         text = { Text(stringResource(taxTemplateLabel(t))) },
-                        onClick = { onSelect(t); open = false },
+                        onClick = {
+                            onSelect(t)
+                            open = false
+                        },
                     )
                 }
             }

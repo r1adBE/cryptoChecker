@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
 
 /** Wertverlauf in CHF & Co. mit Devisen-Tageskursen ([PortfolioHistoryFx]). */
 class PortfolioHistoryFxTest {
@@ -111,7 +111,8 @@ class PortfolioHistoryFxTest {
         assertTrue(PortfolioHistoryFx.includesFxMovement("CHF", approximate = false))
         assertFalse(PortfolioHistoryFx.includesFxMovement("CHF", approximate = true))
         assertFalse(PortfolioHistoryFx.includesFxMovement("USD", approximate = false))
-        val series = PortfolioHistorySeries(listOf(PortfolioHistoryPoint(1, 100.0), PortfolioHistoryPoint(2, 100.0)), emptyList(), 0.0, 0.0, false)
+        val series =
+            PortfolioHistorySeries(listOf(PortfolioHistoryPoint(1, 100.0), PortfolioHistoryPoint(2, 100.0)), emptyList(), 0.0, 0.0, false)
         assertTrue(PortfolioHistoryFx.convert(series, mapOf(1L to 0.9), 0.8, 2).includesFx)
         assertFalse(PortfolioHistoryFx.convert(series, null, 0.8, 2).includesFx)
     }

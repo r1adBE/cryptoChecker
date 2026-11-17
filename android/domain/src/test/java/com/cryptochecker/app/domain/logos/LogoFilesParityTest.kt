@@ -2,12 +2,12 @@ package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Test
 
 /**
  * Gemeinsame Testfälle für Adressen und Abrufe der Logo-Dateien (`coin_logos.json`: urlFor, downloadJobs, futures) und

@@ -1,10 +1,10 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.math.BigDecimal
 
 /**
  * Fortschritt und Abbruch des CSV-Imports ([CsvProgressThrottle], [CsvImportInsert], [CsvImportMapping.preview] mit
@@ -110,7 +110,10 @@ class CsvImportProgressTest {
                     rows += done
                     if (done == 4_321) cancel = true
                 }
-                CsvImportInsert.run(items, HashSet(), { listOf(it) }, { cancel }, onRow) { staged += it; true }
+                CsvImportInsert.run(items, HashSet(), { listOf(it) }, { cancel }, onRow) {
+                    staged += it
+                    true
+                }
             }
             fail("Abbruch erwartet")
         } catch (_: CsvImportCancelledException) {
@@ -138,7 +141,10 @@ class CsvImportProgressTest {
         val result = CsvImportParser.parse(relai(500))
         var calls = 0
         try {
-            val stop = { _: Int, _: Int -> calls++; throw IllegalStateException("abgebrochen") }
+            val stop = { _: Int, _: Int ->
+                calls++
+                throw IllegalStateException("abgebrochen")
+            }
             CsvImportMapping.preview(result, emptySet(), onRow = stop, fx = fx)
             fail("Abbruch erwartet")
         } catch (_: IllegalStateException) {

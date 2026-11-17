@@ -4,15 +4,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateDays
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
 import java.math.BigDecimal
 import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import com.cryptochecker.app.parity.ParityJson
-import com.cryptochecker.app.parity.list
-import com.cryptochecker.app.parity.obj
 
 /**
  * Was der CSV-Import speichert (`csv_import.json` › «priceText», «importKeys», «cleanImportKeys», «rateDays», «rateCover»):

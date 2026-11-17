@@ -1,9 +1,11 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.io.IOException
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,8 +19,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Futures-Kennzahlen ([FuturesDataSource]) mit einem Interceptor als Börsen: Binance USDⓈ-M zuerst (Open Interest
@@ -40,20 +40,29 @@ class FuturesDataSourceTest {
 
     /** Antworten je Adresse (Status, Text); fehlende Adresse = kein Netz. */
     private fun source(replies: Map<String, Pair<Int, String>>) = FuturesDataSource(
-        OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url.toString()
-            hits.merge(url, 1) { a, b -> a + b }
-            val (code, body) = replies[url] ?: throw IOException("offline: $url")
-            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
-                .body(body.toResponseBody("application/json".toMediaType())).build()
-        }).build(),
+        OkHttpClient.Builder().addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.toString()
+                hits.merge(url, 1) { a, b -> a + b }
+                val (code, body) = replies[url] ?: throw IOException("offline: $url")
+                Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(code).message("status $code")
+                    .body(body.toResponseBody("application/json".toMediaType())).build()
+            }
+        ).build(),
     )
 
     private fun ok(body: String) = 200 to body
 
     private fun watch(exchangeKey: String, base: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
-        WatchEntity(exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = base, quoteAsset = "USDT", contractType = contract, pairId = pairId)
+        WatchEntity(
+            exchangeKey = exchangeKey,
+            exchangeName = exchangeKey,
+            baseAsset = base,
+            quoteAsset = "USDT",
+            contractType = contract,
+            pairId = pairId
+        )
 
     /** Quellen des Tests freigeben: ein anderer Test im selben Prozess kann sie gesperrt haben (Test läuft immer). */
     private fun releaseHosts(vararg hosts: String) {
@@ -61,7 +70,9 @@ class FuturesDataSourceTest {
     }
 
     private fun binancePremium(symbol: String, mark: String, rate: String) =
-        ok("""{"symbol":"$symbol","markPrice":"$mark","indexPrice":"$mark","lastFundingRate":"$rate","nextFundingTime":1793000000000,"time":1792990000000}""")
+        ok(
+            """{"symbol":"$symbol","markPrice":"$mark","indexPrice":"$mark","lastFundingRate":"$rate","nextFundingTime":1793000000000,"time":1792990000000}"""
+        )
 
     private val bybitBtc = ok(
         """{"retCode":0,"retMsg":"OK","result":{"category":"linear","list":[{"symbol":"BTCUSDT","fundingRate":"0.0002",""" +
@@ -250,7 +261,10 @@ class FuturesDataSourceTest {
         assertTrue(BlockedSources.noteFailure(blocked, HttpExchangeError(451, "unavailable")))
         var askedBlocked = false
         val result = futures.firstOf(
-            futures.source<String>(blocked) { askedBlocked = true; "gesperrt" },
+            futures.source<String>(blocked) {
+                askedBlocked = true
+                "gesperrt"
+            },
             futures.source<String>("futures-test-failing.example") { throw IOException("kaputt") },
             futures.source<String>("futures-test-open.example") { "offen" },
         )

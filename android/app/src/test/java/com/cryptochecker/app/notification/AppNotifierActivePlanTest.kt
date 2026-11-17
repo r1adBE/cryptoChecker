@@ -29,7 +29,8 @@ class AppNotifierActivePlanTest {
                 ActiveEntry(summaryId, 99, false), ActiveEntry(overflowId, 3, false),
                 activityNew, alarm, activityOld, portfolio, fng,
             ),
-            summaryId, overflowId,
+            summaryId,
+            overflowId,
         )
         assertEquals(listOf(2L, 1L), split.listed.keys.toList())
         assertEquals("P1", split.listed[1L])

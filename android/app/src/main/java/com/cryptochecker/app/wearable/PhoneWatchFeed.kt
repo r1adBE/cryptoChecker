@@ -4,24 +4,26 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.watch.WatchIdentity
-import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
-import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.RetiredWatch
+import com.cryptochecker.app.domain.watch.WatchIdentity
+import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,8 +38,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Was das Handy der Wear-OS-App ausser der Wahl schickt (über [PhoneWatchSync.put], Wear-Daten-Schicht):

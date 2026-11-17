@@ -1,6 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.*
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -9,27 +8,30 @@ import android.content.Intent
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.cycle.CachedValue
 import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.PulseDataSource
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
-import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.settings.logoRes
-import com.cryptochecker.app.util.AppIntents
-import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.widget.PulseBackgroundFetch
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import com.cryptochecker.app.domain.widget.WidgetType
+import com.cryptochecker.app.settings.HighContrast
+import com.cryptochecker.app.settings.logoRes
+import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.AppIntents
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 /**
  * Widget «Was gerade auffällt» (Crypto Pulse): Schlagzeile, Leitsatz, Coin-Chips und Stand —
@@ -66,7 +68,11 @@ class PulseWidgetRenderer @Inject constructor(
         if (cached != null || !fetch) drawPulse(appWidgetIds, cached)
         if (!fetch || pulseData.isPulseFresh(cached)) return
         val loaded = pulseData.loadPulse()
-        if (loaded != null) drawPulse(appWidgetIds, loaded) else if (cached == null) drawPulse(appWidgetIds, null)
+        if (loaded != null) {
+            drawPulse(appWidgetIds, loaded)
+        } else if (cached == null) {
+            drawPulse(appWidgetIds, null)
+        }
     }
 
     /**
@@ -99,15 +105,18 @@ class PulseWidgetRenderer @Inject constructor(
         widgetPrefs.lastHighContrast = highContrast
         val now = System.currentTimeMillis()
         val online = connectivity.online()
-        // Frischer Stand als eigene, nicht-null Variable (kein Smart Cast über die ?.let-Kette nötig)
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
         val title = context.getString(R.string.pulse_now_title)
         // Fear & Greed nur aus dem Zwischenspeicher (Markt-Tab oder Pulse, ≤ 24 h) — kein eigener Abruf
-        val cachedFng = if (fresh == null || report == null) null else {
+        val cachedFng = if (fresh == null || report == null) {
+            null
+        } else {
             cycleCacheStore.read(CycleSource.FEAR_GREED.key, CycleCacheCodecs.fearGreed)
         }
-        val fearGreedValue = if (fresh == null || report == null) null else {
+        val fearGreedValue = if (fresh == null || report == null) {
+            null
+        } else {
             PulseWidgetMath.fearGreed(
                 cached = cachedFng?.value?.value,
                 cachedAt = cachedFng?.savedAt,
@@ -118,7 +127,9 @@ class PulseWidgetRenderer @Inject constructor(
         }
         val fearGreedText = fearGreedValue?.let { PulseWidgetTexts.fearGreed(context, it) }
         // «Kurz gesagt» aus denselben Eingaben und derselben Frische-Regel wie im Markt-Tab
-        val plainInput = if (fresh == null || report == null) null else {
+        val plainInput = if (fresh == null || report == null) {
+            null
+        } else {
             PulseWidgetPlain.input(
                 now = now,
                 pulseMarketChange24h = report.marketCap24h,
@@ -131,6 +142,7 @@ class PulseWidgetRenderer @Inject constructor(
         val plainSentences = plainSummary?.let { PulseWidgetTexts.plainSentences(context, it) }.orEmpty()
         val plainTitle = context.getString(R.string.market_plain_title)
         val plainFootnote = context.getString(R.string.market_plain_footnote)
+
         // «Daten: CoinGecko, alternative.me · keine Prognose, keine Anlageberatung» — Quellen der gezeigten Sätze
         fun plainNote(shownCount: Int): String =
             plainSummary?.let { PulseWidgetPlain.sources(it, shownCount) }
@@ -189,14 +201,21 @@ class PulseWidgetRenderer @Inject constructor(
                 val period24h = context.getString(R.string.widget_range_short_24h)
                 // «Top 30 · 24h  ↗ 21  ↘ 9» — Marktbreite über 24 Stunden
                 val breadthText = breadth?.let {
-                    context.getString(R.string.pulse_breadth_label, it.total) + " · " + period24h + "  " + PriceFormat.ARROW_UP + " " + LocaleNumbers.integer(it.up) + "  " + PriceFormat.ARROW_DOWN + " " + LocaleNumbers.integer(it.down)
+                    context.getString(R.string.pulse_breadth_label, it.total) + " · " + period24h + "  " + PriceFormat.ARROW_UP + " " +
+                        LocaleNumbers.integer(it.up) +
+                        "  " +
+                        PriceFormat.ARROW_DOWN +
+                        " " +
+                        LocaleNumbers.integer(it.down)
                 }
                 // Stufenpunkt «●» vor Fear & Greed (feste Skala, AA); gehört zur gemessenen Breite
                 val fearGreedShown = fearGreedText?.let { "${PulseSideLine.FNG_DOT} $it" }
                 val bothText = if (fearGreedShown != null && breadthText != null) "$fearGreedShown · $breadthText" else null
                 fun sideWidth(text: String?) = text?.let { toolkit.textWidthDp(it, 12f, bold = false, tabular = true) }
                 val sideLayout = PulseWidgetMath.sideLayout(
-                    widgetWidthDp, heightDp, headlineStyle.lines,
+                    widgetWidthDp,
+                    heightDp,
+                    headlineStyle.lines,
                     fearGreedWidthDp = sideWidth(fearGreedShown),
                     // Allein in der ersten Zeile ohne Punkt; als zweite Zeile mit Punkt davor (eigene Breite)
                     breadthWidthDp = sideWidth(breadthText),
@@ -243,7 +262,9 @@ class PulseWidgetRenderer @Inject constructor(
                     else -> 1
                 }
                 val textWidthDp = widgetWidthDp - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
-                val plainCount = if (widgetWidthDp < PulseWidgetPlain.WIDE_MIN_WIDTH_DP || plainSentences.isEmpty()) 0 else {
+                val plainCount = if (widgetWidthDp < PulseWidgetPlain.WIDE_MIN_WIDTH_DP || plainSentences.isEmpty()) {
+                    0
+                } else {
                     PulseWidgetPlain.sentenceCount(
                         availableDp = PulseWidgetPlain.blockAvailableDp(heightDp, headlineStyle.lines, sideLines),
                         titleDp = toolkit.textBlock(plainTitle, PulseWidgetPlain.TITLE_SP, textWidthDp, bold = true).heightDp,
@@ -320,7 +341,9 @@ class PulseWidgetRenderer @Inject constructor(
         schedulePlainExpiry(
             if (plainInput != null && plainSummary != null && plainSentences.isNotEmpty()) {
                 PulseWidgetPlain.expiresAt(plainInput, plainSummary)
-            } else null
+            } else {
+                null
+            }
         )
     }
 

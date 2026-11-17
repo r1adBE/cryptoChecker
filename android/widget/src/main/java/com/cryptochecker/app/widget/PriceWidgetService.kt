@@ -5,15 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
+import com.cryptochecker.resources.R
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Liefert die Zeilen der Widget-Liste unter Android 12 und bei sehr langen Listen
@@ -79,8 +79,11 @@ private class WatchlistViewsFactory(
         val loaded = try {
             runBlocking { withTimeoutOrNull(RELOAD_BUDGET_MILLIS) { rows.load(appWidgetId) } }
         } catch (e: Exception) {
-            if (e.isDatabaseKeyUnavailable()) Timber.d(e, "Widget-Zeilen: Datenbank-Schlüssel nicht verfügbar")
-            else Timber.w(e, "Widget-Zeilen nicht geladen (%d)", appWidgetId)
+            if (e.isDatabaseKeyUnavailable()) {
+                Timber.d(e, "Widget-Zeilen: Datenbank-Schlüssel nicht verfügbar")
+            } else {
+                Timber.w(e, "Widget-Zeilen nicht geladen (%d)", appWidgetId)
+            }
             loadedVersion = version
             return
         }

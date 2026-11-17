@@ -6,8 +6,8 @@ import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.usage.UsageReport
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
-import kotlinx.coroutines.launch
 import java.io.File
+import kotlinx.coroutines.launch
 
 /**
  * «Akku & Aktivität» auf der Uhr: eigene Zähler ([UsageMeter.shared], `noBackupFilesDir/usage_log.txt`, nicht gesichert)

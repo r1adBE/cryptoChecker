@@ -1,7 +1,7 @@
 package com.cryptochecker.app.performance
 
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.market.CryptoPulse
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.DisabledView
@@ -11,14 +11,14 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
 import com.cryptochecker.app.ui.features.explorer.bulkNewCount
 import com.cryptochecker.app.ui.features.explorer.watchKey
-import com.cryptochecker.app.ui.features.watchlist.filterByGroup
 import com.cryptochecker.app.ui.features.watchlist.WatchSearchIndex
+import com.cryptochecker.app.ui.features.watchlist.filterByGroup
 import com.cryptochecker.app.ui.features.watchlist.matchesSearch
-import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -47,7 +47,8 @@ class WatchlistPerformanceTest {
                 for (key in SortKey.entries) {
                     for (descending in listOf(false, true)) {
                         val sorted = ColumnSort.apply(
-                            watches, ColumnSort(key, descending),
+                            watches,
+                            ColumnSort(key, descending),
                             favorite = { it.favorite },
                             name = { it.displayName },
                             value = ::sortValue,
@@ -61,8 +62,12 @@ class WatchlistPerformanceTest {
         }
         // Ergebnis stimmt: Favoriten oben, darunter nach Name
         val sorted = ColumnSort.apply(
-            PerformanceData.watches(PerformanceTiming.LARGE), ColumnSort(SortKey.NAME, false),
-            { it.favorite }, { it.displayName }, ::sortValue, { it.shownChange(view) },
+            PerformanceData.watches(PerformanceTiming.LARGE),
+            ColumnSort(SortKey.NAME, false),
+            { it.favorite },
+            { it.displayName },
+            ::sortValue,
+            { it.shownChange(view) },
         )
         assertEquals(PerformanceTiming.LARGE, sorted.size)
         val favorites = sorted.takeWhile { it.favorite }

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.compose.foundation.layout.Column
-import com.cryptochecker.app.ui.theme.label
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,10 +13,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.PillTone
@@ -25,15 +26,14 @@ import com.cryptochecker.app.ui.components.pillArrow
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.math.BigDecimal
 import java.text.DateFormat
 import java.text.DecimalFormat
 import java.util.Date
 import kotlin.math.abs
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.ui.text.style.TextAlign
 
 /** Gemeinsame Bausteine und Formate für das Portfolio. */
 internal object PortfolioFormat {

@@ -10,19 +10,19 @@ import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.marketdata.config.ExchangesConfig
-import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Exchange
-import com.cryptochecker.marketdata.model.pairListPaging
+import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import com.cryptochecker.marketdata.model.pairListPaging
 import java.io.File
 import java.time.Instant
 import kotlin.math.abs
 import kotlin.math.max
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Vertragstests der Börsen-Adapter: echte Antwortformate (Einzel- und Sammelabfrage, WebSocket)
@@ -286,7 +286,13 @@ class ExchangeContractTest {
             val want = raw.obj()
             (want["base"] as? String)?.let { if (p.base != it) throw CaseFailure("[$id] base: expected $it, got ${p.base}") }
             (want["quote"] as? String)?.let { if (p.quote != it) throw CaseFailure("[$id] quote: expected $it, got ${p.quote}") }
-            (want["contract"] as? String)?.let { if (p.contractType.name != it) throw CaseFailure("[$id] contract: expected $it, got ${p.contractType}") }
+            (want["contract"] as? String)?.let {
+                if (p.contractType.name !=
+                    it
+                ) {
+                    throw CaseFailure("[$id] contract: expected $it, got ${p.contractType}")
+                }
+            }
             (want["tradFi"] as? Boolean)?.let { if (p.tradFi != it) throw CaseFailure("[$id] tradFi: expected $it, got ${p.tradFi}") }
         }
     }
@@ -427,7 +433,10 @@ class ExchangeContractTest {
         notes.forEach { println("ExchangeContractTest: $it") }
 
         assertTrue("cases read: $cases", cases >= 150)
-        assertTrue("single/bulk/live cases: $kinds", (kinds["single"] ?: 0) >= 80 && (kinds["bulk"] ?: 0) >= 30 && (kinds["live"] ?: 0) >= 15)
+        assertTrue(
+            "single/bulk/live cases: $kinds",
+            (kinds["single"] ?: 0) >= 80 && (kinds["bulk"] ?: 0) >= 30 && (kinds["live"] ?: 0) >= 15
+        )
         assertTrue("${failures.size} contract failure(s):\n" + failures.joinToString("\n"), failures.isEmpty())
     }
 
@@ -473,7 +482,12 @@ class ExchangeContractTest {
      */
     @Test
     fun recordedBithumbTradeTimeIsUtc() {
-        val data = SourceGuard.android(recordedFixtures().firstOrNull { it.first == "recorded_bithumb.json" }?.second, "testdata/exchanges/recorded/recorded_bithumb.json")
+        val data = SourceGuard.android(
+            recordedFixtures().firstOrNull {
+                it.first == "recorded_bithumb.json"
+            }?.second,
+            "testdata/exchanges/recorded/recorded_bithumb.json"
+        )
         val recordedAt = Instant.parse(data["recordedAt"] as String).toEpochMilli()
         val single = data["cases"].list().map { it.obj() }.first { it["kind"] == "single" }
         val ticker = SimpleTicker()

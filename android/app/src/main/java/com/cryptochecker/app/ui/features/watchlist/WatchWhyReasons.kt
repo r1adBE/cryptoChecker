@@ -31,13 +31,13 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.MarketRef
 import com.cryptochecker.app.domain.activity.Reason
 import com.cryptochecker.app.domain.activity.ReasonKind
 import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhySummary
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.ExpandToggleButton
@@ -45,7 +45,7 @@ import com.cryptochecker.app.ui.components.FactorRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.resources.R
 import kotlin.math.roundToInt
 
 /** «1h» und daneben die Änderung als [ChangePill] («—» ohne Daten). */
@@ -142,7 +142,8 @@ private fun reasonFactor(r: Reason): ReasonFactor {
         ReasonKind.VOLUME_HIGH, ReasonKind.VOLUME_LOW, ReasonKind.VOLUME_NORMAL -> {
             val number = "%.2f".format(r.value)
             ReasonFactor(
-                stringResource(R.string.factor_volume), "$number×",
+                stringResource(R.string.factor_volume),
+                "$number×",
                 stringResource(R.string.factor_spoken_volume, number)
             )
         }
@@ -155,7 +156,8 @@ private fun reasonFactor(r: Reason): ReasonFactor {
         ReasonKind.VOLATILITY_HIGH, ReasonKind.VOLATILITY_NORMAL -> {
             val number = ActivityTexts.factor(r.value)
             ReasonFactor(
-                stringResource(R.string.factor_volatility), "$number×",
+                stringResource(R.string.factor_volatility),
+                "$number×",
                 stringResource(R.string.factor_spoken_volatility, number)
             )
         }
@@ -177,8 +179,11 @@ internal fun EmptyReasons(failure: WhyCandlesFailure?, exchange: String, onRetry
         WhyCandlesFailure.TIMEOUT -> stringResource(R.string.refresh_sheet_exchange_unreachable, exchange)
         null -> stringResource(R.string.why_no_candles)
     }
-    val hint = if (failure != null) stringResource(R.string.why_no_data_retry_hint)
-    else stringResource(R.string.why_no_candles_hint, exchange)
+    val hint = if (failure != null) {
+        stringResource(R.string.why_no_data_retry_hint)
+    } else {
+        stringResource(R.string.why_no_candles_hint, exchange)
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()

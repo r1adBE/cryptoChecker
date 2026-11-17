@@ -5,8 +5,8 @@ package com.cryptochecker.app.data
 import androidx.room.withTransaction
 import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.WatchSnapshot
-import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
@@ -15,10 +15,13 @@ import com.cryptochecker.marketdata.model.ExchangePair
 /** Ausgang von [tryAddWatch]. */
 sealed interface AddWatchOutcome {
     data class Added(val id: Long) : AddWatchOutcome
+
     /** Paar stand schon in der Merkliste. */
     data object Duplicate : AddWatchOutcome
+
     /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare. */
     data object Full : AddWatchOutcome
+
     /** Merkliste gesperrt ([userWriteRefused]): nichts angelegt, der kurze Hinweis ist schon ausgelöst. */
     data object Locked : AddWatchOutcome
 }
@@ -45,36 +48,42 @@ suspend fun WatchRepository.tryAddWatch(
     pair: ExchangePair,
     group: String? = null,
     notificationEnabled: Boolean = WatchRepository.DEFAULT_NOTIFICATION_ENABLED,
-): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else guardedWrite<AddWatchOutcome>(AddWatchOutcome.Locked) { database.withTransaction {
-    // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
-    // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
-    val contractType = pair.contractType
-    val existing = watchDao.findWatchId(
-        exchange.key,
-        pair.base,
-        pair.quote,
-        contractType.name,
-        WatchIdentity.pool(exchange.key, pair.pairId),
-    )
-    addBlocker(existing != null) { watchDao.countWatches() }?.let { return@withTransaction it }
+): AddWatchOutcome = if (userWriteRefused()) {
+    AddWatchOutcome.Locked
+} else {
+    guardedWrite<AddWatchOutcome>(AddWatchOutcome.Locked) {
+        database.withTransaction {
+            // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
+            // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
+            val contractType = pair.contractType
+            val existing = watchDao.findWatchId(
+                exchange.key,
+                pair.base,
+                pair.quote,
+                contractType.name,
+                WatchIdentity.pool(exchange.key, pair.pairId),
+            )
+            addBlocker(existing != null) { watchDao.countWatches() }?.let { return@withTransaction it }
 
-    val id = watchDao.insertWatch(
-        WatchEntity(
-            exchangeKey = exchange.key,
-            exchangeName = exchange.name,
-            baseAsset = pair.base,
-            quoteAsset = pair.quote,
-            contractType = contractType,
-            pairId = pair.pairId,
-            sortOrder = watchDao.nextSortOrder(),
-            // Nur neue Paare erhalten die gewählte Gruppe; bestehende bleiben unverändert.
-            // Ohne Wahl: TradFi-Futures nach «TradFi», Laufzeit-Futures nach «QTLY».
-            groupName = AutoGroup.resolve(group, pair),
-            notificationEnabled = notificationEnabled,
-        )
-    )
-    if (id > 0) AddWatchOutcome.Added(id) else AddWatchOutcome.Duplicate
-} }
+            val id = watchDao.insertWatch(
+                WatchEntity(
+                    exchangeKey = exchange.key,
+                    exchangeName = exchange.name,
+                    baseAsset = pair.base,
+                    quoteAsset = pair.quote,
+                    contractType = contractType,
+                    pairId = pair.pairId,
+                    sortOrder = watchDao.nextSortOrder(),
+                    // Nur neue Paare erhalten die gewählte Gruppe; bestehende bleiben unverändert.
+                    // Ohne Wahl: TradFi-Futures nach «TradFi», Laufzeit-Futures nach «QTLY».
+                    groupName = AutoGroup.resolve(group, pair),
+                    notificationEnabled = notificationEnabled,
+                )
+            )
+            if (id > 0) AddWatchOutcome.Added(id) else AddWatchOutcome.Duplicate
+        }
+    }
+}
 
 /**
  * Legt mehrere Paare auf einmal an. Bereits vorhandene werden übersprungen, nicht doppelt eingetragen; ist die
@@ -165,8 +174,10 @@ internal const val SQL_ID_CHUNK = 500
 /** Ausgang von [restore]. */
 enum class RestoreOutcome {
     RESTORED,
+
     /** Paar besteht noch, wurde inzwischen neu angelegt, Id vergeben oder Merkliste gesperrt. */
     BLOCKED,
+
     /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare: nicht zurückgeholt. */
     FULL,
 }
@@ -179,20 +190,29 @@ enum class RestoreOutcome {
  * `AppData.restore`.
  */
 suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
-    if (userWriteRefused()) RestoreOutcome.BLOCKED else guardedWrite(RestoreOutcome.BLOCKED) { database.withTransaction {
-        val watch = snapshot.watch
-        val blocked = watchDao.getWatch(watch.id) != null ||
-            watchDao.findWatchId(
-                watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
-                WatchIdentity.pool(watch.exchangeKey, watch.pairId),
-            ) != null
-        restoreBlocker(blocked) { watchDao.countWatches() } ?: if (watchDao.insertWatch(watch) == watch.id) {
-            snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }
-            RestoreOutcome.RESTORED
-        } else {
-            RestoreOutcome.BLOCKED
+    if (userWriteRefused()) {
+        RestoreOutcome.BLOCKED
+    } else {
+        guardedWrite(RestoreOutcome.BLOCKED) {
+            database.withTransaction {
+                val watch = snapshot.watch
+                val blocked = watchDao.getWatch(watch.id) != null ||
+                    watchDao.findWatchId(
+                        watch.exchangeKey,
+                        watch.baseAsset,
+                        watch.quoteAsset,
+                        watch.contractType.name,
+                        WatchIdentity.pool(watch.exchangeKey, watch.pairId),
+                    ) != null
+                restoreBlocker(blocked) { watchDao.countWatches() } ?: if (watchDao.insertWatch(watch) == watch.id) {
+                    snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }
+                    RestoreOutcome.RESTORED
+                } else {
+                    RestoreOutcome.BLOCKED
+                }
+            }
         }
-    } }
+    }
 
 /**
  * Vor dem Anlegen ([tryAddWatch]): schon vorhanden ([exists]) geht vor «voll» — ein bekanntes Paar ist kein Fehler;

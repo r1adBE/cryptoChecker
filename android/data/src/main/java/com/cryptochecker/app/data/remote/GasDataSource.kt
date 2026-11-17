@@ -1,6 +1,5 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.BtcFees
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.EvmGas
@@ -8,7 +7,11 @@ import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.PostRequest
+import java.net.URLEncoder
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -17,9 +20,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.net.URLEncoder
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Netzwerkgebühren aller unterstützten Netze. Ergebnis wird eine Minute

@@ -1,11 +1,13 @@
 package com.cryptochecker.app.data.settings
-import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import android.content.Context
 import androidx.datastore.preferences.core.edit
+import com.cryptochecker.app.data.guardedWrite
+import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
@@ -16,20 +18,18 @@ import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.settings.clampAlarmCooldown
 import com.cryptochecker.app.domain.settings.clampBackgroundInterval
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.UsageDays
-import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import com.cryptochecker.app.data.guardedWrite
-import com.cryptochecker.app.data.local.StorageRecoveryNotice
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Einstellungen lesen und schreiben. Ablage in `SettingsDataStore.kt`, Schlüssel in [SettingsKeys].
@@ -367,14 +367,18 @@ class SettingsRepository @Inject constructor(
     companion object {
         /** «Wie aktuell?». */
         const val KEY_UPDATE_MODE = "update_mode"
+
         /** «Nicht wegwischbar». */
         const val KEY_ONGOING_NOTIFICATIONS = "ongoing_notifications"
+
         /** «Coin-Namen», «Umgerechnete Kurse», «inkl. Alpha-Tokens». */
         const val KEY_WATCHLIST_NAMES = "watchlist_names"
         const val KEY_SHOW_CONVERTED = "show_converted"
         const val KEY_INCLUDE_ALPHA_TOKENS = "include_alpha_tokens"
+
         /** Portfolio-Tab. */
         const val KEY_PORTFOLIO_ENABLED = "portfolio_enabled"
+
         /** Merker «Portfolio-Daten prüfen» nach neu angelegten Einstellungen ([PortfolioDataCheck]). */
         const val KEY_PORTFOLIO_DATA_CHECK = "portfolio_data_check"
     }
@@ -384,7 +388,10 @@ class SettingsRepository @Inject constructor(
      * Schreibfehler (DataStore-IOException, z. B. Speicher voll) beendet die App nicht, sondern wird genannt
      * ([guardedWrite]); true = geschrieben. Wiederherstellen und Hintergrund rufen die Setter direkt (Fehler gehen weiter).
      */
-    suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block(); true }
+    suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) {
+        block()
+        true
+    }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.settingsDataStore.edit(block)

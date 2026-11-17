@@ -6,9 +6,9 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
-import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
@@ -168,10 +168,15 @@ class DatabaseEncryptionParallelTest {
     }
 
     private fun leftover(file: File, path: String) =
-        file.path.startsWith(path + SqlCipherDatabaseFiles.COPY_SUFFIX) || file.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) ||
+        file.path.startsWith(
+            path + SqlCipherDatabaseFiles.COPY_SUFFIX
+        ) || file.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) ||
             file.path.startsWith(path + SqlCipherDatabaseFiles.REPLACED_SUFFIX)
 
-    private fun count(db: SupportSQLiteDatabase): Int = db.query("SELECT COUNT(*) FROM items").use { c -> c.moveToFirst(); c.getInt(0) }
+    private fun count(db: SupportSQLiteDatabase): Int = db.query("SELECT COUNT(*) FROM items").use { c ->
+        c.moveToFirst()
+        c.getInt(0)
+    }
 
     private companion object {
         const val DB = "encryption-parallel-test.db"

@@ -1,7 +1,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.layout.Arrangement
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -18,15 +17,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.ui.components.PillTone
 import com.cryptochecker.app.ui.components.TonePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 
 /**
  * Schmale Puls-Zeile ganz oben in der Merkliste: «↗ 7 steigen · ↘ 3 fallen · Ø +1.80% 24h»
@@ -58,12 +58,18 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
             R.string.a11y_watchlist_pulse_combined,
             spokenPulse,
             pluralStringResource(
-                if (basis == ChangeBasis.ROLLING_24H) R.plurals.a11y_watchlist_pulse_missing
-                else R.plurals.a11y_watchlist_pulse_missing_day,
-                pulse.missing, pulse.missing
+                if (basis == ChangeBasis.ROLLING_24H) {
+                    R.plurals.a11y_watchlist_pulse_missing
+                } else {
+                    R.plurals.a11y_watchlist_pulse_missing_day
+                },
+                pulse.missing,
+                pulse.missing
             ),
         )
-    } else spokenPulse
+    } else {
+        spokenPulse
+    }
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
         verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -106,9 +112,13 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
         if (pulse.missing > 0) {
             Text(
                 text = "· " + pluralStringResource(
-                    if (basis == ChangeBasis.ROLLING_24H) R.plurals.watchlist_pulse_missing
-                    else R.plurals.watchlist_pulse_missing_day,
-                    pulse.missing, pulse.missing
+                    if (basis == ChangeBasis.ROLLING_24H) {
+                        R.plurals.watchlist_pulse_missing
+                    } else {
+                        R.plurals.watchlist_pulse_missing_day
+                    },
+                    pulse.missing,
+                    pulse.missing
                 ),
                 style = MaterialTheme.typography.label.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

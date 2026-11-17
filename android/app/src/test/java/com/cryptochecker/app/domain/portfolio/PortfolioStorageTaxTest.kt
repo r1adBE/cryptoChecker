@@ -10,16 +10,16 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.tokenize
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.TreeMap
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
-import java.util.TreeMap
 
 /**
  * Portfolio-Speicher und Steuer-Export: Devisenkurs je Tag ohne Durchsuchen der ganzen Reihe, Zeitzone je
@@ -102,7 +102,13 @@ class PortfolioStorageTaxTest {
         assertTrue(TaxLine.AT_OLD_SPECULATION_LIMIT.orientation)
         // Ohne Kurse (EUR): nicht prüfbar
         val noFx = TaxExport.yearSummary(
-            atSummaryTrades(), TaxTemplate.AT, TaxMethod.AT_MOVING_AVERAGE, 2021, ZoneId.of("UTC"), "EUR", null,
+            atSummaryTrades(),
+            TaxTemplate.AT,
+            TaxMethod.AT_MOVING_AVERAGE,
+            2021,
+            ZoneId.of("UTC"),
+            "EUR",
+            null,
         )
         assertEquals(TaxLimitStatus.UNKNOWN, noFx.lines.single { it.line == TaxLine.AT_OLD_SPECULATION_LIMIT }.status)
     }
@@ -138,7 +144,14 @@ class PortfolioStorageTaxTest {
         val explicit = JSONObject(json.toString()).put("feeRow", false)
         assertFalse(PortfolioJson.jsonToTx(explicit)!!.feeRow)
         val reward = PortfolioJson.txToJson(
-            PortfolioTxEntity(id = 4, coin = "ETH", type = PortfolioTxType.REWARD, amount = BigDecimal("0.1"), time = 5, note = "Lending interest"),
+            PortfolioTxEntity(
+                id = 4,
+                coin = "ETH",
+                type = PortfolioTxType.REWARD,
+                amount = BigDecimal("0.1"),
+                time = 5,
+                note = "Lending interest"
+            ),
         )
         assertFalse(PortfolioJson.jsonToTx(reward)!!.interest)
         assertTrue(PortfolioJson.jsonToTx(reward.put("interest", true))!!.interest)
@@ -148,8 +161,13 @@ class PortfolioStorageTaxTest {
         assertFalse(buy.toTrade().feeRow)
         // Staking-Umbuchung: Pflichtfeld, nur bei einer Umbuchung
         val staking = PortfolioTxEntity(
-            id = 5, coin = "ETH", type = PortfolioTxType.TRANSFER, amount = BigDecimal("2"), time = 6,
-            importKey = "BINANCE|U1", stakingMove = true,
+            id = 5,
+            coin = "ETH",
+            type = PortfolioTxType.TRANSFER,
+            amount = BigDecimal("2"),
+            time = 6,
+            importKey = "BINANCE|U1",
+            stakingMove = true,
         )
         val stakingJson = PortfolioJson.txToJson(staking)
         assertTrue(stakingJson.getBoolean("stakingMove"))
@@ -160,7 +178,8 @@ class PortfolioStorageTaxTest {
 
     @Test
     fun entityFlagsReachTheTrade() {
-        val sell = PortfolioTxEntity(coin = "BTC", type = PortfolioTxType.SELL, amount = BigDecimal.ONE, priceUsdt = null, time = 1, feeRow = true)
+        val sell =
+            PortfolioTxEntity(coin = "BTC", type = PortfolioTxType.SELL, amount = BigDecimal.ONE, priceUsdt = null, time = 1, feeRow = true)
         assertTrue(PortfolioLedger.isFeeDisposal(sell.toTrade()))
         val reward = PortfolioTxEntity(coin = "ETH", type = PortfolioTxType.REWARD, amount = BigDecimal.ONE, time = 1, note = "interest")
         // Notiz allein zählt nicht — nur das Feld
@@ -172,7 +191,10 @@ class PortfolioStorageTaxTest {
     fun csvImportSetsFeeRowAndInterest() {
         fun priced(kind: CsvImportKind, raw: String) = CsvImportPriced(
             row = CsvImportRow(1, kind, raw, "BTC", BigDecimal("0.01"), null, "USD", null, null, 1_700_000_000_000L, null, "X|$raw"),
-            priceUsdt = BigDecimal("30000"), feeUsdt = null, needsFx = false, missingPrice = false,
+            priceUsdt = BigDecimal("30000"),
+            feeUsdt = null,
+            needsFx = false,
+            missingPrice = false,
         )
         val fee = CsvImportMapping.toTx(priced(CsvImportKind.FEE, "Fee"))
         assertEquals(PortfolioTxType.SELL, fee.type)
@@ -190,8 +212,14 @@ class PortfolioStorageTaxTest {
     fun flowIsExactUntilTheResult() {
         // 3 × 0.1 + 0.2 als Double: 0.5000000000000001; exakt 0.5
         val buy = PortfolioTrade(
-            1, "X", PortfolioTxType.BUY, BigDecimal("3"), BigDecimal("0.1"), 1,
-            fee = BigDecimal("0.2"), feeUnit = PortfolioFeeUnit.QUOTE,
+            1,
+            "X",
+            PortfolioTxType.BUY,
+            BigDecimal("3"),
+            BigDecimal("0.1"),
+            1,
+            fee = BigDecimal("0.2"),
+            feeUnit = PortfolioFeeUnit.QUOTE,
         )
         assertEquals(0.5, PortfolioLedger.flow(PortfolioLedgerEvent(buy, false), BigDecimal.ZERO)!!, 0.0)
         assertEquals(0, BigDecimal("0.5").compareTo(PortfolioLedger.flowExact(PortfolioLedgerEvent(buy, false), BigDecimal.ZERO)))
@@ -208,8 +236,12 @@ class PortfolioStorageTaxTest {
     )
 
     private fun address(vararg observations: Pair<Long, String>) = WatchedAddress(
-        id = 1, chain = AddressChain.BTC, address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq", label = "Ledger",
-        observations = observations.map { AddressObservation(it.first, BigDecimal(it.second)) }, countInPortfolio = true,
+        id = 1,
+        chain = AddressChain.BTC,
+        address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+        label = "Ledger",
+        observations = observations.map { AddressObservation(it.first, BigDecimal(it.second)) },
+        countInPortfolio = true,
     )
 
     @Test
@@ -223,7 +255,9 @@ class PortfolioStorageTaxTest {
             CsvWithdrawalChoice.TRANSFER,
             CsvImportMapping.proposeWithdrawals(w, listOf(address(t + CsvImportMapping.MATCH_WINDOW_MILLIS to "0.005"))).single().choice,
         )
-        assertNull(CsvImportMapping.proposeWithdrawals(w, listOf(address(t + CsvImportMapping.MATCH_WINDOW_MILLIS + 1 to "0.005"))).single().choice)
+        assertNull(
+            CsvImportMapping.proposeWithdrawals(w, listOf(address(t + CsvImportMapping.MATCH_WINDOW_MILLIS + 1 to "0.005"))).single().choice
+        )
     }
 
     @Test
@@ -242,7 +276,10 @@ class PortfolioStorageTaxTest {
         val t = 1_718_870_400_000L
         val w = listOf(withdrawal("A", "0.00000100", t))
         // 1 % von 0.000001 wäre 0.00000001 — der Staubrest erlaubt genau das, mehr nicht
-        assertEquals(CsvWithdrawalChoice.TRANSFER, CsvImportMapping.proposeWithdrawals(w, listOf(address(t + 1 to "0.00000101"))).single().choice)
+        assertEquals(
+            CsvWithdrawalChoice.TRANSFER,
+            CsvImportMapping.proposeWithdrawals(w, listOf(address(t + 1 to "0.00000101"))).single().choice
+        )
         assertNull(CsvImportMapping.proposeWithdrawals(w, listOf(address(t + 1 to "0.00000103"))).single().choice)
     }
 

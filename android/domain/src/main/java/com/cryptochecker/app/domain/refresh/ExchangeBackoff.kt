@@ -179,7 +179,11 @@ object ExchangeBackoff {
      * Börse und gehört nicht dazu.
      */
     val BINANCE_HOSTS: Set<String> = setOf(
-        "api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com", "www.binance.com",
+        "api.binance.com",
+        "data-api.binance.vision",
+        "fapi.binance.com",
+        "dapi.binance.com",
+        "www.binance.com",
     )
 
     /** Börsen-Schlüssel der Kursabfrage, die dieselben Hosts nutzen. */
@@ -235,8 +239,11 @@ object ExchangeBackoff {
      * zu weit in der Zukunft) blockiert die neue nicht — sonst bliebe die alte, kaputte stehen. Wie iOS.
      */
     fun adoptedPause(old: State?, until: Long, now: Long): State =
-        if (old != null && old.pausedUntil >= until && isPaused(old, now)) old
-        else State(old?.strikes ?: 1, until, RefreshFailure.RATE_LIMIT, 0)
+        if (old != null && old.pausedUntil >= until && isPaused(old, now)) {
+            old
+        } else {
+            State(old?.strikes ?: 1, until, RefreshFailure.RATE_LIMIT, 0)
+        }
 
     // ---------------- Gemeinsame Pause von Spot und Futures auf demselben Host ----------------
 

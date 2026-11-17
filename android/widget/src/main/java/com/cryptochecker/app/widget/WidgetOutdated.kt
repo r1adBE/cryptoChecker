@@ -1,14 +1,14 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.domain.widget.WidgetFreshness
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.text.format.DateUtils
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.resources.R
 import timber.log.Timber
 
 /**
@@ -30,9 +30,12 @@ object WidgetOutdated {
 
     /** «06:42» (heute) bzw. «5. Okt., 06:42» — bei altem Stand zählt auch der Tag. */
     fun stamp(context: Context, time: Long): String {
-        val flags = if (DateUtils.isToday(time)) DateUtils.FORMAT_SHOW_TIME
-        else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or
-            DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_NO_YEAR
+        val flags = if (DateUtils.isToday(time)) {
+            DateUtils.FORMAT_SHOW_TIME
+        } else {
+            DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or
+                DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_NO_YEAR
+        }
         return DateUtils.formatDateTime(context, time, flags)
     }
 

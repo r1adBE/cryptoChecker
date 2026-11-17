@@ -3,6 +3,7 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.refresh.PriceRefresher.Companion.LATE_FILL_MILLIS
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
@@ -10,7 +11,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.domain.refresh.PriceRefresher.Companion.LATE_FILL_MILLIS
 
 /**
  * Tages-Basen: Bezüge, die nach dem Warten ([DayReferences.awaitDayReferenceLoads]) noch kommen,
@@ -39,7 +39,9 @@ suspend fun PriceRefresher.fillLateDayChangesLocked(
     val settings = settingsRepository.current()
     if (ChangeBasisMath.stamp(settings.changeBasis, System.currentTimeMillis()) != stamp ||
         refreshStats.changeStamp.value != stamp
-    ) return 0
+    ) {
+        return 0
+    }
     var count = 0
     for (watch in missing) {
         val price = watch.lastPrice ?: continue

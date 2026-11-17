@@ -8,13 +8,13 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.work.ExactFiredStep
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 /**
  * Wecker «Pünktlich prüfen» ohne Netz: kein Versuch, aber ein ehrlicher Eintrag
@@ -30,6 +30,7 @@ class ExactFiredStepTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var step: ExactFiredStep
+
     @Inject lateinit var checkRuns: CheckRunStore
 
     @Before

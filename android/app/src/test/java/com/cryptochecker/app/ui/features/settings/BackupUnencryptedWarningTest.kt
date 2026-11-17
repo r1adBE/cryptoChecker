@@ -1,10 +1,10 @@
 package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.util.StringResources
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.Locale
 
 /**
  * Die Warnung vor dem Wiederherstellen einer unverschlüsselten Sicherung nennt die

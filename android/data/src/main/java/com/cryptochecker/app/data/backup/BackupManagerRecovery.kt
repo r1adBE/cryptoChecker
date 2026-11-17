@@ -4,6 +4,7 @@ package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.backup.BackupJournalCodec.previousFromJournal
 import com.cryptochecker.app.data.backup.BackupManager.Step
+import com.cryptochecker.app.data.backup.RestoreRecoveryPolicy
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
@@ -12,7 +13,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import timber.log.Timber
-import com.cryptochecker.app.data.backup.RestoreRecoveryPolicy
 
 /**
  * Journal gefunden: zurückrollen, wenn [RestoreRecoveryPolicy] es noch erlaubt (genau ein Zurückrollen je Journal beim Start,

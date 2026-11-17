@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.activity
 
+import kotlin.math.sqrt
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.math.sqrt
 
 /**
  * «Warum?»-Auswertung: relative Schwellen, zweite Markt-Referenz, Stablecoins, Lage (30 Tage /
@@ -103,8 +103,11 @@ class WhyAnalysisTest {
     private fun market(report: WhyReport): Reason =
         report.reasons.first {
             it.kind in setOf(
-                ReasonKind.MARKET_WIDE, ReasonKind.COIN_ONLY, ReasonKind.AGAINST_MARKET,
-                ReasonKind.MARKET_CALM, ReasonKind.MARKET_LEADER,
+                ReasonKind.MARKET_WIDE,
+                ReasonKind.COIN_ONLY,
+                ReasonKind.AGAINST_MARKET,
+                ReasonKind.MARKET_CALM,
+                ReasonKind.MARKET_LEADER,
             )
         }
 
@@ -254,7 +257,8 @@ class WhyAnalysisTest {
         val mixed = market(
             ActivityAnalyzer.explain(
                 input(
-                    candles = series(tail = move24(5.0)), reference = series(tail = move24(-2.0)),
+                    candles = series(tail = move24(5.0)),
+                    reference = series(tail = move24(-2.0)),
                     broad = BroadMarketSnapshot(3.0, 20, now),
                 )
             )
@@ -335,7 +339,23 @@ class WhyAnalysisTest {
         assertEquals(5.0, f.value, 0.01)
         assertFalse(f.neutral)
         // Genau auf dem Tief
-        val at = ActivityAnalyzer.explain(input(candles = c, daily = daily(closes, lows = closes.mapIndexed { i, v -> if (i == 30) 100.0 else v })))
+        val at = ActivityAnalyzer.explain(
+            input(
+                candles = c,
+                daily = daily(
+                    closes,
+                    lows = closes.mapIndexed { i, v ->
+                        if (i ==
+                            30
+                        ) {
+                            100.0
+                        } else {
+                            v
+                        }
+                    }
+                )
+            )
+        )
         assertEquals(WhyFactorNote.LOW_AT, WhyFactors.of(at).first { it.kind == WhyFactorKind.NEAR_LOW }.note)
         // Weit über dem Tief: keine Zeile
         val far = ActivityAnalyzer.explain(input(candles = c, daily = daily(closes, lows = closes.map { 80.0 })))
@@ -429,9 +449,24 @@ class WhyAnalysisTest {
 
     @Test
     fun funding_exactlyAtThreshold() {
-        assertEquals(ReasonKind.LEVERAGE_LONGS, ActivityAnalyzer.explain(input(funding = 0.05)).reasons.first { it.kind.name.startsWith("LEVERAGE") }.kind)
-        assertEquals(ReasonKind.LEVERAGE_BALANCED, ActivityAnalyzer.explain(input(funding = 0.0499)).reasons.first { it.kind.name.startsWith("LEVERAGE") }.kind)
-        assertEquals(ReasonKind.LEVERAGE_SHORTS, ActivityAnalyzer.explain(input(funding = -0.05)).reasons.first { it.kind.name.startsWith("LEVERAGE") }.kind)
+        assertEquals(
+            ReasonKind.LEVERAGE_LONGS,
+            ActivityAnalyzer.explain(input(funding = 0.05)).reasons.first {
+                it.kind.name.startsWith("LEVERAGE")
+            }.kind
+        )
+        assertEquals(
+            ReasonKind.LEVERAGE_BALANCED,
+            ActivityAnalyzer.explain(input(funding = 0.0499)).reasons.first {
+                it.kind.name.startsWith("LEVERAGE")
+            }.kind
+        )
+        assertEquals(
+            ReasonKind.LEVERAGE_SHORTS,
+            ActivityAnalyzer.explain(input(funding = -0.05)).reasons.first {
+                it.kind.name.startsWith("LEVERAGE")
+            }.kind
+        )
         val strong = ActivityAnalyzer.explain(input(funding = 0.1)).reasons.first { it.kind == ReasonKind.LEVERAGE_LONGS }
         assertTrue(strong.strong)
     }
@@ -524,7 +559,8 @@ class WhyAnalysisTest {
         )
         assertEquals(listOf(FundingPoint(now - 9 * h, 0.01), FundingPoint(now - h, 0.02)), bybit)
         val okx = FundingTrendRules.parseOkx(
-            """{"code":"0","msg":"","data":[{"instId":"BTC-USDT-SWAP","fundingRate":"0.0003","realizedRate":"0.00029","fundingTime":"${now - h}"},""" +
+            """{"code":"0","msg":"","data":[{"instId":"BTC-USDT-SWAP","fundingRate":"0.0003",""" +
+                """"realizedRate":"0.00029","fundingTime":"${now - h}"},""" +
                 """{"instId":"BTC-USDT-SWAP","fundingRate":"0.0001","realizedRate":"","fundingTime":"${now - 9 * h}"}]}""",
         )
         assertEquals(0.01, okx[0].ratePercent, 1e-12)
@@ -591,7 +627,7 @@ class WhyAnalysisTest {
 
     @Test
     fun broadMarket_snapshot() {
-        val coins = listOf("BTC", "ETH", "USDT", "USDC", "WBTC", "STETH", "PAXG", "SOL") .map { BroadCoin(it, 50.0, now) } +
+        val coins = listOf("BTC", "ETH", "USDT", "USDC", "WBTC", "STETH", "PAXG", "SOL").map { BroadCoin(it, 50.0, now) } +
             (1..11).map { BroadCoin("ALT$it", it.toDouble(), now - h) }
         val snap = BroadMarket.snapshot(coins, excludeBase = "sol", now = now)!!
         assertEquals(11, snap.coins)
@@ -623,8 +659,13 @@ class WhyAnalysisTest {
     @Test
     fun freshness_sourcesAndAges() {
         val sources = WhySources(
-            candles = "Coinbase", candlesFallback = true, reference = "Binance", futures = "OKX",
-            futuresNote = FuturesSourceNote.REFERENCE, fearGreedTime = now - now % day, broadTime = now - h,
+            candles = "Coinbase",
+            candlesFallback = true,
+            reference = "Binance",
+            futures = "OKX",
+            futuresNote = FuturesSourceNote.REFERENCE,
+            fearGreedTime = now - now % day,
+            broadTime = now - h,
         )
         val report = ActivityAnalyzer.explain(
             input(candles = series(tail = move24(5.0)), broad = BroadMarketSnapshot(1.0, 20, now - h), funding = 0.01)

@@ -23,11 +23,11 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCompare
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ChartPointStep
@@ -38,8 +38,8 @@ import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import java.time.LocalDate
 import java.time.ZoneId
 import kotlin.math.abs
@@ -195,8 +195,11 @@ private fun HistoryContent(
                 // Alle Coins fehlen im Gewinn/Verlust (Zufluss ohne Preis): das ehrlich sagen statt «kein Verlauf»
                 PortfolioHint(
                     stringResource(
-                        if (series.pnlSkipped.isNotEmpty()) R.string.portfolio_history_pnl_needs_prices
-                        else R.string.portfolio_history_unavailable
+                        if (series.pnlSkipped.isNotEmpty()) {
+                            R.string.portfolio_history_pnl_needs_prices
+                        } else {
+                            R.string.portfolio_history_unavailable
+                        }
                     )
                 )
             }
@@ -204,8 +207,11 @@ private fun HistoryContent(
     } else {
         PortfolioHint(
             stringResource(
-                if (series.points.isEmpty()) R.string.portfolio_history_unavailable
-                else R.string.portfolio_history_too_short
+                if (series.points.isEmpty()) {
+                    R.string.portfolio_history_unavailable
+                } else {
+                    R.string.portfolio_history_too_short
+                }
             )
         )
     }
@@ -294,7 +300,13 @@ private fun SingleChart(history: PortfolioHistoryUi, change: Double, period: Str
     val hiddenSpoken = spokenAmount(PortfolioInsights.HIDDEN)
     val hidden = LocalHidePortfolioAmounts.current
     val chartSentence = A11yText.chart(context, period, values) {
-        if (hidden) hiddenSpoken else if (pnl) signedValue(it, history.unit) else PriceFormat.valueWithCurrency(it, history.unit)
+        if (hidden) {
+            hiddenSpoken
+        } else if (pnl) {
+            signedValue(it, history.unit)
+        } else {
+            PriceFormat.valueWithCurrency(it, history.unit)
+        }
     }
     // Screenreader: Tag für Tag (Aktionen «Nächster/Vorheriger Punkt»); bei verborgenen Beträgen nur der Chart-Satz
     var a11yPoint by remember(points, pnl) { mutableStateOf<Int?>(null) }
@@ -321,8 +333,11 @@ private fun SingleChart(history: PortfolioHistoryUi, change: Double, period: Str
                 stringResource(R.string.a11y_chart_next_point),
                 stringResource(R.string.a11y_chart_previous_point),
             ) { forward ->
-                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, stepCount)
-                else ChartPointStep.previous(a11yPoint, stepCount)
+                a11yPoint = if (forward) {
+                    ChartPointStep.next(a11yPoint, stepCount)
+                } else {
+                    ChartPointStep.previous(a11yPoint, stepCount)
+                }
             }
     )
     // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten).

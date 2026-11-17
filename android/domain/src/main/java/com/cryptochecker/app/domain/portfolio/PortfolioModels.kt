@@ -30,7 +30,15 @@ import java.math.BigDecimal
  * gespeichert (Room-Enum-Konverter).
  */
 enum class PortfolioTxType {
-    BUY, SELL, TRANSFER, REWARD, DEPOSIT, WITHDRAWAL, SWAP, GIFT, PAYMENT;
+    BUY,
+    SELL,
+    TRANSFER,
+    REWARD,
+    DEPOSIT,
+    WITHDRAWAL,
+    SWAP,
+    GIFT,
+    PAYMENT;
 
     /** Zugang wie ein Kauf (Menge + Einstand, wenn der Preis bekannt ist). */
     val isInflow: Boolean get() = this == BUY || this == REWARD || this == DEPOSIT
@@ -56,7 +64,8 @@ enum class PortfolioTxType {
  *  - [COIN]: im gehandelten Coin — verringert die Menge (Kauf: weniger erhalten, Verkauf: mehr abgegeben).
  */
 enum class PortfolioFeeUnit {
-    QUOTE, COIN;
+    QUOTE,
+    COIN;
 
     companion object {
         /** Unbekannt oder fehlend: [QUOTE] (Standard des Editors). */
@@ -150,7 +159,9 @@ data class PortfolioTrade(
         fee: Double? = null,
         feeUnit: PortfolioFeeUnit? = null,
     ) : this(
-        id, coin, type,
+        id,
+        coin,
+        type,
         PortfolioDecimal.of(amount) ?: BigDecimal.ZERO,
         PortfolioDecimal.of(priceUsdt),
         time,

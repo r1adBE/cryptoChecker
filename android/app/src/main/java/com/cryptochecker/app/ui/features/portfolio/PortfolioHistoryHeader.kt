@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
 import com.cryptochecker.app.ui.components.ChangePillSize
@@ -45,6 +44,7 @@ import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.resources.R
 import kotlin.math.abs
 
 /**

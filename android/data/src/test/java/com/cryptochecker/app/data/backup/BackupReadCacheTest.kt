@@ -24,7 +24,10 @@ class BackupReadCacheTest {
         plainTtlMillis = 60_000L,
     )
 
-    private fun read(text: String = "inhalt"): () -> File = { reads++; File(text) }
+    private fun read(text: String = "inhalt"): () -> File = {
+        reads++
+        File(text)
+    }
 
     @Test
     fun wholeFlowReadsAndDecryptsOnce() {
@@ -74,7 +77,11 @@ class BackupReadCacheTest {
     @Test
     fun clearDuringReadDoesNotKeepTheResult() {
         // Abbrechen, während noch gelesen wird: das Ergebnis gilt für den Aufrufer, wird aber nicht gemerkt
-        cache.file("a") { reads++; cache.clear(); File("alt") }
+        cache.file("a") {
+            reads++
+            cache.clear()
+            File("alt")
+        }
         cache.file("a", read())
         assertEquals(2, reads)
     }

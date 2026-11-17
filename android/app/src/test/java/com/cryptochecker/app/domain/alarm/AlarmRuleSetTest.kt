@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.domain.alarm.AlarmCardStatus.Kind
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.domain.alarm.AlarmCardStatus.Kind
 import com.cryptochecker.app.util.StringResources
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
@@ -111,8 +111,13 @@ class PortfolioAlarmDeliveryTest {
         val pairs = AlarmDeliveryMarkerStore.InMemory()
         val portfolio = AlarmDeliveryMarkerStore.InMemory()
         AlarmDelivery(portfolio).deliver(
-            alarmId = 5, now = at, cooldownMinutes = 0, holdAlarms = false,
-            canShow = { true }, show = { false }, mark = { true },
+            alarmId = 5,
+            now = at,
+            cooldownMinutes = 0,
+            holdAlarms = false,
+            canShow = { true },
+            show = { false },
+            mark = { true },
         )
         assertEquals(at, portfolio.get(5))
         assertNull(pairs.get(5))
@@ -144,8 +149,13 @@ class AlarmDeliveryRetractTest {
 
     private suspend fun deliver(shown: Boolean, saved: Boolean, retracted: MutableList<Long>): Boolean =
         AlarmDelivery().deliver(
-            alarmId = 7, now = 1_000_000L, cooldownMinutes = 15, holdAlarms = false,
-            canShow = { true }, show = { shown }, mark = { saved },
+            alarmId = 7,
+            now = 1_000_000L,
+            cooldownMinutes = 15,
+            holdAlarms = false,
+            canShow = { true },
+            show = { shown },
+            mark = { saved },
             retract = { retracted += 7L },
         )
 
@@ -237,7 +247,10 @@ class AlarmSavedTextTest {
             AlarmSavedText.detail(condition, "Wiederholend", "Mitteilungen aus", de),
         )
         // Portfolio-Alarm: fertige Bedingung
-        assertEquals("Portfolio über 50’000.00 CHF · once", AlarmSavedText.detail("Portfolio über 50’000.00 CHF", "Once", null, Locale.ENGLISH))
+        assertEquals(
+            "Portfolio über 50’000.00 CHF · once",
+            AlarmSavedText.detail("Portfolio über 50’000.00 CHF", "Once", null, Locale.ENGLISH)
+        )
     }
 
     @Test

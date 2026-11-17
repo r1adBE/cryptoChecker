@@ -1,7 +1,5 @@
 package com.cryptochecker.app.ui.lock
 
-import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.theme.AppColors
 import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,15 +31,18 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.resources.R
-import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
-import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.lock.findFragmentActivity
+import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -49,7 +50,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Portfolio-Sperre für die Oberfläche: Zustand des Portfolio-Bereichs ([access]) und

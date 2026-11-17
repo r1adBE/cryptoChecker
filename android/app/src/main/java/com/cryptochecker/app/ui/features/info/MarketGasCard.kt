@@ -1,7 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.foundation.layout.Column
-import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,14 +17,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
-import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.label
+import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.resources.R
 
 // ───────────────────────── Netzwerkgebühren (#167) ─────────────────────────
 
@@ -75,11 +75,15 @@ internal fun GasSummaryRow(
                     value = GasFees.formatGwei(gas.normalGwei),
                     unit = "gwei",
                     cost = gas.transferUsd,
-                    detail = if (gas.network == GasNetwork.ETHEREUM && gas.fastGwei > gas.slowGwei) stringResource(
-                        R.string.gas_slow_fast,
-                        GasFees.formatGwei(gas.slowGwei),
-                        GasFees.formatGwei(gas.fastGwei)
-                    ) else null
+                    detail = if (gas.network == GasNetwork.ETHEREUM && gas.fastGwei > gas.slowGwei) {
+                        stringResource(
+                            R.string.gas_slow_fast,
+                            GasFees.formatGwei(gas.slowGwei),
+                            GasFees.formatGwei(gas.fastGwei)
+                        )
+                    } else {
+                        null
+                    }
                 )
             }
             report.btc?.let { btc ->
@@ -88,11 +92,15 @@ internal fun GasSummaryRow(
                     value = GasFees.formatGwei(btc.normal),
                     unit = "sat/vB",
                     cost = btc.transferUsd,
-                    detail = if (btc.fast > btc.slow) stringResource(
-                        R.string.gas_slow_fast,
-                        GasFees.formatGwei(btc.slow),
-                        GasFees.formatGwei(btc.fast)
-                    ) else null
+                    detail = if (btc.fast > btc.slow) {
+                        stringResource(
+                            R.string.gas_slow_fast,
+                            GasFees.formatGwei(btc.slow),
+                            GasFees.formatGwei(btc.fast)
+                        )
+                    } else {
+                        null
+                    }
                 )
             }
             GasAlertText(alerts)

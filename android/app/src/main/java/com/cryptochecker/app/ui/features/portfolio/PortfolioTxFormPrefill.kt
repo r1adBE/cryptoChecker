@@ -5,10 +5,11 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
+import com.cryptochecker.app.domain.portfolio.usdtToFiat
 import com.cryptochecker.app.util.PriceFormat
-import kotlinx.coroutines.delay
 import java.math.BigDecimal
 import java.time.LocalDate
+import kotlinx.coroutines.delay
 
 /**
  * Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt, der Kurs dient dann nur als
@@ -24,7 +25,10 @@ internal suspend fun TxFormState.prefillPrice(coin: String, coinValid: Boolean, 
     val today = localDate(time) == LocalDate.now()
     if (!PortfolioTxForm.mayPrefill(isEdit, today)) {
         // Anderer Tag: kein heutiger Kurs im Feld (ein noch vorbelegter wird geleert)
-        if (priceAuto) { priceText = ""; priceAuto = false }
+        if (priceAuto) {
+            priceText = ""
+            priceAuto = false
+        }
     } else if (!entryFiat && (priceText.isBlank() || priceAuto)) {
         priceText = current?.let { PriceFormat.amountForInput(PortfolioDecimal.of(it), decimalSeparator) }.orEmpty()
         priceAuto = current != null
@@ -32,14 +36,23 @@ internal suspend fun TxFormState.prefillPrice(coin: String, coinValid: Boolean, 
 }
 
 /** Belohnung/Einzahlung an einem vergangenen Tag: geprüften Tagesschluss vorbelegen (markiert). */
-internal suspend fun TxFormState.prefillHistoricClose(coin: String, coinValid: Boolean, historicClose: suspend (String, LocalDate) -> BigDecimal?) {
+internal suspend fun TxFormState.prefillHistoricClose(
+    coin: String,
+    coinValid: Boolean,
+    historicClose: suspend (String, LocalDate) -> BigDecimal?
+) {
     // Ein vorbelegter Tagesschluss (anderer Coin) wird ersetzt, ein getippter Preis bleibt
     val replaceable = priceText.isBlank() || priceHistoricDay != null
     // Eingabe in der Anzeigewährung: kein USDT-Tagesschluss ins Feld
-    if (entryFiat || !coinValid || !PortfolioTxForm.mayPrefillHistoricClose(type, isEdit, localDate(time) == LocalDate.now(), replaceable)) {
+    if (entryFiat || !coinValid ||
+        !PortfolioTxForm.mayPrefillHistoricClose(type, isEdit, localDate(time) == LocalDate.now(), replaceable)
+    ) {
         return
     }
-    if (priceHistoricDay != null) { priceText = ""; priceHistoricDay = null }
+    if (priceHistoricDay != null) {
+        priceText = ""
+        priceHistoricDay = null
+    }
     delay(400)
     val day = localDate(time)
     val close = historicClose(coin, day) ?: return
@@ -55,7 +68,10 @@ internal suspend fun TxFormState.prefillHistoricClose(coin: String, coinValid: B
 internal suspend fun TxFormState.prefillFeeCoinPrice(feeCoinSymbol: String, coin: String, currentPrice: suspend (String) -> Double?) {
     val validFeeCoin = feeCoinSymbol.length in 1..15 && feeCoinSymbol.all { it.isLetterOrDigit() } && feeCoinSymbol != coin
     if (!validFeeCoin) return
-    if (feeCoinPriceAuto) { feeCoinPriceText = ""; feeCoinPriceAuto = false }
+    if (feeCoinPriceAuto) {
+        feeCoinPriceText = ""
+        feeCoinPriceAuto = false
+    }
     if (!PortfolioTxForm.mayPrefillFeeCoinPrice(isEdit, localDate(time) == LocalDate.now(), feeCoinPriceText.isBlank())) {
         return
     }

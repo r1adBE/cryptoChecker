@@ -12,8 +12,20 @@ object AlarmSentence {
 
     /** Art des Satzes; entspricht je einer Vorlage alarm_sentence_*. */
     enum class Kind {
-        ABOVE, BELOW, UP_PERCENT, DOWN_PERCENT, MOVE_PERCENT, VOLUME, NEAR_HIGH, NEAR_LOW, NEW_HIGH, NEW_LOW,
-        FUNDING_ABOVE, FUNDING_BELOW, OI_UP, OI_DOWN,
+        ABOVE,
+        BELOW,
+        UP_PERCENT,
+        DOWN_PERCENT,
+        MOVE_PERCENT,
+        VOLUME,
+        NEAR_HIGH,
+        NEAR_LOW,
+        NEW_HIGH,
+        NEW_LOW,
+        FUNDING_ABOVE,
+        FUNDING_BELOW,
+        OI_UP,
+        OI_DOWN,
     }
 
     /**

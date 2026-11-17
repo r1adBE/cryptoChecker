@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
 
 class CutoffExportTest {
 
@@ -54,11 +54,11 @@ class CutoffExportTest {
         val cutoff = CutoffExport.endOfDayMillis(LocalDate.of(2025, 12, 31), zurich)
         val trades = listOf(
             buy("btc", 1.0, 100.0, at("2025-03-01", 12)),
-            sell("BTC", 0.25, 200.0, at("2025-12-31", 23, 59)),   // zählt noch
-            buy("BTC", 5.0, 300.0, at("2026-01-01", 0, 1)),       // nach dem Stichtag
+            sell("BTC", 0.25, 200.0, at("2025-12-31", 23, 59)), // zählt noch
+            buy("BTC", 5.0, 300.0, at("2026-01-01", 0, 1)), // nach dem Stichtag
             buy("ETH", 2.0, null, at("2025-06-01", 12)),
-            sell("ETH", 2.0, 10.0, at("2025-07-01", 12)),         // ganz verkauft → fällt weg
-            buy("ADA", 10.0, 0.5, at("2026-02-01", 12)),          // erst später gekauft
+            sell("ETH", 2.0, 10.0, at("2025-07-01", 12)), // ganz verkauft → fällt weg
+            buy("ADA", 10.0, 0.5, at("2026-02-01", 12)), // erst später gekauft
             buy("USDT", 50.0, 1.0, at("2025-01-01", 12)),
         )
         val h = CutoffExport.holdingsAt(trades, cutoff)
@@ -126,7 +126,12 @@ class CutoffExportTest {
             bd("0.79123"),
         )
         val lines = CutoffExport.csv(
-            LocalDate.of(2025, 12, 31), "EUR", "2025-12-31", rows, texts, CutoffCsvFormat(';', ','),
+            LocalDate.of(2025, 12, 31),
+            "EUR",
+            "2025-12-31",
+            rows,
+            texts,
+            CutoffCsvFormat(';', ','),
         ).removePrefix("\uFEFF").split("\r\n")
         assertEquals("BTC;0,5;87654,321;43827,16;0,79123;34677,36;", lines[2])
         assertEquals("FOO;3;;;0,79123;;kein Kurs", lines[3])
@@ -141,7 +146,12 @@ class CutoffExportTest {
             null,
         )
         val lines = CutoffExport.csv(
-            LocalDate.of(2025, 12, 31), "USD", null, rows, texts, CutoffCsvFormat(',', '.'),
+            LocalDate.of(2025, 12, 31),
+            "USD",
+            null,
+            rows,
+            texts,
+            CutoffCsvFormat(',', '.'),
         ).removePrefix("\uFEFF").split("\r\n")
         assertEquals("\"# Stichtag 2025-12-31, Währung USD, Devisenkurs vom —\"", lines[0])
         assertEquals("Coin,Menge,Kurs USDT,Wert USDT,Kurs USD→CHF,Wert CHF,Hinweis", lines[1])

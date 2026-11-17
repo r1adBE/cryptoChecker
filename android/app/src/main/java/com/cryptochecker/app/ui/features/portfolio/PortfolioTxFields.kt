@@ -6,7 +6,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,14 +41,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
+import com.cryptochecker.resources.R
 
 /**
  * Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Vorschläge als Chips — im leeren,
@@ -84,13 +84,17 @@ internal fun RouteField(
     }
     val nearName = remember(used, suggestions, query) {
         com.cryptochecker.app.domain.portfolio.PortfolioWalletNames.nearDuplicate(
-            query, com.cryptochecker.app.domain.portfolio.PortfolioWalletNames.known(used + suggestions)
+            query,
+            com.cryptochecker.app.domain.portfolio.PortfolioWalletNames.known(used + suggestions)
         )
     }
     if (nearName != null) {
         // «Meintest du Binance?» — antippen übernimmt den bekannten Namen
         AssistChip(
-            onClick = { onValue(nearName); focus.clearFocus() },
+            onClick = {
+                onValue(nearName)
+                focus.clearFocus()
+            },
             label = {
                 Text(
                     stringResource(R.string.portfolio_wallet_did_you_mean, nearName),
@@ -100,15 +104,22 @@ internal fun RouteField(
             },
             leadingIcon = {
                 // Warnfarbe trägt Bedeutung: für den Screenreader «Warnung» vor dem Vorschlag (wie iOS)
-                Icon(painterResource(R.drawable.ic_info), contentDescription = stringResource(R.string.a11y_warning),
-                    tint = AppColors.warning, modifier = Modifier.size(18.dp))
+                Icon(
+                    painterResource(R.drawable.ic_info),
+                    contentDescription = stringResource(R.string.a11y_warning),
+                    tint = AppColors.warning,
+                    modifier = Modifier.size(18.dp)
+                )
             },
         )
     }
     if (matches.isNotEmpty() && (query.isNotEmpty() || focused)) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
             items(matches, key = { it }) { name ->
-                AssistChip(onClick = { onValue(name); focus.clearFocus() }, label = { Text(name, maxLines = 1) })
+                AssistChip(onClick = {
+                    onValue(name)
+                    focus.clearFocus()
+                }, label = { Text(name, maxLines = 1) })
             }
         }
     }
@@ -173,9 +184,15 @@ internal fun ThirdFeeFields(
             isError = invalid,
             supportingText = when (state) {
                 PortfolioTxForm.ThirdFee.INVALID -> {
-                    { Text(ambiguousNumberText(amount) ?: ambiguousNumberText(price) ?: stringResource(R.string.portfolio_tx_price_invalid)) }
+                    {
+                        Text(
+                            ambiguousNumberText(amount) ?: ambiguousNumberText(price) ?: stringResource(R.string.portfolio_tx_price_invalid)
+                        )
+                    }
                 }
-                PortfolioTxForm.ThirdFee.INCOMPLETE -> { { Text(stringResource(R.string.portfolio_tx_third_fee_incomplete)) } }
+                PortfolioTxForm.ThirdFee.INCOMPLETE -> {
+                    { Text(stringResource(R.string.portfolio_tx_third_fee_incomplete)) }
+                }
                 else -> null
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -302,7 +319,10 @@ internal fun SwapReceivedFields(
     if (matches.isNotEmpty()) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
             items(matches, key = { it }) { match ->
-                AssistChip(onClick = { onToCoin(match); focus.clearFocus() }, label = { Text(match, maxLines = 1) })
+                AssistChip(onClick = {
+                    onToCoin(match)
+                    focus.clearFocus()
+                }, label = { Text(match, maxLines = 1) })
             }
         }
     }
@@ -311,12 +331,18 @@ internal fun SwapReceivedFields(
         value = toAmount,
         onValueChange = onToAmount,
         label = { Text(stringResource(R.string.portfolio_tx_swap_received_amount)) },
-        suffix = if (valid) { { Text(symbol) } } else null,
+        suffix = if (valid) {
+            { Text(symbol) }
+        } else {
+            null
+        },
         singleLine = true,
         isError = toAmountError,
         supportingText = if (toAmountError) {
             { Text(ambiguousNumberText(toAmount) ?: stringResource(R.string.portfolio_invalid)) }
-        } else null,
+        } else {
+            null
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.TO_AMOUNT)
     )

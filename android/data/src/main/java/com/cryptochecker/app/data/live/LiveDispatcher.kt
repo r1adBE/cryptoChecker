@@ -4,13 +4,13 @@
 // REST-Abfragen derselben Börse stauten sich – OKX und OKX-Swap bzw. Bybit Spot und Linear teilen sogar einen Host.
 package com.cryptochecker.app.data.live
 
+import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LivePlanner
-import com.cryptochecker.app.data.remote.UserAgentInterceptor
-import okhttp3.Dispatcher
-import okhttp3.OkHttpClient
 import java.net.URI
 import java.util.concurrent.TimeUnit
+import okhttp3.Dispatcher
+import okhttp3.OkHttpClient
 
 object LiveDispatcher {
 

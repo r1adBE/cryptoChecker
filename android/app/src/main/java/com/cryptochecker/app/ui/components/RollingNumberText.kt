@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.components
 
-import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import android.content.ContentResolver
 import android.database.ContentObserver
 import android.os.Handler
@@ -32,12 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.unit.constrainHeight
-import androidx.compose.ui.unit.constrainWidth
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -45,8 +42,11 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.constrainHeight
+import androidx.compose.ui.unit.constrainWidth
 import com.cryptochecker.app.domain.format.RollingDigits
 import com.cryptochecker.app.domain.format.RollingDirection
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 
 /** Dauer, in der eine Ziffer heraus- und die neue hineingleitet. */
 private const val ROLL_MILLIS = 250
@@ -107,8 +107,11 @@ fun RollingNumberText(
             fontWeight = fontWeight,
             maxLines = 1,
             softWrap = false,
-            modifier = if (contentDescription == null) modifier
-            else modifier.clearAndSetSemantics { this.contentDescription = spoken },
+            modifier = if (contentDescription == null) {
+                modifier
+            } else {
+                modifier.clearAndSetSemantics { this.contentDescription = spoken }
+            },
         )
         return
     }
@@ -161,10 +164,16 @@ private fun RollingRow(shown: String, up: Boolean, style: TextStyle, color: Colo
                         if (RollingDigits.rolls(initialState, targetState)) {
                             // Steigend: neue Ziffer kommt von unten, alte geht nach oben
                             val sign = if (up) 1 else -1
-                            ((slideInVertically(tween(ROLL_MILLIS)) { height -> sign * height } +
-                                fadeIn(tween(ROLL_MILLIS))) togetherWith
-                                (slideOutVertically(tween(ROLL_MILLIS)) { height -> -sign * height } +
-                                    fadeOut(tween(ROLL_MILLIS))))
+                            (
+                                (
+                                    slideInVertically(tween(ROLL_MILLIS)) { height -> sign * height } +
+                                        fadeIn(tween(ROLL_MILLIS))
+                                    ) togetherWith
+                                    (
+                                        slideOutVertically(tween(ROLL_MILLIS)) { height -> -sign * height } +
+                                            fadeOut(tween(ROLL_MILLIS))
+                                        )
+                                )
                                 .using(SizeTransform(clip = true))
                         } else {
                             // Sofort tauschen, auch die Breite: Mit «None» bliebe der alte Teil

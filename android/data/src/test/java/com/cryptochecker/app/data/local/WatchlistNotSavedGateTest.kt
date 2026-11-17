@@ -45,10 +45,13 @@ class WatchlistNotSavedGateTest {
         data["shouldAsk"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                c.toString(), c["ask"],
+                c.toString(),
+                c["ask"],
                 WatchlistNotSavedGate.shouldAsk(
-                    notSaved = c["notSaved"] as Boolean, userWrite = c["userWrite"] as Boolean,
-                    confirmed = c["confirmed"] as Boolean, canAsk = c["canAsk"] as Boolean,
+                    notSaved = c["notSaved"] as Boolean,
+                    userWrite = c["userWrite"] as Boolean,
+                    confirmed = c["confirmed"] as Boolean,
+                    canAsk = c["canAsk"] as Boolean,
                 ),
             )
         }
@@ -59,7 +62,8 @@ class WatchlistNotSavedGateTest {
         data["confirmedAfter"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                c.toString(), c["result"],
+                c.toString(),
+                c["result"],
                 WatchlistNotSavedGate.confirmedAfter(c["confirmed"] as Boolean, c["proceed"] as Boolean),
             )
         }
@@ -93,12 +97,18 @@ class WatchlistNotSavedGateTest {
      * allen Schreibwegen. Rückgabe: geschriebene Schreibwege und ob die Folgen liefen.
      */
     private suspend fun action(
-        writes: Int, notSaved: Boolean, canAsk: Boolean, skipConfirm: Boolean,
-        screenAppears: Boolean = false, canAskAtWrite: Boolean = canAsk,
+        writes: Int,
+        notSaved: Boolean,
+        canAsk: Boolean,
+        skipConfirm: Boolean,
+        screenAppears: Boolean = false,
+        canAskAtWrite: Boolean = canAsk,
     ): Pair<Int, Boolean> {
         if (!skipConfirm &&
             !WatchlistNotSavedGate.confirm(notSaved = notSaved, canAsk = canAsk, awaitAsker = { screenAppears })
-        ) return 0 to false
+        ) {
+            return 0 to false
+        }
         var written = 0
         repeat(writes) { if (!WatchlistNotSavedGate.needsConfirmation(notSaved = notSaved, canAsk = canAskAtWrite)) written++ }
         return written to (written == writes)
@@ -118,8 +128,10 @@ class WatchlistNotSavedGateTest {
             }
             val run = async(Dispatchers.Default) {
                 action(
-                    writes = c["writes"].num()!!.toInt(), notSaved = c["notSaved"] as Boolean? ?: true,
-                    canAsk = c["canAsk"] as Boolean? ?: true, skipConfirm = c["skipConfirm"] == true,
+                    writes = c["writes"].num()!!.toInt(),
+                    notSaved = c["notSaved"] as Boolean? ?: true,
+                    canAsk = c["canAsk"] as Boolean? ?: true,
+                    skipConfirm = c["skipConfirm"] == true,
                 )
             }
             var questions = 0
@@ -183,8 +195,12 @@ class WatchlistNotSavedGateTest {
             WatchlistNotSavedGate.resetForTest()
             val run = async(Dispatchers.Default) {
                 action(
-                    writes = c["writes"].num()!!.toInt(), notSaved = true, canAsk = false, skipConfirm = false,
-                    screenAppears = c["screenAppears"] == true, canAskAtWrite = c["canAskAtWrite"] as Boolean? ?: true,
+                    writes = c["writes"].num()!!.toInt(),
+                    notSaved = true,
+                    canAsk = false,
+                    skipConfirm = false,
+                    screenAppears = c["screenAppears"] == true,
+                    canAskAtWrite = c["canAskAtWrite"] as Boolean? ?: true,
                 )
             }
             var questions = 0
@@ -203,9 +219,11 @@ class WatchlistNotSavedGateTest {
         // gilt die Sicherung für Schreibwege ohne Bestätigung
         val after = late["afterUnaskedPass"].obj()
         WatchlistNotSavedGate.resetForTest()
-        assertTrue(async(Dispatchers.Default) {
-            WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false })
-        }.await())
+        assertTrue(
+            async(Dispatchers.Default) {
+                WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false })
+            }.await()
+        )
         val next = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = true) }
         val asked = withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }.isActive
         assertEquals(after["nextActionAsks"], asked)
@@ -294,7 +312,9 @@ class WatchlistNotSavedGateTest {
     fun awaitSubscriberTimesOut() = runBlocking {
         assertFalse(WatchlistNotSavedGate.awaitSubscriber(50))
         val passed = WatchlistNotSavedGate.confirm(
-            notSaved = true, canAsk = false, awaitAsker = { WatchlistNotSavedGate.awaitSubscriber(50) },
+            notSaved = true,
+            canAsk = false,
+            awaitAsker = { WatchlistNotSavedGate.awaitSubscriber(50) },
         )
         assertTrue(passed)
         assertNull(WatchlistNotSavedGate.request.value)

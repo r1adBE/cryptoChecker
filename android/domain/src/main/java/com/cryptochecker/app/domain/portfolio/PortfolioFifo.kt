@@ -1,6 +1,5 @@
 package com.cryptochecker.app.domain.portfolio
 
-
 /**
  * FIFO-Buchhaltung eines Coins (reines Kotlin, Spiegel: `Shared/Portfolio/PortfolioFifo.swift`):
  *  - Kauf, Belohnung, Einzahlung: neuer Posten (erhaltene Menge, Einstand Menge × Preis + Gebühr USDT + Wert

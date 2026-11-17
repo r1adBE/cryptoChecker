@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.withAddresses
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
@@ -27,11 +28,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.cryptochecker.app.domain.util.DefaultDispatcher
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -43,7 +44,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Adressen, die einmal automatisch auf «Nur anzeigen» gestellt wurden ([WatchedAddressRules.overlapAutoShowOnly]):
@@ -177,7 +177,10 @@ class PortfolioViewModel @Inject constructor(
      * ([PortfolioStables.usdtTo], USDT zum Marktkurs; ohne Messung × 1). null = kein Devisenkurs.
      */
     val displayFxRate: StateFlow<Double?> = combine(_fxRate, liveUsdtUsd) { fx, live ->
-        com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(live))
+        com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(
+            fx,
+            com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(live)
+        )
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
@@ -238,7 +241,11 @@ class PortfolioViewModel @Inject constructor(
     internal val _closes = MutableStateFlow<HistoryCloses?>(null)
 
     val summary: StateFlow<PortfolioSummary?> = combine(
-        calcTransactions, _prices, costMethod, _closes, currency.map { it != PortfolioFormat.USDT }.distinctUntilChanged(),
+        calcTransactions,
+        _prices,
+        costMethod,
+        _closes,
+        currency.map { it != PortfolioFormat.USDT }.distinctUntilChanged(),
     ) { txs, p, method, loaded, withParts ->
         // «Ausgebucht»: Auszahlung ohne Preis zum Tagesschluss ihres Tags (danach aktueller Kurs); ohne geladene
         // Schlusskurse unbekannt → «unvollständig» (PortfolioSummary.withdrawnGainIncomplete); Gebühr-Zeilen ebenso.
@@ -388,5 +395,4 @@ class PortfolioViewModel @Inject constructor(
     fun setCurrency(code: String) {
         viewModelScope.launch { settingsRepository.guarded { setPortfolioCurrency(code) } }
     }
-
 }

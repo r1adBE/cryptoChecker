@@ -3,6 +3,15 @@ import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.data.remote.FuturesDataSource
+import com.cryptochecker.app.data.remote.InsightsDataSource
+import com.cryptochecker.app.data.remote.SpotDataSource
+import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
+import com.cryptochecker.app.data.remote.fundingHistory
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.ActivityDueOrder
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
@@ -19,24 +28,21 @@ import com.cryptochecker.app.domain.activity.WhySources
 import com.cryptochecker.app.domain.activity.explain
 import com.cryptochecker.app.domain.activity.isUsdQuote
 import com.cryptochecker.app.domain.activity.notLive
-import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
-import com.cryptochecker.app.data.remote.FuturesDataSource
-import com.cryptochecker.app.domain.remote.FuturesInfo
-import com.cryptochecker.app.domain.remote.FuturesSources
-import com.cryptochecker.app.data.remote.InsightsDataSource
-import com.cryptochecker.app.data.remote.SpotDataSource
-import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.util.ConnectivityMonitor
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.FearGreed
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.FuturesInfo
+import com.cryptochecker.app.domain.remote.FuturesSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.data.settings.SettingsRepository
-import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showActivity
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
@@ -50,12 +56,6 @@ import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
-import com.cryptochecker.app.notification.canShowMarketNotice
-import com.cryptochecker.app.notification.showActivity
-import com.cryptochecker.app.data.remote.fundingHistory
 
 /**
  * Holt die Marktdaten für «Ungewöhnliche Aktivität» und «Warum bewegt sich das?»
@@ -256,8 +256,11 @@ class ActivityMonitor @Inject constructor(
             val usdQuote = ActivityAnalyzer.isUsdQuote(watch.quoteAsset)
             val compare = !isBtc && !stable && usdQuote
             val referenceJob = async {
-                if (stable || !usdQuote) null
-                else timed { volumeDataSource.hourlyCandlesSourced(if (isBtc) "ETH" else "BTC", "USDT", limit = limit) }
+                if (stable || !usdQuote) {
+                    null
+                } else {
+                    timed { volumeDataSource.hourlyCandlesSourced(if (isBtc) "ETH" else "BTC", "USDT", limit = limit) }
+                }
             }
             // Zweite Markt-Referenz ETH (für BTC ist ETH schon die Referenz, für ETH ist BTC sie)
             val ethJob = async {
@@ -267,8 +270,11 @@ class ActivityMonitor @Inject constructor(
             val broadJob = async { if (compare) timed { spotDataSource.broadMarket(base) } else null }
             val futuresJob = async {
                 futures {
-                    if (watch.contractType.isPerpetual) futuresDataSource.fetch(watch)
-                    else futuresDataSource.fetchForBase(watch.baseAsset)
+                    if (watch.contractType.isPerpetual) {
+                        futuresDataSource.fetch(watch)
+                    } else {
+                        futuresDataSource.fetchForBase(watch.baseAsset)
+                    }
                 }
             }
             val historyJob = async { timed { futuresDataSource.fundingHistory(watch) } }
@@ -320,8 +326,11 @@ class ActivityMonitor @Inject constructor(
                     ),
                 )
             ).let { r ->
-                if (r.hasMarketData) r
-                else r.copy(candlesFailure = WhyCandlesFailure.of(connectivity.isOnlineNow(), candlesFailed))
+                if (r.hasMarketData) {
+                    r
+                } else {
+                    r.copy(candlesFailure = WhyCandlesFailure.of(connectivity.isOnlineNow(), candlesFailed))
+                }
             }
         }
     }

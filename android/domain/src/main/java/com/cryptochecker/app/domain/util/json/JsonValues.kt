@@ -58,8 +58,11 @@ internal object JsonCoerce {
     }
 
     fun typeMismatch(indexOrName: Any, actual: Any?, required: String): JsonException =
-        if (actual == null) JsonException("Value at $indexOrName is null.")
-        else JsonException("Value $actual at $indexOrName of type ${actual::class.simpleName} cannot be converted to $required")
+        if (actual == null) {
+            JsonException("Value at $indexOrName is null.")
+        } else {
+            JsonException("Value $actual at $indexOrName of type ${actual::class.simpleName} cannot be converted to $required")
+        }
 
     /** Wie AOSP `JSONObject.wrap`: `null` → [JsonNull], Listen/Maps/Int-Arrays werden JSON, einfache Werte bleiben. */
     fun wrap(value: Any?): Any? = when (value) {

@@ -2,18 +2,18 @@ package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.cycle.CycleCacheStore
+import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
-import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.CycleDataSource
 import com.cryptochecker.app.data.remote.GasDataSource
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.data.remote.UnusualDataSource
-import com.cryptochecker.app.activity.ActivityMonitor
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.market.AltSeason
@@ -34,9 +34,10 @@ import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +54,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import javax.inject.Inject
 
 /** Ladezustand eines Bereichs im Markt-Tab. */
 sealed interface LoadState<out T> {
@@ -177,11 +177,13 @@ class InfoViewModel @Inject constructor(
 
     val fearGreed: StateFlow<LoadState<FearGreed>> = _fearGreed.asStateFlow()
     val dominance: StateFlow<LoadState<Dominance>> = _dominance.asStateFlow()
+
     /** Karte «Krypto-Markt»; Failed = Zeile «gerade nicht verfügbar». Gleicher Abruf wie [dominance]. */
     val marketTotals: StateFlow<LoadState<MarketTotals>> = _marketTotals.asStateFlow()
     val altSeason: StateFlow<LoadState<AltSeason>> = _altSeason.asStateFlow()
     val history: StateFlow<LoadState<CycleHistory>> = _history.asStateFlow()
     val coin: StateFlow<LoadState<CoinReport>> = _coin.asStateFlow()
+
     /** Coins mit USDT-Paar auf Binance (sonst eine kurze Standardliste). */
     val coins: StateFlow<List<String>> = _coins.asStateFlow()
     val selectedCoin: StateFlow<String> = _selectedCoin.asStateFlow()

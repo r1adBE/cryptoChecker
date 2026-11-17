@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
@@ -15,23 +16,26 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDisposal
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxPeriod
+import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.domain.portfolio.gainRows
 import com.cryptochecker.app.domain.portfolio.gainsCsv
 import com.cryptochecker.app.domain.portfolio.incomeCsv
 import com.cryptochecker.app.domain.portfolio.incomeRows
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
-import com.cryptochecker.app.domain.portfolio.TaxMethod
-import com.cryptochecker.app.domain.portfolio.TaxPeriod
-import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
-import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import com.cryptochecker.app.domain.portfolio.TaxYearSummary
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
+import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -45,10 +49,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.ZoneId
-import javax.inject.Inject
 
 /** Welche Datei des Steuer-Exports ([TaxExport]). */
 enum class TaxExportKind { GAINS, INCOME }
@@ -140,7 +140,9 @@ class PortfolioExportViewModel @Inject constructor(
         val walletFrom = tpl.walletFrom(costMethod.value, year)
         if (have != null && have.period.startYear == year && have.template == tpl && have.method == method && have.currency == currency &&
             have.walletFrom == walletFrom
-        ) return
+        ) {
+            return
+        }
         summaryJob?.cancel()
         _summary.value = null
         summaryJob = viewModelScope.launch {
@@ -163,17 +165,17 @@ class PortfolioExportViewModel @Inject constructor(
      * Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als Adress-Einträge ([AddressBalanceHistory.trades],
      * negative Id: keine Veräusserungen) ohne den belegten Teil. Fehler: nur die eigenen Transaktionen.
      */
-    private suspend fun withAddressTrades(trades: List<PortfolioTrade>, method: TaxMethod): List<PortfolioTrade> {
-        return try {
-            com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades(
-                trades, repository.getWatchedAddresses(), frTotalValue = method == TaxMethod.FR_PTA,
-            )
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.w(e, "Steuer-Vorlage FR: Adressen nicht geladen")
-            trades
-        }
+    private suspend fun withAddressTrades(trades: List<PortfolioTrade>, method: TaxMethod): List<PortfolioTrade> = try {
+        com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades(
+            trades,
+            repository.getWatchedAddresses(),
+            frTotalValue = method == TaxMethod.FR_PTA,
+        )
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.w(e, "Steuer-Vorlage FR: Adressen nicht geladen")
+        trades
     }
 
     private suspend fun buildSummary(year: Int, tpl: TaxTemplate, method: TaxMethod, currency: String): TaxYearSummary {
@@ -245,7 +247,13 @@ class PortfolioExportViewModel @Inject constructor(
         runner.start(uri, "Steuer-Export fehlgeschlagen") { buildTax(kind, year, displayCurrency, texts, header) }
     }
 
-    private suspend fun buildTax(kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>): String {
+    private suspend fun buildTax(
+        kind: TaxExportKind,
+        year: Int,
+        displayCurrency: String,
+        texts: TaxCsvTexts,
+        header: List<String>,
+    ): String {
         val trades = trades()
         val tpl = taxTemplate.value
         // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
@@ -276,7 +284,10 @@ class PortfolioExportViewModel @Inject constructor(
                         TaxExport.gainRows(
                             trades, method, period, zone, currency, rates, priceAt, rules = tpl.eventRules,
                             walletFrom = walletFrom, usdtUsd = usdtUsd, disposals = disposals,
-                        ), texts, header, format,
+                        ),
+                        texts,
+                        header,
+                        format,
                         lostFeeCosts = fees.lostFeeCosts,
                         zone = zone,
                         unassignedFees = fees.unassignedFees,

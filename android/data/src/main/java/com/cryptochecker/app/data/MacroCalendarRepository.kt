@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.cycle.CycleCacheStore
 import android.content.Context
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.MirrorTrust
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.mirrorLoader
@@ -9,6 +9,8 @@ import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
@@ -17,8 +19,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Kalender wichtiger US-Wirtschaftsdaten (CPI, PPI, Arbeitsmarkt, Fed-Zinsentscheid, PCE)

@@ -35,11 +35,11 @@ class QuickViewTest {
     private val now = 1_000_000_000L
     private val staleAfter = 600_000L
     private val pairs = listOf(
-        Pair4("BTC", disabled = false, notTraded = false, lastUpdate = now - 60_000),      // aktuell
-        Pair4("ETH", disabled = false, notTraded = false, lastUpdate = now - 3_600_000),   // veraltet
-        Pair4("SOL", disabled = true, notTraded = false, lastUpdate = now - 86_400_000),   // deaktiviert, alter Kurs
-        Pair4("XRP", disabled = true, notTraded = false, lastUpdate = 0),                  // deaktiviert, nie abgefragt
-        Pair4("LUNA", disabled = false, notTraded = true, lastUpdate = now - 86_400_000),  // nicht mehr gehandelt
+        Pair4("BTC", disabled = false, notTraded = false, lastUpdate = now - 60_000), // aktuell
+        Pair4("ETH", disabled = false, notTraded = false, lastUpdate = now - 3_600_000), // veraltet
+        Pair4("SOL", disabled = true, notTraded = false, lastUpdate = now - 86_400_000), // deaktiviert, alter Kurs
+        Pair4("XRP", disabled = true, notTraded = false, lastUpdate = 0), // deaktiviert, nie abgefragt
+        Pair4("LUNA", disabled = false, notTraded = true, lastUpdate = now - 86_400_000), // nicht mehr gehandelt
     )
 
     private fun stale(p: Pair4) = DisabledView.isStale(p.disabled, p.notTraded, p.lastUpdate, now, staleAfter)
@@ -57,7 +57,7 @@ class QuickViewTest {
         // Wie WatchlistStatus.of: erst die deaktivierten weg, dann die nicht gehandelten
         val traded = DisabledView.active(pairs) { it.disabled }.filterNot { it.notTraded }
         assertEquals(listOf("BTC", "ETH"), traded.map { it.name })
-        assertEquals(1, traded.count(::stale))          // «1 von 2 veraltet», nicht «3 von 4»
+        assertEquals(1, traded.count(::stale)) // «1 von 2 veraltet», nicht «3 von 4»
         // Nur noch das aktuelle Paar aktiv → «Alle Kurse aktuell», trotz alter deaktivierter Kurse
         val fresh = pairs.filter { it.name != "ETH" }
         assertEquals(0, DisabledView.active(fresh) { it.disabled }.filterNot { it.notTraded }.count(::stale))
