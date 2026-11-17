@@ -8,7 +8,7 @@ import SwiftUI
 /// Der Portfolio-Tab erscheint nur, wenn er unter Einstellungen › Portfolio eingeschaltet ist. «Paar hinzufügen»
 /// öffnet sich als Seite über der Merkliste («+» in deren Kopfzeile), dort ohne Tableiste.
 struct RootView: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @EnvironmentObject private var router: AppRouter
     /// Zyklus-Daten leben hier, damit ein Tab-Wechsel sie nicht neu lädt.
     @StateObject private var cycleViewModel = CycleViewModel()

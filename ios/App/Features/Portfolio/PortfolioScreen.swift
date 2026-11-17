@@ -8,7 +8,7 @@ import SwiftUI
 /// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
 @MainActor
 struct PortfolioScreen: View {
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @Environment(\.priceColorScheme) var priceColors
     @Environment(\.priceHighContrast) var highContrast
     @Environment(\.priceColorsInverted) var inverted
@@ -154,21 +154,21 @@ struct PortfolioScreen: View {
         base
         .sheet(isPresented: $addressesOpen) {
             PortfolioAddressSheet(onPortfolioEnabled: { toast = ToastMessage(L("portfolio_enabled_banner")) })
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $costGapsOpen) {
             PortfolioCostGapsSheet { tx in openAfterSheet(tx) }
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(item: $sheet) { draft in
             PortfolioTxSheet(initial: draft)
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
@@ -183,7 +183,7 @@ struct PortfolioScreen: View {
         }
         .navigationDestination(isPresented: $taxWorksheetOpen) {
             TaxWorksheetPage()
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
         }
         .sheet(isPresented: $alarmOpen) {
@@ -272,7 +272,7 @@ struct PortfolioScreen: View {
                 // Blatt schon zu («Abbrechen» während des Schreibens): Fehler hier melden, nicht still
                 toast = ToastMessage(L(PortfolioCsvImportSheet.failureKey(data)), kind: .error)
             }
-            .environmentObject(data)
+            .environment(data)
             .environment(\.appAccent, accent)
             .presentationDetents([.large])
             .presentationDragIndicator(.visible)

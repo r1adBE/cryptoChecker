@@ -84,7 +84,7 @@ struct ExplorerPickerSheet: View {
     var sections: [(title: String, items: [String])]? = nil
     /// Kleine zweite Zeile je Eintrag oder Abschnittstitel (Text → Unterzeile; DexScreener: «Uniswap, …»).
     var subtitles: [String: String] = [:]
-    @ObservedObject var data: AppData
+    @AppDataRef var data: AppData
     let onSelect: (String) -> Void
 
     @Environment(\.dismiss) var dismiss

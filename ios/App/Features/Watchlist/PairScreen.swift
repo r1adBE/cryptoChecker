@@ -19,7 +19,7 @@ struct PairScreen: View {
     /// Löschen wie nach links wischen (der Aufrufer zeigt «Rückgängig»); fehlt das Paar danach, geht die Seite zurück.
     let onDelete: (Watch) -> Void
 
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     /// Status der Aktualisierung (eigenes Objekt neben `AppData`): «Aktualisieren» und «Erneut versuchen» gesperrt,
     /// Frische im Kopf (Live-Strom) folgen ihm.
     @ObservedObject var refreshState = AppData.shared.refreshState
@@ -237,12 +237,12 @@ struct PairScreen: View {
         content
             .navigationDestination(item: $whyFor) { target in
                 WatchlistWhySheet(watchId: target.id)
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
             }
             .navigationDestination(item: $whyPreview) { watch in
                 WatchlistWhySheet(watchId: WatchPreview.watchId, preview: watch)
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
             }
             // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
@@ -262,7 +262,7 @@ struct PairScreen: View {
         content
         .sheet(isPresented: $editPair) {
             WatchEditSheet(watch: watch, alarmCount: data.activeAlarmCounts[watch.id] ?? 0)
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)

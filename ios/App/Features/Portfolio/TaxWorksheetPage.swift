@@ -9,7 +9,7 @@ import UniformTypeIdentifiers
 /// Ziel im `NavigationStack` des Portfolio-Tabs.
 @MainActor
 struct TaxWorksheetPage: View {
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @Environment(\.appAccent) private var accent
 
     @StateObject var run = ExportRun()

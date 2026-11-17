@@ -79,7 +79,7 @@ extension AppData {
         }
         set {
             ensureSnapshotLoaded()
-            objectWillChange.send()
+            publish()
             watchedState.addresses = newValue
         }
     }
@@ -167,7 +167,7 @@ extension AppData {
         }
         Task { @MainActor [weak self] in
             // Platzhalter der Merkliste durch den gelesenen Stand ersetzen
-            self?.objectWillChange.send()
+            self?.publish()
             self?.runSnapshotWaiters()
         }
     }

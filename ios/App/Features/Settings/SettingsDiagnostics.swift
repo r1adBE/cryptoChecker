@@ -23,7 +23,7 @@ struct DiagnosticsCard: View {
 /// Der Bericht entsteht nur aus Daten auf dem Gerät; Portfolio, Beträge, Adressen und Notizen liest er gar nicht.
 @MainActor
 struct DiagnosticsPreviewPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @State private var text: String?
 
     var body: some View {

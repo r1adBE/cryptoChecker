@@ -9,7 +9,7 @@ import SwiftUI
 struct PortfolioCoinDetail: View {
     let coin: String
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @ObservedObject private var model = PortfolioModel.shared
     @Environment(\.appAccent) private var accent
     @Environment(\.dismiss) private var dismiss
@@ -148,17 +148,17 @@ struct PortfolioCoinDetail: View {
                     sheet = PortfolioTxDraft(tx: tx)
                 }
             }
-            .environmentObject(data)
+            .environment(data)
             .presentationDetents([.large])
         }
         .sheet(item: $lotsFor) { a in
             PortfolioAddressLotsSheet(addressId: a.id)
-                .environmentObject(data)
+                .environment(data)
                 .presentationDetents([.large])
         }
         .sheet(item: $sheet) { draft in
             PortfolioTxSheet(initial: draft)
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)

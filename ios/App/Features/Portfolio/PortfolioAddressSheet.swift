@@ -7,7 +7,7 @@ import SwiftUI
 /// dem Gerät, gesendet werden nur einzelne). ETH-Zeilen: Token-Guthaben und Schalter «Tokens mitzählen».
 @MainActor
 struct PortfolioAddressSheet: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @ObservedObject private var model = PortfolioModel.shared
     @Environment(\.appAccent) private var accent
     @Environment(\.dismiss) private var dismiss
@@ -115,7 +115,7 @@ struct PortfolioAddressSheet: View {
             }
             .sheet(item: $lotsFor) { a in
                 PortfolioAddressLotsSheet(addressId: a.id)
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)

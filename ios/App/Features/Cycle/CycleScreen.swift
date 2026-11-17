@@ -16,7 +16,7 @@ import SwiftUI
 /// Das ViewModel gehört `RootView`, damit es Tab-Wechsel übersteht.
 struct CycleScreen: View {
     @ObservedObject var viewModel: CycleViewModel
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @EnvironmentObject private var router: AppRouter
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.appAccent) private var accent

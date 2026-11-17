@@ -32,7 +32,7 @@ enum WatchlistLockedHintHosts {
 /// Warn-Haptik und `show` mit dem Text «watchlist_storage_locked» über das Banner bzw. den Hinweis des
 /// Bildschirms — wie Android `WatchlistLockedHint`.
 private struct WatchlistLockedHintModifier: ViewModifier {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     // Die Frage «Änderungen werden gerade nicht gespeichert …» zeigt `WatchlistNotSavedGatePresenter`
     // (eigenes Fenster über allem, auch über Blättern), nicht dieser Bildschirm
     @State private var host = UUID()

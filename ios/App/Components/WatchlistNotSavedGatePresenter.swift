@@ -82,7 +82,7 @@ final class WatchlistNotSavedGatePresenter {
 /// Inhalt des Fensters: nur die Rückfrage (Text, «Abbrechen» / «Trotzdem»), ohne Titel.
 @MainActor
 private struct WatchlistNotSavedGateContent: View {
-    @ObservedObject var data: AppData
+    @AppDataRef var data: AppData
     let onAppear: () -> Void
     let onAnswer: (Bool) -> Void
     @State private var presented = false

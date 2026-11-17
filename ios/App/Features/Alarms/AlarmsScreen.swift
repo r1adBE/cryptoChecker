@@ -14,7 +14,7 @@ struct AlarmsScreen: View {
     /// Paarseite: Banner der Seite (unten am Bildschirm statt mitten im Abschnitt); nil = eigenes Banner.
     var externalBanner: Binding<WatchlistBannerMessage?>? = nil
 
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @Environment(\.appAccent) private var accent
     @State var draft: AlarmDraft?
     @State var askDelete: Alarm?
@@ -321,7 +321,7 @@ extension AlarmsScreen {
                 onSave: saveFromEditor,
                 onTemplate: templateFromEditor
             )
-            .environmentObject(data)
+            .environment(data)
             .environment(\.appAccent, accent)
             .presentationDetents([.large])
             .presentationDragIndicator(.visible)
@@ -361,7 +361,7 @@ extension AlarmsScreen {
                         }
                     }
             }
-            .environmentObject(data)
+            .environment(data)
             .environment(\.appAccent, accent)
         }
         .onChange(of: dialogsOpen) { _, open in

@@ -93,7 +93,7 @@ struct MarketMoreToggle: View {
 struct MarketSectionPage: View {
     @ObservedObject var viewModel: CycleViewModel
     let section: MarketSection
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @EnvironmentObject private var router: AppRouter
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// Was beim Öffnen schon stand, erscheint ohne Animation.

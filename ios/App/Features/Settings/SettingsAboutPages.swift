@@ -4,7 +4,7 @@ import UIKit
 /// Über die App: Version (7 Tipps schalten «Entwickler» frei), Zweck, Hinweis zu den Daten.
 @MainActor
 struct AboutSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @State private var versionTaps = 0
     @State private var toast: ToastMessage?
 
@@ -141,7 +141,7 @@ struct AboutSettingsPage: View {
 /// Entwickler: HTTP-Protokoll und Bericht der letzten Aktualisierung.
 @MainActor
 struct DeveloperSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     /// Dauer und Bericht der letzten Aktualisierung (eigenes Objekt neben `AppData`, beobachtet).
     @ObservedObject private var refreshState = AppData.shared.refreshState
     @Environment(\.appAccent) private var accent

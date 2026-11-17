@@ -9,7 +9,7 @@ import UIKit
 /// (dort mit «Pünktlich prüfen» im Satz zum Treiber).
 @MainActor
 struct UsageSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.scenePhase) private var scenePhase
     @State private var phone = UsageTotals.zero
     @State private var watch: UsageReport?

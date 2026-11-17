@@ -4,7 +4,7 @@ import SwiftUI
 /// `AddressServerCard`. Leer = öffentliche Knoten; gesetzt = nur dorthin, ohne Rückfall.
 @MainActor
 struct SettingsAddressServerCard: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @State private var input = ""
     /// «Testen»: Zustand und laufender Abruf (`AddressServerTestRun`).
     @StateObject private var testRun = AddressServerTestRun()

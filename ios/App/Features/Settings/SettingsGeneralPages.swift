@@ -6,7 +6,7 @@ import SwiftUI
 /// Währung (Liste mit Suchfeld, Kürzel und Name in der App-Sprache): gilt für Merkliste («≈»), Portfolio, Alarme, Krypto-Markt, Widget.
 @MainActor
 struct CurrencySettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @State private var query = ""
 
     init() {}
@@ -61,7 +61,7 @@ struct CurrencySettingsPage: View {
 /// Hintergrund-Intervall — wie `UpdatesPage` (Android).
 @MainActor
 struct UpdatesSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -95,7 +95,7 @@ struct UpdatesSettingsPage: View {
 /// Wie `UpdateModeCard` (Android).
 @MainActor
 private struct UpdateModeCard: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     var body: some View {
         // Eine Ansicht (VStack), damit `.settingsAnchor` von aussen nicht auf Banner und Karte verteilt wird
@@ -139,7 +139,7 @@ private struct UpdateModeCard: View {
 /// Merkliste: Namen, Mini-Chart, «≈ Umrechnung», Aktivitätskarte; dazu Basis der %-Änderung und «Token & TradFi».
 @MainActor
 struct WatchlistSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -199,7 +199,7 @@ struct WatchlistSettingsPage: View {
 /// dazu Alpha-Tokens und QTLY (gehören zu Token) — wie `ExchangesPage` (Android).
 @MainActor
 struct ExchangesSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 

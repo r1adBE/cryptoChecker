@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 /// «Ordner ändern». Mit Portfolio-Daten und Sperre erst entsperren (wie «Sichern»). Wie Android `AutoBackupSection`.
 @MainActor
 struct AutoBackupSection: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @ObservedObject private var auto = AutoBackup.shared
 
     /// Ordnerwahl offen; true = fürs Einschalten, false = nur Ordner ändern.

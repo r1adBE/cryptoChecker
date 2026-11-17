@@ -49,8 +49,14 @@ struct DeletedWatch {
 /// Zentrale Datenhaltung der App: Merkliste, Alarme, Einstellungen.
 /// Entspricht WatchRepository + SettingsRepository + den ViewModels der Android-Fassung.
 @MainActor
-final class AppData: ObservableObject {
+@Observable
+final class AppData {
     static let shared = AppData()
+
+    /// Einzige beobachtete Eigenschaft (sonst alles `@ObservationIgnored`): [publish] zählt sie hoch wie früher
+    /// `objectWillChange.send()`; Ansichten lesen sie über `@AppDataEnv`/`@AppDataRef` mit (`AppDataObservation.swift`).
+    private(set) var revision = 0
+    func publish() { revision &+= 1 }
 
     /// Gespeicherter Stand. Beim Start abseits des Haupt-Threads gelesen (AppData+SnapshotLoad.swift); wer vorher
     /// zugreift, liest ihn sofort selbst (`ensureSnapshotLoaded`) — nie ein leerer «noch nicht gelesener» Stand.
@@ -68,8 +74,8 @@ final class AppData: ObservableObject {
     /// nur Kurs, Änderung und Zeit (`applyLive`), bleibt die Veröffentlichung aus — die Zeilen
     /// zeigen diese Werte schon über ihre `LiveQuoteBox` (`LivePrices`), und Markt, Portfolio und
     /// Einstellungen bauen nicht alle 10 s neu. Gelesen wird trotzdem immer der aktuelle Stand.
-    private var storedSnapshot = SharedStorage.Snapshot() {
-        willSet { if !quietPriceSave { objectWillChange.send() } }
+    @ObservationIgnored private var storedSnapshot = SharedStorage.Snapshot() {
+        willSet { if !quietPriceSave { publish() } }
         // Jede Übernahme (Ändern, Lesen) zählt: Ein im Hintergrund gelesener Stand gilt nur ohne Übernahme seither
         didSet {
             snapshotGeneration &+= 1
@@ -78,20 +84,21 @@ final class AppData: ObservableObject {
         }
     }
     /// Stand beim Start gelesen und übernommen (`setLaunchSnapshot`); vorher zeigt die Merkliste Platzhalter-Zeilen.
-    private(set) var snapshotLoaded = false
+    @ObservationIgnored private(set) var snapshotLoaded = false
     /// Lesen beim Start (Verschlüsselung, Merkliste, Adressen), einmal — im Hintergrund oder bei frühem Zugriff sofort.
     let launchLoader = LaunchStorageLoader()
     /// Warten auf das Lesen beim Start (`whenSnapshotLoaded`, `waitForSnapshot`).
-    var snapshotWaiters: [@MainActor () -> Void] = []
+    @ObservationIgnored var snapshotWaiters: [@MainActor () -> Void] = []
     /// Zustand der Einstellungen beim Start (für «Portfolio wieder an» nach dem Lesen, `finishLaunchLoad`).
-    var launchSettingsState: SharedStorage.SettingsReadState = .ok
+    @ObservationIgnored var launchSettingsState: SharedStorage.SettingsReadState = .ok
     /// Zähler der Übernahmen in `snapshot` (`reloadFromDiskInBackground`, `DiskReloadTicket`).
-    private(set) var snapshotGeneration = 0
+    @ObservationIgnored private(set) var snapshotGeneration = 0
     /// Zuletzt begonnenes Lesen im Hintergrund: nur dieses darf übernehmen.
-    var diskReloadSequence = 0
+    @ObservationIgnored var diskReloadSequence = 0
     /// Nur während `mutate(…, quiet: true)`: Änderung nicht veröffentlichen.
-    private var quietPriceSave = false
-    @Published var settings: AppSettings {
+    @ObservationIgnored private var quietPriceSave = false
+    @ObservationIgnored var settings: AppSettings {
+        willSet { publish() }
         didSet {
             guard settings != oldValue else { return }
             // Nicht zugängliche Einstellungen nie mit Standardwerten überschreiben
@@ -102,24 +109,24 @@ final class AppData: ObservableObject {
     /// false = Einstellungen beim Lesen nicht zugänglich (App nach einem Neustart vor dem ersten Entsperren
     /// vorgewärmt): `settings` sind Standardwerte nur zur Anzeige, werden nie gespeichert, und die
     /// Portfolio-Sperre gilt als an (`appLockEffective`). Neu gelesen in `reloadSettingsIfInaccessible`.
-    @Published private(set) var settingsAccessible: Bool
+    @ObservationIgnored private(set) var settingsAccessible: Bool { willSet { publish() } }
     /// Status der Aktualisierung und des Live-Stroms (läuft, einzelne Paare, Dauer, Bericht, Live-Paare): eigenes
     /// beobachtbares Objekt, damit eine Änderung nicht alle Ansichten von `AppData` neu aufbaut (`RefreshState`).
     let refreshState = RefreshState(lastRefreshMillis: SharedStorage.lastRefreshDuration,
                                     lastRefreshReport: SharedStorage.lastRefreshReport)
-    @Published var favorites: [FavoriteKind: Set<String>] = [:]
+    @ObservationIgnored var favorites: [FavoriteKind: Set<String>] = [:] { willSet { publish() } }
     /// Beobachtete Adressen samt Datei-Stand — Zugriff nur über `watchedAddresses`, `watchedAddressFile` und
     /// `watchedAddressIntact` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
-    var watchedState = WatchedAddressState()
+    @ObservationIgnored var watchedState = WatchedAddressState()
     /// Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? Dann misst
     /// `DepegAlarmCheck` USDT/USD auch ohne Alarm — wie `PortfolioRepository.hasData` (Android).
     var hasPortfolioData: Bool { !portfolio.isEmpty || !watchedAddresses.isEmpty }
     /// `watched_addresses.json` konnte nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar): der Stand
     /// wartet im Speicher, nie im Klartext — zählt wie das Portfolio zu `portfolioSavePending` (gleicher Hinweis, gleiches
     /// erneutes Speichern in `retryPendingPortfolioSaves`).
-    var watchedAddressSavePending = false
+    @ObservationIgnored var watchedAddressSavePending = false
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
-    @Published var addCelebration: AddCelebration?
+    @ObservationIgnored var addCelebration: AddCelebration? { willSet { publish() } }
     /// Netz, App-Start, «wird nicht gespeichert», Hinweis-Zähler, Börsen-Pausen, %-Stempel, Aktivität und wartendes
     /// Portfolio-Speichern: eigenes beobachtbares Objekt, damit ein Wechsel nicht alle Ansichten von `AppData` neu aufbaut
     /// (`AppStatus`; gelesen über `online`, `appStartMillis`, `exchangePauses` …).
@@ -129,48 +136,48 @@ final class AppData: ObservableObject {
     // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher), Börsen und Paare am Strom:
     // `refreshState` — ein Tick veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
-    var liveTickAt: [Int64: Int64] = [:]
+    @ObservationIgnored var liveTickAt: [Int64: Int64] = [:]
     /// Schreib-Gate der Kurse (geteilt mit der Hintergrund-Aufgabe im App-Prozess): Aktualisierungen und Live-Kurse
     /// übernehmen ihre Ergebnisse nacheinander (`PriceWriteGate`).
     var priceWriteGate: PriceWriteGate { .shared }
 
     /// Gelesener Stand von `portfolio.json` (beim Start im Hintergrund, beim ersten Zugriff sonst sofort): Zugriff nur
     /// über `portfolio`, `portfolioFile`, `portfolioIntact` (AppData+PortfolioLoad.swift).
-    var portfolioState = PortfolioLoadState()
+    @ObservationIgnored var portfolioState = PortfolioLoadState()
     /// Zusammenfassen reiner Kurs-Speicherungen (AppData+PriceSave.swift).
-    var priceSaves = PriceSaveThrottle()
+    @ObservationIgnored var priceSaves = PriceSaveThrottle()
     /// Abgeleitete Listen je Stand (`snapshotGeneration`, AppData+Reading.swift).
-    var readCache = WatchlistReadCache()
+    @ObservationIgnored var readCache = WatchlistReadCache()
     /// Letztes `setPortfolioFile` scheiterte an der Sperre (Datei/Schlüssel), nicht an einem Schreibfehler.
-    var portfolioWriteLocked = false
+    @ObservationIgnored var portfolioWriteLocked = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
     /// Setzen nur beim Lesen; von aussen setzbar allein für den Verhaltenstest (WatchlistLockBehaviorTests). Zugriff über
     /// `watchlistLocked` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
-    @Published var watchlistLockedValue = false
+    @ObservationIgnored var watchlistLockedValue = false { willSet { publish() } }
     /// Zeit des letzten Hinweises «watchlist_storage_locked» (monotone ms, `AppStatus.watchlistLockedHints`).
-    var watchlistLockedHintAt: Int64?
+    @ObservationIgnored var watchlistLockedHintAt: Int64?
     /// Noch keine `watchlist.json` und kein Schlüssel zum Versiegeln (`WatchlistStorageLock.waitsForKey`): Was jetzt
     /// angelegt wird, kann nicht gespeichert werden — die Merkliste sagt es gleich, nicht erst nach dem ersten Speichern.
-    @Published private(set) var watchlistWaitsForKey = false
+    @ObservationIgnored private(set) var watchlistWaitsForKey = false { willSet { publish() } }
     /// Dauerhinweis der Merkliste (gleich wie Android): gesperrt bzw. «wird nicht gespeichert».
     var watchlistStorageNotice: WatchlistStorageLock.Notice? {
         WatchlistStorageLock.notice(locked: watchlistLocked, savePending: watchlistSavePending || watchlistWaitsForKey)
     }
     /// Merkliste in diesem Lauf schon einmal gelesen (`WatchlistStorageLock.holdsStoredState`): Dann hält der Speicher
     /// den echten Stand, und ein später unlesbarer Zugriff setzt `watchlistLocked` nicht mehr.
-    private(set) var watchlistReadOnce = false
-    var appActive = false
+    @ObservationIgnored private(set) var watchlistReadOnce = false
+    @ObservationIgnored var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
-    private(set) var encryptionPending = false
+    @ObservationIgnored private(set) var encryptionPending = false
     /// Zähler für «App zurücksetzen»: Ein Ablauf, der über ein `await` hinweg läuft (z. B. `applyLive`),
     /// übernimmt sein Ergebnis nicht mehr, wenn inzwischen zurückgesetzt wurde.
-    var resetGeneration = 0
+    @ObservationIgnored var resetGeneration = 0
 
     /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
     /// nil = «Keine Gruppe».
-    @Published var addTargetGroup: String?
+    @ObservationIgnored var addTargetGroup: String? { willSet { publish() } }
 
     private init() {
         let loadedSettings = AppData.readSettings()

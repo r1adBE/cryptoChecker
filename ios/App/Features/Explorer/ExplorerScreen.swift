@@ -10,7 +10,7 @@ import UIKit
 /// des Markt-Tabs (`AppRouter.showExchangeExplorer`).
 struct ExplorerScreen: View {
     @StateObject var vm = ExplorerViewModel()
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @EnvironmentObject private var router: AppRouter
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent

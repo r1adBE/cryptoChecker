@@ -6,7 +6,7 @@ import SwiftUI
 /// hinzufügen». Die Posten zählen wie Käufe in dieser Adresse.
 @MainActor
 struct PortfolioAddressLotsSheet: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.dismiss) private var dismiss
     let addressId: Int64
     /// Bearbeiten: vorhandener Posten oder neuer (Id 0).

@@ -143,7 +143,7 @@ final class AppRouter: ObservableObject {
 @main
 struct CryptoCheckerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @StateObject private var data = AppData.shared
+    @State private var data = AppData.shared
     @StateObject private var router = AppRouter.shared
     @StateObject private var lock = AppLock.shared
     @Environment(\.scenePhase) private var scenePhase
@@ -165,7 +165,7 @@ struct CryptoCheckerApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(data)
+                .environment(data)
                 .environmentObject(router)
                 // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: sagen, wie sie zurückkommen (bis bestätigt);
                 // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung

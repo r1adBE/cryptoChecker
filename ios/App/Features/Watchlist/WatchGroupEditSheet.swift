@@ -35,7 +35,7 @@ struct WatchGroupEditSheet: View {
     let groupName: String
     let isNew: Bool
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
 

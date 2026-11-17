@@ -4,7 +4,7 @@ import SwiftUI
 /// Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
 @MainActor
 struct AlarmSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
 
     /// Erhöhen startet den Probe-Alarm (`AlarmTestRunner`).
@@ -284,7 +284,7 @@ struct NotificationPermissionRow: View {
 /// Kursmitteilung je Paar an/aus (gleicher Schalter wie im Aktionsblatt), dazu «Alle an» / «Alle aus».
 /// Wie Android `PricePairsPage`.
 struct PricePairsPage: View {
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
     @State private var toast: ToastMessage?
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der

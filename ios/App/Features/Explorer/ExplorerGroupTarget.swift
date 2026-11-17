@@ -6,7 +6,7 @@ import SwiftUI
 /// (`AppData.addTargetGroup`, nicht gespeichert).
 @MainActor
 struct ExplorerGroupTargetSelector: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
 
     @State private var naming = false

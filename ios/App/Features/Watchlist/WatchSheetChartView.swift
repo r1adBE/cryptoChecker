@@ -9,7 +9,7 @@ import SwiftUI
 struct WatchSheetChartView: View {
     let watch: Watch
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent
     @Environment(\.priceColorScheme) var priceColors

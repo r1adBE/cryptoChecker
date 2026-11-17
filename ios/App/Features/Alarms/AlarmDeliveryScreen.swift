@@ -9,7 +9,7 @@ import UserNotifications
 /// Zurückkehren in die App neu gelesen.
 @MainActor
 struct AlarmDeliveryScreen: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
     @Environment(\.scenePhase) private var scenePhase
     @State private var items: [AlarmReadiness.Item] = []

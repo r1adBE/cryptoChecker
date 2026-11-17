@@ -27,7 +27,7 @@ import UserNotifications
 /// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
 @MainActor
 struct SettingsScreen: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.scenePhase) private var scenePhase
 
     /// Erlaubnis für Mitteilungen; `.authorized` als Startwert, damit kein Hinweis aufblitzt.

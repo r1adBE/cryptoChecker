@@ -31,7 +31,7 @@ extension AppData {
             if CoinLogos.alphaOnly(logos: false, names: false, includeAlpha: settings.includeAlphaTokens) {
                 await CoinLogoStore.shared.refreshAlphaOnly()
                 // Alpha-Kennzeichen sofort in Merkliste und Auswahl
-                objectWillChange.send()
+                publish()
             }
             return
         }
@@ -75,7 +75,7 @@ extension AppData {
         guard logos || settings.watchlistNames else { return }
         // 1. Binance- und Alpha-Liste vor allem anderen (vorher kamen Namen und «α» erst nach Paarlisten,
         // Nasdaq-Liste und allen Seiten der Rangliste): Namen und Alpha-Kennzeichen sofort
-        if await CoinLogoStore.shared.refreshLists() { objectWillChange.send() }
+        if await CoinLogoStore.shared.refreshLists() { publish() }
         let tradFiChanged = await refreshTradFiPairs()
         // Aktiennamen nur mit «Namen anzeigen» (Nasdaq-Symbolliste, höchstens wöchentlich)
         let stockNames = settings.watchlistNames ? await CoinLogoStore.shared.refreshStockNames() : false

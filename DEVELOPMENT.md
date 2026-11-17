@@ -3278,6 +3278,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 293: C-07 Teil 2a: SettingsRepository als :domain-Schnittstelle, DataStoreSettingsRepository in :data, SettingsBackupTarget nach :domain; UI_DATA_REMAINING 94 → 91.
 * Build 294: C-07 Teil 2b: WatchStore (:domain) + WatchStoreAdapter (:data), Ausgänge und AlarmWithWatch nach :domain, write-consent erkennt WatchStore; UI_DATA_REMAINING 91 → 88.
 * Build 295: C-07 Teil 2c: PortfolioTxEntity/PortfolioAlarmEntity nach :domain, Room-Zeilen PortfolioTxRow/PortfolioAlarmRow mit Umwandlung (PortfolioRowMappingTest), Schema unverändert; UI_DATA_REMAINING 88 → 80.
+* Build 296: Review 11: AppData @Observable (revision/publish, @AppDataEnv/@AppDataRef, AppDataObservationTests); Swift 6 strict concurrency war schon aktiv.
 
 ## Known warnings
 

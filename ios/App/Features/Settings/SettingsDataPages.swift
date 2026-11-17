@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 /// Sichern & Wiederherstellen: eine Datei, die man selbst ablegt.
 @MainActor
 struct BackupSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @ObservedObject private var lock = AppLock.shared
 
     @State private var toast: ToastMessage?

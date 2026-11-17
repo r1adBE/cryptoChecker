@@ -12,7 +12,7 @@ struct PortfolioTxSheet: View {
     /// `PortfolioQuickAddPresenter`).
     let onAskEnablePortfolio: () -> Void
 
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @ObservedObject var model = PortfolioModel.shared
     @Environment(\.appAccent) var accent
     @Environment(\.dismiss) var dismiss

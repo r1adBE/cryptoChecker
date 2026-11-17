@@ -4,7 +4,7 @@ import UIKit
 /// Portfolio als eigener Tab, die Portfolio-Sperre (mit Portfolio oder solange an) und die Einstandsmethode.
 @MainActor
 struct PortfolioSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @ObservedObject private var watchLink = PhoneWatchLink.shared
     @State private var toast: ToastMessage?
     /// Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).

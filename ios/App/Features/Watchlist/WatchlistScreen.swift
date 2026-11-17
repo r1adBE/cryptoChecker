@@ -13,7 +13,7 @@ struct WatchlistSheetTarget: Identifiable, Hashable {
 /// ziehen aktualisiert alles. Gibt es Gruppen, filtern Chips oben die Liste;
 /// sortiert wird dann nur unter den sichtbaren Paaren. Enthält keinen `NavigationStack`.
 struct WatchlistScreen: View {
-    @EnvironmentObject var data: AppData
+    @AppDataEnv var data
     @EnvironmentObject var router: AppRouter
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent

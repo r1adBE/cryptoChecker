@@ -155,7 +155,7 @@ final class AppLock: ObservableObject {
 /// Inhalt des Sichtschutz-Fensters.
 @MainActor
 private struct AppLockWindowContent: View {
-    @ObservedObject var data: AppData
+    @AppDataRef var data: AppData
 
     var body: some View {
         AppPrivacyCover()

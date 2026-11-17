@@ -3,7 +3,7 @@ import SwiftUI
 /// Übersicht aller Alarme — wie `AlarmsOverviewScreen.kt`: Welche sind scharf,
 /// auf welchem Paar? Ein Tipp auf ein Paar öffnet dessen Alarme zum Bearbeiten.
 struct AlarmsOverviewScreen: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     /// Leere Merkliste: «Paar hinzufügen» öffnet die Seite «Paar hinzufügen» (wie «+» der Merkliste).
     @EnvironmentObject private var router: AppRouter
     @Environment(\.appAccent) private var accent

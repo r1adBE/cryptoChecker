@@ -11,7 +11,7 @@ private final class WillChangeCounter {
 }
 
 /// Status der Aktualisierung als eigenes Objekt (`RefreshState`, `AppData.refreshState`): Änderungen veröffentlichen
-/// nur dort — `AppData.objectWillChange` bleibt still, die Merkliste rechnet ihren `body` nicht neu. Je Zeile
+/// nur dort — `AppData.revision` (Veröffentlichung, `AppData.publish`) bleibt still, die Merkliste rechnet ihren `body` nicht neu. Je Zeile
 /// beobachtbare Kästchen: ein Wechsel meldet sich nur bei der Zeile seines Paars.
 @MainActor
 final class RefreshStateTests: XCTestCase {
@@ -33,10 +33,9 @@ final class RefreshStateTests: XCTestCase {
             state.liveExchanges = savedExchanges
             state.liveWatchIds = savedLive
         }
-        let appChanges = WillChangeCounter()
         let stateChanges = WillChangeCounter()
         var watchers: [AnyCancellable] = []
-        data.objectWillChange.sink { _ in appChanges.count += 1 }.store(in: &watchers)
+        let appRevision = data.revision
         state.objectWillChange.sink { _ in stateChanges.count += 1 }.store(in: &watchers)
 
         state.refreshing = !savedRefreshing
@@ -51,7 +50,7 @@ final class RefreshStateTests: XCTestCase {
         XCTAssertEqual(stateChanges.count, 5, "liveExchanges")
         state.liveWatchIds.insert(-9_002)
         XCTAssertEqual(stateChanges.count, 6, "liveWatchIds")
-        XCTAssertEqual(appChanges.count, 0, "AppData darf bei Statusänderungen nicht veröffentlichen")
+        XCTAssertEqual(data.revision, appRevision, "AppData darf bei Statusänderungen nicht veröffentlichen")
         // Gelesen wird der Live-Stand weiter über AppData (Frische-Schwelle je Paar)
         XCTAssertEqual(data.staleAfterMillis(for: -9_002),
                        LiveStatus.staleAfterMillis(onLiveSocket: true, pollingAfter: data.staleAfterMillis))

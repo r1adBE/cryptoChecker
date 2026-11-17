@@ -9,7 +9,7 @@ extension WatchlistScreen {
             // Paarseite (Tipp auf eine Zeile, Mitteilung, Widget-Zeile) als eigene Seite mit Zurück
             .navigationDestination(item: $pairFor) { target in
                 PairScreen(watchId: target.id, onDelete: { swipeDelete($0) })
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .environment(\.changeView, changeView)
                     .toolbar(.visible, for: .navigationBar)
@@ -17,14 +17,14 @@ extension WatchlistScreen {
             // «Was bewegt sich mit?» aus der Zeile bzw. einer Alarm-Mitteilung als eigene Seite mit Zurück
             .navigationDestination(item: $whyFor) { target in
                 WatchlistWhySheet(watchId: target.id)
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .toolbar(.visible, for: .navigationBar)
             }
             // Vergleichsansicht als eigene Seite mit Zurück
             .navigationDestination(item: $compareFor) { target in
                 CompareScreen(watches: target.ids.compactMap { id in data.watches.first { $0.id == id } })
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .environment(\.changeView, changeView)
                     .toolbar(.visible, for: .navigationBar)
@@ -36,7 +36,7 @@ extension WatchlistScreen {
                     isNew: target.isNew,
                     initialMembers: Set(data.watches.filter { $0.groupName == target.name }.map(\.id))
                 )
-                .environmentObject(data)
+                .environment(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)

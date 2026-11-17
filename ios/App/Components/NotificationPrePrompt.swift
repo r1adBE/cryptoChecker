@@ -150,7 +150,7 @@ struct PrePromptSlot: Sendable, Equatable {
 /// Inhalt des Fensters: nur die Abfrage der App (Titel, ein Satz, «Weiter» / «Später»).
 @MainActor
 private struct NotificationPrePromptContent: View {
-    @ObservedObject var data: AppData
+    @AppDataRef var data: AppData
     let onFinish: (Bool) -> Void
     @State private var presented = false
 

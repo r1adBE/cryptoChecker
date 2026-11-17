@@ -7,7 +7,7 @@ import UIKit
 /// in die App neu. Ohne Alarme oder im Normalfall nichts. Wie `AlarmReliabilityLine.kt`.
 @MainActor
 struct AlarmReliabilityLine: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var input: AlarmReadiness.Input?

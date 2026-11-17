@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 296)
+
+- Internal (iOS): the central data store uses Swift Observation instead of ObservableObject; screens refresh exactly as before.
+
 ## 16.2.2 (build 295)
 
 - Internal: portfolio transactions and alarms are core-module models; the database rows are mapped field by field, with a test that no field is lost (C-07 part 2c).

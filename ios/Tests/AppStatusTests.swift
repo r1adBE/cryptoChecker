@@ -1,18 +1,13 @@
-import Combine
 import Observation
 import XCTest
 @testable import CryptoChecker
 
 /// Netz, App-Start, «wird nicht gespeichert» und Hinweis-Zähler als eigenes beobachtbares Objekt (`AppStatus`,
-/// `AppData.status`): Ein Wechsel meldet sich nur bei den Ansichten, die den Wert lesen — `AppData.objectWillChange`
-/// bleibt still, die Merkliste und die übrigen Bildschirme rechnen ihren `body` nicht neu.
+/// `AppData.status`): Ein Wechsel meldet sich nur bei den Ansichten, die den Wert lesen — `AppData.revision`
+/// (Veröffentlichung, `AppData.publish`) bleibt gleich, die Merkliste und die übrigen Bildschirme rechnen ihren `body`
+/// nicht neu.
 @MainActor
 final class AppStatusTests: XCTestCase {
-
-    /// Zähler für `objectWillChange` (auf dem Haupt-Thread).
-    private final class Counter {
-        var count = 0
-    }
 
     func testStatusChangesDoNotPublishOnAppData() {
         let data = AppData.shared
@@ -27,21 +22,18 @@ final class AppStatusTests: XCTestCase {
             status.watchlistSavePending = savedPending
             status.watchlistLockedHints = savedHints
         }
-        let appChanges = Counter()
-        var watchers: [AnyCancellable] = []
-        data.objectWillChange.sink { _ in appChanges.count += 1 }.store(in: &watchers)
+        let appRevision = data.revision
 
         status.online = !savedOnline
         status.appStartMillis = (savedStart ?? 0) + 1
         status.watchlistSavePending = !savedPending
         data.watchlistLockedHints &+= 1
-        XCTAssertEqual(appChanges.count, 0, "AppData darf bei Statuswechseln nicht veröffentlichen")
+        XCTAssertEqual(data.revision, appRevision, "AppData darf bei Statuswechseln nicht veröffentlichen")
         // Gelesen wird weiter über AppData
         XCTAssertEqual(data.online, !savedOnline)
         XCTAssertEqual(data.appStartMillis, (savedStart ?? 0) + 1)
         XCTAssertEqual(data.watchlistSavePending, !savedPending)
         XCTAssertEqual(data.watchlistLockedHints, savedHints &+ 1)
-        watchers.removeAll()
     }
 
     /// Auch Börsen-Pausen, %-Stempel, Aktivität und wartendes Portfolio-Speichern.
@@ -57,19 +49,16 @@ final class AppStatusTests: XCTestCase {
             data.activityReports = savedReports
             data.portfolioSavePending = savedPortfolio
         }
-        let appChanges = Counter()
-        var watchers: [AnyCancellable] = []
-        data.objectWillChange.sink { _ in appChanges.count += 1 }.store(in: &watchers)
+        let appRevision = data.revision
 
         data.exchangePauses["test"] = 42
         data.changeStamp = nil
         data.activityReports[-1] = nil
         data.portfolioSavePending = !savedPortfolio
-        XCTAssertEqual(appChanges.count, 0, "AppData darf bei diesen Werten nicht veröffentlichen")
+        XCTAssertEqual(data.revision, appRevision, "AppData darf bei diesen Werten nicht veröffentlichen")
         XCTAssertEqual(data.status.exchangePauses["test"], 42)
         XCTAssertNil(data.status.changeStamp)
         XCTAssertEqual(data.status.portfolioSavePending, !savedPortfolio)
-        watchers.removeAll()
     }
 
     func testReadersOfAValueAreNotified() {

@@ -6,7 +6,7 @@ import SwiftUI
 /// danach auf der Karte nicht). Belohnungen: «Einstand = Wert bei Zufluss (Einkommen)» — kein Angebot, ihn zu ändern.
 @MainActor
 struct PortfolioCostGapsSheet: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.dismiss) private var dismiss
     @AppStorage(PortfolioCostGapUi.unknownKey) private var unknownRaw = ""
     var coin: String? = nil

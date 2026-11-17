@@ -4,7 +4,7 @@ import SwiftUI
 /// Widgets mit «System»; dazu hoher Kontrast. Wie Android `DisplayModePage`.
 @MainActor
 struct DisplayModeSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -51,7 +51,7 @@ struct DisplayModeSettingsPage: View {
 /// Theme: Akzentfarbe der App und der Widgets.
 @MainActor
 struct ThemeSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -67,7 +67,7 @@ struct ThemeSettingsPage: View {
 /// statt Initialen — getrennt für App, Portfolio und Widgets; ab Werk in App und Portfolio an.
 @MainActor
 struct CoinLogosSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -111,7 +111,7 @@ struct CoinLogosSettingsPage: View {
 /// Wie Android `PriceColorsPage`.
 @MainActor
 struct PriceColorsSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -297,7 +297,7 @@ enum PriceStylePreview {
 /// Aktionsblatt, Widgets und Live-Aktivität; Alarme rechnen unabhängig davon.
 @MainActor
 struct ChangeBasisSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
     /// Zone des Geräts einmal beim Öffnen (Sommerzeit wechselt nicht, während die Seite offen ist).
     @State private var now = EpochTime.nowMillis

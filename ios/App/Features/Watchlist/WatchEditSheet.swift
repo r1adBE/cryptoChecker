@@ -11,7 +11,7 @@ struct WatchEditSheet: View {
     let watch: Watch
     let alarmCount: Int
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
     // Gemerktes Paar bearbeiten: «Token & TradFi» blendet hier nichts aus (wie Android)

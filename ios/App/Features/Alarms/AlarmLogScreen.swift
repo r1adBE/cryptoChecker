@@ -90,7 +90,7 @@ enum AlarmLogTexts {
 /// löschen» mit Rückfrage. Wie `AlarmLogScreen.kt`.
 @MainActor
 struct AlarmLogScreen: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.scenePhase) private var scenePhase
     @State private var events: [AlarmLogEntry] = []
     @State private var askClear = false

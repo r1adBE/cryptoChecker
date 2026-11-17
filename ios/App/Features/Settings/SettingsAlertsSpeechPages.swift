@@ -6,7 +6,7 @@ import SwiftUI
 /// Markt-Meldungen: Fear & Greed, Gas, Bitcoin-Kennzahlen, ungewöhnliche Aktivität, Wirtschaftstermine.
 @MainActor
 struct MarketAlertsSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     init() {}
 
@@ -140,7 +140,7 @@ struct MarketAlertsSettingsPage: View {
 /// Sprachausgabe: ein/aus, nur Alarme, Tempo, Probe.
 @MainActor
 struct SpeechSettingsPage: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
 
     init() {}

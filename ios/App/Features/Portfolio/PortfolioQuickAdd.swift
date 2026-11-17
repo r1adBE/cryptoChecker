@@ -12,7 +12,7 @@ struct PortfolioQuickAddPresenter: ViewModifier {
     @Binding var draft: PortfolioTxDraft?
     let onEnabled: () -> Void
     let onLater: () -> Void
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
     /// Rückfrage gemeldet; das Dialogfeld erscheint erst, wenn das Blatt zu ist.
     @State private var pendingAsk = false
@@ -27,7 +27,7 @@ struct PortfolioQuickAddPresenter: ViewModifier {
                 }
             }) { item in
                 PortfolioTxSheet(initial: item, onAskEnablePortfolio: { pendingAsk = true })
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)

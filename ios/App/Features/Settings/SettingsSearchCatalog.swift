@@ -58,7 +58,7 @@ enum SettingsSearchCatalog {
 /// Widget-Seite als Ziel der Suche (wie die Zeile unter «Darstellung»), mit dem Portfolio-Schalter.
 @MainActor
 private struct WidgetsSearchDestination: View {
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
 
     var body: some View {
         AddWidgetHelpSheet(portfolioEnabled: data.settings.portfolioEnabled, asPage: true)

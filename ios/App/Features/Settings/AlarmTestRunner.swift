@@ -8,7 +8,7 @@ import UIKit
 struct AlarmTestRunner: ViewModifier {
     let trigger: Int
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @State private var toast: ToastMessage?
     @State private var denied = false
 

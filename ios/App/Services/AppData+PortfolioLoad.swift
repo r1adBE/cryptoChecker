@@ -56,7 +56,7 @@ extension AppData {
         }
         set {
             ensurePortfolioLoaded()
-            objectWillChange.send()
+            publish()
             portfolioState.list = newValue
         }
     }

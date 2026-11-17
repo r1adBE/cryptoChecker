@@ -15,7 +15,7 @@ import SwiftUI
 struct CycleCoinSheets: ViewModifier {
     @Binding var target: CycleCoinTarget?
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// «… entfernt» mit «Rückgängig» nach «Löschen».
@@ -25,7 +25,7 @@ struct CycleCoinSheets: ViewModifier {
         content
             .navigationDestination(item: $target) { target in
                 page(for: target)
-                    .environmentObject(data)
+                    .environment(data)
                     .environment(\.appAccent, accent)
                     .environment(\.changeView, data.changeView())
             }

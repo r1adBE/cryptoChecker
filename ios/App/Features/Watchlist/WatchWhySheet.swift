@@ -23,7 +23,7 @@ struct WatchlistWhySheet: View {
     /// gespeicherten Eintrag meint; ohne Signale (das Paar wird nicht überwacht).
     var preview: Watch? = nil
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) private var accent
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion

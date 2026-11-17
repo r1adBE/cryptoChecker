@@ -75,7 +75,7 @@ struct PortfolioCsvImportSheet: View {
         CsvReadChoice(zone: zone, dateOrder: dateOrder, decimalMark: decimalMark, keepDuplicates: keepDuplicates)
     }
 
-    @EnvironmentObject private var data: AppData
+    @AppDataEnv private var data
     @Environment(\.appAccent) var accent
     @Environment(\.dismiss) private var dismiss
 
