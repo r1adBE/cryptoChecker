@@ -13,8 +13,8 @@ NETWORK='was not found in any of the following sources|Could not resolve|Could n
 chmod +x gradlew
 for attempt in 1 2 3; do
   # From the second attempt on, bypass cached repository answers: a missing or partial entry restored from the cache
-  # (build 276: the same plugin «not found» in six attempts over two runs, in one job only) is otherwise repeated on
-  # every attempt instead of being fetched again
+  # (the same plugin «not found» in every attempt of one job while the other jobs resolved it) is otherwise repeated
+  # on every attempt instead of being fetched again
   refresh=$([ "$attempt" -gt 1 ] && echo --refresh-dependencies || true)
   if ./gradlew --no-daemon help --quiet $refresh >"$LOG" 2>&1; then
     echo "Gradle warm-up ok (attempt $attempt)"
