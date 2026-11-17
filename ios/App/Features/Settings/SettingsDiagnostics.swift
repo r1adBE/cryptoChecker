@@ -97,8 +97,8 @@ struct DiagnosticsPreviewPage: View {
             checkRuns: [],
             alarmEvents: [],
             exchangePauses: SharedStorage.exchangeBackoff,
-            // Der Release-Build führt kein Fehlerprotokoll
-            errorLog: nil,
+            // Fehlerprotokoll: Zeit, Bereich und Fehlertyp, keine Texte (`ErrorLog`)
+            errorLog: ErrorLog.shown(ErrorLog.storedLines(), timeZone: .current),
             // Quell-Commit aus dem Build-Setting GIT_COMMIT
             sourceCommit: info?["CCGitCommit"] as? String ?? DiagnosticReport.localCommit)
         // Nur der Text: die Datei entsteht erst beim Teilen (`DiagnosticsShareFile`), nicht schon mit der Vorschau

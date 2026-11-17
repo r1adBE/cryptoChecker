@@ -54,5 +54,6 @@ extension AppLog {
     private static func report(_ what: String, _ error: Error) {
         let e = error as NSError
         storage.error("\(what, privacy: .public) fehlgeschlagen (\(e.domain, privacy: .public) \(e.code, privacy: .public))")
+        ErrorLog.record(area: what, type: "\(e.domain):\(e.code)")
     }
 }

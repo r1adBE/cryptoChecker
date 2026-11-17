@@ -127,8 +127,11 @@ class DiagnosticsViewModel @Inject constructor(
                 checkRuns = runs,
                 alarmEvents = alarmLogStore.state.value.events,
                 exchangePauses = refreshStats.backoffStates(),
-                // Der Release-Build führt kein Fehlerprotokoll (das HTTP-Protokoll gibt es nur im Debug-Build)
-                errorLog = null,
+                // Fehlerprotokoll: Zeit, Codestelle bzw. Bereich und Fehlertyp, keine Texte (ErrorLog)
+                errorLog = com.cryptochecker.app.domain.diagnostics.ErrorLog.shown(
+                    com.cryptochecker.app.diagnostics.ErrorLogFile.of(context).readLines(),
+                    ZoneId.systemDefault(),
+                ),
                 // Nur Anzahl Fehler im Hintergrund je Bereich
                 backgroundErrors = com.cryptochecker.app.domain.util.BackgroundErrorCounter.summary(),
                 // Coin-Logos nur als Zahlen (auf dem Gerät, gesperrt, letzter Durchgang) — nur mit eingeschalteten Logos

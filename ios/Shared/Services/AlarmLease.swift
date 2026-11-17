@@ -104,6 +104,7 @@ final class AlarmLease: Sendable {
         let millis = Int(Date().timeIntervalSince(started) * 1000)
         if lease.failOpen {
             AppLog.lease.error("Lease-Datei nicht anlegbar – Auswertung ohne Lease")
+            ErrorLog.record(area: "lease", type: "leaseFileNotCreated")
         } else {
             AppLog.lease.info("Lease erhalten nach \(millis, privacy: .public) ms")
         }

@@ -1,0 +1,396 @@
+{
+  "description": "Error log of the diagnostic report (Android ErrorLog.kt / iOS ErrorLog.swift). Stored line: millis|level|area|type, level E or W (anything else becomes E). field(): keep only A-Z a-z 0-9 and _ . $ : - < >, cut to 80 characters, empty -> «-». parse(): exactly four fields, millis a non-negative integer, level E or W, else unreadable (null); area and type pass through field(). appended(): drop unreadable lines; an unreadable new line adds nothing; the same level, area and type as the last entry within 60 000 ms (0 <= difference < 60 000) is skipped; then keep the last 100. shown(): readable lines as «yyyy-MM-dd HH:mm L area type» in the zone.",
+  "maxEntries": 100,
+  "field": [
+    {
+      "name": "plain kind",
+      "text": "SocketTimeoutException",
+      "field": "SocketTimeoutException"
+    },
+    {
+      "name": "call site",
+      "text": "com.cryptochecker.app.work.PriceWorker.doWork:88",
+      "field": "com.cryptochecker.app.work.PriceWorker.doWork:88"
+    },
+    {
+      "name": "free text loses spaces and letters outside the set",
+      "text": "Kurs BTC/USDT 95'000 €",
+      "field": "KursBTCUSDT95000"
+    },
+    {
+      "name": "address chars kept but no spaces",
+      "text": "bc1q xyz",
+      "field": "bc1qxyz"
+    },
+    {
+      "name": "empty",
+      "text": "",
+      "field": "-"
+    },
+    {
+      "name": "null",
+      "text": null,
+      "field": "-"
+    },
+    {
+      "name": "pipe removed",
+      "text": "a|b",
+      "field": "ab"
+    },
+    {
+      "name": "long cut to 80",
+      "text": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "field": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "umlauts dropped",
+      "text": "Fehlerä",
+      "field": "Fehler"
+    }
+  ],
+  "line": [
+    {
+      "name": "error",
+      "millis": 1763400000000,
+      "level": "E",
+      "area": "refresh",
+      "type": "IOException",
+      "line": "1763400000000|E|refresh|IOException"
+    },
+    {
+      "name": "warning without type",
+      "millis": 5,
+      "level": "W",
+      "area": "a.b.c:12",
+      "type": null,
+      "line": "5|W|a.b.c:12|-"
+    },
+    {
+      "name": "unknown level becomes E",
+      "millis": 7,
+      "level": "X",
+      "area": "logos",
+      "type": "T",
+      "line": "7|E|logos|T"
+    }
+  ],
+  "parse": [
+    {
+      "name": "ok",
+      "line": "5|W|a|b",
+      "entry": [
+        5,
+        "W",
+        "a",
+        "b"
+      ]
+    },
+    {
+      "name": "three fields",
+      "line": "5|W|a",
+      "entry": null
+    },
+    {
+      "name": "negative time",
+      "line": "-1|E|a|b",
+      "entry": null
+    },
+    {
+      "name": "bad level",
+      "line": "5|I|a|b",
+      "entry": null
+    },
+    {
+      "name": "not a number",
+      "line": "x|E|a|b",
+      "entry": null
+    }
+  ],
+  "appended": [
+    {
+      "name": "first line",
+      "lines": [],
+      "new": "1000|E|refresh|IOException",
+      "result": [
+        "1000|E|refresh|IOException"
+      ]
+    },
+    {
+      "name": "same within a minute skipped",
+      "lines": [
+        "1000|E|refresh|IOException"
+      ],
+      "new": "60999|E|refresh|IOException",
+      "result": [
+        "1000|E|refresh|IOException"
+      ]
+    },
+    {
+      "name": "same after a minute kept",
+      "lines": [
+        "1000|E|refresh|IOException"
+      ],
+      "new": "61000|E|refresh|IOException",
+      "result": [
+        "1000|E|refresh|IOException",
+        "61000|E|refresh|IOException"
+      ]
+    },
+    {
+      "name": "other type kept",
+      "lines": [
+        "1000|E|refresh|IOException"
+      ],
+      "new": "2000|E|refresh|HttpException",
+      "result": [
+        "1000|E|refresh|IOException",
+        "2000|E|refresh|HttpException"
+      ]
+    },
+    {
+      "name": "other level kept",
+      "lines": [
+        "1000|E|refresh|IOException"
+      ],
+      "new": "2000|W|refresh|IOException",
+      "result": [
+        "1000|E|refresh|IOException",
+        "2000|W|refresh|IOException"
+      ]
+    },
+    {
+      "name": "unreadable lines dropped",
+      "lines": [
+        "junk",
+        "1000|E|a|b"
+      ],
+      "new": "bad",
+      "result": [
+        "1000|E|a|b"
+      ]
+    },
+    {
+      "name": "cut to 100",
+      "lines": [
+        "0|E|a0|b",
+        "100000|E|a1|b",
+        "200000|E|a2|b",
+        "300000|E|a3|b",
+        "400000|E|a4|b",
+        "500000|E|a5|b",
+        "600000|E|a6|b",
+        "700000|E|a7|b",
+        "800000|E|a8|b",
+        "900000|E|a9|b",
+        "1000000|E|a10|b",
+        "1100000|E|a11|b",
+        "1200000|E|a12|b",
+        "1300000|E|a13|b",
+        "1400000|E|a14|b",
+        "1500000|E|a15|b",
+        "1600000|E|a16|b",
+        "1700000|E|a17|b",
+        "1800000|E|a18|b",
+        "1900000|E|a19|b",
+        "2000000|E|a20|b",
+        "2100000|E|a21|b",
+        "2200000|E|a22|b",
+        "2300000|E|a23|b",
+        "2400000|E|a24|b",
+        "2500000|E|a25|b",
+        "2600000|E|a26|b",
+        "2700000|E|a27|b",
+        "2800000|E|a28|b",
+        "2900000|E|a29|b",
+        "3000000|E|a30|b",
+        "3100000|E|a31|b",
+        "3200000|E|a32|b",
+        "3300000|E|a33|b",
+        "3400000|E|a34|b",
+        "3500000|E|a35|b",
+        "3600000|E|a36|b",
+        "3700000|E|a37|b",
+        "3800000|E|a38|b",
+        "3900000|E|a39|b",
+        "4000000|E|a40|b",
+        "4100000|E|a41|b",
+        "4200000|E|a42|b",
+        "4300000|E|a43|b",
+        "4400000|E|a44|b",
+        "4500000|E|a45|b",
+        "4600000|E|a46|b",
+        "4700000|E|a47|b",
+        "4800000|E|a48|b",
+        "4900000|E|a49|b",
+        "5000000|E|a50|b",
+        "5100000|E|a51|b",
+        "5200000|E|a52|b",
+        "5300000|E|a53|b",
+        "5400000|E|a54|b",
+        "5500000|E|a55|b",
+        "5600000|E|a56|b",
+        "5700000|E|a57|b",
+        "5800000|E|a58|b",
+        "5900000|E|a59|b",
+        "6000000|E|a60|b",
+        "6100000|E|a61|b",
+        "6200000|E|a62|b",
+        "6300000|E|a63|b",
+        "6400000|E|a64|b",
+        "6500000|E|a65|b",
+        "6600000|E|a66|b",
+        "6700000|E|a67|b",
+        "6800000|E|a68|b",
+        "6900000|E|a69|b",
+        "7000000|E|a70|b",
+        "7100000|E|a71|b",
+        "7200000|E|a72|b",
+        "7300000|E|a73|b",
+        "7400000|E|a74|b",
+        "7500000|E|a75|b",
+        "7600000|E|a76|b",
+        "7700000|E|a77|b",
+        "7800000|E|a78|b",
+        "7900000|E|a79|b",
+        "8000000|E|a80|b",
+        "8100000|E|a81|b",
+        "8200000|E|a82|b",
+        "8300000|E|a83|b",
+        "8400000|E|a84|b",
+        "8500000|E|a85|b",
+        "8600000|E|a86|b",
+        "8700000|E|a87|b",
+        "8800000|E|a88|b",
+        "8900000|E|a89|b",
+        "9000000|E|a90|b",
+        "9100000|E|a91|b",
+        "9200000|E|a92|b",
+        "9300000|E|a93|b",
+        "9400000|E|a94|b",
+        "9500000|E|a95|b",
+        "9600000|E|a96|b",
+        "9700000|E|a97|b",
+        "9800000|E|a98|b",
+        "9900000|E|a99|b"
+      ],
+      "new": "99999999|E|z|b",
+      "result": [
+        "100000|E|a1|b",
+        "200000|E|a2|b",
+        "300000|E|a3|b",
+        "400000|E|a4|b",
+        "500000|E|a5|b",
+        "600000|E|a6|b",
+        "700000|E|a7|b",
+        "800000|E|a8|b",
+        "900000|E|a9|b",
+        "1000000|E|a10|b",
+        "1100000|E|a11|b",
+        "1200000|E|a12|b",
+        "1300000|E|a13|b",
+        "1400000|E|a14|b",
+        "1500000|E|a15|b",
+        "1600000|E|a16|b",
+        "1700000|E|a17|b",
+        "1800000|E|a18|b",
+        "1900000|E|a19|b",
+        "2000000|E|a20|b",
+        "2100000|E|a21|b",
+        "2200000|E|a22|b",
+        "2300000|E|a23|b",
+        "2400000|E|a24|b",
+        "2500000|E|a25|b",
+        "2600000|E|a26|b",
+        "2700000|E|a27|b",
+        "2800000|E|a28|b",
+        "2900000|E|a29|b",
+        "3000000|E|a30|b",
+        "3100000|E|a31|b",
+        "3200000|E|a32|b",
+        "3300000|E|a33|b",
+        "3400000|E|a34|b",
+        "3500000|E|a35|b",
+        "3600000|E|a36|b",
+        "3700000|E|a37|b",
+        "3800000|E|a38|b",
+        "3900000|E|a39|b",
+        "4000000|E|a40|b",
+        "4100000|E|a41|b",
+        "4200000|E|a42|b",
+        "4300000|E|a43|b",
+        "4400000|E|a44|b",
+        "4500000|E|a45|b",
+        "4600000|E|a46|b",
+        "4700000|E|a47|b",
+        "4800000|E|a48|b",
+        "4900000|E|a49|b",
+        "5000000|E|a50|b",
+        "5100000|E|a51|b",
+        "5200000|E|a52|b",
+        "5300000|E|a53|b",
+        "5400000|E|a54|b",
+        "5500000|E|a55|b",
+        "5600000|E|a56|b",
+        "5700000|E|a57|b",
+        "5800000|E|a58|b",
+        "5900000|E|a59|b",
+        "6000000|E|a60|b",
+        "6100000|E|a61|b",
+        "6200000|E|a62|b",
+        "6300000|E|a63|b",
+        "6400000|E|a64|b",
+        "6500000|E|a65|b",
+        "6600000|E|a66|b",
+        "6700000|E|a67|b",
+        "6800000|E|a68|b",
+        "6900000|E|a69|b",
+        "7000000|E|a70|b",
+        "7100000|E|a71|b",
+        "7200000|E|a72|b",
+        "7300000|E|a73|b",
+        "7400000|E|a74|b",
+        "7500000|E|a75|b",
+        "7600000|E|a76|b",
+        "7700000|E|a77|b",
+        "7800000|E|a78|b",
+        "7900000|E|a79|b",
+        "8000000|E|a80|b",
+        "8100000|E|a81|b",
+        "8200000|E|a82|b",
+        "8300000|E|a83|b",
+        "8400000|E|a84|b",
+        "8500000|E|a85|b",
+        "8600000|E|a86|b",
+        "8700000|E|a87|b",
+        "8800000|E|a88|b",
+        "8900000|E|a89|b",
+        "9000000|E|a90|b",
+        "9100000|E|a91|b",
+        "9200000|E|a92|b",
+        "9300000|E|a93|b",
+        "9400000|E|a94|b",
+        "9500000|E|a95|b",
+        "9600000|E|a96|b",
+        "9700000|E|a97|b",
+        "9800000|E|a98|b",
+        "9900000|E|a99|b",
+        "99999999|E|z|b"
+      ]
+    }
+  ],
+  "shown": [
+    {
+      "name": "Zurich",
+      "zone": "Europe/Zurich",
+      "lines": [
+        "1763400000000|E|refresh|IOException",
+        "junk",
+        "1763403600000|W|a.b:3|-"
+      ],
+      "shown": [
+        "2025-11-17 18:20 E refresh IOException",
+        "2025-11-17 19:20 W a.b:3 -"
+      ]
+    }
+  ]
+}

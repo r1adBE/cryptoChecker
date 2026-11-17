@@ -19,6 +19,7 @@ extension SharedStorage {
                 return .unreadable
             } catch {
                 AppLog.storage.error("Merkliste nicht lesbar (gesperrt oder Zugriff verweigert)")
+                ErrorLog.record(area: "storage", type: "watchlistUnreadable")
                 return .inaccessible
             }
             let counter = DropCounter()
@@ -89,12 +90,14 @@ extension SharedStorage {
             try ProtectedFile.write(data, to: watchlist, keys: keys, requireSealed: true, durability: durability)
         } catch ProtectedFile.ReadError.locked {
             AppLog.storage.error("Merkliste wartet auf den Schlüssel")
+            ErrorLog.record(area: "storage", type: "watchlistWaitsForKey")
             watchlistPending = true
             return false
         } catch {
             // Speicher voll, Datei nicht beschreibbar: nicht still — der Stand im Speicher bleibt massgebend, die App
             // nennt es und schreibt erneut (`watchlistWriteFailed`)
             AppLog.storage.error("Merkliste nicht geschrieben")
+            ErrorLog.record(area: "storage", type: "watchlistNotWritten")
             watchlistWriteFailed = true
             return false
         }
@@ -164,9 +167,11 @@ extension SharedStorage {
             try ProtectedFile.write(data, to: url, keys: keys, requireSealed: true)
         } catch ProtectedFile.ReadError.locked {
             AppLog.storage.error("Portfolio-Alarme warten auf den Schlüssel")
+            ErrorLog.record(area: "storage", type: "portfolioAlarmsWaitForKey")
             return .needsKey
         } catch {
             AppLog.storage.error("Portfolio-Alarme nicht geschrieben")
+            ErrorLog.record(area: "storage", type: "portfolioAlarmsNotWritten")
             return .failed
         }
         portfolioAlarmsPending = false

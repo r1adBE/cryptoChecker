@@ -120,6 +120,9 @@ enum BackgroundErrorCounter {
         }
         let code = BackgroundErrors.area(area)
         let key = countPrefix + code
+        // Auch ins Fehlerprotokoll: Bereich und Art, mit Zeit
+        ErrorLog.record(area: code, type: kind.map { BackgroundErrors.kind($0) } ?? error.map { BackgroundErrors.kind(of: $0) },
+                        now: now)
         lock.lock()
         defer { lock.unlock() }
         let n = store.integer(forKey: key)

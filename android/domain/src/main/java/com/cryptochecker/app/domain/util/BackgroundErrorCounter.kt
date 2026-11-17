@@ -44,6 +44,8 @@ object BackgroundErrorCounter {
         val code = BackgroundErrors.area(area)
         runCatching {
             val errorKind = kind?.let(BackgroundErrors::kind) ?: error?.let(BackgroundErrors::kindOf)
+            // Auch ins Fehlerprotokoll: Bereich und Art, mit Zeit
+            com.cryptochecker.app.domain.diagnostics.ErrorLog.record('E', code, errorKind, now)
             synchronized(this) {
                 val p = prefs
                 if (p == null) {

@@ -122,6 +122,7 @@ enum SharedStorage {
                     result.files += 1
                 } catch {
                     AppLog.storage.error("Übernahme einer Datei fehlgeschlagen")
+                    ErrorLog.record(area: "storage", type: "fallbackFileNotMoved")
                 }
             }
         }

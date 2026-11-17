@@ -352,6 +352,7 @@
 		2703BF55A89F372D97E7F6E7 /* DateFormatterCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF13F979076D30FA7055CA1A /* DateFormatterCacheTests.swift */; };
 		275001EE9366B2A94E64FAFE /* PortfolioExportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C815C972C7B1EF727DE03AA /* PortfolioExportSheet.swift */; };
 		2768FB965E2C25A9BF3ACFD5 /* PortfolioFifo+Lots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21838D4F8F9E1EA7A90DEA1B /* PortfolioFifo+Lots.swift */; };
+		27830C503BCA0383DC63BE6A /* ErrorLogParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E224A5ECCC0B974528828513 /* ErrorLogParityTests.swift */; };
 		279ED96CDAC0F2C4EA8FAEE4 /* LogoPassSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6092255E18247105A07A1383 /* LogoPassSummary.swift */; };
 		27E54F313CAA5F7F7E65CB4B /* portfolio.json in Resources */ = {isa = PBXBuildFile; fileRef = F436943F695834EA49F1D251 /* portfolio.json */; };
 		2837D2F8E935378F775C7BD0 /* SettingsConfirm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41422B3916AFF1DD889D736 /* SettingsConfirm.swift */; };
@@ -646,6 +647,7 @@
 		4D106D61C3715837E75FB7C8 /* BitunixFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ABB08BCFFF3B5391A5E3C9 /* BitunixFutures.swift */; };
 		4D124E2275FEC99320E3B4C4 /* OwnCandleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3354E534AF245A3F8BF405 /* OwnCandleDataSource.swift */; };
 		4D14751A2F3216987F814C86 /* PortfolioCostGapUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258B8988A6926880ECA6F08E /* PortfolioCostGapUi.swift */; };
+		4D285D13E0BF2DBB07887D30 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DBE267A325EBB01DFA4E7 /* ErrorLog.swift */; };
 		4D4D3510FFFB64511515CE4F /* RefreshSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D3B36A0243A9A0F932D784 /* RefreshSetTests.swift */; };
 		4D722BC93BE303826E4F4D9A /* WatchCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8998CC296D38F114DB5651F5 /* WatchCache.swift */; };
 		4DDD5FA0988B63CFDF324F3B /* PortfolioSet1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CA2F241BBD72370A92F60 /* PortfolioSet1Tests.swift */; };
@@ -933,6 +935,7 @@
 		6B55B225D48EDF81FFC2788A /* ExchangeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE5C9BD839814B3DBEA30AA /* ExchangeCategory.swift */; };
 		6B66B314DE464CEF3AC11479 /* BinanceAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F908829FE31E4E379D1E4C /* BinanceAlpha.swift */; };
 		6B798CED6778B990CE96B36D /* WatchlistSymbolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC64695A46F18C958C8BE5F /* WatchlistSymbolTests.swift */; };
+		6B95BE1AC99FC7B7ECF100D1 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DBE267A325EBB01DFA4E7 /* ErrorLog.swift */; };
 		6BADDD077000248BD18E420F /* PortfolioCostGaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3551F41329DC7C2353C1B /* PortfolioCostGaps.swift */; };
 		6BC55FEFD18C148939CB837E /* WatchIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F1FEB4E29B90D8FA91062 /* WatchIdentity.swift */; };
 		6BC93BB538C1989093330ED1 /* PortfolioCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6890882B905558833256DA /* PortfolioCalculator.swift */; };
@@ -1586,6 +1589,7 @@
 		BE09B5D0FBB955028E66B9C0 /* PortfolioHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F0E2C8DF3CF55F8858B57 /* PortfolioHistory.swift */; };
 		BE3D1A45A0C70446A205E088 /* SingleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3567B4DC9667348C82CC9F2D /* SingleWidget.swift */; };
 		BE7B8603A45B037B2D9C13A2 /* AlarmLogScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6215DE98977641FE6A88FD /* AlarmLogScreen.swift */; };
+		BEC4B237BC796D50496A3C73 /* error_log.json in Resources */ = {isa = PBXBuildFile; fileRef = 871AAFD199B68400E58C2E32 /* error_log.json */; };
 		BF00EA477277CF8360CD1DEA /* WatchPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B8F1C9D1C58F68C6B044D6 /* WatchPair.swift */; };
 		BF36570979BF53949C55C3BE /* DayReferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572066E7F3570B5F2FB832DA /* DayReferenceStore.swift */; };
 		BF620B1A73C3654250F2B3ED /* MirrorSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F650F67EB084E0B46CE24 /* MirrorSignatureTests.swift */; };
@@ -3009,6 +3013,7 @@
 		858EBA43747F112DEC914061 /* recorded_okexfutures.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_okexfutures.json; sourceTree = "<group>"; };
 		861C892C9EE0348AFA1CED72 /* SettingsSubPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSubPages.swift; sourceTree = "<group>"; };
 		86A899BC55C6762A1ECA154D /* Blake2b.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blake2b.swift; sourceTree = "<group>"; };
+		871AAFD199B68400E58C2E32 /* error_log.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = error_log.json; sourceTree = "<group>"; };
 		871B606EC0AB15BF819D5EF0 /* ConnectionErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionErrors.swift; sourceTree = "<group>"; };
 		872217DE4EB8220A5017D247 /* ChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTests.swift; sourceTree = "<group>"; };
 		8753FC76A77108A731AD6F46 /* BitOasis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitOasis.swift; sourceTree = "<group>"; };
@@ -3482,6 +3487,7 @@
 		CC35668F032F4D7190EE5B51 /* recorded_onetrading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_onetrading.json; sourceTree = "<group>"; };
 		CC7A7E55B34B3EB20EBC4EA8 /* WidgetRefreshState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRefreshState.swift; sourceTree = "<group>"; };
 		CC7D6279AE22ABFE88269508 /* ExchangeRetirement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRetirement.swift; sourceTree = "<group>"; };
+		CC9DBE267A325EBB01DFA4E7 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
 		CD600FB93F9B99AF7207F4BC /* market_movers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_movers.json; sourceTree = "<group>"; };
 		CD7B8E2A258F3932011ADBBF /* WatchViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViews.swift; sourceTree = "<group>"; };
 		CD9DFE2C3A67E29A294A03BA /* AlarmSnoozeClearTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSnoozeClearTests.swift; sourceTree = "<group>"; };
@@ -3622,6 +3628,7 @@
 		E1B78B15CB21B0452DCEBCCD /* WatchSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSettingsSection.swift; sourceTree = "<group>"; };
 		E1C88F15C09166179F05DE22 /* recorded_bitget.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_bitget.json; sourceTree = "<group>"; };
 		E2160C2E0145F7D6964E9FD9 /* SettingsAlarmPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAlarmPages.swift; sourceTree = "<group>"; };
+		E224A5ECCC0B974528828513 /* ErrorLogParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogParityTests.swift; sourceTree = "<group>"; };
 		E23A869835A1F6D7A3FDA462 /* WatchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFilter.swift; sourceTree = "<group>"; };
 		E23BA7723F46004BF2CC8AE7 /* BinanceAlphaParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceAlphaParityTests.swift; sourceTree = "<group>"; };
 		E24A04CE562DA1913CDF1B50 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -4927,6 +4934,7 @@
 				9243AF786E646D157F722931 /* dex_pair_id.json */,
 				C40A72EFCD5CE66343C3E9F8 /* diagnostic_redact.json */,
 				7E9828BC8CFE42BE7EC98720 /* ecb_rates.json */,
+				871AAFD199B68400E58C2E32 /* error_log.json */,
 				2315EACA42BC74C73599EFC8 /* estv_kursliste.json */,
 				A69B2130A25402C80B41CFA8 /* exact_cadence.json */,
 				75B6B3E5F72AC248DA02589B /* exchange_backoff.json */,
@@ -5302,6 +5310,7 @@
 				BBD4A32D84DA286E9B18E661 /* EditorConfirmCloseTests.swift */,
 				95003DD884BD8BB85DAB72FA /* EpochTimeTests.swift */,
 				516996D2A5E61B5EBB5C919A /* ErrorColorTests.swift */,
+				E224A5ECCC0B974528828513 /* ErrorLogParityTests.swift */,
 				33A3CEBC2215ADAE67CD9C51 /* EstvKurslisteTests.swift */,
 				347DC9E8E69101E2F3B4E73A /* ExactCadenceParityTests.swift */,
 				6EDF8B12B2B9691804394CE6 /* ExchangeBackoffTests.swift */,
@@ -5682,6 +5691,7 @@
 				A8A787D7DEB43F6310EEEAF1 /* DexLiquidity.swift */,
 				D908E801D1D6F3B78BC0252A /* DexTokenAddress.swift */,
 				F95FF67B95BB30936EAB7BF5 /* DiagnosticReport.swift */,
+				CC9DBE267A325EBB01DFA4E7 /* ErrorLog.swift */,
 				E55CFCB8875B0B1453D8B53B /* ExchangeBackoff.swift */,
 				167A590AAF8A6D798E21F860 /* ExchangeFailure.swift */,
 				FDDCB7D44ADCAE84E9559002 /* FetchOrder.swift */,
@@ -6253,6 +6263,7 @@
 				A383F4E3AEDCB4997E717397 /* dex_pair_id.json in Resources */,
 				92D35E2200B8A5F6683FBD42 /* diagnostic_redact.json in Resources */,
 				555B73B4F5C0F0D496945D5B /* ecb_rates.json in Resources */,
+				BEC4B237BC796D50496A3C73 /* error_log.json in Resources */,
 				2284D753D8FB151BCF3E6116 /* estv_kursliste.json in Resources */,
 				5627FDB29644D97C6029027F /* exact_cadence.json in Resources */,
 				1E2E7E5789269F0AEF3EB4D7 /* exchange_backoff.json in Resources */,
@@ -6783,6 +6794,7 @@
 				5723B72A2E401D0C46DEBC9F /* DexLiquidity.swift in Sources */,
 				7546EA740637C30B497DF581 /* DexTokenAddress.swift in Sources */,
 				23CB66CE3674820D7D955415 /* DiagnosticReport.swift in Sources */,
+				6B95BE1AC99FC7B7ECF100D1 /* ErrorLog.swift in Sources */,
 				9F5A26C63D83E63A7BCAA336 /* ExchangeBackoff.swift in Sources */,
 				620731B3A5AA2EC585B2889D /* ExchangeFailure.swift in Sources */,
 				E72C971B63B4C571F767E460 /* FetchOrder.swift in Sources */,
@@ -7084,6 +7096,7 @@
 				120760948A714030C893C3A2 /* EditorConfirmCloseTests.swift in Sources */,
 				997423B67A12B2530D0B860F /* EpochTimeTests.swift in Sources */,
 				5FE6E971360A1E49743CC1FD /* ErrorColorTests.swift in Sources */,
+				27830C503BCA0383DC63BE6A /* ErrorLogParityTests.swift in Sources */,
 				42E5350CAF7532EDDC52152A /* EstvKurslisteTests.swift in Sources */,
 				E3D0123866B9C690D91F0BD0 /* ExactCadenceParityTests.swift in Sources */,
 				D9569DDE4F1F9A40D0CFCB98 /* ExchangeBackoffTests.swift in Sources */,
@@ -7696,6 +7709,7 @@
 				216C3496AC586F8962E19488 /* DexLiquidity.swift in Sources */,
 				978DD35E85328156BED781F2 /* DexTokenAddress.swift in Sources */,
 				20B23BF16CE274130A2C8931 /* DiagnosticReport.swift in Sources */,
+				4D285D13E0BF2DBB07887D30 /* ErrorLog.swift in Sources */,
 				D435D367663A3FC9AFDEF614 /* ExchangeBackoff.swift in Sources */,
 				2BFBDF1D366AB4ABBC78F91B /* ExchangeFailure.swift in Sources */,
 				6BFFBB3948C349A0D8414653 /* FetchOrder.swift in Sources */,
@@ -8321,7 +8335,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8348,7 +8362,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8369,7 +8383,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8399,7 +8413,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8428,7 +8442,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8447,7 +8461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8534,7 +8548,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8563,7 +8577,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8589,7 +8603,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8611,7 +8625,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8641,7 +8655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8673,7 +8687,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 287;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
