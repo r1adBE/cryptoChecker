@@ -36,6 +36,8 @@ Rules (ids in the annotation title):
   missing-logos      «coins without logo» sits under the loading hint; dismissed coins stay in the logo settings/app group
   lot-sheets         deleting a cost lot asks first on iOS; the open lot sheets survive recreation on Android
   wiring             restore writes under the address refresh lock; every exact-check entry reads the shared demand
+  portfolio-settings-confirm  iOS asks before another cost method / system backup; the tax sheet names the file contents
+  watch-deletion     Wear OS reads deleted phone entries and forgets what came from the phone
 
 The comments and messages are in German like the tests they replace.
 """
@@ -695,7 +697,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1475, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1473, "domain": 1621, "data": 606, "marketdata": 32, "wear": 49}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -2039,6 +2041,69 @@ def rule_wiring(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# portfolio-settings-confirm: Einstellungen › Portfolio fragt auf iOS vor einer anderen Einstandsmethode und vor
+# «Portfolio in Systemsicherung» (SettingsConfirm); die Arbeitsunterlage nennt auf beiden Plattformen vor dem Export, was
+# in den Dateien steht. Android prüft die Rückfragen als Verhalten (PortfolioSettingsConfirmDeviceTest).
+
+
+PS_IOS = ("SettingsConfirm.costMethod(current: data.settings.costMethod, chosen: method)",
+          "SettingsConfirm.systemBackup(enabling: on)", 'L("settings_portfolio_system_backup_confirm_ios")')
+PS_IOS_FORBIDDEN = ") { data.settings.costMethod = method }"
+PS_SHEET_ANDROID = "R.string.tax_export_file_contents"
+PS_SHEET_IOS = 'L("tax_export_file_contents")'
+
+
+def portfolio_settings_problems(page, sheet_android, sheet_ios):
+    code = ds_strip_comments(page)
+    problems = [f"SettingsPortfolioPages.swift: {part} fehlt" for part in PS_IOS if part not in code]
+    if PS_IOS_FORBIDDEN in code:
+        problems.append("SettingsPortfolioPages.swift: Einstandsmethode ohne Rückfrage geschrieben")
+    if PS_SHEET_ANDROID not in ds_strip_comments(sheet_android):
+        problems.append("TaxWorksheetContent.kt: Inhalt der Dateien vor dem Export fehlt")
+    if PS_SHEET_IOS not in ds_strip_comments(sheet_ios):
+        problems.append("TaxWorksheetPage.swift: Inhalt der Dateien vor dem Export fehlt")
+    return problems
+
+
+def rule_portfolio_settings(t):
+    page = read(need_file(t.i("App", "Features", "Settings", "SettingsPortfolioPages.swift")))
+    sheet_android = read(need_file(os.path.join(t.java("app"), "ui", "features", "portfolio", "TaxWorksheetContent.kt")))
+    sheet_ios = read(need_file(t.i("App", "Features", "Portfolio", "TaxWorksheetPage.swift")))
+    return portfolio_settings_problems(page, sheet_android, sheet_ios)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# watch-deletion: Wear OS liest gelöschte Einträge des Handys mit (App zurückgesetzt oder entfernt) und vergisst, was
+# davon stammt — Portfolio-Wert weg, Kurse nicht mehr vom Handy, Wahl wie ohne Handy (WatchSettings.forgetPhone, Testfälle
+# watch_link.json); fehlt ein Eintrag beim Öffnen ganz, gilt er als gelöscht. Die Daten-Schicht (DataEvent) gibt es nur
+# mit Google Play-Diensten auf dem Gerät.
+
+
+WD_PARTS = {
+    "WatchDataLayer.kt": (
+        "it.type == DataEvent.TYPE_CHANGED || it.type == DataEvent.TYPE_DELETED",
+        "Item(uri.host, null, uri.path, deleted = true)",
+        "quotesItem.deleted -> store.forgetPhoneQuotes()",
+        "if (it.deleted) WatchPortfolio.Message.Clear else WatchPortfolio.fromJson(it.json)",
+        "if (gone) store.updateSettings { WatchSettings.forgetPhone(it) }",
+        "if (found.none { it.node != local }) listOf(Item(null, null, path, deleted = true)) else found",
+    ),
+    "WatchStore.kt": ("remove(KEY_PHONE_COINS)", "remove(KEY_PHONE_TIME)"),
+    "WatchDataListener.kt": ("WatchDataLayer.changed(dataEvents)",),
+}
+
+
+def watch_deletion_problems(sources):
+    return [f"{name}: {part} fehlt" for name, parts in WD_PARTS.items() for part in parts
+            if part not in ds_strip_comments(sources.get(name, ""))]
+
+
+def rule_watch_deletion(t):
+    base = t.a("wear", "src", "main", "java", "com", "cryptochecker", "wear")
+    return watch_deletion_problems({name: read(need_file(os.path.join(base, name))) for name in WD_PARTS})
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -2163,6 +2228,8 @@ RULES = [
     ("missing-logos", rule_missing_logos),
     ("lot-sheets", rule_ios_lot_delete),
     ("wiring", rule_wiring),
+    ("portfolio-settings-confirm", rule_portfolio_settings),
+    ("watch-deletion", rule_watch_deletion),
 ]
 
 
@@ -2205,6 +2272,15 @@ def self_test():
        "bulk-undo: Kotlin")
     eq(bulk_undo_swift("B.swift", "func undoBulkAdd(_ ids: [Int64]) {}\nbulkUndo.remove(ids) { vm.undoBulkAdd($0) }\n"
                                   + "let a = 1\n" * 80 + "Button { vm.undoBulkAdd(ids) }"), (2, ["B.swift:83"]), "bulk-undo: Swift")
+
+    # watch-deletion: vollständig ok, Lücke gefunden
+    eq(watch_deletion_problems({k: "\n".join(v) for k, v in WD_PARTS.items()}), [], "watch-deletion: ok")
+    eq(len(watch_deletion_problems({"WatchStore.kt": "remove(KEY_PHONE_COINS)"})), 8, "watch-deletion: Lücke")
+
+    # portfolio-settings-confirm: ok, direkte Zuweisung und fehlender Hinweis gefunden
+    eq(portfolio_settings_problems("\n".join(PS_IOS), PS_SHEET_ANDROID, PS_SHEET_IOS), [], "portfolio-settings-confirm: ok")
+    eq(len(portfolio_settings_problems("\n".join(PS_IOS) + PS_IOS_FORBIDDEN, "", PS_SHEET_IOS)), 2,
+       "portfolio-settings-confirm: Fehler")
 
     # wiring: vollständige Quellen ok, Lücke und verbotener Bedarf gefunden
     full = {k: "\n".join(v) for k, v in WI_REQUIRED.items()}
