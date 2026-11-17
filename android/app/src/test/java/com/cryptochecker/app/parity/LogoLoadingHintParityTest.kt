@@ -1,7 +1,6 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.LogoLoadingHint
-import com.cryptochecker.app.util.SourceGuard
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -14,7 +13,8 @@ import java.nio.file.Files
  * Hinweis «Logos werden geladen …» ([LogoLoadingHint]): gemeinsame Testfälle `coin_logos.json` › `loadingHint` (iOS:
  * `LogoLoadingHintTests.swift`), Ende des Durchgangs auch bei Fehler, und die Anbindung im Quelltext — Durchgang um
  * die Stufen von `CoinListSync`, fehlende Bilder aus `LogoImageStore.downloadMissing`, Zeile nur mit Logo-Quelle
- * (Schalter «Coin-Logos» aus → nie); Fortschritt «· 40 %» nach `coin_logos.json` › `loadingPercent`.
+ * (Schalter «Coin-Logos» aus → nie); Fortschritt «· 40 %» nach `coin_logos.json` › `loadingPercent`. Am echten
+ * Bild-Abruf: `LogoLoadingHintDeviceTest`, die Zeile: `MissingLogosHintTest` (Gerät).
  */
 class LogoLoadingHintParityTest {
 
@@ -174,47 +174,5 @@ class LogoLoadingHintParityTest {
         // Danach zählt kein Bild mehr ohne neuen Durchgang
         hint.imagesPending(4)
         assertFalse(hint.visible.value)
-    }
-
-    @Test
-    fun wiredToTheDownloadRunAndTheLogoSwitch() {
-        val data = SourceGuard.android(
-            listOf("../data/src/main/java/com/cryptochecker/app/data", "data/src/main/java/com/cryptochecker/app/data")
-                .map(::File).firstOrNull { it.isDirectory },
-            "data/src/main/java/com/cryptochecker/app/data",
-        )
-        val app = SourceGuard.android(
-            listOf("src/main/java/com/cryptochecker/app/ui", "app/src/main/java/com/cryptochecker/app/ui")
-                .map(::File).firstOrNull { it.isDirectory },
-            "app/src/main/java/com/cryptochecker/app/ui",
-        )
-        val sync = File(data, "CoinListSync.kt").readText()
-        val store = File(data, "logos/LogoImageStore.kt").readText()
-        assertTrue(store.contains("LogoLoadingHint(doneMarker = { File(imageDir, LogoLoadingHint.DONE_MARKER) })"))
-        // Nur ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) merkt das erste Laden
-        assertTrue(
-            Regex("""loadingHint\.during\(complete = \{ d: LogoDownloads -> d\.complete && !mapNetworkFailed && !listsNetworkFailed \}\) \{\s+for \(stage in stages\) total \+= imageStore\.downloadMissing""")
-                .containsMatchIn(sync),
-        )
-        // Gesamtzahl erst mit der letzten Stufe (nach der ganzen Rangliste); erledigte und gebremste Bilder zählen
-        assertTrue(sync.contains("stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)"))
-        assertTrue(store.contains("loadingHint.imagesPending(pending.size, last = lastStage)"))
-        assertTrue(Regex("""Fetched\.OK -> \{\s+loadingHint\.imageDone\(\)""").containsMatchIn(store))
-        assertTrue(store.contains("Fetched.FAILED -> newFailures[job.first] = now.also { loadingHint.imageDone() }"))
-        assertTrue(store.contains("Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }"))
-        // Nach der letzten Runde noch gestört: zählt als erledigt (kommt erst mit dem nächsten Abgleich), kein Fehlschlag
-        assertTrue(store.contains("transientLeft.forEach { _ -> loadingHint.imageDone() }"))
-        assertTrue(store.contains("Fetched.TRANSIENT -> transientNow.add(job)"))
-        // Erst nach «nichts zu laden» (leere Liste) melden: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
-        val empty = store.indexOf("if (pending.isEmpty()) return LogoDownloads()")
-        assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size, last = lastStage)") > empty)
-        val line = File(app, "features/watchlist/WatchlistLogoHint.kt").readText()
-        assertTrue(line.contains("val source = LocalCoinLogoSource.current ?: return"))
-        assertTrue(line.contains("R.string.watchlist_logos_loading"))
-        assertTrue(line.contains("R.string.watchlist_logos_loading_percent, PercentText.unsigned(it.toDouble(), 0)"))
-        // Einmal angesagt (ohne Prozent), nicht bei jedem neuen Wert
-        assertTrue(line.contains("AnnounceOnce(stringResource(R.string.watchlist_logos_loading))"))
-        val body = File(app, "features/watchlist/WatchlistScreenBody.kt").readText()
-        assertTrue(body.contains("WatchlistLogoHint(reduceMotion = reduceMotion)"))
     }
 }

@@ -4,9 +4,7 @@ import androidx.compose.runtime.saveable.SaverScope
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.features.alarms.AlarmCreateGuard
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.util.StringResources
-import java.io.File
 import java.math.BigDecimal
 import java.util.Locale
 import kotlinx.coroutines.CompletableDeferred
@@ -28,9 +26,6 @@ import org.junit.Test
  */
 class PortfolioAlarmCreateGuardTest {
 
-    private fun source(path: String): String =
-        listOf(File(path), File("app/$path")).first { it.exists() }.readText()
-
     @Test
     fun zweimalSpeichernWaehrendDasAnlegenLaeuftGibtEinenAlarm() = runBlocking {
         val guard = AlarmCreateGuard()
@@ -43,21 +38,6 @@ class PortfolioAlarmCreateGuardTest {
         assertEquals(1, inserts)
     }
 
-    @Test
-    fun addAlarmLaeuftUeberDenWaechter() {
-        val text = source("src/main/java/com/cryptochecker/app/ui/features/portfolio/PortfolioEditActions.kt")
-        val body = text.substringAfter("fun PortfolioViewModel.addAlarm(").substringBefore("\n}\n")
-        assertTrue(body.contains("alarmCreateGuard.launch(viewModelScope, guarded = true)"))
-        assertTrue(!body.contains("viewModelScope.launch"))
-    }
-
-    @Test
-    fun iosBlattHatDenWaechter() {
-        val path = "../../ios/App/Features/Portfolio/PortfolioInsightsViews.swift"
-        val file = SourceGuard.ios(listOf(File(path), File(path.removePrefix("../"))).firstOrNull { it.exists() }, "ios/…/PortfolioInsightsViews.swift")
-        val text = file.readText().substringAfter("struct PortfolioAlarmSheet")
-        assertTrue(text.contains("createGuard.begin(creating: true)"))
-    }
 }
 
 // ---- aus PortfolioEmptyStateTest
@@ -68,8 +48,6 @@ class PortfolioAlarmCreateGuardTest {
  * Beide Plattformen; Text in allen Sprachen. Wie `PortfolioEmptyStateTests`.
  */
 class PortfolioEmptyStateTest {
-
-    private fun file(path: String): File? = listOf(File(path), File("app/$path")).firstOrNull { it.exists() }
 
     @Test
     fun mengeFolgtDemZahlenformatDerApp() {
@@ -98,28 +76,6 @@ class PortfolioEmptyStateTest {
         }
     }
 
-    @Test
-    fun androidLeerzustandOhneZweitenAbsatz() {
-        val text = SourceGuard.android(
-            file("src/main/java/com/cryptochecker/app/ui/features/portfolio/PortfolioRows.kt"), "PortfolioRows.kt"
-        ).readText().substringAfter("internal fun EmptyPortfolio(").substringBefore("internal object PortfolioEmptyExample")
-        assertFalse(text.contains("message ="))
-        assertTrue(text.contains("R.string.portfolio_empty_example_plain, PortfolioEmptyExample.amountText()"))
-        assertTrue(text.contains("PortfolioDisclaimer()"))
-    }
-
-    @Test
-    fun iosLeerzustandOhneZweitenAbsatz() {
-        val path = "../../ios/App/Features/Portfolio/PortfolioRows.swift"
-        val text = SourceGuard.ios(
-            listOf(File(path), File(path.removePrefix("../"))).firstOrNull { it.exists() }, "ios/…/PortfolioRows.swift"
-        ).readText()
-        val empty = text.substringAfter("var emptyState: some View").substringBefore("// MARK: Coin-Zeile")
-        assertFalse(empty.contains("message:"))
-        assertTrue(empty.contains("L(\"portfolio_empty_example_plain\", PortfolioEmptyExample.amountText())"))
-        assertTrue(empty.contains("PortfolioDisclaimer()"))
-        assertTrue(text.contains("static let amount = 0.01"))
-    }
 }
 
 // ---- aus PortfolioTxDraftSaverTest

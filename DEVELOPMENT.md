@@ -3250,6 +3250,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 265: A241-A-01 Teil 2 (2): Fehlerwege Logos/Devisen als Verhalten.
 * Build 266: A-01 Teil 2 (3): FailurePathGuard ersetzt (BackgroundRunLogTest, ExactFiredStep(+Test), PriceFetcherOrderTest, LanguageSwitchDeviceTest, SingleWidgetChoice, MissingLogosHintTest; iOS BackgroundRunOutcomeTests, CoinLogoNetworkTests, CandleChainAttemptTests, SingleWidgetChoiceTests, MissingLogosModelTests; Test-Transporte ExchangeHTTP/CoinLogoStore); Gradle repository.max.retries=6.
 * Build 267: A-01 Teil 2 (4): WidgetDrawDeviceTest (WidgetPublish.testSink, ConnectivityMonitor.forcedOnlineForTest, WidgetConnectivity.queries), WidgetRefreshState.onTap(online:) Tap.Offline, iOS WidgetOffline/WidgetOutdated nach Shared, Regeln ios-widget-offline und swipe-delete, addWatchedMessage/PortfolioAddressSheet.message; Fix MissingLogosModel.Lookup @MainActor, LogoTestInterceptor.
+* Build 268: A-01 Teil 2 (5), Paket: BackupDialogDeviceTest, HiddenAmountsDeviceTest, OverlayShieldDeviceTest (OverlayShield.holders), ClosedAppHintDeviceTest, PortfolioFabScrollDeviceTest, PortfolioEmptyStateDeviceTest, TxSwipeDeleteDeviceTest, PortfolioAlarmDoubleTapTest, LogoLoadingHintDeviceTest, BulkUndoConfirmDialogTest, WatchRowNoteDeviceTest (UiTestTags.WATCH_NOTE); iOS UI-Tests 7–11; Regeln ios-alarm-create, bulk-undo; Fix WidgetRefreshState.swift.
 
 ## Known warnings
 

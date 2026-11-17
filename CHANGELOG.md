@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 268)
+
+- Tests: a bundle of source-text guards became emulator tests and iOS UI tests (backup dialog and failed backup file, hidden amounts, overlay shield, closed-app hint, add button while scrolling, empty portfolio, delete transaction with confirmation, portfolio alert double tap, logo loading hint, bulk undo confirmation, note line), plus two new source rules.
+- Fix of the iOS build of 267.
+
 ## 16.2.2 (build 267)
 
 - Tests: widgets are checked on the emulator as drawn (offline line, redraw when the network returns, one network query per draw, initial skeleton, colours); the widget refresh tap without internet is a tested rule on both platforms; the «add address» message is a tested function on both platforms; new source rules for iOS widget timelines and swipe-to-delete confirmation.

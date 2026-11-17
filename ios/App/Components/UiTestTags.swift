@@ -30,6 +30,8 @@ enum UiTestTags {
     // MARK: Merkliste
     static let watchlist = "watchlist"
     static let watchRow = "watch_row"
+    /// Notiz unter einem Paar der Merkliste (eine Zeile über die ganze Breite).
+    static let watchNote = "watch_note"
     static let starterAdd = "starter_add"
     static let watchlistAddPair = "watchlist_add_pair"
     static let watchActionAlarm = "watch_action_alarm"

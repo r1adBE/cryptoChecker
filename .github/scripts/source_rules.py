@@ -28,6 +28,8 @@ Rules (ids in the annotation title):
   bounded-caches     per-pair memory caches use BoundedCache, not an unbounded ConcurrentHashMap
   ios-widget-offline every iOS widget timeline asks for the network (WidgetOffline.isOffline) like the Android renderers
   swipe-delete       every swipe-to-delete row asks before deleting (confirmsDelete = true); the watchlist offers undo
+  ios-alarm-create   every iOS alarm sheet goes through AlarmCreateGuard (double tap = one alarm)
+  bulk-undo          «Undo» after adding many pairs removes only from the confirmation (BulkUndoConfirm), both platforms
 
 The comments and messages are in German like the tests they replace.
 """
@@ -687,7 +689,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1512, "domain": 1620, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1493, "domain": 1620, "data": 606, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1705,6 +1707,88 @@ def rule_swipe_delete(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# ios-alarm-create: Doppeltipp auf «Speichern» legt einen Alarm an — jedes Blatt, das Alarme anlegt (struct …Alarm…Sheet),
+# geht über AlarmCreateGuard (begin vor dem Anlegen). Android prüft dasselbe als Verhalten (PortfolioAlarmDoubleTapTest).
+
+
+AC_SHEET = re.compile(r"\bstruct\s+\w*Alarm\w*Sheet\s*:\s*View\b")
+AC_GUARD = "createGuard.begin("
+AC_MIN_SHEETS = 2
+
+
+def alarm_create_unguarded(sources):
+    """Dateien mit einem Alarm-Blatt ohne AlarmCreateGuard; dazu die Zahl der Alarm-Blätter."""
+    missing, sheets = [], 0
+    for name, text in sources:
+        code = ds_strip_comments(text)
+        found = len(AC_SHEET.findall(code))
+        sheets += found
+        if found and AC_GUARD not in code:
+            missing.append(name)
+    return missing, sheets
+
+
+def rule_ios_alarm_create(t):
+    features = need_dir(t.i("App", "Features"))
+    sources = [(rel, read(path)) for rel, path in files_under(features, "swift")]
+    missing, sheets = alarm_create_unguarded(sources)
+    problems = [f"ios/App/Features/{name}: Alarm-Blatt ohne {AC_GUARD}…) (Doppeltipp = zwei Alarme)" for name in missing]
+    if sheets < AC_MIN_SHEETS:
+        problems.append(f"nur {sheets} Alarm-Blätter erkannt (mindestens {AC_MIN_SHEETS}: Paar- und Portfolio-Alarm)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# bulk-undo: «Rückgängig» nach «Mehrere Paare auf einmal» entfernt erst nach der Rückfrage — der Undo-Weg wird nur aus
+# «Entfernen» der Rückfrage gerufen (Android onRemove von BulkUndoConfirmDialog, iOS bulkUndo.remove). Die Rückfrage
+# selbst ist Verhalten (BulkUndoConfirmTest, BulkUndoConfirmTests).
+
+
+BU_KOTLIN = re.compile(r"\brunner\.undo\(|\bonUndoBulk\b(?!\s*[:=])")
+BU_KOTLIN_OK = re.compile(r"onRemove\s*=\s*(?:\{[^{}]*)?$")
+BU_SWIFT = re.compile(r"(?<!func )\bundoBulkAdd\(")
+BU_SWIFT_SCOPE = 600
+
+
+def bulk_undo_kotlin(name, text):
+    code = ds_strip_comments(text)
+    found, bad = 0, []
+    for m in BU_KOTLIN.finditer(code):
+        found += 1
+        line_start = code.rfind("\n", 0, m.start()) + 1
+        if not BU_KOTLIN_OK.search(code[line_start:m.start()]):
+            bad.append(f"{name}:{line_of(code, m.start())}")
+    return found, bad
+
+
+def bulk_undo_swift(name, text):
+    code = ds_strip_comments(text)
+    found, bad = 0, []
+    for m in BU_SWIFT.finditer(code):
+        found += 1
+        if "bulkUndo.remove(" not in code[max(0, m.start() - BU_SWIFT_SCOPE):m.start()]:
+            bad.append(f"{name}:{line_of(code, m.start())}")
+    return found, bad
+
+
+def rule_bulk_undo(t):
+    problems, kotlin, swift = [], 0, 0
+    for rel, path in files_under(os.path.join(t.java("app"), "ui"), "kt"):
+        found, bad = bulk_undo_kotlin("app/ui/" + rel.replace(os.sep, "/"), read(path))
+        kotlin += found
+        problems += [f"{b}: Undo-Weg ausserhalb von onRemove der Rückfrage (BulkUndoConfirmDialog)" for b in bad]
+    for rel, path in files_under(t.i("App", "Features"), "swift"):
+        found, bad = bulk_undo_swift("ios/App/Features/" + rel.replace(os.sep, "/"), read(path))
+        swift += found
+        problems += [f"{b}: undoBulkAdd ausserhalb von bulkUndo.remove (Rückfrage)" for b in bad]
+    if kotlin < 2:
+        problems.append(f"Android: nur {kotlin} Undo-Wege erkannt (mindestens 2: Coin-Suche, Merkliste)")
+    if swift < 1:
+        problems.append("iOS: kein Undo-Weg erkannt (Coin-Suche)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -1821,6 +1905,8 @@ RULES = [
     ("bounded-caches", rule_bounded_caches),
     ("ios-widget-offline", rule_ios_widget_offline),
     ("swipe-delete", rule_swipe_delete),
+    ("ios-alarm-create", rule_ios_alarm_create),
+    ("bulk-undo", rule_bulk_undo),
 ]
 
 
@@ -1852,6 +1938,19 @@ def self_test():
     def eq(actual, expected, what):
         if actual != expected:
             raise AssertionError(f"{what}: {actual!r} != {expected!r}")
+
+    # bulk-undo: Undo nur aus onRemove bzw. bulkUndo.remove
+    eq(bulk_undo_kotlin("A.kt", "f(onRemove = { viewModel.runner.undo(it) })\nonUndoBulk: (List<Long>) -> Unit = {},\n"
+                                "Dialog(onRemove = onUndoBulk)\nButton(onClick = { onUndoBulk(ids) })"), (3, ["A.kt:4"]),
+       "bulk-undo: Kotlin")
+    eq(bulk_undo_swift("B.swift", "func undoBulkAdd(_ ids: [Int64]) {}\nbulkUndo.remove(ids) { vm.undoBulkAdd($0) }\n"
+                                  + "let a = 1\n" * 80 + "Button { vm.undoBulkAdd(ids) }"), (2, ["B.swift:83"]), "bulk-undo: Swift")
+
+    # ios-alarm-create: Anlegen ohne Wächter gefunden, mit Wächter bzw. ohne Anlegen nicht
+    eq(alarm_create_unguarded([("A.swift", "struct XAlarmSheet: View {\n Button { onSave() }\n}"),
+                               ("B.swift", "struct AlarmEditorSheet: View {\n guard createGuard.begin(creating: true) else { return }\n}"),
+                               ("C.swift", "// struct OldAlarmSheet: View")]),
+       (["A.swift"], 2), "ios-alarm-create: Erkennung")
 
     # swipe-delete: Aufrufe mit Argumenten erkannt, die Deklaration nicht
     calls = swipe_calls("internal fun SwipeActionsRow(\n a: Int,\n) {}\nSwipeActionsRow(\n onDelete = { x() },\n"

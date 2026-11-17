@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
@@ -275,7 +276,7 @@ internal fun WatchRowNote(note: String, accent: Color, off: Boolean, modifier: M
     val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth().padding(top = 2.dp).clearAndSetSemantics { }
+        modifier = modifier.fillMaxWidth().testTag(com.cryptochecker.app.ui.UiTestTags.WATCH_NOTE).padding(top = 2.dp).clearAndSetSemantics { }
     ) {
         Icon(
             painterResource(R.drawable.ic_note),

@@ -194,6 +194,7 @@ extension WatchlistRow {
             .frame(maxWidth: .infinity, alignment: .leading)
             .accessibilityElement(children: .combine)
             .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))
+            .accessibilityIdentifier(UiTestTags.watchNote)
         }
     }
 

@@ -24,20 +24,6 @@ class HideOverlaysTest {
         assertTrue(file("src/main/AndroidManifest.xml").contains("<uses-permission android:name=\"android.permission.HIDE_OVERLAY_WINDOWS\" />"))
     }
 
-    @Test
-    fun `portfolio and sensitive confirmations hide overlays`() {
-        val ui = "src/main/java/com/cryptochecker/app/ui"
-        assertTrue(file("$ui/navigation/AppNavHost.kt").contains("HideOverlaysEffect(onPortfolio)"))
-        assertTrue(file("$ui/features/settings/SettingsScreen.kt").contains("HideOverlaysEffect(askReset)"))
-        assertTrue(file("$ui/features/settings/SettingsDataPages.kt").contains("HideOverlaysEffect(restoreStep != null)"))
-        assertTrue(file("$ui/features/settings/SettingsDataPages.kt").contains("HideOverlaysEffect(exportDialog != null)"))
-        assertTrue(file("$ui/features/settings/SettingsPortfolioPages.kt").contains("HideOverlaysEffect()"))
-        // Der Aufruf selbst nur hinter der Versionsprüfung
-        val effect = file("$ui/lock/HideOverlays.kt")
-        assertTrue(effect.contains("if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {"))
-        assertTrue(effect.contains("window.setHideOverlayWindows("))
-    }
-
     private fun file(rel: String): String {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         var found: File? = null

@@ -16,7 +16,9 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.components.CoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.features.watchlist.MISSING_LOGOS_TAG
+import com.cryptochecker.app.ui.features.watchlist.WatchlistLogoHint
 import com.cryptochecker.app.ui.features.watchlist.WatchlistMissingLogos
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.resources.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -46,8 +48,14 @@ class MissingLogosHintTest {
     @Before
     fun setUp() = hiltRule.inject()
 
-    /** Keine Logos; [notYet] = Adresse bekannt, noch nicht geladen. */
-    private class NoLogos(private val notYet: Set<String>) : CoinLogoSource {
+    /** Keine Logos; [notYet] = Adresse bekannt, noch nicht geladen; [loadingNow]/[percentNow] = Hinweis «Logos werden geladen». */
+    private class NoLogos(
+        private val notYet: Set<String>,
+        loadingNow: Boolean = false,
+        percentNow: Int? = null,
+    ) : CoinLogoSource {
+        override val loading: StateFlow<Boolean> = MutableStateFlow(loadingNow)
+        override val loadingPercent: StateFlow<Int?> = MutableStateFlow(percentNow)
         override val revision: StateFlow<Int> = MutableStateFlow(0)
         override val tradFiPairs: StateFlow<Set<String>> = MutableStateFlow(emptySet())
         override val names: StateFlow<Map<String, String>> = MutableStateFlow(emptyMap())
@@ -90,5 +98,24 @@ class MissingLogosHintTest {
         showList(notYet = emptySet())
         compose.onAllNodes(hasText(text(R.string.watchlist_missing_logos_explain))).assertCountEquals(1)
         compose.onAllNodes(hasText(text(R.string.watchlist_missing_logos_pending))).assertCountEquals(0)
+    }
+
+    /** Zeile «Logos werden geladen …»: mit Prozent «· 40 %» (Zahlenformat der App), ohne Prozent nur der Text. */
+    @Test
+    fun loadingLineShowsThePercentOrThePlainText() {
+        for ((percent, expected) in listOf(
+            40 to compose.activity.getString(R.string.watchlist_logos_loading_percent, PercentText.unsigned(40.0, 0)),
+            null to text(R.string.watchlist_logos_loading),
+        )) {
+            val source = NoLogos(emptySet(), loadingNow = true, percentNow = percent)
+            compose.runOnUiThread {
+                compose.activity.setContent {
+                    MaterialTheme {
+                        CompositionLocalProvider(LocalCoinLogoSource provides source) { WatchlistLogoHint(reduceMotion = true) }
+                    }
+                }
+            }
+            compose.waitUntil(5_000) { compose.onAllNodes(hasText(expected)).fetchSemanticsNodes().isNotEmpty() }
+        }
     }
 }

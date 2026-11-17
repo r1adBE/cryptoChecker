@@ -36,6 +36,9 @@ internal object OverlayShield {
 
     fun release(window: Window) = set(window, (holds[window] ?: 0) - 1)
 
+    /** Wie viele Stellen das Ausblenden gerade verlangen (Gerätetests: `OverlayShieldDeviceTest`). */
+    fun holders(window: Window): Int = holds[window] ?: 0
+
     private fun set(window: Window, count: Int) {
         if (count > 0) holds[window] = count else holds.remove(window)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

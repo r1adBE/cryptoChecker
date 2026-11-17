@@ -11,6 +11,11 @@ import XCTest
 ///     Hinweis erscheint als Dialog, nachdem die Rückfrage zu ist; ebenso «Sicherung nicht bestätigt» nach dem
 ///     Blatt «Sichern» (Prüfung erzwungen fehlgeschlagen).
 ///  6. Steuer-Arbeitsunterlage: eigene Seite → Vorlage wählen → Export → Dateiablage erscheint.
+///  7. Hinweis «App geschlossen» im Alarm-Formular: ein Satz, ein Verweis → «Damit Alarme ankommen» mit «Adjust price updates».
+///  8. Portfolio mit langer Liste: «+» blendet beim Scrollen nach unten aus, nach oben wieder ein.
+///  9. Leeres Portfolio: ein Satz (Beispiel) und der Fusstext.
+/// 10. Buchung per Wischen löschen: erst die Rückfrage, dann gelöscht, ohne «Undo».
+/// 11. Notiz unter einem Paar: eine Zeile über die ganze Breite.
 ///
 /// Jeder Start beginnt mit leerem Speicher und festen Börsen-Antworten (Startargument `-uiTesting`, nur im
 /// Debug-Build, siehe `UITesting` in der App); die Dateiauswahl ersetzen Testdateien. Kein Netz.
@@ -229,6 +234,120 @@ final class CryptoCheckerUITests: XCTestCase {
         let close = app.navigationBars.buttons["Cancel"]
         XCTAssertTrue(waitForAny([app.buttons["Move"], app.buttons["Save"], close]), "file exporter not shown")
         // Das Systemblatt nicht selbst schliessen (es baut sich beim Antippen um); jeder Test startet die App neu
+    }
+
+    // MARK: 7. Hinweis «App geschlossen» im Alarm-Formular
+
+    /// Ein kurzer Satz und genau ein Verweis «Learn more» zur Seite «Damit Alarme ankommen»; dort steht «Adjust price
+    /// updates» (Audit A-01, früher Quelltext-Wächter). Wie Android `ClosedAppHintDeviceTest`.
+    @MainActor
+    func testClosedAppHintLeadsToDelivery() throws {
+        let app = launchApp()
+        addBitcoinFromSearch(app)
+        tap(app, UiTestTags.watchRow)
+        tap(app, UiTestTags.watchActionAlarm)
+        let short = app.staticTexts["With the app closed, alerts can arrive late."]
+        let more = app.buttons["Learn more"].firstMatch
+        XCTAssertTrue(scrollTo(app, more), "«Learn more» missing under the alert form")
+        XCTAssertTrue(short.exists, "short hint missing")
+        XCTAssertFalse(app.buttons["Adjust price updates"].exists, "second link in the hint")
+        more.tap()
+        XCTAssertTrue(app.navigationBars["Make sure alerts arrive"].waitForExistence(timeout: uiTimeout), "delivery page not shown")
+        XCTAssertTrue(scrollTo(app, app.buttons["Adjust price updates"].firstMatch), "price update link missing on the delivery page")
+    }
+
+    // MARK: 8. «+»-Knopf des Portfolios beim Scrollen
+
+    /// Lange Liste: nach unten scrollen blendet «Add transaction» aus (verdeckt keine Beträge), nach oben wieder ein
+    /// (Audit A-01, früher Quelltext-Wächter; Regel `AddButtonScroll`). Wie Android `PortfolioFabScrollDeviceTest`.
+    @MainActor
+    func testAddButtonHidesWhileScrollingDown() throws {
+        let coins = ["BTC", "ETH", "SOL", "XRP", "ADA", "DOGE", "DOT", "LTC", "LINK", "AVAX", "ATOM", "UNI", "XLM", "ETC",
+                     "FIL", "APT", "ARB", "OP", "NEAR", "ALGO", "AAVE", "SAND", "MANA", "EGLD", "XTZ", "THETA", "EOS",
+                     "FLOW", "KAVA", "ZEC"]
+        let rows = coins.enumerated().map { i, coin in "2024-01-\(String(format: "%02d", i % 28 + 1))T10:00:00Z,Buy,\(coin),1,\(100 + i),USD,scroll-\(i)" }
+        let app = launchApp(csv: (["Date,Type,Coin,Amount,Price,Currency,ID"] + rows).joined(separator: "\n") + "\n")
+        importFixtureCsv(app)
+        _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
+        let add = app.buttons["Add transaction"]
+        XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button missing")
+        app.swipeUp()
+        XCTAssertTrue(wait(add, "exists == false"), "add button still shown while scrolling down")
+        app.swipeDown()
+        XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button not back after scrolling up")
+    }
+
+    // MARK: 9. Leeres Portfolio
+
+    /// Nur ein Satz (das Beispiel mit der Menge im Zahlenformat der App) und der Fusstext, kein zweiter Absatz (Audit
+    /// A-01, früher Quelltext-Wächter). Wie Android `PortfolioEmptyStateDeviceTest`.
+    @MainActor
+    func testEmptyPortfolioShowsOneSentence() throws {
+        let app = launchApp()
+        tap(app, UiTestTags.tabPortfolio)
+        let example = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Example: 0.01 BTC bought on 1 March."))
+        XCTAssertTrue(example.firstMatch.waitForExistence(timeout: uiTimeout), "example sentence missing")
+        XCTAssertEqual(example.count, 1)
+        let footer = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Working aid, not tax or investment advice."))
+        XCTAssertTrue(scrollTo(app, footer.firstMatch), "footer missing")
+    }
+
+    // MARK: 10. Buchung per Wischen löschen
+
+    /// Wischen auf einer Buchung fragt wie der Editor («Delete transaction?») und löscht erst danach, ohne «Undo» (Audit
+    /// A-01, früher Quelltext-Wächter). Wie Android `TxSwipeDeleteDeviceTest`.
+    @MainActor
+    func testTxSwipeDeleteAsksFirst() throws {
+        let app = launchApp(csv: try fixture(Self.csvFixture))
+        importFixtureCsv(app)
+        _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
+        tap(app, UiTestTags.portfolioCoin("BTC"))
+        // Die Buchung (0.01 BTC aus der Testdatei)
+        let cell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "0.01")).firstMatch
+        XCTAssertTrue(cell.waitForExistence(timeout: uiTimeout), "transaction row missing")
+        let before = app.cells.count
+        cell.swipeLeft()
+        let swipeDelete = app.buttons["Delete"].firstMatch
+        if swipeDelete.waitForExistence(timeout: 3), !app.alerts.firstMatch.exists { swipeDelete.tap() }
+        let alert = app.alerts["Delete transaction?"]
+        XCTAssertTrue(alert.waitForExistence(timeout: uiTimeout), "no confirmation before deleting")
+        XCTAssertEqual(app.cells.count, before, "deleted before the confirmation")
+        alert.buttons["Delete"].tap()
+        XCTAssertTrue(wait(alert, "exists == false"), "confirmation still open")
+        XCTAssertFalse(app.buttons["Undo"].waitForExistence(timeout: 2), "undo offered after deleting a transaction")
+    }
+
+    // MARK: 11. Notiz unter einem Paar
+
+    /// Notiz unter dem Paar der Merkliste: eine Zeile über die ganze Breite der Zeile (ausserhalb der Paar-Spalte), lange
+    /// bzw. mehrzeilige Notizen gekürzt (Audit A-01, früher Quelltext-Wächter). Wie Android `WatchRowNoteDeviceTest`.
+    @MainActor
+    func testWatchRowNoteIsOneLineAcrossTheRow() throws {
+        let note = "First line of a long note that keeps going and going well past the width of any phone screen\\nsecond line"
+        let app = launchApp(backup: Self.serverNoteBackup.replacingOccurrences(of: "\"note\":null", with: "\"note\":\"\(note)\""))
+        openBackupPage(app)
+        tap(app, UiTestTags.backupImport)
+        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Restore")
+        let dialog = app.alerts.containing(NSPredicate(format: "label == %@", "Backup & restore")).firstMatch
+        if dialog.waitForExistence(timeout: 5) { dialog.buttons["Close"].tap() }
+        allowNotificationsIfAsked(timeout: 6)
+        tap(app, UiTestTags.tabWatchlist)
+        let row = app.tagged(UiTestTags.watchRow)
+        XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "pair not restored")
+        let line = app.tagged(UiTestTags.watchNote)
+        XCTAssertTrue(line.waitForExistence(timeout: uiTimeout), "note line missing")
+        XCTAssertGreaterThan(line.frame.width, row.frame.width * 0.8, "note not across the whole row")
+        XCTAssertLessThan(line.frame.height, 30, "note wraps onto a second line")
+    }
+
+    /// Bis zu sechsmal nach oben wischen, bis `element` erscheint.
+    @MainActor
+    private func scrollTo(_ app: XCUIApplication, _ element: XCUIElement) -> Bool {
+        for _ in 0..<6 {
+            if element.waitForExistence(timeout: 2), element.isHittable { return true }
+            app.swipeUp()
+        }
+        return element.exists
     }
 
     // MARK: Gemeinsame Schritte

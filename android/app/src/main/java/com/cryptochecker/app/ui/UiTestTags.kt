@@ -21,6 +21,9 @@ object UiTestTags {
     // ── Merkliste ──
     const val WATCHLIST = "watchlist"
     const val WATCH_ROW = "watch_row"
+
+    /** Notiz unter einem Paar der Merkliste (eine Zeile über die ganze Breite). */
+    const val WATCH_NOTE = "watch_note"
     const val STARTER_ADD = "starter_add"
     const val WATCHLIST_ADD_PAIR = "watchlist_add_pair"
     const val WATCH_ACTION_ALARM = "watch_action_alarm"

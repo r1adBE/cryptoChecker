@@ -25,9 +25,9 @@ enum WidgetRefreshState {
                       windowMillis: Int64 = RefreshDebounce.windowMillis) -> Tap {
         guard online else { return .offline }
         switch RefreshDebounce.decide(running: running, lastFinishedAt: lastFinishedAt, now: now, windowMillis: windowMillis) {
-        case .start: .start
-        case .running: .running
-        case .recent: .blocked(until: lastFinishedAt + windowMillis)
+        case .start: return .start
+        case .running: return .running
+        case .recent: return .blocked(until: lastFinishedAt + windowMillis)
         }
     }
 
