@@ -8,6 +8,14 @@
     <string name="backup_failed">Nepovedlo se. Je to záloha Crypto Checker?</string>
     <string name="backup_hint">Uloží seznam s poznámkami a skupinami, alarmy, oblíbené, portfolio a nastavení do souboru, který si uschováš – např. pro nový telefon.</string>
     <string name="backup_import">Obnovit</string>
+    <string name="auto_backup_title">Automatické zálohování</string>
+    <string name="auto_backup_hint">Každý týden šifrovaně do složky dle vašeho výběru (např. v cloudu). Zůstávají 4 nejnovější soubory.</string>
+    <string name="auto_backup_now">Zálohovat nyní</string>
+    <string name="auto_backup_change_folder">Změnit složku</string>
+    <string name="auto_backup_last">Poslední záloha: %1$s</string>
+    <string name="auto_backup_never">Zatím nezálohováno</string>
+    <string name="auto_backup_failed">Poslední automatická záloha selhala – zkontrolujte složku nebo zálohujte nyní.</string>
+    <string name="auto_backup_password_hint">Heslo se ukládá jen v tomto zařízení, aby záloha mohla běžet sama. Pro obnovení ho budete potřebovat.</string>
     <string name="backup_title">Záloha a obnovení</string>
     <string name="backup_too_large">Soubor je příliš velký nebo není platnou zálohou (max. 64 MB).</string>
     <string name="backup_export_too_large">Záloha by byla větší než 64 MB a nešla by obnovit, proto nebyla uložena.</string>

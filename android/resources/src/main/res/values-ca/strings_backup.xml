@@ -8,6 +8,14 @@
     <string name="backup_failed">No ha funcionat. És una còpia de seguretat de Crypto Checker?</string>
     <string name="backup_hint">Desa la teva llista amb notes i grups, alarmes, preferits, cartera i configuració en un fitxer que guardes tu – p. ex. per a un mòbil nou.</string>
     <string name="backup_import">Restaura</string>
+    <string name="auto_backup_title">Còpia automàtica</string>
+    <string name="auto_backup_hint">Cada setmana, xifrada, en una carpeta que triïs (p. ex. al núvol). Es conserven els 4 fitxers més recents.</string>
+    <string name="auto_backup_now">Fes còpia ara</string>
+    <string name="auto_backup_change_folder">Canvia la carpeta</string>
+    <string name="auto_backup_last">Darrera còpia: %1$s</string>
+    <string name="auto_backup_never">Encara sense còpia</string>
+    <string name="auto_backup_failed">La darrera còpia automàtica ha fallat – comprova la carpeta o fes una còpia ara.</string>
+    <string name="auto_backup_password_hint">La contrasenya només es desa en aquest dispositiu perquè la còpia funcioni sola. La necessitaràs per restaurar.</string>
     <string name="backup_title">Còpia de seguretat i restauració</string>
     <string name="backup_too_large">El fitxer és massa gran o no és una còpia de seguretat vàlida (límit de 64 MB).</string>
     <string name="backup_export_too_large">La còpia de seguretat superaria els 64 MB i no es podria restaurar, així que no s\'ha desat.</string>

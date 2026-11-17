@@ -8,6 +8,14 @@
     <string name="backup_failed">એ થયું નહીં. શું આ Crypto Checker બૅકઅપ છે?</string>
     <string name="backup_hint">નોંધો અને જૂથો સાથેની વૉચલિસ્ટ, એલર્ટ, મનપસંદ, પોર્ટફોલિયો અને સેટિંગ્સને તમે પોતે રાખો તેવી ફાઇલ તરીકે સેવ કરે છે – દા.ત. નવા ફોન માટે.</string>
     <string name="backup_import">પુનઃસ્થાપિત કરો</string>
+    <string name="auto_backup_title">આપમેળે બેકઅપ</string>
+    <string name="auto_backup_hint">દર અઠવાડિયે, એન્ક્રિપ્ટ કરીને, તમારા પસંદ કરેલા ફોલ્ડરમાં (દા.ત. ક્લાઉડમાં). સૌથી નવી 4 ફાઇલો રાખવામાં આવે છે.</string>
+    <string name="auto_backup_now">હમણાં બેકઅપ લો</string>
+    <string name="auto_backup_change_folder">ફોલ્ડર બદલો</string>
+    <string name="auto_backup_last">છેલ્લું બેકઅપ: %1$s</string>
+    <string name="auto_backup_never">હજુ બેકઅપ નથી</string>
+    <string name="auto_backup_failed">છેલ્લું આપમેળે બેકઅપ નિષ્ફળ ગયું – ફોલ્ડર તપાસો અથવા હમણાં બેકઅપ લો.</string>
+    <string name="auto_backup_password_hint">બેકઅપ જાતે ચાલી શકે તે માટે પાસવર્ડ ફક્ત આ ઉપકરણ પર સાચવાય છે. પુનઃસ્થાપના માટે તમને તેની જરૂર પડશે.</string>
     <string name="backup_title">બૅકઅપ અને પુનઃસ્થાપન</string>
     <string name="backup_too_large">ફાઇલ ઘણી મોટી છે અથવા માન્ય બૅકઅપ નથી (મર્યાદા 64 MB).</string>
     <string name="backup_export_too_large">બૅકઅપ 64 MB કરતાં મોટો થાત અને પુનઃસ્થાપિત ન થઈ શકત, તેથી તે સેવ કર્યો નથી.</string>

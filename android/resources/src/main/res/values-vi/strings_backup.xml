@@ -8,6 +8,14 @@
     <string name="backup_failed">Không thành công. Đây có phải bản sao lưu Crypto Checker?</string>
     <string name="backup_hint">Lưu danh sách kèm ghi chú và nhóm, cảnh báo, yêu thích, danh mục và cài đặt vào tệp do bạn giữ – vd. cho điện thoại mới.</string>
     <string name="backup_import">Khôi phục</string>
+    <string name="auto_backup_title">Sao lưu tự động</string>
+    <string name="auto_backup_hint">Mỗi tuần, được mã hóa, vào thư mục bạn chọn (ví dụ trên đám mây). Giữ lại 4 tệp mới nhất.</string>
+    <string name="auto_backup_now">Sao lưu ngay</string>
+    <string name="auto_backup_change_folder">Đổi thư mục</string>
+    <string name="auto_backup_last">Lần sao lưu gần nhất: %1$s</string>
+    <string name="auto_backup_never">Chưa sao lưu</string>
+    <string name="auto_backup_failed">Lần sao lưu tự động gần nhất thất bại – hãy kiểm tra thư mục hoặc sao lưu ngay.</string>
+    <string name="auto_backup_password_hint">Mật khẩu chỉ được lưu trên thiết bị này để việc sao lưu tự chạy. Bạn cần nó để khôi phục.</string>
     <string name="backup_title">Sao lưu &amp; khôi phục</string>
     <string name="backup_too_large">Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 64 MB).</string>
     <string name="backup_export_too_large">Bản sao lưu sẽ lớn hơn 64 MB và không thể khôi phục, nên chưa được lưu.</string>

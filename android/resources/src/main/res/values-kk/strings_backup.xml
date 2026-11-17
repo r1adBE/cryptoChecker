@@ -8,6 +8,14 @@
     <string name="backup_failed">Бұл орындалмады. Бұл Crypto Checker сақтық көшірмесі ме?</string>
     <string name="backup_hint">Бақылау тізімін ескертпелер мен топтарымен, ескертулерді, таңдаулыларды, портфельді және параметрлерді өзіңіз сақтайтын файл ретінде сақтайды – мысалы, жаңа телефон үшін.</string>
     <string name="backup_import">Қалпына келтіру</string>
+    <string name="auto_backup_title">Автоматты сақтық көшірме</string>
+    <string name="auto_backup_hint">Апта сайын, шифрланған түрде, өзіңіз таңдаған қалтаға (мысалы, бұлтқа). Ең жаңа 4 файл сақталады.</string>
+    <string name="auto_backup_now">Қазір көшірме жасау</string>
+    <string name="auto_backup_change_folder">Қалтаны өзгерту</string>
+    <string name="auto_backup_last">Соңғы көшірме: %1$s</string>
+    <string name="auto_backup_never">Әлі көшірме жоқ</string>
+    <string name="auto_backup_failed">Соңғы автоматты көшірме сәтсіз аяқталды – қалтаны тексеріңіз немесе қазір көшірме жасаңыз.</string>
+    <string name="auto_backup_password_hint">Көшірме өздігінен жасалуы үшін құпия сөз тек осы құрылғыда сақталады. Қалпына келтіру үшін ол қажет.</string>
     <string name="backup_title">Сақтық көшірме &amp; қалпына келтіру</string>
     <string name="backup_too_large">Файл тым үлкен немесе жарамды сақтық көшірме емес (шегі 64 MB).</string>
     <string name="backup_export_too_large">Сақтық көшірме 64 MB-тан үлкен болар еді және оны қалпына келтіру мүмкін болмас еді, сондықтан ол сақталмады.</string>

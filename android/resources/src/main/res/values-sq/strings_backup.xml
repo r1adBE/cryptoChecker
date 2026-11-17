@@ -8,6 +8,14 @@
     <string name="backup_failed">Nuk funksionoi. A është kopje e Crypto Checker?</string>
     <string name="backup_hint">Ruan listën me shënime dhe grupe, alarmet, të preferuarat, portofolin dhe cilësimet në një skedar që e mban vetë – p.sh. për një telefon të ri.</string>
     <string name="backup_import">Rikthe</string>
+    <string name="auto_backup_title">Kopje rezervë automatike</string>
+    <string name="auto_backup_hint">Çdo javë, e enkriptuar, në një dosje që zgjidhni (p.sh. në re). Ruhen 4 skedarët më të rinj.</string>
+    <string name="auto_backup_now">Bëj kopje tani</string>
+    <string name="auto_backup_change_folder">Ndrysho dosjen</string>
+    <string name="auto_backup_last">Kopja e fundit: %1$s</string>
+    <string name="auto_backup_never">Ende pa kopje</string>
+    <string name="auto_backup_failed">Kopja e fundit automatike dështoi – kontrolloni dosjen ose bëni kopje tani.</string>
+    <string name="auto_backup_password_hint">Fjalëkalimi ruhet vetëm në këtë pajisje që kopja të bëhet vetë. Ju duhet për rikthimin.</string>
     <string name="backup_title">Ruajtje dhe rikthim</string>
     <string name="backup_too_large">Skedari është shumë i madh ose nuk është kopje e vlefshme (maks. 64 MB).</string>
     <string name="backup_export_too_large">Kopja do të ishte më e madhe se 64 MB dhe nuk do të mund të rikthehej, prandaj nuk u ruajt.</string>

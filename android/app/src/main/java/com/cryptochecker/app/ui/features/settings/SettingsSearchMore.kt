@@ -100,6 +100,13 @@ internal fun SearchItemsBuilder.moreSection(settings: AppSettings, watchlist: St
         backup,
         SettingsSearchTarget.Page(SettingsPage.BACKUP, "backup.actions")
     )
+    add(
+        "backup.auto",
+        stringResource(R.string.auto_backup_title),
+        backup,
+        SettingsSearchTarget.Page(SettingsPage.BACKUP, "backup.auto"),
+        stringResource(R.string.auto_backup_now)
+    )
     // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
     add(
         "main.reset",

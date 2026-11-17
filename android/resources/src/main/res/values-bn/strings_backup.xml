@@ -8,6 +8,14 @@
     <string name="backup_failed">এটা কাজ করেনি। এটি কি Crypto Checker-এর ব্যাকআপ?</string>
     <string name="backup_hint">নোট ও গ্রুপসহ আপনার ওয়াচলিস্ট, অ্যালার্ট, প্রিয়, পোর্টফোলিও ও সেটিংস একটি ফাইল হিসেবে সংরক্ষণ করে যা আপনি নিজের কাছে রাখেন – যেমন নতুন ফোনের জন্য।</string>
     <string name="backup_import">পুনরুদ্ধার করুন</string>
+    <string name="auto_backup_title">স্বয়ংক্রিয় ব্যাকআপ</string>
+    <string name="auto_backup_hint">প্রতি সপ্তাহে, এনক্রিপ্ট করে, আপনার পছন্দের ফোল্ডারে (যেমন ক্লাউডে)। সর্বশেষ ৪টি ফাইল রাখা হয়।</string>
+    <string name="auto_backup_now">এখনই ব্যাকআপ</string>
+    <string name="auto_backup_change_folder">ফোল্ডার বদলান</string>
+    <string name="auto_backup_last">সর্বশেষ ব্যাকআপ: %1$s</string>
+    <string name="auto_backup_never">এখনও ব্যাকআপ হয়নি</string>
+    <string name="auto_backup_failed">সর্বশেষ স্বয়ংক্রিয় ব্যাকআপ ব্যর্থ হয়েছে – ফোল্ডার দেখুন বা এখনই ব্যাকআপ নিন।</string>
+    <string name="auto_backup_password_hint">ব্যাকআপ যাতে নিজে চলতে পারে তাই পাসওয়ার্ড শুধু এই ডিভাইসে রাখা হয়। পুনরুদ্ধারের জন্য এটি লাগবে।</string>
     <string name="backup_title">ব্যাকআপ ও পুনরুদ্ধার</string>
     <string name="backup_too_large">ফাইলটি খুব বড় বা বৈধ ব্যাকআপ নয় (সীমা 64 MB)।</string>
     <string name="backup_export_too_large">ব্যাকআপটি 64 MB-এর বেশি হতো এবং পুনরুদ্ধার করা যেত না, তাই সংরক্ষণ করা হয়নি।</string>

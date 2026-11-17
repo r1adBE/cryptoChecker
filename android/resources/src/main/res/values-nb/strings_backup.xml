@@ -8,6 +8,14 @@
     <string name="backup_failed">Det gikk ikke. Er det en Crypto Checker-kopi?</string>
     <string name="backup_hint">Lagrer liste med notater og grupper, alarmer, favoritter, portefølje og innstillinger i en fil du tar vare på selv – f.eks. til ny telefon.</string>
     <string name="backup_import">Gjenopprett</string>
+    <string name="auto_backup_title">Sikkerhetskopier automatisk</string>
+    <string name="auto_backup_hint">Hver uke, kryptert, i en mappe du velger (f.eks. i skyen). De nyeste 4 filene beholdes.</string>
+    <string name="auto_backup_now">Sikkerhetskopier nå</string>
+    <string name="auto_backup_change_folder">Bytt mappe</string>
+    <string name="auto_backup_last">Siste sikkerhetskopi: %1$s</string>
+    <string name="auto_backup_never">Ikke sikkerhetskopiert ennå</string>
+    <string name="auto_backup_failed">Den siste automatiske sikkerhetskopien mislyktes – sjekk mappen eller sikkerhetskopier nå.</string>
+    <string name="auto_backup_password_hint">Passordet lagres bare på denne enheten slik at sikkerhetskopien kan kjøre av seg selv. Du trenger det for å gjenopprette.</string>
     <string name="backup_title">Sikkerhetskopi</string>
     <string name="backup_too_large">Filen er for stor eller ikke en gyldig sikkerhetskopi (maks. 64 MB).</string>
     <string name="backup_export_too_large">Sikkerhetskopien ville blitt større enn 64 MB og kunne ikke gjenopprettes, så den ble ikke lagret.</string>

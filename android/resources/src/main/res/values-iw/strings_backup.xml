@@ -8,6 +8,14 @@
     <string name="backup_failed">זה לא הצליח. האם זה גיבוי של Crypto Checker?</string>
     <string name="backup_hint">שומר את הרשימה עם ההערות והקבוצות, ההתראות, המועדפים, תיק ההשקעות וההגדרות בקובץ שנשאר אצלך – למשל לטלפון חדש.</string>
     <string name="backup_import">שחזור</string>
+    <string name="auto_backup_title">גיבוי אוטומטי</string>
+    <string name="auto_backup_hint">בכל שבוע, מוצפן, לתיקייה לבחירתך (למשל בענן). 4 הקבצים החדשים ביותר נשמרים.</string>
+    <string name="auto_backup_now">גיבוי עכשיו</string>
+    <string name="auto_backup_change_folder">שינוי תיקייה</string>
+    <string name="auto_backup_last">גיבוי אחרון: %1$s</string>
+    <string name="auto_backup_never">עדיין אין גיבוי</string>
+    <string name="auto_backup_failed">הגיבוי האוטומטי האחרון נכשל – כדאי לבדוק את התיקייה או לגבות עכשיו.</string>
+    <string name="auto_backup_password_hint">הסיסמה נשמרת רק במכשיר הזה כדי שהגיבוי יוכל לרוץ מעצמו. היא נדרשת לשחזור.</string>
     <string name="backup_title">גיבוי ושחזור</string>
     <string name="backup_too_large">הקובץ גדול מדי או שאינו גיבוי תקין (עד 64 MB).</string>
     <string name="backup_export_too_large">הגיבוי היה גדול מ־64 MB ולא ניתן היה לשחזר אותו, ולכן הוא לא נשמר.</string>

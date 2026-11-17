@@ -8,6 +8,14 @@
     <string name="backup_failed">یہ کام نہیں ہوا۔ کیا یہ Crypto Checker کا بیک اپ ہے؟</string>
     <string name="backup_hint">نوٹس اور گروپس سمیت آپ کی واچ لسٹ، الرٹس، پسندیدہ، پورٹ فولیو اور ترتیبات ایک ایسی فائل کے طور پر محفوظ کرتا ہے جو آپ کے اپنے پاس رہتی ہے – مثلاً نئے فون کے لیے۔</string>
     <string name="backup_import">بحال کریں</string>
+    <string name="auto_backup_title">خودکار بیک اپ</string>
+    <string name="auto_backup_hint">ہر ہفتے، انکرپٹ کر کے، آپ کے منتخب کردہ فولڈر میں (مثلاً کلاؤڈ میں)۔ تازہ ترین 4 فائلیں رکھی جاتی ہیں۔</string>
+    <string name="auto_backup_now">ابھی بیک اپ لیں</string>
+    <string name="auto_backup_change_folder">فولڈر تبدیل کریں</string>
+    <string name="auto_backup_last">آخری بیک اپ: %1$s</string>
+    <string name="auto_backup_never">ابھی تک بیک اپ نہیں</string>
+    <string name="auto_backup_failed">آخری خودکار بیک اپ ناکام رہا – فولڈر چیک کریں یا ابھی بیک اپ لیں۔</string>
+    <string name="auto_backup_password_hint">پاس ورڈ صرف اسی ڈیوائس پر محفوظ ہوتا ہے تاکہ بیک اپ خود چل سکے۔ بحالی کے لیے اس کی ضرورت ہوگی۔</string>
     <string name="backup_title">بیک اپ اور بحالی</string>
     <string name="backup_too_large">فائل بہت بڑی ہے یا درست بیک اپ نہیں (حد 64 MB)۔</string>
     <string name="backup_export_too_large">بیک اپ 64 MB سے بڑا ہوتا اور بحال نہ ہو سکتا، اس لیے محفوظ نہیں کیا گیا۔</string>

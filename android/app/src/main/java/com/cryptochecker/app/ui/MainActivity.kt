@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync
 
+    @Inject lateinit var autoBackupRunner: dagger.Lazy<com.cryptochecker.app.data.backup.AutoBackupRunner>
+
     /** Ziel aus einer App-Verknüpfung («add», «alarms», «cycle»). */
     private val openTarget = androidx.compose.runtime.mutableStateOf<String?>(null)
 
@@ -178,6 +180,8 @@ class MainActivity : AppCompatActivity() {
         appLockState.onForeground()
         // Coin-Logos: fehlende (alle Coins der Rangliste, nie einzeln) im Hintergrund nachladen
         lifecycleScope.launch { coinLogoSync.startIfEnabled() }
+        // Automatische Sicherung, falls fällig (wöchentlich, AutoBackupPolicy)
+        autoBackupRunner.get().startIfDue()
         // System-Kontrast geändert? Widgets mit den passenden Farben neu zeichnen.
         lifecycleScope.launch {
             runCatching { widgetUpdater.updateIfContrastChanged() }

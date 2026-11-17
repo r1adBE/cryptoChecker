@@ -8,6 +8,14 @@
     <string name="backup_failed">Hilo halikufanikiwa. Je, hii ni nakala rudufu ya Crypto Checker?</string>
     <string name="backup_hint">Huhifadhi orodha yako ya ufuatiliaji pamoja na madokezo na vikundi, kengele, vipendwa, jalada na mipangilio kama faili unayoitunza mwenyewe – kwa mfano kwa simu mpya.</string>
     <string name="backup_import">Rejesha</string>
+    <string name="auto_backup_title">Hifadhi nakala kiotomatiki</string>
+    <string name="auto_backup_hint">Kila wiki, imesimbwa, kwenye folda unayochagua (k.m. kwenye wingu). Faili 4 za karibuni huhifadhiwa.</string>
+    <string name="auto_backup_now">Hifadhi nakala sasa</string>
+    <string name="auto_backup_change_folder">Badilisha folda</string>
+    <string name="auto_backup_last">Nakala ya mwisho: %1$s</string>
+    <string name="auto_backup_never">Bado hakuna nakala</string>
+    <string name="auto_backup_failed">Nakala ya mwisho ya kiotomatiki imeshindwa – kagua folda au hifadhi nakala sasa.</string>
+    <string name="auto_backup_password_hint">Nenosiri huhifadhiwa kwenye kifaa hiki pekee ili nakala ifanyike yenyewe. Utalihitaji kurejesha.</string>
     <string name="backup_title">Nakala rudufu &amp; kurejesha</string>
     <string name="backup_too_large">Faili ni kubwa mno au si nakala rudufu halali (kikomo MB 64).</string>
     <string name="backup_export_too_large">Nakala rudufu ingezidi MB 64 na isingeweza kurejeshwa, kwa hiyo haikuhifadhiwa.</string>

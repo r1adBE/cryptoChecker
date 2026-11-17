@@ -8,6 +8,14 @@
     <string name="backup_failed">Չստացվեց։ Արդյո՞ք սա Crypto Checker-ի պահուստային պատճեն է։</string>
     <string name="backup_hint">Պահպանում է քո դիտացանկը՝ նշումներով և խմբերով, ահազանգերը, ընտրյալները, պորտֆելը և կարգավորումները որպես ֆայլ, որը պահում ես ինքդ – օրինակ՝ նոր հեռախոսի համար։</string>
     <string name="backup_import">Վերականգնել</string>
+    <string name="auto_backup_title">Ավտոմատ պահուստավորում</string>
+    <string name="auto_backup_hint">Ամեն շաբաթ, գաղտնագրված, ձեր ընտրած թղթապանակում (օր.՝ ամպում)։ Պահվում են 4 ամենանոր ֆայլերը։</string>
+    <string name="auto_backup_now">Պահուստավորել հիմա</string>
+    <string name="auto_backup_change_folder">Փոխել թղթապանակը</string>
+    <string name="auto_backup_last">Վերջին պահուստը՝ %1$s</string>
+    <string name="auto_backup_never">Դեռ պահուստ չկա</string>
+    <string name="auto_backup_failed">Վերջին ավտոմատ պահուստավորումը ձախողվեց – ստուգեք թղթապանակը կամ պահուստավորեք հիմա։</string>
+    <string name="auto_backup_password_hint">Գաղտնաբառը պահվում է միայն այս սարքում, որպեսզի պահուստավորումն ինքնուրույն աշխատի։ Այն պետք կլինի վերականգնելու համար։</string>
     <string name="backup_title">Պահուստավորում &amp; վերականգնում</string>
     <string name="backup_too_large">Ֆայլը չափազանց մեծ է կամ վավեր պահուստային պատճեն չէ (սահմանը՝ 64 MB)։</string>
     <string name="backup_export_too_large">Պահուստային պատճենը 64 MB-ից մեծ կլիներ և հնարավոր չէր լինի վերականգնել, ուստի այն չպահպանվեց։</string>

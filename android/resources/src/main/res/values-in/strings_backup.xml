@@ -8,6 +8,14 @@
     <string name="backup_failed">Gagal. Apakah ini cadangan Crypto Checker?</string>
     <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan pengaturan ke file yang kamu simpan sendiri – mis. untuk ponsel baru.</string>
     <string name="backup_import">Pulihkan</string>
+    <string name="auto_backup_title">Cadangkan otomatis</string>
+    <string name="auto_backup_hint">Setiap minggu, terenkripsi, ke folder pilihan Anda (mis. di cloud). 4 file terbaru disimpan.</string>
+    <string name="auto_backup_now">Cadangkan sekarang</string>
+    <string name="auto_backup_change_folder">Ganti folder</string>
+    <string name="auto_backup_last">Cadangan terakhir: %1$s</string>
+    <string name="auto_backup_never">Belum dicadangkan</string>
+    <string name="auto_backup_failed">Pencadangan otomatis terakhir gagal – periksa folder atau cadangkan sekarang.</string>
+    <string name="auto_backup_password_hint">Kata sandi hanya disimpan di perangkat ini agar pencadangan bisa berjalan sendiri. Anda memerlukannya untuk memulihkan.</string>
     <string name="backup_title">Cadangkan &amp; pulihkan</string>
     <string name="backup_too_large">File terlalu besar atau bukan cadangan yang valid (maks. 64 MB).</string>
     <string name="backup_export_too_large">Cadangan akan lebih besar dari 64 MB dan tidak bisa dipulihkan, jadi tidak disimpan.</string>

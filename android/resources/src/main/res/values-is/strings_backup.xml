@@ -8,6 +8,14 @@
     <string name="backup_failed">Þetta tókst ekki. Er þetta öryggisafrit úr Crypto Checker?</string>
     <string name="backup_hint">Vistar vaktlistann með athugasemdum og hópum, viðvaranir, uppáhöld, eignasafn og stillingar sem skrá sem þú geymir hjá þér – t.d. fyrir nýjan síma.</string>
     <string name="backup_import">Endurheimta</string>
+    <string name="auto_backup_title">Sjálfvirk afritun</string>
+    <string name="auto_backup_hint">Í hverri viku, dulkóðað, í möppu að eigin vali (t.d. í skýinu). Nýjustu 4 skrárnar eru geymdar.</string>
+    <string name="auto_backup_now">Afrita núna</string>
+    <string name="auto_backup_change_folder">Skipta um möppu</string>
+    <string name="auto_backup_last">Síðasta afrit: %1$s</string>
+    <string name="auto_backup_never">Ekkert afrit enn</string>
+    <string name="auto_backup_failed">Síðasta sjálfvirka afritun mistókst – athugaðu möppuna eða afritaðu núna.</string>
+    <string name="auto_backup_password_hint">Lykilorðið er aðeins geymt í þessu tæki svo afritunin geti keyrt sjálf. Þú þarft það til að endurheimta.</string>
     <string name="backup_title">Öryggisafrit og endurheimt</string>
     <string name="backup_too_large">Skráin er of stór eða ekki gilt öryggisafrit (hámark 64 MB).</string>
     <string name="backup_export_too_large">Öryggisafritið yrði stærra en 64 MB og væri ekki hægt að endurheimta það, svo það var ekki vistað.</string>

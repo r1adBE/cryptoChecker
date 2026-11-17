@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -156,6 +157,9 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                 }
             }
         }
+        // Wöchentlich verschlüsselt in einen Ordner (AutoBackupPolicy)
+        Spacer(Modifier.height(12.dp))
+        AutoBackupSection(settingsViewModel = viewModel)
     }
 
     // Sichern (neues Passwort): ebenfalls keine fremden Fenster darüber (ab Android 12)

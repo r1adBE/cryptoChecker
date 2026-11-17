@@ -8,6 +8,14 @@
     <string name="backup_failed">ಅದು ಕೆಲಸ ಮಾಡಲಿಲ್ಲ. ಇದು Crypto Checker ಬ್ಯಾಕಪ್ ಆಗಿದೆಯೇ?</string>
     <string name="backup_hint">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಅನ್ನು ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ, ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನೀವೇ ಇಟ್ಟುಕೊಳ್ಳುವ ಫೈಲ್ ಆಗಿ ಉಳಿಸುತ್ತದೆ – ಉದಾ. ಹೊಸ ಫೋನ್‌ಗಾಗಿ.</string>
     <string name="backup_import">ಮರುಸ್ಥಾಪಿಸಿ</string>
+    <string name="auto_backup_title">ಸ್ವಯಂಚಾಲಿತ ಬ್ಯಾಕಪ್</string>
+    <string name="auto_backup_hint">ಪ್ರತಿ ವಾರ, ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿ, ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಫೋಲ್ಡರ್‌ಗೆ (ಉದಾ. ಕ್ಲೌಡ್‌ನಲ್ಲಿ). ಇತ್ತೀಚಿನ 4 ಫೈಲ್‌ಗಳನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="auto_backup_now">ಈಗ ಬ್ಯಾಕಪ್ ಮಾಡಿ</string>
+    <string name="auto_backup_change_folder">ಫೋಲ್ಡರ್ ಬದಲಿಸಿ</string>
+    <string name="auto_backup_last">ಕೊನೆಯ ಬ್ಯಾಕಪ್: %1$s</string>
+    <string name="auto_backup_never">ಇನ್ನೂ ಬ್ಯಾಕಪ್ ಆಗಿಲ್ಲ</string>
+    <string name="auto_backup_failed">ಕೊನೆಯ ಸ್ವಯಂಚಾಲಿತ ಬ್ಯಾಕಪ್ ವಿಫಲವಾಗಿದೆ – ಫೋಲ್ಡರ್ ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಈಗ ಬ್ಯಾಕಪ್ ಮಾಡಿ.</string>
+    <string name="auto_backup_password_hint">ಬ್ಯಾಕಪ್ ತಾನಾಗಿ ನಡೆಯಲು ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ. ಮರುಸ್ಥಾಪಿಸಲು ಇದು ಬೇಕು.</string>
     <string name="backup_title">ಬ್ಯಾಕಪ್ &amp; ಮರುಸ್ಥಾಪನೆ</string>
     <string name="backup_too_large">ಫೈಲ್ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ ಅಥವಾ ಮಾನ್ಯ ಬ್ಯಾಕಪ್ ಅಲ್ಲ (ಮಿತಿ 64 MB).</string>
     <string name="backup_export_too_large">ಬ್ಯಾಕಪ್ 64 MB ಗಿಂತ ದೊಡ್ಡದಾಗಿರುತ್ತದೆ ಮತ್ತು ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ, ಆದ್ದರಿಂದ ಅದನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ.</string>

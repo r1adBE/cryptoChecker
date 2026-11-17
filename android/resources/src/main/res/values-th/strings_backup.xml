@@ -8,6 +8,14 @@
     <string name="backup_failed">ไม่สำเร็จ ไฟล์นี้เป็นข้อมูลสำรองของ Crypto Checker หรือไม่</string>
     <string name="backup_hint">บันทึกรายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าเป็นไฟล์ที่คุณเก็บเอง เช่น สำหรับโทรศัพท์เครื่องใหม่</string>
     <string name="backup_import">กู้คืน</string>
+    <string name="auto_backup_title">สำรองข้อมูลอัตโนมัติ</string>
+    <string name="auto_backup_hint">ทุกสัปดาห์ แบบเข้ารหัส ไปยังโฟลเดอร์ที่คุณเลือก (เช่น บนคลาวด์) เก็บไฟล์ล่าสุดไว้ 4 ไฟล์</string>
+    <string name="auto_backup_now">สำรองตอนนี้</string>
+    <string name="auto_backup_change_folder">เปลี่ยนโฟลเดอร์</string>
+    <string name="auto_backup_last">สำรองล่าสุด: %1$s</string>
+    <string name="auto_backup_never">ยังไม่ได้สำรอง</string>
+    <string name="auto_backup_failed">การสำรองอัตโนมัติครั้งล่าสุดล้มเหลว – ตรวจสอบโฟลเดอร์หรือสำรองตอนนี้</string>
+    <string name="auto_backup_password_hint">รหัสผ่านจะถูกเก็บไว้บนอุปกรณ์นี้เท่านั้นเพื่อให้การสำรองทำงานเองได้ คุณต้องใช้รหัสนี้เพื่อกู้คืน</string>
     <string name="backup_title">สำรองและกู้คืน</string>
     <string name="backup_too_large">ไฟล์ใหญ่เกินไปหรือไม่ใช่ข้อมูลสำรองที่ถูกต้อง (สูงสุด 64 MB)</string>
     <string name="backup_export_too_large">ข้อมูลสำรองจะใหญ่เกิน 64 MB และจะกู้คืนไม่ได้ จึงไม่ได้บันทึก</string>

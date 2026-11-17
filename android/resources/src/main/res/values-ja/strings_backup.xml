@@ -8,6 +8,14 @@
     <string name="backup_failed">失敗しました。Crypto Checker のバックアップですか？</string>
     <string name="backup_hint">メモとグループを含むリスト、アラーム、お気に入り、ポートフォリオ、設定を自分で保管するファイルに保存します（新しい端末用など）。</string>
     <string name="backup_import">復元</string>
+    <string name="auto_backup_title">自動バックアップ</string>
+    <string name="auto_backup_hint">毎週、暗号化して、選んだフォルダ（クラウドなど）に保存します。最新の 4 ファイルが残ります。</string>
+    <string name="auto_backup_now">今すぐバックアップ</string>
+    <string name="auto_backup_change_folder">フォルダを変更</string>
+    <string name="auto_backup_last">前回のバックアップ：%1$s</string>
+    <string name="auto_backup_never">まだバックアップしていません</string>
+    <string name="auto_backup_failed">前回の自動バックアップに失敗しました。フォルダを確認するか、今すぐバックアップしてください。</string>
+    <string name="auto_backup_password_hint">バックアップを自動で行うため、パスワードはこのデバイスにのみ保存されます。復元時に必要です。</string>
     <string name="backup_title">バックアップと復元</string>
     <string name="backup_too_large">ファイルが大きすぎるか、有効なバックアップではありません（上限 64 MB）。</string>
     <string name="backup_export_too_large">バックアップが 64 MB を超えて復元できなくなるため、保存しませんでした。</string>

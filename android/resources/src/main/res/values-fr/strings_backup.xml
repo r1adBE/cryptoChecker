@@ -8,6 +8,14 @@
     <string name="backup_failed">Échec. Est-ce bien une sauvegarde Crypto Checker ?</string>
     <string name="backup_hint">Enregistre liste avec notes et groupes, alertes, favoris, portefeuille et réglages dans un fichier que tu gardes – p. ex. pour un nouveau téléphone.</string>
     <string name="backup_import">Restaurer</string>
+    <string name="auto_backup_title">Sauvegarde automatique</string>
+    <string name="auto_backup_hint">Chaque semaine, chiffrée, dans un dossier de votre choix (p. ex. dans le cloud). Les 4 fichiers les plus récents sont conservés.</string>
+    <string name="auto_backup_now">Sauvegarder maintenant</string>
+    <string name="auto_backup_change_folder">Changer de dossier</string>
+    <string name="auto_backup_last">Dernière sauvegarde : %1$s</string>
+    <string name="auto_backup_never">Pas encore sauvegardé</string>
+    <string name="auto_backup_failed">La dernière sauvegarde automatique a échoué – vérifiez le dossier ou sauvegardez maintenant.</string>
+    <string name="auto_backup_password_hint">Le mot de passe est enregistré uniquement sur cet appareil pour que la sauvegarde se fasse seule. Il vous faudra pour restaurer.</string>
     <string name="backup_title">Sauvegarde et restauration</string>
     <string name="backup_too_large">Le fichier est trop volumineux ou n’est pas une sauvegarde valide (64 Mo max.).</string>
     <string name="backup_export_too_large">La sauvegarde dépasserait 64 Mo et ne pourrait pas être restaurée ; elle n\'a donc pas été enregistrée.</string>

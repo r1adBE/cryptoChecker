@@ -61,6 +61,8 @@ internal fun BackupExportDialog(
     onConfirm: (String?) -> Unit,
     onDismiss: () -> Unit,
     hasPortfolioData: Boolean = defaultProtect,
+    /** Automatische Sicherung: immer mit Passwort, ohne Schalter; dieser Hinweis oben. */
+    note: String? = null,
 ) {
     val required = PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData)
     var chosen by remember { mutableStateOf(defaultProtect) }
@@ -95,13 +97,17 @@ internal fun BackupExportDialog(
         title = { Text(stringResource(R.string.backup_export)) },
         text = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                SwitchRow(
-                    title = stringResource(R.string.backup_protect),
-                    subtitle = stringResource(if (required) R.string.backup_protect_required else R.string.backup_protect_hint),
-                    checked = protect,
-                    onCheckedChange = { chosen = it },
-                    enabled = !required,
-                )
+                if (note != null) {
+                    Text(note, style = MaterialTheme.typography.bodyMedium)
+                } else {
+                    SwitchRow(
+                        title = stringResource(R.string.backup_protect),
+                        subtitle = stringResource(if (required) R.string.backup_protect_required else R.string.backup_protect_hint),
+                        checked = protect,
+                        onCheckedChange = { chosen = it },
+                        enabled = !required,
+                    )
+                }
                 if (protect) {
                     val tooShort = password.isNotEmpty() && !BackupCrypto.isPasswordLongEnough(password)
                     val weak = BackupPasswordStrength.showWeakHint(password)

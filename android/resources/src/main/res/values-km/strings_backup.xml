@@ -8,6 +8,14 @@
     <string name="backup_failed">វាមិនដំណើរការទេ។ តើវាជាការបម្រុងទុករបស់ Crypto Checker មែនទេ?</string>
     <string name="backup_hint">រក្សាទុកបញ្ជីតាមដានរបស់អ្នក រួមទាំងកំណត់ចំណាំ និងក្រុម ការដាស់តឿន ចំណូលចិត្ត ផលប័ត្រ និងការកំណត់ ជាឯកសារដែលអ្នករក្សាទុកដោយខ្លួនឯង – ឧ. សម្រាប់ទូរសព្ទថ្មី។</string>
     <string name="backup_import">ស្ដារ</string>
+    <string name="auto_backup_title">បម្រុងទុកដោយស្វ័យប្រវត្តិ</string>
+    <string name="auto_backup_hint">រៀងរាល់សប្ដាហ៍ ដោយអ៊ិនគ្រីប ក្នុងថតដែលអ្នកជ្រើស (ឧ. ក្នុងពពក)។ ឯកសារថ្មីបំផុត 4 ត្រូវបានរក្សាទុក។</string>
+    <string name="auto_backup_now">បម្រុងទុកឥឡូវ</string>
+    <string name="auto_backup_change_folder">ប្ដូរថត</string>
+    <string name="auto_backup_last">ការបម្រុងទុកចុងក្រោយ៖ %1$s</string>
+    <string name="auto_backup_never">មិនទាន់បម្រុងទុក</string>
+    <string name="auto_backup_failed">ការបម្រុងទុកស្វ័យប្រវត្តិចុងក្រោយបានបរាជ័យ – ពិនិត្យថត ឬបម្រុងទុកឥឡូវ។</string>
+    <string name="auto_backup_password_hint">ពាក្យសម្ងាត់ត្រូវបានរក្សាទុកតែលើឧបករណ៍នេះ ដើម្បីឱ្យការបម្រុងទុកដំណើរការដោយខ្លួនឯង។ អ្នកត្រូវការវាដើម្បីស្ដារ។</string>
     <string name="backup_title">បម្រុងទុក &amp; ស្ដារ</string>
     <string name="backup_too_large">ឯកសារធំពេក ឬមិនមែនជាការបម្រុងទុកត្រឹមត្រូវ (ដែនកំណត់ 64 MB)។</string>
     <string name="backup_export_too_large">ការបម្រុងទុកនឹងធំជាង 64 MB ហើយមិនអាចស្ដារបានទេ ដូច្នេះវាមិនត្រូវបានរក្សាទុកឡើយ។</string>

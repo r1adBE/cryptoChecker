@@ -8,6 +8,14 @@
     <string name="backup_failed">അത് വിജയിച്ചില്ല. ഇതൊരു Crypto Checker ബാക്കപ്പ് ആണോ?</string>
     <string name="backup_hint">കുറിപ്പുകളും ഗ്രൂപ്പുകളുമുള്ള വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, പോർട്ട്ഫോളിയോ, ക്രമീകരണങ്ങൾ എന്നിവ നിങ്ങൾ തന്നെ സൂക്ഷിക്കുന്ന ഒരു ഫയലായി സംരക്ഷിക്കുന്നു – ഉദാ. ഒരു പുതിയ ഫോണിനായി.</string>
     <string name="backup_import">പുനഃസ്ഥാപിക്കുക</string>
+    <string name="auto_backup_title">സ്വയമേവ ബാക്കപ്പ്</string>
+    <string name="auto_backup_hint">എല്ലാ ആഴ്ചയും, എൻക്രിപ്റ്റ് ചെയ്ത്, നിങ്ങൾ തിരഞ്ഞെടുക്കുന്ന ഫോൾഡറിലേക്ക് (ഉദാ. ക്ലൗഡിൽ). ഏറ്റവും പുതിയ 4 ഫയലുകൾ സൂക്ഷിക്കും.</string>
+    <string name="auto_backup_now">ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക</string>
+    <string name="auto_backup_change_folder">ഫോൾഡർ മാറ്റുക</string>
+    <string name="auto_backup_last">അവസാന ബാക്കപ്പ്: %1$s</string>
+    <string name="auto_backup_never">ഇതുവരെ ബാക്കപ്പ് ഇല്ല</string>
+    <string name="auto_backup_failed">അവസാന സ്വയമേവ ബാക്കപ്പ് പരാജയപ്പെട്ടു – ഫോൾഡർ പരിശോധിക്കുക അല്ലെങ്കിൽ ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക.</string>
+    <string name="auto_backup_password_hint">ബാക്കപ്പ് സ്വയം പ്രവർത്തിക്കാൻ പാസ്‌വേഡ് ഈ ഉപകരണത്തിൽ മാത്രം സൂക്ഷിക്കുന്നു. പുനഃസ്ഥാപിക്കാൻ ഇത് വേണം.</string>
     <string name="backup_title">ബാക്കപ്പും പുനഃസ്ഥാപനവും</string>
     <string name="backup_too_large">ഫയൽ വളരെ വലുതാണ് അല്ലെങ്കിൽ സാധുവായ ബാക്കപ്പ് അല്ല (പരിധി 64 MB).</string>
     <string name="backup_export_too_large">ബാക്കപ്പ് 64 MB-യിൽ കൂടുതലാകുമായിരുന്നു, പുനഃസ്ഥാപിക്കാനാകുമായിരുന്നില്ല, അതിനാൽ സംരക്ഷിച്ചില്ല.</string>

@@ -8,6 +8,14 @@
     <string name="backup_failed">لم ينجح ذلك. هل هذه نسخة احتياطية من Crypto Checker؟</string>
     <string name="backup_hint">يحفظ القائمة مع الملاحظات والمجموعات، والتنبيهات والمفضلة والمحفظة والإعدادات في ملف تحتفظ به بنفسك – مثلًا لهاتف جديد.</string>
     <string name="backup_import">استعادة</string>
+    <string name="auto_backup_title">نسخ احتياطي تلقائي</string>
+    <string name="auto_backup_hint">كل أسبوع، مشفّرًا، في مجلد تختاره (مثلًا في السحابة). تُحفظ أحدث 4 ملفات.</string>
+    <string name="auto_backup_now">نسخ احتياطي الآن</string>
+    <string name="auto_backup_change_folder">تغيير المجلد</string>
+    <string name="auto_backup_last">آخر نسخة احتياطية: %1$s</string>
+    <string name="auto_backup_never">لم يُنسخ احتياطيًا بعد</string>
+    <string name="auto_backup_failed">فشل آخر نسخ احتياطي تلقائي – تحقّق من المجلد أو أنشئ نسخة الآن.</string>
+    <string name="auto_backup_password_hint">تُحفظ كلمة المرور على هذا الجهاز فقط ليعمل النسخ الاحتياطي تلقائيًا. ستحتاج إليها للاستعادة.</string>
     <string name="backup_title">نسخ احتياطي واستعادة</string>
     <string name="backup_too_large">الملف كبير جدًا أو ليس نسخة احتياطية صالحة (الحد 64 ميغابايت).</string>
     <string name="backup_export_too_large">ستتجاوز النسخة الاحتياطية 64 ميغابايت ولن يمكن استعادتها، لذلك لم تُحفظ.</string>

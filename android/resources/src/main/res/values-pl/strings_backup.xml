@@ -8,6 +8,14 @@
     <string name="backup_failed">Nie udało się. Czy to kopia Crypto Checker?</string>
     <string name="backup_hint">Zapisuje listę z notatkami i grupami, alarmy, ulubione, portfel i ustawienia w pliku, który przechowujesz sam – np. na nowy telefon.</string>
     <string name="backup_import">Przywróć</string>
+    <string name="auto_backup_title">Automatyczna kopia zapasowa</string>
+    <string name="auto_backup_hint">Co tydzień, zaszyfrowana, w wybranym folderze (np. w chmurze). Zachowywane są 4 najnowsze pliki.</string>
+    <string name="auto_backup_now">Utwórz kopię teraz</string>
+    <string name="auto_backup_change_folder">Zmień folder</string>
+    <string name="auto_backup_last">Ostatnia kopia: %1$s</string>
+    <string name="auto_backup_never">Brak kopii</string>
+    <string name="auto_backup_failed">Ostatnia automatyczna kopia nie powiodła się – sprawdź folder lub utwórz kopię teraz.</string>
+    <string name="auto_backup_password_hint">Hasło jest zapisywane tylko na tym urządzeniu, aby kopia mogła tworzyć się sama. Będzie potrzebne do przywracania.</string>
     <string name="backup_title">Kopia zapasowa</string>
     <string name="backup_too_large">Plik jest za duży lub nie jest prawidłową kopią (maks. 64 MB).</string>
     <string name="backup_export_too_large">Kopia przekroczyłaby 64 MB i nie dałoby się jej przywrócić, dlatego nie została zapisana.</string>

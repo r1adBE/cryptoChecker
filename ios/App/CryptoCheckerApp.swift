@@ -3,13 +3,6 @@ import UIKit
 import UserNotifications
 import WidgetKit
 
-/// Tabs der App — wie die Tabs der Android-Fassung: Merkliste · Markt · (Portfolio) · Einstellungen.
-/// `portfolio` gibt es nur, wenn der Bereich unter Einstellungen › Portfolio eingeschaltet ist. «Paar hinzufügen»
-/// ist kein Tab, sondern eine Seite über der Merkliste (`showExplorer`).
-enum AppTab: Hashable {
-    case watchlist, cycle, portfolio, settings
-}
-
 /// Navigation von aussen (Shortcuts, Widgets, Mitteilungen).
 @MainActor
 final class AppRouter: ObservableObject {
@@ -229,8 +222,10 @@ struct CryptoCheckerApp: App {
                 MacroNotifications.refresh(settings: data.settings)
                 // Marktphase / Fear & Greed: nachholen, wenn die letzte Prüfung ≥ 12 h her ist
                 BackgroundRefresh.runZoneCheckIfDue(settings: data.settings)
-                // Vorgemerkte Hintergrund-Aufgabe prüfen (bleibt stehen; nach verstellter Uhr ersetzt)
+                // Vorgemerkte Hintergrund-Aufgabe prüfen (bleibt stehen; nach verstellter Uhr ersetzt); automatische
+                // Sicherung, falls fällig (wöchentlich, `AutoBackupPolicy`)
                 BackgroundRefresh.schedule(settings: data.settings)
+                AutoBackup.shared.runIfDue(data)
             case .background:
                 data.setAppActive(false)
                 // Letzten Stand und Zähler («Akku & Aktivität») auf die Platte, bevor iOS die App anhält — abseits des

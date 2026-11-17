@@ -8,6 +8,14 @@
     <string name="backup_failed">Lokho akusebenzanga. Ingabe yisipele se-Crypto Checker?</string>
     <string name="backup_hint">Ilondoloza uhlu lwakho lokubuka namanothi namaqembu, ama-alamu, izintandokazi, i-portfolio nezilungiselelo njengefayela olizigcinela wena – isibonelo, ocingweni olusha.</string>
     <string name="backup_import">Buyisela</string>
+    <string name="auto_backup_title">Isipele esizenzakalelayo</string>
+    <string name="auto_backup_hint">Njalo ngesonto, sibethelwe, kufolda oyikhethayo (isb. efwini). Kugcinwa amafayela amasha angu-4.</string>
+    <string name="auto_backup_now">Yenza isipele manje</string>
+    <string name="auto_backup_change_folder">Shintsha ifolda</string>
+    <string name="auto_backup_last">Isipele sokugcina: %1$s</string>
+    <string name="auto_backup_never">Asikakabi khona isipele</string>
+    <string name="auto_backup_failed">Isipele sokugcina esizenzakalelayo sehlulekile – hlola ifolda noma wenze isipele manje.</string>
+    <string name="auto_backup_password_hint">Iphasiwedi igcinwa kule divayisi kuphela ukuze isipele sikwazi ukuzenzela. Uzoyidinga ukuze ubuyisele.</string>
     <string name="backup_title">Isipele &amp; ukubuyisela</string>
     <string name="backup_too_large">Ifayela likhulu kakhulu noma akusona isipele esivumelekile (umkhawulo 64 MB).</string>
     <string name="backup_export_too_large">Isipele besizoba sikhulu kune-64 MB futhi besingeke sibuyiselwe, ngakho asilondolozwanga.</string>

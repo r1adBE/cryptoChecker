@@ -8,6 +8,14 @@
     <string name="backup_failed">Alınmadı. Bu, Crypto Checker ehtiyat nüsxəsidir?</string>
     <string name="backup_hint">İzləmə siyahını qeydlər və qruplarla, alarmları, seçilmişləri, portfeli və ayarları özün saxladığın fayl kimi yadda saxlayır – məsələn, yeni telefon üçün.</string>
     <string name="backup_import">Bərpa et</string>
+    <string name="auto_backup_title">Avtomatik ehtiyat nüsxə</string>
+    <string name="auto_backup_hint">Hər həftə, şifrələnmiş şəkildə, seçdiyiniz qovluğa (məs. bulud). Ən yeni 4 fayl saxlanılır.</string>
+    <string name="auto_backup_now">İndi ehtiyat nüsxə yarat</string>
+    <string name="auto_backup_change_folder">Qovluğu dəyiş</string>
+    <string name="auto_backup_last">Son ehtiyat nüsxə: %1$s</string>
+    <string name="auto_backup_never">Hələ ehtiyat nüsxə yoxdur</string>
+    <string name="auto_backup_failed">Son avtomatik ehtiyat nüsxə alınmadı – qovluğu yoxlayın və ya indi yaradın.</string>
+    <string name="auto_backup_password_hint">Şifrə yalnız bu cihazda saxlanılır ki, ehtiyat nüsxə özü işləsin. Bərpa üçün ona ehtiyacınız var.</string>
     <string name="backup_title">Ehtiyat nüsxə &amp; bərpa</string>
     <string name="backup_too_large">Fayl çox böyükdür və ya etibarlı ehtiyat nüsxə deyil (limit 64 MB).</string>
     <string name="backup_export_too_large">Ehtiyat nüsxə 64 MB-dan böyük olardı və bərpa edilə bilməzdi, buna görə yadda saxlanılmadı.</string>

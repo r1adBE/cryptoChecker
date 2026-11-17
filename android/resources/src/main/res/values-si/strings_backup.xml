@@ -8,6 +8,14 @@
     <string name="backup_failed">එය සාර්ථක වූයේ නැත. මෙය Crypto Checker උපස්ථයක්ද?</string>
     <string name="backup_hint">ඔබේ නිරීක්ෂණ ලැයිස්තුව සටහන් සහ කණ්ඩායම් සමඟ, ඇඟවීම්, ප්‍රියතම, කළඹ සහ සැකසීම් ඔබ විසින්ම තබා ගන්නා ගොනුවක් ලෙස සුරකියි – උදා. නව දුරකථනයක් සඳහා.</string>
     <string name="backup_import">ප්‍රතිසාධනය කරන්න</string>
+    <string name="auto_backup_title">ස්වයංක්‍රීය උපස්ථය</string>
+    <string name="auto_backup_hint">සෑම සතියකම, සංකේතනය කර, ඔබ තෝරන ෆෝල්ඩරයකට (උදා. වලාකුළේ). නවතම ගොනු 4 තබා ගැනේ.</string>
+    <string name="auto_backup_now">දැන් උපස්ථ කරන්න</string>
+    <string name="auto_backup_change_folder">ෆෝල්ඩරය වෙනස් කරන්න</string>
+    <string name="auto_backup_last">අවසන් උපස්ථය: %1$s</string>
+    <string name="auto_backup_never">තවම උපස්ථ කර නැත</string>
+    <string name="auto_backup_failed">අවසන් ස්වයංක්‍රීය උපස්ථය අසාර්ථක විය – ෆෝල්ඩරය පරීක්ෂා කරන්න හෝ දැන් උපස්ථ කරන්න.</string>
+    <string name="auto_backup_password_hint">උපස්ථය ස්වයංක්‍රීයව ක්‍රියාත්මක වීමට මුරපදය මෙම උපාංගයේ පමණක් සුරකිනු ලැබේ. ප්‍රතිසාධනයට එය අවශ්‍යයි.</string>
     <string name="backup_title">උපස්ථය &amp; ප්‍රතිසාධනය</string>
     <string name="backup_too_large">ගොනුව ඉතා විශාලයි හෝ වලංගු උපස්ථයක් නොවේ (සීමාව 64 MB).</string>
     <string name="backup_export_too_large">උපස්ථය 64 MB ට වඩා විශාල වන අතර ප්‍රතිසාධනය කළ නොහැකි වනු ඇත, එබැවින් එය සුරැකුවේ නැත.</string>

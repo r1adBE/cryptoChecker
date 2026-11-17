@@ -8,6 +8,14 @@
     <string name="backup_failed">ບໍ່ສຳເລັດ. ນີ້ແມ່ນການສຳຮອງຂອງ Crypto Checker ບໍ?</string>
     <string name="backup_hint">ບັນທຶກລາຍການຕິດຕາມພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ, ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ, ພອດໂຟລິໂອ ແລະ ການຕັ້ງຄ່າ ເປັນໄຟລ໌ທີ່ທ່ານເກັບໄວ້ເອງ – ເຊັ່ນ ສຳລັບໂທລະສັບໃໝ່.</string>
     <string name="backup_import">ກູ້ຄືນ</string>
+    <string name="auto_backup_title">ສຳຮອງອັດຕະໂນມັດ</string>
+    <string name="auto_backup_hint">ທຸກອາທິດ, ເຂົ້າລະຫັດ, ໄປໃສ່ໂຟນເດີທີ່ທ່ານເລືອກ (ເຊັ່ນ ໃນຄລາວ). ເກັບໄຟລ໌ໃໝ່ສຸດ 4 ໄຟລ໌.</string>
+    <string name="auto_backup_now">ສຳຮອງດຽວນີ້</string>
+    <string name="auto_backup_change_folder">ປ່ຽນໂຟນເດີ</string>
+    <string name="auto_backup_last">ສຳຮອງຫຼ້າສຸດ: %1$s</string>
+    <string name="auto_backup_never">ຍັງບໍ່ທັນໄດ້ສຳຮອງ</string>
+    <string name="auto_backup_failed">ການສຳຮອງອັດຕະໂນມັດຫຼ້າສຸດລົ້ມເຫຼວ – ກວດໂຟນເດີ ຫຼື ສຳຮອງດຽວນີ້.</string>
+    <string name="auto_backup_password_hint">ລະຫັດຜ່ານຖືກເກັບໄວ້ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ ເພື່ອໃຫ້ການສຳຮອງເຮັດວຽກເອງ. ທ່ານຕ້ອງໃຊ້ມັນເພື່ອກູ້ຄືນ.</string>
     <string name="backup_title">ສຳຮອງ &amp; ກູ້ຄືນ</string>
     <string name="backup_too_large">ໄຟລ໌ໃຫຍ່ເກີນໄປ ຫຼື ບໍ່ແມ່ນການສຳຮອງທີ່ຖືກຕ້ອງ (ຈຳກັດ 64 MB).</string>
     <string name="backup_export_too_large">ການສຳຮອງຈະໃຫຍ່ກວ່າ 64 MB ແລະ ກູ້ຄືນບໍ່ໄດ້, ສະນັ້ນຈຶ່ງບໍ່ໄດ້ບັນທຶກ.</string>

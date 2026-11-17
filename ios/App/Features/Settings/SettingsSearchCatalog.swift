@@ -250,6 +250,7 @@ extension SettingsSearchIndex {
         addPage("page.backup", .backup, backup, [L("backup_hint")])
         add("backup.export", L("backup_export"), backup, .page(.backup, anchor: "backup.actions"))
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
+        add("backup.auto", L("auto_backup_title"), backup, .page(.backup, anchor: "backup.auto"), [L("auto_backup_now")])
         // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
         add("main.reset", L("settings_reset_app"), "", .main("main.reset"), [L("settings_reset_app_confirm")])
         // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; weitere Namen als Suchwörter

@@ -8,6 +8,14 @@
     <string name="backup_failed">To ni uspelo. Je to varnostna kopija Crypto Checker?</string>
     <string name="backup_hint">Shrani seznam z opombami in skupinami, alarme, priljubljene, portfelj in nastavitve kot datoteko, ki jo shraniš pri sebi – npr. za nov telefon.</string>
     <string name="backup_import">Obnovi</string>
+    <string name="auto_backup_title">Samodejna varnostna kopija</string>
+    <string name="auto_backup_hint">Vsak teden, šifrirano, v mapo po vaši izbiri (npr. v oblaku). Ohranijo se 4 najnovejše datoteke.</string>
+    <string name="auto_backup_now">Varnostno kopiraj zdaj</string>
+    <string name="auto_backup_change_folder">Zamenjaj mapo</string>
+    <string name="auto_backup_last">Zadnja kopija: %1$s</string>
+    <string name="auto_backup_never">Še ni varnostne kopije</string>
+    <string name="auto_backup_failed">Zadnja samodejna varnostna kopija ni uspela – preverite mapo ali kopirajte zdaj.</string>
+    <string name="auto_backup_password_hint">Geslo je shranjeno le v tej napravi, da se kopija lahko izvaja sama. Potrebovali ga boste za obnovitev.</string>
     <string name="backup_title">Varnostna kopija &amp; obnovitev</string>
     <string name="backup_too_large">Datoteka je prevelika ali ni veljavna varnostna kopija (največ 64 MB).</string>
     <string name="backup_export_too_large">Varnostna kopija bi bila večja od 64 MB in je ne bi bilo mogoče obnoviti, zato ni bila shranjena.</string>

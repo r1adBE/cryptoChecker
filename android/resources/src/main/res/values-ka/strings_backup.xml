@@ -8,6 +8,14 @@
     <string name="backup_failed">ვერ მოხერხდა. ეს Crypto Checker-ის სარეზერვო ასლია?</string>
     <string name="backup_hint">ინახავს შენს დაკვირვების სიას შენიშვნებითა და ჯგუფებით, განგაშებს, რჩეულებს, პორტფელს და პარამეტრებს ფაილად, რომელსაც თავად შეინახავ – მაგალითად, ახალი ტელეფონისთვის.</string>
     <string name="backup_import">აღდგენა</string>
+    <string name="auto_backup_title">ავტომატური სარეზერვო ასლი</string>
+    <string name="auto_backup_hint">ყოველ კვირა, დაშიფრულად, თქვენ მიერ არჩეულ საქაღალდეში (მაგ. ღრუბელში). ინახება 4 უახლესი ფაილი.</string>
+    <string name="auto_backup_now">ახლავე შენახვა</string>
+    <string name="auto_backup_change_folder">საქაღალდის შეცვლა</string>
+    <string name="auto_backup_last">ბოლო ასლი: %1$s</string>
+    <string name="auto_backup_never">ჯერ ასლი არ არის</string>
+    <string name="auto_backup_failed">ბოლო ავტომატური ასლი ვერ შეიქმნა – შეამოწმეთ საქაღალდე ან შექმენით ასლი ახლავე.</string>
+    <string name="auto_backup_password_hint">პაროლი ინახება მხოლოდ ამ მოწყობილობაზე, რომ ასლი თავისით შეიქმნას. აღდგენისთვის დაგჭირდებათ.</string>
     <string name="backup_title">სარეზერვო ასლი &amp; აღდგენა</string>
     <string name="backup_too_large">ფაილი ძალიან დიდია ან სწორი სარეზერვო ასლი არ არის (ლიმიტი 64 MB).</string>
     <string name="backup_export_too_large">სარეზერვო ასლი 64 MB-ზე დიდი იქნებოდა და მისი აღდგენა შეუძლებელი იქნებოდა, ამიტომ არ შეინახა.</string>

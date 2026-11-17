@@ -8,6 +8,14 @@
     <string name="backup_failed">नहीं हुआ। क्या यह Crypto Checker बैकअप है?</string>
     <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
     <string name="backup_import">रीस्टोर करें</string>
+    <string name="auto_backup_title">स्वचालित बैकअप</string>
+    <string name="auto_backup_hint">हर हफ़्ते, एन्क्रिप्ट करके, आपके चुने फ़ोल्डर में (जैसे क्लाउड में)। सबसे नई 4 फ़ाइलें रखी जाती हैं।</string>
+    <string name="auto_backup_now">अभी बैकअप लें</string>
+    <string name="auto_backup_change_folder">फ़ोल्डर बदलें</string>
+    <string name="auto_backup_last">पिछला बैकअप: %1$s</string>
+    <string name="auto_backup_never">अभी तक बैकअप नहीं</string>
+    <string name="auto_backup_failed">पिछला स्वचालित बैकअप विफल रहा – फ़ोल्डर जाँचें या अभी बैकअप लें।</string>
+    <string name="auto_backup_password_hint">पासवर्ड केवल इस डिवाइस पर सहेजा जाता है ताकि बैकअप अपने आप चल सके। पुनर्स्थापना के लिए इसकी ज़रूरत होगी।</string>
     <string name="backup_title">बैकअप और रीस्टोर</string>
     <string name="backup_too_large">फ़ाइल बहुत बड़ी है या मान्य बैकअप नहीं है (अधिकतम 64 MB)।</string>
     <string name="backup_export_too_large">बैकअप 64 MB से बड़ा होता और उसे बहाल नहीं किया जा सकता, इसलिए वह सहेजा नहीं गया।</string>

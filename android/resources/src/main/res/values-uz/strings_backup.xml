@@ -8,6 +8,14 @@
     <string name="backup_failed">Bu ishlamadi. Bu Crypto Checker zaxira nusxasimi?</string>
     <string name="backup_hint">Kuzatuv roʻyxatini izoh va guruhlari bilan, signallar, sevimlilar, portfel va sozlamalarni oʻzingiz saqlaydigan fayl sifatida saqlaydi – masalan, yangi telefon uchun.</string>
     <string name="backup_import">Tiklash</string>
+    <string name="auto_backup_title">Avtomatik zaxira nusxa</string>
+    <string name="auto_backup_hint">Har hafta, shifrlangan holda, siz tanlagan jildga (masalan, bulutda). Eng yangi 4 ta fayl saqlanadi.</string>
+    <string name="auto_backup_now">Hozir zaxiralash</string>
+    <string name="auto_backup_change_folder">Jildni oʻzgartirish</string>
+    <string name="auto_backup_last">Oxirgi zaxira: %1$s</string>
+    <string name="auto_backup_never">Hali zaxira yoʻq</string>
+    <string name="auto_backup_failed">Oxirgi avtomatik zaxiralash amalga oshmadi – jildni tekshiring yoki hozir zaxiralang.</string>
+    <string name="auto_backup_password_hint">Zaxiralash oʻzi ishlashi uchun parol faqat shu qurilmada saqlanadi. Tiklash uchun u kerak boʻladi.</string>
     <string name="backup_title">Zaxira nusxa &amp; tiklash</string>
     <string name="backup_too_large">Fayl juda katta yoki yaroqli zaxira nusxa emas (chegara 64 MB).</string>
     <string name="backup_export_too_large">Zaxira nusxa 64 MB dan katta boʻlardi va uni tiklab boʻlmasdi, shuning uchun u saqlanmadi.</string>

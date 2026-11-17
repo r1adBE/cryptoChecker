@@ -8,6 +8,14 @@
     <string name="backup_failed">That didn\'t work. Is it a Crypto Checker backup?</string>
     <string name="backup_hint">Saves your watchlist with notes and groups, alerts, favorites, portfolio and settings as a file you keep yourself – e.g. for a new device.</string>
     <string name="backup_import">Restore</string>
+    <string name="auto_backup_title">Back up automatically</string>
+    <string name="auto_backup_hint">Every week, encrypted, into a folder you choose (e.g. in the cloud). The latest 4 files are kept.</string>
+    <string name="auto_backup_now">Back up now</string>
+    <string name="auto_backup_change_folder">Change folder</string>
+    <string name="auto_backup_last">Last backup: %1$s</string>
+    <string name="auto_backup_never">Not backed up yet</string>
+    <string name="auto_backup_failed">The last automatic backup failed – check the folder or back up now.</string>
+    <string name="auto_backup_password_hint">The password is stored only on this device so the backup can run on its own. You need it to restore.</string>
     <string name="backup_title">Backup &amp; restore</string>
     <string name="backup_too_large">The file is too large or not a valid backup (limit 64 MB).</string>
     <!-- Sichern abgelehnt: Datei wäre grösser als die Grenze beim Einlesen (BackupLimits, 64 MB) -->

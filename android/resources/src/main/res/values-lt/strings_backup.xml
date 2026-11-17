@@ -8,6 +8,14 @@
     <string name="backup_failed">Nepavyko. Ar tai Crypto Checker atsarginė kopija?</string>
     <string name="backup_hint">Išsaugo tavo stebimų sąrašą su pastabomis ir grupėmis, įspėjimus, mėgstamus, portfelį ir nustatymus kaip failą, kurį saugai savo nuožiūra – pvz., naujam telefonui.</string>
     <string name="backup_import">Atkurti</string>
+    <string name="auto_backup_title">Automatinė atsarginė kopija</string>
+    <string name="auto_backup_hint">Kas savaitę, užšifruota, į pasirinktą aplanką (pvz., debesyje). Paliekami 4 naujausi failai.</string>
+    <string name="auto_backup_now">Kurti kopiją dabar</string>
+    <string name="auto_backup_change_folder">Keisti aplanką</string>
+    <string name="auto_backup_last">Paskutinė kopija: %1$s</string>
+    <string name="auto_backup_never">Kopijos dar nėra</string>
+    <string name="auto_backup_failed">Paskutinė automatinė kopija nepavyko – patikrinkite aplanką arba sukurkite kopiją dabar.</string>
+    <string name="auto_backup_password_hint">Slaptažodis saugomas tik šiame įrenginyje, kad kopija galėtų būti kuriama savaime. Jo reikės atkuriant.</string>
     <string name="backup_title">Atsarginė kopija ir atkūrimas</string>
     <string name="backup_too_large">Failas per didelis arba netinkama atsarginė kopija (riba 64 MB).</string>
     <string name="backup_export_too_large">Atsarginė kopija būtų didesnė nei 64 MB ir jos nebūtų galima atkurti, todėl ji neišsaugota.</string>

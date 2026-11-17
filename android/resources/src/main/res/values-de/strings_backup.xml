@@ -8,6 +8,14 @@
     <string name="backup_failed">Das hat nicht geklappt. Ist es eine Crypto-Checker-Sicherung?</string>
     <string name="backup_hint">Speichert Merkliste mit Notizen und Gruppen, Alarme, Favoriten, Portfolio und Einstellungen als Datei, die du selbst ablegst – z. B. für ein neues Gerät.</string>
     <string name="backup_import">Wiederherstellen</string>
+    <string name="auto_backup_title">Automatisch sichern</string>
+    <string name="auto_backup_hint">Jede Woche verschlüsselt in einen Ordner deiner Wahl (z. B. in der Cloud). Die neuesten 4 Dateien bleiben.</string>
+    <string name="auto_backup_now">Jetzt sichern</string>
+    <string name="auto_backup_change_folder">Ordner ändern</string>
+    <string name="auto_backup_last">Zuletzt gesichert: %1$s</string>
+    <string name="auto_backup_never">Noch nicht gesichert</string>
+    <string name="auto_backup_failed">Die letzte automatische Sicherung ist fehlgeschlagen – Ordner prüfen oder jetzt sichern.</string>
+    <string name="auto_backup_password_hint">Das Passwort wird nur auf diesem Gerät gespeichert, damit die Sicherung von selbst laufen kann. Zum Wiederherstellen brauchst du es.</string>
     <string name="backup_title">Sichern &amp; Wiederherstellen</string>
     <string name="backup_too_large">Die Datei ist zu gross oder keine gültige Sicherung (höchstens 64 MB).</string>
     <string name="backup_export_too_large">Die Sicherung wäre grösser als 64 MB und liesse sich nicht mehr wiederherstellen – sie wurde nicht gespeichert.</string>

@@ -8,6 +8,14 @@
     <string name="backup_failed">Itu tidak berjaya. Adakah ini sandaran Crypto Checker?</string>
     <string name="backup_hint">Menyimpan senarai pantau anda beserta nota dan kumpulan, amaran, kegemaran, portfolio dan tetapan sebagai fail yang anda simpan sendiri – cth. untuk telefon baharu.</string>
     <string name="backup_import">Pulihkan</string>
+    <string name="auto_backup_title">Sandaran automatik</string>
+    <string name="auto_backup_hint">Setiap minggu, disulitkan, ke folder pilihan anda (cth. dalam awan). 4 fail terbaharu disimpan.</string>
+    <string name="auto_backup_now">Sandar sekarang</string>
+    <string name="auto_backup_change_folder">Tukar folder</string>
+    <string name="auto_backup_last">Sandaran terakhir: %1$s</string>
+    <string name="auto_backup_never">Belum disandarkan</string>
+    <string name="auto_backup_failed">Sandaran automatik terakhir gagal – semak folder atau sandar sekarang.</string>
+    <string name="auto_backup_password_hint">Kata laluan hanya disimpan pada peranti ini supaya sandaran boleh berjalan sendiri. Anda memerlukannya untuk memulihkan.</string>
     <string name="backup_title">Sandaran &amp; pemulihan</string>
     <string name="backup_too_large">Fail terlalu besar atau bukan sandaran yang sah (had 64 MB).</string>
     <string name="backup_export_too_large">Sandaran akan melebihi 64 MB dan tidak dapat dipulihkan, jadi ia tidak disimpan.</string>

@@ -1,0 +1,174 @@
+{
+  "description": "Automatic backup (Android AutoBackupPolicy.kt / iOS AutoBackupPolicy.swift): weekly (7 days) when the app opens, retry after a failure at the earliest after 6 hours, keep the newest 4 own files. due: enabled and (no success yet, success in the future or at least 7 days ago) and (no attempt yet, attempt in the future or at least 6 hours ago). file: «cryptochecker-auto-yyyy-MM-dd-HHmm.json» in the zone. own: exactly that pattern (case-sensitive). delete: own files beyond the newest «keep» (newest by name, descending), returned in ascending order; other names never.",
+  "intervalMillis": 604800000,
+  "retryAfterMillis": 21600000,
+  "keep": 4,
+  "due": [
+    {
+      "name": "off",
+      "enabled": false,
+      "lastSuccessAt": 0,
+      "lastAttemptAt": 0,
+      "now": 1763400000000,
+      "due": false
+    },
+    {
+      "name": "never",
+      "enabled": true,
+      "lastSuccessAt": 0,
+      "lastAttemptAt": 0,
+      "now": 1763400000000,
+      "due": true
+    },
+    {
+      "name": "six days",
+      "enabled": true,
+      "lastSuccessAt": 1762881600000,
+      "lastAttemptAt": 1762881600000,
+      "now": 1763400000000,
+      "due": false
+    },
+    {
+      "name": "exactly seven days",
+      "enabled": true,
+      "lastSuccessAt": 1762795200000,
+      "lastAttemptAt": 1762795200000,
+      "now": 1763400000000,
+      "due": true
+    },
+    {
+      "name": "seven days but failed an hour ago",
+      "enabled": true,
+      "lastSuccessAt": 1762708800000,
+      "lastAttemptAt": 1763396400000,
+      "now": 1763400000000,
+      "due": false
+    },
+    {
+      "name": "failed six hours ago",
+      "enabled": true,
+      "lastSuccessAt": 1762708800000,
+      "lastAttemptAt": 1763378400000,
+      "now": 1763400000000,
+      "due": true
+    },
+    {
+      "name": "clock set back",
+      "enabled": true,
+      "lastSuccessAt": 1763486400000,
+      "lastAttemptAt": 1763486400000,
+      "now": 1763400000000,
+      "due": true
+    }
+  ],
+  "fileName": [
+    {
+      "name": "Zurich",
+      "millis": 1763400000000,
+      "zone": "Europe/Zurich",
+      "file": "cryptochecker-auto-2025-11-17-1820.json"
+    },
+    {
+      "name": "Tokyo next day",
+      "millis": 1763400000000,
+      "zone": "Asia/Tokyo",
+      "file": "cryptochecker-auto-2025-11-18-0220.json"
+    }
+  ],
+  "own": [
+    {
+      "name": "cryptochecker-auto-2026-10-01-0900.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-auto-2026-11-17-1830.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-auto-2026-10-15-0900.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-backup-2026-10-01.json",
+      "own": false
+    },
+    {
+      "name": "notes.txt",
+      "own": false
+    },
+    {
+      "name": "cryptochecker-auto-2026-11-10-0800.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-auto-2026-10-22-0900.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-auto-2026-11-03-1200.json",
+      "own": true
+    },
+    {
+      "name": "cryptochecker-auto-2026-11-3-1200.json",
+      "own": false
+    },
+    {
+      "name": "Cryptochecker-auto-2026-09-01-0900.json",
+      "own": false
+    }
+  ],
+  "toDelete": [
+    {
+      "name": "mixed folder",
+      "names": [
+        "cryptochecker-auto-2026-10-01-0900.json",
+        "cryptochecker-auto-2026-11-17-1830.json",
+        "cryptochecker-auto-2026-10-15-0900.json",
+        "cryptochecker-backup-2026-10-01.json",
+        "notes.txt",
+        "cryptochecker-auto-2026-11-10-0800.json",
+        "cryptochecker-auto-2026-10-22-0900.json",
+        "cryptochecker-auto-2026-11-03-1200.json",
+        "cryptochecker-auto-2026-11-3-1200.json",
+        "Cryptochecker-auto-2026-09-01-0900.json"
+      ],
+      "keep": 4,
+      "delete": [
+        "cryptochecker-auto-2026-10-01-0900.json",
+        "cryptochecker-auto-2026-10-15-0900.json"
+      ]
+    },
+    {
+      "name": "fewer than keep",
+      "names": [
+        "cryptochecker-auto-2026-10-01-0900.json",
+        "cryptochecker-auto-2026-11-17-1830.json"
+      ],
+      "keep": 4,
+      "delete": []
+    },
+    {
+      "name": "keep 1",
+      "names": [
+        "cryptochecker-auto-2026-10-01-0900.json",
+        "cryptochecker-auto-2026-11-17-1830.json",
+        "cryptochecker-auto-2026-10-15-0900.json",
+        "cryptochecker-backup-2026-10-01.json",
+        "notes.txt",
+        "cryptochecker-auto-2026-11-10-0800.json",
+        "cryptochecker-auto-2026-10-22-0900.json",
+        "cryptochecker-auto-2026-11-03-1200.json",
+        "cryptochecker-auto-2026-11-3-1200.json",
+        "Cryptochecker-auto-2026-09-01-0900.json"
+      ],
+      "keep": 1,
+      "delete": [
+        "cryptochecker-auto-2026-10-01-0900.json",
+        "cryptochecker-auto-2026-10-15-0900.json",
+        "cryptochecker-auto-2026-10-22-0900.json",
+        "cryptochecker-auto-2026-11-03-1200.json",
+        "cryptochecker-auto-2026-11-10-0800.json"
+      ]
+    }
+  ]
+}

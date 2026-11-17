@@ -178025,6 +178025,3646 @@
         }
       }
     },
+    "auto_backup_change_folder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verander vouer"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "አቃፊ ቀይር"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغيير المجلد"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qovluğu dəyiş"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Смяна на папката"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফোল্ডার বদলান"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promijeni folder"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canvia la carpeta"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Změnit složku"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skift mappe"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordner ändern"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αλλαγή φακέλου"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change folder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar carpeta"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muuda kausta"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aldatu karpeta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر پوشه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaihda kansio"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palitan ang folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changer de dossier"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Athraigh fillteán"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar o cartafol"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ફોલ્ડર બદલો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שינוי תיקייה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ोल्डर बदलें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promijeni mapu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mappa módosítása"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Փոխել թղթապանակը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ganti folder"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipta um möppu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambia cartella"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォルダを変更"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საქაღალდის შეცვლა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Қалтаны өзгерту"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ប្ដូរថត"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಫೋಲ್ಡರ್ ಬದಲಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폴더 변경"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ປ່ຽນໂຟນເດີ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keisti aplanką"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mainīt mapi"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Промени папка"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഫോൾഡർ മാറ്റുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хавтас солих"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फोल्डर बदला"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tukar folder"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ဖိုင်တွဲ ပြောင်းရန်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bytt mappe"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फोल्डर बदल्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map wijzigen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫੋਲਡਰ ਬਦਲੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmień folder"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterar pasta"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterar pasta"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schimbă dosarul"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сменить папку"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ෆෝල්ඩරය වෙනස් කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmeniť priečinok"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamenjaj mapo"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ndrysho dosjen"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Промени фасциклу"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promeni fasciklu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Byt mapp"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badilisha folda"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கோப்புறையை மாற்று"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఫోల్డర్ మార్చండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปลี่ยนโฟลเดอร์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klasörü değiştir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Змінити папку"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فولڈر تبدیل کریں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jildni oʻzgartirish"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đổi thư mục"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改資料夾"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改文件夹"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改資料夾"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shintsha ifolda"
+          }
+        }
+      }
+    },
+    "auto_backup_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die laaste outomatiese rugsteun het misluk – kyk na die vouer of rugsteun nou."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የመጨረሻው ራስ-ሰር ምትኬ አልተሳካም – አቃፊውን ያረጋግጡ ወይም አሁን ምትኬ ያስቀምጡ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشل آخر نسخ احتياطي تلقائي – تحقّق من المجلد أو أنشئ نسخة الآن."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son avtomatik ehtiyat nüsxə alınmadı – qovluğu yoxlayın və ya indi yaradın."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последното автоматично архивиране е неуспешно – проверете папката или архивирайте сега."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সর্বশেষ স্বয়ংক্রিয় ব্যাকআপ ব্যর্থ হয়েছে – ফোল্ডার দেখুন বা এখনই ব্যাকআপ নিন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posljednja automatska kopija nije uspjela – provjerite folder ili napravite kopiju sada."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La darrera còpia automàtica ha fallat – comprova la carpeta o fes una còpia ara."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslední automatická záloha selhala – zkontrolujte složku nebo zálohujte nyní."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den seneste automatiske sikkerhedskopi mislykkedes – tjek mappen eller sikkerhedskopiér nu."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die letzte automatische Sicherung ist fehlgeschlagen – Ordner prüfen oder jetzt sichern."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το τελευταίο αυτόματο αντίγραφο απέτυχε – ελέγξτε τον φάκελο ή δημιουργήστε αντίγραφο τώρα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The last automatic backup failed – check the folder or back up now."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La última copia automática falló: revisa la carpeta o haz una copia ahora."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimane automaatne varundus ebaõnnestus – kontrollige kausta või varundage kohe."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Azken babeskopia automatikoak huts egin du – egiaztatu karpeta edo egin babeskopia orain."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخرین پشتیبان‌گیری خودکار ناموفق بود – پوشه را بررسی کنید یا الان پشتیبان بگیرید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimeisin automaattinen varmuuskopio epäonnistui – tarkista kansio tai varmuuskopioi nyt."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nabigo ang huling awtomatikong backup – tingnan ang folder o mag-backup ngayon."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La dernière sauvegarde automatique a échoué – vérifiez le dossier ou sauvegardez maintenant."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theip ar an gcúltaca uathoibríoch deireanach – seiceáil an fillteán nó déan cúltaca anois."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A última copia automática fallou: revisa o cartafol ou fai unha copia agora."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "છેલ્લું આપમેળે બેકઅપ નિષ્ફળ ગયું – ફોલ્ડર તપાસો અથવા હમણાં બેકઅપ લો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הגיבוי האוטומטי האחרון נכשל – כדאי לבדוק את התיקייה או לגבות עכשיו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पिछला स्वचालित बैकअप विफल रहा – फ़ोल्डर जाँचें या अभी बैकअप लें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posljednja automatska kopija nije uspjela – provjerite mapu ili izradite kopiju sada."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az utolsó automatikus mentés sikertelen – ellenőrizze a mappát, vagy mentsen most."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Վերջին ավտոմատ պահուստավորումը ձախողվեց – ստուգեք թղթապանակը կամ պահուստավորեք հիմա։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencadangan otomatis terakhir gagal – periksa folder atau cadangkan sekarang."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Síðasta sjálfvirka afritun mistókst – athugaðu möppuna eða afritaðu núna."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’ultimo backup automatico non è riuscito: controlla la cartella o esegui il backup ora."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前回の自動バックアップに失敗しました。フォルダを確認するか、今すぐバックアップしてください。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ბოლო ავტომატური ასლი ვერ შეიქმნა – შეამოწმეთ საქაღალდე ან შექმენით ასლი ახლავე."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Соңғы автоматты көшірме сәтсіз аяқталды – қалтаны тексеріңіз немесе қазір көшірме жасаңыз."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ការបម្រុងទុកស្វ័យប្រវត្តិចុងក្រោយបានបរាជ័យ – ពិនិត្យថត ឬបម្រុងទុកឥឡូវ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಕೊನೆಯ ಸ್ವಯಂಚಾಲಿತ ಬ್ಯಾಕಪ್ ವಿಫಲವಾಗಿದೆ – ಫೋಲ್ಡರ್ ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಈಗ ಬ್ಯಾಕಪ್ ಮಾಡಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 자동 백업에 실패했습니다. 폴더를 확인하거나 지금 백업하세요."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ການສຳຮອງອັດຕະໂນມັດຫຼ້າສຸດລົ້ມເຫຼວ – ກວດໂຟນເດີ ຫຼື ສຳຮອງດຽວນີ້."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paskutinė automatinė kopija nepavyko – patikrinkite aplanką arba sukurkite kopiją dabar."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pēdējā automātiskā dublēšana neizdevās – pārbaudiet mapi vai dublējiet tagad."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последната автоматска копија не успеа – проверете ја папката или направете копија сега."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "അവസാന സ്വയമേവ ബാക്കപ്പ് പരാജയപ്പെട്ടു – ഫോൾഡർ പരിശോധിക്കുക അല്ലെങ്കിൽ ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сүүлийн автомат нөөцлөлт амжилтгүй боллоо – хавтсаа шалгах эсвэл одоо нөөцлөнө үү."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "शेवटचा स्वयंचलित बॅकअप अयशस्वी झाला – फोल्डर तपासा किंवा आता बॅकअप घ्या."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sandaran automatik terakhir gagal – semak folder atau sandar sekarang."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နောက်ဆုံး အလိုအလျောက် အရန်သိမ်းခြင်း မအောင်မြင်ပါ – ဖိုင်တွဲကို စစ်ပါ သို့မဟုတ် ယခု အရန်သိမ်းပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den siste automatiske sikkerhetskopien mislyktes – sjekk mappen eller sikkerhetskopier nå."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पछिल्लो स्वचालित ब्याकअप असफल भयो – फोल्डर जाँच्नुहोस् वा अहिले ब्याकअप लिनुहोस्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De laatste automatische back-up is mislukt – controleer de map of maak nu een back-up."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪਿਛਲਾ ਆਟੋਮੈਟਿਕ ਬੈਕਅੱਪ ਅਸਫਲ ਰਿਹਾ – ਫੋਲਡਰ ਜਾਂਚੋ ਜਾਂ ਹੁਣੇ ਬੈਕਅੱਪ ਲਓ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnia automatyczna kopia nie powiodła się – sprawdź folder lub utwórz kopię teraz."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A última cópia automática falhou – verifique a pasta ou faça uma cópia agora."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O último backup automático falhou – verifique a pasta ou faça o backup agora."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultima copie automată a eșuat – verifică dosarul sau fă copia acum."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последнее автоматическое копирование не удалось – проверьте папку или создайте копию сейчас."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "අවසන් ස්වයංක්‍රීය උපස්ථය අසාර්ථක විය – ෆෝල්ඩරය පරීක්ෂා කරන්න හෝ දැන් උපස්ථ කරන්න."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posledné automatické zálohovanie zlyhalo – skontrolujte priečinok alebo zálohujte teraz."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadnja samodejna varnostna kopija ni uspela – preverite mapo ali kopirajte zdaj."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopja e fundit automatike dështoi – kontrolloni dosjen ose bëni kopje tani."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последња аутоматска копија није успела – проверите фасциклу или направите копију сада."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslednja automatska kopija nije uspela – proverite fasciklu ili napravite kopiju sada."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den senaste automatiska säkerhetskopian misslyckades – kontrollera mappen eller säkerhetskopiera nu."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nakala ya mwisho ya kiotomatiki imeshindwa – kagua folda au hifadhi nakala sasa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடைசி தானியங்கு காப்புப்பிரதி தோல்வியடைந்தது – கோப்புறையைச் சரிபார்க்கவும் அல்லது இப்போது காப்புப்பிரதி எடுக்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "చివరి ఆటోమేటిక్ బ్యాకప్ విఫలమైంది – ఫోల్డర్ తనిఖీ చేయండి లేదా ఇప్పుడే బ్యాకప్ చేయండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การสำรองอัตโนมัติครั้งล่าสุดล้มเหลว – ตรวจสอบโฟลเดอร์หรือสำรองตอนนี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son otomatik yedekleme başarısız oldu – klasörü kontrol edin veya şimdi yedekleyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остання автоматична копія не вдалася – перевірте папку або створіть копію зараз."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخری خودکار بیک اپ ناکام رہا – فولڈر چیک کریں یا ابھی بیک اپ لیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxirgi avtomatik zaxiralash amalga oshmadi – jildni tekshiring yoki hozir zaxiralang."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lần sao lưu tự động gần nhất thất bại – hãy kiểm tra thư mục hoặc sao lưu ngay."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次自動備份失敗 – 請檢查資料夾或者即刻備份。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次自动备份失败 – 请检查文件夹或立即备份。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次自動備份失敗 – 請檢查資料夾或立即備份。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isipele sokugcina esizenzakalelayo sehlulekile – hlola ifolda noma wenze isipele manje."
+          }
+        }
+      }
+    },
+    "auto_backup_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elke week, geënkripteer, in ’n vouer van jou keuse (bv. in die wolk). Die nuutste 4 lêers word gehou."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "በየሳምንቱ፣ ተመስጥሮ፣ በመረጡት አቃፊ ውስጥ (ለምሳሌ በደመና)። አዲሶቹ 4 ፋይሎች ይቀመጣሉ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كل أسبوع، مشفّرًا، في مجلد تختاره (مثلًا في السحابة). تُحفظ أحدث 4 ملفات."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hər həftə, şifrələnmiş şəkildə, seçdiyiniz qovluğa (məs. bulud). Ən yeni 4 fayl saxlanılır."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всяка седмица, шифровано, в папка по ваш избор (напр. в облака). Пазят се последните 4 файла."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "প্রতি সপ্তাহে, এনক্রিপ্ট করে, আপনার পছন্দের ফোল্ডারে (যেমন ক্লাউডে)। সর্বশেষ ৪টি ফাইল রাখা হয়।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svake sedmice, šifrovano, u folder po vašem izboru (npr. u oblaku). Čuvaju se najnovije 4 datoteke."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada setmana, xifrada, en una carpeta que triïs (p. ex. al núvol). Es conserven els 4 fitxers més recents."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každý týden šifrovaně do složky dle vašeho výběru (např. v cloudu). Zůstávají 4 nejnovější soubory."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hver uge, krypteret, i en mappe efter eget valg (f.eks. i skyen). De nyeste 4 filer gemmes."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jede Woche verschlüsselt in einen Ordner deiner Wahl (z. B. in der Cloud). Die neuesten 4 Dateien bleiben."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Κάθε εβδομάδα, κρυπτογραφημένο, σε φάκελο της επιλογής σας (π.χ. στο cloud). Διατηρούνται τα 4 νεότερα αρχεία."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every week, encrypted, into a folder you choose (e.g. in the cloud). The latest 4 files are kept."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada semana, cifrada, en una carpeta que elijas (p. ej. en la nube). Se conservan los 4 archivos más recientes."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iga nädal krüpteeritult teie valitud kausta (nt pilves). Alles jäävad 4 uusimat faili."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Astero, zifratuta, zuk aukeratutako karpeta batean (adib. hodeian). Azken 4 fitxategiak gordetzen dira."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هر هفته، رمزگذاری‌شده، در پوشه‌ای به انتخاب شما (مثلاً در فضای ابری). ۴ فایل آخر نگه داشته می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joka viikko salattuna valitsemaasi kansioon (esim. pilveen). Uusimmat 4 tiedostoa säilytetään."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bawat linggo, naka-encrypt, sa folder na pipiliin mo (hal. sa cloud). Itinatago ang pinakabagong 4 na file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaque semaine, chiffrée, dans un dossier de votre choix (p. ex. dans le cloud). Les 4 fichiers les plus récents sont conservés."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gach seachtain, criptithe, i bhfillteán de do rogha (m.sh. sa néal). Coimeádtar na 4 chomhad is déanaí."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada semana, cifrada, nun cartafol que escollas (p. ex. na nube). Gárdanse os 4 ficheiros máis recentes."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દર અઠવાડિયે, એન્ક્રિપ્ટ કરીને, તમારા પસંદ કરેલા ફોલ્ડરમાં (દા.ત. ક્લાઉડમાં). સૌથી નવી 4 ફાઇલો રાખવામાં આવે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בכל שבוע, מוצפן, לתיקייה לבחירתך (למשל בענן). 4 הקבצים החדשים ביותר נשמרים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हर हफ़्ते, एन्क्रिप्ट करके, आपके चुने फ़ोल्डर में (जैसे क्लाउड में)। सबसे नई 4 फ़ाइलें रखी जाती हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svaki tjedan, šifrirano, u mapu po vašem izboru (npr. u oblaku). Čuvaju se najnovije 4 datoteke."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hetente, titkosítva, egy választott mappába (pl. a felhőbe). A 4 legújabb fájl megmarad."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ամեն շաբաթ, գաղտնագրված, ձեր ընտրած թղթապանակում (օր.՝ ամպում)։ Պահվում են 4 ամենանոր ֆայլերը։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setiap minggu, terenkripsi, ke folder pilihan Anda (mis. di cloud). 4 file terbaru disimpan."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Í hverri viku, dulkóðað, í möppu að eigin vali (t.d. í skýinu). Nýjustu 4 skrárnar eru geymdar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ogni settimana, cifrato, in una cartella a tua scelta (ad es. nel cloud). Restano i 4 file più recenti."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "毎週、暗号化して、選んだフォルダ（クラウドなど）に保存します。最新の 4 ファイルが残ります。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ყოველ კვირა, დაშიფრულად, თქვენ მიერ არჩეულ საქაღალდეში (მაგ. ღრუბელში). ინახება 4 უახლესი ფაილი."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Апта сайын, шифрланған түрде, өзіңіз таңдаған қалтаға (мысалы, бұлтқа). Ең жаңа 4 файл сақталады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "រៀងរាល់សប្ដាហ៍ ដោយអ៊ិនគ្រីប ក្នុងថតដែលអ្នកជ្រើស (ឧ. ក្នុងពពក)។ ឯកសារថ្មីបំផុត 4 ត្រូវបានរក្សាទុក។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪ್ರತಿ ವಾರ, ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿ, ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಫೋಲ್ಡರ್‌ಗೆ (ಉದಾ. ಕ್ಲೌಡ್‌ನಲ್ಲಿ). ಇತ್ತೀಚಿನ 4 ಫೈಲ್‌ಗಳನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매주 암호화하여 선택한 폴더(예: 클라우드)에 저장합니다. 최신 파일 4개가 유지됩니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ທຸກອາທິດ, ເຂົ້າລະຫັດ, ໄປໃສ່ໂຟນເດີທີ່ທ່ານເລືອກ (ເຊັ່ນ ໃນຄລາວ). ເກັບໄຟລ໌ໃໝ່ສຸດ 4 ໄຟລ໌."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kas savaitę, užšifruota, į pasirinktą aplanką (pvz., debesyje). Paliekami 4 naujausi failai."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Katru nedēļu, šifrēti, jūsu izvēlētā mapē (piem., mākonī). Tiek paturēti 4 jaunākie faili."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Секоја недела, шифрирано, во папка по ваш избор (на пр. во облак). Се чуваат најновите 4 датотеки."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "എല്ലാ ആഴ്ചയും, എൻക്രിപ്റ്റ് ചെയ്ത്, നിങ്ങൾ തിരഞ്ഞെടുക്കുന്ന ഫോൾഡറിലേക്ക് (ഉദാ. ക്ലൗഡിൽ). ഏറ്റവും പുതിയ 4 ഫയലുകൾ സൂക്ഷിക്കും."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Долоо хоног бүр, шифрлэгдсэн байдлаар, таны сонгосон хавтаст (жишээ нь клоудад). Хамгийн сүүлийн 4 файл хадгалагдана."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दर आठवड्याला, एन्क्रिप्ट करून, तुम्ही निवडलेल्या फोल्डरमध्ये (उदा. क्लाउडमध्ये). नवीनतम 4 फाइल्स ठेवल्या जातात."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setiap minggu, disulitkan, ke folder pilihan anda (cth. dalam awan). 4 fail terbaharu disimpan."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အပတ်တိုင်း စာဝှက်ပြီး သင်ရွေးထားသော ဖိုင်တွဲထဲ (ဥပမာ cloud ထဲ) သိမ်းသည်။ နောက်ဆုံး ဖိုင် 4 ခု ကျန်ရှိမည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hver uke, kryptert, i en mappe du velger (f.eks. i skyen). De nyeste 4 filene beholdes."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हरेक हप्ता, इन्क्रिप्ट गरेर, तपाईंले रोजेको फोल्डरमा (जस्तै क्लाउडमा)। सबैभन्दा नयाँ ४ फाइलहरू राखिन्छन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elke week, versleuteld, in een map naar keuze (bijv. in de cloud). De nieuwste 4 bestanden blijven bewaard."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹਰ ਹਫ਼ਤੇ, ਇਨਕ੍ਰਿਪਟ ਕਰਕੇ, ਤੁਹਾਡੇ ਚੁਣੇ ਫੋਲਡਰ ਵਿੱਚ (ਜਿਵੇਂ ਕਲਾਉਡ ਵਿੱਚ)। ਸਭ ਤੋਂ ਨਵੀਆਂ 4 ਫ਼ਾਈਲਾਂ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Co tydzień, zaszyfrowana, w wybranym folderze (np. w chmurze). Zachowywane są 4 najnowsze pliki."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as semanas, encriptada, numa pasta à sua escolha (p. ex. na nuvem). São mantidos os 4 ficheiros mais recentes."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toda semana, criptografado, em uma pasta de sua escolha (ex.: na nuvem). Os 4 arquivos mais recentes são mantidos."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Săptămânal, criptată, într-un dosar ales de tine (de ex. în cloud). Se păstrează cele mai noi 4 fișiere."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Каждую неделю, в зашифрованном виде, в выбранную вами папку (например, в облаке). Хранятся 4 последних файла."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "සෑම සතියකම, සංකේතනය කර, ඔබ තෝරන ෆෝල්ඩරයකට (උදා. වලාකුළේ). නවතම ගොනු 4 තබා ගැනේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každý týždeň šifrovane do priečinka podľa vášho výberu (napr. v cloude). Zostávajú 4 najnovšie súbory."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vsak teden, šifrirano, v mapo po vaši izbiri (npr. v oblaku). Ohranijo se 4 najnovejše datoteke."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çdo javë, e enkriptuar, në një dosje që zgjidhni (p.sh. në re). Ruhen 4 skedarët më të rinj."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сваке недеље, шифровано, у фасциклу по вашем избору (нпр. у облаку). Чувају се најновије 4 датотеке."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svake nedelje, šifrovano, u fasciklu po vašem izboru (npr. u oblaku). Čuvaju se najnovije 4 datoteke."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varje vecka, krypterat, i en mapp du väljer (t.ex. i molnet). De 4 nyaste filerna sparas."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kila wiki, imesimbwa, kwenye folda unayochagua (k.m. kwenye wingu). Faili 4 za karibuni huhifadhiwa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ஒவ்வொரு வாரமும், மறைகுறியாக்கப்பட்டு, நீங்கள் தேர்ந்தெடுக்கும் கோப்புறையில் (எ.கா. கிளவுடில்). சமீபத்திய 4 கோப்புகள் வைக்கப்படும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ప్రతి వారం, ఎన్‌క్రిప్ట్ చేసి, మీరు ఎంచుకున్న ఫోల్డర్‌లో (ఉదా. క్లౌడ్‌లో). తాజా 4 ఫైల్‌లు ఉంచబడతాయి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทุกสัปดาห์ แบบเข้ารหัส ไปยังโฟลเดอร์ที่คุณเลือก (เช่น บนคลาวด์) เก็บไฟล์ล่าสุดไว้ 4 ไฟล์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her hafta, şifreli olarak, seçtiğiniz bir klasöre (ör. bulutta). En yeni 4 dosya saklanır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Щотижня, у зашифрованому вигляді, у вибрану вами папку (наприклад, у хмарі). Зберігаються 4 найновіші файли."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ہر ہفتے، انکرپٹ کر کے، آپ کے منتخب کردہ فولڈر میں (مثلاً کلاؤڈ میں)۔ تازہ ترین 4 فائلیں رکھی جاتی ہیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Har hafta, shifrlangan holda, siz tanlagan jildga (masalan, bulutda). Eng yangi 4 ta fayl saqlanadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mỗi tuần, được mã hóa, vào thư mục bạn chọn (ví dụ trên đám mây). Giữ lại 4 tệp mới nhất."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每星期加密備份到你揀嘅資料夾（例如雲端）。保留最新 4 個檔案。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每周加密备份到您选择的文件夹（例如云端）。保留最新的 4 个文件。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每週加密備份到您選擇的資料夾（例如雲端）。保留最新 4 個檔案。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njalo ngesonto, sibethelwe, kufolda oyikhethayo (isb. efwini). Kugcinwa amafayela amasha angu-4."
+          }
+        }
+      }
+    },
+    "auto_backup_last" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laaste rugsteun: %1$@"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የመጨረሻ ምትኬ፦ %1$@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر نسخة احتياطية: %1$@"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son ehtiyat nüsxə: %1$@"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последно архивиране: %1$@"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সর্বশেষ ব্যাকআপ: %1$@"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posljednja kopija: %1$@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Darrera còpia: %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslední záloha: %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seneste sikkerhedskopi: %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt gesichert: %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τελευταίο αντίγραφο: %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last backup: %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última copia: %1$@"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimane varundus: %1$@"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Azken babeskopia: %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخرین پشتیبان: %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimeisin varmuuskopio: %1$@"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huling backup: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière sauvegarde : %1$@"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cúltaca deireanach: %1$@"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última copia: %1$@"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "છેલ્લું બેકઅપ: %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "גיבוי אחרון: %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पिछला बैकअप: %1$@"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posljednja kopija: %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utolsó mentés: %1$@"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Վերջին պահուստը՝ %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadangan terakhir: %1$@"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Síðasta afrit: %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo backup: %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前回のバックアップ：%1$@"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ბოლო ასლი: %1$@"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Соңғы көшірме: %1$@"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ការបម្រុងទុកចុងក្រោយ៖ %1$@"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಕೊನೆಯ ಬ್ಯಾಕಪ್: %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 백업: %1$@"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ສຳຮອງຫຼ້າສຸດ: %1$@"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paskutinė kopija: %1$@"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pēdējā dublēšana: %1$@"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последна копија: %1$@"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "അവസാന ബാക്കപ്പ്: %1$@"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сүүлийн нөөц: %1$@"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "शेवटचा बॅकअप: %1$@"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sandaran terakhir: %1$@"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နောက်ဆုံး အရန်သိမ်းချိန်- %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siste sikkerhetskopi: %1$@"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पछिल्लो ब्याकअप: %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laatste back-up: %1$@"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪਿਛਲਾ ਬੈਕਅੱਪ: %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnia kopia: %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última cópia: %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Último backup: %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultima copie: %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последняя копия: %1$@"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "අවසන් උපස්ථය: %1$@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posledná záloha: %1$@"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadnja kopija: %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopja e fundit: %1$@"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последња копија: %1$@"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslednja kopija: %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senaste säkerhetskopia: %1$@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nakala ya mwisho: %1$@"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடைசி காப்புப்பிரதி: %1$@"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "చివరి బ్యాకప్: %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรองล่าสุด: %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son yedekleme: %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остання копія: %1$@"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخری بیک اپ: %1$@"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxirgi zaxira: %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lần sao lưu gần nhất: %1$@"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次備份：%1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次备份：%1$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次備份：%1$@"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isipele sokugcina: %1$@"
+          }
+        }
+      }
+    },
+    "auto_backup_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nog nie gerugsteun nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ገና ምትኬ አልተቀመጠም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُنسخ احتياطيًا بعد"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hələ ehtiyat nüsxə yoxdur"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Още няма архив"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এখনও ব্যাকআপ হয়নি"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema kopije"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encara sense còpia"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatím nezálohováno"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke sikkerhedskopieret endnu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch nicht gesichert"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν υπάρχει ακόμη αντίγραφο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not backed up yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún sin copia"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veel varundamata"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oraindik babeskopiarik ez"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنوز پشتیبانی گرفته نشده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei vielä varmuuskopioitu"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wala pang backup"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore sauvegardé"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gan cúltaca fós"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aínda sen copia"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "હજુ બેકઅપ નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עדיין אין גיבוי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी तक बैकअप नहीं"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema kopije"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Még nincs mentés"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Դեռ պահուստ չկա"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum dicadangkan"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekkert afrit enn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun backup ancora"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだバックアップしていません"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ჯერ ასლი არ არის"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Әлі көшірме жоқ"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "មិនទាន់បម្រុងទុក"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಇನ್ನೂ ಬ್ಯಾಕಪ್ ಆಗಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 백업하지 않음"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຍັງບໍ່ທັນໄດ້ສຳຮອງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopijos dar nėra"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vēl nav dublēts"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сè уште нема копија"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഇതുവരെ ബാക്കപ്പ് ഇല്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нөөц хараахан алга"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अद्याप बॅकअप नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum disandarkan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အရန် မသိမ်းရသေးပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke sikkerhetskopiert ennå"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अझै ब्याकअप छैन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nog geen back-up"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਅਜੇ ਬੈਕਅੱਪ ਨਹੀਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak kopii"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda sem cópia"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda sem backup"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încă nicio copie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копий пока нет"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "තවම උපස්ථ කර නැත"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatiaľ nezálohované"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Še ni varnostne kopije"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ende pa kopje"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Још нема копије"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema kopije"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte säkerhetskopierat än"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bado hakuna nakala"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இன்னும் காப்புப்பிரதி இல்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఇంకా బ్యాకప్ లేదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่ได้สำรอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz yedekleme yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копій ще немає"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابھی تک بیک اپ نہیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hali zaxira yoʻq"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa sao lưu"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仲未備份"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未备份"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未備份"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asikakabi khona isipele"
+          }
+        }
+      }
+    },
+    "auto_backup_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rugsteun nou"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "አሁን ምትኬ አስቀምጥ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ احتياطي الآن"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İndi ehtiyat nüsxə yarat"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Архивирай сега"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এখনই ব্যাকআপ"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napravi kopiju sada"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fes còpia ara"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zálohovat nyní"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhedskopiér nu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt sichern"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αντίγραφο τώρα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back up now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hacer copia ahora"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varunda kohe"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egin babeskopia orain"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پشتیبان‌گیری الان"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varmuuskopioi nyt"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mag-backup ngayon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauvegarder maintenant"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déan cúltaca anois"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Facer copia agora"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "હમણાં બેકઅપ લો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "גיבוי עכשיו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी बैकअप लें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izradi kopiju sada"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mentés most"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Պահուստավորել հիմա"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadangkan sekarang"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afrita núna"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esegui backup ora"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐバックアップ"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ახლავე შენახვა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Қазір көшірме жасау"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បម្រុងទុកឥឡូវ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಈಗ ಬ್ಯಾಕಪ್ ಮಾಡಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 백업"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ສຳຮອງດຽວນີ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurti kopiją dabar"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dublēt tagad"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Направи копија сега"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Одоо нөөцлөх"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आता बॅकअप घ्या"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sandar sekarang"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ယခု အရန်သိမ်းရန်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhetskopier nå"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अहिले ब्याकअप लिनुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu back-uppen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹੁਣੇ ਬੈਕਅੱਪ ਲਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz kopię teraz"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fazer cópia agora"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fazer backup agora"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fă copia acum"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать копию сейчас"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දැන් උපස්ථ කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zálohovať teraz"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varnostno kopiraj zdaj"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bëj kopje tani"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Направи копију сада"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napravi kopiju sada"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säkerhetskopiera nu"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hifadhi nakala sasa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இப்போது காப்புப்பிரதி"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఇప్పుడే బ్యాకప్ చేయండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรองตอนนี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şimdi yedekle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити копію зараз"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابھی بیک اپ لیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hozir zaxiralash"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sao lưu ngay"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即刻備份"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即备份"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即備份"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yenza isipele manje"
+          }
+        }
+      }
+    },
+    "auto_backup_password_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die wagwoord word slegs op hierdie toestel gestoor sodat die rugsteun vanself kan loop. Jy het dit nodig om te herstel."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ምትኬው በራሱ እንዲሠራ የይለፍ ቃሉ በዚህ መሣሪያ ላይ ብቻ ይቀመጣል። ለመመለስ ያስፈልግዎታል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تُحفظ كلمة المرور على هذا الجهاز فقط ليعمل النسخ الاحتياطي تلقائيًا. ستحتاج إليها للاستعادة."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrə yalnız bu cihazda saxlanılır ki, ehtiyat nüsxə özü işləsin. Bərpa üçün ona ehtiyacınız var."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Паролата се пази само на това устройство, за да може архивирането да работи само. Нужна ви е за възстановяване."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ব্যাকআপ যাতে নিজে চলতে পারে তাই পাসওয়ার্ড শুধু এই ডিভাইসে রাখা হয়। পুনরুদ্ধারের জন্য এটি লাগবে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lozinka se čuva samo na ovom uređaju kako bi kopija radila sama. Trebat će vam za vraćanje."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La contrasenya només es desa en aquest dispositiu perquè la còpia funcioni sola. La necessitaràs per restaurar."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo se ukládá jen v tomto zařízení, aby záloha mohla běžet sama. Pro obnovení ho budete potřebovat."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adgangskoden gemmes kun på denne enhed, så sikkerhedskopien kan køre af sig selv. Du skal bruge den til at gendanne."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort wird nur auf diesem Gerät gespeichert, damit die Sicherung von selbst laufen kann. Zum Wiederherstellen brauchst du es."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο κωδικός αποθηκεύεται μόνο σε αυτήν τη συσκευή, ώστε το αντίγραφο να γίνεται αυτόματα. Θα τον χρειαστείτε για επαναφορά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password is stored only on this device so the backup can run on its own. You need it to restore."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La contraseña se guarda solo en este dispositivo para que la copia funcione sola. La necesitarás para restaurar."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parool salvestatakse ainult selles seadmes, et varundus saaks ise toimuda. Taastamiseks on seda vaja."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasahitza gailu honetan bakarrik gordetzen da, babeskopia berez egin dadin. Leheneratzeko beharko duzu."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز فقط روی این دستگاه ذخیره می‌شود تا پشتیبان‌گیری خودکار انجام شود. برای بازیابی به آن نیاز دارید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salasana tallennetaan vain tälle laitteelle, jotta varmuuskopio voi toimia itsestään. Tarvitset sitä palautukseen."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sa device lang na ito nakaimbak ang password para kusang tumakbo ang backup. Kailangan mo ito para mag-restore."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mot de passe est enregistré uniquement sur cet appareil pour que la sauvegarde se fasse seule. Il vous faudra pour restaurer."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ní stóráiltear an focal faire ach ar an ngléas seo ionas gur féidir leis an gcúltaca rith leis féin. Beidh sé de dhíth ort chun athchóiriú."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O contrasinal gárdase só neste dispositivo para que a copia funcione soa. Necesitaralo para restaurar."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "બેકઅપ જાતે ચાલી શકે તે માટે પાસવર્ડ ફક્ત આ ઉપકરણ પર સાચવાય છે. પુનઃસ્થાપના માટે તમને તેની જરૂર પડશે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסיסמה נשמרת רק במכשיר הזה כדי שהגיבוי יוכל לרוץ מעצמו. היא נדרשת לשחזור."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पासवर्ड केवल इस डिवाइस पर सहेजा जाता है ताकि बैकअप अपने आप चल सके। पुनर्स्थापना के लिए इसकी ज़रूरत होगी।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lozinka se sprema samo na ovom uređaju kako bi kopija radila sama. Trebat će vam za vraćanje."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A jelszót csak ez az eszköz tárolja, hogy a mentés magától fusson. A visszaállításhoz szükség lesz rá."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Գաղտնաբառը պահվում է միայն այս սարքում, որպեսզի պահուստավորումն ինքնուրույն աշխատի։ Այն պետք կլինի վերականգնելու համար։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kata sandi hanya disimpan di perangkat ini agar pencadangan bisa berjalan sendiri. Anda memerlukannya untuk memulihkan."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lykilorðið er aðeins geymt í þessu tæki svo afritunin geti keyrt sjálf. Þú þarft það til að endurheimta."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La password viene salvata solo su questo dispositivo, così il backup può avvenire da solo. Ti servirà per il ripristino."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックアップを自動で行うため、パスワードはこのデバイスにのみ保存されます。復元時に必要です。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პაროლი ინახება მხოლოდ ამ მოწყობილობაზე, რომ ასლი თავისით შეიქმნას. აღდგენისთვის დაგჭირდებათ."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Көшірме өздігінен жасалуы үшін құпия сөз тек осы құрылғыда сақталады. Қалпына келтіру үшін ол қажет."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ពាក្យសម្ងាត់ត្រូវបានរក្សាទុកតែលើឧបករណ៍នេះ ដើម្បីឱ្យការបម្រុងទុកដំណើរការដោយខ្លួនឯង។ អ្នកត្រូវការវាដើម្បីស្ដារ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬ್ಯಾಕಪ್ ತಾನಾಗಿ ನಡೆಯಲು ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ. ಮರುಸ್ಥಾಪಿಸಲು ಇದು ಬೇಕು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백업이 자동으로 진행되도록 비밀번호는 이 기기에만 저장됩니다. 복원할 때 필요합니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ລະຫັດຜ່ານຖືກເກັບໄວ້ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ ເພື່ອໃຫ້ການສຳຮອງເຮັດວຽກເອງ. ທ່ານຕ້ອງໃຊ້ມັນເພື່ອກູ້ຄືນ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slaptažodis saugomas tik šiame įrenginyje, kad kopija galėtų būti kuriama savaime. Jo reikės atkuriant."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parole tiek glabāta tikai šajā ierīcē, lai dublēšana varētu notikt pati. Tā būs vajadzīga atjaunošanai."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Лозинката се чува само на овој уред за копијата да работи сама. Ќе ви треба за враќање."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ബാക്കപ്പ് സ്വയം പ്രവർത്തിക്കാൻ പാസ്‌വേഡ് ഈ ഉപകരണത്തിൽ മാത്രം സൂക്ഷിക്കുന്നു. പുനഃസ്ഥാപിക്കാൻ ഇത് വേണം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нөөцлөлт өөрөө ажиллахын тулд нууц үг зөвхөн энэ төхөөрөмжид хадгалагдана. Сэргээхэд хэрэгтэй."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बॅकअप आपोआप चालावा म्हणून पासवर्ड फक्त या डिव्हाइसवर जतन केला जातो. पुनर्संचयित करण्यासाठी तो लागेल."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kata laluan hanya disimpan pada peranti ini supaya sandaran boleh berjalan sendiri. Anda memerlukannya untuk memulihkan."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အရန်သိမ်းခြင်း အလိုလို လုပ်ဆောင်နိုင်ရန် စကားဝှက်ကို ဤစက်တွင်သာ သိမ်းထားသည်။ ပြန်ယူရန် လိုအပ်မည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passordet lagres bare på denne enheten slik at sikkerhetskopien kan kjøre av seg selv. Du trenger det for å gjenopprette."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ब्याकअप आफैँ चल्न सकोस् भनेर पासवर्ड यो उपकरणमा मात्र राखिन्छ। पुनर्स्थापनाका लागि यो चाहिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het wachtwoord wordt alleen op dit apparaat bewaard zodat de back-up vanzelf kan lopen. Je hebt het nodig om terug te zetten."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਬੈਕਅੱਪ ਆਪੇ ਚੱਲ ਸਕੇ ਇਸ ਲਈ ਪਾਸਵਰਡ ਸਿਰਫ਼ ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਸੰਭਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਮੁੜ-ਬਹਾਲੀ ਲਈ ਇਹ ਲੋੜੀਂਦਾ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasło jest zapisywane tylko na tym urządzeniu, aby kopia mogła tworzyć się sama. Będzie potrzebne do przywracania."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A palavra-passe é guardada apenas neste dispositivo para que a cópia funcione sozinha. Vai precisar dela para restaurar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A senha é salva somente neste dispositivo para que o backup funcione sozinho. Você vai precisar dela para restaurar."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parola este salvată doar pe acest dispozitiv, ca să se poată face copia singură. Îți va trebui la restaurare."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль хранится только на этом устройстве, чтобы копирование выполнялось само. Он понадобится для восстановления."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "උපස්ථය ස්වයංක්‍රීයව ක්‍රියාත්මක වීමට මුරපදය මෙම උපාංගයේ පමණක් සුරකිනු ලැබේ. ප්‍රතිසාධනයට එය අවශ්‍යයි."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo sa ukladá len v tomto zariadení, aby záloha mohla bežať sama. Na obnovenie ho budete potrebovať."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geslo je shranjeno le v tej napravi, da se kopija lahko izvaja sama. Potrebovali ga boste za obnovitev."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fjalëkalimi ruhet vetëm në këtë pajisje që kopja të bëhet vetë. Ju duhet për rikthimin."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Лозинка се чува само на овом уређају како би копија радила сама. Требаће вам за враћање."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lozinka se čuva samo na ovom uređaju kako bi kopija radila sama. Trebaće vam za vraćanje."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösenordet sparas bara på den här enheten så att säkerhetskopian kan köras av sig själv. Du behöver det för att återställa."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenosiri huhifadhiwa kwenye kifaa hiki pekee ili nakala ifanyike yenyewe. Utalihitaji kurejesha."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "காப்புப்பிரதி தானாக இயங்க கடவுச்சொல் இந்தச் சாதனத்தில் மட்டுமே சேமிக்கப்படும். மீட்டமைக்க இது தேவை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "బ్యాకప్ దానంతట అదే జరగడానికి పాస్‌వర్డ్ ఈ పరికరంలో మాత్రమే సేవ్ అవుతుంది. పునరుద్ధరించడానికి ఇది అవసరం."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รหัสผ่านจะถูกเก็บไว้บนอุปกรณ์นี้เท่านั้นเพื่อให้การสำรองทำงานเองได้ คุณต้องใช้รหัสนี้เพื่อกู้คืน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yedeklemenin kendiliğinden çalışabilmesi için şifre yalnızca bu cihazda saklanır. Geri yüklemek için gerekir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль зберігається лише на цьому пристрої, щоб копіювання відбувалося саме. Він знадобиться для відновлення."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاس ورڈ صرف اسی ڈیوائس پر محفوظ ہوتا ہے تاکہ بیک اپ خود چل سکے۔ بحالی کے لیے اس کی ضرورت ہوگی۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaxiralash oʻzi ishlashi uchun parol faqat shu qurilmada saqlanadi. Tiklash uchun u kerak boʻladi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mật khẩu chỉ được lưu trên thiết bị này để việc sao lưu tự chạy. Bạn cần nó để khôi phục."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密碼只會儲存喺呢部裝置，等備份可以自動進行。還原時需要用到。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密码仅保存在此设备上，以便备份自动进行。恢复时需要使用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密碼只儲存在此裝置上，以便備份自動執行。還原時需要使用。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iphasiwedi igcinwa kule divayisi kuphela ukuze isipele sikwazi ukuzenzela. Uzoyidinga ukuze ubuyisele."
+          }
+        }
+      }
+    },
+    "auto_backup_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outomaties rugsteun"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "በራስ-ሰር ምትኬ አስቀምጥ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ احتياطي تلقائي"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avtomatik ehtiyat nüsxə"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматично архивиране"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "স্বয়ংক্রিয় ব্যাকআপ"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatska sigurnosna kopija"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Còpia automàtica"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatické zálohování"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhedskopiér automatisk"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch sichern"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αυτόματο αντίγραφο ασφαλείας"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back up automatically"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia automática"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automaatne varundus"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Babeskopia automatikoa"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پشتیبان‌گیری خودکار"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automaattinen varmuuskopio"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Awtomatikong backup"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauvegarde automatique"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cúltaca uathoibríoch"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia automática"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "આપમેળે બેકઅપ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "גיבוי אוטומטי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्वचालित बैकअप"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatska sigurnosna kopija"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatikus mentés"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ավտոմատ պահուստավորում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadangkan otomatis"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sjálfvirk afritun"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup automatico"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自動バックアップ"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ავტომატური სარეზერვო ასლი"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматты сақтық көшірме"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បម្រុងទុកដោយស្វ័យប្រវត្តិ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸ್ವಯಂಚಾಲಿತ ಬ್ಯಾಕಪ್"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자동 백업"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ສຳຮອງອັດຕະໂນມັດ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatinė atsarginė kopija"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automātiska dublēšana"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматска резервна копија"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സ്വയമേവ ബാക്കപ്പ്"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автомат нөөцлөлт"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्वयंचलित बॅकअप"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sandaran automatik"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အလိုအလျောက် အရန်သိမ်းခြင်း"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhetskopier automatisk"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्वचालित ब्याकअप"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch back-uppen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਆਟੋਮੈਟਿਕ ਬੈਕਅੱਪ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatyczna kopia zapasowa"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cópia automática"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup automático"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copie de rezervă automată"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматическое копирование"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ස්වයංක්‍රීය උපස්ථය"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatické zálohovanie"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samodejna varnostna kopija"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopje rezervë automatike"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аутоматска резервна копија"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatska rezervna kopija"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säkerhetskopiera automatiskt"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hifadhi nakala kiotomatiki"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தானியங்கு காப்புப்பிரதி"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఆటోమేటిక్ బ్యాకప్"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรองข้อมูลอัตโนมัติ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otomatik yedekleme"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматична резервна копія"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خودکار بیک اپ"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avtomatik zaxira nusxa"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sao lưu tự động"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自動備份"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动备份"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自動備份"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isipele esizenzakalelayo"
+          }
+        }
+      }
+    },
     "backup_device_bound" : {
       "extractionState" : "manual",
       "localizations" : {

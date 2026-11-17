@@ -8,6 +8,14 @@
     <string name="backup_failed">Neizdevās. Vai tas ir Crypto Checker dublējums?</string>
     <string name="backup_hint">Saglabā tavu vērojamo sarakstu ar piezīmēm un grupām, brīdinājumus, izlasi, portfeli un iestatījumus kā failu, ko glabā pie sevis – piem., jaunam tālrunim.</string>
     <string name="backup_import">Atjaunot</string>
+    <string name="auto_backup_title">Automātiska dublēšana</string>
+    <string name="auto_backup_hint">Katru nedēļu, šifrēti, jūsu izvēlētā mapē (piem., mākonī). Tiek paturēti 4 jaunākie faili.</string>
+    <string name="auto_backup_now">Dublēt tagad</string>
+    <string name="auto_backup_change_folder">Mainīt mapi</string>
+    <string name="auto_backup_last">Pēdējā dublēšana: %1$s</string>
+    <string name="auto_backup_never">Vēl nav dublēts</string>
+    <string name="auto_backup_failed">Pēdējā automātiskā dublēšana neizdevās – pārbaudiet mapi vai dublējiet tagad.</string>
+    <string name="auto_backup_password_hint">Parole tiek glabāta tikai šajā ierīcē, lai dublēšana varētu notikt pati. Tā būs vajadzīga atjaunošanai.</string>
     <string name="backup_title">Dublēšana un atjaunošana</string>
     <string name="backup_too_large">Fails ir pārāk liels vai nav derīgs dublējums (ierobežojums 64 MB).</string>
     <string name="backup_export_too_large">Dublējums būtu lielāks par 64 MB un to nevarētu atjaunot, tāpēc tas netika saglabāts.</string>

@@ -8,6 +8,14 @@
     <string name="backup_failed">Olmadı. Bu bir Crypto Checker yedeği mi?</string>
     <string name="backup_hint">Notlar ve gruplarla birlikte listeyi, alarmları, favorileri, portföyü ve ayarları kendi saklayacağın bir dosyaya kaydeder – ör. yeni telefon için.</string>
     <string name="backup_import">Geri yükle</string>
+    <string name="auto_backup_title">Otomatik yedekleme</string>
+    <string name="auto_backup_hint">Her hafta, şifreli olarak, seçtiğiniz bir klasöre (ör. bulutta). En yeni 4 dosya saklanır.</string>
+    <string name="auto_backup_now">Şimdi yedekle</string>
+    <string name="auto_backup_change_folder">Klasörü değiştir</string>
+    <string name="auto_backup_last">Son yedekleme: %1$s</string>
+    <string name="auto_backup_never">Henüz yedekleme yok</string>
+    <string name="auto_backup_failed">Son otomatik yedekleme başarısız oldu – klasörü kontrol edin veya şimdi yedekleyin.</string>
+    <string name="auto_backup_password_hint">Yedeklemenin kendiliğinden çalışabilmesi için şifre yalnızca bu cihazda saklanır. Geri yüklemek için gerekir.</string>
     <string name="backup_title">Yedekleme ve geri yükleme</string>
     <string name="backup_too_large">Dosya çok büyük veya geçerli bir yedek değil (en fazla 64 MB).</string>
     <string name="backup_export_too_large">Yedek 64 MB\'tan büyük olacağı ve geri yüklenemeyeceği için kaydedilmedi.</string>

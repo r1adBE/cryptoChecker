@@ -8,6 +8,14 @@
     <string name="backup_failed">Ez du funtzionatu. Crypto Checker-en babeskopia bat da?</string>
     <string name="backup_hint">Zure zerrenda (oharrekin eta taldeekin), alarmak, gogokoak, zorroa eta ezarpenak zuk gordetzen duzun fitxategi batean gordetzen ditu – adib. telefono berri baterako.</string>
     <string name="backup_import">Leheneratu</string>
+    <string name="auto_backup_title">Babeskopia automatikoa</string>
+    <string name="auto_backup_hint">Astero, zifratuta, zuk aukeratutako karpeta batean (adib. hodeian). Azken 4 fitxategiak gordetzen dira.</string>
+    <string name="auto_backup_now">Egin babeskopia orain</string>
+    <string name="auto_backup_change_folder">Aldatu karpeta</string>
+    <string name="auto_backup_last">Azken babeskopia: %1$s</string>
+    <string name="auto_backup_never">Oraindik babeskopiarik ez</string>
+    <string name="auto_backup_failed">Azken babeskopia automatikoak huts egin du – egiaztatu karpeta edo egin babeskopia orain.</string>
+    <string name="auto_backup_password_hint">Pasahitza gailu honetan bakarrik gordetzen da, babeskopia berez egin dadin. Leheneratzeko beharko duzu.</string>
     <string name="backup_title">Babeskopia eta leheneratzea</string>
     <string name="backup_too_large">Fitxategia handiegia da edo ez da babeskopia baliozkoa (muga: 64 MB).</string>
     <string name="backup_export_too_large">Babeskopiak 64 MB baino gehiago izango lituzke eta ezin izango litzateke leheneratu; beraz, ez da gorde.</string>

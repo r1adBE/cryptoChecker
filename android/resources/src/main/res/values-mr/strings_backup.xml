@@ -8,6 +8,14 @@
     <string name="backup_failed">ते झाले नाही. हा Crypto Checker बॅकअप आहे का?</string>
     <string name="backup_hint">टिपा आणि गटांसह वॉचलिस्ट, अलर्ट, आवडते, पोर्टफोलिओ आणि सेटिंग्ज तुम्ही स्वतः ठेवता अशा फाइलमध्ये सेव्ह करते – उदा. नवीन फोनसाठी.</string>
     <string name="backup_import">पुनर्संचयित करा</string>
+    <string name="auto_backup_title">स्वयंचलित बॅकअप</string>
+    <string name="auto_backup_hint">दर आठवड्याला, एन्क्रिप्ट करून, तुम्ही निवडलेल्या फोल्डरमध्ये (उदा. क्लाउडमध्ये). नवीनतम 4 फाइल्स ठेवल्या जातात.</string>
+    <string name="auto_backup_now">आता बॅकअप घ्या</string>
+    <string name="auto_backup_change_folder">फोल्डर बदला</string>
+    <string name="auto_backup_last">शेवटचा बॅकअप: %1$s</string>
+    <string name="auto_backup_never">अद्याप बॅकअप नाही</string>
+    <string name="auto_backup_failed">शेवटचा स्वयंचलित बॅकअप अयशस्वी झाला – फोल्डर तपासा किंवा आता बॅकअप घ्या.</string>
+    <string name="auto_backup_password_hint">बॅकअप आपोआप चालावा म्हणून पासवर्ड फक्त या डिव्हाइसवर जतन केला जातो. पुनर्संचयित करण्यासाठी तो लागेल.</string>
     <string name="backup_title">बॅकअप आणि पुनर्संचयन</string>
     <string name="backup_too_large">फाइल खूप मोठी आहे किंवा वैध बॅकअप नाही (मर्यादा 64 MB).</string>
     <string name="backup_export_too_large">बॅकअप 64 MB पेक्षा मोठा झाला असता आणि पुनर्संचयित करता आला नसता, म्हणून तो सेव्ह केला नाही.</string>

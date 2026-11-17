@@ -8,6 +8,14 @@
     <string name="backup_failed">Nu a mers. Este un backup Crypto Checker?</string>
     <string name="backup_hint">Salvează lista cu note și grupuri, alarmele, favoritele, portofoliul și setările într-un fișier păstrat de tine – de ex. pentru un telefon nou.</string>
     <string name="backup_import">Restaurează</string>
+    <string name="auto_backup_title">Copie de rezervă automată</string>
+    <string name="auto_backup_hint">Săptămânal, criptată, într-un dosar ales de tine (de ex. în cloud). Se păstrează cele mai noi 4 fișiere.</string>
+    <string name="auto_backup_now">Fă copia acum</string>
+    <string name="auto_backup_change_folder">Schimbă dosarul</string>
+    <string name="auto_backup_last">Ultima copie: %1$s</string>
+    <string name="auto_backup_never">Încă nicio copie</string>
+    <string name="auto_backup_failed">Ultima copie automată a eșuat – verifică dosarul sau fă copia acum.</string>
+    <string name="auto_backup_password_hint">Parola este salvată doar pe acest dispozitiv, ca să se poată face copia singură. Îți va trebui la restaurare.</string>
     <string name="backup_title">Backup și restaurare</string>
     <string name="backup_too_large">Fișierul este prea mare sau nu este o copie validă (max. 64 MB).</string>
     <string name="backup_export_too_large">Copia ar depăși 64 MB și nu ar mai putea fi restaurată, de aceea nu a fost salvată.</string>

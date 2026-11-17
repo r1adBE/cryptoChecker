@@ -8,6 +8,14 @@
     <string name="backup_failed">失敗了。這是 Crypto Checker 的備份嗎？</string>
     <string name="backup_hint">把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由您自己保管的檔案，例如換新手機時使用。</string>
     <string name="backup_import">還原</string>
+    <string name="auto_backup_title">自動備份</string>
+    <string name="auto_backup_hint">每週加密備份到您選擇的資料夾（例如雲端）。保留最新 4 個檔案。</string>
+    <string name="auto_backup_now">立即備份</string>
+    <string name="auto_backup_change_folder">更改資料夾</string>
+    <string name="auto_backup_last">上次備份：%1$s</string>
+    <string name="auto_backup_never">尚未備份</string>
+    <string name="auto_backup_failed">上次自動備份失敗 – 請檢查資料夾或立即備份。</string>
+    <string name="auto_backup_password_hint">密碼只儲存在此裝置上，以便備份自動執行。還原時需要使用。</string>
     <string name="backup_title">備份與還原</string>
     <string name="backup_too_large">檔案過大或不是有效的備份（上限 64 MB）。</string>
     <string name="backup_export_too_large">備份將超過 64 MB，無法再還原，因此未儲存。</string>

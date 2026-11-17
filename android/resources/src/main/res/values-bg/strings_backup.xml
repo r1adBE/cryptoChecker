@@ -8,6 +8,14 @@
     <string name="backup_failed">Не се получи. Това резервно копие от Crypto Checker ли е?</string>
     <string name="backup_hint">Запазва списъка с бележки и групи, алармите, любимите, портфолиото и настройките като файл, който пазиш при себе си – напр. за нов телефон.</string>
     <string name="backup_import">Възстанови</string>
+    <string name="auto_backup_title">Автоматично архивиране</string>
+    <string name="auto_backup_hint">Всяка седмица, шифровано, в папка по ваш избор (напр. в облака). Пазят се последните 4 файла.</string>
+    <string name="auto_backup_now">Архивирай сега</string>
+    <string name="auto_backup_change_folder">Смяна на папката</string>
+    <string name="auto_backup_last">Последно архивиране: %1$s</string>
+    <string name="auto_backup_never">Още няма архив</string>
+    <string name="auto_backup_failed">Последното автоматично архивиране е неуспешно – проверете папката или архивирайте сега.</string>
+    <string name="auto_backup_password_hint">Паролата се пази само на това устройство, за да може архивирането да работи само. Нужна ви е за възстановяване.</string>
     <string name="backup_title">Резервно копие &amp; възстановяване</string>
     <string name="backup_too_large">Файлът е твърде голям или не е валидно резервно копие (най-много 64 MB).</string>
     <string name="backup_export_too_large">Резервното копие щеше да е над 64 MB и нямаше да може да се възстанови, затова не беше запазено.</string>

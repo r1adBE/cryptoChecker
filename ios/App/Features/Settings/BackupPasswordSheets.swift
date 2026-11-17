@@ -15,6 +15,8 @@ import SwiftUI
 struct BackupExportSheet: View {
     let onConfirm: (String?) -> Void
     let hasPortfolioData: Bool
+    /// Automatische Sicherung: immer mit Passwort, ohne Schalter; dieser Hinweis oben (wie Android `note`).
+    let note: String?
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
@@ -25,8 +27,10 @@ struct BackupExportSheet: View {
     /// Bestätigungsschritt «Ohne Passwort sichern?» offen
     @State private var confirmPlain = false
 
-    init(defaultProtect: Bool, hasPortfolioData: Bool? = nil, onConfirm: @escaping (String?) -> Void) {
+    init(defaultProtect: Bool, hasPortfolioData: Bool? = nil, note: String? = nil,
+         onConfirm: @escaping (String?) -> Void) {
         self.onConfirm = onConfirm
+        self.note = note
         self.hasPortfolioData = hasPortfolioData ?? defaultProtect
         _chosen = State(initialValue: defaultProtect)
     }
@@ -48,10 +52,14 @@ struct BackupExportSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    // Gesperrt nur den Schalter abblenden: Die Beschriftung nennt den Grund (wie Android)
-                    SwitchRow(isOn: Binding(get: { protect }, set: { chosen = $0 }), enabled: !required, dimsLabel: false) {
-                        SwitchRowText(title: L("backup_protect"),
-                                      subtitle: L(required ? "backup_protect_required" : "backup_protect_hint"))
+                    if let note {
+                        Text(note).font(.body).fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        // Gesperrt nur den Schalter abblenden: Die Beschriftung nennt den Grund (wie Android)
+                        SwitchRow(isOn: Binding(get: { protect }, set: { chosen = $0 }), enabled: !required, dimsLabel: false) {
+                            SwitchRowText(title: L("backup_protect"),
+                                          subtitle: L(required ? "backup_protect_required" : "backup_protect_hint"))
+                        }
                     }
                     if protect {
                         let tooShort = !password.isEmpty && !BackupCrypto.isPasswordLongEnough(password)

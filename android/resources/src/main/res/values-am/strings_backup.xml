@@ -8,6 +8,14 @@
     <string name="backup_failed">አልተሳካም። የCrypto Checker ምትኬ ነው?</string>
     <string name="backup_hint">የክትትል ዝርዝርዎን ከማስታወሻዎችና ቡድኖች ጋር፣ ማንቂያዎችን፣ ተወዳጆችን፣ ፖርትፎሊዮንና ቅንብሮችን ራስዎ እንደሚይዙት ፋይል ያስቀምጣል – ለምሳሌ ለአዲስ ስልክ።</string>
     <string name="backup_import">ይመልሱ</string>
+    <string name="auto_backup_title">በራስ-ሰር ምትኬ አስቀምጥ</string>
+    <string name="auto_backup_hint">በየሳምንቱ፣ ተመስጥሮ፣ በመረጡት አቃፊ ውስጥ (ለምሳሌ በደመና)። አዲሶቹ 4 ፋይሎች ይቀመጣሉ።</string>
+    <string name="auto_backup_now">አሁን ምትኬ አስቀምጥ</string>
+    <string name="auto_backup_change_folder">አቃፊ ቀይር</string>
+    <string name="auto_backup_last">የመጨረሻ ምትኬ፦ %1$s</string>
+    <string name="auto_backup_never">ገና ምትኬ አልተቀመጠም</string>
+    <string name="auto_backup_failed">የመጨረሻው ራስ-ሰር ምትኬ አልተሳካም – አቃፊውን ያረጋግጡ ወይም አሁን ምትኬ ያስቀምጡ።</string>
+    <string name="auto_backup_password_hint">ምትኬው በራሱ እንዲሠራ የይለፍ ቃሉ በዚህ መሣሪያ ላይ ብቻ ይቀመጣል። ለመመለስ ያስፈልግዎታል።</string>
     <string name="backup_title">ምትኬ &amp; መልሶ ማግኛ</string>
     <string name="backup_too_large">ፋይሉ በጣም ትልቅ ነው ወይም ትክክለኛ ምትኬ አይደለም (ገደብ 64 MB)።</string>
     <string name="backup_export_too_large">ምትኬው ከ64 MB በላይ ስለሚሆንና መልሶ ሊመለስ ስለማይችል አልተቀመጠም።</string>

@@ -8,6 +8,14 @@
     <string name="backup_failed">No funcionó. ¿Es una copia de Crypto Checker?</string>
     <string name="backup_hint">Guarda tu lista con notas y grupos, alarmas, favoritos, cartera y ajustes en un archivo que guardas tú, p. ej. para un móvil nuevo.</string>
     <string name="backup_import">Restaurar</string>
+    <string name="auto_backup_title">Copia automática</string>
+    <string name="auto_backup_hint">Cada semana, cifrada, en una carpeta que elijas (p. ej. en la nube). Se conservan los 4 archivos más recientes.</string>
+    <string name="auto_backup_now">Hacer copia ahora</string>
+    <string name="auto_backup_change_folder">Cambiar carpeta</string>
+    <string name="auto_backup_last">Última copia: %1$s</string>
+    <string name="auto_backup_never">Aún sin copia</string>
+    <string name="auto_backup_failed">La última copia automática falló: revisa la carpeta o haz una copia ahora.</string>
+    <string name="auto_backup_password_hint">La contraseña se guarda solo en este dispositivo para que la copia funcione sola. La necesitarás para restaurar.</string>
     <string name="backup_title">Copia de seguridad</string>
     <string name="backup_too_large">El archivo es demasiado grande o no es una copia válida (máx. 64 MB).</string>
     <string name="backup_export_too_large">La copia superaría los 64 MB y no se podría restaurar, por eso no se ha guardado.</string>

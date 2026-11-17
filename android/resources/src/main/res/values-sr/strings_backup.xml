@@ -8,6 +8,14 @@
     <string name="backup_failed">То није успело. Да ли је то резервна копија апликације Crypto Checker?</string>
     <string name="backup_hint">Чува твој списак праћења с белешкама и групама, аларме, фаворите, портфолио и подешавања као датотеку која остаје код тебе – нпр. за нови телефон.</string>
     <string name="backup_import">Врати</string>
+    <string name="auto_backup_title">Аутоматска резервна копија</string>
+    <string name="auto_backup_hint">Сваке недеље, шифровано, у фасциклу по вашем избору (нпр. у облаку). Чувају се најновије 4 датотеке.</string>
+    <string name="auto_backup_now">Направи копију сада</string>
+    <string name="auto_backup_change_folder">Промени фасциклу</string>
+    <string name="auto_backup_last">Последња копија: %1$s</string>
+    <string name="auto_backup_never">Још нема копије</string>
+    <string name="auto_backup_failed">Последња аутоматска копија није успела – проверите фасциклу или направите копију сада.</string>
+    <string name="auto_backup_password_hint">Лозинка се чува само на овом уређају како би копија радила сама. Требаће вам за враћање.</string>
     <string name="backup_title">Резервна копија &amp; враћање</string>
     <string name="backup_too_large">Датотека је превелика или није важећа резервна копија (ограничење 64 MB).</string>
     <string name="backup_export_too_large">Резервна копија била би већа од 64 MB и не би се могла вратити, па није сачувана.</string>

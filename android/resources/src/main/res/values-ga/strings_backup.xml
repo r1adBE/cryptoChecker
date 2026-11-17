@@ -8,6 +8,14 @@
     <string name="backup_failed">Níor oibrigh sé sin. An cúltaca Crypto Checker é?</string>
     <string name="backup_hint">Sábhálann sé do liosta faire le nótaí agus grúpaí, foláirimh, ceanáin, punann agus socruithe mar chomhad a choinníonn tú féin – m.sh. le haghaidh fón nua.</string>
     <string name="backup_import">Athchóirigh</string>
+    <string name="auto_backup_title">Cúltaca uathoibríoch</string>
+    <string name="auto_backup_hint">Gach seachtain, criptithe, i bhfillteán de do rogha (m.sh. sa néal). Coimeádtar na 4 chomhad is déanaí.</string>
+    <string name="auto_backup_now">Déan cúltaca anois</string>
+    <string name="auto_backup_change_folder">Athraigh fillteán</string>
+    <string name="auto_backup_last">Cúltaca deireanach: %1$s</string>
+    <string name="auto_backup_never">Gan cúltaca fós</string>
+    <string name="auto_backup_failed">Theip ar an gcúltaca uathoibríoch deireanach – seiceáil an fillteán nó déan cúltaca anois.</string>
+    <string name="auto_backup_password_hint">Ní stóráiltear an focal faire ach ar an ngléas seo ionas gur féidir leis an gcúltaca rith leis féin. Beidh sé de dhíth ort chun athchóiriú.</string>
     <string name="backup_title">Cúltaca agus athchóiriú</string>
     <string name="backup_too_large">Tá an comhad rómhór nó ní cúltaca bailí é (teorainn 64 MB).</string>
     <string name="backup_export_too_large">Bheadh an cúltaca níos mó ná 64 MB agus níorbh fhéidir é a athchóiriú, mar sin níor sábháladh é.</string>

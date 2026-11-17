@@ -8,6 +8,14 @@
     <string name="backup_failed">Nem sikerült. Ez Crypto Checker mentés?</string>
     <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet te őrzöl – pl. új telefonhoz.</string>
     <string name="backup_import">Visszaállítás</string>
+    <string name="auto_backup_title">Automatikus mentés</string>
+    <string name="auto_backup_hint">Hetente, titkosítva, egy választott mappába (pl. a felhőbe). A 4 legújabb fájl megmarad.</string>
+    <string name="auto_backup_now">Mentés most</string>
+    <string name="auto_backup_change_folder">Mappa módosítása</string>
+    <string name="auto_backup_last">Utolsó mentés: %1$s</string>
+    <string name="auto_backup_never">Még nincs mentés</string>
+    <string name="auto_backup_failed">Az utolsó automatikus mentés sikertelen – ellenőrizze a mappát, vagy mentsen most.</string>
+    <string name="auto_backup_password_hint">A jelszót csak ez az eszköz tárolja, hogy a mentés magától fusson. A visszaállításhoz szükség lesz rá.</string>
     <string name="backup_title">Mentés és visszaállítás</string>
     <string name="backup_too_large">A fájl túl nagy, vagy nem érvényes mentés (legfeljebb 64 MB).</string>
     <string name="backup_export_too_large">A mentés nagyobb lenne 64 MB-nál, és nem lehetne visszaállítani, ezért nem lett elmentve.</string>

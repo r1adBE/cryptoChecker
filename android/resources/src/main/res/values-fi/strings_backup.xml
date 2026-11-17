@@ -8,6 +8,14 @@
     <string name="backup_failed">Ei onnistunut. Onko tämä Crypto Checkerin varmuuskopio?</string>
     <string name="backup_hint">Tallentaa listan muistiinpanoineen ja ryhmineen, hälytykset, suosikit, salkun ja asetukset tiedostoon, jonka säilytät itse – esim. uutta puhelinta varten.</string>
     <string name="backup_import">Palauta</string>
+    <string name="auto_backup_title">Automaattinen varmuuskopio</string>
+    <string name="auto_backup_hint">Joka viikko salattuna valitsemaasi kansioon (esim. pilveen). Uusimmat 4 tiedostoa säilytetään.</string>
+    <string name="auto_backup_now">Varmuuskopioi nyt</string>
+    <string name="auto_backup_change_folder">Vaihda kansio</string>
+    <string name="auto_backup_last">Viimeisin varmuuskopio: %1$s</string>
+    <string name="auto_backup_never">Ei vielä varmuuskopioitu</string>
+    <string name="auto_backup_failed">Viimeisin automaattinen varmuuskopio epäonnistui – tarkista kansio tai varmuuskopioi nyt.</string>
+    <string name="auto_backup_password_hint">Salasana tallennetaan vain tälle laitteelle, jotta varmuuskopio voi toimia itsestään. Tarvitset sitä palautukseen.</string>
     <string name="backup_title">Varmuuskopio</string>
     <string name="backup_too_large">Tiedosto on liian suuri tai ei kelvollinen varmuuskopio (enintään 64 Mt).</string>
     <string name="backup_export_too_large">Varmuuskopio olisi yli 64 Mt eikä sitä voisi palauttaa, joten sitä ei tallennettu.</string>

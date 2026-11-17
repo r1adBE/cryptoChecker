@@ -8,6 +8,14 @@
     <string name="backup_failed">See ei õnnestunud. Kas see on Crypto Checkeri varukoopia?</string>
     <string name="backup_hint">Salvestab sinu jälgimisloendi koos märkuste ja rühmadega, hoiatused, lemmikud, portfelli ja seaded failina, mida hoiad ise – nt uue telefoni jaoks.</string>
     <string name="backup_import">Taasta</string>
+    <string name="auto_backup_title">Automaatne varundus</string>
+    <string name="auto_backup_hint">Iga nädal krüpteeritult teie valitud kausta (nt pilves). Alles jäävad 4 uusimat faili.</string>
+    <string name="auto_backup_now">Varunda kohe</string>
+    <string name="auto_backup_change_folder">Muuda kausta</string>
+    <string name="auto_backup_last">Viimane varundus: %1$s</string>
+    <string name="auto_backup_never">Veel varundamata</string>
+    <string name="auto_backup_failed">Viimane automaatne varundus ebaõnnestus – kontrollige kausta või varundage kohe.</string>
+    <string name="auto_backup_password_hint">Parool salvestatakse ainult selles seadmes, et varundus saaks ise toimuda. Taastamiseks on seda vaja.</string>
     <string name="backup_title">Varundamine ja taastamine</string>
     <string name="backup_too_large">Fail on liiga suur või pole kehtiv varukoopia (piirang 64 MB).</string>
     <string name="backup_export_too_large">Varukoopia oleks suurem kui 64 MB ja seda ei saaks taastada, seega seda ei salvestatud.</string>

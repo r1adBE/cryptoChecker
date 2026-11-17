@@ -8,6 +8,14 @@
     <string name="backup_failed">Det lykkedes ikke. Er det en Crypto Checker-backup?</string>
     <string name="backup_hint">Gemmer liste med noter og grupper, alarmer, favoritter, portefølje og indstillinger i en fil, du selv opbevarer – fx til en ny telefon.</string>
     <string name="backup_import">Gendan</string>
+    <string name="auto_backup_title">Sikkerhedskopiér automatisk</string>
+    <string name="auto_backup_hint">Hver uge, krypteret, i en mappe efter eget valg (f.eks. i skyen). De nyeste 4 filer gemmes.</string>
+    <string name="auto_backup_now">Sikkerhedskopiér nu</string>
+    <string name="auto_backup_change_folder">Skift mappe</string>
+    <string name="auto_backup_last">Seneste sikkerhedskopi: %1$s</string>
+    <string name="auto_backup_never">Ikke sikkerhedskopieret endnu</string>
+    <string name="auto_backup_failed">Den seneste automatiske sikkerhedskopi mislykkedes – tjek mappen eller sikkerhedskopiér nu.</string>
+    <string name="auto_backup_password_hint">Adgangskoden gemmes kun på denne enhed, så sikkerhedskopien kan køre af sig selv. Du skal bruge den til at gendanne.</string>
     <string name="backup_title">Backup og gendannelse</string>
     <string name="backup_too_large">Filen er for stor eller ikke en gyldig sikkerhedskopi (maks. 64 MB).</string>
     <string name="backup_export_too_large">Sikkerhedskopien ville være større end 64 MB og kunne ikke gendannes, så den blev ikke gemt.</string>

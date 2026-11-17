@@ -8,6 +8,14 @@
     <string name="backup_failed">Δεν πέτυχε. Είναι αντίγραφο του Crypto Checker;</string>
     <string name="backup_hint">Αποθηκεύει τη λίστα σου με σημειώσεις και ομάδες, συναγερμούς, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις σε αρχείο που κρατάς εσύ – π.χ. για νέο κινητό.</string>
     <string name="backup_import">Επαναφορά</string>
+    <string name="auto_backup_title">Αυτόματο αντίγραφο ασφαλείας</string>
+    <string name="auto_backup_hint">Κάθε εβδομάδα, κρυπτογραφημένο, σε φάκελο της επιλογής σας (π.χ. στο cloud). Διατηρούνται τα 4 νεότερα αρχεία.</string>
+    <string name="auto_backup_now">Αντίγραφο τώρα</string>
+    <string name="auto_backup_change_folder">Αλλαγή φακέλου</string>
+    <string name="auto_backup_last">Τελευταίο αντίγραφο: %1$s</string>
+    <string name="auto_backup_never">Δεν υπάρχει ακόμη αντίγραφο</string>
+    <string name="auto_backup_failed">Το τελευταίο αυτόματο αντίγραφο απέτυχε – ελέγξτε τον φάκελο ή δημιουργήστε αντίγραφο τώρα.</string>
+    <string name="auto_backup_password_hint">Ο κωδικός αποθηκεύεται μόνο σε αυτήν τη συσκευή, ώστε το αντίγραφο να γίνεται αυτόματα. Θα τον χρειαστείτε για επαναφορά.</string>
     <string name="backup_title">Αντίγραφο ασφαλείας</string>
     <string name="backup_too_large">Το αρχείο είναι πολύ μεγάλο ή δεν είναι έγκυρο αντίγραφο (έως 64 MB).</string>
     <string name="backup_export_too_large">Το αντίγραφο θα ήταν μεγαλύτερο από 64 MB και δεν θα μπορούσε να επαναφερθεί, γι\' αυτό δεν αποθηκεύτηκε.</string>

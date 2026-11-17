@@ -8,6 +8,14 @@
     <string name="backup_failed">ਇਹ ਕੰਮ ਨਹੀਂ ਕੀਤਾ। ਕੀ ਇਹ Crypto Checker ਦਾ ਬੈਕਅੱਪ ਹੈ?</string>
     <string name="backup_hint">ਨੋਟਾਂ ਅਤੇ ਗਰੁੱਪਾਂ ਸਮੇਤ ਤੁਹਾਡੀ ਵਾਚਲਿਸਟ, ਅਲਰਟ, ਮਨਪਸੰਦ, ਪੋਰਟਫੋਲੀਓ ਅਤੇ ਸੈਟਿੰਗਾਂ ਇੱਕ ਅਜਿਹੀ ਫਾਈਲ ਵਜੋਂ ਸੰਭਾਲਦਾ ਹੈ ਜੋ ਤੁਹਾਡੇ ਆਪਣੇ ਕੋਲ ਰਹਿੰਦੀ ਹੈ – ਮਿਸਾਲ ਵਜੋਂ ਨਵੇਂ ਫ਼ੋਨ ਲਈ।</string>
     <string name="backup_import">ਬਹਾਲ ਕਰੋ</string>
+    <string name="auto_backup_title">ਆਟੋਮੈਟਿਕ ਬੈਕਅੱਪ</string>
+    <string name="auto_backup_hint">ਹਰ ਹਫ਼ਤੇ, ਇਨਕ੍ਰਿਪਟ ਕਰਕੇ, ਤੁਹਾਡੇ ਚੁਣੇ ਫੋਲਡਰ ਵਿੱਚ (ਜਿਵੇਂ ਕਲਾਉਡ ਵਿੱਚ)। ਸਭ ਤੋਂ ਨਵੀਆਂ 4 ਫ਼ਾਈਲਾਂ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
+    <string name="auto_backup_now">ਹੁਣੇ ਬੈਕਅੱਪ ਲਓ</string>
+    <string name="auto_backup_change_folder">ਫੋਲਡਰ ਬਦਲੋ</string>
+    <string name="auto_backup_last">ਪਿਛਲਾ ਬੈਕਅੱਪ: %1$s</string>
+    <string name="auto_backup_never">ਅਜੇ ਬੈਕਅੱਪ ਨਹੀਂ</string>
+    <string name="auto_backup_failed">ਪਿਛਲਾ ਆਟੋਮੈਟਿਕ ਬੈਕਅੱਪ ਅਸਫਲ ਰਿਹਾ – ਫੋਲਡਰ ਜਾਂਚੋ ਜਾਂ ਹੁਣੇ ਬੈਕਅੱਪ ਲਓ।</string>
+    <string name="auto_backup_password_hint">ਬੈਕਅੱਪ ਆਪੇ ਚੱਲ ਸਕੇ ਇਸ ਲਈ ਪਾਸਵਰਡ ਸਿਰਫ਼ ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਸੰਭਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਮੁੜ-ਬਹਾਲੀ ਲਈ ਇਹ ਲੋੜੀਂਦਾ ਹੈ।</string>
     <string name="backup_title">ਬੈਕਅੱਪ ਅਤੇ ਬਹਾਲੀ</string>
     <string name="backup_too_large">ਫਾਈਲ ਬਹੁਤ ਵੱਡੀ ਹੈ ਜਾਂ ਵੈਧ ਬੈਕਅੱਪ ਨਹੀਂ (ਸੀਮਾ 64 MB)।</string>
     <string name="backup_export_too_large">ਬੈਕਅੱਪ 64 MB ਤੋਂ ਵੱਡਾ ਹੋ ਜਾਂਦਾ ਅਤੇ ਬਹਾਲ ਨਾ ਹੋ ਸਕਦਾ, ਇਸ ਲਈ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ।</string>

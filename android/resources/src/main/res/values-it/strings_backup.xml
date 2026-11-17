@@ -8,6 +8,14 @@
     <string name="backup_failed">Non ha funzionato. È un backup di Crypto Checker?</string>
     <string name="backup_hint">Salva lista con note e gruppi, allarmi, preferiti, portafoglio e impostazioni in un file che conservi tu, ad es. per un nuovo telefono.</string>
     <string name="backup_import">Ripristina</string>
+    <string name="auto_backup_title">Backup automatico</string>
+    <string name="auto_backup_hint">Ogni settimana, cifrato, in una cartella a tua scelta (ad es. nel cloud). Restano i 4 file più recenti.</string>
+    <string name="auto_backup_now">Esegui backup ora</string>
+    <string name="auto_backup_change_folder">Cambia cartella</string>
+    <string name="auto_backup_last">Ultimo backup: %1$s</string>
+    <string name="auto_backup_never">Nessun backup ancora</string>
+    <string name="auto_backup_failed">L’ultimo backup automatico non è riuscito: controlla la cartella o esegui il backup ora.</string>
+    <string name="auto_backup_password_hint">La password viene salvata solo su questo dispositivo, così il backup può avvenire da solo. Ti servirà per il ripristino.</string>
     <string name="backup_title">Backup e ripristino</string>
     <string name="backup_too_large">Il file è troppo grande o non è un backup valido (max 64 MB).</string>
     <string name="backup_export_too_large">Il backup supererebbe i 64 MB e non si potrebbe ripristinare, quindi non è stato salvato.</string>

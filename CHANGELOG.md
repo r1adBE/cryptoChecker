@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 289)
+
+- Back up automatically: weekly, encrypted, into a folder you choose (e.g. Google Drive or iCloud Drive); the newest 4 files are kept.
+
 ## 16.2.2 (build 288)
 
 - Diagnostic report: error log of the last 100 errors (time, area or code location and error type, no texts; stays on the device).

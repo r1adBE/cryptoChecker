@@ -8,6 +8,14 @@
     <string name="backup_failed">Não funcionou. É um backup do Crypto Checker?</string>
     <string name="backup_hint">Salva a lista com notas e grupos, alarmes, favoritos, portfólio e configurações em um arquivo que você guarda – por ex. para um celular novo.</string>
     <string name="backup_import">Restaurar</string>
+    <string name="auto_backup_title">Backup automático</string>
+    <string name="auto_backup_hint">Toda semana, criptografado, em uma pasta de sua escolha (ex.: na nuvem). Os 4 arquivos mais recentes são mantidos.</string>
+    <string name="auto_backup_now">Fazer backup agora</string>
+    <string name="auto_backup_change_folder">Alterar pasta</string>
+    <string name="auto_backup_last">Último backup: %1$s</string>
+    <string name="auto_backup_never">Ainda sem backup</string>
+    <string name="auto_backup_failed">O último backup automático falhou – verifique a pasta ou faça o backup agora.</string>
+    <string name="auto_backup_password_hint">A senha é salva somente neste dispositivo para que o backup funcione sozinho. Você vai precisar dela para restaurar.</string>
     <string name="backup_title">Backup e restauração</string>
     <string name="backup_too_large">O arquivo é grande demais ou não é um backup válido (máx. 64 MB).</string>
     <string name="backup_export_too_large">O backup passaria de 64 MB e não poderia ser restaurado, por isso não foi salvo.</string>

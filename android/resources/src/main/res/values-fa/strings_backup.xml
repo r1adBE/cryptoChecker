@@ -8,6 +8,14 @@
     <string name="backup_failed">انجام نشد. آیا این پشتیبان Crypto Checker است؟</string>
     <string name="backup_hint">فهرست همراه با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیمات را در فایلی ذخیره می‌کند که خودت نگه می‌داری – مثلاً برای گوشی جدید.</string>
     <string name="backup_import">بازیابی</string>
+    <string name="auto_backup_title">پشتیبان‌گیری خودکار</string>
+    <string name="auto_backup_hint">هر هفته، رمزگذاری‌شده، در پوشه‌ای به انتخاب شما (مثلاً در فضای ابری). ۴ فایل آخر نگه داشته می‌شوند.</string>
+    <string name="auto_backup_now">پشتیبان‌گیری الان</string>
+    <string name="auto_backup_change_folder">تغییر پوشه</string>
+    <string name="auto_backup_last">آخرین پشتیبان: %1$s</string>
+    <string name="auto_backup_never">هنوز پشتیبانی گرفته نشده</string>
+    <string name="auto_backup_failed">آخرین پشتیبان‌گیری خودکار ناموفق بود – پوشه را بررسی کنید یا الان پشتیبان بگیرید.</string>
+    <string name="auto_backup_password_hint">رمز فقط روی این دستگاه ذخیره می‌شود تا پشتیبان‌گیری خودکار انجام شود. برای بازیابی به آن نیاز دارید.</string>
     <string name="backup_title">پشتیبان‌گیری و بازیابی</string>
     <string name="backup_too_large">فایل خیلی بزرگ است یا پشتیبان معتبری نیست (حداکثر ۶۴ مگابایت).</string>
     <string name="backup_export_too_large">نسخهٔ پشتیبان بزرگ‌تر از ۶۴ مگابایت می‌شد و قابل بازیابی نبود، برای همین ذخیره نشد.</string>

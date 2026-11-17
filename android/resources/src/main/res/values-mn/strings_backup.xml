@@ -8,6 +8,14 @@
     <string name="backup_failed">Амжилтгүй боллоо. Энэ Crypto Checker-ийн нөөц хуулбар мөн үү?</string>
     <string name="backup_hint">Тэмдэглэл, бүлэгтэй ажиглах жагсаалт, дохио, дуртай зоос, багц болон тохиргоог өөрөө хадгалах файл болгон хадгална – жишээ нь шинэ утсанд зориулж.</string>
     <string name="backup_import">Сэргээх</string>
+    <string name="auto_backup_title">Автомат нөөцлөлт</string>
+    <string name="auto_backup_hint">Долоо хоног бүр, шифрлэгдсэн байдлаар, таны сонгосон хавтаст (жишээ нь клоудад). Хамгийн сүүлийн 4 файл хадгалагдана.</string>
+    <string name="auto_backup_now">Одоо нөөцлөх</string>
+    <string name="auto_backup_change_folder">Хавтас солих</string>
+    <string name="auto_backup_last">Сүүлийн нөөц: %1$s</string>
+    <string name="auto_backup_never">Нөөц хараахан алга</string>
+    <string name="auto_backup_failed">Сүүлийн автомат нөөцлөлт амжилтгүй боллоо – хавтсаа шалгах эсвэл одоо нөөцлөнө үү.</string>
+    <string name="auto_backup_password_hint">Нөөцлөлт өөрөө ажиллахын тулд нууц үг зөвхөн энэ төхөөрөмжид хадгалагдана. Сэргээхэд хэрэгтэй.</string>
     <string name="backup_title">Нөөц хуулбар &amp; сэргээх</string>
     <string name="backup_too_large">Файл хэт том эсвэл хүчинтэй нөөц хуулбар биш (хязгаар 64 MB).</string>
     <string name="backup_export_too_large">Нөөц хуулбар 64 MB-аас том болж, сэргээх боломжгүй байх байсан тул хадгалсангүй.</string>

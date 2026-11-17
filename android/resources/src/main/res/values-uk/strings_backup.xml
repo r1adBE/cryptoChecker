@@ -8,6 +8,14 @@
     <string name="backup_failed">Не вдалося. Це копія Crypto Checker?</string>
     <string name="backup_hint">Зберігає список із нотатками та групами, сигнали, обране, портфель і налаштування у файл, який зберігаєш ти — наприклад, для нового телефона.</string>
     <string name="backup_import">Відновити</string>
+    <string name="auto_backup_title">Автоматична резервна копія</string>
+    <string name="auto_backup_hint">Щотижня, у зашифрованому вигляді, у вибрану вами папку (наприклад, у хмарі). Зберігаються 4 найновіші файли.</string>
+    <string name="auto_backup_now">Створити копію зараз</string>
+    <string name="auto_backup_change_folder">Змінити папку</string>
+    <string name="auto_backup_last">Остання копія: %1$s</string>
+    <string name="auto_backup_never">Копій ще немає</string>
+    <string name="auto_backup_failed">Остання автоматична копія не вдалася – перевірте папку або створіть копію зараз.</string>
+    <string name="auto_backup_password_hint">Пароль зберігається лише на цьому пристрої, щоб копіювання відбувалося саме. Він знадобиться для відновлення.</string>
     <string name="backup_title">Резервна копія</string>
     <string name="backup_too_large">Файл завеликий або не є резервною копією (не більше 64 МБ).</string>
     <string name="backup_export_too_large">Копія була б більшою за 64 МБ, і її не вдалося б відновити, тому її не збережено.</string>

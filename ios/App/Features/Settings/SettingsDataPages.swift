@@ -113,6 +113,9 @@ struct BackupSettingsPage: View {
             .overlay { if working { ProgressView() } }
             .settingsAnchor("backup.actions")
             .padding(.bottom, 12)
+            // Wöchentlich verschlüsselt in einen Ordner (`AutoBackupPolicy`)
+            RowDivider()
+            AutoBackupSection()
         }
         .toast($toast)
         .alert(L("backup_title"), isPresented: resultShown, presenting: resultDialog) { _ in

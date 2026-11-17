@@ -8,6 +8,14 @@
     <string name="backup_failed">அது வேலை செய்யவில்லை. இது Crypto Checker காப்புப்பிரதியா?</string>
     <string name="backup_hint">உங்கள் கண்காணிப்புப் பட்டியலைக் குறிப்புகள் மற்றும் குழுக்களுடன், விழிப்பூட்டல்கள், பிடித்தவை, போர்ட்ஃபோலியோ மற்றும் அமைப்புகளை நீங்களே வைத்திருக்கும் கோப்பாகச் சேமிக்கும் – எ.கா. புதிய ஃபோனுக்காக.</string>
     <string name="backup_import">மீட்டமைக்கவும்</string>
+    <string name="auto_backup_title">தானியங்கு காப்புப்பிரதி</string>
+    <string name="auto_backup_hint">ஒவ்வொரு வாரமும், மறைகுறியாக்கப்பட்டு, நீங்கள் தேர்ந்தெடுக்கும் கோப்புறையில் (எ.கா. கிளவுடில்). சமீபத்திய 4 கோப்புகள் வைக்கப்படும்.</string>
+    <string name="auto_backup_now">இப்போது காப்புப்பிரதி</string>
+    <string name="auto_backup_change_folder">கோப்புறையை மாற்று</string>
+    <string name="auto_backup_last">கடைசி காப்புப்பிரதி: %1$s</string>
+    <string name="auto_backup_never">இன்னும் காப்புப்பிரதி இல்லை</string>
+    <string name="auto_backup_failed">கடைசி தானியங்கு காப்புப்பிரதி தோல்வியடைந்தது – கோப்புறையைச் சரிபார்க்கவும் அல்லது இப்போது காப்புப்பிரதி எடுக்கவும்.</string>
+    <string name="auto_backup_password_hint">காப்புப்பிரதி தானாக இயங்க கடவுச்சொல் இந்தச் சாதனத்தில் மட்டுமே சேமிக்கப்படும். மீட்டமைக்க இது தேவை.</string>
     <string name="backup_title">காப்புப்பிரதி &amp; மீட்டமைப்பு</string>
     <string name="backup_too_large">கோப்பு மிகப் பெரியது அல்லது சரியான காப்புப்பிரதி அல்ல (வரம்பு 64 MB).</string>
     <string name="backup_export_too_large">காப்புப்பிரதி 64 MB ஐவிடப் பெரியதாக இருக்கும், மீட்டமைக்க முடியாது, எனவே அது சேமிக்கப்படவில்லை.</string>

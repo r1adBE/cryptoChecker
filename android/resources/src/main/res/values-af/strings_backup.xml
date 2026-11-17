@@ -8,6 +8,14 @@
     <string name="backup_failed">Dit het nie gewerk nie. Is dit \'n Crypto Checker-rugsteun?</string>
     <string name="backup_hint">Stoor jou volglys met notas en groepe, alarms, gunstelinge, portefeulje en instellings as \'n lêer wat jy self hou – bv. vir \'n nuwe foon.</string>
     <string name="backup_import">Herstel</string>
+    <string name="auto_backup_title">Outomaties rugsteun</string>
+    <string name="auto_backup_hint">Elke week, geënkripteer, in ’n vouer van jou keuse (bv. in die wolk). Die nuutste 4 lêers word gehou.</string>
+    <string name="auto_backup_now">Rugsteun nou</string>
+    <string name="auto_backup_change_folder">Verander vouer</string>
+    <string name="auto_backup_last">Laaste rugsteun: %1$s</string>
+    <string name="auto_backup_never">Nog nie gerugsteun nie</string>
+    <string name="auto_backup_failed">Die laaste outomatiese rugsteun het misluk – kyk na die vouer of rugsteun nou.</string>
+    <string name="auto_backup_password_hint">Die wagwoord word slegs op hierdie toestel gestoor sodat die rugsteun vanself kan loop. Jy het dit nodig om te herstel.</string>
     <string name="backup_title">Rugsteun &amp; herstel</string>
     <string name="backup_too_large">Die lêer is te groot of nie \'n geldige rugsteun nie (limiet 64 MB).</string>
     <string name="backup_export_too_large">Die rugsteun sou groter as 64 MB wees en kon nie herstel word nie, daarom is dit nie gestoor nie.</string>

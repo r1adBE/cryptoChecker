@@ -8,6 +8,14 @@
     <string name="backup_failed">Dat lukte niet. Is het een Crypto Checker-back-up?</string>
     <string name="backup_hint">Bewaart lijst met notities en groepen, alarmen, favorieten, portfolio en instellingen als bestand dat je zelf bewaart – bijv. voor een nieuwe telefoon.</string>
     <string name="backup_import">Terugzetten</string>
+    <string name="auto_backup_title">Automatisch back-uppen</string>
+    <string name="auto_backup_hint">Elke week, versleuteld, in een map naar keuze (bijv. in de cloud). De nieuwste 4 bestanden blijven bewaard.</string>
+    <string name="auto_backup_now">Nu back-uppen</string>
+    <string name="auto_backup_change_folder">Map wijzigen</string>
+    <string name="auto_backup_last">Laatste back-up: %1$s</string>
+    <string name="auto_backup_never">Nog geen back-up</string>
+    <string name="auto_backup_failed">De laatste automatische back-up is mislukt – controleer de map of maak nu een back-up.</string>
+    <string name="auto_backup_password_hint">Het wachtwoord wordt alleen op dit apparaat bewaard zodat de back-up vanzelf kan lopen. Je hebt het nodig om terug te zetten.</string>
     <string name="backup_title">Back-up en herstel</string>
     <string name="backup_too_large">Het bestand is te groot of geen geldige back-up (max. 64 MB).</string>
     <string name="backup_export_too_large">De back-up zou groter zijn dan 64 MB en niet meer te herstellen zijn, daarom is hij niet opgeslagen.</string>
