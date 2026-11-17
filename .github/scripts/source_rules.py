@@ -35,6 +35,7 @@ Rules (ids in the annotation title):
   permission-event   the price-pair settings ask for the notification permission through a screen event
   missing-logos      «coins without logo» sits under the loading hint; dismissed coins stay in the logo settings/app group
   lot-sheets         deleting a cost lot asks first on iOS; the open lot sheets survive recreation on Android
+  wiring             restore writes under the address refresh lock; every exact-check entry reads the shared demand
 
 The comments and messages are in German like the tests they replace.
 """
@@ -694,7 +695,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1479, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1475, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1988,6 +1989,56 @@ def rule_ios_lot_delete(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# wiring: Anbindungen, die nur der zusammengesetzte Ablauf zeigt (Hilt, Wecker, Sicherung) — je eine feste Stelle:
+#  - Wiederherstellen schreibt unter der Sperre der Adress-Aktualisierung, Fehler mit eigener Meldung (RestoreRun);
+#    Zurückrollen ebenso (Adressen und eigener Server in getrennten Schritten). Meldung selbst: RestoreStorageMessageTest.
+#  - Wecker, Abgleich nach dem Lauf, Schalter und Text der Einstellungen lesen denselben Bedarf (ExactCheckDemand);
+#    nirgends «nur aktive Paare» als Bedarf. Bedarf selbst: BackgroundWorkPolicyTest.
+#  - Schalter eines Alarms (Karte, Übersicht) nutzen AlarmJson.toggleAllowed («fällt um ≥ 100 %» nie einschalten);
+#    Schreibweg: WatchlistLockDeviceTest.
+
+
+WI_REQUIRED = {
+    ("data", "data/backup/BackupManager.kt"): (
+        "val settingsNotes = try { addressRefresher.withRefreshLock { writeRestored(input, previous, encrypted) } } "
+        "catch (e: Exception) { throw RestoreRun.forMessage(e) }",),
+    ("data", "data/backup/BackupManagerRecovery.kt"): ("addressRefresher.withRefreshLock {\n            rollBack(previous, Step.entries.toSet()",),
+    ("data", "data/portfolio/WatchedAddressRefresher.kt"): (
+        "suspend fun <T> withRefreshLock(block: suspend () -> T): T = gate.withLock { block() }",),
+    ("app", "work/BackgroundCheck.kt"): ("suspend fun hasWork(): Boolean = exactDemand.hasWork()",),
+    ("app", "ui/features/settings/ExactCheckControl.kt"): (
+        "exactScheduler.sync(enabled, hasWork = demand.hasWork())", "val hasWork: Flow<Boolean> get() = demand.observe()"),
+    ("app", "ui/features/settings/SettingsViewModel.kt"): (
+        "val hasBackgroundWork: StateFlow<Boolean> = exactChecks.hasWork",),
+    ("app", "ui/features/alarms/AlarmCard.kt"): ("enabled = AlarmJson.toggleAllowed(",),
+    ("app", "ui/features/alarms/AlarmsOverviewCards.kt"): (
+        "val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)",
+        "enabled = canToggle"),
+    ("app", "work/ExactCheckDemand.kt"): (
+        "BackgroundWorkPolicy.exactNeeded(",
+        "BackgroundWorkPolicy.marketAlarms(settings.gasAlertEthTenths, settings.gasAlertBtc, settings.depegAlarm)"),
+}
+WI_FORBIDDEN = {("app", p): ("any { !it.disabled }",) for p in
+                ("work/BackgroundCheck.kt", "ui/features/settings/ExactCheckControl.kt", "ui/features/settings/SettingsViewModel.kt")}
+
+
+def wiring_problems(sources):
+    problems = []
+    for key, parts in WI_REQUIRED.items():
+        code = ds_strip_comments(sources.get(key, ""))
+        problems += [f"{key[1]}: {part.splitlines()[0]} fehlt" for part in parts if part not in code]
+    for key, parts in WI_FORBIDDEN.items():
+        code = ds_strip_comments(sources.get(key, ""))
+        problems += [f"{key[1]}: {part} (nur aktive Paare als Bedarf)" for part in parts if part in code]
+    return problems
+
+
+def rule_wiring(t):
+    keys = set(WI_REQUIRED) | set(WI_FORBIDDEN)
+    return wiring_problems({(m, rel): read(need_file(os.path.join(t.java(m), *rel.split("/")))) for m, rel in keys})
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -2111,6 +2162,7 @@ RULES = [
     ("permission-event", rule_permission_event),
     ("missing-logos", rule_missing_logos),
     ("lot-sheets", rule_ios_lot_delete),
+    ("wiring", rule_wiring),
 ]
 
 
@@ -2153,6 +2205,13 @@ def self_test():
        "bulk-undo: Kotlin")
     eq(bulk_undo_swift("B.swift", "func undoBulkAdd(_ ids: [Int64]) {}\nbulkUndo.remove(ids) { vm.undoBulkAdd($0) }\n"
                                   + "let a = 1\n" * 80 + "Button { vm.undoBulkAdd(ids) }"), (2, ["B.swift:83"]), "bulk-undo: Swift")
+
+    # wiring: vollständige Quellen ok, Lücke und verbotener Bedarf gefunden
+    full = {k: "\n".join(v) for k, v in WI_REQUIRED.items()}
+    eq(wiring_problems(full), [], "wiring: ok")
+    broken = dict(full)
+    broken[("app", "work/BackgroundCheck.kt")] = "watches.any { !it.disabled }"
+    eq(len(wiring_problems(broken)), 2, "wiring: Lücke")
 
     # ios-lot-delete: mit Rückfrage ok, auskommentiert fehlt
     eq(lot_delete_problems(LD_BUTTON + "\n" + LD_ALERT), [], "ios-lot-delete: ok")

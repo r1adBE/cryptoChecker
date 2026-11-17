@@ -11,7 +11,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 import java.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -53,30 +52,6 @@ class RestoreStorageMessageTest {
         assertSame(cancel, RestoreRun.forMessage(cancel))
     }
 
-    /** Angebunden an das Schreiben in `BackupManager.restore` (nicht an Sichern oder Lesen der Datei). */
-    @Test
-    fun wiredAtTheRestoreWrite() {
-        val backup = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data/backup")
-        val manager = File(backup, "BackupManager.kt").readText()
-        assertTrue(
-            manager.contains(
-                "val settingsNotes = try { addressRefresher.withRefreshLock { writeRestored(input, previous, encrypted) } } " +
-                    "catch (e: Exception) { throw RestoreRun.forMessage(e) }",
-            ),
-        )
-    }
-
-    /**
-     * S3-03: Adressen und eigener Server kommen in getrennten Schritten — Wiederherstellen und Zurückrollen laufen unter der
-     * Sperre der Adress-Aktualisierung, die Reihenfolge der Schritte spielt keine Rolle.
-     */
-    @Test
-    fun restoreAndRollBackHoldTheAddressRefreshLock() {
-        val backup = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data/backup")
-        val recovery = File(backup, "BackupManagerRecovery.kt").readText()
-        assertTrue(recovery.contains("addressRefresher.withRefreshLock {\n            rollBack(previous, Step.entries.toSet()"))
-        val data = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data")
-        val refresher = File(data, "portfolio/WatchedAddressRefresher.kt").readText()
-        assertTrue(refresher.contains("suspend fun <T> withRefreshLock(block: suspend () -> T): T = gate.withLock { block() }"))
-    }
+    // Anbindung an das Schreiben in BackupManager.restore und die Sperre der Adress-Aktualisierung beim Wiederherstellen
+    // und Zurückrollen: Regel wiring in .github/scripts/source_rules.py (Audit A-01)
 }

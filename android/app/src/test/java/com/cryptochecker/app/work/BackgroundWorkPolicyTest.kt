@@ -301,22 +301,5 @@ class BackgroundWorkPolicyTest {
         assertEquals(BackgroundSchedule.ExactState.ACTIVE, BackgroundSchedule.exactState(enabled = true, permitted = true, hasWork = hasWork))
     }
 
-    /** Wecker, Abgleich nach dem Lauf, Schalter und Text der Einstellungen lesen denselben Bedarf (ExactCheckDemand). */
-    @Test
-    fun `every exact check entry reads the shared demand`() {
-        fun source(path: String): String = sequenceOf("", "app/", "android/app/")
-            .map { java.io.File(it + "src/main/java/com/cryptochecker/app/" + path) }.first { it.isFile }.readText()
-        assertTrue(source("work/BackgroundCheck.kt").contains("suspend fun hasWork(): Boolean = exactDemand.hasWork()"))
-        val control = source("ui/features/settings/ExactCheckControl.kt")
-        assertTrue(control.contains("exactScheduler.sync(enabled, hasWork = demand.hasWork())"))
-        assertTrue(control.contains("val hasWork: Flow<Boolean> get() = demand.observe()"))
-        assertTrue(source("ui/features/settings/SettingsViewModel.kt").contains("val hasBackgroundWork: StateFlow<Boolean> = exactChecks.hasWork"))
-        val demand = source("work/ExactCheckDemand.kt")
-        assertTrue(demand.contains("BackgroundWorkPolicy.exactNeeded("))
-        assertTrue(demand.contains("BackgroundWorkPolicy.marketAlarms(settings.gasAlertEthTenths, settings.gasAlertBtc, settings.depegAlarm)"))
-        // Nirgends mehr «nur aktive Paare» als Bedarf des Weckers
-        for (path in listOf("work/BackgroundCheck.kt", "ui/features/settings/ExactCheckControl.kt", "ui/features/settings/SettingsViewModel.kt")) {
-            assertFalse(path, source(path).contains("any { !it.disabled }"))
-        }
-    }
+    // Wecker, Abgleich, Schalter und Text lesen denselben Bedarf (ExactCheckDemand): Regel wiring (source_rules.py)
 }

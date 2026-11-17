@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 278)
+
+- More checks as behaviour tests or source rules.
+
 ## 16.2.2 (build 277)
 
 - CI: the Gradle warm-up asks the repositories again from the second attempt on.

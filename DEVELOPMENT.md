@@ -3260,6 +3260,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 275: iOS UI test of the add button checks that the list scrolled and reports the button in the tree on failure.
 * Build 276: iOS portfolio add button: disabled while hidden (accessibilityHidden alone left it in the tree on iOS 26); UI test checks it.
 * Build 277: CI: gradle_warmup.sh uses --refresh-dependencies from the second attempt (a cached missing plugin entry failed one job six times in 276).
+* Build 278: A-01 part 2 (9): restore under the address refresh lock, the shared exact-check demand and the alarm switches as source rule wiring; enabling a never-firing fall alarm as a device test of the write path.
 
 ## Known warnings
 

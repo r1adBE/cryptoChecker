@@ -42,6 +42,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -314,5 +315,26 @@ class WatchlistLockDeviceTest {
             "applyRefresh", "setNotifiedPrices", "markAlarmTriggered", "setAlarmReferenceIfUnchanged", "rearmAlarm",
             "rearmAlarmIfUnchanged",
         )
+    }
+
+    /**
+     * «Fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus: der Schreibweg schaltet ihn nicht ein, ausschalten geht immer
+     * (Audit A-01, früher Quelltext-Wächter; die Schalter der Karte und der Übersicht nutzen dieselbe Regel
+     * `AlarmJson.toggleAllowed`, Testfälle `AlarmParitySetTest`).
+     */
+    @Test
+    fun enablingANeverFiringFallIsRefused() = runBlocking<Unit> {
+        // Direkt in die Tabelle wie aus einer alten Sicherung (der Editor lässt 100 % nicht zu)
+        val never = db.getWatchDao().insertAlarm(
+            AlarmEntity(watchId = watchId, condition = AlarmCondition.CHANGE_PERCENT_DOWN, threshold = 100.0, enabled = false),
+        )
+        assertFalse("eingeschaltet", repo.setAlarmEnabled(never, true))
+        assertFalse(checkNotNull(db.getWatchDao().getAlarm(never)).enabled)
+        // Gültige Schwelle: geht
+        val valid = db.getWatchDao().insertAlarm(
+            AlarmEntity(watchId = watchId, condition = AlarmCondition.CHANGE_PERCENT_DOWN, threshold = 20.0, enabled = false),
+        )
+        assertTrue(repo.setAlarmEnabled(valid, true))
+        assertTrue(checkNotNull(db.getWatchDao().getAlarm(valid)).enabled)
     }
 }
