@@ -19,7 +19,7 @@ enum InsightsDataSource {
     /// Grosse Altcoins für die Altcoin-Saison (ohne Stablecoins).
     static let alts: [String] = [
         "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE", "TRX", "AVAX", "LINK", "DOT",
-        "TON", "SHIB", "LTC", "BCH", "UNI", "NEAR", "APT", "ICP", "ETC", "XLM",
+        "TON", "SHIB", "LTC", "BCH", "UNI", "NEAR", "APT", "ICP", "ETC", "XLM"
     ]
 
     // MARK: Coin

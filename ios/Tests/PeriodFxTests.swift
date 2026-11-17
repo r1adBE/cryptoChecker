@@ -10,7 +10,7 @@ final class PeriodFxTests: XCTestCase {
         func t(_ day: Int) -> Int64 { Int64(day) * 86_400_000 + 43_200_000 }
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: t(19_980)),
-            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 0.5, priceUsdt: 110, time: t(19_996)),
+            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 0.5, priceUsdt: 110, time: t(19_996))
         ]
         var btc: [Int: Double] = [:]
         for day in 19_970...19_999 { btc[day] = day <= 19_993 ? 100 : 105 }

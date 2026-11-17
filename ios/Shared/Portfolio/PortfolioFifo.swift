@@ -6,20 +6,21 @@ import Foundation
 ///    Kaufdatum dieses), dann Zeit der Transaktion, dann Id; Abgänge verbrauchen immer die ältesten ERWORBENEN Posten.
 ///    Haltedauer ab dem Erwerb.
 ///  - Verkauf: verbraucht Posten, älteste zuerst — zuerst die verkaufte Menge, danach die Gebühr im Coin aus den
-///    nächsten Posten; Erlös nur nach VERKAUFTER Menge verteilt (Gebühr-Coins: Erlös 0, ihr Einstand = Kosten der
-///    Veräusserung in ihrem Posten), Gewinn je Teil = Erlösanteil − Einstand; Teile ohne Kaufpreis (oder Verkauf ohne Preis) unbekannt. Mehr
-///    verkauft als erfasst: Bestand gekappt und markiert; der ungedeckte Rest wird eine Veräusserung ohne Kaufpreis
-///    (`uncovered`), damit im Steuer-Export kein Verkauf fehlt.
+/// nächsten Posten; Erlös nur nach VERKAUFTER Menge verteilt (Gebühr-Coins: Erlös 0, ihr Einstand = Kosten der
+/// Veräusserung in ihrem Posten), Gewinn je Teil = Erlösanteil − Einstand; Teile ohne Kaufpreis (oder Verkauf ohne
+/// Preis) unbekannt. Mehr verkauft als erfasst: Bestand gekappt und markiert; der ungedeckte Rest wird eine
+/// Veräusserung ohne Kaufpreis (`uncovered`), damit im Steuer-Export kein Verkauf fehlt.
 ///  - Auszahlung: verbraucht Posten, älteste zuerst, ohne Gewinn und ohne Veräusserung (Einstand in `withdrawals`);
 ///    Gebühr USDT/dritter Coin: Aufwand (`PortfolioFeeExpenses`).
 ///  - Gebühr im Coin verbraucht den ganzen Zugang (Kauf/Belohnung/Einzahlung bzw. erhaltener Coin eines Tauschs): kein
 ///    Posten, Aufwand realisiert (`PortfolioFeeExpenses`).
 ///  - Umbuchung: Netzwerkgebühr im Coin verbraucht Menge (älteste zuerst), ihr bekannter Einstand geht auf den
-///    ältesten verbleibenden Posten mit Kaufpreis über (Kosten des Haltens/Verschiebens, keine Veräusserung — wird mit
-///    dem nächsten Verkauf realisiert); ohne solchen Posten wartet er auf den nächsten später hinzukommenden Posten mit
-///    Kaufpreis, erst ohne einen solchen bis zum Ende `PortfolioLostFeeCost`; Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf alle Posten
-///    (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als `PortfolioUnassignedFee` vermerkt; wie
-///    je Wallet ebenso der Anteil der Menge über Bestand − Netzwerkgebühr, `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
+/// ältesten verbleibenden Posten mit Kaufpreis über (Kosten des Haltens/Verschiebens, keine Veräusserung — wird mit dem
+/// nächsten Verkauf realisiert); ohne solchen Posten wartet er auf den nächsten später hinzukommenden Posten mit
+/// Kaufpreis, erst ohne einen solchen bis zum Ende `PortfolioLostFeeCost`; Gebühr USDT + Wert der Gebühr im dritten
+/// Coin nach Menge auf alle Posten (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als
+/// `PortfolioUnassignedFee` vermerkt; wie je Wallet ebenso der Anteil der Menge über Bestand − Netzwerkgebühr,
+/// `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
 ///  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt (Erwerb, Umbuchungsgebühr zum
 ///    Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen); ein Abgang nimmt sie anteilig mit
 ///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Die Umbuchungsgebühr

@@ -44,7 +44,7 @@ extension Notifier {
             category(categoryAlarmPair, [edit]),
             category(categoryAlarmWhy, [why, edit]),
             category(categoryAlarmSnooze, [snooze, edit]),
-            category(categoryAlarmWhySnooze, [why, snooze, edit]),
+            category(categoryAlarmWhySnooze, [why, snooze, edit])
         ]
     }
 

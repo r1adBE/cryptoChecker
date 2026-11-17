@@ -72,7 +72,7 @@ final class NotificationBudgetTests: XCTestCase {
             E(identifier: Notifier.priceOverflowId, date: Date(timeIntervalSince1970: 5), title: "+2",
               userInfo: [Notifier.userInfoOverflowIds: [NSNumber(value: 7), NSNumber(value: 8)],
                          Notifier.userInfoOverflowLines: ["SOL", "ADA"]]),
-            E(identifier: "alarm-3", date: Date(timeIntervalSince1970: 30), title: "Alarm", userInfo: [:]),
+            E(identifier: "alarm-3", date: Date(timeIntervalSince1970: 30), title: "Alarm", userInfo: [:])
         ])
         XCTAssertEqual(state.prices, [2, 1])
         XCTAssertEqual(state.titles[1], "BTC")

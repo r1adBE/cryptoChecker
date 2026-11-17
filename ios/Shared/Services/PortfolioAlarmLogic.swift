@@ -279,8 +279,7 @@ enum PortfolioAlarmLogic {
             let elapsed = now - alarm.referenceAt
             if elapsed >= 0 && elapsed < AlarmEvaluator.minLevelRearmMillis { return .nothing }
             let back: Bool
-            if below { back = value > threshold * (1 + h) }
-            else if alarm.kind.isValue { back = value < threshold * (1 - h) }
+            if below { back = value > threshold * (1 + h) } else if alarm.kind.isValue { back = value < threshold * (1 - h) }
             // Prozent-Alarme: deutlich zurück, nicht nur ein Zittern um die Marke
             else { back = value < threshold - changeRearmMargin(threshold) }
             return back ? .rearm : .nothing
@@ -311,8 +310,8 @@ enum PortfolioAlarmLogic {
     /// Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`BackupManager.exceedsFall`).
     static let maxFallPercent = 100.0
 
-    /// «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
-    /// ausgeschaltet und in der Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Kein Editor, darum Hinweis «löschen und neu anlegen»
+    /// «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber ausgeschaltet und in der Übersicht als
+    /// «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Kein Editor, darum Hinweis «löschen und neu anlegen»
     /// (`portfolio_alarm_threshold_invalid_recreate`). Wie Android.
     static func exceedsFall(_ kind: PortfolioAlarmKind, _ threshold: Double) -> Bool {
         kind == .CHANGE_DOWN && threshold.isFinite && threshold >= maxFallPercent

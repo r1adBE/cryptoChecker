@@ -173,4 +173,3 @@ final class AssetKindTests: XCTestCase {
         XCTAssertFalse(WatchFilter.showsAlpha([Bool]()))
     }
 }
-

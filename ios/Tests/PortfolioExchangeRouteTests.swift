@@ -10,7 +10,7 @@ final class PortfolioExchangeRouteTests: XCTestCase {
         let r = PortfolioExchangeRoute.exchangeByCoin([
             (coin: "btc", exchange: "Kraken"), (coin: "BTC", exchange: "kraken"),
             (coin: "ETH", exchange: "Kraken"), (coin: "ETH", exchange: "Bitstamp"),
-            (coin: "SOL", exchange: nil), (coin: "SOL", exchange: " "),
+            (coin: "SOL", exchange: nil), (coin: "SOL", exchange: " ")
         ])
         XCTAssertEqual(r.single, ["BTC": "Kraken"])
         XCTAssertEqual(r.mixed, ["ETH"])
@@ -54,7 +54,7 @@ final class PortfolioExchangeRouteTests: XCTestCase {
         let ranges: [String: [Int: PortfolioDayRange]] = [
             "BTC": [1: PortfolioDayRange(open: 98, high: 104, low: 96)],
             "SOL": [1: PortfolioDayRange(open: 19, high: 21, low: 18)],
-            "ETH": [1: PortfolioDayRange(open: 9, high: 11, low: 8)],
+            "ETH": [1: PortfolioDayRange(open: 9, high: 11, low: 8)]
         ]
         // BTC Ausweich mit Bezug, SOL Ausweich ohne Binance-Kurs (Neustart), ETH ohne eigene Börse
         let result = PortfolioExchangeRoute.historyCloses(closes, ranges: ranges, own: [], routed: ["BTC", "SOL"], failed: [],

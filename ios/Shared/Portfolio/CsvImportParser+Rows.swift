@@ -11,7 +11,7 @@ extension CsvImportParser {
     }
 
     static func build(_ format: CsvImportFormat, _ h: Header, _ data: [Record], zone: String,
-                              chosenOrder: CsvDateOrder?, chosenMark: Character?) -> CsvImportResult {
+                      chosenOrder: CsvDateOrder?, chosenMark: Character?) -> CsvImportResult {
         switch format {
         case .KRAKEN: return CsvImportKraken.build(names: h.names, data: data, zone: zone)
         case .BINANCE: return CsvImportBinance.build(names: h.names, data: data, zone: zone)
@@ -150,11 +150,17 @@ extension CsvImportParser {
                 continue
             }
             let aGiven: Bool?
-            if signA < 0 && signB > 0 { aGiven = true }
-            else if signB < 0 && signA > 0 { aGiven = false }
-            else if outWord(a) && !outWord(b) { aGiven = true }
-            else if outWord(b) && !outWord(a) { aGiven = false }
-            else { aGiven = nil }
+            if signA < 0 && signB > 0 {
+                aGiven = true
+            } else if signB < 0 && signA > 0 {
+                aGiven = false
+            } else if outWord(a) && !outWord(b) {
+                aGiven = true
+            } else if outWord(b) && !outWord(a) {
+                aGiven = false
+            } else {
+                aGiven = nil
+            }
             guard let isAGiven = aGiven else {
                 skipped.append(CsvImportSkip(line: a.line, reason: .MISSING_FIELD))
                 skipped.append(CsvImportSkip(line: b.line, reason: .MISSING_FIELD))
@@ -240,7 +246,7 @@ extension CsvImportParser {
         let unitText = cells.cell(.feeUnit).uppercased()
         var feeUnit: String? = unitText.isEmpty ? nil : unitText
         if let u = feeUnit, ["SATS", "SAT", "SATOSHI", "SATOSHIS"].contains(u) {
-            fee = fee / satsPerBtc
+            fee /= satsPerBtc
             feeUnit = "BTC"
         }
         if feeUnit == nil {

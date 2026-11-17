@@ -23,7 +23,7 @@ extension BackupManager {
             "favorite": w.favorite,
             "group": w.groupName.map { $0 as Any } ?? NSNull(),
             "note": w.note.map { $0 as Any } ?? NSNull(),
-            "disabled": w.disabled,
+            "disabled": w.disabled
         ]
     }
 
@@ -65,7 +65,7 @@ extension BackupManager {
             "speak": a.speak,
             "referencePrice": a.referencePrice.map { $0 as Any } ?? NSNull(),
             "windowHours": a.windowHours,
-            "currency": a.currency.map { $0 as Any } ?? NSNull(),
+            "currency": a.currency.map { $0 as Any } ?? NSNull()
         ]
     }
 

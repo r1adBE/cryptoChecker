@@ -17,7 +17,7 @@ final class CutoffAddressTests: XCTestCase {
                                                  AddressObservation(time: t(day + 2), balance: Decimal(string: "0.7")!)]),
             // ETH: erst nach dem Stichtag beobachtet
             AddressBalanceHistory(chain: .ETH, address: "0x00000000000000000000000000000000000000aa",
-                                  observations: [AddressObservation(time: t(day + 1), balance: 2)]),
+                                  observations: [AddressObservation(time: t(day + 1), balance: 2)])
         ]
     }
 
@@ -44,7 +44,7 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertEqual(Array(lines), [
             "BTC;0.5;100;50.00;0.9;45.00;aus Adresse – ohne Kaufpreis",
             "ETH;;;;0.9;;aus Adresse – ohne Kaufpreis, Adresse an diesem Tag nicht beobachtet – nicht enthalten",
-            "Total;;;50.00;0.9;45.00;unvollständig",
+            "Total;;;50.00;0.9;45.00;unvollständig"
         ])
     }
 

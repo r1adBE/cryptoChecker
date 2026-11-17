@@ -126,7 +126,7 @@ final class AlarmLogicTests: XCTestCase {
             MoveWindow.PricePoint(price: 100, time: now - 200 * minute),
             MoveWindow.PricePoint(price: 100, time: now - 50 * minute),
             MoveWindow.PricePoint(price: 101, time: now - 20 * minute),
-            MoveWindow.PricePoint(price: 103, time: now - 10 * minute),
+            MoveWindow.PricePoint(price: 103, time: now - 10 * minute)
         ]
         XCTAssertTrue(AlarmEvaluator.shouldTrigger(alarm: a, price: 105.5, previousPrice: nil, now: now, cooldownMinutes: 0,
                                                    moveHistory: history))
@@ -250,7 +250,8 @@ final class AlarmLogicTests: XCTestCase {
         XCTAssertTrue(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: a, ratio: 3, candleOpenTime: candle, now: now, cooldownMinutes: 0))
         XCTAssertFalse(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: a, ratio: 2.99, candleOpenTime: candle, now: now, cooldownMinutes: 0))
         let reported = alarm(.VOLUME_SPIKE, 3, referenceAt: candle)
-        XCTAssertFalse(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: reported, ratio: 10, candleOpenTime: candle, now: now, cooldownMinutes: 0))
+        XCTAssertFalse(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: reported, ratio: 10, candleOpenTime: candle, now: now,
+            cooldownMinutes: 0))
         XCTAssertTrue(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: reported, ratio: 10, candleOpenTime: candle + 3_600_000,
                                                               now: now, cooldownMinutes: 0))
         XCTAssertFalse(AlarmEvaluator.shouldTriggerVolumeSpike(alarm: a, ratio: .nan, candleOpenTime: candle, now: now, cooldownMinutes: 0))

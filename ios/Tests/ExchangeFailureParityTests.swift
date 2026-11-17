@@ -157,7 +157,7 @@ final class ExchangeFailureParityTests: XCTestCase {
             UserFriendlyExchangeError(message: "EGeneral:Too many requests"),
             UserFriendlyExchangeError(message: "Parsed ticker has no data"),
             // So meldet die Einzelabfrage eine Antwort ohne gültigen Kurs (wie Android ExchangeParseException → Parse)
-            NoTickerDataError(),
+            NoTickerDataError()
         ]
         for error in errors {
             let text = ConnectionErrors.describe(error)

@@ -66,25 +66,29 @@ struct AboutSettingsPage: View {
     @ViewBuilder
     private var aboutLinkRows: some View {
         // Pflicht für den App Store: Datenschutzerklärung auch in der App erreichbar
-        SettingsButtonRow(title: L("about_privacy_policy"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("shield")) {
+        SettingsButtonRow(title: L("about_privacy_policy"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"),
+            icon: .system("shield")) {
             Self.open(AppLinks.privacyPolicy)
         }
         .settingsAnchor("about.privacy")
         RowDivider()
         // Nutzungsbedingungen (u. a. Pflichtpunkte der CoinGecko-API-Bedingungen)
-        SettingsButtonRow(title: L("about_terms"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("doc.text")) {
+        SettingsButtonRow(title: L("about_terms"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"),
+            icon: .system("doc.text")) {
             Self.open(AppLinks.termsOfUse)
         }
         .settingsAnchor("about.terms")
         RowDivider()
         // Fehlende Börse direkt mit der GitHub-Vorlage wünschen
-        SettingsButtonRow(title: L("about_request_exchange"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("storefront")) {
+        SettingsButtonRow(title: L("about_request_exchange"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"),
+            icon: .system("storefront")) {
             Self.open(AppLinks.exchangeRequest)
         }
         .settingsAnchor("about.exchange")
         RowDivider()
         // Quellcode öffentlich auf GitHub (MIT)
-        SettingsButtonRow(title: L("about_source_code"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("chevron.left.forwardslash.chevron.right")) {
+        SettingsButtonRow(title: L("about_source_code"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"),
+            icon: .system("chevron.left.forwardslash.chevron.right")) {
             Self.open(AppLinks.sourceCode)
         }
         .settingsAnchor("about.source")

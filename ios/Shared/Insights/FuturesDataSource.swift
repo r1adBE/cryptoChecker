@@ -46,7 +46,7 @@ enum FuturesDataSource {
             return try await firstOf([
                 (host: bybitHost, run: { try await bybit(symbol: symbol) }),
                 (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
-                (host: okxHost, run: { try await okx(base: base) }),
+                (host: okxHost, run: { try await okx(base: base) })
             ])
         case "BinanceFutures":
             // COIN-M (2:BTCUSD_PERP): eigene Kennzahlen von dapi; USDT-Kontrakt nur als Richtwert
@@ -56,7 +56,7 @@ enum FuturesDataSource {
                     (host: coinMHost, run: { try await binanceCoinM(symbol: coinM) }),
                     (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
                     (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
-                    (host: okxHost, run: { try await okx(base: base) }),
+                    (host: okxHost, run: { try await okx(base: base) })
                 ])
             }
             let symbol: String
@@ -68,7 +68,7 @@ enum FuturesDataSource {
             return try await firstOf([
                 (host: binanceHost, run: { try await binance(symbol: symbol, source: "Binance Futures") }),
                 (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
-                (host: okxHost, run: { try await okx(base: base) }),
+                (host: okxHost, run: { try await okx(base: base) })
             ])
         case "OkexFutures":
             // OKX-Perpetual: eigener Kontrakt (auch BASE-USD-SWAP), sonst Binance/Bybit als Richtwert
@@ -76,7 +76,7 @@ enum FuturesDataSource {
             return try await firstOf([
                 (host: okxHost, run: { try await okx(base: base, instId: instId) }),
                 (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
-                (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
+                (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") })
             ])
         default:
             // Weitere Börsen mit eigener Quelle: zuerst ihre eigenen Kennzahlen, sonst Richtwert der Kette
@@ -85,7 +85,7 @@ enum FuturesDataSource {
                 own,
                 (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
                 (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
-                (host: okxHost, run: { try await okx(base: base) }),
+                (host: okxHost, run: { try await okx(base: base) })
             ])
         }
     }
@@ -181,7 +181,7 @@ enum FuturesDataSource {
         return try await firstOf([
             (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
             (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
-            (host: okxHost, run: { try await okx(base: base) }),
+            (host: okxHost, run: { try await okx(base: base) })
         ])
     }
 

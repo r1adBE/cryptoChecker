@@ -87,7 +87,8 @@ enum WidgetData {
     static func reloadKinds(_ kinds: [String], reason: String) {
         guard !kinds.isEmpty else { return }
         let today = reloadCounter.increment(by: kinds.count)
-        AppLog.widget.info("Neuladen \(kinds.count, privacy: .public) Arten (\(reason, privacy: .public)), heute \(today, privacy: .public)")
+        AppLog.widget.info(
+            "Neuladen \(kinds.count, privacy: .public) Arten (\(reason, privacy: .public)), heute \(today, privacy: .public)")
         for kind in kinds { WidgetCenter.shared.reloadTimelines(ofKind: kind) }
     }
 
@@ -141,13 +142,13 @@ enum WidgetData {
             Watch(id: 7, exchangeKey: "bybit", exchangeName: "Bybit", baseAsset: "AVAX", quoteAsset: "USDT",
                   lastPrice: 34.82, previousPrice: 35.3, lastUpdate: now, change24h: -1.73),
             Watch(id: 8, exchangeKey: "okex", exchangeName: "OKX", baseAsset: "LINK", quoteAsset: "USDT",
-                  lastPrice: 22.15, previousPrice: 21.98, lastUpdate: now, change24h: 0.89),
+                  lastPrice: 22.15, previousPrice: 21.98, lastUpdate: now, change24h: 0.89)
         ]
     }()
 
     private static let sampleCloses: [Double] = [
         81_706, 81_985, 81_816, 82_171, 82_390, 82_314, 82_610, 82_534, 82_247, 82_340, 82_686, 82_872,
-        82_762, 82_982, 82_922, 82_678, 82_830, 83_074, 83_176, 83_024, 82_956, 83_100, 83_243, 83_142,
+        82_762, 82_982, 82_922, 82_678, 82_830, 83_074, 83_176, 83_024, 82_956, 83_100, 83_243, 83_142
     ]
 
     /// Beispielkerzen (Galerie/Platzhalter); der letzte Schluss entspricht dem Kurs des

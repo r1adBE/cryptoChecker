@@ -28,7 +28,7 @@ enum FuturesSources {
         "MexcFutures": mexc,
         "HtxFutures": htx,
         "Hyperliquid": hyperliquid,
-        "Deribit": deribit,
+        "Deribit": deribit
     ]
 
     /// Börsen, die auch als Ausweichquelle für andere Paare dienen (Kette Binance → Bybit → OKX).

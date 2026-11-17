@@ -121,7 +121,8 @@ final class RestoreStepsTests: XCTestCase {
         XCTAssertTrue(source.contains("try RestoreSteps.execute({ steps in"))
         XCTAssertTrue(source.contains("settled: { restoreWritesSettled() }, deleteJournal: { if journal { RestoreJournal.delete() } })"))
         // Abwarten immer; nur der UI-Test (kein Schlüsselbund im unsignierten Simulator) übergeht das Ergebnis
-        XCTAssertTrue(source.contains("let written = SharedStorage.flushSnapshotWrites()\n        #if DEBUG\n        if UITesting.isActive { return true }\n        #endif\n        return written"))
+        XCTAssertTrue(source.contains("let written = SharedStorage.flushSnapshotWrites()\n        #if DEBUG\n"
+            + "        if UITesting.isActive { return true }\n        #endif\n        return written"))
         XCTAssertEqual(source.components(separatedBy: "RestoreJournal.delete()").count, 2)
         XCTAssertTrue(source.contains("throw Failure.invalid(watchlistStep)"))
     }

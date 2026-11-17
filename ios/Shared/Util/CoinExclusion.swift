@@ -16,7 +16,7 @@ enum CoinExclusion {
         "SUSDE", "USDT0", "USDX", "USDB", "USDY", "USDF", "LUSD", "CRVUSD", "GHO", "DOLA", "FXUSD",
         "EURS", "EURE", "XAUT", "PAXG", "USTC", "USR", "DEUSD", "SRUSD", "USDO", "AUSD", "USYC",
         "BUIDL", "USDM", "USDL", "MIM", "ALUSD", "SUSD", "CUSD", "ZUSD", "HUSD", "USDK", "USDJ",
-        "USDAI", "OUSG", "XSGD",
+        "USDAI", "OUSG", "XSGD"
     ]
 
     /// Verpackte, gestakte und gebrückte Doppelgänger sowie Börsen-Belege.
@@ -26,7 +26,7 @@ enum CoinExclusion {
         "BBSOL", "WBNB", "BTCB", "TBTC", "LBTC", "SOLVBTC", "CLBTC", "FBTC", "UNIBTC", "WTRX",
         "WAVAX", "SAVAX", "WMATIC", "WPOL", "WSOL", "WHYPE", "KHYPE", "STHYPE", "OSETH", "SFRXETH",
         "FRXETH", "PUFETH", "SWETH", "ANKRETH", "TETH", "WEETHS", "RSWETH", "EBTC", "PUMPBTC",
-        "BSC-USD", "BGBTC", "OKBTC", "BBTC", "BTC.B", "SOLVBTC.BBN", "WEETH.BASE",
+        "BSC-USD", "BGBTC", "OKBTC", "BBTC", "BTC.B", "SOLVBTC.BBN", "WEETH.BASE"
     ]
 
     /// Namen, die so beginnen, sind Doppelgänger (kleingeschrieben verglichen).

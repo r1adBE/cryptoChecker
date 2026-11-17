@@ -152,7 +152,8 @@ struct HyperliquidCandles: ExchangeCandleSource {
     func fetch(_ pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHTTP) async -> [MarketCandle]? {
         guard let coin = CandleTime.pairId(pair, extra: ":"), let code = CandleParse.binanceInterval(interval) else { return nil }
         let start = CandleTime.windowStart(http.now, step: interval.millis, count: limit)
-        let json = "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"\(coin)\",\"interval\":\"\(code)\",\"startTime\":\(start),\"endTime\":\(http.now)}}"
+        let json = #"{"type":"candleSnapshot","req":{"coin":"\#(coin)","interval":"\#(code)","#
+            + #""startTime":\#(start),"endTime":\#(http.now)}}"#
         guard let body = await http.post("https://api.hyperliquid.xyz/info", json), let raw = try? Self.parse(body) else { return nil }
         return CandleParse.finish(raw, limit: limit)
     }

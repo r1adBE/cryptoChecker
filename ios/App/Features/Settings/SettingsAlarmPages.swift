@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung»), Markt-Meldungen und Sprachausgabe, Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
+/// Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung»), Markt-Meldungen und Sprachausgabe, Kurs-Mitteilungen,
+/// Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
 @MainActor
 struct AlarmSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -293,7 +294,7 @@ struct PricePairsPage: View {
 
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
-        let _ = refusedToggles
+        _ = refusedToggles
         SettingsSubPage(title: L("settings_price_notifications")) {
             SettingsHint(text: L("settings_price_pairs_hint"), top: 4)
             if data.watches.isEmpty {

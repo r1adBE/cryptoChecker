@@ -11,13 +11,13 @@ final class PortfolioPriceFallbackTests: XCTestCase {
         let current: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 65_000, at: now - minute),
             "ETH": StoredPrice(price: 3_000, at: now - 90 * minute),
-            "BAD": StoredPrice(price: .nan, at: now),
+            "BAD": StoredPrice(price: .nan, at: now)
         ]
         let stored: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 60_000, at: now - 60 * minute),
             "ETH": StoredPrice(price: 3_100, at: now - 30 * minute),
             "SOL": StoredPrice(price: 150, at: now - 10 * minute),
-            "ZERO": StoredPrice(price: 0, at: now),
+            "ZERO": StoredPrice(price: 0, at: now)
         ]
         let merged = PortfolioPriceFallback.merge(current: current, stored: stored)
         XCTAssertEqual(Set(merged.keys), ["BTC", "ETH", "SOL"])
@@ -46,7 +46,7 @@ final class PortfolioPriceFallbackTests: XCTestCase {
     func testEncodeDecodeRoundTrip() {
         let entries: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 65_432.1, at: now),
-            "PEPE": StoredPrice(price: 0.00000123, at: now - minute),
+            "PEPE": StoredPrice(price: 0.00000123, at: now - minute)
         ]
         XCTAssertEqual(PortfolioPriceFallback.decode(PortfolioPriceFallback.encode(entries)), entries)
     }
@@ -63,7 +63,7 @@ final class PortfolioPriceFallbackTests: XCTestCase {
     func testUnverifiedFlagRoundTrip() {
         let entries: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 65_432.1, at: now),
-            "BEAM": StoredPrice(price: 0.02, at: now, unverified: true),
+            "BEAM": StoredPrice(price: 0.02, at: now, unverified: true)
         ]
         let text = PortfolioPriceFallback.encode(entries)
         XCTAssertTrue(text.contains("\nBEAM;0.02;\(now);u"))
@@ -76,7 +76,8 @@ final class PortfolioPriceFallbackTests: XCTestCase {
     /// Neuerer Kurs gewinnt samt Stand: ein später geprüfter Kurs hebt «ungeprüft» auf.
     func testMergeKeepsFlagOfNewerEntry() {
         let stored = ["BEAM": StoredPrice(price: 0.02, at: now - minute, unverified: true)]
-        XCTAssertEqual(PortfolioPriceFallback.merge(current: ["BEAM": StoredPrice(price: 0.021, at: now)], stored: stored)["BEAM"]?.unverified, false)
+        XCTAssertEqual(PortfolioPriceFallback.merge(current: ["BEAM": StoredPrice(price: 0.021, at: now)],
+            stored: stored)["BEAM"]?.unverified, false)
         XCTAssertEqual(PortfolioPriceFallback.merge(current: [:], stored: stored)["BEAM"]?.unverified, true)
     }
 

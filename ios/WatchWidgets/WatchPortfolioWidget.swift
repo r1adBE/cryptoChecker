@@ -5,9 +5,10 @@ import WidgetKit
 /// Abfrage — rund kurz «12.3K» mit Währung, rechteckig «Portfolio / CHF 12’345.67 / +1.20 % heute», als Zeile «CHF
 /// 12’345.67»; verborgen auf dem iPhone «•••». Ohne Wert (Schalter aus oder noch nie einer) nie leer: rund und Ecke
 /// «Portfolio / aus», rechteckig «Portfolio / am Handy einschalten», als Zeile «Portfolio · am Handy einschalten»
-/// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter, rund, Ecke
-/// und Zeile knapp «USD 47m» (`WatchFreshness.shortTitle`);
-/// VoiceOver nennt es immer; verdeckt (`redactionReasons.privacy`) ohne Betrag. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android `PortfolioComplicationService`.
+/// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter, rund,
+/// Ecke und Zeile knapp «USD 47m» (`WatchFreshness.shortTitle`); VoiceOver nennt es immer; verdeckt
+/// (`redactionReasons.privacy`) ohne Betrag. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android
+/// `PortfolioComplicationService`.
 struct WatchPortfolioEntry: TimelineEntry {
     let date: Date
     let portfolio: WatchPortfolio?

@@ -35,8 +35,9 @@ protocol Exchange: Sendable {
     /// «hourly price». Android: `priceIsHourlyClose`.
     var priceIsHourlyClose: Bool { get }
 
-    /// true: the 24 h change refers to the mark price (e.g. `markPx` vs. `prevDayPx`), not to the displayed
-    /// price; no adapter sets it at the moment (Hyperliquid uses the displayed price). Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
+    /// true: the 24 h change refers to the mark price (e.g. `markPx` vs. `prevDayPx`), not to the displayed price; no
+    /// adapter sets it at the moment (Hyperliquid uses the displayed price). Row and action sheet then add «Mark»
+    /// (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
     var changeIsMark: Bool { get }
 
     /// Abschnitt der Börsenauswahl (Spot, Futures, DEX-Pools, Forex). Standard: Spot. Android: `category`.

@@ -28,7 +28,7 @@ private let bitfinexAliases: [String: String] = [
     "SNG": "SNGLS",
     "STJ": "STORJ",
     "WBT": "WBTC",
-    "YYW": "YOYOW",
+    "YYW": "YOYOW"
 ]
 
 /// Bitfinex Spot (API v2, öffentlich). Antworten sind Arrays; ein Ticker lautet

@@ -55,7 +55,8 @@ enum CsvImportParser {
             (.date, ["date", "datum", "timestamp", "time", "datetime", "zeitpunkt", "dateheure",
                      // «Date(UTC)», «Time (UTC)», «UTC_Time»: Zeiten in UTC (`Header.utcDate`)
                      "dateutc", "timeutc", "datetimeutc", "timestamputc", "utctime", "utcdate"]),
-            (.kind, ["transactiontype", "type", "transaction", "transaktion", "transaktionen", "typ", "art", "kind", "transactiontyp", "transaktionstyp"]),
+            (.kind, ["transactiontype", "type", "transaction", "transaktion", "transaktionen", "typ", "art", "kind", "transactiontyp",
+                "transaktionstyp"]),
             (.coin, ["symbol", "coin", "asset", "cryptocurrency", "crypto"]),
             (.amount, ["btcamount", "amountbtc", "quantity", "amount", "anzahl", "menge", "quantite", "btc"]),
             (.amountSats, ["satsamount", "amountsats", "sats", "satoshis", "satamount", "amountsat"]),
@@ -66,11 +67,13 @@ enum CsvImportParser {
             (.pair, ["currencypair", "pair", "waehrungspaar", "market"]),
             (.fee, ["fee", "fees", "costs", "kosten", "gebuehr", "gebuehren", "frais", "commission"]),
             (.feeUnit, ["feecurrency", "feeunit", "feeasset", "gebuehrenwaehrung"]),
-            (.id, ["operationid", "orderid", "order", "ordernr", "auftrag", "auftragnr", "ordre", "transactionid", "id", "txid", "reference"]),
+            (.id, ["operationid", "orderid", "order", "ordernr", "auftrag", "auftragnr", "ordre", "transactionid", "id", "txid",
+                "reference"]),
             (.isin, ["isin"]),
             // Tausch in einer Zeile: erhaltene Seite
-            (.toCoin, ["tocoin", "toasset", "tocurrency", "receivedcoin", "receivedasset", "receivedcurrency", "zielcoin", "erhaltenercoin"]),
-            (.toAmount, ["toamount", "toquantity", "receivedamount", "receivedquantity", "zielmenge", "erhaltenemenge"]),
+            (.toCoin, ["tocoin", "toasset", "tocurrency", "receivedcoin", "receivedasset", "receivedcurrency", "zielcoin",
+                "erhaltenercoin"]),
+            (.toAmount, ["toamount", "toquantity", "receivedamount", "receivedquantity", "zielmenge", "erhaltenemenge"])
         ]
         for (role, names) in table {
             for name in names { map[name] = role }

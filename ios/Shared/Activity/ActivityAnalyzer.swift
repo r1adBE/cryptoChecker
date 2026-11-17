@@ -52,7 +52,8 @@ enum ActivityAnalyzer {
     /// Intervall des Kontrakts laut Börse, sonst das übliche der Quelle (Hyperliquid: 1) — wie Android.
     static func fundingIntervalHours(_ source: String?, reported: Int? = nil) -> Int? {
         // Unbekanntes Intervall: wie 8 Std. — nur für die Einschätzung im Blatt, nie für Alarme (wie Android)
-        let hours = reported.flatMap { (1...24).contains($0) ? $0 : nil } ?? FuturesSources.fundingIntervalHours(source) ?? fundingBasisHours
+        let hours = reported.flatMap { (1...24).contains($0) ? $0 : nil }
+            ?? FuturesSources.fundingIntervalHours(source) ?? fundingBasisHours
         return hours == fundingBasisHours ? nil : hours
     }
 

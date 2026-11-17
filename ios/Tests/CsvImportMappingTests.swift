@@ -4,7 +4,8 @@ import XCTest
 /// Zuordnung importierter Zeilen zu Transaktionen (`CsvImportMapping`) — wie `CsvImportMappingTest.kt`.
 final class CsvImportMappingTests: XCTestCase {
 
-    private let csv = "Date,Transaction Type,BTC Amount,BTC Price,Currency Pair,Fiat Amount (excl. fees),Fiat Currency,Fee,Fee Currency,Destination,Operation ID,Counterparty\r\n"
+    private let csv = "Date,Transaction Type,BTC Amount,BTC Price,Currency Pair,Fiat Amount (excl. fees),Fiat Currency,"
+        + "Fee,Fee Currency,Destination,Operation ID,Counterparty\r\n"
         + "2024-09-15T14:23:17Z,Sell,-0.02847593,92341.28,BTC/CHF,2629.45,CHF,0.00,CHF,CH00,op-0001,Relai\r\n"
         + "2024-07-22T09:41:06Z,Buy,0.00284516,95287.63,BTC/CHF,271.05,CHF,2.45,CHF,bc1q1,op-0002,Relai\r\n"
         + "2024-06-20T08:00:00Z,Withdrawal,0.00500000,,,,,0.00001000,BTC,bc1q3,op-0004,\r\n"

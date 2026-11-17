@@ -1,10 +1,10 @@
 import Foundation
 
-/// Kurse vom iPhone für die Uhr: Das iPhone schickt für die Coins der Uhr (beide Listen) die Kurse, die es ohnehin schon
-/// hat — samt 24 h, Börse und Zeit seines Abrufs, ohne eigene Abfrage für die Uhr. Eigene Liste (Kürzel): Paar der
-/// Merkliste gegen `quoteAsset`, Spot, nicht deaktiviert; «Wie iPhone» (`WatchPair`-Schlüssel): genau das Paar des
-/// Favoriten (Börse und Kontrakt, auch Futures/Perp und andere Börsen). Die Uhr übernimmt sie und fragt selbst nur, was das iPhone nicht liefert (`selfFetch`).
-/// Wie Android `WatchPhoneQuotes` (`Parity/watch_link.json`).
+/// Kurse vom iPhone für die Uhr: Das iPhone schickt für die Coins der Uhr (beide Listen) die Kurse, die es ohnehin
+/// schon hat — samt 24 h, Börse und Zeit seines Abrufs, ohne eigene Abfrage für die Uhr. Eigene Liste (Kürzel): Paar
+/// der Merkliste gegen `quoteAsset`, Spot, nicht deaktiviert; «Wie iPhone» (`WatchPair`-Schlüssel): genau das Paar des
+/// Favoriten (Börse und Kontrakt, auch Futures/Perp und andere Börsen). Die Uhr übernimmt sie und fragt selbst nur, was
+/// das iPhone nicht liefert (`selfFetch`). Wie Android `WatchPhoneQuotes` (`Parity/watch_link.json`).
 enum WatchPhoneQuotes {
     static let quoteAsset = "USDT"
 

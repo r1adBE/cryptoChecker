@@ -14,7 +14,7 @@ enum PortfolioViewOption: String, AppEnum {
     static let caseDisplayRepresentations: [PortfolioViewOption: DisplayRepresentation] = [
         .overview: "widget_portfolio_view_overview",
         .chart: "widget_portfolio_view_chart",
-        .list: "widget_portfolio_view_list",
+        .list: "widget_portfolio_view_list"
     ]
 
     /// Gleiche Ansicht in der geteilten Rechnung.
@@ -39,7 +39,7 @@ enum PortfolioEntriesOption: String, AppEnum {
         .off: "widget_portfolio_entries_off",
         .buys: "widget_portfolio_entries_buys",
         .sells: "widget_portfolio_entries_sells",
-        .both: "widget_portfolio_entries_both",
+        .both: "widget_portfolio_entries_both"
     ]
 
     /// Gleiche Wahl in der geteilten Rechnung.

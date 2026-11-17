@@ -150,7 +150,8 @@ enum CallGuard {
             let open = m.range.location + m.range.length - 1
             let close = src.closing(open)
             let labels = src.arguments(open + 1, close).map { arg -> String in
-                guard let l = argLabel.firstMatch(in: arg, range: NSRange(location: 0, length: (arg as NSString).length)) else { return "_" }
+                guard let l = argLabel.firstMatch(in: arg, range: NSRange(location: 0,
+                    length: (arg as NSString).length)) else { return "_" }
                 return (arg as NSString).substring(with: l.range(at: 1))
             }
             var k = close + 1
@@ -200,7 +201,8 @@ enum CallGuard {
         guard let callRegex = try? NSRegularExpression(pattern: "(?<![\\w])\(region.name)\\(") else { return false }
         var sites: [(String, Int)] = []
         for (other, s) in sources {
-            for m in s.matches(callRegex) where !s.regions.contains(where: { $0.start <= m.range.location && m.range.location < $0.headerEnd }) {
+            let calls = s.matches(callRegex)
+            for m in calls where !s.regions.contains(where: { $0.start <= m.range.location && m.range.location < $0.headerEnd }) {
                 sites.append((other, m.range.location))
             }
         }
@@ -311,14 +313,19 @@ enum CallGuard {
         }
     }
 
+    // Feste Muster: können nicht scheitern
+    // swiftlint:disable force_try
     private static let declaration = try! NSRegularExpression(
-        pattern: #"^[ \t]*(?:@\w+(?:\([^)\n]*\))?\s+)*(?:(?:private|fileprivate|internal|public|static|class|final|override|nonisolated|mutating)\s+)*(?:func\s+(\w+)\s*(?:<[^>\n]*>)?\s*\(|var\s+(\w+)\s*:[^=\n{]*\{[ \t]*$)"#,
+        pattern: #"^[ \t]*(?:@\w+(?:\([^)\n]*\))?\s+)*"#
+            + #"(?:(?:private|fileprivate|internal|public|static|class|final|override|nonisolated|mutating)\s+)*"#
+            + #"(?:func\s+(\w+)\s*(?:<[^>\n]*>)?\s*\(|var\s+(\w+)\s*:[^=\n{]*\{[ \t]*$)"#,
         options: [.anchorsMatchLines])
     private static let refusedCall = try! NSRegularExpression(pattern: #"watchlistWriteRefused\(([^)]*)\)"#)
     private static let bareCall = try! NSRegularExpression(pattern: #"(?<![\w.])(?:self\.)?(\w+)\("#)
     private static let dataCall = try! NSRegularExpression(pattern: #"\bdata\s*\.\s*(\w+)\("#)
     private static let argLabel = try! NSRegularExpression(pattern: #"^\s*(\w+)\s*:(?!:)"#)
     private static let paramHead = try! NSRegularExpression(pattern: #"^(\w+)(?:\s+(\w+))?\s*:"#)
+    // swiftlint:enable force_try
 }
 
 /// Kleiner Zerleger für Swift: Kommentare (auch verschachtelt) durch Leerraum ersetzen; Zeichenketten `"…"`, `"""…"""` und

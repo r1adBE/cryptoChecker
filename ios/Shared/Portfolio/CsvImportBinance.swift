@@ -3,15 +3,16 @@ import Foundation
 /// Binance-Exporte → `CsvImportRow` — wie Android `CsvImportBinance` (Regeln und Begründungen dort). Aufbau nur aus den
 /// öffentlichen Spaltenbeschreibungen bekannt (synthetische Testdateien in `Tests/Csv/`), echte Beispiele folgen.
 ///
-/// Transaktionsverlauf «User_ID, UTC_Time, Account, Operation, Coin, Change, Remark»: Handel und Gebühr mit gleicher Zeit
-/// und gleichem Konto = ein Geschäft (Fiat-Seite → Kauf/Verkauf, sonst Tausch; nur eine Seite → ohne Preis; nur Gebühr →
-/// Gebühr-Zeile; weitere Gebühr-Coins → eigene Gebühr-Zeilen; mehrere Coins je Seite → `.AMBIGUOUS_GROUP`), «Deposit»/«Withdraw» →
-/// Ein-/Auszahlung, Gutschriften → Belohnung, Verschiebungen zwischen eigenen Konten → `.INTERNAL_MOVE`, Rest → Prüfliste.
-/// Handelsverlauf heute «Date(UTC), Pair, Side, Price, Executed, Amount, Fee» (Einheit an der Zahl), früher «Date(UTC),
-/// Market, Type, Price, Amount, Total, Fee, Fee Coin»: je Ausführung Kauf/Verkauf, gegen Stablecoin/Krypto ein Tausch.
-/// Nie doppelt aus beiden Exporten: Schlüssel ohne Preis mit Kalenderzeit, beide Leser fassen Ausführungen je Sekunde
-/// zusammen; Kauf und Verkauf desselben Coins in einer Sekunde nur mit genau zwei Coins getrennt, sonst Prüfliste; nur fast Gleiches hält die Vorschau als
-/// möglichen Doppelten zurück (`possibleDuplicates`).
+/// Transaktionsverlauf «User_ID, UTC_Time, Account, Operation, Coin, Change, Remark»: Handel und Gebühr mit gleicher
+/// Zeit und gleichem Konto = ein Geschäft (Fiat-Seite → Kauf/Verkauf, sonst Tausch; nur eine Seite → ohne Preis; nur
+/// Gebühr → Gebühr-Zeile; weitere Gebühr-Coins → eigene Gebühr-Zeilen; mehrere Coins je Seite → `.AMBIGUOUS_GROUP`),
+/// «Deposit»/«Withdraw» → Ein-/Auszahlung, Gutschriften → Belohnung, Verschiebungen zwischen eigenen Konten →
+/// `.INTERNAL_MOVE`, Rest → Prüfliste. Handelsverlauf heute «Date(UTC), Pair, Side, Price, Executed, Amount, Fee»
+/// (Einheit an der Zahl), früher «Date(UTC), Market, Type, Price, Amount, Total, Fee, Fee Coin»: je Ausführung
+/// Kauf/Verkauf, gegen Stablecoin/Krypto ein Tausch. Nie doppelt aus beiden Exporten: Schlüssel ohne Preis mit
+/// Kalenderzeit, beide Leser fassen Ausführungen je Sekunde zusammen; Kauf und Verkauf desselben Coins in einer Sekunde
+/// nur mit genau zwei Coins getrennt, sonst Prüfliste; nur fast Gleiches hält die Vorschau als möglichen Doppelten
+/// zurück (`possibleDuplicates`).
 enum CsvImportBinance {
 
     /// Spalten des Transaktionsverlaufs (normalisiert).
@@ -39,7 +40,7 @@ enum CsvImportBinance {
     private static let feeOps: Set<String> = ["fee", "transactionfee"]
     private static let tradeOps: Set<String> = [
         "buy", "sell", "transactionbuy", "transactionspend", "transactionsold", "transactionrevenue", "transactionrelated",
-        "binanceconvert", "largeotctrading", "autoinvesttransaction", "p2ptrading", "buycrypto", "smallassetsexchangebnb",
+        "binanceconvert", "largeotctrading", "autoinvesttransaction", "p2ptrading", "buycrypto", "smallassetsexchangebnb"
     ]
     private static let depositOps: Set<String> = ["deposit", "fiatdeposit"]
     private static let withdrawalOps: Set<String> = ["withdraw", "withdrawal", "fiatwithdraw", "fiatwithdrawal"]

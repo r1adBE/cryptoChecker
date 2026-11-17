@@ -37,7 +37,7 @@ struct CycleMarketCapRow: View {
                     L("market_cap_title"),
                     "\(L("market_cap_label")) \(cap)",
                     A11y.change(change),
-                    "\(L("market_volume_label")) \(volumeText ?? "")",
+                    "\(L("market_volume_label")) \(volumeText ?? "")"
                 ])
             },
             stamp: stamp,

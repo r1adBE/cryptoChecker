@@ -46,7 +46,7 @@ enum BidiText {
     static let marks: Set<Character> = [
         "\u{200E}", "\u{200F}", "\u{061C}",
         "\u{202A}", "\u{202B}", "\u{202C}", "\u{202D}", "\u{202E}",
-        "\u{2066}", "\u{2067}", "\u{2068}", "\u{2069}",
+        "\u{2066}", "\u{2067}", "\u{2068}", "\u{2069}"
     ]
 
     /// Richtungszeichen entfernen — z. B. aus eingefügtem Text.

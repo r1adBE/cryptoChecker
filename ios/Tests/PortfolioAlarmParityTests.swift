@@ -81,9 +81,13 @@ final class PortfolioAlarmParityTests: XCTestCase {
                 expected = .noPrice(coins)
             } else if let p = c["pause"] as? [String: Any] {
                 // {"tokens":[…]} bzw. {"failing":[…]} bzw. {"unverified":[…]}
-                if let tokens = p["tokens"] as? [String] { expected = .tokensStale(tokens) }
-                else if let coins = p["unverified"] as? [String] { expected = .priceUnverified(coins) }
-                else { expected = .addressesFailing(p["failing"] as? [String] ?? []) }
+                if let tokens = p["tokens"] as? [String] {
+                    expected = .tokensStale(tokens)
+                } else if let coins = p["unverified"] as? [String] {
+                    expected = .priceUnverified(coins)
+                } else {
+                    expected = .addressesFailing(p["failing"] as? [String] ?? [])
+                }
             } else {
                 expected = nil
             }

@@ -15,7 +15,7 @@ final class PortfolioSummaryCacheTests: XCTestCase {
 
     private let trades = [
         PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: 1_000),
-        PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.25, priceUsdt: 200, time: 2_000),
+        PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.25, priceUsdt: 200, time: 2_000)
     ]
 
     private func key(_ price: Double) -> PortfolioSummaryKey {

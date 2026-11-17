@@ -1,11 +1,13 @@
 import Foundation
 
-// CSV-Import (`CsvImportParser`): Zeitpunkte (ISO, Tag zuerst/Monat zuerst) in der Zeitzone der Datei lesen — wie `CsvImportTime.kt` (Android).
+// CSV-Import (`CsvImportParser`): Zeitpunkte (ISO, Tag zuerst/Monat zuerst) in der Zeitzone der Datei lesen — wie
+// `CsvImportTime.kt` (Android).
 
 extension CsvImportParser {
 
     private static let iso = try? NSRegularExpression(
-        pattern: "^([0-9]{4})-([0-9]{2})-([0-9]{2})(?:[T ]([0-9]{2}):([0-9]{2})(?::([0-9]{2})(?:[.,]([0-9]{1,9}))?)?)?\\s*(Z|UTC|[+-][0-9]{2}:?[0-9]{2})?$")
+        pattern: "^([0-9]{4})-([0-9]{2})-([0-9]{2})(?:[T ]([0-9]{2}):([0-9]{2})(?::([0-9]{2})(?:[.,]([0-9]{1,9}))?)?)?"
+            + "\\s*(Z|UTC|[+-][0-9]{2}:?[0-9]{2})?$")
     private static let dayFirst = try? NSRegularExpression(
         pattern: "^([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{4})(?:[ T,]+([0-9]{1,2}):([0-9]{2})(?::([0-9]{2}))?)?$")
 

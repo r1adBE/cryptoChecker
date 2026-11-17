@@ -14,7 +14,7 @@ final class SettingsSearchTests: XCTestCase {
                             synonyms: ["In dieser Zeit klingeln Alarme nicht."]),
         SettingsSearchEntry(id: "display.contrast", title: "Hoher Kontrast", path: "Modus",
                             synonyms: ["Kräftigere Farben und Linien."]),
-        SettingsSearchEntry(id: "about.privacy", title: "Datenschutzerklärung", path: "Über"),
+        SettingsSearchEntry(id: "about.privacy", title: "Datenschutzerklärung", path: "Über")
     ]
 
     private func ids(_ query: String) -> [String] {
@@ -84,7 +84,7 @@ final class SettingsSearchTests: XCTestCase {
     func testScriptsWithoutSpacesMatchInsideTitle() {
         let zh = [
             SettingsSearchEntry(id: "a", title: "价格提醒", path: "提醒"),
-            SettingsSearchEntry(id: "b", title: "语音播报", path: "通知", synonyms: ["朗读价格变化"]),
+            SettingsSearchEntry(id: "b", title: "语音播报", path: "通知", synonyms: ["朗读价格变化"])
         ]
         XCTAssertEqual(SettingsSearch.search(zh, query: "价格", locale: Locale(identifier: "zh")).map(\.id), ["a", "b"])
     }

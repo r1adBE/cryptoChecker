@@ -38,14 +38,14 @@ final class KrakenTradableTests: XCTestCase {
         let pairs = try kraken.readPairList(call: 0, body: recordedBody("pairs"))
         let ids = Set(pairs.compactMap { $0.pairId })
         XCTAssertTrue(ids.contains("XXBTZUSD"))
-        XCTAssertTrue(ids.intersection(cancelOnly).isEmpty, "cancel_only offered: \(ids.intersection(cancelOnly))")
+        XCTAssertTrue(ids.isDisjoint(with: cancelOnly), "cancel_only offered: \(ids.intersection(cancelOnly))")
     }
 
     func testBulkSkipsCancelOnlyRowsSilently() throws {
         let parsed = try kraken.parseBulkTickersDetailed(call: 0, body: recordedBody("bulk"))
         // Schlusskurs 0: weder Kurs noch Lesefehler — fehlt in der vollständigen Liste → Einzelabfrage
-        XCTAssertTrue(Set(parsed.tickers.keys).intersection(cancelOnly).isEmpty)
-        XCTAssertTrue(parsed.failed.intersection(cancelOnly).isEmpty)
+        XCTAssertTrue(Set(parsed.tickers.keys).isDisjoint(with: cancelOnly))
+        XCTAssertTrue(parsed.failed.isDisjoint(with: cancelOnly))
         let btc = try XCTUnwrap(parsed.tickers["XXBTZUSD"])
         XCTAssertGreaterThan(btc.last, 0)
     }

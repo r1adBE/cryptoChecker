@@ -14,7 +14,7 @@ final class AutoOrderTests: XCTestCase {
         Row(id: 5, name: "SOL/CHF", exchange: "Binance", fav: true),
         Row(id: 6, name: "ADA/USDT", exchange: "Kraken", fav: true),
         Row(id: 7, name: "ETH/USDT", exchange: "Kraken"),
-        Row(id: 8, name: "eth/usdt", exchange: "Binance"),
+        Row(id: 8, name: "eth/usdt", exchange: "Binance")
     ]
 
     private func ids(_ order: AutoOrder, _ items: [Row]? = nil) -> [Int] {

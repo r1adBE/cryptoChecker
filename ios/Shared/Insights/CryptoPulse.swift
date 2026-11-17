@@ -39,7 +39,7 @@ enum CryptoPulse {
             coins: [
                 PulseCoinLine(name: "Bitcoin", changePercent: btc),
                 PulseCoinLine(name: "Ethereum", changePercent: eth),
-                PulseCoinLine(name: "Solana", changePercent: sol),
+                PulseCoinLine(name: "Solana", changePercent: sol)
             ],
             alts: alts(btc: btc, eth: eth, sol: sol),
             volume: ratio.map(volume),

@@ -361,8 +361,9 @@ enum AddressBalance {
         return parts + AddressCostLots.trades(addresses, real: realTrades)
     }
 
-    /// Echte Transaktionen + Adress-Einzahlungen — Eingabe für Rechner, Verlauf, Zeiträume, Widget, Alarme (der
-    /// Rechner zeigt sie als Adress-Teil, Zeiträume/Verlauf lassen sie weg, siehe oben). Schon zusammengeführt (Einträge mit negativer Id): unverändert — nie doppelt.
+    /// Echte Transaktionen + Adress-Einzahlungen — Eingabe für Rechner, Verlauf, Zeiträume, Widget, Alarme (der Rechner
+    /// zeigt sie als Adress-Teil, Zeiträume/Verlauf lassen sie weg, siehe oben). Schon zusammengeführt (Einträge mit
+    /// negativer Id): unverändert — nie doppelt.
     static func withAddresses(_ realTrades: [PortfolioTx], addresses: [WatchedAddress], todayUtcDay: Int64) -> [PortfolioTx] {
         guard !addresses.isEmpty, !realTrades.contains(where: { isAddressTrade($0.id) }) else { return realTrades }
         return realTrades + trades(addresses, realTrades: realTrades, todayUtcDay: todayUtcDay)

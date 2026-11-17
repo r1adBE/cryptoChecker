@@ -11,7 +11,7 @@ enum WidgetThemeOption: String, AppEnum {
     static let caseDisplayRepresentations: [WidgetThemeOption: DisplayRepresentation] = [
         .system: "theme_system",
         .dark: "theme_dark",
-        .light: "theme_light",
+        .light: "theme_light"
     ]
 
     /// Dunkel für dieses Widget? «System» folgt dem Gerät.
@@ -36,7 +36,7 @@ enum WidgetChartRangeOption: String, AppEnum {
     static let caseDisplayRepresentations: [WidgetChartRangeOption: DisplayRepresentation] = [
         .day: "widget_range_24h",
         .week: "widget_range_7d",
-        .month: "widget_range_30d",
+        .month: "widget_range_30d"
     ]
 
     // Kerzenintervall, Anzahl und Kerzenlänge wie der geteilte Chart (`PriceChartRange`)
@@ -61,7 +61,7 @@ enum WidgetChartTypeOption: String, AppEnum {
 
     static let caseDisplayRepresentations: [WidgetChartTypeOption: DisplayRepresentation] = [
         .candles: "widget_chart_candles",
-        .line: "widget_chart_line",
+        .line: "widget_chart_line"
     ]
 }
 
@@ -78,7 +78,7 @@ enum PortfolioDisplayOption: String, AppEnum {
         .conversion: "widget_portfolio_display_conversion",
         // Untertitel: bei «Liste» ohne USDT-Zeile (wirkt dort wie «Umrechnung», `PortfolioWidgetOptions`)
         .conversionUsdt: DisplayRepresentation(title: "widget_portfolio_display_conversion_usdt",
-                                               subtitle: "widget_portfolio_display_not_list"),
+                                               subtitle: "widget_portfolio_display_not_list")
     ]
 
     /// Gleiche Anzeige in der geteilten Rechnung.
@@ -104,7 +104,7 @@ enum PortfolioChartRangeOption: String, AppEnum {
         .day: DisplayRepresentation(title: "widget_range_24h", subtitle: "widget_portfolio_range_overview"),
         .week: DisplayRepresentation(title: "widget_range_7d", subtitle: "widget_portfolio_range_overview"),
         .month: "widget_range_30d",
-        .year: "widget_range_1y",
+        .year: "widget_range_1y"
     ]
 
     /// Gleicher Zeitraum in der geteilten Rechnung.
@@ -146,7 +146,6 @@ struct WidgetWatchEntity: AppEntity {
 
 /// Liest die Paare aus dem gemeinsamen Speicher — gleiche Reihenfolge wie die App.
 struct WidgetWatchQuery: EntityQuery {
-    init() {}
 
     func entities(for identifiers: [String]) async throws -> [WidgetWatchEntity] {
         let watches = WidgetData.sortedWatches()
@@ -215,7 +214,6 @@ struct WidgetGroupEntity: AppEntity {
 /// Paaren) und die vorhandenen Gruppen — gleiche Reihenfolge wie die Chips der App und wie
 /// `WidgetGroupSelection.options` (Android). Bei jedem Öffnen der Einrichtung frisch gelesen.
 struct WidgetGroupQuery: EntityQuery {
-    init() {}
 
     func entities(for identifiers: [String]) async throws -> [WidgetGroupEntity] {
         // Auch Gruppen, die es nicht mehr gibt, zurückgeben: Das Widget zeigt dann
@@ -357,8 +355,6 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
 struct RefreshPricesIntent: AppIntent {
     static let title: LocalizedStringResource = "action_refresh"
     static let isDiscoverable: Bool = false
-
-    init() {}
 
     func perform() async throws -> some IntentResult {
         let tap = WidgetRefreshState.onTap(online: !(await WidgetOffline.isOffline()), running: WidgetRefresh.isRunning,

@@ -1,11 +1,12 @@
 import Foundation
 
 /// Alter der Kurse auf der Uhr (Uhr-App und Komplikation): «veraltet» nach derselben Regel wie Merkliste und Widgets
-/// (`OutdatedRule`: dreimal das Intervall, mindestens 15 Min.), mit dem Intervall des iPhones (`WatchSettings.interval`,
-/// begrenzt wie `WatchInterval.clamp`) — also nach 45 Min. bei 15, 90 Min. bei 30, 3 Std. bei 60. Gezählt je Coin ab
-/// dem Stand seines Abrufs (letzter Abruf, der diesen Coin lieferte), nicht ab dem letzten Handel: die 24-h-Ticker der Börsen geben dafür keine verlässliche Zeit. Alter für VoiceOver in
-/// Minuten, Stunden, Tagen wie `A11ySpeech.age` (Android). Wie Android `WatchFreshness` (`Parity/watch_quotes.json`,
-/// Abgleich mit `OutdatedRule` in `WatchQuotesParityTests`).
+/// (`OutdatedRule`: dreimal das Intervall, mindestens 15 Min.), mit dem Intervall des iPhones
+/// (`WatchSettings.interval`, begrenzt wie `WatchInterval.clamp`) — also nach 45 Min. bei 15, 90 Min. bei 30, 3 Std.
+/// bei 60. Gezählt je Coin ab dem Stand seines Abrufs (letzter Abruf, der diesen Coin lieferte), nicht ab dem letzten
+/// Handel: die 24-h-Ticker der Börsen geben dafür keine verlässliche Zeit. Alter für VoiceOver in Minuten, Stunden,
+/// Tagen wie `A11ySpeech.age` (Android). Wie Android `WatchFreshness` (`Parity/watch_quotes.json`, Abgleich mit
+/// `OutdatedRule` in `WatchQuotesParityTests`).
 enum WatchFreshness {
     /// Takt der Komplikation: Zeitleiste alle 15 Min. (Android: `UPDATE_PERIOD_SECONDS` = 900).
     static let updateMinutes = 15
@@ -65,14 +66,16 @@ enum WatchFreshness {
     /// Android `shortTitle`/`aged` (Kurztitel «BTC ^1»).
     static func shortTitle(_ title: String, time: Int64, now: Int64, intervalMinutes: Int,
                            locale: Locale = .current) -> String {
-        guard isOutdated(time, now: now, intervalMinutes: intervalMinutes), let age = shortAge(time, now: now, locale: locale) else { return title }
+        guard isOutdated(time, now: now, intervalMinutes: intervalMinutes),
+              let age = shortAge(time, now: now, locale: locale) else { return title }
         return title + " " + age
     }
 
     /// Zeile (inline): veraltet «BTC 84’450 · 47m», sonst unverändert.
     static func inlineLine(_ text: String, time: Int64, now: Int64, intervalMinutes: Int,
                            locale: Locale = .current) -> String {
-        guard isOutdated(time, now: now, intervalMinutes: intervalMinutes), let age = shortAge(time, now: now, locale: locale) else { return text }
+        guard isOutdated(time, now: now, intervalMinutes: intervalMinutes),
+              let age = shortAge(time, now: now, locale: locale) else { return text }
         return text + " · " + age
     }
 

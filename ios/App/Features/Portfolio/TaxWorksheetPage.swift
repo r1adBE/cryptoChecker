@@ -241,7 +241,8 @@ struct TaxWorksheetPage: View {
                                                  currency: workCurrency, year: year),
                 methodNote: methodNote
             )
-            .task(id: "\(taxTemplate.rawValue)-\(year)-\(method.rawValue)-\(workCurrency)-\(taxTemplate.walletFrom(costMethod, year)?.description ?? "-")") {
+            .task(id: "\(taxTemplate.rawValue)-\(year)-\(method.rawValue)-\(workCurrency)-"
+                + (taxTemplate.walletFrom(costMethod, year)?.description ?? "-")) {
                 await loadSummary(year: year)
             }
         }

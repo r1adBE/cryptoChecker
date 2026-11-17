@@ -77,7 +77,7 @@ final class CheckRunLogTests: XCTestCase {
             CheckRun(at: 1_700_000_000_000, trigger: .exact, result: .partial, durationMillis: 2_345),
             CheckRun(at: 1_699_999_000_000, trigger: .bgTask, result: .skipped, durationMillis: 0),
             CheckRun(at: 1_699_998_000_000, trigger: .widget, result: .failed, durationMillis: 15_000),
-            CheckRun(at: 1_699_997_000_000, trigger: .foreground, result: .ok, durationMillis: 800),
+            CheckRun(at: 1_699_997_000_000, trigger: .foreground, result: .ok, durationMillis: 800)
         ]
         let text = CheckRunLog.encode(runs)
         XCTAssertEqual(text.components(separatedBy: "\n").first, "1700000000000;exact;partial;2345")

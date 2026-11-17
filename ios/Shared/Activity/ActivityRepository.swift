@@ -169,7 +169,7 @@ enum ActivityRepository {
                     "sv": s.severity.rawValue,
                     "v": s.value.isFinite ? s.value : 0.0,
                     "f": s.factor.flatMap { $0.isFinite ? $0 : nil }.map { $0 as Any } ?? NSNull(),
-                    "a": s.seenAt,
+                    "a": s.seenAt
                 ] as [String: Any]
             }
             root[String(id)] = ["t": report.computedAt, "s": signals] as [String: Any]

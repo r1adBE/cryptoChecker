@@ -61,7 +61,7 @@ enum WatchEdit {
     /// Alarm-Arten, deren Bezug am alten Kurs hängt (wie `WatchDao.resetPriceReferences`).
     static let priceReferenceConditions: Set<AlarmCondition> = [
         .CHANGE_PERCENT_UP, .CHANGE_PERCENT_DOWN, .MOVE_PERCENT_WINDOW, .NEAR_HIGH, .NEAR_LOW,
-        .FUNDING_ABOVE, .FUNDING_BELOW, .OI_UP, .OI_DOWN,
+        .FUNDING_ABOVE, .FUNDING_BELOW, .OI_UP, .OI_DOWN
     ]
 
     /// Prozentalarme: messen ab dem ersten Kurs des neuen Paars.

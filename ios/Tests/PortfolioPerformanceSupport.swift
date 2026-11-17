@@ -15,7 +15,7 @@ enum PortfolioPerformanceData {
     /// Grundkurs je Coin in 10⁻⁶ USDT.
     private static let baseMicro: [Int] = [
         30_000_000_000, 2_000_000_000, 60_000_000, 500_000, 550_000, 7_000_000,
-        12_000_000, 25_000_000, 90_000, 80_000_000, 9_000_000, 300_000_000,
+        12_000_000, 25_000_000, 90_000, 80_000_000, 9_000_000, 300_000_000
     ]
 
     /// Kursniveau je Jahr 2019…2025 in Prozent des Grundkurses.

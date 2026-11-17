@@ -215,7 +215,7 @@ enum PriceStylePreview {
     /// 31 Schlusskurse → 30 Kerzen (Eröffnung = Schluss der vorigen).
     static let closes: [Int] = [
         20, 23, 25, 22, 24, 27, 30, 28, 25, 27, 30, 32, 34, 31, 35, 37,
-        39, 36, 32, 36, 39, 44, 42, 47, 50, 52, 50, 53, 57, 59, 63,
+        39, 36, 32, 36, 39, 44, 42, 47, 50, 52, 50, 53, 57, 59, 63
     ]
 
     /// Dochtlänge je Kerze (oben und unten).

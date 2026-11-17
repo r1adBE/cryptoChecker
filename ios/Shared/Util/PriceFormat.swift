@@ -118,7 +118,8 @@ enum PriceFormat {
         return ThresholdParser.parseDecimalAllowingZero(text, decimalSeparator: decimalSeparator, priceHint: priceHint)
     }
 
-    /// Wie `amountForInput` für einen exakten Wert (eigener Name: `amountForInput(0)`/`(nil)` bliebe sonst mehrdeutig): ohne Exponent, alle Stellen, Dezimalzeichen der Region.
+    /// Wie `amountForInput` für einen exakten Wert (eigener Name: `amountForInput(0)`/`(nil)` bliebe sonst mehrdeutig):
+    /// ohne Exponent, alle Stellen, Dezimalzeichen der Region.
     static func exactAmountForInput(_ value: Decimal?, decimalSeparator: Character = ".") -> String {
         guard let value else { return "" }
         return PortfolioDecimal.text(value)

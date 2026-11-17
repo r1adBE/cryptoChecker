@@ -166,7 +166,8 @@ private struct SingleSmallView: View {
                 if let candles = chartCandles(candles) {
                     WidgetPriceChartView(candles: candles, type: chartType, range: range, palette: palette,
                                          lineWidth: 1.6, currentPrice: watch.lastPrice,
-                                         accessibilityText: chartAccessibility(candles, chartType, range, watch.quoteAsset, foreignChart: foreignChart),
+                                         accessibilityText: chartAccessibility(candles, chartType, range, watch.quoteAsset,
+                                             foreignChart: foreignChart),
                                          stable: PortfolioStables.isStable(watch.baseAsset))
                 } else {
                     Color.clear
@@ -176,7 +177,8 @@ private struct SingleSmallView: View {
             .padding(.vertical, 4)
             // «14:05 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42 · 24h»; stehender Kurs einer
             // Börse ohne eigene Zeit: «Kurs unverändert seit 11:02 · 24h» (wie die Zeile der App)
-            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
+            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date,
+                afterMillis: outdatedAfter) + " · " + range.shortLabel)
                 .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
@@ -214,7 +216,8 @@ private struct SingleMediumView: View {
             if let candles = chartCandles(candles) {
                 WidgetPriceChartView(candles: candles, type: chartType, range: range, palette: palette, lineWidth: 2,
                                      currentPrice: watch.lastPrice,
-                                     accessibilityText: chartAccessibility(candles, chartType, range, watch.quoteAsset, foreignChart: foreignChart),
+                                     accessibilityText: chartAccessibility(candles, chartType, range, watch.quoteAsset,
+                                         foreignChart: foreignChart),
                                      stable: PortfolioStables.isStable(watch.baseAsset))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -256,7 +259,8 @@ private struct SingleMediumView: View {
             Spacer(minLength: 4)
             // Zeitraum des Charts neben der Uhrzeit, z. B. «14:05 · 7T»; veraltet «veraltet · 06:42 · 7T»;
             // stehender Kurs: «Kurs unverändert seit 11:02 · 7T»
-            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
+            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date,
+                afterMillis: outdatedAfter) + " · " + range.shortLabel)
                 .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
@@ -361,7 +365,8 @@ private struct SingleRectangularView: View {
     private func rectangularMeta(_ watch: Watch, hint: Bool, scale: CGFloat) -> some View {
         Text(verbatim: watch.disabled ? singleExchangeLine(watch)
              : "\(BidiText.isolate(watch.exchangeName)) · "
-                + WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter, allowsHint: hint))
+                + WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter,
+                    allowsHint: hint))
             .font(.system(size: 12 * scale))
             .monospacedDigit()
             .foregroundStyle(.secondary)

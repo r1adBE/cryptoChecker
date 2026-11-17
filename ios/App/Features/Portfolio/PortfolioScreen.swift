@@ -187,7 +187,9 @@ struct PortfolioScreen: View {
                 .environment(\.appAccent, accent)
         }
         .sheet(isPresented: $alarmOpen) {
-            PortfolioAlarmSheet(currency: data.settings.portfolioCurrency, basis: data.settings.changeBasis.storage) { kind, threshold, repeating in
+            PortfolioAlarmSheet(
+                currency: data.settings.portfolioCurrency, basis: data.settings.changeBasis.storage
+            ) { kind, threshold, repeating in
                 // Merkliste gesperrt: nichts angelegt — sagen warum statt «gespeichert»
                 guard data.addPortfolioAlarm(kind: kind, threshold: threshold, currency: data.settings.portfolioCurrency,
                                              repeating: repeating) else {

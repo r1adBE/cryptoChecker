@@ -93,7 +93,8 @@ extension AppData {
     }
 
     /// Nach einer Wiederherstellung (und beim Zurückrollen): alles neu übernehmen.
-    func replaceAll(snapshot newSnapshot: SharedStorage.Snapshot, settings newSettings: AppSettings?, favorites newFavorites: [FavoriteKind: Set<String>]) {
+    func replaceAll(snapshot newSnapshot: SharedStorage.Snapshot, settings newSettings: AppSettings?,
+                    favorites newFavorites: [FavoriteKind: Set<String>]) {
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren — sonst könnte ein
         // Signal kurz beim falschen Paar stehen, wenn die Ids übereinstimmen.
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }

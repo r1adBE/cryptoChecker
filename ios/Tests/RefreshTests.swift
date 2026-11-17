@@ -98,7 +98,7 @@ final class RefreshDebounceTests: XCTestCase {
 final class RefreshReportLogicTests: XCTestCase {
 
     private func exchange(_ name: String, _ pairs: Int, _ updated: Int, notTraded: Int = 0, failed: Int? = nil,
-                        millis: Int64 = 500) -> ExchangeRefresh {
+                          millis: Int64 = 500) -> ExchangeRefresh {
         ExchangeRefresh(name: name, millis: millis, pairs: pairs, updated: updated, notTraded: notTraded,
                       failed: failed ?? (pairs - updated - notTraded))
     }
@@ -124,7 +124,7 @@ final class RefreshReportLogicTests: XCTestCase {
             exchange("Orange", 10, 9, millis: 50),
             exchange("Green slow", 5, 5, millis: 900),
             exchange("Red", 2, 0, millis: 10),
-            exchange("Orange slow", 10, 8, millis: 700),
+            exchange("Orange slow", 10, 8, millis: 700)
         ])
         XCTAssertEqual(sorted.map(\.name), ["Red", "Orange slow", "Orange", "Green slow", "Green fast"])
     }
@@ -316,7 +316,8 @@ final class RefreshDeadlineTests: XCTestCase {
         XCTAssertTrue(Notifier.isDeliverable(status: .authorized, alert: .disabled, lockScreen: .enabled, notificationCenter: .disabled))
         // Erlaubt, aber nichts Sichtbares (nur Ton): nicht zugestellt
         XCTAssertFalse(Notifier.isDeliverable(status: .authorized, alert: .disabled, lockScreen: .disabled, notificationCenter: .disabled))
-        XCTAssertFalse(Notifier.isDeliverable(status: .authorized, alert: .notSupported, lockScreen: .disabled, notificationCenter: .disabled))
+        XCTAssertFalse(Notifier.isDeliverable(status: .authorized, alert: .notSupported, lockScreen: .disabled,
+            notificationCenter: .disabled))
         // Nicht erlaubt
         XCTAssertFalse(Notifier.isDeliverable(status: .denied, alert: .enabled, lockScreen: .enabled, notificationCenter: .enabled))
         XCTAssertFalse(Notifier.isDeliverable(status: .notDetermined, alert: .enabled, lockScreen: .enabled, notificationCenter: .enabled))

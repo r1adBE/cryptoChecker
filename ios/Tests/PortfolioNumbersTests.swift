@@ -416,7 +416,7 @@ final class PortfolioNumbersTests: XCTestCase {
         let trades = [
             PortfolioTx(id: 1, coin: "ETH", type: .BUY, amountExact: dec("0.1"), priceExact: 1, time: 1),
             PortfolioTx(id: 2, coin: "ETH", type: .BUY, amountExact: dec("0.2"), priceExact: 1, time: 2),
-            PortfolioTx(id: 3, coin: "SOL", type: .BUY, amountExact: dec("0.000000000000000001"), priceExact: 1, time: 3),
+            PortfolioTx(id: 3, coin: "SOL", type: .BUY, amountExact: dec("0.000000000000000001"), priceExact: 1, time: 3)
         ]
         let h = CutoffExport.holdingsAt(trades, cutoffMillis: 10)
         XCTAssertEqual(h.map(\.coin), ["ETH", "SOL"])
@@ -604,7 +604,7 @@ final class PortfolioNumbersTests: XCTestCase {
             "2025-12-31": ["BGN": 1.70, "EUR": 0.86],
             "2026-01-02": ["EUR": 0.85],
             "kaputt": ["BGN": 1.0],
-            "2026-01-05": ["BGN": -1.0],
+            "2026-01-05": ["BGN": -1.0]
         ]
         let bgn = PortfolioHistoryFx.ratesByDay("bgn", byDate: byDate)
         XCTAssertEqual(bgn[day("2025-12-31")] ?? .nan, 1.70, accuracy: d)
@@ -698,7 +698,7 @@ final class PortfolioNumbersTests: XCTestCase {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 50, time: noon(today - 500)),
             PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 97, time: noon(today - 3),
-                        fee: 1, feeUnit: .QUOTE),
+                        fee: 1, feeUnit: .QUOTE)
         ]
         let s = build(trades, ["BTC": linearCloses(400)], ["BTC": 110])
         XCTAssertTrue(s.tradesInRange)
@@ -719,7 +719,7 @@ final class PortfolioNumbersTests: XCTestCase {
     func testNetChangeUnknownWithUnpricedTradeAndEqualWithoutTrades() throws {
         let unpriced = [
             buy("BTC", 1, noon(today - 500)),
-            PortfolioTx(id: 99, coin: "BTC", type: .BUY, amount: 1, priceUsdt: nil, time: noon(today - 3)),
+            PortfolioTx(id: 99, coin: "BTC", type: .BUY, amount: 1, priceUsdt: nil, time: noon(today - 3))
         ]
         let s = build(unpriced, ["BTC": linearCloses(400)], ["BTC": 110])
         XCTAssertTrue(s.tradesInRange)
@@ -750,7 +750,7 @@ final class PortfolioNumbersTests: XCTestCase {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 50, time: noon(today - 500)),
             PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 97, time: noon(today - 3),
-                        fee: 1, feeUnit: .QUOTE),
+                        fee: 1, feeUnit: .QUOTE)
         ]
         let s = build(trades, ["BTC": linearCloses(400)], ["BTC": 110])
         XCTAssertTrue(s.hasPnlChart)
@@ -776,7 +776,7 @@ final class PortfolioNumbersTests: XCTestCase {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 95, time: noon(today - 5),
                         fee: 1, feeUnit: .QUOTE),
-            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 98, time: noon(today - 2)),
+            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 98, time: noon(today - 2))
         ]
         let s = build(trades, range: .sinceFirst, ["BTC": linearCloses(400)], ["BTC": 110])
         XCTAssertTrue(s.pnlSinceFirst)
@@ -794,7 +794,7 @@ final class PortfolioNumbersTests: XCTestCase {
         // Mehr verkauft als investiert: die Basis bleibt das eingesetzte Geld (10), nie ~0
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 10, time: noon(today - 5)),
-            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 98, time: noon(today - 2)),
+            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 98, time: noon(today - 2))
         ]
         let s = build(trades, range: .sinceFirst, ["BTC": linearCloses(400)], ["BTC": 110])
         XCTAssertEqual(try XCTUnwrap(s.pnlCapital), 10, accuracy: d)
@@ -840,7 +840,7 @@ final class PortfolioNumbersTests: XCTestCase {
         for i in 0..<40 { flat[today - i] = 20 }
         let trades = [
             PortfolioTx(id: 1, coin: "SOL", type: .BUY, amount: 2, priceUsdt: 10, time: noon(today - 20)),
-            PortfolioTx(id: 2, coin: "SOL", type: .WITHDRAWAL, amount: 1, priceUsdt: nil, time: noon(today - 3)),
+            PortfolioTx(id: 2, coin: "SOL", type: .WITHDRAWAL, amount: 1, priceUsdt: nil, time: noon(today - 3))
         ]
         let week = build(trades, ["SOL": flat], ["SOL": 20])
         XCTAssertTrue(week.pnlSkipped.isEmpty)
@@ -852,7 +852,7 @@ final class PortfolioNumbersTests: XCTestCase {
         let trades = [
             buy("BTC", 1, noon(today - 500)),
             buy("ETH", 1, noon(today - 500)),
-            PortfolioTx(id: 99, coin: "ETH", type: .BUY, amount: 1, priceUsdt: nil, time: noon(today - 3)),
+            PortfolioTx(id: 99, coin: "ETH", type: .BUY, amount: 1, priceUsdt: nil, time: noon(today - 3))
         ]
         let s = build(trades, ["BTC": linearCloses(400), "ETH": linearCloses(400)], ["BTC": 110, "ETH": 110])
         XCTAssertEqual(s.pnlSkipped, ["ETH"])
@@ -865,7 +865,8 @@ final class PortfolioNumbersTests: XCTestCase {
     }
 
     func testWithdrawalInRangeIsFlaggedAndDepositWithoutPriceCountsAtMarket() {
-        let closes = ["SOL": Dictionary(uniqueKeysWithValues: (0...40).map { (i: Int) -> (Int, Double) in (today - i, 20.0 + Double(i % 3)) })]
+        let closes = ["SOL": Dictionary(uniqueKeysWithValues: (0...40).map { (i: Int) -> (Int, Double) in (today - i,
+            20.0 + Double(i % 3)) })]
         let withdrawal = PortfolioTx(id: 900, coin: "SOL", type: .WITHDRAWAL, amount: 1, time: noon(today - 3))
         let deposit = PortfolioTx(id: 901, coin: "SOL", type: .DEPOSIT, amount: 1, time: noon(today - 2))
         let first = buy("SOL", 2, noon(today - 20))
@@ -963,7 +964,7 @@ final class PortfolioChartTests: XCTestCase {
     func testDailyUsesOwnOpenOnFirstDayAndClampsBounds() {
         let p = [
             PortfolioHistoryPoint(epochDay: today - 1, value: 100, open: 90, high: 120, low: 80),
-            PortfolioHistoryPoint(epochDay: today, value: 130, open: 999, high: 125, low: 101),
+            PortfolioHistoryPoint(epochDay: today, value: 130, open: 999, high: 125, low: 101)
         ]
         let c = PortfolioCandles.daily(p)
         XCTAssertEqual(c[0].open, 90, accuracy: d)
@@ -1027,7 +1028,7 @@ final class PortfolioChartTests: XCTestCase {
         ["BTC": [
             today - 2: PortfolioDayRange(open: 95, high: 105, low: 90),
             today - 1: PortfolioDayRange(open: 100, high: 118, low: 99),
-            today: PortfolioDayRange(open: 110, high: 125, low: 108),
+            today: PortfolioDayRange(open: 110, high: 125, low: 108)
         ]]
     }
 

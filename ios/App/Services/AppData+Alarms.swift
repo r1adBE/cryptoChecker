@@ -33,9 +33,7 @@ extension AppData {
         let alarmCurrency: String? = condition.isPriceThreshold && differsFromQuote ? validCode : nil
         let keep = existing != nil && existing?.condition == condition && existing?.windowHours == windowHours
         let referencePrice: Double?
-        if !condition.isPercent { referencePrice = nil }
-        else if keep { referencePrice = existing?.referencePrice }
-        else {
+        if !condition.isPercent { referencePrice = nil } else if keep { referencePrice = existing?.referencePrice } else {
             // Nur ein frischer Kurs taugt als Bezug; sonst setzt ihn die nächste Abfrage
             let w = watch(watchId)
             referencePrice = AlarmEdit.freshReference(
@@ -48,10 +46,15 @@ extension AppData {
         let referenceAt: Int64
         if condition == .VOLUME_SPIKE {
             referenceAt = existing?.condition == .VOLUME_SPIKE ? (existing?.referenceAt ?? 0) : 0
-        } else if condition != .MOVE_PERCENT_WINDOW { referenceAt = 0 }
-        else if keep { referenceAt = existing?.referenceAt ?? 0 }
-        else if referencePrice != nil { referenceAt = EpochTime.nowMillis }
-        else { referenceAt = 0 }
+        } else if condition != .MOVE_PERCENT_WINDOW {
+            referenceAt = 0
+        } else if keep {
+            referenceAt = existing?.referenceAt ?? 0
+        } else if referencePrice != nil {
+            referenceAt = EpochTime.nowMillis
+        } else {
+            referenceAt = 0
+        }
 
         mutate({ s in
             var alarmId = id

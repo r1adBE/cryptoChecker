@@ -26,20 +26,19 @@ struct PortfolioLedgerEvent: Sendable {
 /// + Menge − Gebühr im Coin; Verkauf/Verschenkt/Auszahlung − (Menge + Gebühr im Coin); Umbuchung − Gebühr im Coin;
 /// Gebühr-Abgang − Gebühr.
 ///
-/// Zufluss in USDT (`flow`; + = hinein, − = heraus, nil = unbekannt): Kauf/Belohnung/Einzahlung
-/// + (Menge × Preis + Gebühr USDT + Wert der Gebühr im dritten Coin); Verkauf − (verkaufte Menge × Preis −
-/// Gebühren), Damit bezahlt ebenso zum Marktwert (ohne: zum MARKTKURS), Verschenkt wie eine Auszahlung; Gebühr-Zeile (`isFeeDisposal`) wie ein Verkauf zum MARKTKURS (Abfluss, kein Sprung am Gebühr-Tag; ohne
-/// Marktkurs nil); Auszahlung wie ein Verkauf zum erfassten Preis, sonst zum MARKTKURS ihres Zeitpunkts (`marketPrice`,
-/// kein Gewinn/Verlust aus dem Abgang; ohne Marktkurs nil; über den Bestand hinaus Wert und Gebühren zum gedeckten
-/// Anteil `withdrawnFraction`); Einzahlung ohne Preis ebenso zum Marktkurs (eingebrachtes
-/// Geld, kein Gewinn — der Einstand bleibt unbekannt); Adress-Einträge (negative Id, ohne Preis) zum Marktkurs;
-/// Umbuchung + (Gebühr USDT + Wert der Gebühr im dritten Coin), ohne Bestand in der Quelle 0; Gebühr-Abgang − (Gebühr × Gebühr-Preis).
-/// Belohnung ohne Wert und Gebühr im dritten Coin ohne Preis (Gebühr-Abgang wie Haupttransaktion, `feeMarketPrice`)
-/// zum MARKTKURS ihres Zeitpunkts — eine Buchung ohne Preis lässt den Coin nicht aus «Heute/7 T/1 J» fallen;
-/// nur ohne Marktkurs nil. Wie Android.
-/// Tausch (neutral): abgegebener Coin wie ein Verkauf zum Wert des Tauschs, erhaltener Coin + Wert; ohne Wert je zum
-/// Marktkurs des Coins (erhalten: Menge vor Gebühr × Kurs); Bestand abgegeben − (Menge + Gebühr im Coin), erhalten
-/// + (Menge − Gebühr im erhaltenen Coin).
+/// Zufluss in USDT (`flow`; + = hinein, − = heraus, nil = unbekannt): Kauf/Belohnung/Einzahlung + (Menge × Preis +
+/// Gebühr USDT + Wert der Gebühr im dritten Coin); Verkauf − (verkaufte Menge × Preis − Gebühren), Damit bezahlt ebenso
+/// zum Marktwert (ohne: zum MARKTKURS), Verschenkt wie eine Auszahlung; Gebühr-Zeile (`isFeeDisposal`) wie ein Verkauf
+/// zum MARKTKURS (Abfluss, kein Sprung am Gebühr-Tag; ohne Marktkurs nil); Auszahlung wie ein Verkauf zum erfassten
+/// Preis, sonst zum MARKTKURS ihres Zeitpunkts (`marketPrice`, kein Gewinn/Verlust aus dem Abgang; ohne Marktkurs nil;
+/// über den Bestand hinaus Wert und Gebühren zum gedeckten Anteil `withdrawnFraction`); Einzahlung ohne Preis ebenso
+/// zum Marktkurs (eingebrachtes Geld, kein Gewinn — der Einstand bleibt unbekannt); Adress-Einträge (negative Id, ohne
+/// Preis) zum Marktkurs; Umbuchung + (Gebühr USDT + Wert der Gebühr im dritten Coin), ohne Bestand in der Quelle 0;
+/// Gebühr-Abgang − (Gebühr × Gebühr-Preis). Belohnung ohne Wert und Gebühr im dritten Coin ohne Preis (Gebühr-Abgang
+/// wie Haupttransaktion, `feeMarketPrice`) zum MARKTKURS ihres Zeitpunkts — eine Buchung ohne Preis lässt den Coin
+/// nicht aus «Heute/7 T/1 J» fallen; nur ohne Marktkurs nil. Wie Android. Tausch (neutral): abgegebener Coin wie ein
+/// Verkauf zum Wert des Tauschs, erhaltener Coin + Wert; ohne Wert je zum Marktkurs des Coins (erhalten: Menge vor
+/// Gebühr × Kurs); Bestand abgegeben − (Menge + Gebühr im Coin), erhalten + (Menge − Gebühr im erhaltenen Coin).
 enum PortfolioLedger {
 
     /// Reihenfolge der Schritte wie Android `ORDER`: Zeit, bei gleicher Zeit Zugänge (`isAcquisition`) vor Abgängen, dann
@@ -183,7 +182,8 @@ enum PortfolioLedger {
         // Umbuchung ohne Bestand (in ihrer Quelle): wie im Rechner (`PortfolioFifo`, Ø) ohne Wirkung — auch ihre Gebühren
         if t.type == .TRANSFER && h <= 0 { return 0 }
         // Gebühr im dritten Coin ohne Preis: zum Marktkurs des Gebühr-Coins
-        guard let feeValue = t.thirdFeeValue ?? exactPrice(feeMarketPrice).map({ PortfolioDecimal.multiply(t.thirdFeeAmount, $0) }) else { return nil }
+        guard let feeValue = t.thirdFeeValue
+            ?? exactPrice(feeMarketPrice).map({ PortfolioDecimal.multiply(t.thirdFeeAmount, $0) }) else { return nil }
         // Gebühr-Zeile zum Marktkurs (Abfluss wie ein Verkauf, dessen Erlös das Portfolio verlässt)
         let price = isFeeDisposal(t) ? market : (t.validPriceExact ?? (needsMarketPrice(e) ? market : nil))
         switch t.type {

@@ -16,7 +16,7 @@ extension BackupManager {
             "threshold": a.threshold,
             "currency": a.currency.map { $0 as Any } ?? NSNull(),
             "enabled": a.enabled,
-            "repeating": a.repeating,
+            "repeating": a.repeating
         ]
     }
 

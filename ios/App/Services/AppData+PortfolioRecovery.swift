@@ -20,8 +20,8 @@ extension SharedStorage {
     static var portfolioRecoveryPending: Bool {
         get { defaults.bool(forKey: "portfolio_recovery_pending") }
         set {
-            if newValue { defaults.set(true, forKey: "portfolio_recovery_pending") }
-            else { defaults.removeObject(forKey: "portfolio_recovery_pending") }
+            if newValue { defaults.set(true,
+                forKey: "portfolio_recovery_pending") } else { defaults.removeObject(forKey: "portfolio_recovery_pending") }
         }
     }
 }

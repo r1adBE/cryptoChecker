@@ -284,7 +284,7 @@ final class TaxSummaryUsdtTests: XCTestCase {
     private let sellDay = 20270 // 1.7.2025
     private let trades = [
         PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, priceExact: 10000, time: 1_746_446_400_000),
-        PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: 1, priceExact: 12000, time: 1_751_371_200_000),
+        PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: 1, priceExact: 12000, time: 1_751_371_200_000)
     ]
     private let texts = TaxSummaryTexts(
         title: "T", disclaimer: "D", item: "I", usdt: "USDT", target: "CHF", note: "N", orientation: "O", labels: [:],

@@ -64,7 +64,6 @@ enum RestoreJournal {
         return nil
     }
 
-
     static func delete(at target: URL = url) {
         AppLog.remove(target, "Wiederherstellungs-Journal löschen")
     }

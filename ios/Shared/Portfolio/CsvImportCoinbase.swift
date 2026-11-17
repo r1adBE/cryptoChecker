@@ -21,7 +21,7 @@ enum CsvImportCoinbase {
     private static let depositTypes: Set<String> = ["receive", "deposit"]
     private static let internalTypes: Set<String> = [
         "prodeposit", "prowithdrawal", "exchangedeposit", "exchangewithdrawal", "retailstakingtransfer",
-        "retailunstakingtransfer", "retaileth2deprecation",
+        "retailunstakingtransfer", "retaileth2deprecation"
     ]
 
     /// Teilwörter einer Gutschrift («Rewards Income», «Coinbase Earn», «Subscription Rebate» …).
@@ -108,7 +108,8 @@ enum CsvImportCoinbase {
                     let to = asset(g[4])
                     guard let received = positive(CsvImportParser.parseNumber(g[3], hint: ".")) else { throw Skip(reason: .BAD_NUMBER) }
                     if to == coin { throw Skip(reason: .MISSING_FIELD) }
-                    if let q = quote, CsvImport.money.contains(q) { swapValue = subtotal ?? spot.map { PortfolioDecimal.multiply($0, amount) } }
+                    if let q = quote, CsvImport.money.contains(q) { swapValue = subtotal ?? spot.map { PortfolioDecimal.multiply($0,
+                        amount) } }
                     toCoin = to
                     toAmount = received
                     rowQuote = (swapValue != nil || fee != nil) ? quote : nil

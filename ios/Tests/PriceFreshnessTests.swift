@@ -157,7 +157,9 @@ final class PriceFreshnessTests: XCTestCase {
 
     /// Frische unbekannt (0) und ohne Börsenzeit (Feld nicht geschrieben); gesetzte Werte bleiben erhalten.
     func testWatchDecodingDefaultsAndRoundTrip() throws {
-        let minimal = #"{"id":1,"exchangeKey":"Kraken","baseAsset":"BTC","quoteAsset":"USD","lastPrice":1.5,"lastUpdate":5,"exchangeName":"Kraken","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#
+        let minimal = #"{"id":1,"exchangeKey":"Kraken","baseAsset":"BTC","quoteAsset":"USD","lastPrice":1.5,"lastUpdate":5,"#
+            + #""exchangeName":"Kraken","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"notifiedAt":0,"#
+            + #""favorite":false,"disabled":false,"priceChangedAt":0}"#
         let decoded = try JSONDecoder().decode(Watch.self, from: Data(minimal.utf8))
         XCTAssertEqual(decoded.priceChangedAt, 0)
         XCTAssertNil(decoded.exchangeTime)

@@ -1,18 +1,18 @@
 import XCTest
 
-/// Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
-/// Android: Regel `write-consent` in `.github/scripts/source_rules.py`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
-/// deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder
-/// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
-/// `cancelled:`-Block) oder in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`). Ein
-/// Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B. `addStarterConfirmed` oder `saveDraftNow`, dessen
-/// einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer Funktion zählt dabei nie als fragender Hilfsweg.
-/// `confirmWatchlistWrite` ist privat (die Aktion läuft nur über `withWatchlistConfirm` unter
-/// `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten Ausführung im Block
-/// (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { … }` nicht.
-/// Abgrenzung: Das Verhalten der Zustimmung selbst (ohne abgelehnt, mit geschrieben, erbender Task ja, `Task.detached`
-/// nein) prüft `WatchlistConsentBehaviorTests` an den Schreibwegen von AppData. Dieser Wächter sichert zusätzlich, was
-/// kein Verhaltenstest abdeckt: dass JEDER Aufruf in den Bildschirmen vorher fragt.
+/// Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie Android: Regel `write-consent` in
+/// `.github/scripts/source_rules.py`. Die Schreibwege kommen aus `AppData` (Funktionen in
+/// `App/Services/AppData*.swift`, deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf;
+/// Überladungen nach Argument-Bezeichnern). Jeder Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt
+/// im Block von `withWatchlistConfirm { … }` (nicht im `cancelled:`-Block) oder in der Aktion eines Hilfswegs, der
+/// seine Aktion nur darin ausführt (z. B. `moveButton`). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt
+/// (z. B. `addStarterConfirmed` oder `saveDraftNow`, dessen einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf
+/// einer Funktion zählt dabei nie als fragender Hilfsweg. `confirmWatchlistWrite` ist privat (die Aktion läuft nur über
+/// `withWatchlistConfirm` unter `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten
+/// Ausführung im Block (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { …
+/// }` nicht. Abgrenzung: Das Verhalten der Zustimmung selbst (ohne abgelehnt, mit geschrieben, erbender Task ja,
+/// `Task.detached` nein) prüft `WatchlistConsentBehaviorTests` an den Schreibwegen von AppData. Dieser Wächter sichert
+/// zusätzlich, was kein Verhaltenstest abdeckt: dass JEDER Aufruf in den Bildschirmen vorher fragt.
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
 
@@ -38,7 +38,8 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         let result = CallGuard.check(screens, writes: writes, allowed: Self.allowed)
         XCTAssertGreaterThanOrEqual(result.calls, 30, "zu wenige Aufrufe gefunden — Scan defekt?")
         XCTAssertEqual(result.exempted.count, Self.allowed.count, "Ausnahmeliste veraltet")
-        XCTAssertTrue(result.problems.isEmpty, "Schreibweg ohne Rückfrage «nicht gespeichert» davor:\n" + result.problems.joined(separator: "\n"))
+        XCTAssertTrue(result.problems.isEmpty,
+            "Schreibweg ohne Rückfrage «nicht gespeichert» davor:\n" + result.problems.joined(separator: "\n"))
     }
 
     /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, direkt hinter `confirmWatchlistWrite`, im

@@ -42,12 +42,12 @@ enum PerformanceData {
         "COMP", "ZIL", "BAT", "QNT", "KSM", "WAVES", "CELO", "ROSE", "MINA", "GMX",
         "DYDX", "PEPE", "FLOKI", "BONK", "WIF", "JUP", "PYTH", "TIA", "SEI", "WLD",
         "ORDI", "ENA", "ETHFI", "JTO", "STRK", "ZRO", "NOT", "BOME", "PENDLE", "ONDO",
-        "FET", "AR", "KAS", "OM", "TAO", "JASMY", "HOT", "ANKR", "CFX", "IOTX",
+        "FET", "AR", "KAS", "OM", "TAO", "JASMY", "HOT", "ANKR", "CFX", "IOTX"
     ]
 
     static let quotes = [
         "USDT", "USDC", "FDUSD", "TUSD", "EUR", "TRY", "BRL", "JPY", "AUD", "GBP",
-        "PLN", "RON", "ZAR", "UAH", "ARS", "MXN", "IDR", "COP", "CZK", "CHF",
+        "PLN", "RON", "ZAR", "UAH", "ARS", "MXN", "IDR", "COP", "CZK", "CHF"
     ]
 
     /// Ungefährer Wert einer Einheit der Quote-Währung in CHF (für die Kurs-Spalte, wie die Umrechnung der App).
@@ -55,12 +55,12 @@ enum PerformanceData {
         "USDT": 0.80, "USDC": 0.80, "FDUSD": 0.80, "TUSD": 0.80, "EUR": 0.93, "TRY": 0.024,
         "BRL": 0.15, "JPY": 0.0053, "AUD": 0.52, "GBP": 1.07, "PLN": 0.22, "RON": 0.19,
         "ZAR": 0.045, "UAH": 0.019, "ARS": 0.0008, "MXN": 0.043, "IDR": 0.00005, "COP": 0.0002,
-        "CZK": 0.037, "CHF": 1.0,
+        "CZK": 0.037, "CHF": 1.0
     ]
 
     /// Börsen der gemischten Merkliste: Schlüssel und Anzeigename.
     static let exchanges: [(key: String, name: String)] = [
-        ("Binance", "Binance"), ("Kraken", "Kraken"), ("Bybit", "Bybit"), ("Okex", "OKX"), ("Coinbase", "Coinbase"),
+        ("Binance", "Binance"), ("Kraken", "Kraken"), ("Bybit", "Bybit"), ("Okex", "OKX"), ("Coinbase", "Coinbase")
     ]
 
     static let binance = exchanges[0]
@@ -71,7 +71,7 @@ enum PerformanceData {
     /// Gespeicherte Coin-Namen für die Suche («bitcoin» findet BTC).
     static let coinNames = [
         "BTC": "Bitcoin", "ETH": "Ethereum", "SOL": "Solana", "XRP": "XRP", "ADA": "Cardano",
-        "DOGE": "Dogecoin", "DOT": "Polkadot", "LINK": "Chainlink", "PEPE": "Pepe", "AVAX": "Avalanche",
+        "DOGE": "Dogecoin", "DOT": "Polkadot", "LINK": "Chainlink", "PEPE": "Pepe", "AVAX": "Avalanche"
     ]
 
     static func base(_ index: Int) -> String { bases[index % bases.count] }

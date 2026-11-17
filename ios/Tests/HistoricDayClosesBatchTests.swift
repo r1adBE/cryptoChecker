@@ -85,13 +85,13 @@ final class HistoricDayClosesBatchTests: XCTestCase {
                 "api.binance.us|FOOUSD": series(LocalDay(2022, 1, 1), last) { 40.0 + Double($0) * 0.01 },
                 "data-api.binance.vision|GAPUSDT": gapSpot, "api.binance.com|GAPUSDT": gapSpot,
                 "fapi.binance.com|GAPUSDT": series(first, last) { 2.05 + Double($0 % 3) * 0.01 },
-                "data-api.binance.vision|BARUSDT": series(first.plusDays(-40), last) { _ in 0.01 },
+                "data-api.binance.vision|BARUSDT": series(first.plusDays(-40), last) { _ in 0.01 }
             ],
             coinbase: [
                 "NEW-USD": series(LocalDay(2021, 6, 1), last) { 7.5 + Double($0) * 0.003 },
                 "FOO-USDC": series(first, last) { 45.0 + Double($0) * 0.005 },
                 // BAR über alle verlangten Tage (auch die vor `first`): überall ein anderer Token
-                "BAR-USD": series(first.plusDays(-40), last) { _ in 0.02 },
+                "BAR-USD": series(first.plusDays(-40), last) { _ in 0.02 }
             ])
     }
 

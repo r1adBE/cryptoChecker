@@ -159,7 +159,8 @@ struct SettingsScreen: View {
             }
             RowDivider()
             // Gleiches Symbol wie der Tab «Merkliste»
-            SettingsNavRow(title: L("settings_row_watchlist"), icon: .asset("TabWatchlist"), value: SettingsSummary.watchlistText(settings)) {
+            SettingsNavRow(title: L("settings_row_watchlist"), icon: .asset("TabWatchlist"),
+                value: SettingsSummary.watchlistText(settings)) {
                 WatchlistSettingsPage()
             }
             RowDivider()
@@ -175,12 +176,14 @@ struct SettingsScreen: View {
                 RowDivider()
             }
             // Glocke mit Wellen wie bei den Alarmen der Paare
-            SettingsNavRow(title: L("settings_row_alarms"), icon: .system("bell.and.waves.left.and.right"), value: L(settings.alarmSignal.ios.labelKey)) {
+            SettingsNavRow(title: L("settings_row_alarms"), icon: .system("bell.and.waves.left.and.right"),
+                value: L(settings.alarmSignal.ios.labelKey)) {
                 AlarmSettingsPage()
             }
             RowDivider()
             // Direkt nach «Alarme»: bestimmt, wie oft Alarme geprüft werden
-            SettingsNavRow(title: L("settings_row_updates"), icon: .system("arrow.clockwise"), value: SettingsSummary.updatesText(settings)) {
+            SettingsNavRow(title: L("settings_row_updates"), icon: .system("arrow.clockwise"),
+                value: SettingsSummary.updatesText(settings)) {
                 UpdatesSettingsPage()
             }
             RowDivider()
@@ -195,7 +198,8 @@ struct SettingsScreen: View {
 
     private var appearanceSection: some View {
         SettingsCard(title: L("settings_section_appearance")) {
-            SettingsNavRow(title: L("settings_theme_mode"), icon: .system("circle.lefthalf.filled"), value: SettingsSummary.displayModeText(settings)) {
+            SettingsNavRow(title: L("settings_theme_mode"), icon: .system("circle.lefthalf.filled"),
+                value: SettingsSummary.displayModeText(settings)) {
                 DisplayModeSettingsPage()
             }
             RowDivider()
@@ -325,7 +329,7 @@ struct SettingsScreen: View {
         "hi": "हिन्दी", "mr": "मराठी", "ne": "नेपाली", "bn": "বাংলা", "pa": "ਪੰਜਾਬੀ", "gu": "ગુજરાતી",
         "ta": "தமிழ்", "te": "తెలుగు", "kn": "ಕನ್ನಡ", "ml": "മലയാളം", "si": "සිංහල", "th": "ไทย", "lo": "ລາວ",
         "km": "ខ្មែរ", "my": "မြန်မာ", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "ms": "Bahasa Melayu",
-        "fil": "Filipino", "zh": "中文（简体）", "zh-Hant": "中文（繁體）", "yue": "粵語", "ja": "日本語", "ko": "한국어",
+        "fil": "Filipino", "zh": "中文（简体）", "zh-Hant": "中文（繁體）", "yue": "粵語", "ja": "日本語", "ko": "한국어"
     ]
 
     // MARK: Hilfen

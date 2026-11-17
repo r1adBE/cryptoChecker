@@ -202,7 +202,7 @@ struct CompareScreen: View {
             (A11y.changeShortLabel(changeView.basis), changeView.shown(watch.shownChange24h)),
             (L("widget_range_short_7d"), f?.change7d),
             (L("widget_range_short_30d"), f?.change30d),
-            (L("compare_from_high"), f?.fromHigh30d),
+            (L("compare_from_high"), f?.fromHigh30d)
         ]
         // Nie zweimal «7T» mit zwei Werten: die feste Spalte des gewählten Zeitraums entfällt (wie Android)
         let values = CompareMath.withoutRepeatedRange(all)

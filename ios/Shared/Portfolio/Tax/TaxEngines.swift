@@ -170,7 +170,7 @@ enum TaxEngines {
 
     private static let interestWords: Set<String> = [
         "interest", "interests", "lending", "zins", "zinsen", "zinsertrag", "zinserträge", "zinsgutschrift",
-        "interet", "interets", "intérêt", "intérêts",
+        "interet", "interets", "intérêt", "intérêts"
     ]
 
     /// Vorgänge ohne Verkauf nach den Regeln der Vorlage umschreiben (vor jeder Rechnung) — wie Android `applyRules`:
@@ -207,13 +207,14 @@ enum TaxEngines {
         return out
     }
 
-    /// Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung — wie
-    /// Android `networkFeeSales`: je Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw.
+    /// Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung —
+    /// wie Android `networkFeeSales`: je Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw.
     /// Gebühr-Preis, Stablecoin 1, sonst `priceAt` = Tagesschluss des UTC-Tags der Transaktion, `TaxDayClose`, Vermerk
-    /// «Wert geschätzt»; ohne Kurs Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR
-    /// ihr in die Liste, damit die Gebühr-Coins (stabil sortiert) die Quelle zuerst verlassen. Die Transaktion verliert diese Gebühr: keine Mengen-
-    /// oder Einstandsänderung der Umbuchung, kein Einstand-Zuschlag und kein Aufwand der Gebühr im dritten Coin (sonst
-    /// zählte ihr Wert doppelt). Die Gebühr USDT bleibt.
+    /// «Wert geschätzt»; ohne Kurs Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer Quell-Wallet (Umbuchung:
+    /// «von», sonst die Börse) — VOR ihr in die Liste, damit die Gebühr-Coins (stabil sortiert) die Quelle zuerst
+    /// verlassen. Die Transaktion verliert diese Gebühr: keine Mengen- oder Einstandsänderung der Umbuchung, kein
+    /// Einstand-Zuschlag und kein Aufwand der Gebühr im dritten Coin (sonst zählte ihr Wert doppelt). Die Gebühr USDT
+    /// bleibt.
     private static func networkFeeSales(_ t: PortfolioTx, _ priceAt: ((String, Int64) -> Decimal?)?,
                                         _ out: inout [PortfolioTx]) {
         guard t.type == .TRANSFER || t.type.isWithdrawalLike, t.amountExact > 0 else {

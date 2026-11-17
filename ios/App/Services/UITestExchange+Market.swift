@@ -76,7 +76,7 @@ extension UITestExchange {
             "\"total_volume\":\(amounts(totalVolume))",
             "\"market_cap_percentage\":\(shares)",
             "\"market_cap_change_percentage_24h_usd\":\(marketCapChange24h)",
-            "\"updated_at\":\(EpochTime.nowMillis / 1000)",
+            "\"updated_at\":\(EpochTime.nowMillis / 1000)"
         ]
         return "{\"data\":{" + fields.joined(separator: ",") + "}}"
     }
@@ -105,7 +105,7 @@ extension UITestExchange {
     /// Fear & Greed, heute zuerst (heute 55, gestern 52, vor einer Woche 48, vor 30 Tagen 38).
     private static let fearGreedValues = [
         55, 52, 50, 51, 49, 47, 46, 48, 45, 44, 46, 43, 41, 42, 40, 39,
-        41, 38, 37, 39, 40, 38, 36, 37, 39, 41, 40, 38, 37, 39, 38,
+        41, 38, 37, 39, 40, 38, 36, 37, 39, 41, 40, 38, 37, 39, 38
     ]
 
     private static func fearGreed(_ url: URL) -> String {
@@ -173,7 +173,7 @@ extension UITestExchange {
         "base-rpc.publicnode.com": [0.006, 0.001, 0.003, 0.01],
         "arbitrum-one-rpc.publicnode.com": [0.01, 0, 0, 0.001],
         "polygon-bor-rpc.publicnode.com": [28, 25, 30, 45],
-        "bsc-rpc.publicnode.com": [0.1, 0, 0, 0.05],
+        "bsc-rpc.publicnode.com": [0.1, 0, 0, 0.05]
     ]
 
     /// `eth_feeHistory`: Grundgebühr des nächsten Blocks und Trinkgelder (10./50./90. Perzentil), alles in gwei.

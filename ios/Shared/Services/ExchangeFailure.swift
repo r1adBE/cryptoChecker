@@ -79,7 +79,7 @@ enum ExchangeFailure: Equatable, Sendable {
 
     /// Eigene Kennungen, die der Text einordnet (keine Meldung der Börse).
     private static let ownMarkers: Set<String> = [
-        "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)", "Exchange unavailable",
+        "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)", "Exchange unavailable"
     ]
 
     /// Art eines Fehlers. Nur Typen mit eindeutiger Aussage bekommen eine feste Art; der Rest wird `.other` (bzw.

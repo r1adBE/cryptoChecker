@@ -59,7 +59,7 @@ extension PriceRefresher {
     /// brauchbaren 24-h-Wert im Ticker, Tages-Basen alle.
     /// `remember`: Menge für den nächsten Durchlauf merken (nur bei vollen Durchläufen).
     static func watchesNeedingCandles(_ watches: [Watch], fetched: [Int64: Fetched], basis: ChangeBasis,
-                                              remember: Bool) -> [Watch] {
+                                      remember: Bool) -> [Watch] {
         let needing = watches.filter { watch in
             guard let ticker = fetched[watch.id]?.ticker else { return false }
             return ChangeBasisMath.needsCandles(basis, tickerChange: ticker.change24hPercent)
@@ -169,7 +169,7 @@ extension PriceRefresher {
     /// sind dann solche). Kerzen mit `DayChange.select` (Kursabstand-Prüfung); nil ohne Bezug —
     /// nie die Veränderung seit der letzten Abfrage.
     static func change24h(_ watch: Watch, price: Double, ticker: Ticker, basis: ChangeBasis,
-                                  references: [String: DayReference]) -> Double? {
+                          references: [String: DayReference]) -> Double? {
         let value = ChangeBasisMath.choose(basis, tickerChange: ticker.change24hPercent) {
             candleChange(watch, price: price, references: references)
         }

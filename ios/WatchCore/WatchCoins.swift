@@ -8,7 +8,7 @@ enum WatchCoins {
     static let top = [
         "BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "ADA", "TRX", "TON", "AVAX",
         "SHIB", "DOT", "LINK", "BCH", "NEAR", "LTC", "UNI", "APT", "ICP", "ETC",
-        "XLM", "FIL", "HBAR", "ATOM", "ARB", "OP", "SUI", "PEPE", "INJ", "RENDER",
+        "XLM", "FIL", "HBAR", "ATOM", "ARB", "OP", "SUI", "PEPE", "INJ", "RENDER"
     ]
 
     static let defaultOwn = ["BTC", "ETH"]

@@ -120,7 +120,7 @@ final class WidgetGroupSelectionTests: XCTestCase {
         P(name: "BTC", group: nil, fav: true),
         P(name: "AIA", group: nil, alpha: true),
         P(name: "NVDA", group: "TradFi"),
-        P(name: "ETH", group: "Majors"),
+        P(name: "ETH", group: "Majors")
     ]
 
     private func pick(_ selection: String?, renames: [String: String] = [:]) -> (String?, [String]) {

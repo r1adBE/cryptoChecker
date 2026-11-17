@@ -25,7 +25,7 @@ final class AccessibilityAuditTests: XCTestCase {
                       + "Hinweis trotzdem als «teilweise» (Fehlalarm; auf dem Gerät mit grösster Schrift zu prüfen, ROADMAP)"),
         Exception(type: .dynamicType, identifierPrefix: "tab_",
                   reason: "Tableiste: Schrift bewusst bis accessibility1 gedeckelt (AppTabBarMetrics.maxTypeSize); "
-                      + "darüber zeigt langes Drücken den Large Content Viewer (HIG für Leisten)"),
+                      + "darüber zeigt langes Drücken den Large Content Viewer (HIG für Leisten)")
     ]
 
     override func setUpWithError() throws {
@@ -208,6 +208,6 @@ final class AccessibilityAuditTests: XCTestCase {
     static let auditGroups: [XCUIAccessibilityAuditType] = [
         .contrast,
         [.dynamicType, .textClipped],
-        [.elementDetection, .hitRegion, .sufficientElementDescription, .trait],
+        [.elementDetection, .hitRegion, .sufficientElementDescription, .trait]
     ]
 }

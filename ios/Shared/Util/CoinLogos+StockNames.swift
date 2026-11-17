@@ -7,7 +7,9 @@ extension CoinLogos {
     static let nasdaqListedURL = "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt"
     static let otherListedURL = "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt"
 
-    private static let stockNameTail = #"[\s,]*(?:New\s+)?(?:(?:Class|Series)\s+[A-Z0-9]+\s+)?(?:Common Stock|Common Shares|Ordinary Shares|American Deposit[ao]ry Shares|Depositary Shares|Shares of Beneficial Interest)\b.*$"#
+    private static let stockNameTail = #"[\s,]*(?:New\s+)?(?:(?:Class|Series)\s+[A-Z0-9]+\s+)?"#
+        + #"(?:Common Stock|Common Shares|Ordinary Shares|American Deposit[ao]ry Shares|Depositary Shares"#
+        + #"|Shares of Beneficial Interest)\b.*$"#
 
     /// Firmenname ohne Wertpapier-Zusatz: «Caterpillar, Inc. Common Stock» → «Caterpillar, Inc.»,
     /// «Apple Inc. - Common Stock» → «Apple Inc.»; danach wie `cleanName` — wie `cleanStockName` (Android).

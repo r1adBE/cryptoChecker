@@ -240,8 +240,9 @@ extension SharedStorage {
         return body()
     }
 
-    /// Liest `watchlist.json` (tolerant, siehe `Snapshot.init(from:)`) und `portfolio_alarms.json`.
     // MARK: Tolerantes Lesen
+
+    /// Liest `watchlist.json` (tolerant, siehe `Snapshot.init(from:)`) und `portfolio_alarms.json`.
 
     /// Zählt beim Lesen übersprungene Einträge (über `JSONDecoder.userInfo`).
     final class DropCounter: Sendable {

@@ -32,8 +32,8 @@ final class OwnServerBlockTests: XCTestCase {
     func testEigenerServerNachSperreWiederGefragt() async throws {
         // Alte Sperre desselben Hosts (z. B. vor dem Speichern): der eigene Server wird trotzdem gefragt
         await failWith(403, entry: "stale-block-test.example", own: false)
-        let (value, _) = try await source.firstWorking(["https://stale-block-test.example"], deadline: nil, own: true) {
-            (_: String) -> Int in 7
+        let (value, _) = try await source.firstWorking(["https://stale-block-test.example"], deadline: nil, own: true) { (_: String) -> Int in
+            7
         }
         XCTAssertEqual(value, 7)
     }

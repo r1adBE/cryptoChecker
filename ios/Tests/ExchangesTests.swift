@@ -199,7 +199,8 @@ final class BinanceFuturesPairsTests: XCTestCase {
         let coinM = """
         {"symbols": [
           {"symbol": "BTCUSD_PERP", "baseAsset": "BTC", "quoteAsset": "USD", "contractType": "PERPETUAL", "contractStatus": "TRADING"},
-          {"symbol": "BTCUSD_250926", "baseAsset": "BTC", "quoteAsset": "USD", "contractType": "CURRENT_QUARTER", "contractStatus": "DELIVERED"}
+          {"symbol": "BTCUSD_250926", "baseAsset": "BTC", "quoteAsset": "USD", "contractType": "CURRENT_QUARTER",
+              "contractStatus": "DELIVERED"}
         ]}
         """
         let coinPairs = try BinanceFutures().readPairList(call: 1, body: coinM)
@@ -210,7 +211,8 @@ final class BinanceFuturesPairsTests: XCTestCase {
     func testMalformedBulkRowIsSkipped() throws {
         let body = """
         [
-          {"symbol": "BTCUSDT", "volume": "10", "highPrice": "101", "lowPrice": "99", "lastPrice": "100", "quoteVolume": "1000", "priceChangePercent": "1.5"},
+          {"symbol": "BTCUSDT", "volume": "10", "highPrice": "101", "lowPrice": "99", "lastPrice": "100", "quoteVolume": "1000",
+              "priceChangePercent": "1.5"},
           {"symbol": "BADUSDT", "volume": "10", "highPrice": "x", "lowPrice": "1", "lastPrice": "1"},
           42,
           {"volume": "1"},
@@ -515,7 +517,7 @@ final class BitfinexPairsTests: XCTestCase {
         let pairs = try Bitfinex().readPairList(call: 0, body: body)
         XCTAssertEqual(pairs.map { "\($0.base)/\($0.quote)" }, [
             "BTC/USDT", "ATOM/USD", "DASH/BTC", "IOTA/USD", "WBTC/USD", "ALGO/USD", "QTUM/USD", "YOYOW/USD",
-            "DATA/USD", "MANA/USD", "AMPL/USD", "TUSD/USD", "BTC/USDC", "XCH/USD", "MATIC/USD", "BTC/USD",
+            "DATA/USD", "MANA/USD", "AMPL/USD", "TUSD/USD", "BTC/USDC", "XCH/USD", "MATIC/USD", "BTC/USD"
         ])
         XCTAssertEqual(pairs[1].pairId, "tATOUSD")
         XCTAssertEqual(pairs[14].pairId, "tMATIC:USD")

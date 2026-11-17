@@ -10,7 +10,8 @@ final class CsvImportUnsavableTests: XCTestCase {
 
     private func cases() throws -> [[String: Any]] { S.list(try S.fixture("csv_import")["unsavable"]) }
 
-    private func decimal(_ value: Any?) -> Decimal? { (value as? String).flatMap { Decimal(string: $0, locale: Locale(identifier: "en_US_POSIX")) } }
+    private func decimal(_ value: Any?) -> Decimal? { (value as? String).flatMap { Decimal(string: $0,
+                         locale: Locale(identifier: "en_US_POSIX")) } }
 
     private func tx(_ c: [String: Any]) throws -> CsvImportTx {
         let type = try XCTUnwrap(PortfolioTxType(rawValue: c["type"] as? String ?? ""))
@@ -65,7 +66,7 @@ final class CsvImportUnsavableTests: XCTestCase {
             row(4, kind: .SWAP, amount: 1, toCoin: " btc ", toAmount: 1),
             row(5, kind: .SWAP, amount: 1, toCoin: "ETH", toAmount: nil),
             row(6, kind: .SWAP, amount: 1, toCoin: "ETH", toAmount: 20),
-            row(8, amount: tiny, quote: "USDT", stableSwap: true),
+            row(8, amount: tiny, quote: "USDT", stableSwap: true)
         ]
         let result = CsvImportResult(format: .GENERIC, rows: rows, skipped: [CsvImportSkip(line: 4, reason: .BAD_DATE),
                                                                             CsvImportSkip(line: 7, reason: .BAD_DATE)])
@@ -75,7 +76,7 @@ final class CsvImportUnsavableTests: XCTestCase {
         XCTAssertEqual(preview.skipped, [
             CsvImportSkip(line: 3, reason: .AMOUNT_TOO_SMALL), CsvImportSkip(line: 4, reason: .BAD_DATE),
             CsvImportSkip(line: 4, reason: .INVALID_SWAP), CsvImportSkip(line: 5, reason: .INVALID_SWAP),
-            CsvImportSkip(line: 7, reason: .BAD_DATE), CsvImportSkip(line: 8, reason: .AMOUNT_TOO_SMALL),
+            CsvImportSkip(line: 7, reason: .BAD_DATE), CsvImportSkip(line: 8, reason: .AMOUNT_TOO_SMALL)
         ])
         XCTAssertTrue(preview.missingFx.isEmpty)
         XCTAssertFalse(preview.stableSwaps)

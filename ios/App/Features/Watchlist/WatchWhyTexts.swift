@@ -100,7 +100,8 @@ enum WatchlistWhyTexts {
             value = number + "×"
             spokenValue = L("factor_spoken_volatility", number)
             // «absolut gering (unter 0.5 %)»: Mindestbewegung in der Schreibweise der App-Sprache
-            if f.note == .volatilityTiny { note = L("why_fn_volatility_tiny", unsignedPercent(ActivityAnalyzer.volatilityMinMovePercent, 1)) }
+            if f.note == .volatilityTiny { note = L("why_fn_volatility_tiny", unsignedPercent(ActivityAnalyzer.volatilityMinMovePercent,
+                1)) }
         case .nearLow:
             title = L("why_factor_near_low")
             if f.note == .lowAbove {

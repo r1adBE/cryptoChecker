@@ -14,7 +14,9 @@ struct PortfolioCostGapsSheet: View {
 
     var body: some View {
         let all = PortfolioCostGaps.gaps(data.portfolio, template: data.settings.taxTemplate)
-        let gaps = coin.map { c in all.filter { PortfolioCalculator.normalizeCoin($0.trade.coin) == PortfolioCalculator.normalizeCoin(c) } } ?? all
+        let gaps = coin.map { c in
+            all.filter { PortfolioCalculator.normalizeCoin($0.trade.coin) == PortfolioCalculator.normalizeCoin(c) }
+        } ?? all
         let acknowledged = PortfolioCostGapUi.ids(unknownRaw)
         NavigationStack {
             List {

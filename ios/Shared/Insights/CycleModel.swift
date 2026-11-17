@@ -108,7 +108,7 @@ enum BitcoinIndicatorModel {
             ind(.PI_CYCLE_GAP, IndicatorMath.piGap(input.sma111d, input.sma350d)),
             ind(.MVRV, mvrv),
             ind(.PUELL, puell),
-            ind(.HASHRATE_30_60, IndicatorMath.changePercent(input.hash30d, input.hash60d)),
+            ind(.HASHRATE_30_60, IndicatorMath.changePercent(input.hash30d, input.hash60d))
         ]
         return BitcoinReport(price: price, indicators: indicators, onChainAvailable: mvrv != nil || puell != nil,
                              historySince: input.history?.since)

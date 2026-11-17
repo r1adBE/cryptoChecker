@@ -42,7 +42,7 @@ final class PortfolioStoredFieldsTests: XCTestCase {
             "v": 1,
             "stored": ["type": "WITHDRAWAL", "amount": "0.005", "time": 1_704_987_000_000, "importKey": "BINANCE|W",
                        "importBatch": "BINANCE:1729000000000:0a1b2c3d"],
-            "absorbed": ["type": "DEPOSIT", "amount": "0.0049", "time": 1_704_989_100_000, "importKey": "COINBASE|D"],
+            "absorbed": ["type": "DEPOSIT", "amount": "0.0049", "time": 1_704_989_100_000, "importKey": "COINBASE|D"]
         ]
         var linked = PortfolioTx(id: 5, coin: "BTC", type: .TRANSFER, amountExact: 1, time: 12)
         linked.importKey = "BINANCE|W"

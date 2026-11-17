@@ -38,7 +38,7 @@ enum ExchangeOrder {
         "WhiteBit": "whitebit",
         "Coinone": "coinone",
         "CoinsPh": "coinspro",
-        "Bitkub": "bitkub",
+        "Bitkub": "bitkub"
     ]
 
     /// Wie `spotIds` für die Futures-Abschnitte.
@@ -47,7 +47,7 @@ enum ExchangeOrder {
         "BitgetFutures": "bitget_futures", "MexcFutures": "mxc_futures", "HtxFutures": "huobi_dm",
         "BingXFutures": "bingx_futures", "WooFutures": "woo_network_futures", "PhemexFutures": "phemex_futures",
         "Hyperliquid": "hyperliquid", "Aster": "aster", "Lighter": "lighter", "Deribit": "deribit",
-        "BitunixFutures": "bitunix_futures",
+        "BitunixFutures": "bitunix_futures"
     ]
 
     /// Eine Börse der Auswahl: Schlüssel und Abschnitt.

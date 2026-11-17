@@ -149,7 +149,7 @@ final class CoinLogosTests: XCTestCase {
     func testEncodeDecodeRoundTripDropsInvalidLines() {
         let map = [
             "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
-            "ETH": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
+            "ETH": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png"
         ]
         let text = CoinLogos.encode(map, order: ["BTC", "ETH"])
         XCTAssertEqual(CoinLogos.decode(text), map)
@@ -227,7 +227,8 @@ final class CoinLogosTests: XCTestCase {
         XCTAssertEqual(Set(order), Set(map.keys))
         for c in S.list(p["rateLimit"]) {
             let retry = (c["retryAfter"] as? NSNumber)?.int64Value
-            XCTAssertEqual(CoinLogos.rateLimitWaitMillis(retryAfterSeconds: retry), (c["expected"] as? NSNumber)?.int64Value, "rateLimit: \(c)")
+            XCTAssertEqual(CoinLogos.rateLimitWaitMillis(retryAfterSeconds: retry), (c["expected"] as? NSNumber)?.int64Value,
+                "rateLimit: \(c)")
         }
         let now: Int64 = 10 * CoinLogos.mapTTLMillis
         XCTAssertEqual(CoinLogos.savedAt(now: now, complete: true), now)
@@ -272,7 +273,7 @@ final class CoinLogosAlphaTests: XCTestCase {
             CoinLogos.AlphaEntry(symbol: "BNB", name: nil, icon: nil, listingCex: true),
             CoinLogos.AlphaEntry(symbol: "OLD", name: nil, icon: nil, offline: true),
             CoinLogos.AlphaEntry(symbol: "1000AGT", name: nil, icon: nil),
-            CoinLogos.AlphaEntry(symbol: "币安人生", name: nil, icon: nil),
+            CoinLogos.AlphaEntry(symbol: "币安人生", name: nil, icon: nil)
         ]
         XCTAssertEqual(CoinLogos.alphaSymbols(entries), ["AIA", "AGT"])
     }

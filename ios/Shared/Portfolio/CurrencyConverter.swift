@@ -23,7 +23,7 @@ enum CurrencyConversion {
     /// Ohne Kurs: kein ≈-Wert bzw. Portfolio kein Wert («ohne Kurs»).
     static let usdStables: Set<String> = [
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
-        "RLUSD", "PYUSD", "USDP", "GUSD",
+        "RLUSD", "PYUSD", "USDP", "GUSD"
     ]
 
     /// Weitere Fiat-Währungen nach ISO 4217, für die die App keinen Devisenkurs hat (`fiatUnsupported`); die mit Kurs
@@ -36,7 +36,7 @@ enum CurrencyConversion {
         "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MOP", "MRU",
         "MUR", "MVR", "MWK", "MZN", "NAD", "NGN", "NIO", "NPR", "OMR", "PAB", "PEN", "PGK", "PKR", "PYG", "QAR", "RSD",
         "RUB", "RWF", "SAR", "SBD", "SDG", "SLE", "SRD", "SSP", "SVC", "SYP", "SZL", "TJS", "TMT", "TND", "TTD", "TWD",
-        "TZS", "UAH", "UGX", "UYU", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZMW", "ZWL",
+        "TZS", "UAH", "UGX", "UYU", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZMW", "ZWL"
     ]
 
     static func normalize(_ code: String?) -> String {
@@ -170,14 +170,14 @@ enum CurrencyConversion {
 /// «≈ Umrechnung»: Faktor von der Quote-Währung eines Paars in eine Zielwährung
 /// (z. B. USDT → CHF, EUR → CHF, BTC → CHF) — wie `CurrencyConverter.kt`.
 ///
-/// Quote → USD: Stablecoins mit Marktkurs (`CurrencyConversion.stableToUsd`: USD/USDT 1, andere
-/// ihr Marktkurs in USDT von der `PortfolioPriceSource` — ohne Kurs kein Faktor, wie die Portfolio-Regel
-/// `PortfolioStables`), Fiat über `FxRateSource`, echte Fiat-Währungen ohne Devisenkurs (`CurrencyConversion.knownFiat`)
-/// ohne Faktor, alles andere als Krypto über den USDT-Kurs der `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Krypto- und
-/// Stablecoin-Kurse älter als `CurrencyConversion.quoteMaxAgeMillis` ergeben keinen Faktor (`freshMarket`). Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
-/// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
-/// USDT zum Marktkurs: USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
-/// (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1.
+/// Quote → USD: Stablecoins mit Marktkurs (`CurrencyConversion.stableToUsd`: USD/USDT 1, andere ihr Marktkurs in USDT
+/// von der `PortfolioPriceSource` — ohne Kurs kein Faktor, wie die Portfolio-Regel `PortfolioStables`), Fiat über
+/// `FxRateSource`, echte Fiat-Währungen ohne Devisenkurs (`CurrencyConversion.knownFiat`) ohne Faktor, alles andere als
+/// Krypto über den USDT-Kurs der `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse:
+/// `staleFxTime`. Krypto- und Stablecoin-Kurse älter als `CurrencyConversion.quoteMaxAgeMillis` ergeben keinen Faktor
+/// (`freshMarket`). Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung, Hintergrund) sie braucht; beide
+/// Quellen haben eigene Zwischenspeicher. USDT zum Marktkurs: USDT und alles, was über USDT bewertet wird, × Live-Kurs
+/// USDT/USD (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1.
 enum CurrencyConverter {
 
     /// Live-Kurs USDT/USD (`DepegAlarmCheck.liveUsdtUsd`); nil = keiner (USDT gilt 1).

@@ -68,7 +68,7 @@ enum HostStorageKey {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: "cryptochecker.tests.keychain-probe",
-            kSecAttrAccount as String: "probe",
+            kSecAttrAccount as String: "probe"
         ]
         var item = query
         item[kSecValueData as String] = Data([1])

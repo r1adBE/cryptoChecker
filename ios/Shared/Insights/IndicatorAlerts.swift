@@ -43,7 +43,8 @@ enum IndicatorAlertKind: String, CaseIterable, Sendable {
 
     /// Grenze als Text: Faktor «2.40×», Prozent «5%» bzw. «5 %» je Sprache (`PercentText`).
     func valueText(_ stored: Int) -> String {
-        scale == 1 ? PercentText.unsigned(Double(stored), decimals: 0) : LocaleNumbers.decimal(Double(stored) / scale, maxDecimals: 2, minDecimals: 2) + "×"
+        scale == 1 ? PercentText.unsigned(Double(stored), decimals: 0) : LocaleNumbers.decimal(Double(stored) / scale, maxDecimals: 2,
+            minDecimals: 2) + "×"
     }
 }
 

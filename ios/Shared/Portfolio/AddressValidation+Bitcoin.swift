@@ -58,7 +58,8 @@ extension AddressValidation {
             }
         // WIF: privater Schlüssel (0x80 Bitcoin, 0xb0 Litecoin, 0xef Testnet; 33 bzw. 34 Byte + Prüfsumme)
         case 37, 38:
-            return (version == 0x80 || version == 0xb0 || version == 0x9e || version == 0xef) && checksumOk(raw) ? invalid(.SECRET) : invalid(.UNKNOWN_FORMAT)
+            let wif = [0x80, 0xb0, 0x9e, 0xef].contains(version)
+            return wif && checksumOk(raw) ? invalid(.SECRET) : invalid(.UNKNOWN_FORMAT)
         // Solana: öffentlicher Schlüssel (32 Byte, ohne Prüfsumme) bzw. privater Schlüssel (64 Byte)
         case 32:
             return (32...44).contains(s.count) ? Check(chain: .SOL, kind: .SOL, normalized: s, problem: nil) : invalid(.UNKNOWN_FORMAT)

@@ -44,7 +44,7 @@ enum CoinLogoDecode {
             kCGImageSourceCreateThumbnailFromImageAlways: true,
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceThumbnailMaxPixelSize: CoinLogos.storedPixels,
+            kCGImageSourceThumbnailMaxPixelSize: CoinLogos.storedPixels
         ]
         guard let thumbnail = CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary) else { return nil }
         return UIImage(cgImage: thumbnail).pngData()

@@ -22,7 +22,8 @@ final class LighterPairListTests: XCTestCase {
         {"symbol":"BTC","name":"Bitcoin","gecko_id":"bitcoin","market":"PERPS","asset_type":"CRYPTO","categories":["MAJOR","LAYER_1"]},
         {"symbol":"COIN","name":"Coinbase","gecko_id":"","market":"PERPS","asset_type":"RWA","categories":["STOCK"]},
         {"symbol":"ETH","name":"Ethereum","gecko_id":"ethereum","market":"PERPS","asset_type":"CRYPTO","categories":["MAJOR","LAYER_1"]},
-        {"symbol":"ETH/USDC","name":"Ethereum","gecko_id":"ethereum","market":"SPOT","asset_type":"CRYPTO","categories":["MAJOR","LAYER_1"]},
+        {"symbol":"ETH/USDC","name":"Ethereum","gecko_id":"ethereum","market":"SPOT","asset_type":"CRYPTO","categories":["MAJOR",
+            "LAYER_1"]},
         {"symbol":"META","name":"Meta","gecko_id":"","market":"PERPS","asset_type":"RWA","categories":["STOCK"]},
         {"symbol":"AAVE/USDC","name":"Aave","gecko_id":"aave","market":"SPOT","asset_type":"CRYPTO","categories":["DEFI"]},
         {"symbol":"EMPTY","name":" ","market":"PERPS","asset_type":"CRYPTO"}

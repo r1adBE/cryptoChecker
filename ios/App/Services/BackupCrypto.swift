@@ -171,7 +171,8 @@ enum BackupCrypto {
         let iv = envelope.iv.base64EncodedString()
         switch envelope.kdf {
         case let .argon2(m, t, p):
-            let text = #"{"format":"\#(format)","v":\#(version),"enc":"\#(enc)","kdf":"\#(kdf)","m":\#(m),"t":\#(t),"p":\#(p),"salt":"\#(salt)","iv":"\#(iv)"}"#
+            let text = #"{"format":"\#(format)","v":\#(version),"enc":"\#(enc)","kdf":"\#(kdf)","#
+                + #""m":\#(m),"t":\#(t),"p":\#(p),"salt":"\#(salt)","iv":"\#(iv)"}"#
             return Data(text.utf8)
         }
     }

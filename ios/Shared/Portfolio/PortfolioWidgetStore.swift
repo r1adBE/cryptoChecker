@@ -97,7 +97,7 @@ enum PortfolioWidgetStore {
     private static func writeSnapshotFile(_ data: Data) -> Bool {
         // Beträge nur verschlüsselt (`ProtectedFile`): ohne Schlüssel schriebe `ProtectedFile.write`
         // Klartext — für diesen Zwischenspeicher lieber gar nichts (wie Android `PortfolioSnapshotSeal`)
-        guard case .key(_) = StorageKey.shared.lookup() else { return false }
+        guard case .key = StorageKey.shared.lookup() else { return false }
         do {
             // `requireSealed`: wird der Schlüssel zwischen Prüfung und Schreiben unlesbar (Schlüsselbund gesperrt),
             // wirft `write` statt Klartext abzulegen — der letzte versiegelte Stand bleibt stehen
@@ -179,7 +179,8 @@ enum PortfolioWidgetStore {
         let fetchedAt = Int64((entry["t"] as? Double) ?? 0)
         let flat = (entry["c"] as? [Double]) ?? []
         guard fetchedAt > 0, now - fetchedAt <= PortfolioWidgetSeries.keepMillis, flat.count % 5 == 0 else { return [] }
-        let candles: [(open: Int64, close: Double)] = stride(from: 0, to: flat.count, by: 5).map { (i: Int) -> (open: Int64, close: Double) in
+        let candles: [(open: Int64, close: Double)] = stride(from: 0, to: flat.count, by: 5).map { (i: Int) -> (open: Int64,
+            close: Double) in
             // Feste Typen (für den Type-Checker)
             let close: Double = flat[i + 4]
             return (open: Int64(flat[i]), close: close)
@@ -187,16 +188,15 @@ enum PortfolioWidgetStore {
         return PortfolioWidgetSeries.fromCandles(candles, fetchedAt: fetchedAt)
     }
 
-
     // MARK: Aktualisieren
 
     /// Berechnen und speichern; bei Änderung das Widget neu zeichnen (`reload`). Nur über `update` bzw.
     /// `updateInBackground` (nacheinander, `PortfolioWidgetStore+Background.swift`).
     /// Ohne einen einzigen bekannten Kurs bleibt der bisherige Stand stehen (dann nil).
     static func updateNow(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
-                       rate: Double?, reload: Bool = true,
-                       extraHourly: [String: [PortfolioTimedPrice]] = [:],
-                       displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot? {
+                          rate: Double?, reload: Bool = true,
+                          extraHourly: [String: [PortfolioTimedPrice]] = [:],
+                          displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot? {
         if !transactions.isEmpty && prices.updatedAt <= 0 { return nil }
         let settings = SharedStorage.loadSettings()
         // Frischen Kurs merken; ohne (kein Netz, frischer Prozess) der gemerkte — sonst fiele der Stand auf USD

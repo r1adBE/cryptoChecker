@@ -1,10 +1,10 @@
 import Foundation
 import WatchConnectivity
 
-/// Apple-Watch-App vom iPhone aus: Coin-Liste (Einstellungen › Widgets › Uhr: «Wie iPhone» = Basis-Coins der
-/// Favoriten ★, höchstens 8, je mit dem Paar des Favoriten, oder «Eigene Liste»), Kursquelle der Uhr (`WatchSettings.source`) und Intervall der
-/// Kurs-Aktualisierung (`WatchSettings.interval`, `WatchInterval.clamp`). Dazu im selben Anwendungskontext von
-/// WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server):
+/// Apple-Watch-App vom iPhone aus: Coin-Liste (Einstellungen › Widgets › Uhr: «Wie iPhone» = Basis-Coins der Favoriten
+/// ★, höchstens 8, je mit dem Paar des Favoriten, oder «Eigene Liste»), Kursquelle der Uhr (`WatchSettings.source`) und
+/// Intervall der Kurs-Aktualisierung (`WatchSettings.interval`, `WatchInterval.clamp`). Dazu im selben
+/// Anwendungskontext von WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server):
 ///  - `quotes`: für beide Listen der Uhr die Kurse, die die Merkliste schon hat (`WatchPhoneQuotes.pick`) — keine eigene
 ///    Abfrage für die Uhr; höchstens einmal je `minGap` (Live-Kurse ändern sich laufend); nicht bei «Immer selbst abrufen».
 ///  - `portfolio`: nur mit «Portfolio-Wert auf der Uhr» (Standard aus) Gesamtwert, Veränderung heute, Währung und Zeit

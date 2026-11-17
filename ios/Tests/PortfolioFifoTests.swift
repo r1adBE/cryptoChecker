@@ -299,7 +299,7 @@ final class PortfolioFifoTests: XCTestCase {
                         feeExact: dec("1"), feeUnit: .COIN),
             tx(4, "ADA", .BUY, "100", "1", 4 * day),
             PortfolioTx(id: 5, coin: "ADA", type: .WITHDRAWAL, amountExact: dec("50"), time: 5 * day,
-                        feeExact: dec("2"), feeUnit: .QUOTE),
+                        feeExact: dec("2"), feeUnit: .QUOTE)
         ]
         let prices: [String: Double] = ["ETH": 1000, "BTC": 60000, "SOL": 100, "ADA": 1]
         let zone = TimeZone(identifier: "UTC")!
@@ -388,7 +388,7 @@ final class PortfolioFifoTests: XCTestCase {
             PortfolioTx(id: 1, coin: "ETH", type: .DEPOSIT, amountExact: dec("1"), priceExact: nil, time: day),
             tx(2, "ETH", .BUY, "1", "2000", 2 * day),
             PortfolioTx(id: 3, coin: "ETH", type: .TRANSFER, amountExact: dec("2"), priceExact: nil, time: 3 * day,
-                        feeExact: dec("10"), feeUnit: .QUOTE),
+                        feeExact: dec("10"), feeUnit: .QUOTE)
         ]
         for m in [TaxMethod.UK_POOL, .CA_ACB] {
             let fees = TaxEngines.unassignedFees(trades, method: m, timeZone: zone, rules: TaxEventRules.none)

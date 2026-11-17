@@ -272,7 +272,8 @@ enum DerivativesAlarmData {
         let info = try? await FuturesDataSource.fetch(watch: watch)
         // Richtwert einer anderen Börse: Funding meldet weiter (Text nennt die Quelle); Open Interest
         // nicht — es gilt je Börse und passt nicht zum Verlauf der beobachteten Börse (wie Android)
-        let foreign = info.map { FuturesSources.note(perpetual: true, exchangeKey: watch.exchangeKey, source: $0.source, pairId: watch.pairId) != nil } ?? false
+        let foreign = info.map { FuturesSources.note(perpetual: true, exchangeKey: watch.exchangeKey, source: $0.source,
+            pairId: watch.pairId) != nil } ?? false
         var units: Double? = nil
         if !foreign, let usd = info?.openInterestUsd, usd.isFinite, usd > 0, price > 0 { units = usd / price }
         // Pro 8 Stunden wie die Schwelle (Hyperliquid rechnet stündlich ab)

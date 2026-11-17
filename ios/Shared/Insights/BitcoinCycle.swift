@@ -17,7 +17,7 @@ enum BitcoinHalving {
         LocalDay(2012, 11, 28),
         LocalDay(2016, 7, 9),
         LocalDay(2020, 5, 11),
-        LocalDay(2024, 4, 20),
+        LocalDay(2024, 4, 20)
     ]
 
     /// 210'000 Blöcke à rund 10 Minuten ≈ 1458 Tage — nur für die Schätzung des nächsten Termins.
@@ -74,4 +74,3 @@ enum HalvingMath {
         return (height, avg / 1000)
     }
 }
-

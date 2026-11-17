@@ -11,7 +11,7 @@ enum StoredError {
         NotTraded.marker,
         "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)",
         "Exchange unavailable", "Response too large",
-        ConnectionErrors.offlineMarker, "timeout",
+        ConnectionErrors.offlineMarker, "timeout"
     ]
 
     /// Fehler der Massenabfrage («Bulk format error: 3 of 5 rows unreadable»): nur Zahlen, bleiben.

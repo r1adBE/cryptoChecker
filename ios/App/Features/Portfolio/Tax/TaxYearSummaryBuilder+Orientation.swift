@@ -55,7 +55,8 @@ extension TaxExport.TaxYearSummaryBuilder {
         // Sondersteuersatz 27,5 % auf Neubestand netto + Zinsen (beide Einkünfte aus Kryptowährungen, § 27b EStG;
         // Gebühren darin nicht abgezogen, § 20 Abs. 2 EStG); Vermerk, wenn Belohnungen vor dem 1.3.2022 mit
         // Anschaffungskosten 0 im Neubestand stecken (wie Android)
-        let stakingNote: TaxSummaryNote? = TaxExport.atEarlyRewards(trades, timeZone: timeZone, period: period) ? .AT_STAKING_ZERO_COST : nil
+        let stakingNote: TaxSummaryNote? = TaxExport.atEarlyRewards(trades, timeZone: timeZone,
+            period: period) ? .AT_STAKING_ZERO_COST : nil
         lines.append(TaxSummaryLine(line: .AT_RATE, usdt: net.usdt + intUsdt, target: fx ? net.target + intTarget : nil,
                                     incomplete: netIncomplete || intMissing, noFx: netFx || intFx, note: stakingNote))
         if !atOld.isEmpty {

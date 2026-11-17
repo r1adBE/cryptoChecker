@@ -4,9 +4,9 @@ import Foundation
 /// «Binance Futures») und Kontrakt (`contract`: leer = Spot, sonst die Kurzform des iPhones «Perp», «1Q» …; `pool` + 8
 /// Hex-Stellen = DexScreener-Pool, die Stellen aus seiner Kennung, damit zwei Pools mit gleicher Basis/Quote getrennt
 /// bleiben; eine Börsen-Kennung wie «BTCUSDT» macht kein Pool). `key` ist der Schlüssel in Liste, Kursen und Speicher
-/// der Uhr; Coins der eigenen Liste behalten ihr Kürzel («BTC» = gegen USDT, Spot, erste Börse, die liefert). Die Uhr zeigt den Kurs dieses Paars:
-/// vom iPhone oder selbst abgefragt zuerst bei derselben Börse und Kontraktart (`selfFetchable`). Wie Android
-/// `WatchPair` (`Parity/watch_settings.json`, `watch_link.json`, `watch_quotes.json`).
+/// der Uhr; Coins der eigenen Liste behalten ihr Kürzel («BTC» = gegen USDT, Spot, erste Börse, die liefert). Die Uhr
+/// zeigt den Kurs dieses Paars: vom iPhone oder selbst abgefragt zuerst bei derselben Börse und Kontraktart
+/// (`selfFetchable`). Wie Android `WatchPair` (`Parity/watch_settings.json`, `watch_link.json`, `watch_quotes.json`).
 struct WatchPair: Equatable, Hashable, Sendable {
     static let usdt = "USDT"
     static let perpetual = "Perp"

@@ -33,7 +33,7 @@ final class MoveHistoryStoreTests: XCTestCase {
         let storage = FakeStorage([
             MoveHistoryCore.key(5): "[[\(now - 32 * hour),10.0]]",
             MoveHistoryCore.key(6): "[[\(now - hour),10.0]]",
-            "anders": "bleibt",
+            "anders": "bleibt"
         ])
         let core = MoveHistoryCore(storage: storage)
         core.append(1, MoveWindow.PricePoint(price: 100, time: now), now: now)

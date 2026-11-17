@@ -200,7 +200,8 @@ final class CsvTransferMatchTests: XCTestCase {
             let coin = try XCTUnwrap(found.first?.coin)
             let plan = CsvTransferMatch.apply(S.list(c["txs"]).map(tx), links: found, chosen: CsvTransferMatch.defaultChoice(found))
             let base = S.list(f["trades"]).map { o in
-                PortfolioTx(id: id(o["id"]) ?? 0, coin: string(o["coin"]) ?? "", type: PortfolioTxType(rawValue: string(o["type"]) ?? "") ?? .BUY,
+                PortfolioTx(id: id(o["id"]) ?? 0, coin: string(o["coin"]) ?? "",
+                    type: PortfolioTxType(rawValue: string(o["type"]) ?? "") ?? .BUY,
                             amountExact: dec(o["amount"]) ?? 0, priceExact: dec(o["priceUsdt"]), time: S.millis(o["time"]),
                             exchange: string(o["exchange"]))
             }
@@ -309,7 +310,8 @@ final class CsvTransferMatchTests: XCTestCase {
 
     /// Verknüpft wird mit langen Schlüsseln (bis 200 UTF-8-Bytes): sie bleiben vollständig, kein Zustand geht verloren.
     func testLongKeysLinkWithoutLimit() throws {
-        let c = try XCTUnwrap(try cases().first { string($0["name"]) == "stored side with separators in its text and a long key both link" })
+        let name = "stored side with separators in its text and a long key both link"
+        let c = try XCTUnwrap(try cases().first { string($0["name"]) == name })
         let found = links(c)
         let plan = CsvTransferMatch.apply(S.list(c["txs"]).map(tx), links: found, chosen: CsvTransferMatch.defaultChoice(found))
         let long = try XCTUnwrap(plan.storedUpdates.first { $0.id == 13 })

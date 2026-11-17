@@ -214,7 +214,8 @@ struct PortfolioTotalCard: View {
                 VStack(alignment: .leading, spacing: 2) {
                     PortfolioMetric(
                         label: L("portfolio_invested"),
-                        value: invested.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency($0, unit.code), hidden: hideAmounts) } ?? "—"
+                        value: invested.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency($0, unit.code),
+                            hidden: hideAmounts) } ?? "—"
                     )
                     if invested != nil, costFx?.investedFxMissing == true {
                         partialMarker(L("portfolio_export_incomplete"))

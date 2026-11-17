@@ -47,9 +47,10 @@ struct Bithumb: UpbitStyleExchange {
     let tradeTimeFromUTCFields: Bool = true
 }
 
-/// Gemeinsamer Aufbau von Upbit (auch Thailand und Indonesien) und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
-/// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
-/// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
+/// Gemeinsamer Aufbau von Upbit (auch Thailand und Indonesien) und Bithumb: Paarliste `market/all`, Ticker
+/// `ticker?markets=…`, Kennung «QUOTE-BASE». `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat
+/// (Upbit), sonst nil (Bithumb). `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus
+/// «trade_timestamp» (Bithumb).
 protocol UpbitStyleExchange: SimpleExchange {
     /// API-Wurzel («…/v1»).
     var apiRoot: String { get }

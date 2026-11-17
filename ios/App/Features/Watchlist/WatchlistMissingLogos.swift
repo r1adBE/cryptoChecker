@@ -135,6 +135,8 @@ final class MissingLogosModel: ObservableObject {
         var names: [String: String] = [:]
         var notYet: Set<String> = []
         for entry in entries {
+            // `await` geht nicht in eine where-Klausel
+            // swiftlint:disable:next for_where
             if await !lookup.hasLogo(entry.key) {
                 without.append(entry.key)
                 names[entry.key] = CoinLogoStore.name(for: entry.watch)

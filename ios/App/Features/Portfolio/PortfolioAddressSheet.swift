@@ -195,30 +195,33 @@ struct PortfolioAddressSheet: View {
             || !label.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
+    /// Stand bzw. Fehler unter der Adresse (nil: noch nie abgerufen).
+    private func statusLine(_ a: WatchedAddress) -> String? {
+        if let error = a.lastError {
+            // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
+            let head = Self.errorText(error)
+            return head + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
+        }
+        if a.lastUpdated > 0 {
+            // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
+            let partlyStale = a.tokenHoldings().contains { a.staleTokens.contains($0.key) }
+            // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (`ZeroConfirm`)
+            let zeroUnconfirmed = a.zeroPending.contains(ZeroConfirm.main)
+            let age = WatchlistTime.ago(a.lastUpdated, now: now) // am Zeilenanfang gross: «Vor 2 Std. · Etherscan»
+            return WatchlistTime.lineStart(age, ago: age) + (a.lastProvider.map { " · \($0)" } ?? "")
+                + (zeroUnconfirmed ? " · " + L("portfolio_address_zero_unconfirmed") : "")
+                + (partlyStale ? " · " + L("portfolio_address_tokens_partly_stale") : "")
+        }
+        return nil
+    }
+
     /// Eine Adresse: Bezeichnung oder gekürzte Adresse, Netz, Guthaben, Stand bzw. Fehler; xpub mit Anzahl benutzter
     /// Adressen; ETH mit Token-Guthaben (> 0) und Schalter «Tokens mitzählen» — wie Android.
     private func row(_ a: WatchedAddress) -> some View {
         let balance = PortfolioDecimal.parse(a.lastBalance)
         let amount = balance.map { PortfolioFormat.exactAmount($0, a.chain.coin) } ?? "— \(a.chain.coin)"
         let shown = data.settings.hidePortfolioAmounts && balance != nil ? "•••" : amount
-        let status: String? = {
-            if let error = a.lastError {
-                // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
-                let head = Self.errorText(error)
-                return head + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
-            }
-            if a.lastUpdated > 0 {
-                // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
-                let partlyStale = a.tokenHoldings().contains { a.staleTokens.contains($0.key) }
-                // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (`ZeroConfirm`)
-                let zeroUnconfirmed = a.zeroPending.contains(ZeroConfirm.main)
-                let age = WatchlistTime.ago(a.lastUpdated, now: now) // am Zeilenanfang gross: «Vor 2 Std. · Etherscan»
-                return WatchlistTime.lineStart(age, ago: age) + (a.lastProvider.map { " · \($0)" } ?? "")
-                    + (zeroUnconfirmed ? " · " + L("portfolio_address_zero_unconfirmed") : "")
-                    + (partlyStale ? " · " + L("portfolio_address_tokens_partly_stale") : "")
-            }
-            return nil
-        }()
+        let status = statusLine(a)
         let tokens = a.tokenHoldings()
         let tokenParts: [String] = tokens.map { item -> String in
             let amount = PortfolioDecimal.parse(item.amount).map { PortfolioFormat.exactAmount($0, item.label) }
@@ -247,7 +250,10 @@ struct PortfolioAddressSheet: View {
                         .lineLimit(1)
                     // Vollständige Suche zu gross, nur schnell gesucht (`XpubCache.limitedFallback`): dezenter Hinweis
                     if a.xpub?.limitedFallback == true {
-                        Text(L("portfolio_address_xpub_limited")).font(.caption).foregroundStyle(AppColors.onSurfaceVariant).fixedSize(horizontal: false, vertical: true)
+                        Text(L("portfolio_address_xpub_limited"))
+                            .font(.caption)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
                 if !tokens.isEmpty {

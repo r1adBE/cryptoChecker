@@ -235,8 +235,9 @@ final class XpubScan {
                   limitedFallback: mode != .FULL && old.limitedFallback)
     }
 
-    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub mit
-    /// gemerktem Typ nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH (Ledger Live zeigt die xpub auch für Segwit-Konten). `cache` muss zum Schlüssel gehören.
+    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub
+    /// mit gemerktem Typ nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH (Ledger Live zeigt die xpub auch für
+    /// Segwit-Konten). `cache` muss zum Schlüssel gehören.
     static func scripts(_ key: Bip32.ExtendedKey, cache: XpubCache?) -> [Bip32.Script] {
         guard key.detectsScript else { return [key.script] }
         if let s = cache?.script { return [s] }

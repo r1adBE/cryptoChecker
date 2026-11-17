@@ -53,8 +53,8 @@ enum WidgetGroupSelection {
     static var renames: [String: String] {
         get { SharedStorage.defaults.dictionary(forKey: renamesKey) as? [String: String] ?? [:] }
         set {
-            if newValue.isEmpty { SharedStorage.defaults.removeObject(forKey: renamesKey) }
-            else { SharedStorage.defaults.set(newValue, forKey: renamesKey) }
+            if newValue.isEmpty { SharedStorage.defaults.removeObject(forKey: renamesKey) } else { SharedStorage.defaults.set(newValue,
+                forKey: renamesKey) }
         }
     }
 

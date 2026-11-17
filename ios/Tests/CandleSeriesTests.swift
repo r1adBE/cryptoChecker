@@ -277,7 +277,7 @@ final class SheetChartRulesTests: XCTestCase {
     func testAxisMinimumSpan() throws {
         let peg = [
             MarketCandle(openTime: 0, open: 1.0001, high: 1.0001, low: 0.9998, close: 0.9998, volume: 1),
-            MarketCandle(openTime: 3_600_000, open: 0.9998, high: 1.0002, low: 0.9998, close: 1.0002, volume: 1),
+            MarketCandle(openTime: 3_600_000, open: 0.9998, high: 1.0002, low: 0.9998, close: 1.0002, volume: 1)
         ]
         let stable = try XCTUnwrap(SheetChart.axisLevels(peg, type: .candles, stable: true))
         XCTAssertEqual(stable.low, 0.995, accuracy: 1e-9)

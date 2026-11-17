@@ -38,7 +38,7 @@ extension BackupSettingsPage {
             result.lowered.amountsShown ? L("backup_restore_amounts_shown") : nil,
             result.lowered.lockOff ? L("backup_restore_app_lock_off") : nil,
             // Beschädigte Portfolio-Daten ersetzt: nie still, die Datei liegt daneben
-            result.damagedSetAside ? L("ios_backup_restore_damaged_set_aside") : nil,
+            result.damagedSetAside ? L("ios_backup_restore_damaged_set_aside") : nil
         ].compactMap { $0 }.joined(separator: "\n")
     }
 
@@ -59,7 +59,7 @@ extension BackupSettingsPage {
             encrypted ? nil : L("backup_restore_unencrypted_replaces"),
             encrypted ? nil : L("backup_restore_unencrypted_warning"),
             preview.invalid > 0 ? L("backup_restore_invalid", count: preview.invalid) : nil,
-            overLimitsText("backup_restore_over_limits", pairs: preview.droppedPairs, alarms: preview.droppedAlarms),
+            overLimitsText("backup_restore_over_limits", pairs: preview.droppedPairs, alarms: preview.droppedAlarms)
         ]
         return parts.compactMap { $0 }.joined(separator: "\n\n")
     }

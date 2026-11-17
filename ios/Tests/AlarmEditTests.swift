@@ -101,7 +101,7 @@ final class AlarmEditTests: XCTestCase {
             edited(triggered) { $0.condition = .PRICE_BELOW },
             edited(triggered) { $0.threshold = 61_000 },
             edited(triggered) { $0.currency = "CHF" },
-            edited(triggered) { $0.watchId = 2 },
+            edited(triggered) { $0.watchId = 2 }
         ]
         for input in inputs {
             XCTAssertTrue(AlarmEdit.conditionChanged(triggered, input))

@@ -3,9 +3,8 @@ import os
 
 /// Kurse und Coin-Liste für das Portfolio, immer in USDT — wie `PortfolioPriceSource.kt`.
 ///
-/// Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für
-/// fehlende Coins einzeln der letzte Schlusskurs der 1-h-Kerzen aus der
-/// `CandleDataSource`-Kette. USDT = 1; andere Stablecoins (USDC, DAI …) werden wie jeder Coin
+/// Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für fehlende Coins einzeln der
+/// letzte Schlusskurs der 1-h-Kerzen aus der `CandleDataSource`-Kette. USDT = 1; andere Stablecoins (USDC, DAI …) werden wie jeder Coin
 /// geholt — fehlt ihr Kurs, haben sie keinen Wert (`PortfolioStables`). Zwischenspeicher 60 s.
 ///
 /// Identitätsprüfung des Kerzenkurses: Er gilt nur, wenn er zum selben Token passt wie ein
@@ -100,12 +99,11 @@ enum PortfolioPriceSource {
     /// Kurse aus dem Zwischenspeicher, ohne Netz (für den ersten Aufbau).
     static func cached(_ coins: [String]) -> PortfolioPrices { collect(normalized(coins)) }
 
-    /// Kurse für `coins`; Einträge jünger als 60 s werden nicht neu geholt
-    /// (ausser mit `force`). Schlägt eine Abfrage fehl, bleibt der letzte
-    /// bekannte Kurs stehen.
+    /// Kurse für `coins`; Einträge jünger als 60 s werden nicht neu geholt (ausser mit `force`).
+    /// Schlägt eine Abfrage fehl, bleibt der letzte bekannte Kurs stehen.
     static func prices(_ coins: [String], force: Bool = false) async -> PortfolioPrices {
         let wanted = normalized(coins)
-        await priceGate.run { () async -> Void in
+        await priceGate.run { () async in
             let generation = Self.state.withLock { $0.clearGeneration }
             let now = EpochTime.nowMillis
             // Dazu die Basis gekapselter Coins (Ersatzkurs, `ChainAssets.priceViaBase`); nur abfragbare Kürzel
@@ -377,9 +375,9 @@ enum PortfolioPriceSource {
             for coin in coins {
                 guard let entry = s.cache[coin] ?? via[coin].flatMap({ s.cache[$0] }) else {
                     // Ungeprüft = ohne Kurs (zählt nicht als Geld); Abfrage gescheitert: «Kurs gerade nicht abrufbar»
-                    if s.uncheckedCoins.contains(coin) { unchecked.insert(coin) }
-                    else if s.noMarketCoins.contains(coin) { noMarket.insert(coin) }
-                    else if s.unavailableCoins.contains(coin) { unavailable.insert(coin) }
+                    if s.uncheckedCoins.contains(coin) { unchecked.insert(coin); continue }
+                    if s.noMarketCoins.contains(coin) { noMarket.insert(coin); continue }
+                    if s.unavailableCoins.contains(coin) { unavailable.insert(coin) }
                     continue
                 }
                 result[coin] = entry.price

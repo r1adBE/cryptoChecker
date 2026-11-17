@@ -11,7 +11,7 @@ import ObjectiveC
 enum UITestExchange {
     /// BTC und die übrigen Start-Coins mit festen Kursen (Reihenfolge wie Android `FakeExchange.coins`).
     static let prices: [(coin: String, price: Double)] = [
-        ("BTC", 95_000.0), ("ETH", 3_500.0), ("XRP", 2.5), ("BNB", 900.0), ("SOL", 200.0),
+        ("BTC", 95_000.0), ("ETH", 3_500.0), ("XRP", 2.5), ("BNB", 900.0), ("SOL", 200.0)
     ]
 
     /// Umgebungsvariable, mit der die Bildschirmfoto-Tour die Markt-Antworten einschaltet (gleicher Text in
@@ -158,12 +158,12 @@ enum UITestExchange {
 
 /// Beantwortet jeden HTTP(S)-Abruf aus `UITestExchange` (sonst 404); WebSockets schlagen sofort fehl.
 final class UITestExchangeProtocol: URLProtocol {
-    override class func canInit(with request: URLRequest) -> Bool {
+    override static func canInit(with request: URLRequest) -> Bool {
         guard let scheme = request.url?.scheme?.lowercased() else { return false }
         return ["http", "https", "ws", "wss"].contains(scheme)
     }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override static func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
         guard let url = request.url, let scheme = url.scheme?.lowercased(), scheme.hasPrefix("http") else {

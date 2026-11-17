@@ -39,7 +39,7 @@ final class WatchlistNotSavedGatePresenter {
     }
 
     private func update() {
-        WatchlistNotSavedGate.shared.pending ? show() : hide()
+        if WatchlistNotSavedGate.shared.pending { show() } else { hide() }
     }
 
     private func show() {

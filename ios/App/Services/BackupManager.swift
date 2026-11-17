@@ -114,7 +114,7 @@ enum BackupManager {
             // Alarme «Portfolio-Wert», nach Id — wie Android
             "portfolioAlarms": input.portfolioAlarms.map(portfolioAlarmToJson),
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
-            WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(input.watchedAddresses)),
+            WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(input.watchedAddresses))
         ]
     }
 

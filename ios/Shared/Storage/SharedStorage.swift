@@ -99,7 +99,8 @@ enum SharedStorage {
         let result = migrateFallback(from: fallbackDirectory, to: group, defaultsSources: sources,
                                      into: groupDefaults)
         UserDefaults.standard.removeObject(forKey: fallbackUsedKey)
-        AppLog.storage.notice("Ersatzspeicher übernommen: \(result.files, privacy: .public) Dateien, \(result.keys, privacy: .public) Einstellungen")
+        AppLog.storage.notice(
+            "Ersatzspeicher übernommen: \(result.files, privacy: .public) Dateien, \(result.keys, privacy: .public) Einstellungen")
         return result
     }
 
@@ -139,7 +140,6 @@ enum SharedStorage {
     /// `portfolio.json` die Einstellung «Portfolio in Systemsicherung» (wie Android, wo die
     /// Portfolio-Alarme mit dem Portfolio aus der Systemsicherung fallen).
     static var portfolioAlarmsURL: URL { directory.appendingPathComponent("portfolio_alarms.json") }
-
 
     // MARK: Einstellungen
 
@@ -272,8 +272,8 @@ enum SharedStorage {
     static var changeStamp: ChangeStamp? {
         get { ChangeStamp.decode(defaults.string(forKey: "change_basis_stamp")) }
         set {
-            if let newValue { defaults.set(newValue.encoded, forKey: "change_basis_stamp") }
-            else { defaults.removeObject(forKey: "change_basis_stamp") }
+            if let newValue { defaults.set(newValue.encoded,
+                forKey: "change_basis_stamp") } else { defaults.removeObject(forKey: "change_basis_stamp") }
         }
     }
 
@@ -297,8 +297,11 @@ enum SharedStorage {
     static var exchangeBackoff: [String: ExchangeBackoff.State] {
         get { ExchangeBackoff.decode(defaults.string(forKey: "exchange_backoff")) }
         set {
-            if newValue.isEmpty { defaults.removeObject(forKey: "exchange_backoff") }
-            else { defaults.set(ExchangeBackoff.encode(newValue), forKey: "exchange_backoff") }
+            if newValue.isEmpty {
+                defaults.removeObject(forKey: "exchange_backoff")
+            } else {
+                defaults.set(ExchangeBackoff.encode(newValue), forKey: "exchange_backoff")
+            }
         }
     }
 
@@ -309,8 +312,8 @@ enum SharedStorage {
             return value > 0 ? value : nil
         }
         set {
-            if let newValue { defaults.set(Double(newValue), forKey: "app_start_millis") }
-            else { defaults.removeObject(forKey: "app_start_millis") }
+            if let newValue { defaults.set(Double(newValue),
+                forKey: "app_start_millis") } else { defaults.removeObject(forKey: "app_start_millis") }
         }
     }
 

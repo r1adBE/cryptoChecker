@@ -158,7 +158,8 @@ struct PortfolioAddressLotEditor: View {
                 TextField(placeholder: L(perCoin ? "address_lots_price" : "address_lots_total"), text: $valueText)
                     .keyboardType(.decimalPad)
                 if let c = close, let suggested = perCoin ? c : amount.flatMap({ AddressCostLots.suggestion(amount: $0, close: c) }) {
-                    Text(L("cost_gap_suggestion", PortfolioFormat.date(date.millis), PortfolioFormat.usdtValue(PortfolioDecimal.double(suggested))))
+                    Text(L("cost_gap_suggestion", PortfolioFormat.date(date.millis),
+                        PortfolioFormat.usdtValue(PortfolioDecimal.double(suggested))))
                         .font(.subheadline)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                     Button(L("cost_gap_apply")) {

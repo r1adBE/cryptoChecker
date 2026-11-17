@@ -17,14 +17,14 @@ enum RateLimitSignal {
     static let maxOkBody = 4096
 
     private static let texts = [
-        "too many requests", "rate limit exceeded", "rate limit reached", "too many visits", "access too frequent",
+        "too many requests", "rate limit exceeded", "rate limit reached", "too many visits", "access too frequent"
     ]
 
     /// Fehlercodes im JSON (ohne Leerzeichen verglichen): Bybit retCode 10006, OKX code 50011, BingX code 100410,
     /// bitbank data.code 10009.
     private static let codes = [
         "\"retcode\":10006", "\"code\":\"50011\"", "\"code\":100410,", "\"code\":100410}", "\"code\":\"100410\"",
-        "\"success\":0,\"data\":{\"code\":10009}",
+        "\"success\":0,\"data\":{\"code\":10009}"
     ]
 
     /// Meldet `text` (Fehlertext oder Antwort) «zu viele Anfragen»?
@@ -54,7 +54,7 @@ enum RateLimitSignal {
 
     /// Felder einer JSON-Antwort, in denen Börsen ihre Fehlermeldung schicken.
     private static let errorFields = [
-        "error", "errors", "msg", "message", "retMsg", "err_msg", "errmsg", "errorMessage", "error_message",
+        "error", "errors", "msg", "message", "retMsg", "err_msg", "errmsg", "errorMessage", "error_message"
     ]
 
     /// 2xx-Antwort meldet «zu viele Anfragen»? Lesbares JSON: nur die bekannten Fehlerfelder (`errorFields`, Text oder

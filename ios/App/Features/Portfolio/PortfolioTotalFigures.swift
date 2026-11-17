@@ -131,7 +131,8 @@ struct PortfolioInsightFigure: View {
         let change = A11y.change(validPercent)
         if value == nil && change == nil { return L("portfolio_card_figure_none_a11y", spokenLabel) }
         let figure = L("label_value", spokenLabel, A11y.join([change, value]))
-        guard let rewardsSpoken = PortfolioRewardsNote.text(shownRewards, unit: unit, hidden: hideAmounts, spoken: true) else { return figure }
+        guard let rewardsSpoken = PortfolioRewardsNote.text(shownRewards, unit: unit, hidden: hideAmounts,
+            spoken: true) else { return figure }
         return figure + ". " + rewardsSpoken
     }
 

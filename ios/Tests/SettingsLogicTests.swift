@@ -140,7 +140,8 @@ final class PriceColorSchemeTests: XCTestCase {
                         for bg in backgrounds {
                             let ratio = contrast(color, bg)
                             XCTAssertGreaterThanOrEqual(ratio, required,
-                                                        "\(scheme.rawValue) hc=\(hc) dark=\(dark) \(String(color, radix: 16)) on \(String(bg, radix: 16))")
+                                                        "\(scheme.rawValue) hc=\(hc) dark=\(dark) "
+                                                            + "\(String(color, radix: 16)) on \(String(bg, radix: 16))")
                         }
                     }
                 }
@@ -321,7 +322,7 @@ final class PriceColorSchemeTests: XCTestCase {
     private let cvd: [(name: String, m: [Double])] = [
         ("prot", [0.152286, 1.052583, -0.204868, 0.114503, 0.786281, 0.099216, -0.003882, -0.048116, 1.051998]),
         ("deut", [0.367322, 0.860646, -0.227968, 0.280085, 0.672501, 0.047413, -0.011820, 0.042940, 0.968881]),
-        ("trit", [1.255528, -0.076749, -0.178779, -0.078411, 0.930809, 0.147602, 0.004733, 0.691367, 0.303900]),
+        ("trit", [1.255528, -0.076749, -0.178779, -0.078411, 0.930809, 0.147602, 0.004733, 0.691367, 0.303900])
     ]
 
     /// «Frisch» dunkel steigend ist genau das Binance-Grün; das Binance-Rot erreicht dunkel kein AA.
@@ -454,7 +455,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         let pairs: [(UInt32, UInt32)] = [
             (0xF9F9F9, ColorTokens.background.light), (0xF3F3F3, ColorTokens.surfaceContainerLow.light),
             (0xEEEEEE, ColorTokens.surfaceContainer.light), (0xE8E8E8, ColorTokens.surfaceContainerHigh.light),
-            (0xE2E2E2, ColorTokens.surfaceContainerHighest.light), (0xE4E4E4, ColorTokens.widgetSurfaceDeep.light),
+            (0xE2E2E2, ColorTokens.surfaceContainerHighest.light), (0xE4E4E4, ColorTokens.widgetSurfaceDeep.light)
             // outlineVariant bewusst dunkler (≈ 2.2:1): eigener Test
         ]
         for (grey, warm) in pairs {
@@ -984,7 +985,9 @@ final class NotificationDefaultsTests: XCTestCase {
 
         // Gespeicherter Wert bleibt
         let off = try JSONDecoder().decode(Watch.self, from: Data(
-            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false,"contractType":0,"sortOrder":0,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#.utf8))
+            (#"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false,"#
+                + #""contractType":0,"sortOrder":0,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"#
+                + #""priceChangedAt":0}"#).utf8))
         XCTAssertFalse(off.notificationEnabled)
     }
 

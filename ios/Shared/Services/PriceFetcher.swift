@@ -316,7 +316,7 @@ enum LowMemoryBulk {
 
     /// Börsen, deren ungefilterte Liste (oder Ersatzliste) etwa 1 MB oder mehr ist.
     static let largeUnfilteredKeys: Set<String> = [
-        "GateIo", "Kucoin", "Mexc", "Htx", "Bitget", "Okex", "Poloniex", "Latoken", "Phemex", "Binance",
+        "GateIo", "Kucoin", "Mexc", "Htx", "Bitget", "Okex", "Poloniex", "Latoken", "Phemex", "Binance"
     ]
 
     /// Ist die Sammelabfrage dieser Paare ungefiltert (gleiche URL wie ohne Auswahl, ohne Zeitstempel: `RequestKey`)?

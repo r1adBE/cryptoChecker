@@ -27,7 +27,7 @@ enum DataMirror {
         "https://api.alternative.me/fng/?limit=31": Entry(file: "fng.txt", maxAgeMillis: 4 * hour),
         "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics"
             + "?assets=btc&metrics=PriceUSD&frequency=1d&start_time=2016-06-01&page_size=10000":
-            Entry(file: "btcprice.txt", maxAgeMillis: 36 * hour),
+            Entry(file: "btcprice.txt", maxAgeMillis: 36 * hour)
     ]
 
     /// On-Chain-Werte: das Startdatum der Adresse wandert täglich mit.

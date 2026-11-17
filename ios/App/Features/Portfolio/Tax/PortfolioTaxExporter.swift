@@ -57,9 +57,9 @@ enum PortfolioTaxExporter {
     }
 
     /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert, Tausch ohne Wert,
-    /// Belohnungen ohne Wert und Gebühren im dritten Coin ohne Preis (`PortfolioLedger.dayCloseNeeds`) bis Ende `until` (Standard: Ende `period`): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
-    /// (`TaxDayClose`, gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche
-    /// nil. Wie Android.
+    /// Belohnungen ohne Wert und Gebühren im dritten Coin ohne Preis (`PortfolioLedger.dayCloseNeeds`) bis Ende `until`
+    /// (Standard: Ende `period`): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags (`TaxDayClose`, gleicher
+    /// Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche nil. Wie Android.
     static func feeDisposalPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
                                   zone: TimeZone = .current, until: LocalDay? = nil) async -> ((String, Int64) -> Decimal?)? {
         let end = endMillis(period, until: until, zone: zone)
@@ -172,11 +172,12 @@ enum PortfolioTaxExporter {
     }
 
     /// CH: Tagesschlüsse des 31.12. (`end`) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
-    /// Adressen in der Sicht der Karte (`AddressCutoff.at`: Posten, Adress-Teil ohne Einstand) — dieselben Quellen wie der Stichtag-Export (`PortfolioCutoffExporter.build`:
-    /// `HistoricPriceSource.dailyClosesUsdt` mit Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze
-    /// des 31.12. geschlossen ist (UTC-Datum danach), sonst nil: kein laufender oder heutiger Kurs, der Posten bleibt
-    /// «nicht gerechnet». Ebenso nil, wenn die beobachteten Adressen nicht lesbar sind (`intact` false) — sonst stünde
-    /// still eine zu tiefe Summe da. Wie Android `chYearEnd`.
+    /// Adressen in der Sicht der Karte (`AddressCutoff.at`: Posten, Adress-Teil ohne Einstand) — dieselben Quellen wie
+    /// der Stichtag-Export (`PortfolioCutoffExporter.build`: `HistoricPriceSource.dailyClosesUsdt` mit
+    /// Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum
+    /// danach), sonst nil: kein laufender oder heutiger Kurs, der Posten bleibt «nicht gerechnet». Ebenso nil, wenn die
+    /// beobachteten Adressen nicht lesbar sind (`intact` false) — sonst stünde still eine zu tiefe Summe da. Wie
+    /// Android `chYearEnd`.
     private static func chYearEnd(_ transactions: [PortfolioTx], method: TaxMethod, end: LocalDay,
                                   zone: TimeZone) async -> (closes: CutoffCloses, addresses: AddressCutoffView)? {
         let utc = TimeZone(identifier: "UTC") ?? .gmt

@@ -190,7 +190,7 @@ enum CoinLogos {
     /// nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
     static let tradFiExchanges: Set<String> = [
         "BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures", "HtxFutures", "PhemexFutures",
-        "Aster", "BingXFutures", "Lighter",
+        "Aster", "BingXFutures", "Lighter"
     ]
 
     /// Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo).

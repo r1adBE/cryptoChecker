@@ -123,7 +123,8 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         entry.offline = await WidgetOffline.isOffline()
         // Zweiter Eintrag, sobald die Uhrzeit oder ein Kurs veraltet («veraltet · 06:42»)
         // (deaktivierte Paare werden nie «veraltet»; nur gezeigte Paare, `WidgetRows`)
-        let times = [entry.lastRefreshAt] + WidgetRows.shown(entry.watches).filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }.flatMap { WidgetFreshness.outdatedTimes($0, afterMillis: entry.outdatedAfter) }
+        let live = WidgetRows.shown(entry.watches).filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }
+        let times = [entry.lastRefreshAt] + live.flatMap { WidgetFreshness.outdatedTimes($0, afterMillis: entry.outdatedAfter) }
         var entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
             var later = entry
             later.date = date
@@ -176,7 +177,8 @@ struct WatchlistWidgetView: View {
                 case .systemSmall:
                     WatchlistSmallView(entry: entry, palette: palette)
                 default:
-                    WatchlistListView(entry: entry, palette: palette, rows: family == .systemLarge ? WidgetRows.maxListRows : WidgetRows.mediumListRows)
+                    WatchlistListView(entry: entry, palette: palette,
+                        rows: family == .systemLarge ? WidgetRows.maxListRows : WidgetRows.mediumListRows)
                 }
             }
             .environment(\.widgetLogos, entry.logos)

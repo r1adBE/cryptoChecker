@@ -41,7 +41,8 @@ extension BackupManager {
         case rolledBack
         /// Journal nicht als Sicherung lesbar: nie zurückrollbar, wie Android `previousFromJournal`.
         case unreadable
-        /// Zurückschreiben scheiterte (Merkliste nicht auf der Platte, Portfolio, Adressen): Journal behalten und Versuch vermerkt; der nächste Start gibt auf.
+        /// Zurückschreiben scheiterte (Merkliste nicht auf der Platte, Portfolio, Adressen): Journal behalten und
+        /// Versuch vermerkt; der nächste Start gibt auf.
         case incomplete
     }
 

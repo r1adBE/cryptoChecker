@@ -20,7 +20,7 @@ final class OverflowSafetyTests: XCTestCase {
     func testBackupWithHugeSettingsRestoresClamped() throws {
         let backup = TestSupport.settingsBackup(AppSettings(), [
             "backgroundIntervalMinutes": NSNumber(value: Int64.max),
-            "alarmCooldownMinutes": NSNumber(value: Int64.max),
+            "alarmCooldownMinutes": NSNumber(value: Int64.max)
         ])
         let s = try BackupManager.applySettings(backup, onto: AppSettings())
         XCTAssertEqual(s.backgroundIntervalMinutes, AppSettings.maxBackgroundIntervalMinutes)
@@ -45,7 +45,9 @@ final class OverflowSafetyTests: XCTestCase {
     }
 
     func testStoredAlarmWindowDecodesClamped() throws {
-        let json = #"{"id": 1, "watchId": 2, "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 9223372036854775807, "enabled": true, "repeating": false, "sound": true, "vibrate": true, "speak": false, "lastTriggeredAt": 0, "referenceAt": 0}"#
+        let json = #"{"id": 1, "watchId": 2, "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "#
+            + #""windowHours": 9223372036854775807, "enabled": true, "repeating": false, "sound": true, "vibrate": true, "#
+            + #""speak": false, "lastTriggeredAt": 0, "referenceAt": 0}"#
         let alarm = try JSONDecoder().decode(Alarm.self, from: Data(json.utf8))
         XCTAssertEqual(alarm.windowHours, Alarm.maxWindowHours)
     }

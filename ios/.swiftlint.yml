@@ -1,0 +1,62 @@
+# SwiftLint (Stil-Prüfung iOS, in CI). Grössen von Dateien, Typen und Funktionen prüfen line_limit.py und
+# code_metrics.py (mit den Obergrenzen der App) — hier darum aus.
+included:
+  - App
+  - Shared
+  - Widgets
+  - Watch
+  - WatchCore
+  - WatchWidgets
+  - Tests
+  - UITests
+excluded:
+  - Tests/Parity
+  - Tests/Exchanges
+
+disabled_rules:
+  # `var x: T? = nil` bleibt ausdrücklich: so gibt die erzeugte Initialisierung (auch mit Property-Wrappern wie @State)
+  # sicher den Vorgabewert nil, unabhängig von den Regeln des Compilers für implizites nil
+  - redundant_optional_initialization
+  # `String(decoding:as:)` ersetzt ungültige Bytes bewusst (Antworten der Börsen); die Regel verlangt die Variante mit nil
+  - optional_data_string_conversion
+  # SwiftUI: `Button(action: …) { Label }` ist hier die übliche Form
+  - multiple_closures_with_trailing_closure
+  - file_length
+  - type_body_length
+  - function_body_length
+
+line_length:
+  warning: 140
+  error: 140
+  ignores_urls: true
+
+# Kurze Namen in Rechnungen (i, d, s …) sind lesbar; lange Namen bis 60 Zeichen. Fälle wie `NEAR_HIGH` tragen den
+# Namen von Android (gespeicherte Werte, gemeinsame Testfälle) und bleiben so; `L(…)` ist die Übersetzungsfunktion.
+identifier_name:
+  min_length: 1
+  max_length: 60
+  allowed_symbols: ["_"]
+  validates_start_with_lowercase: off
+type_name:
+  min_length: 1
+  max_length: 60
+
+
+# Obergrenzen = heutiger Höchstwert: nichts darf darüber wachsen (wie code_metrics.py); beim Kürzen senken
+cyclomatic_complexity:
+  ignores_case_statements: true
+  warning: 33
+  error: 33
+function_parameter_count:
+  warning: 16
+  error: 16
+nesting:
+  type_level: 2
+large_tuple:
+  warning: 6
+  error: 6
+
+# «master» ist der Fachbegriff von BIP32 (Hauptschlüssel) und der Hauptschalter der Kurs-Mitteilungen
+inclusive_language:
+  override_allowed_terms:
+    - master

@@ -372,7 +372,7 @@ final class AddressBalanceTests: XCTestCase {
         }
         let incoming = [
             WatchedAddressBackupEntry(chain: .BTC, address: "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"),
-            WatchedAddressBackupEntry(chain: .BTC, address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"),
+            WatchedAddressBackupEntry(chain: .BTC, address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa")
         ]
         let merged = WatchedAddressRules.merge(existing, incoming)
         XCTAssertEqual(merged.count, 1)
@@ -403,7 +403,8 @@ final class AddressBalanceTests: XCTestCase {
         XCTAssertEqual(roundTrip, file)
         // Eintrag ohne Pflichtfelder: übersprungen, die übrige Datei bleibt lesbar
         let partial = try JSONDecoder().decode(WatchedAddressFile.self,
-                                               from: Data("{\"addresses\":[{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"}],\"nextId\":1}".utf8))
+                                               from: Data((#"{"addresses":[{"chain":"BTC","#
+                                                    + #""address":"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"}],"nextId":1}"#).utf8))
         XCTAssertTrue(partial.addresses.isEmpty)
         XCTAssertEqual(partial.nextId, 1)
     }
@@ -427,7 +428,7 @@ final class AddressBalanceTests: XCTestCase {
             tx(5, "BTC", .BUY, "0.5", 700),                        // Kauf: keine Umbuchung
             tx(6, "ETH", .DEPOSIT, "0.5", 800),                    // anderer Coin
             tx(-1, "BTC", .DEPOSIT, "0.5", 900),                   // Adress-Einzahlung
-            tx(8, "btc", .DEPOSIT, "0.3", 100),                    // erste Beobachtung
+            tx(8, "btc", .DEPOSIT, "0.3", 100)                    // erste Beobachtung
         ]
         XCTAssertEqual(WatchedAddressRules.transferMatches(a, txs: txs).map(\.id), [8, 2, 1, 4])
         // «Nur anzeigen» ändert die Erkennung nicht

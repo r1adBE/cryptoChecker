@@ -187,7 +187,7 @@ enum CsvImport {
     /// `FxRateSource.currencies` (Test `CsvImportTests.testFiatListMatchesFxCurrencies`).
     static let fxFiat: Set<String> = fiat.union([
         "RON", "BGN", "ISK", "TRY", "CNY", "HKD", "SGD", "KRW", "INR", "IDR", "THB",
-        "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS",
+        "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS"
     ])
 
     /// Preiswährung ist ein Krypto-Coin (Paar «ETH/BTC»): weder Geld (`money`), Fiat mit Tageskurs noch Stablecoin

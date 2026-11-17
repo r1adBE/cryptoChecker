@@ -13,7 +13,7 @@ final class BridgedStablesTests: XCTestCase {
                            "AVALANCHE:USDT": "5",
                            // Gleiches Symbol (Binance-Peg «USDC» auf BSC) und Guthaben 0 zählen nicht als gebrückt
                            "BSC:USDC": "7",
-                           "OPTIMISM:USDC.e": "0",
+                           "OPTIMISM:USDC.e": "0"
                        ],
                        countInPortfolio: countInPortfolio)
     }

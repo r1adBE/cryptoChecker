@@ -27,7 +27,7 @@ final class PortfolioPriceIdentityTests: XCTestCase {
             PortfolioPriceIdentity.WatchName(base: "TON", name: "Toncoin", disabled: true),
             // Widersprüchliche Paare: unklar, welcher Token → kein Name
             PortfolioPriceIdentity.WatchName(base: "HOT", name: "Holo"),
-            PortfolioPriceIdentity.WatchName(base: "HOT", name: "Hydro Protocol"),
+            PortfolioPriceIdentity.WatchName(base: "HOT", name: "Hydro Protocol")
         ]
         let coins = ["LUNA", "TON", "HOT", "BTC"]
         let names = PortfolioPriceIdentity.watchNames(coins, watches: watches)

@@ -27,12 +27,12 @@ enum PortfolioWatchPair {
         var notTraded = false
     }
 
-    /// Bestes Paar für `coin`: aktiv, gehandelt (nicht `notTraded`), Spot, Spot-Börse der App ausser Binance (`PortfolioExchangeRoute.isSpot`,
-    /// Binance führt den Coin ja nicht), Gegenwährung aus `PortfolioExchangeRoute.quotes` (in dieser Reihenfolge);
-    /// bei Gleichstand das zuletzt aktualisierte, dann nach Börse. nil = keines.
-    /// Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
-    /// (`TokenIdentity.conflicting`, z. B. «Simon's Cat» und «Catcoin»), ist unklar, welcher Token im
-    /// Portfolio steht — dann keines (kein geratener Kurs).
+    /// Bestes Paar für `coin`: aktiv, gehandelt (nicht `notTraded`), Spot, Spot-Börse der App ausser Binance
+    /// (`PortfolioExchangeRoute.isSpot`, Binance führt den Coin ja nicht), Gegenwährung aus
+    /// `PortfolioExchangeRoute.quotes` (in dieser Reihenfolge); bei Gleichstand das zuletzt aktualisierte, dann nach
+    /// Börse. nil = keines. Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
+    /// (`TokenIdentity.conflicting`, z. B. «Simon's Cat» und «Catcoin»), ist unklar, welcher Token im Portfolio steht —
+    /// dann keines (kein geratener Kurs).
     static func pick(_ coin: String, watches: [Candidate]) -> Candidate? {
         let base = PortfolioCalculator.normalizeCoin(coin)
         let quotes = PortfolioExchangeRoute.quotes

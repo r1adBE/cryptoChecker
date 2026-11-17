@@ -290,7 +290,8 @@ struct PortfolioTxSheet: View {
                         PortfolioTxCostSuggestion(
                             isEdit: isEdit, txId: initial.txId, storedPrice: initial.priceUsdt, type: type, coin: coin,
                             coinValid: coinValid, amount: amount, millis: date.millis, interest: interest, entryFiat: entryFiat,
-                            template: data.settings.taxTemplate, decimalSeparator: decimalSeparator, priceText: $priceText, priceHint: $priceHint,
+                            template: data.settings.taxTemplate, decimalSeparator: decimalSeparator,
+                            priceText: $priceText, priceHint: $priceHint,
                             priceAuto: $priceAuto, priceHistoricDay: $priceHistoricDay)
                     }
                     // Notiz direkt unter dem Preis, bei allen Arten — wie Android

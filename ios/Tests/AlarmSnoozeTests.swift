@@ -93,7 +93,7 @@ final class AlarmSnoozeTests: XCTestCase {
         snapshot.alarms = [
             Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE, threshold: 100, enabled: false,
                   referencePrice: 101, lastTriggeredAt: 5_000, lastTriggeredPrice: 101, referenceAt: 5_000),
-            Alarm(id: 2, watchId: 9, condition: .CHANGE_PERCENT_UP, threshold: 5, enabled: false, referenceAt: 5_000),
+            Alarm(id: 2, watchId: 9, condition: .CHANGE_PERCENT_UP, threshold: 5, enabled: false, referenceAt: 5_000)
         ]
         XCTAssertTrue(AlarmSnooze.rearm(1, in: &snapshot))
         XCTAssertTrue(snapshot.alarms[0].enabled)

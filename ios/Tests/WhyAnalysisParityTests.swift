@@ -35,7 +35,7 @@ final class WhyAnalysisParityTests: XCTestCase {
                                     source: c["source"] as? String, now: now)
             let actual: [String: Any] = [
                 "change": r.changePercent as Any, "minutes": r.minutes.map { Double($0) } as Any,
-                "consistent": r.consistent, "samples": Double(r.samples),
+                "consistent": r.consistent, "samples": Double(r.samples)
             ]
             XCTAssertEqual(Self.canonical(actual), Self.canonical(c["expected"]), c["name"] as? String ?? "?")
         }
@@ -220,7 +220,7 @@ final class WhyAnalysisParityTests: XCTestCase {
                 "kind": x.kind.rawValue, "tone": kotlinName(x.tone), "value": x.value, "secondary": x.secondary as Any,
                 "strong": x.strong, "ref": x.ref?.rawValue as Any, "threshold": x.threshold as Any,
                 "approximate": x.approximate,
-                "similarOnly": WhySummary.isSimilarOnly(x), "mark": kotlinName(WhySummary.mark(x)),
+                "similarOnly": WhySummary.isSimilarOnly(x), "mark": kotlinName(WhySummary.mark(x))
             ]
         }
         let factors: [[String: Any]] = WhyFactors.rank(r).map { f in
@@ -228,7 +228,7 @@ final class WhyAnalysisParityTests: XCTestCase {
                 "kind": kotlinName(f.kind), "note": kotlinName(f.note), "direction": kotlinName(f.direction),
                 "value": f.value, "secondary": f.secondary as Any, "strength": f.strength, "neutral": f.neutral,
                 "ref": f.ref?.rawValue as Any, "approximate": f.approximate,
-                "trend": f.trend.map { "\($0.direction.rawValue)/\($0.hours)" } as Any,
+                "trend": f.trend.map { "\($0.direction.rawValue)/\($0.hours)" } as Any
             ]
         }
         var out: [String: Any] = [
@@ -244,7 +244,7 @@ final class WhyAnalysisParityTests: XCTestCase {
             "candleTimeMin": r.candleTime.map { Double(($0 - r.dataTime) / 60_000) } as Any,
             "reasons": reasons,
             "factors": factors,
-            "brief": WhySummary.keys(r.reasons),
+            "brief": WhySummary.keys(r.reasons)
         ]
         out["position3d"] = r.position3d.map {
             ["kind": $0.kind.rawValue, "percent": $0.percent, "threshold": $0.threshold] as [String: Any]

@@ -73,7 +73,7 @@ struct CycleGasRow: View {
     private var alertText: some View {
         let alerts = [
             ethAlertGwei > 0 ? "Ethereum < \(GasFees.formatGwei(ethAlertGwei)) gwei" : nil,
-            btcAlertSat > 0 ? "Bitcoin < \(LocaleNumbers.integer(btcAlertSat)) sat/vB" : nil,
+            btcAlertSat > 0 ? "Bitcoin < \(LocaleNumbers.integer(btcAlertSat)) sat/vB" : nil
         ].compactMap { $0 }
         if !alerts.isEmpty {
             Text(L("gas_alert_active", alerts.joined(separator: " · ")))

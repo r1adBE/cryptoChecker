@@ -282,14 +282,14 @@ final class TaxExportTests: XCTestCase {
                 "longLossesEur": eurOf(.LONG_LOSSES), "unclassifiedEur": eurOf(.UNCLASSIFIED),
                 "privateSalesLimitEur": m(line(.DE_PRIVATE_LIMIT)?.target), "incomeUsdt": m(line(.INCOME)?.usdt),
                 "incomeEur": m(line(.INCOME)?.target), "incomeLimitEur": m(line(.DE_INCOME_LIMIT)?.target),
-                "privateSalesStatus": status(line(.DE_PRIVATE_LIMIT)?.status), "incomeStatus": status(line(.DE_INCOME_LIMIT)?.status),
+                "privateSalesStatus": status(line(.DE_PRIVATE_LIMIT)?.status), "incomeStatus": status(line(.DE_INCOME_LIMIT)?.status)
             ]
             let flags: [String: Bool] = [
                 "unknownGainCount": line(.SHORT_NET)?.incomplete == true || unclassified?.incomplete == true,
                 "unclassifiedCount": unclassified != nil,
                 "eurFxMissingCount": line(.SHORT_NET)?.noFx == true || unclassified?.noFx == true,
                 "incomeValueMissingCount": line(.INCOME)?.incomplete == true,
-                "incomeFxMissingCount": line(.INCOME)?.noFx == true,
+                "incomeFxMissingCount": line(.INCOME)?.noFx == true
             ]
             for (k, v) in c["expected"] as? [String: Any] ?? [:] {
                 if k == "eurAvailable" {
@@ -457,7 +457,7 @@ final class TaxExportTests: XCTestCase {
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, priceExact: 1000, time: t0),
             PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: 1, priceExact: 2020, time: t0 + 50 * dayMs),
             PortfolioTx(id: 3, coin: "ETH", type: .BUY, amountExact: 1, priceExact: 100, time: t0),
-            fee,
+            fee
         ]
         // EUR = USD (Kurs 1) an jedem Tag des Jahres
         var eur: [Int: Decimal] = [:]

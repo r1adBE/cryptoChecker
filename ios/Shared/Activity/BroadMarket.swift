@@ -37,7 +37,7 @@ enum BroadMarket {
     static let excluded: Set<String> = [
         "BTC", "ETH", "WBTC", "CBBTC", "LBTC", "BTCB", "TBTC", "SOLVBTC",
         "WETH", "STETH", "WSTETH", "WEETH", "RETH", "CBETH", "METH", "EZETH", "RSETH", "BETH", "WBETH",
-        "PAXG", "XAUT",
+        "PAXG", "XAUT"
     ]
 
     /// Weitere Stablecoins der Rangliste, die nicht in der Umrechnungsliste stehen.

@@ -26,12 +26,13 @@ extension Exchange {
     /// Parses a single-ticker response into `ticker` (via `fillTicker`). Afterwards `timestamp` is the fetch time
     /// and `exchangeTime` the time reported by the exchange (or nil).
     ///
-    /// Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the
-    /// pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, Bithumb
+    /// Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the pair
+    /// — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, Bithumb
     /// `trade_date`/`trade_time`) is therefore not outdated within the alarm limit; a last trade older than that limit
-    /// (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason). If the fetch fails, lastUpdate stays and the pair ages as
-    /// usual; a delisted pair is missing from the list (NotTraded). The exchange time is only shown
-    /// (PriceFreshness) so that a standing price does not look fresh. Same as `Exchange.kt`.
+    /// (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason). If the fetch
+    /// fails, lastUpdate stays and the pair ages as usual; a delisted pair is missing from the list (NotTraded). The
+    /// exchange time is only shown (PriceFreshness) so that a standing price does not look fresh. Same as
+    /// `Exchange.kt`.
     func readTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         try fillTicker(call: call, body: body, ticker: &ticker, info: info)
         markFetched(&ticker)

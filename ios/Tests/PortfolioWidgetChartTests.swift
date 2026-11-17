@@ -12,7 +12,6 @@ final class PortfolioWidgetChartTests: XCTestCase {
 
     private func start(_ day: Int) -> Int64 { PortfolioWidgetChart.dayStart(day, timeZone: zone) }
 
-
     private func snapshot(total: Double = 900, totalUsdt: Double? = 1000, currency: String = "CHF",
                           change: Double? = 9, percent: Double? = 1, history: [PortfolioWidgetPoint] = [],
                           daily: [PortfolioHistoryPoint] = [],
@@ -36,7 +35,8 @@ final class PortfolioWidgetChartTests: XCTestCase {
     /// Tagesverlauf der letzten `count` Tage bis `last`, Wert = 1000 + Index.
     private func daily(_ count: Int, last: Int? = nil) -> [PortfolioHistoryPoint] {
         let end = last ?? today
-        return (0..<count).map { (i: Int) -> PortfolioHistoryPoint in PortfolioHistoryPoint(epochDay: end - (count - 1 - i), value: 1000 + Double(i)) }
+        return (0..<count).map { (i: Int) -> PortfolioHistoryPoint in PortfolioHistoryPoint(epochDay: end - (count - 1 - i),
+            value: 1000 + Double(i)) }
     }
 
     // MARK: Anzeige
@@ -166,7 +166,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let closes: [String: [Int: Double]] = [
             "BTC": [todayUtc - 1: 100],
             "ETH": [todayUtc - 2: 10],
-            "SOL": [todayUtc: .nan],
+            "SOL": [todayUtc: .nan]
         ]
         XCTAssertEqual(Set(PortfolioWidgetChart.usableCloses(closes, todayUtcDay: todayUtc).keys), ["BTC"])
     }
@@ -192,7 +192,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
     func testCoinWithoutUsableClosesMeansNoDailyData() {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 50, time: start(today - 500)),
-            PortfolioTx(id: 2, coin: "ETH", type: .BUY, amount: 1, priceUsdt: 50, time: start(today - 500)),
+            PortfolioTx(id: 2, coin: "ETH", type: .BUY, amount: 1, priceUsdt: 50, time: start(today - 500))
         ]
         var btc: [Int: Double] = [:]
         var eth: [Int: Double] = [:]
@@ -377,7 +377,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let stored: [String: PortfolioWidgetDailyCoin] = [
             "BTC": PortfolioWidgetDailyCoin(closes: [todayUtc - 1: 1], ranges: nil),
             "OLD": PortfolioWidgetDailyCoin(closes: [todayUtc - 500: 1], ranges: nil),
-            "ETH": PortfolioWidgetDailyCoin(closes: [todayUtc - 1: 5], ranges: nil),
+            "ETH": PortfolioWidgetDailyCoin(closes: [todayUtc - 1: 5], ranges: nil)
         ]
         let merged = PortfolioWidgetDailyStore.merge(
             stored, closes: ["BTC": [todayUtc - 450: 2, todayUtc: 3]],
@@ -589,7 +589,8 @@ final class PortfolioWidgetChartTests: XCTestCase {
     }
 
     func testMaxPositionsAllowsLongerList() {
-        let values: [String: Double?] = Dictionary(uniqueKeysWithValues: (1...15).map { (i: Int) -> (String, Double?) in ("C\(i)", Optional(Double(i))) })
+        let values: [String: Double?] = Dictionary(uniqueKeysWithValues: (1...15).map { (i: Int) -> (String, Double?) in ("C\(i)",
+            Optional(Double(i))) })
         let top = PortfolioWidgetStore.topPositions(valuesUsd: values, totalUsd: 120, factor: 1, changes: [:])
         XCTAssertEqual(top.positions.count, PortfolioWidgetStore.maxPositions)
         XCTAssertEqual(top.positions.first?.symbol, "C15")
@@ -638,12 +639,12 @@ final class PortfolioWidgetChartTests: XCTestCase {
             PortfolioChangeLine(amount: "−31’997.28 CHF", percent: "−27.85%", period: "1J"),
             PortfolioChangeLine(amount: "−31’997.28 CHF", percent: "−27.85%", period: nil),
             PortfolioChangeLine(amount: nil, percent: "−27.85%", period: "1J"),
-            PortfolioChangeLine(amount: nil, percent: "−27.85%", period: nil),
+            PortfolioChangeLine(amount: nil, percent: "−27.85%", period: nil)
         ])
         // Ohne Prozent: Betrag mit und ohne Zeitraum; leerer Zeitraum zählt nicht
         XCTAssertEqual(PortfolioWidgetViews.changeLineCandidates(amount: "+12.00 CHF", percent: nil, period: "24h"), [
             PortfolioChangeLine(amount: "+12.00 CHF", percent: nil, period: "24h"),
-            PortfolioChangeLine(amount: "+12.00 CHF", percent: nil, period: nil),
+            PortfolioChangeLine(amount: "+12.00 CHF", percent: nil, period: nil)
         ])
         XCTAssertEqual(PortfolioWidgetViews.changeLineCandidates(amount: "0.00 CHF", percent: "0.00%", period: "").count, 2)
         XCTAssertEqual(PortfolioWidgetViews.changeLineSizes, [12, 11])

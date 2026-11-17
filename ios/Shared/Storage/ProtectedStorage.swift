@@ -33,7 +33,7 @@ enum ProtectedStorage {
             (WatchedAddressStore.url, WatchedAddressStore.url, true),
             (PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.snapshotURL, true),
             // Alarm-Protokoll: Paare und Schwellen wie die Merkliste
-            (AlarmLogStore.url, AlarmLogStore.url, true),
+            (AlarmLogStore.url, AlarmLogStore.url, true)
         ]
     }
 

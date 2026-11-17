@@ -1,9 +1,9 @@
 import Foundation
 
 /// Kurse direkt bei den Börsen (kein Server): Ablauf in `WatchQuoteFetch` (WatchCore; zuerst Binance mit allen Coins,
-/// fehlende bzw. bei Fehler oder Sperre Bybit, dann OKX, dort je Coin eine kleine Abfrage). Hier nur die Abfrage selbst:
-/// Antworten höchstens `maxBytes` (beim Lesen begrenzt, `WatchBodyLimit`), je Abfrage `timeout`, User-Agent mit der Version der Uhr-App. Wie Android
-/// `WatchPriceSource`.
+/// fehlende bzw. bei Fehler oder Sperre Bybit, dann OKX, dort je Coin eine kleine Abfrage). Hier nur die Abfrage
+/// selbst: Antworten höchstens `maxBytes` (beim Lesen begrenzt, `WatchBodyLimit`), je Abfrage `timeout`, User-Agent mit
+/// der Version der Uhr-App. Wie Android `WatchPriceSource`.
 enum WatchPriceSource {
     private static let timeout: TimeInterval = 10
     private static let maxBytes = 4 * 1024 * 1024

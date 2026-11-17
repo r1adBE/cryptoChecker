@@ -55,7 +55,7 @@ final class PortfolioFifoPartsTests: XCTestCase {
             tx(3, .BUY, 1, 200, t0 + 2 * day),
             // Gebühr 8 USDT auf 4 Coins: je Coin 2 — Posten 1 und 3 je 2, Posten 2 (ohne Kaufpreis) 4 vermerkt
             tx(4, .TRANSFER, 1, nil, t0 + 3 * day, fee: 8),
-            tx(5, .SELL, 1, 500, t0 + 4 * day),
+            tx(5, .SELL, 1, 500, t0 + 4 * day)
         ]
         let books = PortfolioCalculator.ledgers(list, method: .FIFO)
         XCTAssertEqual(books.count, 1)

@@ -300,7 +300,7 @@ enum AlarmLog {
     private static func encodeEntry(_ e: AlarmLogEntry) -> [String: Any] {
         var o: [String: Any] = [
             "id": e.alarmId, "at": e.at, "pair": e.pair, "ex": e.exchange, "quote": e.quote,
-            "cond": e.condition.rawValue, "win": e.windowHours, "out": e.outcome.rawValue,
+            "cond": e.condition.rawValue, "win": e.windowHours, "out": e.outcome.rawValue
         ]
         if e.threshold.isFinite { o["thr"] = e.threshold }
         if let price = e.price, price.isFinite { o["price"] = price }

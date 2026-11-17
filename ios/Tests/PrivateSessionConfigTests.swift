@@ -65,9 +65,9 @@ final class CookieRecordingProtocol: URLProtocol {
 
     static let recorded = Recorded()
 
-    override class func canInit(with request: URLRequest) -> Bool { true }
+    override static func canInit(with request: URLRequest) -> Bool { true }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override static func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
         guard let url = request.url,

@@ -231,7 +231,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
             Write(key: "addPortfolioAlarm(kind", hints: false) { d, l in
                 let r = d.addPortfolioAlarm(kind: .VALUE_ABOVE, threshold: 1e15, currency: "USD", repeating: false)
                 whenLocked(l, !r, "addPortfolioAlarm")
-            },
+            }
         ]
     }
 
@@ -281,7 +281,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         "setTtsEnabled(_ watch", "setNote(_ watch", "setGroup(_ watch", "setGroup(ids", "setFavorite(ids",
         "setDisabled(ids", "toggleFavorite(_ watch", "move(_ watch", "reorder(_ orderedIds", "applyGroupEdit(oldName",
         "deleteGroup(_ name", "deleteAlarm(_ id", "setAlarmEnabled(_ id", "saveAlarm(watchId", "createAlarm(watchId",
-        "addPortfolioAlarm(kind",
+        "addPortfolioAlarm(kind"
     ]
 
     /// Lesen bzw. reine Hilfen: schreiben selbst nichts.
@@ -291,7 +291,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         "isFavorite(_ kind", "groups(of watches", "watch(_ id", "alarms(for watchId", "staleAfterMillis(for watchId",
         "atHeartbeat(_ watch",
         // Zwischenspeicher der abgeleiteten Listen (Sortierung, Abgleich mit dem Stand)
-        "displayOrder(_ watches", "align(_ generation",
+        "displayOrder(_ watches", "align(_ generation"
     ]
 
     /// Hintergrund bzw. ausserhalb der Merkliste — ohne Sperre: Einstellungen, Auswahl-Favoriten (eigene Ablage),
@@ -299,7 +299,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     private static let backgroundKeys: Set<String> = [
         "markFirstPairAdded()", "toggleFavorite(_ kind", "setFavorites(_ kind", "selectWatchlistGroup(_ group",
         "dropMissingWatchlistGroup()", "setPortfolioAlarmEnabled(_ id", "deletePortfolioAlarm(_ id",
-        "prefetchPortfolioAlarmRates(_ widget", "evaluatePortfolioAlarms(_ widget", "sendTestAlarm()",
+        "prefetchPortfolioAlarmRates(_ widget", "evaluatePortfolioAlarms(_ widget", "sendTestAlarm()"
     ]
 
     private func source(_ name: String) throws -> String {

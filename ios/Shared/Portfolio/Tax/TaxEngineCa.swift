@@ -23,9 +23,9 @@ extension TaxEngines {
     }
 
     static func caAcb(_ coin: String, _ steps: [TaxStep], _ zone: TimeZone,
-                              _ lost: inout [PortfolioLostFeeCost],
-                              _ unassigned: inout [PortfolioUnassignedFee],
-                              _ fx: ((Int64) -> Decimal?)? = nil) -> [PortfolioDisposal] {
+                      _ lost: inout [PortfolioLostFeeCost],
+                      _ unassigned: inout [PortfolioUnassignedFee],
+                      _ fx: ((Int64) -> Decimal?)? = nil) -> [PortfolioDisposal] {
         // Ein Gewicht für alle Zeilen (die laufende Summe je Pool wird so nur einmal gerechnet)
         let fxWeight = fx.map { PortfolioPartWeight($0) }
         let days: [LocalDay] = steps.map { day($0.time, zone) }

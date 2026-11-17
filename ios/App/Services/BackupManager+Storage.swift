@@ -45,7 +45,7 @@ extension BackupManager {
         let parts = [
             partState(unreadable: !data.portfolioIntact && data.portfolioFile.dropped == 0, file: PortfolioStore.url),
             partState(unreadable: !data.watchedAddressIntact && data.watchedAddresses.isEmpty, file: WatchedAddressStore.url),
-            partState(unreadable: alarmsUnreadable, file: SharedStorage.portfolioAlarmsURL),
+            partState(unreadable: alarmsUnreadable, file: SharedStorage.portfolioAlarmsURL)
         ]
         return storageAccess(watchlistLocked: data.watchlistLocked, parts: parts)
     }

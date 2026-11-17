@@ -59,7 +59,7 @@ struct RootView: View {
     private var tabs: [AppTabItem] {
         var items: [AppTabItem] = [
             AppTabItem(tab: .watchlist, title: L("tab_watchlist"), icon: .watchlist),
-            AppTabItem(tab: .cycle, title: L("tab_market_phase"), icon: .cycle),
+            AppTabItem(tab: .cycle, title: L("tab_market_phase"), icon: .cycle)
         ]
         if data.settings.portfolioEnabled {
             items.append(AppTabItem(tab: .portfolio, title: L("tab_portfolio"), icon: .portfolio))
@@ -162,9 +162,9 @@ enum AppTabBarMetrics {
     static let scaleDuration: Double = 0.15
 }
 
-/// Eigene Tableiste wie `AppTabBar` (Android): Fläche `container`, bis unter den Home-Indikator;
-/// gewählt ist das Symbol (onAccent) auf einer Pille in der Themenfarbe (64 × 32, wie Android) und kurz animiert 10 % grösser (sonst grau), die Beschriftung bleibt immer gleich
-/// (dunkel: weiss, hell: onSurface). Für VoiceOver je eine Taste mit «ausgewählt».
+/// Eigene Tableiste wie `AppTabBar` (Android): Fläche `container`, bis unter den Home-Indikator; gewählt ist das Symbol
+/// (onAccent) auf einer Pille in der Themenfarbe (64 × 32, wie Android) und kurz animiert 10 % grösser (sonst grau),
+/// die Beschriftung bleibt immer gleich (dunkel: weiss, hell: onSurface). Für VoiceOver je eine Taste mit «ausgewählt».
 ///
 /// Ersetzt die System-Leiste (`UITabBar`) und übernimmt deren Verhalten bei grosser Schrift: Die Leiste
 /// wächst nur bis `AppTabBarMetrics.maxTypeSize` (sonst frässe sie bei AX5 auf jedem Tab Inhaltshöhe);

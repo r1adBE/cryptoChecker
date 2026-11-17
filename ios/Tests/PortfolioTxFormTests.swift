@@ -71,7 +71,7 @@ final class PortfolioTxFormTests: XCTestCase {
     func testSellWarningMatchesCalculatorOversold() {
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "1", "100", 1),
-            trade(2, "BTC", .SELL, "1", "100", 2, fee: "0.001", unit: .COIN),
+            trade(2, "BTC", .SELL, "1", "100", 2, fee: "0.001", unit: .COIN)
         ], currentPrice: 100)
         XCTAssertTrue(p.oversold)
         XCTAssertTrue(PortfolioTxForm.sellExceeds(amount: dec("1"), fee: dec("0.001"), unit: .COIN, holdings: dec("1")))
@@ -159,7 +159,7 @@ final class PortfolioTxFormTests: XCTestCase {
     func testAverageCostNamesThePartWithABuyPrice() {
         let p = PortfolioCalculator.position("ETH", trades: [
             trade(1, "ETH", .BUY, "0.5", "100", 1),
-            trade(2, "ETH", .BUY, "1.5", nil, 2),
+            trade(2, "ETH", .BUY, "1.5", nil, 2)
         ], currentPrice: 150)
         XCTAssertTrue(p.priceMissing)
         XCTAssertTrue(p.avgCostPartial)
@@ -187,7 +187,7 @@ final class PortfolioTxFormTests: XCTestCase {
         XCTAssertEqual(PortfolioDecimal.roundSignificant(0), 0)
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "3", "10", 1, fee: "1", unit: .QUOTE),
-            trade(2, "BTC", .SELL, "1", "20", 2),
+            trade(2, "BTC", .SELL, "1", "20", 2)
         ], currentPrice: 15)
         XCTAssertEqual(p.costBasisExact, dec("20.66666666666666666666666666666667"))
         XCTAssertEqual(p.realizedExact, dec("9.66666666666666666666666666666667"))
@@ -217,13 +217,20 @@ final class PortfolioTxFormTests: XCTestCase {
     }
 
     func testThirdCoinFeeStates() {
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "", coin: "BTC", amount: nil, amountBlank: true, price: nil, priceBlank: true), .none)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "bnb", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil, priceBlank: true), .incomplete)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: dec("600"), priceBlank: false), .complete)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BTC", coin: "btc", amount: dec("0.1"), amountBlank: false, price: nil, priceBlank: true), .invalid)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: nil, amountBlank: false, price: nil, priceBlank: true), .invalid)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil, priceBlank: false), .invalid)
-        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil, priceBlank: true), .invalid)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "", coin: "BTC", amount: nil, amountBlank: true, price: nil, priceBlank: true),
+            .none)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "bnb", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil,
+            priceBlank: true), .incomplete)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: dec("600"),
+            priceBlank: false), .complete)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BTC", coin: "btc", amount: dec("0.1"), amountBlank: false, price: nil,
+            priceBlank: true), .invalid)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: nil, amountBlank: false, price: nil,
+            priceBlank: true), .invalid)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "BNB", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil,
+            priceBlank: false), .invalid)
+        XCTAssertEqual(PortfolioTxForm.thirdFee(feeCoin: "", coin: "BTC", amount: dec("0.1"), amountBlank: false, price: nil,
+            priceBlank: true), .invalid)
     }
 
     func testPrefillRules() {

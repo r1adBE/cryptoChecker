@@ -24,7 +24,7 @@ struct AddWidgetHelpSheet: View {
     private var kinds: [Kind] {
         var list = [
             Kind(id: "list", name: L("tab_watchlist"), text: L("widget_description"), icon: "list.bullet.rectangle"),
-            Kind(id: "single", name: L("single_widget_label"), text: L("single_widget_description"), icon: "chart.xyaxis.line"),
+            Kind(id: "single", name: L("single_widget_label"), text: L("single_widget_description"), icon: "chart.xyaxis.line")
         ]
         if portfolioEnabled {
             list.append(Kind(id: "portfolio", name: L("widget_portfolio_name"), text: L("widget_portfolio_description"),

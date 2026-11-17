@@ -230,9 +230,9 @@ enum PortfolioWidgetSeries {
         return hours.count < candleMinHours
     }
 
-    /// Coins, für die jetzt Stundenkerzen geladen werden: aus `coins` (Reihenfolge = Vorrang),
-    /// ohne USDT (`alwaysOne`; andere Stablecoins brauchen Stundenkurse), nur mit Lücken (`needsCandles`) und wenn der letzte Versuch (`lastAttempt`,
-    /// Grossschreibung) mindestens `candleRetryMillis` her ist; höchstens `candleMaxCoins`.
+    /// Coins, für die jetzt Stundenkerzen geladen werden: aus `coins` (Reihenfolge = Vorrang), ohne USDT (`alwaysOne`;
+    /// andere Stablecoins brauchen Stundenkurse), nur mit Lücken (`needsCandles`) und wenn der letzte Versuch
+    /// (`lastAttempt`, Grossschreibung) mindestens `candleRetryMillis` her ist; höchstens `candleMaxCoins`.
     static func candleCoins(_ coins: [String], prices: [String: [PortfolioTimedPrice]],
                             lastAttempt: [String: Int64], now: Int64, stables: Set<String>) -> [String] {
         var out: [String] = []

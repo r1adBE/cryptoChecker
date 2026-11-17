@@ -15,15 +15,14 @@ struct AlarmSoundRow: View {
             Button {
                 pick(nil)
             } label: {
-                if selection == nil { Label(L("settings_alarm_sound_default"), systemImage: "checkmark") }
-                else { Text(L("settings_alarm_sound_default")) }
+                if selection == nil { Label(L("settings_alarm_sound_default"),
+                    systemImage: "checkmark") } else { Text(L("settings_alarm_sound_default")) }
             }
             ForEach(AlarmSounds.tones) { tone in
                 Button {
                     pick(tone.id)
                 } label: {
-                    if selection == tone.id { Label(tone.name, systemImage: "checkmark") }
-                    else { Text(tone.name) }
+                    if selection == tone.id { Label(tone.name, systemImage: "checkmark") } else { Text(tone.name) }
                 }
             }
         } label: {

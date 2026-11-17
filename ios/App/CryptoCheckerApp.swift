@@ -394,7 +394,7 @@ enum QuickActions {
             UIApplicationShortcutItem(type: "alarms", localizedTitle: L("shortcut_alarms"), localizedSubtitle: nil,
                                       icon: UIApplicationShortcutIcon(systemImageName: "bell.and.waves.left.and.right"), userInfo: nil),
             UIApplicationShortcutItem(type: "cycle", localizedTitle: L("shortcut_cycle"), localizedSubtitle: nil,
-                                      icon: UIApplicationShortcutIcon(systemImageName: "chart.line.uptrend.xyaxis"), userInfo: nil),
+                                      icon: UIApplicationShortcutIcon(systemImageName: "chart.line.uptrend.xyaxis"), userInfo: nil)
         ]
     }
 }

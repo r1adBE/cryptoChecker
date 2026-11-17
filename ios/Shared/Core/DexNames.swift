@@ -10,7 +10,7 @@ enum DexNames {
     /// Dezentrale Börsen in kanonischer Schreibweise; der Hinweis nennt den getroffenen Namen.
     static let named: [String] = [
         "Uniswap", "PancakeSwap", "Raydium", "Aerodrome", "SushiSwap", "Orca", "Meteora", "Curve", "Balancer",
-        "Trader Joe", "Jupiter",
+        "Trader Joe", "Jupiter"
     ]
 
     /// Treffer mit allgemeinem Hinweis («Pools dezentraler Börsen über DexScreener»).

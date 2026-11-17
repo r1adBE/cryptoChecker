@@ -18,9 +18,11 @@ final class WatchShortAgeTests: XCTestCase {
 
     func testOutdatedValueShowsAgeInOneUnit() {
         XCTAssertEqual(WatchFreshness.shortTitle("BTC", time: now - 47 * minute, now: now, intervalMinutes: 15, locale: en), "BTC 47m")
-        XCTAssertEqual(WatchFreshness.shortTitle("USD", time: now - 3 * 60 * minute - 5 * minute, now: now, intervalMinutes: 15, locale: en),
+        XCTAssertEqual(WatchFreshness.shortTitle("USD", time: now - 3 * 60 * minute - 5 * minute, now: now, intervalMinutes: 15,
+            locale: en),
                        "USD 3h")
-        XCTAssertEqual(WatchFreshness.inlineLine("CHF 12,345.67", time: now - 2 * 24 * 60 * minute, now: now, intervalMinutes: 15, locale: en),
+        XCTAssertEqual(WatchFreshness.inlineLine("CHF 12,345.67", time: now - 2 * 24 * 60 * minute, now: now, intervalMinutes: 15,
+            locale: en),
                        "CHF 12,345.67 · 2d")
     }
 

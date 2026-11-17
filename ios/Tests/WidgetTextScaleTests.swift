@@ -118,7 +118,7 @@ final class WidgetPrimaryScaleUsageTests: XCTestCase {
     private static let files = [
         "WatchlistWidgetViews.swift", "SingleWidget.swift", "SingleWidgetHeader.swift", "PortfolioWidgetHome.swift",
         "PortfolioWidgetList.swift", "PortfolioWidgetOverview.swift", "PortfolioWidgetLockScreen.swift",
-        "PulseWidgetHome.swift", "PriceLiveActivityWidget.swift",
+        "PulseWidgetHome.swift", "PriceLiveActivityWidget.swift"
     ]
 
     func testWidgetsUsePrimaryScale() throws {

@@ -200,7 +200,7 @@ enum ExchangeBackoff {
     /// Binance Alpha (www.binance.com) gehört dazu; Binance.US (api.binance.us) ist eine eigene
     /// Börse und gehört nicht dazu.
     static let binanceHosts: Set<String> = [
-        "api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com", "www.binance.com",
+        "api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com", "www.binance.com"
     ]
 
     /// Börsen-Schlüssel der Kursabfrage, die dieselben Hosts nutzen.
@@ -270,7 +270,7 @@ enum ExchangeBackoff {
         "Okex": "www.okx.com", "OkexFutures": "www.okx.com",
         "Phemex": "api.phemex.com", "PhemexFutures": "api.phemex.com",
         "Bitget": "api.bitget.com", "BitgetFutures": "api.bitget.com",
-        "Woo": "api.woox.io", "WooFutures": "api.woox.io",
+        "Woo": "api.woox.io", "WooFutures": "api.woox.io"
     ]
 
     /// Laufende «zu viele Anfragen»-Pausen (`.RATE_LIMIT`) auf die übrigen Schlüssel derselben Host-Gruppe

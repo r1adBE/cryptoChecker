@@ -70,9 +70,12 @@ final class DexLiquidityTests: XCTestCase {
     func testSearchKeepsSortingAndMarksThinPools() throws {
         let body = """
         {"pairs":[
-            {"chainId":"bsc","dexId":"pancake","pairAddress":"0x1","baseToken":{"symbol":"THIN"},"quoteToken":{"symbol":"WBNB"},"priceUsd":"0.1","liquidity":{"usd":2500.5}},
-            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0x2","baseToken":{"symbol":"BIG"},"quoteToken":{"symbol":"WETH"},"priceUsd":"1.5","liquidity":{"usd":250000}},
-            {"chainId":"solana","dexId":"raydium","pairAddress":"0x3","baseToken":{"symbol":"NOLIQ"},"quoteToken":{"symbol":"SOL"},"priceUsd":"2"}
+            {"chainId":"bsc","dexId":"pancake","pairAddress":"0x1","baseToken":{"symbol":"THIN"},"quoteToken":{"symbol":"WBNB"},
+                "priceUsd":"0.1","liquidity":{"usd":2500.5}},
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0x2","baseToken":{"symbol":"BIG"},"quoteToken":{"symbol":"WETH"},
+                "priceUsd":"1.5","liquidity":{"usd":250000}},
+            {"chainId":"solana","dexId":"raydium","pairAddress":"0x3","baseToken":{"symbol":"NOLIQ"},"quoteToken":{"symbol":"SOL"},
+                "priceUsd":"2"}
         ]}
         """
         let pools = try DexScreener.parseSearch(body)
@@ -86,10 +89,17 @@ final class DexLiquidityTests: XCTestCase {
         // Zwei «PEPE»: der liquidere ist ein anderer Token; dazu ein Pool mit dem gesuchten Token nur als Gegenwährung
         let body = """
         {"pairs":[
-            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp1","baseToken":{"symbol":"PEPE","address":"0x1111111111111111111111111111111111112222"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.1","liquidity":{"usd":900000}},
-            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp2","baseToken":{"symbol":"WETH","address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"},"quoteToken":{"symbol":"PEPE","address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"priceUsd":"2500","liquidity":{"usd":500000}},
-            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp3","baseToken":{"symbol":"PEPE","address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.00001","liquidity":{"usd":40000}},
-            {"chainId":"solana","dexId":"raydium","pairAddress":"p4","baseToken":{"symbol":"NOADDR"},"quoteToken":{"symbol":"SOL"},"priceUsd":"1"}
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp1","baseToken":{"symbol":"PEPE",
+                "address":"0x1111111111111111111111111111111111112222"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.1",
+                    "liquidity":{"usd":900000}},
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp2","baseToken":{"symbol":"WETH",
+                "address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"},"quoteToken":{"symbol":"PEPE",
+                    "address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"priceUsd":"2500","liquidity":{"usd":500000}},
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp3","baseToken":{"symbol":"PEPE",
+                "address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.00001",
+                    "liquidity":{"usd":40000}},
+            {"chainId":"solana","dexId":"raydium","pairAddress":"p4","baseToken":{"symbol":"NOADDR"},"quoteToken":{"symbol":"SOL"},
+                "priceUsd":"1"}
         ]}
         """
         let byLiquidity = try DexScreener.parseSearch(body)
@@ -187,7 +197,7 @@ final class DexScreenerBulkTests: XCTestCase {
             "ethereum/0xA",
             " ethereum/0xA ",
             // ohne Chain oder Adresse, mit Zeichen, die kodiert werden müssten: Einzelabfrage
-            "noslash", "ethereum/", "/0xC", "ethereum/0x D", "ethereum/0xE,0xF", "ethereum/0x1/2",
+            "noslash", "ethereum/", "/0xC", "ethereum/0x D", "ethereum/0xE,0xF", "ethereum/0x1/2"
         ])
         XCTAssertEqual(groups.map { $0.chain }, ["ethereum", "solana"])
         XCTAssertEqual(groups.map { $0.addresses }, [["0xA", "0xB"], ["8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"]])

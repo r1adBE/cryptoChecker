@@ -47,7 +47,7 @@ enum ChainAssets {
                 // Binance-Peg Ethereum
                 Erc20Tokens.Token(symbol: "ETH", contract: "0x2170ed0880ac9a755fd29b2688956bd959f933f8", decimals: 18),
                 Erc20Tokens.Token(symbol: "CAKE", contract: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82", decimals: 18),
-                Erc20Tokens.Token(symbol: "WBNB", contract: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c", decimals: 18, coin: "WBNB"),
+                Erc20Tokens.Token(symbol: "WBNB", contract: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c", decimals: 18, coin: "WBNB")
                    ]),
         EvmNetwork(id: "POLYGON", name: "Polygon PoS", native: "POL",
                    rpcs: ["https://polygon-bor-rpc.publicnode.com", "https://polygon-rpc.com"],
@@ -59,7 +59,7 @@ enum ChainAssets {
                 Erc20Tokens.Token(symbol: "WETH", contract: "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619", decimals: 18, coin: "WETH"),
                 Erc20Tokens.Token(symbol: "LINK", contract: "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39", decimals: 18),
                 Erc20Tokens.Token(symbol: "AAVE", contract: "0xd6df932a45c0f255f85145f286ea0b292b21c90b", decimals: 18),
-                Erc20Tokens.Token(symbol: "DAI", contract: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063", decimals: 18),
+                Erc20Tokens.Token(symbol: "DAI", contract: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063", decimals: 18)
                    ]),
         EvmNetwork(id: "ARBITRUM", name: "Arbitrum One", native: "ETH",
                    rpcs: ["https://arbitrum-one-rpc.publicnode.com", "https://arb1.arbitrum.io/rpc"],
@@ -70,7 +70,7 @@ enum ChainAssets {
                 Erc20Tokens.Token(symbol: "ARB", contract: "0x912ce59144191c1204e64559fe8253a0e49e6548", decimals: 18),
                 Erc20Tokens.Token(symbol: "WBTC", contract: "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f", decimals: 8),
                 Erc20Tokens.Token(symbol: "LINK", contract: "0xf97f4df75117a78c1a5a0dbb814af92458539fb4", decimals: 18),
-                Erc20Tokens.Token(symbol: "DAI", contract: "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1", decimals: 18),
+                Erc20Tokens.Token(symbol: "DAI", contract: "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1", decimals: 18)
                    ]),
         EvmNetwork(id: "BASE", name: "Base", native: "ETH",
                    rpcs: ["https://base-rpc.publicnode.com", "https://mainnet.base.org"],
@@ -78,7 +78,7 @@ enum ChainAssets {
                 Erc20Tokens.Token(symbol: "USDC", contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", decimals: 6),
                 Erc20Tokens.Token(symbol: "USDbC", contract: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca", decimals: 6, coin: "USDC"),
                 Erc20Tokens.Token(symbol: "DAI", contract: "0x50c5725949a6f0c72e6c4a641f24049a917db0cb", decimals: 18),
-                Erc20Tokens.Token(symbol: "WETH", contract: "0x4200000000000000000000000000000000000006", decimals: 18, coin: "WETH"),
+                Erc20Tokens.Token(symbol: "WETH", contract: "0x4200000000000000000000000000000000000006", decimals: 18, coin: "WETH")
                    ]),
         EvmNetwork(id: "OPTIMISM", name: "OP Mainnet", native: "ETH",
                    rpcs: ["https://optimism-rpc.publicnode.com", "https://mainnet.optimism.io"],
@@ -89,7 +89,7 @@ enum ChainAssets {
                 Erc20Tokens.Token(symbol: "OP", contract: "0x4200000000000000000000000000000000000042", decimals: 18),
                 Erc20Tokens.Token(symbol: "WBTC", contract: "0x68f180fcce6836688e9084f035309e29bf0a2095", decimals: 8),
                 Erc20Tokens.Token(symbol: "DAI", contract: "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1", decimals: 18),
-                Erc20Tokens.Token(symbol: "LINK", contract: "0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6", decimals: 18),
+                Erc20Tokens.Token(symbol: "LINK", contract: "0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6", decimals: 18)
                    ]),
         EvmNetwork(id: "AVALANCHE", name: "Avalanche C-Chain", native: "AVAX",
                    rpcs: ["https://avalanche-c-chain-rpc.publicnode.com", "https://api.avax.network/ext/bc/C/rpc"],
@@ -100,8 +100,8 @@ enum ChainAssets {
                 Erc20Tokens.Token(symbol: "USDC.e", contract: "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664", decimals: 6, coin: "USDC"),
                 Erc20Tokens.Token(symbol: "BTC.b", contract: "0x152b9d0fdc40c096757f570a51e494bd4b943e50", decimals: 8, coin: "BTC.B"),
                 Erc20Tokens.Token(symbol: "WAVAX", contract: "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7", decimals: 18, coin: "WAVAX"),
-                Erc20Tokens.Token(symbol: "JOE", contract: "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd", decimals: 18),
-                   ]),
+                Erc20Tokens.Token(symbol: "JOE", contract: "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd", decimals: 18)
+                   ])
     ]
 
     static func network(_ id: String?) -> EvmNetwork? { evm.first { $0.id == id } }
@@ -115,7 +115,7 @@ enum ChainAssets {
     }
 
     static let tronTokens: [TronToken] = [
-        TronToken(symbol: "USDT", contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6, coin: "USDT"),
+        TronToken(symbol: "USDT", contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", decimals: 6, coin: "USDT")
     ]
 
     /// SPL-Token nach Mint (Token-Programm oder Token-2022).
@@ -149,7 +149,7 @@ enum ChainAssets {
         SplToken(symbol: "HNT", mint: "hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux", decimals: 8),
         SplToken(symbol: "TRUMP", mint: "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN", decimals: 6),
         // Wormhole-ETH
-        SplToken(symbol: "WETH", mint: "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs", decimals: 8, coin: "WETH"),
+        SplToken(symbol: "WETH", mint: "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs", decimals: 8, coin: "WETH")
     ]
 
     /// TON-Jettons (TEP-74) nach Master-Vertrag; `rawHex` = 32 Byte der Master-Adresse (Workchain 0) zum Vergleich mit der
@@ -164,7 +164,7 @@ enum ChainAssets {
 
     static let tonJettons: [Jetton] = [
         Jetton(symbol: "USDT", master: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
-               rawHex: "b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe", decimals: 6, coin: "USDT"),
+               rawHex: "b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe", decimals: 6, coin: "USDT")
     ]
 
     /// Ein Eintrag von `WatchedAddress.tokenBalances`: `label` für die Anzeige, `coin` für Kurs/Bestand, `native` =
@@ -217,7 +217,7 @@ enum ChainAssets {
     /// Basis (anderes Risiko: Brücke/Verwahrer); nur ohne eigenen Kurs gilt ersatzweise der Kurs der Basis. Wie Android.
     static let wrapped: [String: String] = [
         "WBTC": "BTC", "BTCB": "BTC", "BTC.B": "BTC",
-        "WETH": "ETH", "WBNB": "BNB", "WAVAX": "AVAX", "WSOL": "SOL",
+        "WETH": "ETH", "WBNB": "BNB", "WAVAX": "AVAX", "WSOL": "SOL"
     ]
 
     /// Basis eines gekapselten Coins (`wrapped`); nil = kein gekapselter Coin.

@@ -293,7 +293,8 @@ struct PortfolioCoinRow: View {
             // Ø nur über den Teil mit Kaufpreis: benennen, über welche Menge («Ø von 0.5 BTC mit Kaufpreis»)
             if position.avgCostPartial {
                 Text(L("portfolio_avg_partial",
-                       PortfolioInsights.mask(PortfolioFormat.exactAmount(position.pricedHoldingsExact, position.coin), hidden: hideAmounts)))
+                       PortfolioInsights.mask(PortfolioFormat.exactAmount(position.pricedHoldingsExact, position.coin),
+                           hidden: hideAmounts)))
                     .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(2)
@@ -313,7 +314,8 @@ struct PortfolioCoinRow: View {
     /// Rechts: Wert, ± % seit Kauf und MEIN Gewinn/Verlust über die %-Basis.
     private var trailing: some View {
         VStack(alignment: .trailing, spacing: 4) {
-            PriceWithQuote.text(position.value.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency(unit.of($0), unit.code), hidden: hideAmounts) } ?? "—")
+            PriceWithQuote.text(position.value.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency(unit.of($0), unit.code),
+                hidden: hideAmounts) } ?? "—")
                 .font(AppFont.amount(.subheadline, weight: .semibold))
                 // Veraltet: Sekundärfarbe wie in der Merkliste statt halber Deckkraft (Kontrast)
                 .foregroundStyle(stale ? AppColors.onSurfaceVariant : AppColors.onSurface)

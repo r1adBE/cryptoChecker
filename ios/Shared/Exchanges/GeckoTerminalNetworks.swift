@@ -10,7 +10,7 @@ enum GeckoTerminalNetworks {
         "starknet": "starknet-alpha", "hedera": "hedera-hashgraph", "cronos": "cro", "fantom": "ftm",
         "gnosis": "xdai", "seiv2": "sei-evm", "xlayer": "x-layer", "worldchain": "world-chain",
         "polygonzkevm": "polygon-zkevm", "manta": "manta-pacific", "moonbeam": "glmr", "moonriver": "movr",
-        "harmony": "one", "zksync": "zksync",
+        "harmony": "one", "zksync": "zksync"
     ]
 
     /// Netzwerk-Kennung von GeckoTerminal zur DexScreener-Chain.

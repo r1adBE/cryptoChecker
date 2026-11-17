@@ -171,7 +171,7 @@ struct WatchlistWhySheet: View {
             if !r.hasMarketData {
                 // Nicht abrufbar (offline, Zeitgrenze): mit «Erneut versuchen»; sonst führt es keine Quelle
                 WatchlistWhyEmpty(failure: r.candlesFailure, exchange: watch.exchangeName,
-                                  onRetry: r.candlesFailure == nil ? nil : { () -> Void in attempt += 1 })
+                                  onRetry: r.candlesFailure == nil ? nil : { () in attempt += 1 })
             }
             WatchlistWhyBriefCard(report: r, factors: factors)
             WatchlistWhyAllValuesCard(expanded: $allValues) {

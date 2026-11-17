@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// Oben der Portfolio-Wert vom iPhone (falls dort eingeschaltet), dann die Coins mit Kurs und 24 h (Börse klein), darunter
-/// «Aktualisieren», Schalter «Liste vom Handy» und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, 3 × Intervall des iPhones, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
-/// jede Minute neu bewertet — wie Android.
+/// Oben der Portfolio-Wert vom iPhone (falls dort eingeschaltet), dann die Coins mit Kurs und 24 h (Börse klein),
+/// darunter «Aktualisieren», Schalter «Liste vom Handy» und (eigene Liste) «Coins wählen». Veraltete Kurse
+/// (`WatchFreshness`, 3 × Intervall des iPhones, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse, jede
+/// Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
 

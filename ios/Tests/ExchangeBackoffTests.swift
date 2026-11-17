@@ -64,7 +64,7 @@ final class ExchangeBackoffTests: XCTestCase {
         let states: [String: ExchangeBackoff.State] = [
             "kraken": .init(strikes: 3, pausedUntil: now + 60_000, reason: .TIMEOUT, timeoutRuns: 0),
             "binance": .init(strikes: 2, pausedUntil: now + 60_000, reason: .RATE_LIMIT, timeoutRuns: 1),
-            "okx": .init(strikes: 0, pausedUntil: 0, reason: nil, timeoutRuns: 1),
+            "okx": .init(strikes: 0, pausedUntil: 0, reason: nil, timeoutRuns: 1)
         ]
         XCTAssertEqual(ExchangeBackoff.withoutTimeoutPauses(states),
                        ["binance": .init(strikes: 2, pausedUntil: now + 60_000, reason: .RATE_LIMIT, timeoutRuns: 0)])
@@ -103,7 +103,7 @@ final class ExchangeBackoffTests: XCTestCase {
     func testEncodeRoundTrip() {
         let states: [String: ExchangeBackoff.State] = [
             "binance": .init(strikes: 2, pausedUntil: 123, reason: .RATE_LIMIT, timeoutRuns: 0),
-            "kraken": .init(strikes: 0, pausedUntil: 0, reason: nil, timeoutRuns: 1),
+            "kraken": .init(strikes: 0, pausedUntil: 0, reason: nil, timeoutRuns: 1)
         ]
         XCTAssertEqual(ExchangeBackoff.decode(ExchangeBackoff.encode(states)), states)
         XCTAssertEqual(ExchangeBackoff.decode("x|y;;"), [:])

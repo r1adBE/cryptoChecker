@@ -16,7 +16,7 @@ final class AddressCostLotsTests: XCTestCase {
     func testCleanDropsInvalidAndSorts() {
         let lots = AddressCostLots.clean([
             lot(2, 20, "0.1", price: "100"), lot(1, 10, "0.2", cost: "50"), lot(3, 30, "0", price: "1"),
-            lot(4, 40, "1"), lot(5, 0, "1", price: "1"), lot(6, 50, "1", price: "-1"),
+            lot(4, 40, "1"), lot(5, 0, "1", price: "1"), lot(6, 50, "1", price: "-1")
         ])
         XCTAssertEqual(lots.map(\.id), [1, 2])
         XCTAssertEqual(lots[0].coin, "BTC")
@@ -62,7 +62,7 @@ final class AddressCostLotsTests: XCTestCase {
             t(4, .BUY, "0.3", exchange: "Ledger", coinFee: "0.01"), // +0,29
             t(5, .TRANSFER, "1", from: "Ledger", to: "Ledger", coinFee: "0.001"), // −0,001
             t(6, .BUY, "5", exchange: "Binance"), // andere Wallet
-            t(-1, .DEPOSIT, "9", exchange: "Ledger"), // Adress-Eintrag
+            t(-1, .DEPOSIT, "9", exchange: "Ledger") // Adress-Eintrag
         ]
         XCTAssertEqual(AddressCostLots.recorded("BTC", wallet: "Ledger", trades: trades), d("-0.1111"))
         XCTAssertEqual(AddressCostLots.recorded("ETH", wallet: "Ledger", trades: trades), 0)

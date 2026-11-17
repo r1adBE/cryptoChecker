@@ -250,7 +250,8 @@ extension TaxExport {
     static func incomeRows(_ trades: [PortfolioTx], period: TaxPeriod, timeZone: TimeZone, currency: String,
                            rates: [Int: Decimal]?, priceAt: ((String, Int64) -> Decimal?)? = nil,
                            usdtUsd: [Int: Decimal]? = nil) -> [TaxIncomeRow] {
-        PortfolioLedger.valueRewardsAtDayClose(rewards(in: trades, period: period, timeZone: timeZone), price: priceAt).map { t -> TaxIncomeRow in
+        PortfolioLedger.valueRewardsAtDayClose(rewards(in: trades, period: period, timeZone: timeZone),
+            price: priceAt).map { t -> TaxIncomeRow in
             let date = localDay(t.time, timeZone: timeZone)
             let value = t.validPriceExact.map { PortfolioDecimal.multiply(t.amountExact, $0) }
             let rate = rateOn(rates, date: date, currency: currency, usdtUsd: usdtUsd)

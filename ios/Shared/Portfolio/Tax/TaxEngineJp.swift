@@ -5,7 +5,7 @@ import Foundation
 extension TaxEngines {
 
     static func jpTotal(_ coin: String, _ steps: [TaxStep], _ zone: TimeZone,
-                                _ lost: inout [PortfolioLostFeeCost]) -> [PortfolioDisposal] {
+                        _ lost: inout [PortfolioLostFeeCost]) -> [PortfolioDisposal] {
         var carryPriced: Decimal = 0
         var carryUnpriced: Decimal = 0
         var carryCost: Decimal = 0

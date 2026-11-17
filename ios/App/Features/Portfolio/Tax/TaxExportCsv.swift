@@ -72,7 +72,7 @@ extension TaxExport {
                 t(label), t(""), t(""), blank, t(""), blank,
                 money(total(usdt) { $0.costUsdt }), money(total(usdt) { $0.proceedsUsdt }), money(total(usdt, shownGainUsdt)),
                 money(total(target) { $0.costTarget }), money(total(target) { $0.proceedsTarget }),
-                money(total(target, shownGainTarget)),
+                money(total(target, shownGainTarget))
             ]
             cells += c.extra(sum(list) { $0.adjustmentUsdt }, sum(list) { $0.adjustmentTarget },
                            sum(list) { $0.grossProceedsUsdt }, sum(list) { $0.grossProceedsTarget }, nil, nil)
@@ -86,7 +86,7 @@ extension TaxExport {
             var cells: [CsvCell] = [
                 t(texts.proceedsWithoutCost), t(""), t(""), blank, t(""), blank,
                 blank, money(sum(noCost) { $0.proceedsUsdt }), blank,
-                blank, money(sum(noCost) { $0.proceedsTarget }), blank,
+                blank, money(sum(noCost) { $0.proceedsTarget }), blank
             ]
             cells += c.extra(nil, nil, nil, nil, nil, nil)
             cells.append(t(texts.incomplete))
@@ -207,7 +207,7 @@ extension TaxExport {
             c.t(longTerm),
             CsvCell(text: c.n(CutoffExport.amount(r.amount)), numeric: true),
             c.money(r.costUsdt), c.money(r.proceedsUsdt), c.money(shownGainUsdt(r)),
-            c.money(r.costTarget), c.money(r.proceedsTarget), c.money(shownGainTarget(r)),
+            c.money(r.costTarget), c.money(r.proceedsTarget), c.money(shownGainTarget(r))
         ]
         cells += c.extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget,
                          r.portfolioValueUsdt, r.portfolioValueTarget)
@@ -220,7 +220,7 @@ extension TaxExport {
                                      _ note: String) -> [CsvCell] {
         var cells: [CsvCell] = [
             c.t(coin), c.t(""), c.t(date.description), c.blank, c.t(""), c.blank,
-            c.money(usdt), c.blank, c.blank, c.blank, c.blank, c.blank,
+            c.money(usdt), c.blank, c.blank, c.blank, c.blank, c.blank
         ]
         cells += c.extra(nil, nil, nil, nil, nil, nil)
         cells.append(c.t(note))

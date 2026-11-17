@@ -107,8 +107,8 @@ final class PortfolioParityTests: XCTestCase {
                 near("\(name) summary unrealized", (x["unrealized"] as? String).flatMap { Double($0) }, s.unrealized)
                 near("\(name) summary unrealizedPercent", TestSupport.number(x["unrealizedPercent"]), s.unrealizedPercent)
                 if x.keys.contains("invested") {
-                    if let text = x["invested"] as? String { exact("\(name) summary invested", text, s.investedExact) }
-                    else { XCTAssertNil(s.investedExact, "\(name) summary invested") }
+                    if let text = x["invested"] as? String { exact("\(name) summary invested", text,
+                        s.investedExact) } else { XCTAssertNil(s.investedExact, "\(name) summary invested") }
                 }
                 XCTAssertEqual(s.missingCostCoins, x["missingCostCoins"] as? [String] ?? [], "\(name) summary missingCostCoins")
                 XCTAssertEqual(s.costMissing, x["costMissing"] as? Bool, "\(name) summary costMissing")

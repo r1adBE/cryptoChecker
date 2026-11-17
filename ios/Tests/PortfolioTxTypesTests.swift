@@ -159,7 +159,7 @@ final class PortfolioTxTypesTests: XCTestCase {
                                    tx(2, "DOT", .BUY, "1", "10", buyTime)]
         let flowTxs: [PortfolioTx] = [
             tx(3, "DOT", .REWARD, "1", "10", twoDaysAgo),
-            tx(4, "DOT", .TRANSFER, "2", nil, oneDayAgo, feeCoin: "BNB", feeAmount: "0.01", feePrice: "300"),
+            tx(4, "DOT", .TRANSFER, "2", nil, oneDayAgo, feeCoin: "BNB", feeAmount: "0.01", feePrice: "300")
         ]
         let withFlows: [PortfolioTx] = base + flowTxs
         let s = PortfolioHistory.build(trades: withFlows, closes: closes, livePrices: live, range: .week,
@@ -186,7 +186,7 @@ final class PortfolioTxTypesTests: XCTestCase {
             .init(coin: "BTC", exchange: "Binance", type: .BUY, transferTo: nil, time: 1, id: 1),
             .init(coin: "BTC", exchange: nil, type: .TRANSFER, transferTo: "Kraken", time: 2, id: 2),
             .init(coin: "ETH", exchange: "Kraken", type: .BUY, transferTo: nil, time: 1, id: 3),
-            .init(coin: "ETH", exchange: nil, type: .TRANSFER, transferTo: "Ledger Nano", time: 2, id: 4),
+            .init(coin: "ETH", exchange: nil, type: .TRANSFER, transferTo: "Ledger Nano", time: 2, id: 4)
         ])
         XCTAssertEqual(r.single, ["BTC": "Kraken", "ETH": "Ledger Nano"])
         XCTAssertTrue(r.mixed.isEmpty)
@@ -208,8 +208,10 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertNil(read.feeCoinAmountExact)
         XCTAssertNil(read.feeCoinPriceExact)
         // Unbekannte Art (neuere Version): Eintrag wird verworfen und gezählt, die Datei bleibt lesbar
-        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"LOAN","amountText":"1","time":1,"feeRow":false,"interest":false,"stakingMove":false},"#
-            + #"{"id":2,"coin":"BTC","type":"REWARD","amountText":"1","time":2,"feeRow":false,"interest":false,"stakingMove":false}],"nextId":3}"#
+        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"LOAN","amountText":"1","time":1,"feeRow":false,"interest":false,"#
+            + #""stakingMove":false},"#
+            + #"{"id":2,"coin":"BTC","type":"REWARD","amountText":"1","time":2,"feeRow":false,"interest":false,"stakingMove":false}],"#
+                + #""nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.transactions.map(\.type), [.REWARD])
         XCTAssertEqual(file.dropped, 1)
@@ -275,8 +277,10 @@ final class PortfolioTxTypesTests: XCTestCase {
         var sameCoin = BackupManager.txToJson(swap)
         sameCoin["toCoin"] = "btc"
         XCTAssertNil(try BackupManager.jsonToTx(sameCoin))
-        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"SWAP","amountText":"1","time":1,"feeRow":false,"interest":false,"stakingMove":false},"#
-            + #"{"id":2,"coin":"BTC","type":"SWAP","amountText":"1","time":2,"toCoin":"ETH","toAmountText":"3","feeRow":false,"interest":false,"stakingMove":false}],"nextId":3}"#
+        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"SWAP","amountText":"1","time":1,"feeRow":false,"interest":false,"#
+            + #""stakingMove":false},"#
+            + #"{"id":2,"coin":"BTC","type":"SWAP","amountText":"1","time":2,"toCoin":"ETH","toAmountText":"3","feeRow":false,"#
+                + #""interest":false,"stakingMove":false}],"nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.transactions.map(\.id), [2])
         XCTAssertEqual(file.dropped, 1)

@@ -183,7 +183,7 @@ extension TaxEngines {
     }
 
     static func atSplit(_ real: [PortfolioTx], _ zone: TimeZone,
-                                _ lost: inout [PortfolioLostFeeCost]) -> [PortfolioDisposal] {
+                        _ lost: inout [PortfolioLostFeeCost]) -> [PortfolioDisposal] {
         let newFrom = startMillis(TaxTemplate.atNewFrom, zone)
         let neutralFrom = startMillis(TaxTemplate.atSwapNeutralFrom, zone)
         // Topf je (Coin, Wallet-Schlüssel wie FIFO je Wallet); Anzeigename = erste Schreibweise

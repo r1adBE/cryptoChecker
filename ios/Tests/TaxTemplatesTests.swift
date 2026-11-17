@@ -377,7 +377,8 @@ final class TaxTemplatesTests: XCTestCase {
             for l in lines[..<head] {
                 XCTAssertFalse(oriented.contains { l.hasPrefix($0.line.rawValue + ";") }, "\(tpl) Tatsache \(l)")
             }
-            let after: [String] = lines[(head + 1)...].map { String($0.split(separator: ";", omittingEmptySubsequences: false).first ?? "") }
+            let after: [String] = lines[(head + 1)...].map { String($0.split(separator: ";",
+                omittingEmptySubsequences: false).first ?? "") }
             XCTAssertEqual(after, oriented.map { "Orientation: \($0.line.rawValue)" }, "\(tpl) Orientierung")
         }
     }

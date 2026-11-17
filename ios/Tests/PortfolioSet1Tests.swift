@@ -283,7 +283,7 @@ final class PortfolioDeleteCoinFeeTests: XCTestCase {
         return PortfolioFile(transactions: [
             PortfolioTx(id: 1, coin: "BNB", type: .BUY, amount: 1, priceUsdt: 500, time: 1),
             transfer,
-            PortfolioTx(id: 3, coin: "ETH", type: .BUY, amount: 2, priceUsdt: 10, time: 3),
+            PortfolioTx(id: 3, coin: "ETH", type: .BUY, amount: 2, priceUsdt: 10, time: 3)
         ], nextId: 4)
     }
 

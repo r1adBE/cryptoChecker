@@ -170,7 +170,7 @@ final class BackupSettingsTextsTests: XCTestCase {
         "settings_portfolio_lock",
         "portfolio_hide_amounts",
         "settings_address_server_title",
-        "settings_portfolio_system_backup",
+        "settings_portfolio_system_backup"
     ]
 
     /// Texte je Schlüssel und Sprache aus `Shared/Resources/Localizable.xcstrings` (gelesen neben dieser Quelle).

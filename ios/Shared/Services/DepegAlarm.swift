@@ -268,7 +268,7 @@ enum DepegAlarm {
         ("Bitget", "https://www.bitget.com/spot/USDCUSDT"),
         ("Kucoin", "https://www.kucoin.com/trade/USDC-USDT"),
         ("GateIo", "https://www.gate.io/trade/USDC_USDT"),
-        ("Mexc", "https://www.mexc.com/exchange/USDC_USDT"),
+        ("Mexc", "https://www.mexc.com/exchange/USDC_USDT")
     ]
 
     /// Futures-Börsen zählen für ihre Spot-Börse.

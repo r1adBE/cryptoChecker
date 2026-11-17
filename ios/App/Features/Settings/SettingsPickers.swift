@@ -104,7 +104,7 @@ struct SettingsThemePicker: View {
     private static let options: [(value: Bool?, key: String)] = [
         (nil, "theme_system"),
         (false, "theme_light"),
-        (true, "theme_dark"),
+        (true, "theme_dark")
     ]
 
     var body: some View {

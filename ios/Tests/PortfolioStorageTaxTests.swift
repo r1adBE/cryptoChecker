@@ -29,7 +29,7 @@ final class PortfolioStorageTaxTests: XCTestCase {
     func testTemplateZonesAreTheCountryNeutralIsDevice() throws {
         let expected: [TaxTemplate: String] = [
             .DE: "Europe/Berlin", .AT: "Europe/Vienna", .CH: "Europe/Zurich", .UK: "Europe/London", .US: "America/New_York",
-            .CA: "America/Toronto", .AU: "Australia/Sydney", .FR: "Europe/Paris", .JP: "Asia/Tokyo",
+            .CA: "America/Toronto", .AU: "Australia/Sydney", .FR: "Europe/Paris", .JP: "Asia/Tokyo"
         ]
         let device = try XCTUnwrap(TimeZone(identifier: "Pacific/Auckland"))
         for t in TaxTemplate.allCases {
@@ -43,7 +43,7 @@ final class PortfolioStorageTaxTests: XCTestCase {
     private func atStatus(sellPrice: String, currency: String = "USD") throws -> TaxSummaryLine {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, priceExact: 10000, time: 1_604_318_400_000),
-            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: dec("0.01"), priceExact: dec(sellPrice), time: 1_622_548_800_000),
+            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: dec("0.01"), priceExact: dec(sellPrice), time: 1_622_548_800_000)
         ]
         let utc = try XCTUnwrap(TimeZone(identifier: "UTC"))
         let s = TaxExport.yearSummary(trades, template: .AT, method: .AT_MOVING_AVERAGE, startYear: 2021, timeZone: utc,

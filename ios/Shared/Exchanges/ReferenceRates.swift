@@ -27,7 +27,7 @@ enum ReferenceRates {
         "XAU", "XAG", "XPT", "XPD", "XDR",
         "ANG", "AZM", "BGN", "BYR", "CSD", "CUC", "CYP", "EEK", "GHC", "HRK", "LTL", "LVL", "MGF", "MRO", "MTL", "MZM",
         "ROL", "SDD", "SIT", "SKK", "SLL", "SRG", "STD", "TMM", "TRL", "VEB", "VEF", "XEU", "XFU", "YUM", "ZMK", "ZWD",
-        "ZWL", "ZWR",
+        "ZWL", "ZWR"
     ]
 
     static let kyiv = TimeZone(identifier: "Europe/Kiev") ?? .current

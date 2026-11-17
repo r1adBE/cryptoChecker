@@ -101,7 +101,10 @@ final class AlarmChainIntegrationTests: XCTestCase {
         store.snapshot.watches[0] = updated
         let delivered = await outcome.deliverAlarms(settings: AppSettings(), current: store.snapshot.alarms,
                                                     save: { store.save($0, $1) },
-                                                    reloadStored: { if let diskAlarms { return diskAlarms() }; return store.snapshot.alarms },
+                                                    reloadStored: {
+                                                        if let diskAlarms { return diskAlarms() }
+                                                        return store.snapshot.alarms
+                                                    },
                                                     notifier: notifier.notifier,
                                                     delivery: delivery, now: { at })
         return delivered.count

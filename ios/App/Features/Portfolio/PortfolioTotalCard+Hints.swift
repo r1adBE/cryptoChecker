@@ -75,9 +75,8 @@ extension PortfolioTotalCard {
         }
         // Umbuchungsgebühren auf Bestand ohne Kaufpreis: offener Posten (je Coin auf der Detailseite) — wie Android
         if summary.unassignedFeeUsdt != 0 {
-            items.append(HintItem(text: L("portfolio_unassigned_fee",
-                                          PortfolioInsights.mask(PortfolioFormat.usdtValue(PortfolioDecimal.double(summary.unassignedFeeUsdt)),
-                                                                 hidden: hideAmounts))))
+            let fee = PortfolioFormat.usdtValue(PortfolioDecimal.double(summary.unassignedFeeUsdt))
+            items.append(HintItem(text: L("portfolio_unassigned_fee", PortfolioInsights.mask(fee, hidden: hideAmounts))))
         }
         if !summary.missingCurrentPrices.isEmpty {
             items.append(HintItem(text: L("portfolio_current_missing", summary.missingCurrentPrices.joined(separator: ", "))))

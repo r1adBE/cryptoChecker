@@ -110,7 +110,7 @@ enum NotTraded {
         "does not exist", "not exist", "unknown asset pair", "unknown pair", "invalid pair", "pair not found",
         "invalid symbol", "symbol invalid", "unknown symbol", "symbol not found", "not supported symbol",
         "invalid instrument", "unknown instrument", "instrument not found", "invalid currency pair",
-        "invalid_currency_pair", "invalid market", "market not found", "delisted",
+        "invalid_currency_pair", "invalid market", "market not found", "delisted"
     ]
 
     /// 24-h-Veränderung zum Anzeigen (Änderung, Puls, Widgets): nil («—») bei nicht gehandelten Paaren.

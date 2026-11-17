@@ -240,7 +240,7 @@ enum WhyFactors {
                              value: r.value, secondary: r.secondary,
                              strength: moves ? abs(r.value) / marketThreshold : 0, neutral: !moves)
         default:
-            // MARKET_CALM: value = Referenz, secondary = Coin
+            // MARK: T_CALM: value = Referenz, secondary = Coin
             return WhyFactor(kind: .market, direction: .none, note: .marketCalm, value: r.value,
                              secondary: r.secondary, strength: 0, neutral: true, ref: r.ref)
         }

@@ -1,6 +1,7 @@
 import Foundation
 
-// CSV-Import (`CsvImportParser`): Format aus der Kopfzeile erkennen und Arten aus dem Text einer Zeile einordnen — wie `CsvImportFormatDetect.kt` (Android).
+// CSV-Import (`CsvImportParser`): Format aus der Kopfzeile erkennen und Arten aus dem Text einer Zeile einordnen — wie
+// `CsvImportFormatDetect.kt` (Android).
 
 extension CsvImportParser {
 

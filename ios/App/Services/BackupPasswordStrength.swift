@@ -9,7 +9,7 @@ enum BackupPasswordStrength {
 
     /// Tastaturreihen (QWERTZ, QWERTY, AZERTY); 6 Zeichen in Folge (auch rückwärts) gelten als Tastatur-Spaziergang.
     private static let keyboardRows = [
-        "qwertzuiop", "qwertyuiop", "azertyuiop", "asdfghjkl", "qsdfghjklm", "yxcvbnm", "zxcvbnm", "wxcvbn",
+        "qwertzuiop", "qwertyuiop", "azertyuiop", "asdfghjkl", "qsdfghjklm", "yxcvbnm", "zxcvbnm", "wxcvbn"
     ]
     private static let walk = 6
 
@@ -26,7 +26,7 @@ enum BackupPasswordStrength {
         "iloveyou", "monkey", "dragon", "sunshine", "football", "fussball", "master", "qwerty", "qwertz",
         "bitcoin", "crypto", "ethereum", "test",
         // Name der App
-        "cryptochecker", "crypto-checker", "crypto checker",
+        "cryptochecker", "crypto-checker", "crypto checker"
     ]
 
     /// Höchstens so viele Ziffern/Zeichen um ein Wort herum gelten als Schmuck.

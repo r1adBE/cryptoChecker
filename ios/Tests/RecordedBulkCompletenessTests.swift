@@ -25,14 +25,14 @@ final class RecordedBulkCompletenessTests: XCTestCase {
         ("WhiteBit", "recorded_whitebit"),
         ("Coinone", "recorded_coinone"),
         ("CoinsPh", "recorded_coinsph"),
-        ("Bitkub", "recorded_bitkub"),
+        ("Bitkub", "recorded_bitkub")
     ]
 
     /// Paare, die die Sammelabfrage zwar führt, aber mit Kurs 0 (nie gehandelt) — sie fallen dort weg wie bei Lighter
     /// und gelten damit als nicht gehandelt (HashKey «SPICEUSDC», Aufzeichnung 19.10.2026: c/h/l/o/v alle «0»;
     /// Bit2Me «ALCH/EUR» und Quidax «asiusdt», «melaniausdt», Aufzeichnung 03.11.2026: Kurs 0).
     private let listedWithoutPrice: [String: Set<String>] = [
-        "HashKey": ["SPICEUSDC"], "Bit2Me": ["ALCH/EUR"], "Quidax": ["asiusdt", "melaniausdt"],
+        "HashKey": ["SPICEUSDC"], "Bit2Me": ["ALCH/EUR"], "Quidax": ["asiusdt", "melaniausdt"]
     ]
 
     func testRecordedBulkListsEveryRecordedPair() throws {

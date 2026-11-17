@@ -50,7 +50,7 @@ enum Bip32 {
     /// Private Versionen (xprv … Vprv) — nie annehmen.
     static let privateVersions: Set<UInt32> = [
         0x0488ADE4, 0x049D7878, 0x04B2430C, 0x0295B005, 0x02AA7A99,
-        0x04358394, 0x044A4E28, 0x045F18BC, 0x024285B5, 0x02575048,
+        0x04358394, 0x044A4E28, 0x045F18BC, 0x024285B5, 0x02575048
     ]
 
     /// Grösster nicht gehärteter Index (2³¹ − 1).

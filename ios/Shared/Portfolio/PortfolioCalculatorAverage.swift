@@ -221,7 +221,8 @@ extension PortfolioCalculator {
             }
             if let price {
                 // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
-                book.addCost(t.acquisitionTime, PortfolioDecimal.multiply(amount, price) + t.quoteFeeExact + (feeValue ?? 0), est: t.costEstimated())
+                book.addCost(t.acquisitionTime, PortfolioDecimal.multiply(amount, price) + t.quoteFeeExact + (feeValue ?? 0),
+                    est: t.costEstimated())
                 book.priced += received
                 if feeValue == nil { feeValueMissing = true }
             } else {

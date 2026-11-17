@@ -11,12 +11,12 @@ final class WatchlistSearchIndexTests: XCTestCase {
               quoteAsset: "USDT", contractType: .perpetual, note: "Hedge ÉTÉ"),
         Watch(id: 4, exchangeKey: "Bitstamp", exchangeName: "Bitstamp", baseAsset: "XRP", quoteAsset: "CHF"),
         Watch(id: 5, exchangeKey: "Coinbase", exchangeName: "Coinbase", baseAsset: "SOL", quoteAsset: "USDC",
-              note: "langfristig"),
+              note: "langfristig")
     ]
     private let names: [Int64: String] = [1: "Bitcoin", 2: "Pépé", 3: "Ethereum", 5: "Solana"]
     private let queries = [
         "btc", "BTC kraken", "bitcoin", "coin", "pepe", "PÉPÉ", "einstieg", "ete", "été hedge", "perp", "eth/usdt",
-        "usdt", "binance futures", "chf", "xrp bitstamp", "LANGFRISTIG sol", "solana usdc", "xyz", "btc usdt", "  ",
+        "usdt", "binance futures", "chf", "xrp bitstamp", "LANGFRISTIG sol", "solana usdc", "xyz", "btc usdt", "  "
     ]
 
     private func direct(_ list: [Watch], _ query: String, _ names: [Int64: String]) -> [Watch] {

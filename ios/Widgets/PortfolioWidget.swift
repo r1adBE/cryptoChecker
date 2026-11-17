@@ -162,7 +162,7 @@ struct PortfolioEntry: TimelineEntry {
             PortfolioWidgetPosition(symbol: "SOL", value: 1_215.02, sharePercent: 9.8, change24hPercent: 3.2, quantity: "9.5",
                                     pnlAmount: 77.63, pnlPercent: 6.8),
             PortfolioWidgetPosition(symbol: "ADA", value: 800.00, sharePercent: 6.5, change24hPercent: 0, quantity: "1520",
-                                    pnlAmount: 0, pnlPercent: 0),
+                                    pnlAmount: 0, pnlPercent: 0)
         ]
         // Beispiel für die Übersicht: 7 T und ± seit Kauf in USDT, dazu in der Anzeigewährung (wie ein Stand mit dem
         // Merkzettel der App)

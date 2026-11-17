@@ -163,7 +163,7 @@ enum CutoffExport {
                 n(r.valueUsdt.map { money($0) } ?? ""),
                 n(r.rate.map { rate($0) } ?? ""),
                 n(r.valueTarget.map { money($0) } ?? ""),
-                t(notes.joined(separator: ", ")),
+                t(notes.joined(separator: ", "))
             ])
         }
 
@@ -185,7 +185,7 @@ enum CutoffExport {
             n((anyValue || rows.isEmpty) ? money(totalUsdt) : ""),
             n(rows.first?.rate.map { rate($0) } ?? ""),
             n(anyTarget ? money(totalTarget) : ""),
-            t(totalNotes.joined(separator: ", ")),
+            t(totalNotes.joined(separator: ", "))
         ])
         return out
     }

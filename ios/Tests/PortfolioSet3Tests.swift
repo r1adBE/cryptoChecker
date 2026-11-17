@@ -227,7 +227,7 @@ final class PortfolioWriteFailureTests: XCTestCase {
         PortfolioFile(transactions: [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: 1),
             PortfolioTx(id: 2, coin: "ETH", type: .BUY, amount: 2, priceUsdt: 10, time: 2),
-            PortfolioTx(id: 3, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 120, time: 3),
+            PortfolioTx(id: 3, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 120, time: 3)
         ], nextId: 4)
     }
 

@@ -82,7 +82,7 @@ struct AlarmPairPicker: View {
                     watch.displayName,
                     watch.contractType.shortName ?? "",
                     watch.exchangeName,
-                    watch.note ?? "",
+                    watch.note ?? ""
                 ].map(ExplorerNameMatch.fold))
         }
     }

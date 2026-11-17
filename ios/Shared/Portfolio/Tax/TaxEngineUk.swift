@@ -5,8 +5,8 @@ import Foundation
 extension TaxEngines {
 
     static func ukPool(_ coin: String, _ steps: [TaxStep], _ zone: TimeZone,
-                               _ lost: inout [PortfolioLostFeeCost],
-                               _ unassigned: inout [PortfolioUnassignedFee]) -> [PortfolioDisposal] {
+                       _ lost: inout [PortfolioLostFeeCost],
+                       _ unassigned: inout [PortfolioUnassignedFee]) -> [PortfolioDisposal] {
         // Netzwerkgebühren sind hier schon eigene Verkäufe (`applyRules`, HMRC CRYPTO22280) — sie zählen so in der
         // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
         let days = ukDays(steps, zone)

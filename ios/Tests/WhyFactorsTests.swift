@@ -33,7 +33,7 @@ final class WhyFactorsTests: XCTestCase {
             sentimentNeutral,
             WhyReason(kind: .VOLUME_NORMAL, tone: .neutral, value: 1.1),
             WhyReason(kind: .LEVERAGE_LONGS, tone: .warning, value: 0.08),
-            WhyReason(kind: .MARKET_CALM, tone: .neutral, value: 0.3, secondary: 0.5),
+            WhyReason(kind: .MARKET_CALM, tone: .neutral, value: 0.3, secondary: 0.5)
         ]))
         XCTAssertEqual(factors.map(\.kind), [.funding, .volume, .market, .sentiment])
         XCTAssertFalse(factors[0].neutral)

@@ -14,7 +14,7 @@ final class HapticsTests: XCTestCase {
             .success: .notification(.success),
             .warning: .notification(.warning),
             .error: .notification(.error),
-            .destructive: .impact(.heavy),
+            .destructive: .impact(.heavy)
         ]
         XCTAssertEqual(Set(expected.keys), Set(HapticEvent.allCases))
         for (event, kind) in expected {

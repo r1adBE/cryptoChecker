@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: Faktor-Checkliste
 
-/// Eine Zeile der Faktor-Checkliste (Crypto Pulse und Blatt «Was bewegt sich mit?»): Markierung ✓ / – / !, kurzer Titel, Wert rechtsbündig, optional
-/// eine Erklärung darunter. VoiceOver: ein Element «Volumen, stützt die
-/// Bewegung, 1,34-mal so viel wie üblich». Wie `FactorRow.kt`.
+/// Eine Zeile der Faktor-Checkliste (Crypto Pulse und Blatt «Was bewegt sich mit?»): Markierung ✓ / – / !, kurzer
+/// Titel, Wert rechtsbündig, optional eine Erklärung darunter. VoiceOver: ein Element «Volumen, stützt die Bewegung,
+/// 1,34-mal so viel wie üblich». Wie `FactorRow.kt`.
 struct FactorRow: View {
     let mark: WhySummary.Mark
     let title: String

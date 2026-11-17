@@ -166,7 +166,7 @@ enum HistoricPriceSource {
         let binance: [(host: String, endpoint: String, primary: Bool)] = [
             ("data-api.binance.vision", "https://data-api.binance.vision/api/v3/klines", true),
             ("api.binance.com", "https://api.binance.com/api/v3/klines", true),
-            ("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false),
+            ("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false)
         ]
         // Gleicher Token: Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
         let binanceOk = TokenIdentityStore.shared.binanceAllowed(base: b, ownName: ownName)

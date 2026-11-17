@@ -10,7 +10,7 @@ final class ColumnSortTests: XCTestCase {
         Row(name: "btc/USDT", fav: true, chf: 68643, change: 0),
         Row(name: "SOL/CHF", fav: false, chf: 118.4, change: 3.85),
         Row(name: "XRP/USDT", fav: false, chf: nil, change: nil),
-        Row(name: "ADA/USDT", fav: true, chf: 0.5, change: 1.2),
+        Row(name: "ADA/USDT", fav: true, chf: 0.5, change: 1.2)
     ]
 
     private func names(_ sort: ColumnSort?) -> [String] {

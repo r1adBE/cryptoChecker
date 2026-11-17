@@ -194,7 +194,7 @@ enum CheckRunStore {
         }
         lock.lock()
         defer { lock.unlock() }
-        SharedStorage.coordinatedWrite(at: url) { () -> Void in
+        SharedStorage.coordinatedWrite(at: url) { () in
             let next = CheckRunLog.add(load(from: url), run)
             guard let data = CheckRunLog.encode(next).data(using: .utf8) else { return }
             do {

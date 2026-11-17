@@ -239,7 +239,8 @@ enum PortfolioWidgetText {
             : asOf(s, outdated: outdated, offline: offline, at: date)
         let spokenTotal = hidden ? L("a11y_amount_hidden") : total(s)
         return A11y.join([L("widget_portfolio_name") + " " + spokenTotal, spokenChange(plan, s, hidden: hidden), time,
-                          usdt.map { L("a11y_converted", $0) }, missing(s, plan: plan, overview: overview), chart, fallbackHint(plan), positions])
+                          usdt.map { L("a11y_converted", $0) }, missing(s, plan: plan,
+                              overview: overview), chart, fallbackHint(plan), positions])
     }
 
     /// Mit dem Geheimnis der Installation: sonst öffnet die App den Portfolio-Tab nicht (`OpenTargetGuard`).

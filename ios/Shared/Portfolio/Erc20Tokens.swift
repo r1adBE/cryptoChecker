@@ -15,7 +15,8 @@ import Foundation
 enum Erc20Tokens {
 
     /// `symbol` = Kennung und Anzeige («USDC.e»), Vertrag klein geschrieben (für die Anfrage), `decimals` laut Vertrag,
-    /// `coin` = Coin im Portfolio für den Kurs (gebrückte Stablecoins wie USDC.e → USDC; gekapselte Coins wie WETH bleiben eigene Coins, `ChainAssets.wrapped`).
+    /// `coin` = Coin im Portfolio für den Kurs (gebrückte Stablecoins wie USDC.e → USDC; gekapselte Coins wie WETH
+    /// bleiben eigene Coins, `ChainAssets.wrapped`).
     struct Token: Equatable, Sendable {
         let symbol: String
         let contract: String
@@ -57,7 +58,7 @@ enum Erc20Tokens {
         Token(symbol: "FET", contract: "0xaea46a60368a7bd060eec7df8cba43b7ef41ad85", decimals: 18),
         Token(symbol: "FLOKI", contract: "0xcf0c122c6b73ff809c693db761e7baebe62b6a2e", decimals: 9),
         // Gekapseltes ETH: Kurs wie ETH
-        Token(symbol: "WETH", contract: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", decimals: 18, coin: "WETH"),
+        Token(symbol: "WETH", contract: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", decimals: 18, coin: "WETH")
     ]
 
     /// Symbol → Token.

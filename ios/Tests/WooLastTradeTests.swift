@@ -8,7 +8,8 @@ final class WooLastTradeTests: XCTestCase {
     private let exchange = Woo()
     private let info = PairQuery("BTC", "USDT", "SPOT_BTC_USDT")
     private let realTrades = """
-        {"success":true,"rows":[{"symbol":"SPOT_BTC_USDT","side":"SELL","executed_price":83081.96,"executed_quantity":0.174010,"executed_timestamp":"1792534030.272","source":0,"rpi":false}]}
+        {"success":true,"rows":[{"symbol":"SPOT_BTC_USDT","side":"SELL","executed_price":83081.96,"executed_quantity":0.174010,
+            "executed_timestamp":"1792534030.272","source":0,"rpi":false}]}
         """
 
     func testSecondRequestAsksForTheLastTrade() {

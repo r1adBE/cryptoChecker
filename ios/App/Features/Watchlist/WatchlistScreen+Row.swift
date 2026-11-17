@@ -6,8 +6,8 @@ import SwiftUI
 extension WatchlistScreen {
     /// `section`: sichtbare Abteilung (Favoriten bzw. übrige) für «Nach oben/unten» in VoiceOver.
     func row(_ watch: Watch, counts: [Int64: Int], kinds: [Int64: AssetKind],
-                     signals: [Int64: [ActivitySignal]],
-                     section: [Watch], shape: UnevenRoundedRectangle) -> some View {
+             signals: [Int64: [ActivitySignal]],
+             section: [Watch], shape: UnevenRoundedRectangle) -> some View {
         let index = section.firstIndex(where: { $0.id == watch.id })
         let canReorder = !searching && index != nil
         // Werte der Zeile hier auslesen (nicht in der Zeile), damit nur `WatchlistLiveRow` den

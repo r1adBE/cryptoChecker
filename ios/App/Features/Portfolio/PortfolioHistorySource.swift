@@ -72,7 +72,7 @@ enum PortfolioHistorySource {
 
     private static let hosts: [(host: String, endpoint: String)] = [
         (host: "data-api.binance.vision", endpoint: "https://data-api.binance.vision/api/v3/klines"),
-        (host: "api.binance.com", endpoint: "https://api.binance.com/api/v3/klines"),
+        (host: "api.binance.com", endpoint: "https://api.binance.com/api/v3/klines")
     ]
 
     // Je hinter einer Sperre mit Zustand. Begrenzt (`BoundedCache`, 512 Coins wie `MEMORY_CACHE_ENTRIES` in

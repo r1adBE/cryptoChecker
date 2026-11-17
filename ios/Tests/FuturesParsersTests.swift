@@ -82,7 +82,8 @@ final class FuturesParsersTests: XCTestCase {
         }
         for c in TestSupport.list(f["hours"]) {
             let value = TestSupport.number(c["value"]) ?? (c["value"] as? String).flatMap { Double($0) }
-            XCTAssertEqual(FuturesParsers.hours(value), TestSupport.number(c["expected"]).map { Int($0) }, "hours \(String(describing: c["value"]))")
+            XCTAssertEqual(FuturesParsers.hours(value), TestSupport.number(c["expected"]).map { Int($0) },
+                "hours \(String(describing: c["value"]))")
         }
     }
 

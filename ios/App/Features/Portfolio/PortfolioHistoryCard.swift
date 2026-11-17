@@ -219,7 +219,8 @@ struct PortfolioHistoryCard: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(A11y.chart(period: period, values: values,
                                            format: { hideAmounts ? L("a11y_amount_hidden")
-                                               : (pnl ? Self.signedValue($0, unit: history.unit) : PriceFormat.valueWithCurrency($0, history.unit)) }))
+                                               : (pnl ? Self.signedValue($0, unit: history.unit) : PriceFormat.valueWithCurrency($0,
+                                                   history.unit)) }))
             // Audio Graph und Wischen hoch/runter Tag für Tag; bei verborgenen Beträgen nur der Chart-Satz
             .modifier(PortfolioAudioGraph(points: hideAmounts ? [] : points, unit: history.unit, pnl: pnl, period: period))
 

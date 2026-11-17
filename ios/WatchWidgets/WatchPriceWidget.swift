@@ -3,14 +3,15 @@ import WidgetKit
 
 /// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund, Ecke und als Zeile mit dem Kurs knapp
 /// «BTC / 84’450» (`WatchPriceFormat.compactPrice`; die Änderung nennt VoiceOver), rechteckig «BTC • 84’450.00 USDT
-/// +1.2%» mit der Gegenwährung des Paars (`WatchPriceFormat.line`). Zeitleiste im Intervall des iPhones (`WatchInterval`);
-/// geladen wird nur, was nach `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
-/// Verbindung nicht: das iPhone gilt als weg, sobald seine letzte Lieferung älter ist als Intervall + 5 Minuten,
-/// `WatchPhoneQuotes.usePhone`), sonst ab dem Intervall weniger 5 Minuten;
-/// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 3 × Intervall des iPhones ab dem
-/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  ·  vor 47 Min.», rund,
-/// Ecke und Zeile knapp «BTC 47m» (`WatchFreshness.shortTitle`, wie Android der Kurztitel); sonst rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie
-/// die Zeile der Uhr-App); VoiceOver nennt Alter und Börse immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
+/// +1.2%» mit der Gegenwährung des Paars (`WatchPriceFormat.line`). Zeitleiste im Intervall des iPhones
+/// (`WatchInterval`); geladen wird nur, was nach `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone
+/// frische Kurse liefert (die Erweiterung kennt die Verbindung nicht: das iPhone gilt als weg, sobald seine letzte
+/// Lieferung älter ist als Intervall + 5 Minuten, `WatchPhoneQuotes.usePhone`), sonst ab dem Intervall weniger 5
+/// Minuten; ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 3 × Intervall des
+/// iPhones ab dem Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  · vor
+/// 47 Min.», rund, Ecke und Zeile knapp «BTC 47m» (`WatchFreshness.shortTitle`, wie Android der Kurztitel); sonst
+/// rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie die Zeile der Uhr-App);
+/// VoiceOver nennt Alter und Börse immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
     let date: Date
     let coin: String?

@@ -85,7 +85,8 @@ final class DiagnosticReportTests: XCTestCase {
         let text = DiagnosticReport.build(input(
             events: [entry("PEPE/\(evmAddress)", .FIRED, at: now - 60_000), entry("BTC/CHF", .COOLDOWN, at: now - 120_000)],
             pauses: ["bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq": pause],
-            errorLog: ["lookup failed for xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz"]))
+            errorLog: ["lookup failed for xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cf"
+                + "DfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz"]))
         for number in ["64321", "64’321", "64,321", "70123", "70’123", "70,123", "61234", "61’234"] {
             XCTAssertFalse(text.contains(number), number)
         }

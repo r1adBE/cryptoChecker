@@ -160,7 +160,12 @@ enum BackgroundRefresh {
             if logGate.claim() {
                 await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt, reason: priceReason).value
             }
-            AppLog.background.info("BG-Aufgabe beendet nach \(EpochTime.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
+            let elapsed = EpochTime.nowMillis - startedAt
+            let checked = outcome.checked, failed = outcome.failed
+            AppLog.background.info("""
+                BG-Aufgabe beendet nach \(elapsed, privacy: .public) ms, geprüft \(checked, privacy: .public), \
+                fehlgeschlagen \(failed, privacy: .public)
+                """)
             completion.complete(success: !Task.isCancelled)
         }
         workBox.set(work)

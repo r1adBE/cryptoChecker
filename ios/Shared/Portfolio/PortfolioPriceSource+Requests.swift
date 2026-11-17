@@ -98,9 +98,13 @@ extension PortfolioPriceSource {
                   let coin = bySymbol[symbol]
             else { continue }
             let price: Double?
-            if let s = o["price"] as? String { price = Double(s) }
-            else if let n = o["price"] as? NSNumber { price = n.doubleValue }
-            else { price = nil }
+            if let s = o["price"] as? String {
+                price = Double(s)
+            } else if let n = o["price"] as? NSNumber {
+                price = n.doubleValue
+            } else {
+                price = nil
+            }
             if let price, price > 0, price.isFinite { result[coin] = price }
         }
         return .prices(result)

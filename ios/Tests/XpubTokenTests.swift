@@ -219,7 +219,8 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(off)).countTokens, false)
         XCTAssertEqual(WatchedAddressRules.withCountTokens(off, true).lastAttempt, 0)
         // Ohne Zusatzfelder (nur bei einem Wert ausser dem Standard geschrieben): Standardwerte
-        let plain = Data(#"{"id":1,"chain":"ETH","address":"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed","lastUpdated":0,"lastAttempt":0,"addedAt":0,"observations":[]}"#.utf8)
+        let plain = Data((#"{"id":1,"chain":"ETH","address":"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed","lastUpdated":0,"#
+            + #""lastAttempt":0,"addedAt":0,"observations":[]}"#).utf8)
         let decoded = try JSONDecoder().decode(WatchedAddress.self, from: plain)
         XCTAssertTrue(decoded.countTokens)
         XCTAssertTrue(decoded.tokenBalances.isEmpty)
@@ -322,7 +323,8 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(limited)), limited)
         let plainJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(cache)) as? [String: Any])
         XCTAssertNil(plainJson["lf"])
-        XCTAssertFalse(try JSONDecoder().decode(XpubCache.self, from: Data(#"{"r":["a"],"c":[],"ru":[],"cu":[],"f":0,"lf":"ja"}"#.utf8)).limitedFallback)
+        XCTAssertFalse(try JSONDecoder().decode(XpubCache.self,
+            from: Data(#"{"r":["a"],"c":[],"ru":[],"cu":[],"f":0,"lf":"ja"}"#.utf8)).limitedFallback)
         XCTAssertTrue(XpubScan(mode: .QUICK, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
         XCTAssertFalse(XpubScan(mode: .FULL, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
     }

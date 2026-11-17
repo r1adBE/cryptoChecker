@@ -198,7 +198,7 @@ struct SpeechSettingsPage: View {
     }
 
     /// Liest den zuletzt bekannten Kurs vor, damit die Stimme prüfbar ist.
-    private func testSpeech() {
+    func testSpeech() {
         let text: String
         if let watch = data.watches.first(where: { $0.lastPrice != nil }), let price = watch.lastPrice {
             text = SpokenText.price(watch, price)

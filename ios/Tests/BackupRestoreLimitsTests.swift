@@ -60,7 +60,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
         let watches = [
             Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", pairId: "BTCUSDT"),
             Watch(id: 2, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT", pairId: "ETH USDT"),
-            Watch(id: 3, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "SOL", quoteAsset: "USDT", pairId: "SOLUSDT"),
+            Watch(id: 3, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "SOL", quoteAsset: "USDT", pairId: "SOLUSDT")
         ]
         let alarms = [(1, 1), (2, 2), (3, 2), (4, 9)].map {
             Alarm(id: Int64($0.0), watchId: Int64($0.1), condition: .PRICE_ABOVE, threshold: 1)

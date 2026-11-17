@@ -55,8 +55,10 @@ extension WatchedAddressSource {
         let address = a.address
         do {
             try await Task.sleep(nanoseconds: UInt64(ChainBalance.tonPauseMillis) * 1_000_000)
-            let (page, _) = try await firstWorking(ChainBalance.tonHosts, deadline: deadline) { (host: String) -> ChainBalance.TonJettonPage in
-                try ChainBalance.parseTonJettonPage(try await Self.load(ChainBalance.tonJettonsUrl(host: host, address: address), post: nil))
+            let (page, _) = try await firstWorking(ChainBalance.tonHosts,
+                deadline: deadline) { (host: String) -> ChainBalance.TonJettonPage in
+                try ChainBalance.parseTonJettonPage(try await Self.load(ChainBalance.tonJettonsUrl(host: host, address: address),
+                    post: nil))
             }
             // Auf voller Seite fehlende bekannte Jettons: alter Wert bleibt, gilt aber als nicht bestätigt
             ton.tokens = page.tokens
@@ -124,7 +126,8 @@ extension WatchedAddressSource {
     /// Vordergrund) die Token einzeln; scheitert der Stapel sonst: ETH allein, Token bleiben wie zuletzt. Wie Android.
     private func fetchEthWithTokens(_ address: String, deadline: Int64?) async throws -> Fetched {
         do {
-            let (batch, provider) = try await firstWorking(AddressBalance.ethRpcs, deadline: deadline) { (rpc: String) -> Erc20Tokens.Batch in
+            let (batch, provider) = try await firstWorking(AddressBalance.ethRpcs,
+                deadline: deadline) { (rpc: String) -> Erc20Tokens.Batch in
                 try Erc20Tokens.parseBatch(try await Self.load(rpc, post: Erc20Tokens.batchRequest(address)))
             }
             return Fetched(balance: AddressBalance.ethText(batch.weiDigits), provider: provider, tokens: batch.tokens)

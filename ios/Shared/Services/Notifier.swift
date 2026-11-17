@@ -30,7 +30,7 @@ enum Notifier {
             UNNotificationCategory(identifier: categoryDepeg, actions: [exchange], intentIdentifiers: [], options: []),
             UNNotificationCategory(identifier: categoryPortfolioLocked, actions: [], intentIdentifiers: [],
                                    hiddenPreviewsBodyPlaceholder: L("notification_portfolio_alarm_locked"),
-                                   options: [.hiddenPreviewsShowTitle]),
+                                   options: [.hiddenPreviewsShowTitle])
         ]))
     }
 
@@ -100,7 +100,8 @@ enum Notifier {
     }
 
     private static func writeBadge(_ value: Int, at url: URL) {
-        guard AppLog.attempt("Zähler am App-Symbol schreiben", { try Data(String(value).utf8).write(to: url, options: .atomic) }) else { return }
+        guard AppLog.attempt("Zähler am App-Symbol schreiben", { try Data(String(value).utf8).write(to: url,
+            options: .atomic) }) else { return }
         // Atomares Schreiben ersetzt die Datei: Merkmal jedes Mal neu setzen
         BackupExclusion.set(excluded: true, for: url)
     }

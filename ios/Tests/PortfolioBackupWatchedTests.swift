@@ -48,7 +48,7 @@ final class PortfolioBackupWatchedTests: XCTestCase {
             WatchedAddressBackupEntry(chain: .BTC, address: btc),
             WatchedAddressBackupEntry(chain: .BTC, address: btc.uppercased()),
             WatchedAddressBackupEntry(chain: .ETH, address: eth.lowercased(), addedAt: 6),
-            WatchedAddressBackupEntry(chain: .ETH, address: btc), // falsches Netz
+            WatchedAddressBackupEntry(chain: .ETH, address: btc) // falsches Netz
         ]
         let merged = WatchedAddressRules.merge([], entries)
         XCTAssertEqual(merged.map(\.address), [btc, eth])  // Ethereum mit Prüfsumme

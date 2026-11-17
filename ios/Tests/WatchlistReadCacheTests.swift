@@ -81,7 +81,7 @@ final class WatchlistReadCacheTests: XCTestCase {
         let ids: [Int64] = [990_301, 990_302, 990_303, 990_304]
         try await XCTUnwrap(watchlist).load([
             pair(ids[0], "BTC", order: 2, group: "Gruppe A"), pair(ids[1], "ETH", order: 0),
-            pair(ids[2], "SOL", order: 1, group: "Gruppe B"), pair(ids[3], "XRP", order: 3, group: "Gruppe A"),
+            pair(ids[2], "SOL", order: 1, group: "Gruppe B"), pair(ids[3], "XRP", order: 3, group: "Gruppe A")
         ])
         let data = AppData.shared
         assertSameAsDirect("geladen")

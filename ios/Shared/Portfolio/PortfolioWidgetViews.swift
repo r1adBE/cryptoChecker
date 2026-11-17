@@ -41,7 +41,7 @@ enum PortfolioWidgetViews {
                 PortfolioFigure(kind: .week, amount: valid(weekUsdt?.amount),
                                 percent: weekUsdt == nil ? nil : valid(weekUsdt?.percent)),
                 PortfolioFigure(kind: .total, amount: valid(total?.amount),
-                                percent: total == nil ? nil : valid(total?.percent)),
+                                percent: total == nil ? nil : valid(total?.percent))
             ]
         }
         let week: PortfolioFigure
@@ -58,7 +58,7 @@ enum PortfolioWidgetViews {
             week,
             PortfolioFigure(kind: .total, amount: valid(total?.amount),
                             percent: total == nil ? nil : valid(total?.percent),
-                            incomplete: !(total?.skipped ?? []).isEmpty),
+                            incomplete: !(total?.skipped ?? []).isEmpty)
         ]
     }
 

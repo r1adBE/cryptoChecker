@@ -13,8 +13,8 @@ struct WatchlistListView: View {
     let rows: Int
     @ScaledMetric(relativeTo: .body) private var textScale: CGFloat = 1
 
-    /// Dünne Linie zwischen den Paaren.
     // 1 pt wie 1 dp auf Android – dünn, aber auf 3x-Displays noch sichtbar
+    /// Dünne Linie zwischen den Paaren.
     private var dividerHeight: CGFloat { 1 }
 
     var body: some View {
@@ -295,7 +295,8 @@ struct WatchlistSmallView: View {
                 // VoiceOver: das Paar als ein Satz (veraltet mit «veraltet, letzte Aktualisierung …»)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(A11y.watchRow(watch, stale: watch.disabled ? L("watch_disabled")
-                                                    : (outdated ? WidgetOutdated.spoken(watch, at: entry.date, afterMillis: entry.outdatedAfter)
+                                                    : (outdated ? WidgetOutdated.spoken(watch, at: entry.date,
+                                                        afterMillis: entry.outdatedAfter)
                                                        : WidgetOutdated.unchanged(watch, at: entry.date,
                                                                                   afterMillis: entry.outdatedAfter)),
                                                   changeView: entry.changeView))

@@ -9,7 +9,7 @@ final class TradFiTests: XCTestCase {
     func testAster() {
         let tradFi: [[String]] = [
             ["STOCK"], ["STOCK", "Semiconductor"], ["STOCK", "ETF"], ["ETF"],
-            ["Commodities"], ["STOCK", "AOS2", "USD1-RWA"], ["pre-launch", "STOCK"], ["stock"],
+            ["Commodities"], ["STOCK", "AOS2", "USD1-RWA"], ["pre-launch", "STOCK"], ["stock"]
         ]
         for subTypes in tradFi { XCTAssertTrue(TradFi.aster(subTypes: subTypes), "\(subTypes)") }
         let crypto: [[String]] = [["Top"], ["Meme"], ["AI"], [], ["AOS2"], ["pre-launch"]]
@@ -26,7 +26,7 @@ final class TradFiTests: XCTestCase {
         let bases = [
             "AAPL-USDT": "AAPL", "GOLD(XAU)-USDT": "XAU", "SILVER(XAG)-USDT": "XAG",
             "Palladium(XPD)-USDT": "XPD", "Oil Brent-USDT": "OILBRENT", "Nikkei 225-USDT": "NIKKEI225",
-            "EURUSD-USDT": "EURUSD", "": "NCSKX2USD",
+            "EURUSD-USDT": "EURUSD", "": "NCSKX2USD"
         ]
         for (name, base) in bases {
             XCTAssertEqual(TradFi.bingxBase(displayName: name, asset: "NCSKX2USD"), base, name)

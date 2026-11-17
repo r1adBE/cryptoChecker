@@ -32,13 +32,13 @@ enum ExchangeLogos {
         "Foxbit": "foxbit", "Bit2Me": "bit2me", "Valr": "valr", "WazirX": "wazirx", "Buda": "buda",
         "Tokocrypto": "tokocrypto", "UpbitTh": "upbit", "UpbitId": "upbitid", "CoinJar": "coinjar",
         "GmoCoin": "gmocoin", "Latoken": "latoken", "NonKyc": "nonkyc", "Bitpanda": "bitpanda",
-        "CoinSpot": "coinspot", "Quidax": "quidax", "Swyftx": "swyftx", "Ndax": "ndax", "BitOasis": "bitoasis",
+        "CoinSpot": "coinspot", "Quidax": "quidax", "Swyftx": "swyftx", "Ndax": "ndax", "BitOasis": "bitoasis"
     ]
 
     /// Festes Symbol statt Logo.
     static let symbols: [String: Symbol] = [
         "DexScreener": .dex,
-        "EcbReference": .forex, "NbuReference": .forex, "NbpReference": .forex,
+        "EcbReference": .forex, "NbuReference": .forex, "NbpReference": .forex
     ]
 
     /// Name des Logos im Paket; mehrere Börsen teilen eines. nil = festes Symbol bzw. unbekannte Börse.

@@ -129,7 +129,8 @@ struct PortfolioHomeView: View {
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline,
+            at: entry.date,
                                                               usdt: spokenHidden ? nil : usdt, hidden: spokenHidden))
     }
 
@@ -160,7 +161,8 @@ struct PortfolioHomeView: View {
             .padding(.top, 4)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline,
+            at: entry.date,
                                                               usdt: spokenHidden ? nil : usdt, chart: chartText,
                                                               hidden: spokenHidden))
     }
@@ -196,7 +198,8 @@ struct PortfolioHomeView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(PortfolioWidgetText.accessibility(
-            s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date, usdt: spokenHidden ? nil : usdt, chart: chartText,
+            s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
+            usdt: spokenHidden ? nil : usdt, chart: chartText,
             positions: PortfolioWidgetText.positionsAccessibility(shown, currency: s.currency, basis: basis,
                                                                   hidden: spokenHidden),
             hidden: spokenHidden))
@@ -308,6 +311,8 @@ struct PortfolioHomeView: View {
 
     private func changeText(_ option: PortfolioChangeLine, currency: String, size: CGFloat) -> Text {
         let font = Font.system(size: size, weight: .semibold)
+        // Text kennt nur `+`, kein `+=`
+        // swiftlint:disable shorthand_operator
         var text = Text(verbatim: "")
         if let amount = option.amount {
             text = text + Text.quoted(amount, quote: currency, size: size, quoteColor: palette.secondary)
@@ -318,6 +323,7 @@ struct PortfolioHomeView: View {
         if let period = option.period {
             text = text + Text(verbatim: " · " + period).font(font).foregroundStyle(palette.secondary)
         }
+        // swiftlint:enable shorthand_operator
         return text
     }
 

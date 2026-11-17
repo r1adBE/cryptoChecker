@@ -11,7 +11,7 @@ extension TaxEngines {
 
     /// Vermerkt den Anteil `usdt` einer Umbuchungsgebühr (`s`) auf Bestand ohne Kaufpreis (`TaxPool.addFee`; 0 = nichts).
     static func noteUnassigned(_ unassigned: inout [PortfolioUnassignedFee], _ coin: String, _ s: TaxStep,
-                                       _ usdt: Decimal) {
+                               _ usdt: Decimal) {
         if usdt > 0 { unassigned.append(PortfolioUnassignedFee(coin: coin, txId: s.id, time: s.time, usdt: usdt)) }
     }
 
@@ -51,7 +51,9 @@ extension TaxEngines {
                 // `applyRules` mit `giftIsDisposal`, sonst wie eine Auszahlung)
                 let swap = t.type == .SWAP
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(t.amountExact, $0) }
+                let gross: Decimal? = swap
+                    ? (t.swapToCoin != nil ? t.swapValue : nil)
+                    : price.map { PortfolioDecimal.multiply(t.amountExact, $0) }
                 let proceeds: Decimal? = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
                 out.append(TaxStep(.dispose, t, qty: t.amountExact + t.coinFeeExact, proceeds: proceeds, gross: gross,
                                    swap: swap, feeMissing: gross != nil && feeValue == nil,
@@ -94,7 +96,7 @@ extension TaxEngines {
 
     /// Teile eines Abgangs aus `taken`: Teil mit Kaufpreis (Einstand, Herkunft) und Teil ohne.
     static func piecesOf(_ taken: TaxTaken, match: TaxMatch? = nil, matchedTime: Int64? = nil,
-                                 oldHolding: Bool? = nil) -> [Piece] {
+                         oldHolding: Bool? = nil) -> [Piece] {
         var out: [Piece] = []
         if taken.removedPriced > 0 {
             out.append(Piece(amount: taken.removedPriced, cost: taken.cost, parts: taken.parts, match: match,

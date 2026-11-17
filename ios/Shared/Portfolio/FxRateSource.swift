@@ -1,17 +1,17 @@
 import Foundation
 import os
 
-/// Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio — wie `FxRateSource.kt`.
-/// USDT gilt als USD. Quelle: Referenzkurse der EZB (`eurofxref-daily.xml`, `EcbRates`, ohne Schlüssel; eine Abfrage
-/// für alle Währungen, Kreuzkurs USD → Ziel wie `EcbRates.cross`), sonst open.er-api.com. Neu geholt nach 3 h (`CurrencyConversion.fxStaleMillis`: ab da zeigt die
-/// Merkliste die Uhrzeit des Kurses; im Speicher); schlägt die Abfrage fehl, gilt ein älterer Kurs
-/// bis 24 h. Ohne Kurs bleibt die Zeile weg. Abrufzeit je Währung: `fetchedAt`.
+/// Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio — wie `FxRateSource.kt`. USDT gilt als USD.
+/// Quelle: Referenzkurse der EZB (`eurofxref-daily.xml`, `EcbRates`, ohne Schlüssel; eine Abfrage für alle Währungen,
+/// Kreuzkurs USD → Ziel wie `EcbRates.cross`), sonst open.er-api.com. Neu geholt nach 3 h
+/// (`CurrencyConversion.fxStaleMillis`: ab da zeigt die Merkliste die Uhrzeit des Kurses; im Speicher); schlägt die
+/// Abfrage fehl, gilt ein älterer Kurs bis 24 h. Ohne Kurs bleibt die Zeile weg. Abrufzeit je Währung: `fetchedAt`.
 enum FxRateSource {
     /// Wählbare Zielwährungen (EZB-Referenzkurse), die gebräuchlichsten zuerst.
     static let currencies = [
         "CHF", "EUR", "USD", "GBP", "JPY", "CAD", "AUD", "SEK", "NOK", "DKK", "PLN", "CZK",
         "HUF", "RON", "BGN", "ISK", "TRY", "CNY", "HKD", "SGD", "KRW", "INR", "IDR", "THB",
-        "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS",
+        "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS"
     ]
 
     /// Neu holen ab 3 h: ältere Kurse zeigt die Merkliste mit Uhrzeit.

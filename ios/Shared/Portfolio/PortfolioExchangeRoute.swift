@@ -25,7 +25,7 @@ enum PortfolioExchangeRoute {
     /// Gegenwährungen in dieser Reihenfolge; USD über USDT/USD, Fiat über den Devisenkurs (`toUsdt`).
     static let quotes = [
         "USDT", "USD", "EUR", "CHF", "GBP", "JPY", "KRW", "TRY", "BRL", "MXN", "INR", "IDR", "AUD", "CAD",
-        "SGD", "HKD", "PLN", "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "NZD", "ZAR", "THB",
+        "SGD", "HKD", "PLN", "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "NZD", "ZAR", "THB"
     ]
 
     /// Spot-Börse der App?

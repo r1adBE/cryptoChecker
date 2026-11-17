@@ -42,7 +42,7 @@ enum CoinIndicatorModel {
             Indicator(id: .SMA50_VS_200, value: IndicatorMath.changePercent(input.sma50d, input.sma200d)),
             Indicator(id: .RSI_WEEKLY, value: input.rsiWeekly.flatMap { $0.isFinite ? $0 : nil }),
             Indicator(id: .RSI_DAILY, value: input.rsiDaily.flatMap { $0.isFinite ? $0 : nil }),
-            Indicator(id: .VS_BTC, value: input.vsBtc90d.flatMap { $0.isFinite ? $0 : nil }),
+            Indicator(id: .VS_BTC, value: input.vsBtc90d.flatMap { $0.isFinite ? $0 : nil })
         ]
         return CoinReport(symbol: symbol, price: price, indicators: indicators, historyDays: input.historyDays)
     }

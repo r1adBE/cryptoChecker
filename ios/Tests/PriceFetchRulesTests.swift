@@ -126,7 +126,8 @@ final class PriceFetchRulesTests: XCTestCase {
     /// «veraltet»: Abrufzeit, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.
     func testFetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() throws {
         let upbit = try XCTUnwrap(ExchangesConfig.exchange("Upbit"))
-        let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"#
+        let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"#
+            + #""acc_trade_volume_24h":2.0}]"#
         let before = EpochTime.nowMillis
         var ticker = Ticker()
         try upbit.readTicker(call: 0, body: body, ticker: &ticker, info: PairQuery("BTC", "KRW", "KRW-BTC"))

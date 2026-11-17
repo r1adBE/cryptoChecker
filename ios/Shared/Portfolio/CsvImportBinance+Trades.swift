@@ -9,7 +9,7 @@ extension CsvImportBinance {
     /// Quote-Währungen der Binance-Paare, längste zuerst («BTCFDUSD» endet auf FDUSD, nicht USD) — wie Android `QUOTES`.
     private static let quotes: [String] = [
         "FDUSD", "USDT", "USDC", "BUSD", "TUSD", "USDP", "BIDR", "IDRT", "EURI", "DAI", "BTC", "ETH", "BNB", "EUR", "GBP",
-        "TRY", "BRL", "AUD", "JPY", "PLN", "RON", "CZK", "ZAR", "UAH", "ARS", "MXN", "COP", "USD", "XRP", "TRX", "DOGE",
+        "TRY", "BRL", "AUD", "JPY", "PLN", "RON", "CZK", "ZAR", "UAH", "ARS", "MXN", "COP", "USD", "XRP", "TRX", "DOGE"
     ].enumerated().sorted { ($1.element.count, $0.offset) < ($0.element.count, $1.offset) }.map(\.element)
 
     /// «BTCUSDT» → (BTC, USDT); unbekannte Quote = nil. Passen mehrere Quotes (längste zuerst), gewinnt die Teilung, deren
@@ -161,8 +161,8 @@ extension CsvImportBinance {
         }
         let fee: Decimal? = split.primary?.amount
         let price: Decimal
-        if let folded { price = PortfolioDecimal.divide(folded.total, amount) }
-        else { price = fills.count == 1 ? first.price : PortfolioDecimal.divide(total, amount) }
+        if let folded { price = PortfolioDecimal.divide(folded.total,
+            amount) } else { price = fills.count == 1 ? first.price : PortfolioDecimal.divide(total, amount) }
         var draft = CsvImportRow(
             line: first.line, kind: first.kind, rawKind: first.rawKind, coin: first.base, amount: amount, price: price,
             quote: first.quote, fee: fee, feeUnit: fee == nil ? nil : split.primary?.unit, timeMillis: first.time, externalId: nil,

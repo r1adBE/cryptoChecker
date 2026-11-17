@@ -118,7 +118,7 @@ enum ExchangeCandleRegistry {
         PoloniexCandles(),
         DeribitCandles(),
         HyperliquidCandles(),
-        OneTradingCandles(),
+        OneTradingCandles()
     ]
 
     /// Intervalle mit eigenen Kerzen (alle Zeiträume von Aktionsblatt, Mini-Chart und Widget).

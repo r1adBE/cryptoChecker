@@ -94,7 +94,7 @@ final class CycleViewModel: ObservableObject {
 
     static let fallbackCoins: [String] = [
         "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE", "TRX", "AVAX", "LINK", "DOT",
-        "TON", "LTC", "BCH", "UNI", "NEAR", "APT", "ETC", "XLM", "SUI", "PEPE",
+        "TON", "LTC", "BCH", "UNI", "NEAR", "APT", "ETC", "XLM", "SUI", "PEPE"
     ].sorted()
 
     static let coinListKey = "cycle_coin_list"
@@ -115,7 +115,6 @@ final class CycleViewModel: ObservableObject {
     static let historyKey = "history"
     static let gasKey = "gas"
     static func coinKey(_ symbol: String) -> String { "coinind_" + symbol }
-
 
     /// Besitzer der Favoriten (Markt-Stern und Explorer schreiben dieselbe Menge).
     private let data: AppData

@@ -10,9 +10,9 @@ import os
 ///  - `referenceAt` = 0 → scharf; > 0 → schon gemeldet, wartet auf Wiederscharfstellung
 ///  - `referencePrice` = zuletzt gemeldete Marke; bleibt beim Wiederscharfstellen erhalten (`reportedMark`)
 ///
-/// Wer gemeldet hat, meldet erst wieder, wenn sich der Kurs deutlich aus der Zone
-/// entfernt hat (`rearmDistance`) — oder bei einem weiteren, deutlich höheren Hoch
-/// (tieferen Tief, `furtherStepPercent`), frühestens 1 h nach der letzten Meldung. Darüber gilt die Pause zwischen Alarmen; einmalige Alarme schalten sich ab.
+/// Wer gemeldet hat, meldet erst wieder, wenn sich der Kurs deutlich aus der Zone entfernt hat (`rearmDistance`) — oder
+/// bei einem weiteren, deutlich höheren Hoch (tieferen Tief, `furtherStepPercent`), frühestens 1 h nach der letzten
+/// Meldung. Darüber gilt die Pause zwischen Alarmen; einmalige Alarme schalten sich ab.
 enum NearExtreme {
 
     enum Side: Sendable { case high, low }
@@ -140,8 +140,7 @@ enum NearExtreme {
                 } else {
                     further = true
                 }
-            }
-            else if let lastLevel, lastLevel > 0 {
+            } else if let lastLevel, lastLevel > 0 {
                 let elapsed = now - lastTriggeredAt
                 if lastTriggeredAt > 0 && elapsed >= 0 && elapsed < furtherExtremeMinMillis {
                     further = false
@@ -150,8 +149,7 @@ enum NearExtreme {
                                                                   : (lastLevel - price) / lastLevel * 100)
                     further = step >= furtherStepPercent(thresholdPercent)
                 }
-            }
-            else { further = true }
+            } else { further = true }
             guard further, !inCooldown else { return .idle }
             return .fire(newExtreme: true, distancePercent: distance, extreme: extreme, level: price)
         }

@@ -20,7 +20,7 @@ enum AlarmSounds {
         Tone(id: "cc_chime", name: "Chime"),
         Tone(id: "cc_dingdong", name: "Ding-Dong"),
         Tone(id: "cc_pulse", name: "Pulse"),
-        Tone(id: "cc_crystal", name: "Crystal"),
+        Tone(id: "cc_crystal", name: "Crystal")
     ]
 
     static func tone(_ id: String?) -> Tone? {

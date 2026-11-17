@@ -223,8 +223,9 @@ enum PortfolioWidgetDailyStore {
 
 // MARK: Ansicht je Widget
 
-/// Ansicht je Widget — wie `PortfolioWidgetView` (Android; hier anders benannt, weil `PortfolioWidgetView` die SwiftUI-Ansicht des Widgets ist): Übersicht (wie die Gesamtkarte im
-/// Portfolio-Tab), Chart (Standard) oder Liste der Positionen.
+/// Ansicht je Widget — wie `PortfolioWidgetView` (Android; hier anders benannt, weil `PortfolioWidgetView` die
+/// SwiftUI-Ansicht des Widgets ist): Übersicht (wie die Gesamtkarte im Portfolio-Tab), Chart (Standard) oder Liste der
+/// Positionen.
 enum PortfolioWidgetMode: String, Sendable, CaseIterable {
     case overview, chart, list
 

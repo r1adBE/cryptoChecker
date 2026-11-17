@@ -98,7 +98,7 @@ final class PairCandlesTests: XCTestCase {
             pair(.quarterly, "BinanceFutures"),
             pair(.biquarterly, "BinanceFutures", pairId: "2:BTCUSD_251226", quote: "USD"),
             pair(.perpetual, "BinanceFutures", tradFi: true),
-            pair(.none, "DexScreener"),
+            pair(.none, "DexScreener")
         ]
         for p in pairs {
             let calls = Counter()

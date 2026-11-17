@@ -18,7 +18,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testOneSatoshiStaysOneSatoshi() {
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "1", "60000", 1),
-            trade(2, "BTC", .SELL, "0.99999999", "61000", 2),
+            trade(2, "BTC", .SELL, "0.99999999", "61000", 2)
         ], currentPrice: 61_000)
         XCTAssertEqual(p.holdingsExact, dec("0.00000001"))
         XCTAssertTrue(p.isOpen)
@@ -29,7 +29,7 @@ final class PortfolioLedgerTests: XCTestCase {
         let p = PortfolioCalculator.position("ETH", trades: [
             trade(1, "ETH", .BUY, "0.1", "2000", 1),
             trade(2, "ETH", .BUY, "0.2", "2000", 2),
-            trade(3, "ETH", .SELL, "0.3", "2100", 3),
+            trade(3, "ETH", .SELL, "0.3", "2100", 3)
         ], currentPrice: 2_100)
         XCTAssertEqual(p.holdingsExact, 0)
         XCTAssertFalse(p.isOpen)
@@ -77,7 +77,8 @@ final class PortfolioLedgerTests: XCTestCase {
         XCTAssertEqual(PortfolioDecimal.parse("1e-08"), dec("0.00000001"))
         XCTAssertNil(ThresholdParser.parseDecimal("1" + String(repeating: "0", count: 30), decimalSeparator: "."))
         // Eintrag mit absurder Menge ist ungültig (wird beim Laden übersprungen)
-        let crafted = #"{"id":3,"coin":"BTC","type":"BUY","amountText":"1E300000000","time":1,"feeRow":false,"interest":false,"stakingMove":false}"#
+        let crafted = #"{"id":3,"coin":"BTC","type":"BUY","amountText":"1E300000000","time":1,"feeRow":false,"interest":false,"#
+            + #""stakingMove":false}"#
         XCTAssertThrowsError(try JSONDecoder().decode(PortfolioTx.self, from: Data(crafted.utf8)))
     }
 
@@ -93,7 +94,8 @@ final class PortfolioLedgerTests: XCTestCase {
         XCTAssertNil(object["amount"])
         XCTAssertNil(object["priceUsdt"])
         XCTAssertNil(object["fee"])
-        let text = #"{"id":3,"coin":"btc","type":"BUY","amountText":"0.1","priceText":"100","time":1,"feeRow":false,"interest":false,"stakingMove":false}"#
+        let text = #"{"id":3,"coin":"btc","type":"BUY","amountText":"0.1","priceText":"100","time":1,"feeRow":false,"interest":false,"#
+            + #""stakingMove":false}"#
         let parsed = try JSONDecoder().decode(PortfolioTx.self, from: Data(text.utf8))
         XCTAssertEqual(parsed.amountExact, dec("0.1"))
         XCTAssertEqual(parsed.coin, "BTC")
@@ -119,7 +121,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testQuoteFeeOnSellReducesRealized() {
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "1", "100", 1),
-            trade(2, "BTC", .SELL, "1", "150", 2, fee: "2", unit: .QUOTE),
+            trade(2, "BTC", .SELL, "1", "150", 2, fee: "2", unit: .QUOTE)
         ], currentPrice: 150)
         XCTAssertEqual(p.realizedExact, dec("48"))
     }
@@ -127,7 +129,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testCoinFeeOnSellRemovesAmountPlusFee() {
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "2", "100", 1),
-            trade(2, "BTC", .SELL, "1", "150", 2, fee: "0.1", unit: .COIN),
+            trade(2, "BTC", .SELL, "1", "150", 2, fee: "0.1", unit: .COIN)
         ], currentPrice: 150)
         XCTAssertEqual(p.holdingsExact, dec("0.9"))
         XCTAssertEqual(p.realizedExact, dec("40"))
@@ -146,7 +148,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testBuyInsideWindowIsNotGain() throws {
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base - 3) * dayMs),
-            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base + 2) * dayMs),
+            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base + 2) * dayMs)
         ]
         let gain = try XCTUnwrap(PortfolioPeriodChange.gain(trades: trades, current: ["BTC": 100],
                                                             closes: ["BTC": flat(100)], baseDay: base))
@@ -156,7 +158,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testSellInsideWindowIsNotLoss() throws {
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 2, priceUsdt: 100, time: Int64(base - 3) * dayMs),
-            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 1, priceUsdt: 120, time: Int64(base + 2) * dayMs),
+            PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 1, priceUsdt: 120, time: Int64(base + 2) * dayMs)
         ]
         let gain = try XCTUnwrap(PortfolioPeriodChange.gain(trades: trades, current: ["BTC": 120],
                                                             closes: ["BTC": flat(100)], baseDay: base))
@@ -177,7 +179,7 @@ final class PortfolioLedgerTests: XCTestCase {
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base - 3) * dayMs),
             PortfolioTx(id: 2, coin: "BTC", type: .SELL, amount: 1, priceUsdt: 120, time: Int64(base + 2) * dayMs),
             PortfolioTx(id: 3, coin: "BTC", type: .SELL, amount: 0.5, priceUsdt: 120, time: Int64(base + 3) * dayMs,
-                        fee: 5, feeUnit: .QUOTE),
+                        fee: 5, feeUnit: .QUOTE)
         ]
         let gain = try XCTUnwrap(PortfolioPeriodChange.gain(trades: trades, current: ["BTC": 120],
                                                             closes: ["BTC": flat(100)], baseDay: base))
@@ -187,7 +189,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testCoinFeeBeyondHoldingsMarksOversold() {
         let p = PortfolioCalculator.position("BTC", trades: [
             trade(1, "BTC", .BUY, "1", "100", 1),
-            trade(2, "BTC", .SELL, "1", "120", 2, fee: "0.01", unit: .COIN),
+            trade(2, "BTC", .SELL, "1", "120", 2, fee: "0.01", unit: .COIN)
         ], currentPrice: 120)
         XCTAssertTrue(p.oversold)
     }
@@ -201,7 +203,7 @@ final class PortfolioLedgerTests: XCTestCase {
         let start: Int64 = 1_000_000
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: start - 10),
-            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 110, time: start + 10),
+            PortfolioTx(id: 2, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 110, time: start + 10)
         ]
         let adjusted = try XCTUnwrap(PortfolioPeriodChange.todayAdjusted(
             PortfolioChange(amount: 20, percent: 10), trades: trades, current: ["BTC": 110],
@@ -215,7 +217,7 @@ final class PortfolioLedgerTests: XCTestCase {
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: start - 10),
             PortfolioTx(id: 2, coin: "ETH", type: .BUY, amount: 2, priceUsdt: 200, time: start - 10),
             // übernommener Bestand ohne Preis: Zufluss unbekannt → ETH fehlt ganz
-            PortfolioTx(id: 3, coin: "ETH", type: .BUY, amount: 1, priceUsdt: nil, time: start + 10),
+            PortfolioTx(id: 3, coin: "ETH", type: .BUY, amount: 1, priceUsdt: nil, time: start + 10)
         ]
         let current = ["BTC": 110.0, "ETH": 220.0]
         let changes = ["BTC": 10.0, "ETH": 10.0]
@@ -241,7 +243,7 @@ final class PortfolioLedgerTests: XCTestCase {
         let start: Int64 = 1_000_000
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: start - 10),
-            PortfolioTx(id: 2, coin: "NEW", type: .BUY, amount: 10, priceUsdt: 1, time: start + 10),
+            PortfolioTx(id: 2, coin: "NEW", type: .BUY, amount: 10, priceUsdt: 1, time: start + 10)
         ]
         let current = ["BTC": 110.0, "NEW": 1.5]
         let changes = ["BTC": 10.0]
@@ -258,7 +260,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testOneCoinWithoutHistoryDoesNotEraseThePeriod() throws {
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base - 3) * dayMs),
-            PortfolioTx(id: 2, coin: "NEWCOIN", type: .BUY, amount: 10, priceUsdt: 1, time: Int64(base - 3) * dayMs),
+            PortfolioTx(id: 2, coin: "NEWCOIN", type: .BUY, amount: 10, priceUsdt: 1, time: Int64(base - 3) * dayMs)
         ]
         let gain = try XCTUnwrap(PortfolioPeriodChange.gain(trades: trades, current: ["BTC": 110, "NEWCOIN": 1.5],
                                                             closes: ["BTC": flat(100)], baseDay: base))
@@ -296,7 +298,7 @@ final class PortfolioLedgerTests: XCTestCase {
     func testRewardsInWindowAreReportedAsMoneyPutIn() throws {
         let trades: [PortfolioTx] = [
             PortfolioTx(id: 1, coin: "ETH", type: .BUY, amount: 1, priceUsdt: 100, time: Int64(base - 3) * dayMs),
-            PortfolioTx(id: 2, coin: "ETH", type: .REWARD, amount: 0.1, priceUsdt: 110, time: Int64(base + 3) * dayMs),
+            PortfolioTx(id: 2, coin: "ETH", type: .REWARD, amount: 0.1, priceUsdt: 110, time: Int64(base + 3) * dayMs)
         ]
         let gain = try XCTUnwrap(PortfolioPeriodChange.gain(trades: trades, current: ["ETH": 120],
                                                             closes: ["ETH": flat(100)], baseDay: base))
@@ -317,7 +319,7 @@ final class PortfolioLedgerTests: XCTestCase {
             trade(2, "BTC", .BUY, "1", "59000", 100),
             swap,
             trade(4, "BTC", .WITHDRAWAL, "0.01", nil, 100),
-            trade(5, "BTC", .DEPOSIT, "0.2", nil, 50),
+            trade(5, "BTC", .DEPOSIT, "0.2", nil, 50)
         ]
         let ids = PortfolioLedger.events("BTC", trades: trades).map(\.trade.id)
         XCTAssertEqual(ids, [5, 2, 3, 1, 4])

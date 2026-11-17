@@ -73,16 +73,17 @@ struct TaxPeriod: Sendable, Equatable {
 }
 
 /// Steuer-Vorlage (Einstellung «tax_template», Standard Neutral) — ORIENTIERUNG, keine Steuerberatung. Regeln, Quellen
-/// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025 (Rn. 62: nur FIFO
-/// je Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending unterschieden,
-/// `TaxEngines.interestReward`: Wert beim Zufluss), KryptowährungsVO § 2 Abs. 1 (je Adresse/Wallet); CH ESTV (Stand
-/// 22.09.2026, ohne Einordnung durch die App; Vermögenswert per 31.12. nur als Orientierung, `TaxExport.chWealth`); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung),
-/// gov.uk (Stand 13.04.2026); US IRS FAQ digital assets (Stand 29.06.2026), Rev. Proc. 2024-28 (ab 2025 nur FIFO je
-/// Wallet); AT Tausch steuerneutral ab 01.03.2022, davor bzw. Altvermögen Realisation nach § 31 EStG a. F. (EStR Rz
-/// 6103k); FR/AT: Verkauf gegen Stablecoin = Tausch Krypto↔Krypto; CA CRA (Stand 05.02.2026),
-/// T4037 2025; AU ATO CGT discount (Stand 29.06.2026); FR art. 150 VH bis CGI, BOI-RPPM-PVBMC-30-20 (§ 50 Gebühren),
-/// BOI-RPPM-PVBMC-30-10 § 70, formulaire 2086 (2025); JP 国税庁 A1-20. Umrechnung × USDT/USD-Tagesschluss
-/// (`TaxExport.rateOn` `usdtUsd`); ohne Schluss des Tags USDT = 1 USD als Näherung, je Zeile vermerkt (`TaxCsvTexts.usdtAssumed`).
+/// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025 (Rn. 62: nur FIFO je
+/// Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending
+/// unterschieden, `TaxEngines.interestReward`: Wert beim Zufluss), KryptowährungsVO § 2 Abs. 1 (je Adresse/Wallet); CH
+/// ESTV (Stand 22.09.2026, ohne Einordnung durch die App; Vermögenswert per 31.12. nur als Orientierung,
+/// `TaxExport.chWealth`); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung), gov.uk (Stand
+/// 13.04.2026); US IRS FAQ digital assets (Stand 29.06.2026), Rev. Proc. 2024-28 (ab 2025 nur FIFO je Wallet); AT
+/// Tausch steuerneutral ab 01.03.2022, davor bzw. Altvermögen Realisation nach § 31 EStG a. F. (EStR Rz 6103k); FR/AT:
+/// Verkauf gegen Stablecoin = Tausch Krypto↔Krypto; CA CRA (Stand 05.02.2026), T4037 2025; AU ATO CGT discount (Stand
+/// 29.06.2026); FR art. 150 VH bis CGI, BOI-RPPM-PVBMC-30-20 (§ 50 Gebühren), BOI-RPPM-PVBMC-30-10 § 70, formulaire
+/// 2086 (2025); JP 国税庁 A1-20. Umrechnung × USDT/USD-Tagesschluss (`TaxExport.rateOn` `usdtUsd`); ohne Schluss des Tags
+/// USDT = 1 USD als Näherung, je Zeile vermerkt (`TaxCsvTexts.usdtAssumed`).
 enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     case NEUTRAL
     case DE

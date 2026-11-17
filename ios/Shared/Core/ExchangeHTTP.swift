@@ -117,7 +117,8 @@ enum ExchangeHTTP {
         // mit derselben Adresse, denselben Kopfzeilen und demselben Körper — etwa Hyperliquid, dessen Einzelkurs für
         // jedes Paar dieselbe «metaAndAssetCtxs»-Antwort (~100 KB) holt
         // Schlüssel ohne Zeitstempel (BingX, `RequestKey`): sonst wären gleiche Anfragen nie gleich
-        var key = "\(effective.configuration.timeoutIntervalForRequest)|\(effective.configuration.timeoutIntervalForResource)|\(RequestKey.of(url))"
+        let timeouts = effective.configuration
+        var key = "\(timeouts.timeoutIntervalForRequest)|\(timeouts.timeoutIntervalForResource)|\(RequestKey.of(url))"
         if let post {
             let headers = (post.headers ?? [:]).sorted { $0.key < $1.key }.map { $0.key + "=" + $0.value }
             key = "POST|" + key + "|" + headers.joined(separator: ",") + "|" + post.body
@@ -269,9 +270,9 @@ enum ExchangeHTTP {
     }
 }
 
-/// Gleiche Anfragen, die gleichzeitig laufen, nur einmal schicken (Mini-Chart, Blatt und
-/// Aktualisierung für dasselbe Paar; POST mit gleichen Kopfzeilen und gleichem Körper, z. B. Hyperliquid). Nichts wird zwischengespeichert: Ist die Anfrage fertig,
-/// fällt der Eintrag weg. Bricht der einzige Wartende ab (Blatt zu), wird die Anfrage abgebrochen.
+/// Gleiche Anfragen, die gleichzeitig laufen, nur einmal schicken (Mini-Chart, Blatt und Aktualisierung für dasselbe
+/// Paar; POST mit gleichen Kopfzeilen und gleichem Körper, z. B. Hyperliquid). Nichts wird zwischengespeichert: Ist die
+/// Anfrage fertig, fällt der Eintrag weg. Bricht der einzige Wartende ab (Blatt zu), wird die Anfrage abgebrochen.
 actor InFlightRequests {
     static let shared = InFlightRequests()
 

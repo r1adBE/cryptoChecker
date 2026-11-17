@@ -29,7 +29,7 @@ enum CsvImportKraken {
         "XXLM": "XLM", "XETC": "ETC", "XZEC": "ZEC", "XXMR": "XMR", "XREP": "REP", "XMLN": "MLN",
         "XXDG": "DOGE", "XDG": "DOGE", "XICN": "ICN", "XNMC": "NMC", "XXVN": "XVN",
         "ZEUR": "EUR", "ZUSD": "USD", "ZGBP": "GBP", "ZCAD": "CAD", "ZJPY": "JPY", "ZAUD": "AUD",
-        "ZCHF": "CHF", "ETH2": "ETH",
+        "ZCHF": "CHF", "ETH2": "ETH"
     ]
 
     /// Kraken-Kürzel → einheitliches Kürzel (gross); Staking-Varianten «.S», «.M», «.F» …, «.HOLD» → Basis («EUR.HOLD»
@@ -236,8 +236,8 @@ enum CsvImportKraken {
             case "staking":
                 reward(leg, &rows, &skipped)
             case "earn":
-                if leg.subtype == "reward" { reward(leg, &rows, &skipped) }
-                else { skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND)) }
+                if leg.subtype == "reward" { reward(leg, &rows, &skipped) } else { skipped.append(CsvImportSkip(line: leg.line,
+                    reason: .UNSUPPORTED_KIND)) }
             default:
                 skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
             }

@@ -77,7 +77,7 @@ extension Bip32 {
 // MARK: - 256-Bit-Arithmetik (secp256k1)
 
 /// 256-Bit-Zahl, vier 64-Bit-Glieder (niedrigstes zuerst).
-fileprivate struct U256: Equatable, Comparable {
+private struct U256: Equatable, Comparable {
     var w: [UInt64]
 
     init(_ w: [UInt64]) { self.w = w }
@@ -115,7 +115,7 @@ fileprivate struct U256: Equatable, Comparable {
 }
 
 /// Rechnen modulo p = 2²⁵⁶ − 2³² − 977 (2²⁵⁶ ≡ C = 0x1000003D1). Wort für Wort gegen Python geprüft.
-fileprivate enum Field {
+private enum Field {
     static let p = U256([0xFFFFFFFEFFFFFC2F, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF])
     static let c: UInt64 = 0x1000003D1
     /// p − 2 (Kehrwert nach Fermat).
@@ -238,7 +238,7 @@ fileprivate enum Field {
 }
 
 /// Punkte in Jacobi-Koordinaten (x = X/Z², y = Y/Z³), Kurve y² = x³ + 7.
-fileprivate enum Curve {
+private enum Curve {
     struct Jacobian {
         var x: U256
         var y: U256

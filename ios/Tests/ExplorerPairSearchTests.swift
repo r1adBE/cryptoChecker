@@ -10,14 +10,14 @@ final class ExplorerPairSearchTests: XCTestCase {
         "Binance": ExchangePairsInfo(lastSyncDate: 1, pairs: [
             ExchangePair("BTC", "USDT", "BTCUSDT"),
             ExchangePair("BTC", "EUR", "BTCEUR"),
-            ExchangePair("ETH", "USDT", "ETHUSDT"),
+            ExchangePair("ETH", "USDT", "ETHUSDT")
         ]),
         "BinanceFutures": ExchangePairsInfo(lastSyncDate: 1, pairs: [
             ExchangePair("BTC", "USDT", "BTCUSDT_261225", .quarterly),
             ExchangePair("BTC", "USDT", "BTCUSDT_270326", .biquarterly),
             ExchangePair("BTC", "USDT", "BTCUSDT", .perpetual),
-            ExchangePair("BTC", "USD", "2:BTCUSD_PERP", .inversePerpetual),
-        ]),
+            ExchangePair("BTC", "USD", "2:BTCUSD_PERP", .inversePerpetual)
+        ])
     ]
 
     private func find(_ q: String) -> [String] {
@@ -31,7 +31,7 @@ final class ExplorerPairSearchTests: XCTestCase {
             "Binance BTC/USDT none",
             "BinanceFutures BTC/USDT perpetual",
             "BinanceFutures BTC/USDT quarterly",
-            "BinanceFutures BTC/USDT biquarterly",
+            "BinanceFutures BTC/USDT biquarterly"
         ])
     }
 
@@ -114,7 +114,7 @@ final class ExplorerPairSearchTests: XCTestCase {
         "A": ExplorerPairStats(change24h: 2.0, quoteVolume: 100.0),
         "B": ExplorerPairStats(change24h: -5.0, quoteVolume: 900.0),
         "C": ExplorerPairStats(change24h: 7.5, quoteVolume: nil),
-        "E": ExplorerPairStats(change24h: 0.0, quoteVolume: 50.0),
+        "E": ExplorerPairStats(change24h: 0.0, quoteVolume: 50.0)
     ]
     private let items = ["A", "B", "C", "D", "E"]
 
@@ -186,16 +186,16 @@ final class ExplorerPairSearchTests: XCTestCase {
             ExchangePair("SOL", "USDT", "SOLUSDT"),
             ExchangePair("USDT", "EUR", "USDTEUR"),
             ExchangePair("SHIB", "USDT", "SHIBUSDT"),
-            ExchangePair("BITCOIN", "USDT", "BITCOINUSDT"),
+            ExchangePair("BITCOIN", "USDT", "BITCOINUSDT")
         ]),
         "Kraken": ExchangePairsInfo(lastSyncDate: 1, pairs: [
             ExchangePair("BTC", "EUR", "XBTEUR"),
-            ExchangePair("ETH", "EUR", "ETHEUR"),
+            ExchangePair("ETH", "EUR", "ETHEUR")
         ]),
         "BinanceFutures": ExchangePairsInfo(lastSyncDate: 1, pairs: [
             ExchangePair("NVDA", "USDT", "NVDAUSDT", .perpetual, tradFi: true),
-            ExchangePair("PEPE", "USDT", "1000PEPEUSDT", .perpetual),
-        ]),
+            ExchangePair("PEPE", "USDT", "1000PEPEUSDT", .perpetual)
+        ])
     ]
 
     private let names = ExplorerNameIndex(names: [
@@ -208,7 +208,7 @@ final class ExplorerPairSearchTests: XCTestCase {
         "PEPE": "Pépé",
         "TRADFI:NVDA": "NVIDIA",
         // Krypto-Token gleichen Kürzels: nie für das TradFi-Paar
-        "NVDA": "Nvidia Token",
+        "NVDA": "Nvidia Token"
     ])
 
     private func findNamed(_ q: String, _ n: ExplorerNameIndex? = nil) -> [String] {

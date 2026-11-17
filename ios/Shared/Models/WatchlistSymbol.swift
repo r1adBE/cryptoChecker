@@ -1,8 +1,9 @@
 import Foundation
 
-/// Die kleinen Symbole einer Zeile der Merkliste, in der Reihenfolge der Zeile: der Stern (Favorit), die Art (`AssetKind`:
-/// Raute, Bank, «α»), die Kursmitteilung (Glocke an / durchgestrichen aus), die Alarmglocke mit Wellen und der Zahl der
-/// aktiven Alarme, zuletzt Notiz und Warn-Dreieck (Kurs veraltet bzw. Börse nicht erreichbar). Das Blatt «Symbole erklärt» zeigt genau diese Liste — wie Android `WatchlistSymbol`.
+/// Die kleinen Symbole einer Zeile der Merkliste, in der Reihenfolge der Zeile: der Stern (Favorit), die Art
+/// (`AssetKind`: Raute, Bank, «α»), die Kursmitteilung (Glocke an / durchgestrichen aus), die Alarmglocke mit Wellen
+/// und der Zahl der aktiven Alarme, zuletzt Notiz und Warn-Dreieck (Kurs veraltet bzw. Börse nicht erreichbar). Das
+/// Blatt «Symbole erklärt» zeigt genau diese Liste — wie Android `WatchlistSymbol`.
 enum WatchlistSymbol: String, CaseIterable, Sendable {
     case FAVORITE, TOKEN, TRADFI, ALPHA, PRICE_NOTIFICATION_ON, PRICE_NOTIFICATION_OFF, ACTIVE_ALARMS, NOTE, WARNING
 

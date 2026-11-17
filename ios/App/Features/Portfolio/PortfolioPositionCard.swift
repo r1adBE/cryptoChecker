@@ -47,7 +47,8 @@ struct PortfolioPositionCard: View {
                 }
             }
             HStack(alignment: .top, spacing: 12) {
-                PortfolioMetric(label: L("portfolio_holdings"), value: PortfolioInsights.mask(PortfolioFormat.exactAmount(p.holdingsExact, p.coin), hidden: hideAmounts),
+                PortfolioMetric(label: L("portfolio_holdings"),
+                    value: PortfolioInsights.mask(PortfolioFormat.exactAmount(p.holdingsExact, p.coin), hidden: hideAmounts),
                                 smallQuote: false)
                 VStack(alignment: .leading, spacing: 2) {
                     // FIFO: Ø über die offenen Posten; Ø-Methode: gleitender Durchschnitt — wie Android
@@ -94,7 +95,8 @@ struct PortfolioPositionCard: View {
             HStack(alignment: .top, spacing: 12) {
                 PortfolioMetric(label: L("portfolio_current_price"), value: PortfolioFormat.price(p.currentPrice))
                 // Immer «Einstand» — die Methode steht in den Einstellungen und im Hinweis darunter
-                PortfolioMetric(label: L("portfolio_invested"), value: p.costBasis.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—")
+                PortfolioMetric(label: L("portfolio_invested"),
+                    value: p.costBasis.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—")
             }
             .padding(.top, 12)
             HStack(alignment: .top, spacing: 12) {
@@ -249,14 +251,16 @@ struct PortfolioOpenLotsSection: View {
         if let cost = lot.costUsdt {
             var text = PortfolioInsights.mask(PortfolioFormat.usdtValue(PortfolioDecimal.double(cost)), hidden: hideAmounts)
             if lot.amount > 0 {
-                text += " · " + L("portfolio_avg_only", PortfolioFormat.price(PortfolioDecimal.double(PortfolioDecimal.divide(cost, lot.amount))))
+                text += " · " + L("portfolio_avg_only", PortfolioFormat.price(PortfolioDecimal.double(PortfolioDecimal.divide(cost,
+                    lot.amount))))
             }
             detail.append(text)
         } else {
             detail.append(L("portfolio_open_lots_without_price"))
         }
         if let wallet = lot.wallet {
-            detail.append(L("tax_export_wallet", wallet.trimmingCharacters(in: .whitespaces).isEmpty ? L("tax_export_wallet_unspecified") : wallet))
+            detail.append(L("tax_export_wallet",
+                wallet.trimmingCharacters(in: .whitespaces).isEmpty ? L("tax_export_wallet_unspecified") : wallet))
         }
         return HStack(alignment: .top, spacing: Spacing.sm) {
             VStack(alignment: .leading, spacing: 2) {

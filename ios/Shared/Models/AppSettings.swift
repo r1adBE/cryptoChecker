@@ -44,8 +44,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var gasAlertEthTenths: Int = 0
     /// Gas-Alarm Bitcoin in sat/vB (0 = aus).
     var gasAlertBtc: Int = 0
-    /// USDT-Depeg melden (`DepegAlarm`): ab Werk aus (zusätzliche Abfragen nur, wenn eingeschaltet).
-    /// Bewertungen rechnen mit dem gemessenen USDT/USD-Marktkurs (gemessen auch ohne Alarm, sobald ein Portfolio da ist) — wie `depegAlarm` (Android).
+    /// USDT-Depeg melden (`DepegAlarm`): ab Werk aus (zusätzliche Abfragen nur, wenn eingeschaltet). Bewertungen
+    /// rechnen mit dem gemessenen USDT/USD-Marktkurs (gemessen auch ohne Alarm, sobald ein Portfolio da ist) — wie
+    /// `depegAlarm` (Android).
     var depegAlarm: Bool = false
     /// Schwelle des Depeg-Alarms in Zehntel-Prozent (3 / 5 / 10 / 20), Standard 0.5 %.
     var depegThresholdTenths: Int = DepegAlarm.defaultThresholdTenths

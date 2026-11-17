@@ -183,7 +183,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
 
     /// Fälschungen für Kurse und Melde-Weg; `shows` zählt die Meldungen, `afterSave` läuft nach dem Speichern.
     nonisolated private static func fakeSeams(shows: LockedBox<Int>,
-                                  afterSave: @escaping @Sendable () async -> Void) -> BackgroundRunSeams {
+                                              afterSave: @escaping @Sendable () async -> Void) -> BackgroundRunSeams {
         var seams = BackgroundRunSeams(refresh: { _, _, _ in firedOutcome() })
         seams.afterPriceSave = afterSave
         seams.notifier = PriceRefresher.AlarmNotifier(canShow: { true }, show: { _ in

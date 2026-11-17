@@ -185,7 +185,7 @@ enum RefreshReportLogic {
         "unknownhost", "unable to resolve host", "connectexception", "failed to connect",
         "noroutetohost", "network is unreachable", "connection reset", "connection refused", "ssl", "eof",
         // Verbindung mitten in der Antwort getrennt (OkHttp)
-        "connection abort", "unexpected end of stream", "stream was reset", "socket closed", "broken pipe",
+        "connection abort", "unexpected end of stream", "stream was reset", "socket closed", "broken pipe"
     ]
 
     /// = Android UserFriendlyExchangeError.EMPTY_RESPONSE / NO_TICKER_DATA.

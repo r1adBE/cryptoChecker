@@ -12,7 +12,7 @@ final class MarketMoveScaleTests: XCTestCase {
     }
 
     private func makeReport(btc: Double, eth: Double, sol: Double, market: Double?, top: [Double],
-                        ratio: Double?) throws -> PulseReport {
+                            ratio: Double?) throws -> PulseReport {
         let input = PulseInput(btc: btc, eth: eth, sol: sol, volumeRatio: ratio, fearGreed: nil, fundingPercent: nil,
                                ethGasGwei: nil, topChanges: top, marketCapUsd: market == nil ? nil : 3.0e12,
                                marketCap24h: market)

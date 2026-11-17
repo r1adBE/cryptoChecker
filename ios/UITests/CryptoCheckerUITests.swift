@@ -31,7 +31,8 @@ final class CryptoCheckerUITests: XCTestCase {
         {"format":"cryptochecker-backup","version":1,"createdAt":0,\
         "watches":[{"id":1,"exchangeKey":"Binance","exchangeName":"Binance","baseAsset":"BTC","quoteAsset":"USDT",\
         "contractType":"NONE","pairId":"BTCUSDT","sortOrder":0,"notificationEnabled":false,"ttsEnabled":false,\
-        "favorite":false,"group":null,"note":null,"disabled":false}],"alarms":[],"favorites":{"EXCHANGE":[],"COIN":[],"QUOTE":[]},"settings":{\
+        "favorite":false,"group":null,"note":null,"disabled":false}],"alarms":[],"favorites":{"EXCHANGE":[],"COIN":[],"QUOTE":[]},\
+        "settings":{\
         "updateMode":"SPARSAM","backgroundIntervalMinutes":15,"priceNotifications":true,\
         "ongoingNotifications":false,"notificationChangePercent":5.0,"ttsEnabled":false,\
         "ttsAlarmsOnly":true,"ttsSpeechRate":1.0,"alarmCooldownMinutes":0,"includeRollingFutures":false,\
@@ -443,8 +444,13 @@ final class CryptoCheckerUITests: XCTestCase {
                 .map(\.identifier).filter { !$0.isEmpty }
             let bars = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
             let tabs = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings).allElementsBoundByIndex
-                .map { "hit=\($0.isHittable) frame=\(Int($0.frame.minX)),\(Int($0.frame.minY)),\(Int($0.frame.width))x\(Int($0.frame.height))" }
-            XCTFail("backup page not shown; bars=\(bars) keyboards=\(app.keyboards.count) tabSettings=\(tabs) hittable=\(row.isHittable) ids=\(Array(Set(ids)).sorted().prefix(60))")
+                .map { e in
+                    let f = e.frame
+                    return "hit=\(e.isHittable) frame=\(Int(f.minX)),\(Int(f.minY)),\(Int(f.width))x\(Int(f.height))"
+                }
+            let shownIds = Array(Set(ids)).sorted().prefix(60)
+            XCTFail("backup page not shown; bars=\(bars) keyboards=\(app.keyboards.count) tabSettings=\(tabs) "
+                + "hittable=\(row.isHittable) ids=\(shownIds)")
         }
     }
 

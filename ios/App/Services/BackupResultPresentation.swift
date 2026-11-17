@@ -15,13 +15,13 @@ enum BackupResultPresentation {
         "backup_restore_journal_unavailable",
         "backup_restore_storage_unavailable",
         "backup_not_verified",
-        "backup_restore_newer_version",
+        "backup_restore_newer_version"
     ]
 
     /// Codepunkte, die doppelt so breit sind (East Asian Wide/Fullwidth, vereinfacht; je einschliesslich).
     static let wideRanges: [ClosedRange<UInt32>] = [
         0x1100...0x115F, 0x2E80...0xA4CF, 0xAC00...0xD7A3, 0xF900...0xFAFF,
-        0xFE30...0xFE4F, 0xFF00...0xFF60, 0xFFE0...0xFFE6, 0x20000...0x3FFFD,
+        0xFE30...0xFE4F, 0xFF00...0xFF60, 0xFFE0...0xFFE6, 0x20000...0x3FFFD
     ]
 
     /// Anzeigebreite: je Codepunkt 1, breite Zeichen (`wideRanges`) 2.

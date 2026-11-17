@@ -44,7 +44,8 @@ enum MarketAlertReset {
         bump(GasAlertCheck.keyResetGeneration, defaults: defaults)
     }
 
-    /// Depeg-Alarm aus (USDT und weitere Stablecoins): Schwelle «aus» (0) merken — beim Wiedereinschalten ist er scharf (`DepegAlarm.armedFor`).
+    /// Depeg-Alarm aus (USDT und weitere Stablecoins): Schwelle «aus» (0) merken — beim Wiedereinschalten ist er scharf
+    /// (`DepegAlarm.armedFor`).
     static func depegOff(defaults: UserDefaults) {
         defaults.set(0, forKey: DepegAlarmCheck.keyArmedTenths)
         // Weitere Stablecoins: je gemerkte Schwelle ebenso «aus» (0)

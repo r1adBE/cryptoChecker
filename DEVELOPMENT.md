@@ -3267,6 +3267,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 282: A-01 part 2 (12): more iOS XCTest source checks into rule ios-wiring (portfolio alarm notification, portfolio storage notice and hidden amounts, watch without iPhone app, backup and restore, Live Activity, full refresh time); the rule also counts occurrences.
 * Build 283: References to audits, reviews, findings and build numbers removed from comments, tests and shared test cases.
 * Build 284: Kotlin style: ktlint 1.7.1 in CI (Android Studio style, 140 columns, android/.editorconfig, download checked by SHA-256); all Kotlin formatted, files named after their class, constant names, wildcard imports resolved; files over 400 lines after formatting split into helper/extension files; long functions shortened.
+* Build 285: Swift style: SwiftLint 0.59.1 in CI (ios/.swiftlint.yml, 140 columns, ceilings for nesting, parameters and complexity; portable macOS release checked by SHA-256, runs with the selected Xcode); iOS sources and tests cleaned up (long lines wrapped, static instead of class, shorthand forms), two long places moved into helpers.
 
 ## Known warnings
 

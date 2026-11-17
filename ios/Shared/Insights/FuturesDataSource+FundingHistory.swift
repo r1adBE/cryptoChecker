@@ -31,7 +31,7 @@ extension FuturesDataSource {
             attempts = [
                 (host: bybitHost, run: { try await bybitHistory(symbol: symbol) }),
                 (host: binanceHost, run: { try await binanceHistory(symbol: usdt) }),
-                (host: okxHost, run: { try await okxHistory(instId: swap) }),
+                (host: okxHost, run: { try await okxHistory(instId: swap) })
             ]
         case "BinanceFutures" where FuturesSources.isCoinM(watch.pairId):
             let coinM = String((watch.pairId ?? "").dropFirst(FuturesSources.coinMPrefix.count))
@@ -39,7 +39,7 @@ extension FuturesDataSource {
                 (host: coinMHost, run: { try await binanceCoinMHistory(symbol: coinM) }),
                 (host: binanceHost, run: { try await binanceHistory(symbol: usdt) }),
                 (host: bybitHost, run: { try await bybitHistory(symbol: usdt) }),
-                (host: okxHost, run: { try await okxHistory(instId: swap) }),
+                (host: okxHost, run: { try await okxHistory(instId: swap) })
             ]
         case "BinanceFutures":
             let symbol: String
@@ -51,20 +51,20 @@ extension FuturesDataSource {
             attempts = [
                 (host: binanceHost, run: { try await binanceHistory(symbol: symbol) }),
                 (host: bybitHost, run: { try await bybitHistory(symbol: usdt) }),
-                (host: okxHost, run: { try await okxHistory(instId: swap) }),
+                (host: okxHost, run: { try await okxHistory(instId: swap) })
             ]
         case "OkexFutures":
             let instId = watch.pairId.flatMap { $0.hasSuffix("-SWAP") ? $0 : nil } ?? swap
             attempts = [
                 (host: okxHost, run: { try await okxHistory(instId: instId) }),
                 (host: binanceHost, run: { try await binanceHistory(symbol: usdt) }),
-                (host: bybitHost, run: { try await bybitHistory(symbol: usdt) }),
+                (host: bybitHost, run: { try await bybitHistory(symbol: usdt) })
             ]
         default:
             attempts = [
                 (host: binanceHost, run: { try await binanceHistory(symbol: usdt) }),
                 (host: bybitHost, run: { try await bybitHistory(symbol: usdt) }),
-                (host: okxHost, run: { try await okxHistory(instId: swap) }),
+                (host: okxHost, run: { try await okxHistory(instId: swap) })
             ]
         }
         for attempt in attempts {

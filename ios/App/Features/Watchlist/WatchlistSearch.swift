@@ -101,7 +101,7 @@ enum WatchlistSearch {
             watch.contractType.shortName ?? "",
             watch.exchangeName,
             watch.note ?? "",
-            name ?? "",
+            name ?? ""
         ].map(ExplorerNameMatch.fold))
     }
 

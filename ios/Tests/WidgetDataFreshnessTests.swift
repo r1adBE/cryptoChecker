@@ -112,7 +112,7 @@ final class WidgetDataFreshnessTests: XCTestCase {
             "widget_spark_own_x|week": ["t": Double(now + hour)],
             "widget_spark_broken": "kaputt",
             "widget_spark_prune_at": Double(now - 100 * hour),
-            "other_key": ["t": 1.0],
+            "other_key": ["t": 1.0]
         ]
         XCTAssertEqual(WidgetSparkCache.staleKeys(in: entries, now: now),
                        ["widget_spark_ETHUSDT|day", "widget_spark_broken", "widget_spark_own_x|week"])

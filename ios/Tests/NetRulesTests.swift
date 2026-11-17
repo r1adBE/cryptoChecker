@@ -8,7 +8,8 @@ final class NetRulesTests: XCTestCase {
     // MARK: «Nicht mehr gehandelt» nur bei klarer Aussage der Börse
 
     func testUnknownExceptionsDoNotConfirmNotTraded() {
-        XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: "The data couldn’t be read because it isn’t in the correct format."))
+        XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false,
+            error: "The data couldn’t be read because it isn’t in the correct format."))
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: "Unknown error (empty)"))
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: "HTTP 410"))
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: "HTTP 401"))

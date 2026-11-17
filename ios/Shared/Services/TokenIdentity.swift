@@ -36,11 +36,11 @@ enum TokenIdentity {
         // Terra 2.0 (neu) gegen Terra Classic (alt; bei manchen Börsen noch unter «LUNA»)
         "LUNA": [
             ["Terra", "Terra 2.0", "Terra Luna 2.0", "LUNA 2.0"],
-            ["Terra Classic", "Terra Luna Classic", "LUNA Classic"],
+            ["Terra Classic", "Terra Luna Classic", "LUNA Classic"]
         ],
         "LUNC": [
             ["Terra Classic", "Terra Luna Classic", "LUNA Classic"],
-            ["Terra", "Terra 2.0", "Terra Luna 2.0", "LUNA 2.0"],
+            ["Terra", "Terra 2.0", "Terra Luna 2.0", "LUNA 2.0"]
         ],
         "CAT": [["Simon's Cat", "Simons Cat"], ["Catcoin"]],
         // Aktie (TradFi) gegen tokenisierte Aktie
@@ -57,11 +57,12 @@ enum TokenIdentity {
         "XDC": [["XDC Network", "XinFin", "XinFin Network"]],
         "XRP": [["Ripple", "XRP Ledger"]],
         "QTUM": [["Qtum", "Quantum"]],
-        "S": [["Sonic", "Fantom"]],
+        "S": [["Sonic", "Fantom"]]
     ]
 
     /// Füllwörter, die zwei Namen desselben Tokens unterscheiden können («Tether USD», «Gate Token»).
-    private static let stopWords: Set<String> = ["token", "tokens", "coin", "network", "protocol", "finance", "the", "new", "labs", "foundation"]
+    private static let stopWords: Set<String> = ["token", "tokens", "coin", "network", "protocol", "finance", "the", "new", "labs",
+        "foundation"]
 
     /// Zusätze, die einen anderen Token bezeichnen, wenn nur eine Seite sie trägt.
     private static let markers: [String] = ["classic", "xstock", "tokenized"]
@@ -164,7 +165,7 @@ enum TokenIdentity {
     static let providerExchanges: [String: String] = [
         DataFreshness.binanceUS: "BinanceUs",
         DataFreshness.coinbase: "Coinbase",
-        DataFreshness.bybit: "Bybit",
+        DataFreshness.bybit: "Bybit"
     ]
 
     /// Darf eine Kerzenreihe der Ausweich-Kette von `provider` für den Coin `symbol` erscheinen (Mini-Chart,

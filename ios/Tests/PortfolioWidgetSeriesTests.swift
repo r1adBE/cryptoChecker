@@ -11,7 +11,8 @@ final class PortfolioWidgetSeriesTests: XCTestCase {
 
     /// Stundenkurse der letzten 24 h: Kurs = f(Stunden zurück).
     private func series(_ f: (Int) -> Double) -> [PortfolioTimedPrice] {
-        stride(from: 24, through: 1, by: -1).map { (k: Int) -> PortfolioTimedPrice in PortfolioTimedPrice(at: now - Int64(k) * h, price: f(k)) }
+        stride(from: 24, through: 1, by: -1).map { (k: Int) -> PortfolioTimedPrice in PortfolioTimedPrice(at: now - Int64(k) * h,
+            price: f(k)) }
     }
 
     func testHourlyClosesGetTimesBackFromFetch() {
@@ -27,11 +28,11 @@ final class PortfolioWidgetSeriesTests: XCTestCase {
     func testMergeKeepsNewestPerHourAndPrunes() throws {
         let stored: [String: [PortfolioTimedPrice]] = [
             "btc": [PortfolioTimedPrice(at: now - 30 * h, price: 1), PortfolioTimedPrice(at: now - 5 * h - 10, price: 2)],
-            "ETH": [PortfolioTimedPrice(at: now + h, price: 9)],
+            "ETH": [PortfolioTimedPrice(at: now + h, price: 9)]
         ]
         let hourStart = (now - 5 * h - 10) / h * h
         let fresh: [String: [PortfolioTimedPrice]] = [
-            "BTC": [PortfolioTimedPrice(at: hourStart + 1, price: 3), PortfolioTimedPrice(at: now, price: 4)],
+            "BTC": [PortfolioTimedPrice(at: hourStart + 1, price: 3), PortfolioTimedPrice(at: now, price: 4)]
         ]
         let merged = PortfolioWidgetSeries.merge(stored: stored, fresh: fresh, now: now)
         XCTAssertEqual(Set(merged.keys), ["BTC"])
@@ -111,7 +112,8 @@ final class PortfolioWidgetSeriesTests: XCTestCase {
     }
 
     func testFewHoursAreNotDrawable() {
-        let prices = ["BTC": stride(from: 4, through: 1, by: -1).map { (k: Int) -> PortfolioTimedPrice in PortfolioTimedPrice(at: now - Int64(k) * h, price: 100) }]
+        let prices = ["BTC": stride(from: 4, through: 1,
+            by: -1).map { (k: Int) -> PortfolioTimedPrice in PortfolioTimedPrice(at: now - Int64(k) * h, price: 100) }]
         let points = PortfolioWidgetSeries.hourly(holdings: ["BTC": 1], current: ["BTC": 100], prices: prices, now: now,
                                                   factor: 1, stables: stables)
         XCTAssertEqual(points.count, 5)
@@ -128,7 +130,8 @@ final class PortfolioWidgetSeriesTests: XCTestCase {
         let change = try XCTUnwrap(PortfolioWidgetSeries.change(points))
         XCTAssertEqual(change.amount, -10, accuracy: 1e-9)
         XCTAssertEqual(try XCTUnwrap(change.percent), -5, accuracy: 1e-9)
-        let short = stride(from: 10, through: 0, by: -1).map { (k: Int) -> PortfolioWidgetPoint in PortfolioWidgetPoint(at: now - Int64(k) * h, value: 1) }
+        let short = stride(from: 10, through: 0,
+            by: -1).map { (k: Int) -> PortfolioWidgetPoint in PortfolioWidgetPoint(at: now - Int64(k) * h, value: 1) }
         XCTAssertNil(PortfolioWidgetSeries.change(short))
         XCTAssertEqual(PortfolioWidgetSeries.direction(-1), -1)
         XCTAssertEqual(PortfolioWidgetSeries.direction(0.004), 0)

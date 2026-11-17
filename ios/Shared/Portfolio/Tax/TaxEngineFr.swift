@@ -5,8 +5,8 @@ import Foundation
 extension TaxEngines {
 
     static func frPta(_ real: [PortfolioTx], _ priceAt: ((String, Int64) -> Decimal?)?,
-                              _ outflows: inout [TaxOutflow],
-                              addressTrades: [PortfolioTx] = []) -> [PortfolioDisposal] {
+                      _ outflows: inout [TaxOutflow],
+                      addressTrades: [PortfolioTx] = []) -> [PortfolioDisposal] {
         let run = FrPtaRun(priceAt, addressTrades: addressTrades)
         let out = run.run(real)
         outflows.append(contentsOf: run.outflows)

@@ -187,9 +187,10 @@ extension CoinLogoStore {
     static let alphaTimeKey = "coin_logos_alpha_time"
     static let alphaAttemptKey = "coin_logos_alpha_attempt"
 
-    /// Kürzel der Alpha-Token (`CoinLogos.alphaSymbols`): Binance-Alpha-Liste ohne regulär an
-    /// Binance Spot gelistete. Kommt mit demselben Logo-Abgleich (kein eigener Abruf) und liegt im gemeinsamen Speicher; leer, bis die Liste sie einmal geliefert hat. Für
-    /// das Symbol «α» (`AssetKind`) und «inkl. Alpha-Tokens» — wie Android `alphaSymbols`.
+    /// Kürzel der Alpha-Token (`CoinLogos.alphaSymbols`): Binance-Alpha-Liste ohne regulär an Binance Spot gelistete.
+    /// Kommt mit demselben Logo-Abgleich (kein eigener Abruf) und liegt im gemeinsamen Speicher; leer, bis die Liste
+    /// sie einmal geliefert hat. Für das Symbol «α» (`AssetKind`) und «inkl. Alpha-Tokens» — wie Android
+    /// `alphaSymbols`.
     static var alphaSymbols: Set<String> {
         if let stored = SharedStorage.defaults.stringArray(forKey: alphaSymbolsKey) { return Set(stored) }
         // Nie eine Liste geholt: Alpha-Token aus dem mitgelieferten Auszug

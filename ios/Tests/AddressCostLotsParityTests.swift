@@ -177,7 +177,9 @@ final class AddressCostLotsParityTests: XCTestCase {
             closes[coin] = out
         }
         func close(_ label: String, _ expected: Double?, _ actual: Double?) {
-            guard let expected, let actual else { return XCTFail("\(label): \(String(describing: actual)) ≠ \(String(describing: expected))") }
+            guard let expected, let actual else {
+                return XCTFail("\(label): \(String(describing: actual)) ≠ \(String(describing: expected))")
+            }
             XCTAssertLessThan(abs(expected - actual), 1e-6, label)
         }
         for c in S.list(p["cases"]) {

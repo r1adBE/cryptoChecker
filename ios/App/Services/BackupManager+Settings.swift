@@ -78,7 +78,7 @@ extension BackupManager {
             // Steuer-Vorlage «NEUTRAL» | «DE» | … (wie Android)
             "taxTemplate": s.taxTemplate.rawValue,
             // Eigener Bitcoin-Server für Adressabfragen; null = öffentliche Knoten (wie Android)
-            "addressServerBtc": s.addressServerBtc.map { $0 as Any } ?? NSNull(),
+            "addressServerBtc": s.addressServerBtc.map { $0 as Any } ?? NSNull()
         ]
     }
 
@@ -98,7 +98,7 @@ extension BackupManager {
         ("priceColorsInverted", .bool), ("alarmSignal", .string), ("quietHoursEnabled", .bool),
         ("quietHoursStart", .int), ("quietHoursEnd", .int), ("appLock", .bool), ("hidePortfolioAmounts", .bool),
         ("portfolioSystemBackup", .bool), ("costMethod", .string), ("taxTemplate", .string),
-        (ColumnSort.backupField, .stringOrNull), ("addressServerBtc", .stringOrNull),
+        (ColumnSort.backupField, .stringOrNull), ("addressServerBtc", .stringOrNull)
     ]
 
     /// Jedes Feld aus `settingsFields` vorhanden und vom richtigen Typ (`BackupFields.check`); sonst `Failure.invalid` —
@@ -116,7 +116,9 @@ extension BackupManager {
 
     /// Ausserhalb von Int gesättigt; die Grenzen setzt der Aufrufer.
     private static func whole(_ o: [String: Any], _ key: String) throws -> Int {
-        guard let v = o[key], BackupFields.isWhole(v), let d = BackupFields.finiteNumber(v) else { throw Failure.invalid("settings." + key) }
+        guard let v = o[key], BackupFields.isWhole(v), let d = BackupFields.finiteNumber(v) else {
+            throw Failure.invalid("settings." + key)
+        }
         if d >= Double(Int.max) { return Int.max }
         if d <= Double(Int.min) { return Int.min }
         return Int(d)
@@ -131,7 +133,6 @@ extension BackupManager {
         guard let v = o[key] as? String else { throw Failure.invalid("settings." + key) }
         return v
     }
-
 
     /// Übernimmt die Einstellungen der Sicherung (`checkSettings`, sonst `Failure.invalid`), mit denselben Grenzen wie
     /// die Android-Setter. `trusted` = Sicherung mit Passwort (bzw. eigener Stand); sonst nur Schutz-Einstellungen in

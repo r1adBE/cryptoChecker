@@ -106,7 +106,7 @@ private struct PriceActivityLockScreenView: View {
                 L("a11y_row_pair", attributes.pairLabel, attributes.exchangeName),
                 state.priceText,
                 A11y.change(state.change24h, basis: state.basis ?? .default),
-                PriceActivityText.updated(state.updatedAt),
+                PriceActivityText.updated(state.updatedAt)
             ]))
     }
 

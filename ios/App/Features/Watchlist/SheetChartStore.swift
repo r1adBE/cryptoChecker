@@ -4,17 +4,16 @@ import SwiftUI
 // Zwischenspeicher der Kerzen im Aktionsblatt — wie `SheetChartRepository.kt` (Android). Regeln in
 // WatchSheetChart.swift.
 
-/// Kerzen des Blatts: gleiche Intervalle wie das Einzel-Widget (`PriceChartRange`). Zuerst die Kerzen
-/// der EIGENEN Börse des Paars (`OwnCandleDataSource`, z. B. Kraken-Paar → Kraken); sonst die
-/// Ausweich-Kette (`CandleDataSource`, Futures-Paare zuerst USDⓈ-M); bei Fiat-Quotes ersatzweise die
-/// USDT-Reihe, je Kerze mit dem Devisenkurs ihres Tags umgerechnet (dieselben EZB-Tageskurse wie der
-/// Wertverlauf, `HistoricPriceSource.usdToSeries`); USDT → USD wie der Wertverlauf: heute der Live-Kurs, davor die
-/// USDT/USD-Tagesschlüsse derselben Quelle wie das Portfolio (`PortfolioHistorySource.usdtUsdDaily`: Kraken, Lücken
-/// Coinbase, 12 h gespeichert); fehlt einer, trägt die ganze Reihe EINEN Kurs (`SheetChart.usdtSeries`). Jede Reihe gilt nur bei gleichem Token
-/// (`SheetChart.accept`); passt die Reihe einer Quelle nicht, ist die nächste der Kette dran.
-/// TradFi-Paare und DEX-Pools nie aus der Kette (`OwnCandlePolicy.allowsFallback`).
-/// Im Speicher je Paar (mit Börse) und Zeitraum 5, 30 bzw. 60 Minuten (nur Erfolge); verworfen beim
-/// Aktualisieren von Hand (`invalidate`, `invalidateAll`) oder bei einem Kurssprung über 3 %.
+/// Kerzen des Blatts: gleiche Intervalle wie das Einzel-Widget (`PriceChartRange`). Zuerst die Kerzen der EIGENEN Börse
+/// des Paars (`OwnCandleDataSource`, z. B. Kraken-Paar → Kraken); sonst die Ausweich-Kette (`CandleDataSource`,
+/// Futures-Paare zuerst USDⓈ-M); bei Fiat-Quotes ersatzweise die USDT-Reihe, je Kerze mit dem Devisenkurs ihres Tags
+/// umgerechnet (dieselben EZB-Tageskurse wie der Wertverlauf, `HistoricPriceSource.usdToSeries`); USDT → USD wie der
+/// Wertverlauf: heute der Live-Kurs, davor die USDT/USD-Tagesschlüsse derselben Quelle wie das Portfolio
+/// (`PortfolioHistorySource.usdtUsdDaily`: Kraken, Lücken Coinbase, 12 h gespeichert); fehlt einer, trägt die ganze
+/// Reihe EINEN Kurs (`SheetChart.usdtSeries`). Jede Reihe gilt nur bei gleichem Token (`SheetChart.accept`); passt die
+/// Reihe einer Quelle nicht, ist die nächste der Kette dran. TradFi-Paare und DEX-Pools nie aus der Kette
+/// (`OwnCandlePolicy.allowsFallback`). Im Speicher je Paar (mit Börse) und Zeitraum 5, 30 bzw. 60 Minuten (nur
+/// Erfolge); verworfen beim Aktualisieren von Hand (`invalidate`, `invalidateAll`) oder bei einem Kurssprung über 3 %.
 /// Netz und Umrechnung laufen abseits des Main-Threads. Wie `SheetChartRepository.kt`.
 final class SheetChartStore: Sendable {
     static let shared = SheetChartStore()
@@ -123,7 +122,8 @@ final class SheetChartStore: Sendable {
         let exchangeKey = watch.exchangeKey
         let rawBase = watch.baseAsset
         // Eigene Aufgabe abseits des Main-Threads (eigene Börse, Ausweich-Kette, Tageskurse, Umrechnung)
-        let found = await Task.detached(priority: .userInitiated) { () -> (candles: [MarketCandle], converted: Bool, info: SheetChartInfo)? in
+        typealias Found = (candles: [MarketCandle], converted: Bool, info: SheetChartInfo)
+        let found = await Task.detached(priority: .userInitiated) { () -> Found? in
             // 1. Eigene Börse des Paars (kein Hinweis auf eine fremde Quelle nötig)
             if OwnCandleDataSource.supports(pair, interval: range.candleInterval) {
                 let own = await OwnCandleDataSource.shared.candles(pair, interval: range.candleInterval, limit: range.limit)

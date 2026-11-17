@@ -257,7 +257,7 @@ extension SettingsSearchIndex {
             L("settings_asset_scope_tokens"), L("settings_asset_scope_tokens_hint"),
             L("settings_asset_scope_tradfi"), L("settings_asset_scope_tradfi_hint"),
             L("settings_asset_scope_both"), "TradFi", "Token",
-            L("settings_tradfi_futures"), L("settings_tradfi_futures_hint"),
+            L("settings_tradfi_futures"), L("settings_tradfi_futures_hint")
         ]
         add("futures.scope", L("settings_asset_scope_title"), futures, .page(.exchanges, anchor: "futures.scope"),
             scopeWords)

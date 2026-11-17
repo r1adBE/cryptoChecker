@@ -54,7 +54,7 @@ enum StarterCoins {
         StarterCoin(name: "Ethereum", symbol: "ETH"),
         StarterCoin(name: "XRP", symbol: "XRP"),
         StarterCoin(name: "BNB", symbol: "BNB"),
-        StarterCoin(name: "Solana", symbol: "SOL"),
+        StarterCoin(name: "Solana", symbol: "SOL")
     ]
 
     /// Binance.US (Region USA, …/USDT): ohne XRP, das Binance.US nicht sicher führt — wie Android.
@@ -63,7 +63,7 @@ enum StarterCoins {
         StarterCoin(name: "Ethereum", symbol: "ETH"),
         StarterCoin(name: "BNB", symbol: "BNB"),
         StarterCoin(name: "Solana", symbol: "SOL"),
-        StarterCoin(name: "Dogecoin", symbol: "DOGE"),
+        StarterCoin(name: "Dogecoin", symbol: "DOGE")
     ]
 
     static func fallback(exchangeKey: String) -> [StarterCoin] {

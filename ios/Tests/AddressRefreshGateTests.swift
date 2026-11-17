@@ -36,7 +36,7 @@ final class AddressRefreshGateTests: XCTestCase {
                 WatchedAddress(id: 2, chain: .BTC, address: gateTestXpub),
                 // Schon früher versucht (vor einer Stunde), Token aus
                 WatchedAddress(id: 3, chain: .ETH, address: "0x0000000000000000000000000000000000000001",
-                               lastAttempt: now - 3_600_000, countTokens: false),
+                               lastAttempt: now - 3_600_000, countTokens: false)
             ], nextId: 4)
         }
 

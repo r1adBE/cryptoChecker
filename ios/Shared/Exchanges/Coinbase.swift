@@ -26,7 +26,7 @@ private let coinbaseStarterPairs: CurrencyPairsMap = [
     "USDC": ["EUR", "GBP"],
     "USDT": ["EUR", "GBP", "USD", "USDC"],
     "XLM": ["BTC", "EUR", "USD"],
-    "ZEC": ["BTC", "USD", "USDC"],
+    "ZEC": ["BTC", "USD", "USDC"]
 ]
 
 /// Coinbase Exchange (https://docs.cloud.coinbase.com/exchange/reference/). Kennung = Produkt-ID («BTC-USD»).

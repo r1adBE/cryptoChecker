@@ -128,7 +128,8 @@ extension PortfolioTxSheet {
             message = L("portfolio_sell_exceeds_wallet", PortfolioFormat.exactAmount(walletHoldings, coin),
                         walletName.isEmpty ? L("tax_export_wallet_unspecified") : walletName)
         } else if exceeds, let holdings {
-            let key = PortfolioTxForm.sellExceedsIncludesFee(fee, unit: effectiveFeeUnit) ? "portfolio_sell_exceeds_fee" : "portfolio_sell_exceeds"
+            let key = PortfolioTxForm.sellExceedsIncludesFee(fee,
+                unit: effectiveFeeUnit) ? "portfolio_sell_exceeds_fee" : "portfolio_sell_exceeds"
             message = L(key, PortfolioFormat.exactAmount(holdings, coin))
         } else {
             message = nil
@@ -158,7 +159,8 @@ extension PortfolioTxSheet {
     var priceField: some View {
         let receipt = type == .REWARD || type == .DEPOSIT
         // Verschenkt, Damit bezahlt: Marktwert je Coin (Damit bezahlt: Erlös = Menge × Wert, kein Geld erhalten)
-        let label = receipt ? "portfolio_tx_value_received" : (type == .GIFT || type == .PAYMENT ? "portfolio_tx_market_value" : "portfolio_tx_price")
+        let marketValue = type == .GIFT || type == .PAYMENT
+        let label = receipt ? "portfolio_tx_value_received" : (marketValue ? "portfolio_tx_market_value" : "portfolio_tx_price")
         return VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L(label))
             HStack(spacing: Spacing.sm) {

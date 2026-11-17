@@ -24,13 +24,13 @@ enum BackupFields {
     static let watch = Entry(part: "watches", required: [
         ("id", .int), ("exchangeKey", .string), ("exchangeName", .string), ("baseAsset", .string), ("quoteAsset", .string),
         ("contractType", .string), ("pairId", .stringOrNull), ("sortOrder", .int), ("notificationEnabled", .bool),
-        ("ttsEnabled", .bool), ("favorite", .bool), ("group", .stringOrNull), ("note", .stringOrNull), ("disabled", .bool),
+        ("ttsEnabled", .bool), ("favorite", .bool), ("group", .stringOrNull), ("note", .stringOrNull), ("disabled", .bool)
     ])
 
     static let alarm = Entry(part: "alarms", required: [
         ("id", .int), ("watchId", .int), ("condition", .string), ("threshold", .double), ("enabled", .bool),
         ("repeating", .bool), ("sound", .bool), ("vibrate", .bool), ("speak", .bool), ("referencePrice", .doubleOrNull),
-        ("windowHours", .int), ("currency", .stringOrNull),
+        ("windowHours", .int), ("currency", .stringOrNull)
     ])
 
     static let tx = Entry(part: "portfolio", required: [
@@ -41,12 +41,12 @@ enum BackupFields {
         ("importKey", .stringOrNull), ("acquiredTime", .intOrNull), ("toCoin", .stringOrNull),
         ("toAmountText", .stringOrNull), ("swapValueText", .stringOrNull), ("importBatch", .stringOrNull),
         ("giftToSpouse", .bool), ("linkedImportKey", .stringOrNull), ("importRestoreState", .objectOrNull),
-        ("feeRow", .bool), ("interest", .bool), ("stakingMove", .bool),
+        ("feeRow", .bool), ("interest", .bool), ("stakingMove", .bool)
     ])
 
     static let portfolioAlarm = Entry(part: "portfolioAlarms", required: [
         ("id", .int), ("kind", .string), ("threshold", .double), ("currency", .stringOrNull), ("enabled", .bool),
-        ("repeating", .bool),
+        ("repeating", .bool)
     ])
 
     static let watchedAddress = Entry(part: WatchedAddressRules.backupKey,

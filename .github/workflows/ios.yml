@@ -139,6 +139,10 @@ jobs:
           # Exact version and build in the summary: a red run after a runner image update is traceable
           { echo "### Xcode"; xcodebuild -version | tr '\n' ' '; echo; } >> "$GITHUB_STEP_SUMMARY"
 
+      # Swift style (SwiftLint, pinned and checked by SHA-256; rules in ios/.swiftlint.yml) — needs Xcode's SourceKit
+      - name: Swift style
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/swiftlint.sh" "$GITHUB_WORKSPACE"
+
       # Release build settings of app and widget as annotations (ios_release_audit.py settings):
       # error for DEBUG conditions, testability or a version different from Android; warning for
       # optimisation level, VALIDATE_PRODUCT and dSYM.

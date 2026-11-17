@@ -125,7 +125,8 @@ extension PortfolioCalculator {
                     coin: symbol, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
                     amount: amount, costUsdt: cost, proceedsUsdt: part, gainUsdt: gain, holdingDays: nil,
                     feeLeg: feeLeg, feeValueMissing: feeMissing, method: .AVERAGE,
-                    costParts: PortfolioCostPartList(costParts), uncovered: isUncovered, swap: swap, gift: gift, payment: payment, valueEstimated: estimated))
+                    costParts: PortfolioCostPartList(costParts), uncovered: isUncovered, swap: swap, gift: gift, payment: payment,
+                    valueEstimated: estimated))
             }
             if let taken {
                 if !hadPriced {

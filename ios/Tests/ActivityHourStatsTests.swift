@@ -94,7 +94,8 @@ final class ActivityHourStatsTests: XCTestCase {
         let six = try XCTUnwrap(ActivityAnalyzer.hourStats(withGaps(closes, missing: missing, volumes: zeroAt([10, 14, 18])), now: now))
         XCTAssertNotNil(six.volumeRatio)
         // Drei fehlende plus vier ohne Umsatz = 7 leere Stunden: kein Verhältnis
-        let seven = try XCTUnwrap(ActivityAnalyzer.hourStats(withGaps(closes, missing: missing, volumes: zeroAt([10, 14, 18, 20])), now: now))
+        let seven = try XCTUnwrap(ActivityAnalyzer.hourStats(withGaps(closes, missing: missing, volumes: zeroAt([10, 14, 18, 20])),
+            now: now))
         XCTAssertNil(seven.volumeRatio)
     }
 }

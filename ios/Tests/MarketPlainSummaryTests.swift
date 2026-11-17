@@ -9,7 +9,7 @@ final class MarketPlainSummaryTests: XCTestCase {
     /// Namen der Tatsachen wie in den Testfällen (Android-Enum).
     private static let factKinds: [String: UnusualFactKind] = [
         "STRONGER_THAN_BTC": .strongerThanBtc, "WEAKER_THAN_BTC": .weakerThanBtc, "AGAINST_MARKET": .againstMarket,
-        "VOLUME": .volume, "FUNDING_HIGH": .fundingHigh, "FUNDING_NEGATIVE": .fundingNegative,
+        "VOLUME": .volume, "FUNDING_HIGH": .fundingHigh, "FUNDING_NEGATIVE": .fundingNegative
     ]
 
     func testSharedCases() throws {

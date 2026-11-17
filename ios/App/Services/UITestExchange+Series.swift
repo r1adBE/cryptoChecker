@@ -68,7 +68,7 @@ extension UITestExchange {
         UITestExchangeCoin(symbol: "ARB", name: "Arbitrum", price: 0.85, marketCap: 3.8e9, change24h: 2.6, beta: 1.3),
         UITestExchangeCoin(symbol: "ATOM", name: "Cosmos Hub", price: 8.9, marketCap: 3.6e9, change24h: -2.2, beta: 1.05),
         UITestExchangeCoin(symbol: "OP", name: "Optimism", price: 2.1, marketCap: 3.6e9, change24h: -6.7, beta: 1.35),
-        UITestExchangeCoin(symbol: "INJ", name: "Injective", price: 28.0, marketCap: 2.7e9, change24h: 9.6, beta: 1.4),
+        UITestExchangeCoin(symbol: "INJ", name: "Injective", price: 28.0, marketCap: 2.7e9, change24h: 9.6, beta: 1.4)
     ]
 
     /// Gesamtmarkt in USD, 24-h-Umsatz und Veränderung (CoinGecko `/global`).
@@ -102,7 +102,7 @@ extension UITestExchange {
         (LocalDay(2022, 11, 21).epochMillisUTC, 15_800), (LocalDay(2024, 3, 14).epochMillisUTC, 73_000),
         (LocalDay(2024, 4, 20).epochMillisUTC, 64_000), (LocalDay(2024, 8, 5).epochMillisUTC, 54_000),
         (LocalDay(2024, 12, 17).epochMillisUTC, 106_000), (LocalDay(2025, 4, 8).epochMillisUTC, 76_500),
-        (LocalDay(2025, 10, 6).epochMillisUTC, 124_500),
+        (LocalDay(2025, 10, 6).epochMillisUTC, 124_500)
     ]
 
     /// Heutiger BTC-Kurs (wie die Merkliste).

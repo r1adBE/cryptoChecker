@@ -10,7 +10,8 @@ import XCTest
 final class ProtectedFileTests: XCTestCase {
 
     /// Schlüsselbund im Speicher; Fehler je Aufruf einstellbar.
-    final class FakeKeychain: StorageKeychain, @unchecked Sendable { // @unchecked: Test-Fake, nur nacheinander aus dem Testablauf benutzt (keine Sperre nötig)
+    /// `@unchecked`: Test-Fake, nur nacheinander aus dem Testablauf benutzt (keine Sperre nötig).
+    final class FakeKeychain: StorageKeychain, @unchecked Sendable {
         var stored: Data?
         var readStatus: OSStatus?
         var addStatus: OSStatus?
@@ -227,7 +228,8 @@ final class ProtectedFileTests: XCTestCase {
         try Data(#"{"transactions":[]}"#.utf8).write(to: portfolioCopy)
         BackupExclusion.set(excluded: true, for: portfolioCopy)
         let fake = keychain(with: nil)
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: keys(fake), defaults: isolatedDefaults())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: keys(fake),
+            defaults: isolatedDefaults())
         XCTAssertEqual(outcome.encrypted, ["watchlist.unreadable.json", "portfolio.unreadable.json"])
         XCTAssertEqual(outcome.setAside, [])
         XCTAssertEqual(fake.adds, 1)
@@ -240,7 +242,8 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertEqual(try leftovers(), [])
 
         // Zweiter Start: nichts mehr zu tun
-        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: k, defaults: isolatedDefaults()), .init())
+        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: k,
+            defaults: isolatedDefaults()), .init())
     }
 
     func testEncryptionPendingOnlyWhileSomethingStaysPlain() throws {
@@ -251,11 +254,13 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertFalse(first.encryptionPending)
         // Alles verschlüsselt, Schlüsselbund später gesperrt: verschlüsselte Dateien sind kein «noch nicht aktiv»
         fake.readStatus = errSecInteractionNotAllowed
-        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults()).encryptionPending)
+        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake),
+            defaults: isolatedDefaults()).encryptionPending)
     }
 
     func testMissingFilesAreSkipped() {
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: nil)), defaults: isolatedDefaults())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: nil)),
+            defaults: isolatedDefaults())
         XCTAssertEqual(outcome, .init())
         XCTAssertFalse(FileManager.default.fileExists(atPath: watchlistCopy.path))
     }

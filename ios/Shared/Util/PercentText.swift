@@ -22,12 +22,12 @@ enum PercentText {
     private static let unspacedRegions: [String: Set<String>] = [
         "de": ["CH", "LI"],
         "fr": ["CH", "LI"],
-        "es": ["MX"],
+        "es": ["MX"]
     ]
 
     /// Umgekehrte Ausnahmen: Sprachen ohne Abstand, in diesen Regionen mit (CLDR en_AT, en_DE, en_DK, en_FI, en_SE).
     private static let spacedRegions: [String: Set<String>] = [
-        "en": ["AT", "DE", "DK", "FI", "SE"],
+        "en": ["AT", "DE", "DK", "FI", "SE"]
     ]
 
     /// Abstand vor «%» für `language` in `region` nach CLDR (ohne Türkisch und arabische Ziffern).

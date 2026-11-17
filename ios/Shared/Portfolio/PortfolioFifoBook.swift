@@ -159,9 +159,8 @@ extension PortfolioFifo {
                 let w = weights[i]
                 var share: Decimal?
                 if let proceeds, let left = proceedsLeft {
-                    if w <= 0 { share = 0 }
-                    else if i == lastWeighted { share = left }
-                    else { share = PortfolioDecimal.divide(proceeds, w, by: weightTotal) }
+                    if w <= 0 { share = 0 } else if i == lastWeighted { share = left } else { share = PortfolioDecimal.divide(proceeds,
+                        w, by: weightTotal) }
                     proceedsLeft = left - (share ?? 0)
                 }
                 var gain: Decimal?
