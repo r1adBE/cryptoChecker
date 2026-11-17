@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 276)
+
+- Fix (iOS): the add button hidden while scrolling could still be reached with VoiceOver.
+
 ## 16.2.2 (build 275)
 
 - Test fix (iOS UI test of the add button while scrolling).

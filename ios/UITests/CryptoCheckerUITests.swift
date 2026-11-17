@@ -284,11 +284,11 @@ final class CryptoCheckerUITests: XCTestCase {
         from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35)))
         // Erst prüfen, dass die Liste wirklich scrollte (sonst sagte der Test nichts über den Knopf)
         XCTAssertNotEqual(anyCoin.firstMatch.identifier + " \(anyCoin.firstMatch.frame.minY)", before, "list did not scroll")
-        let hidden = wait(add, "exists == false || hittable == false")
+        let hidden = wait(add, "exists == false || enabled == false")
         let lines = app.debugDescription.split(separator: "\n").filter { $0.contains("Add transaction") }
         XCTAssertTrue(hidden, "add button still shown while scrolling down: \(lines)")
         app.swipeDown()
-        XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button not back after scrolling up")
+        XCTAssertTrue(wait(add, "exists == true && enabled == true"), "add button not back after scrolling up")
     }
 
     // MARK: 9. Leeres Portfolio

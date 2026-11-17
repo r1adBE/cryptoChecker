@@ -324,6 +324,9 @@ struct PortfolioAddAccessory: View {
                 .opacity(slot.visible ? 1 : 0)
                 .scaleEffect(slot.visible || reduceMotion ? 1 : 0.8)
                 .allowsHitTesting(slot.visible)
+                // Ausgeblendet auch für VoiceOver nicht auslösbar: accessibilityHidden allein liess den unsichtbaren
+                // Knopf im Baum (UI-Test, iOS 26) — dort hätte Doppeltippen ihn ausgelöst
+                .disabled(!slot.visible)
                 .accessibilityHidden(!slot.visible)
                 .animation(.easeInOut(duration: 0.2), value: slot.visible)
                 .frame(maxWidth: .infinity, alignment: .trailing)

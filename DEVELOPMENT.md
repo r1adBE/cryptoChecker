@@ -3258,6 +3258,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 273: fixes of 272: iOS portfolio alarm flag back in AppData+Alarms; Android AlarmCreateGuard starts the block on the next dispatch so a fast create cannot free the guard before a second tap in the same frame.
 * Build 274: iOS UI test of the add button: short drag instead of a swipe (a swipe reached the end of the list, where the button comes back by design).
 * Build 275: iOS UI test of the add button checks that the list scrolled and reports the button in the tree on failure.
+* Build 276: iOS portfolio add button: disabled while hidden (accessibilityHidden alone left it in the tree on iOS 26); UI test checks it.
 
 ## Known warnings
 
