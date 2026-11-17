@@ -17,7 +17,7 @@ final class AddressServerUnknownTests: XCTestCase {
         defaults.removePersistentDomain(forName: suite)
     }
 
-    func testErsetzteEinstellungenMachenDenServerUnbekannt() {
+    func testReplacedSettingsMakeTheServerUnknown() {
         XCTAssertFalse(StorageRecoveryNotice.addressServerUnknown(defaults: defaults))
         StorageRecoveryNotice.recordSettingsReset(defaults: defaults)
         XCTAssertTrue(StorageRecoveryNotice.addressServerUnknown(defaults: defaults))

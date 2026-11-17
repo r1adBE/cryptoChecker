@@ -9,7 +9,7 @@ final class SettingsPercentInputTests: XCTestCase {
         SettingsPercentOption.parse(SettingsPercentOption.filterInput(input))
     }
 
-    func testArabischesUndPersischesDezimalzeichenBleibt() {
+    func testArabicAndPersianDecimalSeparatorStays() {
         XCTAssertEqual(SettingsPercentOption.filterInput("٢٫٥"), "٢٫٥")
         XCTAssertEqual(typed("٢٫٥"), 2.5)
         XCTAssertEqual(typed("۲٫۵"), 2.5)
@@ -17,13 +17,13 @@ final class SettingsPercentInputTests: XCTestCase {
         XCTAssertEqual(typed("2.5"), 2.5)
     }
 
-    func testTausendertrennungWirdAbgelehntStattVerschluckt() {
+    func testThousandsSeparatorIsRejectedInsteadOfSwallowed() {
         XCTAssertEqual(SettingsPercentOption.filterInput("١٬٥"), "١٬٥")
         XCTAssertNil(typed("١٬٥"))
         XCTAssertTrue(SettingsPercentOption.inputError(SettingsPercentOption.filterInput("١٬٥")))
     }
 
-    func testFilterEntferntNichtsStillUndKuerztAufSechsZeichen() {
+    func testFilterRemovesNothingSilentlyAndTrimsToSixCharacters() {
         // Eingefügt: Buchstabe, Exponent, Vorzeichen bleiben stehen und gelten als Fehler (nie still «25», «13», «0»)
         XCTAssertEqual(SettingsPercentOption.filterInput("2a5 %"), "2a5%")
         XCTAssertNil(typed("2a5 %"))
@@ -34,7 +34,7 @@ final class SettingsPercentInputTests: XCTestCase {
         XCTAssertEqual(SettingsPercentOption.filterInput("1234567"), "123456")
     }
 
-    func testFehlerErstBeiUngueltigerEingabe() {
+    func testErrorOnlyOnInvalidInput() {
         XCTAssertFalse(SettingsPercentOption.inputError(""))
         XCTAssertFalse(SettingsPercentOption.inputError("0"))
         XCTAssertFalse(SettingsPercentOption.inputError("100"))

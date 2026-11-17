@@ -37,7 +37,7 @@ class PriceFormatIcuTest {
     private fun same(text: String): String = text.replace('’', '\'')
 
     @Test
-    fun alleFaelleWieGemeinsameDatei() {
+    fun allCasesAsInSharedFile() {
         val text = InstrumentationRegistry.getInstrumentation().context.assets.open("price_format.json")
             .bufferedReader(Charsets.UTF_8).use { it.readText() }
         val cases = JSONObject(text).getJSONArray("cases")

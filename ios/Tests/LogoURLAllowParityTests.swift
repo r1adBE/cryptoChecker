@@ -10,7 +10,7 @@ final class LogoURLAllowParityTests: XCTestCase {
         S.list(try S.fixture("logo_url_allow")["cases"])
     }
 
-    func testFreigabeWieGemeinsameFaelle() throws {
+    func testAllowAsSharedCases() throws {
         for c in try cases() {
             XCTAssertEqual(CoinLogos.isAllowedURL(c["url"] as? String), try XCTUnwrap(c["expected"] as? Bool),
                            "allowed: \(c)")
@@ -18,7 +18,7 @@ final class LogoURLAllowParityTests: XCTestCase {
     }
 
     /// Jede freigegebene Adresse geht beim Abruf (Foundation) wirklich an einen freigegebenen Host.
-    func testFreigegebeneAdresseLaedtVomFreigegebenenHost() throws {
+    func testAllowedAddressLoadsFromAllowedHost() throws {
         for c in try cases() where c["expected"] as? Bool == true {
             let host = URL(string: try XCTUnwrap(c["url"] as? String))?.host?.lowercased() ?? ""
             let known = host == "coingecko.com" || host.hasSuffix(".coingecko.com") || host.hasSuffix(".bnbstatic.com")

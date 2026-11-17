@@ -38,7 +38,7 @@ class ExportErrorsParityTest {
     }
 
     @Test
-    fun ordnetZuWieGemeinsameTestfaelle() {
+    fun mapsAsSharedTestCases() {
         val cases = fixture["cases"].list()
         assertTrue(cases.size >= 10)
         for (raw in cases) {
@@ -49,7 +49,7 @@ class ExportErrorsParityTest {
     }
 
     @Test
-    fun schluesselWieGemeinsameTestfaelle() {
+    fun keysAsSharedTestCases() {
         val keys = fixture["keys"].obj()
         assertEquals(ExportFailureKind.entries.map { it.name }.toSet(), keys.keys)
         for (kind in ExportFailureKind.entries) assertEquals(keys[kind.name], kind.key)
@@ -60,7 +60,7 @@ class ExportErrorsParityTest {
 
     /** Jeder Schlüssel (samt «Erneut versuchen») steht in den englischen Standardtexten. */
     @Test
-    fun texteVorhanden() {
+    fun textsPresent() {
         val rel = "../resources/src/main/res/values"
         val dir = listOf(File(rel), File("app/$rel")).first { it.isDirectory }
         val all = dir.listFiles { f -> f.name.startsWith("strings") }.orEmpty().joinToString("\n") { it.readText() }

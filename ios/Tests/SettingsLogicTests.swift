@@ -1039,7 +1039,7 @@ final class InstallDefaultsTests: XCTestCase {
 
     /// Der Merker ist gespeichert — ein späterer Start mit gelesenen Einstellungen entscheidet trotzdem,
     /// sobald die Dateien lesbar sind; vorher bleibt er (wie Android `PortfolioDataCheck.resolve`).
-    func testPortfolioRecoveryDecisionMitGespeichertemMerker() {
+    func testPortfolioRecoveryDecisionWithStoredMarker() {
         typealias D = PortfolioRecoveryDecision
         func decide(_ missing: Bool, _ marker: Bool, _ data: Bool, _ intact: Bool) -> D {
             AppData.portfolioRecoveryDecision(settingsMissing: missing, markerPending: marker, hasData: data,

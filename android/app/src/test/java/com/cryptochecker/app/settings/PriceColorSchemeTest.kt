@@ -58,7 +58,7 @@ class PriceColorSchemeTest {
     }
 
     @Test
-    fun `Werte wie in der Spezifikation`() {
+    fun `values as in the specification`() {
         // Feste Börsenfarben: hell, dunkel, je normal und hoher Kontrast
         assertTones(PriceColorScheme.GREEN_RED, 0xFF127248, 0xFF0ECB81, 0xFF025430, 0xFF30DE92, up = true)
         assertTones(PriceColorScheme.GREEN_RED, 0xFFC3213A, 0xFFFC6F7D, 0xFF911127, 0xFFFFAEB7, up = false)
@@ -84,7 +84,7 @@ class PriceColorSchemeTest {
     }
 
     @Test
-    fun `Tauschen vertauscht nur die Farben`() {
+    fun `swap only exchanges the colours`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {
@@ -97,7 +97,7 @@ class PriceColorSchemeTest {
 
     /** Alle hellen bzw. dunklen Flächen (Schrift ohne Pille): streng, ohne Ausnahmen. */
     @Test
-    fun `Kontrast auf allen Flaechen`() {
+    fun `contrast on all surfaces`() {
         for (c in cases) {
             val backgrounds = if (c.dark) DARK_SURFACES else LIGHT_SURFACES
             for (bg in backgrounds) {
@@ -109,7 +109,7 @@ class PriceColorSchemeTest {
 
     /** Reihenfolge der Karten: Ruhig, Frisch, Traditionell, Farbsehschwäche, Ruhig Farbsehschwäche; Standard «Ruhig». */
     @Test
-    fun `Reihenfolge und Standard`() {
+    fun `order and default`() {
         assertEquals(
             listOf(
                 PriceColorScheme.CALM,
@@ -128,7 +128,7 @@ class PriceColorSchemeTest {
 
     /** «Ruhig»: Werte und auf #131313 (Grundfläche dunkel) deutlich über AA. */
     @Test
-    fun `Ruhig Werte und Kontrast`() {
+    fun `calm values and contrast`() {
         assertEquals(0xFF396E54.toInt(), PriceColorScheme.CALM.up(dark = false))
         assertEquals(0xFF61AE87.toInt(), PriceColorScheme.CALM.up(dark = true))
         assertEquals(0xFF771D23.toInt(), PriceColorScheme.CALM.down(dark = false))
@@ -146,7 +146,7 @@ class PriceColorSchemeTest {
      * (Leuchtdichte und simuliert), hoher Kontrast ≥ 1.25:1; für jede Akzentfarbe.
      */
     @Test
-    fun `Ruhig steigend und fallend in der Helligkeit getrennt`() {
+    fun `calm rising and falling separated in lightness`() {
         for (accent in AccentColor.entries + listOf<AccentColor?>(null)) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {
@@ -167,7 +167,7 @@ class PriceColorSchemeTest {
 
     /** Steigend und fallend klar verschieden, in jedem Stil und jeder Fassung. */
     @Test
-    fun `Steigend und fallend verschieden`() {
+    fun `rising and falling differ`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {
@@ -178,7 +178,7 @@ class PriceColorSchemeTest {
     }
 
     @Test
-    fun `fromName faellt auf den Standard zurueck`() {
+    fun `fromName falls back to the default`() {
         assertEquals(PriceColorScheme.BLUE_ORANGE, PriceColorScheme.fromName("BLUE_ORANGE"))
         assertEquals(PriceColorScheme.CALM_COLOR_VISION, PriceColorScheme.fromName("CALM_COLOR_VISION"))
         assertEquals(PriceColorScheme.TRADITIONAL, PriceColorScheme.fromName("TRADITIONAL"))
@@ -192,7 +192,7 @@ class PriceColorSchemeTest {
      * hell/dunkel, normal/hoher Kontrast und getauscht genau der Standard.
      */
     @Test
-    fun `Boersenschemata bleiben bei jedem Akzent Standard`() {
+    fun `exchange schemes stay default with every accent`() {
         val fixed = listOf(PriceColorScheme.GREEN_RED, PriceColorScheme.TRADITIONAL, PriceColorScheme.BLUE_ORANGE)
         for (scheme in fixed) {
             for (accent in AccentColor.entries) {
@@ -212,7 +212,7 @@ class PriceColorSchemeTest {
 
     /** Blaue Akzentfarbe + «Ruhig Farbsehschwäche»: Steigend in Petrol, AA/AAA auf allen Flächen (auch getauscht). */
     @Test
-    fun `Blauer Akzent Petrol Kontrast auf allen Flaechen`() {
+    fun `blue accent petrol contrast on all surfaces`() {
         for (hc in listOf(false, true)) {
             for (dark in listOf(false, true)) {
                 for (inv in listOf(false, true)) {
@@ -232,7 +232,7 @@ class PriceColorSchemeTest {
 
     /** Petrol klar verschieden vom blauen Akzent (normal und hoher Kontrast): ΔE2000 ≥ 15. */
     @Test
-    fun `Blauer Akzent Steigend klar verschieden`() {
+    fun `blue accent rising clearly different`() {
         for (hc in listOf(false, true)) {
             for (dark in listOf(false, true)) {
                 val rise = PriceColorScheme.CALM_COLOR_VISION.up(dark, hc, accent = AccentColor.BLUE)
@@ -257,7 +257,7 @@ class PriceColorSchemeTest {
      * in jedem Schema klar verschieden.
      */
     @Test
-    fun `Kursfarben klar verschieden von der Akzentfarbe`() {
+    fun `price colours clearly different from the accent colour`() {
         val min = PriceColorScheme.MIN_ACCENT_DELTA_E
         for (scheme in PriceColorScheme.entries) {
             for (accent in AccentColor.entries) {
@@ -311,7 +311,7 @@ class PriceColorSchemeTest {
      * (C* ≥ 40 hell, ≥ 30 dunkel; nicht Weinrot/Rosé HSL 328°/334°). Hoher Kontrast im selben Farbton.
      */
     @Test
-    fun `Ruhig neben Orange fallend rot`() {
+    fun `calm next to orange falling red`() {
         for (dark in listOf(false, true)) {
             for (hc in listOf(false, true)) {
                 val c = PriceColorScheme.CALM.down(dark, hc, accent = AccentColor.ORANGE)
@@ -350,7 +350,7 @@ class PriceColorSchemeTest {
 
     /** Hoher Kontrast nimmt dieselbe Fassung; Abstand zum Akzent dort mindestens ΔE2000 15. */
     @Test
-    fun `Hoher Kontrast Ersatz klar verschieden`() {
+    fun `high contrast fallback clearly different`() {
         for (scheme in PriceColorScheme.entries) {
             for (accent in AccentColor.entries) {
                 for (dark in listOf(false, true)) {
@@ -371,13 +371,13 @@ class PriceColorSchemeTest {
 
     /*
      * Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche»
-     * («Farben wie bei allen Börsen»). Hart nur der Kontrast (`Kontrast auf allen Flaechen`); die
+     * («Farben wie bei allen Börsen»). Hart nur der Kontrast (`contrast on all surfaces`); die
      * Zieltöne und der Abstand dazu stehen in android/tools/check_price_colors.py.
      */
 
     /** «Frisch» dunkel steigend ist genau das Binance-Grün (erreicht 4.5:1 auf #353535 ohne Anpassung). */
     @Test
-    fun `Frisch ist Binance`() {
+    fun `fresh is Binance`() {
         assertEquals(0xFF0ECB81.toInt(), PriceColorScheme.GREEN_RED.up(dark = true))
         // Binance-Rot #F6465D erreicht dunkel kein AA → so nah wie möglich
         assertTrue(contrast(0xFFF6465D.toInt(), 0xFF353535.toInt()) < 4.5)
@@ -386,7 +386,7 @@ class PriceColorSchemeTest {
 
     /** «Frisch» und «Traditionell» je Farbe sichtbar verschieden: ΔE2000 ≥ 8, in jeder Fassung. */
     @Test
-    fun `Frisch und Traditionell verschieden`() {
+    fun `fresh and traditional differ`() {
         for (dark in listOf(false, true)) {
             for (hc in listOf(false, true)) {
                 val key = "dark=$dark/hc=$hc"
@@ -406,7 +406,7 @@ class PriceColorSchemeTest {
      * in jeder Fassung (hell/dunkel, normal/hoher Kontrast).
      */
     @Test
-    fun `Farbsehschwaeche simuliert klar getrennt`() {
+    fun `colour vision deficiency simulated clearly separated`() {
         val scheme = PriceColorScheme.BLUE_ORANGE
         for (dark in listOf(false, true)) {
             for (hc in listOf(false, true)) {
@@ -429,7 +429,7 @@ class PriceColorSchemeTest {
      * wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°).
      */
     @Test
-    fun `Ruhig dunkel fallend Lachs-Rot`() {
+    fun `calm dark falling salmon red`() {
         val red = PriceColorScheme.CALM.down(dark = true)
         assertTrue("HSL %.1f".format(hslHue(red)), hslHue(red) in 5.0..15.0)
         val lab = ColorDifference.lab(red)

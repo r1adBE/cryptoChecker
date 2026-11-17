@@ -23,7 +23,7 @@ class CsvReadChoiceParityTest {
     }
 
     @Test
-    fun knopfWieGemeinsameTestfaelle() {
+    fun buttonAsSharedTestCases() {
         val cases = ParityJson.load("csv_import.json")["confirmGate"].list()
         assertTrue(cases.size >= 7)
         for (raw in cases) {

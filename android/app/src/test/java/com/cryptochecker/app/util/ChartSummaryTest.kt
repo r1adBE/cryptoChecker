@@ -9,7 +9,7 @@ import org.junit.Test
 class ChartSummaryTest {
 
     @Test
-    fun `Kennzahlen einer Reihe`() {
+    fun `key figures of a series`() {
         val s = ChartSummary.of(listOf(100.0, 120.0, 90.0, 110.0))!!
         assertEquals(100.0, s.start, 0.0)
         assertEquals(110.0, s.end, 0.0)
@@ -19,14 +19,14 @@ class ChartSummaryTest {
     }
 
     @Test
-    fun `zu wenige Werte oder Start 0`() {
+    fun `too few values or start 0`() {
         assertNull(ChartSummary.of(listOf(1.0)))
         assertNull(ChartSummary.of(emptyList()))
         assertNull(ChartSummary(0.0, 1.0, 1.0, 0.0).changePercent)
     }
 
     @Test
-    fun `Richtung mit derselben Schwelle wie PriceFormat`() {
+    fun `direction with the same threshold as PriceFormat`() {
         assertEquals(ChangeDirection.UP, ChartSummary.direction(0.005))
         assertEquals(ChangeDirection.DOWN, ChartSummary.direction(-2.0))
         assertEquals(ChangeDirection.FLAT, ChartSummary.direction(0.004))
@@ -35,7 +35,7 @@ class ChartSummaryTest {
     }
 
     @Test
-    fun `Prozent ohne Vorzeichen`() {
+    fun `percent without sign`() {
         val previous = java.util.Locale.getDefault()
         java.util.Locale.setDefault(java.util.Locale.US)
         try {

@@ -11,7 +11,7 @@ import org.junit.Test
 class ListWidgetDataVersionTest {
 
     @Test
-    fun `jedes Zeichnen gibt einen neuen Stand je Widget`() {
+    fun `every draw gives a new version per widget`() {
         val v = ListWidgetDataVersion()
         assertEquals(0L, v.current(7))
         assertEquals(1L, v.next(7))
@@ -21,7 +21,7 @@ class ListWidgetDataVersionTest {
     }
 
     @Test
-    fun `Fabrik mit Zeilen vom vorigen Zeichnen gilt als veraltet`() {
+    fun `factory with rows from the previous draw counts as stale`() {
         val v = ListWidgetDataVersion()
         // Nie geladen: veraltet, auch vor dem ersten Zeichnen
         assertTrue(v.isStale(7, null))
@@ -35,7 +35,7 @@ class ListWidgetDataVersionTest {
     }
 
     @Test
-    fun `Stand eines Widgets lässt andere Widgets unberührt`() {
+    fun `version of one widget leaves other widgets untouched`() {
         val v = ListWidgetDataVersion()
         val a = v.next(1)
         v.next(2)
@@ -45,7 +45,7 @@ class ListWidgetDataVersionTest {
     }
 
     @Test
-    fun `Token wechselt bei jedem Zeichnen und läuft im Kreis`() {
+    fun `token changes with every draw and wraps around`() {
         val tokens = (1L..12L).map { ListWidgetDataVersion.token(it) }
         // Zwei aufeinanderfolgende Zeichnen haben nie denselben Token (neue Adapter-Intent)
         tokens.zipWithNext().forEach { (a, b) -> assertNotEquals(a, b) }

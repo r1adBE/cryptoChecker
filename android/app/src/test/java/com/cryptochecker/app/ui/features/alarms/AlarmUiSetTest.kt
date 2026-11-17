@@ -23,7 +23,7 @@ import org.junit.Test
 class AlarmCreateGuardTest {
 
     @Test
-    fun `zweiter Tipp waehrend das Anlegen laeuft wird ignoriert`() = runBlocking {
+    fun `second tap while creating is ignored`() = runBlocking {
         val guard = AlarmCreateGuard()
         val release = CompletableDeferred<Unit>()
         var inserts = 0
@@ -45,7 +45,7 @@ class AlarmCreateGuardTest {
 
     /** Der Alarm-Editor sperrt auch beim Bearbeiten (wie iOS `AlarmCreateGuard`): kein ungesperrter Start mehr. */
     @Test
-    fun `Alarm-Editor sperrt auch beim Bearbeiten`() {
+    fun `alarm editor also locks while editing`() {
         var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
         var source: java.io.File? = null
         while (dir != null && source == null) {
@@ -62,7 +62,7 @@ class AlarmCreateGuardTest {
     }
 
     @Test
-    fun `ungesperrter Start laeuft neben einem Anlegen`() = runBlocking {
+    fun `unlocked start runs alongside a create`() = runBlocking {
         val guard = AlarmCreateGuard()
         val release = CompletableDeferred<Unit>()
         var saves = 0
@@ -76,7 +76,7 @@ class AlarmCreateGuardTest {
     }
 
     @Test
-    fun `Abbruch gibt den Waechter frei`() = runBlocking {
+    fun `cancel releases the guard`() = runBlocking {
         val scope = CoroutineScope(Job())
         val guard = AlarmCreateGuard()
         val job = guard.launch(scope, guarded = true) { CompletableDeferred<Unit>().await() }

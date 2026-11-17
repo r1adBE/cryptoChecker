@@ -31,7 +31,7 @@ class UsageLogParityTest {
     }
 
     @Test
-    fun grenzenWieGemeinsameTestfaelle() {
+    fun limitsAsSharedTestCases() {
         val c = data["constants"].obj()
         assertEquals(c["hourMillis"].long(), UsageLog.HOUR_MILLIS)
         assertEquals(c["windowHours"].int(), UsageLog.WINDOW_HOURS)
@@ -45,7 +45,7 @@ class UsageLogParityTest {
     }
 
     @Test
-    fun stundeZusammenfuehrenUndSummeWieGemeinsameTestfaelle() {
+    fun mergeHourAndSumAsSharedTestCases() {
         for (raw in data["hourOf"].list()) {
             val c = raw.obj()
             assertEquals("${c["millis"]}", c["hour"].long(), UsageLog.hourOf(c["millis"].long()))
@@ -73,7 +73,7 @@ class UsageLogParityTest {
     }
 
     @Test
-    fun stufeUndTreiberWieGemeinsameTestfaelle() {
+    fun levelAndDriverAsSharedTestCases() {
         val levels = data["level"].list()
         assertTrue(levels.size >= 10)
         for (raw in levels) {
@@ -88,7 +88,7 @@ class UsageLogParityTest {
     }
 
     @Test
-    fun dateiUndBerichtWieGemeinsameTestfaelle() {
+    fun fileAndReportAsSharedTestCases() {
         for (raw in data["decode"].list()) {
             val c = raw.obj()
             assertEquals(c["name"] as String, buckets(c["expected"]), UsageLog.decode(c["text"] as String))

@@ -23,7 +23,7 @@ class ExchangeOrderParityTest {
     private val networks = ParityJson.load("gecko_terminal_network.json")
 
     @Test
-    fun abschnitteWieGemeinsameFaelle() {
+    fun sectionsAsSharedCases() {
         val cases = order["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 3)
         for (c in cases) {
@@ -38,7 +38,7 @@ class ExchangeOrderParityTest {
     }
 
     @Test
-    fun volumenAusBeidenListen() {
+    fun volumeFromBothLists() {
         val parse = order["parse"].obj()
         val spot = JSONArray(parse["spot"].list().map { row -> JSONObject(row.obj()) }).toString()
         val derivatives = JSONArray(parse["derivatives"].list().map { row -> JSONObject(row.obj()) }).toString()
@@ -47,7 +47,7 @@ class ExchangeOrderParityTest {
     }
 
     @Test
-    fun netzwerkeDesDexAuswegs() {
+    fun networksOfTheDexFallback() {
         for (c in networks["cases"].list().map { it.obj() }) {
             assertEquals(c["chain"] as String, c["network"], GeckoTerminalNetworks.network(c["chain"] as String))
         }

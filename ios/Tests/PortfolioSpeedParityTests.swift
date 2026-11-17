@@ -26,7 +26,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
 
     // MARK: Ø mit und ohne Herkunftsteile
 
-    func testDurchschnittOhneHerkunftsteileGleicheZahlen() {
+    func testAverageWithoutOriginPartsSameNumbers() {
         let trades = D.trades(Self.size)
         let prices = D.prices()
         func summary(_ withParts: Bool) -> PortfolioSummary {
@@ -52,7 +52,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         XCTAssertEqual(with.realizedIncomplete, without.realizedIncomplete)
     }
 
-    func testDurchschnittVeraeusserungenOhneTeileGleich() {
+    func testAverageDisposalsWithoutPartsSame() {
         let trades = D.trades(Self.size)
         let with = PortfolioCalculator.ledgers(trades, method: .AVERAGE, withParts: true)
         let without = PortfolioCalculator.ledgers(trades, method: .AVERAGE, withParts: false)
@@ -72,7 +72,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
 
     // MARK: Schritte aller Coins in einem Durchgang
 
-    func testSchritteJeCoinWieEinzeln() {
+    func testStepsPerCoinAsSingle() {
         let trades = D.trades(Self.size)
         let byCoin = PortfolioLedger.eventsByCoin(trades)
         XCTAssertEqual(byCoin.map(\.coin), PortfolioLedger.coins(trades))
@@ -84,7 +84,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         XCTAssertTrue(byCoin.contains { $0.events.contains(where: \.swapIn) })
     }
 
-    func testBuecherAllerCoinsWieEinzeln() {
+    func testBooksOfAllCoinsAsSingle() {
         let trades = D.trades(Self.size)
         for method in CostMethod.allCases {
             let all = PortfolioCalculator.ledgers(trades, method: method)
@@ -95,7 +95,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         }
     }
 
-    func testGebuehrVermerkeImSteuerExportWieVorher() {
+    func testFeeMarksInTaxExportAsBefore() {
         let trades = D.trades(Self.size)
         let zone = TimeZone(identifier: "UTC")!
         for method in CostMethod.allCases {
@@ -119,7 +119,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         }
     }
 
-    func testBestandsverlaufAusSchrittenWieAusTransaktionen() {
+    func testHoldingsHistoryFromStepsAsFromTransactions() {
         let trades = D.trades(Self.size)
         let byCoin = PortfolioLedger.eventsByCoin(trades)
         for method in CostMethod.allCases {
@@ -134,7 +134,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
 
     // MARK: FIFO-Warteschlange und Herkunftsteile mit Index
 
-    func testFifoBestaendeWieUnabhaengigesBuch() {
+    func testFifoHoldingsAsIndependentBook() {
         // Bestände der FIFO-Posten (Warteschlange mit Kopf-Index) = unabhängige Rechnung `holdingsAt`
         let trades = D.trades(Self.size)
         for method in [CostMethod.FIFO, .FIFO_WALLET] {
@@ -151,7 +151,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         }
     }
 
-    func testWarteschlangeWieEinfacheListe() {
+    func testQueueAsSimpleList() {
         // Zufällige Zugänge (auch rückdatiert) und Abgänge vorn: gleiche Reihenfolge wie eine einfache Liste
         var rng = SplitMix(seed: 125)
         let q = PortfolioFifo.Queue(key: "")
@@ -175,7 +175,7 @@ final class PortfolioSpeedParityTests: XCTestCase {
         XCTAssertEqual(q.lots.map(\.txId), plain.map(\.txId))
     }
 
-    func testHerkunftsteileMitIndexWieOhne() {
+    func testOriginPartsWithIndexAsWithout() {
         var rng = SplitMix(seed: 7)
         var plain: [PortfolioCostPart] = []
         var indexed: [PortfolioCostPart] = []

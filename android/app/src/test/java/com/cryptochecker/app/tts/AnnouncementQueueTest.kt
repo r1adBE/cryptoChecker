@@ -17,7 +17,7 @@ class AnnouncementQueueTest {
     private fun AnnouncementQueue.drain(): List<String> = generateSequence { poll() }.map { it.text }.toList()
 
     @Test
-    fun `mehrere Alarme eines Durchlaufs bleiben alle erhalten`() {
+    fun `several alarms of one run are all kept`() {
         val q = AnnouncementQueue()
         q.offer(alarm("A1"))
         q.offer(alarm("A2"))
@@ -26,7 +26,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `je Paar nur die neueste Kursansage`() {
+    fun `per pair only the newest price announcement`() {
         val q = AnnouncementQueue()
         assertFalse(q.offer(price(1, "BTC 1")))
         q.offer(price(2, "ETH 1"))
@@ -37,7 +37,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `Alarme vor wartenden Kursansagen und nie verworfen`() {
+    fun `alarms before waiting price announcements and never dropped`() {
         val q = AnnouncementQueue()
         q.offer(price(1, "BTC 1"))
         q.offer(alarm("A1"))
@@ -47,7 +47,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `Kursansage ohne Paar wird nicht zusammengefasst`() {
+    fun `price announcement without pair is not merged`() {
         val q = AnnouncementQueue()
         q.offer(Item("x", 1f, Kind.PRICE))
         q.offer(Item("y", 1f, Kind.PRICE))
@@ -55,7 +55,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `leer und clear`() {
+    fun `empty and clear`() {
         val q = AnnouncementQueue()
         assertNull(q.poll())
         q.offer(alarm("A"))
@@ -65,7 +65,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `viele Live-Durchlaeufe stauen sich nicht`() {
+    fun `many live runs do not pile up`() {
         val q = AnnouncementQueue()
         repeat(100) { run -> (1L..5L).forEach { q.offer(price(it, "p$it-$run")) } }
         assertEquals(5, q.size)
@@ -73,7 +73,7 @@ class AnnouncementQueueTest {
     }
 
     @Test
-    fun `Ansagen älter als 60 s gelten als veraltet`() {
+    fun `announcements older than 60 s count as stale`() {
         val item = Item("a", 1f, Kind.ALARM, createdAt = 1_000L)
         assertFalse(item.isStale(1_000L + AnnouncementQueue.MAX_AGE_MILLIS))
         assertTrue(item.isStale(1_001L + AnnouncementQueue.MAX_AGE_MILLIS))

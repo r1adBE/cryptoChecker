@@ -28,14 +28,14 @@ class DisplayFormatTest {
     }
 
     @Test
-    fun abZehnImmerZweiNachkommastellen() {
+    fun fromTenAlwaysTwoDecimals() {
         assertEquals("83,142.00", DisplayFormat.formatDouble(83142.0))
         assertEquals("10.00", DisplayFormat.formatDouble(10.0))
         assertEquals("1,234,567.89", DisplayFormat.formatDouble(1234567.891))
     }
 
     @Test
-    fun spracheWechseltOhneNeustart() {
+    fun languageChangesWithoutRestart() {
         assertEquals("83,142.00", DisplayFormat.formatDouble(83142.0))
         Locale.setDefault(Locale.Category.FORMAT, Locale.GERMANY)
         assertEquals("83.142,00", DisplayFormat.formatDouble(83142.0))

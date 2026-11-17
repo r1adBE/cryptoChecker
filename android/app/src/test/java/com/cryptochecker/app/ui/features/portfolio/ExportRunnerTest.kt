@@ -34,7 +34,7 @@ class ExportRunnerTest {
     }
 
     @Test
-    fun cancelExportGehtAufIdleUndLoeschtDatei() = runTest {
+    fun cancelExportGoesIdleAndDeletesFile() = runTest {
         val target = FakeTarget()
         val runner = ExportRunner(this, target)
         val prices = CompletableDeferred<String>()
@@ -55,7 +55,7 @@ class ExportRunnerTest {
     }
 
     @Test
-    fun fertigerExportWirdNichtGeloescht() = runTest {
+    fun finishedExportIsNotDeleted() = runTest {
         val target = FakeTarget()
         val runner = ExportRunner(this, target)
         runner.start("ok.csv", "Test") { "x" }
@@ -71,7 +71,7 @@ class ExportRunnerTest {
     }
 
     @Test
-    fun fehlerartUndErneutVersuchen() = runTest {
+    fun errorKindAndRetry() = runTest {
         val target = FakeTarget(failWrite = true)
         val runner = ExportRunner(this, target)
         runner.start("a.csv", "Test") { "x" }
@@ -86,7 +86,7 @@ class ExportRunnerTest {
     }
 
     @Test
-    fun kurseFehlenUndErneutVersuchenInDieselbeDatei() = runTest {
+    fun pricesMissingAndRetryIntoTheSameFile() = runTest {
         val target = FakeTarget()
         val runner = ExportRunner(this, target)
         var attempts = 0

@@ -145,7 +145,7 @@ class PulseWidgetMathTest {
     }
 
     @Test
-    fun `Fear and Greed und Marktbreite - breit eine Zeile, mittel zwei Zeilen, wenig Hoehe wie bisher`() {
+    fun `fear and greed and market breadth - wide one row, medium two rows, little height as before`() {
         // Gemessene Breiten (dp): Fear & Greed 120, Marktbreite 130, beides mit « · » 260
         fun layout(width: Int, height: Int, headlineLines: Int = 1, fng: Float? = 120f, breadth: Float? = 130f) =
             PulseWidgetMath.sideLayout(
@@ -183,7 +183,7 @@ class PulseWidgetMathTest {
     }
 
     @Test
-    fun `Marktbreite mit Punkt nur als zweite Zeile gemessen`() {
+    fun `market breadth with dot measured only as second row`() {
         // 250 dp: nutzbar 250 − Innenabstand − Sicherheit; die Marktbreite passt ohne Punkt knapp, mit Punkt nicht
         val usable = 250f - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
         fun layout(height: Int, fng: Float?) = PulseWidgetMath.sideLayout(
@@ -207,7 +207,7 @@ class PulseWidgetMathTest {
     }
 
     @Test
-    fun `Reihenfolge der Nebenzeilen wie iOS`() {
+    fun `order of the secondary rows as on iOS`() {
         assertEquals(
             listOf(PulseSideLayout.ONE_LINE, PulseSideLayout.TWO_LINES, PulseSideLayout.FEAR_GREED, PulseSideLayout.BREADTH),
             PulseWidgetMath.sideCandidates(hasFearGreed = true, hasBreadth = true, twoLines = true),
@@ -227,7 +227,7 @@ class PulseWidgetMathTest {
     }
 
     @Test
-    fun `Zeitraum vor den Chips nimmt ihnen Platz weg`() {
+    fun `period before the chips takes their room`() {
         val widths = listOf(64f, 64f, 64f)
         // «24h» (≈ 18 dp) + 4 dp Abstand
         val leading = PulseWidgetMath.periodLeadingDp(18f)

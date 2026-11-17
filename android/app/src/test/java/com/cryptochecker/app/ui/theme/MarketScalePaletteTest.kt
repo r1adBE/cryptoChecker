@@ -12,7 +12,7 @@ import org.junit.Test
 class MarketScalePaletteTest {
 
     @Test
-    fun `Raender sind die Kursfarben, Mitte neutral`() {
+    fun `edges are the price colours, middle neutral`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {
@@ -29,7 +29,7 @@ class MarketScalePaletteTest {
     }
 
     @Test
-    fun `Farbsehschwaeche-Schema gilt`() {
+    fun `colour vision deficiency scheme applies`() {
         val s = MarketScalePalette.steps(PriceColorScheme.CALM_COLOR_VISION, dark = false)
         assertEquals(0xFF9F4300.toInt(), s[0]) // Orange = Angst
         assertEquals(0xFF1460AB.toInt(), s[4]) // Blau = Gier
@@ -39,7 +39,7 @@ class MarketScalePaletteTest {
     }
 
     @Test
-    fun `Stufen und Farbe je Wert`() {
+    fun `steps and colour per value`() {
         assertEquals(0, MarketScalePalette.level(0))
         assertEquals(0, MarketScalePalette.level(24))
         assertEquals(1, MarketScalePalette.level(25))
@@ -63,7 +63,7 @@ class MarketScalePaletteTest {
 
     /** Stufen aus aufgelösten Kursfarben: gleiche Mischung wie aus dem Schema. Wie iOS. */
     @Test
-    fun `Stufen aus Kursfarben wie aus dem Schema`() {
+    fun `steps from price colours as from the scheme`() {
         assertEquals(
             listOf(0xFF9F4300.toInt(), 0xFF8A5732.toInt(), 0xFF707070.toInt(), 0xFF3D6790.toInt(), 0xFF1460AB.toInt()),
             MarketScalePalette.steps(up = 0xFF1460AB.toInt(), down = 0xFF9F4300.toInt(), dark = false),
@@ -85,7 +85,7 @@ class MarketScalePaletteTest {
 
     /** Puls-Widget: Stufenpunkt aus den Kursfarben des Widgets = Skala der App-Karte, Ränder = Pfeilfarben. */
     @Test
-    fun `Widget-Skala folgt den Kursfarben des Widgets`() {
+    fun `widget scale follows the price colours of the widget`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {
@@ -111,7 +111,7 @@ class MarketScalePaletteTest {
 
     /** Nicht-Text-Kontrast ≥ 3:1 auf allen Flächen, für jedes Schema, normal und hoher Kontrast. */
     @Test
-    fun `jede Stufe mindestens 3 zu 1`() {
+    fun `every step at least 3 to 1`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 for (hc in listOf(false, true)) {

@@ -8,7 +8,7 @@ import org.junit.Test
 class RemovedBatchTest {
 
     @Test
-    fun zweitesLoeschenKommtZurLaufendenSammlung() {
+    fun secondDeleteJoinsTheRunningBatch() {
         val batch = RemovedBatch()
         assertEquals(7L, batch.add(7L, "BTC/USDT"))
         // Gleicher Schlüssel: «Rückgängig» holt beide zurück
@@ -17,7 +17,7 @@ class RemovedBatchTest {
     }
 
     @Test
-    fun nachDemEndeDesBannersBeginntEineNeueSammlung() {
+    fun afterTheBannerEndsANewBatchStarts() {
         val batch = RemovedBatch()
         batch.add(7L, "BTC/USDT")
         batch.closed(batch.generation)
@@ -27,7 +27,7 @@ class RemovedBatchTest {
     }
 
     @Test
-    fun spaetesEndeDesErsetztenBannersBeendetDieNeueSammlungNicht() {
+    fun lateEndOfReplacedBannerDoesNotEndTheNewBatch() {
         val batch = RemovedBatch()
         batch.add(7L, "BTC/USDT")
         val first = batch.generation

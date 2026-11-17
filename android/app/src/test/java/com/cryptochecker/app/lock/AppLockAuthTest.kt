@@ -10,13 +10,13 @@ import org.junit.Test
 class AppLockAuthTest {
 
     @Test
-    fun abApi30StarkeBiometrieOderGeraeteSperre() {
+    fun fromApi30StrongBiometricsOrDeviceLock() {
         assertEquals(BIOMETRIC_STRONG or DEVICE_CREDENTIAL, AppLockAuth.authenticatorsFor(30))
         assertEquals(BIOMETRIC_STRONG or DEVICE_CREDENTIAL, AppLockAuth.authenticatorsFor(36))
     }
 
     @Test
-    fun darunterUnveraendertSchwacheBiometrie() {
+    fun belowUnchangedWeakBiometrics() {
         assertEquals(BIOMETRIC_WEAK or DEVICE_CREDENTIAL, AppLockAuth.authenticatorsFor(29))
         assertEquals(BIOMETRIC_WEAK or DEVICE_CREDENTIAL, AppLockAuth.authenticatorsFor(26))
     }

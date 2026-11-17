@@ -6,7 +6,7 @@ import XCTest
 final class TextLimitParityTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testKuerztUndZaehltWieGemeinsameTestfaelle() throws {
+    func testTrimsAndCountsAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("text_limit")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 10)
         for c in cases {
@@ -19,7 +19,7 @@ final class TextLimitParityTests: XCTestCase {
     }
 
     /// Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung — wie Android.
-    func testSaeubertFelderWieGemeinsameTestfaelle() throws {
+    func testCleansFieldsAsSharedTestCases() throws {
         let fields = S.list(try S.fixture("text_limit")["fields"])
         XCTAssertGreaterThanOrEqual(fields.count, 8)
         for c in fields {
@@ -37,7 +37,7 @@ final class TextLimitParityTests: XCTestCase {
     }
 
     /// Notiz als eine Zeile für die Merkliste: Umbrüche werden ein Leerzeichen — wie Android.
-    func testEineZeileWieGemeinsameTestfaelle() throws {
+    func testOneLineAsSharedTestCases() throws {
         let lines = S.list(try S.fixture("text_limit")["singleLine"])
         XCTAssertGreaterThanOrEqual(lines.count, 8)
         for c in lines {
@@ -47,7 +47,7 @@ final class TextLimitParityTests: XCTestCase {
     }
 
     /// Gespeicherte Notiz (`Watch.validNote`) kürzt mit derselben Grenze wie Android `WatchRepository.setNote`.
-    func testValidNoteKuerztAufSichtbareZeichen() {
+    func testValidNoteTrimsToVisibleCharacters() {
         let family = "👨‍👩‍👧‍👦"
         let note = String(repeating: "a", count: 119) + family + "b"
         XCTAssertEqual(Watch.validNote(note), String(repeating: "a", count: 119) + family)

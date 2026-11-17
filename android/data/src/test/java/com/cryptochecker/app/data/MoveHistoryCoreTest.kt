@@ -24,7 +24,7 @@ class MoveHistoryCoreTest {
     private val hour = 3_600_000L
 
     @Test
-    fun appendFuerNPaareDekodiertNurDenEigenenVerlauf() {
+    fun appendForNPairsDecodesOnlyTheOwnHistory() {
         val storage = FakeStorage()
         val core = MoveHistoryCore(storage)
         val n = 200
@@ -38,7 +38,7 @@ class MoveHistoryCoreTest {
     }
 
     @Test
-    fun abgelaufeneFremdeVerlaeufeFallenBeimAufraeumenWeg() {
+    fun expiredForeignHistoriesAreDroppedOnCleanup() {
         val now = 40 * hour
         val storage = FakeStorage(
             mapOf(
@@ -56,7 +56,7 @@ class MoveHistoryCoreTest {
     }
 
     @Test
-    fun ohneNeuenPunktWirdNichtsGeschrieben() {
+    fun withoutNewPointNothingIsWritten() {
         val storage = FakeStorage()
         val core = MoveHistoryCore(storage)
         core.append(1, MoveWindow.PricePoint(100.0, 1_000L), 1_000L)

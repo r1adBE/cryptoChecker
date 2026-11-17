@@ -41,14 +41,14 @@ class SearchFieldSemanticsTest {
     }
 
     @Test
-    fun merklistenSucheHatBezeichnung() {
+    fun watchlistSearchHasLabel() {
         val hint = compose.activity.getString(R.string.watchlist_search_hint)
         show { WatchSearchField(query = "", onQueryChange = {}, onClose = {}) }
         assertLabelled(hint)
     }
 
     @Test
-    fun gruppenSucheHatBezeichnung() {
+    fun groupSearchHasLabel() {
         val hint = compose.activity.getString(R.string.group_search_hint)
         show { GroupSearchField(query = "", onQueryChange = {}) }
         assertLabelled(hint)

@@ -19,7 +19,7 @@ class PortfolioAlarmInvalidHintTest {
 
     /** Text der Zeile als Funktion; iOS `PortfolioAlarmLineTests`. */
     @Test
-    fun zeileNenntLoeschenUndNeuAnlegen() {
+    fun rowNamesDeleteAndCreateAgain() {
         assertEquals(R.string.portfolio_alarm_threshold_invalid_recreate, portfolioAlarmLineRes(invalid = true, repeating = true))
         assertEquals(R.string.portfolio_alarm_threshold_invalid_recreate, portfolioAlarmLineRes(invalid = true, repeating = false))
         assertNotEquals(R.string.alarm_threshold_invalid_fix, portfolioAlarmLineRes(invalid = true, repeating = false))
@@ -28,7 +28,7 @@ class PortfolioAlarmInvalidHintTest {
     }
 
     @Test
-    fun textInAllenSprachen() {
+    fun textInAllLanguages() {
         val res = SourceGuard.android(file("../resources/src/main/res"), "../resources/src/main/res")
         val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_portfolio.xml").exists() }.orEmpty()
         assertTrue(folders.size >= 75)

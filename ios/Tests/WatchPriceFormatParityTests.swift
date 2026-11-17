@@ -20,7 +20,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
         return cases
     }
 
-    func testKursKnapp() throws {
+    func testPriceCompact() throws {
         for c in try cases("compact") {
             let id = c["locale"] as? String ?? ""
             let value = try XCTUnwrap(S.number(c["value"]))
@@ -29,14 +29,14 @@ final class WatchPriceFormatParityTests: XCTestCase {
         }
     }
 
-    func testKnappHoechstensSiebenZeichen() {
+    func testCompactAtMostSevenCharacters() {
         for value in [84_450.12, 999_999, 2_234.56, 123.456, 0.02468, 0.0098765, 0.000012345, 999_000_000] {
             let text = WatchPriceFormat.compactPrice(value, locale: Locale(identifier: "en_US"))
             XCTAssertLessThanOrEqual(text.count, 7, "\(value) → \(text)")
         }
     }
 
-    func testZeileDerRechteckigenKomplikation() throws {
+    func testRowOfTheRectangularComplication() throws {
         for c in try cases("line") {
             let id = c["locale"] as? String ?? ""
             let actual = WatchPriceFormat.line(coin: c["coin"] as? String ?? "", price: S.number(c["price"]),
@@ -47,7 +47,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
         }
     }
 
-    func testPortfolioOhneWert() throws {
+    func testPortfolioWithoutValue() throws {
         for c in try cases("portfolio_off") {
             let title = c["title"] as? String ?? ""
             let hint = c["hint"] as? String ?? ""
@@ -58,7 +58,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
 
     /// Portfolio-Komplikation: jeder Betrag ist `privacySensitive` (wie das iPhone-Widget) — in allen vier Familien samt
     /// der Veränderung; der Zustand «aus» (kein Betrag) braucht es nicht.
-    func testPortfolioKomplikationBetraegeSindPrivacySensitive() throws {
+    func testPortfolioComplicationAmountsArePrivacySensitive() throws {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let source = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
                                 encoding: .utf8)

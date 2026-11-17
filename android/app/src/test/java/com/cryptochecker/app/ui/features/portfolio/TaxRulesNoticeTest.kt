@@ -18,13 +18,13 @@ import org.junit.Test
 class TaxRulesNoticeTest {
 
     @Test
-    fun monatUndJahrStattRohwert() {
+    fun monthAndYearInsteadOfRawValue() {
         val f = MonthYearFormat.formatter(Locale.GERMAN) { "MMMM y" }
         assertEquals("Oktober 2026", taxRulesDateLabel("2026-10", f))
     }
 
     @Test
-    fun arabischMitLandeseigenenZiffern() {
+    fun arabicWithNativeDigits() {
         val ar = Locale.forLanguageTag("ar")
         val text = taxRulesDateLabel("2026-10", MonthYearFormat.formatter(ar) { "MMM y" })
         val zero = java.text.DecimalFormatSymbols.getInstance(ar).zeroDigit
@@ -34,19 +34,19 @@ class TaxRulesNoticeTest {
     }
 
     @Test
-    fun unlesbarerRegelstandBleibtRohwert() {
+    fun unreadableRulesDateStaysRawValue() {
         assertEquals("2026-13", taxRulesDateLabel("2026-13", MonthYearFormat.formatter(Locale.ENGLISH) { "MMM y" }))
     }
 
     @Test
-    fun hinterlegterRegelstandWirdFormatiert() {
+    fun storedRulesDateIsFormatted() {
         val text = taxRulesDateLabel(TaxTemplate.RULES_DATE, MonthYearFormat.formatter(Locale.ENGLISH) { "MMM y" })
         assertFalse(text, text == TaxTemplate.RULES_DATE)
     }
 
     /** Seite «Steuer-Arbeitsunterlage» zeigt den Regelstand samt Hinweis; die CSV-Kopfzeilen formatieren gleich. */
     @Test
-    fun arbeitsunterlageNutztHinweisUndFormatierteKopfzeile() {
+    fun worksheetUsesNoticeAndFormattedHeader() {
         val page = listOf("TaxWorksheetScreen.kt", "TaxWorksheetContent.kt").joinToString("\n") { name ->
             val rel = "src/main/java/com/cryptochecker/app/ui/features/portfolio/$name"
             listOf(File(rel), File("app/$rel")).first { it.exists() }.readText()

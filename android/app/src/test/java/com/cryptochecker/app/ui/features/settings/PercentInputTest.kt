@@ -15,7 +15,7 @@ class PercentInputTest {
     private fun typed(input: String): Double? = parsePercent(filterPercentInput(input))
 
     @Test
-    fun arabischesUndPersischesDezimalzeichenBleibt() {
+    fun arabicAndPersianDecimalSeparatorStays() {
         assertEquals("٢٫٥", filterPercentInput("٢٫٥"))
         assertEquals(2.5, typed("٢٫٥")!!, 0.0)
         assertEquals(2.5, typed("۲٫۵")!!, 0.0)
@@ -24,7 +24,7 @@ class PercentInputTest {
     }
 
     @Test
-    fun tausendertrennungWirdAbgelehntStattVerschluckt() {
+    fun thousandsSeparatorIsRejectedInsteadOfSwallowed() {
         // «١٬٥» bliebe sonst still 15; so markiert das Feld den Fehler
         assertEquals("١٬٥", filterPercentInput("١٬٥"))
         assertNull(typed("١٬٥"))
@@ -32,7 +32,7 @@ class PercentInputTest {
     }
 
     @Test
-    fun filterEntferntNichtsStillUndKuerztAufSechsZeichen() {
+    fun filterRemovesNothingSilentlyAndTrimsToSixCharacters() {
         // Eingefügt: Buchstabe, Exponent, Vorzeichen bleiben stehen und gelten als Fehler (nie still «25», «13», «0»)
         assertEquals("2a5%", filterPercentInput("2a5 %"))
         assertNull(typed("2a5 %"))
@@ -44,7 +44,7 @@ class PercentInputTest {
     }
 
     @Test
-    fun fehlerErstBeiUngueltigerEingabe() {
+    fun errorOnlyOnInvalidInput() {
         assertFalse(percentInputError(""))
         assertFalse(percentInputError("0"))
         assertFalse(percentInputError("100"))

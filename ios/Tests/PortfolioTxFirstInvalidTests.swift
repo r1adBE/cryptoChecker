@@ -19,12 +19,12 @@ final class PortfolioTxFirstInvalidTests: XCTestCase {
         PortfolioTxFirstInvalid.of(PortfolioTxForm.check(e), amountValid: e.amount != nil, isSwap: e.type == .SWAP)
     }
 
-    func testGueltigeEingabeHatKeinFehlerfeld() {
+    func testValidInputHasNoErrorField() {
         XCTAssertNil(first(buy()))
         XCTAssertNil(first(swap()))
     }
 
-    func testReihenfolgeWieImBlatt() {
+    func testOrderAsInTheSheet() {
         // Coin und Menge falsch: zuerst der Coin (steht oben)
         var e = buy()
         e.coinQuery = ""
@@ -43,7 +43,7 @@ final class PortfolioTxFirstInvalidTests: XCTestCase {
         XCTAssertEqual(first(e), .fee)
     }
 
-    func testTauschFelder() {
+    func testSwapFields() {
         var e = swap()
         e.toCoinQuery = "btc"
         e.toAmount = nil
@@ -57,7 +57,7 @@ final class PortfolioTxFirstInvalidTests: XCTestCase {
         XCTAssertEqual(first(e), .swapValue)
     }
 
-    func testGebuehrImDrittenCoinUndVerbrauchteMenge() {
+    func testFeeInThirdCoinAndConsumedAmount() {
         // Dritter Coin gleich dem Coin der Transaktion: ungültig
         var e = buy()
         e.feeCoin = "BTC"
@@ -78,14 +78,14 @@ final class PortfolioTxFirstInvalidTests: XCTestCase {
         XCTAssertEqual(first(e), .feeCoin)
     }
 
-    func testNurGebuehrenfelderLiegenImAbschnitt() {
+    func testOnlyFeeFieldsAreInTheSection() {
         XCTAssertTrue(PortfolioTxFirstInvalid.Field.fee.inLedger)
         XCTAssertTrue(PortfolioTxFirstInvalid.Field.feeCoin.inLedger)
         XCTAssertFalse(PortfolioTxFirstInvalid.Field.price.inLedger)
         XCTAssertFalse(PortfolioTxFirstInvalid.Field.coin.inLedger)
     }
 
-    func testKeinFehlerfeldGenauDannWennSpeicherbar() {
+    func testNoErrorFieldExactlyWhenSavable() {
         var noCoin = buy(); noCoin.coinQuery = ""
         var noAmount = buy(); noAmount.amount = nil
         var badPrice = buy(); badPrice.priceBlank = false

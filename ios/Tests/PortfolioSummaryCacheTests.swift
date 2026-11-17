@@ -33,7 +33,7 @@ final class PortfolioSummaryCacheTests: XCTestCase {
         })
     }
 
-    func testErsterAufbauRechnetSofortUndNurEinmal() {
+    func testFirstBuildCalculatesImmediatelyAndOnlyOnce() {
         let counter = Counter()
         let sut = cache(counter)
         let first = sut.shown(key(300)) { input(300) }
@@ -43,7 +43,7 @@ final class PortfolioSummaryCacheTests: XCTestCase {
         XCTAssertEqual(first, PortfolioCalculator.summarize(trades, prices: ["BTC": 300], method: .FIFO))
     }
 
-    func testNeueKurseZeigenDasLetzteErgebnisBisDasNeueDaIst() async {
+    func testNewPricesShowTheLastResultUntilTheNewOneArrives() async {
         let counter = Counter()
         let sut = cache(counter)
         let old = sut.shown(key(300)) { input(300) }
@@ -61,7 +61,7 @@ final class PortfolioSummaryCacheTests: XCTestCase {
         XCTAssertEqual(counter.count, 2)
     }
 
-    func testJeAktualisierungEineRechnung() async {
+    func testOneCalculationPerRefresh() async {
         let counter = Counter()
         let sut = cache(counter)
         _ = sut.now(key(300)) { input(300) }
@@ -73,7 +73,7 @@ final class PortfolioSummaryCacheTests: XCTestCase {
         XCTAssertEqual(counter.count, 2)
     }
 
-    func testAelteresErgebnisUeberschreibtNeueresNicht() async {
+    func testOlderResultDoesNotOverwriteNewer() async {
         let counter = Counter()
         let sut = cache(counter)
         _ = sut.now(key(300)) { input(300) }

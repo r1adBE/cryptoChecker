@@ -294,7 +294,7 @@ struct PricePairsPage: View {
 
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
-        _ = refusedToggles
+        let _ = refusedToggles
         SettingsSubPage(title: L("settings_price_notifications")) {
             SettingsHint(text: L("settings_price_pairs_hint"), top: 4)
             if data.watches.isEmpty {

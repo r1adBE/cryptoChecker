@@ -101,13 +101,13 @@ class PortfolioAlarmDeliveryTest {
     private val at = 1_700_000_000_000L
 
     @Test
-    fun portfolioVermerkeInEigenerDatei() {
+    fun portfolioMarksInOwnFile() {
         assertNotEquals(AlarmDeliveryMarkers.PREFS, PortfolioAlarmDeliveryMarkers.PREFS)
     }
 
     /** Paar- und Portfolio-Alarm mit derselben Id stören sich nicht. */
     @Test
-    fun portfolioVermerkGetrenntVonPaarVermerk() = runBlocking {
+    fun portfolioMarkSeparateFromPairMark() = runBlocking {
         val pairs = AlarmDeliveryMarkerStore.InMemory()
         val portfolio = AlarmDeliveryMarkerStore.InMemory()
         AlarmDelivery(portfolio).deliver(
@@ -127,7 +127,7 @@ class PortfolioAlarmDeliveryTest {
 
     /** Portfolio-Alarm: schon gemeldet (Prozess-Ende), aber inzwischen geändert (markTriggered 0 Zeilen) → Mitteilung weg. */
     @Test
-    fun portfolioSchonGemeldetNichtGespeichertEntfernt() = runBlocking {
+    fun portfolioAlreadyNotifiedNotSavedIsRemoved() = runBlocking {
         val portfolio = AlarmDeliveryMarkerStore.InMemory()
         portfolio.set(6, at)
         var retracted = 0

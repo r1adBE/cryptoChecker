@@ -21,7 +21,7 @@ class ExplorerBrowseParityTest {
     private fun strings(value: Any?): List<String> = value as List<String>
 
     @Test
-    fun marktChipsZeigenIhreArt() {
+    fun marketChipsShowTheirKind() {
         val cases = fixture["markets"].list().map { it.obj() }
         assertEquals(MarketFilter.entries.map { it.name }, cases.map { it["filter"] })
         for (c in cases) {
@@ -32,7 +32,7 @@ class ExplorerBrowseParityTest {
     }
 
     @Test
-    fun zuletztGenutzteBoersen() {
+    fun recentlyUsedExchanges() {
         assertEquals(fixture["recentMax"].num()!!.toInt(), RecentExchanges.MAX)
         for (c in fixture["recent"].list().map { it.obj() }) {
             assertEquals(c.toString(), strings(c["expected"]), RecentExchanges.add(strings(c["list"]), c["add"] as String))
@@ -45,7 +45,7 @@ class ExplorerBrowseParityTest {
     }
 
     @Test
-    fun zeichenDerBoersen() {
+    fun exchangeCharacters() {
         for (c in fixture["marks"].list().map { it.obj() }) {
             val name = c["name"] as String
             assertEquals(name, c["initials"], ExchangeMark.initials(name))
@@ -54,7 +54,7 @@ class ExplorerBrowseParityTest {
     }
 
     @Test
-    fun boersenZumSuchtext() {
+    fun exchangesForSearchText() {
         assertEquals(fixture["exchangeSearchLimit"].num()!!.toInt(), ExchangeSearch.LIMIT)
         for (c in fixture["exchangeSearch"].list().map { it.obj() }) {
             val actual = ExchangeSearch.find(c["query"] as String, strings(c["names"])) { it }
@@ -63,7 +63,7 @@ class ExplorerBrowseParityTest {
     }
 
     @Test
-    fun devisenLiveNurFiatPaare() {
+    fun forexLiveOnlyFiatPairs() {
         val data = fixture["forexLive"].obj()
         assertEquals(strings(data["exchanges"]), ForexLive.EXCHANGES)
         for (c in data["pairs"].list().map { it.obj() }) {

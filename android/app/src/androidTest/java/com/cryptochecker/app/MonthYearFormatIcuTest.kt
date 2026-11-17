@@ -21,19 +21,19 @@ class MonthYearFormatIcuTest {
     private fun format(tag: String): String = date.format(MonthYearFormat.formatter(Locale.forLanguageTag(tag)))
 
     @Test
-    fun japanischJahrVorMonat() {
+    fun japaneseYearBeforeMonth() {
         assertEquals("2028年4月", format("ja"))
     }
 
     @Test
-    fun deutschSchweizMonatKurzUndJahr() {
+    fun germanSwissShortMonthAndYear() {
         val text = format("de-CH")
         assertTrue(text, text.startsWith("Apr"))
         assertTrue(text, text.endsWith("2028"))
     }
 
     @Test
-    fun arabischMitArabischenZiffern() {
+    fun arabicWithArabicDigits() {
         val text = format("ar")
         assertTrue(text, text.contains("٢٠٢٨"))
         assertTrue(text, !text.contains("2028"))

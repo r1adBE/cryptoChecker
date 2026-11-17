@@ -47,7 +47,7 @@ class CsvUnsavableParityTest {
     private val cases = ParityJson.load("csv_import.json")["unsavable"].list().map { it.obj() }
 
     @Test
-    fun grundWieGemeinsameTestfaelle() {
+    fun reasonAsSharedTestCases() {
         assertTrue(cases.size >= 15)
         for (c in cases) {
             val expected = (c["expected"] as String?)?.let { CsvImportSkipReason.valueOf(it) }
@@ -56,7 +56,7 @@ class CsvUnsavableParityTest {
     }
 
     @Test
-    fun regelDecktSichMitDemSpeichern() {
+    fun ruleMatchesSaving() {
         for (c in cases) {
             val t = tx(c)
             assertEquals(c["name"] as String, CsvImportMapping.unsavableReason(t) == null, saves(t))
@@ -64,7 +64,7 @@ class CsvUnsavableParityTest {
     }
 
     @Test
-    fun laengeDesErhaltenenCoinsWieBeimSpeichern() {
+    fun lengthOfReceivedCoinAsWhenSaving() {
         assertEquals(PortfolioJson.MAX_FEE_COIN, CsvImportMapping.MAX_TO_COIN)
     }
 }

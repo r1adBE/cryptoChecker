@@ -15,7 +15,7 @@ class DiagnosticsFilesTest {
     val temp = TemporaryFolder()
 
     @Test
-    fun loeschtBerichtImOrdnerUndLaesstAnderesStehen() {
+    fun deletesReportInFolderAndLeavesOthers() {
         val cache = temp.newFolder("cache")
         val dir = DiagnosticsFiles.dir(cache).apply { mkdirs() }
         File(dir, "cryptochecker-diagnostics.txt").writeText("Bericht")
@@ -28,7 +28,7 @@ class DiagnosticsFilesTest {
     }
 
     @Test
-    fun ohneOrdnerNichtsZuTun() {
+    fun withoutFolderNothingToDo() {
         val cache = temp.newFolder("leer")
         assertEquals(0, DiagnosticsFiles.clear(cache))
         assertFalse(DiagnosticsFiles.dir(cache).exists())

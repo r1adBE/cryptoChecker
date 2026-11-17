@@ -11,13 +11,13 @@ import org.junit.Test
 class SourceGuardTest {
 
     @Test
-    fun fehlendeAndroidQuelleScheitert() {
+    fun missingAndroidSourceFails() {
         assertThrows(AssertionError::class.java) { SourceGuard.android(null as String?, "Gibt/Es/Nicht.kt") }
         assertEquals("da", SourceGuard.android("da", "x"))
     }
 
     @Test
-    fun fehlendeIosQuelleIstSichtbar() {
+    fun missingIosSourceIsVisible() {
         // Ohne Pflicht: übersprungen (nicht grün); mit Pflicht (CI): Fehler
         assertThrows(AssumptionViolatedException::class.java) { SourceGuard.ios(null as String?, "ios/Gibt.swift", requireIos = false) }
         assertThrows(AssertionError::class.java) { SourceGuard.ios(null as String?, "ios/Gibt.swift", requireIos = true) }
@@ -31,7 +31,7 @@ class SourceGuardTest {
      * gehört nach `:app`).
      */
     @Test
-    fun jederIosLeserNutztSourceGuard() {
+    fun everyIosReaderUsesSourceGuard() {
         val root = SourceGuard.android(
             listOf("src/test/java", "app/src/test/java", "android/app/src/test/java").map(::File).firstOrNull { it.isDirectory },
             "src/test/java",
@@ -53,7 +53,7 @@ class SourceGuardTest {
 
     /** Gegenprobe: Der Meta-Scan schlägt bei einem eingebauten Beispiel ohne SourceGuard an, nicht bei Kommentaren. */
     @Test
-    fun metaScanSchlaegtAn() {
+    fun metaScanTriggers() {
         assertTrue(readsIosWithoutGuard("val f = File(\"ios/App/X.swift\")\nif (f.exists()) check(f)"))
         assertTrue(readsIosWithoutGuard("val roots = listOf(\"App\").map { File(\"../ios/${'$'}it\") }"))
         assertTrue(!readsIosWithoutGuard("// wie ios/App/X.swift\nval x = 1"))

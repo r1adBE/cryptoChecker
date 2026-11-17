@@ -6,7 +6,7 @@ import XCTest
 final class DateFormatterCacheTests: XCTestCase {
     private let date = Date(timeIntervalSince1970: 1_714_000_000)
 
-    func testMittleresDatumWieFrischerFormatter() {
+    func testMediumDateAsFreshFormatter() {
         let fresh = DateFormatter()
         fresh.dateStyle = .medium
         fresh.timeStyle = .none
@@ -15,7 +15,7 @@ final class DateFormatterCacheTests: XCTestCase {
         XCTAssertEqual(CycleFormat.mediumDate(date), fresh.string(from: date))
     }
 
-    func testVorlageMitEigenerSpracheJeSpracheGetrennt() {
+    func testTemplateWithOwnLanguageSeparatedPerLanguage() {
         let de = Locale(identifier: "de_CH")
         let en = Locale(identifier: "en_US")
         func fresh(_ locale: Locale) -> String {
@@ -34,7 +34,7 @@ final class DateFormatterCacheTests: XCTestCase {
         XCTAssertEqual(cached(de), fresh(de))
     }
 
-    func testUhrzeitHeuteSonstDatum() throws {
+    func testTimeTodayOtherwiseDate() throws {
         // Heute: fester Zeitpunkt mitten im heutigen Kalendertag (nicht «jetzt») — und falls der Test genau über
         // Mitternacht läuft, überspringen statt je nach Uhrzeit mal Uhrzeit, mal Datum zu erwarten
         let calendar = Calendar.current

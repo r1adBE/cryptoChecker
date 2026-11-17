@@ -20,7 +20,7 @@ final class MacroNotifyParityTests: XCTestCase {
         return try XCTUnwrap(calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2], hour: 12)))
     }
 
-    func testZeitpunktJeOrtstag() throws {
+    func testTimePerLocalDay() throws {
         let fixture = try TestSupport.fixture("macro_notify")
         let cases = try XCTUnwrap(fixture["notifyAt"] as? [[String: Any]])
         XCTAssertGreaterThanOrEqual(cases.count, 10)
@@ -33,7 +33,7 @@ final class MacroNotifyParityTests: XCTestCase {
         }
     }
 
-    func testTermineDerMitteilung() throws {
+    func testDatesOfTheNotification() throws {
         let fixture = try TestSupport.fixture("macro_notify")
         for c in try XCTUnwrap(fixture["events"] as? [[String: Any]]) {
             let cal = try calendar(try XCTUnwrap(c["zone"] as? String))

@@ -26,7 +26,7 @@ final class WatchlistWriteFailedTests: XCTestCase {
         return StorageKey(keychain: fake)
     }
 
-    func testSchreibfehlerWirdGemerktUndGeloescht() {
+    func testWriteErrorIsRememberedAndCleared() {
         let snapshot = SharedStorage.Snapshot()
         // Ziel in einem Ordner, den es nicht gibt: das Schreiben scheitert (nicht am Schlüssel)
         let missing = dir.appendingPathComponent("fehlt/watchlist.json")
@@ -45,7 +45,7 @@ final class WatchlistWriteFailedTests: XCTestCase {
 
     /// Gelöscht wird der Merker nur, wenn der Stand der App geschrieben ist (`saveSnapshotInBackground`), nie in
     /// `writeFiles` bzw. `updateSnapshot` (Stand aus der Datei).
-    func testMerkerFaelltNurMitDemStandDerApp() throws {
+    func testMarkerFallsOnlyWithTheAppState() throws {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let files = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Files.swift"), encoding: .utf8)
         XCTAssertFalse(files.contains("watchlistWriteFailed = false"))
@@ -61,7 +61,7 @@ final class WatchlistWriteFailedTests: XCTestCase {
     }
 
     /// Liegen gebliebene Zwischendateien: nur alte `.<Name>.<UUID>.tmp` weg; junge und echte Dateien bleiben.
-    func testAlteZwischendateienWeg() throws {
+    func testOldTemporaryFilesGone() throws {
         let fm = FileManager.default
         let now = EpochTime.nowMillis
         func file(_ name: String, ageMillis: Int64) throws -> URL {

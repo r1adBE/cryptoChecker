@@ -16,7 +16,7 @@ class AsideRetentionParityTest {
     private val fixture = ParityJson.load("aside_retention.json")
 
     @Test
-    fun fristWieGemeinsameFaelle() {
+    fun timeLimitAsSharedCases() {
         assertEquals(AsideRetention.MAX_AGE_MILLIS, fixture["maxAgeMillis"].num()?.toLong())
         for (raw in fixture["cases"].list()) {
             val c = raw.obj()

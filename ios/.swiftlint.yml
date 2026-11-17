@@ -41,6 +41,9 @@ type_name:
   min_length: 1
   max_length: 60
 
+# In SwiftUI-Bodies braucht ein ausgewerteter, nicht gezeigter Wert `let _ =` (ein blosses `_ =` ist dort kein View)
+redundant_discardable_let:
+  ignore_swiftui_view_bodies: true
 
 # Obergrenzen = heutiger Höchstwert: nichts darf darüber wachsen (wie code_metrics.py); beim Kürzen senken
 cyclomatic_complexity:

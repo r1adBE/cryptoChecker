@@ -22,7 +22,7 @@ class ExactCadenceParityTest {
     private fun Any?.int(): Int = num()!!.toInt()
 
     @Test
-    fun intervallWieGemeinsameTestfaelle() {
+    fun intervalAsSharedTestCases() {
         val cases = data["interval"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -35,7 +35,7 @@ class ExactCadenceParityTest {
     }
 
     @Test
-    fun neuStellenWieGemeinsameTestfaelle() {
+    fun rescheduleAsSharedTestCases() {
         for (raw in data["needsArm"].list()) {
             val c = raw.obj()
             val interval = BackgroundSchedule.exactIntervalMillis(c["minutes"].int())
@@ -50,7 +50,7 @@ class ExactCadenceParityTest {
 
     /** Fenster unter dem Wecker: Intervall minus Toleranz, nie unter dem gewöhnlichen Fenster. */
     @Test
-    fun fensterMitToleranzWieGemeinsameTestfaelle() {
+    fun windowWithToleranceAsSharedTestCases() {
         assertEquals(data["toleranceMillis"].num()!!.toLong(), BackgroundSchedule.DEDUPE_TOLERANCE_MILLIS)
         val cases = data["window"].list()
         assertTrue(cases.size >= 7)
@@ -72,7 +72,7 @@ class ExactCadenceParityTest {
     }
 
     @Test
-    fun sperrfensterWieGemeinsameTestfaelle() {
+    fun blockWindowAsSharedTestCases() {
         val cases = data["skip"].list()
         assertTrue(cases.size >= 13)
         for (raw in cases) {

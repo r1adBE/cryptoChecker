@@ -230,7 +230,7 @@ class PortfolioInsightsTest {
 class PortfolioOffTest {
 
     @Test
-    fun `nur eine neue Transaktion schaltet das ausgeschaltete Portfolio ein`() {
+    fun `only a new transaction turns the disabled portfolio on`() {
         assertTrue(PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = false))
         assertFalse(PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = true))
         assertFalse(PortfolioOff.enableOnSave(isNew = false, portfolioEnabled = false))
@@ -238,7 +238,7 @@ class PortfolioOffTest {
     }
 
     @Test
-    fun `nur die erste neue Transaktion bei Portfolio aus fragt nach dem Tab`() {
+    fun `only the first new transaction with portfolio off asks about the tab`() {
         assertTrue(PortfolioOff.askEnableOnSave(isNew = true, portfolioEnabled = false, hadTransactions = false))
         assertFalse(PortfolioOff.askEnableOnSave(isNew = true, portfolioEnabled = false, hadTransactions = true))
         assertFalse(PortfolioOff.askEnableOnSave(isNew = true, portfolioEnabled = true, hadTransactions = false))
@@ -246,13 +246,13 @@ class PortfolioOffTest {
     }
 
     @Test
-    fun `hinzufuegen wird immer angeboten ausser in der Vorschau`() {
+    fun `add is always offered except in the preview`() {
         assertTrue(PortfolioOff.offerAddToPortfolio(preview = false))
         assertFalse(PortfolioOff.offerAddToPortfolio(preview = true))
     }
 
     @Test
-    fun `widget aus geht vor Sperre und leer`() {
+    fun `widget off takes precedence over lock and empty`() {
         assertEquals(PortfolioOff.WidgetState.OFF, PortfolioOff.widgetState(portfolioEnabled = false, locked = true, empty = true))
         assertEquals(PortfolioOff.WidgetState.OFF, PortfolioOff.widgetState(portfolioEnabled = false, locked = false, empty = false))
         assertEquals(PortfolioOff.WidgetState.LOCKED, PortfolioOff.widgetState(portfolioEnabled = true, locked = true, empty = true))
@@ -261,7 +261,7 @@ class PortfolioOffTest {
     }
 
     @Test
-    fun `widget oeffnet Tab oder Einstellungen`() {
+    fun `widget opens tab or settings`() {
         assertEquals(PortfolioOff.WidgetTarget.PORTFOLIO_TAB, PortfolioOff.widgetTarget(portfolioEnabled = true))
         assertEquals(PortfolioOff.WidgetTarget.PORTFOLIO_SETTINGS, PortfolioOff.widgetTarget(portfolioEnabled = false))
     }
@@ -288,13 +288,13 @@ class PortfolioTxFirstInvalidTest {
         PortfolioTxFirstInvalid.of(PortfolioTxForm.check(e), amountValid = e.amount != null, isSwap = e.type == PortfolioTxType.SWAP)
 
     @Test
-    fun gueltigeEingabeHatKeinFehlerfeld() {
+    fun validInputHasNoErrorField() {
         assertNull(first(buy()))
         assertNull(first(swap))
     }
 
     @Test
-    fun reihenfolgeWieImBlatt() {
+    fun orderAsInTheSheet() {
         // Coin und Menge falsch: zuerst der Coin (steht oben)
         assertEquals(Field.COIN, first(buy().copy(coinQuery = "", amount = null)))
         assertEquals(Field.AMOUNT, first(buy().copy(amount = null, priceBlank = false)))
@@ -304,14 +304,14 @@ class PortfolioTxFirstInvalidTest {
     }
 
     @Test
-    fun tauschFelder() {
+    fun swapFields() {
         assertEquals(Field.TO_COIN, first(swap.copy(toCoinQuery = "btc", toAmount = null)))
         assertEquals(Field.TO_AMOUNT, first(swap.copy(toAmount = null)))
         assertEquals(Field.SWAP_VALUE, first(swap.copy(swapValueBlank = false, swapValue = dec("-1"))))
     }
 
     @Test
-    fun gebuehrImDrittenCoinUndVerbrauchteMenge() {
+    fun feeInThirdCoinAndConsumedAmount() {
         // Dritter Coin gleich dem Coin der Transaktion: ungültig
         assertEquals(Field.FEE_COIN, first(buy().copy(feeCoin = "BTC", feeCoinAmountBlank = false, feeCoinAmount = dec("1"))))
         // Gebühr im Coin ≥ Menge: am Gebührenfeld
@@ -321,7 +321,7 @@ class PortfolioTxFirstInvalidTest {
     }
 
     @Test
-    fun nurGebuehrenfelderLiegenImAbschnitt() {
+    fun onlyFeeFieldsAreInTheSection() {
         assertTrue(Field.FEE.inLedger)
         assertTrue(Field.FEE_COIN.inLedger)
         assertFalse(Field.PRICE.inLedger)
@@ -329,7 +329,7 @@ class PortfolioTxFirstInvalidTest {
     }
 
     @Test
-    fun keinFehlerfeldGenauDannWennSpeicherbar() {
+    fun noErrorFieldExactlyWhenSavable() {
         val entries = listOf(
             buy(),
             buy().copy(coinQuery = ""),

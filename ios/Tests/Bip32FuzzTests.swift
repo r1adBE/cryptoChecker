@@ -26,7 +26,7 @@ final class Bip32FuzzTests: XCTestCase {
                       + mismatches.prefix(5).joined(separator: "\n"), file: file, line: line)
     }
 
-    func testZufaelligeSchluesselLeitenWieDieReferenzAb() throws {
+    func testRandomKeysDeriveAsTheReference() throws {
         let cases = S.list(try data()["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 1000)
         var mismatches: [String] = []
@@ -75,7 +75,7 @@ final class Bip32FuzzTests: XCTestCase {
         assertNoMismatch("k·G + Q", mismatches)
     }
 
-    func testGebastelteSchluesselWerdenGeprueft() throws {
+    func testCraftedKeysAreChecked() throws {
         for c in S.list(try data()["keyChecks"]) {
             let note = c["note"] as? String ?? ""
             let xpub = c["xpub"] as? String ?? ""
@@ -92,7 +92,7 @@ final class Bip32FuzzTests: XCTestCase {
         }
     }
 
-    func testIndexGrenzen() throws {
+    func testIndexLimits() throws {
         let d = try data()
         let key = try XCTUnwrap(Bip32.parse(S.list(d["cases"]).first?["xpub"] as? String ?? ""))
         for c in S.list(d["indexLimits"]) {

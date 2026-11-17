@@ -11,7 +11,7 @@ import org.junit.Test
 class NotificationChannelsLookupTest {
 
     @Test
-    fun bestehenderKanalOhneListung() {
+    fun existingChannelWithoutListing() {
         val path = "src/main/java/com/cryptochecker/app/notification/NotificationChannels.kt"
         val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
         val body = text.substringAfter("fun ensureAlarmChannel(context: Context, mode: AlarmSignal")

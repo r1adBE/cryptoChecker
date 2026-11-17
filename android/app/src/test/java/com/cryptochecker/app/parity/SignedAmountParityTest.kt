@@ -52,8 +52,8 @@ class SignedAmountParityTest {
     }
 
     @Test
-    fun faelleWieGemeinsameTestfaelle() = check(Locale.US)
+    fun casesAsSharedTestCases() = check(Locale.US)
 
     @Test
-    fun rechtsNachLinksMitInsel() = check(Locale.forLanguageTag("he-IL"))
+    fun rightToLeftWithIsolate() = check(Locale.forLanguageTag("he-IL"))
 }

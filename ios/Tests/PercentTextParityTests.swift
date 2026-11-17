@@ -7,7 +7,7 @@ import XCTest
 final class PercentTextParityTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testFaelleWieGemeinsameTestfaelle() throws {
+    func testCasesAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("percent_text")["cases"])
         XCTAssertFalse(cases.isEmpty)
         for c in cases {
@@ -25,7 +25,7 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertTrue(languages.isSuperset(of: ["de", "fr", "tr", "ar", "fa"]))
     }
 
-    func testZeichenFuerEingabefelder() {
+    func testSignForInputFields() {
         XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "en_US")), "%")
         XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "de_DE")), "%")
         // Türkisch: im Feld ebenfalls hinten, nur das Zeichen (wie Android)
@@ -35,7 +35,7 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "ar_EG@numbers=latn")), "%")
     }
 
-    func testAbstandNachSpracheUndRegion() {
+    func testSpacingByLanguageAndRegion() {
         // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
         XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_MX")), "2.4%")
         XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_US")), "2.4\u{00A0}%")
@@ -49,7 +49,7 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertEqual(PercentText.wrap("2,4", locale: Locale(identifier: "fr_CH")), "2,4%")
     }
 
-    func testMitteilungsprozentOhneVorzeichenBeiGerundetNull() {
+    func testNotificationPercentWithoutSignWhenRoundedToZero() {
         let us = Locale(identifier: "en_US")
         XCTAssertEqual(PriceFormat.changePercentDetailed(1.2346, locale: us), BidiText.ltr("+1.235%"))
         XCTAssertEqual(PriceFormat.changePercentDetailed(-0.5, locale: us), BidiText.ltr("\u{2212}0.500%"))
@@ -59,7 +59,7 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertEqual(PriceFormat.changePercentDetailed(0, locale: us), BidiText.ltr("0.000%"))
     }
 
-    func testAbstandGroessteEinheit() {
+    func testSpacingLargestUnit() {
         let now: Int64 = 10_000_000_000
         XCTAssertEqual(PriceFormat.ageParts(since: now - 7 * 86_400_000 - 5_000, now: now)?.value, 7)
         XCTAssertEqual(PriceFormat.ageParts(since: now - 7 * 86_400_000, now: now)?.unit, .day)
@@ -70,7 +70,7 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertNil(PriceFormat.ageParts(since: now + 1_000, now: now))
     }
 
-    func testAbstandInDerSprache() throws {
+    func testSpacingInTheLanguage() throws {
         let now: Int64 = 10_000_000_000
         // Englisch «7d». Die Einheit in anderen Sprachen kommt aus den Plattformdaten: im Test-Simulator (iOS 26)
         // liefert Foundation für de ebenfalls «7d», darum hier nur Zahl und Länge geprüft (CI).

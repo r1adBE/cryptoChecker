@@ -16,7 +16,7 @@ import org.junit.Test
 class SettingsWriteGuardTest {
 
     @Test
-    fun guardedFaengtSchreibfehlerAb() {
+    fun guardedCatchesWriteErrors() {
         val repo = File(dir("data/src/main/java/com/cryptochecker/app/data/settings"), "SettingsRepository.kt").readText().squashed()
         assertTrue(
             repo.contains(

@@ -33,7 +33,7 @@ class WatchDaoAlarmQueriesTest {
     }
 
     @Test
-    fun bedingteUpdatesPruefenDieWaehrung() {
+    fun conditionalUpdatesCheckTheCurrency() {
         for (name in listOf("markAlarmTriggered", "setAlarmReferenceIfUnchanged", "rearmAlarmIfUnchanged")) {
             assertTrue(name, queryOf(name).contains("currency IS :currency"))
         }
@@ -41,7 +41,7 @@ class WatchDaoAlarmQueriesTest {
 
     /** Paare löschen entfernt auch die letzten Prüfungen ihrer Alarme aus dem Alarm-Protokoll. */
     @Test
-    fun paarLoeschenRaeumtDasAlarmProtokollAuf() {
+    fun deletingPairCleansUpTheAlarmLog() {
         val path = "src/main/java/com/cryptochecker/app/data/WatchRepository.kt"
         val file = listOf(
             File(path),

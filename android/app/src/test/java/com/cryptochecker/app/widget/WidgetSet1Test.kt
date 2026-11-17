@@ -22,20 +22,20 @@ import org.junit.Test
 class WidgetAmountFontTest {
 
     @Test
-    fun `Arabisch und Persisch nehmen die Systemschrift`() {
+    fun `Arabic and Persian take the system font`() {
         assertTrue(WidgetAmountFont.usesSystemFont(Locale.forLanguageTag("ar-EG-u-nu-arab")))
         assertTrue(WidgetAmountFont.usesSystemFont(Locale.forLanguageTag("fa-IR-u-nu-arabext")))
     }
 
     @Test
-    fun `lateinische Ziffern behalten Rubik`() {
+    fun `Latin digits keep Rubik`() {
         assertFalse(WidgetAmountFont.usesSystemFont(Locale.forLanguageTag("de-CH")))
         assertFalse(WidgetAmountFont.usesSystemFont(Locale.forLanguageTag("he-IL")))
         assertFalse(WidgetAmountFont.usesSystemFont(Locale.forLanguageTag("ar-u-nu-latn")))
     }
 
     @Test
-    fun `ohne Systemschrift bleibt der Text unveraendert`() {
+    fun `without system font the text stays unchanged`() {
         val text = "61’234.50 USDT"
         assertTrue(WidgetAmountFont.apply(text, systemFont = false) === text)
     }

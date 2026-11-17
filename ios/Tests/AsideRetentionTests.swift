@@ -10,7 +10,7 @@ final class AsideRetentionTests: XCTestCase {
         ((value as? [String: Any]) ?? [:]).compactMapValues { ($0 as? NSNumber)?.int64Value }
     }
 
-    func testFristWieGemeinsameFaelle() throws {
+    func testTimeLimitAsSharedCases() throws {
         let fixture = try S.fixture("aside_retention")
         XCTAssertEqual((fixture["maxAgeMillis"] as? NSNumber)?.int64Value, AsideRetention.maxAgeMillis)
         let cases = S.list(fixture["cases"])

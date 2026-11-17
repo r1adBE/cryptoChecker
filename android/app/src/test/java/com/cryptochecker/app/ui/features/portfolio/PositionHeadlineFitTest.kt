@@ -12,7 +12,7 @@ import org.junit.Test
 class PositionHeadlineFitTest {
 
     @Test
-    fun wertSchrumpftStattAbzuschneiden() {
+    fun valueShrinksInsteadOfClipping() {
         val rel = "ui/features/portfolio/PortfolioPositionCard.kt"
         val src = SourceGuard.android(findUp(rel), rel).readText(Charsets.UTF_8)
         val headline = src.substringAfter(

@@ -6,14 +6,14 @@ import XCTest
 final class DexNamesParityTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testNamenUndMindestlaengeWieGemeinsameListe() throws {
+    func testNamesAndMinimumLengthAsSharedList() throws {
         let data = try S.fixture("dex_names")
         XCTAssertEqual(data["named"] as? [String], DexNames.named)
         XCTAssertEqual(data["generic"] as? [String], DexNames.generic)
         XCTAssertEqual(S.number(data["minPrefix"]).map { Int($0) }, DexNames.minPrefix)
     }
 
-    func testTrefferWieGemeinsameFaelle() throws {
+    func testHitsAsSharedCases() throws {
         let cases = S.list(try S.fixture("dex_names")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 20)
         for c in cases {
@@ -29,7 +29,7 @@ final class DexNamesParityTests: XCTestCase {
     }
 
     /// Jeder Name findet sich selbst, auch klein geschrieben und schon mit den ersten drei Zeichen.
-    func testJederNameFindetSich() {
+    func testEveryNameIsFound() {
         for name in DexNames.named {
             XCTAssertEqual(DexNames.match(name)?.dexName, name)
             XCTAssertEqual(DexNames.match(name.lowercased())?.dexName, name)

@@ -19,12 +19,12 @@ class WatchlistFooterTest {
     private val fixture = ParityJson.load("watchlist_footer.json")
 
     @Test
-    fun grenzeWieInDerApp() {
+    fun limitAsInTheApp() {
         assertEquals(WatchlistLimits.MAX_PAIRS, fixture["maxPairs"].num()!!.toInt())
     }
 
     @Test
-    fun fusszeileWieGemeinsameTestfaelle() {
+    fun footerAsSharedTestCases() {
         val cases = fixture["cases"].list()
         assertTrue(cases.size >= 15)
         for (raw in cases) {
@@ -56,7 +56,7 @@ class WatchlistFooterTest {
     }
 
     @Test
-    fun naheDerGrenzeWieGemeinsameTestfaelle() {
+    fun nearTheLimitAsSharedTestCases() {
         val cases = fixture["nearLimit"].list()
         assertTrue(cases.size >= 8)
         for (raw in cases) {
@@ -68,7 +68,7 @@ class WatchlistFooterTest {
     }
 
     @Test
-    fun zehnPlaetzeBeiDerGrenzeDerApp() {
+    fun tenSlotsAtTheAppLimit() {
         assertTrue(WatchlistFooter.isNearLimit(10, WatchlistLimits.MAX_PAIRS))
         assertFalse(WatchlistFooter.isNearLimit(11, WatchlistLimits.MAX_PAIRS))
     }

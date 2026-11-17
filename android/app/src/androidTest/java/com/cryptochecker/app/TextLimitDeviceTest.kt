@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 class TextLimitDeviceTest {
 
     @Test
-    fun familieFlaggeUndHauttonAlsEinZeichen() {
+    fun familyFlagAndSkinToneAsOneCharacter() {
         val family = "👨‍👩‍👧‍👦"
         val flag = "🇨🇭"
         val thumb = "👍🏽"

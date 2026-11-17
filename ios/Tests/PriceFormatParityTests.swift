@@ -11,7 +11,7 @@ final class PriceFormatParityTests: XCTestCase {
     /// wird ohne diesen einen Zeichenunterschied (wie `WatchPriceFormatParityTests`).
     private func same(_ text: String?) -> String? { text?.replacingOccurrences(of: "\u{2019}", with: "'") }
 
-    func testKursWieGemeinsameFaelle() throws {
+    func testPriceAsSharedCases() throws {
         let fixture = try S.fixture("price_format")
         let below = try XCTUnwrap(S.number(fixture["smallBelow"]))
         let cases = S.list(fixture["cases"])
@@ -31,7 +31,7 @@ final class PriceFormatParityTests: XCTestCase {
     }
 
     /// Ohne Region: das Format des Geräts — dieselbe Regel (Grenze bei 10), nur mit dessen Zeichen.
-    func testOhneRegionGleicheRegel() {
+    func testWithoutRegionSameRule() {
         XCTAssertEqual(PriceFormat.formatDouble(83_142), PriceFormat.formatDouble(83_142, locale: .current))
         XCTAssertEqual(PriceFormat.formatDouble(0.00000712), PriceFormat.formatDouble(0.00000712, locale: .current))
         XCTAssertEqual(PriceFormat.price(0.00000712), PriceFormat.formatDouble(0.00000712))

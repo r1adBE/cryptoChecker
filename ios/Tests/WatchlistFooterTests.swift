@@ -5,12 +5,12 @@ import XCTest
 final class WatchlistFooterTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testGrenzeWieInDerApp() throws {
+    func testLimitAsInTheApp() throws {
         let fixture = try S.fixture("watchlist_footer")
         XCTAssertEqual(S.number(fixture["maxPairs"]).map { Int($0) }, WatchlistLimits.maxPairs)
     }
 
-    func testFusszeileWieGemeinsameTestfaelle() throws {
+    func testFooterAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("watchlist_footer")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 15)
         for c in cases {
@@ -32,7 +32,7 @@ final class WatchlistFooterTests: XCTestCase {
         }
     }
 
-    func testNaheDerGrenzeWieGemeinsameTestfaelle() throws {
+    func testNearTheLimitAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("watchlist_footer")["nearLimit"])
         XCTAssertGreaterThanOrEqual(cases.count, 8)
         for c in cases {
@@ -43,7 +43,7 @@ final class WatchlistFooterTests: XCTestCase {
         }
     }
 
-    func testZehnPlaetzeBeiDerGrenzeDerApp() {
+    func testTenSlotsAtTheAppLimit() {
         XCTAssertTrue(WatchlistFooter.isNearLimit(free: 10, max: WatchlistLimits.maxPairs))
         XCTAssertFalse(WatchlistFooter.isNearLimit(free: 11, max: WatchlistLimits.maxPairs))
     }

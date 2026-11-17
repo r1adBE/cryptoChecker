@@ -83,7 +83,7 @@ final class CsvReadChoiceTests: XCTestCase {
                              decimalMark: (o["decimalMark"] as? String)?.first)
     }
 
-    func testKnopfWieGemeinsameTestfaelle() throws {
+    func testButtonAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("csv_import")["confirmGate"])
         XCTAssertGreaterThanOrEqual(cases.count, 7)
         for c in cases {

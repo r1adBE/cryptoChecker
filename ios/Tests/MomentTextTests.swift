@@ -12,14 +12,14 @@ final class MomentTextTests: XCTestCase {
         return Int64(date.timeIntervalSince1970 * 1000)
     }
 
-    func testGleicherTagNachKalender() {
+    func testSameDayByCalendar() {
         let now = at(2026, 10, 12, 0, 30)
         XCTAssertTrue(MomentText.isSameDay(at(2026, 10, 12, 0, 5), now, timeZone: zone))
         // Vor Mitternacht = gestern, auch wenn nur 40 Minuten her
         XCTAssertFalse(MomentText.isSameDay(at(2026, 10, 11, 23, 50), now, timeZone: zone))
     }
 
-    func testHeuteNurUhrzeitSonstMitDatum() {
+    func testTodayOnlyTimeOtherwiseWithDate() {
         let now = at(2026, 10, 12, 18, 0)
         let de = Locale(identifier: "de_DE")
         XCTAssertEqual(MomentText.moment(at(2026, 10, 12, 14, 2, 11), now: now, timeZone: zone, locale: de), "14:02:11")
@@ -43,7 +43,7 @@ final class MomentTextCacheTests: XCTestCase {
         return f.string(from: Date(timeIntervalSince1970: TimeInterval(millis) / 1000))
     }
 
-    func testGleicheAusgabeWieFrischerFormatter() {
+    func testSameOutputAsFreshFormatter() {
         let now: Int64 = 1_792_000_000_000
         let zones = ["Europe/Zurich", "America/New_York", "Asia/Tokyo"].compactMap(TimeZone.init(identifier:))
         let locales = ["de_CH", "en_US", "ja_JP"].map(Locale.init(identifier:))

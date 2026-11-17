@@ -25,7 +25,7 @@ class UsageMeterTest {
     private var clock = 1_700_000_000_000L
 
     @Test
-    fun zaehltImSpeicherUndSchreibtHoechstensJedeMinute() {
+    fun countsInMemoryAndWritesAtMostEveryMinute() {
         val file = File(dir, UsageMeter.FILE_NAME)
         val meter = UsageMeter { clock }
         meter.countRequest(100)
@@ -50,7 +50,7 @@ class UsageMeterTest {
     }
 
     @Test
-    fun laeufeZaehlenUeberLetztePruefungenOhneOffeneApp() {
+    fun runsCountOverLastChecksWithoutOpenApp() {
         val meter = UsageMeter { clock }
         meter.attach(File(dir, UsageMeter.FILE_NAME))
         val store = CheckRunStore(File(dir, CheckRunStore.FILE_NAME), meter)

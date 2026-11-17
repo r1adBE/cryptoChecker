@@ -21,7 +21,7 @@ class AccentContrastTest {
     private fun ratio(a: Int, b: Int) = WidgetContrast.ratio(a, b)
 
     @Test
-    fun `primary erreicht AA auf allen Flaechen`() {
+    fun `primary reaches AA on all surfaces`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val colors = WidgetColors.of(accent, dark)
@@ -34,7 +34,7 @@ class AccentContrastTest {
     }
 
     @Test
-    fun `onPrimary auf primary erreicht AA`() {
+    fun `onPrimary on primary reaches AA`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val colors = WidgetColors.of(accent, dark)
@@ -45,7 +45,7 @@ class AccentContrastTest {
     }
 
     @Test
-    fun `hoher Kontrast erreicht 7 zu 1 auf der dunkelsten Flaeche`() {
+    fun `high contrast reaches 7 to 1 on the darkest surface`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val hc = WidgetContrast.highContrastAccent(WidgetColors.of(accent, dark).accentColor, dark)
@@ -56,7 +56,7 @@ class AccentContrastTest {
     }
 
     @Test
-    fun `Werte wie in der Spezifikation`() {
+    fun `values as in the specification`() {
         assertEquals(0xFFA64827.toInt(), WidgetColors.of(AccentColor.ORANGE, false).accentColor)
         assertEquals(0xFFBE2B38.toInt(), WidgetColors.of(AccentColor.RED, false).accentColor)
         assertEquals(0xFF2B5FC8.toInt(), WidgetColors.of(AccentColor.BLUE, false).accentColor)
@@ -67,7 +67,7 @@ class AccentContrastTest {
 
     /** `AccentColor.primary` (Bezug der Kursfarben) = Akzent der Widgets und der App. */
     @Test
-    fun `AccentColor primary wie Widget-Akzent`() {
+    fun `AccentColor primary as widget accent`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 assertEquals("${accent.name}/dark=$dark", WidgetColors.of(accent, dark).accentColor, accent.primary(dark))
@@ -77,7 +77,7 @@ class AccentContrastTest {
 
     /** primary in `AppColorSchemes.kt` = Akzent der Widgets (eine Palette, zwei Stellen). */
     @Test
-    fun `App-Farbschema und Widget haben denselben Akzent`() {
+    fun `app colour scheme and widget have the same accent`() {
         val source = schemesSource()
         val names = mapOf(
             AccentColor.ORANGE to "orange",
@@ -101,7 +101,7 @@ class AccentContrastTest {
 
     /** «warmes Papier» – jede warme Fläche ist mindestens so hell wie der neutrale Grauton. */
     @Test
-    fun `warme Flaechen sind nicht dunkler als die neutralen Grautoene`() {
+    fun `warm surfaces are not darker than the neutral greys`() {
         val black = 0xFF000000.toInt()
         for ((grey, warm) in WARM_REPLACES) {
             assertTrue(
@@ -113,7 +113,7 @@ class AccentContrastTest {
 
     /** Haupt-, Neben- und Warntext, Fehlerrot auf allen warmen Flächen ≥ 4.5:1; Linie ≥ 3:1. */
     @Test
-    fun `Text und Linien erreichen den Kontrast auf warmen Flaechen`() {
+    fun `text and lines reach the contrast on warm surfaces`() {
         for (bg in WARM_SURFACES) {
             // Fehlerfarbe aus dem echten hellen Schema (ErrorContrastTest prüft alle Akzentfarben)
             val error = appColorScheme(AccentColor.ORANGE, false).error.toArgb()
@@ -127,7 +127,7 @@ class AccentContrastTest {
 
     /** Die hellen Farbschemata in `AppColorSchemes.kt` nutzen die warmen Flächen. */
     @Test
-    fun `helle Farbschemata haben die warmen Flaechen`() {
+    fun `light colour schemes have the warm surfaces`() {
         val source = schemesSource()
         for (name in listOf("orange", "red", "blue", "green", "marrsGreen")) {
             val start = source.indexOf("private val ${name}Light = ")
@@ -145,7 +145,7 @@ class AccentContrastTest {
      * hell #F7931A hielt nur ≈ 2.2:1, deshalb dunkler; dunkel bleibt das Original.
      */
     @Test
-    fun `Bitcoin-Orange erreicht 3 zu 1 als Grafik in Hell und Dunkel`() {
+    fun `Bitcoin orange reaches 3 to 1 as graphic in light and dark`() {
         for (dark in listOf(false, true)) {
             val btc = AssetPalette.bitcoin(dark)
             for (bg in if (dark) DARK_SURFACES else LIGHT_SURFACES + WARM_SURFACES) {
@@ -160,7 +160,7 @@ class AccentContrastTest {
 
     /** Ethereum-Blau (Dominanz-Balken) ≥ 3:1 — hell #627EEA hielt auf #E5E2DB nur ≈ 2.85:1. */
     @Test
-    fun `Ethereum-Blau erreicht 3 zu 1 als Grafik in Hell und Dunkel`() {
+    fun `Ethereum blue reaches 3 to 1 as graphic in light and dark`() {
         for (dark in listOf(false, true)) {
             val eth = AssetPalette.ethereum(dark)
             for (bg in if (dark) DARK_SURFACES else LIGHT_SURFACES + WARM_SURFACES) {
@@ -178,7 +178,7 @@ class AccentContrastTest {
      * Flächen der Kopfzeile; `outlineVariant` (#ADA9A0, ≈ 2.0–2.3:1) bleibt darunter. Werte aus dem Quelltext.
      */
     @Test
-    fun `outline als Chip-Rand erreicht 3 zu 1`() {
+    fun `outline as chip border reaches 3 to 1`() {
         val source = schemesSource()
         for ((outline, surfaces) in listOf(0xFF777777.toInt() to LIGHT_SURFACES + WARM_SURFACES, 0xFF919191.toInt() to DARK_SURFACES)) {
             for (bg in surfaces) {
@@ -192,7 +192,7 @@ class AccentContrastTest {
 
     /** Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (#C9C6BF hätte 1.6:1), unter 3:1. */
     @Test
-    fun `Trennlinie hell erreicht etwa 2_2 zu 1`() {
+    fun `light divider reaches about 2_2 to 1`() {
         val r = ratio(0xFFADA9A0.toInt(), 0xFFFBF9F6.toInt())
         assertTrue("%.3f".format(r), r in 2.15..2.3)
         assertTrue(ratio(0xFFC9C6BF.toInt(), 0xFFFBF9F6.toInt()) < 1.7)
@@ -200,7 +200,7 @@ class AccentContrastTest {
 
     /** Blau ohne violettes Tertiär; tertiary als Schrift AA, onTertiary auf tertiary AA. */
     @Test
-    fun `Blau hat ein blaues Tertiaer mit AA`() {
+    fun `blue has a blue tertiary with AA`() {
         val source = schemesSource()
         assertTrue(!source.contains("0xFF804E73") && !source.contains("0xFFFED7F3"))
         for ((tertiary, on, surfaces) in listOf(
@@ -215,7 +215,7 @@ class AccentContrastTest {
 
     /** Widget-Nebentext: feste, deckende Farbe (keine Deckkraft) ≥ 4.5:1 auf dem Widget-Grund; wie iOS. */
     @Test
-    fun `Widget-Nebentext ist deckend und erreicht AA auf dem Widget-Grund`() {
+    fun `widget secondary text is opaque and reaches AA on the widget background`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val colors = WidgetColors.of(accent, dark)
@@ -235,7 +235,7 @@ class AccentContrastTest {
      * WCAG 1.4.11 ≥ 3:1 auf allen Flächen), keinen Trennlinien-Ton (`outlineVariant`).
      */
     @Test
-    fun `Rand der Eingabefelder erreicht 3 zu 1`() {
+    fun `input field border reaches 3 to 1`() {
         for (bg in LIGHT_SURFACES + WARM_SURFACES) {
             val r = ratio(0xFF777777.toInt(), bg)
             assertTrue("light outline on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)

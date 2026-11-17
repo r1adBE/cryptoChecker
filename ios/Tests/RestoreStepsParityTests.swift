@@ -7,7 +7,7 @@ final class RestoreStepsParityTests: XCTestCase {
     private typealias S = TestSupport
     private struct Boom: Error {}
 
-    func testAblaufWieGemeinsameFaelle() throws {
+    func testFlowAsSharedCases() throws {
         let fixture = try S.fixture("restore_steps")
         let platform = try XCTUnwrap(fixture["ios"] as? [String: Any])
         let steps = try XCTUnwrap(platform["steps"] as? [String])
@@ -69,7 +69,7 @@ final class RestoreStepsParityTests: XCTestCase {
     }
 
     /// Reihenfolge der Schritte in `BackupManager.runRestoreSteps` = die der Datei.
-    func testSchritteWieImCode() throws {
+    func testStepsAsInCode() throws {
         let fixture = try S.fixture("restore_steps")
         let steps = try XCTUnwrap((fixture["ios"] as? [String: Any])?["steps"] as? [String])
         XCTAssertEqual(steps, ["watchlist", "portfolio", "addresses"])

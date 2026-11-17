@@ -11,7 +11,7 @@ import org.junit.Test
 class NavigateOnceTest {
 
     @Test
-    fun nurDieVordersteSeiteDarfNavigieren() {
+    fun onlyTheFrontmostPageMayNavigate() {
         assertTrue(NavigateOnce.allowed(Lifecycle.State.RESUMED))
         // Nach dem ersten Tipp steht die alte Seite während der Überblendung auf STARTED
         assertFalse(NavigateOnce.allowed(Lifecycle.State.STARTED))
@@ -20,7 +20,7 @@ class NavigateOnceTest {
     }
 
     @Test
-    fun zweiterTippWaehrendDerUeberblendungErzeugtKeinenZweitenEintrag() {
+    fun secondTapDuringTransitionCreatesNoSecondEntry() {
         // Nachbau des Ablaufs: der erste Tipp navigiert und stuft die Seite auf STARTED herab
         var state = Lifecycle.State.RESUMED
         val backStack = mutableListOf<String>()
@@ -34,7 +34,7 @@ class NavigateOnceTest {
     }
 
     @Test
-    fun alarmSeitenWerdenNurUeberDenSchutzGeoeffnet() {
+    fun alarmPagesAreOnlyOpenedThroughTheGuard() {
         val dir = listOf(
             File("src/main/java/com/cryptochecker/app/ui/navigation"),
             File("app/src/main/java/com/cryptochecker/app/ui/navigation"),

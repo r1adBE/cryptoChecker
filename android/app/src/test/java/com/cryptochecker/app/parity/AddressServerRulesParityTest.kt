@@ -22,7 +22,7 @@ class AddressServerRulesParityTest {
     private fun cases(key: String) = fixture[key].list().map { it.obj() }.also { assertTrue(key, it.isNotEmpty()) }
 
     @Test
-    fun eingabeWirdGekuerzt() {
+    fun inputIsTrimmed() {
         for (c in cases("clamp")) {
             val output = AddressServerRules.clamp(c["input"] as String)
             assertEquals(c["output"], output)
@@ -32,7 +32,7 @@ class AddressServerRulesParityTest {
     }
 
     @Test
-    fun hostSchluesselUndEigenerServer() {
+    fun hostKeyAndOwnServer() {
         for (c in cases("hostKey")) {
             assertEquals(c["key"], AddressServerRules.hostKey(c["entry"] as String))
         }
@@ -44,14 +44,14 @@ class AddressServerRulesParityTest {
     }
 
     @Test
-    fun testergebnisNurZurEingabe() {
+    fun testResultOnlyForTheInput() {
         for (c in cases("testShown")) {
             assertEquals("$c", c["shown"], AddressServerRules.testShown(c["tested"] as String?, c["input"] as String?))
         }
     }
 
     @Test
-    fun rueckfrageVorOeffentlichenKnoten() {
+    fun confirmationBeforePublicNodes() {
         for (c in cases("confirmPublic")) {
             // «chains» statt «btcCount»: Zahl aus der Liste (null = nicht lesbar → fragen)
             val count = if (c.containsKey(
@@ -68,7 +68,7 @@ class AddressServerRulesParityTest {
     }
 
     @Test
-    fun bitcoinAnzahlListeNichtLesbarFragt() {
+    fun bitcoinCountListNotReadableAsks() {
         for (c in cases("btcCount")) {
             assertEquals("$c", c["count"].num()!!.toInt(), AddressServerRules.btcCount(addresses(c["chains"])))
         }
@@ -76,7 +76,7 @@ class AddressServerRulesParityTest {
 
     /** Eigener Bitcoin-Server immer ausdrücklich: kein Standardwert, der still öffentliche Knoten wählt. */
     @Test
-    fun keinStandardwertFuerBitcoinServer() {
+    fun noDefaultValueForBitcoinServer() {
         val path = "src/main/java/com/cryptochecker/app/data/portfolio/WatchedAddressSource.kt"
         val text = listOf(
             File(path),

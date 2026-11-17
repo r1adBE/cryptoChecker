@@ -31,7 +31,7 @@ class IndicatorsParityTest {
     }
 
     @Test
-    fun smaWieGemeinsameTestfaelle() {
+    fun smaAsSharedTestCases() {
         val cases = data["sma"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -42,7 +42,7 @@ class IndicatorsParityTest {
     }
 
     @Test
-    fun rsiWieGemeinsameTestfaelle() {
+    fun rsiAsSharedTestCases() {
         val cases = data["rsi"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -57,7 +57,7 @@ class IndicatorsParityTest {
 
     /** Kennzahlen «vor n Tagen» nach Datum, nicht nach Kerzen-Position (Lücken einer Quelle verschieben nichts). */
     @Test
-    fun byDateWieGemeinsameTestfaelle() {
+    fun byDateAsSharedTestCases() {
         for (raw in data["closeOnOrBefore"].list()) {
             val c = raw.obj()
             check(
@@ -87,7 +87,7 @@ class IndicatorsParityTest {
     }
 
     @Test
-    fun rsiBleibtZwischenNullUndHundert() {
+    fun rsiStaysBetweenZeroAndHundred() {
         for (raw in data["rsi"].list()) {
             val c = raw.obj()
             val value = Indicators.rsi(closes(c["closes"]), c["period"].num()!!.toInt()) ?: continue

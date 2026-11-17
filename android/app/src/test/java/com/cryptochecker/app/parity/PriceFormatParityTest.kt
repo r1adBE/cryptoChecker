@@ -32,7 +32,7 @@ class PriceFormatParityTest {
     }
 
     @Test
-    fun abZehnWieGemeinsameFaelle() {
+    fun fromTenAsSharedCases() {
         val below = fixture["smallBelow"].num()!!
         val cases = fixture["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 60)
@@ -51,7 +51,7 @@ class PriceFormatParityTest {
 
     /** Die Grenze der Datei ist die des Codes: unter 10 das Muster mit gültigen Stellen, ab 10 zwei Nachkommastellen. */
     @Test
-    fun grenzeWieImCode() {
+    fun limitAsInCode() {
         assertEquals(10.0, fixture["smallBelow"].num()!!, 0.0)
         val source = sequenceOf("", "../", "android/")
             .map { java.io.File(it + "marketdata/src/main/java/com/cryptochecker/marketdata/util/DisplayFormat.kt") }

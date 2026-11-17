@@ -202,20 +202,20 @@ final class WidgetRowsTests: XCTestCase {
         }
     }
 
-    func testZweitausendPaareHoechstensZehnLogoSchluessel() {
+    func testTwoThousandPairsAtMostTenLogoKeys() {
         let keys = WidgetRows.logoKeys(for: watches(2000))
         XCTAssertLessThanOrEqual(keys.count, WidgetRows.maxListRows)
         XCTAssertEqual(keys.count, 10)
     }
 
-    func testGezeigtSindDieErstenPaareInGleicherReihenfolge() {
+    func testShownAreTheFirstPairsInSameOrder() {
         let list = watches(25)
         XCTAssertEqual(WidgetRows.shown(list).map(\.id), Array(list.prefix(10)).map(\.id))
         XCTAssertEqual(WidgetRows.shown(list, rows: WidgetRows.mediumListRows).count, 4)
         XCTAssertEqual(WidgetRows.shown(watches(3)).count, 3)
     }
 
-    func testDexPoolsOhneLogo() {
+    func testDexPoolsWithoutLogo() {
         XCTAssertTrue(WidgetRows.logoKeys(for: watches(5, exchangeKey: CoinLogos.dexExchangeKey)).isEmpty)
     }
 }

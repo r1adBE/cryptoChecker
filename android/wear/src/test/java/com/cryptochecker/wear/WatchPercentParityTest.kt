@@ -30,7 +30,7 @@ class WatchPercentParityTest {
     private fun locale(id: String): Locale = Locale.forLanguageTag(id.replace('_', '-'))
 
     @Test
-    fun prozentWieDiePhoneApp() {
+    fun percentAsThePhoneApp() {
         val cases = data.getJSONArray("cases")
         assertTrue(cases.length() > 0)
         for (i in 0 until cases.length()) {
@@ -47,7 +47,7 @@ class WatchPercentParityTest {
     }
 
     @Test
-    fun aenderungDerUhr() {
+    fun changeOfTheWatch() {
         val cases = data.getJSONObject("watch_change").getJSONArray("cases")
         assertTrue(cases.length() > 0)
         for (i in 0 until cases.length()) {

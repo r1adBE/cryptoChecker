@@ -33,7 +33,7 @@ class ColorDifferenceTest {
     }
 
     @Test
-    fun `sRGB-Paare`() {
+    fun `sRGB pairs`() {
         @Suppress("UNCHECKED_CAST")
         val srgb = data["srgb"] as List<Map<String, Any?>>
         for (p in srgb) {
@@ -44,7 +44,7 @@ class ColorDifferenceTest {
     }
 
     @Test
-    fun `Lab von Weiss, Schwarz und Grau`() {
+    fun `Lab of white, black and grey`() {
         assertArrayEquals(doubleArrayOf(100.0, 0.0, 0.0), ColorDifference.lab(0xFFFFFF), 0.02)
         assertArrayEquals(doubleArrayOf(0.0, 0.0, 0.0), ColorDifference.lab(0x000000), 1e-9)
         val grey = ColorDifference.lab(0x777777)

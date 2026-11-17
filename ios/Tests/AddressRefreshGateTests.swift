@@ -67,7 +67,7 @@ final class AddressRefreshGateTests: XCTestCase {
         Task { await gate.run(background: false) { await store.round() } }
     }
 
-    func testZweiVordergrundAufrufeLadenJedeAdresseEinmal() async {
+    func testTwoForegroundCallsLoadEachAddressOnce() async {
         let gate = AddressRefreshGate()
         let store = FakeStore()
         XCTAssertTrue(store.stored[1].isXpub)
@@ -87,7 +87,7 @@ final class AddressRefreshGateTests: XCTestCase {
         XCTAssertFalse(gate.isRunning)
     }
 
-    func testHintergrundKehrtSofortZurueck() async {
+    func testBackgroundReturnsImmediately() async {
         let gate = AddressRefreshGate()
         let store = FakeStore()
         let first = start(gate, store)
@@ -102,7 +102,7 @@ final class AddressRefreshGateTests: XCTestCase {
         XCTAssertFalse(gate.isRunning)
     }
 
-    func testNutzerAenderungWaehrendRundeBleibtErhalten() async {
+    func testUserChangeDuringRoundIsKept() async {
         let gate = AddressRefreshGate()
         let store = FakeStore()
         let first = start(gate, store)
@@ -141,7 +141,7 @@ final class AddressRefreshGateTests: XCTestCase {
     }
 
     /// Netz A angetippt (fällig, Runde 1 lädt mit A), während Runde 1 Netz B: B wird gleich geladen.
-    func testZweitesNetzWaehrendRundeWirdGeladen() async {
+    func testSecondNetworkDuringRoundIsLoaded() async {
         let store = FakeStore()
         let evm = WatchedAddress(id: 4, chain: .ETH, address: "0x0000000000000000000000000000000000000004",
                                  lastAttempt: store.now - 3_600_000, networks: ["BSC"])
@@ -154,7 +154,7 @@ final class AddressRefreshGateTests: XCTestCase {
     }
 
     /// Neue Adresse (nie versucht), «Tokens mitzählen» während der ersten Runde: verworfen, der Wartende lädt mit Token.
-    func testTokensWaehrendErsterRundeNeuerAdresseWerdenGeladen() async {
+    func testTokensDuringFirstRoundOfNewAddressAreLoaded() async {
         let store = FakeStore()
         store.file.addresses[2].lastAttempt = 0
         await runWithChangeDuringRound(store) { file in
@@ -165,7 +165,7 @@ final class AddressRefreshGateTests: XCTestCase {
     }
 
     /// Erste Suche fragt alle Netze: eine Wahl während der Runde ist darin enthalten — gespeichert, nicht doppelt geladen.
-    func testNetzwahlWaehrendErsterSucheWirdGespeichert() async {
+    func testNetworkChoiceDuringFirstSearchIsSaved() async {
         let store = FakeStore()
         store.file.addresses.append(WatchedAddress(id: 4, chain: .ETH,
                                                    address: "0x0000000000000000000000000000000000000004"))
@@ -175,7 +175,7 @@ final class AddressRefreshGateTests: XCTestCase {
         XCTAssertEqual(store.stored[3].lastAttempt, store.now)
     }
 
-    func testAbbruchDesStartendenGibtGateFrei() async {
+    func testCancelOfTheStarterReleasesGate() async {
         let gate = AddressRefreshGate()
         let store = FakeStore()
         let first = start(gate, store)

@@ -17,7 +17,7 @@ class PeriodicNeededParityTest {
     private fun Map<String, Any?>.flag(key: String): Boolean = this[key] as? Boolean ?: false
 
     @Test
-    fun periodicNeededWieGemeinsameTestfaelle() {
+    fun periodicNeededAsSharedTestCases() {
         val cases = data["periodicNeeded"].list()
         assertTrue(cases.size >= 15)
         for (raw in cases) {
@@ -47,7 +47,7 @@ class PeriodicNeededParityTest {
     }
 
     @Test
-    fun portfolioWorkWieGemeinsameTestfaelle() {
+    fun portfolioWorkAsSharedTestCases() {
         val cases = data["portfolioWork"].list()
         assertTrue(cases.isNotEmpty())
         for (raw in cases) {

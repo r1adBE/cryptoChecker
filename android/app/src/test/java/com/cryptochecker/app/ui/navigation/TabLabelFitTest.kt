@@ -6,13 +6,13 @@ import org.junit.Test
 class TabLabelFitTest {
 
     @Test
-    fun `normale Schrift bleibt unveraendert`() {
+    fun `normal font stays unchanged`() {
         assertEquals(listOf(36f), TabLabelFit.candidates(targetPx = 36f, floorPx = 36f))
         assertEquals(listOf(30f), TabLabelFit.candidates(targetPx = 30f, floorPx = 36f))
     }
 
     @Test
-    fun `grosse Schrift hoechstens bis 80 Prozent`() {
+    fun `large font at most up to 80 percent`() {
         val sizes = TabLabelFit.candidates(targetPx = 100f, floorPx = 36f)
         assertEquals(TabLabelFit.STEPS + 1, sizes.size)
         assertEquals(100f, sizes.first(), 0.001f)
@@ -20,14 +20,14 @@ class TabLabelFitTest {
     }
 
     @Test
-    fun `nie unter die Groesse bei normaler Schrift`() {
+    fun `never below the size at normal font`() {
         val sizes = TabLabelFit.candidates(targetPx = 40f, floorPx = 36f)
         assertEquals(36f, sizes.last(), 0.001f)
         assertEquals(true, sizes.all { it >= 36f })
     }
 
     @Test
-    fun `erste passende Groesse sonst die kleinste`() {
+    fun `first fitting size otherwise the smallest`() {
         val sizes = listOf(100f, 95f, 90f, 85f, 80f)
         assertEquals(90f, TabLabelFit.pick(sizes) { it <= 92f }, 0f)
         assertEquals(80f, TabLabelFit.pick(sizes) { false }, 0f)

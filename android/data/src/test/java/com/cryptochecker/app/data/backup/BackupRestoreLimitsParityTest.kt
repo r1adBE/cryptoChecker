@@ -26,7 +26,7 @@ class BackupRestoreLimitsParityTest {
     private val fixture = ParityJson.load("backup_limits.json")
 
     @Test
-    fun grenzenWieGemeinsameTestfaelle() {
+    fun limitsAsSharedTestCases() {
         val limits = fixture["limits"].obj()
         assertEquals(limits["maxExchangeKey"].num()!!.toInt(), BackupRestoreLimits.MAX_EXCHANGE_KEY)
         assertEquals(limits["maxExchangeName"].num()!!.toInt(), BackupRestoreLimits.MAX_EXCHANGE_NAME)
@@ -39,7 +39,7 @@ class BackupRestoreLimitsParityTest {
     }
 
     @Test
-    fun paareWieGemeinsameTestfaelle() {
+    fun pairsAsSharedTestCases() {
         val cases = fixture["watches"].list()
         assertTrue(cases.size >= 20)
         for (raw in cases) {
@@ -59,7 +59,7 @@ class BackupRestoreLimitsParityTest {
 
     /** Erste Paare der Datei bleiben; Alarme weggelassener Paare fallen weg, je Paar nur die ersten. */
     @Test
-    fun hoechstensSovielePaareUndAlarmeJePaar() {
+    fun atMostSoManyPairsAndAlarmsPerPair() {
         val watches = (1L..BackupRestoreLimits.MAX_PAIRS + 5L).toList()
         val alarms = (1..BackupRestoreLimits.MAX_ALARMS_PER_PAIR + 3).map { 1L to it } +
             listOf(2L to 1, (BackupRestoreLimits.MAX_PAIRS + 1L) to 1)
@@ -78,7 +78,7 @@ class BackupRestoreLimitsParityTest {
 
     /** Paare mit unzulässiger Kennung fallen samt ihren Alarmen weg und werden gezählt; Alarme ohne Paar nicht. */
     @Test
-    fun unzulaessigePaareSamtAlarmenGezaehlt() {
+    fun inadmissiblePairsCountedWithTheirAlarms() {
         val accepted = BackupRestoreLimits.accept(
             watches = listOf(1L, 2L, 3L),
             alarms = listOf(1L to 1, 2L to 1, 2L to 2, 9L to 1),
@@ -97,7 +97,7 @@ class BackupRestoreLimitsParityTest {
      * weggelassene Paare und Alarme wie in den gemeinsamen Testfällen «limitCases».
      */
     @Test
-    fun weggelasseneWieGemeinsameTestfaelle() {
+    fun omittedAsSharedTestCases() {
         val cases = fixture["limitCases"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -117,7 +117,7 @@ class BackupRestoreLimitsParityTest {
      * Schlüssel «Bitpanda» und Name «Kraken» zeigt danach «Bitpanda» — auch über das ganze Lesen ([readWatchlist]).
      */
     @Test
-    fun boersennameAusDemKatalog() {
+    fun exchangeNameFromTheCatalog() {
         val cases = fixture["exchangeNames"].list().map { it.obj() }
         assertTrue(cases.size >= 4)
         for (c in cases) {

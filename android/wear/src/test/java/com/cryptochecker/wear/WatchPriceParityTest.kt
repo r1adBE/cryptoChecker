@@ -38,7 +38,7 @@ class WatchPriceParityTest {
     private fun cases(block: String) = data.getJSONObject(block).getJSONArray("cases").also { assertTrue(it.length() > 0) }
 
     @Test
-    fun kursKnapp() {
+    fun priceCompact() {
         val cases = cases("compact")
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
@@ -52,7 +52,7 @@ class WatchPriceParityTest {
     }
 
     @Test
-    fun knappHoechstensSiebenZeichenBisEineMillionTausend() {
+    fun compactAtMostSevenCharactersUpToOneMillionThousand() {
         for (value in listOf(84_450.12, 999_999.0, 2_234.56, 123.456, 0.02468, 0.0098765, 0.000012345, 999_000_000.0)) {
             val text = WatchFormat.compactPrice(value, Locale.US)
             assertTrue("$value → $text", text.length <= 7)
@@ -60,7 +60,7 @@ class WatchPriceParityTest {
     }
 
     @Test
-    fun zeileDerLangenKomplikation() {
+    fun rowOfTheLongComplication() {
         val cases = cases("line")
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
@@ -83,7 +83,7 @@ class WatchPriceParityTest {
     }
 
     @Test
-    fun portfolioOhneWert() {
+    fun portfolioWithoutValue() {
         val cases = cases("portfolio_off")
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
@@ -97,7 +97,7 @@ class WatchPriceParityTest {
      * erste Coin; ohne Kurs oder mit stillgelegter Börse «Paar / —» statt eines alten Kurses ([ComplicationPlan]).
      */
     @Test
-    fun komplikationZeigtNieKeineDaten() {
+    fun complicationNeverShowsNoData() {
         assertEquals(ComplicationPlan.First.Empty(phoneMode = true), ComplicationPlan.first(emptyList(), WatchSettings.Mode.PHONE))
         assertEquals(ComplicationPlan.First.Empty(phoneMode = false), ComplicationPlan.first(emptyList(), WatchSettings.Mode.OWN))
         assertEquals(ComplicationPlan.First.Coin("BTC"), ComplicationPlan.first(listOf("BTC", "ETH"), WatchSettings.Mode.OWN))

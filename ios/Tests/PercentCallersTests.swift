@@ -10,7 +10,7 @@ final class PercentCallersTests: XCTestCase {
     private let ch = Locale(identifier: "de_CH")
     private let tr = Locale(identifier: "tr_TR")
 
-    func testAlarmProzentInDerSchreibweiseDerSprache() {
+    func testAlarmPercentInTheNotationOfTheLanguage() {
         XCTAssertEqual(AlarmTexts.percent(0.5, locale: tr), "%0,5")
         XCTAssertEqual(AlarmTexts.percent(0.5, locale: de), "0,5\u{00A0}%")
         XCTAssertEqual(AlarmTexts.percent(0.5, locale: us), "0.5%")
@@ -20,7 +20,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(AlarmTexts.percent(1.255, locale: us), "1.26%")
     }
 
-    func testFundingUndVeraenderungMitEchtemMinus() {
+    func testFundingAndChangeWithRealMinus() {
         XCTAssertEqual(AlarmTexts.fundingPercent(0.0125, locale: us), "0.0125%")
         XCTAssertEqual(AlarmTexts.fundingPercent(-0.0125, locale: de), "\u{2212}0,0125\u{00A0}%")
         XCTAssertEqual(AlarmTexts.fundingPercent(-0.05, locale: tr), "\u{2212}%0,05")
@@ -32,8 +32,8 @@ final class PercentCallersTests: XCTestCase {
     }
 
     /// Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie `NumberFormatter.percent` («1,000%»),
-    /// wie Android `AlarmSentenceTest.alarmProzentMitTausendertrennung`.
-    func testAlarmProzentMitTausendertrennung() {
+    /// wie Android `AlarmSentenceTest.alarmPercentWithThousandsSeparator`.
+    func testAlarmPercentWithThousandsSeparator() {
         XCTAssertEqual(AlarmTexts.percent(1000, locale: us), "1,000%")
         XCTAssertEqual(AlarmTexts.percent(1000, locale: de), "1.000\u{00A0}%")
         XCTAssertEqual(AlarmTexts.percent(1000, locale: tr), "%1.000")
@@ -43,7 +43,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(PercentText.unsigned(1000, decimals: 2, minDecimals: 0, locale: us), "1000%")
     }
 
-    func testOhneNullenAmEndeMitMinDecimals() {
+    func testWithoutTrailingZerosWithMinDecimals() {
         XCTAssertEqual(PercentText.unsigned(5, decimals: 2, minDecimals: 0, locale: us), "5%")
         XCTAssertEqual(PercentText.unsigned(2.5, decimals: 4, minDecimals: 0, locale: de), "2,5\u{00A0}%")
         XCTAssertEqual(PercentText.unsigned(0.0125, decimals: 4, minDecimals: 0, locale: tr), "%0,0125")
@@ -54,7 +54,7 @@ final class PercentCallersTests: XCTestCase {
 
     /// Zyklus-Chart für VoiceOver wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne
     /// Tausendertrennung, «unverändert» erst unter 0.005 % (vorher «1’130 %» und schon unter 0.5 %).
-    func testZyklusChartSprichtWieAndroid() {
+    func testCycleChartSpeaksAsOnAndroid() {
         XCTAssertEqual(PercentText.unsigned(1130, decimals: 0, locale: us), "1130%")
         XCTAssertEqual(A11y.change(1130, decimals: 0), L("a11y_change_up", PercentText.unsigned(1130, decimals: 0)))
         XCTAssertEqual(A11y.change(-40, decimals: 0), L("a11y_change_down", PercentText.unsigned(40, decimals: 0)))
@@ -67,7 +67,7 @@ final class PercentCallersTests: XCTestCase {
 
     /// Portfolio-Alarm: auch gerundet 0 («0.00%») als links-nach-rechts-Insel wie Android
     /// `PortfolioSnapshotMath.signedPercent` (vorher ohne Insel); ausserhalb von RTL unverändert.
-    func testPortfolioProzentImmerAlsInsel() {
+    func testPortfolioPercentAlwaysAsIsolate() {
         let lri = BidiText.lri, pdi = BidiText.pdi
         XCTAssertEqual(PortfolioAlarmTexts.signedPercent(0, language: "ar"),
                        lri + PercentText.unsigned(0, decimals: 2) + pdi)
@@ -79,7 +79,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(PortfolioAlarmTexts.signedPercent(0, language: "en"), PercentText.unsigned(0, decimals: 2))
     }
 
-    func testSpotProzentJeSprache() {
+    func testSpotPercentPerLanguage() {
         XCTAssertEqual(SpotMarket.percent(2.728915662650602, locale: us), "2.73%")
         XCTAssertEqual(SpotMarket.percent(2.728915662650602, locale: de), "2,73\u{00A0}%")
         XCTAssertEqual(SpotMarket.percent(2.728915662650602, locale: tr), "%2,73")

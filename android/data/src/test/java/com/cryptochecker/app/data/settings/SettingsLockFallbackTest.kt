@@ -14,7 +14,7 @@ import org.junit.Test
 class SettingsLockFallbackTest {
 
     @Test
-    fun unbekannteSperreGiltAlsAn() {
+    fun unknownLockCountsAsOn() {
         val reset = AppSettings()
         assertFalse(reset.appLock)
         assertTrue(SettingsLockFallback.effective(reset, lockUnknown = true).appLock)
@@ -23,14 +23,14 @@ class SettingsLockFallbackTest {
     }
 
     @Test
-    fun bekannteSperreBleibtWieGespeichert() {
+    fun knownLockStaysAsStored() {
         assertFalse(SettingsLockFallback.effective(AppSettings(appLock = false), lockUnknown = false).appLock)
         assertTrue(SettingsLockFallback.effective(AppSettings(appLock = true), lockUnknown = false).appLock)
         assertTrue(SettingsLockFallback.effective(AppSettings(appLock = true), lockUnknown = true).appLock)
     }
 
     @Test
-    fun lesefehlerLiefertStandardwerteMitSperre() {
+    fun readErrorGivesDefaultsWithLock() {
         val read = appSettingsOf(SettingsLockFallback.unreadable())
         assertTrue(read.appLock)
         // Sonst Standardwerte (Stichproben)

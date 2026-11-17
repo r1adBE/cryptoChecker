@@ -13,14 +13,14 @@ import org.junit.Test
 class DexScreenerIdsTest {
 
     @Test
-    fun gueltigeKennungen() {
+    fun validIds() {
         for (id in listOf("ethereum/0xAbC123", "solana/So1111.abc_~-", "eth/a.b", "bsc/0x1")) {
             assertTrue(id, DexScreener.isSafePairId(id))
         }
     }
 
     @Test
-    fun ungueltigeKennungen() {
+    fun invalidIds() {
         val invalid = listOf(
             "", "ethereum", "/0xabc", "ethereum/", "a/b/c", "eth/0x 1", "eth/0x%2F", "eth/0x?x", "eth/0x#",
             "eth/..", "../abc", "./abc", "eth/.", "eth/ä", " eth/0x1",
@@ -29,7 +29,7 @@ class DexScreenerIdsTest {
     }
 
     @Test
-    fun poolVergleichOhneGrossKleinschreibung() {
+    fun poolComparisonIgnoringCase() {
         assertTrue(DexScreener.isPool("ethereum", "0xABC", "ethereum/0xabc"))
         assertTrue(DexScreener.isPool("Ethereum", "0xabc", " ethereum/0xabc "))
         assertFalse(DexScreener.isPool("bsc", "0xabc", "ethereum/0xabc"))
@@ -39,13 +39,13 @@ class DexScreenerIdsTest {
     }
 
     @Test
-    fun sammelgruppenJeChainSortiertOhneDoppelte() {
+    fun batchGroupsPerChainSortedWithoutDuplicates() {
         val groups = DexScreener.bulkGroups(listOf("eth/b", "eth/a", " eth/a ", "bsc/z", "bad", "eth/x y", "eth/.."))
         assertEquals(listOf("bsc" to listOf("z"), "eth" to listOf("a", "b")), groups)
     }
 
     @Test
-    fun sammelgruppenHoechstens30Adressen() {
+    fun batchGroupsAtMost30Addresses() {
         val ids = (0..30).map { "eth/a" + it.toString().padStart(2, '0') }
         val groups = DexScreener.bulkGroups(ids)
         assertEquals(listOf(DexScreener.BULK_MAX_POOLS, 1), groups.map { it.second.size })
@@ -53,7 +53,7 @@ class DexScreenerIdsTest {
     }
 
     @Test
-    fun adressen() {
+    fun addresses() {
         assertEquals(
             "https://api.dexscreener.com/latest/dex/pairs/eth/a,b",
             DexScreener.bulkUrl("eth" to listOf("a", "b")),
@@ -62,14 +62,14 @@ class DexScreenerIdsTest {
     }
 
     @Test
-    fun gekuerzteAdresse() {
+    fun shortenedAddress() {
         assertEquals("0x1234…cdef", DexScreener.shortAddress("0x1234567890abcdef"))
         assertEquals("0x1234567890", DexScreener.shortAddress("0x1234567890"))
         assertEquals("0x12", DexScreener.shortAddress("  0x12  "))
     }
 
     @Test
-    fun alarmNurAbMindestLiquiditaet() {
+    fun alarmOnlyFromMinimumLiquidity() {
         assertFalse(DexScreener.alarmCapable(null))
         assertFalse(DexScreener.alarmCapable(9_999.99))
         assertTrue(DexScreener.alarmCapable(DexScreener.DEX_MIN_ALARM_LIQUIDITY_USD))

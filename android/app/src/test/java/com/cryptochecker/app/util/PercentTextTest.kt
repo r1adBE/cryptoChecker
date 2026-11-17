@@ -10,7 +10,7 @@ import org.junit.Test
 class PercentTextTest {
 
     @Test
-    fun zeichenJeSprache() {
+    fun signPerLanguage() {
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.US))
         assertEquals("2,4\u00A0%", PercentText.wrap("2,4", Locale.GERMANY))
         // Schweiz: ohne Abstand (CLDR de_CH)
@@ -24,7 +24,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun zeichenFuerEingabefelder() {
+    fun signForInputFields() {
         assertEquals("%", PercentText.symbol(Locale.US))
         assertEquals("%", PercentText.symbol(Locale.GERMANY))
         // Türkisch: im Feld ebenfalls hinten, nur das Zeichen
@@ -35,7 +35,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun abstandNachSpracheUndRegion() {
+    fun spacingByLanguageAndRegion() {
         // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("es-MX")))
         assertEquals("2.4\u00A0%", PercentText.wrap("2.4", Locale.forLanguageTag("es-US")))
@@ -51,7 +51,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun mitteilungsprozentOhneVorzeichenBeiGerundetNull() {
+    fun notificationPercentWithoutSignWhenRoundedToZero() {
         assertEquals("+1.235%", PriceFormat.changePercentDetailed(1.2346, Locale.US))
         assertEquals("\u22120.500%", PriceFormat.changePercentDetailed(-0.5, Locale.US))
         // Gerundet 0: weder «+0.000%» noch «−0.000%»
@@ -61,7 +61,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun vorzeichenVorDemGanzen() {
+    fun signBeforeTheWhole() {
         assertEquals("+2.40%", PercentText.signed(2.4, 2, Locale.US))
         assertEquals("\u22121.4%", PercentText.signed(-1.36, 1, Locale.US))
         assertEquals("+%2,4", PercentText.signed(2.4, 1, Locale.forLanguageTag("tr-TR")))
@@ -71,7 +71,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun ohneNullenAmEndeMitMinDecimals() {
+    fun withoutTrailingZerosWithMinDecimals() {
         assertEquals("5%", PercentText.unsigned(5.0, 2, Locale.US, minDecimals = 0))
         assertEquals("2,5\u00A0%", PercentText.unsigned(2.5, 4, Locale.GERMANY, minDecimals = 0))
         assertEquals("%0,0125", PercentText.unsigned(0.0125, 4, Locale.forLanguageTag("tr-TR"), minDecimals = 0))
@@ -81,7 +81,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun abstandGroessteEinheit() {
+    fun spacingLargestUnit() {
         val now = 10_000_000_000L
         assertEquals(7L to PriceFormat.AgeUnit.DAYS, PriceFormat.ageParts(now - 7 * 86_400_000L - 5_000, now))
         assertEquals(3L to PriceFormat.AgeUnit.HOURS, PriceFormat.ageParts(now - 3 * 3_600_000L, now))
@@ -92,7 +92,7 @@ class PercentTextTest {
     }
 
     @Test
-    fun abstandEnglischUnveraendert() {
+    fun spacingEnglishUnchanged() {
         val now = 10_000_000_000L
         // Englisch «7d» (ICU NARROW bzw. ohne ICU der Ersatz)
         assertEquals("7d", PriceFormat.age(now - 7 * 86_400_000L, now, Locale.US))

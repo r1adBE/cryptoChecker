@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 286)
+
+- Test names in English (no change in the app).
+
 ## 16.2.2 (build 285)
 
 - iOS code checked with SwiftLint; long lines wrapped (no change in behaviour).

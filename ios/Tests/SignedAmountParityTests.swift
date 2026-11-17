@@ -11,7 +11,7 @@ final class SignedAmountParityTests: XCTestCase {
         PriceFormat.valueWithCurrency(magnitude, "").trimmingCharacters(in: .whitespaces)
     }
 
-    func testFaelleWieGemeinsameTestfaelle() throws {
+    func testCasesAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("signed_amount")["cases"])
         XCTAssertFalse(cases.isEmpty)
         for c in cases {

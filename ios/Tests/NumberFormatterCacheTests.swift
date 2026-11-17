@@ -38,7 +38,7 @@ final class NumberFormatterCacheTests: XCTestCase {
         return f.string(from: NSDecimalNumber(decimal: value)) ?? ""
     }
 
-    func testGleicheTexteWieFrischerFormatter() {
+    func testSameTextsAsFreshFormatter() {
         for locale in locales {
             for _ in 0..<2 { // zweiter Durchgang aus dem Zwischenspeicher
                 for value in [0.0, 0.25, 58.44, 1_234_567.891, -42.5] {
@@ -61,7 +61,7 @@ final class NumberFormatterCacheTests: XCTestCase {
         }
     }
 
-    func testEinstellungenJeZweckGetrennt() {
+    func testSettingsSeparatedPerPurpose() {
         // Gleiche Sprache, verschiedene Einstellungen: nie der Formatter des anderen Zwecks
         let de = Locale(identifier: "de_CH")
         XCTAssertEqual(LocaleNumbers.integer(1_000_000, locale: de, grouping: true),
@@ -73,7 +73,7 @@ final class NumberFormatterCacheTests: XCTestCase {
                                                                                            grouping: false, de))
     }
 
-    func testSprachwechselVerwirftUndRechnetGleich() {
+    func testLanguageChangeDiscardsAndCalculatesTheSame() {
         let de = Locale(identifier: "de_DE")
         let en = Locale(identifier: "en_US")
         let before = LocaleNumbers.decimal(1234.5, maxDecimals: 2, locale: de, grouping: true)
@@ -88,7 +88,7 @@ final class NumberFormatterCacheTests: XCTestCase {
         XCTAssertEqual(before, "1.234,50")
     }
 
-    func testExakteMengeWieFrischerFormatter() {
+    func testExactAmountAsFreshFormatter() {
         let f = NumberFormatter()
         f.locale = LocaleNumbers.appLocale
         f.numberStyle = .decimal
@@ -103,7 +103,7 @@ final class NumberFormatterCacheTests: XCTestCase {
         }
     }
 
-    func testIsoZeitpunkteMitUndOhneBruchteil() {
+    func testIsoTimesWithAndWithoutFraction() {
         XCTAssertEqual(IsoDates.date("2026-10-11T12:34:56.789Z")?.timeIntervalSince1970 ?? 0, 1_791_722_096.789,
                        accuracy: 0.0005)
         XCTAssertEqual(IsoDates.date("2026-10-11T12:30:00Z")?.timeIntervalSince1970 ?? 0, 1_791_721_800, accuracy: 0.0005)

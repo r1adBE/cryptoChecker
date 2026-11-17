@@ -11,7 +11,7 @@ final class SettingsResetNoticeTests: XCTestCase {
                                    settingsReset: settingsReset, setAside: setAside, setAsideHidden: setAsideHidden)
     }
 
-    func testCorruptNurBeiGespeichertemAberUnlesbaremStand() {
+    func testCorruptOnlyWithStoredButUnreadableState() {
         XCTAssertTrue(SharedStorage.settingsCorrupt(hasData: true, decodes: false))
         // Gelesen: nichts zu melden
         XCTAssertFalse(SharedStorage.settingsCorrupt(hasData: true, decodes: true))
@@ -20,7 +20,7 @@ final class SettingsResetNoticeTests: XCTestCase {
     }
 
     /// Unlesbar → Portfolio-Sperre unbekannt → an (wie Android `SettingsLockFallbackTest`).
-    func testUnlesbareEinstellungenSperrenDasPortfolio() {
+    func testUnreadableSettingsLockThePortfolio() {
         XCTAssertTrue(SharedStorage.settingsAfterRead(nil, corrupt: true).appLock)
         // Neue Installation bzw. gesperrte Ablage: Standard (aus); gesperrte Ablage sperrt über `state`
         XCTAssertFalse(SharedStorage.settingsAfterRead(nil, corrupt: false).appLock)
@@ -33,29 +33,29 @@ final class SettingsResetNoticeTests: XCTestCase {
         XCTAssertTrue(SharedStorage.LoadedSettings(settings: AppSettings(), state: .inaccessible).appLockAssumed)
     }
 
-    func testNichtsVorgemerktKeinHinweis() {
+    func testNothingPendingNoNotice() {
         XCTAssertNil(next())
     }
 
-    func testEinstellungenZurueckgesetztVorNichtEntsperrt() {
+    func testSettingsResetBeforeNotUnlocked() {
         XCTAssertEqual(next(settingsReset: true), .settingsReset)
         XCTAssertEqual(next(settingsReset: true, setAside: true), .settingsReset)
         XCTAssertEqual(next(settingsReset: true, setAside: true, setAsideHidden: true), .settingsReset)
     }
 
-    func testAbgebrochenesWiederherstellenUndZurueckgeholteDatenZuerst() {
+    func testCancelledRestoreAndRecoveredDataFirst() {
         XCTAssertEqual(next(restoreInterrupted: "rolled_back", settingsReset: true), .restoreRolledBack)
         XCTAssertEqual(next(restoreInterrupted: "incomplete", settingsReset: true), .restoreIncomplete)
         XCTAssertEqual(next(keyRestored: true, settingsReset: true), .keyRestored)
     }
 
-    func testNichtEntsperrtNurOhneWegtippen() {
+    func testNotUnlockedOnlyWithoutDismissing() {
         XCTAssertEqual(next(setAside: true), .setAside)
         XCTAssertNil(next(setAside: true, setAsideHidden: true))
     }
 
     @MainActor
-    func testVormerkenUndSchliessen() {
+    func testMarkAndClose() {
         let suite = "SettingsResetNoticeTests"
         let defaults = UserDefaults(suiteName: suite)!
         defaults.removePersistentDomain(forName: suite)

@@ -214,7 +214,7 @@ class BackupSettingsCodecTest {
     private fun invalid(o: JSONObject): Boolean = runCatching { BackupSettingsCodec.checkSettings(o) }.isFailure
 
     @Test
-    fun jedesGeschriebeneFeldIstPflicht() = runTest {
+    fun everyWrittenFieldIsRequired() = runTest {
         val written = codec(FakeSettings()).settingsToJson()
         // Liste der Pflichtfelder = was geschrieben wird = Fixture
         assertEquals(keys(written), BackupSettingsCodec.FIELDS.keys)
@@ -232,7 +232,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun falscherTypMachtDieSicherungUngueltig() {
+    fun wrongTypeMakesTheBackupInvalid() {
         val cases = fixture.getJSONArray("invalid")
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
@@ -244,7 +244,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun alleWerteDerFixtureKommenUnveraendertZurueck() = runTest {
+    fun allValuesOfTheFixtureComeBackUnchanged() = runTest {
         val settings = FakeSettings()
         codec(settings).restoreSettings(fixtureSettings, trusted = true)
         val written = codec(settings).settingsToJson()
@@ -254,7 +254,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun fixtureWeichtUeberallVomStandardAb() = runTest {
+    fun fixtureDiffersFromDefaultEverywhere() = runTest {
         // Sonst prüfte der Hin- und Rückweg für diesen Schlüssel nichts
         val defaults = codec(FakeSettings()).settingsToJson()
         for (key in keys(fixtureSettings)) {
@@ -263,7 +263,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun ganzeSicherungHinUndZurueck() = runTest {
+    fun wholeBackupRoundTrip() = runTest {
         // Alle Werte nicht auf dem Standard → settingsToJson → leere Einstellungen → restoreSettings → gleich
         val source = FakeSettings().also { codec(it).restoreSettings(fixtureSettings, trusted = true) }
         val written = codec(source).settingsToJson()
@@ -276,7 +276,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun ohnePasswortNieWenigerSchutz() = runTest {
+    fun withoutPasswordNeverLessProtection() = runTest {
         val protectedNow = AppSettings(appLock = true, hidePortfolioAmounts = true, portfolioSystemBackup = false)
         val settings = FakeSettings(protectedNow)
         val lessProtection = backup(
@@ -305,7 +305,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun ohnePasswortMehrSchutzErlaubt() = runTest {
+    fun withoutPasswordMoreProtectionAllowed() = runTest {
         val settings = FakeSettings(AppSettings(appLock = false, hidePortfolioAmounts = false, portfolioSystemBackup = true))
         val moreProtection = backup(
             settings,
@@ -324,7 +324,7 @@ class BackupSettingsCodecTest {
      * aussen vor; mit Passwort ersetzt (CHANGED), entfernt (PUBLIC) bzw. neu gesetzt (SET, mit Hostnamen).
      */
     @Test
-    fun eigenerServerAusDerSicherung() = runTest {
+    fun ownServerFromTheBackup() = runTest {
         val settings = FakeSettings().apply { server = "https://a.example/api" }
         suspend fun restore(value: String?, trusted: Boolean) =
             codec(settings).restoreSettings(backup(settings, "addressServerBtc" to value), trusted).addressServer
@@ -357,7 +357,7 @@ class BackupSettingsCodecTest {
 
     /** Datei ohne Passwort: ohne eigenen Server; mit Passwort und im Journal (Standard) mit. */
     @Test
-    fun dateiOhnePasswortOhneServer() = runTest {
+    fun fileWithoutPasswordWithoutServer() = runTest {
         val settings = FakeSettings().apply { server = "https://a.example/api" }
         assertTrue(codec(settings).settingsToJson(encrypted = false).isNull("addressServerBtc"))
         assertEquals("https://a.example/api", codec(settings).settingsToJson(encrypted = true).getString("addressServerBtc"))
@@ -365,7 +365,7 @@ class BackupSettingsCodecTest {
     }
 
     @Test
-    fun sperreNurMitEntsperrbaremGeraet() = runTest {
+    fun lockOnlyWithUnlockableDevice() = runTest {
         val settings = FakeSettings()
         codec(settings, canAuthenticate = false).restoreSettings(backup(settings, "appLock" to true), trusted = true)
         assertFalse(settings.s.appLock)

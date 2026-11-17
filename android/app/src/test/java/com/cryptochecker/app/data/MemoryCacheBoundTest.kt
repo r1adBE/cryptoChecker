@@ -18,7 +18,7 @@ import org.junit.Test
 class MemoryCacheBoundTest {
 
     @Test
-    fun putIfAbsentRemoveUndRemoveKeysIf() {
+    fun putIfAbsentRemoveAndRemoveKeysIf() {
         val cache = BoundedCache<String, Int>(4)
         assertNull(cache.putIfAbsent("A", 1))
         assertEquals(1, cache.putIfAbsent("A", 2))
@@ -32,7 +32,7 @@ class MemoryCacheBoundTest {
     }
 
     @Test
-    fun blattChartBehaeltHoechstensDieGrenze() {
+    fun sheetChartKeepsAtMostTheLimit() {
         val cache = SheetChartCache(now = { 1_000L })
         val ready = SheetChartResult.Ready(candles = emptyList(), converted = false)
         repeat(MEMORY_CACHE_ENTRIES + 100) { cache.put("C$it", "USDT", SheetChartRange.DAY, ready) }

@@ -22,7 +22,7 @@ class AlarmDeliveryMarkerParityTest {
     private val fixture = ParityJson.load("alarm_delivery_marker.json")
 
     @Test
-    fun entscheidungWieGemeinsameTestfaelle() {
+    fun decisionAsSharedTestCases() {
         assertEquals(fixture["freshMillis"].num()!!.toLong(), AlarmDeliveryMarker.FRESH_MILLIS)
         assertEquals(fixture["postedToleranceMillis"].num()!!.toLong(), AlarmDeliveryMarker.POSTED_TOLERANCE_MILLIS)
         val cases = fixture["cases"].list()
@@ -43,7 +43,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Auslösung zum Vermerk schon gespeichert? */
     @Test
-    fun gespeichertSeitDemVermerkWieGemeinsameTestfaelle() {
+    fun savedSinceTheMarkAsSharedTestCases() {
         val cases = fixture["savedSinceCases"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -58,7 +58,7 @@ class AlarmDeliveryMarkerParityTest {
      * gespeicherten Auslösung verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
      */
     @Test
-    fun meldenWieGemeinsameTestfaelle() = runBlocking {
+    fun reportAsSharedTestCases() = runBlocking {
         val cases = fixture["deliverCases"].list()
         assertTrue(cases.size >= 7)
         for (raw in cases) {
@@ -91,7 +91,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
     @Test
-    fun zuruecksetzenWieGemeinsameTestfaelle() {
+    fun resetAsSharedTestCases() {
         val cases = fixture["resetCases"].list()
         assertTrue(cases.size >= 4)
         for (raw in cases) {
@@ -103,7 +103,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern. */
     @Test
-    fun aeltereMitteilungBestaetigtNicht() = runBlocking {
+    fun olderNotificationDoesNotConfirm() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
         val at = 1_700_000_000_000L
         store.set(11, at)
@@ -133,7 +133,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg. */
     @Test
-    fun schonGemeldetAberNichtGespeichertEntferntMitteilung() = runBlocking {
+    fun alreadyReportedButNotSavedRemovesNotification() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
         val at = 1_700_000_000_000L
         store.set(12, at)
@@ -150,7 +150,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Vermerke gelöschter bzw. ersetzter Alarme aufräumen. */
     @Test
-    fun vermerkeAufraeumen() {
+    fun cleanUpMarks() {
         val store = AlarmDeliveryMarkerStore.InMemory()
         store.set(1, 10L)
         store.set(2, 20L)
@@ -164,7 +164,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Erster Lauf endet nach dem Melden (vor dem Speichern); der nächste Lauf speichert nur, ohne erneut zu melden. */
     @Test
-    fun prozessEndeNachDemMeldenKlingeltNichtNochmals() = runBlocking {
+    fun processEndAfterReportingDoesNotRingAgain() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
         val at = 1_700_000_000_000L
         // Lauf 1: «Prozess endet» in mark (Ausnahme), der Vermerk bleibt stehen
@@ -207,7 +207,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Mitteilung weggewischt: der Vermerk zählt als unbestätigter Versuch (Abklingzeit), kein stilles Speichern. */
     @Test
-    fun weggewischteMitteilungWartetDieAbklingzeit() = runBlocking {
+    fun dismissedNotificationWaitsForTheCooldown() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
         val at = 1_700_000_000_000L
         store.set(9, at)
@@ -231,7 +231,7 @@ class AlarmDeliveryMarkerParityTest {
 
     /** Normaler Ablauf: Vermerk vor dem Melden, nach dem Speichern wieder weg. */
     @Test
-    fun vermerkNurWaehrendDesMeldens() = runBlocking {
+    fun markOnlyWhileReporting() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
         var seenDuringShow: Long? = null
         val result = AlarmDelivery(store).deliver(

@@ -3,12 +3,12 @@ import XCTest
 
 /// Sichern/Wiederherstellen bei nicht lesbarem Stand (gesperrt ≠ beschädigt), Journal mit Alarm-Zustand und Datei ohne
 /// Passwort ohne eigenen Bitcoin-Server. Gegenstück Android: `BackupRestorePolicyTest.kt` (Ablehnen),
-/// `BackupSettingsCodecTest.dateiOhnePasswortOhneServer`.
+/// `BackupSettingsCodecTest.fileWithoutPasswordWithoutServer`.
 final class BackupStorageKeptTests: XCTestCase {
     /// Gesperrt (abwarten) geht vor beschädigt (ersetzen): Sichern lehnt beides ab, Wiederherstellen nur «gesperrt».
     /// Vorher sperrte auch eine dauerhaft beschädigte Datei das Wiederherstellen — den Rettungsweg — mit «Starte die App
     /// neu», was nie half.
-    func testGesperrtLehntAbBeschaedigtWirdErsetzt() {
+    func testLockedRejectsDamagedIsReplaced() {
         typealias B = BackupManager
         XCTAssertEqual(B.storageAccess(watchlistLocked: false, parts: [.readable, .readable, .readable]), .readable)
         XCTAssertEqual(B.storageAccess(watchlistLocked: true, parts: [.readable, .readable, .readable]), .locked)
@@ -27,7 +27,7 @@ final class BackupStorageKeptTests: XCTestCase {
     }
 
     /// Beschädigt heisst: Bytes lesbar (kaputt bzw. unverschlüsselt); ohne Schlüssel bzw. weg: gesperrt.
-    func testBeschaedigtOderGesperrt() throws {
+    func testDamagedOrLocked() throws {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("damaged-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: dir) }
@@ -46,7 +46,7 @@ final class BackupStorageKeptTests: XCTestCase {
     }
 
     /// Daneben gelegt und zurückgelegt: Bytes exakt, auch für die Portfolio-Datei.
-    func testBeiseiteUndZurueck() throws {
+    func testAsideAndBack() throws {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("aside-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: dir) }
@@ -62,7 +62,7 @@ final class BackupStorageKeptTests: XCTestCase {
     }
 
     /// Zurückrollen: gemeldete Alarme bleiben gemeldet (Zustand aus dem Journal), nicht wieder scharf.
-    func testJournalZustandKommtZurueck() throws {
+    func testJournalStateComesBack() throws {
         var pair = TestSupport.alarm(["condition": "PRICE_ABOVE", "threshold": 100.0])
         pair.referenceAt = 1_800_000_000_000
         pair.lastTriggeredAt = 1_800_000_000_001
@@ -89,7 +89,7 @@ final class BackupStorageKeptTests: XCTestCase {
     }
 
     /// Datei ohne Passwort ohne eigenen Server; mit Passwort und im Journal mit.
-    func testDateiOhnePasswortOhneServer() throws {
+    func testFileWithoutPasswordWithoutServer() throws {
         var settings = AppSettings()
         settings.addressServerBtc = "https://a.example/api"
         let input = BackupManager.ExportInput(createdAt: 1, watches: [], alarms: [], favorites: [:], settings: settings,

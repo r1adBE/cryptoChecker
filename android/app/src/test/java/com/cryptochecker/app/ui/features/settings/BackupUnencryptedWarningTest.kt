@@ -19,12 +19,12 @@ class BackupUnencryptedWarningTest {
     private fun String.norm() = lowercase(Locale.ROOT)
 
     @Test
-    fun alleSprachenVorhanden() {
+    fun allLanguagesPresent() {
         assertEquals(75, languages.count { it.value.containsKey("backup_restore_unencrypted_warning") })
     }
 
     @Test
-    fun warnungNenntEinstellungsnamenWoertlich() {
+    fun warningNamesSettingNameLiterally() {
         for ((folder, strings) in languages) {
             val warning = strings["backup_restore_unencrypted_warning"] ?: continue
             for (key in LABEL_KEYS) {
@@ -35,7 +35,7 @@ class BackupUnencryptedWarningTest {
     }
 
     @Test
-    fun appSperreBleibtNenntEinstellungsnamen() {
+    fun appLockStaysNamesSettingName() {
         assertEquals(75, languages.count { it.value.containsKey("backup_restore_app_lock_kept") })
         for ((folder, strings) in languages) {
             val text = strings["backup_restore_app_lock_kept"] ?: continue
@@ -45,7 +45,7 @@ class BackupUnencryptedWarningTest {
     }
 
     @Test
-    fun serverHinweiseNennenEinstellungsnamen() {
+    fun serverNoticesNameSettingNames() {
         // Hinweise nach dem Wiederherstellen nennen den eigenen Server so wie die Einstellung
         for (key in SERVER_NOTE_KEYS) {
             assertEquals(key, 75, languages.count { it.value.containsKey(key) })
@@ -60,7 +60,7 @@ class BackupUnencryptedWarningTest {
     }
 
     @Test
-    fun hinweiseZuAbgeschaltetemSchutzNennenEinstellungsnamen() {
+    fun noticesAboutDisabledProtectionNameSettingNames() {
         // «… wurde durch die Sicherung eingeschaltet/ausgeschaltet» nennt die Einstellung so, wie sie heisst
         for ((key, labelKey) in LOWERED_NOTE_LABELS) {
             assertEquals(key, 75, languages.count { it.value.containsKey(key) })

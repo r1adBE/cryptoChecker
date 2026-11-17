@@ -29,7 +29,7 @@ class Bip32FuzzParityTest {
         assertTrue("$what: ${mismatches.size} Abweichungen, z. B.\n" + mismatches.take(5).joinToString("\n"), mismatches.isEmpty())
 
     @Test
-    fun zufaelligeSchluesselLeitenWieDieReferenzAb() {
+    fun randomKeysDeriveAsTheReference() {
         val cases = data["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 1000)
         val mismatches = mutableListOf<String>()
@@ -81,7 +81,7 @@ class Bip32FuzzParityTest {
     }
 
     @Test
-    fun gebastelteSchluesselWerdenGeprueft() {
+    fun craftedKeysAreChecked() {
         data["keyChecks"].list().map { it.obj() }.forEach { c ->
             val note = c["note"] as String
             val xpub = c["xpub"] as String
@@ -97,7 +97,7 @@ class Bip32FuzzParityTest {
     }
 
     @Test
-    fun indexGrenzen() {
+    fun indexLimits() {
         val key = Bip32.parse(data["cases"].list()[0].obj()["xpub"] as String)!!
         data["indexLimits"].list().map { it.obj() }.forEach { c ->
             val index = c["index"].num()!!.toLong()

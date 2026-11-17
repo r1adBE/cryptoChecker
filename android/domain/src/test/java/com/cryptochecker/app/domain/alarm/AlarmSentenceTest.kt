@@ -31,7 +31,7 @@ class AlarmSentenceTest {
 
     /** Über PercentText statt getPercentInstance: gleiche Zeichen wie iOS (`PercentCallersTests`). */
     @Test
-    fun prozentInDerSchreibweiseDerSprache() {
+    fun percentInTheNotationOfTheLanguage() {
         assertEquals("%0,5", AlarmSentence.percent(0.5, Locale.forLanguageTag("tr-TR")))
         assertEquals("0,5\u00A0%", AlarmSentence.percent(0.5, Locale.GERMANY))
         assertEquals("0.5%", AlarmSentence.percent(0.5, Locale.US))
@@ -43,7 +43,7 @@ class AlarmSentenceTest {
     }
 
     @Test
-    fun fundingUndVeraenderungMitEchtemMinus() {
+    fun fundingAndChangeWithRealMinus() {
         assertEquals("0.0125%", AlarmSentence.fundingPercent(0.0125, Locale.US))
         assertEquals("\u22120,0125\u00A0%", AlarmSentence.fundingPercent(-0.0125, Locale.GERMANY))
         assertEquals("\u2212%0,05", AlarmSentence.fundingPercent(-0.05, Locale.forLanguageTag("tr-TR")))
@@ -56,7 +56,7 @@ class AlarmSentenceTest {
 
     /** Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie `getPercentInstance` («1,000%»). */
     @Test
-    fun alarmProzentMitTausendertrennung() {
+    fun alarmPercentWithThousandsSeparator() {
         assertEquals("1,000%", AlarmSentence.percent(1000.0, Locale.US))
         assertEquals("1.000\u00A0%", AlarmSentence.percent(1000.0, Locale.GERMANY))
         assertEquals("%1.000", AlarmSentence.percent(1000.0, Locale.forLanguageTag("tr-TR")))

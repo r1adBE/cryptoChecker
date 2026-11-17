@@ -17,13 +17,13 @@ class CsvTokenizeLimitsTest {
     private val row = "2024-02-02T10:00:00Z,Staking Reward,ETH,0.01,2000,USD\n"
 
     @Test
-    fun grenzenWieIos() {
+    fun limitsAsOnIos() {
         assertEquals(200, CsvImportParser.MAX_CELLS_PER_ROW)
         assertEquals(200_000, CsvImportParser.MAX_ROWS)
     }
 
     @Test
-    fun zellenJeZeileHoechstensGrenze() {
+    fun cellsPerRowAtMostLimit() {
         val atLimit = List(CsvImportParser.MAX_CELLS_PER_ROW) { "c$it" }.joinToString(",")
         assertEquals(CsvImportParser.MAX_CELLS_PER_ROW, CsvImportParser.tokenizeOrNull(atLimit, ',')!!.single().cells.size)
         assertNull(CsvImportParser.tokenizeOrNull("$atLimit,zuviel", ','))
@@ -34,7 +34,7 @@ class CsvTokenizeLimitsTest {
     }
 
     @Test
-    fun datensaetzeHoechstensGrenze() {
+    fun recordsAtMostLimit() {
         val text = (1..5).joinToString("\n") { "a$it;b$it" }
         assertEquals(5, CsvImportParser.tokenizeOrNull(text, ';', maxRows = 5)!!.size)
         assertNull(CsvImportParser.tokenizeOrNull(text, ';', maxRows = 4))
@@ -45,7 +45,7 @@ class CsvTokenizeLimitsTest {
     }
 
     @Test
-    fun zuGrosseDateiIstNichtLesbar() {
+    fun tooLargeFileIsNotReadable() {
         val ok = CsvImportParser.parse(header + row)
         assertEquals(CsvImportFormat.GENERIC, ok.format)
         assertFalse(ok.tooLarge)
@@ -65,7 +65,7 @@ class CsvTokenizeLimitsTest {
      * [CsvImportResult.tooLarge] weiter, [CsvImportRefusal] wählt die Meldung. Gleiche Fälle: iOS `CsvTokenizeLimitsTests`.
      */
     @Test
-    fun zuGrosseDateiMeldetZuGross() {
+    fun tooLargeFileReportsTooLarge() {
         fun preview(text: String) = CsvImportMapping.preview(CsvImportParser.parse(text), emptySet()) { _, _ -> null }
         val wide = preview(header + row + List(CsvImportParser.MAX_CELLS_PER_ROW + 1) { "x" }.joinToString(",") + "\n")
         assertTrue(wide.tooLarge)
@@ -85,7 +85,7 @@ class CsvTokenizeLimitsTest {
 
     /** Bestehender Aufruf ohne Grenzen-Ergebnis: über den Grenzen leer. */
     @Test
-    fun tokenizeUeberGrenzenLeer() {
+    fun tokenizeOverLimitsEmpty() {
         assertTrue(CsvImportParser.tokenize("a" + ",".repeat(300), ',').isEmpty())
     }
 }

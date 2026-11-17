@@ -14,7 +14,7 @@ import org.junit.Test
 class TabIndicatorContrastTest {
 
     @Test
-    fun `Pille hebt sich mit 3 zu 1 von der Leiste ab`() {
+    fun `pill stands out from the bar with 3 to 1`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val pill = WidgetColors.of(accent, dark).accentColor
@@ -26,7 +26,7 @@ class TabIndicatorContrastTest {
     }
 
     @Test
-    fun `Symbol auf der Pille mit 3 zu 1`() {
+    fun `icon on the pill with 3 to 1`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val colors = WidgetColors.of(accent, dark)

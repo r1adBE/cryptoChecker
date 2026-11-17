@@ -65,7 +65,7 @@ final class WatchlistJumpTests: XCTestCase {
 @MainActor
 final class WatchlistLimitsTests: XCTestCase {
 
-    func testGrenzenWieEntschieden() {
+    func testLimitsAsDecided() {
         XCTAssertEqual(WatchlistLimits.maxPairs, 2_000)
         XCTAssertEqual(WatchlistLimits.maxAlarmsPerPair, 10)
         // Eine Quelle: die Sicherung nimmt dieselben Grenzen
@@ -73,7 +73,7 @@ final class WatchlistLimitsTests: XCTestCase {
         XCTAssertEqual(BackupRestoreLimits.maxAlarmsPerPair, WatchlistLimits.maxAlarmsPerPair)
     }
 
-    func testZehnterAlarmJaElfterNein() {
+    func testTenthAlarmYesEleventhNo() {
         XCTAssertTrue(WatchlistLimits.canAddAlarm(0))
         XCTAssertTrue(WatchlistLimits.canAddAlarm(9))
         XCTAssertFalse(WatchlistLimits.canAddAlarm(10))
@@ -81,14 +81,14 @@ final class WatchlistLimitsTests: XCTestCase {
         XCTAssertFalse(WatchlistLimits.canAddAlarm(12))
     }
 
-    func testPaarNurUnterDerGrenze() {
+    func testPairOnlyBelowTheLimit() {
         XCTAssertTrue(WatchlistLimits.canAddPair(0))
         XCTAssertTrue(WatchlistLimits.canAddPair(1_999))
         XCTAssertFalse(WatchlistLimits.canAddPair(2_000))
         XCTAssertFalse(WatchlistLimits.canAddPair(2_500))
     }
 
-    func testFreiePlaetzeNieNegativ() {
+    func testFreeSlotsNeverNegative() {
         XCTAssertEqual(WatchlistLimits.freePairSlots(0), 2_000)
         XCTAssertEqual(WatchlistLimits.freePairSlots(1_999), 1)
         XCTAssertEqual(WatchlistLimits.freePairSlots(2_000), 0)
@@ -99,7 +99,7 @@ final class WatchlistLimitsTests: XCTestCase {
         ExchangePair("T\(i)", "USD (ethereum)", "ethereum/0x\(i)")
     }
 
-    func testVolleMerklisteNimmtKeinNeuesPaarAberMeldetVorhandeneAlsDoppel() {
+    func testFullWatchlistTakesNoNewPairButReportsExistingAsDuplicate() {
         var snapshot = SharedStorage.Snapshot()
         let exchange = DexScreener()
         for i in 0..<(WatchlistLimits.maxPairs - 1) {
@@ -119,7 +119,7 @@ final class WatchlistLimitsTests: XCTestCase {
 
     /// «Rückgängig» umgeht die Obergrenze nicht — Überzählige bleiben aus und werden
     /// gezählt; vorhandene Paare zählen nicht als «voll». Wie Android `WatchRepository.restore`.
-    func testRueckgaengigNurBisZurGrenze() {
+    func testUndoOnlyUpToTheLimit() {
         var snapshot = SharedStorage.Snapshot()
         let exchange = DexScreener()
         for i in 0..<(WatchlistLimits.maxPairs - 1) {
@@ -210,14 +210,14 @@ final class WatchlistRemovedBannerTests: XCTestCase {
         )
     }
 
-    func testErstesLoeschenZeigtEinzelBannerMitRueckgaengig() {
+    func testFirstDeleteShowsSingleBannerWithUndo() {
         let message = WatchlistBannerMessage.removed(deleted(1, "BTC"), after: nil) { _ in }
         XCTAssertEqual(message.removed.map(\.watch.id), [1])
         XCTAssertEqual(message.undo?.watch.id, 1)
         XCTAssertNil(message.action)
     }
 
-    func testZweitesLoeschenFasstBeideZusammen() {
+    func testSecondDeleteMergesBoth() {
         var restored: [Int64] = []
         let first = WatchlistBannerMessage.removed(deleted(1, "BTC"), after: nil) { _ in }
         let second = WatchlistBannerMessage.removed(deleted(2, "ETH"), after: first) { all in
@@ -230,7 +230,7 @@ final class WatchlistRemovedBannerTests: XCTestCase {
         XCTAssertEqual(restored, [1, 2])
     }
 
-    func testAnderesBannerDavorWirdNichtMitgezaehlt() {
+    func testOtherBannerBeforeIsNotCounted() {
         let other = WatchlistBannerMessage(text: "Favorit")
         let message = WatchlistBannerMessage.removed(deleted(3, "SOL"), after: other) { _ in }
         XCTAssertEqual(message.removed.map(\.watch.id), [3])

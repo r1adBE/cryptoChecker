@@ -4,7 +4,7 @@ import XCTest
 /// Begrenzter Zwischenspeicher (`BoundedCache`) — wie `BoundedCacheTest.kt` (Android).
 final class BoundedCacheTests: XCTestCase {
 
-    func testHoechstensMaxEntriesDerAmLaengstenNichtBenutzteFaelltHeraus() {
+    func testAtMostMaxEntriesTheLeastRecentlyUsedDropsOut() {
         var cache = BoundedCache<String, Int>(maxEntries: 3)
         cache.set("A", 1)
         cache.set("B", 2)
@@ -18,7 +18,7 @@ final class BoundedCacheTests: XCTestCase {
         XCTAssertEqual(cache.get("D"), 4)
     }
 
-    func testVielePaareBleibenBegrenzt() {
+    func testManyPairsStayBounded() {
         var cache = BoundedCache<String, Int>()
         XCTAssertEqual(cache.maxEntries, 512)
         for i in 0..<2_000 { cache.set("P\(i)", i) }
@@ -27,7 +27,7 @@ final class BoundedCacheTests: XCTestCase {
         XCTAssertNil(cache.get("P0"))
     }
 
-    func testEntfernen() {
+    func testRemove() {
         var cache = BoundedCache<String, Int>(maxEntries: 2)
         cache.set("A", 1)
         XCTAssertEqual(cache.removeValue(forKey: "A"), 1)

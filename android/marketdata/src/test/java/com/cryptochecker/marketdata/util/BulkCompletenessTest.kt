@@ -12,14 +12,14 @@ class BulkCompletenessTest {
     private val groupOf: (String) -> Int = { if (it.startsWith("alpha:")) 1 else 0 }
 
     @Test
-    fun nurPaareDerGescheitertenGruppe() {
+    fun onlyPairsOfTheFailedGroup() {
         val ids = listOf("BTCUSDT", "alpha:X", "ETHUSDT", "alpha:Y")
         assertEquals(setOf("alpha:X", "alpha:Y"), BulkCompleteness.incomplete(ids, setOf(1), groupOf))
         assertEquals(emptySet<String>(), BulkCompleteness.incomplete(ids, emptySet(), groupOf))
     }
 
     @Test
-    fun auskunftSolangeNichtAllePaareUnvollstaendig() {
+    fun noticeWhileNotAllPairsIncomplete() {
         assertTrue(BulkCompleteness.anyComplete(listOf("a", "b"), emptySet(), emptySet()))
         assertTrue(BulkCompleteness.anyComplete(listOf("a", "a", "b"), setOf(1), setOf("b")))
         assertFalse(BulkCompleteness.anyComplete(listOf("b", "b"), setOf(1), setOf("b")))
@@ -28,7 +28,7 @@ class BulkCompletenessTest {
     }
 
     @Test
-    fun unbekanntePaareNurMitNichtLeererListe() {
+    fun unknownPairsOnlyWithNonEmptyList() {
         assertNull(BulkCompleteness.unknownPairs(listOf("a", "b"), emptySet()))
         assertNull(BulkCompleteness.unknownPairs(listOf("a"), setOf("a", "c")))
         assertEquals(setOf("b"), BulkCompleteness.unknownPairs(listOf("a", "b", "b"), setOf("a")))

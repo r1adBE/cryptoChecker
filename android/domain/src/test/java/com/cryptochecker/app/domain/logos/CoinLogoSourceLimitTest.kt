@@ -8,23 +8,23 @@ import org.junit.Test
 class CoinLogoSourceLimitTest {
 
     @Test
-    fun `4096 mal 4096 ist erlaubt`() {
+    fun `4096 by 4096 is allowed`() {
         assertFalse(CoinLogos.sourceTooLarge(4096, 4096))
     }
 
     @Test
-    fun `ein Pixel mehr wird abgelehnt`() {
+    fun `one pixel more is rejected`() {
         assertTrue(CoinLogos.sourceTooLarge(4097, 4096))
     }
 
     @Test
-    fun `30000 mal 30000 wird ohne Ueberlauf abgelehnt`() {
+    fun `30000 by 30000 is rejected without overflow`() {
         assertTrue(CoinLogos.sourceTooLarge(30_000, 30_000))
         assertTrue(CoinLogos.sourceTooLarge(Int.MAX_VALUE, Int.MAX_VALUE))
     }
 
     @Test
-    fun `ungueltige Masse werden abgelehnt`() {
+    fun `invalid dimensions are rejected`() {
         assertTrue(CoinLogos.sourceTooLarge(0, 10))
         assertTrue(CoinLogos.sourceTooLarge(10, -1))
     }

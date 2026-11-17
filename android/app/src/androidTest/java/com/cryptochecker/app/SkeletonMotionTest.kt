@@ -44,7 +44,7 @@ class SkeletonMotionTest {
     }
 
     @Test
-    fun reduzierteBewegungStehtStill() {
+    fun reducedMotionStandsStill() {
         val loading = compose.activity.getString(R.string.loading_hint)
         compose.mainClock.autoAdvance = false
         show { SkeletonList(reduceMotion = true) }
@@ -66,7 +66,7 @@ class SkeletonMotionTest {
     }
 
     @Test
-    fun ladeKnotenFuerScreenreader() {
+    fun loadingNodeForScreenReader() {
         val loading = compose.activity.getString(R.string.loading_hint)
         show { SkeletonList(reduceMotion = true) }
         val indeterminate = SemanticsMatcher.expectValue(

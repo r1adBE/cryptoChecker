@@ -17,7 +17,7 @@ class MomentTextTest {
         LocalDateTime.of(y, m, d, h, min, s).atZone(zone).toInstant().toEpochMilli()
 
     @Test
-    fun gleicherTagNachKalender() {
+    fun sameDayByCalendar() {
         val now = at(2026, 10, 12, 0, 30)
         assertTrue(MomentText.isSameDay(at(2026, 10, 12, 0, 5), now, zone))
         // Vor Mitternacht = gestern, auch wenn nur 40 Minuten her
@@ -25,7 +25,7 @@ class MomentTextTest {
     }
 
     @Test
-    fun heuteNurUhrzeitSonstMitDatum() {
+    fun todayOnlyTimeOtherwiseWithDate() {
         val now = at(2026, 10, 12, 18, 0)
         val today = MomentText.moment(at(2026, 10, 12, 14, 2, 11), now, zone, Locale.GERMANY)
         assertEquals("14:02:11", today)
@@ -37,7 +37,7 @@ class MomentTextTest {
     }
 
     @Test
-    fun zwoelfOderVierundzwanzigStundenNachSystem() {
+    fun twelveOrTwentyFourHoursBySystem() {
         val now = at(2026, 10, 12, 18, 0)
         // Englisch, Gerät auf 24 h: «14:02:11» statt «2:02:11 PM»
         assertEquals("14:02:11", MomentText.moment(at(2026, 10, 12, 14, 2, 11), now, zone, Locale.US, is24 = true))

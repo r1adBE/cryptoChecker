@@ -99,7 +99,7 @@ class WatchlistGroupsHintTest {
 class WatchlistReduceMotionGuardTest {
 
     @Test
-    fun `Listen-Animationen beachten Bewegung reduzieren`() {
+    fun `list animations respect reduce motion`() {
         val file = SourceGuard.ios(iosFile("App/Features/Watchlist/WatchlistList.swift"), "ios/App/Features/Watchlist/WatchlistList.swift")
         val ungated = file.readLines(Charsets.UTF_8)
             .withIndex()
@@ -113,7 +113,7 @@ class WatchlistReduceMotionGuardTest {
      * an der Wurzel nimmt auch `withAnimation` der Unteransichten heraus.
      */
     @Test
-    fun `Explorer beachtet Bewegung reduzieren`() {
+    fun `explorer respects reduce motion`() {
         val rel = "App/Features/Explorer/ExplorerScreen.swift"
         val text = SourceGuard.ios(iosFile(rel), "ios/$rel").readText(Charsets.UTF_8)
         val ungated = text.lines().filter { it.contains(".animation(") && !it.contains("reduceMotion") }.map { it.trim() }
@@ -124,7 +124,7 @@ class WatchlistReduceMotionGuardTest {
 
     /** Android: der «+»-Knopf über Listen erscheint bei «Animationen entfernen» ohne Skalieren. */
     @Test
-    fun `Plus-Knopf beachtet Animationen entfernen`() {
+    fun `plus button respects remove animations`() {
         val rel = "src/main/java/com/cryptochecker/app/ui/components/AppFab.kt"
         val file = listOf(File(rel), File("app/$rel"), File("android/app/$rel")).firstOrNull { it.isFile }
         val fab = SourceGuard.android(file, rel).readText(Charsets.UTF_8)
@@ -153,17 +153,17 @@ class WatchlistReduceMotionGuardTest {
 class WatchlistUndoPricesTest {
 
     @Test
-    fun einzelnesPaarZeigtDieMeldungWieder() {
+    fun singlePairShowsTheMessageAgain() {
         assertTrue(restoresPriceNotifications(1))
     }
 
     @Test
-    fun wenigePaareBisZurGrenze() {
+    fun fewPairsUpToTheLimit() {
         assertTrue(restoresPriceNotifications(UNDO_PRICE_POST_MAX))
     }
 
     @Test
-    fun vieleOderKeinePaareOhneMeldung() {
+    fun manyOrNoPairsWithoutMessage() {
         assertFalse(restoresPriceNotifications(UNDO_PRICE_POST_MAX + 1))
         assertFalse(restoresPriceNotifications(40))
         assertFalse(restoresPriceNotifications(0))

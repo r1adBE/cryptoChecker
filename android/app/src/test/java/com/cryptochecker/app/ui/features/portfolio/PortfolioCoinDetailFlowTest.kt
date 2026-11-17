@@ -31,14 +31,14 @@ class PortfolioCoinDetailFlowTest {
     )
 
     @Test
-    fun gebuehrCoinsNurAusEigenenZeilen() {
+    fun feeCoinsOnlyFromOwnRows() {
         assertEquals(setOf("BTC", "SOL"), coinDetailFeeCoins("BTC", txs))
         assertEquals(setOf("BTC", "SOL"), coinDetailFeeCoins("SOL", txs))
         assertEquals(emptySet<String>(), coinDetailFeeCoins("ETH", txs))
     }
 
     @Test
-    fun schluesselBleibtBeiFremdemKurs() {
+    fun keyStaysWithForeignPrice() {
         val coins = coinDetailFeeCoins("BTC", txs)
         val before = CoinFeePrices.of(coins, prices("BTC" to 40_000.0, "SOL" to 100.0, "ETH" to 2_000.0), null)
         assertEquals(before, CoinFeePrices.of(coins, prices("BTC" to 40_000.0, "SOL" to 100.0, "ETH" to 2_100.0), null))
@@ -46,7 +46,7 @@ class PortfolioCoinDetailFlowTest {
     }
 
     @Test
-    fun tickFremderCoinRechnetNichtNeu() = runBlocking {
+    fun tickOfOtherCoinDoesNotRecalculate() = runBlocking {
         val calls = AtomicInteger()
         val list = MutableStateFlow<List<PortfolioTxEntity>?>(txs)
         val p = MutableStateFlow(prices("BTC" to 40_000.0, "SOL" to 100.0, "ETH" to 2_000.0))

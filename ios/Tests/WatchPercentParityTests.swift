@@ -9,7 +9,7 @@ final class WatchPercentParityTests: XCTestCase {
 
     private func language(_ id: String) -> String { String(id.split(separator: "_").first ?? "") }
 
-    func testProzentWieDieIphoneApp() throws {
+    func testPercentAsTheIphoneApp() throws {
         let cases = S.list(try S.fixture("percent_text")["cases"])
         XCTAssertFalse(cases.isEmpty)
         for c in cases {
@@ -24,7 +24,7 @@ final class WatchPercentParityTests: XCTestCase {
         }
     }
 
-    func testAenderungDerUhr() throws {
+    func testChangeOfTheWatch() throws {
         let block = try XCTUnwrap(try S.fixture("percent_text")["watch_change"] as? [String: Any])
         let cases = S.list(block["cases"])
         XCTAssertFalse(cases.isEmpty)

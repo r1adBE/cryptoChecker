@@ -13,7 +13,7 @@ class DropdownFieldEntriesTest {
         comboEntries(items, query, favorites, sections).map { if (it.header) "# ${it.text}" else it.text }
 
     @Test
-    fun abschnitteMitTitelzeilen() {
+    fun sectionsWithTitleRows() {
         assertEquals(
             listOf("# Spot", "Binance", "Kraken", "# Futures", "Binance Futures", "# DEX-Pools", "DexScreener"),
             shown(null),
@@ -21,7 +21,7 @@ class DropdownFieldEntriesTest {
     }
 
     @Test
-    fun favoritenObenOhneTitel() {
+    fun favouritesOnTopWithoutTitle() {
         assertEquals(
             listOf("Binance Futures", "# Spot", "Binance", "Kraken", "# DEX-Pools", "DexScreener"),
             shown(null, setOf("Binance Futures")),
@@ -29,13 +29,13 @@ class DropdownFieldEntriesTest {
     }
 
     @Test
-    fun sucheUeberAlleAbschnitteLeereFallenWeg() {
+    fun searchAcrossAllSectionsEmptyOnesAreDropped() {
         assertEquals(listOf("# Spot", "Binance", "# Futures", "Binance Futures"), shown("bin"))
         assertEquals(listOf("# DEX-Pools", "DexScreener"), shown("screen"))
     }
 
     @Test
-    fun ohneAbschnitteWieBisher() {
+    fun withoutSectionsAsBefore() {
         assertEquals(listOf("Kraken", "Binance"), comboEntries(listOf("Binance", "Kraken"), null, setOf("Kraken")).map { it.text })
     }
 }

@@ -15,7 +15,7 @@ class WatchedAddressUndoTest {
     private val obs = AddressObservation(1_000L, BigDecimal("0.1"))
 
     @Test
-    fun rueckfrageNenntWasMitgeht() {
+    fun confirmationNamesWhatGoesAlong() {
         assertTrue(WatchedAddressUndo.removal(address(1)).isEmpty)
         assertEquals(
             WatchedAddressUndo.Removal(2, false),
@@ -31,7 +31,7 @@ class WatchedAddressUndoTest {
     }
 
     @Test
-    fun zurueckNurMitFreierIdUndOhneDoppel() {
+    fun undoOnlyWithFreeIdAndWithoutDuplicate() {
         val removed = address(5).copy(costLots = listOf(lot), observations = listOf(obs))
         assertTrue(WatchedAddressUndo.canRestore(listOf(address(1), address(2)), removed))
         // Id inzwischen belegt bzw. dieselbe Adresse neu hinzugefügt
@@ -44,7 +44,7 @@ class WatchedAddressUndoTest {
     }
 
     @Test
-    fun gescheitertesZurueckNenntDenGrund() {
+    fun failedUndoNamesTheReason() {
         // Banner statt still nichts
         val removed = address(5)
         assertEquals(WatchedAddressUndo.RestoreFailure.DUPLICATE, WatchedAddressUndo.failure(listOf(address(9, removed.address)), removed))

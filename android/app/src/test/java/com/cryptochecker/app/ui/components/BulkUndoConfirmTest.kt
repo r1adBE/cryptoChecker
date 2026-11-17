@@ -24,7 +24,7 @@ class BulkUndoConfirmTest {
         remove(now, expired, undo)
 
     @Test
-    fun `Rueckgaengig oeffnet nur den Dialog, Undo erst nach Entfernen`() {
+    fun `undo button only opens the dialog, undo only after removing`() {
         val undone = mutableListOf<List<Long>>()
         val confirm = BulkUndoConfirm()
         confirm.request(listOf(1L, 2L, 3L), end)
@@ -40,7 +40,7 @@ class BulkUndoConfirmTest {
     }
 
     @Test
-    fun `Behalten entfernt nichts`() {
+    fun `keep removes nothing`() {
         val undone = mutableListOf<List<Long>>()
         val confirm = BulkUndoConfirm()
         confirm.request(listOf(7L), end)
@@ -51,7 +51,7 @@ class BulkUndoConfirmTest {
     }
 
     @Test
-    fun `ohne neue Paare kein Dialog`() {
+    fun `without new pairs no dialog`() {
         val confirm = BulkUndoConfirm()
         confirm.request(emptyList(), end)
         assertNull(confirm.pending)
@@ -59,7 +59,7 @@ class BulkUndoConfirmTest {
     }
 
     @Test
-    fun `Entfernen nach Ablauf des Zeitfensters loescht nichts`() {
+    fun `removing after the time window deletes nothing`() {
         val undone = mutableListOf<List<Long>>()
         var expired = 0
         val confirm = BulkUndoConfirm()
@@ -76,7 +76,7 @@ class BulkUndoConfirmTest {
     }
 
     @Test
-    fun `offener Dialog uebersteht das Speichern samt Ende der Aufnahme`() {
+    fun `open dialog survives saving including end of recording`() {
         val confirm = BulkUndoConfirm()
         confirm.request(listOf(4L, 5L), end)
         val saved = save(confirm)
@@ -95,7 +95,7 @@ class BulkUndoConfirmTest {
         with(BulkUndoConfirm.Saver) { SaverScope { true }.save(confirm) }
 
     @Test
-    fun `Meldung mit Aktion zeigt Schliessen, ohne Aktion nicht`() {
+    fun `message with action shows close, without action not`() {
         assertTrue(AppSnackbarVisuals("746 hinzugefügt", actionLabel = "Rückgängig").withDismissAction)
         assertFalse(AppSnackbarVisuals("Gesichert").withDismissAction)
         // Dauerhinweis, dessen Aktion selbst «Schliessen» ist: kein zweites ✕

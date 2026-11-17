@@ -30,7 +30,7 @@ class AlarmSaveBuilderTest {
     private val armed = AlarmEntity(id = 7, watchId = 1, condition = AlarmCondition.PRICE_ABOVE, threshold = 70_000.0)
 
     @Test
-    fun ausgeloesterZustandAusDerDatenbankBleibt() {
+    fun triggeredStateFromDatabaseIsKept() {
         // Die Aktualisierung hat den einmaligen Alarm inzwischen ausgelöst (aus, mit Meldung)
         val stored = armed.copy(enabled = false, lastTriggeredAt = 4_000, lastTriggeredPrice = 70_100.0, referenceAt = 4_000)
         val saved = AlarmSaveBuilder.build(input(speak = true), stored)
@@ -41,7 +41,7 @@ class AlarmSaveBuilderTest {
     }
 
     @Test
-    fun geaenderteBedingungStelltNeuScharf() {
+    fun changedConditionRearms() {
         val stored = armed.copy(enabled = false, lastTriggeredAt = 4_000, referenceAt = 4_000)
         val saved = AlarmSaveBuilder.build(input(threshold = 80_000.0), stored)
         assertTrue(saved.enabled)
@@ -50,7 +50,7 @@ class AlarmSaveBuilderTest {
     }
 
     @Test
-    fun prozentAlarmBehaeltBezugSonstFrischerKurs() {
+    fun percentAlarmKeepsReferenceOtherwiseFreshPrice() {
         val percent = armed.copy(condition = AlarmCondition.CHANGE_PERCENT_UP, threshold = 5.0, referencePrice = 60_000.0)
         val kept = AlarmSaveBuilder.build(input(AlarmCondition.CHANGE_PERCENT_UP, 5.0, freshReference = 65_000.0), percent)
         assertEquals(60_000.0, kept.referencePrice!!, 0.0)
@@ -60,13 +60,13 @@ class AlarmSaveBuilderTest {
     }
 
     @Test
-    fun bewegungsFensterBeginntJetzt() {
+    fun moveWindowStartsNow() {
         val saved = AlarmSaveBuilder.build(input(AlarmCondition.MOVE_PERCENT_WINDOW, 3.0, freshReference = 1.0, id = 0), null)
         assertEquals(5_000L, saved.referenceAt)
     }
 
     @Test
-    fun speichernLiestUndSchreibtInEinerTransaktion() {
+    fun saveReadsAndWritesInOneTransaction() {
         fun source(
             path: String
         ) = listOf(

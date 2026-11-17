@@ -113,7 +113,7 @@ class NotificationBudgetTest {
      * endlos still zu scheitern.
      */
     @Test
-    fun `bei 48 offenen Alarmen weicht die aelteste Alarm-Meldung`() {
+    fun `with 48 open alarms the oldest alarm notification gives way`() {
         val alarms = (1..47).toList() // älteste zuerst
         val need = NotificationBudget.neededForAlarm(alarms.size + 1, alarmShown = false, summaryShown = true)
         val room = NotificationBudget.roomForAlarm(need, prices = 0, overflowShown = false)

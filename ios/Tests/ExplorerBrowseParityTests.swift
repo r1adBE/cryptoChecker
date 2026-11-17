@@ -8,7 +8,7 @@ final class ExplorerBrowseParityTests: XCTestCase {
 
     private func strings(_ value: Any?) -> [String] { value as? [String] ?? [] }
 
-    func testMarktChipsZeigenIhreArt() throws {
+    func testMarketChipsShowTheirKind() throws {
         let cases = S.list(try S.fixture("explorer_browse")["markets"])
         XCTAssertEqual(cases.compactMap { $0["filter"] as? String }, ExplorerMarketFilter.allCases.map(\.rawValue))
         for c in cases {
@@ -18,7 +18,7 @@ final class ExplorerBrowseParityTests: XCTestCase {
         }
     }
 
-    func testZuletztGenutzteBoersen() throws {
+    func testRecentlyUsedExchanges() throws {
         let data = try S.fixture("explorer_browse")
         XCTAssertEqual(S.number(data["recentMax"]).map { Int($0) }, ExplorerRecentExchanges.max)
         for c in S.list(data["recent"]) {
@@ -32,7 +32,7 @@ final class ExplorerBrowseParityTests: XCTestCase {
         }
     }
 
-    func testZeichenDerBoersen() throws {
+    func testExchangeCharacters() throws {
         for c in S.list(try S.fixture("explorer_browse")["marks"]) {
             let name = try XCTUnwrap(c["name"] as? String)
             XCTAssertEqual(ExplorerExchangeMark.initials(name), c["initials"] as? String, name)
@@ -40,7 +40,7 @@ final class ExplorerBrowseParityTests: XCTestCase {
         }
     }
 
-    func testBoersenZumSuchtext() throws {
+    func testExchangesForSearchText() throws {
         let data = try S.fixture("explorer_browse")
         XCTAssertEqual(S.number(data["exchangeSearchLimit"]).map { Int($0) }, ExplorerExchangeSearch.limit)
         for c in S.list(data["exchangeSearch"]) {
@@ -50,7 +50,7 @@ final class ExplorerBrowseParityTests: XCTestCase {
         }
     }
 
-    func testDevisenLiveNurFiatPaare() throws {
+    func testForexLiveOnlyFiatPairs() throws {
         let data = try XCTUnwrap(try S.fixture("explorer_browse")["forexLive"] as? [String: Any])
         XCTAssertEqual(ExplorerForexLive.exchanges, strings(data["exchanges"]))
         for c in S.list(data["pairs"]) {

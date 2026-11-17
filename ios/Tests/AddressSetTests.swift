@@ -11,7 +11,7 @@ import XCTest
 final class AddressPrivacyParityTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testNeutralerUserAgentWieGemeinsamerWert() throws {
+    func testNeutralUserAgentAsSharedValue() throws {
         let fixture = try S.fixture("address_privacy")
         XCTAssertEqual(HttpUserAgent.neutral, fixture["userAgent"] as? String)
         let forbidden = try XCTUnwrap(fixture["forbiddenParts"] as? [String])
@@ -21,7 +21,7 @@ final class AddressPrivacyParityTests: XCTestCase {
     }
 
     /// Weder App-Name noch App-Version (Beispiele und Version dieser App), wie Android.
-    func testNeutralerUserAgentOhneAppNameUndVersion() throws {
+    func testNeutralUserAgentWithoutAppNameAndVersion() throws {
         let fixture = try S.fixture("address_privacy")
         var versions = try XCTUnwrap(fixture["appVersionSamples"] as? [String])
         let ownVersion = HttpUserAgent.value.split(separator: "/").last.map(String.init) ?? ""
@@ -35,7 +35,7 @@ final class AddressPrivacyParityTests: XCTestCase {
     }
 
     /// Host → User-Agent wie Android.
-    func testHostRegelWieGemeinsameFaelle() throws {
+    func testHostRuleAsSharedCases() throws {
         let fixture = try S.fixture("address_privacy")
         let cases = try XCTUnwrap(fixture["hostCases"] as? [[String: Any]])
         let app = "cryptoChecker-iOS/1.0"
@@ -48,7 +48,7 @@ final class AddressPrivacyParityTests: XCTestCase {
 
     /// Weiterleitungen nur auf denselben Host, nie von HTTPS auf HTTP — wie Android; die Sitzung der Adressabfragen
     /// nutzt die Regel.
-    func testWeiterleitungNurAufDenselbenHost() throws {
+    func testRedirectOnlyToSameHost() throws {
         let fixture = try S.fixture("address_privacy")
         let cases = try XCTUnwrap(fixture["redirectCases"] as? [[String: Any]])
         XCTAssertFalse(cases.isEmpty)
@@ -64,7 +64,7 @@ final class AddressPrivacyParityTests: XCTestCase {
     }
 
     /// Adress-Hosts laufen nie über die Sessions mit App-User-Agent und teilen keine Verbindungen.
-    func testAdressHostsBekommenEigeneSession() {
+    func testAddressHostsGetOwnSession() {
         let single = ExchangeHTTP.sessionFor(host: "mempool.space", requested: ExchangeHTTP.session)
         XCTAssertTrue(single === ExchangeHTTP.addressHostSession)
         XCTAssertTrue(ExchangeHTTP.sessionFor(host: "ethereum-rpc.publicnode.com", requested: ExchangeHTTP.bulkSession)
@@ -78,7 +78,7 @@ final class AddressPrivacyParityTests: XCTestCase {
     }
 
     /// Die Sitzung der Adressabfragen setzt den neutralen User-Agent ausdrücklich.
-    func testAdressSitzungSetztNeutralenUserAgent() {
+    func testAddressSessionSetsNeutralUserAgent() {
         let headers = WatchedAddressSource.session.configuration.httpAdditionalHeaders
         XCTAssertEqual(headers?[HttpUserAgent.header] as? String, HttpUserAgent.neutral)
     }
@@ -97,7 +97,7 @@ final class AddressServerRulesParityTests: XCTestCase {
         return list
     }
 
-    func testEingabeWirdGekuerzt() throws {
+    func testInputIsTrimmed() throws {
         for c in try cases("clamp") {
             let output = AddressServerRules.clamp(try XCTUnwrap(c["input"] as? String))
             XCTAssertEqual(output, c["output"] as? String)
@@ -106,7 +106,7 @@ final class AddressServerRulesParityTests: XCTestCase {
         }
     }
 
-    func testHostSchluesselUndEigenerServer() throws {
+    func testHostKeyAndOwnServer() throws {
         for c in try cases("hostKey") {
             XCTAssertEqual(AddressServerRules.hostKey(try XCTUnwrap(c["entry"] as? String)), c["key"] as? String)
         }
@@ -116,14 +116,14 @@ final class AddressServerRulesParityTests: XCTestCase {
         }
     }
 
-    func testTestergebnisNurZurEingabe() throws {
+    func testTestResultOnlyForTheInput() throws {
         for c in try cases("testShown") {
             XCTAssertEqual(AddressServerRules.testShown(c["tested"] as? String, inputUrl: c["input"] as? String),
                            c["shown"] as? Bool, "\(c)")
         }
     }
 
-    func testRueckfrageVorOeffentlichenKnoten() throws {
+    func testConfirmationBeforePublicNodes() throws {
         for c in try cases("confirmPublic") {
             // «chains» statt «btcCount»: Zahl aus der Liste (null = nicht lesbar → fragen)
             let count = try c["btcCount"] != nil ? XCTUnwrap(c["btcCount"] as? Int)
@@ -134,7 +134,7 @@ final class AddressServerRulesParityTests: XCTestCase {
         }
     }
 
-    func testBitcoinAnzahlListeNichtLesbarFragt() throws {
+    func testBitcoinCountListNotReadableAsks() throws {
         for c in try cases("btcCount") {
             XCTAssertEqual(AddressServerRules.btcCount(Self.addresses(c["chains"])), c["count"] as? Int, "\(c)")
         }
@@ -176,7 +176,7 @@ final class AddressServerTestRunTests: XCTestCase {
         for _ in 0..<1_000 where !condition() { await Task.yield() }
     }
 
-    func testSpaetesErgebnisUeberschreibtNeuerenTestNicht() async {
+    func testLateResultDoesNotOverwriteNewerTest() async {
         let server = FakeServer()
         let run = AddressServerTestRun(load: { _ in await server.load() })
         let first = run.start(url)
@@ -196,7 +196,7 @@ final class AddressServerTestRunTests: XCTestCase {
         XCTAssertEqual(run.state, .ok(url, 222))
     }
 
-    func testSpaetesOkDerAltenUrlErscheintNachNeuerUrlNicht() async {
+    func testLateOkOfTheOldUrlDoesNotAppearAfterNewUrl() async {
         let other = "https://other.example"
         let server = FakeServer()
         let run = AddressServerTestRun(load: { _ in await server.load() })
@@ -217,7 +217,7 @@ final class AddressServerTestRunTests: XCTestCase {
         XCTAssertEqual(run.state, .ok(other, 222))
     }
 
-    func testZweiterStartWaehrendEinesTestsZaehltNicht() async {
+    func testSecondStartDuringATestDoesNotCount() async {
         let server = FakeServer()
         let run = AddressServerTestRun(load: { _ in await server.load() })
         let first = run.start(url)

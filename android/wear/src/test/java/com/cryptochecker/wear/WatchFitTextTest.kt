@@ -11,14 +11,14 @@ import org.junit.Test
 class WatchFitTextTest {
 
     @Test
-    fun kleinsteSchriftSechzigProzent() {
+    fun smallestFontSixtyPercent() {
         assertEquals(0.6f, WatchFitText.MIN_SCALE, 0f)
         assertEquals(9.0f, WatchFitText.minFontSize(15.sp).value, 0.001f)
     }
 
     /** Kurszeile und Portfolio-Wert nutzen [FitText], nicht mehr `Text(..., maxLines = 1)` ohne Schrumpfen. */
     @Test
-    fun zeilenNutzenFitText() {
+    fun rowsUseFitText() {
         val app = source("WatchApp.kt").squashed()
         assertTrue(app.contains("FitText(\"\$coin  \$price\"".squashed()))
         assertFalse(app.contains("Text(\"\$coin  \$price\", maxLines = 1".squashed()))

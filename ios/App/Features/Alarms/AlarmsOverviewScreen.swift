@@ -64,7 +64,7 @@ struct AlarmsOverviewScreen: View {
 
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
-        _ = refusedToggles
+        let _ = refusedToggles
         let groups = self.groups
         let portfolio = portfolioAlarms
         let active = groups.reduce(0) { sum, g in sum + g.filter(\.alarm.enabled).count }

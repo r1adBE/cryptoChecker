@@ -10,7 +10,7 @@ final class AddressServerParityTests: XCTestCase {
         try XCTUnwrap(try S.fixture("address_server")[key] as? [[String: Any]], key)
     }
 
-    func testPruefungWieGemeinsameFaelle() throws {
+    func testCheckAsSharedCases() throws {
         let list = try cases("check")
         XCTAssertGreaterThan(list.count, 30)
         for c in list {
@@ -21,7 +21,7 @@ final class AddressServerParityTests: XCTestCase {
         }
     }
 
-    func testUrlsUndTest() throws {
+    func testUrlsAndTest() throws {
         for c in try cases("urls") {
             let entry = try XCTUnwrap(c["entry"] as? String)
             let address = try XCTUnwrap(c["address"] as? String)
@@ -35,13 +35,13 @@ final class AddressServerParityTests: XCTestCase {
         }
     }
 
-    func testAnbieterName() throws {
+    func testProviderName() throws {
         for c in try cases("providers") {
             XCTAssertEqual(AddressBalance.providerName(try XCTUnwrap(c["host"] as? String)), c["name"] as? String)
         }
     }
 
-    func testZustimmungVorDemErstenXpub() throws {
+    func testConsentBeforeTheFirstXpub() throws {
         for c in try cases("consent") {
             let needed = AddressServer.consentNeeded(
                 addressCount: try XCTUnwrap(c["addresses"] as? Int), xpubCount: try XCTUnwrap(c["xpubs"] as? Int),
@@ -50,7 +50,7 @@ final class AddressServerParityTests: XCTestCase {
         }
     }
 
-    func testUebernahmeAusDerSicherung() throws {
+    func testTakeoverFromTheBackup() throws {
         let restoreCases = try cases("restore")
         XCTAssertTrue(restoreCases.contains { $0["trusted"] as? Bool == false && $0["current"] is NSNull && $0["value"] is String })
         for c in restoreCases {
@@ -72,7 +72,7 @@ final class AddressServerParityTests: XCTestCase {
     }
 
     /// Von der Sicherung abgeschalteter Schutz kommt in die Meldung (`BackupRestorePolicy.loweredProtection`).
-    func testAbgeschalteterSchutzWirdGenannt() throws {
+    func testDisabledProtectionIsNamed() throws {
         let loweredCases = try cases("lowered")
         XCTAssertGreaterThanOrEqual(loweredCases.count, 7)
         XCTAssertGreaterThanOrEqual(loweredCases.filter { $0["lockOff"] as? Bool == true }.count, 2)
@@ -95,7 +95,7 @@ final class AddressServerParityTests: XCTestCase {
     }
 
     /// Sicherungsdatei: Server nur mit Passwort (`AddressServer.exported`) — wie Android.
-    func testServerNurInDateiMitPasswort() throws {
+    func testServerOnlyInFileWithPassword() throws {
         let list = try cases("export")
         XCTAssertGreaterThanOrEqual(list.count, 4)
         for c in list {
@@ -105,7 +105,7 @@ final class AddressServerParityTests: XCTestCase {
     }
 
     /// Server unbekannt (Einstellungen ersetzt): Bitcoin wird nicht abgefragt (`AddressServer.queryAllowed`).
-    func testUnbekannterServerSperrtBitcoin() throws {
+    func testUnknownServerBlocksBitcoin() throws {
         let list = try cases("unknownServer")
         XCTAssertTrue(list.contains { $0["allowed"] as? Bool == false })
         for c in list {
@@ -116,13 +116,13 @@ final class AddressServerParityTests: XCTestCase {
     }
 
     /// Gesetzt: nur der eigene Server, kein Rückfall auf öffentliche Hosts.
-    func testEigenerServerOhneRueckfall() {
+    func testOwnServerWithoutFallback() {
         XCTAssertEqual(AddressServer.btcEntries("https://node.example.org/api"), ["https://node.example.org/api"])
         XCTAssertEqual(AddressServer.btcEntries(nil), AddressBalance.btcHosts)
     }
 
     /// Sicherung: ohne Passwort nie gesetzt, ersetzt oder gelöscht, mit Passwort schon — wie Android.
-    func testSicherungOhnePasswortLoeschtNicht() throws {
+    func testBackupWithoutPasswordDoesNotDelete() throws {
         var current = AppSettings()
         current.addressServerBtc = "https://a.example/api"
         let cleared = TestSupport.settingsBackup(current, ["addressServerBtc": NSNull()])

@@ -9,7 +9,7 @@ final class DiagnosticsShareFileTests: XCTestCase {
         super.tearDown()
     }
 
-    func testSchreibtErstAufAnforderungUndLoeschtWieder() throws {
+    func testWritesOnlyOnRequestAndDeletesAgain() throws {
         DiagnosticsShareFile.remove()
         XCTAssertFalse(FileManager.default.fileExists(atPath: DiagnosticsShareFile.url.path))
 

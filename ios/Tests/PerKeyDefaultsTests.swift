@@ -18,7 +18,7 @@ final class PerKeyDefaultsTests: XCTestCase {
         super.tearDown()
     }
 
-    func testLiquiditaetJePoolEigenerSchluessel() {
+    func testLiquidityPerPoolOwnKey() {
         DexLiquidityStore.put("solana/AAA", 12_000, defaults: defaults)
         DexLiquidityStore.put("ethereum/BBB", 500, defaults: defaults)
         XCTAssertEqual(defaults.object(forKey: "dex_liquidity.solana/aaa") as? Double, 12_000)
@@ -31,7 +31,7 @@ final class PerKeyDefaultsTests: XCTestCase {
     }
 
     /// Ein zweiter Prozess, der denselben Stand gelesen hat, überschreibt den anderen Pool nicht.
-    func testSchreibenEinesPoolsLaesstAnderePoolsStehen() {
+    func testWritingOnePoolLeavesOtherPools() {
         let other = UserDefaults(suiteName: suite)!
         DexLiquidityStore.put("a/1", 20_000, defaults: defaults)
         DexLiquidityStore.put("b/2", 30_000, defaults: other)
@@ -39,14 +39,14 @@ final class PerKeyDefaultsTests: XCTestCase {
         XCTAssertEqual(DexLiquidityStore.get("b/2", defaults: defaults), 30_000)
     }
 
-    func testTokenAdresseJePool() {
+    func testTokenAddressPerPool() {
         DexTokenAddressStore.put("solana/AAA", "So11111111111111111111111111111111111111112", defaults: defaults)
         DexTokenAddressStore.put("solana/AAA", "   ", defaults: defaults)
         XCTAssertEqual(DexTokenAddressStore.get("solana/aaa", defaults: defaults), "So11111111111111111111111111111111111111112")
         XCTAssertNil(DexTokenAddressStore.get("solana/BBB", defaults: defaults))
     }
 
-    func testMarkKennzeichenJePaar() {
+    func testMarkFlagPerPair() {
         MarkFallbackStore.put(7, true, defaults: defaults)
         MarkFallbackStore.put(8, true, defaults: defaults)
         MarkFallbackStore.put(7, false, defaults: defaults)
@@ -56,7 +56,7 @@ final class PerKeyDefaultsTests: XCTestCase {
     }
 
     /// Stundenkurs je Paar (WOO X Spot ohne letzten Abschluss): eigener Schlüssel, unabhängig von «Mark».
-    func testStundenkursJePaar() {
+    func testHourlyPricePerPair() {
         HourlyCloseStore.put(7, true, defaults: defaults)
         HourlyCloseStore.put(8, true, defaults: defaults)
         HourlyCloseStore.put(7, false, defaults: defaults)

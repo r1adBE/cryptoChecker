@@ -23,7 +23,7 @@ final class IndicatorsParityTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-9, name)
     }
 
-    func testSmaWieGemeinsameTestfaelle() throws {
+    func testSmaAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("indicators")["sma"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)
         for c in cases {
@@ -33,7 +33,7 @@ final class IndicatorsParityTests: XCTestCase {
         }
     }
 
-    func testRsiWieGemeinsameTestfaelle() throws {
+    func testRsiAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("indicators")["rsi"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)
         for c in cases {
@@ -48,7 +48,7 @@ final class IndicatorsParityTests: XCTestCase {
     }
 
     /// Kennzahlen «vor n Tagen» nach Datum, nicht nach Kerzen-Position (Lücken einer Quelle verschieben nichts).
-    func testByDateWieGemeinsameTestfaelle() throws {
+    func testByDateAsSharedTestCases() throws {
         let data = try S.fixture("indicators")
         for c in S.list(data["closeOnOrBefore"]) {
             check("closeOnOrBefore: \(c["name"] as? String ?? "")", S.number(c["expected"]),
@@ -67,7 +67,7 @@ final class IndicatorsParityTests: XCTestCase {
         }
     }
 
-    func testRsiBleibtZwischenNullUndHundert() throws {
+    func testRsiStaysBetweenZeroAndHundred() throws {
         for c in S.list(try S.fixture("indicators")["rsi"]) {
             let period = Int(try XCTUnwrap(S.number(c["period"])))
             guard let value = Indicators.rsi(closes(c["closes"]), period: period) else { continue }

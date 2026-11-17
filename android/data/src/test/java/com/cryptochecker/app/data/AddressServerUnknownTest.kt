@@ -7,7 +7,7 @@ import org.junit.Test
 /**
  * Einstellungen ersetzt (unlesbar) → eigener Bitcoin-Server unbekannt: Bitcoin-Adressen werden nicht abgefragt,
  * bis der Nutzer den Server neu einträgt oder öffentliche Knoten bestätigt — nie still bei öffentlichen Knoten. Die
- * Regel selbst prüft `AddressServerParityTest.unbekannterServerSperrtBitcoin`; hier die Verdrahtung (SharedPreferences
+ * Regel selbst prüft `AddressServerParityTest.unknownServerBlocksBitcoin`; hier die Verdrahtung (SharedPreferences
  * und Room laufen nur auf dem Gerät). Gegenstück iOS: `AddressServerUnknownTests.swift`.
  */
 class AddressServerUnknownTest {
@@ -20,14 +20,14 @@ class AddressServerUnknownTest {
     ).first { it.exists() }.readText()
 
     @Test
-    fun ersetzteEinstellungenMachenDenServerUnbekannt() {
+    fun replacedSettingsMakeTheServerUnknown() {
         val notice = source("data/local/StorageRecoveryNotice.kt")
         val record = notice.substringAfter("fun recordSettingsReset(").substringBefore("\n    }\n")
         assertTrue(record.contains("if (lockUnknown) {") && record.contains("putBoolean(KEY_ADDRESS_SERVER_UNKNOWN, true)"))
     }
 
     @Test
-    fun abfrageFiltertBitcoinSolangeUnbekannt() {
+    fun queryFiltersBitcoinWhileUnknown() {
         val refresher = source("data/portfolio/WatchedAddressRefresher.kt")
         assertTrue(refresher.contains("val unknown = settings.addressServerUnknown()"))
         assertTrue(refresher.contains("addresses.filter { AddressServer.queryAllowed(it.chain, unknown) }"))
@@ -35,7 +35,7 @@ class AddressServerUnknownTest {
     }
 
     @Test
-    fun eingetragenerServerOderBestaetigungHebtAuf() {
+    fun enteredServerOrConfirmationLifts() {
         val repo = source("data/settings/SettingsRepository.kt")
         assertTrue(
             repo.substringAfter("override suspend fun setAddressServer(").substringBefore("\n    }\n")

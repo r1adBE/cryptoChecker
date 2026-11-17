@@ -10,7 +10,7 @@ class AlarmSoundStoreOwnToneTest {
     private val own = "content://media/external_primary/audio/media/42"
 
     @Test
-    fun eigenerOrdnerMitUndOhneSchraegstrich() {
+    fun ownFolderWithAndWithoutSlash() {
         assertTrue(AlarmSoundStore.isOwnRelativePath("Notifications/CryptoChecker/"))
         assertTrue(AlarmSoundStore.isOwnRelativePath("Notifications/CryptoChecker"))
         assertFalse(AlarmSoundStore.isOwnRelativePath("Notifications/"))
@@ -20,7 +20,7 @@ class AlarmSoundStoreOwnToneTest {
     }
 
     @Test
-    fun systemUndStandardtonSindNieEigene() {
+    fun systemAndDefaultToneAreNeverOwn() {
         assertFalse(AlarmSoundStore.isOwnTone("content://settings/system/notification_sound", "Notifications/CryptoChecker/"))
         assertFalse(AlarmSoundStore.isOwnTone(null, "Notifications/CryptoChecker/"))
         // Systemton in der Mediathek, aber nicht in unserem Ordner
@@ -29,7 +29,7 @@ class AlarmSoundStoreOwnToneTest {
     }
 
     @Test
-    fun vorigerTonNurBeiEchtemWechsel() {
+    fun previousToneOnlyOnRealChange() {
         val path = "Notifications/CryptoChecker/"
         assertTrue(AlarmSoundStore.shouldDeletePrevious(own, "content://media/external_primary/audio/media/43", path))
         assertTrue(AlarmSoundStore.shouldDeletePrevious(own, null, path))

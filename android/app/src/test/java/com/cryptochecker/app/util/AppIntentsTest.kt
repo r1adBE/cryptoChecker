@@ -8,7 +8,7 @@ import org.junit.Test
 class AppIntentsTest {
 
     @Test
-    fun nameUndExtrasPassenZurStartActivity() {
+    fun nameAndExtrasMatchTheStartActivity() {
         assertEquals(MainActivity::class.java.name, AppIntents.MAIN_ACTIVITY)
         assertEquals(MainActivity.EXTRA_WATCH_ID, AppIntents.EXTRA_WATCH_ID)
         assertEquals(MainActivity.EXTRA_OPEN, AppIntents.EXTRA_OPEN)

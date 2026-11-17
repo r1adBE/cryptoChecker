@@ -17,7 +17,7 @@ final class ExportRunTests: XCTestCase {
         return "a;b"
     }
 
-    func testCancelExportGehtAufIdleUndVerwirftDatei() async throws {
+    func testCancelExportGoesIdleAndDiscardsFile() async throws {
         let run = ExportRun()
         let build: ExportRun.Build = { await ExportRunTests.slowBuild() }
         let task = try XCTUnwrap(run.start(fileName: "x.csv", build: build))
@@ -31,7 +31,7 @@ final class ExportRunTests: XCTestCase {
         XCTAssertEqual(run.state, .idle)
     }
 
-    func testFertigerExportWirdAngeboten() async throws {
+    func testFinishedExportIsOffered() async throws {
         let run = ExportRun()
         let build: ExportRun.Build = { "x" }
         let task = try XCTUnwrap(run.start(fileName: "ok.csv", build: build))
@@ -44,7 +44,7 @@ final class ExportRunTests: XCTestCase {
         XCTAssertTrue(run.exporting)
     }
 
-    func testKurseFehlenUndErneutVersuchen() async throws {
+    func testPricesMissingAndRetry() async throws {
         let run = ExportRun()
         let attempts = Attempts()
         let build: ExportRun.Build = {
@@ -66,7 +66,7 @@ final class ExportRunTests: XCTestCase {
         XCTAssertEqual(attempts.count, 2)
     }
 
-    func testNurEinLaufZurZeit() throws {
+    func testOnlyOneRunAtATime() throws {
         let run = ExportRun()
         let build: ExportRun.Build = { await ExportRunTests.slowBuild() }
         XCTAssertNotNil(run.start(fileName: "a.csv", build: build))

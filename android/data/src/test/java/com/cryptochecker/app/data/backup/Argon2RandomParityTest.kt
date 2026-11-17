@@ -20,7 +20,7 @@ class Argon2RandomParityTest {
     private fun hex(bytes: ByteArray) = bytes.joinToString("") { "%02x".format(it.toInt() and 0xff) }
 
     @Test
-    fun zufaelligeParameterWieDieReferenz() {
+    fun randomParametersAsTheReference() {
         val cases = ParityJson.load("argon2_random.json")["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 20)
         cases.forEachIndexed { n, c ->

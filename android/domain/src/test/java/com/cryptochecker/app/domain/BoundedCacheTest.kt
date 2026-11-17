@@ -15,7 +15,7 @@ import org.junit.Test
 class BoundedCacheTest {
 
     @Test
-    fun `hoechstens maxEntries Eintraege, der am laengsten nicht benutzte faellt heraus`() {
+    fun `at most maxEntries entries, the least recently used drops out`() {
         val cache = BoundedCache<String, Int>(3)
         cache["A"] = 1
         cache["B"] = 2
@@ -30,7 +30,7 @@ class BoundedCacheTest {
     }
 
     @Test
-    fun `viele Paare bleiben begrenzt`() {
+    fun `many pairs stay bounded`() {
         val cache = BoundedCache<String, Int>(256)
         repeat(10_000) { cache["P$it"] = it }
         assertEquals(256, cache.size)
@@ -39,7 +39,7 @@ class BoundedCacheTest {
     }
 
     @Test
-    fun `merge behaelt wie bisher den neueren Wert`() {
+    fun `merge keeps the newer value as before`() {
         val cache = BoundedCache<String, Long>(4)
         cache.merge("A", 5L) { current, disk -> maxOf(current, disk) }
         cache.merge("A", 3L) { current, disk -> maxOf(current, disk) }
@@ -48,7 +48,7 @@ class BoundedCacheTest {
     }
 
     @Test
-    fun `Sperre je Schluessel schliesst gegenseitig aus und wird danach entfernt`() = runBlocking {
+    fun `lock per key is mutually exclusive and removed afterwards`() = runBlocking {
         val locks = KeyedMutex<String>()
         val inside = AtomicInteger(0)
         val maxInside = AtomicInteger(0)
@@ -69,7 +69,7 @@ class BoundedCacheTest {
     }
 
     @Test
-    fun `Wartender bekommt dieselbe Sperre, auch wenn der Erste fertig wird`() = runBlocking {
+    fun `waiter gets the same lock even when the first finishes`() = runBlocking {
         val locks = KeyedMutex<String>()
         val release = CompletableDeferred<Unit>()
         val first = async { locks.withLock("ETH|USDT") { release.await() } }
@@ -84,7 +84,7 @@ class BoundedCacheTest {
     }
 
     @Test
-    fun `Abbruch beim Warten raeumt die Sperre auf`() = runBlocking {
+    fun `cancel while waiting cleans up the lock`() = runBlocking {
         val locks = KeyedMutex<String>()
         val release = CompletableDeferred<Unit>()
         val first = async { locks.withLock("SOL|USDT") { release.await() } }

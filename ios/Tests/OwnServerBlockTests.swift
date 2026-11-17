@@ -15,21 +15,21 @@ final class OwnServerBlockTests: XCTestCase {
         } catch {}
     }
 
-    func testEigenerServerWirdNichtGesperrt() async {
+    func testOwnServerIsNotBlocked() async {
         await failWith(403, entry: "https://own-block-test.example/api", own: true)
         XCTAssertFalse(BlockedSources.isBlocked("own-block-test.example"))
         await failWith(451, entry: "https://own-block-test.example/api", own: true)
         XCTAssertFalse(BlockedSources.isBlocked("own-block-test.example"))
     }
 
-    func testOeffentlicherHostWirdGesperrtUndSpeichernHebtAuf() async {
+    func testPublicHostIsBlockedAndSavingLifts() async {
         await failWith(403, entry: "public-block-test.example", own: false)
         XCTAssertTrue(BlockedSources.isBlocked("public-block-test.example"))
         await source.clearServerPauses("https://public-block-test.example:3006/api")
         XCTAssertFalse(BlockedSources.isBlocked("public-block-test.example"))
     }
 
-    func testEigenerServerNachSperreWiederGefragt() async throws {
+    func testOwnServerAskedAgainAfterBlock() async throws {
         // Alte Sperre desselben Hosts (z. B. vor dem Speichern): der eigene Server wird trotzdem gefragt
         await failWith(403, entry: "stale-block-test.example", own: false)
         let (value, _) = try await source.firstWorking(["https://stale-block-test.example"], deadline: nil, own: true) { (_: String) -> Int in

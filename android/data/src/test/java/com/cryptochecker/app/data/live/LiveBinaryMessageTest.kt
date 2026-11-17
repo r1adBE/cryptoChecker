@@ -14,13 +14,13 @@ import org.junit.Test
 class LiveBinaryMessageTest {
 
     @Test
-    fun kleineBinaerNachrichtWirdText() {
+    fun smallBinaryMessageBecomesText() {
         assertEquals("""{"p":"1"}""", LiveConnection.binaryText("""{"p":"1"}""".encodeUtf8()))
         assertEquals("", LiveConnection.binaryText(ByteArray(0).toByteString()))
     }
 
     @Test
-    fun grenzeInBytes() {
+    fun limitInBytes() {
         val max = LiveRules.MAX_MESSAGE_BYTES
         assertEquals(max, LiveConnection.binaryText(ByteArray(max) { 'a'.code.toByte() }.toByteString())?.length)
         assertNull(LiveConnection.binaryText(ByteArray(max + 1) { 'a'.code.toByte() }.toByteString()))

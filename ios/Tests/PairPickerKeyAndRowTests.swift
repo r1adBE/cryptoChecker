@@ -6,7 +6,7 @@ import XCTest
 @MainActor
 final class PairPickerKeyAndRowTests: XCTestCase {
     /// Zehn Abfragen beim selben Stand rechnen den Schlüssel höchstens einmal, mit gleichem Wert wie ungemerkt.
-    func testPaarwahlSchluesselEinmalJeStand() throws {
+    func testPairPickerKeyOncePerState() throws {
         let data = AppData.shared
         let generation = data.snapshotGeneration
         let before = AppData.pairPickerKeyComputations
@@ -20,7 +20,7 @@ final class PairPickerKeyAndRowTests: XCTestCase {
     }
 
     /// Beide Aufrufer übergeben den gemerkten Schlüssel (nicht im `body` des Blatts gerechnet).
-    func testAufruferUebergebenGemerktenSchluessel() throws {
+    func testCallersPassTheRememberedKey() throws {
         for file in ["Alarms/AlarmsOverviewScreen.swift", "Watchlist/WatchlistSheets.swift"] {
             let text = try feature(file)
             XCTAssertTrue(text.contains("AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey)"), file)
@@ -29,7 +29,7 @@ final class PairPickerKeyAndRowTests: XCTestCase {
     }
 
     /// Paar-Zeile der Übersicht dimmt nur den Schalter, nicht den Hinweis.
-    func testUebersichtDimmtHinweisNicht() throws {
+    func testOverviewDoesNotDimNotice() throws {
         let overview = try feature("Alarms/AlarmsOverviewScreen.swift")
         XCTAssertTrue(overview.contains("verticalPadding: 8, dimsLabel: false)"))
         let components = try String(contentsOf: app("Components/Components.swift"), encoding: .utf8)
@@ -37,7 +37,7 @@ final class PairPickerKeyAndRowTests: XCTestCase {
     }
 
     /// Portfolio-Zeile mit ungültiger Schwelle nennt «löschen und neu anlegen» (kein Editor), nicht «anpassen».
-    func testPortfolioZeileNenntLoeschenUndNeuAnlegen() throws {
+    func testPortfolioRowNamesDeleteAndCreateAgain() throws {
         let overview = try feature("Alarms/AlarmsOverviewScreen.swift")
         let card = try XCTUnwrap(overview.range(of: "private func portfolioCard("))
         let text = overview[card.lowerBound...]
@@ -47,7 +47,7 @@ final class PairPickerKeyAndRowTests: XCTestCase {
     }
 
     /// Wisch-Löschen mit (asynchroner) Rückfrage ohne Rolle — die Zeile verschwindet sonst vor der Antwort.
-    func testWischLoeschenMitRueckfrageOhneRolle() throws {
+    func testSwipeDeleteWithConfirmationWithoutRole() throws {
         for file in ["Watchlist/WatchlistScreen+Row.swift", "Portfolio/PortfolioAddressSheet.swift",
                      "Alarms/AlarmsScreen.swift"] {
             let text = try feature(file)

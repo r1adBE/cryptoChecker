@@ -69,7 +69,7 @@ final class RefreshEffectsDerivativesTests: XCTestCase {
         return outcome
     }
 
-    func testFundingOhneWertIstNichtGeprueft() {
+    func testFundingWithoutValueIsNotChecked() {
         let alarm = Alarm(id: 90_191, watchId: 1, condition: .FUNDING_ABOVE, threshold: 0.01)
         defer { AlarmCheckStatus.shared.markChecked(alarm.id) }
         // Open Interest da, Funding fehlt
@@ -80,7 +80,7 @@ final class RefreshEffectsDerivativesTests: XCTestCase {
         XCTAssertNil(outcome.alarms[alarm.id])
     }
 
-    func testOpenInterestOhneWertIstNichtGeprueft() {
+    func testOpenInterestWithoutValueIsNotChecked() {
         let alarm = Alarm(id: 90_192, watchId: 1, condition: .OI_UP, threshold: 5, windowHours: 4)
         defer { AlarmCheckStatus.shared.markChecked(alarm.id) }
         let outcome = check([alarm], values: DerivativesAlarmData.Values(fundingPercent: 0.02, oiUnits: nil, fetchedAt: now))
@@ -89,7 +89,7 @@ final class RefreshEffectsDerivativesTests: XCTestCase {
     }
 
     /// Mit Wert: geprüft — ein früherer Hinweis «nicht geprüft» fällt weg.
-    func testFundingMitWertLoeschtHinweis() {
+    func testFundingWithValueClearsNotice() {
         let alarm = Alarm(id: 90_193, watchId: 1, condition: .FUNDING_BELOW, threshold: -0.5)
         defer { AlarmCheckStatus.shared.markChecked(alarm.id) }
         AlarmCheckStatus.shared.markUnchecked(alarm.id, reason: .noData, now: now - 60_000)
@@ -98,7 +98,7 @@ final class RefreshEffectsDerivativesTests: XCTestCase {
     }
 
     /// Paar ohne solche Daten (kein Perpetual einer unterstützten Börse): kein Hinweis — wie Android.
-    func testOhneDerivateDatenKeinHinweis() {
+    func testWithoutDerivativesDataNoNotice() {
         let alarm = Alarm(id: 90_194, watchId: 1, condition: .FUNDING_ABOVE, threshold: 0.01)
         defer { AlarmCheckStatus.shared.markChecked(alarm.id) }
         _ = check([alarm], values: nil)

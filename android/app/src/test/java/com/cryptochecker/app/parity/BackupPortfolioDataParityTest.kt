@@ -16,7 +16,7 @@ class BackupPortfolioDataParityTest {
     private val data = ParityJson.load("backup_portfolio_data.json")
 
     @Test
-    fun portfolioDatenWieGemeinsameTestfaelle() {
+    fun portfolioDataAsSharedTestCases() {
         val cases = data["cases"].list()
         assertEquals(6, cases.size)
         for (raw in cases) {

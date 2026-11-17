@@ -36,7 +36,7 @@ class DatabaseKeyRetryTest {
     private fun <T : Any> attempt(block: () -> T?) = DatabaseKeyRetry.run(3, 500L, { sleeps += it }, { classify(it) }, block)
 
     @Test
-    fun verdaechtigerFehlerBeimErstenVersuchDannGefunden() {
+    fun suspiciousErrorOnFirstTryThenFound() {
         var calls = 0
         val outcome = attempt {
             calls++
@@ -48,7 +48,7 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun keinSchluesselWirdWiederholt() {
+    fun noKeyIsRetried() {
         var calls = 0
         val outcome = attempt<String> {
             calls++
@@ -59,7 +59,7 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun dreimalVerdaechtigBleibtVerdaechtig() {
+    fun threeTimesSuspiciousStaysSuspicious() {
         var calls = 0
         val outcome = attempt<String> {
             calls++
@@ -73,13 +73,13 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun dreimalKeinSchluesselIstVerdaechtigOhneFehler() {
+    fun threeTimesNoKeyIsSuspiciousWithoutError() {
         val outcome = attempt<String> { null }
         assertNull((outcome as Outcome.Suspect).error)
     }
 
     @Test
-    fun eindeutigerFehlerBrichtSofortAb() {
+    fun clearErrorAbortsImmediately() {
         var calls = 0
         val outcome = attempt<String> {
             calls++
@@ -91,13 +91,13 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun voruebergehenderFehlerBleibtVoruebergehend() {
+    fun transientErrorStaysTransient() {
         val outcome = attempt<String> { throw IllegalStateException("beschäftigt") }
         assertTrue(outcome is Outcome.Transient)
     }
 
     @Test
-    fun verlustGiltErstImNaechstenLauf() {
+    fun lossCountsOnlyInTheNextRun() {
         val dir = folder.newFolder("db_keys")
         val firstRun = DatabaseKeyRetry.SuspectMarker(dir, mutableSetOf())
         // Erster Verdacht: nicht verloren, Merker angelegt — auch ein zweiter Aufruf im selben Lauf nicht
@@ -113,7 +113,7 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun wiederLesbarerSchluesselLoeschtDenVerdacht() {
+    fun readableAgainKeyClearsTheSuspicion() {
         val dir = folder.newFolder("db_keys")
         DatabaseKeyRetry.SuspectMarker(dir, mutableSetOf()).escalate("cryptochecker.db")
         val secondRun = DatabaseKeyRetry.SuspectMarker(dir, mutableSetOf())
@@ -124,7 +124,7 @@ class DatabaseKeyRetryTest {
     }
 
     @Test
-    fun merkerPasstNichtZuFrueherenSchluesseln() {
+    fun markerDoesNotMatchEarlierKeys() {
         val base = "cryptochecker.db.key" + DatabaseKeyStore.PREVIOUS_SUFFIX
         assertNull(DatabaseKeyStore.slotNumber("cryptochecker.db" + DatabaseKeyRetry.SuspectMarker.SUFFIX, base))
     }

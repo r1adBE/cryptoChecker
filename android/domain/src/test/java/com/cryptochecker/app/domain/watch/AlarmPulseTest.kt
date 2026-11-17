@@ -7,7 +7,7 @@ import org.junit.Test
 class AlarmPulseTest {
 
     @Test
-    fun `nur eine neue Auslösung bei offener App pulsiert`() {
+    fun `only a new trigger with the app open pulses`() {
         // Erster Stand beim Öffnen: schon vorhandene Auslösungen pulsieren nicht
         assertFalse(AlarmPulse.isNew(null, 1_000L))
         assertFalse(AlarmPulse.isNew(null, null))
@@ -22,7 +22,7 @@ class AlarmPulseTest {
     }
 
     @Test
-    fun `Puls ist kurz und dezent`() {
+    fun `pulse is short and subtle`() {
         assertTrue(AlarmPulse.MILLIS in 100..250)
         assertTrue(AlarmPulse.SCALE > 1f && AlarmPulse.SCALE <= 1.25f)
     }

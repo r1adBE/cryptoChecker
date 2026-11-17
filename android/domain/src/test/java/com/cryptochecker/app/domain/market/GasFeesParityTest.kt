@@ -45,7 +45,7 @@ class GasFeesParityTest {
     }
 
     @Test
-    fun feeHistoryWieGemeinsameTestfaelle() {
+    fun feeHistoryAsSharedTestCases() {
         val cases = data["feeHistory"].list()
         assertTrue(cases.size >= 20)
         for (raw in cases) {
@@ -59,7 +59,7 @@ class GasFeesParityTest {
     }
 
     @Test
-    fun gasPriceWieGemeinsameTestfaelle() {
+    fun gasPriceAsSharedTestCases() {
         for (raw in data["gasPrice"].list()) {
             val c = raw.obj()
             val name = c["description"] as String
@@ -69,7 +69,7 @@ class GasFeesParityTest {
     }
 
     @Test
-    fun mempoolWieGemeinsameTestfaelle() {
+    fun mempoolAsSharedTestCases() {
         for (raw in data["mempool"].list()) {
             val c = raw.obj()
             val name = c["description"] as String
@@ -81,7 +81,7 @@ class GasFeesParityTest {
     }
 
     @Test
-    fun ueberweisungskostenWieGemeinsameTestfaelle() {
+    fun transferCostsAsSharedTestCases() {
         for (raw in data["evmTransferUsd"].list()) {
             val c = raw.obj()
             val gwei = c["gwei"].num()!!
@@ -95,7 +95,7 @@ class GasFeesParityTest {
     }
 
     @Test
-    fun anzeigeWieGemeinsameTestfaelle() {
+    fun displayAsSharedTestCases() {
         val format = data["format"].obj()
         val locale = Locale.forLanguageTag((format["locale"] as String).replace('_', '-'))
         for (raw in format["gwei"].list()) {

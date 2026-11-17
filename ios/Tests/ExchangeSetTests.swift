@@ -24,7 +24,7 @@ final class ExchangeBackoffParityTests: XCTestCase {
         (raw as? [String: Any] ?? [:]).compactMapValues { state($0) }
     }
 
-    func testNextNachZuVielenAnfragen() throws {
+    func testNextAfterTooManyRequests() throws {
         let data = try S.fixture("exchange_backoff")
         let now = S.millis(data["now"])
         for c in S.list(data["next"]) {
@@ -36,7 +36,7 @@ final class ExchangeBackoffParityTests: XCTestCase {
         }
     }
 
-    func testGemeinsamePause() throws {
+    func testSharedPause() throws {
         let data = try S.fixture("exchange_backoff")
         let now = S.millis(data["now"])
         for c in S.list(data["groupPause"]) {
@@ -47,7 +47,7 @@ final class ExchangeBackoffParityTests: XCTestCase {
         }
     }
 
-    func testUebernommenePause() throws {
+    func testAdoptedPause() throws {
         let data = try S.fixture("exchange_backoff")
         let now = S.millis(data["now"])
         for c in S.list(data["adoptedPause"]) {
@@ -56,7 +56,7 @@ final class ExchangeBackoffParityTests: XCTestCase {
         }
     }
 
-    func testZusammenfuehrenNurIos() throws {
+    func testMergeOnlyIos() throws {
         let data = try S.fixture("exchange_backoff")
         let now = S.millis(data["now"])
         for c in S.list(data["merge"]) {

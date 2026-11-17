@@ -10,7 +10,7 @@ final class WatchedAddressUndoTests: XCTestCase {
     private let lot = AddressCostLot(id: 1, coin: "BTC", time: 1_000, amount: Decimal(string: "0.1")!)
     private let obs = AddressObservation(time: 1_000, balance: Decimal(string: "0.1")!)
 
-    func testRueckfrageNenntWasMitgeht() {
+    func testConfirmationNamesWhatGoesAlong() {
         XCTAssertTrue(WatchedAddressUndo.removal(address(1)).isEmpty)
         var a = address(1)
         a.costLots = [lot, AddressCostLot(id: 2, coin: "BTC", time: 2_000, amount: 1)]
@@ -28,7 +28,7 @@ final class WatchedAddressUndoTests: XCTestCase {
         XCTAssertTrue(WatchedAddressUndo.removal(d).isEmpty)
     }
 
-    func testZurueckNurMitFreierIdUndOhneDoppel() {
+    func testUndoOnlyWithFreeIdAndWithoutDuplicate() {
         var removed = address(5)
         removed.costLots = [lot]
         removed.observations = [obs]
@@ -44,7 +44,7 @@ final class WatchedAddressUndoTests: XCTestCase {
         XCTAssertFalse(WatchedAddressUndo.canRestore([], zero))
     }
 
-    func testRestoreBehaeltIdUndAllesDazu() {
+    func testRestoreKeepsIdAndEverythingWithIt() {
         var removed = address(5)
         removed.costLots = [lot]
         removed.observations = [obs]
@@ -57,7 +57,7 @@ final class WatchedAddressUndoTests: XCTestCase {
     }
 
     /// Banner statt still nichts — wie `WatchedAddressUndoTest.kt`.
-    func testGescheitertesZurueckNenntDenGrund() {
+    func testFailedUndoNamesTheReason() {
         let removed = address(5)
         XCTAssertEqual(WatchedAddressUndo.failure([address(9, removed.address)], removed), .duplicate)
         let full = (100..<(100 + Int64(WatchedAddressRules.maxAddresses))).map { address($0) }

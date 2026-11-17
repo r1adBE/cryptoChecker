@@ -15,7 +15,7 @@ class LogoUrlAllowParityTest {
     private val cases = ParityJson.load("logo_url_allow.json")["cases"].list().map { it.obj() }
 
     @Test
-    fun freigabeWieGemeinsameFaelle() {
+    fun allowAsSharedCases() {
         for (c in cases) {
             assertEquals("allowed: $c", c["expected"] as Boolean, CoinLogos.isAllowedUrl(c["url"] as String?))
         }
@@ -23,7 +23,7 @@ class LogoUrlAllowParityTest {
 
     /** Jede freigegebene Adresse geht beim Abruf (OkHttp) wirklich an einen freigegebenen Host. */
     @Test
-    fun freigegebeneAdresseLaedtVomFreigegebenenHost() {
+    fun allowedAddressLoadsFromAllowedHost() {
         for (c in cases.filter { it["expected"] as Boolean }) {
             val host = (c["url"] as String).toHttpUrlOrNull()?.host.orEmpty()
             val known = host == "coingecko.com" || host.endsWith(".coingecko.com") || host.endsWith(".bnbstatic.com")
@@ -33,7 +33,7 @@ class LogoUrlAllowParityTest {
 
     /** Gegenprobe zum alten Fehler: bei «#»/«\» endet der Host für OkHttp vor «.coingecko.com». */
     @Test
-    fun parserBeendetHostAnRaute() {
+    fun parserEndsHostAtHash() {
         assertEquals("evil.example", "https://evil.example#.coingecko.com/a.png".toHttpUrlOrNull()?.host)
         assertEquals("evil.example", "https://evil.example\\.coingecko.com/a.png".toHttpUrlOrNull()?.host)
     }

@@ -12,7 +12,7 @@ final class DexFailureTests: XCTestCase {
         DexFailure.of(RefreshReportLogic.classify(ExchangeFailure.of(error), ConnectionErrors.describe(error)))
     }
 
-    func testUrsachenWieInDerMerkliste() {
+    func testCausesAsInTheWatchlist() {
         // Zeitüberschreitung zählt wie in der Merkliste als «Keine Verbindung»
         XCTAssertEqual(DexFailure.of(.OFFLINE), .offline)
         XCTAssertEqual(DexFailure.of(.TIMEOUT), .offline)
@@ -23,13 +23,13 @@ final class DexFailureTests: XCTestCase {
         XCTAssertEqual(DexFailure.of(.OTHER), .other)
     }
 
-    func testFehlerWerdenEingeordnet() {
+    func testErrorsAreClassified() {
         XCTAssertEqual(kind(URLError(.notConnectedToInternet)), .offline)
         XCTAssertEqual(kind(URLError(.timedOut)), .offline)
         XCTAssertEqual(kind(NSError(domain: "Test", code: 1)), .other)
     }
 
-    func testTexteDerMerkliste() {
+    func testTextsOfTheWatchlist() {
         XCTAssertEqual(DexFailure.offline.messageKey, "watch_error_offline")
         XCTAssertEqual(DexFailure.unreachable.messageKey, "error_exchange_unreachable_short")
         XCTAssertEqual(DexFailure.other.messageKey, "something_went_wrong")
@@ -130,14 +130,14 @@ final class DexPairIdParityTests: XCTestCase {
         S.list(try S.fixture("dex_pair_id")["cases"])
     }
 
-    func testKennungWieGemeinsameFaelle() throws {
+    func testIdAsSharedCases() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)
             XCTAssertEqual(DexScreener.isSafePairId(id), try XCTUnwrap(c["valid"] as? Bool), id)
         }
     }
 
-    func testEinzelkursNurMitGueltigerKennung() throws {
+    func testSinglePriceOnlyWithValidId() throws {
         let base = try XCTUnwrap(try S.fixture("dex_pair_id")["tickerBase"] as? String)
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)
@@ -155,7 +155,7 @@ final class DexPairIdParityTests: XCTestCase {
     }
 
     /// Die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
-    func testSammelabfrageNurMitGueltigerKennung() throws {
+    func testBatchRequestOnlyWithValidId() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)
             if id != id.trimmingCharacters(in: .whitespacesAndNewlines) { continue } // Rand-Leerzeichen werden gekürzt
@@ -165,13 +165,13 @@ final class DexPairIdParityTests: XCTestCase {
         }
     }
 
-    func testSuchtrefferMitUngueltigerKennungFallenWeg() throws {
+    func testSearchHitsWithInvalidIdAreDropped() throws {
         let search = try XCTUnwrap(try S.fixture("dex_pair_id")["search"] as? [String: Any])
         let pools = try DexScreener.parseSearch(try XCTUnwrap(search["body"] as? String))
         XCTAssertEqual(pools.map(\.pairId), search["expectedPairIds"] as? [String])
     }
 
-    func testSicherungUebernimmtNurGueltigeKennung() throws {
+    func testBackupTakesOnlyValidId() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)
             let kept = BackupRestoreLimits.acceptsPair(exchangeKey: DexScreener.key, exchangeName: "DexScreener",

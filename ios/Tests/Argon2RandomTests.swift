@@ -18,7 +18,7 @@ final class Argon2RandomTests: XCTestCase {
 
     private func int(_ value: Any?) -> Int { (value as? NSNumber)?.intValue ?? 0 }
 
-    func testZufaelligeParameterWieDieReferenz() throws {
+    func testRandomParametersAsTheReference() throws {
         let cases = S.list(try S.fixture("argon2_random")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 20)
         for (n, c) in cases.enumerated() {

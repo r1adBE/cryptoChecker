@@ -25,7 +25,7 @@ class DexPairIdParityTest {
     private fun cases() = fixture["cases"].list().map { it as Map<*, *> }
 
     @Test
-    fun kennungWieGemeinsameFaelle() {
+    fun idAsSharedCases() {
         for (c in cases()) {
             val id = c["pairId"] as String
             assertEquals(id, c["valid"] as Boolean, DexScreener.isSafePairId(id))
@@ -33,7 +33,7 @@ class DexPairIdParityTest {
     }
 
     @Test
-    fun einzelkursNurMitGueltigerKennung() {
+    fun singlePriceOnlyWithValidId() {
         val base = fixture["tickerBase"] as String
         for (c in cases()) {
             val id = c["pairId"] as String
@@ -59,7 +59,7 @@ class DexPairIdParityTest {
 
     /** Der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
     @Test
-    fun pfadBleibtNachUrlParser() {
+    fun pathSurvivesUrlParser() {
         for (c in cases().filter { it["valid"] as Boolean }) {
             val id = c["pairId"] as String
             val url = exchange.tickerAddress(0, PairQuery("X", "USD (ethereum)", id, FuturesContractType.NONE)).toHttpUrl()
@@ -69,7 +69,7 @@ class DexPairIdParityTest {
 
     /** Die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
     @Test
-    fun sammelabfrageNurMitGueltigerKennung() {
+    fun batchRequestOnlyWithValidId() {
         for (c in cases()) {
             val id = c["pairId"] as String
             if (id != id.trim()) continue // Sammelabfrage schneidet Leerzeichen am Rand ab
@@ -80,14 +80,14 @@ class DexPairIdParityTest {
     }
 
     @Test
-    fun suchtrefferMitUngueltigerKennungFallenWeg() {
+    fun searchHitsWithInvalidIdAreDropped() {
         val search = fixture["search"] as Map<*, *>
         val pools = DexScreener.parseSearch(search["body"] as String)
         assertEquals(search["expectedPairIds"].list(), pools.map { it.pairId })
     }
 
     @Test
-    fun sicherungUebernimmtNurGueltigeKennung() {
+    fun backupTakesOnlyValidId() {
         for (c in cases()) {
             val id = c["pairId"] as String
             val kept = BackupRestoreLimits.acceptsPair(DexScreener.KEY, "DexScreener", "X", "USD (ethereum)", id)

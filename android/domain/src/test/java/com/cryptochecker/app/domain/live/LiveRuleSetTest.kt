@@ -66,20 +66,20 @@ class LiveJsonDepthTest {
     private fun arrays(depth: Int) = "[".repeat(depth) + "]".repeat(depth)
 
     @Test
-    fun tiefeBisZurGrenzeWirdGelesen() {
+    fun depthUpToTheLimitIsRead() {
         assertNotNull(LiveJson.parse(arrays(LiveJson.MAX_DEPTH)))
         assertNull(LiveJson.parse(arrays(LiveJson.MAX_DEPTH + 1)))
     }
 
     @Test
-    fun riesigeVerschachtelungIstUngueltigOhneStackOverflow() {
+    fun hugeNestingIsInvalidWithoutStackOverflow() {
         // 1 MB «[[[[…»: kein StackOverflowError auf dem OkHttp-Thread
         assertNull(LiveJson.parse("[".repeat(1_000_000)))
         assertNull(LiveJson.parse("{\"a\":".repeat(200_000) + "1" + "}".repeat(200_000)))
     }
 
     @Test
-    fun gemischteTiefeZaehltObjekteUndArrays() {
+    fun mixedDepthCountsObjectsAndArrays() {
         val ok = "{\"a\":".repeat(64) + "[".repeat(64) + "1" + "]".repeat(64) + "}".repeat(64)
         assertNotNull(LiveJson.parse(ok))
         val tooDeep = "{\"a\":".repeat(64) + "[".repeat(65) + "1" + "]".repeat(65) + "}".repeat(64)
@@ -87,7 +87,7 @@ class LiveJsonDepthTest {
     }
 
     @Test
-    fun geschwisterZaehlenNichtAlsTiefe() {
+    fun siblingsDoNotCountAsDepth() {
         // Viele Einträge nebeneinander sind flach: Tiefe wird beim Verlassen wieder abgezogen
         val wide = "[" + (1..500).joinToString(",") { "[[1]]" } + "]"
         assertEquals(500, (LiveJson.parse(wide) as List<*>).size)
@@ -100,12 +100,12 @@ class LiveJsonDepthTest {
 class LiveMessageSizeTest {
 
     @Test
-    fun grenzeIstEinMebibyteWieIos() {
+    fun limitIsOneMebibyteAsOnIos() {
         assertEquals(1_048_576, LiveRules.MAX_MESSAGE_BYTES)
     }
 
     @Test
-    fun zaehltUtf8Bytes() {
+    fun countsUtf8Bytes() {
         val max = LiveRules.MAX_MESSAGE_BYTES
         assertFalse(LiveRules.isMessageTooLarge(""))
         assertFalse(LiveRules.isMessageTooLarge("""{"p":"1"}"""))

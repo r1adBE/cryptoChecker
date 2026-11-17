@@ -44,7 +44,7 @@ final class CoinLogoDecodeTests: XCTestCase {
         return image.pngData()!
     }
 
-    func testPngMitDreissigtausendPixelKanteWirdAbgelehnt() {
+    func testPngWithThirtyThousandPixelEdgeIsRejected() {
         let data = bombPNG(side: 30_000)
         XCTAssertLessThan(data.count, 100)
         if let size = CoinLogoDecode.pixelSize(data) {
@@ -54,19 +54,19 @@ final class CoinLogoDecodeTests: XCTestCase {
         XCTAssertNil(CoinLogoDecode.pngData(data))
     }
 
-    func testGrenzeDerQuellpixel() {
+    func testSourcePixelLimit() {
         XCTAssertFalse(CoinLogos.sourceTooLarge(width: 4096, height: 4096))
         XCTAssertTrue(CoinLogos.sourceTooLarge(width: 4097, height: 4096))
         XCTAssertTrue(CoinLogos.sourceTooLarge(width: 30_000, height: 30_000))
         XCTAssertTrue(CoinLogos.sourceTooLarge(width: 0, height: 10))
     }
 
-    func testKleinesPngBleibtUnveraendert() {
+    func testSmallPngStaysUnchanged() {
         let data = renderedPNG(side: 64)
         XCTAssertEqual(CoinLogoDecode.pngData(data), data)
     }
 
-    func testGrossesBildWirdAufGespeicherteKanteVerkleinert() throws {
+    func testLargeImageIsShrunkToStoredEdge() throws {
         let data = renderedPNG(side: 1024)
         let png = try XCTUnwrap(CoinLogoDecode.pngData(data))
         XCTAssertTrue(CoinLogoDecode.isPNG(png))
@@ -74,7 +74,7 @@ final class CoinLogoDecodeTests: XCTestCase {
         XCTAssertEqual(max(size.width, size.height), CoinLogos.storedPixels)
     }
 
-    func testKeinBildKeineDaten() {
+    func testNoImageNoData() {
         XCTAssertNil(CoinLogoDecode.pixelSize(Data("kein Bild".utf8)))
         XCTAssertNil(CoinLogoDecode.pngData(Data("kein Bild".utf8)))
     }

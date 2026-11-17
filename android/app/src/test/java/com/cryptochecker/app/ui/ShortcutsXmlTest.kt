@@ -24,19 +24,19 @@ class ShortcutsXmlTest {
         Regex("""android:targetPackage="([^"]+)"""").findAll(xml).map { it.groupValues[1] }.toSet()
 
     @Test
-    fun paketJeBuildTyp() {
+    fun packagePerBuildType() {
         assertEquals(setOf("com.cryptochecker.app"), packages(main))
         assertEquals(setOf("com.cryptochecker.app.debug"), packages(debug))
     }
 
     @Test
-    fun debugKopieGleichBisAufsPaket() {
+    fun debugCopyEqualExceptForPackage() {
         val normalized = debug.replace("\"com.cryptochecker.app.debug\"", "\"com.cryptochecker.app\"")
         assertEquals(main.trim(), normalized.trim())
     }
 
     @Test
-    fun jedeVerknuepfungHatLangeBeschriftungMitHoechstens25Zeichen() {
+    fun everyShortcutHasLongLabelWithAtMost25Characters() {
         val shortcuts = Regex("""android:shortcutId="""").findAll(main).count()
         val longKeys = Regex("""android:shortcutLongLabel="@string/([a-z_]+)"""").findAll(main).map { it.groupValues[1] }.toList()
         assertEquals(shortcuts, longKeys.size)

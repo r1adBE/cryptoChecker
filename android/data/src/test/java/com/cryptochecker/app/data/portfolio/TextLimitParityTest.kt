@@ -22,7 +22,7 @@ class TextLimitParityTest {
     private val cases = fixture["cases"].list()
 
     @Test
-    fun kuerztUndZaehltWieGemeinsameTestfaelle() {
+    fun trimsAndCountsAsSharedTestCases() {
         assertTrue(cases.size >= 10)
         for (raw in cases) {
             val c = raw.obj()
@@ -42,7 +42,7 @@ class TextLimitParityTest {
      * Börsen nach UTF-16-Einheiten, iOS nach sichtbaren Zeichen.
      */
     @Test
-    fun saeubertFelderWieGemeinsameTestfaelle() {
+    fun cleansFieldsAsSharedTestCases() {
         val fields = fixture["fields"].list()
         assertTrue(fields.size >= 8)
         for (raw in fields) {
@@ -62,7 +62,7 @@ class TextLimitParityTest {
 
     /** Notiz als eine Zeile für die Merkliste: Umbrüche werden ein Leerzeichen. */
     @Test
-    fun eineZeileWieGemeinsameTestfaelle() {
+    fun oneLineAsSharedTestCases() {
         val lines = fixture["singleLine"].list()
         assertTrue(lines.size >= 8)
         for (raw in lines) {
@@ -81,7 +81,7 @@ class TextLimitParityTest {
 
     /** Gekürzter Text endet nie auf einer halben UTF-16-Einheit. */
     @Test
-    fun keinHalbesSurrogatpaar() {
+    fun noHalfSurrogatePair() {
         val cut = TextLimit.takeGraphemes("a".repeat(119) + "😀😀", 120)
         assertEquals(121, cut.length)
         assertTrue(!Character.isHighSurrogate(cut.last()))

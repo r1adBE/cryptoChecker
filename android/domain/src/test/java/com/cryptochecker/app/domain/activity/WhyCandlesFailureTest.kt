@@ -11,18 +11,18 @@ import org.junit.Test
 class WhyCandlesFailureTest {
 
     @Test
-    fun offlineGehtVor() {
+    fun offlineTakesPrecedence() {
         assertEquals(WhyCandlesFailure.OFFLINE, WhyCandlesFailure.of(online = false, timedOut = false))
         assertEquals(WhyCandlesFailure.OFFLINE, WhyCandlesFailure.of(online = false, timedOut = true))
     }
 
     @Test
-    fun zeitgrenzeIstNichtAbrufbar() {
+    fun timeLimitIsNotFetchable() {
         assertEquals(WhyCandlesFailure.TIMEOUT, WhyCandlesFailure.of(online = true, timedOut = true))
     }
 
     @Test
-    fun geantwortetOhneKerzenIstKeinFehler() {
+    fun answeredWithoutCandlesIsNoError() {
         assertNull(WhyCandlesFailure.of(online = true, timedOut = false))
         // Standard des Berichts: kein Fehler
         assertNull(ActivityAnalyzer.notLive(1L).candlesFailure)

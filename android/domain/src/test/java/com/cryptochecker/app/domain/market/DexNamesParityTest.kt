@@ -18,14 +18,14 @@ class DexNamesParityTest {
     private val fixture = ParityJson.load("dex_names.json")
 
     @Test
-    fun namenUndMindestlaengeWieGemeinsameListe() {
+    fun namesAndMinimumLengthAsSharedList() {
         assertEquals(fixture["named"].list(), DexNames.NAMED)
         assertEquals(fixture["generic"].list(), DexNames.GENERIC)
         assertEquals(fixture["minPrefix"].num()!!.toInt(), DexNames.MIN_PREFIX)
     }
 
     @Test
-    fun trefferWieGemeinsameFaelle() {
+    fun hitsAsSharedCases() {
         val cases = fixture["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 20)
         for (c in cases) {
@@ -41,7 +41,7 @@ class DexNamesParityTest {
 
     /** Jeder Name findet sich selbst, auch klein geschrieben und schon mit den ersten drei Zeichen. */
     @Test
-    fun jederNameFindetSich() {
+    fun everyNameIsFound() {
         for (name in DexNames.NAMED) {
             assertEquals(name, name, DexNames.match(name)?.dexName)
             assertEquals(name, name, DexNames.match(name.lowercase())?.dexName)

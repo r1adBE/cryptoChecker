@@ -108,7 +108,7 @@ final class PortfolioAlarmDeliveryTests: XCTestCase {
     }
 
     /// Paar- und Portfolio-Alarm mit derselben Id stören sich nicht (eigene Einträge, wie Android eigene Dateien).
-    func testPortfolioVermerkGetrenntVonPaarVermerk() async {
+    func testPortfolioMarkSeparateFromPairMark() async {
         let pairs = AlarmDelivery(storeKey: "alarm_unconfirmed_at", store: defaults)
         let portfolio = AlarmDelivery(storeKey: "portfolio_alarm_unconfirmed_at", store: defaults)
         _ = await portfolio.deliver(alarmId: 5, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -120,7 +120,7 @@ final class PortfolioAlarmDeliveryTests: XCTestCase {
     }
 
     /// Portfolio-Alarm: schon gemeldet (Prozess-Ende), aber inzwischen geändert → Mitteilung wieder weg, Vermerk weg.
-    func testPortfolioSchonGemeldetNichtGespeichertEntfernt() async {
+    func testPortfolioAlreadyNotifiedNotSavedIsRemoved() async {
         let portfolio = AlarmDelivery(storeKey: "portfolio", store: defaults)
         _ = await portfolio.deliver(alarmId: 6, now: at, cooldownMinutes: 0, holdAlarms: false,
                                     canShow: { true }, show: { false }, mark: { true })
@@ -144,7 +144,7 @@ final class PortfolioAlarmDeliveryTests: XCTestCase {
 final class AlarmPairPickerTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testAuswahlWieGemeinsameTestfaelle() throws {
+    func testSelectionAsSharedTestCases() throws {
         let fixture = try S.fixture("alarm_pair_picker")
         let watches: [Watch] = S.list(fixture["watches"]).map { w in
             let exchange = w["exchangeName"] as? String ?? ""
@@ -180,7 +180,7 @@ final class AlarmPairPickerTests: XCTestCase {
     }
 
     /// Das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
-    func testErzeugenRechnetKeineZeilen() {
+    func testCreatingCalculatesNoRows() {
         let watches = (1...50).map { Watch(id: Int64($0), exchangeKey: "binance", exchangeName: "Binance", baseAsset: "C\($0)",
                                            quoteAsset: "USDT") }
         let before = AlarmPairPicker.makeRowsCalls

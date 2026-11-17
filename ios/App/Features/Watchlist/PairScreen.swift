@@ -73,7 +73,7 @@ struct PairScreen: View {
 
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
-        _ = refusedToggles
+        let _ = refusedToggles
         // Eben hinzugefügt: die Vorschau bleibt stehen, bis der neue Eintrag einen Kurs (oder Fehler) hat
         if let watch = data.watch(currentId),
            !(adding && preview != nil && watch.lastUpdate <= 0 && watch.lastError == nil) {

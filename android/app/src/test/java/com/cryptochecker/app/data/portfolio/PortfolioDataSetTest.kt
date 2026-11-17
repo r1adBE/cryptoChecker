@@ -107,7 +107,7 @@ class PortfolioCoinDeletionTest {
     )
 
     @Test
-    fun zaehltGeloeschteUndGebuehrBezuegeGetrennt() {
+    fun countsDeletedAndFeeReferencesSeparately() {
         val all = listOf(buyBnb, transfer, buyEth, swapToBnb)
         // Gelöscht: Kauf BNB und Tausch in BNB; nur die Gebühr verliert die ETH-Umbuchung
         assertEquals(2 to 1, PortfolioCoinDeletion.counts(all, "bnb"))
@@ -115,7 +115,7 @@ class PortfolioCoinDeletionTest {
     }
 
     @Test
-    fun gebuehrBezugNurBeiAnderemCoin() {
+    fun feeReferenceOnlyForOtherCoin() {
         assertTrue(PortfolioCoinDeletion.paysFeeIn(transfer, "BNB"))
         assertFalse(PortfolioCoinDeletion.paysFeeIn(transfer, "ETH"))
         assertFalse(PortfolioCoinDeletion.paysFeeIn(buyEth, "BNB"))
@@ -124,7 +124,7 @@ class PortfolioCoinDeletionTest {
     }
 
     @Test
-    fun ohneGebuehrBleibtDerRestUnveraendert() {
+    fun withoutFeeTheRestStaysUnchanged() {
         val clean = PortfolioCoinDeletion.withoutThirdFee(transfer)
         assertNull(clean.feeCoin)
         assertNull(clean.feeCoinAmount)
@@ -303,14 +303,14 @@ class PortfolioTxCleanupTest {
         )
 
     @Test
-    fun mengeUnterEinemWeiWirdNullUndAbgelehnt() {
+    fun amountBelowOneWeiBecomesZeroAndIsRejected() {
         val clean = cleanForSave(tx("0.0000000000000000004"))
         // PortfolioRepository.save prüft genau diese bereinigte Menge (> 0)
         assertEquals(0, clean.amount.signum())
     }
 
     @Test
-    fun mengeWirdAufGespeicherteStellenGerundet() {
+    fun amountIsRoundedToStoredDecimals() {
         val clean = cleanForSave(tx("1.0000000000000000005"))
         assertEquals(0, clean.amount.compareTo(BigDecimal.ONE))
         // Was geprüft wurde, wird auch gespeichert
@@ -318,7 +318,7 @@ class PortfolioTxCleanupTest {
     }
 
     @Test
-    fun gebuehrUndErhalteneMengeUnterEinemWeiFallenWeg() {
+    fun feeAndReceivedAmountBelowOneWeiAreDropped() {
         val clean = cleanForSave(tx("1", fee = "0.0000000000000000001"))
         assertNull(clean.fee)
         assertNull(clean.feeUnit)
@@ -327,7 +327,7 @@ class PortfolioTxCleanupTest {
     }
 
     @Test
-    fun eineRundungsregelFuerRechnenUndSpeichern() {
+    fun oneRoundingRuleForCalculatingAndStoring() {
         for (v in listOf("0.0000000000000000015", "0.0000000000000000025", "2.0000000000000000035", "0.0000000000000000005")) {
             val d = BigDecimal(v)
             assertEquals(v, 0, PortfolioDecimal.amount(d).compareTo(BigDecimal(PortfolioDecimal.text(d))))

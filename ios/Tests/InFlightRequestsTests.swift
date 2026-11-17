@@ -13,7 +13,7 @@ final class InFlightRequestsTests: XCTestCase {
         func release() { open = true }
     }
 
-    func testSpaetankoemmlingStartetNeueAnfrageStattAbgebrocheneZuErben() async throws {
+    func testLatecomerStartsNewRequestInsteadOfInheritingCancelledOne() async throws {
         let requests = InFlightRequests()
         let probe = Probe()
         let load: @Sendable () async throws -> String = {
@@ -46,7 +46,7 @@ final class InFlightRequestsTests: XCTestCase {
         }
     }
 
-    func testGeerbterAbbruchWirdEinmalNeuGesendet() async throws {
+    func testInheritedCancelIsResentOnce() async throws {
         let requests = InFlightRequests()
         let probe = Probe()
         let value = try await requests.value("k") {
@@ -59,7 +59,7 @@ final class InFlightRequestsTests: XCTestCase {
         XCTAssertEqual(calls, 2)
     }
 
-    func testEchterFehlerWirdNichtWiederholt() async {
+    func testRealErrorIsNotRetried() async {
         let requests = InFlightRequests()
         let probe = Probe()
         do {

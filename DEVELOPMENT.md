@@ -3268,6 +3268,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 283: References to audits, reviews, findings and build numbers removed from comments, tests and shared test cases.
 * Build 284: Kotlin style: ktlint 1.7.1 in CI (Android Studio style, 140 columns, android/.editorconfig, download checked by SHA-256); all Kotlin formatted, files named after their class, constant names, wildcard imports resolved; files over 400 lines after formatting split into helper/extension files; long functions shortened.
 * Build 285: Swift style: SwiftLint 0.59.1 in CI (ios/.swiftlint.yml, 140 columns, ceilings for nesting, parameters and complexity; portable macOS release checked by SHA-256, runs with the selected Xcode); iOS sources and tests cleaned up (long lines wrapped, static instead of class, shorthand forms), two long places moved into helpers.
+* Build 286: Test names in English: 886 German test names translated on both platforms (Kotlin backtick sentences and camelCase, Swift testXxx; same names for the same tests on Android and iOS); cross-references in comments updated.
 
 ## Known warnings
 

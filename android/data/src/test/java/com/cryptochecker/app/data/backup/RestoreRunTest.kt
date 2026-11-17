@@ -88,7 +88,7 @@ class RestoreRunTest {
         RestoreRun.execute(journal, writesOf(w)) { touched, cause -> RestoreRollback.run(touched, cause, partsOf(w, rolledBack)) }
 
     @Test
-    fun ohneSchluesselFuerDasJournalWirdNichtsGeschrieben() = runTest {
+    fun withoutKeyForTheJournalNothingIsWritten() = runTest {
         val w = World()
         try {
             run(w, FakeJournal(writes = false))
@@ -101,7 +101,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun speicherfehlerBeimJournalLehntAbOhneZuSchreiben() = runTest {
+    fun storageErrorOnJournalRejectsWithoutWriting() = runTest {
         val w = World()
         try {
             run(w, FakeJournal(throws = true))
@@ -113,7 +113,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun erfolgSchreibtAllesUndLoeschtDasJournal() = runTest {
+    fun successWritesEverythingAndDeletesTheJournal() = runTest {
         val w = World()
         val journal = FakeJournal()
         run(w, journal)
@@ -123,7 +123,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun abbruchNachDemPortfolioSchrittRolltAlleVierTeileZurueck() = runTest {
+    fun cancelAfterThePortfolioStepRollsBackAllFourParts() = runTest {
         // Sicherung mit Portfolio, Alarmen und Favoriten; Favoriten scheitern halb (vor dem Schreiben schon berührt)
         val w = World().apply { failOn = "Favoriten" }
         val journal = FakeJournal()
@@ -140,7 +140,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun einstellungenScheiternHalbUndWerdenZurueckgeschrieben() = runTest {
+    fun settingsFailHalfwayAndAreWrittenBack() = runTest {
         val w = World().apply { failOn = "Einstellungen" }
         val rolledBack = mutableListOf<String>()
         runCatching { run(w, FakeJournal(), rolledBack) }
@@ -149,7 +149,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun gescheiterteTransaktionGiltAlsBeruehrt() = runTest {
+    fun failedTransactionCountsAsTouched() = runTest {
         // Portfolio-Transaktion scheitert: auch sie wird zurückgeschrieben (der Commit kann trotz Fehler geschehen sein)
         val w = World().apply { failOn = "Portfolio" }
         val rolledBack = mutableListOf<String>()
@@ -163,7 +163,7 @@ class RestoreRunTest {
      * zurückgerollt (samt dem Schritt davor), das Journal ist erst danach weg — nie neue Merkliste neben altem Portfolio.
      */
     @Test
-    fun abbruchBeimCommitRolltDenGeschriebenenSchrittZurueck() = runTest {
+    fun cancelOnCommitRollsBackTheWrittenStep() = runTest {
         for (part in listOf("Merkliste", "Portfolio")) {
             val w = World().apply { cancelAfterWriting = part }
             val journal = FakeJournal()
@@ -182,7 +182,7 @@ class RestoreRunTest {
 
     /** Derselbe Abbruch in einer wirklich abgebrochenen Coroutine: Zurückrollen läuft trotzdem zu Ende (NonCancellable). */
     @Test
-    fun abgebrocheneCoroutineRolltTrotzdemZurueck() = runTest {
+    fun cancelledCoroutineStillRollsBack() = runTest {
         val w = World()
         val journal = FakeJournal()
         val rolledBack = mutableListOf<String>()
@@ -219,7 +219,7 @@ class RestoreRunTest {
      * die Sperre gemeldet, rollt ein späterer Fehler die Merkliste zurück.
      */
     @Test
-    fun merklisteGiltErstUnterDerSperreAlsBeruehrt() = runTest {
+    fun watchlistCountsAsTouchedOnlyUnderTheLock() = runTest {
         val w = World()
         val journal = FakeJournal()
         val rolledBack = mutableListOf<String>()
@@ -252,7 +252,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun unvollstaendigesZurueckrollenBehaeltDasJournal() = runTest {
+    fun incompleteRollbackKeepsTheJournal() = runTest {
         val w = World().apply {
             failOn = "Einstellungen"
             failRollBackOf = "Portfolio"
@@ -268,7 +268,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun portfolioNurImArbeitsspeicherIstUnvollstaendig() = runTest {
+    fun portfolioOnlyInMemoryIsIncomplete() = runTest {
         val w = World().apply {
             failOn = "Favoriten"
             portfolioWritable = false
@@ -281,7 +281,7 @@ class RestoreRunTest {
     }
 
     @Test
-    fun zurueckrollenBeimStartSchreibtAlleTeile() = runTest {
+    fun rollbackAtStartWritesAllParts() = runTest {
         // Abgebrochener Lauf (Journal beim Start): welche Schritte liefen, ist unbekannt — alle zurück
         val w = World().apply {
             watchlist = "halb"

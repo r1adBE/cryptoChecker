@@ -7,7 +7,7 @@ import XCTest
 final class BackupRestoreLimitsTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testGrenzenWieGemeinsameTestfaelle() throws {
+    func testLimitsAsSharedTestCases() throws {
         let limits = try XCTUnwrap(try S.fixture("backup_limits")["limits"] as? [String: Any])
         XCTAssertEqual(S.number(limits["maxExchangeKey"]).map { Int($0) }, BackupRestoreLimits.maxExchangeKey)
         XCTAssertEqual(S.number(limits["maxExchangeName"]).map { Int($0) }, BackupRestoreLimits.maxExchangeName)
@@ -19,7 +19,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
         XCTAssertEqual(S.number(limits["noteMax"]).map { Int($0) }, Watch.noteMax)
     }
 
-    func testPaareWieGemeinsameTestfaelle() throws {
+    func testPairsAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("backup_limits")["watches"])
         XCTAssertGreaterThanOrEqual(cases.count, 20)
         for c in cases {
@@ -33,7 +33,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
     }
 
     /// Erste Paare der Datei bleiben; Alarme weggelassener Paare fallen weg, je Paar nur die ersten.
-    func testHoechstensSovielePaareUndAlarmeJePaar() {
+    func testAtMostSoManyPairsAndAlarmsPerPair() {
         let max = BackupRestoreLimits.maxPairs
         let watches = (1...(max + 5)).map {
             Watch(id: Int64($0), exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "B\($0)", quoteAsset: "USDT")
@@ -56,7 +56,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
     }
 
     /// Paare mit unzulässiger Kennung fallen samt ihren Alarmen weg und werden gezählt; Alarme ohne Paar nicht.
-    func testUnzulaessigePaareSamtAlarmenGezaehlt() {
+    func testInadmissiblePairsCountedWithTheirAlarms() {
         let watches = [
             Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", pairId: "BTCUSDT"),
             Watch(id: 2, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT", pairId: "ETH USDT"),
@@ -74,7 +74,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
 
     /// Ganze Merkliste wie beim Wiederherstellen (lesen, bereinigen, begrenzen): behaltene und wegen der Grenzen
     /// weggelassene Paare und Alarme wie in den gemeinsamen Testfällen «limitCases».
-    func testWeggelasseneWieGemeinsameTestfaelle() throws {
+    func testOmittedAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("backup_limits")["limitCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)
         for c in cases {
@@ -90,7 +90,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
 
     /// Börsenname bekannter Börsen aus dem Katalog, nicht aus der Datei («exchangeNames»): eine bearbeitete Sicherung mit
     /// Schlüssel «Bitpanda» und Name «Kraken» zeigt danach «Bitpanda» — auch über das ganze Lesen (`restoredWatchlist`).
-    func testBoersennameAusDemKatalog() throws {
+    func testExchangeNameFromTheCatalog() throws {
         let cases = S.list(try S.fixture("backup_limits")["exchangeNames"])
         XCTAssertGreaterThanOrEqual(cases.count, 4)
         for c in cases {

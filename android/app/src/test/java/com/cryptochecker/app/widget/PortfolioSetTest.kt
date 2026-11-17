@@ -141,17 +141,17 @@ class PortfolioWidgetRowBasisTest {
     )
 
     @Test
-    fun `ohne Stempel rollende 24 Stunden`() {
+    fun `without stamp rolling 24 hours`() {
         assertEquals(ChangeBasis.ROLLING_24H, PortfolioWidgetViews.rowChangeBasis(snapshot(null)))
     }
 
     @Test
-    fun `rollend aufgenommen heisst 24h`() {
+    fun `recorded rolling means 24h`() {
         assertEquals(ChangeBasis.ROLLING_24H, PortfolioWidgetViews.rowChangeBasis(snapshot(ChangeStamp(ChangeBasis.ROLLING_24H, 0L))))
     }
 
     @Test
-    fun `ab Tagesbeginn aufgenommen heisst heute in derselben Zone`() {
+    fun `recorded from start of day means today in the same zone`() {
         assertEquals(ChangeBasis.LOCAL_DAY, PortfolioWidgetViews.rowChangeBasis(snapshot(ChangeStamp(ChangeBasis.LOCAL_DAY, 1000L))))
         assertEquals(ChangeBasis.UTC_DAY, PortfolioWidgetViews.rowChangeBasis(snapshot(ChangeStamp(ChangeBasis.UTC_DAY, 1000L))))
     }

@@ -36,7 +36,7 @@ final class AddressAlarmStateTests: XCTestCase {
 
     /// Eingespielt (Sicherung) mit altem `addedAt`: `pendingSince` = Zeitpunkt des Einspielens, damit die Adresse wieder
     /// 24 h zum Laden hat; gerätelokal — nicht in der Sicherung, aber in der Datei. Wie `pendingSinceLocal` (Android).
-    func testPendingSinceLokal() throws {
+    func testPendingSinceLocal() throws {
         let now: Int64 = 1_700_000_000_000
         let entry = WatchedAddressBackupEntry(chain: .BTC, address: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", addedAt: 0)
         let restored = try XCTUnwrap(WatchedAddressRules.merge([], [entry], now: now).first)

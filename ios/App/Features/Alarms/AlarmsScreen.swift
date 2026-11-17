@@ -84,7 +84,7 @@ struct AlarmsScreen: View {
 
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
-        _ = refusedToggles
+        let _ = refusedToggles
         if embedded {
             withEditor(embeddedSection)
                 .onChange(of: newAlarmRequest) { _, _ in

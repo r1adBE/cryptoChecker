@@ -9,13 +9,13 @@ import org.junit.Test
 class PortfolioDataCheckTest {
 
     @Test
-    fun `leeres Portfolio nur im Arbeitsspeicher behaelt den Merker`() {
+    fun `empty portfolio only in memory keeps the marker`() {
         // Schlüssel gerade nicht lesbar: der gespeicherte Stand ist nicht zu sehen — nicht als «keine Daten» entscheiden
         assertTrue(PortfolioDataCheck.keepMarker(hasData = false, portfolioInMemory = true))
     }
 
     @Test
-    fun `lesbare Datenbank entscheidet`() {
+    fun `readable database decides`() {
         assertFalse(PortfolioDataCheck.keepMarker(hasData = false, portfolioInMemory = false))
         assertFalse(PortfolioDataCheck.keepMarker(hasData = true, portfolioInMemory = false))
         // Daten im Arbeitsspeicher gefunden (z. B. Kopie einer alten Datei): Portfolio einschalten

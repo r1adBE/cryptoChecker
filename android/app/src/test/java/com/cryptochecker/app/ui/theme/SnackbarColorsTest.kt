@@ -24,7 +24,7 @@ class SnackbarColorsTest {
 
     /** Erfolg ist keine Kursrichtung: bei «Farben tauschen» (Rot = steigend) bleibt er die Steigend-Farbe. */
     @Test
-    fun `Erfolg bleibt die Steigend-Farbe auch bei getauschten Kursfarben`() {
+    fun `success stays the rising colour even with swapped price colours`() {
         for (scheme in PriceColorScheme.entries) {
             for (accent in accents) {
                 for (dark in listOf(false, true)) {
@@ -44,7 +44,7 @@ class SnackbarColorsTest {
 
     /** Fehler: Fehlerfarbe der App; mit Farbsehschwäche-Schema dessen Fallend-Ton (Orange), nie getauscht. */
     @Test
-    fun `Fehler nimmt die Fehlerfarbe, bei Farbsehschwaeche den Ton des Schemas`() {
+    fun `error takes the error colour, with colour vision deficiency the tone of the scheme`() {
         for (scheme in PriceColorScheme.entries) {
             for (accent in accents) {
                 for (dark in listOf(false, true)) {
@@ -72,7 +72,7 @@ class SnackbarColorsTest {
     }
 
     @Test
-    fun `Info hat keinen farbigen Ton`() {
+    fun `info has no coloured tone`() {
         for (scheme in PriceColorScheme.entries) {
             for (dark in listOf(false, true)) {
                 assertNull(SnackbarPalette.tone(SnackbarKind.INFO, scheme, dark, false, null))
@@ -85,7 +85,7 @@ class SnackbarColorsTest {
      * Rahmen und Symbol von Erfolg/Fehler als Grafik ≥ 3:1 (WCAG 1.4.11).
      */
     @Test
-    fun `Text, Aktion und Rahmen erreichen den Kontrast auf der Flaeche`() {
+    fun `text, action and border reach the contrast on the surface`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val s = appColorScheme(accent, dark)
@@ -110,7 +110,7 @@ class SnackbarColorsTest {
 
     /** Die Fläche ist im Dunkelmodus dunkel (keine helle Pille `inverseSurface`) und hell im Hellmodus. */
     @Test
-    fun `Flaeche passt zum Thema`() {
+    fun `surface matches the theme`() {
         for (accent in AccentColor.entries) {
             assertEquals(0xFF353535.toInt(), appColorScheme(accent, dark = true).surfaceContainerHighest.toArgb())
             assertEquals(0xFFE5E2DB.toInt(), appColorScheme(accent, dark = false).surfaceContainerHighest.toArgb())
@@ -124,7 +124,7 @@ class SnackbarColorsTest {
 
     /** Alle Snackbar-Bereiche der App nutzen `AppSnackbarHost` (sonst wieder die helle Material-Pille). */
     @Test
-    fun `Bildschirme nutzen AppSnackbarHost`() {
+    fun `screens use AppSnackbarHost`() {
         val rel = "src/main/java/com/cryptochecker/app"
         val root = File(SourceGuard.android(sourceDir(rel), rel))
         val offenders = root.walkTopDown().filter { it.isFile && it.extension == "kt" && it.name != "AppSnackbar.kt" }

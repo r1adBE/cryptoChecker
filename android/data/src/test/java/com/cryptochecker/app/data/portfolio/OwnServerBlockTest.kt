@@ -28,7 +28,7 @@ class OwnServerBlockTest {
     }
 
     @Test
-    fun eigenerServerWirdNichtGesperrt() {
+    fun ownServerIsNotBlocked() {
         failWith(403, "https://own-block-test.example/api", own = true)
         assertFalse(BlockedSources.isBlocked("own-block-test.example"))
         failWith(451, "https://own-block-test.example/api", own = true)
@@ -36,7 +36,7 @@ class OwnServerBlockTest {
     }
 
     @Test
-    fun oeffentlicherHostWirdGesperrtUndSpeichernHebtAuf() {
+    fun publicHostIsBlockedAndSavingLifts() {
         failWith(403, "public-block-test.example", own = false)
         assertTrue(BlockedSources.isBlocked("public-block-test.example"))
         source.clearServerPauses("https://public-block-test.example:3006/api")
@@ -44,7 +44,7 @@ class OwnServerBlockTest {
     }
 
     @Test
-    fun eigenerServerNachSperreWiederGefragt() {
+    fun ownServerAskedAgainAfterBlock() {
         // Alte Sperre desselben Hosts (z. B. vor dem Speichern): der eigene Server wird trotzdem gefragt
         failWith(403, "stale-block-test.example", own = false)
         val (value, _) = runBlocking { source.firstWorking(listOf("https://stale-block-test.example"), null, true) { 7 } }

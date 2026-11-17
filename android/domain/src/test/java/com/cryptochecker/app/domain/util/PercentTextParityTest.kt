@@ -16,7 +16,7 @@ import org.junit.Test
 class PercentTextParityTest {
 
     @Test
-    fun faelleWieGemeinsameTestfaelle() {
+    fun casesAsSharedTestCases() {
         val cases = ParityJson.load("percent_text.json")["cases"].list()
         for (raw in cases) {
             val c = raw.obj()

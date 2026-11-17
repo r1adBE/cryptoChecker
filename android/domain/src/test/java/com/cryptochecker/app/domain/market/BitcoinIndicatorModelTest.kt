@@ -29,7 +29,7 @@ class BitcoinIndicatorModelTest {
     private fun BitcoinReport.value(id: IndicatorId): Double? = indicators.first { it.id == id }.value
 
     @Test
-    fun `Kennzahlen sind reine Messwerte in fester Reihenfolge`() {
+    fun `key figures are plain measurements in fixed order`() {
         val r = BitcoinIndicatorModel.evaluate(inputs())
         assertEquals(
             listOf(
@@ -55,13 +55,13 @@ class BitcoinIndicatorModelTest {
     }
 
     @Test
-    fun `ueber dem Allzeithoch ist der Abstand null`() {
+    fun `above the all-time high the distance is zero`() {
         val r = BitcoinIndicatorModel.evaluate(inputs(price = 130_000.0))
         assertEquals(0.0, r.value(IndicatorId.ATH_DISTANCE) ?: -1.0, 1e-9)
     }
 
     @Test
-    fun `fehlende Daten ergeben Kennzahlen ohne Wert`() {
+    fun `missing data gives key figures without value`() {
         val r = BitcoinIndicatorModel.evaluate(
             inputs(sma200d = null, sma200w = null, ath = null, price30dAgo = null, mvrv = null, puell = null, hash30 = null)
         )
@@ -71,7 +71,7 @@ class BitcoinIndicatorModelTest {
     }
 
     @Test
-    fun `ungueltige Basis ergibt keinen Wert`() {
+    fun `invalid base gives no value`() {
         val r = BitcoinIndicatorModel.evaluate(inputs(sma200d = 0.0, hash60 = 0.0))
         assertNull(r.value(IndicatorId.MAYER))
         assertNull(r.value(IndicatorId.HASHRATE_30_60))

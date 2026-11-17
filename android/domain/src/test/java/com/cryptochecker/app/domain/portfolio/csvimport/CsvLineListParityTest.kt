@@ -19,7 +19,7 @@ class CsvLineListParityTest {
     private fun Any?.ints(): List<Int> = list().map { (it.num() ?: -1.0).toInt() }
 
     @Test
-    fun ofWieGemeinsameTestfaelle() {
+    fun ofAsSharedTestCases() {
         val cases = data["of"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -33,7 +33,7 @@ class CsvLineListParityTest {
     }
 
     @Test
-    fun moreAfterWieGemeinsameTestfaelle() {
+    fun moreAfterAsSharedTestCases() {
         val cases = data["moreAfter"].list()
         assertTrue(cases.isNotEmpty())
         for (raw in cases) {
@@ -47,7 +47,7 @@ class CsvLineListParityTest {
     }
 
     @Test
-    fun standardZeigtFuenfNummern() {
+    fun defaultShowsFiveNumbers() {
         assertEquals(5, CsvLineList.SHOWN)
         assertEquals(listOf(1, 2, 3, 4, 5), CsvLineList.of((1..9).toList()).shown)
     }

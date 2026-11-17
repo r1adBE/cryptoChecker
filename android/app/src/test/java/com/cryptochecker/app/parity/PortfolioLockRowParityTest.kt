@@ -21,7 +21,7 @@ class PortfolioLockRowParityTest {
     }
 
     @Test
-    fun zeileUndKurzwertWieGemeinsameTestfaelle() {
+    fun rowAndShortValueAsSharedTestCases() {
         val cases = data["cases"].list()
         assertEquals(4, cases.size)
         for (raw in cases) {

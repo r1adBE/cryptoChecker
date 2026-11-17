@@ -118,7 +118,7 @@ final class BackupSettingsParityTests: XCTestCase {
         XCTAssertTrue(trusted.portfolioSystemBackup)
     }
 
-    /// Wie Android `jedesGeschriebeneFeldIstPflicht`: Pflichtfelder = was geschrieben wird = Fixture; null nur dort,
+    /// Wie Android `everyWrittenFieldIsRequired`: Pflichtfelder = was geschrieben wird = Fixture; null nur dort,
     /// wo der Schreiber null schreibt.
     func testEveryWrittenFieldIsRequired() throws {
         let data = try TestSupport.fixture("backup_settings")
@@ -145,7 +145,7 @@ final class BackupSettingsParityTests: XCTestCase {
         }
     }
 
-    /// Falsche Typen aus der Fixture machen die Sicherung ungültig (wie Android `falscherTypMachtDieSicherungUngueltig`).
+    /// Falsche Typen aus der Fixture machen die Sicherung ungültig (wie Android `wrongTypeMakesTheBackupInvalid`).
     func testWrongTypeMakesTheBackupInvalid() throws {
         let data = try TestSupport.fixture("backup_settings")
         let settings = try XCTUnwrap(data["settings"] as? [String: Any])

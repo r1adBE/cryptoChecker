@@ -27,7 +27,7 @@ import org.junit.Test
 class PortfolioAlarmCreateGuardTest {
 
     @Test
-    fun zweimalSpeichernWaehrendDasAnlegenLaeuftGibtEinenAlarm() = runBlocking {
+    fun savingTwiceWhileCreatingGivesOneAlarm() = runBlocking {
         val guard = AlarmCreateGuard()
         val release = CompletableDeferred<Unit>()
         var inserts = 0
@@ -54,7 +54,7 @@ class PortfolioAlarmCreateGuardTest {
 class PortfolioEmptyStateTest {
 
     @Test
-    fun mengeFolgtDemZahlenformatDerApp() {
+    fun amountFollowsTheNumberFormatOfTheApp() {
         val before = Locale.getDefault(Locale.Category.FORMAT)
         try {
             Locale.setDefault(Locale.Category.FORMAT, Locale.forLanguageTag("de-CH"))
@@ -67,7 +67,7 @@ class PortfolioEmptyStateTest {
     }
 
     @Test
-    fun beispielMitPlatzhalterInAllenSprachen() {
+    fun exampleWithPlaceholderInAllLanguages() {
         val languages = StringResources.byLanguage()
         assertEquals(75, languages.size)
         for ((folder, strings) in languages) {
@@ -87,13 +87,13 @@ class PortfolioEmptyStateTest {
 class PortfolioTxDraftSaverTest {
 
     @Test
-    fun `leerer Entwurf kommt gleich zurueck`() {
+    fun `empty draft comes back the same`() {
         val draft = TxDraft(time = 1_700_000_000_000L)
         assertEquals(draft, txDraftFromSaved(draft.toSaved()))
     }
 
     @Test
-    fun `alle Felder samt exakter Betraege kommen gleich zurueck`() {
+    fun `all fields including exact amounts come back the same`() {
         val draft = TxDraft(
             id = 42, coin = "BTC", type = PortfolioTxType.SWAP, amount = BigDecimal("0.00000001"),
             priceUsdt = BigDecimal("61234.50"), time = 1_700_000_000_000L, note = "Notiz",
@@ -108,7 +108,7 @@ class PortfolioTxDraftSaverTest {
     }
 
     @Test
-    fun `fremde Fassung oder kaputte Liste ergibt kein Blatt`() {
+    fun `other version or broken list gives no sheet`() {
         val saved = TxDraft().toSaved()
         assertNull(txDraftFromSaved(saved.drop(1)))
         assertNull(txDraftFromSaved(ArrayList(saved).also { it[0] = 99L }))
@@ -131,7 +131,7 @@ class PortfolioTxFormStateSaverTest {
         with(TxFormState.saver(initial)) { scope.save(state) } as List<*>
 
     @Test
-    fun `Dezimalzeichen der Eingabe uebersteht den Sprachwechsel`() {
+    fun `decimal separator of the input survives the language change`() {
         val before = TxFormState(initial, ',')
         before.amountText = "2,125"
         val saved = save(before)

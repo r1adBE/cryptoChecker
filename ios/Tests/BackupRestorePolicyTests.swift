@@ -62,7 +62,7 @@ final class BackupRestorePolicyTests: XCTestCase {
     }
 
     /// Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (wie Android).
-    func testUnverschluesseltSchaltetSystemsicherungNieEin() {
+    func testUnencryptedNeverTurnsOnSystemBackup() {
         XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: false), false)
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: true, current: true, trusted: false), true)
@@ -71,7 +71,7 @@ final class BackupRestorePolicyTests: XCTestCase {
     }
 
     /// Ohne Passwort: «Beträge verbergen» nur ein, nie aus (wie Android).
-    func testUnverschluesseltSchaltetBetraegeVerbergenNieAus() {
+    func testUnencryptedNeverTurnsOffHideAmounts() {
         XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: false), true)
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: false, current: false, trusted: false), false)
@@ -80,7 +80,7 @@ final class BackupRestorePolicyTests: XCTestCase {
     }
 
     /// `applySettings` hält sich daran: ohne Passwort bleiben Systemsicherung aus und Beträge verborgen.
-    func testApplySettingsOhnePasswortNurMehrSchutz() throws {
+    func testApplySettingsWithoutPasswordOnlyMoreProtection() throws {
         var current = AppSettings()
         current.portfolioSystemBackup = false
         current.hidePortfolioAmounts = true
@@ -95,7 +95,7 @@ final class BackupRestorePolicyTests: XCTestCase {
 
     /// Mit Passwort neu gesetzter bzw. ersetzter Server wird mit Hostnamen genannt — ohne Passwort bleibt es bei KEPT
     /// (wie Android).
-    func testNeuGesetzterServerWirdMitHostGenannt() {
+    func testNewlySetServerIsNamedWithHost() {
         let value = "https://node.example.org:3006/api"
         XCTAssertEqual(BackupRestorePolicy.addressServerNote(value: value, current: nil, trusted: true), .SET)
         XCTAssertEqual(BackupRestorePolicy.addressServerHost(value: value, current: nil, trusted: true), "node.example.org")
@@ -111,7 +111,7 @@ final class BackupRestorePolicyTests: XCTestCase {
     }
 
     /// Mit Passwort abgeschalteter Schutz wird genannt; ohne Passwort wird nichts abgeschaltet, also nichts genannt.
-    func testAbgeschalteterSchutzNieStill() {
+    func testDisabledProtectionNeverSilent() {
         func lowered(_ sys: Bool, _ sysNow: Bool, _ hide: Bool, _ hideNow: Bool, trusted: Bool, lock: Bool = false,
                      lockNow: Bool = false) -> BackupRestorePolicy.LoweredProtection {
             BackupRestorePolicy.loweredProtection(wantedSystemBackup: sys, currentSystemBackup: sysNow,
@@ -134,7 +134,7 @@ final class BackupRestorePolicyTests: XCTestCase {
 
     /// Die Meldung nach dem Wiederherstellen nennt Hostnamen und abgeschalteten Schutz (`BackupSettingsPage.restoredText`).
     @MainActor
-    func testMeldungNenntHostUndAbgeschaltetenSchutz() {
+    func testMessageNamesHostAndDisabledProtection() {
         var result = BackupManager.RestoreResult(watches: 1, alarms: 0, appLockKept: false)
         let plain = BackupSettingsPage.restoredText(result)
         result.addressServerNote = .SET

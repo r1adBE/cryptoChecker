@@ -18,13 +18,13 @@ final class PortfolioCoinLedgerKeyTests: XCTestCase {
         return [buy, swap, eth]
     }
 
-    func testGebuehrCoinsNurAusEigenenZeilen() {
+    func testFeeCoinsOnlyFromOwnRows() {
         XCTAssertEqual(PortfolioCoinLedgerKey.feeCoins(for: "BTC", trades: trades), ["BTC", "SOL"])
         XCTAssertEqual(PortfolioCoinLedgerKey.feeCoins(for: "SOL", trades: trades), ["BTC", "SOL"])
         XCTAssertEqual(PortfolioCoinLedgerKey.feeCoins(for: "ETH", trades: trades), [])
     }
 
-    func testFremderKursAendertDieRechnungNicht() {
+    func testForeignPriceDoesNotChangeTheCalculation() {
         let fee = PortfolioCoinLedgerKey.feeCoins(for: "BTC", trades: trades)
         func input(_ prices: [String: Double]) -> PortfolioCoinLedgerInput {
             let needed = fee.union(["BTC"])
@@ -252,7 +252,7 @@ final class PortfolioDecimalRoundingTests: XCTestCase {
 
     private func dec(_ s: String) -> Decimal { Decimal(string: s, locale: Locale(identifier: "en_US_POSIX")) ?? .nan }
 
-    func testEineRundungsregelFuerRechnenUndSpeichern() {
+    func testOneRoundingRuleForCalculatingAndStoring() {
         for v in ["0.0000000000000000015", "0.0000000000000000025", "2.0000000000000000035", "0.0000000000000000005"] {
             XCTAssertEqual(PortfolioDecimal.amount(dec(v)), dec(PortfolioDecimal.text(dec(v))), v)
         }
@@ -261,7 +261,7 @@ final class PortfolioDecimalRoundingTests: XCTestCase {
         XCTAssertEqual(PortfolioDecimal.text(dec("0.0000000000000000005")), "0")
     }
 
-    func testMengeUnterEinemWeiIstNachDemRundenNull() {
+    func testAmountBelowOneWeiIsZeroAfterRounding() {
         // Das Erfassen-Blatt prüft die gerundete Menge (> 0): unter 1 Wei ist ungültig statt als 0 gespeichert
         XCTAssertEqual(PortfolioDecimal.amount(dec("0.0000000000000000004")), 0)
         XCTAssertEqual(PortfolioDecimal.amount(dec("1.0000000000000000005")), 1)
@@ -287,7 +287,7 @@ final class PortfolioDeleteCoinFeeTests: XCTestCase {
         ], nextId: 4)
     }
 
-    func testGebuehrInGeloeschtemCoinWirdMitEntfernt() {
+    func testFeeInDeletedCoinIsRemovedToo() {
         var written: PortfolioFile?
         let removed = PortfolioEdits.deleteCoin("BNB", in: file(), write: { written = $0; return true })
         // Gelöscht: der BNB-Kauf; geändert (Originalfassung für «Rückgängig»): die ETH-Umbuchung
@@ -305,7 +305,7 @@ final class PortfolioDeleteCoinFeeTests: XCTestCase {
         XCTAssertEqual(restored?.transactions.count, 3)
     }
 
-    func testNurGebuehrBezugWirdTrotzdemBereinigt() {
+    func testFeeOnlyReferenceIsStillCleanedUp() {
         // Coin ohne eigene Transaktion, nur als Gebühr erfasst (Phantom-Position): Löschen entfernt die Gebühr
         var f = file()
         f.transactions.removeAll { $0.id == 1 }
@@ -323,12 +323,12 @@ final class PortfolioDeleteCoinFeeTests: XCTestCase {
 /// Leeres Portfolio: die Menge im Beispiel steht als Platzhalter und kommt aus dem Zahlenformat der App
 /// (wie die Bestände). Wie `PortfolioEmptyStateTest`.
 final class PortfolioEmptyStateTests: XCTestCase {
-    func testMengeWieBestaende() {
+    func testAmountAsHoldings() {
         XCTAssertEqual(PortfolioEmptyExample.amount, 0.01)
         XCTAssertEqual(PortfolioEmptyExample.amountText(), PriceFormat.amount(0.01))
     }
 
-    func testBeispielEnthaeltFormatierteMenge() {
+    func testExampleContainsFormattedAmount() {
         let amount = PortfolioEmptyExample.amountText()
         let text = L("portfolio_empty_example_plain", amount)
         XCTAssertTrue(text.contains("\(amount) BTC"), text)

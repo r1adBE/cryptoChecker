@@ -21,24 +21,24 @@ class SettingsResetNoticeTest {
     ) = StorageRecoveryNotice.next(restoreInterrupted, keyRestored, systemBackupNotImported, settingsReset, setAside, setAsideHidden)
 
     @Test
-    fun nichtsVorgemerktKeinHinweis() {
+    fun nothingPendingNoNotice() {
         assertNull(next())
     }
 
     @Test
-    fun einstellungenZurueckgesetztAlleinWirdGezeigt() {
+    fun settingsResetAloneIsShown() {
         assertEquals(Kind.SETTINGS_RESET, next(settingsReset = true))
     }
 
     @Test
-    fun einstellungenZurueckgesetztVorNichtEntsperrt() {
+    fun settingsResetBeforeNotUnlocked() {
         assertEquals(Kind.SETTINGS_RESET, next(settingsReset = true, setAside = true))
         // Weggetipptes «nicht entsperrt» verdeckt den Einstellungs-Hinweis nicht
         assertEquals(Kind.SETTINGS_RESET, next(settingsReset = true, setAside = true, setAsideHidden = true))
     }
 
     @Test
-    fun abgebrochenesWiederherstellenUndZurueckgeholteDatenZuerst() {
+    fun cancelledRestoreAndRecoveredDataFirst() {
         assertEquals(Kind.RESTORE_ROLLED_BACK, next(restoreInterrupted = "rolled_back", settingsReset = true))
         assertEquals(Kind.RESTORE_INCOMPLETE, next(restoreInterrupted = "incomplete", settingsReset = true))
         assertEquals(Kind.KEY_RESTORED, next(keyRestored = true, settingsReset = true))
@@ -46,7 +46,7 @@ class SettingsResetNoticeTest {
     }
 
     @Test
-    fun nichtEntsperrtNurOhneWegtippen() {
+    fun notUnlockedOnlyWithoutDismissing() {
         assertEquals(Kind.SET_ASIDE, next(setAside = true))
         assertNull(next(setAside = true, setAsideHidden = true))
     }

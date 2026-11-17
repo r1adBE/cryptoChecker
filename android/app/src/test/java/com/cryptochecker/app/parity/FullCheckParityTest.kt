@@ -15,7 +15,7 @@ class FullCheckParityTest {
     private val data = ParityJson.load("full_check.json")
 
     @Test
-    fun vollePruefungWieGemeinsameFaelle() {
+    fun fullCheckAsSharedCases() {
         val cases = data["isFullCheck"].list().map { it.obj() }
         assertTrue(cases.size >= 15)
         for (c in cases) {
@@ -31,7 +31,7 @@ class FullCheckParityTest {
 
     /** Uhrzeit der Aktualisierung (Widget-Kopf): ein Kurs kam oder alle Paare sind nicht gehandelt bzw. stillgelegt. */
     @Test
-    fun aktualisiertWieGemeinsameFaelle() {
+    fun refreshesAsSharedCases() {
         val cases = data["refreshed"].list().map { it.obj() }
         assertTrue(cases.size >= 5)
         for (c in cases) {
@@ -45,7 +45,7 @@ class FullCheckParityTest {
     }
 
     @Test
-    fun zeitpunktWieGemeinsameFaelle() {
+    fun timeAsSharedCases() {
         val cases = data["marksAlarmCheck"].list().map { it.obj() }
         assertEquals(8, cases.size)
         for (c in cases) {
@@ -63,7 +63,7 @@ class FullCheckParityTest {
 
     /** Der Durchlauf vermerkt die volle Prüfung über diese Regel, nach dem Auswerten aller Alarme. */
     @Test
-    fun durchlaufVermerktNachDemAuswerten() {
+    fun runIsMarkedAfterEvaluation() {
         val source = sequenceOf("", "../", "android/")
             .map { java.io.File(it + "domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceRefresher.kt") }
             .first { it.isFile }.readText()

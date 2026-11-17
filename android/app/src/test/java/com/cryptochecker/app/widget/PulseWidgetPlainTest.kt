@@ -16,7 +16,7 @@ class PulseWidgetPlainTest {
     private val minute = 60_000L
 
     @Test
-    fun `Groesse - schmal oder unbekannt klein, breit mit Platz gross, sonst mittel`() {
+    fun `size - narrow or unknown small, wide with room large, otherwise medium`() {
         assertEquals(PulseWidgetSize.SMALL, PulseWidgetPlain.size(0, blockFits = true))
         assertEquals(PulseWidgetSize.SMALL, PulseWidgetPlain.size(249, blockFits = true))
         assertEquals(PulseWidgetSize.MEDIUM, PulseWidgetPlain.size(250, blockFits = false))
@@ -24,7 +24,7 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Hoehe unter dem bisherigen Inhalt - Nebenzeilen und zweizeilige Schlagzeile zaehlen`() {
+    fun `height below the previous content - secondary rows and two-line headline count`() {
         // 150 Grundhöhe + 4 Sicherheit
         assertEquals(146f, PulseWidgetPlain.blockAvailableDp(300, 1, 0), 0.001f)
         // Eine Nebenzeile 18, zwei 36, zweizeilige Schlagzeile 19
@@ -36,7 +36,7 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Saetze - nur ganze, von hinten weggelassen`() {
+    fun `sentences - only whole ones, dropped from the end`() {
         // Rahmen: 8 oben + Titel 16 + 4 + Hinweis 30 = 58; je Satz 4 Abstand + Höhe
         val heights = listOf(36f, 36f, 54f)
         assertEquals(3, PulseWidgetPlain.sentenceCount(196f, 16f, 30f, heights))
@@ -50,13 +50,13 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Saetze - ein langer zweiter Satz sperrt den kuerzeren dritten nicht frei`() {
+    fun `sentences - a long second sentence does not unlock the shorter third`() {
         // Reihenfolge bleibt: passt Satz 2 nicht, entfällt auch Satz 3 (keine Lücke)
         assertEquals(1, PulseWidgetPlain.sentenceCount(140f, 16f, 30f, listOf(20f, 90f, 10f)))
     }
 
     @Test
-    fun `Mittel - erster Satz nur, wenn er ganz in die Zeilen des Leitsatzes passt`() {
+    fun `medium - first sentence only if it fits entirely into the rows of the lead sentence`() {
         assertTrue(PulseWidgetPlain.sentenceAsLead(2, 2))
         assertTrue(PulseWidgetPlain.sentenceAsLead(1, 2))
         assertFalse(PulseWidgetPlain.sentenceAsLead(3, 2))
@@ -66,7 +66,7 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Eingaben - Puls und Fear and Greed mit der Frische-Regel der App`() {
+    fun `inputs - pulse and fear and greed with the freshness rule of the app`() {
         val fresh = MarketPlainSummary.evaluate(
             PulseWidgetPlain.input(now, 2.4, now - 2 * minute, 72, now - 30 * minute)
         )
@@ -85,7 +85,7 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Ablauf - fruehester Moment, an dem ein gezeigter Satz veralten wuerde`() {
+    fun `expiry - earliest moment at which a shown sentence would become stale`() {
         val input = PulseWidgetPlain.input(now, -4.0, now - 2 * minute, 20, now - 30 * minute)
         val summary = MarketPlainSummary.evaluate(input)
         // Puls: gespeichert vor 2 Min., veraltet nach 15 Min. → in 13 Min. (+1 ms, «älter als»)
@@ -101,7 +101,7 @@ class PulseWidgetPlainTest {
     }
 
     @Test
-    fun `Quellen - nur die der gezeigten Saetze, in ihrer Reihenfolge`() {
+    fun `sources - only those of the shown sentences, in their order`() {
         val both = MarketPlainSummary.evaluate(PulseWidgetPlain.input(now, 2.4, now - 2 * minute, 72, now - 30 * minute))
         assertEquals("CoinGecko, alternative.me", PulseWidgetPlain.sources(both, 2))
         // Nur der erste Satz passt: nur seine Quelle

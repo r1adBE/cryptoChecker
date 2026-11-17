@@ -19,7 +19,7 @@ class ErrorContrastTest {
     private fun ratio(a: Int, b: Int) = WidgetContrast.ratio(a, b)
 
     @Test
-    fun `helle Fehlerfarben wie spezifiziert, fuer jede Akzentfarbe`() {
+    fun `light error colours as specified, for every accent colour`() {
         for (accent in AccentColor.entries) {
             val s = appColorScheme(accent, dark = false)
             assertEquals(accent.name, 0xFFB13419.toInt(), s.error.toArgb())
@@ -30,7 +30,7 @@ class ErrorContrastTest {
     }
 
     @Test
-    fun `dunkle Fehlerfarben unveraendert`() {
+    fun `dark error colours unchanged`() {
         for (accent in AccentColor.entries) {
             val s = appColorScheme(accent, dark = true)
             assertEquals(accent.name, 0xFFFF5833.toInt(), s.error.toArgb())
@@ -42,7 +42,7 @@ class ErrorContrastTest {
 
     /** Fehlertext ≥ 4.5:1 auf jeder hellen Fläche des Schemas; Schrift auf error und errorContainer ebenso. */
     @Test
-    fun `helle Fehlerfarben erreichen AA`() {
+    fun `light error colours reach AA`() {
         for (accent in AccentColor.entries) {
             val s = appColorScheme(accent, dark = false)
             val error = s.error.toArgb()
@@ -66,7 +66,7 @@ class ErrorContrastTest {
     }
 
     @Test
-    fun `dunkle Fehlerfarben erreichen AA auf dem Grund`() {
+    fun `dark error colours reach AA on the background`() {
         for (accent in AccentColor.entries) {
             val s = appColorScheme(accent, dark = true)
             val error = s.error.toArgb()
@@ -80,7 +80,7 @@ class ErrorContrastTest {
 
     /** Hoher Kontrast übernimmt die Fehlerfarbe (#B13419 erreicht AA schon auf der dunkelsten Karte). */
     @Test
-    fun `hoher Kontrast setzt die Fehlerfarbe nicht neu`() {
+    fun `high contrast does not reset the error colour`() {
         val source = SourceGuard.android(sourceFile("../coreui/src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")
         val start = source.indexOf("private fun ColorScheme.withHighContrast(")
         assertTrue("withHighContrast fehlt", start >= 0)

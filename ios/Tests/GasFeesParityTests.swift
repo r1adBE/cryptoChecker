@@ -22,7 +22,7 @@ final class GasFeesParityTests: XCTestCase {
         return try parse()
     }
 
-    func testFeeHistoryWieGemeinsameTestfaelle() throws {
+    func testFeeHistoryAsSharedTestCases() throws {
         let data = try S.fixture("gas_fees")
         let tolerance = try XCTUnwrap(S.number(data["tolerance"]))
         let cases = S.list(data["feeHistory"])
@@ -37,7 +37,7 @@ final class GasFeesParityTests: XCTestCase {
         }
     }
 
-    func testGasPriceWieGemeinsameTestfaelle() throws {
+    func testGasPriceAsSharedTestCases() throws {
         let data = try S.fixture("gas_fees")
         let tolerance = try XCTUnwrap(S.number(data["tolerance"]))
         for c in S.list(data["gasPrice"]) {
@@ -48,7 +48,7 @@ final class GasFeesParityTests: XCTestCase {
         }
     }
 
-    func testMempoolWieGemeinsameTestfaelle() throws {
+    func testMempoolAsSharedTestCases() throws {
         let data = try S.fixture("gas_fees")
         let tolerance = try XCTUnwrap(S.number(data["tolerance"]))
         for c in S.list(data["mempool"]) {
@@ -61,7 +61,7 @@ final class GasFeesParityTests: XCTestCase {
         }
     }
 
-    func testUeberweisungskostenWieGemeinsameTestfaelle() throws {
+    func testTransferCostsAsSharedTestCases() throws {
         let data = try S.fixture("gas_fees")
         let tolerance = try XCTUnwrap(S.number(data["tolerance"]))
         for c in S.list(data["evmTransferUsd"]) {
@@ -76,7 +76,7 @@ final class GasFeesParityTests: XCTestCase {
         }
     }
 
-    func testAnzeigeWieGemeinsameTestfaelle() throws {
+    func testDisplayAsSharedTestCases() throws {
         let format = try XCTUnwrap(try S.fixture("gas_fees")["format"] as? [String: Any])
         let locale = Locale(identifier: try XCTUnwrap(format["locale"] as? String))
         for c in S.list(format["gwei"]) {

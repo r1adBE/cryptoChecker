@@ -15,7 +15,7 @@ import org.junit.Test
 class HapticsTest {
 
     @Test
-    fun `ab API 30 Bestätigen und Ablehnen`() {
+    fun `from API 30 confirm and reject`() {
         val expected = mapOf(
             HapticEvent.SELECTION to HapticFeedbackConstants.CLOCK_TICK,
             HapticEvent.LIGHT_IMPACT to HapticFeedbackConstants.KEYBOARD_TAP,
@@ -30,7 +30,7 @@ class HapticsTest {
     }
 
     @Test
-    fun `API 26 bis 29 mit Ersatz für Bestätigen und Ablehnen`() {
+    fun `API 26 to 29 with fallback for confirm and reject`() {
         for (sdk in 26..29) {
             assertEquals(HapticFeedbackConstants.VIRTUAL_KEY, Haptics.constantFor(HapticEvent.SUCCESS, sdk))
             assertEquals(HapticFeedbackConstants.LONG_PRESS, Haptics.constantFor(HapticEvent.WARNING, sdk))
@@ -43,7 +43,7 @@ class HapticsTest {
     }
 
     @Test
-    fun `Sicherung fertig ist Erfolg, alles andere Fehler`() {
+    fun `backup finished is success, everything else failure`() {
         assertEquals(HapticEvent.SUCCESS, BackupMessage.haptic(BackupMessage.Exported))
         assertEquals(HapticEvent.SUCCESS, BackupMessage.haptic(BackupMessage.Restored(watches = 3, alarms = 1)))
         listOf(
@@ -54,7 +54,7 @@ class HapticsTest {
     }
 
     @Test
-    fun `Adresse hinzufügen wie iOS`() {
+    fun `add address as on iOS`() {
         assertEquals(HapticEvent.SUCCESS, addWatchedHaptic(PortfolioRepository.AddWatchedResult.Added(7)))
         assertEquals(HapticEvent.WARNING, addWatchedHaptic(PortfolioRepository.AddWatchedResult.Duplicate))
         assertEquals(HapticEvent.WARNING, addWatchedHaptic(PortfolioRepository.AddWatchedResult.LimitReached))

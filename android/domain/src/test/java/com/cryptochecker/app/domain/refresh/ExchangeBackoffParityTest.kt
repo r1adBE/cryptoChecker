@@ -29,7 +29,7 @@ class ExchangeBackoffParityTest {
     }
 
     @Test
-    fun nextNachZuVielenAnfragen() {
+    fun nextAfterTooManyRequests() {
         data["next"].list().forEach { raw ->
             val c = raw.obj()
             val result = ExchangeBackoff.next(
@@ -45,7 +45,7 @@ class ExchangeBackoffParityTest {
     }
 
     @Test
-    fun gemeinsamePause() {
+    fun sharedPause() {
         data["groupPause"].list().forEach { raw ->
             val c = raw.obj()
             val result = ExchangeBackoff.groupPause(
@@ -59,7 +59,7 @@ class ExchangeBackoffParityTest {
     }
 
     @Test
-    fun uebernommenePause() {
+    fun adoptedPause() {
         data["adoptedPause"].list().forEach { raw ->
             val c = raw.obj()
             val result = ExchangeBackoff.adoptedPause(state(c["old"]), c["until"].num()!!.toLong(), now)

@@ -17,7 +17,7 @@ import org.junit.Test
 class PortfolioAlarmLockScreenTest {
 
     @Test
-    fun inhaltIstNurTitelUndNeutralerSatz() {
+    fun contentIsOnlyTitleAndNeutralSentence() {
         val notice = PortfolioAlarmNotice.content { id -> "text-$id" }
         assertEquals("text-${R.string.notification_portfolio_alarm_title}", notice.title)
         assertEquals("text-${R.string.notification_portfolio_alarm_locked}", notice.text)
@@ -29,7 +29,7 @@ class PortfolioAlarmLockScreenTest {
 
     /** Titel und neutraler Satz enthalten in keiner Sprache eine Ziffer oder einen Platzhalter. */
     @Test
-    fun neutralerTextOhneZifferUndPlatzhalterInAllenSprachen() {
+    fun neutralTextWithoutDigitAndPlaceholderInAllLanguages() {
         val res = SourceGuard.android(main("../../../resources/src/main/res"), "../resources/src/main/res")
         val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_notifications.xml").exists() }.orEmpty()
         assertTrue("${folders.size} Sprachen", folders.size >= 75)

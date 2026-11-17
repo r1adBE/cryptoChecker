@@ -25,7 +25,7 @@ final class ExportErrorsParityTests: XCTestCase {
         }
     }
 
-    func testOrdnetZuWieGemeinsameTestfaelle() throws {
+    func testMapsAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("export_errors")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 10)
         for c in cases {
@@ -36,7 +36,7 @@ final class ExportErrorsParityTests: XCTestCase {
         }
     }
 
-    func testSchluesselWieGemeinsameTestfaelle() throws {
+    func testKeysAsSharedTestCases() throws {
         let keys = try XCTUnwrap(try S.fixture("export_errors")["keys"] as? [String: String])
         XCTAssertEqual(Set(keys.keys), Set(ExportFailureKind.allCases.map(\.rawValue)))
         for kind in ExportFailureKind.allCases {
@@ -44,8 +44,8 @@ final class ExportErrorsParityTests: XCTestCase {
         }
     }
 
-    /// Jeder Schlüssel samt «Erneut versuchen» (`retryKey`) steht im Textkatalog – wie Android `texteVorhanden`.
-    func testTexteVorhanden() throws {
+    /// Jeder Schlüssel samt «Erneut versuchen» (`retryKey`) steht im Textkatalog – wie Android `textsPresent`.
+    func testTextsPresent() throws {
         let fixture = try S.fixture("export_errors")
         let keys = Array(try XCTUnwrap(fixture["keys"] as? [String: String]).values)
             + [try XCTUnwrap(fixture["retryKey"] as? String)]

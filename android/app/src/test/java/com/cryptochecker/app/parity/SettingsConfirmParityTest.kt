@@ -12,7 +12,7 @@ class SettingsConfirmParityTest {
     private val data = ParityJson.load("settings_confirm.json")
 
     @Test
-    fun einstandsmethodeWieGemeinsameTestfaelle() {
+    fun costMethodAsSharedTestCases() {
         val cases = data["costMethod"].list()
         assertTrue(cases.size >= 5)
         for (raw in cases) {
@@ -24,7 +24,7 @@ class SettingsConfirmParityTest {
     }
 
     @Test
-    fun systemsicherungWieGemeinsameTestfaelle() {
+    fun systemBackupAsSharedTestCases() {
         for (raw in data["systemBackup"].list()) {
             val c = raw.obj()
             assertEquals(c["expected"] as Boolean, SettingsConfirm.systemBackup(c["enabling"] as Boolean))

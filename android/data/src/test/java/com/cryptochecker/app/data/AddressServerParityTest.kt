@@ -21,7 +21,7 @@ class AddressServerParityTest {
     private val fixture = ParityJson.load("address_server.json")
 
     @Test
-    fun pruefungWieGemeinsameFaelle() {
+    fun checkAsSharedCases() {
         val cases = fixture["check"].list().map { it.obj() }
         assertTrue(cases.size > 30)
         for (c in cases) {
@@ -33,7 +33,7 @@ class AddressServerParityTest {
     }
 
     @Test
-    fun urlsUndTest() {
+    fun urlsAndTest() {
         for (c in fixture["urls"].list().map { it.obj() }) {
             assertEquals(c["url"], AddressServer.btcUrl(c["entry"] as String, c["address"] as String))
         }
@@ -45,14 +45,14 @@ class AddressServerParityTest {
     }
 
     @Test
-    fun anbieterName() {
+    fun providerName() {
         for (c in fixture["providers"].list().map { it.obj() }) {
             assertEquals(c["name"], AddressBalance.providerName(c["host"] as String))
         }
     }
 
     @Test
-    fun zustimmungVorDemErstenXpub() {
+    fun consentBeforeTheFirstXpub() {
         for (c in fixture["consent"].list().map { it.obj() }) {
             val needed = AddressServer.consentNeeded(
                 c["addresses"].num()!!.toInt(),
@@ -65,7 +65,7 @@ class AddressServerParityTest {
 
     /** Übernahme aus der Sicherung (ohne Passwort nie geändert) samt Hinweis in der Meldung ([BackupRestorePolicy]). */
     @Test
-    fun uebernahmeAusDerSicherung() {
+    fun takeoverFromTheBackup() {
         val cases = fixture["restore"].list().map { it.obj() }
         assertTrue(cases.any { it["trusted"] == false && it["current"] == null && it["value"] != null })
         for (c in cases) {
@@ -84,7 +84,7 @@ class AddressServerParityTest {
 
     /** Von der Sicherung abgeschalteter Schutz kommt in die Meldung ([BackupRestorePolicy.loweredProtection]). */
     @Test
-    fun abgeschalteterSchutzWirdGenannt() {
+    fun disabledProtectionIsNamed() {
         val cases = fixture["lowered"].list().map { it.obj() }
         assertTrue(cases.size >= 7)
         assertTrue(cases.count { it["lockOff"] == true } >= 2)
@@ -109,7 +109,7 @@ class AddressServerParityTest {
 
     /** Sicherungsdatei: Server nur mit Passwort ([AddressServer.exported]). */
     @Test
-    fun serverNurInDateiMitPasswort() {
+    fun serverOnlyInFileWithPassword() {
         val cases = fixture["export"].list().map { it.obj() }
         assertTrue(cases.size >= 4)
         for (c in cases) {
@@ -119,7 +119,7 @@ class AddressServerParityTest {
 
     /** Server unbekannt (Einstellungen ersetzt): Bitcoin wird nicht abgefragt ([AddressServer.queryAllowed]). */
     @Test
-    fun unbekannterServerSperrtBitcoin() {
+    fun unknownServerBlocksBitcoin() {
         val cases = fixture["unknownServer"].list().map { it.obj() }
         assertTrue(cases.any { it["allowed"] == false })
         for (c in cases) {
@@ -130,7 +130,7 @@ class AddressServerParityTest {
 
     /** Gesetzt: nur der eigene Server, kein Rückfall auf öffentliche Hosts. */
     @Test
-    fun eigenerServerOhneRueckfall() {
+    fun ownServerWithoutFallback() {
         assertEquals(listOf("https://node.example.org/api"), AddressServer.btcEntries("https://node.example.org/api"))
         assertEquals(AddressBalance.BTC_HOSTS, AddressServer.btcEntries(null))
         assertNull(AddressServer.check("http://node.example.org").url)

@@ -17,7 +17,7 @@ import org.junit.Test
 class GuardedWriteTest {
 
     @Test
-    fun schreibfehlerGibtHinweisUndErgebnisNichtGeschrieben() = runTest {
+    fun writeErrorGivesNoticeAndResultNotWritten() = runTest {
         var reported = 0
         val result = guardedWrite(false, report = { reported++ }) { throw IOException("Speicher voll") }
         assertFalse(result)
@@ -27,7 +27,7 @@ class GuardedWriteTest {
     }
 
     @Test
-    fun andereFehlerUndAbbruchGehenWeiter() = runTest {
+    fun otherErrorsAndCancellationPassThrough() = runTest {
         for (error in listOf(IllegalStateException("Logik"), CancellationException("weg"))) {
             try {
                 guardedWrite(Unit, report = { fail("kein Hinweis") }) { throw error }
@@ -42,7 +42,7 @@ class GuardedWriteTest {
 
     /** Jeder Schreibweg des Nutzers in Merkliste und Alarme läuft über [guardedWrite]. */
     @Test
-    fun alleSchreibwegeGeschuetzt() {
+    fun allWritePathsGuarded() {
         fun source(name: String) = listOf(
             File("src/main/java/com/cryptochecker/app/data/$name"),
             File("data/src/main/java/com/cryptochecker/app/data/$name"),

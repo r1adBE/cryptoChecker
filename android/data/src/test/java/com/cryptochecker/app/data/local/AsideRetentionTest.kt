@@ -23,14 +23,14 @@ class AsideRetentionTest {
     private val db = "cryptochecker.db"
 
     @Test
-    fun neueKopieBeginntDieFristJetzt() {
+    fun newCopyStartsTheTimeLimitNow() {
         val s = AsideRetention.select(listOf("a"), emptyMap(), now = 1_000L, allowed = true)
         assertTrue(s.delete.isEmpty())
         assertEquals(mapOf("a" to 1_000L), s.seen)
     }
 
     @Test
-    fun nachDreissigTagenWegAberNurBestaetigt() {
+    fun afterThirtyDaysGoneButOnlyConfirmed() {
         val seen = mapOf("a" to 0L, "b" to 20 * day)
         val now = 30 * day
         assertEquals(listOf("a"), AsideRetention.select(listOf("a", "b"), seen, now, allowed = true).delete)
@@ -39,14 +39,14 @@ class AsideRetentionTest {
     }
 
     @Test
-    fun verschwundeneKopienFallenAusDemMerkerUndZukunftZaehltAlsJetzt() {
+    fun vanishedCopiesLeaveTheMarkerAndFutureCountsAsNow() {
         val s = AsideRetention.select(listOf("b"), mapOf("a" to 0L, "b" to 99 * day), now = 10 * day, allowed = true)
         assertEquals(mapOf("b" to 10 * day), s.seen)
         assertTrue(s.delete.isEmpty())
     }
 
     @Test
-    fun merkdateiHinUndZurueck() {
+    fun markerFileRoundTrip() {
         val store = AsideRetention.SeenStore(folder.root.resolve("db_keys/$db.aside-seen"))
         assertTrue(store.read().isEmpty())
         store.write(mapOf("$db.unreadable" to 5L, "$db.unreadable-17" to 7L))
@@ -84,7 +84,7 @@ class AsideRetentionTest {
     }
 
     @Test
-    fun freigegebeneKopienWegUndFruehereSchluesselImSelbenLauf() {
+    fun releasedCopiesGoneAndEarlierKeysInTheSameRun() {
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren", "$db.unreadable-9" to "auch"))
         val keys = Keys("K2", mutableListOf("K0"))
         val d = DatabaseOpenPlanner(files, keys, asideExpired = { _, copies -> copies }).prepare(db) as Decision.Encrypted
@@ -94,7 +94,7 @@ class AsideRetentionTest {
     }
 
     @Test
-    fun ohneFreigabeBleibtAllesUndFruehereSchluesselAuch() {
+    fun withoutReleaseEverythingStaysAndEarlierKeysToo() {
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren"))
         val keys = Keys("K2", mutableListOf("K0"))
         DatabaseOpenPlanner(files, keys).prepare(db)
@@ -103,7 +103,7 @@ class AsideRetentionTest {
     }
 
     @Test
-    fun kopieDieEinFruehererSchluesselOeffnetKommtZurueckStattGeloescht() {
+    fun copyThatAnEarlierKeyOpensComesBackInsteadOfDeleted() {
         // Erst zurückholen, dann aufräumen: eine wieder lesbare Kopie wird nie gelöscht
         val files = object : DatabaseOpenPlanner.Files by Files("K2", linkedMapOf("$db.unreadable" to "K1")) {
             var restored = false
@@ -121,7 +121,7 @@ class AsideRetentionTest {
     }
 
     @Test
-    fun nurGemeldeteKopienWerdenGeloescht() {
+    fun onlyReportedCopiesAreDeleted() {
         // Eine Freigabe für einen fremden Namen (z. B. die aktuelle Datei) wird übergangen
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren"))
         DatabaseOpenPlanner(files, Keys("K2", mutableListOf()), asideExpired = { _, _ -> listOf(db) }).prepare(db)

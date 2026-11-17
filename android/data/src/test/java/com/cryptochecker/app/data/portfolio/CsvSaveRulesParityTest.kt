@@ -26,7 +26,7 @@ class CsvSaveRulesParityTest {
     private fun cases(name: String) = data[name].list().map { it.obj() }
 
     @Test
-    fun preiseBehaltenIhreStellen() {
+    fun pricesKeepTheirDecimals() {
         val all = cases("priceText")
         assertTrue(all.size >= 10)
         for (c in all) {
@@ -42,7 +42,7 @@ class CsvSaveRulesParityTest {
     }
 
     @Test
-    fun langeSchluesselWerdenZumHash() {
+    fun longKeysBecomeTheHash() {
         for (c in cases("importKeys")) {
             val keys = c["keys"].list().map { it as String }
             val out = CsvImport.withOccurrence(keys)
@@ -53,7 +53,7 @@ class CsvSaveRulesParityTest {
     }
 
     @Test
-    fun schluesselInUtf8BytesBegrenzt() {
+    fun keysLimitedInUtf8Bytes() {
         for (c in cases("cleanImportKeys")) {
             assertEquals("cleanImportKey $c", c["expected"], PortfolioJson.cleanImportKey(c["key"] as String))
         }
@@ -65,7 +65,7 @@ class CsvSaveRulesParityTest {
     }
 
     @Test
-    fun andereZeitzoneLaedtKurseNeuWennEinTagHerausfaellt() {
+    fun otherTimeZoneReloadsPricesWhenADayDropsOut() {
         val files = data["files"].list().map { it.obj() }
         val all = cases("rateDays")
         assertTrue(all.any { it["cover"] == false } && all.any { it["cover"] == true })

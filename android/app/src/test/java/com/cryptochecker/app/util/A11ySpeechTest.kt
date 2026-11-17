@@ -34,7 +34,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Alter in ganzen Einheiten`() {
+    fun `age in whole units`() {
         assertEquals(Age.JustNow, A11ySpeech.age(now - 59_999, now))
         assertEquals(Age.JustNow, A11ySpeech.age(now + 5 * minute, now))
         assertEquals(Age.Minutes(1), A11ySpeech.age(now - minute, now))
@@ -45,7 +45,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Frische nach der Regel veraltet`() {
+    fun `freshness stale by the rule`() {
         val after = 2 * minute
         fun f(disabled: Boolean = false, notTraded: Boolean = false, failed: Boolean = false, age: Long) =
             A11ySpeech.freshness(disabled, notTraded, failed, now - age, now, after)
@@ -62,7 +62,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Satzteil zur Frische`() {
+    fun `clause about freshness`() {
         val t = now - 45 * minute
         assertEquals(
             "Kurs veraltet, zuletzt aktualisiert vor 45 Minuten",
@@ -82,7 +82,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Zeilensatz nennt auch bei aktuellem Kurs das Alter`() {
+    fun `row sentence names the age even with a current price`() {
         assertEquals(
             "zuletzt aktualisiert vor 3 Minuten",
             A11ySpeech.rowFreshnessText(Freshness.FRESH, now - 3 * minute, now, "Binance", german)
@@ -92,7 +92,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Alarm eben ausgeloest`() {
+    fun `alarm just triggered`() {
         assertTrue(A11ySpeech.firedRecently(now - minute, now))
         assertTrue(A11ySpeech.firedRecently(now - A11ySpeech.FIRED_MILLIS, now))
         assertFalse(A11ySpeech.firedRecently(now - A11ySpeech.FIRED_MILLIS - 1, now))
@@ -101,7 +101,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Status nur beim Wechsel ansagen`() {
+    fun `announce status only on change`() {
         assertEquals(StatusKind.FRESH, A11ySpeech.statusKind(none = false, offline = false, warn = false, newest = now))
         assertEquals(StatusKind.STALE, A11ySpeech.statusKind(none = false, offline = false, warn = true, newest = now))
         assertEquals(StatusKind.OFFLINE, A11ySpeech.statusKind(none = false, offline = true, warn = true, newest = now))
@@ -117,13 +117,13 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Trenner werden Pausen`() {
+    fun `separators become pauses`() {
         assertEquals("Alles aktuell, gerade eben", A11ySpeech.spokenDots("Alles aktuell · gerade eben"))
         assertEquals("1 von 3 veraltet", A11ySpeech.spokenDots("1 von 3 veraltet"))
     }
 
     @Test
-    fun `Fiat-Waehrung als Wort, Krypto bleibt`() {
+    fun `fiat currency as word, crypto stays`() {
         assertEquals("US Dollar", A11ySpeech.currencyName("USD", Locale.ENGLISH))
         assertEquals("Euro", A11ySpeech.currencyName("EUR", Locale.GERMAN))
         assertNull(A11ySpeech.currencyName("USDT", Locale.ENGLISH))
@@ -136,7 +136,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Reihenfolge Paar Kurs Veraenderung Frische Details Alarme Rest`() {
+    fun `order pair price change freshness details alarms rest`() {
         val sentence = A11ySpeech.row(
             pair = "BTC/USDT an Binance",
             price = "Kurs 61’234.00 USDT",
@@ -155,7 +155,7 @@ class A11ySpeechTest {
     }
 
     @Test
-    fun `Kursmitteilung wie die Glocke, vor den Alarmen`() {
+    fun `price notification like the bell, before the alarms`() {
         assertTrue(A11ySpeech.priceNotificationOn(pairOn = true, masterOn = true))
         // Paar aus oder Hauptschalter aus: durchgestrichene Glocke → «aus»
         assertFalse(A11ySpeech.priceNotificationOn(pairOn = false, masterOn = true))

@@ -107,7 +107,7 @@ class BackupRestorePolicyTest {
 
     /** Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (wie iOS). */
     @Test
-    fun unverschluesseltSchaltetSystemsicherungNieEin() {
+    fun unencryptedNeverTurnsOnSystemBackup() {
         assertEquals(null, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = false))
         assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = false))
         assertEquals(true, BackupRestorePolicy.systemBackup(wanted = true, current = true, trusted = false))
@@ -118,7 +118,7 @@ class BackupRestorePolicyTest {
 
     /** Ohne Passwort: «Beträge verbergen» nur ein, nie aus (wie iOS). */
     @Test
-    fun unverschluesseltSchaltetBetraegeVerbergenNieAus() {
+    fun unencryptedNeverTurnsOffHideAmounts() {
         assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = false))
         assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = false))
         assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = false, trusted = false))
@@ -128,7 +128,7 @@ class BackupRestorePolicyTest {
 
     /** Mit Passwort neu gesetzter bzw. ersetzter Server wird mit Hostnamen genannt — ohne Passwort bleibt es bei KEPT. */
     @Test
-    fun neuGesetzterServerWirdMitHostGenannt() {
+    fun newlySetServerIsNamedWithHost() {
         val set = BackupRestorePolicy.AddressServerNote.SET
         assertEquals(set, BackupRestorePolicy.addressServerNote("https://node.example.org:3006/api", null, trusted = true))
         assertEquals("node.example.org", BackupRestorePolicy.addressServerHost("https://node.example.org:3006/api", null, trusted = true))
@@ -143,7 +143,7 @@ class BackupRestorePolicyTest {
 
     /** Mit Passwort abgeschalteter Schutz wird genannt; ohne Passwort wird nichts abgeschaltet, also nichts genannt. */
     @Test
-    fun abgeschalteterSchutzNieStill() {
+    fun disabledProtectionNeverSilent() {
         fun lowered(
             sys: Boolean,
             sysNow: Boolean,

@@ -23,7 +23,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
         return StorageKey(keychain: fake)
     }
 
-    func testVersiegeltGeschriebenOhneUebrigeNachbardatei() throws {
+    func testSealedWrittenWithoutLeftoverSiblingFile() throws {
         let url = dir.appendingPathComponent("portfolio_widget.json")
         let first = Data(#"{"total":1}"#.utf8)
         let second = Data(#"{"total":2}"#.utf8)
@@ -36,7 +36,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
 
     /// Reine Kurs-Speicherung (Live-Takt) mit F_BARRIERFSYNC und ohne Nachlesen, sonst F_FULLFSYNC mit
     /// Nachlesen — beide versiegelt, lesbar und ohne liegen gebliebene Nachbardatei.
-    func testKursSpeicherungMitBarriereStrukturVoll() throws {
+    func testPriceStorageWithBarrierStructureFull() throws {
         XCTAssertEqual(ProtectedFile.Durability.full.syncCommand, F_FULLFSYNC)
         XCTAssertEqual(ProtectedFile.Durability.barrier.syncCommand, F_BARRIERFSYNC)
         XCTAssertTrue(ProtectedFile.Durability.full.verifiesReadBack)
@@ -53,7 +53,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
     }
 
     /// Merkliste mit Barriere über `writeFiles`: gleicher Inhalt wie voll geschrieben; die Portfolio-Alarme bleiben voll.
-    func testMerklisteMitBarriereLesbar() throws {
+    func testWatchlistWithBarrierReadable() throws {
         let watchlist = dir.appendingPathComponent("watchlist.json")
         let alarms = dir.appendingPathComponent("portfolio_alarms.json")
         var snap = SharedStorage.Snapshot()
@@ -67,7 +67,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
         SharedStorage.watchlistPending = false
     }
 
-    func testOhneSchluesselBleibtLetzterVersiegelterStand() throws {
+    func testWithoutKeyLastSealedStateStays() throws {
         let url = dir.appendingPathComponent("portfolio_widget.json")
         let stored = Data(#"{"total":1}"#.utf8)
         try ProtectedFile.write(stored, to: url, keys: keychain(key), requireSealed: true)

@@ -31,7 +31,7 @@ class ThemeContrastTest {
     }
 
     @Test
-    fun `Haupt- Neben- und Warntext erreichen AA auf allen Flaechen`() {
+    fun `primary, secondary and warning text reach AA on all surfaces`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val s = appColorScheme(accent, dark)
@@ -53,7 +53,7 @@ class ThemeContrastTest {
 
     /** Schrift und Symbole auf der Auswahl-Tönung (wie [AppColors.accentTint]) über Seite, Blatt und Menü. */
     @Test
-    fun `Schrift und Symbole auf der Auswahl-Toenung bis 0_16`() {
+    fun `text and icons on the selection tint up to 0_16`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val s = appColorScheme(accent, dark)
@@ -78,7 +78,7 @@ class ThemeContrastTest {
      * (onSurfaceVariant) ≥ 3:1 — outline hielt dort unter 3:1.
      */
     @Test
-    fun `gewaehlte Zeile mit Toenung 0_3 und Stern`() {
+    fun `selected row with tint 0_3 and star`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val s = appColorScheme(accent, dark)
@@ -102,7 +102,7 @@ class ThemeContrastTest {
      * Haupt- und Nebentext ≥ 3:1.
      */
     @Test
-    fun `gesperrte Schrift Symbole und Schalter erreichen 3 zu 1`() {
+    fun `disabled text, icons and switches reach 3 to 1`() {
         for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
                 val s = appColorScheme(accent, dark)

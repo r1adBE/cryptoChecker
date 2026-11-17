@@ -198,7 +198,7 @@ class PortfolioAlarmLogicTest {
     }
 
     @Test
-    fun `zaehlende Adresse ohne geladenes Guthaben sperrt jede Art`() {
+    fun `counting address without loaded balance blocks every kind`() {
         // Frisch wiederhergestellt: Guthaben nie geladen — der Gesamtwert ist zu tief, «unter Betrag» löste sonst aus
         val addresses = listOf(
             WatchedAddress(chain = AddressChain.BTC, address = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", lastBalance = null),
@@ -234,7 +234,7 @@ class PortfolioAlarmLogicTest {
     }
 
     @Test
-    fun `alter Kurs unter 1 Prozent des Werts prueft trotzdem`() {
+    fun `old price below 1 percent of the value still checks`() {
         // totalUsdt 55 (reading × 1.1): 0.5 USDT alter Kurs < 1 % → prüfen; 0.6 USDT > 1 % → nicht
         val small = reading(50.0, change = 12.0).copy(stalePrices = 1, staleValueUsdt = 0.5)
         assertFalse(PortfolioAlarmLogic.staleMaterial(small))

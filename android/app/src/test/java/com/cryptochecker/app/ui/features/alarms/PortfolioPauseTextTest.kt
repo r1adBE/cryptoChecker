@@ -8,14 +8,14 @@ import org.junit.Test
 class PortfolioPauseTextTest {
 
     @Test
-    fun `hoechstens drei Coins, dann Auslassung`() {
+    fun `at most three coins, then ellipsis`() {
         assertEquals("PEPE", PortfolioPauseText.coins(listOf("PEPE"), hideCoins = false))
         assertEquals("A, B, C", PortfolioPauseText.coins(listOf("A", "B", "C"), hideCoins = false))
         assertEquals("A, B, C …", PortfolioPauseText.coins(listOf("A", "B", "C", "D"), hideCoins = false))
     }
 
     @Test
-    fun `gesperrt oder ohne Namen ohne Liste`() {
+    fun `locked or without names without list`() {
         // Gesperrtes Portfolio: die Zusammensetzung des Bestands bleibt verborgen
         assertNull(PortfolioPauseText.coins(listOf("PEPE"), hideCoins = true))
         assertNull(PortfolioPauseText.coins(emptyList(), hideCoins = false))

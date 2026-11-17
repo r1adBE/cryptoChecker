@@ -41,21 +41,21 @@ class WidgetChartGeometryTest {
     )
 
     @Test
-    fun `Stufen aus Hoch und Tief bei Kerzen, aus Schlusskursen bei der Linie`() {
+    fun `steps from high and low for candles, from closes for the line`() {
         val c = listOf(candle(0, 10.0, 15.0, 8.0, 12.0), candle(hour, 12.0, 20.0, 11.0, 13.0))
         assertEquals(ChartLevels(8.0, 14.0, 20.0), WidgetChartGeometry.levels(c, WidgetChartType.CANDLES))
         assertEquals(ChartLevels(12.0, 12.5, 13.0), WidgetChartGeometry.levels(c, WidgetChartType.LINE))
     }
 
     @Test
-    fun `Kerze steigt bei Schluss gleich oder über Eröffnung`() {
+    fun `candle rises when close equals or exceeds open`() {
         assertTrue(candle(0, 10.0, 11.0, 9.0, 10.0).up)
         assertTrue(candle(0, 10.0, 11.0, 9.0, 10.5).up)
         assertFalse(candle(0, 10.0, 11.0, 9.0, 9.99).up)
     }
 
     @Test
-    fun `Körper mindestens 1 px und Breite 65 Prozent des Fensters`() {
+    fun `body at least 1 px and width 65 percent of the slot`() {
         val c = listOf(candle(0, 10.0, 12.0, 8.0, 10.0), candle(hour, 10.0, 12.0, 8.0, 11.0))
         val g = geometry(c)
         val doji = g.candleShapes[0]
@@ -68,7 +68,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `24 h - Gitter an jeder Stundengrenze zwischen den Kerzen`() {
+    fun `24 h - grid at every hour boundary between the candles`() {
         val start = 1_760_000_400_000L - (1_760_000_400_000L % hour)
         val c = series(start, hour, 24)
         val times = WidgetChartGeometry.gridTimes(c, ChartGridUnit.HOUR, hour, zurich)
@@ -81,7 +81,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `7 Tage - eine Linie je lokale Mitternacht`() {
+    fun `7 days - one line per local midnight`() {
         // 42 × 4 h ab Mo 6.10.2025 00:00 UTC (Zürich UTC+2 → Mitternacht = 22:00 UTC)
         val start = LocalDateTime.of(2025, 10, 6, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
         val c = series(start, 4 * hour, 42)
@@ -93,7 +93,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `7 Tage - Mitternacht über die Zeitumstellung bleibt lokal`() {
+    fun `7 days - midnight across the clock change stays local`() {
         // 26.10.2025: Ende der Sommerzeit in Zürich, der Tag hat 25 Stunden
         val start = LocalDateTime.of(2025, 10, 24, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
         val c = series(start, 4 * hour, 42)
@@ -107,7 +107,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `30 Tage - eine Linie je lokaler Montag`() {
+    fun `30 days - one line per local Monday`() {
         val start = LocalDateTime.of(2025, 9, 7, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli() // Sonntag
         val c = series(start, 24 * hour, 30)
         val times = WidgetChartGeometry.gridTimes(c, ChartGridUnit.WEEK, 24 * hour, zurich)
@@ -120,7 +120,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `1 Jahr - eine Linie je lokaler Monatserster`() {
+    fun `1 year - one line per local first of the month`() {
         val start = LocalDateTime.of(2024, 10, 7, 22, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
         val c = series(start, 24 * hour, 365)
         val times = WidgetChartGeometry.gridTimes(c, ChartGridUnit.MONTH, 24 * hour, zurich)
@@ -133,7 +133,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Keine Gitterlinie am Rand der Zeichenfläche`() {
+    fun `no grid line at the edge of the drawing area`() {
         val start = LocalDateTime.of(2025, 9, 8, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli() // Montag 00:00 UTC
         val c = series(start, 24 * hour, 30)
         val times = WidgetChartGeometry.gridTimes(c, ChartGridUnit.WEEK, 24 * hour, ZoneOffset.UTC)
@@ -142,7 +142,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Etikett verdrängt die überlappende Beschriftung`() {
+    fun `tag displaces the overlapping label`() {
         val labels = listOf(
             PlacedLabel(LevelKind.HIGH, 3.0, 10f),
             PlacedLabel(LevelKind.LOW, 1.0, 190f),
@@ -155,7 +155,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Beschriftungen überlappen sich nie gegenseitig`() {
+    fun `labels never overlap each other`() {
         val labels = listOf(
             PlacedLabel(LevelKind.HIGH, 3.0, 10f),
             PlacedLabel(LevelKind.LOW, 1.0, 30f),
@@ -166,7 +166,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Kleine Fläche - nur Hoch und Tief`() {
+    fun `small area - only high and low`() {
         val c = series(0, hour, 24).map { it.copy(close = it.open - 0.5) } // letzter Schluss mitten im Bereich
         val g = geometry(c, compact = true)
         assertFalse(g.labels.any { it.kind == LevelKind.MID })
@@ -176,7 +176,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Etikett auf Höhe des letzten Schlusses, in der Bitmap gehalten`() {
+    fun `tag at the height of the last close, kept inside the bitmap`() {
         val c = series(0, hour, 24) // letzter Schluss 124, Hoch 126
         val g = geometry(c)
         assertEquals(g.y(124.0), g.currentY, 1e-4f)
@@ -187,7 +187,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Linie - Punkte mittig im Fenster, Richtung nach Schlusskursen`() {
+    fun `line - points centred in the slot, direction by closes`() {
         val c = listOf(candle(0, 10.0, 12.0, 9.0, 11.0), candle(hour, 11.0, 12.0, 9.0, 10.0))
         val g = geometry(c, type = WidgetChartType.LINE)
         assertFalse(g.up)
@@ -196,7 +196,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Gleichbleibender Kurs - alles mittig, nur eine Beschriftung`() {
+    fun `steady price - everything centred, only one label`() {
         val c = listOf(candle(0, 5.0, 5.0, 5.0, 5.0), candle(hour, 5.0, 5.0, 5.0, 5.0))
         val g = geometry(c)
         assertEquals((g.plotTop + g.plotBottom) / 2f, g.y(5.0), 1e-4f)
@@ -204,7 +204,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Screenreader-Kennzahlen aus Kerzen bzw Schlusskursen`() {
+    fun `screen reader key figures from candles or closes`() {
         val c = listOf(candle(0, 10.0, 15.0, 8.0, 12.0), candle(hour, 12.0, 20.0, 11.0, 13.0))
         val s = WidgetChartGeometry.summary(c, WidgetChartType.CANDLES)!!
         assertEquals(10.0, s.start, 0.0)
@@ -217,7 +217,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Etikett zeigt den aktuellen Kurs auf seiner Höhe`() {
+    fun `tag shows the current price at its height`() {
         val c = series(0, hour, 24) // Tief 98, Hoch 126, letzter Schluss 124
         val g = geometry(c, currentPrice = 110.0)
         assertEquals(110.0, g.currentPrice, 0.0)
@@ -228,7 +228,7 @@ class WidgetChartGeometryTest {
     }
 
     @Test
-    fun `Kurs ausserhalb von Tief bis Hoch - Etikett am Rand, Beschriftung weicht`() {
+    fun `price outside low to high - tag at the edge, label gives way`() {
         val c = series(0, hour, 24)
         val above = geometry(c, currentPrice = 500.0)
         assertEquals(500.0, above.currentPrice, 0.0)

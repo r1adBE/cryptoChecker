@@ -30,7 +30,7 @@ class AddressPrivacyParityTest {
     private val fixture = ParityJson.load("address_privacy.json")
 
     @Test
-    fun neutralerUserAgentWieGemeinsamerWert() {
+    fun neutralUserAgentAsSharedValue() {
         assertEquals(fixture["userAgent"], HttpUserAgent.NEUTRAL)
         for (part in fixture["forbiddenParts"].list()) {
             assertFalse("$part im User-Agent", HttpUserAgent.NEUTRAL.contains(part as String, ignoreCase = true))
@@ -39,7 +39,7 @@ class AddressPrivacyParityTest {
 
     /** Weder App-Name noch App-Version (Beispiele und Version dieser App), wie iOS. */
     @Test
-    fun neutralerUserAgentOhneAppNameUndVersion() {
+    fun neutralUserAgentWithoutAppNameAndVersion() {
         val versions = fixture["appVersionSamples"].list().map { it as String } + BuildConfig.VERSION_NAME
         for (version in versions) {
             val appAgent = HttpUserAgent.android(version)
@@ -50,7 +50,7 @@ class AddressPrivacyParityTest {
 
     /** Host → User-Agent wie iOS. */
     @Test
-    fun hostRegelWieGemeinsameFaelle() {
+    fun hostRuleAsSharedCases() {
         val app = "cryptoChecker-Android/1.0"
         for (case in fixture["hostCases"].list()) {
             val c = case as Map<*, *>
@@ -65,7 +65,7 @@ class AddressPrivacyParityTest {
      * MockWebServer als HTTP-Proxy, damit der Interceptor den echten Host-Namen sieht.
      */
     @Test
-    fun gemeinsamerClientSendetAdressHostsNeutral() {
+    fun sharedClientSendsAddressHostsNeutrally() {
         val server = MockWebServer()
         server.start()
         try {
@@ -90,7 +90,7 @@ class AddressPrivacyParityTest {
 
     /** Weiterleitungen nur auf denselben Host, nie von HTTPS auf HTTP — wie iOS. */
     @Test
-    fun weiterleitungNurAufDenselbenHost() {
+    fun redirectOnlyToSameHost() {
         for (case in fixture["redirectCases"].list()) {
             val c = case as Map<*, *>
             val from = URI(c["from"] as String)
@@ -105,7 +105,7 @@ class AddressPrivacyParityTest {
 
     /** Der Adress-Client folgt einer Weiterleitung auf denselben Host, aber nie auf einen anderen. */
     @Test
-    fun adressClientFolgtKeinerWeiterleitungZuEinemAnderenHost() {
+    fun addressClientFollowsNoRedirectToAnotherHost() {
         val server = MockWebServer()
         server.start()
         try {
@@ -129,7 +129,7 @@ class AddressPrivacyParityTest {
 
     /** Eigener Verbindungs-Pool und Dispatcher des Adress-Clients. */
     @Test
-    fun adressClientTeiltKeineVerbindungen() {
+    fun addressClientSharesNoConnections() {
         val shared = OkHttpClient.Builder().addInterceptor(UserAgentInterceptor("cryptoChecker-Android/1.0")).build()
         val source = WatchedAddressSource(shared)
         assertNotSame(shared.connectionPool, source.client.connectionPool)
@@ -138,7 +138,7 @@ class AddressPrivacyParityTest {
 
     /** Der Client von [WatchedAddressSource] ersetzt den App-User-Agent des gemeinsamen Clients. */
     @Test
-    fun adressClientSendetNeutralenUserAgent() {
+    fun addressClientSendsNeutralUserAgent() {
         val server = MockWebServer()
         server.start()
         try {

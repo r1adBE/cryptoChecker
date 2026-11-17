@@ -41,7 +41,7 @@ class LogoUrlPolicyTest {
     )
 
     @Test
-    fun entscheidetWieDerParserDesAbrufs() {
+    fun decidesLikeTheFetchParser() {
         var allowed = 0
         for (host in hosts) {
             for (port in ports) {
@@ -83,7 +83,7 @@ class LogoUrlPolicyTest {
 
     /** Label über 63 und Hosts über 253 Zeichen lehnt OkHttp ab — die Prüfung ebenso, die Grenzen selbst gelten. */
     @Test
-    fun langeLabelsUndHostsWieDerParser() {
+    fun longLabelsAndHostsLikeTheParser() {
         for (length in listOf(1, 62, 63, 64, 65, 200)) {
             for (url in listOf(
                 "https://${"a".repeat(length)}.coingecko.com/x.png",
@@ -104,7 +104,7 @@ class LogoUrlPolicyTest {
     }
 
     @Test
-    fun schemaNurKleinUndHttps() {
+    fun schemeOnlyLowercaseAndHttps() {
         for (url in listOf(
             "HTTPS://coingecko.com/x.png", "Https://coingecko.com/x.png", "http://coingecko.com/x.png",
             "https:/coingecko.com/x.png", "https:///coingecko.com/x.png", "//coingecko.com/x.png",

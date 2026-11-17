@@ -13,14 +13,14 @@ class CurrencyConversionTest {
     private val fiat = listOf("CHF", "EUR", "USD", "GBP", "JPY", "KRW", "TRY", "BRL", "INR", "IDR", "AUD", "MXN")
 
     @Test
-    fun `stablecoins und USD gelten als USD`() {
+    fun `stablecoins and USD count as USD`() {
         for (code in listOf("USD", "usdt", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1", "RLUSD", "PYUSD", "USDP", "GUSD")) {
             assertEquals(code, QuoteKind.USD, CurrencyConversion.classify(code, fiat))
         }
     }
 
     @Test
-    fun `fiat und krypto werden unterschieden`() {
+    fun `fiat and crypto are distinguished`() {
         assertEquals(QuoteKind.FIAT, CurrencyConversion.classify("eur", fiat))
         assertEquals(QuoteKind.FIAT, CurrencyConversion.classify(" KRW ", fiat))
         assertEquals(QuoteKind.CRYPTO, CurrencyConversion.classify("BTC", fiat))
@@ -32,7 +32,7 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `quote nach USD`() {
+    fun `quote to USD`() {
         assertEquals(1.0, CurrencyConversion.quoteToUsd(QuoteKind.USD, null, null)!!, 0.0)
         // 1 USD = 0.92 EUR → 1 EUR = 1/0.92 USD
         assertEquals(1.0 / 0.92, CurrencyConversion.quoteToUsd(QuoteKind.FIAT, 0.92, null)!!, 1e-12)
@@ -44,7 +44,7 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `stablecoins nach der Portfolio-Regel`() {
+    fun `stablecoins by the portfolio rule`() {
         // USD und USDT immer genau 1, auch mit einem «Marktkurs»
         assertEquals(1.0, CurrencyConversion.stableToUsd("USDT", 0.98)!!, 0.0)
         assertEquals(1.0, CurrencyConversion.stableToUsd("usd", 0.98)!!, 0.0)
@@ -64,7 +64,7 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `USDT zum Marktkurs USDT-USD`() {
+    fun `USDT at market price USDT-USD`() {
         // USDT gilt seinen Marktkurs; USD bleibt 1
         assertEquals(0.97, CurrencyConversion.stableToUsd("USDT", null, usdtUsd = 0.97)!!, 1e-12)
         assertEquals(1.0, CurrencyConversion.stableToUsd("USD", null, usdtUsd = 0.97)!!, 0.0)
@@ -80,7 +80,7 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `devisenkurs aelter als drei stunden`() {
+    fun `forex rate older than three hours`() {
         val h = 60 * 60_000L
         val now = 100 * h
         // Kein Devisenkurs beteiligt (USDT → USD, Krypto in USD): nie ein Hinweis
@@ -96,7 +96,7 @@ class CurrencyConversionTest {
 
     /** Krypto-/Stablecoin-Kurs für die Umrechnung höchstens 15 min alt, sonst kein Faktor (Alarm und «≈»). */
     @Test
-    fun `krypto-kurs fuer die umrechnung hoechstens 15 min alt`() {
+    fun `crypto price for the conversion at most 15 min old`() {
         val min = 60_000L
         val now = 1_000 * min
         assertEquals(15 * min, CurrencyConversion.QUOTE_MAX_AGE_MILLIS)
@@ -112,7 +112,7 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `faktor quote nach ziel`() {
+    fun `factor quote to target`() {
         // USDT → CHF bei 1 USD = 0.8 CHF
         assertEquals(0.8, CurrencyConversion.rate(1.0, 0.8)!!, 1e-12)
         // EUR → CHF: 1 USD = 0.92 EUR, 1 USD = 0.8 CHF → 1 EUR = 0.8 / 0.92 CHF
@@ -128,14 +128,14 @@ class CurrencyConversionTest {
     }
 
     @Test
-    fun `gleiche waehrung ohne beachtung der schreibweise`() {
+    fun `same currency regardless of spelling`() {
         assertTrue(CurrencyConversion.sameCurrency("chf", "CHF"))
         assertFalse(CurrencyConversion.sameCurrency("USDT", "USD"))
         assertFalse(CurrencyConversion.sameCurrency("", ""))
     }
 
     @Test
-    fun `BGN aus EUR ab der Euro-Einfuehrung`() {
+    fun `BGN from EUR from the euro introduction`() {
         val newYear = java.time.LocalDate.of(2026, 1, 1)
         assertTrue(CurrencyConversion.deriveBgnFromEur("BGN", newYear))
         assertTrue(CurrencyConversion.deriveBgnFromEur(" bgn ", java.time.LocalDate.of(2026, 10, 5)))
@@ -150,7 +150,7 @@ class CurrencyConversionTest {
 
     /** BGN aus einem alten EUR-Kurs behält dessen Abrufzeit (Hinweis mit Uhrzeit), wird nie «frisch». */
     @Test
-    fun `BGN aus EUR mit der Abrufzeit des EUR-Kurses`() {
+    fun `BGN from EUR with the fetch time of the EUR price`() {
         val h = 60 * 60_000L
         val now = 100 * h
         val eur = 0.86 to now - 5 * h

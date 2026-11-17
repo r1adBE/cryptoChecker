@@ -10,12 +10,12 @@ final class CsvTokenizeLimitsTests: XCTestCase {
 
     private func scalars(_ text: String) -> [Unicode.Scalar] { Array(text.unicodeScalars) }
 
-    func testGrenzenWieAndroid() {
+    func testLimitsAsOnAndroid() {
         XCTAssertEqual(CsvImportParser.maxCellsPerRow, 200)
         XCTAssertEqual(CsvImportParser.maxRows, 200_000)
     }
 
-    func testZellenJeZeileHoechstensGrenze() {
+    func testCellsPerRowAtMostLimit() {
         let atLimit = (0..<CsvImportParser.maxCellsPerRow).map { "c\($0)" }.joined(separator: ",")
         XCTAssertEqual(CsvImportParser.tokenizeOrNil(scalars(atLimit), delimiter: ",")?.first?.cells.count,
                        CsvImportParser.maxCellsPerRow)
@@ -27,7 +27,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
         XCTAssertEqual(CsvImportParser.tokenizeOrNil(scalars(quoted), delimiter: ",")?.first?.cells.count, 2)
     }
 
-    func testDatensaetzeHoechstensGrenze() {
+    func testRecordsAtMostLimit() {
         let text = scalars((1...5).map { "a\($0);b\($0)" }.joined(separator: "\n"))
         XCTAssertEqual(CsvImportParser.tokenizeOrNil(text, delimiter: ";", maxRows: 5)?.count, 5)
         XCTAssertNil(CsvImportParser.tokenizeOrNil(text, delimiter: ";", maxRows: 4))
@@ -37,7 +37,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
         XCTAssertEqual(CsvImportParser.tokenizeOrNil(text, delimiter: ";", maxRecords: 3, maxRows: 4)?.count, 3)
     }
 
-    func testZuGrosseDateiIstNichtLesbar() {
+    func testTooLargeFileIsNotReadable() {
         let ok = CsvImportParser.parse(header + row)
         XCTAssertEqual(ok.format, .GENERIC)
         XCTAssertFalse(ok.tooLarge)
@@ -56,7 +56,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
 
     /// Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format: die Vorschau trägt
     /// `CsvImportResult.tooLarge` weiter, `CsvImportRefusal` wählt die Meldung. Gleiche Fälle: Android `CsvTokenizeLimitsTest`.
-    func testZuGrosseDateiMeldetZuGross() {
+    func testTooLargeFileReportsTooLarge() {
         func preview(_ text: String) -> CsvImportPreview {
             CsvImportMapping.preview(CsvImportParser.parse(text), existingKeys: []) { _, _ in nil }
         }
@@ -78,7 +78,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
     }
 
     /// Bestehender Aufruf ohne Grenzen-Ergebnis: über den Grenzen leer.
-    func testTokenizeUeberGrenzenLeer() {
+    func testTokenizeOverLimitsEmpty() {
         XCTAssertTrue(CsvImportParser.tokenize(scalars("a" + String(repeating: ",", count: 300)), delimiter: ",").isEmpty)
     }
 }

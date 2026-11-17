@@ -108,7 +108,7 @@ class BackupResultDialogParityTest {
     private val fixture = ParityJson.load("backup_result_dialog.json")
 
     @Test
-    fun entscheidetWieGemeinsameTestfaelle() {
+    fun decidesAsSharedTestCases() {
         val cases = fixture["cases"].list()
         assertTrue(cases.size >= 38)
         assertTrue(cases.any { it.obj()["protectionLowered"] == true })
@@ -132,7 +132,7 @@ class BackupResultDialogParityTest {
     }
 
     @Test
-    fun grenzeUndSchluesselWieGemeinsameTestfaelle() {
+    fun limitAndKeyAsSharedTestCases() {
         assertEquals(fixture["toastMaxChars"].num()!!.toInt(), BackupResultPresentation.TOAST_MAX_CHARS)
         assertEquals(fixture["longKeys"].list().map { it as String }.toSet(), BackupResultPresentation.LONG_KEYS)
         val ranges = fixture["wideRanges"].list().map { r -> r.list().map { (it as String).toInt(16) } }
@@ -141,7 +141,7 @@ class BackupResultDialogParityTest {
 
     /** Breite: schmal 1, breit 2 (auch ausserhalb der BMP); Grenze sinkt mit grösserer Schrift, steigt nie über 80. */
     @Test
-    fun breiteUndGrenze() {
+    fun widthAndLimit() {
         assertEquals(3, BackupResultPresentation.displayWidth("abc"))
         assertEquals(4, BackupResultPresentation.displayWidth("日本"))
         assertEquals(2, BackupResultPresentation.displayWidth("\uD840\uDC00"))
@@ -152,7 +152,7 @@ class BackupResultDialogParityTest {
 
     /** Die langen Fehlermeldungen zeigen genau die Texte, deren Namen in LONG_KEYS stehen. */
     @Test
-    fun langeMeldungenNutzenDieGenanntenTexte() {
+    fun longMessagesUseTheNamedTexts() {
         assertEquals(R.string.backup_not_enough_memory, BackupResultPresentation.messageRes(BackupMessage.NotEnoughMemory))
         assertEquals(R.string.backup_storage_kept, BackupResultPresentation.messageRes(BackupMessage.StorageKept))
         assertEquals(R.string.backup_restore_storage_in_memory, BackupResultPresentation.messageRes(BackupMessage.StorageInMemory))

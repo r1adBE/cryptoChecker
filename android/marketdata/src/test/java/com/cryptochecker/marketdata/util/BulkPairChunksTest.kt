@@ -9,14 +9,14 @@ import org.junit.Test
 class BulkPairChunksTest {
 
     @Test
-    fun sortiertOhneDoppelteUndUnterDerGrenze() {
+    fun sortedWithoutDuplicatesAndBelowTheLimit() {
         val chunks = BulkPairChunks.chunks("p=", listOf("BBB", "AAA", "AAA", "CCC"), maxUrlLength = 10)
         assertEquals(listOf(listOf("AAA", "BBB"), listOf("CCC")), chunks)
         assertEquals("p=AAA,BBB", BulkPairChunks.url("p=", chunks!!.first()))
     }
 
     @Test
-    fun ohneFilterbareKennungKeineGruppen() {
+    fun withoutFilterableIdNoGroups() {
         assertNull(BulkPairChunks.chunks("p=", emptyList()))
         assertNull(BulkPairChunks.chunks("p=", listOf("")))
         // Eine Kennung, die kodiert werden müsste, schaltet den Filter ganz ab
@@ -25,20 +25,20 @@ class BulkPairChunksTest {
     }
 
     @Test
-    fun erlaubteSonderzeichen() {
+    fun allowedSpecialCharacters() {
         val chunks = BulkPairChunks.chunks("p=", listOf("tDOGE:USD", "XXBTZUSD", "a.b_c~d-e"))
         assertEquals(1, chunks!!.size)
         assertEquals(listOf("XXBTZUSD", "a.b_c~d-e", "tDOGE:USD"), chunks.single())
     }
 
     @Test
-    fun zuLangeKennungBildetEigeneGruppe() {
+    fun tooLongIdFormsOwnGroup() {
         val long = "X".repeat(20)
         assertEquals(listOf(listOf(long)), BulkPairChunks.chunks("p=", listOf(long), maxUrlLength = 10))
     }
 
     @Test
-    fun fuelltBisKnappUnterDieGrenze() {
+    fun fillsUpToJustBelowTheLimit() {
         // Präfix 10 + "AAAA" (4) + ",BBBB" (5) = 19 < 20; ",CCCC" ergäbe 24 → neue Gruppe (wie iOS)
         assertEquals(
             listOf(listOf("AAAA", "BBBB"), listOf("CCCC")),
@@ -47,7 +47,7 @@ class BulkPairChunksTest {
     }
 
     @Test
-    fun genauAufDerGrenzeBeginntNeueGruppe() {
+    fun exactlyAtTheLimitStartsNewGroup() {
         // 10 + 4 + 5 = 19 = Grenze: die Adresse wäre genau maxUrlLength lang → zweite Kennung in neue Gruppe (wie iOS)
         assertEquals(
             listOf(listOf("AAAA"), listOf("BBBB")),
@@ -56,7 +56,7 @@ class BulkPairChunksTest {
     }
 
     @Test
-    fun standardgrenzeGenauErreichtTeilt() {
+    fun defaultLimitExactlyReachedSplits() {
         // Präfix so lang, dass «AAAA,BBBB» die Adresse auf genau MAX_URL_LENGTH Zeichen brächte
         val limit = BulkPairChunks.MAX_URL_LENGTH
         val exact = "p".repeat(limit - 9)
@@ -69,7 +69,7 @@ class BulkPairChunksTest {
     }
 
     @Test
-    fun vieleKennungenBleibenUnterStandardgrenze() {
+    fun manyIdsStayBelowDefaultLimit() {
         val prefix = "https://example.com/tickers?pair="
         val ids = (0 until 500).map { "PAIR" + it.toString().padStart(3, '0') }
         val chunks = BulkPairChunks.chunks(prefix, ids)!!

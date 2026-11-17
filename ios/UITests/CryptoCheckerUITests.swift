@@ -266,7 +266,9 @@ final class CryptoCheckerUITests: XCTestCase {
         let coins = ["BTC", "ETH", "SOL", "XRP", "ADA", "DOGE", "DOT", "LTC", "LINK", "AVAX", "ATOM", "UNI", "XLM", "ETC",
                      "FIL", "APT", "ARB", "OP", "NEAR", "ALGO", "AAVE", "SAND", "MANA", "EGLD", "XTZ", "THETA", "EOS",
                      "FLOW", "KAVA", "ZEC"]
-        let rows = coins.enumerated().map { i, coin in "2024-01-\(String(format: "%02d", i % 28 + 1))T10:00:00Z,Buy,\(coin),1,\(100 + i),USD,scroll-\(i)" }
+        let rows = coins.enumerated().map { i, coin in
+            "2024-01-\(String(format: "%02d", i % 28 + 1))T10:00:00Z,Buy,\(coin),1,\(100 + i),USD,scroll-\(i)"
+        }
         let app = launchApp(csv: (["Date,Type,Coin,Amount,Price,Currency,ID"] + rows).joined(separator: "\n") + "\n")
         // Lange Liste: nur die oberen Zeilen stehen im Baum — irgendeine Position genügt
         tap(app, UiTestTags.tabPortfolio)

@@ -21,28 +21,28 @@ class OneShotGateTest {
     }
 
     @Test
-    fun neueMeldungZaehltEinmal() {
+    fun newMessageCountsOnce() {
         val gate = OneShotGate()
         assertTrue(gate.claim("ADDED"))
         assertFalse(gate.claim("ADDED"))
     }
 
     @Test
-    fun nachNeuaufbauKeineWiederholung() {
+    fun afterRecreationNoRepeat() {
         val gate = OneShotGate()
         assertTrue(gate.claim(2))
         assertFalse(recreate(gate).claim(2))
     }
 
     @Test
-    fun andereMeldungNachNeuaufbauZaehlt() {
+    fun otherMessageAfterRecreationCounts() {
         val gate = OneShotGate()
         assertTrue(gate.claim(1))
         assertTrue(recreate(gate).claim(2))
     }
 
     @Test
-    fun nullSetztZurueck() {
+    fun nullResets() {
         val gate = OneShotGate()
         assertTrue(gate.claim(true))
         assertFalse(gate.claim(null))
@@ -50,7 +50,7 @@ class OneShotGateTest {
     }
 
     @Test
-    fun ohneGezeigteMeldungWirdNichtsGesichert() {
+    fun withoutShownMessageNothingIsSaved() {
         val gate = OneShotGate()
         assertNull(with(OneShotGate.Saver) { scope.save(gate) })
         gate.claim("x")

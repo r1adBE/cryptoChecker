@@ -31,7 +31,7 @@ class AlarmPairPickerParityTest {
     private val fixture = ParityJson.load("alarm_pair_picker.json")
 
     @Test
-    fun auswahlWieGemeinsameTestfaelle() {
+    fun selectionAsSharedTestCases() {
         val watches = fixture["watches"].list().map { raw ->
             val w = raw.obj()
             WatchEntity(

@@ -26,7 +26,7 @@ class CoinIndicatorModelTest {
     private fun CoinReport.value(id: IndicatorId): Double? = indicators.first { it.id == id }.value
 
     @Test
-    fun `Kennzahlen sind reine Messwerte in fester Reihenfolge`() {
+    fun `key figures are plain measurements in fixed order`() {
         val r = CoinIndicatorModel.evaluate("ETH", inputs())
         assertEquals("ETH", r.symbol)
         assertEquals(
@@ -53,7 +53,7 @@ class CoinIndicatorModelTest {
     }
 
     @Test
-    fun `neuer Coin ohne Verlauf hat Kennzahlen ohne Wert`() {
+    fun `new coin without history has key figures without value`() {
         val r = CoinIndicatorModel.evaluate(
             "NEW",
             inputs(

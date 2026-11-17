@@ -5,16 +5,16 @@ import os
 /// «Was bewegt sich mit?» ohne Kerzen – offline bzw. Zeitgrenze ist «nicht abrufbar» (mit «Erneut versuchen»),
 /// nur sonst «keine Stundenkerzen für dieses Paar». Android: WhyCandlesFailureTest.
 final class WhyCandlesFailureTests: XCTestCase {
-    func testOfflineGehtVor() {
+    func testOfflineTakesPrecedence() {
         XCTAssertEqual(WhyCandlesFailure.of(online: false, timedOut: false), .offline)
         XCTAssertEqual(WhyCandlesFailure.of(online: false, timedOut: true), .offline)
     }
 
-    func testZeitgrenzeIstNichtAbrufbar() {
+    func testTimeLimitIsNotFetchable() {
         XCTAssertEqual(WhyCandlesFailure.of(online: true, timedOut: true), .timeout)
     }
 
-    func testGeantwortetOhneKerzenIstKeinFehler() {
+    func testAnsweredWithoutCandlesIsNoError() {
         XCTAssertNil(WhyCandlesFailure.of(online: true, timedOut: false))
         XCTAssertNil(ActivityAnalyzer.notLive(now: 1).candlesFailure)
     }

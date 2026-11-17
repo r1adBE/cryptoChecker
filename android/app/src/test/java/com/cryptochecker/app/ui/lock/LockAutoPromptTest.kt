@@ -8,14 +8,14 @@ import org.junit.Test
 class LockAutoPromptTest {
 
     @Test
-    fun fragtBeimErstenErscheinenGenauEinmal() {
+    fun asksOnFirstAppearanceExactlyOnce() {
         val prompt = LockAutoPrompt()
         assertTrue(prompt.take())
         assertFalse(prompt.take())
     }
 
     @Test
-    fun nachAbbruchUndDrehenKeineZweiteAbfrage() {
+    fun afterCancelAndRotationNoSecondPrompt() {
         val prompt = LockAutoPrompt()
         assertTrue(prompt.take())
         prompt.left(changingConfigurations = true)
@@ -23,7 +23,7 @@ class LockAutoPromptTest {
     }
 
     @Test
-    fun nachTabWechselOderErneutemSperrenWiederFragen() {
+    fun askAgainAfterTabChangeOrRelock() {
         val prompt = LockAutoPrompt()
         assertTrue(prompt.take())
         prompt.left(changingConfigurations = false)

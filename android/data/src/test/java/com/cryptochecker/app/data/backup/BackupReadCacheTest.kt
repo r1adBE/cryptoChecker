@@ -87,7 +87,7 @@ class BackupReadCacheTest {
     }
 
     @Test
-    fun klartextVerfaelltNachDerFrist() {
+    fun plainTextExpiresAfterTheTimeLimit() {
         // Klartext nur zwischen Passwort prüfen und Wiederherstellen, danach neu entschlüsseln
         cache.plain("a", "pw", read())
         now += 59_000L
@@ -101,7 +101,7 @@ class BackupReadCacheTest {
     }
 
     @Test
-    fun abgelaufenerKlartextWirdBeimNaechstenZugriffVerworfen() {
+    fun expiredPlainTextIsDiscardedOnNextAccess() {
         cache.plain("a", "falsch2", read())
         assertTrue(cache.holdsPlain())
         now += 61_000L
@@ -111,7 +111,7 @@ class BackupReadCacheTest {
     }
 
     @Test
-    fun passwortVergleichUnterscheidetNullUndText() {
+    fun passwordComparisonDistinguishesNullAndText() {
         assertEquals("inhalt|null", cache.plain("a", null, read()))
         assertEquals("inhalt|pw", cache.plain("a", "pw", read()))
         assertEquals("inhalt|pw", cache.plain("a", "pw", read()))
@@ -119,7 +119,7 @@ class BackupReadCacheTest {
     }
 
     @Test
-    fun keinPasswortImKlartextGemerkt() {
+    fun noPasswordRememberedInPlainText() {
         // Kein Feld der Klasse hält das Passwort selbst (nur einen gesalzenen Fingerabdruck)
         cache.plain("a", "geheimesPasswort", read())
         val fields = BackupReadCache::class.java.declaredFields.onEach { it.isAccessible = true }.map { it.get(cache) }

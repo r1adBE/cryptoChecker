@@ -16,7 +16,7 @@ import org.junit.Test
 class MarketNoticeGateTest {
 
     @Test
-    fun `gemerkt wird nur nach erfolgreichem Absetzen`() {
+    fun `marked only after successful posting`() {
         assertTrue(MarketNoticeGate.storeAfterNotify(Step.STORE, posted = false))
         assertTrue(MarketNoticeGate.storeAfterNotify(Step.NOTIFY, posted = true))
         assertFalse(MarketNoticeGate.storeAfterNotify(Step.NOTIFY, posted = false))
@@ -24,7 +24,7 @@ class MarketNoticeGateTest {
     }
 
     @Test
-    fun `Fear und Greed unter der Grenze`() {
+    fun `fear and greed below the limit`() {
         val step = MarketNoticeGate.fearGreed(15, last = 30, below = 20, above = 0, canNotify = true)
         assertEquals(Step.NOTIFY, step.step)
         assertEquals(FearGreedKind.BELOW, step.kind)
@@ -33,7 +33,7 @@ class MarketNoticeGateTest {
     }
 
     @Test
-    fun `Fear und Greed ueber der Grenze und erster Wert`() {
+    fun `fear and greed above the limit and first value`() {
         val step = MarketNoticeGate.fearGreed(85, last = null, below = 20, above = 80, canNotify = true)
         assertEquals(Step.NOTIFY, step.step)
         assertEquals(FearGreedKind.ABOVE, step.kind)
@@ -43,7 +43,7 @@ class MarketNoticeGateTest {
     }
 
     @Test
-    fun `Fear und Greed ohne Zustellung bleibt offen und kommt spaeter`() {
+    fun `fear and greed without delivery stays open and comes later`() {
         val held = MarketNoticeGate.fearGreed(15, last = 30, below = 20, above = 0, canNotify = false)
         assertEquals(Step.HOLD, held.step)
         assertEquals(FearGreedKind.BELOW, held.kind)
@@ -53,12 +53,12 @@ class MarketNoticeGateTest {
     }
 
     @Test
-    fun `Grenzen aus melden nie`() {
+    fun `limits off never report`() {
         assertEquals(Step.STORE, MarketNoticeGate.fearGreed(5, last = 50, below = 0, above = 0, canNotify = true).step)
     }
 
     @Test
-    fun `geaenderte Grenze meldet schon ueberschrittenen Wert, unveraenderte nicht doppelt`() {
+    fun `changed limit reports already crossed value, unchanged not twice`() {
         // Gemerkt: 15 bei Grenze «unter 10» (nicht gemeldet). Neue Grenze 20: jetzt melden
         assertTrue(MarketNoticeGate.boundChanged(stored = 10, current = 20))
         val step = MarketNoticeGate.fearGreed(15, last = 15, below = 20, above = 0, canNotify = true, belowChanged = true)

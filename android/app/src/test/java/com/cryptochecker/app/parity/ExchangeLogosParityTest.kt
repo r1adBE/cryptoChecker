@@ -20,7 +20,7 @@ class ExchangeLogosParityTest {
     private val fixture = ParityJson.load("exchange_logos.json")
 
     @Test
-    fun jedeBoerseHatLogoOderSymbol() {
+    fun everyExchangeHasLogoOrSymbol() {
         val keys = fixture["keys"].obj()
         // Die Testfälle nennen genau die registrierten Börsen (neue Börse → hier, in iOS und im Generator eintragen)
         assertEquals(ExchangesConfig.EXCHANGES.keys, keys.keys)
@@ -37,7 +37,7 @@ class ExchangeLogosParityTest {
     }
 
     @Test
-    fun paketEnthaeltJedesLogo() {
+    fun packageContainsEveryLogo() {
         val file = File(ParityJson.dir(), "../../app/src/main/assets/" + ExchangeLogos.PACK_FILE)
         assertTrue("assets/${ExchangeLogos.PACK_FILE} nicht gefunden (Pflicht)", file.isFile)
         val bytes = file.readBytes()

@@ -22,7 +22,7 @@ class MacroCalendarNotifyParityTest {
     private fun t(iso: String) = Instant.parse(iso).toEpochMilli()
 
     @Test
-    fun zeitpunktJeOrtstag() {
+    fun timePerLocalDay() {
         val cases = fixture["notifyAt"].list().map { it.obj() }
         assertTrue(cases.size >= 10)
         for (c in cases) {
@@ -33,7 +33,7 @@ class MacroCalendarNotifyParityTest {
     }
 
     @Test
-    fun fensterUndNaechsterLauf() {
+    fun windowAndNextRun() {
         for (c in fixture["window"].list().map { it.obj() }) {
             val zone = ZoneId.of(c["zone"] as String)
             assertEquals("${c["zone"]} ${c["now"]}", c["expected"] as Boolean, MacroCalendar.isNotifyWindow(t(c["now"] as String), zone))
@@ -45,7 +45,7 @@ class MacroCalendarNotifyParityTest {
     }
 
     @Test
-    fun termineDerMeldung() {
+    fun datesOfTheNotification() {
         for (c in fixture["events"].list().map { it.obj() }) {
             val zone = ZoneId.of(c["zone"] as String)
             val at = MacroCalendar.notifyAtOnDay(LocalDate.parse(c["day"] as String), zone)

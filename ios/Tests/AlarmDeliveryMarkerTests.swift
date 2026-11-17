@@ -20,7 +20,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testEntscheidungWieGemeinsameTestfaelle() throws {
+    func testDecisionAsSharedTestCases() throws {
         let fixture = try S.fixture("alarm_delivery_marker")
         XCTAssertEqual(S.number(fixture["freshMillis"]).map { Int64($0) }, AlarmDelivery.freshMillis)
         XCTAssertEqual(S.number(fixture["postedToleranceMillis"]).map { Int64($0) }, AlarmDelivery.postedToleranceMillis)
@@ -44,7 +44,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern.
-    func testAeltereMitteilungBestaetigtNicht() async {
+    func testOlderNotificationDoesNotConfirm() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 11, now: at, cooldownMinutes: 0, holdAlarms: false,
                                    canShow: { true }, show: { false }, mark: { true })
@@ -65,7 +65,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg.
-    func testSchonGemeldetAberNichtGespeichertEntferntMitteilung() async {
+    func testAlreadyReportedButNotSavedRemovesNotification() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 12, now: at, cooldownMinutes: 0, holdAlarms: false,
                                    canShow: { true }, show: { false }, mark: { true })
@@ -81,7 +81,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Vermerke gelöschter bzw. ersetzter Alarme aufräumen.
-    func testVermerkeAufraeumen() async {
+    func testCleanUpMarks() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         for id: Int64 in [1, 2, 3] {
             _ = await delivery.deliver(alarmId: id, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -97,7 +97,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Vermerk steht noch (voriger Lauf endete vor dem Speichern) und die Mitteilung ist da: nur speichern.
-    func testFrischerVermerkMitSichtbarerMitteilungSpeichertNur() async {
+    func testFreshMarkWithVisibleNotificationOnlySaves() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         // Lauf 1: Vermerk bleibt stehen (Mitteilung nicht bestätigt — wie ein Prozess-Ende vor dem Speichern)
         _ = await delivery.deliver(alarmId: 8, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -118,7 +118,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Mitteilung weggewischt: der Vermerk zählt als unbestätigter Versuch (Abklingzeit), kein stilles Speichern.
-    func testWeggewischteMitteilungWartetDieAbklingzeit() async {
+    func testDismissedNotificationWaitsForTheCooldown() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 9, now: at, cooldownMinutes: 0, holdAlarms: false,
                                    canShow: { true }, show: { false }, mark: { true })
@@ -133,7 +133,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Auslösung zum Vermerk schon gespeichert?
-    func testGespeichertSeitDemVermerkWieGemeinsameTestfaelle() throws {
+    func testSavedSinceTheMarkAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["savedSinceCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)
         for c in cases {
@@ -145,7 +145,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
 
     /// Ganze Läufe von `deliver` — ein liegengebliebener Vermerk einer schon gespeicherten Auslösung
     /// verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
-    func testMeldenWieGemeinsameTestfaelle() async throws {
+    func testReportAsSharedTestCases() async throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["deliverCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 7)
         for (index, c) in cases.enumerated() {
@@ -177,7 +177,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
     }
 
     /// Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt.
-    func testZuruecksetzenWieGemeinsameTestfaelle() throws {
+    func testResetAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["resetCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 4)
         for c in cases {
@@ -189,7 +189,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
 
     /// Übernommen, aber nicht auf die Platte geschrieben → der Vermerk bleibt, die Mitteilung auch
     /// (kein Rückzug); der nächste Prozess meldet darum nicht ein zweites Mal.
-    func testNichtGeschriebenBehaeltVermerk() async {
+    func testNotWrittenKeepsMark() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         let retracted = LockedBox(0)
         let result = await delivery.deliver(alarmId: 13, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -212,7 +212,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
 
     /// Auch im Zweig «nur speichern» bleibt der Vermerk, wenn nicht geschrieben wurde; Gegenprobe
     /// geschrieben → weg.
-    func testNurSpeichernOhneSchreibenBehaeltVermerk() async {
+    func testOnlySavingWithoutWritingKeepsMark() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 14, now: at, cooldownMinutes: 0, holdAlarms: false,
                                    canShow: { true }, show: { false }, mark: { true })

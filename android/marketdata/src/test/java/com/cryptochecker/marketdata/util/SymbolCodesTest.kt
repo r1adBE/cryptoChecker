@@ -9,19 +9,19 @@ import org.junit.Test
 class SymbolCodesTest {
 
     @Test
-    fun krakenWsNameWirdZuUeblichenKuerzeln() {
+    fun krakenWsNameBecomesCommonSymbols() {
         assertEquals("BTC" to "USD", KrakenAssetCodes.fromWsName("XBT/USD"))
         assertEquals("DOGE" to "EUR", KrakenAssetCodes.fromWsName("XDG/EUR"))
         assertEquals("ETH" to "BTC", KrakenAssetCodes.fromWsName("ETH/XBT"))
     }
 
     @Test
-    fun krakenWsNameOhneGenauZweiKuerzelFaelltWeg() {
+    fun krakenWsNameWithoutExactlyTwoSymbolsIsDropped() {
         for (name in listOf("XBTUSD", "A/B/C", "/USD", "XBT/", "")) assertNull(name, KrakenAssetCodes.fromWsName(name))
     }
 
     @Test
-    fun krakenKuerzelInBeideRichtungen() {
+    fun krakenSymbolsInBothDirections() {
         assertEquals("BTC", KrakenAssetCodes.common("XBT"))
         assertEquals("ETH", KrakenAssetCodes.common("ETH"))
         assertEquals("XBT", KrakenAssetCodes.krakenCode("BTC"))

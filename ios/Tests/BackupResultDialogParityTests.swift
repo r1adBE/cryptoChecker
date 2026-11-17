@@ -6,7 +6,7 @@ import XCTest
 final class BackupResultDialogParityTests: XCTestCase {
     private typealias S = TestSupport
 
-    func testEntscheidetWieGemeinsameTestfaelle() throws {
+    func testDecidesAsSharedTestCases() throws {
         let cases = S.list(try S.fixture("backup_result_dialog")["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 38)
         XCTAssertTrue(cases.contains { $0["protectionLowered"] as? Bool == true })
@@ -28,7 +28,7 @@ final class BackupResultDialogParityTests: XCTestCase {
         }
     }
 
-    func testGrenzeUndSchluesselWieGemeinsameTestfaelle() throws {
+    func testLimitAndKeyAsSharedTestCases() throws {
         let fixture = try S.fixture("backup_result_dialog")
         XCTAssertEqual(Int(S.number(fixture["toastMaxChars"]) ?? 0), BackupResultPresentation.toastMaxChars)
         XCTAssertEqual(Set(fixture["longKeys"] as? [String] ?? []), BackupResultPresentation.longKeys)
@@ -37,7 +37,7 @@ final class BackupResultDialogParityTests: XCTestCase {
     }
 
     /// Breite: schmal 1, breit 2 (auch ausserhalb der BMP); Grenze sinkt mit grösserer Schrift, steigt nie über 80.
-    func testBreiteUndGrenze() {
+    func testWidthAndLimit() {
         XCTAssertEqual(BackupResultPresentation.displayWidth("abc"), 3)
         XCTAssertEqual(BackupResultPresentation.displayWidth("日本"), 4)
         XCTAssertEqual(BackupResultPresentation.displayWidth("\u{20000}"), 2)
@@ -47,7 +47,7 @@ final class BackupResultDialogParityTests: XCTestCase {
     }
 
     /// Ergebnis-Dialog erst, wenn Rückfrage, Blatt, Dateiauswahl und voriges Ergebnis zu sind (statt fester Wartezeit).
-    func testErgebnisErstWennNichtsAnderesOffen() {
+    func testResultOnlyWhenNothingElseIsOpen() {
         XCTAssertTrue(BackupResultPresentation.canPresent(confirmOpen: false, sheetOpen: false, pickerOpen: false,
                                                           resultOpen: false))
         XCTAssertFalse(BackupResultPresentation.canPresent(confirmOpen: true, sheetOpen: false, pickerOpen: false,
@@ -61,14 +61,14 @@ final class BackupResultDialogParityTests: XCTestCase {
     }
 
     /// 0,06 s je Zeichen, mindestens 2,5 s, höchstens 8 s.
-    func testToastDauerNachTextlaenge() {
+    func testToastDurationByTextLength() {
         XCTAssertEqual(ToastModifier.seconds(for: "OK"), 2.5, accuracy: 0.001)
         XCTAssertEqual(ToastModifier.seconds(for: String(repeating: "a", count: 100)), 6, accuracy: 0.001)
         XCTAssertEqual(ToastModifier.seconds(for: String(repeating: "a", count: 500)), 8, accuracy: 0.001)
     }
 
     /// Ansage erst nach 400 ms (nach dem Einblenden, abgebrochen → keine); gleicher Text erneut = neuer Toast.
-    func testToastAnsageVerzoegertUndGleicherTextStartetNeu() throws {
+    func testToastAnnouncementDelayedAndSameTextRestarts() throws {
         XCTAssertEqual(ToastModifier.announceDelay, 0.4, accuracy: 0.0001)
         // Eigene Kennung: `.task(id:)` startet auch bei gleichem Text neu
         XCTAssertNotEqual(ToastMessage("OK"), ToastMessage("OK"))

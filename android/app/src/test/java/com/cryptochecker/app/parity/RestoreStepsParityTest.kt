@@ -23,7 +23,7 @@ class RestoreStepsParityTest {
 
     /** Reihenfolge der Schritte in `BackupManager.writeRestored` = die der Datei; alle Schritte der Aufzählung kommen vor. */
     @Test
-    fun schritteWieImCode() {
+    fun stepsAsInCode() {
         assertEquals(Step.entries.toSet(), steps.toSet())
         val source = sequenceOf("../data/", "data/", "android/data/")
             .map { java.io.File(it + "src/main/java/com/cryptochecker/app/data/backup/BackupManager.kt") }
@@ -34,7 +34,7 @@ class RestoreStepsParityTest {
     }
 
     @Test
-    fun ablaufWieGemeinsameFaelle() = runTest {
+    fun flowAsSharedCases() = runTest {
         val cases = fixture["cases"].list().map { it.obj() }.filter { (it["platform"] ?: "android") == "android" }
         assertTrue(cases.size >= 9)
         for (c in cases) {

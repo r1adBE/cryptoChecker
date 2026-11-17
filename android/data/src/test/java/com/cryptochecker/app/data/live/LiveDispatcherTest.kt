@@ -14,14 +14,14 @@ import org.junit.Test
 class LiveDispatcherTest {
 
     @Test
-    fun jederHostHatPlatzFuerAlleVerbindungenSeinerBoersen() {
+    fun everyHostHasRoomForAllConnectionsOfItsExchanges() {
         // OKX und OKX-Swap (ws.okx.com) bzw. Bybit Spot und Linear teilen sich einen Host
         assertTrue(LiveDispatcher.maxRequestsPerHost >= 2 * LivePlanner.MAX_CONNECTIONS_PER_EXCHANGE)
         assertTrue(LiveDispatcher.maxRequests >= LiveDispatcher.maxRequestsPerHost)
     }
 
     @Test
-    fun liveClientBehaeltNurDenUserAgent() {
+    fun liveClientKeepsOnlyTheUserAgent() {
         val other = Interceptor { chain -> chain.proceed(chain.request()) }
         val shared = Dispatcher()
         val base = OkHttpClient.Builder()

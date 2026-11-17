@@ -15,7 +15,7 @@ class DexFailureTest {
         DexFailure.of(RefreshReportLogic.classify(error.toExchangeFailure(), error.toString()))
 
     @Test
-    fun ursachenWieInDerMerkliste() {
+    fun causesAsInTheWatchlist() {
         // Zeitüberschreitung zählt wie in der Merkliste als «Keine Verbindung»
         assertEquals(DexFailure.OFFLINE, DexFailure.of(RefreshFailure.OFFLINE))
         assertEquals(DexFailure.OFFLINE, DexFailure.of(RefreshFailure.TIMEOUT))
@@ -27,7 +27,7 @@ class DexFailureTest {
     }
 
     @Test
-    fun ausnahmenWerdenEingeordnet() {
+    fun exceptionsAreClassified() {
         assertEquals(DexFailure.OFFLINE, kindOf(UnknownHostException("api.dexscreener.com")))
         assertEquals(DexFailure.OFFLINE, kindOf(SocketTimeoutException("read timed out")))
         assertEquals(DexFailure.OTHER, kindOf(IllegalStateException("kaputt")))
