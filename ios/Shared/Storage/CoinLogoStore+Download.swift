@@ -20,6 +20,9 @@ extension CoinLogoStore {
     /// Laufende Pausen je Bild-Server (`CoinLogoRetry.pausesImages`).
     fileprivate static let pauses = ImagePauseBox()
 
+    /// Nur Tests: Pausen der Bild-Server vergessen.
+    static func clearImagePausesForTest() { pauses.clearForTest() }
+
     private static let session: URLSession = {
         let c = PrivateSessionConfig.make(timeout: 15, resource: 25)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -352,6 +355,12 @@ final class ImagePauseBox: Sendable {
             pauses = map
             SharedStorage.defaults.set(CoinLogoRetry.encodePauses(map), forKey: key)
         }
+    }
+
+    /// Nur Tests: alle Pausen weg (sonst pausiert ein Test den Server für den nächsten).
+    func clearForTest() {
+        pauses.withLock { $0 = [:] }
+        SharedStorage.defaults.removeObject(forKey: key)
     }
 }
 

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 279)
+
+- Test fix (iOS coin logo tests independent of their order).
+
 ## 16.2.2 (build 278)
 
 - More checks as behaviour tests or source rules.

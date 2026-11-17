@@ -3261,6 +3261,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 276: iOS portfolio add button: disabled while hidden (accessibilityHidden alone left it in the tree on iOS 26); UI test checks it.
 * Build 277: CI: gradle_warmup.sh uses --refresh-dependencies from the second attempt (a cached missing plugin entry failed one job six times in 276).
 * Build 278: A-01 part 2 (9): restore under the address refresh lock, the shared exact-check demand and the alarm switches as source rule wiring; enabling a never-firing fall alarm as a device test of the write path.
+* Build 279: iOS coin logo network tests forget image server pauses before and after each test (a pause from an earlier test made one fail).
 
 ## Known warnings
 

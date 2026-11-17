@@ -14,12 +14,15 @@ final class CoinLogoNetworkTests: XCTestCase {
     override func setUp() async throws {
         try await super.setUp()
         clearMapState()
+        // Pausen eines früheren Tests (Server nach Störungen pausiert) nicht erben
+        CoinLogoStore.clearImagePausesForTest()
     }
 
     override func tearDown() async throws {
         ExchangeHTTP.testTransport.withLock { $0 = nil }
         CoinLogoStore.imageTestTransport.withLock { $0 = nil }
         clearMapState()
+        CoinLogoStore.clearImagePausesForTest()
         defaults.removeObject(forKey: CoinLogoStore.failedKey)
         testFiles.forEach { try? FileManager.default.removeItem(at: $0) }
         // Test-Rangliste nicht liegen lassen (Datei der Zuordnung und der Namen)
