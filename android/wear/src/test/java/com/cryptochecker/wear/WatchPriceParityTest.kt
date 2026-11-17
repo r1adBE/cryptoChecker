@@ -1,5 +1,6 @@
 package com.cryptochecker.wear
 
+import com.cryptochecker.marketdata.watch.WatchSettings
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -79,23 +80,18 @@ class WatchPriceParityTest {
         }
     }
 
-    /** Beide Komplikationen: kurz der Kurs statt der Änderung, Portfolio ohne Wert nie leer (keine «keine Daten»). */
+    /**
+     * Kurs-Komplikation nie «keine Daten» (Audit A-01, früher Quelltext-Wächter): ohne Coins ein Hinweis je Wahl, sonst der
+     * erste Coin; ohne Kurs oder mit stillgelegter Börse «Paar / —» statt eines alten Kurses ([ComplicationPlan]).
+     */
     @Test
-    fun komplikationenNutzenDieRegeln() {
-        val dir = above("src/main/java/com/cryptochecker/wear", "wear/src/main/java/com/cryptochecker/wear")
-        val price = File(dir, "PriceComplicationService.kt").readText(Charsets.UTF_8)
-        assertTrue(price.contains("ShortTextComplicationData.Builder(text(WatchFormat.compactPrice(price)), description)"))
-        assertTrue(price.contains("WatchFormat.priceLine(coin, price, quote, change, detail)"))
-        assertTrue(price.contains("WatchPair.parse(coin)?.quote ?: WatchPair.USDT"))
-        // Ohne gewählte Coins ein Hinweis mit Tipp-Ziel statt «keine Daten»
-        assertTrue(price.contains("?: return empty(request.complicationType, settings.mode == WatchSettings.Mode.PHONE, tap)"))
-        // Erster Coin ohne Kurs (Börse stillgelegt, noch nichts geladen): «Paar / —» mit Grund und Tipp-Ziel (U2-07)
-        assertFalse(price.contains("NoDataComplicationData"))
-        assertTrue(price.contains("cached?.takeIf { !retired } ?: return missing(request.complicationType, coin, tap)"))
-        val portfolio = File(dir, "PortfolioComplicationService.kt").readText(Charsets.UTF_8)
-        assertFalse(portfolio.contains("NoDataComplicationData"))
-        assertTrue(portfolio.contains("portfolioFlow.value ?: return off(request.complicationType, tap)"))
-        assertTrue(portfolio.contains("R.string.watch_portfolio_off"))
-        assertTrue(portfolio.contains("WatchPortfolioText.offLine(title, hint)"))
+    fun komplikationZeigtNieKeineDaten() {
+        assertEquals(ComplicationPlan.First.Empty(phoneMode = true), ComplicationPlan.first(emptyList(), WatchSettings.Mode.PHONE))
+        assertEquals(ComplicationPlan.First.Empty(phoneMode = false), ComplicationPlan.first(emptyList(), WatchSettings.Mode.OWN))
+        assertEquals(ComplicationPlan.First.Coin("BTC"), ComplicationPlan.first(listOf("BTC", "ETH"), WatchSettings.Mode.OWN))
+        val cached = WatchCached(WatchQuote(symbol = "BTC", price = 84_450.0, change24h = 1.2, source = "Binance"), time = 1L)
+        assertEquals(cached, ComplicationPlan.shown(cached, retired = false))
+        assertEquals("stillgelegt: kein alter Kurs", null, ComplicationPlan.shown(cached, retired = true))
+        assertEquals(null, ComplicationPlan.shown(null, retired = false))
     }
 }

@@ -6,7 +6,9 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import com.cryptochecker.app.data.WatchRepository
@@ -78,6 +80,11 @@ class PortfolioFabScrollDeviceTest {
         coin = coin, type = PortfolioTxType.BUY, amount = BigDecimal.ONE, priceUsdt = BigDecimal("100"), time = time,
     )
 
+    /** Irgendeine Coin-Zeile der Übersicht. */
+    private val anyCoin = androidx.compose.ui.test.SemanticsMatcher("Coin-Zeile") { node ->
+        node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.TestTag)?.startsWith(UiTestTags.portfolioCoin("")) == true
+    }
+
     private val fab get() = hasContentDescription(compose.activity.getString(R.string.portfolio_add_tx))
 
     private fun fabShown() = compose.onAllNodes(fab, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
@@ -102,8 +109,10 @@ class PortfolioFabScrollDeviceTest {
     @Test
     fun overviewAndCoinPageHideTheButtonWhileScrollingDown() {
         click(UiTestTags.TAB_PORTFOLIO)
-        compose.waitUntil(TIMEOUT) { exists(UiTestTags.portfolioCoin("BTC")) }
+        compose.waitUntil(TIMEOUT) { compose.onAllNodes(anyCoin, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
         hidesWhileScrollingDown()
+        // Seite von BTC (31 Buchungen); die Zeile kann weiter unten in der Liste stehen
+        runCatching { compose.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasTestTag(UiTestTags.portfolioCoin("BTC"))) }
         click(UiTestTags.portfolioCoin("BTC"))
         hidesWhileScrollingDown()
     }

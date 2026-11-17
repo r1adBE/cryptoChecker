@@ -65,4 +65,13 @@ object CompareMath {
 
     /** Letzter Wert einer Linie (Änderung über den ganzen Zeitraum); null = keine Linie. */
     fun last(series: List<ComparePoint>): Double? = series.lastOrNull()?.percent
+
+    /**
+     * Spalten einer Zeile: die erste ist der gewählte Zeitraum; eine feste Spalte mit derselben Beschriftung entfällt
+     * (nie zweimal «7T» mit zwei Werten). Wie iOS `CompareMath.withoutRepeatedRange`.
+     */
+    fun <T> withoutRepeatedRange(columns: List<Pair<String, T>>): List<Pair<String, T>> {
+        val range = columns.firstOrNull()?.first ?: return columns
+        return columns.filterIndexed { i, (label, _) -> i == 0 || label != range }
+    }
 }

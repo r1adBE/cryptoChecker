@@ -134,9 +134,9 @@ class WidgetDrawDeviceTest {
         list.update(intArrayOf(LIST_A))
         val short = WidgetOffline.short(context)
         val singleTexts = texts(drawnView(SINGLE_A))
-        assertTrue(singleTexts.toString(), WidgetOffline.label(context, watch.lastUpdate) in singleTexts || short in singleTexts)
+        assertTrue(singleTexts.toString(), singleTexts.any { it.startsWith(WidgetOffline.label(context, watch.lastUpdate)) || it.startsWith(short) })
         val listTexts = texts(drawnView(LIST_A))
-        assertTrue(listTexts.toString(), WidgetOffline.label(context, refreshStats.lastRefresh()) in listTexts || short in listTexts)
+        assertTrue(listTexts.toString(), listTexts.any { it.startsWith(WidgetOffline.label(context, refreshStats.lastRefresh())) || it.startsWith(short) })
         // Portfolio und Puls: dieselbe Zeile aus ihren Textregeln (Daten dieser Widgets kommen nicht aus dem Test-Netz)
         val time = System.currentTimeMillis() - 90_000
         portfolio.update(intArrayOf(PORTFOLIO))
@@ -258,7 +258,10 @@ class WidgetDrawDeviceTest {
             assertTrue("$widget: Skelett noch sichtbar", skeleton == null || skeleton.visibility == View.GONE)
         }
         val listView = drawnView(LIST_A)
-        assertEquals(View.VISIBLE, listView.findViewById<View>(R.id.widget_refresh).visibility)
+        // Symbol (oder in der 15-s-Sperre der Countdown statt seiner), nie mehr das verborgene Symbol des Start-Layouts
+        val refresh = listView.findViewById<View>(R.id.widget_refresh).visibility
+        val countdown = listView.findViewById<View>(R.id.widget_refresh_countdown).visibility
+        assertTrue("Symbol $refresh, Countdown $countdown", refresh == View.VISIBLE || (refresh == View.GONE && countdown == View.VISIBLE))
         assertTrue(View.VISIBLE in listOf(R.id.widget_list, R.id.widget_empty).map { listView.findViewById<View>(it).visibility })
     }
 

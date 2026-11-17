@@ -10,6 +10,9 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.core.content.FileProvider
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
@@ -65,6 +68,8 @@ class BackupDialogDeviceTest {
             settingsRepository.setAppLock(false)
             watchRepository.deleteAllWatches()
             portfolioRepository.clearAll()
+            // Etwas zu sichern (ohne Portfolio: kein Passwort nötig)
+            watchRepository.addWatch(ExchangeInfo("Binance", "Binance"), ExchangePair("BTC", "USDT", "BTCUSDT"))
         }
     }
 

@@ -150,12 +150,21 @@ class PhoneWatchFeed @Inject constructor(
                 now = System.currentTimeMillis(),
             ) ?: return
             val json = WatchPortfolio.toJson(message)
-            if (json == lastPortfolio) return
-            if (sync.put(PORTFOLIO_PATH, json)) lastPortfolio = json
+            lastPortfolio = sentIfNew(json, lastPortfolio) { sync.put(PORTFOLIO_PATH, it) }
         }
     }
 
     companion object {
+        /**
+         * [json] senden, wenn neu (≠ [last]); gemerkt wird nur, was wirklich abgelegt ist ([put] true) — sonst versucht es
+         * die nächste Aufnahme bzw. [resend] noch einmal. Ergebnis: der neue zuletzt abgelegte Stand.
+         */
+        internal suspend fun sentIfNew(json: String, last: String?, put: suspend (String) -> Boolean): String? = when {
+            json == last -> last
+            put(json) -> json
+            else -> last
+        }
+
         const val QUOTES_PATH = "/cc/watch/quotes"
         const val PORTFOLIO_PATH = "/cc/watch/portfolio"
         private const val PREFS = "watch_sync"

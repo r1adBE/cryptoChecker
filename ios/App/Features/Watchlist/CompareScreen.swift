@@ -205,7 +205,7 @@ struct CompareScreen: View {
             (L("compare_from_high"), f?.fromHigh30d),
         ]
         // Nie zweimal «7T» mit zwei Werten: die feste Spalte des gewählten Zeitraums entfällt (wie Android)
-        let values = all.enumerated().filter { $0.offset == 0 || $0.element.0 != rangeLabel }.map(\.element)
+        let values = CompareMath.withoutRepeatedRange(all)
         let price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
         var spoken = [watch.displayName, L("label_value", L("watchlist_sort_price"), price)]
         if noData { spoken.append(L("sheet_chart_no_data")) }

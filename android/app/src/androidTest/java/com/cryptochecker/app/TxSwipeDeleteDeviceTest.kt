@@ -94,7 +94,11 @@ class TxSwipeDeleteDeviceTest {
         compose.onAllNodes(row).onFirst().performCustomAccessibilityActionWithLabel(delete)
         compose.waitUntil(TIMEOUT) { compose.onAllNodes(hasText(text(R.string.portfolio_tx_delete_title))).fetchSemanticsNodes().isNotEmpty() }
         assertEquals("vor der Bestätigung nichts gelöscht", 1, transactions().size)
-        click(hasText(delete) and hasClickAction() and hasAnyAncestor(isDialog()))
+        // Knopf «Löschen» der Rückfrage (Text und Klick im zusammengeführten Baum)
+        val confirm = hasText(delete) and hasClickAction() and hasAnyAncestor(isDialog())
+        compose.waitUntil(TIMEOUT) { compose.onAllNodes(confirm).fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodes(confirm).onFirst().performClick()
+        compose.waitForIdle()
         compose.waitUntil(TIMEOUT) { transactions().isEmpty() }
         // Wie der Editor: kein «Rückgängig»
         compose.waitForIdle()

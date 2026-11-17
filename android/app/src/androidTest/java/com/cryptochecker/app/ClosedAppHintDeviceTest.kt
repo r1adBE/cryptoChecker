@@ -75,11 +75,11 @@ class ClosedAppHintDeviceTest {
             }
         }
         compose.waitForIdle()
-        val full = hasText(text(R.string.alarm_timing_hint_android, text(R.string.settings_exact_checks)))
-        val link = hasText(text(R.string.alarm_change_updates)) and hasClickAction()
+        val full = hasText(text(R.string.alarm_timing_hint_android, text(R.string.settings_exact_checks)), substring = true)
+        val link = hasText(text(R.string.alarm_change_updates), substring = true) and hasClickAction()
         for (matcher in listOf(full, link)) {
             runCatching { compose.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(matcher) }
-            compose.waitUntil(TIMEOUT) { compose.onAllNodes(matcher, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(TIMEOUT) { compose.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty() }
         }
         compose.onAllNodes(link).onFirst().performClick()
         compose.waitForIdle()

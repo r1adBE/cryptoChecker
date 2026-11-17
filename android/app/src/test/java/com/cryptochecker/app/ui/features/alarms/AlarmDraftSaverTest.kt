@@ -2,13 +2,13 @@ package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.runtime.saveable.SaverScope
 import com.cryptochecker.app.domain.model.AlarmCondition
+import androidx.lifecycle.SavedStateHandle
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
 import org.junit.Test
-import java.io.File
 import java.io.Serializable
 
 /**
@@ -68,40 +68,21 @@ class AlarmDraftSaverTest {
         }
     }
 
+    /**
+     * Offener Editor im ViewModel ([AlarmEditorState] über [SavedStateHandle]): übersteht Prozess-Ende samt Eingaben;
+     * zu = nichts gespeichert (Audit A-01, früher Quelltext-Wächter). Drehen mit offener Rückfrage auf dem Gerät:
+     * `AlarmEditorRecreateTest`.
+     */
     @Test
-    fun editorStateIsSaveableAndSaveButtonPinned() {
-        val dir = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app/ui/features/alarms" })
-        assertNotNull("alarms-Quellen nicht gefunden (Arbeitsverzeichnis?)", dir)
-        // Ablauf des Editors (Rückfragen) liegt in AlarmEditorHost.kt, geteilt mit der Paar-Seite
-        val screen = File(dir, "AlarmsScreen.kt").readText() + File(dir, "AlarmEditorHost.kt").readText()
-        // Offener Editor im ViewModel (SavedStateHandle), gleiche Liste wie AlarmDraftSaver.saver
-        assertTrue(screen.contains("var draft by viewModel.editor"))
-        assertFalse(screen.contains("var draft by rememberSaveable"))
-        val state = File(dir, "AlarmEditorState.kt").readText()
-        assertTrue(state.contains("handle[KEY] = value?.let { ArrayList(AlarmDraftSaver.save(it)) }"))
-        assertTrue(state.contains("handle.get<List<*>>(KEY)?.let(AlarmDraftSaver::restore)"))
-        assertTrue(File(dir, "AlarmsViewModel.kt").readText().contains("AlarmEditorState(savedStateHandle)"))
-        assertTrue(screen.contains("var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver)"))
-        val sheet = File(dir!!, "AlarmEditorSheet.kt").readText()
-        assertFalse("Editor-Zustand mit remember statt rememberSaveable", Regex("""by remember \{""").containsMatchIn(sheet))
-        // Knöpfe ausserhalb des scrollenden Inhalts, das Blatt endet über der Tastatur
-        assertTrue(sheet.contains(".imePadding()"))
-        val scroll = sheet.indexOf(".verticalScroll(")
-        val pinned = sheet.indexOf("// Fest am unteren Rand")
-        val save = sheet.indexOf("UiTestTags.ALARM_SAVE")
-        assertTrue(scroll in 0 until pinned && pinned < save)
-    }
-
-    /** Sucht [candidates] vom Arbeitsverzeichnis aus aufwärts. */
-    private fun findUp(candidates: List<String>): File? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (rel in candidates) {
-                val f = File(dir, rel)
-                if (f.isDirectory) return f
-            }
-            dir = dir.parentFile
-        }
-        return null
+    fun openEditorSurvivesProcessDeath() {
+        val handle = SavedStateHandle()
+        AlarmEditorState(handle).draft = full
+        // Neuer Prozess: nur die gespeicherten Werte bleiben
+        fun newProcess(from: SavedStateHandle) = SavedStateHandle(from.keys().associateWith { from.get<Any>(it) })
+        val restoredHandle = newProcess(handle)
+        val restored = AlarmEditorState(restoredHandle)
+        assertEquals(full, restored.draft)
+        restored.close()
+        assertNull("zu: nichts gespeichert", AlarmEditorState(newProcess(restoredHandle)).draft)
     }
 }

@@ -1,5 +1,6 @@
 import XCTest
 import ImageIO
+import os
 @testable import CryptoChecker
 
 /// Coin-Logos bei Fehlern (Audit A-01, früher Quelltext-Wächter), Antworten aus Test-Transporten statt Netz:

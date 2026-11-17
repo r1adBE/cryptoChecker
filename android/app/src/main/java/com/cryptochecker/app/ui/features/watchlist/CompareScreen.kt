@@ -282,13 +282,15 @@ private fun CompareRow(
 ) {
     val context = LocalContext.current
     val noData = line != null && line.isEmpty()
-    val values = listOf(
-        rangeShort to line?.let(CompareMath::last),
-        change24hLabel to change24h,
-        stringResource(R.string.widget_range_short_7d) to figures?.change7d,
-        stringResource(R.string.widget_range_short_30d) to figures?.change30d,
-        stringResource(R.string.compare_from_high) to figures?.fromHigh30d,
-    ).filterIndexed { i, (label, _) -> i == 0 || label != rangeShort } // nie zweimal «7T» mit zwei Werten
+    val values = CompareMath.withoutRepeatedRange(
+        listOf(
+            rangeShort to line?.let(CompareMath::last),
+            change24hLabel to change24h,
+            stringResource(R.string.widget_range_short_7d) to figures?.change7d,
+            stringResource(R.string.widget_range_short_30d) to figures?.change30d,
+            stringResource(R.string.compare_from_high) to figures?.fromHigh30d,
+        ),
+    ) // nie zweimal «7T» mit zwei Werten
     val price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
     val spoken = buildList {
         add(watch.displayName)

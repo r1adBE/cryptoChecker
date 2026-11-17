@@ -69,4 +69,11 @@ enum CompareMath {
 
     /// Letzter Wert einer Linie (Änderung über den ganzen Zeitraum); nil = keine Linie.
     static func last(_ series: [ComparePoint]) -> Double? { series.last?.percent }
+
+    /// Spalten einer Zeile: die erste ist der gewählte Zeitraum; eine feste Spalte mit derselben Beschriftung entfällt
+    /// (nie zweimal «7T» mit zwei Werten). Wie Android `CompareMath.withoutRepeatedRange`.
+    static func withoutRepeatedRange<T>(_ columns: [(String, T)]) -> [(String, T)] {
+        guard let range = columns.first?.0 else { return columns }
+        return columns.enumerated().filter { $0.offset == 0 || $0.element.0 != range }.map(\.element)
+    }
 }

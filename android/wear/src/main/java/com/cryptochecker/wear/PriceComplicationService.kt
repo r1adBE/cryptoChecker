@@ -47,8 +47,10 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val tap = PendingIntent.getActivity(
             this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
-        val coin = favorites.firstOrNull()
-            ?: return empty(request.complicationType, settings.mode == WatchSettings.Mode.PHONE, tap)
+        val coin = when (val first = ComplicationPlan.first(favorites, settings.mode)) {
+            is ComplicationPlan.First.Empty -> return empty(request.complicationType, first.phoneMode, tap)
+            is ComplicationPlan.First.Coin -> first.key
+        }
         var cached = store.quotes()[coin]
         val usePhone = settings.source == WatchSettings.Source.PHONE && WatchPhoneQuotes.usePhone(
             settings.source, WatchDataLayer.phoneConnected(this), store.phoneTime, System.currentTimeMillis(), settings.interval,
@@ -77,7 +79,7 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         // Börse des Paars stillgelegt (ExchangeRetirement) bzw. noch ohne Kurs: kein alter Kurs, sondern «Paar / —» mit
         // dem Grund und Tipp-Ziel (wie die Zeile der Uhr-App) statt «keine Daten»
         val retired = WatchPair.parse(coin)?.let { WatchPairQuotes.retired(it) } == true
-        val shown = cached?.takeIf { !retired } ?: return missing(request.complicationType, coin, tap)
+        val shown = ComplicationPlan.shown(cached, retired) ?: return missing(request.complicationType, coin, tap)
         val q = shown.quote
         val time = shown.time
         val now = System.currentTimeMillis()

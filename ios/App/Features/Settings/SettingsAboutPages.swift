@@ -34,7 +34,7 @@ struct AboutSettingsPage: View {
             }
             // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg. Erst nach 7 Tipps
             // auf die Version, in jedem Build (wie Android)
-            if data.settings.developerUnlocked {
+            if AboutExtras.of(unlocked: data.settings.developerUnlocked, debugBuild: DeveloperOptions.available).diagnostics {
                 DiagnosticsCard()
             }
             // Was die App kann
@@ -94,7 +94,7 @@ struct AboutSettingsPage: View {
         }
         .settingsAnchor("about.licenses")
         // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build
-        if data.settings.developerUnlocked && DeveloperOptions.available {
+        if AboutExtras.of(unlocked: data.settings.developerUnlocked, debugBuild: DeveloperOptions.available).developer {
             RowDivider()
             SettingsNavRow(title: L("settings_section_developer"), icon: .system("hammer"),
                            value: SettingsSummary.onOff(data.settings.showHttpLog)) {

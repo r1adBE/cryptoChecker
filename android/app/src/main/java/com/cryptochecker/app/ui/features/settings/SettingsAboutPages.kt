@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.domain.settings.AboutExtras
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -148,7 +149,7 @@ internal fun AboutPage(
             }
             // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build, der Release enthält keinen
             // HTTP-Mitschnitt, gleich neben der Freischaltung
-            if (settings.developerUnlocked && BuildConfig.DEBUG) {
+            if (AboutExtras.of(settings.developerUnlocked, BuildConfig.DEBUG).developer) {
                 SettingsNavRow(
                     title = stringResource(R.string.settings_section_developer),
                     icon = R.drawable.ic_settings_developer,
@@ -159,7 +160,7 @@ internal fun AboutPage(
         }
         // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg. Erst nach
         // 7 Tipps auf die Version (Inhaber 15.11.: nicht für alle sichtbar), in jedem Build
-        if (settings.developerUnlocked) {
+        if (AboutExtras.of(settings.developerUnlocked, BuildConfig.DEBUG).diagnostics) {
             Spacer(Modifier.height(12.dp))
             DiagnosticsCard()
         }

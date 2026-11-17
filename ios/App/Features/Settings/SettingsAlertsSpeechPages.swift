@@ -152,7 +152,7 @@ struct SpeechSettingsPage: View {
             SwitchRow(
                 title: L("settings_tts"),
                 // iOS spricht nur bei offener App (kein Audio-Hintergrundmodus) – wie im Alarm-Editor sagen
-                subtitle: L("settings_tts_hint_silent") + " " + L("alarm_speak_ios_open_only"),
+                subtitle: SpeechHints.settingsSubtitle,
                 isOn: $data.settings.ttsEnabled
             )
             .settingsAnchor("speech.enabled")

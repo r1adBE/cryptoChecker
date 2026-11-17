@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 269)
+
+- Tests: fixes of the new emulator tests of 268; more source-text guards became behaviour tests on both platforms (compare columns, about page extras, speech hint on iOS, phone-to-watch sync, alert editor after process death, watch complication).
+- Fix of the iOS test build of 268.
+
 ## 16.2.2 (build 268)
 
 - Tests: a bundle of source-text guards became emulator tests and iOS UI tests (backup dialog and failed backup file, hidden amounts, overlay shield, closed-app hint, add button while scrolling, empty portfolio, delete transaction with confirmation, portfolio alert double tap, logo loading hint, bulk undo confirmation, note line), plus two new source rules.

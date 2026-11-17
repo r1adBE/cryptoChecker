@@ -36,11 +36,28 @@ class PhoneWatchListener : WearableListenerService() {
             ?.let(notify::takePermitted)
     }
 
-    override fun onCapabilityChanged(capabilityInfo: CapabilityInfo) {
-        if (capabilityInfo.name != PhoneWatchSync.CAPABILITY) return
-        notify.takeReachable(capabilityInfo.nodes.isNotEmpty())
-        if (capabilityInfo.nodes.isEmpty()) return
-        sync.republish()
-        feed.resend()
+    override fun onCapabilityChanged(capabilityInfo: CapabilityInfo) =
+        watchAppChanged(capabilityInfo.name, capabilityInfo.nodes.isNotEmpty(), notify::takeReachable,
+            republish = { sync.republish() }, resend = { feed.resend() })
+
+    companion object {
+        /**
+         * Fähigkeit [name] geändert: nur die der Uhr-App ([PhoneWatchSync.CAPABILITY]) zählt. Erreichbarkeit immer
+         * merken; mit einer Uhr ([reachable]) den ganzen Stand ([republish]) und Kurse samt Portfolio-Stand ([resend])
+         * ablegen (`PhoneWatchRepublishTest`).
+         */
+        internal fun watchAppChanged(
+            name: String,
+            reachable: Boolean,
+            takeReachable: (Boolean) -> Unit,
+            republish: () -> Unit,
+            resend: () -> Unit,
+        ) {
+            if (name != PhoneWatchSync.CAPABILITY) return
+            takeReachable(reachable)
+            if (!reachable) return
+            republish()
+            resend()
+        }
     }
 }

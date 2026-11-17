@@ -103,7 +103,8 @@ class LogoLoadingHintDeviceTest {
                 shown = store.loadingHint.currentPercent
             }
         }
-        assertEquals("alles erledigt (auch 404 und noch gestört)", 100, shown)
+        // Alles erledigt (auch 404 und noch gestört); solange der Durchgang läuft, zeigt der Hinweis höchstens 99 %
+        assertEquals("alles erledigt (auch 404 und noch gestört)", LogoLoadingHint.percentOf(4, 4), shown)
         assertFalse(store.loadingHint.visible.value)
     }
 

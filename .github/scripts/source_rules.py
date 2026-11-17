@@ -30,6 +30,7 @@ Rules (ids in the annotation title):
   swipe-delete       every swipe-to-delete row asks before deleting (confirmsDelete = true); the watchlist offers undo
   ios-alarm-create   every iOS alarm sheet goes through AlarmCreateGuard (double tap = one alarm)
   bulk-undo          «Undo» after adding many pairs removes only from the confirmation (BulkUndoConfirm), both platforms
+  app-start          process start (Application.onCreate) starts the price overlay; its setting says it comes back then
 
 The comments and messages are in German like the tests they replace.
 """
@@ -689,7 +690,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1493, "domain": 1620, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1492, "domain": 1621, "data": 606, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1789,6 +1790,33 @@ def rule_bulk_undo(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# app-start: das Kurs-Overlay startet mit jedem Prozessstart (auch dem nächsten Hintergrund-Lauf) — darum sagt seine
+# Einstellung, dass es nach dem Ende der App mit der nächsten Aktualisierung zurückkommt. Gerätetests laufen unter
+# HiltTestApplication (ohne CryptoCheckerApp.onCreate): darum eine Regel.
+
+
+AS_START = "priceOverlay.get().start()"
+AS_HINT = "R.string.settings_price_overlay_restart_hint"
+
+
+def app_start_problems(app_text, row_text):
+    problems = []
+    code = ds_strip_comments(app_text)
+    body = code[code.find("override fun onCreate()"):] if "override fun onCreate()" in code else ""
+    if AS_START not in body:
+        problems.append(f"CryptoCheckerApp.onCreate: {AS_START} fehlt (Overlay käme nach dem Ende der App nicht zurück)")
+    if AS_HINT not in ds_strip_comments(row_text):
+        problems.append(f"SettingsPriceOverlay.kt: Hinweis {AS_HINT} fehlt")
+    return problems
+
+
+def rule_app_start(t):
+    app = read(need_file(os.path.join(t.java("app"), "CryptoCheckerApp.kt")))
+    row = read(need_file(os.path.join(t.java("app"), "ui", "features", "settings", "SettingsPriceOverlay.kt")))
+    return app_start_problems(app, row)
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -1907,6 +1935,7 @@ RULES = [
     ("swipe-delete", rule_swipe_delete),
     ("ios-alarm-create", rule_ios_alarm_create),
     ("bulk-undo", rule_bulk_undo),
+    ("app-start", rule_app_start),
 ]
 
 
@@ -1938,6 +1967,10 @@ def self_test():
     def eq(actual, expected, what):
         if actual != expected:
             raise AssertionError(f"{what}: {actual!r} != {expected!r}")
+
+    # app-start: Start im onCreate und Hinweis der Einstellung; auskommentiert zählt nicht
+    eq(app_start_problems("override fun onCreate() {\n priceOverlay.get().start()\n}", "Text(stringResource(R.string.settings_price_overlay_restart_hint))"), [], "app-start: ok")
+    eq(len(app_start_problems("override fun onCreate() {\n // priceOverlay.get().start()\n}", "")), 2, "app-start: fehlt")
 
     # bulk-undo: Undo nur aus onRemove bzw. bulkUndo.remove
     eq(bulk_undo_kotlin("A.kt", "f(onRemove = { viewModel.runner.undo(it) })\nonUndoBulk: (List<Long>) -> Unit = {},\n"

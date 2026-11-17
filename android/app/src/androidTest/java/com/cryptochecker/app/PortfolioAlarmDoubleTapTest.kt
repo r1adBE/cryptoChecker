@@ -73,16 +73,28 @@ class PortfolioAlarmDoubleTapTest {
     @Test
     fun twoSavesWhileTheFirstRunsCreateOneAlarm() {
         val saved = CountDownLatch(1)
+        val savedCalls = java.util.concurrent.atomic.AtomicInteger()
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
             val viewModel = PortfolioViewModel(
                 repository, sources, settingsRepository, snapshotUpdater, alarmSaving, connectivity, snapshotStore,
                 coinLogoSync, addressRefresher, usdtPeg, costGapStore, defaultDispatcher,
             )
             // Zweimal «Speichern» im selben Takt der Oberfläche (Doppeltipp)
-            repeat(2) { viewModel.addAlarm(PortfolioAlarmKind.entries.first(), threshold = 1_000.0, repeating = false) { _, _ -> saved.countDown() } }
+            repeat(2) {
+                viewModel.addAlarm(PortfolioAlarmKind.entries.first(), threshold = THRESHOLD, repeating = false) { _, _ ->
+                    savedCalls.incrementAndGet()
+                    saved.countDown()
+                }
+            }
         }
         saved.await(10, TimeUnit.SECONDS)
         Thread.sleep(500)
-        assertEquals(1, runBlocking { alarms.getAll() }.size)
+        assertEquals("einmal gespeichert gemeldet", 1, savedCalls.get())
+        assertEquals("ein Alarm angelegt", 1, runBlocking { alarms.getAll() }.count { it.threshold == THRESHOLD })
+    }
+
+    private companion object {
+        /** Eigener Betrag: zählt nur die Alarme dieses Tests. */
+        const val THRESHOLD = 1_234.5
     }
 }

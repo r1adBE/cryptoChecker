@@ -85,7 +85,7 @@ class PhoneWatchSync @Inject constructor(
                 ensureLoaded()
                 _state.value
             }
-            if (prefs.getString(KEY_PUBLISHED, null) != current.toJson()) republish()
+            if (republishAtStart(prefs.getString(KEY_PUBLISHED, null), current.toJson())) republish()
             watchRepository.observeWatches()
                 .map { watches -> favorites(watches) }
                 .distinctUntilChanged()
@@ -220,17 +220,19 @@ class PhoneWatchSync @Inject constructor(
      * Minute weckt (wie iOS `updateApplicationContext`).
      */
     private suspend fun putResult(path: String, json: String, urgent: Boolean = true): PutResult = withContext(ioDispatcher) {
-        runCatchingCancellable {
-            val nodes = Tasks.await(
-                Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
-                TIMEOUT_S, TimeUnit.SECONDS
-            ).nodes
-            if (nodes.isEmpty()) return@runCatchingCancellable PutResult.NO_WATCH
-            val request = PutDataMapRequest.create(path).apply { dataMap.putString(DATA_KEY, json) }
-                .asPutDataRequest().apply { if (urgent) setUrgent() }
-            Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
-            PutResult.PUBLISHED
-        }.getOrDefault(PutResult.FAILED)
+        putOutcome(
+            watchesWithApp = {
+                Tasks.await(
+                    Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
+                    TIMEOUT_S, TimeUnit.SECONDS
+                ).nodes.size
+            },
+            put = {
+                val request = PutDataMapRequest.create(path).apply { dataMap.putString(DATA_KEY, json) }
+                    .asPutDataRequest().apply { if (urgent) setUrgent() }
+                Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
+            },
+        )
     }
 
     /** Stand der Uhr (Einträge anderer Geräte unter [PATH]); null = keiner oder keine Play-Dienste. */
@@ -273,6 +275,20 @@ class PhoneWatchSync @Inject constructor(
          * «Wie Handy»: Basis-Coins der Favoriten ([WatchCoins.fromFavorites]) und je Coin das Paar des ersten Favoriten
          * ([WatchPair]: Börse und Kontrakt wie in der Merkliste, z. B. BANK/USDT Perp bei Binance Futures).
          */
+        /** Beim Start ablegen? Nur, wenn der aktuelle Stand noch nicht erledigt ist (letztes Ablegen gescheitert). */
+        internal fun republishAtStart(published: String?, current: String): Boolean = published != current
+
+        /**
+         * Ablegen, nur wenn eine Uhr die App hat ([watchesWithApp]): keine → [PutResult.NO_WATCH] (erledigt, [put] nicht
+         * gerufen); abgelegt → [PutResult.PUBLISHED]; Fehler (keine Play-Dienste, Frist) → [PutResult.FAILED].
+         */
+        internal suspend fun putOutcome(watchesWithApp: suspend () -> Int, put: suspend () -> Unit): PutResult =
+            runCatchingCancellable {
+                if (watchesWithApp() == 0) return@runCatchingCancellable PutResult.NO_WATCH
+                put()
+                PutResult.PUBLISHED
+            }.getOrDefault(PutResult.FAILED)
+
         internal fun favorites(watches: List<WatchEntity>): Pair<List<String>, List<WatchPair>> {
             val favorites = watches.filter { it.favorite }.sortedBy { it.sortOrder }
             val bases = favorites.map { it.baseAsset }
