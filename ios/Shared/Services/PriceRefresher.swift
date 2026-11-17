@@ -97,41 +97,9 @@ enum PriceRefresher {
         let networkMillis = EpochTime.nowMillis - started
 
         // 2) Auswerten
-        let now = EpochTime.nowMillis
-        // Nachtruhe: Alarme warten bis zum Ende (`QuietHours.holdsAlarms`, in checkAlarms),
-        // und nichts vorlesen — weder Alarme noch Kurse.
-        let speechAllowed = settings.ttsEnabled && !QuietHours.isQuietNow(settings)
-        // Für das Vorladen (Volumen, Hoch/Tief, Umrechnung) genügt der mitgegebene Stand;
-        // ausgewertet wird weiter unten der frisch gelesene.
-        let enabledAlarms = snapshot.alarms.filter(\.enabled)
-        // Mit Endzeit: hier nur Alarme, die allein den Kurs brauchen; die anderen später (`deferredAlarms`)
-        let deferExtra = deadline != nil && liveQuotes == nil
-        let prefetchAlarms = deferExtra ? enabledAlarms.filter { !AlarmDataStage.needsExtraData($0) } : enabledAlarms
-        let prefetchByWatch = Dictionary(grouping: prefetchAlarms, by: \.watchId)
-        if deferExtra {
-            outcome.deferredAlarms.prefetchByWatch = Dictionary(
-                grouping: enabledAlarms.filter(AlarmDataStage.needsExtraData), by: \.watchId)
-        }
-
-        let inputs = await loadAlarmInputs(watches: watches, fetched: fetched, prefetchByWatch: prefetchByWatch,
-                                           live: liveQuotes != nil, deadline: deadline)
-
-        // Alarme: nur einer zur Zeit (App, Hintergrund) und immer auf dem gespeicherten Stand —
-        // sonst meldet ein zweiter Prozess, was der erste gerade gemeldet hat.
-        let leased = await leasedAlarms(prefetchAlarms: prefetchAlarms, deferExtra: deferExtra, deadline: deadline)
-        if let lease = leased.lease { outcome.alarmLease = lease }
-        // Alarme da, aber keine Lease (anderer Prozess prüft gerade): diesmal nicht geprüft — nicht als «OK» zählen
-        if !prefetchAlarms.isEmpty && leased.lease == nil { outcome.alarmsUnchecked = true }
-        let alarmsByWatch = leased.byWatch
-        // Alarm-Protokoll («Kein Kurs», Sperrgründe): auch die erst später geprüften Alarme mit Zusatzdaten — nur
-        // festgehalten, entschieden wird damit nichts
-        let logAlarmsByWatch = deferExtra
-            ? alarmsForLog(checked: alarmsByWatch, deferred: outcome.deferredAlarms.prefetchByWatch)
-            : alarmsByWatch
-        let run = Evaluation(now: now, settings: settings, speechAllowed: speechAllowed, live: liveQuotes != nil,
-                             basis: basis, dayStart: dayStart, dayReferences: loaded.dayReferences,
-                             deferExtra: deferExtra, alarmsByWatch: alarmsByWatch,
-                             logAlarmsByWatch: logAlarmsByWatch, inputs: inputs)
+        let run = await evaluation(snapshot: snapshot, watches: watches, loaded: loaded, live: liveQuotes != nil,
+                                   deadline: deadline, settings: settings, basis: basis, dayStart: dayStart,
+                                   outcome: &outcome)
 
         // Kurs-Mitteilungen entfernen: gesammelt in EINEM Aufruf statt einmal je Paar
         var cancelIds: [Int64] = []
@@ -150,6 +118,47 @@ enum PriceRefresher {
                           dayLoads: loaded.dayLoads, networkMillis: networkMillis, exchanges: loaded.exchanges)
         }
         return outcome
+    }
+    /// Alarme für die Auswertung vorbereiten (Teil von `refresh`): vorladen, Lease holen (nur ein Prozess prüft), mit
+    /// Endzeit die Alarme mit Zusatzdaten zurückstellen (`Outcome.deferredAlarms`).
+    private static func evaluation(snapshot: SharedStorage.Snapshot, watches: [Watch], loaded: Loaded, live: Bool,
+                                   deadline: RefreshDeadline?, settings: AppSettings, basis: ChangeBasis,
+                                   dayStart: Int64?, outcome: inout Outcome) async -> Evaluation {
+        let now = EpochTime.nowMillis
+        // Nachtruhe: Alarme warten bis zum Ende (`QuietHours.holdsAlarms`, in checkAlarms),
+        // und nichts vorlesen — weder Alarme noch Kurse.
+        let speechAllowed = settings.ttsEnabled && !QuietHours.isQuietNow(settings)
+        // Für das Vorladen (Volumen, Hoch/Tief, Umrechnung) genügt der mitgegebene Stand;
+        // ausgewertet wird weiter unten der frisch gelesene.
+        let enabledAlarms = snapshot.alarms.filter(\.enabled)
+        // Mit Endzeit: hier nur Alarme, die allein den Kurs brauchen; die anderen später (`deferredAlarms`)
+        let deferExtra = deadline != nil && !live
+        let prefetchAlarms = deferExtra ? enabledAlarms.filter { !AlarmDataStage.needsExtraData($0) } : enabledAlarms
+        let prefetchByWatch = Dictionary(grouping: prefetchAlarms, by: \.watchId)
+        if deferExtra {
+            outcome.deferredAlarms.prefetchByWatch = Dictionary(
+                grouping: enabledAlarms.filter(AlarmDataStage.needsExtraData), by: \.watchId)
+        }
+
+        let inputs = await loadAlarmInputs(watches: watches, fetched: loaded.fetched, prefetchByWatch: prefetchByWatch,
+                                           live: live, deadline: deadline)
+
+        // Alarme: nur einer zur Zeit (App, Hintergrund) und immer auf dem gespeicherten Stand —
+        // sonst meldet ein zweiter Prozess, was der erste gerade gemeldet hat.
+        let leased = await leasedAlarms(prefetchAlarms: prefetchAlarms, deferExtra: deferExtra, deadline: deadline)
+        if let lease = leased.lease { outcome.alarmLease = lease }
+        // Alarme da, aber keine Lease (anderer Prozess prüft gerade): diesmal nicht geprüft — nicht als «OK» zählen
+        if !prefetchAlarms.isEmpty && leased.lease == nil { outcome.alarmsUnchecked = true }
+        let alarmsByWatch = leased.byWatch
+        // Alarm-Protokoll («Kein Kurs», Sperrgründe): auch die erst später geprüften Alarme mit Zusatzdaten — nur
+        // festgehalten, entschieden wird damit nichts
+        let logAlarmsByWatch = deferExtra
+            ? alarmsForLog(checked: alarmsByWatch, deferred: outcome.deferredAlarms.prefetchByWatch)
+            : alarmsByWatch
+        return Evaluation(now: now, settings: settings, speechAllowed: speechAllowed, live: live,
+                          basis: basis, dayStart: dayStart, dayReferences: loaded.dayReferences,
+                          deferExtra: deferExtra, alarmsByWatch: alarmsByWatch,
+                          logAlarmsByWatch: logAlarmsByWatch, inputs: inputs)
     }
     /// Live-Kurse: nur diese Paare (nicht mehr gehandelte bleiben unberührt), keine Pause je Börse. Deaktivierte Paare
     /// nie: keine Abfrage, keine Alarme, keine Mitteilungen (wie Android). Teil von `refresh`.

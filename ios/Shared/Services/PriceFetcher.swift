@@ -154,39 +154,49 @@ extension PriceRefresher {
         singles = FetchOrder.alarmsFirst(singles, alarmed: alarmed, rotation: rotation) { $0.id }
         // Was die Sammelabfrage schon brachte, bleibt auch nach dem Ende des Netzbudgets
         partial?.put(results)
-        var sent = 0
-        if !singles.isEmpty {
-            await withTaskGroup(of: (Int64, Fetched).self) { tg in
-                var gate = SingleRateGate()
-                var next = 0
-                var running = 0
-                while true {
-                    // Bis zur Grenze nachfüllen; bei gesperrter Börse die übrigen ohne Anfrage beenden
-                    while running < maxParallelPerExchange && next < singles.count {
-                        let w = singles[next]
-                        next += 1
-                        if let blocked = gate.blocked {
-                            results[w.id] = Fetched(ticker: nil, error: blocked, failure: .RATE_LIMIT,
-                                                    exchangeFailure: gate.blockedFailure)
-                            continue
-                        }
-                        let confirm = confirmIds.contains(w.id)
-                        tg.addTask { (w.id, await fetchSingle(w, confirmMissing: confirm)) }
-                        running += 1
-                        sent += 1
-                    }
-                    guard let item = await tg.next() else { break }
-                    running -= 1
-                    results[item.0] = item.1
-                    partial?.put(item.0, item.1)
-                    gate.note(item.1)
-                }
-            }
-        }
+        let single = await fetchSingles(singles, confirmIds: confirmIds, partial: partial)
+        results.merge(single.results) { _, new in new }
+        let sent = single.sent
 
         let signals = groupSignals(group, sample: sample, results: results, bulk: bulk, bulkTried: bulkTried,
                                    bulkMillis: bulkMillis, sent: sent, started: started)
         return (results, signals)
+    }
+
+    /// Einzelabfragen, höchstens `maxParallelPerExchange` gleichzeitig je Börse, gleitend nachgefüllt; nach der ersten
+    /// Antwort mit 429/418 die übrigen ohne Anfrage mit demselben Fehler (`SingleRateGate`). Teil von `fetchGroup`.
+    private static func fetchSingles(_ singles: [Watch], confirmIds: Set<Int64>,
+                                     partial: FetchedBox?) async -> (results: [Int64: Fetched], sent: Int) {
+        var results: [Int64: Fetched] = [:]
+        var sent = 0
+        guard !singles.isEmpty else { return (results, sent) }
+        await withTaskGroup(of: (Int64, Fetched).self) { tg in
+            var gate = SingleRateGate()
+            var next = 0
+            var running = 0
+            while true {
+                // Bis zur Grenze nachfüllen; bei gesperrter Börse die übrigen ohne Anfrage beenden
+                while running < maxParallelPerExchange && next < singles.count {
+                    let w = singles[next]
+                    next += 1
+                    if let blocked = gate.blocked {
+                        results[w.id] = Fetched(ticker: nil, error: blocked, failure: .RATE_LIMIT,
+                                                exchangeFailure: gate.blockedFailure)
+                        continue
+                    }
+                    let confirm = confirmIds.contains(w.id)
+                    tg.addTask { (w.id, await fetchSingle(w, confirmMissing: confirm)) }
+                    running += 1
+                    sent += 1
+                }
+                guard let item = await tg.next() else { break }
+                running -= 1
+                results[item.0] = item.1
+                partial?.put(item.0, item.1)
+                gate.note(item.1)
+            }
+        }
+        return (results, sent)
     }
 
     /// Sammelabfrage einer Börse (Widget-Erweiterung: `LowMemoryBulk`); nil = diesmal gar nicht abfragen. Rückgabe mit

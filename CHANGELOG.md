@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 297)
+
+- Internal (iOS): long calculation and background functions split into steps; logic functions now at most 100 lines on both platforms (C-04).
+
 ## 16.2.2 (build 296)
 
 - Internal (iOS): the central data store uses Swift Observation instead of ObservableObject; screens refresh exactly as before.

@@ -29,15 +29,7 @@ extension PortfolioHistory {
         // Wert (und die übrigen Fälle von `PortfolioLedger.valueAtDayClose`) zum selben Tageskurs wie die Karte
         // (`PortfolioPeriodChange.marketPriceAt`): EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben
         // Tausch verschieden
-        let raw = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressPart($0.id) }
-            + AddressBalanceHistory.trades(addresses)
-        let valid = PortfolioLedger.valueAtDayClose(
-            raw,
-            price: { coin, time in
-                guard let p = PortfolioPeriodChange.marketPriceAt(coin, live: livePrices[coin], closes: closes, time: time),
-                      p > 0, p.isFinite else { return nil }
-                return PortfolioDecimal.of(p)
-            })
+        let valid = valuedTrades(trades, addresses: addresses, closes: closes, livePrices: livePrices)
         guard let firstTime = valid.map(\.time).min() else { return .empty }
         let rate = fxRate > 0 && fxRate.isFinite ? fxRate : 1
 
@@ -45,17 +37,7 @@ extension PortfolioHistory {
         let capped = isCapped(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay)
 
         // Schritte aller Coins in einem Durchgang (Bestand, Zuflüsse, Gewinn/Verlust nutzen dieselben Listen)
-        var eventsOf: [String: [PortfolioLedgerEvent]] = [:]
-        for entry in PortfolioLedger.eventsByCoin(valid) { eventsOf[entry.coin] = entry.events }
-        let coins = PortfolioLedger.coins(valid).sorted()
-        // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
-        var exactTimelines: [String: [(time: Int64, holdings: Decimal)]] = [:]
-        var timelines: [String: [(time: Int64, holdings: Double)]] = [:]
-        for coin in coins {
-            let exact = holdingsTimelineExact(events: eventsOf[coin] ?? [], method: method)
-            exactTimelines[coin] = exact
-            timelines[coin] = exact.map { (time: $0.time, holdings: PortfolioDecimal.double($0.holdings)) }
-        }
+        let (eventsOf, coins, exactTimelines, timelines) = ledgerTimelines(valid, method: method)
 
         let startMillis = dayEndMillis(start - 1) + 1
         let held = coins.filter { heldWithin(timelines[$0] ?? [], from: startMillis) }
@@ -125,6 +107,39 @@ extension PortfolioHistory {
                                       pnlFlows: pnlFlowList.sorted { $0.epochDay < $1.epochDay },
                                       pnlSkipped: pnlSkipped.sorted(), pnlSinceFirst: sinceFirst,
                                       withdrawalsInRange: withdrawalsInRange, entries: entryFlows.mapValues(\.epochDay))
+    }
+
+    /// Gültige Buchungen samt Adress-Reihe (ohne Gebuchtes), Werte ohne Preis zum Tageskurs wie die Karte
+    /// (`PortfolioPeriodChange.marketPriceAt`) — Teil von `build`.
+    private static func valuedTrades(_ trades: [PortfolioTx], addresses: [AddressBalanceHistory],
+                                     closes: [String: [Int: Double]], livePrices: [String: Double]) -> [PortfolioTx] {
+        let raw = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressPart($0.id) }
+            + AddressBalanceHistory.trades(addresses)
+        return PortfolioLedger.valueAtDayClose(
+            raw,
+            price: { coin, time in
+                guard let p = PortfolioPeriodChange.marketPriceAt(coin, live: livePrices[coin], closes: closes, time: time),
+                      p > 0, p.isFinite else { return nil }
+                return PortfolioDecimal.of(p)
+            })
+    }
+
+    /// Schritte je Coin und Bestände (exakt und als Double für die Prüfungen «gehalten») — Teil von `build`.
+    private static func ledgerTimelines(_ valid: [PortfolioTx], method: CostMethod)
+        -> (events: [String: [PortfolioLedgerEvent]], coins: [String], exact: [String: [(time: Int64, holdings: Decimal)]],
+            timelines: [String: [(time: Int64, holdings: Double)]]) {
+        var eventsOf: [String: [PortfolioLedgerEvent]] = [:]
+        for entry in PortfolioLedger.eventsByCoin(valid) { eventsOf[entry.coin] = entry.events }
+        let coins = PortfolioLedger.coins(valid).sorted()
+        // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
+        var exactTimelines: [String: [(time: Int64, holdings: Decimal)]] = [:]
+        var timelines: [String: [(time: Int64, holdings: Double)]] = [:]
+        for coin in coins {
+            let exact = holdingsTimelineExact(events: eventsOf[coin] ?? [], method: method)
+            exactTimelines[coin] = exact
+            timelines[coin] = exact.map { (time: $0.time, holdings: PortfolioDecimal.double($0.holdings)) }
+        }
+        return (eventsOf, coins, exactTimelines, timelines)
     }
 
     /// «Einstieg»: ein gehaltener Coin, dem an den ersten gehaltenen Tagen der Kurs fehlt (`unpriced`), zählt ab seinem

@@ -25,28 +25,25 @@ enum PriceChartRenderer {
         let data = prepared ? candles : WidgetChartGeometry.clean(candles)
         guard data.count >= 2, size.width > 0, size.height > 0,
               let levels = customLevels ?? WidgetChartGeometry.levels(data, type: type),
-              let first = data.first, let last = data.last else { return nil }
+              let last = data.last else { return nil }
 
         // Farben: im hohen Kontrast Nebentextfarbe voll, sonst sehr zart
         let labelColor = style.secondary
         let gridColor = style.secondary.opacity(style.highContrast ? 0.35 : 0.14)
         let levelColor = style.secondary.opacity(style.highContrast ? 0.35 : 0.22)
-        let hair = Swift.max(px, 0.5)
-        let lineWidth = style.lineWidth
+        let (hair, lineWidth) = (Swift.max(px, 0.5), style.lineWidth)
 
         // Texte messen
         let levelValues = [levels.low, levels.mid, levels.high]
-        var labels: [GraphicsContext.ResolvedText] = []
-        for value in levelValues {
-            labels.append(ctx.resolve(Text(PriceFormat.price(value)).font(style.labelFont).foregroundStyle(labelColor)))
+        let labels = levelValues.map {
+            ctx.resolve(Text(PriceFormat.price($0)).font(style.labelFont).foregroundStyle(labelColor))
         }
         let tagPrice = currentPrice.flatMap { $0.isFinite && $0 > 0 ? $0 : nil } ?? last.close
         let tagText = ctx.resolve(Text(PriceFormat.price(tagPrice)).font(style.tagFont).foregroundStyle(style.onAccent))
         let probe = CGSize(width: 1000, height: 1000)
         let labelSizes = labels.map { $0.measure(in: probe) }
         let tagSize = tagText.measure(in: probe)
-        let tagPadX: CGFloat = 3
-        let tagPadY: CGFloat = 1
+        let (tagPadX, tagPadY): (CGFloat, CGFloat) = (3, 1)
         let tagW = tagSize.width + tagPadX * 2
         let tagH = tagSize.height + tagPadY * 2
         let labelH = labelSizes.map(\.height).max() ?? tagSize.height
@@ -57,8 +54,7 @@ enum PriceChartRenderer {
         let plotLeft: CGFloat = 0
         let plotRight = showText ? size.width - column : size.width
         let inset = showText ? Swift.max(labelH, tagH) / 2 + 0.5 : lineWidth + 1
-        let top = inset
-        let bottom = size.height - inset
+        let (top, bottom) = (inset, size.height - inset)
         guard bottom > top, plotRight > plotLeft else { return nil }
         let compact = size.height < compactHeight || size.width < compactWidth
         let slot = (plotRight - plotLeft) / CGFloat(data.count)
@@ -70,19 +66,9 @@ enum PriceChartRenderer {
         func snap(_ v: CGFloat) -> CGFloat { (v / px).rounded(.down) * px + px / 2 }
 
         // 1. Senkrechte Zeit-Linien (zwischen den Kerzen bzw. an der Tages-/Wochengrenze)
-        let openTimes = data.map(\.openTime)
-        let interval = range.candleMillis
-        var grid = Path()
-        for time in WidgetChartGeometry.gridTimes(firstOpen: first.openTime, endMillis: last.openTime + interval,
-                                                  range: range, timeZone: timeZone) {
-            guard let gx = WidgetChartGeometry.x(time: time, openTimes: openTimes, intervalMillis: interval,
-                                                 left: plotLeft, slot: slot),
-                  gx > plotLeft + px, gx < plotRight - px else { continue }
-            let sx = snap(gx)
-            grid.move(to: CGPoint(x: sx, y: top))
-            grid.addLine(to: CGPoint(x: sx, y: bottom))
-        }
-        ctx.stroke(grid, with: .color(gridColor), lineWidth: hair)
+        ctx.stroke(timeGrid(data, range: range, timeZone: timeZone, plotLeft: plotLeft, plotRight: plotRight, slot: slot,
+                            top: top, bottom: bottom, px: px),
+                   with: .color(gridColor), lineWidth: hair)
 
         // 2. Waagrechte Preisstufen (klein ohne mittlere)
         let centers = levelValues.map { y($0) }
@@ -105,9 +91,10 @@ enum PriceChartRenderer {
 
         // 4. Gestrichelte Akzent-Linie beim aktuellen Kurs; ausserhalb tief..hoch an den Rand geklemmt
         let lastY = Swift.min(Swift.max(y(tagPrice), top), bottom)
-        var dashed = Path()
-        dashed.move(to: CGPoint(x: plotLeft, y: lastY))
-        dashed.addLine(to: CGPoint(x: plotRight, y: lastY))
+        let dashed = Path { path in
+            path.move(to: CGPoint(x: plotLeft, y: lastY))
+            path.addLine(to: CGPoint(x: plotRight, y: lastY))
+        }
         ctx.stroke(dashed, with: .color(style.accent.opacity(style.highContrast ? 1 : 0.7)),
                    style: StrokeStyle(lineWidth: Swift.max(px, 0.75), dash: [2, 2]))
 
@@ -130,6 +117,25 @@ enum PriceChartRenderer {
         ctx.draw(tagText, at: CGPoint(x: tagRect.midX, y: tagRect.midY), anchor: .center)
         return layout
     }
+    /// 1. Senkrechte Zeit-Linien auf Pixelmitte zwischen den Kerzen bzw. an der Tages-/Wochengrenze. Teil von `render`.
+    private static func timeGrid(_ data: [MarketCandle], range: PriceChartRange, timeZone: TimeZone, plotLeft: CGFloat,
+                                 plotRight: CGFloat, slot: CGFloat, top: CGFloat, bottom: CGFloat, px: CGFloat) -> Path {
+        guard let first = data.first, let last = data.last else { return Path() }
+        let openTimes = data.map(\.openTime)
+        let interval = range.candleMillis
+        var grid = Path()
+        for time in WidgetChartGeometry.gridTimes(firstOpen: first.openTime, endMillis: last.openTime + interval,
+                                                  range: range, timeZone: timeZone) {
+            guard let gx = WidgetChartGeometry.x(time: time, openTimes: openTimes, intervalMillis: interval,
+                                                 left: plotLeft, slot: slot),
+                  gx > plotLeft + px, gx < plotRight - px else { continue }
+            let sx = (gx / px).rounded(.down) * px + px / 2
+            grid.move(to: CGPoint(x: sx, y: top))
+            grid.addLine(to: CGPoint(x: sx, y: bottom))
+        }
+        return grid
+    }
+
     /// 3. Kerzen: Docht und Körper je Kerze (Körper mindestens ein Pixel hoch). Teil von `render`.
     private static func drawCandles(_ ctx: inout GraphicsContext, data: [MarketCandle], plotLeft: CGFloat, slot: CGFloat,
                                     px: CGFloat, style: PriceChartStyle, y: (Double) -> CGFloat) {

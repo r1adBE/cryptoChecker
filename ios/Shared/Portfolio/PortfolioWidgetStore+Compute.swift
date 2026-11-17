@@ -138,6 +138,77 @@ extension PortfolioWidgetStore {
         return (amount, percent)
     }
 
+    /// Wert je bewertetem Coin und die Coins darunter ohne frischen Kurs (`PortfolioPriceFallback.staleCoins`;
+    /// `staleAfterMillis` nil = nicht prüfen) — Teil von `compute`.
+    static func pricedAndStale(open: [CoinPosition], prices: PortfolioPrices, now: Int64,
+                               staleAfterMillis: Int64?) -> (values: [String: Double], stale: Set<String>) {
+        var pricedValues: [String: Double] = [:]
+        for p in open {
+            if let v = p.value { pricedValues[PortfolioCalculator.normalizeCoin(p.coin)] = v }
+        }
+        let stale: Set<String> = staleAfterMillis.map {
+            Set(PortfolioPriceFallback.staleCoins(values: pricedValues, times: prices.times, now: now, staleAfterMillis: $0))
+        } ?? []
+        return (pricedValues, stale)
+    }
+
+    /// Faktor USDT → Währung und Beschriftung: mit gültigem Devisenkurs `currency`, sonst 1 und USDT (Teil von `compute`).
+    static func valuation(rate: Double?, currency: String) -> (factor: Double, label: String) {
+        if let rate, rate > 0, rate.isFinite { return (rate, currency) }
+        return (1, PortfolioStables.valuation)
+    }
+
+    /// Merkzettel der App nur für dieselbe Anzeigewährung (in USDT gelten die USDT-Werte) — Teil von `compute`.
+    static func displayMemo(_ memo: PortfolioDisplayFx?, label: String) -> PortfolioDisplayFx? {
+        memo.flatMap { m -> PortfolioDisplayFx? in
+            label != PortfolioStables.valuation && m.currency == label.trimmingCharacters(in: .whitespaces).uppercased()
+                ? m : nil
+        }
+    }
+
+    /// Gewinn/Verlust «heute» je gezeigter Position in der Währung (`factor`) — Teil von `compute`.
+    static func withCoinPnl(_ positions: [PortfolioWidgetPosition]?, coinPnl: [String: PortfolioWidgetChange],
+                            factor: Double) -> [PortfolioWidgetPosition]? {
+        positions?.map { p in
+            var p = p
+            let pnl = coinPnl[PortfolioCalculator.normalizeCoin(p.symbol)]
+            p.pnlAmount = pnl.map { $0.amount * factor }
+            p.pnlPercent = pnl?.percent
+            return p
+        }
+    }
+
+    /// Stundenkurse: gemerkte, dazu was ohnehin schon geladen ist — keine eigene Abfrage (`freshHourly`); nur gehaltene
+    /// Coins, mit neuem Kursstand gespeichert (`save`) — Teil von `compute`.
+    static func mergedHourly(holdings: [String: Double], extraHourly: [String: [PortfolioTimedPrice]], past: [PricePoint],
+                             current: [String: Double], staleCoins: Set<String>, stamp: Int64,
+                             save: Bool) -> [String: [PortfolioTimedPrice]] {
+        let fresh = freshHourly(holdings: holdings, extraHourly: extraHourly, past: past, current: current,
+                                staleCoins: staleCoins, stamp: stamp)
+        let held = Set(holdings.keys.map { $0.uppercased() })
+        let hourlyPrices = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: fresh, now: stamp)
+            .filter { held.contains($0.key) }
+        if save { saveHourly(hourlyPrices) }
+        return hourlyPrices
+    }
+
+    /// Kurs-Stand merken, ohne Coins mit altem Kurs (deren Kurs gilt nie als Kurs «jetzt») — Teil von `compute`.
+    static func recordSample(_ history: [PricePoint], sampled: [String: Double], staleCoins: Set<String>, now: Int64) {
+        let freshSampled = sampled.filter { !staleCoins.contains(PortfolioCalculator.normalizeCoin($0.key)) }
+        saveHistory(record(history, prices: freshSampled, at: now))
+    }
+
+    /// Aktueller Kurs (> 0) und Wert je offener Position — Teil von `compute`.
+    static func currentAndValues(_ open: [CoinPosition]) -> (current: [String: Double], values: [String: Double?]) {
+        var current: [String: Double] = [:]
+        var values: [String: Double?] = [:]
+        for p in open {
+            if let price = p.currentPrice, price > 0 { current[p.coin] = price }
+            values.updateValue(p.value, forKey: p.coin)
+        }
+        return (current, values)
+    }
+
     /// Kurse für Kurs-Stand und «heute»-Vergleich: die abgefragten Kurse, für die offenen Coins
     /// überschrieben mit dem Kurs nach der Stablecoin-Regel (`PortfolioStables`, z. B. USDC ohne
     /// USDCUSDT = 1) — wie `current` in `PortfolioSnapshotUpdater.kt`. Sonst fehlte ein solcher
@@ -175,7 +246,7 @@ extension PortfolioWidgetStore {
         for p in summary.open { holdings[p.coin] = p.holdings }
         guard !holdings.isEmpty else { return .emptyPortfolio }
 
-        var history = loadHistory()
+        let history = loadHistory()
         let changeStamp = ChangeBasisMath.stamp(basis, now: now)
         let dayStart: Int64? = basis.isDay ? changeStamp.dayStart : nil
         let ref = dayStart.map { reference(in: history, dayStart: $0) } ?? reference(in: history, now: now)
@@ -184,51 +255,24 @@ extension PortfolioWidgetStore {
         // Bewertete Coins ohne frischen Kurs (je Coin, `PortfolioPriceFallback.staleCoins`; nil = nicht prüfen):
         // zählen mit dem letzten Kurs, der Stand ist dann als «teilweise alter Kurs» markiert, Portfolio-Alarme
         // prüfen nicht, und ihr alter Kurs wird nie als Kurs «jetzt» gemerkt — wie Android `record`
-        var pricedValues: [String: Double] = [:]
-        for p in summary.open {
-            if let v = p.value { pricedValues[PortfolioCalculator.normalizeCoin(p.coin)] = v }
-        }
-        let staleCoins: Set<String> = staleAfterMillis.map {
-            Set(PortfolioPriceFallback.staleCoins(values: pricedValues, times: prices.times, now: now, staleAfterMillis: $0))
-        } ?? []
+        let (pricedValues, staleCoins) = pricedAndStale(open: summary.open, prices: prices, now: now,
+                                                    staleAfterMillis: staleAfterMillis)
         let delta = ref.flatMap { change(holdings: holdings, prices: sampled, reference: $0.prices) }
         let past = history
-        if prices.updatedAt > 0 {
-            let freshSampled = sampled.filter { !staleCoins.contains(PortfolioCalculator.normalizeCoin($0.key)) }
-            history = record(history, prices: freshSampled, at: now)
-            saveHistory(history)
-        }
+        if prices.updatedAt > 0 { recordSample(history, sampled: sampled, staleCoins: staleCoins, now: now) }
 
         // Faktor USDT → Währung (Devisenkurs × USDT/USD, auch für USD); ohne Devisenkurs in USDT (1:1 gerechnet —
         // nicht «USD», das in USD nun USDT zum Marktkurs meint; wie Android).
         // Der aktuelle Kurs gilt auch für die Punkte des Verlaufs: er reicht nur 24 h zurück,
         // EZB-Tageskurse (`PortfolioHistoryFx`) brächten dort nur einen künstlichen Sprung.
-        let factor: Double
-        let label: String
-        if let rate, rate > 0, rate.isFinite {
-            factor = rate
-            label = currency
-        } else {
-            factor = 1
-            label = PortfolioStables.valuation
-        }
+        let (factor, label) = valuation(rate: rate, currency: currency)
         // Grösste Positionen (Wert = Menge × aktueller Kurs) und Wertverlauf; Zeitpunkt des
         // letzten Punkts = Kursstand, damit unveränderte Kurse den Stand nicht ändern.
-        var current: [String: Double] = [:]
-        var values: [String: Double?] = [:]
-        for p in summary.open {
-            if let price = p.currentPrice, price > 0 { current[p.coin] = price }
-            values.updateValue(p.value, forKey: p.coin)
-        }
+        let (current, values) = currentAndValues(summary.open)
         let stamp = prices.updatedAt > 0 ? prices.updatedAt : now
 
-        // Stundenkurse: gemerkte, dazu was ohnehin schon geladen ist — keine eigene Abfrage (`freshHourly`)
-        let fresh = freshHourly(holdings: holdings, extraHourly: extraHourly, past: past, current: current,
-                                staleCoins: staleCoins, stamp: stamp)
-        let held = Set(holdings.keys.map { $0.uppercased() })
-        let hourlyPrices = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: fresh, now: stamp)
-            .filter { held.contains($0.key) }
-        if prices.updatedAt > 0 { saveHourly(hourlyPrices) }
+        let hourlyPrices = mergedHourly(holdings: holdings, extraHourly: extraHourly, past: past, current: current,
+                                        staleCoins: staleCoins, stamp: stamp, save: prices.updatedAt > 0)
         // Adress-Anteil im 24-h-Verlauf nur mit dem damals beobachteten Guthaben (nie rückwirkend) — wie Android
         let addressSteps = AddressBalanceHistory.stepsByCoin(addresses)
         var changes = coinChanges(current: current, reference: ref?.prices)
@@ -264,10 +308,7 @@ extension PortfolioWidgetStore {
         // «Seit Kauf»/«7 T» in der Anzeigewährung: mit dem Merkzettel der App (frisch übergeben oder gespeichert), nur
         // für dieselbe Währung — in USDT gelten die USDT-Werte. «Seit Kauf» = Wert × Faktor jetzt − gemerkter Einstand
         // zum Kurs der Erwerbstage (wie Android `record`)
-        let memo = (displayFx ?? load()?.displayFx).flatMap { m -> PortfolioDisplayFx? in
-            label != PortfolioStables.valuation && m.currency == label.trimmingCharacters(in: .whitespaces).uppercased()
-                ? m : nil
-        }
+        let memo = displayMemo(displayFx ?? load()?.displayFx, label: label)
         snapshot.displayFx = memo
         snapshot.unrealizedDisplay = PortfolioDisplayFigures.unrealized(open: summary.open, currency: label,
                                                                        currentRate: factor, memo: memo)
@@ -278,13 +319,7 @@ extension PortfolioWidgetStore {
                                        factor: factor)
         applyPauseReasons(&snapshot, summary: summary, staleCoins: staleCoins, pricedValues: pricedValues,
                           prices: prices, addressState: addressState, current: current)
-        snapshot.positions = snapshot.positions?.map { p in
-            var p = p
-            let pnl = coinPnl[PortfolioCalculator.normalizeCoin(p.symbol)]
-            p.pnlAmount = pnl.map { $0.amount * factor }
-            p.pnlPercent = pnl?.percent
-            return p
-        }
+        snapshot.positions = withCoinPnl(snapshot.positions, coinPnl: coinPnl, factor: factor)
         // Buchungen je gezeigtem Coin für die Liste (alle Zeilen = Bestand der Kopfzeile) — wie Android `withEntries`
         snapshot.positions = PortfolioWidgetEntries.withEntries(snapshot.positions, trades: transactions,
                                                                 current: current, factor: factor, method: method)

@@ -75,98 +75,8 @@ enum BackgroundRefresh {
         }
         AppLog.background.info("BG-Aufgabe gestartet")
         let work = Task { @MainActor in
-            let settings = SharedStorage.loadSettings()
-            // Datei-Arbeit (Abstimmung, AES, JSON) abseits des Hauptfadens (`offMain`)
-            let snapshot = await offMain { SharedStorage.loadSnapshot() }
-            // Zeitbudget: iOS gibt der Aufgabe nur rund 30 s. Eine Endzeit gilt für ALLE Schritte (Kurse,
-            // Tages-Bezüge, Lease, Alarm-Daten, Nebenprüfungen). Reihenfolge nach Wichtigkeit
-            // (`RefreshBudget.Step`): Kurse und Kursalarme speichern und melden, dann Portfolio (braucht nur
-            // Kurse und Devisen), dann Alarme mit Zusatzdaten, Fear & Greed (wenn fällig), Aktivität, Gas — jeweils nur, solange Zeit
-            // bleibt. Sonst endet alles im Ablauf, nichts ist gespeichert, und iOS gibt künftig weniger Hintergrundzeit.
-            let budget = RefreshBudget(start: EpochTime.nowMillis)
-            let deadline = budget.deadline
-            let outcome = await seams.refresh(snapshot, settings, deadline)
-            // Speichern der Reihe nach mit den Schreibern der App (`PriceWriteGate`: Aktualisierung, Live-Kurse).
-            // Von iOS abgebrochen (auch während des Wartens aufs Gate): abgebrochene Anfragen nicht als Fehler speichern.
-            let gate = PriceWriteGate.shared
-            let entered = await gate.acquire()
-            if Task.isCancelled || !entered {
-                if entered { gate.release() }
-                // Nicht gespeichert → auch nichts melden; die Alarme bleiben scharf.
-                outcome.releaseAlarmLease()
-                if logGate.claim() {
-                    await CheckRunStore.logDetached(.bgTask, .failed, startedAt: startedAt,
-                                                    reason: CheckRunLog.cancelledReason(nil)).value
-                }
-                completion.complete(success: false)
-                return
-            }
-            // 1) Kurse und Kursalarme ZUERST speichern. Frisch lesen und nur Kurse/Alarm-Zustand je Id
-            // übertragen — als ein abgestimmter Schritt mit Widget und App (der Nutzer könnte inzwischen
-            // etwas geändert haben). Unlesbare oder gerade nicht zugreifbare Datei: nichts schreiben.
-            let saved = await offMain { SharedStorage.updateSnapshot { outcome.apply(to: &$0) } }
-            gate.release()
-            let current = saved ?? snapshot
-            // Ergebnis für «Letzte Prüfungen»: Kurse geholt, aber nicht gespeichert zählt als fehlgeschlagen
-            let notSaved = saved == nil && outcome.checked > 0
-            let priceResult: CheckResult = notSaved ? .failed : outcome.checkResult
-            let priceReason: String? = notSaved ? CheckRunLog.reasonNotSaved : nil
-            priceBox.set(priceResult)
-            countFailures(outcome, saved: saved != nil)
-            await seams.afterPriceSave()
-            // Während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
-            // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,
-            // damit «Alarme geprüft» und Melden zusammenpassen
-            let expired = Task.isCancelled
-            let fullCheck = markRefreshed(outcome, saved: saved != nil, expired: expired)
-            if let report = outcome.report { SharedStorage.lastRefreshReport = report }
-            // Mit dieser %-Basis gerechnet (Änderung, Widgets und Live-Aktivität prüfen das)
-            if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
-            if expired {
-                outcome.releaseAlarmLease()
-                if logGate.claim() {
-                    await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt, reason: priceReason).value
-                }
-                completion.complete(success: false)
-                return
-            }
-            await deliverAlarms(outcome, saved: saved, settings: settings, seams: seams)
-            await AppData.shared.reloadFromDisk()
-            // Widgets nur neu laden, wenn sich der gespeicherte Stand geändert hat (Kurse, Fehler, %-Basis) — sonst
-            // verbraucht jeder Lauf ohne Ergebnis (offline, alles pausiert) Teile des Widget-Budgets
-            if saved != nil && (outcome.checked > 0 || outcome.changeStampChanged) {
-                WidgetCenter.shared.reloadAllTimelines()
-            }
-            // Live-Aktivität (Sperrbildschirm) mit dem neuen Kurs
-            await LiveActivityController.update(watches: current.watches)
-
-            // 2) Portfolio-Widget: eigener Stand, damit es nicht vom Öffnen der App abhängt — gleich nach den
-            // Kursalarmen (braucht nur Kurse und Devisen), vor den Alarmen mit Zusatzdaten (nur mit Restzeit,
-            // höchstens bis zur Endzeit; ohne Ergebnis keine Portfolio-Alarme diesmal)
-            await portfolioStep(deadline: deadline,
-                                extraAlarmsWaiting: saved != nil && !outcome.deferredAlarms.isEmpty)
-            // 3) Alarme mit Zusatzdaten (Volumen, Funding/OI, Hoch/Tief, Umrechnung) — nur mit Restzeit;
-            // was nicht rechtzeitig kommt, bleibt diese Runde ungeprüft (Alarm bleibt scharf).
-            if saved != nil && !outcome.deferredAlarms.isEmpty && !Task.isCancelled
-                && RefreshBudget.shouldRun(.extraAlarms, remaining: deadline.remaining()) {
-                await deferredAlarmsStep(outcome, settings: settings, deadline: deadline, fullCheck: fullCheck,
-                                         seams: seams)
-            }
-            // Depeg, Fear & Greed (wenn fällig), Aktivität und Gas — je nur mit Restzeit
-            await sideChecks(settings: settings, deadline: deadline, zoneDue: zoneDue, watches: current.watches)
-            // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält — abgewartet, ohne den Hauptfaden zu
-            // blockieren
-            await SharedStorage.snapshotWritesSettled()
-            if logGate.claim() {
-                await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt, reason: priceReason).value
-            }
-            let elapsed = EpochTime.nowMillis - startedAt
-            let checked = outcome.checked, failed = outcome.failed
-            AppLog.background.info("""
-                BG-Aufgabe beendet nach \(elapsed, privacy: .public) ms, geprüft \(checked, privacy: .public), \
-                fehlgeschlagen \(failed, privacy: .public)
-                """)
-            completion.complete(success: !Task.isCancelled)
+            await runWork(seams: seams, startedAt: startedAt, zoneDue: zoneDue, logGate: logGate, priceBox: priceBox,
+                          completion: completion)
         }
         workBox.set(work)
         return work
@@ -193,7 +103,7 @@ enum BackgroundRefresh {
     }
 
     /// Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck).
-    @MainActor private static func countFailures(_ outcome: PriceRefresher.Outcome, saved: Bool) {
+    @MainActor static func countFailures(_ outcome: PriceRefresher.Outcome, saved: Bool) {
         if !saved && outcome.checked > 0 {
             BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind)
         } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
@@ -204,7 +114,7 @@ enum BackgroundRefresh {
     /// Uhrzeit und «Alarme geprüft» nach dem Speichern; Rückgabe: volle Prüfung. Uhrzeit nur mit gespeichertem Stand:
     /// Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse auf der Platte sonst für frisch
     /// (`WidgetDataFreshness`).
-    @MainActor private static func markRefreshed(_ outcome: PriceRefresher.Outcome, saved: Bool, expired: Bool) -> Bool {
+    @MainActor static func markRefreshed(_ outcome: PriceRefresher.Outcome, saved: Bool, expired: Bool) -> Bool {
         var fullCheck = false
         if saved && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed,
                                                  notTraded: outcome.notTraded) {
@@ -228,8 +138,8 @@ enum BackgroundRefresh {
     /// Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`). Nicht gespeichert (keine Merkliste,
     /// unlesbar, nicht zugreifbar) → nichts melden; die Alarme bleiben scharf. Portfolio-Widget, Portfolio- und
     /// Gas-Alarm laufen trotzdem.
-    @MainActor private static func deliverAlarms(_ outcome: PriceRefresher.Outcome, saved: SharedStorage.Snapshot?,
-                                                 settings: AppSettings, seams: BackgroundRunSeams) async {
+    @MainActor static func deliverAlarms(_ outcome: PriceRefresher.Outcome, saved: SharedStorage.Snapshot?,
+                                         settings: AppSettings, seams: BackgroundRunSeams) async {
         guard let saved else {
             outcome.releaseAlarmLease()
             return
@@ -267,7 +177,7 @@ enum BackgroundRefresh {
     /// Kursalarmen (braucht nur Kurse und Devisen), vor den Alarmen mit Zusatzdaten (nur mit Restzeit,
     /// höchstens bis zur Endzeit; ohne Ergebnis keine Portfolio-Alarme diesmal).
     @MainActor
-    private static func portfolioStep(deadline: RefreshDeadline, extraAlarmsWaiting: Bool) async {
+    static func portfolioStep(deadline: RefreshDeadline, extraAlarmsWaiting: Bool) async {
         guard !Task.isCancelled && RefreshBudget.shouldRun(.portfolio, remaining: deadline.remaining()) else { return }
         // Warten Alarme mit Zusatzdaten, bleibt ihnen wenn möglich ihre Mindestzeit
         let allowance = RefreshBudget.portfolioAllowance(
@@ -305,9 +215,9 @@ enum BackgroundRefresh {
     /// 3) Alarme mit Zusatzdaten (Volumen, Funding/OI, Hoch/Tief, Umrechnung) prüfen, speichern und melden;
     /// was nicht rechtzeitig kommt, bleibt diese Runde ungeprüft (Alarm bleibt scharf). `outcome`: Ergebnis der Kurse.
     @MainActor
-    private static func deferredAlarmsStep(_ outcome: PriceRefresher.Outcome, settings: AppSettings,
-                                           deadline: RefreshDeadline, fullCheck: Bool,
-                                           seams: BackgroundRunSeams) async {
+    static func deferredAlarmsStep(_ outcome: PriceRefresher.Outcome, settings: AppSettings,
+                                   deadline: RefreshDeadline, fullCheck: Bool,
+                                   seams: BackgroundRunSeams) async {
         let extra = await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)
         // Geprüft und (falls nötig) gespeichert, nicht abgelaufen: erst jetzt zählt der Lauf als Prüfung mit allen Alarmen
         var deferredChecked = false
@@ -347,8 +257,8 @@ enum BackgroundRefresh {
 
     /// Nebenprüfungen nach Kursen, Portfolio und Alarmen — je nur mit Restzeit und höchstens bis zur Endzeit.
     @MainActor
-    private static func sideChecks(settings: AppSettings, deadline: RefreshDeadline, zoneDue: Bool,
-                                   watches: [Watch]) async {
+    static func sideChecks(settings: AppSettings, deadline: RefreshDeadline, zoneDue: Bool,
+                           watches: [Watch]) async {
         // USDT/USD messen und Depeg-Alarm prüfen (ein Alarm, darum vor Aktivität und Gas): nur mit Alarm oder
         // Portfolio (Live-Kurs USDT/USD der Bewertung), höchstens alle 5 Minuten, höchstens bis zur Endzeit —
         // gleiche Restzeit-Regel wie Gas
@@ -390,7 +300,7 @@ enum BackgroundRefresh {
 
     /// Datei-Arbeit (`NSFileCoordinator`, AES, JSON) abseits des Hauptfadens und abgewartet: Der Lauf
     /// selbst ist auf dem MainActor, und das Abstimmen kann auf Widget oder App warten (Oberfläche hinge sonst).
-    private static func offMain<T: Sendable>(_ work: @escaping @Sendable () -> T) async -> T {
+    static func offMain<T: Sendable>(_ work: @escaping @Sendable () -> T) async -> T {
         await Task.detached(priority: .userInitiated) { work() }.value
     }
 }

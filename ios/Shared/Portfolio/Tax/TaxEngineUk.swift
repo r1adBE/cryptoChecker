@@ -28,33 +28,8 @@ extension TaxEngines {
         func openOf(_ idx: [Int]) -> Decimal { idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) } }
         // Gruppen je Tag in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang)
         let (groups, groupOf) = ukGroups(steps, disposeIdx, zone)
-        // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
-        for g in groups {
-            guard var pool = dayPools[g.day] else { continue }
-            split(g.idx, min(openOf(g.idx), pool.held)) { i, want in
-                let taken = pool.take(want)
-                remaining[i] = (remaining[i] ?? 0) - taken.removed
-                pieces[i, default: []] += piecesOf(taken, match: .SAME_DAY, matchedTime: dayFirst[g.day])
-            }
-            dayPools[g.day] = pool
-        }
-        // 2. 30 Tage: früheste Gruppe zuerst, Zugänge der 30 Tage danach früheste zuerst
-        for g in groups {
-            let to = g.day.plusDays(TaxTemplate.ukBbDays)
-            // Erster Zugangstag nach dem Tag der Gruppe, dann nur die Tage bis `to` — wie `subMap` (Android)
-            for ad in poolDays[firstDayAfter(poolDays, g.day)...] {
-                if to < ad { break }
-                let r = openOf(g.idx)
-                if r <= 0 { break }
-                guard var pool = dayPools[ad], pool.held > 0 else { continue }
-                split(g.idx, min(r, pool.held)) { i, want in
-                    let taken = pool.take(want)
-                    remaining[i] = (remaining[i] ?? 0) - taken.removed
-                    pieces[i, default: []] += piecesOf(taken, match: .THIRTY_DAY, matchedTime: dayFirst[ad])
-                }
-                dayPools[ad] = pool
-            }
-        }
+        ukMatchDays(groups, poolDays: poolDays, dayFirst: dayFirst, dayPools: &dayPools, remaining: &remaining,
+                    pieces: &pieces)
         // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
         var groupAt: [Int: [Int]] = [:]
         for g in groups { if let last = g.idx.last { groupAt[last] = g.idx } }
@@ -118,6 +93,41 @@ extension TaxEngines {
             }
         }
         return out
+    }
+
+    /// 1. Gleicher Tag und 2. 30 Tage (Teil von `ukPool`): jede Gruppe eines Tags gegen die Zugänge des Tags, dann gegen die
+    /// Zugänge der 30 Tage danach (früheste zuerst); anteilig nach dem offenen Rest ihrer Abgänge (`ukSplit`).
+    private static func ukMatchDays(_ groups: [(day: LocalDay, idx: [Int])], poolDays: [LocalDay],
+                                    dayFirst: [LocalDay: Int64], dayPools: inout [LocalDay: TaxPool],
+                                    remaining: inout [Int: Decimal], pieces: inout [Int: [Piece]]) {
+        func openOf(_ idx: [Int]) -> Decimal { idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) } }
+        // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
+        for g in groups {
+            guard var pool = dayPools[g.day] else { continue }
+            ukSplit(remaining, g.idx, min(openOf(g.idx), pool.held)) { i, want in
+                let taken = pool.take(want)
+                remaining[i] = (remaining[i] ?? 0) - taken.removed
+                pieces[i, default: []] += piecesOf(taken, match: .SAME_DAY, matchedTime: dayFirst[g.day])
+            }
+            dayPools[g.day] = pool
+        }
+        // 2. 30 Tage: früheste Gruppe zuerst, Zugänge der 30 Tage danach früheste zuerst
+        for g in groups {
+            let to = g.day.plusDays(TaxTemplate.ukBbDays)
+            // Erster Zugangstag nach dem Tag der Gruppe, dann nur die Tage bis `to` — wie `subMap` (Android)
+            for ad in poolDays[firstDayAfter(poolDays, g.day)...] {
+                if to < ad { break }
+                let r = openOf(g.idx)
+                if r <= 0 { break }
+                guard var pool = dayPools[ad], pool.held > 0 else { continue }
+                ukSplit(remaining, g.idx, min(r, pool.held)) { i, want in
+                    let taken = pool.take(want)
+                    remaining[i] = (remaining[i] ?? 0) - taken.removed
+                    pieces[i, default: []] += piecesOf(taken, match: .THIRTY_DAY, matchedTime: dayFirst[ad])
+                }
+                dayPools[ad] = pool
+            }
+        }
     }
 
     // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur

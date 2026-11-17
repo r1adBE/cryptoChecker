@@ -104,8 +104,7 @@ enum PortfolioPriceSource {
     static func prices(_ coins: [String], force: Bool = false) async -> PortfolioPrices {
         let wanted = normalized(coins)
         await priceGate.run { () async in
-            let generation = Self.state.withLock { $0.clearGeneration }
-            let now = EpochTime.nowMillis
+            let (generation, now) = (Self.state.withLock { $0.clearGeneration }, EpochTime.nowMillis)
             // Dazu die Basis gekapselter Coins (Ersatzkurs, `ChainAssets.priceViaBase`); nur abfragbare Kürzel
             let toFetch = ChainAssets.withBases(wanted).filter { coin in
                 Self.isSymbol(coin) && coin != Self.stable && (force || !Self.isFresh(coin, now: now))

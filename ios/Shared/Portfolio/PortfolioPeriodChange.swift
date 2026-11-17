@@ -222,8 +222,7 @@ enum PortfolioPeriodChange {
     private static func parts(trades: [PortfolioTx], current: [String: Double], windowStart: Int64,
                               only: String? = nil, addresses: [AddressBalanceHistory] = [],
                               method: CostMethod = .defaultMethod, coinStart: [String: Int64] = [:],
-                              marketPrice: (String, Double?, Int64) -> Double?,
-                              rates: Rates = .none,
+                              marketPrice: (String, Double?, Int64) -> Double?, rates: Rates = .none,
                               startPrice: (String, Double?) -> Double?) -> Parts {
         var out = Parts()
         // Adress-Teil der Eingabe nie rückwirkend; dafür die beobachtete Reihe ohne Gebuchtes (`AddressBooked`),
