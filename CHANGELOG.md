@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 275)
+
+- Test fix (iOS UI test of the add button while scrolling).
+
 ## 16.2.2 (build 274)
 
 - Test fix (iOS UI test of the add button while scrolling).
