@@ -17,7 +17,10 @@ class SettingsWriteGuardTest {
 
     @Test
     fun guardedCatchesWriteErrors() {
-        val repo = File(dir("data/src/main/java/com/cryptochecker/app/data/settings"), "SettingsRepository.kt").readText().squashed()
+        val repo = File(
+            dir("data/src/main/java/com/cryptochecker/app/data/settings"),
+            "DataStoreSettingsRepository.kt"
+        ).readText().squashed()
         assertTrue(
             repo.contains(
                 "suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block()\n true }"

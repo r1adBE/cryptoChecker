@@ -3,10 +3,10 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.GasDataSource
 import com.cryptochecker.app.data.settings.GasAlertPrefs
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.canShowMarketNotice
 import com.cryptochecker.app.notification.showGas

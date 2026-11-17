@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import dagger.hilt.android.AndroidEntryPoint

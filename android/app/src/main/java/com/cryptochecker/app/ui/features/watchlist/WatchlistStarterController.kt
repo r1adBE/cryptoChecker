@@ -10,8 +10,8 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs

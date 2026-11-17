@@ -3,10 +3,10 @@ package com.cryptochecker.app.widget
 import android.content.Context
 import android.os.PowerManager
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.TimedPrice
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView

@@ -11,7 +11,6 @@ import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.trySaveAlarm
 import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
@@ -23,6 +22,7 @@ import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.notification.alarmsAllowed

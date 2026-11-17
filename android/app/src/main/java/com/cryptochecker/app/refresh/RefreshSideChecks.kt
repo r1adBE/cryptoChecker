@@ -1,10 +1,10 @@
 package com.cryptochecker.app.refresh
 import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.alarm.DepegAlarmChecker
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
 import com.cryptochecker.app.domain.refresh.SideCheckExtra
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope

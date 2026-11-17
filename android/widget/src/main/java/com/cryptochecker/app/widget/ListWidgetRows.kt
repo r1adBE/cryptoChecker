@@ -8,9 +8,9 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeView

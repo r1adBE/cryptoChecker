@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.components.DialogText

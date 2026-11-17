@@ -18,6 +18,7 @@ import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.PortfolioSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.settings.UpdateSettings
 import com.cryptochecker.app.domain.settings.WatchlistSettings
@@ -37,16 +38,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 /**
- * Einstellungen lesen und schreiben. Ablage in `SettingsDataStore.kt`, Schlüssel in [SettingsKeys].
+ * Einstellungen lesen und schreiben ([SettingsRepository] in :domain). Ablage in `SettingsDataStore.kt`, Schlüssel in [SettingsKeys].
  */
 @Singleton
-class SettingsRepository @Inject constructor(
+class DataStoreSettingsRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) : SettingsBackupTarget {
+) : SettingsRepository {
 
     // Lesefehler (I/O): Standardwerte statt Absturz; Portfolio-Sperre dann und nach beschädigter Datei an ([SettingsLockFallback])
-    val settings: Flow<AppSettings> = SettingsLockFallback.settings(context, context.settingsDataStore.data, ioDispatcher)
+    override val settings: Flow<AppSettings> = SettingsLockFallback.settings(context, context.settingsDataStore.data, ioDispatcher)
         .map { read ->
             read.also {
                 cached = it
@@ -56,10 +57,10 @@ class SettingsRepository @Inject constructor(
 
     // Ausschnitte von settings (SettingsSlices.kt) für Merkliste, Alarme, Portfolio und «Wie aktuell?»: geben nur neu
     // aus, wenn sich ihr Teil ändert — sonst benachrichtigte jede andere Einstellung alle
-    val watchlistSettings: Flow<WatchlistSettings> = settings.map { WatchlistSettings.of(it) }.distinctUntilChanged()
-    val alarmSettings: Flow<AlarmSettings> = settings.map { AlarmSettings.of(it) }.distinctUntilChanged()
-    val portfolioSettings: Flow<PortfolioSettings> = settings.map { PortfolioSettings.of(it) }.distinctUntilChanged()
-    val updateSettings: Flow<UpdateSettings> = settings.map { UpdateSettings.of(it) }.distinctUntilChanged()
+    override val watchlistSettings: Flow<WatchlistSettings> = settings.map { WatchlistSettings.of(it) }.distinctUntilChanged()
+    override val alarmSettings: Flow<AlarmSettings> = settings.map { AlarmSettings.of(it) }.distinctUntilChanged()
+    override val portfolioSettings: Flow<PortfolioSettings> = settings.map { PortfolioSettings.of(it) }.distinctUntilChanged()
+    override val updateSettings: Flow<UpdateSettings> = settings.map { UpdateSettings.of(it) }.distinctUntilChanged()
 
     /**
      * Zuletzt gelesene Einstellungen, ohne zu warten. Für Stellen, die nicht
@@ -67,12 +68,12 @@ class SettingsRepository @Inject constructor(
      * Lesen die Standardwerte.
      */
     @Volatile
-    var cached: AppSettings = AppSettings()
+    override var cached: AppSettings = AppSettings()
         private set
 
     /** true, sobald [cached] einmal aus der Datei gelesen wurde (Start ohne runBlocking). */
     @Volatile
-    var loaded: Boolean = false
+    override var loaded: Boolean = false
         private set
 
     override suspend fun current(): AppSettings = settings.first()
@@ -84,11 +85,11 @@ class SettingsRepository @Inject constructor(
         it[SettingsKeys.backgroundInterval] = AppSettings.clampBackgroundInterval(minutes)
     }
 
-    suspend fun setExactChecks(enabled: Boolean) = edit { it[SettingsKeys.exactChecks] = enabled }
+    override suspend fun setExactChecks(enabled: Boolean) = edit { it[SettingsKeys.exactChecks] = enabled }
 
     /** Preis-Overlay ein/aus (gerätebezogen). */
-    suspend fun setPriceOverlay(enabled: Boolean) = edit { it[SettingsKeys.priceOverlay] = enabled }
-    suspend fun setWatchNotifications(enabled: Boolean) = edit { it[SettingsKeys.watchNotifications] = enabled }
+    override suspend fun setPriceOverlay(enabled: Boolean) = edit { it[SettingsKeys.priceOverlay] = enabled }
+    override suspend fun setWatchNotifications(enabled: Boolean) = edit { it[SettingsKeys.watchNotifications] = enabled }
 
     override suspend fun setPriceNotifications(enabled: Boolean) = edit { it[SettingsKeys.priceNotifications] = enabled }
 
@@ -134,16 +135,16 @@ class SettingsRepository @Inject constructor(
     override suspend fun setThemeDarkFrom(minute: Int) = editMinute(SettingsKeys.themeDarkFrom, minute)
     override suspend fun setThemeLightFrom(minute: Int) = editMinute(SettingsKeys.themeLightFrom, minute)
 
-    suspend fun setShowHttpLog(show: Boolean) = edit { it[SettingsKeys.showHttpLog] = show }
+    override suspend fun setShowHttpLog(show: Boolean) = edit { it[SettingsKeys.showHttpLog] = show }
 
-    suspend fun setDeveloperUnlocked(unlocked: Boolean) = edit { it[SettingsKeys.developerUnlocked] = unlocked }
+    override suspend fun setDeveloperUnlocked(unlocked: Boolean) = edit { it[SettingsKeys.developerUnlocked] = unlocked }
 
-    suspend fun setGestureHintSeen(seen: Boolean) = edit { it[SettingsKeys.gestureHintSeen] = seen }
+    override suspend fun setGestureHintSeen(seen: Boolean) = edit { it[SettingsKeys.gestureHintSeen] = seen }
 
-    suspend fun setFirstAlarmCardDismissed(dismissed: Boolean) = edit { it[SettingsKeys.firstAlarmCardDismissed] = dismissed }
+    override suspend fun setFirstAlarmCardDismissed(dismissed: Boolean) = edit { it[SettingsKeys.firstAlarmCardDismissed] = dismissed }
 
     /** Öffnen am lokalen Epoch-Tag [today] zählen ([UsageDays.next]); derselbe Tag schreibt nichts Neues. */
-    suspend fun recordUsageDay(today: Long) = edit {
+    override suspend fun recordUsageDay(today: Long) = edit {
         val next = UsageDays(it[SettingsKeys.usageDays] ?: 0, it[SettingsKeys.usageLastDay]).next(today)
         it[SettingsKeys.usageDays] = next.count
         next.lastDay?.let { day -> it[SettingsKeys.usageLastDay] = day }
@@ -191,7 +192,7 @@ class SettingsRepository @Inject constructor(
      * [com.cryptochecker.app.notification.NotificationChannels] einen neuen Kanal anlegt.
      * @return die neue Kanal-Version
      */
-    suspend fun setAlarmSound(uri: String?, name: String?): Int {
+    override suspend fun setAlarmSound(uri: String?, name: String?): Int {
         var version = 0
         edit {
             version = (it[SettingsKeys.alarmChannelVersion] ?: 0) + 1
@@ -254,15 +255,15 @@ class SettingsRepository @Inject constructor(
     /** Kursfarben tauschen (Rot = steigend). */
     override suspend fun setPriceColorsInverted(inverted: Boolean) = edit { it[SettingsKeys.priceColorsInverted] = inverted }
 
-    suspend fun setAboutSeen(seen: Boolean) = edit { it[SettingsKeys.aboutSeen] = seen }
+    override suspend fun setAboutSeen(seen: Boolean) = edit { it[SettingsKeys.aboutSeen] = seen }
 
-    suspend fun setBatteryPromptSeen(seen: Boolean) = edit { it[SettingsKeys.batteryPromptSeen] = seen }
+    override suspend fun setBatteryPromptSeen(seen: Boolean) = edit { it[SettingsKeys.batteryPromptSeen] = seen }
 
     /**
      * Spalten-Sortierung aus dem gespeicherten Stand weiterschalten — in einem Schreibvorgang, damit schnelle Tipps nie
      * einen veralteten Wert lesen (sonst schrieb der dritte Tipp den zweiten Zustand nochmals, statt aufzuheben).
      */
-    suspend fun updateWatchlistColumnSort(next: (String?) -> String?) = edit {
+    override suspend fun updateWatchlistColumnSort(next: (String?) -> String?) = edit {
         val value = next(it[SettingsKeys.watchlistColumnSort])
         if (value == null) it.remove(SettingsKeys.watchlistColumnSort) else it[SettingsKeys.watchlistColumnSort] = value
     }
@@ -273,7 +274,7 @@ class SettingsRepository @Inject constructor(
     }
 
     /** null = «Alle». */
-    suspend fun setWatchlistGroup(group: String?) = edit {
+    override suspend fun setWatchlistGroup(group: String?) = edit {
         if (group == null) {
             it.remove(SettingsKeys.watchlistGroup)
         } else {
@@ -308,24 +309,26 @@ class SettingsRepository @Inject constructor(
     override suspend fun setPortfolioSystemBackup(allowed: Boolean) = edit { it[SettingsKeys.portfolioSystemBackup] = allowed }
 
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */
-    suspend fun setFirstAlarmShown(shown: Boolean) = edit { it[SettingsKeys.firstAlarmShown] = shown }
+    override suspend fun setFirstAlarmShown(shown: Boolean) = edit { it[SettingsKeys.firstAlarmShown] = shown }
 
     /** Hinweis «Wann Alarme geprüft werden» gezeigt (nicht in der Sicherung). */
-    suspend fun setAlarmTimingHintShown(shown: Boolean) = edit { it[SettingsKeys.alarmTimingHintShown] = shown }
+    override suspend fun setAlarmTimingHintShown(shown: Boolean) = edit { it[SettingsKeys.alarmTimingHintShown] = shown }
 
     /** Erstes Paar hinzugefügt (nicht in der Sicherung). */
-    suspend fun setFirstPairAdded(added: Boolean) = edit { it[SettingsKeys.firstPairAdded] = added }
+    override suspend fun setFirstPairAdded(added: Boolean) = edit { it[SettingsKeys.firstPairAdded] = added }
 
     /** Chart im Aktionsblatt: Linie (true) oder Kerzen (nicht in der Sicherung). */
-    suspend fun setSheetChartLine(line: Boolean) = edit { it[SettingsKeys.sheetChartLine] = line }
+    override suspend fun setSheetChartLine(line: Boolean) = edit { it[SettingsKeys.sheetChartLine] = line }
 
     // Wertverlauf im Portfolio (nicht in der Sicherung): auf- oder zugeklappt, Zeitraum, Darstellung (Währung, USDT oder
     // Vergleich), Kerzen (true) oder Linie, Gewinn/Verlust (true) oder Wert
-    suspend fun setPortfolioHistoryExpanded(expanded: Boolean) = edit { it[SettingsKeys.portfolioHistoryExpanded] = expanded }
-    suspend fun setPortfolioHistoryRange(range: PortfolioHistoryRange) = edit { it[SettingsKeys.portfolioHistoryRange] = range.name }
-    suspend fun setPortfolioHistoryView(view: PortfolioHistoryView) = edit { it[SettingsKeys.portfolioHistoryView] = view.name }
-    suspend fun setPortfolioHistoryCandles(candles: Boolean) = edit { it[SettingsKeys.portfolioHistoryCandles] = candles }
-    suspend fun setPortfolioHistoryPnl(pnl: Boolean) = edit { it[SettingsKeys.portfolioHistoryPnl] = pnl }
+    override suspend fun setPortfolioHistoryExpanded(expanded: Boolean) = edit { it[SettingsKeys.portfolioHistoryExpanded] = expanded }
+    override suspend fun setPortfolioHistoryRange(
+        range: PortfolioHistoryRange
+    ) = edit { it[SettingsKeys.portfolioHistoryRange] = range.name }
+    override suspend fun setPortfolioHistoryView(view: PortfolioHistoryView) = edit { it[SettingsKeys.portfolioHistoryView] = view.name }
+    override suspend fun setPortfolioHistoryCandles(candles: Boolean) = edit { it[SettingsKeys.portfolioHistoryCandles] = candles }
+    override suspend fun setPortfolioHistoryPnl(pnl: Boolean) = edit { it[SettingsKeys.portfolioHistoryPnl] = pnl }
 
     /** Einstandsmethode FIFO | Ø (nicht in der Sicherung). */
     override suspend fun setCostMethod(method: CostMethod) = edit { it[SettingsKeys.costMethod] = method.name }
@@ -335,7 +338,7 @@ class SettingsRepository @Inject constructor(
         edit { it[SettingsKeys.taxTemplate] = template.name }
 
     /** Eigener Bitcoin-Server für Adressabfragen ([AddressServerStore]; in der Sicherung, «addressServerBtc»). */
-    val addressServerFlow: Flow<String?> = AddressServerStore.flow(context.settingsDataStore)
+    override val addressServerFlow: Flow<String?> = AddressServerStore.flow(context.settingsDataStore)
     override suspend fun addressServer(): String? = addressServerFlow.first()
     override suspend fun setAddressServer(url: String?) {
         AddressServerStore.set(context.settingsDataStore, url)
@@ -344,18 +347,20 @@ class SettingsRepository @Inject constructor(
     }
 
     /** Server unbekannt (Einstellungen ersetzt): Bitcoin-Adressen nicht abfragen ([StorageRecoveryNotice.addressServerUnknown]). */
-    val addressServerUnknownFlow: Flow<Boolean> = StorageRecoveryNotice.addressServerUnknown(context, ioDispatcher)
-    suspend fun addressServerUnknown(): Boolean =
+    override val addressServerUnknownFlow: Flow<Boolean> = StorageRecoveryNotice.addressServerUnknown(context, ioDispatcher)
+    override suspend fun addressServerUnknown(): Boolean =
         withContext(ioDispatcher) { StorageRecoveryNotice.isAddressServerUnknown(context) }
 
     /** Eigener Server eingetragen oder öffentliche Knoten bestätigt (Einstellungen › Portfolio). */
-    suspend fun confirmAddressServer() = withContext(ioDispatcher) { StorageRecoveryNotice.confirmAddressServer(context) }
+    override suspend fun confirmAddressServer() {
+        withContext(ioDispatcher) { StorageRecoveryNotice.confirmAddressServer(context) }
+    }
 
     /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt (nicht in der Sicherung). */
-    suspend fun setTaxTemplateConfirmed() = edit { it[SettingsKeys.taxTemplateConfirmed] = true }
+    override suspend fun setTaxTemplateConfirmed() = edit { it[SettingsKeys.taxTemplateConfirmed] = true }
 
     /** «Mehr Marktdaten» im Markt-Tab auf- oder zugeklappt (nicht in der Sicherung). */
-    suspend fun setMarketMoreExpanded(expanded: Boolean) = edit { it[SettingsKeys.marketMoreExpanded] = expanded }
+    override suspend fun setMarketMoreExpanded(expanded: Boolean) = edit { it[SettingsKeys.marketMoreExpanded] = expanded }
 
     companion object {
         /** «Wie aktuell?». */
@@ -381,7 +386,7 @@ class SettingsRepository @Inject constructor(
      * Schreibfehler (DataStore-IOException, z. B. Speicher voll) beendet die App nicht, sondern wird genannt
      * ([guardedWrite]); true = geschrieben. Wiederherstellen und Hintergrund rufen die Setter direkt (Fehler gehen weiter).
      */
-    suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) {
+    override suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) {
         block()
         true
     }

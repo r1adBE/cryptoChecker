@@ -5,9 +5,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioCostGapStore
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.logos.CoinLogoSync
 import com.cryptochecker.app.testing.AppTestEnvironmentRule

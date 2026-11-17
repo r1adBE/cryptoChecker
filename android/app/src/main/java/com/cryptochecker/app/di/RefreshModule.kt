@@ -13,7 +13,6 @@ import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
@@ -30,6 +29,7 @@ import com.cryptochecker.app.domain.refresh.RefreshResultProcessor
 import com.cryptochecker.app.domain.refresh.RefresherCandles
 import com.cryptochecker.app.domain.refresh.RefresherDrawing
 import com.cryptochecker.app.domain.refresh.RefresherState
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.notification.AppNotifier

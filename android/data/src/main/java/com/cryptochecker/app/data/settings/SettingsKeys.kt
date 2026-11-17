@@ -6,12 +6,12 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_INCLUDE_ALPHA_TOKENS
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_ONGOING_NOTIFICATIONS
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_PORTFOLIO_ENABLED
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_SHOW_CONVERTED
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_UPDATE_MODE
-import com.cryptochecker.app.data.settings.SettingsRepository.Companion.KEY_WATCHLIST_NAMES
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_INCLUDE_ALPHA_TOKENS
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_ONGOING_NOTIFICATIONS
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_PORTFOLIO_ENABLED
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_SHOW_CONVERTED
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_UPDATE_MODE
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository.Companion.KEY_WATCHLIST_NAMES
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 
 /** Schlüssel der Einstellungen im DataStore ([SettingsRepository], [settingsDataStore]). */

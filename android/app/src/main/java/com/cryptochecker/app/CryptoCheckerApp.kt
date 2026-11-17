@@ -10,9 +10,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.mirror.MirrorRevocations
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.notification.NotificationChannels

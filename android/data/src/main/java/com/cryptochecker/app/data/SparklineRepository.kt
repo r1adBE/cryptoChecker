@@ -3,9 +3,9 @@ package com.cryptochecker.app.data
 import android.content.Context
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.domain.KeyedMutex
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.ChangeBasis

@@ -3,7 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -67,7 +67,7 @@ class ExchangeRepositoryRetirementTest {
     private fun repository() = ExchangeRepositoryImpl(
         local = unusedInstance(ExchangeLocalDataSource::class.java),
         remote = ExchangeRemoteDataSource(http),
-        settings = unusedInstance(SettingsRepository::class.java),
+        settings = unusedInstance(DataStoreSettingsRepository::class.java),
         tokenIdentityStore = unusedInstance(TokenIdentityStore::class.java),
         coinLogos = unusedInstance(CoinLogoRepository::class.java),
         ioDispatcher = Dispatchers.Unconfined,

@@ -10,7 +10,6 @@ import com.cryptochecker.app.data.remote.SpotDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.data.remote.fundingHistory
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.ActivityDueOrder
@@ -34,6 +33,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.FuturesInfo
 import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded

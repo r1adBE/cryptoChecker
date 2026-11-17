@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.starter.AddMoment
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -3,11 +3,11 @@ package com.cryptochecker.app.logos
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater

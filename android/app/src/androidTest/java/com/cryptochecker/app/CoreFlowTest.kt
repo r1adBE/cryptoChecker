@@ -16,11 +16,11 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange

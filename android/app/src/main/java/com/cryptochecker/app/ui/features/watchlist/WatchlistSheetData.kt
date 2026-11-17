@@ -11,9 +11,9 @@ import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.FuturesDataSource
 import com.cryptochecker.app.data.remote.SpotDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult

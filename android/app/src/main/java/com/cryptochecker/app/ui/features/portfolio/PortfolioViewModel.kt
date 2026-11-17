@@ -9,7 +9,6 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.withAddresses
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
@@ -28,6 +27,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater

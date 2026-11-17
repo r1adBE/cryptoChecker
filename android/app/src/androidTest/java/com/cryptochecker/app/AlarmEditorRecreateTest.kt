@@ -15,8 +15,8 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags

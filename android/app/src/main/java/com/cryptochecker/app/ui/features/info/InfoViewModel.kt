@@ -11,7 +11,6 @@ import com.cryptochecker.app.data.remote.GasDataSource
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.data.remote.UnusualDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.macro.MacroEvent
@@ -35,6 +34,7 @@ import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.FavoriteKind
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

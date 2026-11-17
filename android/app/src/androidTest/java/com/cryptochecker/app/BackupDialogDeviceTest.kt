@@ -13,8 +13,8 @@ import androidx.core.content.FileProvider
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.DocumentPickerStub
 import com.cryptochecker.app.ui.MainActivity

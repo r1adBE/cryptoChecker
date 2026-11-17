@@ -15,12 +15,12 @@ import androidx.annotation.RequiresApi
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.widget.ListWidgetDataVersion
 import com.cryptochecker.app.domain.widget.ListWidgetHeader

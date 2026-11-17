@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted

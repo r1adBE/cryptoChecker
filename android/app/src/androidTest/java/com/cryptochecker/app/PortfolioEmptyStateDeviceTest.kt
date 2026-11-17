@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags

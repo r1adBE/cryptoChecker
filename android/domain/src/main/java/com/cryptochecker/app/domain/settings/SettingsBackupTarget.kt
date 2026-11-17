@@ -1,14 +1,9 @@
-package com.cryptochecker.app.data.settings
+package com.cryptochecker.app.domain.settings
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.domain.settings.AssetScope
-import com.cryptochecker.app.domain.settings.PriceColorScheme
-import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.watch.ChangeBasis
 
 /**

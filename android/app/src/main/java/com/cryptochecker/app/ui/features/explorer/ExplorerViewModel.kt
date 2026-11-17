@@ -8,12 +8,12 @@ import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.settings.AssetScope
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.scoped
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.FavoriteKind

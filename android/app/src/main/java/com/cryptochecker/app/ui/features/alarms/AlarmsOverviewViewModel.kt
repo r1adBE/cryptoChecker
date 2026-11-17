@@ -9,9 +9,9 @@ import com.cryptochecker.app.data.guardedWrite
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis

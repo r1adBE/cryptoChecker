@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.logos.CoinLogos
@@ -17,6 +16,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasisMath

@@ -3275,6 +3275,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 290: iPad and landscape (owner decision 17.11.2026): TARGETED_DEVICE_FAMILY "1,2" for app, widgets and tests (watch unchanged), iPad all orientations, iPhone portrait and landscape like Android; layouts keep the readable width (640 pt); workflow «Screenshots» also takes iPad 13" screenshots (folder ipad/ on the screenshots branch).
 * Build 291: Widget background choice «System» renamed «Like the app» (new string widget_theme_app, 75 languages; it follows the app's appearance since build 287); the app's own «System» stays.
 * Build 292: C-07 part 1: the api chain is gone (:coreui no longer depends on :data, :widget depends on it directly; coreui lockfile shrunk); pure types moved to :domain (FavoriteKind, PortfolioPrices/PortfolioPriceIssue, the settings slices); source rule layers keeps :coreui free of :data and allows references from app/ui only in the files listed in UI_DATA_REMAINING (may only shrink).
+* Build 293: C-07 Teil 2a: SettingsRepository als :domain-Schnittstelle, DataStoreSettingsRepository in :data, SettingsBackupTarget nach :domain; UI_DATA_REMAINING 94 → 91.
 
 ## Known warnings
 

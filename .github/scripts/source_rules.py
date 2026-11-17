@@ -829,7 +829,6 @@ UI_DATA_REMAINING = {
     "features/settings/SettingsGeneralPages.kt",
     "features/settings/SettingsPickers.kt",
     "features/settings/SettingsTestActions.kt",
-    "features/settings/SettingsUsagePage.kt",
     "features/settings/SettingsViewModel.kt",
     "features/settings/SettingsViewModelAppearance.kt",
     "features/settings/StorageRecoveryNoticeDialog.kt",
@@ -850,8 +849,6 @@ UI_DATA_REMAINING = {
     "features/watchlist/WatchlistStarterController.kt",
     "features/watchlist/WatchlistUiState.kt",
     "features/watchlist/WatchlistViewModel.kt",
-    "lock/PortfolioLock.kt",
-    "navigation/AppNavViewModel.kt",
 }
 
 

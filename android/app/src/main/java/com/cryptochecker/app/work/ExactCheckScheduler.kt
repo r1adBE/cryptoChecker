@@ -9,8 +9,8 @@ import android.provider.Settings
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

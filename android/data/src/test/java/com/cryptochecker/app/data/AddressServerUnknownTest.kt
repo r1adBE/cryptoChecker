@@ -36,7 +36,7 @@ class AddressServerUnknownTest {
 
     @Test
     fun enteredServerOrConfirmationLifts() {
-        val repo = source("data/settings/SettingsRepository.kt")
+        val repo = source("data/settings/DataStoreSettingsRepository.kt")
         assertTrue(
             repo.substringAfter("override suspend fun setAddressServer(").substringBefore("\n    }\n")
                 .contains("if (url != null) confirmAddressServer()")

@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.wearable.SerialPublisher

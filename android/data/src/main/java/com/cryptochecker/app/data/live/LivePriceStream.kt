@@ -1,7 +1,6 @@
 package com.cryptochecker.app.data.live
 
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.PairIdentity
 import com.cryptochecker.app.domain.live.LiveBackoff
@@ -15,6 +14,7 @@ import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope

@@ -12,12 +12,12 @@ import com.cryptochecker.app.data.cycle.CachedValue
 import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.PulseDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.widget.PulseBackgroundFetch
 import com.cryptochecker.app.domain.widget.WidgetTextFit

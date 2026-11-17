@@ -5,9 +5,9 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import javax.inject.Inject
 import javax.inject.Singleton

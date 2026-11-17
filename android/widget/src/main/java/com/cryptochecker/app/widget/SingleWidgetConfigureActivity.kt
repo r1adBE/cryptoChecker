@@ -48,8 +48,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.AppColors

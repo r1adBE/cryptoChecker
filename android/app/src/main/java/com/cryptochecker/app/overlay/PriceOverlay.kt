@@ -23,12 +23,12 @@ import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.shownChange24h

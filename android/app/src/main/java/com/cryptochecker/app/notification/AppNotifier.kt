@@ -6,12 +6,12 @@ import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.notification.NotificationBudget
 import com.cryptochecker.app.domain.notification.NotificationIds
 import com.cryptochecker.app.domain.notification.PriceNotificationRule
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.resources.R

@@ -32,13 +32,13 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.refresh.AlarmLogStore
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.diagnostics.DiagnosticInput
 import com.cryptochecker.app.diagnostics.DiagnosticReport
 import com.cryptochecker.app.diagnostics.DiagnosticSettings
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.logos.CoinLogoUse
 import com.cryptochecker.app.work.AlarmReadinessProbe

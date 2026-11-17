@@ -18,8 +18,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.setup.AppearanceApplier

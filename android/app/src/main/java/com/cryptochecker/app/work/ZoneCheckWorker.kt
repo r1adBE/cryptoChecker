@@ -7,12 +7,12 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.settings.MarketAlertReset
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.settings.ZoneCheckPrefs
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.work.countedRun
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.IndicatorTexts

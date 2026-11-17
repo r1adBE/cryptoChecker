@@ -19,12 +19,12 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
 import com.cryptochecker.app.widget.PriceWidgetProvider

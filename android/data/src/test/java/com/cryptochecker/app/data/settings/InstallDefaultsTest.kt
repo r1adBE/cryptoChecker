@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.settings
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.settings.enablePortfolioForData
 import org.junit.Assert.assertEquals
@@ -24,8 +24,8 @@ class InstallDefaultsTest {
 
     @Test
     fun keyNames() {
-        assertEquals("portfolio_enabled", SettingsRepository.KEY_PORTFOLIO_ENABLED)
-        assertEquals("portfolio_data_check", SettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
+        assertEquals("portfolio_enabled", DataStoreSettingsRepository.KEY_PORTFOLIO_ENABLED)
+        assertEquals("portfolio_data_check", DataStoreSettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
     }
 
     /**

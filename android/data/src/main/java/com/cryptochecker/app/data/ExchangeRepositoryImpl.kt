@@ -4,7 +4,6 @@ import android.content.res.Resources
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
@@ -17,6 +16,7 @@ import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.refresh.refreshFailure
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.config.ExchangesConfig

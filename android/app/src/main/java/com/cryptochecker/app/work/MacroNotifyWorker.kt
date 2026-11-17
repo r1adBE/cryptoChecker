@@ -9,8 +9,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.MacroCalendarRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.macro.MacroCalendar
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.domain.work.countedRun
 import com.cryptochecker.app.notification.AppNotifier

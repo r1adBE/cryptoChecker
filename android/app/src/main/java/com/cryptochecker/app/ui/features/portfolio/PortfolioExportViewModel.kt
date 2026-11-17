@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
@@ -27,6 +26,7 @@ import com.cryptochecker.app.domain.portfolio.incomeCsv
 import com.cryptochecker.app.domain.portfolio.incomeRows
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import com.cryptochecker.app.domain.util.DefaultDispatcher

@@ -13,8 +13,8 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.backup.BackupManager
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.ui.MainActivity

@@ -12,7 +12,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel

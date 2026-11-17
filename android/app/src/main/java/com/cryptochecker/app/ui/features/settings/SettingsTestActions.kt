@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.notification.AlarmTestResult
 import com.cryptochecker.app.notification.AlarmTester
 import com.cryptochecker.app.tts.SpokenText

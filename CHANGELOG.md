@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 293)
+
+- Internal: the settings store is now an interface in the core module; the app screens no longer depend on its storage (C-07 part 2a).
+
 ## 16.2.2 (build 292)
 
 - Internal restructuring (no change in the app).

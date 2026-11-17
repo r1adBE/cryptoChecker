@@ -5,7 +5,6 @@ import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.K
 import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.PUBLIC
 import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.SET
 import com.cryptochecker.app.data.restore
-import com.cryptochecker.app.data.settings.SettingsBackupTarget
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
@@ -15,6 +14,7 @@ import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.SettingsBackupTarget
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.parity.ParityJson

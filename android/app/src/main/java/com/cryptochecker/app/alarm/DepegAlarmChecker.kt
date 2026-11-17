@@ -4,7 +4,6 @@ import androidx.core.content.edit
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.settings.DepegAlarmPrefs
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
@@ -14,6 +13,7 @@ import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.notification.AppNotifier

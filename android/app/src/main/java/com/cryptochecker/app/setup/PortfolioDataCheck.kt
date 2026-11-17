@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.cryptochecker.app.data.settings.DataStoreSettingsRepository
 import com.cryptochecker.app.data.settings.SettingsKeys
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.settings.settingsDataStore
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.AppSettings
@@ -15,13 +15,13 @@ import timber.log.Timber
 
 /**
  * Einstellungen neu angelegt (fehlend oder beschädigt und durch leere ersetzt): Portfolio steht auf dem Standard aus,
- * `SettingsDataStore.kt` setzt den Merker [SettingsRepository.KEY_PORTFOLIO_DATA_CHECK]. Beim Start prüft
+ * `SettingsDataStore.kt` setzt den Merker [DataStoreSettingsRepository.KEY_PORTFOLIO_DATA_CHECK]. Beim Start prüft
  * [resolve], ob trotzdem Portfolio-Daten da sind, und schaltet das Portfolio dann wieder ein
  * ([AppSettings.enablePortfolioForData]).
  */
 object PortfolioDataCheck {
 
-    private val checkKey = booleanPreferencesKey(SettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
+    private val checkKey = booleanPreferencesKey(DataStoreSettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
 
     /**
      * Merker gesetzt: [hasPortfolioData] fragen, Portfolio bei Bedarf einschalten, Merker entfernen. Portfolio

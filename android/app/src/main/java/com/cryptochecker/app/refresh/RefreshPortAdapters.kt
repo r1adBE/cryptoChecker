@@ -17,7 +17,6 @@ import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.data.setAlarmReferenceIfUnchanged
 import com.cryptochecker.app.data.setNotifiedPrices
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.ErrorWrite
 import com.cryptochecker.app.domain.PriceWrite
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
@@ -48,6 +47,7 @@ import com.cryptochecker.app.domain.refresh.RefreshStatsPort
 import com.cryptochecker.app.domain.refresh.RefreshStore
 import com.cryptochecker.app.domain.refresh.RefreshWidgets
 import com.cryptochecker.app.domain.remote.WindowRanges
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.notification.AppNotifier

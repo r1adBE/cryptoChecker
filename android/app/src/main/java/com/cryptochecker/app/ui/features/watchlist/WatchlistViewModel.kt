@@ -10,7 +10,6 @@ import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.activity.WhyReport
@@ -20,6 +19,7 @@ import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
+import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeBasis

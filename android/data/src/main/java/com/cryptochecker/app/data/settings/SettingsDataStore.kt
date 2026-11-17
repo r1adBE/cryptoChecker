@@ -48,11 +48,11 @@ private var settingsStoreContext: Context? = null
 
 /**
  * Neu angelegte Einstellungen (noch nichts gespeichert: neue Installation, fehlende oder durch leere ersetzte Datei):
- * den Merker [SettingsRepository.KEY_PORTFOLIO_DATA_CHECK] setzen. Beim Start prüft dann [PortfolioDataCheck], ob
+ * den Merker [DataStoreSettingsRepository.KEY_PORTFOLIO_DATA_CHECK] setzen. Beim Start prüft dann [PortfolioDataCheck], ob
  * trotzdem Portfolio-Daten da sind.
  */
 private object NewSettingsMarker : DataMigration<Preferences> {
-    private val checkKey = booleanPreferencesKey(SettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
+    private val checkKey = booleanPreferencesKey(DataStoreSettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
 
     override suspend fun shouldMigrate(currentData: Preferences): Boolean = currentData.asMap().isEmpty()
 
