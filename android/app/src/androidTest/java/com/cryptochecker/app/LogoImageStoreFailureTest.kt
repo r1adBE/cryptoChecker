@@ -10,6 +10,8 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
+import com.cryptochecker.app.data.logos.LogoTestInterceptor
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -68,12 +70,16 @@ class LogoImageStoreFailureTest {
     }
 
     private fun store(): LogoImageStore {
-        val client = OkHttpClient.Builder().addInterceptor { chain ->
-            requests.incrementAndGet()
-            if (delayMillis > 0) Thread.sleep(delayMillis)
-            Response.Builder().request(chain.request()).protocol(Protocol.HTTP_1_1).code(200).message("OK")
-                .body(png.toResponseBody("image/png".toMediaType())).build()
-        }.build()
+        // Bleibt beim Bild-Abruf erhalten (LogoTestInterceptor), alle anderen Interceptors fallen dort weg
+        val images = object : LogoTestInterceptor {
+            override fun intercept(chain: Interceptor.Chain): Response {
+                requests.incrementAndGet()
+                if (delayMillis > 0) Thread.sleep(delayMillis)
+                return Response.Builder().request(chain.request()).protocol(Protocol.HTTP_1_1).code(200).message("OK")
+                    .body(png.toResponseBody("image/png".toMediaType())).build()
+            }
+        }
+        val client = OkHttpClient.Builder().addInterceptor(images).build()
         return LogoImageStore(context, client, connectivity, "cryptoChecker-test")
     }
 

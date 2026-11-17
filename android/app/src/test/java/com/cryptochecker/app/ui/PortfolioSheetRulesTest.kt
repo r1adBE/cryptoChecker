@@ -6,18 +6,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 
-/** Regeln, die an jeder Stelle gelten müssen (Blätter, Dialoge, Meldungen) — Quelltext-Wächter. */
+/**
+ * Regeln, die an jeder Stelle gelten müssen (Blätter, Dialoge) — Quelltext-Wächter (Rest; Adress-Meldung: AddressSaveMessageTest,
+ * Wischen mit Rückfrage: Regel swipe-delete in source_rules.py).
+ */
 class PortfolioSheetRulesTest {
 
     private val portfolio = "src/main/java/com/cryptochecker/app/ui/features/portfolio"
-
-    @Test
-    fun `address not written is not called invalid`() {
-        val sheet = file("$portfolio/PortfolioAddressSheet.kt")
-        val branch = sheet.substringAfter("null -> saveError =").substringBefore("\n            }")
-        assertTrue(branch.contains("R.string.portfolio_write_failed"))
-        assertFalse(branch.contains("R.string.address_invalid"))
-    }
 
     /** Sichern: Dialog übersteht Drehen; Prozess-Neustart während der Dateiauswahl fragt erneut; keine leere Datei bleibt. */
     @Test
@@ -58,23 +53,6 @@ class PortfolioSheetRulesTest {
         val lock = file("src/main/java/com/cryptochecker/app/ui/lock/PortfolioLock.kt")
         assertTrue(lock.contains("if (active && window != null) SecureShield.release(window)"))
         assertFalse(lock.contains("if (active) window?.clearFlags"))
-    }
-
-    /** Wischen zum Löschen wie iOS (U3-09): Positionen, Transaktionen, Alarme des Paars, Adressen — immer mit Rückfrage. */
-    @Test
-    fun `swipe to delete with confirmation on every list that iOS swipes`() {
-        val lists = mapOf(
-            "$portfolio/PortfolioScreenBody.kt" to "onDelete = { onDeleteCoin(position.coin) },",
-            "$portfolio/PortfolioDetailScreen.kt" to "onDelete = { confirmDelete = tx },",
-            "src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsScreen.kt" to "onDelete = { editorHost.askDelete = alarm },",
-            "$portfolio/PortfolioAddressSheet.kt" to "onDelete = { askRemove = a },",
-        )
-        for ((path, delete) in lists) {
-            val code = file(path)
-            val swipe = code.substringAfter("SwipeActionsRow(", missingDelimiterValue = "").substringBefore(") {")
-            assertTrue(path, swipe.contains(delete))
-            assertTrue(path, swipe.contains("confirmsDelete = true"))
-        }
     }
 
     private fun file(rel: String): String {

@@ -367,28 +367,16 @@ struct PortfolioAddressSheet: View {
         let outcome = data.addWatchedAddress(chain: chain, address: input, label: label, countInPortfolio: countInPortfolio,
                                              overlapChecked: overlapChecked)
         Haptics.play(outcome.haptic)
-        switch outcome {
-        case .added:
-            input = ""
-            label = ""
-            saveError = nil
-            // Erste Adresse mit ausgeschaltetem Portfolio: einschalten (Tab erscheint sofort)
-            if PortfolioOff.enableOnSave(isNew: true, portfolioEnabled: data.settings.portfolioEnabled) {
-                data.settings.portfolioEnabled = true
-                onPortfolioEnabled()
-            }
-            // Neue Adresse ist sofort fällig; danach Kurse und Gesamtwert
-            Task { await model.refresh(force: false) }
-        case .invalid(let problem):
-            saveError = Self.message(problem)
-        case .duplicate:
-            saveError = L("address_duplicate")
-        case .limitReached:
-            saveError = L("address_limit")
-        case .locked:
-            saveError = L("portfolio_storage_locked")
-        case .writeFailed:
-            saveError = L("portfolio_write_failed")
+        saveError = Self.message(outcome)
+        guard case .added = outcome else { return }
+        input = ""
+        label = ""
+        // Erste Adresse mit ausgeschaltetem Portfolio: einschalten (Tab erscheint sofort)
+        if PortfolioOff.enableOnSave(isNew: true, portfolioEnabled: data.settings.portfolioEnabled) {
+            data.settings.portfolioEnabled = true
+            onPortfolioEnabled()
         }
+        // Neue Adresse ist sofort fällig; danach Kurse und Gesamtwert
+        Task { await model.refresh(force: false) }
     }
 }

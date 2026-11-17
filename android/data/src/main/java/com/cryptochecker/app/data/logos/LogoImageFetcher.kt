@@ -30,7 +30,7 @@ internal class LogoImageFetcher(
      * Wache ([CallStartInterceptor]) bleibt.
      */
     private val client: OkHttpClient = httpClient.newBuilder()
-        .apply { interceptors().clear(); addInterceptor(CallStartInterceptor) }.build()
+        .apply { interceptors().removeAll { it !is LogoTestInterceptor }; addInterceptor(CallStartInterceptor) }.build()
 
     /** Harte Grenzen auch für Ersatz-Adressen und Start-Logos ([CoinLogoQueue] ordnet nur nach dem ersten Server). */
     private val downloads = Semaphore(CoinLogoQueue.MAX_PARALLEL)
@@ -147,3 +147,9 @@ internal class LogoImageFetcher(
         const val HTTP_FORBIDDEN = 403
     }
 }
+
+/**
+ * Nur Gerätetests: ein Interceptor dieser Art bleibt beim Bild-Abruf erhalten (alle anderen fallen weg, siehe
+ * [LogoImageFetcher.client]) — so beantwortet der Test die Bild-Anfragen ohne Netz.
+ */
+interface LogoTestInterceptor : okhttp3.Interceptor

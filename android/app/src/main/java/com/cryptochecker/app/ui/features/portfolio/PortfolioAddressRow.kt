@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
@@ -294,6 +295,19 @@ internal fun addressErrorText(error: String): Int = when (error) {
 }
 
 /** Meldung zu einem Prüfergebnis. */
+/**
+ * Meldung zum Ergebnis von «Adresse hinzufügen»; null = angelegt. Nicht geschrieben (null): gesperrt
+ * ([locked], PortfolioStorageLock) bzw. Schreiben gescheitert — nie «ungültig», die Prüfung der Adresse lief davor grün
+ * (wie das Transaktionsblatt). Wie iOS `PortfolioAddressSheet.message(_:)`.
+ */
+internal fun addWatchedMessage(result: PortfolioRepository.AddWatchedResult?, locked: Boolean): Int? = when (result) {
+    is PortfolioRepository.AddWatchedResult.Added -> null
+    is PortfolioRepository.AddWatchedResult.Invalid -> problemRes(result.problem)
+    PortfolioRepository.AddWatchedResult.Duplicate -> R.string.address_duplicate
+    PortfolioRepository.AddWatchedResult.LimitReached -> R.string.address_limit
+    null -> if (locked) R.string.portfolio_storage_locked else R.string.portfolio_write_failed
+}
+
 internal fun problemRes(problem: AddressValidation.Problem): Int = when (problem) {
     AddressValidation.Problem.EMPTY, AddressValidation.Problem.UNKNOWN_FORMAT -> R.string.address_invalid
     AddressValidation.Problem.BAD_CHECKSUM -> R.string.address_checksum

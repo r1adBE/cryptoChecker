@@ -15,11 +15,15 @@ enum WidgetRefreshState {
         case running
         /// Gesperrt bis `until` (Wanduhr, ms): nichts holen, Countdown zeigen.
         case blocked(until: Int64)
+        /// Ohne Internet: nichts holen, kein Countdown — nur neu zeichnen («Keine Verbindung · Stand 14:05»).
+        case offline
     }
 
-    /// Gleiche Grenzen wie `RefreshDebounce.decide`; gesperrt bis zum Ende des Fensters.
-    static func onTap(running: Bool, lastFinishedAt: Int64, now: Int64,
+    /// Ohne Internet (`online` false) nur neu zeichnen; sonst gleiche Grenzen wie `RefreshDebounce.decide`, gesperrt bis
+    /// zum Ende des Fensters.
+    static func onTap(online: Bool, running: Bool, lastFinishedAt: Int64, now: Int64,
                       windowMillis: Int64 = RefreshDebounce.windowMillis) -> Tap {
+        guard online else { return .offline }
         switch RefreshDebounce.decide(running: running, lastFinishedAt: lastFinishedAt, now: now, windowMillis: windowMillis) {
         case .start: .start
         case .running: .running

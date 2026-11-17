@@ -11,22 +11,30 @@ class WidgetRefreshStateTest {
 
     @Test
     fun tapWhileRunningDoesNothing() {
-        assertEquals(Tap.Running, WidgetRefreshState.onTap(running = true, lastFinishedAt = now - 2_000, now = now))
-        assertEquals(Tap.Running, WidgetRefreshState.onTap(running = true, lastFinishedAt = 0, now = now))
+        assertEquals(Tap.Running, WidgetRefreshState.onTap(online = true, running = true, lastFinishedAt = now - 2_000, now = now))
+        assertEquals(Tap.Running, WidgetRefreshState.onTap(online = true, running = true, lastFinishedAt = 0, now = now))
+    }
+
+    /** Ohne Internet: nichts holen, kein Countdown — nur neu zeichnen, ob gesperrt, laufend oder frei. Wie iOS. */
+    @Test
+    fun tapWithoutInternetOnlyRedraws() {
+        assertEquals(Tap.Offline, WidgetRefreshState.onTap(online = false, running = false, lastFinishedAt = 0, now = now))
+        assertEquals(Tap.Offline, WidgetRefreshState.onTap(online = false, running = true, lastFinishedAt = now, now = now))
+        assertEquals(Tap.Offline, WidgetRefreshState.onTap(online = false, running = false, lastFinishedAt = now - 4_000, now = now))
     }
 
     @Test
     fun tapWithinWindowIsBlockedUntilWindowEnd() {
-        assertEquals(Tap.Blocked(now - 4_000 + window), WidgetRefreshState.onTap(false, now - 4_000, now))
-        assertEquals(Tap.Blocked(now + window), WidgetRefreshState.onTap(false, now, now))
+        assertEquals(Tap.Blocked(now - 4_000 + window), WidgetRefreshState.onTap(true, false, now - 4_000, now))
+        assertEquals(Tap.Blocked(now + window), WidgetRefreshState.onTap(true, false, now, now))
     }
 
     @Test
     fun tapAfterWindowOrWithoutRefreshStarts() {
-        assertEquals(Tap.Start, WidgetRefreshState.onTap(false, 0, now))
-        assertEquals(Tap.Start, WidgetRefreshState.onTap(false, now - window, now))
+        assertEquals(Tap.Start, WidgetRefreshState.onTap(true, false, 0, now))
+        assertEquals(Tap.Start, WidgetRefreshState.onTap(true, false, now - window, now))
         // Uhr zurückgestellt: letzte Aktualisierung «in der Zukunft» sperrt nicht
-        assertEquals(Tap.Start, WidgetRefreshState.onTap(false, now + 5_000, now))
+        assertEquals(Tap.Start, WidgetRefreshState.onTap(true, false, now + 5_000, now))
     }
 
     @Test
@@ -86,7 +94,7 @@ class WidgetRefreshStateTest {
     @Test
     fun blockedStateMatchesAppCountdown() {
         val last = now - 3_300
-        val until = (WidgetRefreshState.onTap(false, last, now) as Tap.Blocked).until
+        val until = (WidgetRefreshState.onTap(true, false, last, now) as Tap.Blocked).until
         for (t in listOf(now, now + 700, now + 5_000, now + 11_699, now + 11_700, now + 20_000)) {
             assertEquals(RefreshDebounce.remainingSeconds(last, t), WidgetRefreshState.remainingSeconds(until, t))
         }

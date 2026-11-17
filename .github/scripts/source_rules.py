@@ -26,6 +26,8 @@ Rules (ids in the annotation title):
   compose-stability  gradle/compose-stability.conf lists exactly the immutable models
   test-inputs        every path the unit tests read is a declared input of the test tasks
   bounded-caches     per-pair memory caches use BoundedCache, not an unbounded ConcurrentHashMap
+  ios-widget-offline every iOS widget timeline asks for the network (WidgetOffline.isOffline) like the Android renderers
+  swipe-delete       every swipe-to-delete row asks before deleting (confirmsDelete = true); the watchlist offers undo
 
 The comments and messages are in German like the tests they replace.
 """
@@ -685,7 +687,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1522, "domain": 1619, "data": 606, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1512, "domain": 1620, "data": 606, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1625,6 +1627,84 @@ def rule_bounded_caches(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# ios-widget-offline: jede Timeline eines iOS-Widgets fragt das Netz ab («Keine Verbindung · Stand …», WidgetOffline).
+# Android prüft dasselbe als Verhalten auf dem Gerät (WidgetDrawDeviceTest); die Erweiterung hat keinen Test-Host.
+
+
+WO_PROVIDER = re.compile(r"\b(?:struct|final class|class)\s+\w+\s*:\s*[^{]*\b(?:AppIntent)?TimelineProvider\b")
+WO_ASKS = "WidgetOffline.isOffline()"
+WO_MIN_PROVIDERS = 4
+
+
+def widget_offline_missing(sources):
+    """Dateien mit einer Timeline (TimelineProvider), die das Netz nicht abfragen; dazu die Zahl der Timelines."""
+    missing, providers = [], 0
+    for name, text in sources:
+        code = ds_strip_comments(text)
+        found = len(WO_PROVIDER.findall(code))
+        providers += found
+        if found and WO_ASKS not in code:
+            missing.append(name)
+    return missing, providers
+
+
+def rule_ios_widget_offline(t):
+    widgets = need_dir(t.i("Widgets"))
+    sources = [(rel, read(path)) for rel, path in files_under(widgets, "swift")]
+    missing, providers = widget_offline_missing(sources)
+    problems = [f"ios/Widgets/{name}: Timeline ohne {WO_ASKS} (ohne Netz «Keine Verbindung · Stand …»)" for name in missing]
+    if providers < WO_MIN_PROVIDERS:
+        problems.append(f"nur {providers} Timelines erkannt (mindestens {WO_MIN_PROVIDERS}: Merkliste, Einzel, Portfolio, Puls)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# swipe-delete: Wischen zum Löschen wie iOS (U3-09) — Positionen, Transaktionen, Alarme, Adressen immer mit Rückfrage.
+# Die Merkliste löscht ohne Frage, bietet aber «Rückgängig» (WatchlistViewModel.deleteWithUndo).
+
+
+SD_CALL = "SwipeActionsRow("
+SD_CONFIRM = re.compile(r"\bconfirmsDelete\s*=\s*true\b")
+SD_UNDO_FILES = {"ui/features/watchlist/WatchlistListItem.kt"}
+SD_MIN_CONFIRMED = 4
+
+
+def swipe_calls(text):
+    """Argumente jedes Aufrufs SwipeActionsRow(...) (ohne die Deklaration), mit Zeile."""
+    code = ds_strip_comments(text)
+    out = []
+    start = 0
+    while True:
+        i = code.find(SD_CALL, start)
+        if i < 0:
+            return out
+        start = i + len(SD_CALL)
+        if re.search(r"fun\s+$", code[max(0, i - 8):i]):
+            continue
+        close = ds_closing(code, i + len(SD_CALL) - 1)
+        out.append((line_of(code, i), code[i:close if close >= 0 else len(code)]))
+
+
+def rule_swipe_delete(t):
+    problems, confirmed, undo = [], 0, 0
+    base = t.java("app")
+    for rel, path in files_under(base, "kt"):
+        rel = rel.replace(os.sep, "/")
+        for line, args in swipe_calls(read(path)):
+            if rel in SD_UNDO_FILES:
+                undo += 1
+            elif SD_CONFIRM.search(args):
+                confirmed += 1
+            else:
+                problems.append(f"app/{rel}:{line}: Wischen zum Löschen ohne confirmsDelete = true (Rückfrage wie iOS)")
+    if confirmed < SD_MIN_CONFIRMED:
+        problems.append(f"nur {confirmed} Listen mit Rückfrage erkannt (mindestens {SD_MIN_CONFIRMED}: Positionen, Transaktionen, Alarme, Adressen)")
+    if undo != len(SD_UNDO_FILES):
+        problems.append(f"Merkliste: {undo} Aufrufe in {sorted(SD_UNDO_FILES)} (erwartet einer, mit «Rückgängig»)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # test-inputs
 
 
@@ -1739,6 +1819,8 @@ RULES = [
     ("compose-stability", rule_compose_stability),
     ("test-inputs", rule_test_inputs),
     ("bounded-caches", rule_bounded_caches),
+    ("ios-widget-offline", rule_ios_widget_offline),
+    ("swipe-delete", rule_swipe_delete),
 ]
 
 
@@ -1770,6 +1852,19 @@ def self_test():
     def eq(actual, expected, what):
         if actual != expected:
             raise AssertionError(f"{what}: {actual!r} != {expected!r}")
+
+    # swipe-delete: Aufrufe mit Argumenten erkannt, die Deklaration nicht
+    calls = swipe_calls("internal fun SwipeActionsRow(\n a: Int,\n) {}\nSwipeActionsRow(\n onDelete = { x() },\n"
+                        "    confirmsDelete = true,\n) { Row() }\nSwipeActionsRow(onDelete = { y() }) { }")
+    eq([(line, bool(SD_CONFIRM.search(a))) for line, a in calls], [(4, True), (8, False)], "swipe-delete: Erkennung")
+
+    # ios-widget-offline: Timeline ohne Netzabfrage gefunden, mit Abfrage bzw. ohne Timeline nicht
+    eq(widget_offline_missing([("A.swift", "struct P: AppIntentTimelineProvider {\n func timeline() { }\n}"),
+                               ("B.swift", "struct Q: TimelineProvider {\n let o = await WidgetOffline.isOffline()\n}"),
+                               ("C.swift", "struct V: View { }\n// TimelineProvider")]),
+       (["A.swift"], 2), "ios-widget-offline: Erkennung")
+    eq(widget_offline_missing([("D.swift", "struct P: TimelineProvider {\n // WidgetOffline.isOffline()\n}")]),
+       (["D.swift"], 1), "ios-widget-offline: Kommentar zählt nicht")
 
     # runcatching: Coroutine-Kontexte werden erkannt; ausserhalb und mit eigenem Weiterwerfen erlaubt
     eq(runcatching_violations(

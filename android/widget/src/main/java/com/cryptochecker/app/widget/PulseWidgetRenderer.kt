@@ -314,7 +314,7 @@ class PulseWidgetRenderer @Inject constructor(
                 )
             }
 
-            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { WidgetPublish.update(manager, appWidgetId, views) }
                 .onFailure { Timber.w(it, "Pulse-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         schedulePlainExpiry(

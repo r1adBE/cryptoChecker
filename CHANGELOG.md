@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 267)
+
+- Tests: widgets are checked on the emulator as drawn (offline line, redraw when the network returns, one network query per draw, initial skeleton, colours); the widget refresh tap without internet is a tested rule on both platforms; the «add address» message is a tested function on both platforms; new source rules for iOS widget timelines and swipe-to-delete confirmation.
+- Fixes in tests from build 266 (iOS main-actor error, logo device test).
+
 ## 16.2.2 (build 266)
 
 - Tests: the remaining source-text guards for failure paths are now behaviour tests on both platforms (honest «last checks» when an exchange is paused, the budget runs out or the exact alarm fires offline; alarmed pairs first; language switch and alarm channel names; the single widget keeps its pair; «coins without logo» list; coin logos and portfolio candles with a test transport on iOS).

@@ -292,7 +292,7 @@ class SingleWidgetRenderer @Inject constructor(
                 )
             }
 
-            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { WidgetPublish.update(manager, appWidgetId, views) }
                 .onFailure { Timber.w(it, "Einzel-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         return true

@@ -56,6 +56,7 @@ class ConnectivityMonitor @Inject constructor(
     fun isOnlineNow(): Boolean = currentlyOnline().also { _online.value = it }
 
     private fun currentlyOnline(): Boolean {
+        forcedOnlineForTest?.let { return it }
         val m = manager ?: return true
         return runCatching {
             val network = m.activeNetwork ?: return false
@@ -65,6 +66,10 @@ class ConnectivityMonitor @Inject constructor(
     }
 
     companion object {
+        /** Nur Gerätetests: Netz vorgeben (offline nachstellen); null = das System fragen. */
+        @Volatile
+        var forcedOnlineForTest: Boolean? = null
+
         /** Internet-Fähigkeit und vom System bestätigter Zugang (kein Captive Portal vor dem Login). */
         fun usable(hasCapability: (Int) -> Boolean): Boolean =
             hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&

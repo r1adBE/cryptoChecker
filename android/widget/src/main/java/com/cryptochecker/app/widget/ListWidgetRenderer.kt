@@ -156,7 +156,8 @@ class ListWidgetRenderer @Inject constructor(
             // Neuer Stand je Zeichnen: Zeilen aus dem Dienst gehören so zur Uhrzeit im Kopf (ListWidgetDataVersion)
             val version = rows.versions.next(appWidgetId)
             runCatchingCancellable {
-                manager.updateAppWidget(
+                WidgetPublish.update(
+                    manager,
                     appWidgetId,
                     render(
                         manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, status, inline, title, version, empty,

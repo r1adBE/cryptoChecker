@@ -119,7 +119,7 @@ final class MissingLogosModel: ObservableObject {
 
     /// Woher der Hinweis seine Antworten holt; Tests setzen eigene (`MissingLogosModelTests`).
     struct Lookup: Sendable {
-        var firstLoadDone: @Sendable () -> Bool
+        var firstLoadDone: @MainActor @Sendable () -> Bool
         var hasLogo: @Sendable (String) async -> Bool
         var notYetLoaded: @Sendable (String) async -> Bool
 

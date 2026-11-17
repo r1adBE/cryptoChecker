@@ -60,6 +60,19 @@ extension PortfolioAddressSheet {
         }
     }
 
+    /// Meldung zum Ergebnis von «Adresse hinzufügen»; nil = angelegt. Nicht geschrieben ist nie «ungültig» (die Prüfung
+    /// lief davor grün), sondern «gesperrt» bzw. «nicht gespeichert» — wie Android `addWatchedMessage`.
+    static func message(_ result: AddWatchedResult) -> String? {
+        switch result {
+        case .added: return nil
+        case .invalid(let problem): return message(problem)
+        case .duplicate: return L("address_duplicate")
+        case .limitReached: return L("address_limit")
+        case .locked: return L("portfolio_storage_locked")
+        case .writeFailed: return L("portfolio_write_failed")
+        }
+    }
+
     /// Meldung zu einem Prüfergebnis — wie `problemRes` (Android).
     static func message(_ problem: AddressValidation.Problem) -> String {
         switch problem {

@@ -361,14 +361,13 @@ struct RefreshPricesIntent: AppIntent {
     init() {}
 
     func perform() async throws -> some IntentResult {
-        if await WidgetOffline.isOffline() {
-            WidgetData.reloadKinds([WidgetData.watchlistKind], reason: "ohne Netz")
-            return .result()
-        }
-        let tap = WidgetRefreshState.onTap(running: WidgetRefresh.isRunning,
+        let tap = WidgetRefreshState.onTap(online: !(await WidgetOffline.isOffline()), running: WidgetRefresh.isRunning,
                                            lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                            now: EpochTime.nowMillis)
         switch tap {
+        case .offline:
+            // Ohne Netz: nur neu zeichnen («Keine Verbindung · Stand 14:05»), nichts holen, kein Countdown
+            WidgetData.reloadKinds([WidgetData.watchlistKind], reason: "ohne Netz")
         case .start:
             await WidgetRefresh.run()
             WidgetCenter.shared.reloadAllTimelines()

@@ -72,16 +72,16 @@ class PriceWidgetProvider : AppWidgetProvider() {
      * Netz zurück, holt [com.cryptochecker.app.widget.WidgetReconnectWorker] die Kurse ([WidgetConnectivity]).
      */
     private fun onRefreshTap() {
-        if (!connectivity.online()) {
-            launchAsync("Listen-Widgets ohne Netz zeichnen") { widgetUpdater.update(widgetUpdater.widgetIds()) }
-            return
-        }
         val tap = WidgetRefreshState.onTap(
+            online = connectivity.online(),
             running = priceRefresher.fullRefreshRunning.value,
             lastFinishedAt = refreshStats.lastFullRefresh(),
             now = System.currentTimeMillis(),
         )
         when (tap) {
+            // Ohne Netz: nur neu zeichnen («Keine Verbindung · Stand 14:05»), nichts holen, kein Countdown
+            WidgetRefreshState.Tap.Offline ->
+                launchAsync("Listen-Widgets ohne Netz zeichnen") { widgetUpdater.update(widgetUpdater.widgetIds()) }
             WidgetRefreshState.Tap.Start -> scheduler.refreshNow()
             WidgetRefreshState.Tap.Running -> Unit
             is WidgetRefreshState.Tap.Blocked -> {

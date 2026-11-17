@@ -1,10 +1,13 @@
 package com.cryptochecker.app.widget
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
+import android.widget.RemoteViews
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.widget.WidgetReconnectWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,11 +25,30 @@ class WidgetConnectivity @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val connectivity: ConnectivityMonitor,
 ) {
+    /** Abfragen von [online] seit dem Start (Gerätetest: eine je Zeichnen, nicht je Widget). */
+    val queries = AtomicInteger()
+
     /** Internet da? Wenn nicht, ist das Neuzeichnen bei Rückkehr des Netzes geplant (einmal, KEEP). */
     fun online(): Boolean {
+        queries.incrementAndGet()
         val online = connectivity.isOnlineNow()
         if (!online) WidgetReconnectWorker.enqueue(context)
         return online
+    }
+}
+
+/**
+ * Gezeichnete Widgets an den Launcher ([AppWidgetManager.updateAppWidget]). Gerätetests fangen sie mit [testSink] ab
+ * und blähen sie selbst auf (`WidgetDrawDeviceTest`): Was im Widget steht, ist so ohne Launcher prüfbar.
+ */
+object WidgetPublish {
+    /** Nur Gerätetests: statt an den Launcher hierhin; null = Launcher. */
+    @Volatile
+    var testSink: ((appWidgetId: Int, views: RemoteViews) -> Unit)? = null
+
+    fun update(manager: AppWidgetManager, appWidgetId: Int, views: RemoteViews) {
+        val sink = testSink
+        if (sink != null) sink(appWidgetId, views) else manager.updateAppWidget(appWidgetId, views)
     }
 }
 

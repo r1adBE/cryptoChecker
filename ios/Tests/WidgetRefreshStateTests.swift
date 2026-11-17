@@ -7,22 +7,29 @@ final class WidgetRefreshStateTests: XCTestCase {
     private let now: Int64 = 1_000_000_000
     private let window = RefreshDebounce.windowMillis
 
+    /// Ohne Internet: nichts holen, kein Countdown — nur neu zeichnen, ob gesperrt, laufend oder frei. Wie Android.
+    func testTapWithoutInternetOnlyRedraws() {
+        XCTAssertEqual(WidgetRefreshState.onTap(online: false, running: false, lastFinishedAt: 0, now: now), .offline)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: false, running: true, lastFinishedAt: now, now: now), .offline)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: false, running: false, lastFinishedAt: now - 4_000, now: now), .offline)
+    }
+
     func testTapWhileRunningDoesNothing() {
-        XCTAssertEqual(WidgetRefreshState.onTap(running: true, lastFinishedAt: now - 2_000, now: now), .running)
-        XCTAssertEqual(WidgetRefreshState.onTap(running: true, lastFinishedAt: 0, now: now), .running)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: true, lastFinishedAt: now - 2_000, now: now), .running)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: true, lastFinishedAt: 0, now: now), .running)
     }
 
     func testTapWithinWindowIsBlockedUntilWindowEnd() {
-        XCTAssertEqual(WidgetRefreshState.onTap(running: false, lastFinishedAt: now - 4_000, now: now),
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: now - 4_000, now: now),
                        .blocked(until: now - 4_000 + window))
-        XCTAssertEqual(WidgetRefreshState.onTap(running: false, lastFinishedAt: now, now: now), .blocked(until: now + window))
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: now, now: now), .blocked(until: now + window))
     }
 
     func testTapAfterWindowOrWithoutRefreshStarts() {
-        XCTAssertEqual(WidgetRefreshState.onTap(running: false, lastFinishedAt: 0, now: now), .start)
-        XCTAssertEqual(WidgetRefreshState.onTap(running: false, lastFinishedAt: now - window, now: now), .start)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: 0, now: now), .start)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: now - window, now: now), .start)
         // Uhr zurückgestellt: letzte Aktualisierung «in der Zukunft» sperrt nicht
-        XCTAssertEqual(WidgetRefreshState.onTap(running: false, lastFinishedAt: now + 5_000, now: now), .start)
+        XCTAssertEqual(WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: now + 5_000, now: now), .start)
     }
 
     func testCountdownRightAfterRefreshWithoutTap() {
@@ -82,7 +89,7 @@ final class WidgetRefreshStateTests: XCTestCase {
 
     func testBlockedStateMatchesAppCountdown() {
         let last = now - 3_300
-        guard case let .blocked(until) = WidgetRefreshState.onTap(running: false, lastFinishedAt: last, now: now) else {
+        guard case let .blocked(until) = WidgetRefreshState.onTap(online: true, running: false, lastFinishedAt: last, now: now) else {
             return XCTFail("gesperrt erwartet")
         }
         for t in [now, now + 700, now + 5_000, now + 11_699, now + 11_700, now + 20_000] {

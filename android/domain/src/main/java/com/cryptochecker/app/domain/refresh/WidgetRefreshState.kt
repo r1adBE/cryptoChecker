@@ -22,11 +22,17 @@ object WidgetRefreshState {
 
         /** Gesperrt bis [until] (Wanduhr, ms): nichts holen, Countdown zeigen. */
         data class Blocked(val until: Long) : Tap
+
+        /** Ohne Internet: nichts holen, kein Countdown — nur neu zeichnen («Keine Verbindung · Stand 14:05»). */
+        data object Offline : Tap
     }
 
-    /** Gleiche Grenzen wie [RefreshDebounce.decide]; gesperrt bis zum Ende des Fensters. */
-    fun onTap(running: Boolean, lastFinishedAt: Long, now: Long, windowMillis: Long = RefreshDebounce.WINDOW_MILLIS): Tap =
-        when (RefreshDebounce.decide(running, lastFinishedAt, now, windowMillis)) {
+    /**
+     * Ohne Internet ([online] false) nur neu zeichnen; sonst gleiche Grenzen wie [RefreshDebounce.decide], gesperrt bis
+     * zum Ende des Fensters.
+     */
+    fun onTap(online: Boolean, running: Boolean, lastFinishedAt: Long, now: Long, windowMillis: Long = RefreshDebounce.WINDOW_MILLIS): Tap =
+        if (!online) Tap.Offline else when (RefreshDebounce.decide(running, lastFinishedAt, now, windowMillis)) {
             RefreshDebounce.Decision.START -> Tap.Start
             RefreshDebounce.Decision.RUNNING -> Tap.Running
             RefreshDebounce.Decision.RECENT -> Tap.Blocked(lastFinishedAt + windowMillis)

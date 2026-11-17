@@ -132,23 +132,11 @@ internal fun PortfolioAddressSheet(
         ) { result ->
             busy = false
             haptics.play(addWatchedHaptic(result))
-            when (result) {
-                is PortfolioRepository.AddWatchedResult.Added -> {
-                    input = ""
-                    label = ""
-                    saveError = null
-                }
-                is PortfolioRepository.AddWatchedResult.Invalid -> saveError = problemRes(result.problem)
-                PortfolioRepository.AddWatchedResult.Duplicate -> saveError = R.string.address_duplicate
-                PortfolioRepository.AddWatchedResult.LimitReached -> saveError = R.string.address_limit
-                // Nicht geschrieben: gesperrt (PortfolioStorageLock) bzw. Fehler — den Grund nennen
-                null -> saveError = if (PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)) {
-                    R.string.portfolio_storage_locked
-                } else {
-                    // Die Prüfung der Adresse lief davor grün: Schreiben gescheitert, nicht «ungültig» (wie das Transaktionsblatt)
-                    R.string.portfolio_write_failed
-                }
+            if (result is PortfolioRepository.AddWatchedResult.Added) {
+                input = ""
+                label = ""
             }
+            saveError = addWatchedMessage(result, locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value))
         }
     }
 

@@ -218,7 +218,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                     build(0, w, h)
                 }
             }
-            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { WidgetPublish.update(manager, appWidgetId, views) }
                 .onFailure { Timber.w(it, "Portfolio-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         return true
