@@ -34,7 +34,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.refresh.AlarmLogStore
@@ -43,6 +42,7 @@ import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.DialogText
@@ -68,7 +68,7 @@ val LocalOpenAlarmLog = androidx.compose.runtime.staticCompositionLocalOf<(() ->
 @HiltViewModel
 class AlarmLogViewModel @Inject constructor(
     private val store: AlarmLogStore,
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 

@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
+import com.cryptochecker.app.domain.watch.RestoreOutcome
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.model.ExchangePair
 

@@ -29,7 +29,6 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.diagnostics.DiagnosticInput
@@ -40,6 +39,7 @@ import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.logos.CoinLogoUse
 import com.cryptochecker.app.work.AlarmReadinessProbe
 import com.cryptochecker.resources.R
@@ -69,7 +69,7 @@ class DiagnosticsViewModel @Inject constructor(
     private val checkRunStore: CheckRunStore,
     private val alarmLogStore: AlarmLogStore,
     private val refreshStats: RefreshStats,
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     private val coinLogoRepository: CoinLogoRepository,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {

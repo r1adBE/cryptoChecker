@@ -4,13 +4,13 @@ package com.cryptochecker.app.data
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmWithWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX

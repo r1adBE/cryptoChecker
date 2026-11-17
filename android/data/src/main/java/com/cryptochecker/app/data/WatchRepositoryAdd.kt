@@ -7,24 +7,12 @@ import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
 import com.cryptochecker.app.domain.watch.AutoGroup
+import com.cryptochecker.app.domain.watch.RestoreOutcome
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.marketdata.model.ExchangePair
-
-/** Ausgang von [tryAddWatch]. */
-sealed interface AddWatchOutcome {
-    data class Added(val id: Long) : AddWatchOutcome
-
-    /** Paar stand schon in der Merkliste. */
-    data object Duplicate : AddWatchOutcome
-
-    /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare. */
-    data object Full : AddWatchOutcome
-
-    /** Merkliste gesperrt ([userWriteRefused]): nichts angelegt, der kurze Hinweis ist schon ausgelöst. */
-    data object Locked : AddWatchOutcome
-}
 
 /**
  * Legt ein Paar in der Watchlist an — wie [tryAddWatch], ohne Grund für «nicht angelegt».
@@ -170,17 +158,6 @@ suspend fun withoutAlarms(
  * aber auch unter der alten Grenze von 999 (System-SQLite älterer Geräte bzw. Tests ohne SQLCipher).
  */
 internal const val SQL_ID_CHUNK = 500
-
-/** Ausgang von [restore]. */
-enum class RestoreOutcome {
-    RESTORED,
-
-    /** Paar besteht noch, wurde inzwischen neu angelegt, Id vergeben oder Merkliste gesperrt. */
-    BLOCKED,
-
-    /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare: nicht zurückgeholt. */
-    FULL,
-}
 
 /**
  * Gelöschtes Paar unverändert zurückholen: gleiche Id (Ids werden nie neu vergeben,

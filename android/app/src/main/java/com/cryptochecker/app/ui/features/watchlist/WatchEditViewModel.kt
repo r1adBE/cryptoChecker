@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.PairEditResult
@@ -17,6 +15,7 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.domain.watch.WatchEdit
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -79,13 +78,13 @@ data class WatchEditState(
 /**
  * «Paar bearbeiten» im Aktionsblatt: dieselben Schritte wie «Genau auswählen» im Explorer
  * (Börse → Coin → Gegenwert → Kontrakt), vorbelegt mit dem Eintrag. Speichern ändert
- * denselben Eintrag ([WatchRepository.changePair]), verwirft Signale und Meldung des alten
+ * denselben Eintrag ([WatchStore.changePair]), verwirft Signale und Meldung des alten
  * Paars, holt sofort den neuen Kurs und aktualisiert die Widgets.
  */
 @HiltViewModel
 class WatchEditViewModel @Inject constructor(
     private val exchangeRepository: ExchangeRepository,
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     private val favoritesRepository: FavoritesRepository,
     private val priceRefresher: PriceRefresher,
     private val notifier: AppNotifier,

@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmWithWatch
 
 /**
  * Zeile der Tabelle «alarms» (Room). Das Fachmodell ohne Room ist [AlarmEntity] in :domain; Spalten, Reihenfolge und

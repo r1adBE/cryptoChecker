@@ -3,16 +3,11 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.AlarmSaveResult
-import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.trySaveAlarm
-import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmSaveBuilder
@@ -23,7 +18,9 @@ import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
 import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.notification.alarmsAllowed
 import com.cryptochecker.app.notification.canShowAlarm
@@ -46,7 +43,7 @@ import timber.log.Timber
 @HiltViewModel
 class AlarmsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    internal val watchRepository: WatchRepository,
+    internal val watchRepository: WatchStore,
     private val settingsRepository: SettingsRepository,
     private val currencyConverter: CurrencyConverter,
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,

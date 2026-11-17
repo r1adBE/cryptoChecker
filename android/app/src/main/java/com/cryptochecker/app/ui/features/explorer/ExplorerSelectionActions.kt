@@ -5,7 +5,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.tryAddWatch
@@ -13,6 +12,7 @@ import com.cryptochecker.app.domain.exceptions.ExchangeError
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery

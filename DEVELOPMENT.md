@@ -3276,6 +3276,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 291: Widget background choice «System» renamed «Like the app» (new string widget_theme_app, 75 languages; it follows the app's appearance since build 287); the app's own «System» stays.
 * Build 292: C-07 part 1: the api chain is gone (:coreui no longer depends on :data, :widget depends on it directly; coreui lockfile shrunk); pure types moved to :domain (FavoriteKind, PortfolioPrices/PortfolioPriceIssue, the settings slices); source rule layers keeps :coreui free of :data and allows references from app/ui only in the files listed in UI_DATA_REMAINING (may only shrink).
 * Build 293: C-07 Teil 2a: SettingsRepository als :domain-Schnittstelle, DataStoreSettingsRepository in :data, SettingsBackupTarget nach :domain; UI_DATA_REMAINING 94 → 91.
+* Build 294: C-07 Teil 2b: WatchStore (:domain) + WatchStoreAdapter (:data), Ausgänge und AlarmWithWatch nach :domain, write-consent erkennt WatchStore; UI_DATA_REMAINING 91 → 88.
 
 ## Known warnings
 

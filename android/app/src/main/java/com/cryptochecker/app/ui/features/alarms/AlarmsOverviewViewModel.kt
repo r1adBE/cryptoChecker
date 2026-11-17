@@ -3,18 +3,17 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.alarm.toAlarmReading
-import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.guardedWrite
-import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.app.domain.model.AlarmWithWatch
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -32,7 +31,7 @@ import kotlinx.coroutines.withContext
 /** Alle Alarme über alle Paare, nach Paar gruppiert (scharfe zuerst). */
 @HiltViewModel
 class AlarmsOverviewViewModel @Inject constructor(
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
     settingsRepository: SettingsRepository,
     /** Mitteilung eines ausgeschalteten Alarms entfernen ([AlarmUserChange]). */

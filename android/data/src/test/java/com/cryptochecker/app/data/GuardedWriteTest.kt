@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
 import java.io.File
 import java.io.IOException
 import kotlinx.coroutines.CancellationException

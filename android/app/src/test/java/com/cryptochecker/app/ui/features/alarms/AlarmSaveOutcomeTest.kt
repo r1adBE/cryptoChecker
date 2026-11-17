@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.data.AlarmSaveResult
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

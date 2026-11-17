@@ -7,12 +7,12 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.cryptochecker.app.data.local.model.AlarmRow
-import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.local.model.AlarmWithWatchRow
 import com.cryptochecker.app.data.local.model.WatchRow
 import com.cryptochecker.app.data.local.model.toDomain
 import com.cryptochecker.app.data.local.model.toRow
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmWithWatch
 import com.cryptochecker.app.domain.model.WatchEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

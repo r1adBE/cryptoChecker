@@ -24,6 +24,7 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.features.watchlist.WatchlistControllers
 import com.cryptochecker.app.ui.features.watchlist.WatchlistSheetData
@@ -71,6 +72,8 @@ class WatchlistViewModelTest {
 
     @Inject lateinit var watchRepository: WatchRepository
 
+    @Inject lateinit var watchStore: WatchStore
+
     @Inject lateinit var connectivity: ConnectivityMonitor
 
     @Inject lateinit var settingsRepository: SettingsRepository
@@ -109,7 +112,7 @@ class WatchlistViewModelTest {
         val factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = WatchlistViewModel(
-                watchRepository, connectivity, settingsRepository, activityRepository, currencyConverter, addMoments,
+                watchStore, connectivity, settingsRepository, activityRepository, currencyConverter, addMoments,
                 livePriceStream, coinLogoRepository, tokenIdentityStore, portfolioAlarmRepository, sheetData,
                 controllers,
             ) as T

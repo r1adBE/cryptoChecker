@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.data.AddWatchOutcome
-import com.cryptochecker.app.data.AlarmSaveResult
-import com.cryptochecker.app.data.RestoreOutcome
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.addWatches
@@ -28,6 +25,9 @@ import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
+import com.cryptochecker.app.domain.watch.RestoreOutcome
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.marketdata.model.ExchangePair
 import java.io.File

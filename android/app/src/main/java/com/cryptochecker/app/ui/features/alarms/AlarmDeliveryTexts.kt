@@ -40,7 +40,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.OemBattery
@@ -48,6 +47,7 @@ import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.NotificationAsk

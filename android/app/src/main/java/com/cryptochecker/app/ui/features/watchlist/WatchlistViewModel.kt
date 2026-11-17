@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
@@ -29,6 +28,7 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
+import com.cryptochecker.app.domain.watch.WatchStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -52,7 +52,7 @@ import kotlinx.coroutines.launch
  */
 @HiltViewModel
 class WatchlistViewModel @Inject internal constructor(
-    watchRepository: WatchRepository,
+    watchRepository: WatchStore,
     connectivity: ConnectivityMonitor,
     private val settingsRepository: SettingsRepository,
     activityRepository: ActivityRepository,

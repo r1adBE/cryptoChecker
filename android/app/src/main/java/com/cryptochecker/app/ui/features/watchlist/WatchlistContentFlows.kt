@@ -5,7 +5,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
@@ -14,6 +13,7 @@ import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.WatchlistSettings
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.domain.watch.assetKind
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +31,7 @@ internal class WatchlistContentFlows(
     scope: CoroutineScope,
     watchList: SharedFlow<List<WatchEntity>>,
     watchlistSettings: Flow<WatchlistSettings>,
-    watchRepository: WatchRepository,
+    watchRepository: WatchStore,
     private val settingsRepository: SettingsRepository,
     coinLogoRepository: CoinLogoRepository,
     private val tokenIdentityStore: TokenIdentityStore,

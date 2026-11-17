@@ -4,19 +4,8 @@ package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-
-/** Ausgang von [trySaveAlarm] bzw. [trySaveAlarmMerged]. */
-sealed interface AlarmSaveResult {
-    /** Gespeichert, mit seiner Id. */
-    data class Saved(val alarm: AlarmEntity) : AlarmSaveResult
-
-    /** Neuer Alarm, aber das Paar hat schon [WatchlistLimits.MAX_ALARMS_PER_PAIR] Alarme: nur dann «Grenze erreicht». */
-    data object Full : AlarmSaveResult
-
-    /** Merkliste gesperrt bzw. nicht bestätigt ([userWriteRefused]): nichts gespeichert, keine Meldung «voll». */
-    data object Refused : AlarmSaveResult
-}
 
 /**
  * Neuer Alarm (id 0) nur unter der Obergrenze je Paar ([WatchlistLimits.MAX_ALARMS_PER_PAIR], Zählen und Einfügen in

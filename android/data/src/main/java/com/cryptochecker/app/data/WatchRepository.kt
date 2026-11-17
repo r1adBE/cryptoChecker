@@ -3,21 +3,23 @@ package com.cryptochecker.app.data
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmWithWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.app.domain.watch.AlarmSaveResult
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.marketdata.model.ExchangePair
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -384,6 +386,6 @@ class WatchRepository @Inject constructor(
          * Werte bleiben, wie sie sind (Sicherung: [BackupManager]). Auswahl je Paar: Einstellungen › Alarme ›
          * Kursmitteilungen › Paare. Wie iOS `Watch.newPairNotificationEnabled`.
          */
-        const val DEFAULT_NOTIFICATION_ENABLED = true
+        const val DEFAULT_NOTIFICATION_ENABLED = WatchStore.DEFAULT_NOTIFICATION_ENABLED
     }
 }

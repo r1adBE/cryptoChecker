@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.notification.AlarmTestResult
 import com.cryptochecker.app.notification.AlarmTester
 import com.cryptochecker.app.tts.SpokenText
@@ -18,7 +18,7 @@ class SettingsTestActions @Inject constructor(
     private val ttsSpeaker: TtsSpeaker,
     private val spokenText: SpokenText,
     private val settingsRepository: SettingsRepository,
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
 ) {
     /** «Alarm testen». */
     suspend fun testAlarm(): AlarmTestResult = alarmTester.run()

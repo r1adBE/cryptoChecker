@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.features.info
 
 import com.cryptochecker.app.data.ActivityRepository
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.WatchStore
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
  * Aktivität» je Paar. Nur lesen, ohne eigenen Zustand.
  */
 class InfoWatchlist @Inject constructor(
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     private val activityRepository: ActivityRepository,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchRepository.observeWatches()

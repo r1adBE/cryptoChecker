@@ -6,7 +6,6 @@ import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
@@ -17,6 +16,7 @@ import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.scoped
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.FavoriteKind
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -58,7 +58,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ExplorerViewModel @Inject constructor(
     internal val exchangeRepository: ExchangeRepository,
-    internal val watchRepository: WatchRepository,
+    internal val watchRepository: WatchStore,
     private val favoritesRepository: FavoritesRepository,
     /** HTTP-Mitschnitt der Entwickleroption ([ExplorerHttpLog]). */
     private val httpLog: ExplorerHttpLog,

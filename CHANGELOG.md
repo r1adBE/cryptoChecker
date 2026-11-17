@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 294)
+
+- Internal: the watchlist screens use a core-module interface instead of the database layer; the user-write consent check also covers it (C-07 part 2b).
+
 ## 16.2.2 (build 293)
 
 - Internal: the settings store is now an interface in the core module; the app screens no longer depend on its storage (C-07 part 2a).

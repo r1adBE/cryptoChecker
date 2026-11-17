@@ -3,6 +3,8 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.FakeWatchStore.Companion.BINANCE
 import com.cryptochecker.app.data.FakeWatchStore.Companion.key
 import com.cryptochecker.app.data.FakeWatchStore.Companion.pair
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
+import com.cryptochecker.app.domain.watch.RestoreOutcome
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

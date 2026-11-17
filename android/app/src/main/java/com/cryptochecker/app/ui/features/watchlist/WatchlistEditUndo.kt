@@ -2,12 +2,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.AddWatchOutcome
-import com.cryptochecker.app.data.RestoreOutcome
-import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.confirmUserWrite
-import com.cryptochecker.app.data.restore
-import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.ExchangeInfo
@@ -15,8 +9,11 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.watch.AddWatchOutcome
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.RestoreOutcome
 import com.cryptochecker.app.domain.watch.UndoSlot
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.widget.WidgetPrefs

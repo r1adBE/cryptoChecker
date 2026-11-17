@@ -6,9 +6,6 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.StarterCoinsRepository
-import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.addWatch
-import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.settings.SettingsRepository
@@ -17,6 +14,7 @@ import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterSelection
+import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -39,7 +37,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
     private val starterCoinsRepository: StarterCoinsRepository,
     private val settingsRepository: SettingsRepository,
     private val coinLogoRepository: CoinLogoRepository,
-    private val watchRepository: WatchRepository,
+    private val watchRepository: WatchStore,
     private val addMoments: AddMoments,
     private val widgetUpdater: WidgetUpdater,
     /** Nach dem Anlegen gleich aktualisieren, ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
@@ -195,7 +193,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
     /**
      * Start-Merkliste: Paare der gewählten Coins anlegen — Börse nach [StarterPairs.exchangeKey]: Binance …/USDT in allen
      * Regionen (auch CH/LI), in den USA und bei Standort-Sperre von Binance (451/403) Binance.US …/USDT. Genau wie
-     * «Hinzufügen» (WatchRepository.addWatch, gleiche Standardwerte samt Kurs-Benachrichtigung). Vorhandene Paare werden
+     * «Hinzufügen» (WatchStore.addWatch, gleiche Standardwerte samt Kurs-Benachrichtigung). Vorhandene Paare werden
      * nicht doppelt angelegt. Danach gleich aktualisieren. Einstellungen (z. B. Umrechnung) bleiben unverändert.
      */
     private fun addStarter(symbols: List<String>) {

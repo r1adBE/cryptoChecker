@@ -772,7 +772,6 @@ UI_DATA_REMAINING = {
     "features/alarms/AlarmEditorSheet.kt",
     "features/alarms/AlarmLogScreen.kt",
     "features/alarms/AlarmReliabilityLine.kt",
-    "features/alarms/AlarmSaveNotices.kt",
     "features/alarms/AlarmUserChange.kt",
     "features/alarms/AlarmsOverviewCards.kt",
     "features/alarms/AlarmsOverviewScreen.kt",
@@ -828,9 +827,7 @@ UI_DATA_REMAINING = {
     "features/settings/SettingsDiagnostics.kt",
     "features/settings/SettingsGeneralPages.kt",
     "features/settings/SettingsPickers.kt",
-    "features/settings/SettingsTestActions.kt",
     "features/settings/SettingsViewModel.kt",
-    "features/settings/SettingsViewModelAppearance.kt",
     "features/settings/StorageRecoveryNoticeDialog.kt",
     "features/watchlist/WatchEditViewModel.kt",
     "features/watchlist/WatchSheetDexAddress.kt",
@@ -1416,11 +1413,15 @@ def wc_launch_write_problems(text):
     return out
 
 
+WC_REPO_TYPES = ("WatchRepository", "WatchStore")
+
+
 def wc_receivers(text):
-    """Namen der WatchRepository-Felder der Datei (sonst «watchRepository», wenn nicht anders getypt)."""
+    """Namen der Felder der Datei vom Typ WatchRepository bzw. WatchStore (Schnittstelle der Oberfläche, reicht an
+    WatchRepository weiter) — sonst «watchRepository», wenn nicht anders getypt."""
     typed = [(m.group(1), m.group(2).rsplit(".", 1)[-1]) for m in WC_TYPED.finditer(text)]
-    own = {n for n, ty in typed if ty == "WatchRepository"}
-    other = {n for n, ty in typed if ty != "WatchRepository"}
+    own = {n for n, ty in typed if ty in WC_REPO_TYPES}
+    other = {n for n, ty in typed if ty not in WC_REPO_TYPES}
     return ({"watchRepository"} - other) | own
 
 
@@ -2829,6 +2830,15 @@ def _self_test_write_consent(eq):
                              "positiveOr", "negatedAnd", "negatedAndRest", "positiveOrRest", "positiveAndOr", "andOrInCondition"],
        "write-consent: Richtung der Bedingung")
     eq(calls, 21, "write-consent: Aufrufe")
+    store = """class S(private val store: WatchStore) {
+    fun bad(id: Long) = scope.launch { store.setFavorite(id, true) }
+    fun ok(id: Long) = scope.launch {
+        if (!store.confirmUserWrite()) return@launch
+        store.setFavorite(id, true)
+    }
+}"""
+    calls, problems, _ = write_consent_check({"ui/Store.kt": wc_strip(store)}, {"setFavorite"})
+    eq((_wc_names(problems), calls), (["bad"], 2), "write-consent: Feld vom Typ WatchStore")
     launch_writes = f"""class D {{
     private fun launchWrite(cancelled: () -> Unit = {{}}, block: suspend () -> Unit) =
         scope.launch {{ if (!{r}.confirmUserWrite()) block() else cancelled() }}
