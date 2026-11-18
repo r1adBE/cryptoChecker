@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 305)
+
+- Wide windows (iPad, large iPhones in landscape, Android tablets and phones in landscape): two columns – the start page of each tab on the left, what it opens on the right; on iPad sheets appear as cards.
+
 ## 16.2.2 (build 304)
 
 - Back up automatically: now really weekly, also while the app is closed (Android WorkManager; on iOS a background task whose time iOS decides). The setting says that the password stays on the device, so the files – also in a cloud folder – are only as safe as the device's screen lock (75 languages, privacy policy, SECURITY.md).

@@ -3287,6 +3287,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 302: Tests CoinNamesTest, CurrencyConverterTest, UnusualDataSourceTest; :data-Abdeckung 56,3 → 58,7 %.
 * Build 303: Review 11 iOS: ExplorerEffects, AppLockEffects, AutoBackupAccess; 37 Tests.
 * Build 304: Externes Audit 303: Auto-Sicherung im Hintergrund (WorkManager/BGProcessingTask), Hinweise Sicherung/Sperre (75 Sprachen), iOS-Kursmitteilung nach Aussetzer.
+* Build 305: Externes Audit 303: zwei Spalten — iOS SplitTab (NavigationSplitView), Android TwoPane (TabRoots, ListPane), Test TwoPanePolicyTest.
 
 ## Known warnings
 

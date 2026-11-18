@@ -22,8 +22,6 @@ import com.cryptochecker.app.ui.features.settings.MarketAlertsSettingsScreen
 import com.cryptochecker.app.ui.features.settings.ProvideSettingsHighlight
 import com.cryptochecker.app.ui.features.settings.SettingsPage
 import com.cryptochecker.app.ui.features.settings.SettingsPageScreen
-import com.cryptochecker.app.ui.features.settings.SettingsScreen
-import com.cryptochecker.app.ui.features.settings.SettingsSearchTarget
 import com.cryptochecker.app.ui.features.settings.SpeechSettingsScreen
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.PortfolioLockedState
@@ -37,25 +35,9 @@ internal fun NavGraphBuilder.settingsDestinations(
     navigation: NavHostController,
     anchor: () -> String?,
     onAnchorChange: (String?) -> Unit,
+    args: TabRootArgs,
 ) {
-    composable<ScreenRoute.Settings> {
-        SettingsScreen(
-            onOpenPage = { page ->
-                navigation.navigate(ScreenRoute.SettingsSubpage(page.name)) { launchSingleTop = true }
-            },
-            onOpenSearchTarget = { target ->
-                onAnchorChange(target.anchor)
-                val route: ScreenRoute? = when (target) {
-                    is SettingsSearchTarget.Page -> ScreenRoute.SettingsSubpage(target.page.name)
-                    is SettingsSearchTarget.MarketAlerts -> ScreenRoute.SettingsMarketAlerts
-                    is SettingsSearchTarget.Speech -> ScreenRoute.SettingsSpeech
-                    // Zeilen der Hauptseite hebt SettingsScreen selbst hervor
-                    is SettingsSearchTarget.Main -> null
-                }
-                if (route != null) navigation.navigate(route) { launchSingleTop = true }
-            }
-        )
-    }
+    composable<ScreenRoute.Settings> { entry -> TabRootSlot(entry, args) }
 
     composable<ScreenRoute.SettingsSubpage> { entry ->
         SettingsHighlightEntry(anchor(), onTaken = { onAnchorChange(null) }) {

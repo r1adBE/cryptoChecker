@@ -1,11 +1,7 @@
 package com.cryptochecker.app.ui.navigation
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.exclude
@@ -27,9 +23,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cryptochecker.app.domain.lock.PortfolioAccess
@@ -49,9 +45,6 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.SecureWindowEffect
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.resources.R
-
-/** Überblendung beim Wechsel von Tab oder Seite (ms). */
-private const val NAV_FADE_MILLIS = 200
 
 // consumeWindowInsets war in älteren Compose-Versionen experimentell
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
@@ -74,6 +67,10 @@ fun AppNavHost(
     val bottomTabs = remember(portfolioEnabled) { buildBottomTabs(portfolioEnabled) }
     // Gewählter Tab; null auf Seiten ohne Tableiste (Alarme, Unterseiten, «Paar hinzufügen»)
     val currentTab = bottomTabs.firstOrNull { tab -> currentDestination?.hasRoute(tab.route::class) == true }?.route
+    // Breites Fenster: Startseite des Tabs links ([listPaneRoot]); die Tableiste zeigt dann ihren Tab
+    val wide = rememberTwoPane()
+    val listRoot = remember(backStackEntry, wide) { listPaneRoot(navigation, currentDestination, wide) }
+    val barTab = currentTab ?: listRoot?.let { root -> bottomTabs.firstOrNull { root.destination.hasRoute(it.route::class) }?.route }
     // Portfolio-Sperre: gilt nur für den Portfolio-Tab und seine Unterseiten
     val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -171,12 +168,13 @@ fun AppNavHost(
             // testTags als Ressourcen-Id für alle Seiten (Tableiste, Paarseite): Baseline-Profile-Generator (UiAutomator)
             modifier = Modifier.semantics { testTagsAsResourceId = true },
             bottomBar = {
-                AppBottomBar(currentTab = currentTab, tabs = bottomTabs, navigation = navigation, tabReselect = tabReselect)
+                AppBottomBar(currentTab = barTab, tabs = bottomTabs, navigation = navigation, tabReselect = tabReselect)
             }
         ) { innerPadding ->
             AppNavGraph(
                 innerPadding = innerPadding,
                 navigation = navigation,
+                listRoot = listRoot,
                 activityOwner = activityOwner,
                 whyWatchId = { whyWatchId },
                 onWhyHandled = { whyWatchId = null },
@@ -209,6 +207,7 @@ fun AppNavHost(
 private fun AppNavGraph(
     innerPadding: PaddingValues,
     navigation: NavHostController,
+    listRoot: NavBackStackEntry?,
     activityOwner: ViewModelStoreOwner,
     whyWatchId: () -> Long?,
     onWhyHandled: () -> Unit,
@@ -231,9 +230,17 @@ private fun AppNavGraph(
     // Tab- und Seitenwechsel: kurze Überblendung (statt der 700 ms von Navigation);
     // ohne Bewegung (Animationen aus) sofort
     val reduceMotion = rememberReduceMotion()
-    NavHost(
-        navController = navigation,
-        startDestination = ScreenRoute.Watchlist,
+    val args = remember(navigation, activityOwner, lockViewModel) {
+        TabRootArgs(
+            navigation = navigation, activityOwner = activityOwner, whyWatchId = whyWatchId, onWhyHandled = onWhyHandled,
+            focusWatchId = focusWatchId, onFocusHandled = onFocusHandled, marketJump = marketJump,
+            onMarketJumpChange = onMarketJumpChange, onExplorerSearch = { onExplorerSearchChange(it) },
+            portfolioAccess = portfolioAccess, requestUnlock = requestUnlock, lockViewModel = lockViewModel,
+            onSettingsAnchorChange = onSettingsAnchorChange,
+        )
+    }
+    // Breit: Startseite links (eigene Spalte ausserhalb des Graphen), der Graph rechts; schmal nur der Graph
+    Row(
         // Tastatur: Die Tableiste bleibt unten und verschwindet hinter der Tastatur
         // (adjustResize, randlos – das Fenster wird weder verschoben noch verkleinert). Der Inhalt
         // bekommt nur den Teil der Tastatur, der über die Tableiste hinausragt, als Abstand –
@@ -246,53 +253,15 @@ private fun AppNavGraph(
                 WindowInsets.ime.exclude(WindowInsets(bottom = innerPadding.calculateBottomPadding()))
             )
             .consumeWindowInsets(innerPadding),
-        enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
-        exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
     ) {
-        watchlistDestination(
-            navigation = navigation,
-            whyWatchId = whyWatchId,
-            onWhyHandled = onWhyHandled,
-            focusWatchId = focusWatchId,
-            onFocusHandled = onFocusHandled,
-        )
-
-        explorerDestination(
-            navigation = navigation,
-            search = explorerSearch,
-            onSearchHandled = { onExplorerSearchChange(null) },
-            sections = explorerSections,
-        )
-
-        settingsDestinations(
-            navigation = navigation,
-            anchor = settingsAnchor,
-            onAnchorChange = onSettingsAnchorChange,
-        )
-
-        marketDestinations(
-            navigation = navigation,
-            activityOwner = activityOwner,
-            marketJump = marketJump,
-            onMarketJumpChange = onMarketJumpChange,
-            onExplorerSearch = { onExplorerSearchChange(it) },
-        )
-
-        portfolioDestinations(
-            navigation = navigation,
-            portfolioAccess = portfolioAccess,
-            requestUnlock = requestUnlock,
-            lockViewModel = lockViewModel,
-        )
-
-        pairDestination(navigation = navigation, activityOwner = activityOwner, lockViewModel = lockViewModel)
-
-        alarmDestinations(
-            navigation = navigation,
-            openAlarmLog = openAlarmLog,
-            openAlarmDelivery = openAlarmDelivery,
-            openUpdateSettings = openUpdateSettings,
-        )
+        if (listRoot != null) ListPane(listRoot, args)
+        CompositionLocalProvider(LocalTwoPane provides (listRoot != null)) {
+            AppNavHostGraph(
+                navigation, reduceMotion, Modifier.weight(1f), args, explorerSearch, onExplorerSearchChange,
+                explorerSections, settingsAnchor, onSettingsAnchorChange, activityOwner, portfolioAccess, requestUnlock,
+                lockViewModel, openAlarmLog, openAlarmDelivery, openUpdateSettings
+            )
+        }
     }
 }
 

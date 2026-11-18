@@ -10,6 +10,8 @@ import SwiftUI
 struct RootView: View {
     @AppDataEnv private var data
     @EnvironmentObject private var router: AppRouter
+    /// Breites Fenster (iPad, auch geteilt ab etwa halber Breite): Startseite links, Seiten rechts (`SplitTab`).
+    @Environment(\.horizontalSizeClass) private var sizeClass
     /// Zyklus-Daten leben hier, damit ein Tab-Wechsel sie nicht neu lädt.
     @StateObject private var cycleViewModel = CycleViewModel()
     /// Tastatur sichtbar: Tableiste ausblenden (läge sonst über der Tastatur; Android: darunter).
@@ -23,20 +25,20 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $router.tab) {
-            withTabBar(NavigationStack { rootMarked(WatchlistScreen(), .watchlist) }.id(stackId(.watchlist)),
+            withTabBar(tabStack(rootMarked(WatchlistScreen(), .watchlist)).id(stackId(.watchlist)),
                        hidden: router.showExplorer)
                 .tag(AppTab.watchlist)
 
-            withTabBar(NavigationStack { rootMarked(CycleScreen(viewModel: cycleViewModel), .cycle) }.id(stackId(.cycle)),
+            withTabBar(tabStack(rootMarked(CycleScreen(viewModel: cycleViewModel), .cycle)).id(stackId(.cycle)),
                        hidden: router.showExchangeExplorer)
                 .tag(AppTab.cycle)
 
             if data.settings.portfolioEnabled {
-                withTabBar(PortfolioTab(rootVisible: $rootVisible).id(stackId(.portfolio)), portfolioAdd: true)
+                withTabBar(PortfolioTab(rootVisible: $rootVisible, split: split).id(stackId(.portfolio)), portfolioAdd: true)
                     .tag(AppTab.portfolio)
             }
 
-            withTabBar(NavigationStack { rootMarked(SettingsScreen(), .settings) }.id(stackId(.settings)))
+            withTabBar(tabStack(rootMarked(SettingsScreen(), .settings)).id(stackId(.settings)))
                 .tag(AppTab.settings)
         }
         .background(AppColors.background)
@@ -70,6 +72,18 @@ struct RootView: View {
 
     private func stackId(_ tab: AppTab) -> Int { stackIds[tab, default: 0] }
 
+    private var split: Bool { sizeClass == .regular }
+
+    /// Navigation eines Tabs: schmal ein Stapel, breit zwei Spalten (`SplitTab`).
+    @ViewBuilder
+    private func tabStack<Root: View>(_ root: Root) -> some View {
+        if split {
+            SplitTab(root: root)
+        } else {
+            NavigationStack { root }
+        }
+    }
+
     /// Merkt, ob die Startseite eines Tabs sichtbar ist (eine Seite darüber lässt sie verschwinden).
     private func rootMarked<Content: View>(_ content: Content, _ tab: AppTab) -> some View {
         content.modifier(TabRootMarker(tab: tab, rootVisible: $rootVisible))
@@ -78,7 +92,8 @@ struct RootView: View {
     /// Gewählten Tab noch einmal getippt (wie die System-Tableiste): Seite darüber → zurück zur Startseite;
     /// schon auf der Startseite → nach oben scrollen (die Bildschirme hören auf `AppRouter.scrollToTop`).
     private func reselect(_ tab: AppTab) {
-        if rootVisible.contains(tab) {
+        // Breit bleibt die Startseite links immer sichtbar: dort heisst erneutes Tippen «Seiten rechts schliessen»
+        if rootVisible.contains(tab) && !split {
             router.requestScrollToTop(tab)
             return
         }
@@ -318,12 +333,18 @@ private struct AppTabBarButton: View {
 private struct PortfolioTab: View {
     @ObservedObject private var lock = AppLock.shared
     @Binding var rootVisible: Set<AppTab>
+    let split: Bool
 
     var body: some View {
         switch lock.access {
         case .open:
-            NavigationStack { PortfolioScreen().modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)) }
+            if split {
+                SplitTab(root: PortfolioScreen().modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)))
+            } else {
+                NavigationStack { PortfolioScreen().modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)) }
+            }
         case .locked, .pending:
+            // Gesperrt: eine Spalte (nichts, was rechts stehen könnte)
             NavigationStack { PortfolioLockedView(lock: lock).modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)) }
         }
     }
