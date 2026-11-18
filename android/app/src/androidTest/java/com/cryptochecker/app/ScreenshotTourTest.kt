@@ -40,7 +40,8 @@ import org.junit.runners.model.Statement
  * `screenshots` legt (DEVELOPMENT.md). Gleiche Seiten und Namen wie `ScreenshotTourTests` in iOS:
  * Merkliste, Paarseite eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme (Glocke), Bericht «Letzte
  * Aktualisierung», Paar hinzufügen, Coin-Suche, Markt, Portfolio, Einstellungen mit «Hell / Dunkel», «Alarme»,
- * «Sichern» und «Über die App».
+ * «Sichern» und «Über die App»; nur Android dazu die Einrichten-Seiten der vier Widgets ([TourWidgetConfig], iOS richtet
+ * Widgets im System-Editor ein).
  *
  * Daten: die Demo-Sicherung der Store-Bilder (`docs/store/screenshots/demo-backup.json`, Asset des Test-APK), mit
  * denselben Abweichungen wie in iOS ([demoBackup]) über [BackupManager.restore] eingespielt — gleiche Paare, Notizen,
@@ -213,16 +214,30 @@ class ScreenshotTourTest {
             nav.waitForTag(UiTestTags.BACKUP_EXPORT)
         }
         settingsPage(R.string.settings_row_about, "15_about")
+
+        // Einrichten-Seiten der vier Widgets (eigene Activities wie vom Launcher, mit echt gebundenem Widget)
+        val widgets = TourWidgetConfig(InstrumentationRegistry.getInstrumentation().targetContext)
+        try {
+            TourWidgetConfig.PAGES.forEach { page ->
+                step(page.name, appInFront = false) {
+                    widgets.open(page)
+                    nav.await("Einrichten-Seite ${page.activity.simpleName}") { widgets.inFront(page) }
+                }
+            }
+        } finally {
+            widgets.close()
+        }
     }
 
     /**
-     * Ein Bild: [open] führt zur Seite, dann das Foto [name]. Scheitert eins von beiden, endet die Tour hier: Bild des
+     * Ein Bild: [open] führt zur Seite, dann das Foto [name] ([appInFront]: die App-Activity muss vorne sein; aus bei
+     * den Einrichten-Seiten der Widgets, die prüft [TourWidgetConfig.inFront]). Scheitert eins von beiden, endet die Tour hier: Bild des
      * Zustands (`NN_name_failed`), dann ein AssertionError mit Bild, Grund, Seite und sichtbaren Kennungen.
      */
-    private fun step(name: String, open: () -> Unit) {
+    private fun step(name: String, appInFront: Boolean = true, open: () -> Unit) {
         try {
             open()
-            shot(name)
+            shot(name, checkForeground = appInFront)
         } catch (e: Throwable) {
             Log.w(TAG, "Bild $name fehlt", e)
             val reason = e.message?.lineSequence()?.firstOrNull().orEmpty()

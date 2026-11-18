@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 312)
+
+- Internal: the Android screenshot tour also captures the configure pages of the four widgets.
+
 ## 16.2.2 (build 311)
 
 - Portfolio: «Today» and the 24-hour values appear on first opening; the tab loads missing hourly candles itself instead of waiting for the next background refresh.

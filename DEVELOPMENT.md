@@ -766,6 +766,9 @@ data (Android `FakeExchange.marketData`, iOS `UITEST_MARKET_DATA`), light/dark t
 `07_explorer`, `08_coin_search`, `09_market` (waits for the tag `market_loaded`: Crypto Pulse loaded and every
 visible card on «Now» shown; no fixed wait),
 `10_portfolio`, `11_settings`, `12_settings_display`, `13_settings_alarms`, `14_settings_backup`, `15_about`.
+Android only, after these: the configure pages of the four widgets, `16_widget_watchlist`, `17_widget_single`,
+`18_widget_portfolio`, `19_widget_pulse` (`TourWidgetConfig`: binds a real widget through its own `AppWidgetHost` after
+`appwidget grantbind`; iOS configures widgets in the system editor, which a UI test cannot reach).
 
 ```sh
 git fetch origin screenshots
@@ -3294,6 +3297,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 309: Puls-Widget gross: Coins als Liste (PulseWidgetList), Sätze haben Vorrang.
 * Build 310: CI: Simulator über UDID (pick_simulator.py) in ios, ios-performance, screenshots.
 * Build 311: Portfolio-Tab lädt fehlende Stundenkerzen (loadMissingHourly / tabHourly); iOS-Tour schliesst Speicher-Hinweis im Portfolio.
+* Build 312: Screenshot-Tour Android: Einrichten-Seiten der Widgets (TourWidgetConfig).
 
 ## Known warnings
 
