@@ -93,6 +93,8 @@ final class ScreenshotTourTests: XCTestCase {
             try self.openTab(app, UiTestTags.tabPortfolio)
             try self.require(app.tagged(UiTestTags.portfolioCoin("BTC")).waitForExistence(timeout: uiListTimeout),
                              "portfolio empty")
+            // Speicher-Hinweis des unsignierten Simulators (kein Schlüsselbund) auch hier schliessen
+            self.closeStorageNotice(app)
         }
 
         // Merkliste, Paarseite → ihre Alarme → Editor, Alle Alarme (Glocke), Bericht

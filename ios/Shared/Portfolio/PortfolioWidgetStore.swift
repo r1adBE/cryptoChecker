@@ -257,12 +257,21 @@ enum PortfolioWidgetStore {
         guard PortfolioPriceFallback.mayRecord(transactions: transactions, prices: prices,
                                                now: EpochTime.nowMillis, staleAfterMillis: staleAfter) else { return nil }
         let rate = await FxRateSource.usdTo(currency)
+        let extra = await tabHourly(transactions: transactions, prices: prices)
+        return update(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload,
+                      extraHourly: extra)
+    }
+
+    /// Stundenkurse für den Portfolio-Tab: Mini-Charts der Merkliste und fehlende Stundenkerzen (`loadMissingCandles`; je
+    /// Coin höchstens ein Abruf pro Stunde, zusammen höchstens `candleLoadTimeout`) — damit «Heute» und die 24-h-Werte
+    /// schon beim ersten Öffnen dastehen, nicht erst nach der nächsten Hintergrund-Aktualisierung. Wie Android
+    /// `PortfolioSnapshotUpdater.loadMissingHourly`.
+    static func tabHourly(transactions: [PortfolioTx], prices: PortfolioPrices) async -> [String: [PortfolioTimedPrice]] {
         var extra = await cachedHourly(Set(transactions.map { $0.coin.uppercased() }))
         for (coin, list) in await loadMissingCandles(transactions: transactions, prices: prices, known: extra) {
             extra[coin, default: []] += list
         }
-        return update(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload,
-                      extraHourly: extra)
+        return extra
     }
 
     /// Stundenkerzen für offene Coins, denen Stundenkurse fehlen — z. B. Coins, die nur im Portfolio

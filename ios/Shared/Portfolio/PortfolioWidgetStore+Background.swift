@@ -80,10 +80,11 @@ extension PortfolioWidgetStore {
     @discardableResult
     static func updateInBackground(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
                                    rate: Double?, reload: Bool = true,
+                                   extraHourly: [String: [PortfolioTimedPrice]] = [:],
                                    displayFx: PortfolioDisplayFx? = nil) async -> PortfolioWidgetSnapshot? {
         await updates.runDetached {
             updateNow(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload,
-                      displayFx: displayFx)
+                      extraHourly: extraHourly, displayFx: displayFx)
         } ?? nil
     }
 }

@@ -171,6 +171,18 @@ class PortfolioSnapshotUpdater @Inject constructor(
     }
 
     /**
+     * Fehlende Stundenkerzen der offenen Coins laden ([PortfolioHourlyCandles.loadMissingCandles]; je Coin höchstens ein
+     * Abruf pro Stunde, zusammen höchstens 4 s) — für den Portfolio-Tab vor [record], damit «Heute» und die 24-h-Werte
+     * schon beim ersten Öffnen dastehen, nicht erst nach der nächsten Hintergrund-Aktualisierung. Wie iOS
+     * `PortfolioWidgetStore.tabHourly`. Fehler bleiben still.
+     */
+    suspend fun loadMissingHourly(transactions: List<PortfolioTxEntity>, prices: Map<String, Double>): Unit =
+        withContext(ioDispatcher) {
+            val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices, CostMethod.DEFAULT, withParts = false).open
+            hourlyCandles.loadMissingCandles(open.map { it.coin })
+        }
+
+    /**
      * Frischen Devisenkurs USD → [currency] für das Widget merken ([PortfolioWidgetChart.fxMemoToSave]), unabhängig von
      * einer Aufnahme. @return true, wenn ein Kurs gemerkt wurde
      */

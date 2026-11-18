@@ -3293,6 +3293,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 308: Durchsicht am Gerät: «+» in der Kopfzeile (AddButtonScroll entfernt), Währungen der Karte, Widget-Tagesschlüsse im Hintergrund, Widgets ohne Lücke, Hinweis-Dialog, Untertitel Akku & Aktivität.
 * Build 309: Puls-Widget gross: Coins als Liste (PulseWidgetList), Sätze haben Vorrang.
 * Build 310: CI: Simulator über UDID (pick_simulator.py) in ios, ios-performance, screenshots.
+* Build 311: Portfolio-Tab lädt fehlende Stundenkerzen (loadMissingHourly / tabHourly); iOS-Tour schliesst Speicher-Hinweis im Portfolio.
 
 ## Known warnings
 

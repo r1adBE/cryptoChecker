@@ -87,9 +87,11 @@ extension PortfolioModel {
         } else if data.settings.portfolioCurrency == currency {
             // Mit dem Merkzettel der App: «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung wie die Karte. Gerechnet
             // im Hintergrund, nacheinander mit den übrigen Aufnahmen — eine neuere gewinnt
+            // Vergleichskurse für «Heute» und 24h: Mini-Charts und fehlende Stundenkerzen (je Coin höchstens stündlich)
+            let hourly = await PortfolioWidgetStore.tabHourly(transactions: calcPortfolio, prices: prices)
             let widget = await PortfolioWidgetStore.updateInBackground(
                 transactions: calcPortfolio, prices: prices, currency: currency, rate: self.rate(for: currency),
-                displayFx: widgetDisplayFx(for: currency, summary: summary))
+                extraHourly: hourly, displayFx: widgetDisplayFx(for: currency, summary: summary))
             // Währung inzwischen gewechselt: Zeilen nicht mit Zahlen der alten füllen
             if let widget, data.settings.portfolioCurrency == currency {
                 coinChanges = widget.coinChanges ?? [:]

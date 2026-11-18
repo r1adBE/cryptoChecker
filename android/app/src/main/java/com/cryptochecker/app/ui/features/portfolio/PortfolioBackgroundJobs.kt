@@ -63,6 +63,8 @@ internal fun PortfolioViewModel.recordWidgetSnapshots() {
                     if (_todayPercent.value == null) showStoredToday(input.fxRate)
                     return@collect
                 }
+                // Vergleichskurse für «Heute» und 24h: fehlende Stundenkerzen zuerst (je Coin höchstens stündlich)
+                safe { snapshotUpdater.loadMissingHourly(input.transactions, input.prices.prices) }
                 safe {
                     snapshotUpdater.record(
                         input.transactions,

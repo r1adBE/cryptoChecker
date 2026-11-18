@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 311)
+
+- Portfolio: «Today» and the 24-hour values appear on first opening; the tab loads missing hourly candles itself instead of waiting for the next background refresh.
+
 ## 16.2.2 (build 310)
 
 - Internal (CI): iOS simulators are picked by their identifier, so iPad screenshots work with simulator names in parentheses.
