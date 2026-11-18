@@ -1,9 +1,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.alarm.DepegAlarmChecker
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEditor
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.alarmsAllowed
@@ -34,7 +34,7 @@ class UsdtPeg @Inject constructor(
 
 /** Portfolio-Alarm anlegen und sagen, ob Alarme als Mitteilung erscheinen dürfen («· Mitteilungen aus»). */
 class PortfolioAlarmSaving @Inject constructor(
-    private val repository: PortfolioAlarmRepository,
+    private val repository: PortfolioAlarmEditor,
     private val notifier: AppNotifier,
 ) {
     /** Legt den Alarm an; Beträge in [currency] (null bei Prozent-Alarmen). Liefert die neue Id. */

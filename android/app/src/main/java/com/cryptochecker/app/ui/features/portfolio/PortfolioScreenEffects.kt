@@ -6,10 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.portfolio.PortfolioCoinDeletion
-import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.local.DatabaseNames
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioCoinDeletion
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
@@ -41,12 +41,12 @@ internal fun PortfolioBannerEffects(viewModel: PortfolioViewModel, banner: Watch
 
     // Kein Schlüssel: Portfolio nur im Arbeitsspeicher, nie unverschlüsselt gespeichert — sagen, nicht still (wie iOS
     // «portfolio_save_pending»); der nächste Start versucht es erneut
-    val storageInMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
-    val portfolioInMemory = PortfolioDatabase.DB_NAME in storageInMemory
+    val storageInMemory by StorageMemory.inMemory.collectAsStateWithLifecycle()
+    val portfolioInMemory = DatabaseNames.PORTFOLIO in storageInMemory
     // Variante: Datei mit gespeichertem Stand ist da, nur der Schlüssel war gerade nicht lesbar — der Stand kommt nach
     // einem Neustart zurück, Änderungen dieses Laufs nicht
-    val storageKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val portfolioKept = PortfolioDatabase.DB_NAME in storageKept
+    val storageKept by StorageMemory.storedKept.collectAsStateWithLifecycle()
+    val portfolioKept = DatabaseNames.PORTFOLIO in storageKept
     val closeLabel = stringResource(R.string.action_close)
     // Dauerhinweis (wie die Merkliste): steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
     // Gesperrtes Schreiben: PortfolioStorageLock

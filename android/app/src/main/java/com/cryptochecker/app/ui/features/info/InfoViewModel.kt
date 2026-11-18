@@ -3,7 +3,6 @@ package com.cryptochecker.app.ui.features.info
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.activity.ActivityMonitor
-import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
 import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.CycleDataSource
@@ -35,7 +34,9 @@ import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.NetworkStatus
 import com.cryptochecker.app.domain.watch.FavoriteKind
+import com.cryptochecker.app.domain.watch.FavoriteStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -74,7 +75,7 @@ class InfoViewModel @Inject constructor(
     internal val cycleDataSource: CycleDataSource,
     internal val insights: InsightsDataSource,
     internal val exchangeRepository: ExchangeRepository,
-    private val favoritesRepository: FavoritesRepository,
+    private val favoritesRepository: FavoriteStore,
     internal val gasDataSource: GasDataSource,
     internal val pulseDataSource: PulseDataSource,
     internal val cacheStore: CycleCacheStore,
@@ -85,7 +86,7 @@ class InfoViewModel @Inject constructor(
     watchlist: InfoWatchlist,
     internal val activityMonitor: ActivityMonitor,
     /** Netz da? Status-Pille «Offline · Stand 14:05» wie in der Merkliste. */
-    internal val connectivity: com.cryptochecker.app.data.util.ConnectivityMonitor,
+    internal val connectivity: NetworkStatus,
 ) : ViewModel() {
 
     /**

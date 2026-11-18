@@ -3283,6 +3283,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 298: C-02 Android (46 Funktionen, Kotlin-Obergrenze 148); KSP nie aus Cache/inkrementell, seriell, Prüfung der Room-Klassen in :data; iOS favoritesSubject statt $favorites (Build 296 kompilierte nicht).
 * Build 299: A-01 abgeschlossen (Regeln android-wiring/ios-wiring/source-guard/ios-watchlist-keys/ios-write-calls, Verhaltenstests); Wear-Komplikationen PriceComplicationData/PortfolioComplicationData mit Gerätetests im Wear-Job.
 * Build 300: Review 11: Seiteneffekte der Android-ViewModels hinter Schnittstellen (effects, EffectsModule/UiStoreModule), 30 JVM-Tests für 4 ViewModels.
+* Build 301: C-07 Rest: UI_DATA_REMAINING 79 → 3 (UiPortModule, StorageMemory, LocalStoredNotices); @RequiresApi(Q) an SettingsDevice (Lint-Fehler aus Build 300).
 
 ## Known warnings
 

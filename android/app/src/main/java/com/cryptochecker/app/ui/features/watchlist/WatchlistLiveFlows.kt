@@ -4,8 +4,8 @@
 // sie und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.convert.QuoteConversion
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.WatchlistSettings
 import com.cryptochecker.app.domain.watch.ColumnSort
@@ -30,7 +30,7 @@ internal class WatchlistLiveFlows(
     watchList: SharedFlow<List<WatchEntity>>,
     columnSort: StateFlow<ColumnSort?>,
     watchlistSettings: Flow<WatchlistSettings>,
-    private val currencyConverter: CurrencyConverter,
+    private val currencyConverter: QuoteConversion,
     private val refresh: WatchlistRefreshController,
     /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung. */
     private val online: StateFlow<Boolean>,
@@ -80,7 +80,7 @@ internal class WatchlistLiveFlows(
 
     private val convertFxTimesState = MutableStateFlow<Map<String, Long>>(emptyMap())
 
-    /** Quote-Währungen mit USDT = 1 angenommen bzw. unsicherer Umrechnung ([CurrencyConverter.usdtNotes]); mit [convertRates]. */
+    /** Quote-Währungen mit USDT = 1 angenommen bzw. unsicherer Umrechnung ([QuoteConversion.usdtNotes]); mit [convertRates]. */
     private val convertUsdtNotesState =
         MutableStateFlow<Map<String, com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState>>(emptyMap())
 

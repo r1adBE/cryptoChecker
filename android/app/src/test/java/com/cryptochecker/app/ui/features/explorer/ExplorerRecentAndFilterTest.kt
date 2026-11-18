@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.data.MutableTicker
+import com.cryptochecker.app.domain.model.MutableTicker
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue

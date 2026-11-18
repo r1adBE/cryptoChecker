@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABL
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STORE_FILE
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.ExportReference
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.portfolio.StoredPrice
@@ -129,6 +130,3 @@ suspend fun PortfolioPriceSource.exportReference(coins: Collection<String>): Exp
     val unavailable = coins.filterTo(HashSet()) { it !in prices && (fresh == null || it in fresh.unavailable) }
     return ExportReference(prices, unavailable)
 }
-
-/** Ergebnis von [exportReference]: Bezugskurse je Coin (USDT) und Coins ohne Bezug wegen eines Abruffehlers. */
-data class ExportReference(val prices: Map<String, Double>, val unavailable: Set<String>)

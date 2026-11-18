@@ -4,7 +4,6 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.notification.AlarmSoundStore

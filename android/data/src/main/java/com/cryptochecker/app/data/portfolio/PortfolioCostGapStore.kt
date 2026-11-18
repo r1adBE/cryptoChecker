@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.domain.portfolio.CostGapAcks
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,14 +17,14 @@ import kotlinx.coroutines.flow.asStateFlow
  * [PREFS], nicht in den Sicherungsregeln). Merker ohne Lücke mehr räumt [prune] weg.
  */
 @Singleton
-class PortfolioCostGapStore @Inject constructor(@ApplicationContext private val context: Context) {
+class PortfolioCostGapStore @Inject constructor(@ApplicationContext private val context: Context) : CostGapAcks {
 
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     private val _acknowledged = MutableStateFlow(read())
 
     /** Bewusst «unbekannt gelassene» Transaktionen. */
-    val acknowledged: StateFlow<Set<Long>> = _acknowledged.asStateFlow()
+    override val acknowledged: StateFlow<Set<Long>> = _acknowledged.asStateFlow()
 
     private fun read(): Set<Long> = runCatching {
         prefs.getStringSet(KEY, emptySet()).orEmpty().mapNotNull { it.toLongOrNull() }.toSet()
@@ -34,13 +35,13 @@ class PortfolioCostGapStore @Inject constructor(@ApplicationContext private val 
         runCatching { prefs.edit { putStringSet(KEY, ids.map { it.toString() }.toSet()) } }
     }
 
-    fun acknowledge(id: Long) = write(_acknowledged.value + id)
+    override fun acknowledge(id: Long) = write(_acknowledged.value + id)
 
     /** Wieder als offen zählen (z. B. «Einstand erfassen» nach «Unbekannt lassen»). */
-    fun reopen(id: Long) = write(_acknowledged.value - id)
+    override fun reopen(id: Long) = write(_acknowledged.value - id)
 
     /** Nur noch [keep] behalten (Lücken, die es noch gibt). */
-    fun prune(keep: Set<Long>) {
+    override fun prune(keep: Set<Long>) {
         if (keep != _acknowledged.value) write(keep)
     }
 

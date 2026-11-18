@@ -1,9 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressRefresh
 import com.cryptochecker.app.domain.portfolio.AddressServer
-import com.cryptochecker.app.domain.portfolio.PortfolioHistory
-import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import javax.inject.Inject
@@ -28,7 +26,7 @@ class WatchedAddressRefresher @Inject constructor(
     private val repository: PortfolioRepository,
     private val source: WatchedAddressSource,
     private val settings: SettingsRepository,
-) {
+) : AddressRefresh {
     /** Eine Aktualisierung zur Zeit ([singleFlightRefresh]): Lesen, Laden und Speichern zusammen. */
     private val gate = Mutex()
 
@@ -38,7 +36,7 @@ class WatchedAddressRefresher @Inject constructor(
      *   läuft schon eine Aktualisierung, sofort zurück. Vordergrund wartet und liest danach frisch.
      * @return true, wenn mindestens ein Abruf gespeichert wurde.
      */
-    suspend fun refresh(force: Boolean, background: Boolean = false): Boolean {
+    override suspend fun refresh(force: Boolean, background: Boolean): Boolean {
         val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
         return singleFlightRefresh(
             gate,
@@ -98,31 +96,5 @@ suspend fun <U> singleFlightRefresh(
         false
     } finally {
         gate.unlock()
-    }
-}
-
-/**
- * Echte Transaktionen + Adress-Einzahlungen ohne Kaufpreis und Eröffnungsposten ([AddressBalance.withAddresses]) als Einträge
- * für Rechner, Verlauf, Widget und Alarme. Nie speichern: negative Ids.
- */
-fun List<PortfolioTxEntity>.withAddresses(
-    addresses: List<WatchedAddress>,
-    now: Long = System.currentTimeMillis(),
-): List<PortfolioTxEntity> {
-    // Ohne Adressen oder schon zusammengeführt (negative Ids): unverändert
-    if (addresses.isEmpty() || any { AddressBalance.isAddressTrade(it.id) }) return this
-    val synthetic = AddressBalance.trades(addresses, map { it.toTrade() }, PortfolioHistory.epochDayOfUtcMillis(now))
-    if (synthetic.isEmpty()) return this
-    // Eröffnungsposten ([com.cryptochecker.app.domain.portfolio.AddressCostLots]) mit Preis und Wallet der Adresse
-    return this + synthetic.map { t ->
-        PortfolioTxEntity(
-            id = t.id,
-            coin = t.coin,
-            type = t.type,
-            amount = t.amount,
-            priceUsdt = t.priceUsdt,
-            time = t.time,
-            exchange = t.exchange
-        )
     }
 }

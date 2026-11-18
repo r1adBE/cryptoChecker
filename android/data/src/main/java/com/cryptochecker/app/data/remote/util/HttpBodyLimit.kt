@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote.util
 
-import com.cryptochecker.app.data.backup.BackupLimits
+import com.cryptochecker.app.domain.backup.BackupLimits
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -20,7 +20,7 @@ object HttpBodyLimit {
      */
     const val MAX_JSON_DEPTH = 128
 
-    /** Antworttext tiefer verschachtelt als [max] ([com.cryptochecker.app.data.backup.BackupLimits.checkDepth])? */
+    /** Antworttext tiefer verschachtelt als [max] ([com.cryptochecker.app.domain.backup.BackupLimits.checkDepth])? */
     fun tooDeep(text: String, max: Int = MAX_JSON_DEPTH): Boolean =
         try {
             BackupLimits.checkDepth(text, max)

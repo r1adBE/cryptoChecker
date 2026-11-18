@@ -14,7 +14,7 @@ import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.resources.R
 
 /**
- * Fortschritt von «Mehrere Paare auf einmal» ([com.cryptochecker.app.data.BulkAddRunner]): Balken und
+ * Fortschritt von «Mehrere Paare auf einmal» ([com.cryptochecker.app.domain.BulkAddRunner]): Balken und
  * «Paare werden hinzugefügt … 123 / 746». Im Explorer unter dem Knopf und schmal über der Merkliste. Mit [text] eine
  * andere Zeile unter dem Balken (CSV-Import: «Zeile 1’200 von 10’000»).
  */

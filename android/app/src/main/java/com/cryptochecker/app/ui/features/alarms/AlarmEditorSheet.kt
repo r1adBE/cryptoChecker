@@ -28,9 +28,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
@@ -82,7 +82,7 @@ internal fun AlarmEditorSheet(
         draft.condition.isPriceThreshold,
         quoteAsset,
         otherCurrency,
-        FxRateSource.CURRENCIES,
+        FxCurrencies.ALL,
     )
     if (offerCurrency) {
         LaunchedEffect(otherCurrency) { onLoadRate(otherCurrency) }

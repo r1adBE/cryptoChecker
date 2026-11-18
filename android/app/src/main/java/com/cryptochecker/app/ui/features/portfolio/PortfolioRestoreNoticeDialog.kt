@@ -9,25 +9,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.data.portfolio.PortfolioRestoreNotice
+import com.cryptochecker.app.ui.components.LocalStoredNotices
 import com.cryptochecker.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
  * Einmaliger Hinweis beim Öffnen des Portfolios: Einträge aus der Systemsicherung waren ungültig und
- * wurden nicht übernommen ([PortfolioRestoreNotice]). Wie iOS `systemRestoreNotice()`.
+ * wurden nicht übernommen (`PortfolioRestoreNotice`). Wie iOS `systemRestoreNotice()`.
  */
 @Composable
 internal fun SystemRestoreNoticeDialog() {
-    val context = LocalContext.current
+    val notices = LocalStoredNotices.current ?: return
     // Saveable: die Anzahl ist nach take() gelöscht, der Dialog muss Drehen überstehen
     var invalid by rememberSaveable { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
-        val count = withContext(Dispatchers.IO) { PortfolioRestoreNotice.take(context.applicationContext) }
+        val count = withContext(Dispatchers.IO) { notices.takePortfolioRestoreInvalid() }
         if (count > 0) invalid = count
     }
     if (invalid > 0) {

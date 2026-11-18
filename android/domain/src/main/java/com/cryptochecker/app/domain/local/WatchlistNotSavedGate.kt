@@ -1,4 +1,4 @@
-package com.cryptochecker.app.data.local
+package com.cryptochecker.app.domain.local
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
@@ -14,9 +14,9 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Verschlüsselung noch nicht aktiv) — Änderungen gehen beim Neustart verloren. Vor der ersten Änderung des Nutzers je
  * App-Lauf (Prozess) einmal fragen: «Abbrechen» schreibt nicht, «Trotzdem» schreibt und fragt in diesem Lauf nicht mehr.
  * Gefragt wird EINMAL je Nutzeraktion VOR der Aktion
- * ([com.cryptochecker.app.data.confirmUserWrite] im Controller bzw. ViewModel, vor Sperren, Rückgängig-Eintrag,
+ * (`confirmUserWrite` im Controller bzw. ViewModel, vor Sperren, Rückgängig-Eintrag,
  * Mitteilungen, Banner und Haptik). Der Schreibweg im Repository fragt nicht, sondern lehnt ohne Bestätigung ab
- * ([needsConfirmation], Sicherung in [com.cryptochecker.app.data.userWriteRefused]). Die Oberfläche zeigt den Dialog
+ * ([needsConfirmation], Sicherung in `userWriteRefused`). Die Oberfläche zeigt den Dialog
  * (`WatchlistNotSavedGateHost`, einmal in der MainActivity). Ohne sichtbare Oberfläche (Hintergrund, Empfänger) wird nie
  * gefragt — dann geschrieben. Gleich wie iOS (`WatchlistNotSavedGate`, Testfälle in beiden Tests).
  * Fehlt die Oberfläche beim Bestätigen nur kurz (Drehen, Dunkelmodus), wartet
@@ -38,8 +38,8 @@ object WatchlistNotSavedGate {
 
     /** Gerade [WatchlistStorageLock.Notice.NOT_SAVED]? Erst nach dem Öffnen der Datenbank verlässlich. */
     fun notSavedNow(): Boolean = WatchlistStorageLock.notice(
-        DatabaseEncryptionNotice.inMemory.value,
-        DatabaseEncryptionNotice.storedKept.value,
+        StorageMemory.inMemory.value,
+        StorageMemory.storedKept.value,
     ) == WatchlistStorageLock.Notice.NOT_SAVED
 
     @Volatile

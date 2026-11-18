@@ -241,7 +241,7 @@ object PortfolioBackupMirror {
      * Eintrags ([encode] schreibt alle; [BackupFields]).
      */
     fun parse(text: String): Content {
-        com.cryptochecker.app.data.backup.BackupLimits.checkDepth(text)
+        com.cryptochecker.app.domain.backup.BackupLimits.checkDepth(text)
         val root = JSONObject(text)
         require(root.optString("format") == FORMAT) { "Unbekanntes Format" }
         require((root.opt("version") as? Number)?.toDouble() == VERSION.toDouble()) { "Version ${root.opt("version")}" }
@@ -267,8 +267,8 @@ object PortfolioBackupMirror {
      */
     fun importInto(db: SupportSQLiteDatabase, file: File, keepIds: Boolean = true, onInvalid: (Int) -> Unit = {}): Int {
         if (!file.isFile) return 0
-        // Nie ungebremst lesen (wie die eigene Sicherung, [com.cryptochecker.app.data.backup.BackupLimits])
-        val text = file.inputStream().use { com.cryptochecker.app.data.backup.BackupLimits.readLimited(it) }.toString(Charsets.UTF_8)
+        // Nie ungebremst lesen (wie die eigene Sicherung, [com.cryptochecker.app.domain.backup.BackupLimits])
+        val text = file.inputStream().use { com.cryptochecker.app.domain.backup.BackupLimits.readLimited(it) }.toString(Charsets.UTF_8)
         val content = parse(text)
         val txs = content.txs
         val alarms = content.alarms

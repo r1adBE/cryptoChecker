@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.setup.AppLanguages
@@ -51,7 +51,7 @@ internal fun CurrencyPage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
     var query by rememberSaveable { mutableStateOf("") }
     // Eine gesetzte, nicht gelistete Währung (z. B. aus einer Sicherung) trotzdem anzeigen
     val codes = remember(selected) {
-        if (selected in FxRateSource.CURRENCIES) FxRateSource.CURRENCIES else FxRateSource.CURRENCIES + selected
+        if (selected in FxCurrencies.ALL) FxCurrencies.ALL else FxCurrencies.ALL + selected
     }
     val options = remember(codes, locale) { codes.map { it to currencyName(it, locale) } }
     val q = query.trim()

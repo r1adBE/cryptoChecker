@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.activity.BroadMarket
 import com.cryptochecker.app.domain.activity.BroadMarketSnapshot
+import com.cryptochecker.app.domain.remote.SpotInfoSource
 import com.cryptochecker.app.domain.spot.SpotData
 import com.cryptochecker.app.domain.spot.SpotMarket
 import javax.inject.Inject
@@ -21,7 +22,7 @@ import timber.log.Timber
 @Singleton
 class SpotDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
-) {
+) : SpotInfoSource {
     private data class Cached(val at: Long, val entries: List<SpotData>)
 
     private val cache = HashMap<String, Cached>()
@@ -32,7 +33,7 @@ class SpotDataSource @Inject constructor(
      * Daten zum Kürzel aus [SpotMarket.lookupSymbol] für das Paar mit [identity]; null = keine passenden (oder nicht
      * erreichbar). Passt in der Top-40 kein Treffer, fragt es einmal nach dem Kürzel.
      */
-    suspend fun fetch(symbol: String, identity: SpotMarket.Identity = SpotMarket.Identity()): SpotData? {
+    override suspend fun fetch(symbol: String, identity: SpotMarket.Identity): SpotData? {
         val now = System.currentTimeMillis()
         SpotMarket.pick(topEntries(now), symbol, identity)?.let { return it }
         synchronized(cache) { cache[symbol] }?.takeIf { now - it.at in 0 until SpotMarket.CACHE_TTL_MILLIS }

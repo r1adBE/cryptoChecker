@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.data.local.WatchlistWriteRefusal
+import com.cryptochecker.app.domain.local.WatchlistWriteRefusal
 import com.cryptochecker.resources.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map

@@ -1,11 +1,11 @@
-package com.cryptochecker.app.data.local
+package com.cryptochecker.app.domain.local
 
 /**
  * Merkliste in diesem Lauf nur leer im Arbeitsspeicher, obwohl die verschlüsselte Datei mit gespeichertem Stand da ist
- * ([DatabaseEncryptionNotice.storedKept]): Was jetzt angelegt wird, ist nach dem Prozess-Ende weg.
- * Darum ist die Merkliste nur lesbar wie das Portfolio ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
+ * ([StorageMemory.storedKept]): Was jetzt angelegt wird, ist nach dem Prozess-Ende weg.
+ * Darum ist die Merkliste nur lesbar wie das Portfolio ([PortfolioStorageLock]):
  * Alle Schreibwege des Nutzers (Paare hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Alarme …) lehnt
- * [com.cryptochecker.app.data.WatchRepository] zentral ab und meldet es kurz ([WatchlistWriteRefusal]); der
+ * `WatchRepository` zentral ab und meldet es kurz ([WatchlistWriteRefusal]); der
  * Speicher-Hinweis der Merkliste bleibt stehen (nach jedem anderen Banner kommt er wieder). Hintergrundarbeit (Kurse,
  * Alarm-Zustand) schreibt weiter in die leere Datenbank im Arbeitsspeicher — dort ist nichts, was verloren ginge.
  * Gleich wie iOS (`WatchlistStorageLock`, `AppData.watchlistWriteRefused`).
@@ -14,17 +14,17 @@ package com.cryptochecker.app.data.local
  */
 object WatchlistStorageLock {
 
-    /** Ist die Merkliste ([AppDatabase.DB_NAME]) unter den nur im Arbeitsspeicher gehaltenen Dateien [keptDatabases]? */
-    fun isLocked(keptDatabases: Set<String>): Boolean = AppDatabase.DB_NAME in keptDatabases
+    /** Ist die Merkliste ([DatabaseNames.WATCHLIST]) unter den nur im Arbeitsspeicher gehaltenen Dateien [keptDatabases]? */
+    fun isLocked(keptDatabases: Set<String>): Boolean = DatabaseNames.WATCHLIST in keptDatabases
 
     /** Schreibwege des Nutzers sperren (hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Alarme)? */
     fun blocksWrites(keptDatabases: Set<String>): Boolean = isLocked(keptDatabases)
 
     /**
-     * Schreibwege gerade gesperrt (nach [DatabaseEncryptionNotice.storedKept])? Für die Oberfläche: vor
+     * Schreibwege gerade gesperrt (nach [StorageMemory.storedKept])? Für die Oberfläche: vor
      * einer Mitteilungs-Erlaubnis prüfen — bei Sperre nur der Hinweis, keine Anfrage (wie Alarme speichern).
      */
-    fun blocksWritesNow(): Boolean = blocksWrites(DatabaseEncryptionNotice.storedKept.value)
+    fun blocksWritesNow(): Boolean = blocksWrites(StorageMemory.storedKept.value)
 
     /** Alarm speichern bzw. Schnell-Alarm anlegen sperren? */
     fun blocksAlarmSave(keptDatabases: Set<String>): Boolean = isLocked(keptDatabases)
@@ -41,10 +41,10 @@ object WatchlistStorageLock {
         NOT_SAVED,
     }
 
-    /** Welcher Hinweis gilt nach [DatabaseEncryptionNotice.inMemory] und [DatabaseEncryptionNotice.storedKept]? null = keiner. */
+    /** Welcher Hinweis gilt nach [StorageMemory.inMemory] und [StorageMemory.storedKept]? null = keiner. */
     fun notice(inMemoryDatabases: Set<String>, keptDatabases: Set<String>): Notice? = when {
         isLocked(keptDatabases) -> Notice.KEPT
-        AppDatabase.DB_NAME in inMemoryDatabases -> Notice.NOT_SAVED
+        DatabaseNames.WATCHLIST in inMemoryDatabases -> Notice.NOT_SAVED
         else -> null
     }
 }

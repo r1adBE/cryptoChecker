@@ -17,7 +17,6 @@ import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.AppVisibility
@@ -49,13 +48,17 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var widgetUpdater: com.cryptochecker.app.widget.WidgetUpdater
 
-    @Inject lateinit var coinLogoRepository: CoinLogoRepository
+    /** Coin-Logos für CoinBadge (Speicher → Datei → CoinGecko). */
+    @Inject lateinit var logoSource: CoinLogoSource
 
-    @Inject lateinit var retiredNoticeStore: com.cryptochecker.app.data.RetiredNoticeStore
+    /** Vermerke dieses Geräts für einzelne Bausteine (Hinweise, letzte Prüfung, DEX-Adresse). */
+    @Inject lateinit var storedNotices: com.cryptochecker.app.domain.local.StoredNotices
+
+    @Inject lateinit var retiredNoticeStore: com.cryptochecker.app.domain.watch.RetiredNotices
 
     @Inject lateinit var coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync
 
-    @Inject lateinit var autoBackupRunner: dagger.Lazy<com.cryptochecker.app.data.backup.AutoBackupRunner>
+    @Inject lateinit var autoBackupRunner: dagger.Lazy<com.cryptochecker.app.domain.backup.AutoBackupJobs>
 
     /** Ziel aus einer App-Verknüpfung («add», «alarms», «cycle»). */
     private val openTarget = androidx.compose.runtime.mutableStateOf<String?>(null)
@@ -116,13 +119,14 @@ class MainActivity : AppCompatActivity() {
                     priceColorsInverted = settings.priceColorsInverted,
                 ) {
                     // Coin-Logos je Schalter (App, Portfolio); aus → null, keine Plakette
-                    val repositorySource = remember { RepositoryLogoSource(coinLogoRepository) }
+                    val repositorySource = logoSource
                     CompositionLocalProvider(
                         LocalCoinLogoSource provides repositorySource.takeIf { settings.coinLogos },
                         LocalPortfolioCoinLogoSource provides repositorySource.takeIf { settings.portfolioCoinLogos },
                         LocalCoinNameSource provides repositorySource.takeIf { settings.watchlistNames },
                         LocalCoinSearchNameSource provides repositorySource,
                         com.cryptochecker.app.ui.features.watchlist.LocalRetiredNoticeStore provides retiredNoticeStore,
+                        com.cryptochecker.app.ui.components.LocalStoredNotices provides storedNotices,
                     ) {
                         // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
                         // für den Portfolio-Tab und seine Unterseiten.
@@ -263,22 +267,4 @@ class MainActivity : AppCompatActivity() {
         fun watchTargetId(target: String?): Long? =
             target?.takeIf { it.startsWith(WATCH_PREFIX) }?.removePrefix(WATCH_PREFIX)?.toLongOrNull()
     }
-}
-
-/** CoinBadge holt die Logos über das Repository (Speicher → Datei → CoinGecko). */
-private class RepositoryLogoSource(private val repository: CoinLogoRepository) : CoinLogoSource {
-    override val revision = repository.revision
-    override val loading = repository.logosLoading
-    override val loadingPercent = repository.logosLoadingPercent
-    override val tradFiPairs = repository.tradFiPairs
-    override val names = repository.names
-    override fun cached(symbol: String) = repository.cached(symbol)
-    override suspend fun load(symbol: String) = repository.logo(symbol)
-    override suspend fun loadSavedNames() = repository.loadSavedNames()
-    override suspend fun firstLoadDone() = repository.logosFirstLoadDone()
-    override suspend fun hasLogo(symbol: String) = repository.hasLogo(symbol)
-    override suspend fun notYetLoaded(symbols: List<String>) = repository.logosNotYetLoaded(symbols)
-    override val missingDismissed = repository.missingLogosDismissed
-    override suspend fun loadMissingDismissed() = repository.loadMissingLogosDismissed()
-    override fun dismissMissing(keys: Set<String>) = repository.dismissMissingLogos(keys)
 }

@@ -1,5 +1,5 @@
 // Version einer Sicherung (Teil von `BackupCrypto.kt`, gespiegelt in `BackupVersion.swift`).
-package com.cryptochecker.app.data.backup
+package com.cryptochecker.app.domain.backup
 
 /**
  * Version einer Sicherung (Klartext-Feld «version», gespiegelt in `BackupVersion.swift`): Eine Sicherung einer NEUEREN

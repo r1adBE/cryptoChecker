@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.starter.AddMomentStore
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,17 +18,17 @@ import kotlinx.coroutines.flow.asStateFlow
 class AddMoments @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val watchRepository: WatchRepository,
-) {
+) : AddMomentStore {
     private val _pending = MutableStateFlow<AddMoment?>(null)
 
     /** Noch nicht abgespielter Moment; null = keiner. */
-    val pending: StateFlow<AddMoment?> = _pending.asStateFlow()
+    override val pending: StateFlow<AddMoment?> = _pending.asStateFlow()
 
     /**
      * Start-Merkliste (eines oder alle fünf): immer abspielen. Vor dem Speichern
      * aufrufen, damit die Zeilen schon beim ersten Erscheinen einblenden.
      */
-    suspend fun postStarter(pairs: List<AddMoment.Added>) {
+    override suspend fun postStarter(pairs: List<AddMoment.Added>) {
         if (pairs.isEmpty()) return
         settingsRepository.setFirstPairAdded(true)
         _pending.value = AddMoment(System.nanoTime(), pairs)
@@ -38,7 +39,7 @@ class AddMoments @Inject constructor(
      * den Moment; stand schon etwas in der Merkliste (z. B. nach einem Update),
      * gilt das erste Paar als erledigt.
      */
-    suspend fun afterExplorerAdd(watchId: Long) {
+    override suspend fun afterExplorerAdd(watchId: Long) {
         if (settingsRepository.current().firstPairAdded) return
         settingsRepository.setFirstPairAdded(true)
         if (watchRepository.getWatches().size != 1) return
@@ -55,7 +56,7 @@ class AddMoments @Inject constructor(
     }
 
     /** Die Merkliste hat den Moment übernommen. */
-    fun consume(moment: AddMoment) {
+    override fun consume(moment: AddMoment) {
         _pending.compareAndSet(moment, null)
     }
 }

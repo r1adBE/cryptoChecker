@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.portfolio
 
 import androidx.room.withTransaction
+import com.cryptochecker.app.domain.portfolio.CsvImportWritten
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
@@ -8,9 +10,6 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 
 // CSV-Import: neue Zeilen anlegen und gespeicherte Seiten verknüpfter Umbuchungen ändern in EINER Datenbank-Transaktion —
 // alles oder nichts. Eigene Datei, weil `PortfolioRepository.kt` an der Längengrenze ist.
-
-/** Ergebnis von [insertImportedLinked]: neu angelegte Transaktionen und verknüpfte gespeicherte Seiten. */
-data class CsvImportWritten(val inserted: Int, val linked: Int)
 
 /**
  * Importierte Zeilen anlegen ([PortfolioRepository.insertImported]) und gespeicherte Seiten verknüpfter Umbuchungen ändern
@@ -23,7 +22,7 @@ data class CsvImportWritten(val inserted: Int, val linked: Int)
  * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
  * @throws com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException abgebrochen ([cancelled])
  */
-suspend fun PortfolioRepository.insertImportedLinked(
+suspend fun PortfolioRepository.writeImportedLinked(
     transactions: List<PortfolioTxEntity>,
     batch: String,
     updates: List<CsvStoredTransfer>,

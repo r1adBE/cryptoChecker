@@ -10,6 +10,7 @@ import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveParser
 import com.cryptochecker.app.domain.live.LivePlanner
+import com.cryptochecker.app.domain.live.LivePrices
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
@@ -64,7 +65,7 @@ class LivePriceStream @Inject constructor(
     private val livePriceApplier: LivePriceApplier,
     private val coverage: LiveCoverage,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : LivePrices {
     /** Eigener Client des Live-Stroms ([LiveDispatcher.client]): ohne Zeitgrenzen, mit User-Agent, eigener Dispatcher. */
     private val client: OkHttpClient = LiveDispatcher.client(baseClient, PROTOCOL_PING_SECONDS)
 
@@ -79,12 +80,12 @@ class LivePriceStream @Inject constructor(
     private val _prices = MutableStateFlow<Map<Long, LiveQuote>>(emptyMap())
 
     /** Live-Kurse je Watch-Id für die Anzeige (höchstens zweimal je Sekunde neu). */
-    val prices: StateFlow<Map<Long, LiveQuote>> = _prices.asStateFlow()
+    override val prices: StateFlow<Map<Long, LiveQuote>> = _prices.asStateFlow()
 
     private val _liveExchanges = MutableStateFlow<List<String>>(emptyList())
 
     /** Namen der Börsen, deren Strom gerade Kurse liefert (Status-Pille «LIVE», Bericht). */
-    val liveExchanges: StateFlow<List<String>> = _liveExchanges.asStateFlow()
+    override val liveExchanges: StateFlow<List<String>> = _liveExchanges.asStateFlow()
 
     private val _liveWatchIds = MutableStateFlow<Set<Long>>(emptySet())
 
@@ -92,7 +93,7 @@ class LivePriceStream @Inject constructor(
      * Watch-Ids der Paare am Live-Strom: je Paar ein Kurs in den letzten [LiveRules.FRESH_MILLIS]
      * ([LiveRules.liveIds], «Live» in der Pille) — nicht alle Paare einer Börse, sobald eine ihrer Verbindungen liefert.
      */
-    val liveWatchIds: StateFlow<Set<Long>> = _liveWatchIds.asStateFlow()
+    override val liveWatchIds: StateFlow<Set<Long>> = _liveWatchIds.asStateFlow()
 
     // ── Zustand unter [lock] ─────────────────────────────────────────────────────────────
     private val lock = Any()
@@ -138,7 +139,7 @@ class LivePriceStream @Inject constructor(
     }
 
     /** Paare der angezeigten Merkliste (gewählte Gruppe). Gleiche Liste: nichts geschieht. */
-    fun setPairs(pairs: List<LivePair>) {
+    override fun setPairs(pairs: List<LivePair>) {
         screenPairs.value = pairs
     }
 
@@ -146,7 +147,7 @@ class LivePriceStream @Inject constructor(
      * Merkliste zu sehen bzw. nicht mehr (anderer Tab, App im Hintergrund): beim Verlassen
      * Verbindungen schliessen und Ungespeichertes speichern.
      */
-    fun setVisible(visible: Boolean) {
+    override fun setVisible(visible: Boolean) {
         screenVisible.value = visible
     }
 

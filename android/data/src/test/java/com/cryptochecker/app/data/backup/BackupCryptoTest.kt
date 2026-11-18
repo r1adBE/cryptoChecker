@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data.backup
 
+import com.cryptochecker.app.domain.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.WrongPasswordException
 import java.util.Base64
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -66,7 +68,7 @@ class BackupCryptoTest {
         try {
             BackupCrypto.decrypt(BackupCrypto.Envelope(fastKdf, env.salt, env.iv, withoutAad), pw(vectorPassword))
             fail("decrypted without header")
-        } catch (_: BackupCrypto.WrongPasswordException) {
+        } catch (_: WrongPasswordException) {
         }
         // Veränderter Kopf (t, p, m) → «falsches Passwort oder beschädigte Datei», nicht «nicht unterstützt»
         for (changed in listOf(
@@ -77,7 +79,7 @@ class BackupCryptoTest {
             try {
                 BackupCrypto.decrypt(BackupCrypto.Envelope(changed, env.salt, env.iv, env.data), pw(vectorPassword))
                 fail("decrypted with changed header $changed")
-            } catch (_: BackupCrypto.WrongPasswordException) {
+            } catch (_: WrongPasswordException) {
             }
         }
     }
@@ -133,7 +135,7 @@ class BackupCryptoTest {
         try {
             BackupCrypto.decrypt(env, pw("falsch-1234"))
             fail("decrypted with wrong password")
-        } catch (_: BackupCrypto.WrongPasswordException) {
+        } catch (_: WrongPasswordException) {
         }
     }
 
@@ -144,13 +146,13 @@ class BackupCryptoTest {
         try {
             BackupCrypto.decrypt(BackupCrypto.Envelope(env.kdf, env.salt, env.iv, bad), pw("richtig-123"))
             fail("decrypted tampered data")
-        } catch (_: BackupCrypto.WrongPasswordException) {
+        } catch (_: WrongPasswordException) {
         }
         val badTag = env.data.copyOf().also { it[it.size - 1] = (it[it.size - 1].toInt() xor 0x80).toByte() }
         try {
             BackupCrypto.decrypt(BackupCrypto.Envelope(env.kdf, env.salt, env.iv, badTag), pw("richtig-123"))
             fail("decrypted with tampered tag")
-        } catch (_: BackupCrypto.WrongPasswordException) {
+        } catch (_: WrongPasswordException) {
         }
     }
 

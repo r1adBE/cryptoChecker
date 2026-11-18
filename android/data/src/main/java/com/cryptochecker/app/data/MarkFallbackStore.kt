@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.domain.watch.MarkFallbackIds
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,12 +19,12 @@ import kotlinx.coroutines.flow.asStateFlow
 @Singleton
 class MarkFallbackStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : MarkFallbackIds {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val state by lazy { MutableStateFlow(load()) }
 
     /** Watch-Ids mit Mark-Preis als Kurs. */
-    val ids: StateFlow<Set<Long>> get() = state.asStateFlow()
+    override val ids: StateFlow<Set<Long>> get() = state.asStateFlow()
 
     fun contains(watchId: Long): Boolean = watchId in state.value
 

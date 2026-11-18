@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.backup
 import com.cryptochecker.app.data.backup.BackupManager.Step
 import com.cryptochecker.app.data.backup.RestoreRollback
 import com.cryptochecker.app.data.backup.RestoreRun
+import com.cryptochecker.app.domain.backup.BackupJournalUnavailableException
 import java.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.cancel

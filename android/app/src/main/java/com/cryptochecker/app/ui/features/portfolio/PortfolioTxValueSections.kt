@@ -23,11 +23,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
+import com.cryptochecker.app.domain.portfolio.PortfolioTxLimits
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.util.TextLimit
 import com.cryptochecker.app.ui.components.ExpandToggleButton
@@ -228,7 +228,7 @@ internal fun TxLedgerSection(state: TxFormState, d: TxFormDerived, exchanges: Li
             coin = if (d.coinValid) d.coin else "",
             exchange = state.exchange,
             exchanges = exchanges,
-            onExchange = { state.exchange = TextLimit.takeGraphemes(it, PortfolioJson.MAX_EXCHANGE) },
+            onExchange = { state.exchange = TextLimit.takeGraphemes(it, PortfolioTxLimits.MAX_EXCHANGE) },
         )
         if (fields.thirdCoinFee) {
             Text(
@@ -239,7 +239,7 @@ internal fun TxLedgerSection(state: TxFormState, d: TxFormDerived, exchanges: Li
             )
             ThirdFeeFields(
                 feeCoin = state.feeCoinText,
-                onFeeCoin = { state.feeCoinText = it.take(PortfolioJson.MAX_FEE_COIN) },
+                onFeeCoin = { state.feeCoinText = it.take(PortfolioTxLimits.MAX_FEE_COIN) },
                 amount = state.feeCoinAmountText,
                 onAmount = { state.feeCoinAmountText = it },
                 price = state.feeCoinPriceText,

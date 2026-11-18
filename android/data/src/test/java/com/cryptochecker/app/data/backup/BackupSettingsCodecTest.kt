@@ -1,12 +1,13 @@
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.CHANGED
-import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.KEPT
-import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.PUBLIC
-import com.cryptochecker.app.data.backup.BackupRestorePolicy.AddressServerNote.SET
 import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy.AddressServerNote.CHANGED
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy.AddressServerNote.KEPT
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy.AddressServerNote.PUBLIC
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy.AddressServerNote.SET
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate

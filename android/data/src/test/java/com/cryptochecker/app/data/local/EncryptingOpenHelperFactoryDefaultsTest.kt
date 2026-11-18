@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.local.WatchlistStorageLock
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

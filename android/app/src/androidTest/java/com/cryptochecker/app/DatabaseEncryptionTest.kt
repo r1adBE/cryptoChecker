@@ -15,6 +15,7 @@ import com.cryptochecker.app.data.local.DatabaseSystemBackup
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.domain.local.StorageRecoveryKind
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import java.io.File
 import java.security.KeyStore
@@ -97,9 +98,9 @@ class DatabaseEncryptionTest {
         assertTrue(aside.exists())
         assertEquals(FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(aside))
         // Hinweis bleibt, bis er bestätigt ist, danach keiner mehr
-        assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
-        assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
-        StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.SET_ASIDE)
+        assertEquals(StorageRecoveryKind.SET_ASIDE, StorageRecoveryNotice.pending(context))
+        assertEquals(StorageRecoveryKind.SET_ASIDE, StorageRecoveryNotice.pending(context))
+        StorageRecoveryNotice.acknowledge(context, StorageRecoveryKind.SET_ASIDE)
         assertEquals(null, StorageRecoveryNotice.pending(context))
     }
 
@@ -174,8 +175,8 @@ class DatabaseEncryptionTest {
                     !it.name.endsWith("-shm")
             }
         )
-        assertEquals(StorageRecoveryNotice.Kind.KEY_RESTORED, StorageRecoveryNotice.pending(context))
-        StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.KEY_RESTORED)
+        assertEquals(StorageRecoveryKind.KEY_RESTORED, StorageRecoveryNotice.pending(context))
+        StorageRecoveryNotice.acknowledge(context, StorageRecoveryKind.KEY_RESTORED)
         assertEquals(null, StorageRecoveryNotice.pending(context))
     }
 

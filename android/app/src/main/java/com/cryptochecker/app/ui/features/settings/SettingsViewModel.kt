@@ -37,13 +37,15 @@ class SettingsViewModel @Inject constructor(
     private val widgets: SettingsWidgets, // Widgets neu zeichnen
     @param:com.cryptochecker.app.domain.util.IoDispatcher internal val ioDispatcher: kotlinx.coroutines.CoroutineDispatcher,
     private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
-    internal val backupManager: com.cryptochecker.app.data.backup.BackupManager,
+    internal val backupManager: com.cryptochecker.app.domain.backup.BackupFiles<android.net.Uri>,
     internal val appLockState: AppLockState,
-    internal val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
+    internal val portfolioRepository: com.cryptochecker.app.domain.portfolio.PortfolioReader,
     /** «Alarm testen» und «Stimme testen». */
     private val testActions: SettingsTestActions,
     /** «Pünktlich prüfen» und «Letzte Prüfungen». */
     private val exactChecks: ExactCheckControl,
+    /** Schreibfehler des Speichers melden («Konnte nicht gespeichert werden»). */
+    private val writeGuard: com.cryptochecker.app.domain.local.WriteGuard,
 ) : ViewModel() {
     internal val widgetUpdater: WidgetUpdater get() = widgets.widgetUpdater
 
@@ -383,7 +385,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             runCatchingCancellable { block() }.onFailure {
                 Timber.w(it, "Einstellungen: nicht gespeichert")
-                com.cryptochecker.app.data.reportWriteFailure(it)
+                writeGuard.reportFailure(it)
             }
         }
     }

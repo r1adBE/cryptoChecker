@@ -2,6 +2,8 @@ package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.backup.BackupFields.Type
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.backup.SettingsRestoreNotes
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.SettingsBackupTarget

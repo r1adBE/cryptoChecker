@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.components
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.saveable.SaverScope
-import com.cryptochecker.app.data.BulkAddRunner
+import com.cryptochecker.app.domain.BulkAddRunner
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

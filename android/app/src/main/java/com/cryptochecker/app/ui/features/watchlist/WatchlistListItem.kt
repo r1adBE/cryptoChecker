@@ -24,11 +24,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.watch.SparklineTiming
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -219,7 +219,7 @@ private fun sortDragModifier(
 }
 
 /**
- * 24-Stunden-Verlauf einer Zeile, danach alle 15 Min. neu ([SparklineRepository.TTL_MILLIS]). Liefert einen Wert,
+ * 24-Stunden-Verlauf einer Zeile, danach alle 15 Min. neu ([SparklineTiming.TTL_MILLIS]). Liefert einen Wert,
  * liest also wie zuvor im Aufrufer.
  */
 @Composable
@@ -250,7 +250,7 @@ private fun rememberRowSparkline(
             // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
             if (closes != null || first) value = closes
             first = false
-            delay(SparklineRepository.TTL_MILLIS)
+            delay(SparklineTiming.TTL_MILLIS)
         }
     }
     return sparkline

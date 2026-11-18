@@ -3,22 +3,25 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchlistStorageLock
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.remote.NearExtremeDataSource
-import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
+import com.cryptochecker.app.domain.alarm.AlarmLogView
 import com.cryptochecker.app.domain.alarm.AlarmSaveBuilder
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.convert.QuoteConversion
+import com.cryptochecker.app.domain.local.StorageMemory
+import com.cryptochecker.app.domain.local.WatchlistStorageLock
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.refresh.AlarmRangeSource
+import com.cryptochecker.app.domain.refresh.AlarmVolumeSource
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.AlarmSaveResult
+import com.cryptochecker.app.domain.watch.DexLiquidityValues
+import com.cryptochecker.app.domain.watch.MarkFallbackIds
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.domain.watch.WatchlistLimits
@@ -45,21 +48,21 @@ class AlarmsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     internal val watchRepository: WatchStore,
     private val settingsRepository: SettingsRepository,
-    private val currencyConverter: CurrencyConverter,
+    private val currencyConverter: QuoteConversion,
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
-    private val nearExtremeDataSource: NearExtremeDataSource,
-    private val volumeDataSource: VolumeDataSource,
+    private val nearExtremeDataSource: AlarmRangeSource,
+    private val volumeDataSource: AlarmVolumeSource,
     /** Dürfen Alarme erscheinen (« · Mitteilungen aus» nach dem Speichern)? Entfernt auch Mitteilungen geänderter Alarme. */
     private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
     alarmCheckStatus: AlarmCheckStatus,
     /** Nach dem ersten Alarm einmal fragen, wie oft geprüft wird ([ExactCheckOffer]). */
     private val exactScheduler: com.cryptochecker.app.work.ExactCheckScheduler,
     /** Liquidität der DEX-Pools: zu wenig → kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
-    dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
-    /** Letzter Kurs nur der Mark-Preis ([com.cryptochecker.app.data.MarkFallbackStore]): Alarme warten auf einen Mittelkurs. */
-    markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
+    dexLiquidityStore: DexLiquidityValues,
+    /** Letzter Kurs nur der Mark-Preis ([MarkFallbackIds]): Alarme warten auf einen Mittelkurs. */
+    markFallbackStore: MarkFallbackIds,
     /** Alarm-Protokoll: «Zuletzt geprüft» im Editor; Löschen eines Alarms entfernt seine letzte Prüfung. */
-    private val alarmLogStore: com.cryptochecker.app.data.refresh.AlarmLogStore,
+    private val alarmLogStore: AlarmLogView,
 ) : ViewModel() {
 
     /** Letzte Prüfung je Alarm-Id ([com.cryptochecker.app.domain.alarm.AlarmLog]). */
@@ -245,7 +248,7 @@ class AlarmsViewModel @Inject constructor(
      * Merkliste nur leer im Arbeitsspeicher ([WatchlistStorageLock]): Ein Alarm wäre nach dem Prozess-Ende weg. Der
      * Bildschirm fragt vorher und zeigt den Hinweis; [save] und [createFromTemplate] legen dann nichts an.
      */
-    fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
+    fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(StorageMemory.storedKept.value)
 
     /**
      * Alarm speichern, solange das Paar noch besteht; sonst nichts (null). Der Fremdschlüssel würde das Einfügen

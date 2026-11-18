@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.domain.watch.TokenIdentity
+import com.cryptochecker.app.domain.watch.TokenNames
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
@@ -20,7 +21,7 @@ import timber.log.Timber
 class TokenIdentityStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val watchDao: WatchDao,
-) {
+) : TokenNames {
     private val file: File get() = File(context.noBackupFilesDir, FILE)
     private val lock = Any()
 
@@ -55,19 +56,19 @@ class TokenIdentityStore @Inject constructor(
     }
 
     /** Name des Coins [base] in der Paarliste der Börse [exchangeKey]; null = unbekannt. */
-    fun pairName(exchangeKey: String, base: String): String? = current().pairName(exchangeKey, base)
+    override fun pairName(exchangeKey: String, base: String): String? = current().pairName(exchangeKey, base)
 
     /** Namen der Coins der Börse [exchangeKey] (Kürzel gross, [TokenIdentity.key] → Name); leer = unbekannt. */
-    fun exchangeNames(exchangeKey: String): Map<String, String> = current().exchanges[exchangeKey].orEmpty()
+    override fun exchangeNames(exchangeKey: String): Map<String, String> = current().exchanges[exchangeKey].orEmpty()
 
     /** `fullName` von Binance für [base]; null = unbekannt. */
-    fun binanceName(base: String): String? = current().binanceName(base)
+    override fun binanceName(base: String): String? = current().binanceName(base)
 
     /**
      * Namen des Kürzels [base] in allen gespeicherten Paarlisten (je Börse einer) — für «mehrere Token unter dem
      * Kürzel?» ([com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.ambiguous]). Leer = unbekannt.
      */
-    fun otherNames(base: String): List<String?> = current().exchanges.values.mapNotNull { it[TokenIdentity.key(base)] }
+    override fun otherNames(base: String): List<String?> = current().exchanges.values.mapNotNull { it[TokenIdentity.key(base)] }
 
     /** Namen aus einer frisch geladenen Paarliste; ohne Namen bleibt der bisherige Stand. */
     fun saveExchange(exchangeKey: String, names: Map<String, String>) {
@@ -119,7 +120,7 @@ class TokenIdentityStore @Inject constructor(
      * [exchangeKey] erscheinen? Nein bei klar anderem Namen ([TokenIdentity.fallbackSeriesAllowed]) — dann
      * lieber nichts als die Reihe eines anderen Tokens.
      */
-    fun fallbackSeriesAllowed(exchangeKey: String, base: String, provider: String?): Boolean {
+    override fun fallbackSeriesAllowed(exchangeKey: String, base: String, provider: String?): Boolean {
         val providerName = TokenIdentity.PROVIDER_EXCHANGES[provider?.trim()]?.let { pairName(it, base) }
         return TokenIdentity.fallbackSeriesAllowed(base, pairName(exchangeKey, base), provider, binanceName(base), providerName)
     }

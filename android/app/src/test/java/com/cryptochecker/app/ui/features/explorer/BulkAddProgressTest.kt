@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.data.BulkAddRunner.Progress
 import com.cryptochecker.app.domain.BulkAddResult as RepoResult
+import com.cryptochecker.app.domain.BulkAddRunner.Progress
 import com.cryptochecker.marketdata.model.ExchangePair
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -9,7 +9,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Stand der app-weiten Aufnahme ([com.cryptochecker.app.data.BulkAddRunner]) als Anzeige des Explorers. */
+/** Stand der app-weiten Aufnahme ([com.cryptochecker.app.domain.BulkAddRunner]) als Anzeige des Explorers. */
 class BulkAddProgressTest {
 
     @Test

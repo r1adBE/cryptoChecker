@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.backup
 
 import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.backup.BackupJournalUnavailableException
 import java.io.File
 import java.io.IOException
 

@@ -27,7 +27,7 @@ sealed interface CsvImportState {
     data object TooLarge : CsvImportState
     data object Saving : CsvImportState
 
-    /** Portfolio gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]): nichts gelesen bzw. geschrieben. */
+    /** Portfolio gesperrt (`PortfolioStorageLock`): nichts gelesen bzw. geschrieben. */
     data object Locked : CsvImportState
 
     /** Schreiben fehlgeschlagen: nichts importiert — gemeldet statt «0 importiert». */

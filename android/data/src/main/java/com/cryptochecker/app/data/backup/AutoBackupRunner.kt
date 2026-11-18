@@ -3,7 +3,9 @@ package com.cryptochecker.app.data.backup
 import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
+import com.cryptochecker.app.domain.backup.AutoBackupJobs
 import com.cryptochecker.app.domain.backup.AutoBackupPolicy
+import com.cryptochecker.app.domain.backup.AutoBackupState
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -26,14 +28,14 @@ class AutoBackupRunner @Inject constructor(
     private val store: AutoBackupStore,
     private val backupManager: BackupManager,
     @param:com.cryptochecker.app.domain.util.IoDispatcher private val ioDispatcher: kotlinx.coroutines.CoroutineDispatcher,
-) {
+) : AutoBackupJobs {
     private val mutex = Mutex()
 
     /** Eigener Bereich: ein Lauf überdauert das Schliessen der Activity. */
     private val scope = appScope(ioDispatcher, "Automatische Sicherung")
 
     /** Beim Öffnen der App ([runIfDue]) — kehrt sofort zurück. */
-    fun startIfDue() {
+    override fun startIfDue() {
         if (!store.state.value.enabled) return
         scope.launch { runIfDue() }
     }
@@ -46,7 +48,7 @@ class AutoBackupRunner @Inject constructor(
     }
 
     /** «Jetzt sichern»; false = gescheitert oder nicht eingerichtet. */
-    suspend fun run(now: Long = System.currentTimeMillis()): Boolean = mutex.withLock {
+    override suspend fun run(now: Long): Boolean = mutex.withLock {
         val s = store.state.value
         val folder = s.folderUri?.let(Uri::parse)
         if (!s.enabled || folder == null) return false

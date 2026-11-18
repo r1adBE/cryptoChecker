@@ -4,11 +4,9 @@
 // lesbar sein soll; Erweiterungsfunktionen auf dem ViewModel.
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.dayClosesUsdt
-import com.cryptochecker.app.data.portfolio.exportReference
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -185,7 +183,7 @@ internal suspend fun PortfolioExportViewModel.frPrices(
 /**
  * Tagesschlusskurse (USDT) je (Coin, Tag); Abfrage über (Coin, Zeit) → Schluss des UTC-Tags der Zeit ([TaxDayClose.lookup]);
  * fehlt = null. Je Coin alle Tage auf einmal ([dayClosesUsdt]: Kerzen je Quelle in Stücken, gleiche Kette und gleicher
- * Schluss je Tag wie [HistoricPriceSource.dailyCloseUsdt]), höchstens [HistoricPriceSource.PARALLEL] Coins gleichzeitig.
+ * Schluss je Tag wie [HistoricPrices.dailyCloseUsdt]), höchstens [HistoricPrices.PARALLEL] Coins gleichzeitig.
  */
 internal suspend fun PortfolioExportViewModel.dailyCloses(
     wanted: Collection<Pair<String, LocalDate>>,

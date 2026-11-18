@@ -3,19 +3,19 @@ package com.cryptochecker.app.ui.features.explorer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.scoped
+import com.cryptochecker.app.domain.starter.AddMomentStore
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.watch.FavoriteKind
+import com.cryptochecker.app.domain.watch.FavoriteStore
+import com.cryptochecker.app.domain.watch.TokenNames
 import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -59,24 +59,24 @@ import kotlinx.coroutines.launch
 class ExplorerViewModel @Inject constructor(
     internal val exchangeRepository: ExchangeRepository,
     internal val watchRepository: WatchStore,
-    private val favoritesRepository: FavoritesRepository,
+    private val favoritesRepository: FavoriteStore,
     /** HTTP-Mitschnitt der Entwickleroption ([ExplorerHttpLog]). */
     private val httpLog: ExplorerHttpLog,
     private val settingsRepository: SettingsRepository,
     /** Allererstes Paar: ruhiger Erst-Moment in der Merkliste. */
-    internal val addMoments: AddMoments,
+    internal val addMoments: AddMomentStore,
     /** «Zuletzt gesucht», nur auf dem Gerät. */
     internal val recentSearchStore: RecentSearchStore,
     /** Gespeicherte Coin-Namen für die Suche über den Namen (kein eigener Abruf). */
-    internal val coinLogoRepository: CoinLogoRepository,
+    internal val coinLogoRepository: CoinLogoCatalog,
     /** Coin-Namen je Börse (gespeichert): klar anderer Name als in der Alpha-Liste → kein «α». */
-    internal val tokenIdentityStore: TokenIdentityStore,
+    internal val tokenIdentityStore: TokenNames,
     /** Start-Börse der Region und Volumen-Ranking der Börsen ([ExplorerExchangeOrder]). */
     internal val exchangeOrder: ExplorerExchangeOrder,
     /** Liquidität und Token-Adresse der DEX-Pools aus der Suche ([ExplorerDexStores]). */
     internal val dexStores: ExplorerDexStores,
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
-    internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
+    internal val bulkAddRunner: com.cryptochecker.app.domain.BulkAddRunner,
     /** Paarliste der gewählten Börse nicht auf dem Main-Thread filtern. */
     @param:DefaultDispatcher internal val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {

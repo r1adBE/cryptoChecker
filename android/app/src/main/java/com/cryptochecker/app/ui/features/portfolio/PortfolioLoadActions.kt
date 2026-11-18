@@ -5,17 +5,14 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
-import com.cryptochecker.app.data.portfolio.coins
-import com.cryptochecker.app.data.portfolio.spotExchangeNames
-import com.cryptochecker.app.data.portfolio.stored
-import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFx
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
+import com.cryptochecker.app.domain.portfolio.withAddresses
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import java.time.LocalDate
 import java.time.ZoneId

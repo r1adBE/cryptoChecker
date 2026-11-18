@@ -4,6 +4,7 @@ package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.domain.BulkAddResult
+import com.cryptochecker.app.domain.BulkAddRunner
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.WatchEntity

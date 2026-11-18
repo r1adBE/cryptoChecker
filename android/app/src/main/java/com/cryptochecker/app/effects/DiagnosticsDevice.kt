@@ -1,9 +1,9 @@
 package com.cryptochecker.app.effects
 
 import android.content.Context
-import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.diagnostics.ErrorLogFile
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
+import com.cryptochecker.app.domain.diagnostics.DiagnosticsFiles
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.work.AlarmReadinessProbe

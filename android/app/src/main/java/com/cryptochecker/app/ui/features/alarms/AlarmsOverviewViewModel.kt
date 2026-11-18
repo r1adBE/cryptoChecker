@@ -3,11 +3,11 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.alarm.toAlarmReading
-import com.cryptochecker.app.data.guardedWrite
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
+import com.cryptochecker.app.domain.local.WriteGuard
 import com.cryptochecker.app.domain.model.AlarmWithWatch
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotReader
 import com.cryptochecker.app.domain.settings.SettingsRepository
@@ -41,6 +41,8 @@ class AlarmsOverviewViewModel @Inject constructor(
     private val snapshotStore: PortfolioSnapshotReader,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    /** Speicher voll o. ä.: Hinweis statt Absturz. */
+    private val writeGuard: WriteGuard,
 ) : ViewModel() {
 
     /** Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie auch niemand). */
@@ -81,12 +83,12 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     fun setPortfolioAlarmEnabled(id: Long, enabled: Boolean) {
         // Speicher voll o. ä.: Hinweis statt Absturz (`guardedWrite`, wie die Paar-Alarme)
-        viewModelScope.launch { guardedWrite(Unit) { portfolioAlarmRepository.setEnabled(id, enabled) } }
+        viewModelScope.launch { writeGuard.guarded(Unit) { portfolioAlarmRepository.setEnabled(id, enabled) } }
     }
 
     fun deletePortfolioAlarm(id: Long) {
         viewModelScope.launch {
-            if (!guardedWrite(false) {
+            if (!writeGuard.guarded(false) {
                     portfolioAlarmRepository.delete(id)
                     true
                 }

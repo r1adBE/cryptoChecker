@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
-import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.activity.ActivityReports
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchStore
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 class InfoWatchlist @Inject constructor(
     private val watchRepository: WatchStore,
-    private val activityRepository: ActivityRepository,
+    private val activityRepository: ActivityReports,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchRepository.observeWatches()
 

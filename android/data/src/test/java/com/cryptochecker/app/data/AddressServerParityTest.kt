@@ -1,5 +1,5 @@
 package com.cryptochecker.app.data
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.parity.ParityJson

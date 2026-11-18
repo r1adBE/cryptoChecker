@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange

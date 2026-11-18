@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.data.BulkAddRunner
+import com.cryptochecker.app.domain.BulkAddRunner
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog

@@ -1,5 +1,10 @@
 package com.cryptochecker.app.data.backup
 
+import com.cryptochecker.app.domain.backup.BackupPassword
+import com.cryptochecker.app.domain.backup.BackupPasswordStrength
+import com.cryptochecker.app.domain.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.NotEnoughMemoryException
+import com.cryptochecker.app.domain.backup.WrongPasswordException
 import java.nio.CharBuffer
 import java.nio.charset.CodingErrorAction
 import java.security.GeneralSecurityException
@@ -53,7 +58,7 @@ object BackupCrypto {
     const val KEY_BITS = 256
 
     /** Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen). Gilt nur beim Sichern. */
-    const val MIN_PASSWORD_LENGTH = 12
+    const val MIN_PASSWORD_LENGTH = BackupPassword.MIN_LENGTH
 
     /**
      * Obergrenzen für m, t, p beim Lesen: Eine manipulierte Datei soll das Gerät nicht mit Gigabytes oder Minuten
@@ -83,26 +88,19 @@ object BackupCrypto {
         val version: Int get() = VERSION
     }
 
-    /** Passwort falsch oder Datei verändert (GCM-Tag passt nicht, auch bei verändertem Kopf). */
-    class WrongPasswordException : GeneralSecurityException("Wrong password or damaged file")
-
     /** Unbekannte Version, Verfahren oder ungültige Felder (z. B. aus einer neueren App). */
     class UnsupportedException(message: String) : GeneralSecurityException(message)
 
-    /** Zu wenig Arbeitsspeicher für Argon2id (m KiB): klare Meldung statt Absturz, kein Rückfall auf ein schwächeres Verfahren. */
-    class NotEnoughMemoryException : GeneralSecurityException("Not enough memory for key derivation")
+    /** Länge in Unicode-Zeichen ([BackupPassword.length]). */
+    fun passwordLength(password: String): Int = BackupPassword.length(password)
 
-    /** Länge in Unicode-Zeichen (nicht UTF-16-Einheiten), wie `unicodeScalars.count` unter iOS. */
-    fun passwordLength(password: String): Int = normalize(password).let { it.codePointCount(0, it.length) }
+    fun isPasswordLongEnough(password: String): Boolean = BackupPassword.isLongEnough(password)
 
-    fun isPasswordLongEnough(password: String): Boolean = passwordLength(password) >= MIN_PASSWORD_LENGTH
+    /** Passwort für eine neue Sicherung erlaubt ([BackupPassword.isAllowed]). */
+    fun isPasswordAllowed(password: String): Boolean = BackupPassword.isAllowed(password)
 
-    /** Passwort für eine neue Sicherung erlaubt: lang genug und nicht leicht zu erraten ([BackupPasswordStrength]). */
-    fun isPasswordAllowed(password: String): Boolean = !BackupPasswordStrength.isWeak(password)
-
-    /** Formular «Mit Passwort schützen»: aus, oder erlaubtes Passwort und beide Felder gleich. */
-    fun canExport(protect: Boolean, password: String, repeat: String): Boolean =
-        !protect || (isPasswordAllowed(password) && password == repeat)
+    /** Formular «Mit Passwort schützen» ([BackupPassword.canExport]). */
+    fun canExport(protect: Boolean, password: String, repeat: String): Boolean = BackupPassword.canExport(protect, password, repeat)
 
     /** Kopf einer verschlüsselten Sicherung? (Klartext-Sicherungen haben kein «enc».) */
     fun isEnvelope(format: String?, enc: String?): Boolean = format == FORMAT && !enc.isNullOrEmpty()
@@ -283,9 +281,6 @@ object BackupCrypto {
             Normalizer.normalize(buffer, Normalizer.Form.NFC).toCharArray()
         }
     }
-
-    /** NFC: «ö» als ein Zeichen, gleich wie es die Tastatur unter iOS liefert. */
-    private fun normalize(password: String): String = Normalizer.normalize(password, Normalizer.Form.NFC)
 
     private fun randomBytes(count: Int): ByteArray = ByteArray(count).also { SecureRandom().nextBytes(it) }
 }

@@ -1,12 +1,12 @@
 // Stärke eines Sicherungs-Passworts (Teil von `BackupCrypto.kt`, gespiegelt in `BackupPasswordStrength.swift`).
-package com.cryptochecker.app.data.backup
+package com.cryptochecker.app.domain.backup
 
 import java.text.Normalizer
 import java.util.Locale
 
 /**
  * Schwache Passwörter im Blatt «Sichern» (gespiegelt in `BackupPasswordStrength.swift`, gemeinsame Beispiele in
- * `testdata/parity/backup_passwords.json`): sperren das Sichern mit Passwort ([BackupCrypto.canExport]).
+ * `testdata/parity/backup_passwords.json`): sperren das Sichern mit Passwort ([BackupPassword.canExport]).
  * Entschlüsseln prüft das Passwort nicht.
  */
 object BackupPasswordStrength {
@@ -53,7 +53,7 @@ object BackupPasswordStrength {
 
     /**
      * Schwach (für neue Sicherungen gesperrt):
-     *  - kürzer als [BackupCrypto.MIN_PASSWORD_LENGTH], nur Ziffern oder ein einziges Zeichen wiederholt;
+     *  - kürzer als [BackupPassword.MIN_LENGTH], nur Ziffern oder ein einziges Zeichen wiederholt;
      *  - eine häufige Folge oder ein Tastatur-Spaziergang (6 Zeichen einer Reihe, auch rückwärts);
      *  - ein Wort (Jahreszeit, Monat, häufiges Wort, Name der App) mit höchstens 6 Ziffern/Zeichen davor bzw. danach
      *    («Summer2026!», «Winter2025», «CryptoChecker1!»);
@@ -67,7 +67,7 @@ object BackupPasswordStrength {
     fun isWeak(password: String): Boolean {
         val normalized = Normalizer.normalize(password, Normalizer.Form.NFC)
         val codePoints = normalized.codePoints().toArray()
-        if (codePoints.size < BackupCrypto.MIN_PASSWORD_LENGTH) return true
+        if (codePoints.size < BackupPassword.MIN_LENGTH) return true
         if (codePoints.all { it in '0'.code..'9'.code }) return true
         if (codePoints.distinct().size == 1) return true
         if (mostlyOneChar(codePoints)) return true
@@ -121,5 +121,5 @@ object BackupPasswordStrength {
     }
 
     /** Hinweis «zu leicht zu erraten» zeigen? Erst ab der Mindestlänge (vorher gilt «mindestens 12 Zeichen»). */
-    fun showWeakHint(password: String): Boolean = BackupCrypto.isPasswordLongEnough(password) && isWeak(password)
+    fun showWeakHint(password: String): Boolean = BackupPassword.isLongEnough(password) && isWeak(password)
 }

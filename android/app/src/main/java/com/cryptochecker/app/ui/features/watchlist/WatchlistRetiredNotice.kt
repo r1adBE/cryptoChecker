@@ -26,8 +26,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.RetiredNoticeStore
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.RetiredNotices
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.resources.R
@@ -40,7 +40,7 @@ const val RETIRED_NOTICE_TAG = "retired_exchange_line"
  * ([ExchangeRetirement.noticeExchanges]): «Bitpanda liefert seit 1. Februar 2027 keine öffentlichen Kurse mehr. Wähle für
  * diese Coins eine andere Börse.» Davor, ab der Ankündigung ([ExchangeRetirement.advanceNoticeExchanges], 1. Januar
  * 2027): «Bitpanda liefert ab 1. Februar 2027 keine öffentlichen Kurse mehr …». Je mit ✕ (48 dp, «Hinweis schliessen»)
- * für diese Börse geschlossen — getrennt gespeichert ([RetiredNoticeStore]), an derselben Stelle wie «2 Coins ohne Logo»
+ * für diese Börse geschlossen — getrennt gespeichert (`RetiredNoticeStore`), an derselben Stelle wie «2 Coins ohne Logo»
  * ([WatchlistMissingLogos]). Wie iOS `WatchlistRetiredNotice`.
  */
 @Composable
@@ -99,7 +99,7 @@ internal fun WatchlistRetiredNotice(watches: List<WatchEntity>, now: Long, reduc
 private data class Notice(val exchange: String, val advance: Boolean)
 
 /** Von MainActivity gesetzt; ohne Anbieter (Vorschau, Tests ohne Hilt) kein Hinweis. */
-val LocalRetiredNoticeStore = staticCompositionLocalOf<RetiredNoticeStore?> { null }
+val LocalRetiredNoticeStore = staticCompositionLocalOf<RetiredNotices?> { null }
 
 private const val FADE_MILLIS = 300
 private val TOUCH_MIN = 48.dp

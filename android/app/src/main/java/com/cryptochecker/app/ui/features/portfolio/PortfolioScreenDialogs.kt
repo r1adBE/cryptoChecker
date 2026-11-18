@@ -25,7 +25,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.watch.ChangeBasis
@@ -215,7 +215,7 @@ private fun CurrencyDialog(selected: String, onSelect: (String) -> Unit, onDismi
         title = { Text(stringResource(R.string.portfolio_convert_to)) },
         text = {
             LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
-                items(FxRateSource.CURRENCIES, key = { it }) { code ->
+                items(FxCurrencies.ALL, key = { it }) { code ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.local.WatchlistNotSavedGate
+import com.cryptochecker.app.domain.local.WatchlistNotSavedGate
 import com.cryptochecker.resources.R
 
 /**

@@ -3,10 +3,10 @@
 // Eigene Datei, weil es reine Hilfstypen der Verlaufs-Abfragen sind, die das ViewModel nur hält.
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -51,7 +51,7 @@ data class PortfolioHistoryUi(
     val staleSince: Long? = null,
     /**
      * Coins mit Tageskursen aus der Ausweich-Kette → Anbieter (z. B. «Kraken»,
-     * [com.cryptochecker.app.data.portfolio.PortfolioDailyPrices.chainSources]); die Karte nennt sie. Leer = keine.
+     * [com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices.chainSources]); die Karte nennt sie. Leer = keine.
      */
     val chainSources: Map<String, String> = emptyMap(),
 )

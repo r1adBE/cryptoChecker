@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class BatteryOptimizationViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    watchRepository: com.cryptochecker.app.data.WatchRepository,
+    watchRepository: com.cryptochecker.app.domain.watch.WatchStore,
 ) : ViewModel() {
 
     /**

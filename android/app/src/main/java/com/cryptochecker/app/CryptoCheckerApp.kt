@@ -146,7 +146,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         }
 
         // Diagnosebericht vom letzten Teilen (unverschlüsselt im Cache) wegräumen; die Ziel-App hat ihn längst gelesen
-        scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.DiagnosticsFiles.clear(cacheDir) }
+        scope.launch(Dispatchers.IO) { com.cryptochecker.app.domain.diagnostics.DiagnosticsFiles.clear(cacheDir) }
 
         // Preis-Overlay (nur mit Schalter, dauerhafter Kurs-Mitteilung und Berechtigung sichtbar)
         priceOverlay.get().start()

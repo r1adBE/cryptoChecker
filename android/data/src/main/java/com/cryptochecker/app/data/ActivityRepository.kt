@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.activity.ActivityReports
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.OiSample
 import com.cryptochecker.app.domain.activity.SignalKind
@@ -31,7 +32,7 @@ import timber.log.Timber
 @Singleton
 class ActivityRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : ActivityReports {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     private val _reports = MutableStateFlow<Map<Long, ActivityReport>>(emptyMap())
@@ -40,7 +41,7 @@ class ActivityRepository @Inject constructor(
     private val lock = Any()
 
     /** Berichte je Watch-Id; abgelaufene Signale filtert [ActivityReport.active]. */
-    val reports: StateFlow<Map<Long, ActivityReport>>
+    override val reports: StateFlow<Map<Long, ActivityReport>>
         get() {
             ensureLoaded()
             return _reports.asStateFlow()

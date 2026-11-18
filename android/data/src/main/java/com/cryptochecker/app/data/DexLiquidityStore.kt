@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.watch.DexLiquidity
+import com.cryptochecker.app.domain.watch.DexLiquidityValues
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,17 +20,17 @@ import kotlinx.coroutines.flow.asStateFlow
 @Singleton
 class DexLiquidityStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : DexLiquidityValues {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val state by lazy { MutableStateFlow(load()) }
 
     /** Pool-Schlüssel ([DexLiquidity.key]) → Liquidität in USD. */
-    val liquidity: StateFlow<Map<String, Double>> get() = state.asStateFlow()
+    override val liquidity: StateFlow<Map<String, Double>> get() = state.asStateFlow()
 
     fun get(pairId: String?): Double? = DexLiquidity.key(pairId)?.let { state.value[it] }
 
     /** Neue Messung; null = unbekannt (Eintrag entfällt). */
-    fun put(pairId: String?, liquidityUsd: Double?) {
+    override fun put(pairId: String?, liquidityUsd: Double?) {
         val key = DexLiquidity.key(pairId) ?: return
         val value = liquidityUsd?.takeIf { it.isFinite() && it >= 0.0 }
         if (state.value[key] == value) return

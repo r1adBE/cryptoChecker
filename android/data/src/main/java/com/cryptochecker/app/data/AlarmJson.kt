@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.backup.BackupFields
 import com.cryptochecker.app.data.portfolio.PortfolioJson
+import com.cryptochecker.app.domain.alarm.AlarmFallLimit
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import org.json.JSONArray
@@ -33,26 +34,12 @@ object AlarmJson {
         else -> false
     }
 
-    /** Obergrenze (ausschliesslich) fallender Prozent-Alarme; wie Editor `MAX_FALL_PERCENT` und iOS. */
-    private const val MAX_FALL_PERCENT = 100.0
+    /** Fallender Prozent-Alarm ab 100 % ([AlarmFallLimit.exceedsFall]). */
+    fun exceedsFall(condition: AlarmCondition, threshold: Double): Boolean = AlarmFallLimit.exceedsFall(condition, threshold)
 
-    /**
-     * Fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
-     * nimmt nur Werte unter 100 an. Aus einer Sicherung kommen sie AUSGESCHALTET (nicht als ungültig
-     * gezählt) und werden in der Alarmliste gekennzeichnet («Schwelle ungültig – bitte anpassen»). Wie iOS
-     * `BackupManager.exceedsFall`.
-     */
-    fun exceedsFall(condition: AlarmCondition, threshold: Double): Boolean =
-        (condition == AlarmCondition.CHANGE_PERCENT_DOWN || condition == AlarmCondition.OI_DOWN) &&
-            threshold >= MAX_FALL_PERCENT
-
-    /**
-     * Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
-     * nie (er löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie iOS
-     * `BackupManager.toggleAllowed` (Fälle `alarm_toggle.json`).
-     */
+    /** Schalter auf [enable] stellen erlaubt ([AlarmFallLimit.toggleAllowed])? */
     fun toggleAllowed(condition: AlarmCondition, threshold: Double, enable: Boolean): Boolean =
-        !enable || !exceedsFall(condition, threshold)
+        AlarmFallLimit.toggleAllowed(condition, threshold, enable)
 
     /** Alle Alarme einer Liste (Felder geprüft, [BackupFields.ALARM]); ungültige werden gezählt. */
     fun parse(array: JSONArray): PortfolioJson.Parsed<AlarmEntity> {

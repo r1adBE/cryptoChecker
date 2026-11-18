@@ -1,7 +1,6 @@
 // Sammelabfrage ohne unbekannte Paare wiederholen — Teil von ExchangeRemoteDataSource.
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.domain.exceptions.ExchangeError
@@ -12,6 +11,7 @@ import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.MutableTicker
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RateLimitSignal

@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import java.time.LocalDate
 import java.time.ZoneOffset
 import kotlinx.coroutines.Dispatchers
@@ -58,11 +59,11 @@ class HistoricPriceSourceTest {
     fun stablecoinOddCoinsAndMissingReference() = runBlocking {
         val http = RouteHttp { null }
         val historic = source(http)
-        assertEquals(HistoricPriceSource.CloseResult(1.0), historic.dailyCloseUsdt(" usdt ", date, null))
-        assertEquals(HistoricPriceSource.CloseResult(null), historic.dailyCloseUsdt("BAD COIN", date, 1.0))
+        assertEquals(HistoricPrices.CloseResult(1.0), historic.dailyCloseUsdt(" usdt ", date, null))
+        assertEquals(HistoricPrices.CloseResult(null), historic.dailyCloseUsdt("BAD COIN", date, 1.0))
         // Ohne gültigen aktuellen Kurs: keine Abfrage, «ungeprüft»
-        assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), historic.dailyCloseUsdt("ETH", date, null))
-        assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), historic.dailyCloseUsdt("ETH", date, Double.NaN))
+        assertEquals(HistoricPrices.CloseResult(null, unchecked = true), historic.dailyCloseUsdt("ETH", date, null))
+        assertEquals(HistoricPrices.CloseResult(null, unchecked = true), historic.dailyCloseUsdt("ETH", date, Double.NaN))
         assertTrue(http.requested.isEmpty())
     }
 
@@ -76,7 +77,7 @@ class HistoricPriceSourceTest {
             }
         }
         val result = source(http).dailyCloseUsdt("eth", date, current = 3100.0)
-        assertEquals(HistoricPriceSource.CloseResult(2000.0, unchecked = false, source = DataFreshness.BINANCE), result)
+        assertEquals(HistoricPrices.CloseResult(2000.0, unchecked = false, source = DataFreshness.BINANCE), result)
         assertEquals(2, http.requested.size)
     }
 
@@ -86,7 +87,7 @@ class HistoricPriceSourceTest {
         // Coinbase, Kraken, OKX und Bybit führen ETH nicht (404; ganz ohne Antwort hiesse es zusätzlich «nicht abrufbar»)
         val http = RouteHttp { url -> if ("binance" in url && "klines" in url) binance(url, close = 0.5, latest = 0.6) else notFound }
         val result = source(http).dailyCloseUsdt("ETH", date, current = 3000.0)
-        assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), result)
+        assertEquals(HistoricPrices.CloseResult(null, unchecked = true), result)
         assertEquals(2, http.count("api.binance.us/api/v3/klines?symbol=ETHUSDT&interval=1d"))
         assertEquals(2, http.count("api.binance.us/api/v3/klines?symbol=ETHUSD&interval=1d"))
         assertTrue(http.count("api.exchange.coinbase.com") >= 1)
@@ -103,11 +104,11 @@ class HistoricPriceSourceTest {
         }
         // Jüngster Futures-Schluss 3000 gegen den Portfolio-Kurs 3500: innerhalb von ±25 %
         assertEquals(
-            HistoricPriceSource.CloseResult(2000.0, source = DataFreshness.BINANCE_FUTURES),
+            HistoricPrices.CloseResult(2000.0, source = DataFreshness.BINANCE_FUTURES),
             source(http()).dailyCloseUsdt("ETH", date, current = 3500.0),
         )
         // 5000: noch derselbe Token (1/3…3), aber ausserhalb von ±25 % → nicht übernommen
-        assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), source(http()).dailyCloseUsdt("ETH", date, current = 5000.0))
+        assertEquals(HistoricPrices.CloseResult(null, unchecked = true), source(http()).dailyCloseUsdt("ETH", date, current = 5000.0))
     }
 
     @Test
@@ -121,7 +122,7 @@ class HistoricPriceSourceTest {
             }
         }
         assertEquals(
-            HistoricPriceSource.CloseResult(100.0, source = DataFreshness.BINANCE_US),
+            HistoricPrices.CloseResult(100.0, source = DataFreshness.BINANCE_US),
             source(http).dailyCloseUsdt("SOL", date, current = 160.0),
         )
     }
@@ -138,7 +139,7 @@ class HistoricPriceSourceTest {
             }
         }
         val result = source(http).dailyCloseUsdt("ETH", date, current = 3100.0)
-        assertEquals(HistoricPriceSource.CloseResult(2000.0, source = DataFreshness.COINBASE), result)
+        assertEquals(HistoricPrices.CloseResult(2000.0, source = DataFreshness.COINBASE), result)
         // Jüngster Schluss (3000) passt; USDC nicht mehr nötig
         assertEquals(0, http.count("products/ETH-USDC/"))
     }
@@ -154,7 +155,7 @@ class HistoricPriceSourceTest {
             }
         }
         val result = source(http).dailyCloseUsdt("ETH", date, current = 3000.0)
-        assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), result)
+        assertEquals(HistoricPrices.CloseResult(null, unchecked = true), result)
         // USD und USDC geprüft, beide abgelehnt
         assertEquals(2, http.count("products/ETH-USDC/"))
     }
@@ -172,7 +173,7 @@ class HistoricPriceSourceTest {
                 else -> notFound
             }
         }
-        assertEquals(HistoricPriceSource.CloseResult(null, failed = true), source(http).dailyCloseUsdt("ETH", date, current = 3100.0))
+        assertEquals(HistoricPrices.CloseResult(null, failed = true), source(http).dailyCloseUsdt("ETH", date, current = 3100.0))
         assertEquals(2, http.count("data-api.binance.vision"))
         assertEquals(0, http.count("api.binance.com"))
         assertEquals(0, http.count("api.exchange.coinbase.com"))
@@ -197,7 +198,7 @@ class HistoricPriceSourceTest {
         }
         val historic = source(http)
         assertEquals(
-            HistoricPriceSource.CloseResult(3000.0, source = DataFreshness.COINBASE),
+            HistoricPrices.CloseResult(3000.0, source = DataFreshness.COINBASE),
             historic.dailyCloseUsdt("ETH", date, current = 3100.0),
         )
         assertEquals(2, http.count("data-api.binance.vision"))
@@ -211,7 +212,7 @@ class HistoricPriceSourceTest {
     @Test
     fun offlineEverywhereIsUnavailable() = runBlocking {
         val result = source(RouteHttp { null }).dailyCloseUsdt("ETH", date, current = 3100.0)
-        assertEquals(HistoricPriceSource.CloseResult(null, failed = true), result)
+        assertEquals(HistoricPrices.CloseResult(null, failed = true), result)
     }
 
     @Test
@@ -228,7 +229,7 @@ class HistoricPriceSourceTest {
             }
         }
         assertEquals(
-            HistoricPriceSource.CloseResult(2000.0, source = DataFreshness.BINANCE),
+            HistoricPrices.CloseResult(2000.0, source = DataFreshness.BINANCE),
             source(http).dailyCloseUsdt("ETH", date, current = 3100.0),
         )
         assertEquals(0, http.count("api.exchange.coinbase.com"))

@@ -3,6 +3,7 @@ import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogState
+import com.cryptochecker.app.domain.alarm.AlarmLogView
 import java.io.File
 import javax.crypto.SecretKey
 import kotlinx.coroutines.CoroutineDispatcher
@@ -30,12 +31,12 @@ class AlarmLogStore(
     /** Datei lesen abseits des Hauptfadens ([load]; Hilt: `@IoDispatcher` über `LocalDataModule`). */
     private val ioDispatcher: CoroutineDispatcher,
     private val clock: () -> Long = System::currentTimeMillis,
-) {
+) : AlarmLogView {
     private val lock = Any()
     private val _state = MutableStateFlow(AlarmLogState.EMPTY)
 
     /** Stand für die Anzeige; erst nach [load] (bzw. dem ersten Schreiben) gefüllt. */
-    val state: StateFlow<AlarmLogState> = _state.asStateFlow()
+    override val state: StateFlow<AlarmLogState> = _state.asStateFlow()
 
     private var loaded = false
     private var cachedKey: SecretKey? = null
@@ -52,7 +53,7 @@ class AlarmLogStore(
     private var unloadedChanges = false
 
     /** Datei lesen (abseits des Hauptfadens). */
-    suspend fun load() = withContext(ioDispatcher) { synchronized(lock) { ensureLoaded() } }
+    override suspend fun load() = withContext(ioDispatcher) { synchronized(lock) { ensureLoaded() } }
 
     /** Einträge eines Durchlaufs übernehmen und (ausser bei gedrosselten Live-Kursen) speichern. Wirft nie. */
     fun record(entries: List<AlarmLogEntry>, live: Boolean) {
@@ -81,13 +82,13 @@ class AlarmLogStore(
     }
 
     /** Alarm gelöscht: seine letzte Prüfung entfernen. */
-    fun removeAlarm(alarmId: Long) = update { AlarmLog.removeAlarm(it, alarmId) }
+    override fun removeAlarm(alarmId: Long) = update { AlarmLog.removeAlarm(it, alarmId) }
 
     /** Nur letzte Prüfungen bestehender Alarme behalten. */
-    fun retainAlarms(alarmIds: Set<Long>) = update { AlarmLog.retainAlarms(it, alarmIds) }
+    override fun retainAlarms(alarmIds: Set<Long>) = update { AlarmLog.retainAlarms(it, alarmIds) }
 
     /** «Protokoll löschen». */
-    fun clearEvents() = update { AlarmLog.clearEvents(it) }
+    override fun clearEvents() = update { AlarmLog.clearEvents(it) }
 
     private fun update(change: (AlarmLogState) -> AlarmLogState) {
         runCatching {

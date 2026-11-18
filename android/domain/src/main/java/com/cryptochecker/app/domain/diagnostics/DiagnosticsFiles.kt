@@ -1,4 +1,4 @@
-package com.cryptochecker.app.data
+package com.cryptochecker.app.domain.diagnostics
 
 import java.io.File
 

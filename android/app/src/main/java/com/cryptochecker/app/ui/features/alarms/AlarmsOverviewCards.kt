@@ -30,7 +30,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.AlarmJson
+import com.cryptochecker.app.domain.alarm.AlarmFallLimit
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.logos.CoinLogos
@@ -122,7 +122,7 @@ internal fun AlarmGroupCard(
                 windowHours = alarm.windowHours,
             )
             // «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus — kennzeichnen
-            val invalidText = if (AlarmJson.exceedsFall(alarm.condition, alarm.threshold)) {
+            val invalidText = if (AlarmFallLimit.exceedsFall(alarm.condition, alarm.threshold)) {
                 stringResource(R.string.alarm_threshold_invalid_fix)
             } else {
                 null
@@ -131,7 +131,7 @@ internal fun AlarmGroupCard(
             val description = alarmA11yDescription(context, alarm, title, sentence) +
                 (invalidText?.let { ". $it" } ?: "")
             // Ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
-            val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)
+            val canToggle = AlarmFallLimit.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 // Ganze Zeile schaltet, mit Rolle «Schalter» für die Sprachausgabe

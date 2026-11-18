@@ -4,12 +4,12 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import android.net.Uri
-import com.cryptochecker.app.data.backup.BackupLimits
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.domain.backup.BackupLimits
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFeed
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
@@ -50,9 +50,9 @@ internal class CsvImportInput(
 /** Datei lesen, zerlegen und Kurse laden für [PortfolioCsvImportViewModel]. */
 internal class PortfolioCsvImportReader(
     private val documents: DocumentReader,
-    private val repository: PortfolioRepository,
-    private val historic: HistoricPriceSource,
-    private val historySource: PortfolioHistorySource,
+    private val repository: PortfolioStore,
+    private val historic: HistoricPrices,
+    private val historySource: PortfolioHistoryFeed,
     /** Zeitzone der gewählten Steuer-Vorlage (`TaxTemplate.zoneId`; null = Neutral) für [CsvImportParser.fxZoneFor]. */
     private val templateZone: suspend () -> String?,
 ) {
@@ -106,7 +106,7 @@ internal class PortfolioCsvImportReader(
     }
 
     /**
-     * USDT/USD-Tagesschlüsse (Kraken, [PortfolioHistorySource.usdtUsdDaily]) vom frühesten Tag der Datei bis heute — wie
+     * USDT/USD-Tagesschlüsse (Kraken, [PortfolioHistoryFeed.usdtUsdDaily]) vom frühesten Tag der Datei bis heute — wie
      * der Steuer-Export (`usdtUsdCloses`), damit Import und Export denselben Schluss DES Tags nehmen. Nicht erreichbar →
      * leer (USD/Fiat dann mit USDT = 1, Zeilen als Näherung markiert, [CsvImportPreview.usdtApproximate]).
      */

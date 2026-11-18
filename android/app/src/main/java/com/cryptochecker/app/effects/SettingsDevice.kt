@@ -2,7 +2,9 @@ package com.cryptochecker.app.effects
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.provider.OpenableColumns
+import androidx.annotation.RequiresApi
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.notification.NotificationChannels
@@ -23,9 +25,11 @@ interface SettingsDevice {
     fun alarmSoundTitle(uri: Uri): String?
 
     /** Eigene Audiodatei übernehmen: neue Adresse und Name; null = gescheitert. */
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun importAlarmSound(source: Uri): Pair<Uri, String>?
 
     /** Vorigen eigenen Ton [previous] löschen, wenn er nicht [next] ist. */
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun deletePreviousOwnTone(previous: String?, next: String?)
 
     /** Standard-Alarmkanal mit Ton [soundUri] in Version [version] anlegen; gibt die Kanal-ID zurück. */
@@ -51,8 +55,10 @@ class AndroidSettingsDevice @Inject constructor(
 
     override fun alarmSoundTitle(uri: Uri): String? = AlarmSoundStore.title(context, uri)
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun importAlarmSound(source: Uri): Pair<Uri, String>? = AlarmSoundStore.importFile(context, source)
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun deletePreviousOwnTone(previous: String?, next: String?) =
         AlarmSoundStore.deletePreviousIfOwn(context, previous, next)
 

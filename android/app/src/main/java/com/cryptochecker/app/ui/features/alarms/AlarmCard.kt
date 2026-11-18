@@ -40,9 +40,9 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.alarm.AlarmFallLimit
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.notification.AlarmTexts
@@ -87,7 +87,7 @@ internal fun AlarmCard(
         }
     }
     // «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
-    val invalidThreshold = AlarmJson.exceedsFall(alarm.condition, alarm.threshold)
+    val invalidThreshold = AlarmFallLimit.exceedsFall(alarm.condition, alarm.threshold)
     val statusLine: Pair<Int, Int>? =
         if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine
     val statusText = statusLine?.let {
@@ -177,7 +177,7 @@ internal fun AlarmCard(
                 Switch(
                     checked = alarm.enabled,
                     onCheckedChange = onToggle,
-                    enabled = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled),
+                    enabled = AlarmFallLimit.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled),
                     colors = DisabledColors.switch(),
                     modifier = Modifier.semantics { contentDescription = title }
                 )

@@ -1,14 +1,8 @@
-package com.cryptochecker.app.data
+package com.cryptochecker.app.domain
 
-import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.domain.util.DefaultDispatcher
-import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.marketdata.model.ExchangePair
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,21 +15,13 @@ import kotlinx.coroutines.launch
  * hinzufügen» verlassen wird. [progress] zeigt den Stand für den Balken im
  * Explorer und über der Merkliste; jedes Ende ist eindeutig (Ergebnis, gesperrt, abgebrochen, Fehler) und bleibt
  * stehen, bis ein Bildschirm es gemeldet hat ([clearResult]). Schreibwege ([BulkAddWrites]), Bereich und Uhr sind über
- * den internen Konstruktor austauschbar (`BulkAddRunnerTest`).
+ * den Konstruktor austauschbar (`BulkAddRunnerTest`); im Betrieb aus `repositoryBulkAddRunner` (:data).
  */
-@Singleton
-class BulkAddRunner constructor(
+class BulkAddRunner(
     private val writes: BulkAddWrites,
     private val scope: CoroutineScope,
     private val now: () -> Long = System::currentTimeMillis,
 ) {
-    @Inject
-    constructor(
-        watchRepository: WatchRepository,
-        addMoments: AddMoments,
-        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
-    ) : this(RepositoryBulkAddWrites(watchRepository, addMoments), appScope(defaultDispatcher, "Paare aufnehmen"))
-
     /**
      * Stand: [done] von [total] verarbeitet; am Ende genau eines von [result], [locked], [cancelled] oder [failed].
      */
@@ -133,7 +119,7 @@ class BulkAddRunner constructor(
 }
 
 /**
- * Schreibwege der Sammelaufnahme: im Betrieb das Repository ([RepositoryBulkAddWrites]); Tests setzen eine Fälschung
+ * Schreibwege der Sammelaufnahme: im Betrieb das Repository (`RepositoryBulkAddWrites`); Tests setzen eine Fälschung
  * ein (`BulkAddRunnerTest`). Jeder Weg läuft in der Coroutine des Aufrufers — die Zustimmung zur Rückfrage
  * «nicht gespeichert» aus [confirm] gilt dort samt Kindern (`WatchlistNotSavedGate`).
  */
@@ -154,20 +140,4 @@ interface BulkAddWrites {
 
     /** Erstes Paar gilt als erledigt ([AddMoments.markFirstPairAdded]). */
     suspend fun markFirstPairAdded()
-}
-
-private class RepositoryBulkAddWrites(
-    private val watchRepository: WatchRepository,
-    private val addMoments: AddMoments,
-) : BulkAddWrites {
-    override suspend fun confirm(): Boolean = watchRepository.confirmUserWrite()
-
-    override suspend fun add(exchange: ExchangeInfo, pairs: List<ExchangePair>, group: String?, onProgress: (Int) -> Unit) =
-        watchRepository.addWatches(exchange, pairs, group, onProgress)
-
-    override suspend fun deleteWithoutAlarms(ids: List<Long>) {
-        watchRepository.deleteWatchesWithoutAlarms(ids)
-    }
-
-    override suspend fun markFirstPairAdded() = addMoments.markFirstPairAdded()
 }

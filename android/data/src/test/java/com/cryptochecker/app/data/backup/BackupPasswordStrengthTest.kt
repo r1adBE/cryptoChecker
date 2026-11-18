@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.backup
 
+import com.cryptochecker.app.domain.backup.BackupPasswordStrength
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

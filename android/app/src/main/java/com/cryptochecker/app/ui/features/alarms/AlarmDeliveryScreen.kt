@@ -39,9 +39,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.OemBattery
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
 import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.settings.AppSettings
@@ -85,7 +85,7 @@ class AlarmDeliveryViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
     checkRunStore: CheckRunStore,
     watchRepository: WatchStore,
-    portfolioAlarmDao: PortfolioAlarmDao,
+    portfolioAlarms: PortfolioAlarmStore,
 ) : ViewModel() {
 
     val settings: StateFlow<AppSettings> = settingsRepository.settings
@@ -118,7 +118,7 @@ class AlarmDeliveryViewModel @Inject constructor(
             // Portfolio aus: Datenbank gar nicht erst öffnen (wie PriceUpdateScheduler)
             .flatMapLatest { on ->
                 if (on) {
-                    portfolioAlarmDao.observeAll().map { list -> list.any { it.enabled } }.catch { emit(false) }
+                    portfolioAlarms.observeAll().map { list -> list.any { it.enabled } }.catch { emit(false) }
                 } else {
                     flowOf(false)
                 }

@@ -10,7 +10,6 @@ import com.cryptochecker.app.data.addWatches
 import com.cryptochecker.app.data.deleteWatchesWithoutAlarms
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.markAlarmTriggered
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.refresh.AlarmLogStore
@@ -22,6 +21,7 @@ import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.WatchSnapshot
+import com.cryptochecker.app.domain.local.WatchlistNotSavedGate
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo

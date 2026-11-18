@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.backup
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.backup.BackupLimits
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity

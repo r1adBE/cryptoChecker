@@ -12,6 +12,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.DayReferenceCache
+import com.cryptochecker.app.domain.watch.SparklineTiming
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -341,7 +342,7 @@ class SparklineRepository @Inject constructor(
 
     companion object {
         /** Gültigkeit der Mini-Chart-Kurve (Zeilen laden danach neu). */
-        const val TTL_MILLIS = 15 * 60_000L
+        const val TTL_MILLIS = SparklineTiming.TTL_MILLIS
         private const val FAILURE_TTL_MILLIS = 5 * 60_000L
 
         /** So lange nach Beginn einer Stunde darf ihre Kerze bei der Quelle noch fehlen. */

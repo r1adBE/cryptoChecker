@@ -3,9 +3,9 @@ package com.cryptochecker.app.ui.features.settings
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.backup.AutoBackupRunner
-import com.cryptochecker.app.data.backup.AutoBackupState
-import com.cryptochecker.app.data.backup.AutoBackupStore
+import com.cryptochecker.app.domain.backup.AutoBackupJobs
+import com.cryptochecker.app.domain.backup.AutoBackupSettings
+import com.cryptochecker.app.domain.backup.AutoBackupState
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.effects.BackupFolderAccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,14 +19,14 @@ import kotlinx.coroutines.withContext
 
 /**
  * Automatische Sicherung ([com.cryptochecker.app.domain.backup.AutoBackupPolicy]): Ordner wählen (dauerhafte Freigabe),
- * Passwort merken ([AutoBackupStore]), «Jetzt sichern» ([AutoBackupRunner]). Wie iOS `AutoBackupSection`.
+ * Passwort merken (`AutoBackupStore`), «Jetzt sichern» (`AutoBackupRunner`). Wie iOS `AutoBackupSection`.
  */
 @HiltViewModel
 class AutoBackupViewModel @Inject constructor(
     /** Ordnerfreigabe und Ordnername (System). */
     private val folders: BackupFolderAccess,
-    private val store: AutoBackupStore,
-    private val runner: AutoBackupRunner,
+    private val store: AutoBackupSettings,
+    private val runner: AutoBackupJobs,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     val state: StateFlow<AutoBackupState> = store.state

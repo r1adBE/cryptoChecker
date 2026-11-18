@@ -1,9 +1,9 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.data.backup.BackupPasswordStrength
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
-import com.cryptochecker.app.data.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.BackupPasswordStrength
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.backup.BackupVersion
 import com.cryptochecker.app.ui.features.settings.BackupMessage
 import com.cryptochecker.app.ui.features.settings.BackupResultPresentation
 import com.cryptochecker.resources.R

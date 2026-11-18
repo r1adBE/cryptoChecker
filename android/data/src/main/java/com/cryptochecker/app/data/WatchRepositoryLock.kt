@@ -4,9 +4,9 @@ package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.data.local.WatchlistStorageLock
-import com.cryptochecker.app.data.local.WatchlistWriteRefusal
+import com.cryptochecker.app.domain.local.WatchlistNotSavedGate
+import com.cryptochecker.app.domain.local.WatchlistStorageLock
+import com.cryptochecker.app.domain.local.WatchlistWriteRefusal
 import java.io.IOException
 import kotlinx.coroutines.CancellationException
 import timber.log.Timber

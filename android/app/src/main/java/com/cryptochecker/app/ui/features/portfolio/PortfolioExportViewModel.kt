@@ -3,14 +3,15 @@ package com.cryptochecker.app.ui.features.portfolio
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDisposal
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFeed
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceFeed
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
@@ -56,19 +57,19 @@ enum class TaxExportKind { GAINS, INCOME }
  * und Devisenkurs dieses Tags holen, CSV bauen und in die gewählte Datei schreiben.
  * Arbeitsunterlage ([exportTax], [exportSummary]): nach der Steuer-Vorlage (Einstellung «tax_template») — Methode
  * [TaxTemplate.methodFor], Steuerjahr der Vorlage, Währung der Vorlage (Neutral: Anzeigewährung); Devisen-Tageskurse über
- * [HistoricPriceSource.usdToSeries]; FR zusätzlich Tagesschlusskurse für den Gesamtwert des Portfolios bei jedem Verkauf.
+ * [HistoricPrices.usdToSeries]; FR zusätzlich Tagesschlusskurse für den Gesamtwert des Portfolios bei jedem Verkauf.
  * Ablauf, Abbrechen und «Erneut versuchen» übernimmt [ExportRunner].
  */
 @HiltViewModel
 class PortfolioExportViewModel @Inject constructor(
     /** Gewählte Zieldatei schreiben bzw. löschen (System). */
     exportTarget: ExportTarget<Uri>,
-    internal val repository: PortfolioRepository,
-    internal val historic: HistoricPriceSource,
-    internal val priceSource: PortfolioPriceSource,
+    internal val repository: PortfolioStore,
+    internal val historic: HistoricPrices,
+    internal val priceSource: PortfolioPriceFeed,
     internal val settingsRepository: SettingsRepository,
-    /** USDT/USD-Tagesschlüsse (Kraken, [com.cryptochecker.app.data.portfolio.PortfolioHistorySource.usdtUsdDaily]). */
-    internal val historySource: com.cryptochecker.app.data.portfolio.PortfolioHistorySource,
+    /** USDT/USD-Tagesschlüsse (Kraken, [PortfolioHistoryFeed.usdtUsdDaily]). */
+    internal val historySource: PortfolioHistoryFeed,
     /** Live-Kurs USDT/USD für einen Stichtag heute. */
     internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,

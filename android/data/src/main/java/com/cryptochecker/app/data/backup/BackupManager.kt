@@ -19,22 +19,13 @@ import com.cryptochecker.app.data.backup.BackupFormat.plainText
 import com.cryptochecker.app.data.backup.BackupFormat.withPasswordChars
 import com.cryptochecker.app.data.backup.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.backup.BackupJournalCodec.journalJson
-import com.cryptochecker.app.data.backup.BackupLimits
-import com.cryptochecker.app.data.backup.BackupNotVerifiedException
 import com.cryptochecker.app.data.backup.BackupReadCache
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.data.backup.BackupSettingsCodec
-import com.cryptochecker.app.data.backup.BackupStorageInMemoryException
-import com.cryptochecker.app.data.backup.BackupStorageKeptException
 import com.cryptochecker.app.data.backup.BackupVerification
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.alarmToJson
 import com.cryptochecker.app.data.backup.BackupWatchlistCodec.watchToJson
 import com.cryptochecker.app.data.backup.RestoreJournal
-import com.cryptochecker.app.data.backup.RestorePreview
-import com.cryptochecker.app.data.backup.RestoreResult
-import com.cryptochecker.app.data.backup.SettingsRestoreNotes
-import com.cryptochecker.app.data.backup.UnconfirmedInvalidEntriesException
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
@@ -50,6 +41,17 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
+import com.cryptochecker.app.domain.backup.BackupFiles
+import com.cryptochecker.app.domain.backup.BackupJournalUnavailableException
+import com.cryptochecker.app.domain.backup.BackupLimits
+import com.cryptochecker.app.domain.backup.BackupNotVerifiedException
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.backup.BackupStorageInMemoryException
+import com.cryptochecker.app.domain.backup.BackupStorageKeptException
+import com.cryptochecker.app.domain.backup.RestorePreview
+import com.cryptochecker.app.domain.backup.RestoreResult
+import com.cryptochecker.app.domain.backup.SettingsRestoreNotes
+import com.cryptochecker.app.domain.backup.UnconfirmedInvalidEntriesException
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
@@ -91,7 +93,7 @@ class BackupManager @Inject constructor(
     /** Sperre der Adress-Aktualisierung: Adressen und eigenen Server ersetzen, ohne dass dazwischen abgefragt wird. */
     internal val addressRefresher: WatchedAddressRefresher,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : BackupFiles<Uri> {
     internal val database: AppDatabase get() = stores.database
     internal val portfolioDatabase: PortfolioDatabase get() = stores.portfolioDatabase
     internal val watchDao: WatchDao get() = stores.watchDao
@@ -99,7 +101,7 @@ class BackupManager @Inject constructor(
     internal val portfolioAlarmDao: PortfolioAlarmDao get() = stores.portfolioAlarmDao
 
     /** Anzahl Portfolio-Alarme, die [exportJson] schreibt — zählen als Portfolio-Daten (Passwort Pflicht). */
-    suspend fun portfolioAlarmCount(): Int = portfolioAlarmRepository.getAll().size
+    override suspend fun portfolioAlarmCount(): Int = portfolioAlarmRepository.getAll().size
     internal val watchedAddressDao: WatchedAddressDao get() = stores.watchedAddressDao
 
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
@@ -119,7 +121,7 @@ class BackupManager @Inject constructor(
      * wie unter iOS), sonst als lesbares JSON. Danach wird die Datei zurückgelesen und Byte für Byte
      * verglichen; weicht sie ab → [BackupNotVerifiedException] (der Nutzer soll in eine neue Datei sichern).
      */
-    suspend fun export(uri: Uri, password: String?) = withContext(ioDispatcher) {
+    override suspend fun export(uri: Uri, password: String?): Unit = withContext(ioDispatcher) {
         ensureStoredReadable()
         // Ein Stand je Datenbank: Merkliste und Alarme in einer Lesetransaktion der Hauptdatenbank, Transaktionen,
         // Portfolio-Alarme und Adressen in einer der Portfolio-Datenbank — eine gleichzeitige Änderung (Aktualisierung,
@@ -216,13 +218,13 @@ class BackupManager @Inject constructor(
     }
 
     /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. Liest die Datei frisch ein. */
-    suspend fun needsPassword(uri: Uri): Boolean = withContext(ioDispatcher) {
+    override suspend fun needsPassword(uri: Uri): Boolean = withContext(ioDispatcher) {
         readCache.clear()
         readCache.file(uri) { BackupFormat.read(context, uri) } is BackupFile.Encrypted
     }
 
     /** Wiederherstellen abgebrochen: gemerkte Datei und Klartext vergessen ([BackupReadCache]). */
-    fun forgetPickedBackup() = readCache.clear()
+    override fun forgetPickedBackup() = readCache.clear()
 
     /**
      * Was vor der Rückfrage zu nennen ist ([RestorePreview]): ungültige Einträge, die nicht übernommen würden —
@@ -230,7 +232,7 @@ class BackupManager @Inject constructor(
      * Portfolio-Alarme — sowie Paare und Alarme über den Grenzen ([BackupRestoreLimits]), damit der Nutzer davon
      * erfährt, bevor etwas ersetzt wird, statt sie still zu verlieren.
      */
-    suspend fun preview(uri: Uri, password: String?): RestorePreview = withContext(ioDispatcher) {
+    override suspend fun preview(uri: Uri, password: String?): RestorePreview = withContext(ioDispatcher) {
         val root = JSONObject(readCache.plain(uri, password) { BackupFormat.read(context, uri) })
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
@@ -260,7 +262,7 @@ class BackupManager @Inject constructor(
      * ([acceptInvalid] = gezeigte Anzahl aus [preview]); sind es mehr, bricht der Import ab,
      * bevor etwas ersetzt wird ([UnconfirmedInvalidEntriesException]).
      */
-    suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(ioDispatcher) {
+    override suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int): RestoreResult = withContext(ioDispatcher) {
         ensureStoredReadable(restoring = true)
         // Was die Rückfrage geprüft hat (ohne erneutes Lesen und Argon2id), danach nicht mehr gemerkt. Von der Datei nur
         // die Art behalten: die verschlüsselte Hülle (bis 64 MB) nicht bis zum Ende des Laufs im Speicher.

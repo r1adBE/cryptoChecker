@@ -1,25 +1,26 @@
 // Mini-Chart der Zeilen (Zwischenspeicher, eigene Stundenkerzen, Ausweich-Reihe) und Quelle von Tagesänderung und
 // Chart, wenn sie nicht von der Börse des Paars kommen. Reine Lese-Abfragen ohne eigenen Zustand.
-package com.cryptochecker.app.ui.features.watchlist
+package com.cryptochecker.app.chart
 
 import com.cryptochecker.app.data.SparklineRepository
-import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnHourlyCandles
+import com.cryptochecker.app.domain.convert.QuoteConversion
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.domain.watch.TokenNames
 import com.cryptochecker.app.refresh.DayReferences
+import com.cryptochecker.app.ui.features.watchlist.conversionQuote
 import javax.inject.Inject
 
 class WatchSparklines @Inject constructor(
-    private val currencyConverter: CurrencyConverter,
+    private val currencyConverter: QuoteConversion,
     private val sparklineRepository: SparklineRepository,
     private val dayReferences: DayReferences,
     private val ownHourly: OwnHourlyCandles,
     private val candlePairs: CandlePairs,
     /** Namen der Coins je Börse: klar anderer Name als die Ausweich-Reihe → kein Mini-Chart von dort. */
-    private val tokenIdentityStore: TokenIdentityStore,
+    private val tokenIdentityStore: TokenNames,
 ) {
 
     /**

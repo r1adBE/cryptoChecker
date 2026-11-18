@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
+import com.cryptochecker.app.domain.portfolio.RemovedWatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import kotlinx.coroutines.flow.Flow
@@ -51,7 +52,9 @@ data class WatchedAddressEntity(
      * `observations`) nie die Posten überschreibt.
      */
     @ColumnInfo val costLots: String? = null,
-) {
+) : RemovedWatchedAddress {
+    override fun removedAddress(): WatchedAddress? = toDomain()
+
     companion object {
         const val TABLE = "watched_addresses"
 

@@ -58,8 +58,11 @@ import androidx.compose.ui.unit.isSpecified
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.refresh.RefreshStatsView
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.domain.watch.HourlyCloseIds
+import com.cryptochecker.app.domain.watch.MarkFallbackIds
 import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ListSegment
@@ -77,19 +80,19 @@ import com.cryptochecker.resources.R
 internal val ROW_BADGE_SIZE = ListSegment.Logo
 
 /**
- * Watch-Ids, deren letzter Kurs der Mark-Preis statt des Mittelkurses war ([com.cryptochecker.app.data.MarkFallbackStore]):
+ * Watch-Ids, deren letzter Kurs der Mark-Preis statt des Mittelkurses war ([MarkFallbackIds]):
  * Zeile und Aktionsblatt nennen ihn «Mark». Gesetzt von der Merkliste.
  */
 internal val LocalMarkFallback = compositionLocalOf<Set<Long>> { emptySet() }
 
 /**
- * Watch-Ids, deren letzter Kurs ein Stundenkurs war ([com.cryptochecker.app.data.HourlyCloseStore], WOO X Spot ohne
+ * Watch-Ids, deren letzter Kurs ein Stundenkurs war ([HourlyCloseIds], WOO X Spot ohne
  * letzten Abschluss): Zeile und Aktionsblatt nennen ihn «Stundenkurs». Gesetzt von der Merkliste.
  */
 internal val LocalHourlyClose = compositionLocalOf<Set<Long>> { emptySet() }
 
 /**
- * Ende der Pause je Börsen-Schlüssel ([com.cryptochecker.app.data.RefreshStats.exchangePauses]): die Zeitzeile
+ * Ende der Pause je Börsen-Schlüssel ([RefreshStatsView.exchangePauses]): die Zeitzeile
  * pausierter Börsen sagt «Binance · pausiert bis 19:45» ([com.cryptochecker.app.domain.watch.RowPause]). Gesetzt von
  * der Merkliste.
  */

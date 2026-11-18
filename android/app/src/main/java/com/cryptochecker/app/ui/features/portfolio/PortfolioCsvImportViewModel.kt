@@ -8,12 +8,11 @@ package com.cryptochecker.app.ui.features.portfolio
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.backup.BackupLimits
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.insertImportedLinked
+import com.cryptochecker.app.domain.backup.BackupLimits
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFeed
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
@@ -59,9 +58,9 @@ import timber.log.Timber
 class PortfolioCsvImportViewModel @Inject constructor(
     /** Gewählte Datei lesen (System). */
     documents: DocumentReader,
-    internal val repository: PortfolioRepository,
-    historic: HistoricPriceSource,
-    historySource: PortfolioHistorySource,
+    internal val repository: PortfolioStore,
+    historic: HistoricPrices,
+    historySource: PortfolioHistoryFeed,
     private val settingsRepository: SettingsRepository,
     private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
@@ -115,7 +114,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main.immediate) { if (run == progressRun) _progress.value = p }
     }
 
-    /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioRepository.insertImported]), dann nichts gespeichert. */
+    /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioStore.insertImported]), dann nichts gespeichert. */
     internal val saveCancelled = AtomicBoolean(false)
 
     /** Gewählte Lesart (Zeitzone ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel); «Importieren» nur gleich [CsvImportInput.choice]. */

@@ -5,8 +5,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.BulkAddRunner
-import com.cryptochecker.app.data.confirmUserWrite
+import com.cryptochecker.app.domain.BulkAddRunner
 import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel

@@ -19,12 +19,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import com.cryptochecker.app.data.DexTokenAddressStore
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.DexLiquidity
 import com.cryptochecker.app.domain.watch.DexTokenAddress
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.LocalStoredNotices
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.resources.R
@@ -38,8 +38,9 @@ import com.cryptochecker.resources.R
 @Composable
 internal fun DexTokenAddressLine(watch: WatchEntity) {
     if (!DexLiquidity.isDex(watch.exchangeKey)) return
+    val notices = LocalStoredNotices.current ?: return
     val context = LocalContext.current
-    val address = remember(watch.pairId) { DexTokenAddressStore.get(context, watch.pairId) } ?: return
+    val address = remember(watch.pairId) { notices.dexTokenAddress(watch.pairId) } ?: return
     val copyLabel = stringResource(R.string.dex_token_address_copy)
     val copiedText = stringResource(R.string.dex_token_address_copied)
     val spoken = stringResource(R.string.dex_token_address_label, dexSpokenTail(address))

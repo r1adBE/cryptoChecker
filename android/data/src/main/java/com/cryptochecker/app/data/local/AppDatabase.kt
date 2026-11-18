@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.local.model.AlarmRow
 import com.cryptochecker.app.data.local.model.ExchangeEntity
 import com.cryptochecker.app.data.local.model.ExchangePairEntity
 import com.cryptochecker.app.data.local.model.WatchRow
+import com.cryptochecker.app.domain.local.DatabaseNames
 
 @Database(
     entities = [
@@ -25,6 +26,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val VERSION = 1
-        const val DB_NAME = "cryptochecker.db"
+        const val DB_NAME = DatabaseNames.WATCHLIST
     }
 }

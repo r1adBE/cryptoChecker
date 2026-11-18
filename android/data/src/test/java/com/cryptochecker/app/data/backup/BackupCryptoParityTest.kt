@@ -1,8 +1,10 @@
 package com.cryptochecker.app.data.backup
+
 import com.cryptochecker.app.data.backup.Argon2id
 import com.cryptochecker.app.data.backup.BackupCrypto
 import com.cryptochecker.app.data.backup.BackupFormat
-import com.cryptochecker.app.data.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.WrongPasswordException
 import com.cryptochecker.app.parity.ParityJson
 import java.io.File
 import java.util.Base64
@@ -97,7 +99,7 @@ class BackupCryptoParityTest {
             val result = try {
                 BackupCrypto.decrypt(envelope(c.getJSONObject("file")), password())
                 "accepted"
-            } catch (_: BackupCrypto.WrongPasswordException) {
+            } catch (_: WrongPasswordException) {
                 "wrongPassword"
             } catch (_: BackupCrypto.UnsupportedException) {
                 "unsupported"

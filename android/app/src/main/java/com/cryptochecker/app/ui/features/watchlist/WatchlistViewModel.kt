@@ -2,24 +2,23 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.ActivityRepository
-import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.live.LivePriceStream
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.activity.ActivityReports
 import com.cryptochecker.app.domain.activity.WhyReport
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
+import com.cryptochecker.app.domain.convert.QuoteConversion
 import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LivePair
+import com.cryptochecker.app.domain.live.LivePrices
 import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.starter.AddMomentStore
+import com.cryptochecker.app.domain.util.NetworkStatus
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
@@ -28,6 +27,7 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
+import com.cryptochecker.app.domain.watch.TokenNames
 import com.cryptochecker.app.domain.watch.WatchStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -53,17 +53,17 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class WatchlistViewModel @Inject internal constructor(
     watchRepository: WatchStore,
-    connectivity: ConnectivityMonitor,
+    connectivity: NetworkStatus,
     private val settingsRepository: SettingsRepository,
-    activityRepository: ActivityRepository,
-    private val currencyConverter: CurrencyConverter,
-    private val addMoments: AddMoments,
-    private val livePriceStream: LivePriceStream,
-    coinLogoRepository: CoinLogoRepository,
+    activityRepository: ActivityReports,
+    private val currencyConverter: QuoteConversion,
+    private val addMoments: AddMomentStore,
+    private val livePriceStream: LivePrices,
+    coinLogoRepository: CoinLogoCatalog,
     /** Namen der Coins je Börse: klar anderer Name als in der Alpha-Liste → kein «α» ([AssetKind.of]). */
-    private val tokenIdentityStore: TokenIdentityStore,
+    private val tokenIdentityStore: TokenNames,
     /** Nur für [WatchlistContentFlows.alarmTotal] (Ziel der Glocke): gibt es Portfolio-Alarme? */
-    portfolioAlarmRepository: PortfolioAlarmRepository,
+    portfolioAlarmRepository: PortfolioAlarmStore,
     /** Daten für Aktionsblatt und Zeilen (Mini-Chart, Herkunft, Futures, Spot, Chart). */
     private val sheetData: WatchlistSheetData,
     /** Aktualisieren, Start-Auswahl und schreibende Aktionen ([WatchlistControllers]). */

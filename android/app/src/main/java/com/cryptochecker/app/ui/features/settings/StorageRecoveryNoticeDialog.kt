@@ -12,18 +12,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.data.local.StorageRecoveryNotice
-import com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind
+import com.cryptochecker.app.domain.local.StorageRecoveryKind as Kind
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.components.LocalStoredNotices
 import com.cryptochecker.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Hinweise zum Zustand der gespeicherten Daten über der ganzen App ([StorageRecoveryNotice]); wie iOS
+ * Hinweise zum Zustand der gespeicherten Daten über der ganzen App (`StorageRecoveryNotice`); wie iOS
  * `storageRecoveryNotice()`:
  *  - «Gespeicherte Daten liessen sich nicht entsperren»: bleibt, bis «Verstanden» (oder eine Sicherung eingespielt ist);
  *    direkte Aktion «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung ([onRestoreBackup]). Weggetippt erscheint
@@ -34,11 +33,11 @@ import kotlinx.coroutines.withContext
  */
 @Composable
 internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
-    val context = LocalContext.current.applicationContext
+    val notices = LocalStoredNotices.current ?: return
     val scope = rememberCoroutineScope()
     // Saveable: der Dialog muss Drehen überstehen (einmalige Hinweise sind beim Zeigen schon bestätigt)
     var shown by rememberSaveable { mutableStateOf<Kind?>(null) }
-    val changes by StorageRecoveryNotice.changes.collectAsState()
+    val changes by notices.recoveryChanges.collectAsState()
     // Einstellungen ersetzt: der eigene Bitcoin-Server ist unbekannt — der Hinweis nennt ihn (Bitcoin-Abfragen ruhen);
     // gelesen mit jeder Vormerkung ([changes]) im selben Lesen wie der nächste Hinweis
     var serverUnknown by remember { mutableStateOf(false) }
@@ -49,27 +48,27 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
             val pending = if (open) {
                 null
             } else {
-                StorageRecoveryNotice.pending(context)?.also { kind ->
+                notices.pendingRecovery()?.also { kind ->
                     // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden», «Einstellungen
                     // zurückgesetzt» erst beim Schliessen (der Nutzer soll die Sperre sicher prüfen können)
-                    if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) StorageRecoveryNotice.acknowledge(context, kind)
+                    if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) notices.acknowledgeRecovery(kind)
                 }
             }
-            StorageRecoveryNotice.isAddressServerUnknown(context) to pending
+            notices.isAddressServerUnknown() to pending
         }
         serverUnknown = unknown
         if (!open) shown = next
     }
     fun acknowledge(kind: Kind) {
         // Sofort im Speicher ausblenden (die Prüfung oben läuft gleich wieder), dann dauerhaft bestätigen
-        if (kind == Kind.SET_ASIDE) StorageRecoveryNotice.hideSetAsideForNow()
+        if (kind == Kind.SET_ASIDE) notices.hideSetAsideForNow()
         shown = null
-        scope.launch { withContext(Dispatchers.IO) { StorageRecoveryNotice.acknowledge(context, kind) } }
+        scope.launch { withContext(Dispatchers.IO) { notices.acknowledgeRecovery(kind) } }
     }
     fun closeSettingsReset() {
         // Erst nach dem Löschen ausblenden: sonst fände die Prüfung oben den Hinweis gleich wieder
         scope.launch {
-            withContext(Dispatchers.IO) { StorageRecoveryNotice.acknowledge(context, Kind.SETTINGS_RESET) }
+            withContext(Dispatchers.IO) { notices.acknowledgeRecovery(Kind.SETTINGS_RESET) }
             shown = null
         }
     }
@@ -90,7 +89,7 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
         Kind.SET_ASIDE -> AlertDialog(
             onDismissRequest = {
                 shown = null
-                StorageRecoveryNotice.hideSetAsideForNow()
+                notices.hideSetAsideForNow()
             },
             title = { Text(stringResource(R.string.storage_recovery_title)) },
             text = {
@@ -102,7 +101,7 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
                 TextButton(onClick = {
                     shown = null
                     // Bis die Sicherung eingespielt ist, bleibt der Hinweis (nächster Start); jetzt nicht über der Auswahl
-                    StorageRecoveryNotice.hideSetAsideForNow()
+                    notices.hideSetAsideForNow()
                     onRestoreBackup()
                 }) { Text(stringResource(R.string.storage_recovery_restore_action)) }
             },

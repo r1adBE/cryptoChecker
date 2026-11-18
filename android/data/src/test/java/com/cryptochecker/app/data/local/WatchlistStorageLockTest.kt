@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.local
 
+import com.cryptochecker.app.domain.local.WatchlistStorageLock
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

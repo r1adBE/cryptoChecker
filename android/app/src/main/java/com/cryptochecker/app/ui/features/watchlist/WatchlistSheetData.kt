@@ -6,43 +6,46 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.chart.SheetChartRepository
-import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.remote.FuturesDataSource
-import com.cryptochecker.app.data.remote.SpotDataSource
+import com.cryptochecker.app.chart.WatchSparklines
 import com.cryptochecker.app.domain.activity.WhyReport
+import com.cryptochecker.app.domain.convert.QuoteConversion
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.FuturesInfoSource
+import com.cryptochecker.app.domain.remote.SpotInfoSource
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.watch.HourlyCloseIds
+import com.cryptochecker.app.domain.watch.MarkFallbackIds
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
+import com.cryptochecker.app.domain.watch.TokenNames
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 
 class WatchlistSheetData @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    private val futuresDataSource: FuturesDataSource,
-    private val spotDataSource: SpotDataSource,
+    private val futuresDataSource: FuturesInfoSource,
+    private val spotDataSource: SpotInfoSource,
     private val activityMonitor: ActivityMonitor,
-    private val currencyConverter: CurrencyConverter,
+    private val currencyConverter: QuoteConversion,
     /** Mini-Chart der Zeilen und woher er kommt ([WatchSparklines]). */
     private val sparklines: WatchSparklines,
     private val sheetChartRepository: SheetChartRepository,
-    private val coinLogoRepository: CoinLogoRepository,
+    private val coinLogoRepository: CoinLogoCatalog,
     /** Namen der Coins je Börse: welcher CoinGecko-Treffer zum Paar gehört ([fetchSpot]). */
-    private val tokenIdentityStore: TokenIdentityStore,
+    private val tokenIdentityStore: TokenNames,
     /** Paare mit Mark-Preis statt Mittelkurs: «Mark» in Zeile und Blatt. */
-    private val markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
+    private val markFallbackStore: MarkFallbackIds,
     /** Paare mit Stundenkurs (WOO X Spot ohne letzten Abschluss): «Stundenkurs» in Zeile und Blatt. */
-    private val hourlyCloseStore: com.cryptochecker.app.data.HourlyCloseStore,
+    private val hourlyCloseStore: HourlyCloseIds,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    /** Watch-Ids, deren letzter Kurs der Mark-Preis war ([com.cryptochecker.app.data.MarkFallbackStore]). */
+    /** Watch-Ids, deren letzter Kurs der Mark-Preis war ([MarkFallbackIds]). */
     val markFallbackIds: kotlinx.coroutines.flow.StateFlow<Set<Long>> get() = markFallbackStore.ids
 
-    /** Watch-Ids, deren letzter Kurs ein Stundenkurs war ([com.cryptochecker.app.data.HourlyCloseStore]). */
+    /** Watch-Ids, deren letzter Kurs ein Stundenkurs war ([HourlyCloseIds]). */
     val hourlyCloseIds: kotlinx.coroutines.flow.StateFlow<Set<Long>> get() = hourlyCloseStore.ids
 
     /**

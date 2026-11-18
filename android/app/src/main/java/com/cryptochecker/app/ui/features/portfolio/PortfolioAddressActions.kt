@@ -4,13 +4,12 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
-import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
-import com.cryptochecker.app.data.portfolio.restoreWatchedAddress
-import com.cryptochecker.app.data.portfolio.toDomain
+import com.cryptochecker.app.domain.portfolio.AddWatchedResult
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
+import com.cryptochecker.app.domain.portfolio.RemovedWatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -38,12 +37,12 @@ fun PortfolioViewModel.addWatchedAddress(
     onPortfolioEnabled: () -> Unit = {},
     /** Überschneidung beim Hinzufügen gefragt und entschieden (kein späteres automatisches «Nur anzeigen»). */
     overlapChecked: Boolean = false,
-    onResult: (PortfolioRepository.AddWatchedResult?) -> Unit,
+    onResult: (AddWatchedResult?) -> Unit,
 ) {
     viewModelScope.launch {
         val result = safe { repository.addWatchedAddress(chain, address, label, countInPortfolio, overlapChecked) }
         onResult(result)
-        if (result !is PortfolioRepository.AddWatchedResult.Added) return@launch
+        if (result !is AddWatchedResult.Added) return@launch
         if (PortfolioOff.enableOnSave(true, settingsRepository.current().portfolioEnabled)) {
             if (safe { settingsRepository.setPortfolioEnabled(true) } != null) {
                 onPortfolioEnabled()
@@ -58,7 +57,7 @@ fun PortfolioViewModel.addWatchedAddress(
 
 /**
  * Adresse entfernen (nach Bestätigung). [onRemoved] bekommt die ganze Zeile (Eröffnungsposten, Verlauf, Token-Reihen)
- * für «Rückgängig» ([restoreWatchedAddress]); gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
+ * für «Rückgängig» ([restoreWatchedAddress]); gesperrt ([com.cryptochecker.app.domain.portfolio.PortfolioStorageLock]):
  * nichts entfernt, [onLocked] — nie still. Nicht geschrieben (Datenbank gerade nicht beschreibbar): [onFailed]
  * (nie still). Schon weg (keine Zeile): nichts zu melden.
  */
@@ -66,7 +65,7 @@ fun PortfolioViewModel.removeWatchedAddress(
     id: Long,
     onLocked: () -> Unit = {},
     onFailed: () -> Unit = {},
-    onRemoved: (WatchedAddressEntity) -> Unit = {},
+    onRemoved: (RemovedWatchedAddress) -> Unit = {},
 ) {
     viewModelScope.launch {
         val removed = try {
@@ -91,7 +90,7 @@ fun PortfolioViewModel.removeWatchedAddress(
  * ([WatchedAddressUndo.failure]) — nie still.
  */
 fun PortfolioViewModel.restoreWatchedAddress(
-    row: WatchedAddressEntity,
+    row: RemovedWatchedAddress,
     onLocked: () -> Unit = {},
     onFailed: (WatchedAddressUndo.RestoreFailure) -> Unit = {},
 ) {
@@ -109,7 +108,7 @@ fun PortfolioViewModel.restoreWatchedAddress(
         }
         if (restored) return@launch
         val existing = safe { repository.getWatchedAddresses() }.orEmpty()
-        val removed = row.toDomain()
+        val removed = row.removedAddress()
         onFailed(removed?.let { WatchedAddressUndo.failure(existing, it) } ?: WatchedAddressUndo.RestoreFailure.NOT_SAVED)
     }
 }

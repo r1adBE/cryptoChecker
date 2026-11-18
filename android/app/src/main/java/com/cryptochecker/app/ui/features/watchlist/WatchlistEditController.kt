@@ -3,14 +3,15 @@
 // privatem Zustand (Rückgängig-Speicher, umbenannte Gruppen); läuft im viewModelScope, den das ViewModel als [scope] mitgibt.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.WatchSnapshot
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.starter.AddMomentStore
 import com.cryptochecker.app.domain.watch.AddWatchOutcome
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.RestoreOutcome
@@ -38,7 +39,7 @@ internal class WatchlistEditController @AssistedInject constructor(
     internal val notifier: AppNotifier,
     internal val widgetUpdater: WidgetUpdater,
     private val widgetPrefs: WidgetPrefs,
-    private val addMoments: AddMoments,
+    private val addMoments: AddMomentStore,
     /** Aktuelle Gruppen-Auswahl ([WatchlistContentFlows.groupFilter]); null bis geladen. */
     @Assisted("groupFilter") private val groupFilter: () -> GroupFilter?,
     /** Ganzer Durchlauf ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
@@ -130,7 +131,7 @@ internal class WatchlistEditController @AssistedInject constructor(
      * Vorschau-Paar (Aktionsblatt aus «Heute auffällig», nur im Speicher) in die Merkliste: wie «Hinzufügen» im
      * Hinzufügen-Tab — Dublettenprüfung in [WatchStore.addWatch] (gleiche Standardwerte, Kurs-Benachrichtigung an,
      * Gruppe nach [com.cryptochecker.app.domain.watch.AutoGroup]), Erst-Moment beim allerersten Paar
-     * ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]), danach gleich den Kurs holen (nach [onDone]). [onDone]: Id
+     * ([AddMomentStore.afterExplorerAdd]), danach gleich den Kurs holen (nach [onDone]). [onDone]: Id
      * des neuen bzw. schon vorhandenen Eintrags; null, wenn nichts zu finden ist — auch bei «Abbrechen» bzw.
      * gesperrt. Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»). Merkliste voll
      * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, nur [onFull] (Hinweis).
@@ -368,11 +369,11 @@ internal class WatchlistEditController @AssistedInject constructor(
      */
     fun setTtsEnabled(watch: WatchEntity, enabled: Boolean): Boolean {
         // Merkliste gesperrt: kein Hinweis «Sprachausgabe an» (die Rückgabe gilt sofort, das Schreiben folgt erst)
-        val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
-            .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
+        val blocked = com.cryptochecker.app.domain.local.WatchlistStorageLock
+            .blocksWrites(StorageMemory.storedKept.value)
         val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
         // Kommt erst die Rückfrage «nicht gespeichert», keinen Hinweis vorwegnehmen; auch ohne sichtbare Oberfläche
-        val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.mayAsk()
+        val asksFirst = com.cryptochecker.app.domain.local.WatchlistNotSavedGate.mayAsk()
         launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist
             if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {

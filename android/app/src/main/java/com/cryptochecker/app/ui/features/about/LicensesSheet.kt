@@ -61,7 +61,7 @@ private const val PLAY_SERVICES_LICENSE_NAME = "Android Software Development Kit
 private const val SQLITE_LINE = "SQLite — Public Domain"
 
 /**
- * Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, [com.cryptochecker.app.data.portfolio.FxRateSource]):
+ * Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, `FxRateSource`):
  * von ExchangeRate-API verlangte Nennung, nicht übersetzt (wie iOS `LicenseNotices.ratesByExchangeRateApi`).
  */
 private const val RATES_BY_EXCHANGERATE_API = "Rates By Exchange Rate API (https://www.exchangerate-api.com)"

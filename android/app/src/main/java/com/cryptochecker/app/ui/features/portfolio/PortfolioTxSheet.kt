@@ -32,8 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
+import com.cryptochecker.app.domain.local.StorageMemory
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -188,7 +188,7 @@ fun PortfolioTxSheet(
                         onCancel = requestClose,
                         onAskEnablePortfolio = onAskEnablePortfolio,
                         onClosedAfterSave = { closedAfterSave = true },
-                        isStorageLocked = { PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value) },
+                        isStorageLocked = { PortfolioStorageLock.isLocked(StorageMemory.storedKept.value) },
                         onDismiss = onDismiss,
                     )
                 }

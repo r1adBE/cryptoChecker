@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.data.GuardedWrites
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
@@ -82,6 +83,7 @@ class AlarmsOverviewViewModelTest {
             },
             rule.dispatcher,
             rule.dispatcher,
+            GuardedWrites(),
         )
     }
 

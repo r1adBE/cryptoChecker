@@ -4,14 +4,14 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
-import com.cryptochecker.app.data.portfolio.clearStored
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.portfolio.CostMethod
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
@@ -34,7 +34,7 @@ suspend fun PortfolioViewModel.currentPrice(coin: String): Double? = safe { pric
 
 /**
  * Geprüfter Tagesschluss von [coin] am Tag [date] in USDT (Wert beim Erhalt einer Belohnung/Einzahlung);
- * null ohne bestätigten Kurs (gleiche Identitätsprüfung wie der Stichtag-Export, [HistoricPriceSource]).
+ * null ohne bestätigten Kurs (gleiche Identitätsprüfung wie der Stichtag-Export, [HistoricPrices]).
  */
 suspend fun PortfolioViewModel.historicClose(coin: String, date: LocalDate): BigDecimal? = safe {
     val current = priceSource.price(coin)
@@ -167,7 +167,7 @@ fun PortfolioViewModel.save(
 
 /**
  * «Ziel ändern» am Umbuchungs-Hinweis ([AddressWithdrawalMatch.Retarget][com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch.Retarget]):
- * Ziel-Wallet der Umbuchung [id] auf [to] — derselbe Schreibweg wie Ändern im Blatt ([PortfolioRepository.save][com.cryptochecker.app.data.portfolio.PortfolioRepository.save],
+ * Ziel-Wallet der Umbuchung [id] auf [to] — derselbe Schreibweg wie Ändern im Blatt ([PortfolioStore.save][com.cryptochecker.app.domain.portfolio.PortfolioStore.save],
  * gleiche Prüfung); danach zählt nichts doppelt, der Hinweis entfällt. [onResult] mit dem Ergebnis (nicht geschrieben →
  * Hinweis statt still); fehlt die Umbuchung inzwischen: [PortfolioWriteResult.FAILED].
  */
@@ -201,7 +201,7 @@ fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
 
 /**
  * Ergebnis eines Schreibwegs im Portfolio (wie iOS `Bool` + `portfolioNotSaved`): geschrieben, gesperrt
- * ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock], Schlüssel nicht lesbar) oder sonst fehlgeschlagen.
+ * ([com.cryptochecker.app.domain.portfolio.PortfolioStorageLock], Schlüssel nicht lesbar) oder sonst fehlgeschlagen.
  */
 enum class PortfolioWriteResult { OK, LOCKED, FAILED }
 
@@ -229,7 +229,7 @@ internal suspend fun <T> portfolioWrite(label: String, block: suspend () -> T): 
 }
 
 /**
- * Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles. [onResult] erfährt das
+ * Löschen; gesperrt ([com.cryptochecker.app.domain.portfolio.PortfolioStorageLock]) bleibt alles. [onResult] erfährt das
  * Ergebnis (Haptik und Banner erst danach, wie iOS).
  */
 fun PortfolioViewModel.delete(id: Long, onResult: (PortfolioWriteResult) -> Unit = {}) {

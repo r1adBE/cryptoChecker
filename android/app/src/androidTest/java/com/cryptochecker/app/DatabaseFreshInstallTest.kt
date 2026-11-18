@@ -219,17 +219,17 @@ class DatabaseFreshInstallTest {
         // Nächster Start: ein zweiter Versuch, dann gelöscht (kein dauerhafter Klartext) — und die App nennt es einmal
         com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledge(
             context,
-            com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
+            com.cryptochecker.app.domain.local.StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED,
         )
         withPortfolio { portfolio -> assertEquals(0, count(portfolio, "portfolio_tx")) }
         assertFalse(failed.exists())
         assertEquals(
-            com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
+            com.cryptochecker.app.domain.local.StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED,
             com.cryptochecker.app.data.local.StorageRecoveryNotice.pending(context),
         )
         com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledge(
             context,
-            com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind.SYSTEM_BACKUP_NOT_IMPORTED,
+            com.cryptochecker.app.domain.local.StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED,
         )
     }
 

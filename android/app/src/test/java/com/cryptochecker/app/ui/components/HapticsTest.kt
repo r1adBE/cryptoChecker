@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.components
 
 import android.view.HapticFeedbackConstants
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.domain.portfolio.AddWatchedResult
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.ui.features.portfolio.addWatchedHaptic
 import com.cryptochecker.app.ui.features.settings.BackupMessage
@@ -55,12 +56,12 @@ class HapticsTest {
 
     @Test
     fun `add address as on iOS`() {
-        assertEquals(HapticEvent.SUCCESS, addWatchedHaptic(PortfolioRepository.AddWatchedResult.Added(7)))
-        assertEquals(HapticEvent.WARNING, addWatchedHaptic(PortfolioRepository.AddWatchedResult.Duplicate))
-        assertEquals(HapticEvent.WARNING, addWatchedHaptic(PortfolioRepository.AddWatchedResult.LimitReached))
+        assertEquals(HapticEvent.SUCCESS, addWatchedHaptic(AddWatchedResult.Added(7)))
+        assertEquals(HapticEvent.WARNING, addWatchedHaptic(AddWatchedResult.Duplicate))
+        assertEquals(HapticEvent.WARNING, addWatchedHaptic(AddWatchedResult.LimitReached))
         assertEquals(
             HapticEvent.WARNING,
-            addWatchedHaptic(PortfolioRepository.AddWatchedResult.Invalid(AddressValidation.Problem.entries.first())),
+            addWatchedHaptic(AddWatchedResult.Invalid(AddressValidation.Problem.entries.first())),
         )
         assertEquals(HapticEvent.ERROR, addWatchedHaptic(null))
     }

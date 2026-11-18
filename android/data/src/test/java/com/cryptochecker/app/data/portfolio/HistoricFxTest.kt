@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.portfolio.HistoricFx
 import com.cryptochecker.marketdata.util.EcbRates
 import java.time.LocalDate
 import java.time.ZoneOffset

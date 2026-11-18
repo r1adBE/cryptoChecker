@@ -1,4 +1,4 @@
-package com.cryptochecker.app.data.local
+package com.cryptochecker.app.domain.local
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 /**
  * Schreibweg des Nutzers in die Merkliste abgelehnt ([WatchlistStorageLock.blocksWrites]): Die Oberfläche
  * zeigt dann einen kurzen Hinweis mit Warn-Haptik (`WatchlistLockedHint`). Ausgelöst zentral von
- * [com.cryptochecker.app.data.WatchRepository], nicht von jedem Bildschirm. Mehrere Ablehnungen kurz hintereinander
+ * `WatchRepository`, nicht von jedem Bildschirm. Mehrere Ablehnungen kurz hintereinander
  * (z. B. eine Start-Auswahl mit mehreren Paaren) ergeben nur einen Hinweis ([shouldNotify]).
  */
 object WatchlistWriteRefusal {

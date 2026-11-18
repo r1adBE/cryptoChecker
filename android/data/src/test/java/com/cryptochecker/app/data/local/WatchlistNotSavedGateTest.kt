@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.local
 
+import com.cryptochecker.app.domain.local.WatchlistNotSavedGate
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num

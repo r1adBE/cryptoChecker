@@ -3,9 +3,9 @@
 // `PortfolioCsvImportViewModel.kt` an der Längengrenze ist; gespiegelt im Speichern von `PortfolioCsvImport.swift`.
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.CsvImportWritten
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.domain.portfolio.CsvImportWritten
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -37,7 +37,7 @@ internal sealed interface CsvImportSaveOutcome {
 
 /**
  * [write] legt die neuen Transaktionen an und verknüpft die gespeicherten Seiten in EINER Transaktion
- * ([com.cryptochecker.app.data.portfolio.insertImportedLinked]); wirft bei «Abbrechen» [CsvImportCancelledException],
+ * ([com.cryptochecker.app.domain.portfolio.PortfolioStore.insertImportedLinked]); wirft bei «Abbrechen» [CsvImportCancelledException],
  * dann ist nichts geschrieben. Scheitert es, ist ebenfalls nichts geschrieben: Fehler mit Grund statt «0 importiert».
  */
 internal suspend fun saveCsvImport(write: suspend () -> CsvImportWritten): CsvImportSaveOutcome {

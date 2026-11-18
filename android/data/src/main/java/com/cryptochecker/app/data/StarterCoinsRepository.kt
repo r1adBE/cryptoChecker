@@ -6,6 +6,7 @@ import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.starter.MarketUniverse
+import com.cryptochecker.app.domain.starter.StarterCoinSource
 import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
@@ -43,7 +44,7 @@ class StarterCoinsRepository @Inject constructor(
     private val httpClient: OkHttpClient,
     private val exchangeRepository: ExchangeRepository,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : StarterCoinSource {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val mutex = Mutex()
 
@@ -51,14 +52,14 @@ class StarterCoinsRepository @Inject constructor(
     val binanceBlocked: Boolean get() = prefs.getBoolean(KEY_BINANCE_BLOCKED, false)
 
     /** Region für den Startschritt: Geräte-Region, bei Standort-Sperre «US» ([StarterPairs.effectiveRegion]). */
-    fun starterRegion(deviceRegion: String?): String? = StarterPairs.effectiveRegion(deviceRegion, binanceBlocked)
+    override fun starterRegion(deviceRegion: String?): String? = StarterPairs.effectiveRegion(deviceRegion, binanceBlocked)
 
     /**
      * Sperrt Binance den Standort (HTTP 451/403)? Sonst zeigte der Startschritt fünf Fehlerzeilen. Gesperrt →
      * Startpaare auf Binance.US ([starterRegion]); gemerkt bis zur nächsten Prüfung. Nur der Startschritt.
      * @return true = Ergebnis anders als vorher
      */
-    suspend fun probeBinance(deviceRegion: String?): Boolean {
+    override suspend fun probeBinance(deviceRegion: String?): Boolean {
         if (!StarterPairs.shouldProbe(deviceRegion)) return false
         val before = binanceBlocked
         val code: Int? = withContext(ioDispatcher) {
@@ -83,7 +84,7 @@ class StarterCoinsRepository @Inject constructor(
     }
 
     /** Sofort, ohne Netz: Zwischenspeicher (auch abgelaufen) oder Ausweich-Liste. */
-    fun cached(regionCountry: String?): List<StarterPairs.Coin> =
+    override fun cached(regionCountry: String?): List<StarterPairs.Coin> =
         runCatching { StarterCoins.decode(prefs.getString(coinsKey(regionCountry), null)) }.getOrNull()
             ?: StarterCoins.fallback(regionCountry)
 
@@ -91,7 +92,7 @@ class StarterCoinsRepository @Inject constructor(
      * Frische Liste: aus dem Zwischenspeicher, wenn jünger als 24 Stunden,
      * sonst neu ermittelt. null bei jedem Fehler.
      */
-    suspend fun fresh(regionCountry: String?): List<StarterPairs.Coin>? = mutex.withLock {
+    override suspend fun fresh(regionCountry: String?): List<StarterPairs.Coin>? = mutex.withLock {
         withContext(ioDispatcher) {
             val now = System.currentTimeMillis()
             if (StarterCoins.isFresh(prefs.getLong(timeKey(regionCountry), 0L), now)) {
@@ -159,7 +160,7 @@ class StarterCoinsRepository @Inject constructor(
      * Aktueller Kurs und 24-Stunden-Veränderung der Start-Coins in der Start-Quote:
      * Binance bzw. in den USA Binance.US (…/USDT), je ein Aufruf für alle. 60 Sekunden im Speicher. Fehlende Coins fehlen in der Karte; leer bei Fehler.
      */
-    suspend fun prices(symbols: List<String>, regionCountry: String?): Map<String, StarterPrice> = priceMutex.withLock {
+    override suspend fun prices(symbols: List<String>, regionCountry: String?): Map<String, StarterPrice> = priceMutex.withLock {
         val bases = symbols.map { it.trim().uppercase() }.filter { it.isNotEmpty() }.distinct()
         if (bases.isEmpty()) return@withLock emptyMap()
         val exchangeKey = StarterPairs.exchangeKey(regionCountry)

@@ -24,8 +24,8 @@ import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchlistStorageLock
+import com.cryptochecker.app.domain.local.StorageMemory
+import com.cryptochecker.app.domain.local.WatchlistStorageLock
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -103,15 +103,15 @@ private const val ALARM_HINT_MILLIS = 6_000L
 
 /**
  * Merkliste in diesem Lauf nur im Arbeitsspeicher ([WatchlistStorageLock.notice]): Der Keystore gab den Schlüssel der
- * verschlüsselten Datei gerade nicht heraus ([DatabaseEncryptionNotice.storedKept] — der gespeicherte Stand kommt nach
+ * verschlüsselten Datei gerade nicht heraus ([StorageMemory.storedKept] — der gespeicherte Stand kommt nach
  * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel (keine Datei, nie
  * unverschlüsselt angelegt — nichts wird gespeichert, gleicher Text wie iOS). Sagen statt still. Als Dauerhinweis
  * ([WatchlistBanner.showResting]): Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
 @Composable
 private fun WatchlistStorageNotice(banner: WatchlistBanner) {
-    val kept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
+    val kept by StorageMemory.storedKept.collectAsStateWithLifecycle()
+    val inMemory by StorageMemory.inMemory.collectAsStateWithLifecycle()
     val notice = WatchlistStorageLock.notice(inMemory, kept)
     val resources = LocalResources.current
     val closeLabel = stringResource(R.string.action_close)

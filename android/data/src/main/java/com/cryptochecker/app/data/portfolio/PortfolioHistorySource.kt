@@ -14,9 +14,11 @@ import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFeed
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.candleChunks
 import com.cryptochecker.app.domain.portfolio.candleDays
@@ -53,35 +55,6 @@ data class CoinCloses(
      * Nur im Ablauf, nicht gespeichert ([PortfolioHistorySource.CODEC] kennt das Feld nicht).
      */
     val staleSince: Long? = null,
-)
-
-/**
- * Tageskerzen für den Wertverlauf: Schluss je Coin und UTC-Tag ([closes]) und, soweit vorhanden,
- * Eröffnung/Hoch/Tief derselben Kerzen ([ranges], für die Kerzen-Ansicht). Coins in [own]: Reihe von der
- * eigenen Börse (in USDT; vor [binanceBefore] Binance angeglichen); [routed] = Coins mit eigener Börse
- * (Paar gefunden) — ohne eigene Reihe skaliert sie [PortfolioExchangeRoute.historyCloses] oder lässt sie weg.
- */
-data class PortfolioDailyPrices(
-    val closes: Map<String, Map<Long, Double>>,
-    val ranges: Map<String, Map<Long, PortfolioDayRange>> = emptyMap(),
-    val own: Set<String> = emptySet(),
-    val binanceBefore: Map<String, Long> = emptyMap(),
-    val routed: Set<String> = emptySet(),
-    /**
-     * Tagesschluss USDT/USD je UTC-Tag (Kraken USDTZUSD, [PortfolioHistorySource.usdtUsdDaily]) für USDT zum Marktkurs
-     * ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates.daily]); leer = keiner (dann 1 als Näherung).
-     */
-    val usdtUsd: Map<Long, Double> = emptyMap(),
-    /**
-     * Coins, deren eigene Reihe ein älterer Stand ist (Börse nicht erreichbar) → Zeit dieses Stands; die Karte zeigt
-     * «Stand …» ([com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf]) statt eines scheinbar heutigen Verlaufs.
-     */
-    val ownStale: Map<String, Long> = emptyMap(),
-    /**
-     * Coins mit Reihe aus der Ausweich-Kette (Binance führt sie nicht oder ist nicht erreichbar, keine eigene Börse) →
-     * Anbieter, z. B. «Kraken» ([HistoricCloseChain.SERIES_CHAIN]); die Karte nennt ihn («Tageskurse von …»).
-     */
-    val chainSources: Map<String, String> = emptyMap(),
 )
 
 /** Eigene Tageskerzen eines Coins (USDT) und für welchen Weg ([route] = Schlüssel des Paars). */
@@ -132,7 +105,7 @@ class PortfolioHistorySource @Inject constructor(
     val tokenIdentityStore: TokenIdentityStore,
     val priceSource: PortfolioPriceSource,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : PortfolioHistoryFeed {
     /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). Begrenzt (sonst blieb jeder je abgefragte Coin bis zum Prozessende). */
     val chainMemory = BoundedCache<String, Pair<OwnCloses, Long>>(MEMORY_CACHE_ENTRIES)
 
@@ -158,9 +131,9 @@ class PortfolioHistorySource @Inject constructor(
     ): Map<String, Map<Long, Double>> = dailyPrices(coins, days).closes
 
     /** Wie [dailyCloses], zusätzlich mit Eröffnung/Hoch/Tief der Tageskerzen. */
-    suspend fun dailyPrices(
+    override suspend fun dailyPrices(
         coins: Collection<String>,
-        days: Int = PortfolioHistory.MAX_DAYS,
+        days: Int,
     ): PortfolioDailyPrices =
         withContext(ioDispatcher) {
             val requested = coins.map { PortfolioCalculator.normalizeCoin(it) }.filter { PortfolioStables.needsQuote(it) }.toSet()
@@ -192,7 +165,7 @@ class PortfolioHistorySource @Inject constructor(
      * (höchstens 720 Tage, ältere Tage ohne Schluss = 1 als Näherung, [com.cryptochecker.app.domain.portfolio.UsdtUsdRates.on]).
      * Speicher, Gerät (12 h), sonst Abfrage; nicht erreichbar → älterer Stand oder leer.
      */
-    suspend fun usdtUsdDaily(days: Int = PortfolioHistory.MAX_DAYS): Map<Long, Double> = withContext(ioDispatcher) {
+    override suspend fun usdtUsdDaily(days: Int): Map<Long, Double> = withContext(ioDispatcher) {
         // Eine Abfrage für alle gleichzeitig ladenden Coins (die übrigen warten auf den Speicher)
         usdtUsdMutex.withLock {
             val span = days.coerceAtLeast(PortfolioHistory.MAX_DAYS)

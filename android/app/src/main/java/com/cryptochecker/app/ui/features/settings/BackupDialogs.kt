@@ -30,8 +30,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.backup.BackupCrypto
-import com.cryptochecker.app.data.backup.BackupPasswordStrength
+import com.cryptochecker.app.domain.backup.BackupPassword
+import com.cryptochecker.app.domain.backup.BackupPasswordStrength
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.DialogText
@@ -50,7 +50,7 @@ import com.cryptochecker.resources.R
 /**
  * Vor dem Sichern: «Mit Passwort schützen» (mit Portfolio-Daten fest an und gesperrt, mit einer Zeile Begründung —
  * [PortfolioLockPolicy.backupExportRequiresPassword]),
- * Passwort und Wiederholung (mindestens [BackupCrypto.MIN_PASSWORD_LENGTH] Zeichen). Ein leicht zu
+ * Passwort und Wiederholung (mindestens [BackupPassword.MIN_LENGTH] Zeichen). Ein leicht zu
  * erratendes Passwort ([BackupPasswordStrength]) zeigt einen Fehler statt des Mindestlängen-Hinweises und sperrt.
  * Ohne Schutz (nur ohne Portfolio-Daten möglich) folgt ein ausdrücklicher Bestätigungsschritt mit dem Inhalt der
  * Datei. [onConfirm] erhält das Passwort oder null (ohne Schutz).
@@ -72,7 +72,7 @@ internal fun BackupExportDialog(
     var visible by remember { mutableStateOf(false) }
     // Bestätigungsschritt «Ohne Passwort sichern?» offen
     var confirmPlain by remember { mutableStateOf(false) }
-    val canExport = BackupCrypto.canExport(protect, password, repeat)
+    val canExport = BackupPassword.canExport(protect, password, repeat)
     val confirm: () -> Unit = {
         if (canExport) {
             if (protect) {
@@ -109,7 +109,7 @@ internal fun BackupExportDialog(
                     )
                 }
                 if (protect) {
-                    val tooShort = password.isNotEmpty() && !BackupCrypto.isPasswordLongEnough(password)
+                    val tooShort = password.isNotEmpty() && !BackupPassword.isLongEnough(password)
                     val weak = BackupPasswordStrength.showWeakHint(password)
                     PasswordField(
                         value = password,
@@ -121,7 +121,7 @@ internal fun BackupExportDialog(
                         supporting = if (weak) {
                             stringResource(R.string.backup_password_too_weak)
                         } else {
-                            stringResource(R.string.backup_password_min, BackupCrypto.MIN_PASSWORD_LENGTH)
+                            stringResource(R.string.backup_password_min, BackupPassword.MIN_LENGTH)
                         },
                         isError = tooShort || weak,
                         imeAction = ImeAction.Next,

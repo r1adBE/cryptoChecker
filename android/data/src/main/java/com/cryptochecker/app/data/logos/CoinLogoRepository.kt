@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.CoinListSync
 import com.cryptochecker.app.data.CoinNames
 import com.cryptochecker.app.data.starterMap
 import com.cryptochecker.app.domain.logos.CoinLists
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
 import com.cryptochecker.app.domain.logos.withStockLogos
@@ -55,12 +56,12 @@ class CoinLogoRepository @Inject constructor(
     private val coinNames: CoinNames,
     private val missingDismissals: MissingLogoDismissals,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : CoinLogoCatalog {
     /** Letzter Abgleich scheiterte am fehlenden Netz: [CoinLogoSync] holt ihn nach ([CoinListSync.retryPending]). */
     val retryPending: StateFlow<Boolean> get() = listSync.retryPending
 
     /** Namen der Coins und TradFi-Paare ([CoinNames.names]). */
-    val names: StateFlow<Map<String, String>> get() = coinNames.names
+    override val names: StateFlow<Map<String, String>> get() = coinNames.names
 
     /** Name für ein Paar der Merkliste (TradFi beachtet); null = keiner bekannt. */
     fun name(exchangeKey: String, base: String, quote: String, contractType: String): String? =
@@ -97,12 +98,12 @@ class CoinLogoRepository @Inject constructor(
     fun dismissMissingLogos(keys: Set<String>) = missingDismissals.dismiss(keys)
 
     /** Logos für den Diagnosebericht ([LogoImageStore.diagnostics]); liest Dateien, nur abseits des Hauptfadens. */
-    fun logoDiagnostics() = images.diagnostics()
+    override fun logoDiagnostics() = images.diagnostics()
 
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
-    val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs
+    override val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs
 
-    fun isTradFi(exchangeKey: String, base: String, quote: String, contractType: String): Boolean =
+    override fun isTradFi(exchangeKey: String, base: String, quote: String, contractType: String): Boolean =
         coinNames.isTradFi(exchangeKey, base, quote, contractType)
 
     /** Schlüssel für die Plakette eines Paars (TradFi oder Krypto). */
@@ -113,13 +114,13 @@ class CoinLogoRepository @Inject constructor(
     fun setTradFiPairs(pairs: Set<String>): Boolean = coinNames.setTradFiPairs(pairs)
 
     /** Kürzel der Alpha-Token ([AlphaTokens.symbols]). */
-    val alphaSymbols: StateFlow<Set<String>> get() = alpha.symbols
+    override val alphaSymbols: StateFlow<Set<String>> get() = alpha.symbols
 
     /** Token der Alpha-Liste ([AlphaTokens.tokens]). */
-    val alphaTokens: StateFlow<List<BinanceAlpha.Token>> get() = alpha.tokens
+    override val alphaTokens: StateFlow<List<BinanceAlpha.Token>> get() = alpha.tokens
 
     /** Namen der Alpha-Token je Kürzel ([AlphaTokens.names]). */
-    val alphaNames: StateFlow<Map<String, String>> get() = alpha.names
+    override val alphaNames: StateFlow<Map<String, String>> get() = alpha.names
 
     /** Gespeicherte Alpha-Token (nie Netz); liest die gespeicherten Listen beim ersten Aufruf. */
     suspend fun loadAlphaTokens(): List<BinanceAlpha.Token> = listSync.loadAlphaTokens()
@@ -149,7 +150,7 @@ class CoinLogoRepository @Inject constructor(
      * Merkliste; einzelne Coins einer Merkliste werden weiterhin nie einzeln geholt.
      * @return true, wenn danach alle Logos da sind (fehlt eines, zeigt die Zeile Initialen)
      */
-    suspend fun ensureStarterLogos(symbols: Collection<String>): Boolean =
+    override suspend fun ensureStarterLogos(symbols: Collection<String>): Boolean =
         images.ensureStarterLogos(symbols, listSync.starterMap())
 
     /** Abgleich im Hintergrund ([CoinListSync.startSync]). */
@@ -171,7 +172,7 @@ class CoinLogoRepository @Inject constructor(
     val lastNetworkFailureAt: Long get() = listSync.lastNetworkFailureAt
 
     /** Gespeicherte Namen in [names] bringen — nur aus der Datei ([CoinNames.loadSavedNames]). */
-    suspend fun loadSavedNames() = coinNames.loadSavedNames()
+    override suspend fun loadSavedNames() = coinNames.loadSavedNames()
 }
 
 /** Gemeinsame Ablage der Logo-Klassen: eine Einstellungsdatei, gleiche Fristen und Hilfen. */

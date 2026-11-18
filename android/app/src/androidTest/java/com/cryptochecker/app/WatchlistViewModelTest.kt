@@ -13,11 +13,11 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.local.WatchlistNotSavedGate
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo

@@ -2,6 +2,9 @@ package com.cryptochecker.app.data.backup
 
 import android.content.Context
 import android.net.Uri
+import com.cryptochecker.app.domain.backup.BackupLimits
+import com.cryptochecker.app.domain.backup.BackupVersion
+import com.cryptochecker.app.domain.backup.WrongPasswordException
 import org.json.JSONException
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -88,7 +91,7 @@ object BackupFormat {
     /** Klartext der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort. */
     fun plainText(file: BackupFile, password: String?): String = when (file) {
         is BackupFile.Plain -> file.json
-        is BackupFile.Encrypted -> withPasswordChars(password ?: throw BackupCrypto.WrongPasswordException()) {
+        is BackupFile.Encrypted -> withPasswordChars(password ?: throw WrongPasswordException()) {
             BackupCrypto.decrypt(file.envelope, it)
         }.toString(Charsets.UTF_8).also { BackupLimits.checkDepth(it) }
     }

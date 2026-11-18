@@ -1,6 +1,6 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.app.data.MutableTicker
+import com.cryptochecker.app.domain.model.MutableTicker
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.exchange.Woo

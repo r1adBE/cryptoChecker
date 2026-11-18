@@ -4,13 +4,13 @@
 // nach aussen nur lesbar) und läuft im viewModelScope, den das ViewModel als [scope] mitgibt.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.StarterCoinsRepository
-import com.cryptochecker.app.data.logos.CoinLogoRepository
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.starter.AddMomentStore
+import com.cryptochecker.app.domain.starter.StarterCoinSource
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterSelection
@@ -34,11 +34,11 @@ import kotlinx.coroutines.launch
 
 internal class WatchlistStarterController @AssistedInject constructor(
     @Assisted private val scope: CoroutineScope,
-    private val starterCoinsRepository: StarterCoinsRepository,
+    private val starterCoinsRepository: StarterCoinSource,
     private val settingsRepository: SettingsRepository,
-    private val coinLogoRepository: CoinLogoRepository,
+    private val coinLogoRepository: CoinLogoCatalog,
     private val watchRepository: WatchStore,
-    private val addMoments: AddMoments,
+    private val addMoments: AddMomentStore,
     private val widgetUpdater: WidgetUpdater,
     /** Nach dem Anlegen gleich aktualisieren, ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
     @Assisted private val refreshAll: () -> Unit,
@@ -59,7 +59,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
     private var starterJob: Job? = null
     private var starterAddJob: Job? = null
 
-    /** Prüfung der Binance-Standort-Sperre ([StarterCoinsRepository.probeBinance]); das Hinzufügen wartet darauf. */
+    /** Prüfung der Binance-Standort-Sperre ([StarterCoinSource.probeBinance]); das Hinzufügen wartet darauf. */
     private var starterProbeJob: Job? = null
 
     /**

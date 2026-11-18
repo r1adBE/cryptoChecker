@@ -14,7 +14,11 @@ import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.FxSeriesLoad
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
+import com.cryptochecker.app.domain.portfolio.HistoricFx
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
+import com.cryptochecker.app.domain.portfolio.HistoricPrices.CloseResult
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -40,9 +44,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-
-/** Devisenkurs eines Stichtags mit dem tatsächlichen Kursdatum (Wochenende → Freitag). */
-data class HistoricFx(val rate: Double, val date: String?)
 
 /**
  * Historische Kurse für den Stichtag-Export:
@@ -78,7 +79,7 @@ class HistoricPriceSource @Inject constructor(
     val portfolioDao: PortfolioDao,
     val exchangeRepository: ExchangeRepository,
     @param:IoDispatcher internal val ioDispatcher: CoroutineDispatcher,
-) {
+) : HistoricPrices {
     /**
      * Coin → (eigene Börse oder null, Lesezeit): Vorschläge beim Erfassen fragen je (Coin, Tag) einzeln ([ownRoutes]).
      * Begrenzt (sonst blieb jeder je abgefragte Coin bis zum Prozessende).
@@ -96,7 +97,7 @@ class HistoricPriceSource @Inject constructor(
      * [current]: Bezugskurse in USDT für die Identitätsprüfung ([CutoffExport.referencePrices]);
      * fehlt einer (auch: Laden der aktuellen Kurse ganz gescheitert), ist der Coin «ungeprüft».
      */
-    suspend fun dailyClosesUsdt(
+    override suspend fun dailyClosesUsdt(
         coins: Collection<String>,
         date: LocalDate,
         current: Map<String, Double>,
@@ -121,17 +122,10 @@ class HistoricPriceSource @Inject constructor(
         }
 
     /**
-     * Ergebnis je Coin: bestätigter Kurs, sonst [unchecked] = Kurs nicht als derselbe Token bestätigt. [source] =
-     * Anbieter des Kurses (z. B. «Binance», «Kraken»; null ohne Kurs bzw. USDT = 1). [failed] = ohne Kurs, weil eine
-     * Quelle nicht abrufbar war ([HistoricCloseChain.Resolved.failed]): «nicht abrufbar» statt «ohne Kurs».
-     */
-    data class CloseResult(val price: Double?, val unchecked: Boolean = false, val source: String? = null, val failed: Boolean = false)
-
-    /**
      * Schlusskurs eines Coins am Tag [date] (UTC-Tageskerze). USDT = 1. [current] = aktueller
      * Portfolio-Kurs (Bezug der Identitätsprüfung); ohne gültigen Bezug keine Abfrage, «ungeprüft».
      */
-    suspend fun dailyCloseUsdt(coin: String, date: LocalDate, current: Double?): CloseResult {
+    override suspend fun dailyCloseUsdt(coin: String, date: LocalDate, current: Double?): CloseResult {
         val b = PortfolioCalculator.normalizeCoin(coin)
         if (!PortfolioStables.needsQuote(b) || !isAsset(b)) return closeUsdt(b, date, current, null, dayFetch, null)
         return closeUsdt(b, date, current, ownRoutes(listOf(b))[b], dayFetch, null)
@@ -245,7 +239,7 @@ class HistoricPriceSource @Inject constructor(
      * letzte Geschäftstag, dessen Datum in [HistoricFx.date] steht; Kreuzkurs wie [EcbRates.cross]. Lew nach der
      * Euro-Einführung aus dem EUR-Kurs desselben Tags (eine Abfrage). null, wenn kein Kurs zu haben ist.
      */
-    suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? = usdToDay(currency, date).fx
+    override suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? = usdToDay(currency, date).fx
 
     /** Wie [usdTo]; [HistoricFxDay.failed] = die EZB antwortete nicht (nicht: «kein Kurs für diesen Tag»). */
     internal suspend fun usdToDay(currency: String, date: LocalDate): HistoricFxDay {
@@ -277,14 +271,14 @@ class HistoricPriceSource @Inject constructor(
      * Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null,
      * wenn kein Kurs zu haben ist.
      */
-    suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? =
+    override suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? =
         usdToSeriesChecked(currency, from, to).rates
 
     /**
      * Wie [usdToSeries], sagt aber, WARUM nichts kam: [FxSeriesLoad.failed] = keine gültige Antwort (Netz, Dienst) —
      * im Unterschied zu «für diese Währung bzw. diesen Zeitraum gibt es keinen Kurs» (der CSV-Import nennt beides getrennt).
      */
-    suspend fun usdToSeriesChecked(currency: String, from: LocalDate, to: LocalDate): FxSeriesLoad {
+    override suspend fun usdToSeriesChecked(currency: String, from: LocalDate, to: LocalDate): FxSeriesLoad {
         val target = currency.trim().uppercase()
         if (target == "USD") return FxSeriesLoad(emptyMap())
         if (target.length != 3 || !target.all { it in 'A'..'Z' } || from.isAfter(to)) return FxSeriesLoad(null)
@@ -357,6 +351,11 @@ class HistoricPriceSource @Inject constructor(
         return body
     }
 
+    override suspend fun dayClosesUsdt(
+        wanted: Map<String, Collection<LocalDate>>,
+        current: Map<String, Double>,
+    ): Map<String, Map<LocalDate, CloseResult>> = dayClosesSpan(wanted, current)
+
     companion object {
         const val PARALLEL = 4
         const val REQUEST_TIMEOUT_MILLIS = 10_000L
@@ -373,9 +372,6 @@ class HistoricPriceSource @Inject constructor(
         fun isAsset(s: String) = s.isNotEmpty() && s.length <= 15 && s.all { it.isLetterOrDigit() }
     }
 }
-
-/** Ergebnis von [HistoricPriceSource.usdToSeriesChecked]: [rates] wie `usdToSeries`; [failed] = keine gültige Antwort. */
-class FxSeriesLoad(val rates: Map<Long, Double>?, val failed: Boolean = false)
 
 /** Ergebnis von [HistoricPriceSource.usdToDay]: [fx] wie `usdTo`; [failed] = keine gültige Antwort der EZB. */
 data class HistoricFxDay(val fx: HistoricFx?, val failed: Boolean = false)

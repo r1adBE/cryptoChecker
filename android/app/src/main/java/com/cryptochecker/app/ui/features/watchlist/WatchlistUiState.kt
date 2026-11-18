@@ -157,7 +157,7 @@ data class WatchlistLive(
     val convertFxTimes: Map<String, Long>,
     /**
      * Quote-Währungen, deren Faktor USDT = 1 annimmt bzw. unsicher über USDC rechnet
-     * ([com.cryptochecker.app.data.portfolio.CurrencyConverter.usdtNotes]): Vermerk an der ≈ Zeile.
+     * (`CurrencyConverter.usdtNotes`): Vermerk an der ≈ Zeile.
      */
     val convertUsdtNotes: Map<String, com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState> = emptyMap(),
     /** Faktor je Quote-Währung in CHF, nur fürs Sortieren nach Kurs. */

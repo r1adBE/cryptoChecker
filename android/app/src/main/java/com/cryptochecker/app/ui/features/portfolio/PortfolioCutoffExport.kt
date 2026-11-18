@@ -4,9 +4,6 @@
 // Zustand bleibt in der Klasse.
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.HistoricFx
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.exportReference
 import com.cryptochecker.app.domain.portfolio.AddressCutoff
 import com.cryptochecker.app.domain.portfolio.AddressCutoffView
 import com.cryptochecker.app.domain.portfolio.CostMethod
@@ -14,6 +11,8 @@ import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.HistoricFx
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
@@ -29,7 +28,7 @@ import timber.log.Timber
 /**
  * CH: Tagesschlüsse des 31.12. ([end]) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
  * Adressen in der Sicht der Karte ([AddressCutoff.at]: Posten, Adress-Teil ohne Einstand) — dieselben Quellen wie der
- * Stichtag-Export ([build]: [HistoricPriceSource.dailyClosesUsdt] mit Identitätsprüfung gegen die aktuellen Kurse).
+ * Stichtag-Export ([build]: [HistoricPrices.dailyClosesUsdt] mit Identitätsprüfung gegen die aktuellen Kurse).
  * Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum danach), sonst null: kein laufender oder heutiger
  * Kurs, der Posten bleibt «nicht gerechnet». Ebenso null, wenn die beobachteten Adressen nicht gelesen werden können —
  * sonst stünde still eine zu tiefe Summe da.

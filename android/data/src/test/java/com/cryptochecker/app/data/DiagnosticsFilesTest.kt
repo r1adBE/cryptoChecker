@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.domain.diagnostics.DiagnosticsFiles
 import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

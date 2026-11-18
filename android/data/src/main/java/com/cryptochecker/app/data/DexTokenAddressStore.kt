@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.watch.DexLiquidity
 import com.cryptochecker.app.domain.watch.DexTokenAddress
+import com.cryptochecker.app.domain.watch.DexTokenAddresses
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,9 +18,9 @@ import javax.inject.Singleton
 @Singleton
 class DexTokenAddressStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : DexTokenAddresses {
     /** Adresse aus der Suche merken; leer/ungültig = nichts ändern (eine frühere Adresse bleibt). */
-    fun put(pairId: String?, address: String?) {
+    override fun put(pairId: String?, address: String?) {
         val key = DexLiquidity.key(pairId) ?: return
         val value = DexTokenAddress.cleaned(address) ?: return
         prefs(context).edit { putString(key, value) }

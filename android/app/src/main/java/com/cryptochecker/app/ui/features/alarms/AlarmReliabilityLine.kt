@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.local.AppDatabase
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.alarm.AlarmReliability
+import com.cryptochecker.app.domain.local.DatabaseNames
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.AppColors
@@ -85,9 +85,9 @@ private fun AlarmReliabilityContent(
     val offlineSkipped by viewModel.offlineSkipped.collectAsStateWithLifecycle()
     // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel): Ein Hintergrund-Prozess sieht diese
     // Paare nicht — nicht bei «gespeicherter Stand kommt zurück»
-    val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
-    val storedKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val storageNoKey = AppDatabase.DB_NAME in inMemory && AppDatabase.DB_NAME !in storedKept
+    val inMemory by StorageMemory.inMemory.collectAsStateWithLifecycle()
+    val storedKept by StorageMemory.storedKept.collectAsStateWithLifecycle()
+    val storageNoKey = DatabaseNames.WATCHLIST in inMemory && DatabaseNames.WATCHLIST !in storedKept
     val hasAlarms by viewModel.hasAlarms.collectAsStateWithLifecycle()
     var readAt by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LifecycleResumeEffect(Unit) {

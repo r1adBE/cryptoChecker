@@ -20,12 +20,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
+import com.cryptochecker.app.domain.local.StorageMemory
+import com.cryptochecker.app.domain.portfolio.AddWatchedResult
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLock
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
@@ -102,11 +103,11 @@ internal fun PortfolioAddressSheet(
         ) { result ->
             busy = false
             haptics.play(addWatchedHaptic(result))
-            if (result is PortfolioRepository.AddWatchedResult.Added) {
+            if (result is AddWatchedResult.Added) {
                 input = ""
                 label = ""
             }
-            saveError = addWatchedMessage(result, locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value))
+            saveError = addWatchedMessage(result, locked = PortfolioStorageLock.isLocked(StorageMemory.storedKept.value))
         }
     }
 
@@ -200,11 +201,11 @@ internal fun restoreFailedText(failure: WatchedAddressUndo.RestoreFailure): Int 
  * Haptik zum Ergebnis von «Adresse hinzufügen»: angelegt = Erfolg, Eingabe- bzw. Grenzfehler = Warnung, nicht
  * geschrieben (null) = Fehler — wie iOS `AddWatchedResult.haptic`.
  */
-internal fun addWatchedHaptic(result: PortfolioRepository.AddWatchedResult?): HapticEvent = when (result) {
-    is PortfolioRepository.AddWatchedResult.Added -> HapticEvent.SUCCESS
-    is PortfolioRepository.AddWatchedResult.Invalid,
-    PortfolioRepository.AddWatchedResult.Duplicate,
-    PortfolioRepository.AddWatchedResult.LimitReached -> HapticEvent.WARNING
+internal fun addWatchedHaptic(result: AddWatchedResult?): HapticEvent = when (result) {
+    is AddWatchedResult.Added -> HapticEvent.SUCCESS
+    is AddWatchedResult.Invalid,
+    AddWatchedResult.Duplicate,
+    AddWatchedResult.LimitReached -> HapticEvent.WARNING
     null -> HapticEvent.ERROR
 }
 

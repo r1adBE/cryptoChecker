@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmEditor
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
@@ -20,13 +21,13 @@ class PortfolioAlarmRepository @Inject constructor(
     /** Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) : PortfolioAlarmStore {
+) : PortfolioAlarmStore, PortfolioAlarmEditor {
     override fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
 
     suspend fun getAll(): List<PortfolioAlarmEntity> = dao.getAll()
 
     /** Neu anlegen: scharf, ohne letzte Meldung. */
-    suspend fun add(kind: PortfolioAlarmKind, threshold: Double, currency: String?, repeating: Boolean): Long =
+    override suspend fun add(kind: PortfolioAlarmKind, threshold: Double, currency: String?, repeating: Boolean): Long =
         dao.insert(
             PortfolioAlarmEntity(
                 kind = kind,

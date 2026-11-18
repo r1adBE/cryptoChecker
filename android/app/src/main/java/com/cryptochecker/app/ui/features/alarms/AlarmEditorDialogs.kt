@@ -17,11 +17,10 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.components.LocalStoredNotices
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.resources.R
 import kotlinx.coroutines.delay
@@ -58,19 +57,19 @@ internal fun ClosedAppHint(
 
 /**
  * «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden — volle Prüfung in App, Hintergrund oder
- * «Pünktlich prüfen» ([RefreshStats.lastFullCheck]); Live-Takte zählen nicht (keine Prüfung aller Alarme). Noch nie:
+ * «Pünktlich prüfen» (`RefreshStats.lastFullCheck`); Live-Takte zählen nicht (keine Prüfung aller Alarme). Noch nie:
  * keine Zeile. Liest den Stand jede Minute neu (heute nur die Uhrzeit, sonst mit Datum). Wie iOS `AlarmLastCheckedLine`.
  */
 @Composable
 internal fun AlarmLastCheckedLine(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    var at by remember { mutableLongStateOf(RefreshStats.storedLastFullCheck(context)) }
+    val notices = LocalStoredNotices.current ?: return
+    var at by remember { mutableLongStateOf(notices.lastFullCheck()) }
     // Minutentakt: neuer Stand und der Wechsel «heute» → mit Datum um Mitternacht
     var minute by remember { mutableLongStateOf(System.currentTimeMillis() / MINUTE_MILLIS) }
     LaunchedEffect(Unit) {
         while (true) {
             delay(MINUTE_MILLIS - System.currentTimeMillis() % MINUTE_MILLIS)
-            at = RefreshStats.storedLastFullCheck(context)
+            at = notices.lastFullCheck()
             minute = System.currentTimeMillis() / MINUTE_MILLIS
         }
     }

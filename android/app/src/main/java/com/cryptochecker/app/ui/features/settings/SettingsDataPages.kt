@@ -43,13 +43,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.components.LocalStoredNotices
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 import com.cryptochecker.app.ui.theme.AppColors
@@ -101,11 +102,12 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         ActivityResultContracts.OpenDocument()
     ) { uri -> uri?.let(viewModel::restorePicked) }
 
-    // Datenbank unverschlüsselt (Rückfall, DatabaseEncryptionNotice): bei jeder Änderung neu prüfen, nicht im Hauptthread
-    val encryptionChanges by DatabaseEncryptionNotice.changes.collectAsState()
+    // Datenbank unverschlüsselt (Rückfall, `DatabaseEncryptionNotice`): bei jeder Änderung neu prüfen, nicht im Hauptthread
+    val encryptionChanges by StorageMemory.changes.collectAsState()
+    val notices = LocalStoredNotices.current
     var encryptionPending by remember { mutableStateOf(false) }
     LaunchedEffect(encryptionChanges) {
-        encryptionPending = withContext(Dispatchers.IO) { DatabaseEncryptionNotice.isPending(context.applicationContext) }
+        encryptionPending = notices?.let { withContext(Dispatchers.IO) { it.isEncryptionPending() } } ?: false
     }
 
     SettingsSubPage(title = stringResource(R.string.backup_title), onBack = onBack) {

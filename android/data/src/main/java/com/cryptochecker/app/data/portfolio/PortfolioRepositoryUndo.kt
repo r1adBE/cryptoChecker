@@ -4,6 +4,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import androidx.room.withTransaction
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
 
@@ -15,7 +16,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
  * = jetzt: die Adresse bekommt nach dem Zurückholen wieder volle 24 h zum Laden, bevor sie als fehlgeschlagen gilt.
  * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar
  */
-suspend fun PortfolioRepository.restoreWatchedAddress(row: WatchedAddressEntity): Boolean = database.withTransaction {
+suspend fun PortfolioRepository.restoreWatchedAddressRow(row: WatchedAddressEntity): Boolean = database.withTransaction {
     ensurePortfolioWritable()
     val removed = row.toDomain() ?: return@withTransaction false
     val again = row.copy(observations = WatchedAddressExtras.encode(removed.copy(pendingSince = System.currentTimeMillis())))

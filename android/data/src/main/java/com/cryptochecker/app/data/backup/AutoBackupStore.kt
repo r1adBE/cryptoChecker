@@ -4,25 +4,14 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.backup.AutoBackupSettings
+import com.cryptochecker.app.domain.backup.AutoBackupState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-/** Zustand der automatischen Sicherung (nur dieses Gerät). */
-data class AutoBackupState(
-    val enabled: Boolean = false,
-    /** Ordner (Storage Access Framework, dauerhafte Freigabe); null = keiner gewählt. */
-    val folderUri: String? = null,
-    /** Anzeigename des Ordners. */
-    val folderName: String? = null,
-    val lastSuccessAt: Long = 0L,
-    val lastAttemptAt: Long = 0L,
-    /** Letzter Versuch gescheitert (bis zur nächsten gelungenen Sicherung). */
-    val lastFailed: Boolean = false,
-)
 
 /**
  * Ablage der automatischen Sicherung ([com.cryptochecker.app.domain.backup.AutoBackupPolicy]): Schalter, Ordner und
@@ -33,11 +22,11 @@ data class AutoBackupState(
 @Singleton
 class AutoBackupStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : AutoBackupSettings {
     private val prefs get() = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
     private val keys = PortfolioSnapshotKeyStore(KEY_ALIAS)
     private val _state = MutableStateFlow(read())
-    val state: StateFlow<AutoBackupState> = _state.asStateFlow()
+    override val state: StateFlow<AutoBackupState> = _state.asStateFlow()
 
     private fun read(): AutoBackupState = AutoBackupState(
         enabled = prefs.getBoolean(KEY_ENABLED, false),
@@ -54,7 +43,7 @@ class AutoBackupStore @Inject constructor(
     }
 
     /** Einschalten mit Ordner und Passwort; false = Passwort nicht versiegelbar (Keystore) — dann bleibt alles aus. */
-    fun enable(folderUri: String, folderName: String?, password: String): Boolean {
+    override fun enable(folderUri: String, folderName: String?, password: String): Boolean {
         val sealed = seal(password) ?: return false
         update {
             putBoolean(KEY_ENABLED, true)
@@ -68,7 +57,7 @@ class AutoBackupStore @Inject constructor(
     }
 
     /** Anderer Ordner (Passwort bleibt). */
-    fun changeFolder(folderUri: String, folderName: String?) = update {
+    override fun changeFolder(folderUri: String, folderName: String?) = update {
         putString(KEY_FOLDER, folderUri)
         putString(KEY_FOLDER_NAME, folderName)
         putBoolean(KEY_FAILED, false)
@@ -76,7 +65,7 @@ class AutoBackupStore @Inject constructor(
     }
 
     /** Ausschalten: Passwort und Ordner vergessen, Zeiten bleiben nicht. */
-    fun disable() = update { clear() }
+    override fun disable() = update { clear() }
 
     fun recordAttempt(now: Long) = update { putLong(KEY_ATTEMPT, now) }
 

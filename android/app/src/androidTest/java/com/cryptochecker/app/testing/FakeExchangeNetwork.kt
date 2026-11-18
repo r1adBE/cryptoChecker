@@ -1,7 +1,7 @@
 package com.cryptochecker.app.testing
 
-import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.di.RemoteDataModule
+import com.cryptochecker.app.domain.diagnostics.HttpLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

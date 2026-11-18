@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.data.backup.BackupCrypto
+import com.cryptochecker.app.domain.backup.NotEnoughMemoryException
 import com.cryptochecker.resources.R
 import java.io.File
 import org.junit.Assert.assertEquals
@@ -15,7 +15,7 @@ class BackupMemoryMessageTest {
 
     @Test
     fun notEnoughMemoryHasOwnMessage() {
-        assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(BackupCrypto.NotEnoughMemoryException()))
+        assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(NotEnoughMemoryException()))
         // Sicherung bis 64 MB: zu wenig Speicher beim Lesen ist kein Absturz und kein «fehlgeschlagen»
         assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(OutOfMemoryError("Java heap space")))
         // Andere Fehler bleiben «fehlgeschlagen»
@@ -28,21 +28,21 @@ class BackupMemoryMessageTest {
 
     @Test
     fun storageAndSizeRefusalsHaveOwnMessages() {
-        assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageKeptException()))
+        assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.domain.backup.BackupStorageKeptException()))
         assertEquals(
             BackupMessage.StorageInMemory,
-            BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageInMemoryException())
+            BackupMessage.failure(com.cryptochecker.app.domain.backup.BackupStorageInMemoryException())
         )
         // Ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
-        val journal = BackupMessage.failure(com.cryptochecker.app.data.backup.BackupJournalUnavailableException(null))
+        val journal = BackupMessage.failure(com.cryptochecker.app.domain.backup.BackupJournalUnavailableException(null))
         assertEquals(BackupMessage.JournalUnavailable, journal)
         assertEquals(com.cryptochecker.app.ui.components.HapticEvent.ERROR, BackupMessage.haptic(journal))
         // Zu gross zum Schreiben ist nicht «Datei zu gross oder keine Sicherung» (das gilt beim Einlesen)
         assertEquals(
             BackupMessage.ExportTooLarge,
-            BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException(1))
+            BackupMessage.failure(com.cryptochecker.app.domain.backup.BackupLimits.ExportTooLargeException(1))
         )
-        assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.TooLargeException()))
+        assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.domain.backup.BackupLimits.TooLargeException()))
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.cryptochecker.app.domain.activity.FundingHistory
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.remote.FuturesInfo
+import com.cryptochecker.app.domain.remote.FuturesInfoSource
 import com.cryptochecker.app.domain.remote.FuturesParsers
 import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
@@ -30,8 +31,8 @@ import timber.log.Timber
  */
 class FuturesDataSource @Inject constructor(
     val httpClient: OkHttpClient,
-) {
-    suspend fun fetch(watch: WatchEntity): FuturesInfo? {
+) : FuturesInfoSource {
+    override suspend fun fetch(watch: WatchEntity): FuturesInfo? {
         if (!watch.contractType.isPerpetual) return null
         val base = watch.baseAsset.trim().uppercase()
         return when (watch.exchangeKey) {
@@ -157,7 +158,7 @@ class FuturesDataSource @Inject constructor(
      * «Warum»-Blatt: Binance, sonst Bybit, sonst OKX. Wirft, wenn keine Quelle
      * einen solchen Kontrakt führt.
      */
-    suspend fun fetchForBase(baseAsset: String): FuturesInfo {
+    override suspend fun fetchForBase(baseAsset: String): FuturesInfo {
         val base = baseAsset.trim().uppercase()
         return firstOf(
             source(BINANCE) { binance("${base}USDT") },

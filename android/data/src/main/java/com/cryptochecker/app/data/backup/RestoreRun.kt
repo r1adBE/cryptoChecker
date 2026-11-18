@@ -3,9 +3,9 @@
 // Gespiegelt in `BackupManager.restore` (iOS, `RestoreSteps`).
 package com.cryptochecker.app.data.backup
 
-import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.data.backup.BackupManager.Step
-import com.cryptochecker.app.data.backup.BackupRestoreStorageException
+import com.cryptochecker.app.domain.backup.BackupJournalUnavailableException
+import com.cryptochecker.app.domain.backup.BackupRestoreStorageException
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlin.coroutines.cancellation.CancellationException

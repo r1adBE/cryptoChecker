@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
@@ -73,17 +74,17 @@ internal suspend fun HistoricPriceSource.binanceClose(
     start: Long,
     primary: Boolean,
     current: Double,
-): HistoricPriceSource.CloseResult {
+): HistoricPrices.CloseResult {
     // Pause nach «zu viele Anfragen»: vorübergehend, nicht «keine Kerze»; Geo-Sperre (403/451): Quelle übersprungen
     if (BlockedSources.groupPausedUntil(host) != null) throw HistoricSourceUnavailable(host)
-    if (BlockedSources.isBlocked(host)) return HistoricPriceSource.CloseResult(null)
-    val close = fetch.binanceDay(host, endpoint, symbol, start) ?: return HistoricPriceSource.CloseResult(null)
+    if (BlockedSources.isBlocked(host)) return HistoricPrices.CloseResult(null)
+    val close = fetch.binanceDay(host, endpoint, symbol, start) ?: return HistoricPrices.CloseResult(null)
     // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
     val latest = fetch.binanceLatest(host, endpoint, symbol)
     return if (PricePlausibility.acceptSourceClose(close, primary, sourceLatest = latest, current = current)) {
-        HistoricPriceSource.CloseResult(close)
+        HistoricPrices.CloseResult(close)
     } else {
-        HistoricPriceSource.CloseResult(null, unchecked = true)
+        HistoricPrices.CloseResult(null, unchecked = true)
     }
 }
 
@@ -94,7 +95,7 @@ internal suspend fun HistoricPriceSource.coinbaseClose(
     start: Long,
     current: Double,
     fetch: DayCloseFetch,
-): HistoricPriceSource.CloseResult {
+): HistoricPrices.CloseResult {
     val host = HistoricPriceSource.COINBASE_HOST
     var rejected = false
     for (quote in listOf("USD", "USDC")) {
@@ -104,11 +105,11 @@ internal suspend fun HistoricPriceSource.coinbaseClose(
         // Jüngste Tageskerzen desselben Produkts
         val latest = fetch.coinbaseLatest("$b-$quote")
         if (PricePlausibility.acceptSourceClose(close, primary = false, sourceLatest = latest, current = current)) {
-            return HistoricPriceSource.CloseResult(close)
+            return HistoricPrices.CloseResult(close)
         }
         rejected = true
     }
-    return HistoricPriceSource.CloseResult(null, unchecked = rejected)
+    return HistoricPrices.CloseResult(null, unchecked = rejected)
 }
 
 /**
@@ -286,10 +287,10 @@ internal class SpanFetch(private val source: HistoricPriceSource, days: Collecti
  * [HistoricPriceSource.PARALLEL] Coins gleichzeitig. Schlüssel wie übergeben; ein Fehler bei einem Tag = kein Kurs
  * (wie die Einzelabfrage beim Aufrufer). [current]: Bezugskurse wie bei [HistoricPriceSource.dailyCloseUsdt].
  */
-suspend fun HistoricPriceSource.dayClosesUsdt(
+suspend fun HistoricPriceSource.dayClosesSpan(
     wanted: Map<String, Collection<LocalDate>>,
     current: Map<String, Double>,
-): Map<String, Map<LocalDate, HistoricPriceSource.CloseResult>> = withContext(ioDispatcher) {
+): Map<String, Map<LocalDate, HistoricPrices.CloseResult>> = withContext(ioDispatcher) {
     val bases = wanted.keys.associateWith { PortfolioCalculator.normalizeCoin(it) }
     val assets = bases.values.filter { PortfolioStables.needsQuote(it) && HistoricPriceSource.isAsset(it) }.distinct()
     val own = ownRoutes(assets)
@@ -300,14 +301,14 @@ suspend fun HistoricPriceSource.dayClosesUsdt(
             async {
                 limiter.withPermit {
                     val b = bases.getValue(coin)
-                    val fetch = SpanFetch(this@dayClosesUsdt, days)
+                    val fetch = SpanFetch(this@dayClosesSpan, days)
                     coin to days.distinct().sorted().associateWith { day ->
                         try {
                             closeUsdt(b, day, current[coin], own[b], fetch, names)
                         } catch (e: CancellationException) {
                             throw e
                         } catch (e: Exception) {
-                            HistoricPriceSource.CloseResult(null)
+                            HistoricPrices.CloseResult(null)
                         }
                     }
                 }

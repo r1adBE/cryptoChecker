@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.local
 
+import com.cryptochecker.app.domain.local.WatchlistWriteRefusal
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

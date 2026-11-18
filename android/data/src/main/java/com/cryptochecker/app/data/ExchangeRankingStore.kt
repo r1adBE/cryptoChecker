@@ -6,6 +6,7 @@ import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.market.ExchangeOrder
+import com.cryptochecker.app.domain.market.ExchangeVolumes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,7 +29,7 @@ import timber.log.Timber
 class ExchangeRankingStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
-) {
+) : ExchangeVolumes {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val state by lazy { MutableStateFlow(load()) }
     private val mutex = Mutex()
@@ -37,10 +38,10 @@ class ExchangeRankingStore @Inject constructor(
     @Volatile private var tried = false
 
     /** Börsen-Schlüssel → Volumen (BTC); null = noch kein Ranking gespeichert. */
-    val volumes: StateFlow<Map<String, Double>?> get() = state.asStateFlow()
+    override val volumes: StateFlow<Map<String, Double>?> get() = state.asStateFlow()
 
     /** Holt das Ranking, falls keins gespeichert ist und in dieser Sitzung noch nicht versucht wurde. */
-    suspend fun ensureLoaded() {
+    override suspend fun ensureLoaded() {
         if (state.value != null || tried) return
         mutex.withLock {
             if (state.value != null || tried) return

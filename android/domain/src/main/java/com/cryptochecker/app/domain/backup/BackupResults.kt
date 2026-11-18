@@ -1,5 +1,5 @@
 // Ergebnis und Fehler von Sichern/Wiederherstellen ([BackupManager]).
-package com.cryptochecker.app.data.backup
+package com.cryptochecker.app.domain.backup
 
 /**
  * Was eine Wiederherstellung übernommen hat. [appLockKept] = eine Sicherung ohne Passwort wollte die

@@ -1,9 +1,9 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.model.BulkTickers
+import com.cryptochecker.app.domain.model.MutableTicker
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.MultiResponseSource

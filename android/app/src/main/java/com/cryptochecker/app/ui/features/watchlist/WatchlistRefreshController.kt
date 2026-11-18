@@ -5,12 +5,12 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.chart.SheetChartRepository
-import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
+import com.cryptochecker.app.domain.refresh.RefreshStatsView
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.logos.CoinLogoSync
 import com.cryptochecker.app.work.PriceUpdateScheduler
@@ -30,7 +30,7 @@ internal class WatchlistRefreshController @AssistedInject constructor(
     @Assisted private val scope: CoroutineScope,
     private val priceRefresher: PriceRefresher,
     private val manualRefresh: ManualRefresh,
-    private val refreshStats: RefreshStats,
+    private val refreshStats: RefreshStatsView,
     private val sheetChartRepository: SheetChartRepository,
     scheduler: PriceUpdateScheduler,
     /** Logo-Abgleich: Nach-unten-Ziehen startet auch ihn ([refreshAllByUser]). */

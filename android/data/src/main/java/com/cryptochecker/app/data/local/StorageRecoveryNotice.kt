@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.local
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.domain.local.StorageRecoveryKind
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,19 +15,19 @@ import kotlinx.coroutines.flow.update
 
 /**
  * Hinweise zum Zustand der gespeicherten Daten über der ganzen App (gespiegelt in `StorageRecoveryNotice.swift`):
- *  - [Kind.SET_ASIDE] «Gespeicherte Daten liessen sich nicht entsperren»: Der Schlüssel einer verschlüsselten Datenbank
+ *  - [StorageRecoveryKind.SET_ASIDE] «Gespeicherte Daten liessen sich nicht entsperren»: Der Schlüssel einer verschlüsselten Datenbank
  *    war weg (Keystore-Schlüssel ungültig oder verloren), die Datei liegt unverändert daneben (`*.unreadable`) und die App
  *    hat leer begonnen. Bleibt, bis der Nutzer ihn bestätigt oder eine Sicherung einspielt ([acknowledgeSetAside]) —
  *    ein einmaliger Hinweis ging zu leicht unter. Weg zurück: Sicherungsdatei einspielen (direkte Aktion im Hinweis).
- *  - [Kind.KEY_RESTORED]: Ein früherer, nummeriert behaltener Schlüssel öffnete die beiseitegelegte Datei beim nächsten
+ *  - [StorageRecoveryKind.KEY_RESTORED]: Ein früherer, nummeriert behaltener Schlüssel öffnete die beiseitegelegte Datei beim nächsten
  *    Start doch — sie ist zurück ([DatabaseOpenPlanner]). Einmal.
- *  - [Kind.RESTORE_ROLLED_BACK] / [Kind.RESTORE_INCOMPLETE]: Ein Wiederherstellen brach ab (Prozess beendet); der Stand
+ *  - [StorageRecoveryKind.RESTORE_ROLLED_BACK] / [StorageRecoveryKind.RESTORE_INCOMPLETE]: Ein Wiederherstellen brach ab (Prozess beendet); der Stand
  *    davor wurde aus dem Journal zurückgeschrieben bzw. liess sich nicht zurückschreiben
  *    ([com.cryptochecker.app.data.backup.RestoreJournal]). Einmal.
- *  - [Kind.SYSTEM_BACKUP_NOT_IMPORTED] (nur Android): Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch
+ *  - [StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED] (nur Android): Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch
  *    beim zweiten Versuch nicht übernehmen und wurde gelöscht ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.retryFailed]).
  *    Einmal; Weg zurück ist die eigene Sicherungsdatei.
- *  - [Kind.SETTINGS_RESET]: Die Einstellungsdatei war beschädigt und wurde durch Standardwerte ersetzt
+ *  - [StorageRecoveryKind.SETTINGS_RESET]: Die Einstellungsdatei war beschädigt und wurde durch Standardwerte ersetzt
  *    ([com.cryptochecker.app.data.settings.settingsDataStore]) — Portfolio-Sperre, Intervall und Währung stehen dann still auf
  *    dem Standard (Sperre aus). Bleibt vorgemerkt, bis der Nutzer den Hinweis schliesst, damit er sicher gesehen wird.
  *    Nicht bei einer neuen Installation und nicht, wenn die Datei bloss nicht lesbar war (dann ersetzt DataStore nichts).
@@ -47,8 +48,6 @@ object StorageRecoveryNotice {
     private const val KEY_ROLLBACK_ATTEMPTED_FOR = "restore_rollback_attempted_for"
     private const val ROLLED_BACK = "rolled_back"
     private const val INCOMPLETE = "incomplete"
-
-    enum class Kind { SET_ASIDE, KEY_RESTORED, RESTORE_ROLLED_BACK, RESTORE_INCOMPLETE, SYSTEM_BACKUP_NOT_IMPORTED, SETTINGS_RESET }
 
     /**
      * Zähler der Vormerkungen in diesem Prozess: Die Datenbank öffnet oft erst nach dem ersten Bild — der Hinweis
@@ -179,20 +178,26 @@ object StorageRecoveryNotice {
         settingsReset: Boolean,
         setAside: Boolean,
         setAsideHidden: Boolean,
-    ): Kind? = when {
-        restoreInterrupted != null -> if (restoreInterrupted == ROLLED_BACK) Kind.RESTORE_ROLLED_BACK else Kind.RESTORE_INCOMPLETE
-        keyRestored -> Kind.KEY_RESTORED
-        systemBackupNotImported -> Kind.SYSTEM_BACKUP_NOT_IMPORTED
-        settingsReset -> Kind.SETTINGS_RESET
-        setAside && !setAsideHidden -> Kind.SET_ASIDE
+    ): StorageRecoveryKind? = when {
+        restoreInterrupted != null -> if (restoreInterrupted ==
+            ROLLED_BACK
+        ) {
+            StorageRecoveryKind.RESTORE_ROLLED_BACK
+        } else {
+            StorageRecoveryKind.RESTORE_INCOMPLETE
+        }
+        keyRestored -> StorageRecoveryKind.KEY_RESTORED
+        systemBackupNotImported -> StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED
+        settingsReset -> StorageRecoveryKind.SETTINGS_RESET
+        setAside && !setAsideHidden -> StorageRecoveryKind.SET_ASIDE
         else -> null
     }
 
     /**
-     * Nächster zu zeigender Hinweis; null = keiner. [Kind.SET_ASIDE] bleibt, bis [acknowledge]; die anderen zeigt die App
-     * einmal und bestätigt sie gleich ([Kind.SETTINGS_RESET] erst beim Schliessen). Nicht auf dem Hauptthread.
+     * Nächster zu zeigender Hinweis; null = keiner. [StorageRecoveryKind.SET_ASIDE] bleibt, bis [acknowledge]; die anderen zeigt die App
+     * einmal und bestätigt sie gleich ([StorageRecoveryKind.SETTINGS_RESET] erst beim Schliessen). Nicht auf dem Hauptthread.
      */
-    fun pending(context: Context): Kind? {
+    fun pending(context: Context): StorageRecoveryKind? {
         val p = prefs(context)
         return next(
             restoreInterrupted = p.getString(KEY_RESTORE_INTERRUPTED, null),
@@ -205,21 +210,21 @@ object StorageRecoveryNotice {
     }
 
     /** Hinweis [kind] erledigt («Verstanden», bzw. gezeigt). Nicht auf dem Hauptthread. */
-    fun acknowledge(context: Context, kind: Kind) {
+    fun acknowledge(context: Context, kind: StorageRecoveryKind) {
         prefs(context).edit(commit = true) {
             when (kind) {
-                Kind.SET_ASIDE -> remove(KEY_DATABASES)
-                Kind.KEY_RESTORED -> remove(KEY_RESTORED)
-                Kind.RESTORE_ROLLED_BACK, Kind.RESTORE_INCOMPLETE -> remove(KEY_RESTORE_INTERRUPTED)
-                Kind.SYSTEM_BACKUP_NOT_IMPORTED -> remove(KEY_SYSTEM_BACKUP_NOT_IMPORTED)
-                Kind.SETTINGS_RESET -> remove(KEY_SETTINGS_RESET)
+                StorageRecoveryKind.SET_ASIDE -> remove(KEY_DATABASES)
+                StorageRecoveryKind.KEY_RESTORED -> remove(KEY_RESTORED)
+                StorageRecoveryKind.RESTORE_ROLLED_BACK, StorageRecoveryKind.RESTORE_INCOMPLETE -> remove(KEY_RESTORE_INTERRUPTED)
+                StorageRecoveryKind.SYSTEM_BACKUP_NOT_IMPORTED -> remove(KEY_SYSTEM_BACKUP_NOT_IMPORTED)
+                StorageRecoveryKind.SETTINGS_RESET -> remove(KEY_SETTINGS_RESET)
             }
         }
         recorded.update { it + 1 }
     }
 
     /** Eine Sicherung wurde eingespielt: der Hinweis «nicht entsperrt» ist erledigt. */
-    fun acknowledgeSetAside(context: Context) = acknowledge(context, Kind.SET_ASIDE)
+    fun acknowledgeSetAside(context: Context) = acknowledge(context, StorageRecoveryKind.SET_ASIDE)
 
     /** «Später» bzw. weggetippt: in diesem Prozess nicht mehr zeigen, beim nächsten Start wieder. */
     fun hideSetAsideForNow() {

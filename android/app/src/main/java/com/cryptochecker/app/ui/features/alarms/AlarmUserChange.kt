@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.data.local.AppDatabase
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.domain.local.DatabaseNames
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.AppNotifier
 import timber.log.Timber
@@ -34,10 +34,10 @@ internal object AlarmUserChange {
 
     /** Für die ViewModels: [cancelsNotification] mit dem Zustand der Merkliste. */
     fun cancelsNotification(enabled: Boolean?): Boolean =
-        cancelsNotification(enabled, DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME))
+        cancelsNotification(enabled, StorageMemory.isStoredKept(DatabaseNames.WATCHLIST))
 
     /** Für die ViewModels: [afterDelete] mit dem Zustand der Merkliste. */
-    fun afterDelete(): Cleanup = afterDelete(storedKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME))
+    fun afterDelete(): Cleanup = afterDelete(storedKept = StorageMemory.isStoredKept(DatabaseNames.WATCHLIST))
 }
 
 /** Mitteilung des Alarms [alarmId] entfernen; scheitert das, bleibt die Änderung am Alarm trotzdem gespeichert. */

@@ -34,11 +34,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.local.AppDatabase
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
+import com.cryptochecker.app.domain.alarm.AlarmLogView
+import com.cryptochecker.app.domain.local.DatabaseNames
+import com.cryptochecker.app.domain.local.StorageMemory
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.util.IoDispatcher
@@ -67,7 +67,7 @@ val LocalOpenAlarmLog = androidx.compose.runtime.staticCompositionLocalOf<(() ->
 /** Alarm-Protokoll: bemerkenswerte Prüfungen, neueste zuerst ([com.cryptochecker.app.domain.alarm.AlarmLog]). */
 @HiltViewModel
 class AlarmLogViewModel @Inject constructor(
-    private val store: AlarmLogStore,
+    private val store: AlarmLogView,
     private val watchRepository: WatchStore,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -82,7 +82,7 @@ class AlarmLogViewModel @Inject constructor(
             // Letzte Prüfungen von Alarmen, die mit ihrem Paar gelöscht wurden, aufräumen — nicht gegen eine Merkliste, die
             // nur leer im Arbeitsspeicher liegt (nach dem Lesen oben verlässlich): Das leerte das gespeicherte Protokoll.
             runCatchingCancellable { watchRepository.observeAllAlarms().first().map { it.alarm.id }.toSet() }
-                .onSuccess { if (!DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) store.retainAlarms(it) }
+                .onSuccess { if (!StorageMemory.isStoredKept(DatabaseNames.WATCHLIST)) store.retainAlarms(it) }
         }
     }
 

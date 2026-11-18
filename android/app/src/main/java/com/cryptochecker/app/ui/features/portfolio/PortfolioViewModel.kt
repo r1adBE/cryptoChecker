@@ -2,33 +2,34 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
-import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
+import com.cryptochecker.app.domain.portfolio.FxRates
+import com.cryptochecker.app.domain.portfolio.HistoricPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFeed
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceFeed
 import com.cryptochecker.app.domain.portfolio.PortfolioPrices
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.portfolio.withAddresses
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.NetworkStatus
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -68,7 +69,7 @@ internal data class PortfolioWidgetInput(
  */
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
-    internal val repository: PortfolioRepository,
+    internal val repository: PortfolioStore,
     /** Kurse, Wechselkurse und Verlauf ([PortfolioPriceSources]). */
     private val sources: PortfolioPriceSources,
     internal val settingsRepository: SettingsRepository,
@@ -76,24 +77,24 @@ class PortfolioViewModel @Inject constructor(
     /** Portfolio-Alarm anlegen; dürfen Alarme erscheinen («· Mitteilungen aus» in der Bestätigung)? */
     internal val alarmSaving: PortfolioAlarmSaving,
     /** Netz da? Für die Status-Pille («Offline · Stand 14:05») wie in der Merkliste. */
-    connectivity: com.cryptochecker.app.data.util.ConnectivityMonitor,
+    connectivity: NetworkStatus,
     /** Letzte Momentaufnahme (nur lesen): «Heute» zum gemerkten Stand, wenn die Kurse veraltet sind. */
     internal val snapshotStore: com.cryptochecker.app.widget.PortfolioSnapshotStore,
     /** Portfolio-Logos abgleichen, wenn das Speichern das Portfolio einschaltet. */
     internal val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     /** Guthaben der beobachteten Adressen (10 min Zwischenspeicher, manuell 60 s). */
-    internal val addressRefresher: com.cryptochecker.app.data.portfolio.WatchedAddressRefresher,
+    internal val addressRefresher: com.cryptochecker.app.domain.portfolio.AddressRefresh,
     /** USDT/USD: letzte Messung (Live-Kurs der Bewertung, «USDT = 1» der Gesamtkarte) und neu messen, wenn fällig. */
     internal val usdtPeg: UsdtPeg,
     /** «Unbekannt lassen» bei Einträgen ohne Einstand (nur Ids, auf diesem Gerät). */
-    internal val costGapStore: com.cryptochecker.app.data.portfolio.PortfolioCostGapStore,
+    internal val costGapStore: com.cryptochecker.app.domain.portfolio.CostGapAcks,
     /** Rechnen nicht auf dem Main-Thread. */
     @param:DefaultDispatcher internal val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
-    internal val priceSource: PortfolioPriceSource get() = sources.priceSource
-    internal val fxSource: FxRateSource get() = sources.fxSource
-    internal val historySource: PortfolioHistorySource get() = sources.historySource
-    internal val historicSource: HistoricPriceSource get() = sources.historicSource
+    internal val priceSource: PortfolioPriceFeed get() = sources.priceSource
+    internal val fxSource: FxRates get() = sources.fxSource
+    internal val historySource: PortfolioHistoryFeed get() = sources.historySource
+    internal val historicSource: HistoricPrices get() = sources.historicSource
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */
     val transactions: StateFlow<List<PortfolioTxEntity>?> = repository.observeTransactions()
@@ -381,7 +382,7 @@ class PortfolioViewModel @Inject constructor(
 
     internal val _exchanges = MutableStateFlow<List<String>>(emptyList())
 
-    /** Spot-Börsen der App für das Feld «Börse» ([PortfolioPriceSource.spotExchangeNames]). */
+    /** Spot-Börsen der App für das Feld «Börse» ([PortfolioPriceFeed.spotExchangeNames]). */
     val exchanges: StateFlow<List<String>> = _exchanges.asStateFlow()
 
     /** «Beträge verbergen» umschalten; das Portfolio-Widget zeichnet gleich neu. */

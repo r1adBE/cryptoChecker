@@ -1,16 +1,17 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.asOrgJson
-import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
+import com.cryptochecker.app.domain.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.portfolio.PortfolioTxLimits
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
@@ -190,7 +191,7 @@ object PortfolioJson {
     const val MAX_IMPORT_KEY = CsvImport.MAX_KEY_BYTES
 
     /** Höchstlänge eines Gebühr-Coins (wie die Coin-Eingabe des Erfassen-Blatts). */
-    const val MAX_FEE_COIN = 15
+    const val MAX_FEE_COIN = PortfolioTxLimits.MAX_FEE_COIN
 
     /** Exakte Zahl aus dem Text [key]; null/ungültig = null. */
     private fun decimal(o: JSONObject, key: String): BigDecimal? = text(o, key)?.let { PortfolioDecimal.parse(it) }
@@ -201,7 +202,7 @@ object PortfolioJson {
     /** Börse: getrimmt, höchstens [MAX_EXCHANGE] sichtbare Zeichen (nie mitten im Emoji gekürzt); leer = null. */
     fun cleanExchange(raw: String?): String? = TextLimit.clean(raw, MAX_EXCHANGE)
 
-    const val MAX_EXCHANGE = 40
+    const val MAX_EXCHANGE = PortfolioTxLimits.MAX_EXCHANGE
 
     /** Portfolio-Alarm (gleiches Format wie iOS); Zustand (gemeldet, zuletzt) wird nicht gesichert. */
     fun alarmToJson(a: PortfolioAlarmEntity): JSONObject = JSONObject()

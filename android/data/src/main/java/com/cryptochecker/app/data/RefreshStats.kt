@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.RefreshReport
+import com.cryptochecker.app.domain.refresh.RefreshStatsView
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.RowPause
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,7 +22,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @Singleton
 class RefreshStats @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : RefreshStatsView {
     private val prefs get() = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
 
     private val _lastDurationMillis = MutableStateFlow(prefs.getLong(KEY_LAST_DURATION, 0))
@@ -54,13 +55,13 @@ class RefreshStats @Inject constructor(
     }
 
     /** Bericht des letzten Durchlaufs (Börsen, Ablauf); null = noch keiner. */
-    val lastReport: StateFlow<RefreshReport?> = _lastReport.asStateFlow()
+    override val lastReport: StateFlow<RefreshReport?> = _lastReport.asStateFlow()
 
     /**
      * Mit welcher %-Basis (und welchem Tagesbeginn) die gespeicherten Veränderungen zuletzt
      * gerechnet wurden; null = noch nie (gilt als rollend). Siehe `ChangeBasisMath.isCurrent`.
      */
-    val changeStamp: StateFlow<ChangeStamp?> = _changeStamp.asStateFlow()
+    override val changeStamp: StateFlow<ChangeStamp?> = _changeStamp.asStateFlow()
 
     /** Nach einem vollen Durchlauf: Basis und Tagesbeginn der neuen Werte. */
     fun setChangeStamp(stamp: ChangeStamp) {
@@ -78,7 +79,7 @@ class RefreshStats @Inject constructor(
     @Volatile
     private var lastFullRefreshAt: Long = prefs.getLong(KEY_LAST_FULL_REFRESH_AT, 0)
 
-    fun lastFullRefresh(): Long = lastFullRefreshAt
+    override fun lastFullRefresh(): Long = lastFullRefreshAt
 
     /** Ende einer vollständigen Aktualisierung: Uhrzeit und Dauer ([setLastRefresh]) und Sperre zugleich. */
     fun setLastFullRefresh(durationMillis: Long, at: Long = System.currentTimeMillis()) {
@@ -119,9 +120,9 @@ class RefreshStats @Inject constructor(
     private val _appStartMillis = MutableStateFlow(prefs.getLong(KEY_APP_START, 0L).takeIf { it > 0 })
 
     /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen); null = noch nie. Nur lokal. */
-    val appStartMillis: StateFlow<Long?> = _appStartMillis.asStateFlow()
+    override val appStartMillis: StateFlow<Long?> = _appStartMillis.asStateFlow()
 
-    fun setAppStartMillis(millis: Long) {
+    override fun setAppStartMillis(millis: Long) {
         prefs.edit { putLong(KEY_APP_START, millis) }
         _appStartMillis.value = millis
     }
@@ -129,7 +130,7 @@ class RefreshStats @Inject constructor(
     /** Pausen je Börse (ExchangeBackoff), Schlüssel = Börsen-Kennung. Gespeichert, damit sie
      *  auch über einen Neustart des Prozesses (WorkManager) gelten. */
     @Synchronized
-    fun backoffStates(): Map<String, ExchangeBackoff.State> =
+    override fun backoffStates(): Map<String, ExchangeBackoff.State> =
         ExchangeBackoff.decode(prefs.getString(KEY_BACKOFF, null))
 
     private val _exchangePauses = MutableStateFlow(RowPause.pauses(backoffStates()))
@@ -138,7 +139,7 @@ class RefreshStats @Inject constructor(
      * Ende der Pause je Börsen-Schlüssel ([RowPause.pauses]) für die Zeilen der Merkliste («Binance · pausiert bis
      * 19:45»); ob eine Pause noch läuft, entscheidet die Zeile mit der aktuellen Zeit ([RowPause.shownUntil]).
      */
-    val exchangePauses: StateFlow<Map<String, Long>> = _exchangePauses.asStateFlow()
+    override val exchangePauses: StateFlow<Map<String, Long>> = _exchangePauses.asStateFlow()
 
     /** Netz wieder da: Pausen wegen Zeitüberschreitung verwerfen, Bremsen-Pausen behalten ([ExchangeBackoff.withoutTimeoutPauses]). */
     @Synchronized

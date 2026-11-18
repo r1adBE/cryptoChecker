@@ -27,15 +27,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.app.data.DiagnosticsFiles
-import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.diagnostics.DiagnosticInput
 import com.cryptochecker.app.diagnostics.DiagnosticReport
 import com.cryptochecker.app.diagnostics.DiagnosticSettings
+import com.cryptochecker.app.domain.alarm.AlarmLogView
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
+import com.cryptochecker.app.domain.diagnostics.DiagnosticsFiles
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.refresh.CheckRunStore
+import com.cryptochecker.app.domain.refresh.RefreshStatsView
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
@@ -67,10 +67,10 @@ import timber.log.Timber
 class DiagnosticsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val checkRunStore: CheckRunStore,
-    private val alarmLogStore: AlarmLogStore,
-    private val refreshStats: RefreshStats,
+    private val alarmLogStore: AlarmLogView,
+    private val refreshStats: RefreshStatsView,
     private val watchRepository: WatchStore,
-    private val coinLogoRepository: CoinLogoRepository,
+    private val coinLogoRepository: CoinLogoCatalog,
     /** Zustand des Geräts, Fehlerprotokoll, Berichtsdatei. */
     private val device: DiagnosticsDevice,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,

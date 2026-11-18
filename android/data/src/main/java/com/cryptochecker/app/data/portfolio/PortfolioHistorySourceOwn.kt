@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioCoinDaily
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory

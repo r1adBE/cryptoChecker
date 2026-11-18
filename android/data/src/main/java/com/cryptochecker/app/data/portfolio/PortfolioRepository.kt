@@ -2,17 +2,23 @@ package com.cryptochecker.app.data.portfolio
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.domain.portfolio.AddWatchedResult
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
+import com.cryptochecker.app.domain.portfolio.CsvImportWritten
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatchInfo
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLock
+import com.cryptochecker.app.domain.portfolio.PortfolioStore
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.portfolio.RemovedWatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import javax.inject.Inject
@@ -30,10 +36,10 @@ class PortfolioRepository @Inject constructor(
     private val portfolioDao: PortfolioDao,
     private val watchedAddressDao: WatchedAddressDao,
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
-) {
-    fun observeTransactions(): Flow<List<PortfolioTxEntity>> = portfolioDao.observeAll()
+) : PortfolioStore {
+    override fun observeTransactions(): Flow<List<PortfolioTxEntity>> = portfolioDao.observeAll()
 
-    suspend fun getTransactions(): List<PortfolioTxEntity> = portfolioDao.getAll()
+    override suspend fun getTransactions(): List<PortfolioTxEntity> = portfolioDao.getAll()
 
     /** Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? */
     suspend fun hasData(): Boolean = portfolioDao.getCoins().isNotEmpty() || watchedAddressDao.getAll().isNotEmpty()
@@ -46,7 +52,7 @@ class PortfolioRepository @Inject constructor(
      * Neu anlegen (id 0) oder ändern. Coin wird vereinheitlicht (Grossbuchstaben).
      * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
      */
-    suspend fun save(tx: PortfolioTxEntity): Long {
+    override suspend fun save(tx: PortfolioTxEntity): Long {
         val clean = cleanForSave(tx)
         require(clean.storable()) { "Ungültige Transaktion" }
         // In der Transaktion geprüft: Die Datenbank ist dann geöffnet, der Merker also verlässlich
@@ -65,24 +71,24 @@ class PortfolioRepository @Inject constructor(
     private fun ensureWritable() = ensurePortfolioWritable()
 
     /** Schreiben gerade gesperrt ([PortfolioStorageLock])? Öffnet dazu die Datenbank (erst dann ist der Merker verlässlich). */
-    suspend fun writesBlocked(): Boolean = database.withTransaction {
+    override suspend fun writesBlocked(): Boolean = database.withTransaction {
         PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value)
     }
 
     /** @throws PortfolioStorageLockedException wie alle Schreibwege des Nutzers ([ensureWritable]) */
-    suspend fun delete(id: Long) = database.withTransaction {
+    override suspend fun delete(id: Long) = database.withTransaction {
         ensureWritable()
         portfolioDao.delete(id)
     }
 
-    /** Löscht alle Transaktionen von [coin] samt Gebühren in [coin] bei anderen ([PortfolioCoinDeletion.apply]; für «Rückgängig»). */
-    suspend fun deleteCoin(coin: String): List<PortfolioTxEntity> = database.withTransaction {
+    /** Löscht alle Transaktionen von [coin] samt Gebühren in [coin] bei anderen ([deleteCoinRows]; für «Rückgängig»). */
+    override suspend fun deleteCoin(coin: String): List<PortfolioTxEntity> = database.withTransaction {
         ensureWritable()
-        PortfolioCoinDeletion.apply(portfolioDao, coin)
+        deleteCoinRows(portfolioDao, coin)
     }
 
     /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»); nicht abbrechbar (Ansicht zu). */
-    suspend fun restore(transactions: List<PortfolioTxEntity>) {
+    override suspend fun restore(transactions: List<PortfolioTxEntity>) {
         if (transactions.isEmpty()) return
         kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
             database.withTransaction {
@@ -93,7 +99,7 @@ class PortfolioRepository @Inject constructor(
     }
 
     /** «Portfolio leeren»: alle Transaktionen löschen und zurückgeben (für «Rückgängig» über [restore]). */
-    suspend fun clearAll(): List<PortfolioTxEntity> = database.withTransaction {
+    override suspend fun clearAll(): List<PortfolioTxEntity> = database.withTransaction {
         ensureWritable()
         portfolioDao.getAll().also { portfolioDao.deleteAll() }
     }
@@ -109,35 +115,23 @@ class PortfolioRepository @Inject constructor(
 
     // ---- Beobachtete Adressen (nur lesen; Guthaben = Bestand) ----
 
-    /** Ergebnis von [addWatchedAddress]. */
-    sealed interface AddWatchedResult {
-        data class Added(val id: Long) : AddWatchedResult
-
-        /** Ungültig (Prüfsumme, Netz, privater Schlüssel …). */
-        data class Invalid(val problem: AddressValidation.Problem) : AddWatchedResult
-        data object Duplicate : AddWatchedResult
-
-        /** Schon [WatchedAddressRules.MAX_ADDRESSES] Adressen. */
-        data object LimitReached : AddWatchedResult
-    }
-
     /** Alle Adressen in Reihenfolge des Hinzufügens (unbekanntes Netz übersprungen). */
-    val watchedAddresses: Flow<List<WatchedAddress>> =
+    override val watchedAddresses: Flow<List<WatchedAddress>> =
         watchedAddressDao.observeAll().map { list -> list.mapNotNull { it.toDomain() } }
 
-    suspend fun getWatchedAddresses(): List<WatchedAddress> = watchedAddressDao.getAll().mapNotNull { it.toDomain() }
+    override suspend fun getWatchedAddresses(): List<WatchedAddress> = watchedAddressDao.getAll().mapNotNull { it.toDomain() }
 
     /**
      * Prüft und normalisiert [address] ([AddressValidation.check] mit [chain]), dann höchstens
      * [WatchedAddressRules.MAX_ADDRESSES] und keine doppelte Adresse. Bezeichnung zugeschnitten.
      */
-    suspend fun addWatchedAddress(
+    override suspend fun addWatchedAddress(
         chain: AddressChain,
         address: String,
         label: String?,
-        countInPortfolio: Boolean = true,
+        countInPortfolio: Boolean,
         /** Überschneidung beim Hinzufügen gefragt und entschieden ([WatchedAddress.overlapChecked]). */
-        overlapChecked: Boolean = false,
+        overlapChecked: Boolean,
     ): AddWatchedResult =
         database.withTransaction {
             ensureWritable()
@@ -173,7 +167,7 @@ class PortfolioRepository @Inject constructor(
             if (id > 0) AddWatchedResult.Added(id) else AddWatchedResult.Duplicate
         }
 
-    suspend fun removeWatchedAddress(id: Long): WatchedAddressEntity? = database.withTransaction {
+    override suspend fun removeWatchedAddress(id: Long): WatchedAddressEntity? = database.withTransaction {
         ensureWritable()
         watchedAddressDao.getById(id)?.also { watchedAddressDao.delete(id) }
     }
@@ -189,22 +183,25 @@ class PortfolioRepository @Inject constructor(
         WatchedAddressBalanceWriter.save(database, watchedAddressDao, update)
 
     /** «Tokens mitzählen» ([WatchedAddressRules.withCountTokens]: aus löscht die Token-Reihen). */
-    suspend fun setWatchedAddressCountTokens(id: Long, on: Boolean) = changeWatched(id) { WatchedAddressRules.withCountTokens(it, on) }
+    override suspend fun setWatchedAddressCountTokens(
+        id: Long,
+        on: Boolean
+    ) = changeWatched(id) { WatchedAddressRules.withCountTokens(it, on) }
 
     /** Gewählte EVM-Netze einer 0x-Adresse ([WatchedAddressRules.withNetworks]). */
-    suspend fun setWatchedAddressNetworks(id: Long, networks: List<String>) =
+    override suspend fun setWatchedAddressNetworks(id: Long, networks: List<String>) =
         changeWatched(id) { WatchedAddressRules.withNetworks(it, networks) }
 
     /** «Nur anzeigen, nicht zum Portfolio zählen» (false) bzw. zählen (true). */
-    suspend fun setWatchedAddressCountInPortfolio(id: Long, on: Boolean) =
+    override suspend fun setWatchedAddressCountInPortfolio(id: Long, on: Boolean) =
         changeWatched(id) { WatchedAddressRules.withCountInPortfolio(it, on) }
 
     /** Einmal automatisch «Nur anzeigen» bei später aufgetauchter Überschneidung ([WatchedAddressRules.withOverlapShowOnly]). */
-    suspend fun setWatchedAddressOverlapShowOnly(id: Long) =
+    override suspend fun setWatchedAddressOverlapShowOnly(id: Long) =
         changeWatched(id, userEdit = false) { WatchedAddressRules.withOverlapShowOnly(it) }
 
     /** Eröffnungsposten einer Adresse ersetzen (geprüft, [com.cryptochecker.app.domain.portfolio.AddressCostLots.clean]). */
-    suspend fun setWatchedAddressCostLots(id: Long, lots: List<com.cryptochecker.app.domain.portfolio.AddressCostLot>) =
+    override suspend fun setWatchedAddressCostLots(id: Long, lots: List<com.cryptochecker.app.domain.portfolio.AddressCostLot>) =
         database.withTransaction {
             ensureWritable()
             watchedAddressDao.setCostLots(id, com.cryptochecker.app.domain.portfolio.AddressCostLots.run { encode(clean(lots)) })
@@ -244,7 +241,19 @@ class PortfolioRepository @Inject constructor(
     // ---- CSV-Import ----
 
     /** Herkunftsschlüssel schon importierter Zeilen (Vorschau: doppelt). */
-    suspend fun importKeys(): Set<String> = portfolioDao.getImportKeys().toSet()
+    override suspend fun restoreWatchedAddress(row: RemovedWatchedAddress): Boolean =
+        restoreWatchedAddressRow(row as WatchedAddressEntity)
+
+    override suspend fun insertImportedLinked(
+        transactions: List<PortfolioTxEntity>,
+        batch: String,
+        updates: List<CsvStoredTransfer>,
+        fallbacks: Map<String, Long>,
+        onRow: (Int) -> Unit,
+        cancelled: () -> Boolean,
+    ): CsvImportWritten = writeImportedLinked(transactions, batch, updates, fallbacks, onRow, cancelled)
+
+    override suspend fun importKeys(): Set<String> = portfolioDao.getImportKeys().toSet()
 
     /**
      * Importierte Transaktionen in einer Datenbank-Transaktion anlegen (gleiche Bereinigung und Prüfung wie [save],
@@ -296,7 +305,7 @@ class PortfolioRepository @Inject constructor(
      * Gibt die gelöschten und zurückgesetzten Transaktionen im Zustand vorher zurück — ein «Rückgängig» davon über
      * [restore] (ersetzt je id) stellt alles samt Verknüpfung wieder her.
      */
-    suspend fun undoImport(batch: String): List<PortfolioTxEntity> = database.withTransaction {
+    override suspend fun undoImport(batch: String): List<PortfolioTxEntity> = database.withTransaction {
         ensureWritable()
         val all = portfolioDao.getAll()
         val plan = CsvTransferMatch.undoPlan(all.map { CsvImportedRef(it.id, it.importBatch, it.importRestoreState) }, batch)

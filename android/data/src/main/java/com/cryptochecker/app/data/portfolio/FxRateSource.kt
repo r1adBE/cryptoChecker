@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.FxCurrencies
+import com.cryptochecker.app.domain.portfolio.FxRates
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.EpochTime
@@ -32,7 +33,7 @@ import timber.log.Timber
 class FxRateSource @Inject constructor(
     private val httpClient: OkHttpClient,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : FxRates {
     /** Währung → (Kurs, Abfragezeit). */
     private val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
     private val mutex = Mutex()
@@ -50,7 +51,7 @@ class FxRateSource @Inject constructor(
     private var failedAt = 0L
 
     /** Wie viele Einheiten [currency] ein USD ist; null, wenn unbekannt. USD = 1. */
-    suspend fun usdTo(currency: String): Double? {
+    override suspend fun usdTo(currency: String): Double? {
         val target = currency.trim().uppercase()
         if (target == "USD") return 1.0
         if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
@@ -98,7 +99,7 @@ class FxRateSource @Inject constructor(
     }
 
     /** Zuletzt bekannter Kurs ohne Netz (für den ersten Aufbau) — höchstens 24 h alt wie bei [usdTo]; BGN ohne eigenen aus EUR. */
-    fun cached(currency: String): Double? {
+    override fun cached(currency: String): Double? {
         val target = currency.trim().uppercase()
         if (target == "USD") return 1.0
         return cachedWithTime(target)?.first

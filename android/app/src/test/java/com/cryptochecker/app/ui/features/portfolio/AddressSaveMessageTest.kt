@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioRepository.AddWatchedResult
+import com.cryptochecker.app.domain.portfolio.AddWatchedResult
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.resources.R
 import org.junit.Assert.assertEquals

@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.domain.local.DatabaseNames
 import java.io.File
 import timber.log.Timber
 
@@ -35,7 +36,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
 
     companion object {
         const val VERSION = 1
-        const val DB_NAME = "cryptochecker_portfolio.db"
+        const val DB_NAME = DatabaseNames.PORTFOLIO
 
         /**
          * Liegt das Portfolio in diesem Prozess nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt,

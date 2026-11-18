@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.cha
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import kotlinx.coroutines.CancellationException
 

@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.backup.BackupManager
 import com.cryptochecker.app.data.backup.RestoreJournal
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.domain.local.StorageRecoveryKind
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo
@@ -37,7 +38,7 @@ import org.junit.Test
  * Wiederherstellen einer Sicherung von Anfang bis Ende mit den echten Datenbanken (Hilt, Gerät/Emulator): Merkliste
  * samt Alarmen wird ersetzt; das Journal steht, bevor das Erste geschrieben wird, und ist danach weg; ein Abbruch
  * mittendrin lässt die Daten stehen; ein liegengebliebenes Journal (Prozess beendet) rollt beim nächsten Start zurück;
- * eine Sicherung ohne Passwort schaltet die Portfolio-Sperre nicht aus ([com.cryptochecker.app.data.backup.RestoreResult.appLockKept]).
+ * eine Sicherung ohne Passwort schaltet die Portfolio-Sperre nicht aus ([com.cryptochecker.app.domain.backup.RestoreResult.appLockKept]).
  *
  * Die Refresh-Sperre ([PriceRefresher.withRefreshLock]) hält das Wiederherstellen kontrolliert vor dem ersten
  * Schreibvorgang an (es ersetzt die Merkliste nur unter ihr).
@@ -90,7 +91,7 @@ class BackupRestoreTest {
         journalFile.delete()
         backupFile.delete()
         // Kein Hinweis «Wiederherstellen abgebrochen» für die folgenden Oberflächen-Tests stehen lassen
-        StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.RESTORE_ROLLED_BACK)
+        StorageRecoveryNotice.acknowledge(context, StorageRecoveryKind.RESTORE_ROLLED_BACK)
     }
 
     private val uri: Uri get() = Uri.fromFile(backupFile)
@@ -205,7 +206,7 @@ class BackupRestoreTest {
 
         assertEquals(listOf("ETH"), bases())
         assertFalse(journalFile.exists())
-        assertEquals(StorageRecoveryNotice.Kind.RESTORE_ROLLED_BACK, StorageRecoveryNotice.pending(context))
+        assertEquals(StorageRecoveryKind.RESTORE_ROLLED_BACK, StorageRecoveryNotice.pending(context))
     }
 
     @Test

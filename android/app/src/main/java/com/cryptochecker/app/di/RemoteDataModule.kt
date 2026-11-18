@@ -1,10 +1,10 @@
 package com.cryptochecker.app.di
 
-import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.remote.HttpLoggerImpl
 import com.cryptochecker.app.data.remote.UsageEventListener
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.util.CallStartInterceptor
+import com.cryptochecker.app.domain.diagnostics.HttpLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

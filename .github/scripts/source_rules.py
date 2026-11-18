@@ -762,85 +762,9 @@ def _layer(t, module, base, forbidden, app_packages, exceptions, source_set="mai
 # C-07: Oberfläche ohne :data. :coreui hängt nicht mehr an :data (auch nicht über `api`); in app/ui verweisen nur noch die
 # Dateien aus UI_DATA_REMAINING auf das Paket data (Import oder voller Name) — die Liste darf nur kürzer werden.
 UI_DATA_REMAINING = {
-    "MainActivity.kt",
-    "components/BulkAddProgress.kt",
-    "components/BulkUndoConfirm.kt",
-    "components/WatchlistLockedHint.kt",
-    "components/WatchlistNotSavedGateHost.kt",
-    "features/about/BatteryOptimizationDialog.kt",
-    "features/about/LicensesSheet.kt",
-    "features/alarms/AlarmCard.kt",
-    "features/alarms/AlarmDeliveryScreen.kt",
-    "features/alarms/AlarmDeliveryTexts.kt",
-    "features/alarms/AlarmEditorDialogs.kt",
-    "features/alarms/AlarmEditorSheet.kt",
-    "features/alarms/AlarmLogScreen.kt",
-    "features/alarms/AlarmReliabilityLine.kt",
-    "features/alarms/AlarmUserChange.kt",
-    "features/alarms/AlarmsOverviewCards.kt",
-    "features/alarms/AlarmsOverviewViewModel.kt",
-    "features/alarms/AlarmsViewModel.kt",
-    "features/alarms/AlarmsViewModelTemplates.kt",
-    "features/explorer/ExplorerBulkActions.kt",
-    "features/explorer/ExplorerCollaborators.kt",
-    "features/explorer/ExplorerFeedback.kt",
-    "features/explorer/ExplorerSelectionActions.kt",
-    "features/explorer/ExplorerViewModel.kt",
     "features/info/InfoViewModel.kt",
-    "features/info/InfoWatchlist.kt",
     "features/info/MarketDataLoaders.kt",
     "features/info/MarketDataSync.kt",
-    "features/info/MarketPhaseScreenParts.kt",
-    "features/portfolio/CsvImportState.kt",
-    "features/portfolio/PortfolioAddressActions.kt",
-    "features/portfolio/PortfolioAddressRow.kt",
-    "features/portfolio/PortfolioAddressSheet.kt",
-    "features/portfolio/PortfolioCsvImportReader.kt",
-    "features/portfolio/PortfolioCsvImportSave.kt",
-    "features/portfolio/PortfolioCsvImportSaving.kt",
-    "features/portfolio/PortfolioCsvImportViewModel.kt",
-    "features/portfolio/PortfolioCutoffExport.kt",
-    "features/portfolio/PortfolioEditActions.kt",
-    "features/portfolio/PortfolioExportViewModel.kt",
-    "features/portfolio/PortfolioHelpers.kt",
-    "features/portfolio/PortfolioHistoryLoad.kt",
-    "features/portfolio/PortfolioLoadActions.kt",
-    "features/portfolio/PortfolioPriceSources.kt",
-    "features/portfolio/PortfolioRestoreNoticeDialog.kt",
-    "features/portfolio/PortfolioScreenDialogs.kt",
-    "features/portfolio/PortfolioScreenEffects.kt",
-    "features/portfolio/PortfolioTaxPrices.kt",
-    "features/portfolio/PortfolioTxSheet.kt",
-    "features/portfolio/PortfolioTxValueSections.kt",
-    "features/portfolio/PortfolioViewModel.kt",
-    "features/settings/AutoBackupViewModel.kt",
-    "features/settings/BackupDialogs.kt",
-    "features/settings/BackupResultPresentation.kt",
-    "features/settings/SettingsAddressServer.kt",
-    "features/settings/SettingsAlarmActions.kt",
-    "features/settings/SettingsBackupActions.kt",
-    "features/settings/SettingsDataPages.kt",
-    "features/settings/SettingsDiagnostics.kt",
-    "features/settings/SettingsGeneralPages.kt",
-    "features/settings/SettingsPickers.kt",
-    "features/settings/SettingsViewModel.kt",
-    "features/settings/StorageRecoveryNoticeDialog.kt",
-    "features/watchlist/WatchSheetDexAddress.kt",
-    "features/watchlist/WatchSparklines.kt",
-    "features/watchlist/WatchlistBulkAdd.kt",
-    "features/watchlist/WatchlistContentFlows.kt",
-    "features/watchlist/WatchlistEditController.kt",
-    "features/watchlist/WatchlistEditUndo.kt",
-    "features/watchlist/WatchlistListItem.kt",
-    "features/watchlist/WatchlistLiveFlows.kt",
-    "features/watchlist/WatchlistRefreshController.kt",
-    "features/watchlist/WatchlistRetiredNotice.kt",
-    "features/watchlist/WatchlistRowParts.kt",
-    "features/watchlist/WatchlistScreenEffects.kt",
-    "features/watchlist/WatchlistSheetData.kt",
-    "features/watchlist/WatchlistStarterController.kt",
-    "features/watchlist/WatchlistUiState.kt",
-    "features/watchlist/WatchlistViewModel.kt",
 }
 
 
@@ -2125,7 +2049,7 @@ def rule_ios_lot_delete(t):
 #    Zurückrollen ebenso (Adressen und eigener Server in getrennten Schritten). Meldung selbst: RestoreStorageMessageTest.
 #  - Wecker, Abgleich nach dem Lauf, Schalter und Text der Einstellungen lesen denselben Bedarf (ExactCheckDemand);
 #    nirgends «nur aktive Paare» als Bedarf. Bedarf selbst: BackgroundWorkPolicyTest.
-#  - Schalter eines Alarms (Karte, Übersicht) nutzen AlarmJson.toggleAllowed («fällt um ≥ 100 %» nie einschalten);
+#  - Schalter eines Alarms (Karte, Übersicht) nutzen AlarmFallLimit.toggleAllowed («fällt um ≥ 100 %» nie einschalten);
 #    Schreibweg: WatchlistLockDeviceTest.
 
 
@@ -2141,9 +2065,9 @@ WI_REQUIRED = {
         "exactScheduler.sync(enabled, hasWork = demand.hasWork())", "val hasWork: Flow<Boolean> get() = demand.observe()"),
     ("app", "ui/features/settings/SettingsViewModel.kt"): (
         "val hasBackgroundWork: StateFlow<Boolean> = exactChecks.hasWork",),
-    ("app", "ui/features/alarms/AlarmCard.kt"): ("enabled = AlarmJson.toggleAllowed(",),
+    ("app", "ui/features/alarms/AlarmCard.kt"): ("enabled = AlarmFallLimit.toggleAllowed(",),
     ("app", "ui/features/alarms/AlarmsOverviewCards.kt"): (
-        "val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)",
+        "val canToggle = AlarmFallLimit.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)",
         "enabled = canToggle"),
     ("app", "work/ExactCheckDemand.kt"): (
         "BackgroundWorkPolicy.exactNeeded(",
@@ -2650,7 +2574,7 @@ A_COREUI = "coreui/src/main/java/com/cryptochecker/app/"
 A_WEAR = "wear/src/main/java/com/cryptochecker/wear/"
 A_MARKET = "marketdata/src/main/java/com/cryptochecker/marketdata/"
 _PORTFOLIO_REPO = A_DATA + "data/portfolio/PortfolioRepository.kt"
-_PORTFOLIO_FUN = ("\n    suspend fun ", "\n    private ")
+_PORTFOLIO_FUN = ("\n    suspend fun ", "\n    override suspend fun ", "\n    private ")
 _WATCH_REPO = A_DATA + "data/WatchRepository.kt"
 
 AW_ROWS = [

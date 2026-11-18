@@ -5,7 +5,6 @@ package com.cryptochecker.app.data.backup
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.backup.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.backup.BackupJournalCodec.journalJson
-import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.data.backup.BackupManager.Step
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
@@ -13,6 +12,7 @@ import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.FavoriteKind

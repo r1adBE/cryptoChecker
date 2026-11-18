@@ -3,10 +3,8 @@ package com.cryptochecker.app.data.local
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.cryptochecker.app.domain.local.StorageMemory
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 /**
  * Speichert, welche Datenbanken ohne Schlüssel nur im Arbeitsspeicher geöffnet wurden ([EncryptionPending]), damit
@@ -20,8 +18,7 @@ object DatabaseEncryptionNotice {
     private const val KEY_DATABASES = "databases"
 
     /** Zähler der Änderungen in diesem Prozess: Die Seite prüft bei jeder Änderung erneut ([isPending]). */
-    private val changed = MutableStateFlow(0)
-    val changes: StateFlow<Int> = changed.asStateFlow()
+    val changes: StateFlow<Int> = StorageMemory.changes
 
     /** Entscheidung für [database] festhalten (vor dem Öffnen, darum sofort geschrieben). */
     @Synchronized
@@ -31,29 +28,25 @@ object DatabaseEncryptionNotice {
         val after = EncryptionPending.updated(before, database, decision)
         if (after == before) return
         prefs.edit(commit = true) { putStringSet(KEY_DATABASES, after) }
-        changed.update { it + 1 }
+        StorageMemory.noteChanged()
     }
-
-    private val inMemoryNames = MutableStateFlow<Set<String>>(emptySet())
 
     /**
      * Datenbanken, die in diesem Prozess nur im Arbeitsspeicher liegen ([Decision.Refused]: kein Schlüssel, nie
      * unverschlüsselt angelegt; dazu [storedKept]). Nicht gespeichert: Jeder Start entscheidet neu. Das Portfolio nennt es,
      * und was Daten aus anderen Dateien übernimmt und dort löscht (Systemsicherungs-Kopie), wartet bis dahin.
      */
-    val inMemory: StateFlow<Set<String>> = inMemoryNames.asStateFlow()
+    val inMemory: StateFlow<Set<String>> = StorageMemory.inMemory
 
     /** Liegt [database] in diesem Prozess nur im Arbeitsspeicher? Erst nach dem ersten Öffnen verlässlich. */
-    fun isInMemory(database: String): Boolean = database in inMemoryNames.value
-
-    private val keptNames = MutableStateFlow<Set<String>>(emptySet())
+    fun isInMemory(database: String): Boolean = StorageMemory.isInMemory(database)
 
     /**
      * Teilmenge von [inMemory]: Die verschlüsselte Datei ist da, nur gab der Keystore ihren Schlüssel gerade nicht heraus
      * ([DatabaseOpenPlanner.OpenPlan.KEEP_FILE_IN_MEMORY]). Der gespeicherte Stand ist jetzt nicht zu sehen und
      * kommt nach einem Neustart zurück; was in diesem Lauf geändert wird, geht verloren. Die Datei bleibt unberührt.
      */
-    val storedKept: StateFlow<Set<String>> = keptNames.asStateFlow()
+    val storedKept: StateFlow<Set<String>> = StorageMemory.storedKept
 
     /**
      * Liegt [database] nur im Arbeitsspeicher, obwohl die Datei mit gespeichertem Stand da ist ([storedKept])? Dann kommt
@@ -61,25 +54,19 @@ object DatabaseEncryptionNotice {
      * Hintergrund prüfen (jeder neue Prozess meldete dieselben Alarme erneut) und gespeicherte Protokolle nicht gegen die
      * Ids dieses Laufs kürzen. Ohne Datei ([Decision.Refused]) nicht: Dort ist mit dem Lauf auch der Alarm weg.
      */
-    fun isStoredKept(database: String): Boolean = database in keptNames.value
+    fun isStoredKept(database: String): Boolean = StorageMemory.isStoredKept(database)
 
     /**
      * Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt, mit [storedKept] bei [Decision.KeyUnavailable] im
      * Vordergrund. Erst die Variante, dann [inMemory]: Wer [inMemory] beobachtet, sieht die Variante schon.
      */
-    fun markInMemory(database: String, storedKept: Boolean = false) {
-        if (storedKept) keptNames.update { it + database }
-        inMemoryNames.update { it + database }
-    }
+    fun markInMemory(database: String, storedKept: Boolean = false) = StorageMemory.markInMemory(database, storedKept)
 
     /**
      * Nur für Tests (WatchlistLockDeviceTest): Vermerke von [markInMemory] für [database] wieder entfernen,
      * damit die Sperre der Merkliste nicht in die übrigen Tests desselben Prozesses hineinwirkt. Die App ruft es nie auf.
      */
-    fun clearInMemoryForTest(database: String) {
-        keptNames.update { it - database }
-        inMemoryNames.update { it - database }
-    }
+    fun clearInMemoryForTest(database: String) = StorageMemory.clearInMemoryForTest(database)
 
     /** Liegt mindestens eine Datenbank ohne Schlüssel nur im Arbeitsspeicher ([EncryptionPending])? Nicht auf dem Hauptthread. */
     fun isPending(context: Context): Boolean {

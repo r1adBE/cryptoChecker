@@ -3,6 +3,8 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.CurrencyConversion.QuoteKind
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
+import com.cryptochecker.app.domain.convert.QuoteConversion
 import com.cryptochecker.app.domain.portfolio.PortfolioPrices
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import javax.inject.Inject
@@ -32,13 +34,13 @@ class CurrencyConverter @Inject constructor(
     private val fxRateSource: FxRateSource,
     private val priceSource: PortfolioPriceSource,
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
-) {
+) : QuoteConversion {
     private val fiat: List<String> get() = FxRateSource.CURRENCIES
 
     fun classify(quote: String): QuoteKind = CurrencyConversion.classify(quote, fiat)
 
     /** Faktor Quote → Ziel; gleiche Währung = 1.0, null wenn ein Kurs fehlt. */
-    suspend fun rate(quote: String, target: String): Double? {
+    override suspend fun rate(quote: String, target: String): Double? {
         if (CurrencyConversion.sameCurrency(quote, target)) return 1.0
         val to = CurrencyConversion.normalize(target)
         if (classify(to) != QuoteKind.USD && classify(to) != QuoteKind.FIAT) return null
@@ -55,7 +57,7 @@ class CurrencyConverter @Inject constructor(
     }
 
     /** Faktoren für mehrere Quote-Währungen; fehlende bleiben weg. Schlüssel in Grossbuchstaben. */
-    suspend fun rates(quotes: Collection<String>, target: String): Map<String, Double> {
+    override suspend fun rates(quotes: Collection<String>, target: String): Map<String, Double> {
         val wanted = quotes.map { CurrencyConversion.normalize(it) }.filter { it.isNotEmpty() }.distinct()
         // Krypto- und Stablecoin-Kurse (ausser USD/USDT) gesammelt holen, damit nicht jede Quote einzeln abfragt
         val cryptos = wanted.filter {
@@ -71,7 +73,7 @@ class CurrencyConverter @Inject constructor(
     }
 
     /** Faktor nur aus den Zwischenspeichern, ohne Netz (für den ersten Aufbau). */
-    fun cachedRate(quote: String, target: String): Double? {
+    override fun cachedRate(quote: String, target: String): Double? {
         if (CurrencyConversion.sameCurrency(quote, target)) return 1.0
         val to = CurrencyConversion.normalize(target)
         val from = CurrencyConversion.normalize(quote)
@@ -95,7 +97,7 @@ class CurrencyConverter @Inject constructor(
     }
 
     /** Wie [cachedRate] für mehrere Quote-Währungen. */
-    fun cachedRates(quotes: Collection<String>, target: String): Map<String, Double> =
+    override fun cachedRates(quotes: Collection<String>, target: String): Map<String, Double> =
         quotes.map { CurrencyConversion.normalize(it) }.filter { it.isNotEmpty() }.distinct()
             .mapNotNull { q -> cachedRate(q, target)?.let { q to it } }
             .toMap()
@@ -115,7 +117,7 @@ class CurrencyConverter @Inject constructor(
     }
 
     /** Wie [staleFxTime] für mehrere Quote-Währungen; nur alte Kurse. Schlüssel in Grossbuchstaben. */
-    fun staleFxTimes(quotes: Collection<String>, target: String, now: Long = System.currentTimeMillis()): Map<String, Long> =
+    override fun staleFxTimes(quotes: Collection<String>, target: String, now: Long): Map<String, Long> =
         quotes.map { CurrencyConversion.normalize(it) }.filter { it.isNotEmpty() }.distinct()
             .mapNotNull { q -> staleFxTime(q, target, now)?.let { q to it } }
             .toMap()
@@ -145,7 +147,7 @@ class CurrencyConverter @Inject constructor(
         )
 
     /** Wie [usdtState] für mehrere Quote-Währungen; nur angenommene bzw. unsichere. Schlüssel in Grossbuchstaben. */
-    fun usdtNotes(quotes: Collection<String>, target: String, now: Long = System.currentTimeMillis()) =
+    override fun usdtNotes(quotes: Collection<String>, target: String, now: Long): Map<String, FiatAlarmGuard.UsdtState> =
         quotes.map { CurrencyConversion.normalize(it) }.filter { it.isNotEmpty() }.distinct()
             .mapNotNull { q ->
                 usdtState(q, target, now).takeIf {
@@ -174,11 +176,11 @@ class CurrencyConverter @Inject constructor(
      * Gibt es eine frische USDT/USD-Messung ([DepegReadingStore.liveUsdtUsd])? Ändert sich, sobald die erste Messung nach
      * dem Start eintrifft — die ≈ Umrechnung der Merkliste rechnet dann sofort neu statt erst im 60-s-Takt.
      */
-    fun usdtMeasured(): Flow<Boolean> =
+    override fun usdtMeasured(): Flow<Boolean> =
         depegReadings.reading.map { DepegAlarm.liveUsdtUsd(it, System.currentTimeMillis()) != null }.distinctUntilChanged()
 
     /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1). Auch für den Mini-Chart. */
-    fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
+    override fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
 
     /**
      * Einheiten der Ziel-Stablecoin-Währung [code] je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und

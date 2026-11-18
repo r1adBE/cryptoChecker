@@ -1,8 +1,10 @@
 package com.cryptochecker.app.data.util
+
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import com.cryptochecker.app.domain.util.NetworkStatus
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,13 +26,13 @@ import timber.log.Timber
 @Singleton
 class ConnectivityMonitor @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : NetworkStatus {
     private val manager: ConnectivityManager? = context.getSystemService(ConnectivityManager::class.java)
 
     private val _online = MutableStateFlow(currentlyOnline())
 
     /** true = Internet verfügbar (oder nicht feststellbar — dann lieber versuchen). */
-    val online: StateFlow<Boolean> = _online.asStateFlow()
+    override val online: StateFlow<Boolean> = _online.asStateFlow()
 
     init {
         runCatching {
@@ -50,7 +52,7 @@ class ConnectivityMonitor @Inject constructor(
         }.onFailure { Timber.w(it, "Netzstatus nicht beobachtbar") }
     }
 
-    fun isOnline(): Boolean = _online.value
+    override fun isOnline(): Boolean = _online.value
 
     /** Frisch beim System nachgefragt (nach einem Wecker kann der gemerkte Stand veraltet sein). */
     fun isOnlineNow(): Boolean = currentlyOnline().also { _online.value = it }

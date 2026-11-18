@@ -1,6 +1,5 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.candles.CandleHttp
 import com.cryptochecker.app.data.remote.candles.CandlePair
@@ -12,6 +11,7 @@ import com.cryptochecker.app.domain.logos.alphaSymbols
 import com.cryptochecker.app.domain.logos.alphaTokens
 import com.cryptochecker.app.domain.logos.parseAlpha
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.MutableTicker
 import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.domain.settings.scoped
 import com.cryptochecker.app.domain.watch.AssetKind

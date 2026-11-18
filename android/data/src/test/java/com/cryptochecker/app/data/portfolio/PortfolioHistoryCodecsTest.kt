@@ -6,6 +6,7 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmInput
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.toInput
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
+import com.cryptochecker.app.domain.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import org.json.JSONArray

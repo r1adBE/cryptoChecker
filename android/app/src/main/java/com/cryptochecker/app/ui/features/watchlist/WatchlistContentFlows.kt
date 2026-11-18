@@ -4,14 +4,14 @@
 // sie und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.logos.CoinLogoRepository
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
+import com.cryptochecker.app.domain.logos.CoinLogoCatalog
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.settings.WatchlistSettings
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.TokenNames
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchStore
 import com.cryptochecker.app.domain.watch.assetKind
@@ -33,9 +33,9 @@ internal class WatchlistContentFlows(
     watchlistSettings: Flow<WatchlistSettings>,
     watchRepository: WatchStore,
     private val settingsRepository: SettingsRepository,
-    coinLogoRepository: CoinLogoRepository,
-    private val tokenIdentityStore: TokenIdentityStore,
-    portfolioAlarmRepository: PortfolioAlarmRepository,
+    coinLogoRepository: CoinLogoCatalog,
+    private val tokenIdentityStore: TokenNames,
+    portfolioAlarmRepository: PortfolioAlarmStore,
     /** Ergebnisse «Ungewöhnliche Aktivität» je Paar; abgelaufene Signale filtert die Oberfläche. */
     private val activity: StateFlow<Map<Long, ActivityReport>>,
     /** Neuer Name einer eben umbenannten Gruppe ([WatchlistEditController.renamedGroup]). */
@@ -88,7 +88,7 @@ internal class WatchlistContentFlows(
             GroupFilter(groups, group, tokens, alpha, kinds)
         }
     }
-        // Erster Zugriff liest und dekodiert die Namensdatei (TokenIdentityStore): nicht auf Main
+        // Erster Zugriff liest und dekodiert die Namensdatei (TokenNames): nicht auf Main
         .flowOn(Dispatchers.Default)
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
 

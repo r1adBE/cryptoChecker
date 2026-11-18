@@ -1,7 +1,7 @@
 package com.cryptochecker.app.di
 
-import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.remote.HttpLoggerImpl
+import com.cryptochecker.app.domain.diagnostics.HttpLogger
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 

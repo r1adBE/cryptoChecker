@@ -1,6 +1,5 @@
-package com.cryptochecker.app.data.backup
+package com.cryptochecker.app.domain.backup
 
-import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.domain.portfolio.AddressServer
 
 /**

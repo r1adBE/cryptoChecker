@@ -1,7 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.FolderContext
-import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.fakePortfolioDao
 import com.cryptochecker.app.data.fakeWatchDao
@@ -16,6 +15,7 @@ import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.app.domain.model.MutableTicker
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType

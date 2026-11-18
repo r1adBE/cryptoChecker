@@ -32,14 +32,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.WatchedAddressSource
-import com.cryptochecker.app.data.portfolio.clearServerPauses
-import com.cryptochecker.app.data.portfolio.testBtcServer
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.portfolio.AddressServerProbe
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.ChainBalance
+import com.cryptochecker.app.domain.portfolio.PortfolioReader
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -114,8 +112,8 @@ internal class AddressServerTestRun(private val load: suspend (String) -> Long?)
 @HiltViewModel
 class AddressServerViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    private val source: WatchedAddressSource,
-    private val portfolio: PortfolioRepository,
+    private val source: AddressServerProbe,
+    private val portfolio: PortfolioReader,
 ) : ViewModel() {
 
     val state: StateFlow<AddressServerState> = settingsRepository.addressServerFlow

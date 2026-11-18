@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.CsvImportWritten
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.domain.portfolio.CsvImportWritten
+import com.cryptochecker.app.domain.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
