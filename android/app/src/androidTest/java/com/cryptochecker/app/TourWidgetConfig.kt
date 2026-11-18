@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import android.Manifest
 import android.app.Activity
 import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetManager
@@ -7,6 +8,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Process
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.widget.PortfolioWidgetConfigureActivity
@@ -21,7 +23,7 @@ import com.cryptochecker.app.widget.WidgetConfigureActivity
 /**
  * Einrichten-Seiten der vier Widgets für die Bildschirmfoto-Tour ([ScreenshotTourTest]): Die Seiten nehmen nur die Id
  * eines eigenen Widgets an (`ownWidgetId`), darum bindet die Tour über einen eigenen [AppWidgetHost] je ein echtes
- * Widget (Erlaubnis per `appwidget grantbind`) und öffnet die Seite wie der Launcher. [close] gibt die Ids wieder frei.
+ * Widget (Erlaubnis per `appwidget grantbind`, sonst mit der Berechtigung der Shell) und öffnet die Seite wie der Launcher. [close] gibt die Ids wieder frei.
  */
 class TourWidgetConfig(private val context: Context) {
 
@@ -32,23 +34,37 @@ class TourWidgetConfig(private val context: Context) {
     private val manager = AppWidgetManager.getInstance(context)
     private val ids = mutableListOf<Int>()
 
-    init {
-        AppTestEnvironmentRule.shell("appwidget grantbind --package ${context.packageName} --user current")
-    }
+    /** Antwort von `appwidget grantbind` (für die Meldung, falls das Binden trotzdem scheitert). */
+    private val grant = AppTestEnvironmentRule.shell(
+        "appwidget grantbind --package ${context.packageName} --user ${Process.myUid() / PER_USER_RANGE}",
+    ).trim()
 
     /** Widget des Anbieters von [page] binden und seine Einrichten-Seite öffnen (eigene Aufgabe wie vom Launcher). */
     fun open(page: Page) {
         val id = host.allocateAppWidgetId()
         ids += id
-        check(manager.bindAppWidgetIdIfAllowed(id, ComponentName(context, page.provider))) {
-            "Widget ${page.provider.simpleName} nicht gebunden (appwidget grantbind)"
+        val provider = ComponentName(context, page.provider)
+        // Erst mit der Erlaubnis aus grantbind, sonst mit der Berechtigung der Shell (BIND_APPWIDGET) für diesen Aufruf
+        val bound = manager.bindAppWidgetIdIfAllowed(id, provider) || withShellBindPermission {
+            manager.bindAppWidgetIdIfAllowed(id, provider)
         }
+        check(bound) { "Widget ${page.provider.simpleName} nicht gebunden (grantbind: «$grant»)" }
         val intent = Intent(context, page.activity)
             .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         InstrumentationRegistry.getInstrumentation().run {
             context.startActivity(intent)
             waitForIdleSync()
+        }
+    }
+
+    private fun <T> withShellBindPermission(block: () -> T): T {
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        automation.adoptShellPermissionIdentity(Manifest.permission.BIND_APPWIDGET)
+        return try {
+            block()
+        } finally {
+            automation.dropShellPermissionIdentity()
         }
     }
 
@@ -67,6 +83,9 @@ class TourWidgetConfig(private val context: Context) {
     companion object {
         /** Eigene Host-Id der Tour (keine andere im Projekt). */
         private const val HOST_ID = 4711
+
+        /** Uids je Android-Benutzer (Benutzer-Nummer = uid / 100000). */
+        private const val PER_USER_RANGE = 100_000
 
         /** Merkliste, Einzel-Paar, Portfolio und Krypto-Puls — nach den Einstellungen (16–19). */
         val PAGES = listOf(
