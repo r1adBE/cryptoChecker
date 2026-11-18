@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें</string>
+    <string name="welcome_alert">अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें, नियमित रूप से जाँचे जाते हैं (लाइव नहीं)</string>
     <string name="welcome_alert_q">कब सूचना मिले?</string>
     <string name="welcome_text">आपके भाव। आपके अलार्म। आपका ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
     <string name="welcome_understand">समझें – अभी किसी भाव के साथ और क्या चल रहा है</string>

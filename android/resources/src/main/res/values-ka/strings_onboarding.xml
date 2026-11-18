@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">განგაში – ფასი, პროცენტი, მოცულობა და უჩვეულო მოძრაობები</string>
+    <string name="welcome_alert">განგაში – ფასი, პროცენტი, მოცულობა და უჩვეულო მოძრაობები, რეგულარულად მოწმდება (არა პირდაპირ)</string>
     <string name="welcome_alert_q">როდის შეგატყობინო?</string>
     <string name="welcome_text">შენი ფასები. შენი განგაშები. შენი მიმოხილვა.\nანგარიშის გარეშე. რეკლამის გარეშე. თვალთვალის გარეშე.</string>
     <string name="welcome_understand">გაიგე – რა მოძრაობს ახლა ფასთან ერთად</string>

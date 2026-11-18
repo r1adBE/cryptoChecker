@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">កំណត់ការដាស់តឿន – តម្លៃ ភាគរយ បរិមាណ និងចលនាមិនធម្មតា</string>
+    <string name="welcome_alert">កំណត់ការដាស់តឿន – តម្លៃ ភាគរយ បរិមាណ និងចលនាមិនធម្មតា ពិនិត្យជាប្រចាំ (មិនផ្ទាល់)</string>
     <string name="welcome_alert_q">ដាស់តឿននៅពេលណា?</string>
     <string name="welcome_text">តម្លៃរបស់អ្នក។ ការដាស់តឿនរបស់អ្នក។ ទិដ្ឋភាពទូទៅរបស់អ្នក។\nគ្មានគណនី។ គ្មានការផ្សាយពាណិជ្ជកម្ម។ គ្មានការតាមដាន។</string>
     <string name="welcome_understand">យល់ដឹង – អ្វីដែលកំពុងផ្លាស់ទីជាមួយតម្លៃនៅពេលនេះ</string>

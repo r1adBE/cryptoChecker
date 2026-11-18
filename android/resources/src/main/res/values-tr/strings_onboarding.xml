@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarm – fiyat, yüzde, hacim ve olağandışı hareketler</string>
+    <string name="welcome_alert">Alarm – fiyat, yüzde, hacim ve olağandışı hareketler, düzenli kontrol edilir (canlı değil)</string>
     <string name="welcome_alert_q">Ne zaman haber verilsin?</string>
     <string name="welcome_text">Fiyatların. Alarmların. Genel bakışın.\nHesap yok. Reklam yok. Takip yok.</string>
     <string name="welcome_understand">Anla – şu anda bir fiyatla birlikte ne hareket ediyor</string>

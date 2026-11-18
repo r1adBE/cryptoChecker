@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Ահազանգեր – գին, տոկոս, ծավալ և անսովոր շարժումներ</string>
+    <string name="welcome_alert">Ահազանգեր – գին, տոկոս, ծավալ և անսովոր շարժումներ, պարբերաբար ստուգվում է (ոչ ուղիղ)</string>
     <string name="welcome_alert_q">Ե՞րբ զգուշացնել</string>
     <string name="welcome_text">Քո գները։ Քո ահազանգերը։ Քո ակնարկը։\nՀաշիվ չկա։ Գովազդ չկա։ Հետևում չկա։</string>
     <string name="welcome_understand">Հասկանալ – ինչն է հիմա շարժվում գնի հետ միասին</string>

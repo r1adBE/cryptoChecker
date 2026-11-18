@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Brīdini – par cenu, procentiem, apjomu un neparastām kustībām</string>
+    <string name="welcome_alert">Brīdini – par cenu, procentiem, apjomu un neparastām kustībām, regulāri pārbaudīts (ne reāllaikā)</string>
     <string name="welcome_alert_q">Kad brīdināt?</string>
     <string name="welcome_text">Tavas cenas. Tavi brīdinājumi. Tavs pārskats.\nBez konta. Bez reklāmām. Bez izsekošanas.</string>
     <string name="welcome_understand">Saproti – kas pašlaik kustas līdzi cenai</string>

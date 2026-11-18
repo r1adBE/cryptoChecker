@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Avisar – precio, porcentaje, volumen y movimientos inusuales</string>
+    <string name="welcome_alert">Avisar – precio, porcentaje, volumen y movimientos inusuales, revisado con regularidad (no en directo)</string>
     <string name="welcome_alert_q">¿Cuándo avisar?</string>
     <string name="welcome_text">Tus precios. Tus alarmas. Tu resumen.\nSin cuenta. Sin anuncios. Sin rastreo.</string>
     <string name="welcome_understand">Entender – qué se mueve junto con un precio ahora</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">अलर्ट सेट करा – किंमत, टक्के, व्हॉल्यूम आणि असामान्य हालचाली</string>
+    <string name="welcome_alert">अलर्ट सेट करा – किंमत, टक्के, व्हॉल्यूम आणि असामान्य हालचाली, नियमितपणे तपासले जाते (लाइव्ह नाही)</string>
     <string name="welcome_alert_q">कधी सूचित करायचे?</string>
     <string name="welcome_text">तुमच्या किमती. तुमचे अलर्ट. तुमचा आढावा.\nखाते नाही. जाहिराती नाहीत. ट्रॅकिंग नाही.</string>
     <string name="welcome_understand">समजून घ्या – सध्या एखाद्या किमतीसोबत काय हलत आहे</string>

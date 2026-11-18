@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">သတိပေးချက်များ သတ်မှတ်ပါ – ဈေးနှုန်း၊ ရာခိုင်နှုန်း၊ ပမာဏနှင့် ထူးခြားသော လှုပ်ရှားမှုများ</string>
+    <string name="welcome_alert">သတိပေးချက်များ သတ်မှတ်ပါ – ဈေးနှုန်း၊ ရာခိုင်နှုန်း၊ ပမာဏနှင့် ထူးခြားသော လှုပ်ရှားမှုများ၊ ပုံမှန်စစ်ဆေးသည် (တိုက်ရိုက်မဟုတ်)</string>
     <string name="welcome_alert_q">ဘယ်အချိန် သတိပေးမလဲ။</string>
     <string name="welcome_text">သင့်ဈေးနှုန်းများ။ သင့်သတိပေးချက်များ။ သင့်ခြုံငုံသုံးသပ်ချက်။\nအကောင့် မလို။ ကြော်ငြာ မရှိ။ ခြေရာခံခြင်း မရှိ။</string>
     <string name="welcome_understand">နားလည်ရန် – ယခု ဈေးနှုန်းနှင့်အတူ ဘာတွေ လှုပ်ရှားနေသလဲ</string>

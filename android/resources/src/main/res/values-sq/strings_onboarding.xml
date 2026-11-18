@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmo – çmim, përqindje, vëllim dhe lëvizje të pazakonta</string>
+    <string name="welcome_alert">Alarmo – çmim, përqindje, vëllim dhe lëvizje të pazakonta, kontrollohet rregullisht (jo drejtpërdrejt)</string>
     <string name="welcome_alert_q">Kur të njoftohem?</string>
     <string name="welcome_text">Çmimet e tua. Alarmet e tua. Pasqyra jote.\nPa llogari. Pa reklama. Pa gjurmim.</string>
     <string name="welcome_understand">Kupto – çfarë lëviz tani bashkë me një çmim</string>

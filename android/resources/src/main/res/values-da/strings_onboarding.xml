@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmér – kurs, procent, volumen og usædvanlige bevægelser</string>
+    <string name="welcome_alert">Alarmér – kurs, procent, volumen og usædvanlige bevægelser, tjekket jævnligt (ikke live)</string>
     <string name="welcome_alert_q">Hvornår vil jeg have besked?</string>
     <string name="welcome_text">Dine kurser. Dine alarmer. Dit overblik.\nIngen konto. Ingen reklamer. Ingen sporing.</string>
     <string name="welcome_understand">Forstå – hvad der bevæger sig med en kurs lige nu</string>

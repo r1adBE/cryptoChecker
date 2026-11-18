@@ -1074469,451 +1074469,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stel alarms – prys, persentasie, volume en ongewone bewegings"
+            "value" : "Stel alarms – prys, persentasie, volume en ongewone bewegings, gereeld nagegaan (nie regstreeks nie)"
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ማንቂያዎችን ያዘጋጁ – ዋጋ፣ መቶኛ፣ መጠን እና ያልተለመዱ እንቅስቃሴዎች"
+            "value" : "ማንቂያዎችን ያዘጋጁ – ዋጋ፣ መቶኛ፣ መጠን እና ያልተለመዱ እንቅስቃሴዎች፣ በየጊዜው ይፈተሻል (በቀጥታ አይደለም)"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية"
+            "value" : "نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية، تُفحص بانتظام (ليس مباشرًا)"
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm qur – qiymət, faiz, həcm və qeyri-adi hərəkətlər"
+            "value" : "Alarm qur – qiymət, faiz, həcm və qeyri-adi hərəkətlər, mütəmadi yoxlanılır (canlı deyil)"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Аларми – курс, процент, обем и необичайни движения"
+            "value" : "Аларми – курс, процент, обем и необичайни движения, проверявани редовно (не на живо)"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "অ্যালার্ট সেট করুন – দাম, শতাংশ, ভলিউম ও অস্বাভাবিক গতি"
+            "value" : "অ্যালার্ট সেট করুন – দাম, শতাংশ, ভলিউম ও অস্বাভাবিক গতি, নিয়মিত যাচাই করা হয় (লাইভ নয়)"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Postavi alarme – cijena, procenat, volumen i neobična kretanja"
+            "value" : "Postavi alarme – cijena, procenat, volumen i neobična kretanja, redovno provjereno (ne uživo)"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Configura alarmes – preu, percentatge, volum i moviments inusuals"
+            "value" : "Configura alarmes – preu, percentatge, volum i moviments inusuals, revisat regularment (no en directe)"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozornit – cena, procenta, objem a neobvyklé pohyby"
+            "value" : "Upozornit – cena, procenta, objem a neobvyklé pohyby, pravidelně kontrolováno (ne živě)"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmér – kurs, procent, volumen og usædvanlige bevægelser"
+            "value" : "Alarmér – kurs, procent, volumen og usædvanlige bevægelser, tjekket jævnligt (ikke live)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmieren – Kurs, Prozent, Volumen und ungewöhnliche Bewegungen"
+            "value" : "Alarmieren – Kurs, Prozent, Volumen und ungewöhnliche Bewegungen, regelmässig geprüft (nicht live)"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Συναγερμοί – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις"
+            "value" : "Συναγερμοί – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις, ελέγχονται τακτικά (όχι ζωντανά)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Set alerts – price, percent, volume and unusual moves"
+            "value" : "Set alerts – price, percent, volume and unusual moves, checked regularly (not live)"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar – precio, porcentaje, volumen y movimientos inusuales"
+            "value" : "Avisar – precio, porcentaje, volumen y movimientos inusuales, revisado con regularidad (no en directo)"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoiata – hind, protsent, maht ja ebatavalised liikumised"
+            "value" : "Hoiata – hind, protsent, maht ja ebatavalised liikumised, kontrollitakse regulaarselt (mitte reaalajas)"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ezarri alarmak – prezioa, ehunekoa, bolumena eta ezohiko mugimenduak"
+            "value" : "Ezarri alarmak – prezioa, ehunekoa, bolumena eta ezohiko mugimenduak, aldizka egiaztatuta (ez zuzenean)"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هشدار بگیر – قیمت، درصد، حجم و حرکت‌های غیرعادی"
+            "value" : "هشدار بگیر – قیمت، درصد، حجم و حرکت‌های غیرعادی، به‌طور منظم بررسی می‌شود (نه زنده)"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet"
+            "value" : "Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet, tarkistetaan säännöllisesti (ei reaaliajassa)"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Magtakda ng mga alerto – presyo, porsiyento, volume at kakaibang galaw"
+            "value" : "Magtakda ng mga alerto – presyo, porsiyento, volume at kakaibang galaw, regular na sinusuri (hindi live)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alerter – prix, pourcentage, volume et mouvements inhabituels"
+            "value" : "Alerter – prix, pourcentage, volume et mouvements inhabituels, vérifiés régulièrement (pas en direct)"
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Socraigh foláirimh – praghas, céatadán, toirt agus gluaiseachtaí neamhghnácha"
+            "value" : "Socraigh foláirimh – praghas, céatadán, toirt agus gluaiseachtaí neamhghnácha, seiceáilte go rialta (ní beo)"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Configura alarmas – prezo, porcentaxe, volume e movementos pouco habituais"
+            "value" : "Configura alarmas – prezo, porcentaxe, volume e movementos pouco habituais, revisado regularmente (non en directo)"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "એલર્ટ સેટ કરો – ભાવ, ટકા, વૉલ્યુમ અને અસામાન્ય હિલચાલ"
+            "value" : "એલર્ટ સેટ કરો – ભાવ, ટકા, વૉલ્યુમ અને અસામાન્ય હિલચાલ, નિયમિત તપાસાય છે (લાઇવ નહીં)"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "התראה – מחיר, אחוז, נפח ותנועות חריגות"
+            "value" : "התראה – מחיר, אחוז, נפח ותנועות חריגות, נבדק באופן קבוע (לא בזמן אמת)"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें"
+            "value" : "अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें, नियमित रूप से जाँचे जाते हैं (लाइव नहीं)"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Postavi alarme – cijena, postotak, volumen i neobična kretanja"
+            "value" : "Postavi alarme – cijena, postotak, volumen i neobična kretanja, redovito provjereno (ne uživo)"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Riasztás – ár, százalék, volumen és szokatlan mozgások"
+            "value" : "Riasztás – ár, százalék, volumen és szokatlan mozgások, rendszeresen ellenőrizve (nem élőben)"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ահազանգեր – գին, տոկոս, ծավալ և անսովոր շարժումներ"
+            "value" : "Ահազանգեր – գին, տոկոս, ծավալ և անսովոր շարժումներ, պարբերաբար ստուգվում է (ոչ ուղիղ)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Peringatkan – harga, persen, volume, dan pergerakan tak biasa"
+            "value" : "Peringatkan – harga, persen, volume, dan pergerakan tak biasa, diperiksa secara berkala (bukan langsung)"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stilltu viðvaranir – verð, prósent, velta og óvenjulegar hreyfingar"
+            "value" : "Stilltu viðvaranir – verð, prósent, velta og óvenjulegar hreyfingar, athugað reglulega (ekki í rauntíma)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvisa – prezzo, percentuale, volume e movimenti insoliti"
+            "value" : "Avvisa – prezzo, percentuale, volume e movimenti insoliti, controllati regolarmente (non in tempo reale)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "知らせる – 価格、パーセント、取引量、異常な動き"
+            "value" : "知らせる – 価格、パーセント、取引量、異常な動き、定期的に確認（リアルタイムではありません）"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "განგაში – ფასი, პროცენტი, მოცულობა და უჩვეულო მოძრაობები"
+            "value" : "განგაში – ფასი, პროცენტი, მოცულობა და უჩვეულო მოძრაობები, რეგულარულად მოწმდება (არა პირდაპირ)"
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ескерту орнатыңыз – баға, пайыз, көлем және әдеттен тыс қозғалыстар"
+            "value" : "Ескерту орнатыңыз – баға, пайыз, көлем және әдеттен тыс қозғалыстар, тұрақты тексеріледі (тікелей емес)"
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "កំណត់ការដាស់តឿន – តម្លៃ ភាគរយ បរិមាណ និងចលនាមិនធម្មតា"
+            "value" : "កំណត់ការដាស់តឿន – តម្លៃ ភាគរយ បរិមាណ និងចលនាមិនធម្មតា ពិនិត្យជាប្រចាំ (មិនផ្ទាល់)"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ – ಬೆಲೆ, ಶೇಕಡಾ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಚಲನೆಗಳು"
+            "value" : "ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ – ಬೆಲೆ, ಶೇಕಡಾ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಚಲನೆಗಳು, ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ (ಲೈವ್ ಅಲ್ಲ)"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "경보 – 가격, 퍼센트, 거래량, 이상 움직임"
+            "value" : "경보 – 가격, 퍼센트, 거래량, 이상 움직임, 정기적으로 확인합니다(실시간 아님)"
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ຕັ້ງສັນຍານເຕືອນ – ລາຄາ, ເປີເຊັນ, ປະລິມານ ແລະ ການເໜັງຕີງຜິດປົກກະຕິ"
+            "value" : "ຕັ້ງສັນຍານເຕືອນ – ລາຄາ, ເປີເຊັນ, ປະລິມານ ແລະ ການເໜັງຕີງຜິດປົກກະຕິ, ກວດເປັນປະຈຳ (ບໍ່ແມ່ນສົດ)"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Įspėjimai – apie kainą, procentus, apimtį ir neįprastus judėjimus"
+            "value" : "Įspėjimai – apie kainą, procentus, apimtį ir neįprastus judėjimus, reguliariai tikrinama (ne realiuoju laiku)"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Brīdini – par cenu, procentiem, apjomu un neparastām kustībām"
+            "value" : "Brīdini – par cenu, procentiem, apjomu un neparastām kustībām, regulāri pārbaudīts (ne reāllaikā)"
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Постави аларми – цена, процент, волумен и невообичаени движења"
+            "value" : "Постави аларми – цена, процент, волумен и невообичаени движења, редовно проверувано (не во живо)"
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "അലേർട്ടുകൾ സജ്ജമാക്കുക – വില, ശതമാനം, വോളിയം, അസാധാരണ നീക്കങ്ങൾ"
+            "value" : "അലേർട്ടുകൾ സജ്ജമാക്കുക – വില, ശതമാനം, വോളിയം, അസാധാരണ നീക്കങ്ങൾ, പതിവായി പരിശോധിക്കുന്നു (തത്സമയം അല്ല)"
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дохио тохируулах – ханш, хувь, арилжааны хэмжээ болон ер бусын хөдөлгөөн"
+            "value" : "Дохио тохируулах – ханш, хувь, арилжааны хэмжээ болон ер бусын хөдөлгөөн, тогтмол шалгана (шууд биш)"
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलर्ट सेट करा – किंमत, टक्के, व्हॉल्यूम आणि असामान्य हालचाली"
+            "value" : "अलर्ट सेट करा – किंमत, टक्के, व्हॉल्यूम आणि असामान्य हालचाली, नियमितपणे तपासले जाते (लाइव्ह नाही)"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tetapkan amaran – harga, peratus, volum dan pergerakan luar biasa"
+            "value" : "Tetapkan amaran – harga, peratus, volum dan pergerakan luar biasa, disemak secara berkala (bukan langsung)"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သတိပေးချက်များ သတ်မှတ်ပါ – ဈေးနှုန်း၊ ရာခိုင်နှုန်း၊ ပမာဏနှင့် ထူးခြားသော လှုပ်ရှားမှုများ"
+            "value" : "သတိပေးချက်များ သတ်မှတ်ပါ – ဈေးနှုန်း၊ ရာခိုင်နှုန်း၊ ပမာဏနှင့် ထူးခြားသော လှုပ်ရှားမှုများ၊ ပုံမှန်စစ်ဆေးသည် (တိုက်ရိုက်မဟုတ်)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Varsle – kurs, prosent, volum og uvanlige bevegelser"
+            "value" : "Varsle – kurs, prosent, volum og uvanlige bevegelser, sjekket jevnlig (ikke direkte)"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलर्ट सेट गर्नुहोस् – मूल्य, प्रतिशत, भोल्युम र असामान्य उतारचढाव"
+            "value" : "अलर्ट सेट गर्नुहोस् – मूल्य, प्रतिशत, भोल्युम र असामान्य उतारचढाव, नियमित रूपमा जाँचिन्छ (लाइभ होइन)"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmeren – koers, procent, volume en ongewone bewegingen"
+            "value" : "Alarmeren – koers, procent, volume en ongewone bewegingen, regelmatig gecontroleerd (niet live)"
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਅਲਰਟ ਲਗਾਓ – ਕੀਮਤ, ਪ੍ਰਤੀਸ਼ਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਾਧਾਰਨ ਹਲਚਲ"
+            "value" : "ਅਲਰਟ ਲਗਾਓ – ਕੀਮਤ, ਪ੍ਰਤੀਸ਼ਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਾਧਾਰਨ ਹਲਚਲ, ਨਿਯਮਿਤ ਜਾਂਚ (ਲਾਈਵ ਨਹੀਂ)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmuj – cena, procent, wolumen i nietypowe ruchy"
+            "value" : "Alarmuj – cena, procent, wolumen i nietypowe ruchy, sprawdzane regularnie (nie na żywo)"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alertar – preço, percentagem, volume e movimentos invulgares"
+            "value" : "Alertar – preço, percentagem, volume e movimentos invulgares, verificados regularmente (não em direto)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alertar – preço, porcentagem, volume e movimentos incomuns"
+            "value" : "Alertar – preço, porcentagem, volume e movimentos incomuns, verificados regularmente (não ao vivo)"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alertează – preț, procent, volum și mișcări neobișnuite"
+            "value" : "Alertează – preț, procent, volum și mișcări neobișnuite, verificate regulat (nu în timp real)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Оповещать – цена, процент, объём и необычные движения"
+            "value" : "Оповещать – цена, процент, объём и необычные движения, проверяется регулярно (не в реальном времени)"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ඇඟවීම් සකසන්න – මිල, ප්‍රතිශතය, පරිමාව සහ අසාමාන්‍ය චලනයන්"
+            "value" : "ඇඟවීම් සකසන්න – මිල, ප්‍රතිශතය, පරිමාව සහ අසාමාන්‍ය චලනයන්, නිතිපතා පරීක්ෂා කෙරේ (සජීවී නොවේ)"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmy – kurz, percentá, objem a nezvyčajné pohyby"
+            "value" : "Alarmy – kurz, percentá, objem a nezvyčajné pohyby, pravidelne kontrolované (nie naživo)"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmi – tečaj, odstotek, volumen in nenavadna gibanja"
+            "value" : "Alarmi – tečaj, odstotek, volumen in nenavadna gibanja, redno preverjeno (ne v živo)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmo – çmim, përqindje, vëllim dhe lëvizje të pazakonta"
+            "value" : "Alarmo – çmim, përqindje, vëllim dhe lëvizje të pazakonta, kontrollohet rregullisht (jo drejtpërdrejt)"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Постави аларме – цена, проценат, волумен и необична кретања"
+            "value" : "Постави аларме – цена, проценат, волумен и необична кретања, редовно проверено (не уживо)"
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Postavi alarme – cena, procenat, volumen i neobična kretanja"
+            "value" : "Postavi alarme – cena, procenat, volumen i neobična kretanja, redovno provereno (ne uživo)"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Larma – kurs, procent, volym och ovanliga rörelser"
+            "value" : "Larma – kurs, procent, volym och ovanliga rörelser, kontrolleras regelbundet (inte live)"
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Weka kengele – bei, asilimia, kiasi cha biashara na mienendo isiyo ya kawaida"
+            "value" : "Weka kengele – bei, asilimia, kiasi cha biashara na mienendo isiyo ya kawaida, hukaguliwa mara kwa mara (si mubashara)"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டல்களை அமைக்கவும் – விலை, சதவீதம், வால்யூம் மற்றும் அசாதாரண நகர்வுகள்"
+            "value" : "விழிப்பூட்டல்களை அமைக்கவும் – விலை, சதவீதம், வால்யூம் மற்றும் அசாதாரண நகர்வுகள், தொடர்ந்து சரிபார்க்கப்படும் (நேரலை அல்ல)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌లను సెట్ చేయండి – ధర, శాతం, వాల్యూమ్, అసాధారణ కదలికలు"
+            "value" : "అలర్ట్‌లను సెట్ చేయండి – ధర, శాతం, వాల్యూమ్, అసాధారణ కదలికలు, క్రమం తప్పకుండా తనిఖీ (లైవ్ కాదు)"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ"
+            "value" : "เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ ตรวจสอบเป็นประจำ (ไม่ใช่แบบเรียลไทม์)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm – fiyat, yüzde, hacim ve olağandışı hareketler"
+            "value" : "Alarm – fiyat, yüzde, hacim ve olağandışı hareketler, düzenli kontrol edilir (canlı değil)"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи"
+            "value" : "Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи, перевіряється регулярно (не в реальному часі)"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الرٹس لگائیں – قیمت، فیصد، والیوم اور غیر معمولی حرکتیں"
+            "value" : "الرٹس لگائیں – قیمت، فیصد، والیوم اور غیر معمولی حرکتیں، باقاعدگی سے جانچا جاتا ہے (لائیو نہیں)"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Signal qoʻying – narx, foiz, hajm va gʻayrioddiy harakatlar"
+            "value" : "Signal qoʻying – narx, foiz, hajm va gʻayrioddiy harakatlar, muntazam tekshiriladi (jonli emas)"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường"
+            "value" : "Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường, kiểm tra định kỳ (không trực tiếp)"
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "設定提示 – 價格、百分比、成交量同異常波動"
+            "value" : "設定提示 – 價格、百分比、成交量同異常波動，定期檢查（唔係即時）"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "提醒——价格、百分比、成交量和异常波动"
+            "value" : "提醒——价格、百分比、成交量和异常波动，定期检查（非实时）"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "提醒——價格、百分比、成交量和異常波動"
+            "value" : "提醒——價格、百分比、成交量和異常波動，定期檢查（非即時）"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setha ama-alamu – intengo, iphesenti, ivolumu nokunyakaza okungajwayelekile"
+            "value" : "Setha ama-alamu – intengo, iphesenti, ivolumu nokunyakaza okungajwayelekile, kuhlolwa njalo (hhayi bukhoma)"
           }
         }
       }

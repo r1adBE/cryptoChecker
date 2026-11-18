@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">الرٹس لگائیں – قیمت، فیصد، والیوم اور غیر معمولی حرکتیں</string>
+    <string name="welcome_alert">الرٹس لگائیں – قیمت، فیصد، والیوم اور غیر معمولی حرکتیں، باقاعدگی سے جانچا جاتا ہے (لائیو نہیں)</string>
     <string name="welcome_alert_q">کب اطلاع دی جائے؟</string>
     <string name="welcome_text">آپ کی قیمتیں۔ آپ کے الرٹس۔ آپ کا جائزہ۔\nکوئی اکاؤنٹ نہیں۔ کوئی اشتہار نہیں۔ کوئی ٹریکنگ نہیں۔</string>
     <string name="welcome_understand">سمجھیں – اس وقت کسی قیمت کے ساتھ اور کیا حرکت کر رہا ہے</string>

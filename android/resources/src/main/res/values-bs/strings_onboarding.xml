@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Postavi alarme – cijena, procenat, volumen i neobična kretanja</string>
+    <string name="welcome_alert">Postavi alarme – cijena, procenat, volumen i neobična kretanja, redovno provjereno (ne uživo)</string>
     <string name="welcome_alert_q">Kada upozoriti?</string>
     <string name="welcome_text">Tvoje cijene. Tvoji alarmi. Tvoj pregled.\nBez računa. Bez oglasa. Bez praćenja.</string>
     <string name="welcome_understand">Razumij – šta se upravo kreće zajedno s cijenom</string>

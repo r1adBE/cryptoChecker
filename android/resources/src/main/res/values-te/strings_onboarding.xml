@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">అలర్ట్‌లను సెట్ చేయండి – ధర, శాతం, వాల్యూమ్, అసాధారణ కదలికలు</string>
+    <string name="welcome_alert">అలర్ట్‌లను సెట్ చేయండి – ధర, శాతం, వాల్యూమ్, అసాధారణ కదలికలు, క్రమం తప్పకుండా తనిఖీ (లైవ్ కాదు)</string>
     <string name="welcome_alert_q">ఎప్పుడు అలర్ట్ చేయాలి?</string>
     <string name="welcome_text">మీ ధరలు. మీ అలర్ట్‌లు. మీ అవలోకనం.\nఖాతా అవసరం లేదు. ప్రకటనలు లేవు. ట్రాకింగ్ లేదు.</string>
     <string name="welcome_understand">అర్థం చేసుకోండి – ప్రస్తుతం ఒక ధరతో పాటు ఏది కదులుతోంది</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Weka kengele – bei, asilimia, kiasi cha biashara na mienendo isiyo ya kawaida</string>
+    <string name="welcome_alert">Weka kengele – bei, asilimia, kiasi cha biashara na mienendo isiyo ya kawaida, hukaguliwa mara kwa mara (si mubashara)</string>
     <string name="welcome_alert_q">Kengele ilie lini?</string>
     <string name="welcome_text">Bei zako. Kengele zako. Muhtasari wako.\nHakuna akaunti. Hakuna matangazo. Hakuna kufuatiliwa.</string>
     <string name="welcome_understand">Elewa – kinachosonga pamoja na bei sasa hivi</string>

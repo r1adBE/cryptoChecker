@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Tetapkan amaran – harga, peratus, volum dan pergerakan luar biasa</string>
+    <string name="welcome_alert">Tetapkan amaran – harga, peratus, volum dan pergerakan luar biasa, disemak secara berkala (bukan langsung)</string>
     <string name="welcome_alert_q">Bila perlu diberitahu?</string>
     <string name="welcome_text">Harga anda. Amaran anda. Gambaran anda.\nTanpa akaun. Tanpa iklan. Tanpa penjejakan.</string>
     <string name="welcome_understand">Fahami – apa yang sedang bergerak bersama sesuatu harga</string>

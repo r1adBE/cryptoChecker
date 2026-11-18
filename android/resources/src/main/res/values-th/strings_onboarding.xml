@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ</string>
+    <string name="welcome_alert">เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ ตรวจสอบเป็นประจำ (ไม่ใช่แบบเรียลไทม์)</string>
     <string name="welcome_alert_q">ควรแจ้งเมื่อไร?</string>
     <string name="welcome_text">ราคาของคุณ สัญญาณเตือนของคุณ ภาพรวมของคุณ\nไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม</string>
     <string name="welcome_understand">เข้าใจ – อะไรเคลื่อนไหวไปพร้อมกับราคาตอนนี้</string>

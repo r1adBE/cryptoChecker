@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">提醒——價格、百分比、成交量和異常波動</string>
+    <string name="welcome_alert">提醒——價格、百分比、成交量和異常波動，定期檢查（非即時）</string>
     <string name="welcome_alert_q">何時提醒？</string>
     <string name="welcome_text">您的行情。您的提醒。您的總覽。\n無需帳戶。沒有廣告。不做追蹤。</string>
     <string name="welcome_understand">理解——此刻有什麼在隨某個價格一起波動</string>

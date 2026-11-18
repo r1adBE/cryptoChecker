@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alerter – prix, pourcentage, volume et mouvements inhabituels</string>
+    <string name="welcome_alert">Alerter – prix, pourcentage, volume et mouvements inhabituels, vérifiés régulièrement (pas en direct)</string>
     <string name="welcome_alert_q">Quand alerter ?</string>
     <string name="welcome_text">Tes cours. Tes alertes. Ton aperçu.\nSans compte. Sans pub. Sans pistage.</string>
     <string name="welcome_understand">Comprendre – ce qui bouge avec un cours en ce moment</string>

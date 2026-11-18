@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">התראה – מחיר, אחוז, נפח ותנועות חריגות</string>
+    <string name="welcome_alert">התראה – מחיר, אחוז, נפח ותנועות חריגות, נבדק באופן קבוע (לא בזמן אמת)</string>
     <string name="welcome_alert_q">מתי לקבל התראה?</string>
     <string name="welcome_text">המחירים שלך. ההתראות שלך. הסקירה שלך.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
     <string name="welcome_understand">הבנה – מה זז יחד עם מחיר עכשיו</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">경보 – 가격, 퍼센트, 거래량, 이상 움직임</string>
+    <string name="welcome_alert">경보 – 가격, 퍼센트, 거래량, 이상 움직임, 정기적으로 확인합니다(실시간 아님)</string>
     <string name="welcome_alert_q">언제 알릴까요?</string>
     <string name="welcome_text">내 시세. 내 경보. 내 개요.\n계정 없음. 광고 없음. 추적 없음.</string>
     <string name="welcome_understand">이해하기 – 지금 시세와 함께 무엇이 움직이는지</string>

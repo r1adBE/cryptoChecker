@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">એલર્ટ સેટ કરો – ભાવ, ટકા, વૉલ્યુમ અને અસામાન્ય હિલચાલ</string>
+    <string name="welcome_alert">એલર્ટ સેટ કરો – ભાવ, ટકા, વૉલ્યુમ અને અસામાન્ય હિલચાલ, નિયમિત તપાસાય છે (લાઇવ નહીં)</string>
     <string name="welcome_alert_q">ક્યારે જાણ કરવી?</string>
     <string name="welcome_text">તમારા ભાવ. તમારા એલર્ટ. તમારી ઝાંખી.\nકોઈ એકાઉન્ટ નહીં. કોઈ જાહેરાત નહીં. કોઈ ટ્રૅકિંગ નહીં.</string>
     <string name="welcome_understand">સમજો – અત્યારે કોઈ ભાવની સાથે શું હલી રહ્યું છે</string>

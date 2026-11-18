@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">ਅਲਰਟ ਲਗਾਓ – ਕੀਮਤ, ਪ੍ਰਤੀਸ਼ਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਾਧਾਰਨ ਹਲਚਲ</string>
+    <string name="welcome_alert">ਅਲਰਟ ਲਗਾਓ – ਕੀਮਤ, ਪ੍ਰਤੀਸ਼ਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਾਧਾਰਨ ਹਲਚਲ, ਨਿਯਮਿਤ ਜਾਂਚ (ਲਾਈਵ ਨਹੀਂ)</string>
     <string name="welcome_alert_q">ਕਦੋਂ ਸੂਚਿਤ ਕਰੀਏ?</string>
     <string name="welcome_text">ਤੁਹਾਡੀਆਂ ਕੀਮਤਾਂ। ਤੁਹਾਡੇ ਅਲਰਟ। ਤੁਹਾਡਾ ਸੰਖੇਪ।\nਕੋਈ ਖਾਤਾ ਨਹੀਂ। ਕੋਈ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ। ਕੋਈ ਟਰੈਕਿੰਗ ਨਹੀਂ।</string>
     <string name="welcome_understand">ਸਮਝੋ – ਇਸ ਵੇਲੇ ਕਿਸੇ ਕੀਮਤ ਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>

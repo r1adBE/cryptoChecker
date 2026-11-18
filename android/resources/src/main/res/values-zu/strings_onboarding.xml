@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Setha ama-alamu – intengo, iphesenti, ivolumu nokunyakaza okungajwayelekile</string>
+    <string name="welcome_alert">Setha ama-alamu – intengo, iphesenti, ivolumu nokunyakaza okungajwayelekile, kuhlolwa njalo (hhayi bukhoma)</string>
     <string name="welcome_alert_q">Ikhale nini?</string>
     <string name="welcome_text">Izintengo zakho. Ama-alamu akho. Ukubuka kwakho konke.\nAyikho i-akhawunti. Azikho izikhangiso. Akukho ukulandelelwa.</string>
     <string name="welcome_understand">Qonda – okunyakazayo kanye nentengo njengamanje</string>

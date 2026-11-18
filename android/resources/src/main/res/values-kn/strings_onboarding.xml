@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ – ಬೆಲೆ, ಶೇಕಡಾ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಚಲನೆಗಳು</string>
+    <string name="welcome_alert">ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ – ಬೆಲೆ, ಶೇಕಡಾ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಚಲನೆಗಳು, ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ (ಲೈವ್ ಅಲ್ಲ)</string>
     <string name="welcome_alert_q">ಯಾವಾಗ ಅಲರ್ಟ್ ಮಾಡಬೇಕು?</string>
     <string name="welcome_text">ನಿಮ್ಮ ಬೆಲೆಗಳು. ನಿಮ್ಮ ಅಲರ್ಟ್‌ಗಳು. ನಿಮ್ಮ ಅವಲೋಕನ.\nಖಾತೆ ಇಲ್ಲ. ಜಾಹೀರಾತುಗಳಿಲ್ಲ. ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ.</string>
     <string name="welcome_understand">ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ – ಸದ್ಯ ಒಂದು ಬೆಲೆಯ ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ</string>

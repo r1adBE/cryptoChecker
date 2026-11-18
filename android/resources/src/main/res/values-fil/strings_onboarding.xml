@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Magtakda ng mga alerto – presyo, porsiyento, volume at kakaibang galaw</string>
+    <string name="welcome_alert">Magtakda ng mga alerto – presyo, porsiyento, volume at kakaibang galaw, regular na sinusuri (hindi live)</string>
     <string name="welcome_alert_q">Kailan mag-aalerto?</string>
     <string name="welcome_text">Ang mga presyo mo. Ang mga alerto mo. Ang overview mo.\nWalang account. Walang ad. Walang tracking.</string>
     <string name="welcome_understand">Unawain – kung ano ang gumagalaw kasabay ng isang presyo ngayon</string>

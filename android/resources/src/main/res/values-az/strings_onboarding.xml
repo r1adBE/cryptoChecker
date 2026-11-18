@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarm qur – qiymət, faiz, həcm və qeyri-adi hərəkətlər</string>
+    <string name="welcome_alert">Alarm qur – qiymət, faiz, həcm və qeyri-adi hərəkətlər, mütəmadi yoxlanılır (canlı deyil)</string>
     <string name="welcome_alert_q">Nə vaxt xəbər verilsin?</string>
     <string name="welcome_text">Sənin qiymətlərin. Sənin alarmların. Sənin icmalın.\nHesab yoxdur. Reklam yoxdur. İzləmə yoxdur.</string>
     <string name="welcome_understand">Anla – hazırda qiymətlə birlikdə nə hərəkət edir</string>

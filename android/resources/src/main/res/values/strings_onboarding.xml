@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Set alerts – price, percent, volume and unusual moves</string>
+    <string name="welcome_alert">Set alerts – price, percent, volume and unusual moves, checked regularly (not live)</string>
     <string name="welcome_alert_q">When to alert?</string>
     <string name="welcome_text">Your prices. Your alerts. Your overview.\nNo account. No ads. No tracking.</string>
     <string name="welcome_understand">Understand – what is moving along with a price right now</string>

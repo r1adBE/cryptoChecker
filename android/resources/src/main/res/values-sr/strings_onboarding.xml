@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Постави аларме – цена, проценат, волумен и необична кретања</string>
+    <string name="welcome_alert">Постави аларме – цена, проценат, волумен и необична кретања, редовно проверено (не уживо)</string>
     <string name="welcome_alert_q">Када упозорити?</string>
     <string name="welcome_text">Твоје цене. Твоји аларми. Твој преглед.\nБез налога. Без огласа. Без праћења.</string>
     <string name="welcome_understand">Разуми – шта се управо креће заједно с ценом</string>

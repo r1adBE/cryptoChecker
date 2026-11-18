@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">ማንቂያዎችን ያዘጋጁ – ዋጋ፣ መቶኛ፣ መጠን እና ያልተለመዱ እንቅስቃሴዎች</string>
+    <string name="welcome_alert">ማንቂያዎችን ያዘጋጁ – ዋጋ፣ መቶኛ፣ መጠን እና ያልተለመዱ እንቅስቃሴዎች፣ በየጊዜው ይፈተሻል (በቀጥታ አይደለም)</string>
     <string name="welcome_alert_q">መቼ ይንቃ?</string>
     <string name="welcome_text">የእርስዎ ዋጋዎች። የእርስዎ ማንቂያዎች። የእርስዎ አጠቃላይ እይታ።\nመለያ የለም። ማስታወቂያ የለም። ክትትል የለም።</string>
     <string name="welcome_understand">ይረዱ – አሁን ከአንድ ዋጋ ጋር አብሮ ምን እየተንቀሳቀሰ እንደሆነ</string>

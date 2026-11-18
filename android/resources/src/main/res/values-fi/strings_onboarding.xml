@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet</string>
+    <string name="welcome_alert">Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet, tarkistetaan säännöllisesti (ei reaaliajassa)</string>
     <string name="welcome_alert_q">Milloin ilmoittaa?</string>
     <string name="welcome_text">Sinun hintasi. Sinun hälytyksesi. Sinun yleiskuvasi.\nEi tiliä. Ei mainoksia. Ei seurantaa.</string>
     <string name="welcome_understand">Ymmärrä – mikä liikkuu hinnan mukana juuri nyt</string>

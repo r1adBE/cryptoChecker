@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmi – tečaj, odstotek, volumen in nenavadna gibanja</string>
+    <string name="welcome_alert">Alarmi – tečaj, odstotek, volumen in nenavadna gibanja, redno preverjeno (ne v živo)</string>
     <string name="welcome_alert_q">Kdaj opozoriti?</string>
     <string name="welcome_text">Tvoji tečaji. Tvoji alarmi. Tvoj pregled.\nBrez računa. Brez oglasov. Brez sledenja.</string>
     <string name="welcome_understand">Razumi – kaj se trenutno giblje skupaj s tečajem</string>

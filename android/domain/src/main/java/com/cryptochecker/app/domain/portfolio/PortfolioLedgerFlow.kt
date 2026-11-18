@@ -10,7 +10,7 @@ import java.math.BigDecimal
  * ([BigDecimal]: Menge × Kurs, Gebühren, Anteil) und erst das Ergebnis als Double zurückgegeben — Börsenkurse kommen
  * als Double und gehen über ihre kürzeste Darstellung ein. [method] = Einstandsmethode des Buchs
  * ([PortfolioHoldingsBook.method]): bestimmt den gedeckten Anteil eines Verkaufs/Tauschs über den Bestand hinaus
- * ([coveredFraction]).
+ * ([coveredShare]).
  */
 fun PortfolioLedger.flow(
     e: PortfolioLedgerEvent,
@@ -61,12 +61,12 @@ fun PortfolioLedger.flowExact(
         PortfolioTxType.SELL, PortfolioTxType.PAYMENT -> {
             if (price == null) return null
             // Nichts mehr da: der Verkauf zählt nicht, auch nicht seine Gebühr — wie «realisiert»
-            val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
+            val share = coveredShare(t, h, method) ?: return BigDecimal.ZERO
             partOf(t.amount.multiply(price, PortfolioDecimal.MC) - t.quoteFee - feeValue, share).negate()
         }
         // Verschenkt: wie eine Auszahlung (Wert verlässt das Portfolio zum Marktwert)
         PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
-            val share = withdrawnFraction(t, h) ?: return BigDecimal.ZERO
+            val share = withdrawnShare(t, h) ?: return BigDecimal.ZERO
             if (price == null) return null
             // Wert und Gebühren zum gedeckten Anteil wie beim Verkauf (ungedeckter Rest: nichts abgegeben)
             partOf(t.amount.multiply(price, PortfolioDecimal.MC) - t.quoteFee - feeValue, share).negate()
@@ -74,7 +74,7 @@ fun PortfolioLedger.flowExact(
         PortfolioTxType.TRANSFER -> t.quoteFee + feeValue
         PortfolioTxType.SWAP -> {
             // Abgegebener Coin wie ein Verkauf: zum Wert des Tauschs, sonst zum Marktkurs; gedeckter Anteil wie dort
-            val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
+            val share = coveredShare(t, h, method) ?: return BigDecimal.ZERO
             // Zugang kaputt (kein gültiger erhaltener Coin): unbekannt statt still verloren
             if (t.swapToCoin == null) return null
             val gross = t.swapValue ?: market?.let { t.amount.multiply(it, PortfolioDecimal.MC) } ?: return null

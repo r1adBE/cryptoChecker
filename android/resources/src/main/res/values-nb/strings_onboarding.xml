@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Varsle – kurs, prosent, volum og uvanlige bevegelser</string>
+    <string name="welcome_alert">Varsle – kurs, prosent, volum og uvanlige bevegelser, sjekket jevnlig (ikke direkte)</string>
     <string name="welcome_alert_q">Når vil jeg ha beskjed?</string>
     <string name="welcome_text">Dine kurser. Dine alarmer. Din oversikt.\nIngen konto. Ingen reklame. Ingen sporing.</string>
     <string name="welcome_understand">Forstå – hva som beveger seg med en kurs akkurat nå</string>

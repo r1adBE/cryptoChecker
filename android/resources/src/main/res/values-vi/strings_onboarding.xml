@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường</string>
+    <string name="welcome_alert">Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường, kiểm tra định kỳ (không trực tiếp)</string>
     <string name="welcome_alert_q">Khi nào cần báo?</string>
     <string name="welcome_text">Giá của bạn. Cảnh báo của bạn. Tổng quan của bạn.\nKhông tài khoản. Không quảng cáo. Không theo dõi.</string>
     <string name="welcome_understand">Hiểu – điều gì đang biến động cùng một mức giá</string>

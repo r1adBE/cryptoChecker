@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alertează – preț, procent, volum și mișcări neobișnuite</string>
+    <string name="welcome_alert">Alertează – preț, procent, volum și mișcări neobișnuite, verificate regulat (nu în timp real)</string>
     <string name="welcome_alert_q">Când să fiu anunțat?</string>
     <string name="welcome_text">Prețurile tale. Alarmele tale. Privirea ta de ansamblu.\nFără cont. Fără reclame. Fără urmărire.</string>
     <string name="welcome_understand">Înțelege – ce se mișcă acum odată cu un preț</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Larma – kurs, procent, volym och ovanliga rörelser</string>
+    <string name="welcome_alert">Larma – kurs, procent, volym och ovanliga rörelser, kontrolleras regelbundet (inte live)</string>
     <string name="welcome_alert_q">När ska jag få besked?</string>
     <string name="welcome_text">Dina kurser. Dina larm. Din översikt.\nInget konto. Ingen reklam. Ingen spårning.</string>
     <string name="welcome_understand">Förstå – vad som rör sig med en kurs just nu</string>

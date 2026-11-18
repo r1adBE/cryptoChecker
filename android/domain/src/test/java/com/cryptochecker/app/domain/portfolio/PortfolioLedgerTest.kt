@@ -462,4 +462,19 @@ class PortfolioLedgerTest {
         val holdings = PortfolioLedger.events("BTC", trades).fold(BigDecimal.ZERO) { h, e -> PortfolioLedger.holdingsAfter(h, e) }
         assertEquals(0, dec("0.74").compareTo(holdings))
     }
+
+    @Test
+    fun `covered and withdrawn shares stay exact decimals`() {
+        // Verkauf von 3 bei Bestand 1: Anteil 1/3 mit 34 Stellen, nicht die 16 Stellen eines Double
+        val sell = trade(1, "BTC", PortfolioTxType.SELL, "3", "10", 1)
+        val share = PortfolioLedger.coveredShare(sell, dec("1"), CostMethod.FIFO)!!
+        assertEquals(34, share.precision())
+        assertEquals(0, dec("1").compareTo(PortfolioLedger.coveredShare(sell, dec("5"), CostMethod.FIFO)))
+        assertNull(PortfolioLedger.coveredShare(sell, BigDecimal.ZERO, CostMethod.FIFO))
+        // Anteil mit mehr als 16 gültigen Stellen, der in Dezimal aufgeht: Wert × Anteil bleibt exakt (,xx5 kippt nicht)
+        val withdrawal = trade(2, "BTC", PortfolioTxType.WITHDRAWAL, "1.000000000000000001", null, 2)
+        val part = PortfolioLedger.withdrawnShare(withdrawal, dec("0.5000000000000000005"))!!
+        assertEquals(0, dec("0.5").compareTo(part))
+        assertEquals(0, dec("10.045").compareTo(PortfolioLedger.partOf(dec("20.09"), part)))
+    }
 }

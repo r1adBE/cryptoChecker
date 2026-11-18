@@ -6,8 +6,8 @@ package com.cryptochecker.app.data.backup
  * [BackupCrypto]). Geprüft mit dem Prüfwert aus RFC 9106 Abschnitt 5.3 (`Argon2idTest`).
  *
  * Die Bahnen (p) werden nacheinander gefüllt: Innerhalb eines Abschnitts greift keine Bahn auf den laufenden
- * Abschnitt einer anderen zu, das Ergebnis ist also dasselbe wie parallel. Speicher: m KiB als [LongArray]
- * (64 MiB bei m = 65 536) — reicht er nicht, folgt [OutOfMemoryError]; [BackupCrypto] meldet das klar.
+ * Abschnitt einer anderen zu, das Ergebnis ist also dasselbe wie parallel. Speicher: m KiB ausserhalb des Java-Heaps
+ * ([Argon2Memory], 64 MiB bei m = 65 536) — reicht er nicht, folgt [OutOfMemoryError]; [BackupCrypto] meldet das klar.
  * Rechenzeit: einige 100 ms bis wenige Sekunden — nur im Hintergrund aufrufen.
  */
 object Argon2id {
@@ -56,7 +56,7 @@ object Argon2id {
         val segmentLength = memoryKiB / (SYNC_POINTS * parallelism)
         val laneLength = segmentLength * SYNC_POINTS
         val blockCount = laneLength * parallelism
-        val memory = LongArray(blockCount * BLOCK_WORDS)
+        val memory = Argon2Memory.allocate(blockCount)
         try {
             // Erste zwei Blöcke jeder Bahn aus H0
             val seed = ByteArray(h0.size + 8)
@@ -66,8 +66,9 @@ object Argon2id {
                     putIntLe(seed, h0.size, column)
                     putIntLe(seed, h0.size + 4, lane)
                     val block = hashLong(seed, BLOCK_WORDS * 8)
-                    val offset = (lane * laneLength + column) * BLOCK_WORDS
-                    for (w in 0 until BLOCK_WORDS) memory[offset + w] = getLongLe(block, w * 8)
+                    val words = LongArray(BLOCK_WORDS) { getLongLe(block, it * 8) }
+                    memory.write(lane * laneLength + column, words)
+                    words.fill(0)
                     block.fill(0)
                 }
             }
@@ -87,23 +88,25 @@ object Argon2id {
 
             // Letzte Blöcke aller Bahnen XOR → Tag
             val last = LongArray(BLOCK_WORDS)
+            val laneLast = LongArray(BLOCK_WORDS)
             for (lane in 0 until parallelism) {
-                val offset = (lane * laneLength + laneLength - 1) * BLOCK_WORDS
-                for (w in 0 until BLOCK_WORDS) last[w] = last[w] xor memory[offset + w]
+                memory.read(lane * laneLength + laneLength - 1, laneLast)
+                for (w in 0 until BLOCK_WORDS) last[w] = last[w] xor laneLast[w]
             }
+            laneLast.fill(0)
             val lastBytes = ByteArray(BLOCK_WORDS * 8)
             for (w in 0 until BLOCK_WORDS) putLongLe(lastBytes, w * 8, last[w])
             last.fill(0)
             return hashLong(lastBytes, tagLength).also { lastBytes.fill(0) }
         } finally {
-            memory.fill(0)
+            memory.close()
             h0.fill(0)
         }
     }
 
     /** Füllt die Abschnitte (RFC 9106, 3.4); hält die Hilfsblöcke, damit je Block nichts neu angelegt wird. */
     private class Filler(
-        private val memory: LongArray,
+        private val memory: Argon2Memory,
         private val laneLength: Int,
         private val segmentLength: Int,
         private val lanes: Int,
@@ -116,12 +119,20 @@ object Argon2id {
         private val input = LongArray(BLOCK_WORDS)
         private val address = LongArray(BLOCK_WORDS)
 
+        // Vorgänger-, Bezugs- und Zielblock: aus [memory] am Stück geholt, gerechnet wird nur in Arrays
+        private val prevBlock = LongArray(BLOCK_WORDS)
+        private val refBlock = LongArray(BLOCK_WORDS)
+        private val nextBlock = LongArray(BLOCK_WORDS)
+
         /** Arbeitsblöcke mit Nullen überschreiben (nach dem Füllen, auch bei einem Fehler). */
         fun wipe() {
             r.fill(0)
             tmp.fill(0)
             input.fill(0)
             address.fill(0)
+            prevBlock.fill(0)
+            refBlock.fill(0)
+            nextBlock.fill(0)
         }
 
         fun fillSegment(pass: Int, slice: Int, lane: Int) {
@@ -149,7 +160,7 @@ object Argon2id {
                     if (index % ADDRESSES_IN_BLOCK == 0) nextAddresses()
                     address[index % ADDRESSES_IN_BLOCK]
                 } else {
-                    memory[previous * BLOCK_WORDS]
+                    memory.firstWord(previous)
                 }
                 val refLane = if (pass == 0 && slice == 0) lane else ((pseudoRandom ushr 32) % lanes).toInt()
                 val refIndex = referenceIndex(pass, slice, index, pseudoRandom and 0xFFFFFFFFL, refLane == lane)
@@ -189,11 +200,12 @@ object Argon2id {
         }
 
         private fun fillBlock(prev: Int, ref: Int, next: Int, withXor: Boolean) {
-            compress(memory, prev * BLOCK_WORDS, memory, ref * BLOCK_WORDS, memory, next * BLOCK_WORDS, withXor)
+            memory.read(prev, prevBlock)
+            memory.read(ref, refBlock)
+            if (withXor) memory.read(next, nextBlock)
+            compress(prevBlock, 0, refBlock, 0, nextBlock, withXor)
+            memory.write(next, nextBlock)
         }
-
-        private fun compress(x: LongArray, xo: Int, y: LongArray, yo: Int, out: LongArray, withXor: Boolean) =
-            compress(x, xo, y, yo, out, 0, withXor)
 
         /** G(X, Y) (RFC 9106, 3.5); mit [withXor] wird der alte Inhalt von [out] zusätzlich eingerechnet (ab Durchgang 2). */
         private fun compress(
@@ -202,13 +214,12 @@ object Argon2id {
             y: LongArray,
             yo: Int,
             out: LongArray,
-            oo: Int,
             withXor: Boolean,
         ) {
             for (i in 0 until BLOCK_WORDS) {
                 val v = x[xo + i] xor y[yo + i]
                 r[i] = v
-                tmp[i] = if (withXor) v xor out[oo + i] else v
+                tmp[i] = if (withXor) v xor out[i] else v
             }
             // Zeilen: 8 × 16 Wörter
             for (i in 0 until 8) {
@@ -226,7 +237,7 @@ object Argon2id {
                     b + 64, b + 65, b + 80, b + 81, b + 96, b + 97, b + 112, b + 113
                 )
             }
-            for (i in 0 until BLOCK_WORDS) out[oo + i] = tmp[i] xor r[i]
+            for (i in 0 until BLOCK_WORDS) out[i] = tmp[i] xor r[i]
         }
 
         private fun round(

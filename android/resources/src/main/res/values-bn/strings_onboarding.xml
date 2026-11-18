@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">অ্যালার্ট সেট করুন – দাম, শতাংশ, ভলিউম ও অস্বাভাবিক গতি</string>
+    <string name="welcome_alert">অ্যালার্ট সেট করুন – দাম, শতাংশ, ভলিউম ও অস্বাভাবিক গতি, নিয়মিত যাচাই করা হয় (লাইভ নয়)</string>
     <string name="welcome_alert_q">কখন জানাবে?</string>
     <string name="welcome_text">আপনার দাম। আপনার অ্যালার্ট। আপনার সংক্ষিপ্ত চিত্র।\nকোনো অ্যাকাউন্ট নেই। কোনো বিজ্ঞাপন নেই। কোনো ট্র্যাকিং নেই।</string>
     <string name="welcome_understand">বুঝুন – এই মুহূর্তে কোনো দামের সঙ্গে আর কী নড়ছে</string>

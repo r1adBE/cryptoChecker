@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 314)
+
+- Backups with a password no longer need the large app heap (the key derivation works outside the Java heap).
+- Portfolio: covered and withdrawn shares are computed exactly (no rounding difference of a cent between platforms).
+- Welcome screen: alerts are «checked regularly (not live)».
+- Privacy policy: short summary with expandable details.
+
 ## 16.2.2 (build 313)
 
 - Automatic backup: the hint says «about once a week» (the system picks the exact time); clearer English line for the portfolio lock.

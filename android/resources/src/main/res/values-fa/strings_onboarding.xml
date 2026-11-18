@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">هشدار بگیر – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
+    <string name="welcome_alert">هشدار بگیر – قیمت، درصد، حجم و حرکت‌های غیرعادی، به‌طور منظم بررسی می‌شود (نه زنده)</string>
     <string name="welcome_alert_q">کی خبرم کند؟</string>
     <string name="welcome_text">قیمت‌های تو. هشدارهای تو. نمای کلی تو.\nبدون حساب. بدون تبلیغات. بدون ردیابی.</string>
     <string name="welcome_understand">بفهم – همین حالا چه چیزی همراه با یک قیمت حرکت می‌کند</string>

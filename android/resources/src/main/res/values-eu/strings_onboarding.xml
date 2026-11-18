@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Ezarri alarmak – prezioa, ehunekoa, bolumena eta ezohiko mugimenduak</string>
+    <string name="welcome_alert">Ezarri alarmak – prezioa, ehunekoa, bolumena eta ezohiko mugimenduak, aldizka egiaztatuta (ez zuzenean)</string>
     <string name="welcome_alert_q">Noiz abisatu?</string>
     <string name="welcome_text">Zure prezioak. Zure alarmak. Zure ikuspegi orokorra.\nKonturik ez. Iragarkirik ez. Jarraipenik ez.</string>
     <string name="welcome_understand">Ulertu – zer mugitzen den orain prezio batekin batera</string>

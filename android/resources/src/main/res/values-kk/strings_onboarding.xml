@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Ескерту орнатыңыз – баға, пайыз, көлем және әдеттен тыс қозғалыстар</string>
+    <string name="welcome_alert">Ескерту орнатыңыз – баға, пайыз, көлем және әдеттен тыс қозғалыстар, тұрақты тексеріледі (тікелей емес)</string>
     <string name="welcome_alert_q">Қашан ескерту керек?</string>
     <string name="welcome_text">Сіздің бағамдарыңыз. Сіздің ескертулеріңіз. Сіздің шолуыңыз.\nТіркелгісіз. Жарнамасыз. Бақылаусыз.</string>
     <string name="welcome_understand">Түсініңіз – дәл қазір бағамен бірге не қозғалып жатыр</string>

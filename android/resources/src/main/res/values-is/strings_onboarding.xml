@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Stilltu viðvaranir – verð, prósent, velta og óvenjulegar hreyfingar</string>
+    <string name="welcome_alert">Stilltu viðvaranir – verð, prósent, velta og óvenjulegar hreyfingar, athugað reglulega (ekki í rauntíma)</string>
     <string name="welcome_alert_q">Hvenær á að vara við?</string>
     <string name="welcome_text">Þín verð. Þínar viðvaranir. Þín yfirsýn.\nEnginn aðgangur. Engar auglýsingar. Engin rakning.</string>
     <string name="welcome_understand">Skilja – hvað hreyfist núna samhliða verðinu</string>

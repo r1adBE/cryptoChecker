@@ -34,7 +34,7 @@ data class PortfolioLedgerEvent(val trade: PortfolioTrade, val feeLeg: Boolean, 
  *    aus «Heute/7 T/1 J» fallen); Einstand und Steuer-Einkünfte bleiben ohne Wert.
  *  - Verkauf: − (verkaufte Menge × Preis − Gebühr USDT − Wert der Gebühr im dritten Coin); ohne Preis
  *    unbekannt; ohne Bestand 0. Reicht der Bestand nicht, zählt der gedeckte Anteil des GANZEN Erlöses (samt Gebühren)
- *    nach der Einstandsmethode — genau wie «realisiert» und Steuer ([coveredFraction]): FIFO (beide) zuerst die
+ *    nach der Einstandsmethode — genau wie «realisiert» und Steuer ([coveredShare]): FIFO (beide) zuerst die
  *    verkaufte Menge, dann die Gebühr-Coins (gedeckt verkauft / Menge); Ø abgegeben / (Menge + Gebühr im Coin).
  *  - Gebühr-Zeile ([isFeeDisposal], CSV «Fee»): Veräusserung zum Tageskurs — wie ein Verkauf zum MARKTKURS dieses
  *    Zeitpunkts, dessen Erlös das Portfolio verlässt (Abfluss = Menge × Kurs, gedeckter Anteil wie dort): der Verlauf
@@ -292,38 +292,33 @@ object PortfolioLedger {
     /** Börsenkurs (≥ 0, endlich) exakt über seine kürzeste Darstellung; sonst null. */
     internal fun exactPrice(price: Double?): BigDecimal? = price?.takeIf { it >= 0.0 && it.isFinite() }?.let { BigDecimal.valueOf(it) }
 
-    /** [value] × Anteil [fraction] (ganz gedeckt: unverändert). */
-    internal fun partOf(value: BigDecimal, fraction: Double): BigDecimal =
-        if (fraction == 1.0) value else value.multiply(BigDecimal.valueOf(fraction), PortfolioDecimal.MC)
+    /** [value] × Anteil [share] (ganz gedeckt: unverändert); exakt, ohne Umweg über Double (sonst kippte ,xx5 beim Runden). */
+    internal fun partOf(value: BigDecimal, share: BigDecimal): BigDecimal =
+        if (share.compareTo(BigDecimal.ONE) == 0) value else value.multiply(share, PortfolioDecimal.MC)
 
     /**
      * Gedeckter Anteil (0…1] des ganzen Erlöses eines Verkaufs/Tauschs bei Bestand [holdings] — dieselbe Aufteilung wie
      * «realisiert» und Steuer: FIFO (beide) verbraucht zuerst die verkaufte Menge, dann die Gebühr-Coins ([PortfolioFifo]:
      * Erlös nach verkaufter Menge) → min(Menge, abgegeben) / Menge; Ø ([CostMethod.AVERAGE]) nach abgegebener Menge →
-     * abgegeben / (Menge + Gebühr im Coin). Ganz gedeckt exakt 1; null = nichts abgegeben.
+     * abgegeben / (Menge + Gebühr im Coin). Ganz gedeckt exakt 1; null = nichts abgegeben. Exakt (34 Stellen).
      */
-    fun coveredFraction(t: PortfolioTrade, holdings: BigDecimal, method: CostMethod): Double? {
+    fun coveredShare(t: PortfolioTrade, holdings: BigDecimal, method: CostMethod): BigDecimal? {
         val requested = t.amount + t.coinFee
         val removed = requested.min(holdings.max(BigDecimal.ZERO))
         if (removed.signum() <= 0 || requested.signum() <= 0) return null
-        if (removed.compareTo(requested) == 0) return 1.0
+        if (removed.compareTo(requested) == 0) return BigDecimal.ONE
         return if (method.isFifo) {
-            t.amount.min(removed).divide(t.amount, PortfolioDecimal.MC).toDouble()
+            t.amount.min(removed).divide(t.amount, PortfolioDecimal.MC)
         } else {
-            removed.divide(requested, PortfolioDecimal.MC).toDouble()
+            removed.divide(requested, PortfolioDecimal.MC)
         }
     }
 
     /**
      * Gedeckter Anteil (0…1] einer Auszahlung bei Bestand [holdings]: abgegeben / (Menge + Gebühr im Coin) — wie die
      * ausgezahlte Menge im Rechner (anteilig); gilt auch für ihre Gebühren ([PortfolioFeeExpenses.withdrawal]). Ganz
-     * gedeckt exakt 1; null = nichts abgegeben.
+     * gedeckt exakt 1; null = nichts abgegeben. Exakt (34 Stellen).
      */
-    fun withdrawnFraction(t: PortfolioTrade, holdings: BigDecimal): Double? = withdrawnShare(t, holdings)?.let {
-        if (it.compareTo(BigDecimal.ONE) == 0) 1.0 else it.toDouble()
-    }
-
-    /** [withdrawnFraction] exakt; null = nichts abgegeben. */
     fun withdrawnShare(t: PortfolioTrade, holdings: BigDecimal): BigDecimal? {
         val requested = t.amount + t.coinFee
         val removed = requested.min(holdings.max(BigDecimal.ZERO))

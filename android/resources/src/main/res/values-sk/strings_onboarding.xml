@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmy – kurz, percentá, objem a nezvyčajné pohyby</string>
+    <string name="welcome_alert">Alarmy – kurz, percentá, objem a nezvyčajné pohyby, pravidelne kontrolované (nie naživo)</string>
     <string name="welcome_alert_q">Kedy upozorniť?</string>
     <string name="welcome_text">Tvoje kurzy. Tvoje alarmy. Tvoj prehľad.\nBez účtu. Bez reklám. Bez sledovania.</string>
     <string name="welcome_understand">Pochop – čo sa práve hýbe spolu s kurzom</string>

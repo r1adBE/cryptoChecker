@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Stel alarms – prys, persentasie, volume en ongewone bewegings</string>
+    <string name="welcome_alert">Stel alarms – prys, persentasie, volume en ongewone bewegings, gereeld nagegaan (nie regstreeks nie)</string>
     <string name="welcome_alert_q">Wanneer moet ek waarsku?</string>
     <string name="welcome_text">Jou pryse. Jou alarms. Jou oorsig.\nGeen rekening nie. Geen advertensies nie. Geen nasporing nie.</string>
     <string name="welcome_understand">Verstaan – wat beweeg nou saam met \'n prys</string>

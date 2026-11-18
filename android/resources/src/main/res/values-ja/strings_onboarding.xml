@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異常な動き</string>
+    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異常な動き、定期的に確認（リアルタイムではありません）</string>
     <string name="welcome_alert_q">いつ知らせる？</string>
     <string name="welcome_text">あなたの価格。あなたのアラーム。あなたの一覧。\nアカウント不要。広告なし。トラッキングなし。</string>
     <string name="welcome_understand">理解する – いま価格と一緒に何が動いているか</string>

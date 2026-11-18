@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Upozornit – cena, procenta, objem a neobvyklé pohyby</string>
+    <string name="welcome_alert">Upozornit – cena, procenta, objem a neobvyklé pohyby, pravidelně kontrolováno (ne živě)</string>
     <string name="welcome_alert_q">Kdy upozornit?</string>
     <string name="welcome_text">Tvoje kurzy. Tvoje alarmy. Tvůj přehled.\nBez účtu. Bez reklam. Bez sledování.</string>
     <string name="welcome_understand">Pochopit – co se právě hýbe spolu s kurzem</string>

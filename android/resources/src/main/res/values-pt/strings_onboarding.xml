@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alertar – preço, percentagem, volume e movimentos invulgares</string>
+    <string name="welcome_alert">Alertar – preço, percentagem, volume e movimentos invulgares, verificados regularmente (não em direto)</string>
     <string name="welcome_alert_q">Quando avisar?</string>
     <string name="welcome_text">Os teus preços. Os teus alarmes. A tua visão geral.\nSem conta. Sem anúncios. Sem rastreio.</string>
     <string name="welcome_understand">Perceber – o que se está a mover com um preço agora</string>

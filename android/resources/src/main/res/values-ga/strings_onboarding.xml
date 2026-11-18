@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Socraigh foláirimh – praghas, céatadán, toirt agus gluaiseachtaí neamhghnácha</string>
+    <string name="welcome_alert">Socraigh foláirimh – praghas, céatadán, toirt agus gluaiseachtaí neamhghnácha, seiceáilte go rialta (ní beo)</string>
     <string name="welcome_alert_q">Cathain ba chóir foláireamh?</string>
     <string name="welcome_text">Do phraghsanna. D’fholáirimh. D’fhorbhreathnú.\nGan chuntas. Gan fógráin. Gan rianú.</string>
     <string name="welcome_understand">Tuig – cad atá ag bogadh in éineacht le praghas faoi láthair</string>

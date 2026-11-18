@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Hoiata – hind, protsent, maht ja ebatavalised liikumised</string>
+    <string name="welcome_alert">Hoiata – hind, protsent, maht ja ebatavalised liikumised, kontrollitakse regulaarselt (mitte reaalajas)</string>
     <string name="welcome_alert_q">Millal hoiatada?</string>
     <string name="welcome_text">Sinu hinnad. Sinu hoiatused. Sinu ülevaade.\nIlma kontota. Ilma reklaamideta. Ilma jälitamiseta.</string>
     <string name="welcome_understand">Mõista – mis praegu koos hinnaga liigub</string>

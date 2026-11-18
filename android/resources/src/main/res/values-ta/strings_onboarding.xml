@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">விழிப்பூட்டல்களை அமைக்கவும் – விலை, சதவீதம், வால்யூம் மற்றும் அசாதாரண நகர்வுகள்</string>
+    <string name="welcome_alert">விழிப்பூட்டல்களை அமைக்கவும் – விலை, சதவீதம், வால்யூம் மற்றும் அசாதாரண நகர்வுகள், தொடர்ந்து சரிபார்க்கப்படும் (நேரலை அல்ல)</string>
     <string name="welcome_alert_q">எப்போது விழிப்பூட்ட வேண்டும்?</string>
     <string name="welcome_text">உங்கள் விலைகள். உங்கள் விழிப்பூட்டல்கள். உங்கள் மேலோட்டம்.\nகணக்கு இல்லை. விளம்பரங்கள் இல்லை. கண்காணிப்பு இல்லை.</string>
     <string name="welcome_understand">புரிந்துகொள்ளுங்கள் – இப்போது ஒரு விலையுடன் சேர்ந்து எது நகர்கிறது</string>

@@ -31,7 +31,7 @@ struct PortfolioLedgerEvent: Sendable {
 /// zum Marktwert (ohne: zum MARKTKURS), Verschenkt wie eine Auszahlung; Gebühr-Zeile (`isFeeDisposal`) wie ein Verkauf
 /// zum MARKTKURS (Abfluss, kein Sprung am Gebühr-Tag; ohne Marktkurs nil); Auszahlung wie ein Verkauf zum erfassten
 /// Preis, sonst zum MARKTKURS ihres Zeitpunkts (`marketPrice`, kein Gewinn/Verlust aus dem Abgang; ohne Marktkurs nil;
-/// über den Bestand hinaus Wert und Gebühren zum gedeckten Anteil `withdrawnFraction`); Einzahlung ohne Preis ebenso
+/// über den Bestand hinaus Wert und Gebühren zum gedeckten Anteil `withdrawnShare`); Einzahlung ohne Preis ebenso
 /// zum Marktkurs (eingebrachtes Geld, kein Gewinn — der Einstand bleibt unbekannt); Adress-Einträge (negative Id, ohne
 /// Preis) zum Marktkurs; Umbuchung + (Gebühr USDT + Wert der Gebühr im dritten Coin), ohne Bestand in der Quelle 0;
 /// Gebühr-Abgang − (Gebühr × Gebühr-Preis). Belohnung ohne Wert und Gebühr im dritten Coin ohne Preis (Gebühr-Abgang
@@ -150,7 +150,7 @@ enum PortfolioLedger {
     /// Zufluss von `e` in USDT bei Bestand `holdingsBefore`; nil = unbekannt. `marketPrice` = Marktkurs des Coins zum
     /// Zeitpunkt von `e` (nur nötig, wenn `needsMarketPrice`); `feeMarketPrice` = Marktkurs des Gebühr-Coins dann (nur
     /// nötig, wenn `needsFeeMarketPrice`). `method` = Einstandsmethode des Buchs: gedeckter Anteil eines Verkaufs/Tauschs
-    /// über den Bestand hinaus wie «realisiert» und Steuer (`coveredFraction`). Tausch ohne gültigen Zugang: nil.
+    /// über den Bestand hinaus wie «realisiert» und Steuer (`coveredShare`). Tausch ohne gültigen Zugang: nil.
     /// Bewertet in Double wie Android.
     static func flow(_ e: PortfolioLedgerEvent, holdingsBefore: Decimal, marketPrice: Double? = nil,
                      feeMarketPrice: Double? = nil, method: CostMethod = .defaultMethod) -> Double? {
@@ -194,11 +194,11 @@ enum PortfolioLedger {
             // Damit bezahlt: Wert verlässt das Portfolio wie ein Verkauf (ohne Marktwert zum Marktkurs)
             guard let price else { return nil }
             // Nichts mehr da: der Verkauf zählt nicht, auch nicht seine Gebühr — wie «realisiert»
-            guard let share = coveredFraction(t, holdings: h, method: method) else { return 0 }
+            guard let share = coveredShare(t, holdings: h, method: method) else { return 0 }
             return -partOf(PortfolioDecimal.multiply(t.amountExact, price) - t.quoteFeeExact - feeValue, share)
         case .WITHDRAWAL, .GIFT:
             // Verschenkt: wie eine Auszahlung (Wert verlässt das Portfolio zum Marktwert)
-            guard let share = withdrawnFraction(t, holdings: h) else { return 0 }
+            guard let share = withdrawnShare(t, holdings: h) else { return 0 }
             guard let price else { return nil }
             // Wert und Gebühren zum gedeckten Anteil wie beim Verkauf (ungedeckter Rest: nichts abgegeben)
             return -partOf(PortfolioDecimal.multiply(t.amountExact, price) - t.quoteFeeExact - feeValue, share)
@@ -206,7 +206,7 @@ enum PortfolioLedger {
             return t.quoteFeeExact + feeValue
         case .SWAP:
             // Abgegebener Coin wie ein Verkauf: zum Wert des Tauschs, sonst zum Marktkurs; gedeckter Anteil wie dort
-            guard let share = coveredFraction(t, holdings: h, method: method) else { return 0 }
+            guard let share = coveredShare(t, holdings: h, method: method) else { return 0 }
             // Zugang kaputt (kein gültiger erhaltener Coin): unbekannt statt still verloren
             guard t.swapToCoin != nil else { return nil }
             let gross: Decimal
@@ -226,33 +226,29 @@ enum PortfolioLedger {
         return PortfolioDecimal.of(price)
     }
 
-    /// `value` × Anteil `fraction` (ganz gedeckt: unverändert).
-    private static func partOf(_ value: Decimal, _ fraction: Double) -> Decimal {
-        fraction == 1 ? value : PortfolioDecimal.multiply(value, PortfolioDecimal.of(fraction) ?? 0)
+    /// `value` × Anteil `share` (ganz gedeckt: unverändert); exakt, ohne Umweg über Double (sonst kippte ,xx5 beim Runden).
+    private static func partOf(_ value: Decimal, _ share: Decimal) -> Decimal {
+        share == 1 ? value : PortfolioDecimal.multiply(value, share)
     }
 
     /// Gedeckter Anteil (0…1] des ganzen Erlöses eines Verkaufs/Tauschs bei Bestand `holdings` — dieselbe Aufteilung wie
     /// «realisiert» und Steuer: FIFO (beide) zuerst die verkaufte Menge, dann die Gebühr-Coins → min(Menge, abgegeben) /
-    /// Menge; Ø abgegeben / (Menge + Gebühr im Coin). Ganz gedeckt exakt 1; nil = nichts abgegeben. Wie Android.
-    static func coveredFraction(_ t: PortfolioTx, holdings: Decimal, method: CostMethod) -> Double? {
+    /// Menge; Ø abgegeben / (Menge + Gebühr im Coin). Ganz gedeckt exakt 1; nil = nichts abgegeben. Exakt (34 Stellen
+    /// wie Android `PortfolioDecimal.MC`). Wie Android.
+    static func coveredShare(_ t: PortfolioTx, holdings: Decimal, method: CostMethod) -> Decimal? {
         let requested = t.amountExact + t.coinFeeExact
         let removed = min(requested, max(0, holdings))
         guard removed > 0, requested > 0 else { return nil }
         if removed == requested { return 1 }
         if method.isFifo {
-            return PortfolioDecimal.double(PortfolioDecimal.divide(min(t.amountExact, removed), t.amountExact))
+            return PortfolioDecimal.divide(min(t.amountExact, removed), t.amountExact)
         }
-        return PortfolioDecimal.double(PortfolioDecimal.divide(removed, requested))
+        return PortfolioDecimal.divide(removed, requested)
     }
 
     /// Gedeckter Anteil (0…1] einer Auszahlung bei Bestand `holdings`: abgegeben / (Menge + Gebühr im Coin) — wie die
     /// ausgezahlte Menge im Rechner (anteilig); gilt auch für ihre Gebühren (`PortfolioFeeExpenses.withdrawal`). Ganz
-    /// gedeckt exakt 1; nil = nichts abgegeben. Wie Android.
-    static func withdrawnFraction(_ t: PortfolioTx, holdings: Decimal) -> Double? {
-        withdrawnShare(t, holdings: holdings).map { $0 == 1 ? 1 : PortfolioDecimal.double($0) }
-    }
-
-    /// `withdrawnFraction` exakt; nil = nichts abgegeben.
+    /// gedeckt exakt 1; nil = nichts abgegeben. Exakt. Wie Android.
     static func withdrawnShare(_ t: PortfolioTx, holdings: Decimal) -> Decimal? {
         let requested = t.amountExact + t.coinFeeExact
         let removed = min(requested, max(0, holdings))

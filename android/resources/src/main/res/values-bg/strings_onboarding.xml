@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Аларми – курс, процент, обем и необичайни движения</string>
+    <string name="welcome_alert">Аларми – курс, процент, обем и необичайни движения, проверявани редовно (не на живо)</string>
     <string name="welcome_alert_q">Кога да известява?</string>
     <string name="welcome_text">Твоите курсове. Твоите аларми. Твоят преглед.\nБез акаунт. Без реклами. Без проследяване.</string>
     <string name="welcome_understand">Разбери – какво се движи в момента заедно с курса</string>

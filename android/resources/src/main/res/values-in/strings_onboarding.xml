@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Peringatkan – harga, persen, volume, dan pergerakan tak biasa</string>
+    <string name="welcome_alert">Peringatkan – harga, persen, volume, dan pergerakan tak biasa, diperiksa secara berkala (bukan langsung)</string>
     <string name="welcome_alert_q">Kapan diberi tahu?</string>
     <string name="welcome_text">Hargamu. Alarmmu. Ringkasanmu.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
     <string name="welcome_understand">Pahami – apa yang ikut bergerak bersama sebuah harga saat ini</string>

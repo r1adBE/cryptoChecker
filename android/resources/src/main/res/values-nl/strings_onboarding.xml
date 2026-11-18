@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmeren – koers, procent, volume en ongewone bewegingen</string>
+    <string name="welcome_alert">Alarmeren – koers, procent, volume en ongewone bewegingen, regelmatig gecontroleerd (niet live)</string>
     <string name="welcome_alert_q">Wanneer melden?</string>
     <string name="welcome_text">Jouw koersen. Jouw alarmen. Jouw overzicht.\nGeen account. Geen advertenties. Geen tracking.</string>
     <string name="welcome_understand">Begrijpen – wat er nu met een koers meebeweegt</string>

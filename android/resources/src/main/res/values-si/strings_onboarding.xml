@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">ඇඟවීම් සකසන්න – මිල, ප්‍රතිශතය, පරිමාව සහ අසාමාන්‍ය චලනයන්</string>
+    <string name="welcome_alert">ඇඟවීම් සකසන්න – මිල, ප්‍රතිශතය, පරිමාව සහ අසාමාන්‍ය චලනයන්, නිතිපතා පරීක්ෂා කෙරේ (සජීවී නොවේ)</string>
     <string name="welcome_alert_q">ඇඟවිය යුත්තේ කවදාද?</string>
     <string name="welcome_text">ඔබේ මිල ගණන්. ඔබේ ඇඟවීම්. ඔබේ දළ විශ්ලේෂණය.\nගිණුමක් නැත. දැන්වීම් නැත. ලුහුබැඳීමක් නැත.</string>
     <string name="welcome_understand">තේරුම් ගන්න – මේ මොහොතේ මිලක් සමඟ චලනය වන්නේ කුමක්ද</string>

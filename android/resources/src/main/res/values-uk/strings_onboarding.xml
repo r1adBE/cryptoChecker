@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи</string>
+    <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи, перевіряється регулярно (не в реальному часі)</string>
     <string name="welcome_alert_q">Коли сповістити?</string>
     <string name="welcome_text">Твої курси. Твої сигнали. Твій огляд.\nБез акаунта. Без реклами. Без стеження.</string>
     <string name="welcome_understand">Розуміти – що рухається разом із курсом просто зараз</string>

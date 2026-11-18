@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">ຕັ້ງສັນຍານເຕືອນ – ລາຄາ, ເປີເຊັນ, ປະລິມານ ແລະ ການເໜັງຕີງຜິດປົກກະຕິ</string>
+    <string name="welcome_alert">ຕັ້ງສັນຍານເຕືອນ – ລາຄາ, ເປີເຊັນ, ປະລິມານ ແລະ ການເໜັງຕີງຜິດປົກກະຕິ, ກວດເປັນປະຈຳ (ບໍ່ແມ່ນສົດ)</string>
     <string name="welcome_alert_q">ເຕືອນເມື່ອໃດ?</string>
     <string name="welcome_text">ລາຄາຂອງທ່ານ. ສັນຍານເຕືອນຂອງທ່ານ. ພາບລວມຂອງທ່ານ.\nບໍ່ມີບັນຊີ. ບໍ່ມີໂຄສະນາ. ບໍ່ມີການຕິດຕາມ.</string>
     <string name="welcome_understand">ເຂົ້າໃຈ – ສິ່ງທີ່ກຳລັງເໜັງຕີງໄປພ້ອມກັບລາຄາໃນຕອນນີ້</string>

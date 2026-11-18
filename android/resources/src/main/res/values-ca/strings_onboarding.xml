@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Configura alarmes – preu, percentatge, volum i moviments inusuals</string>
+    <string name="welcome_alert">Configura alarmes – preu, percentatge, volum i moviments inusuals, revisat regularment (no en directe)</string>
     <string name="welcome_alert_q">Quan cal avisar?</string>
     <string name="welcome_text">Els teus preus. Les teves alarmes. La teva visió general.\nSense compte. Sense anuncis. Sense seguiment.</string>
     <string name="welcome_understand">Entén – què es mou ara mateix juntament amb un preu</string>

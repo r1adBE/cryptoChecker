@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Дохио тохируулах – ханш, хувь, арилжааны хэмжээ болон ер бусын хөдөлгөөн</string>
+    <string name="welcome_alert">Дохио тохируулах – ханш, хувь, арилжааны хэмжээ болон ер бусын хөдөлгөөн, тогтмол шалгана (шууд биш)</string>
     <string name="welcome_alert_q">Хэзээ сануулах вэ?</string>
     <string name="welcome_text">Таны ханш. Таны дохио. Таны тойм.\nБүртгэлгүй. Зар сурталчилгаагүй. Хяналтгүй.</string>
     <string name="welcome_understand">Ойлгох – яг одоо ханштай хамт юу хөдөлж байна</string>

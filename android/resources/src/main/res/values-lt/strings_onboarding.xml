@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Įspėjimai – apie kainą, procentus, apimtį ir neįprastus judėjimus</string>
+    <string name="welcome_alert">Įspėjimai – apie kainą, procentus, apimtį ir neįprastus judėjimus, reguliariai tikrinama (ne realiuoju laiku)</string>
     <string name="welcome_alert_q">Kada įspėti?</string>
     <string name="welcome_text">Tavo kainos. Tavo įspėjimai. Tavo apžvalga.\nBe paskyros. Be reklamų. Be sekimo.</string>
     <string name="welcome_understand">Suprask – kas dabar juda kartu su kaina</string>

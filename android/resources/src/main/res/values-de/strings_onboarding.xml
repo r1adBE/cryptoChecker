@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmieren – Kurs, Prozent, Volumen und ungewöhnliche Bewegungen</string>
+    <string name="welcome_alert">Alarmieren – Kurs, Prozent, Volumen und ungewöhnliche Bewegungen, regelmässig geprüft (nicht live)</string>
     <string name="welcome_alert_q">Wann melden?</string>
     <string name="welcome_text">Deine Kurse. Deine Alarme. Deine Übersicht.\nOhne Konto. Ohne Werbung. Ohne Tracking.</string>
     <string name="welcome_understand">Verstehen – was sich gerade mit einem Kurs mitbewegt</string>

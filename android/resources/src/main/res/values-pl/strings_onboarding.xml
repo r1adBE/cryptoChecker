@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Alarmuj – cena, procent, wolumen i nietypowe ruchy</string>
+    <string name="welcome_alert">Alarmuj – cena, procent, wolumen i nietypowe ruchy, sprawdzane regularnie (nie na żywo)</string>
     <string name="welcome_alert_q">Kiedy powiadomić?</string>
     <string name="welcome_text">Twoje kursy. Twoje alarmy. Twój przegląd.\nBez konta. Bez reklam. Bez śledzenia.</string>
     <string name="welcome_understand">Zrozum – co porusza się teraz razem z kursem</string>

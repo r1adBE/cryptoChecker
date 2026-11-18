@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">അലേർട്ടുകൾ സജ്ജമാക്കുക – വില, ശതമാനം, വോളിയം, അസാധാരണ നീക്കങ്ങൾ</string>
+    <string name="welcome_alert">അലേർട്ടുകൾ സജ്ജമാക്കുക – വില, ശതമാനം, വോളിയം, അസാധാരണ നീക്കങ്ങൾ, പതിവായി പരിശോധിക്കുന്നു (തത്സമയം അല്ല)</string>
     <string name="welcome_alert_q">എപ്പോൾ അറിയിക്കണം?</string>
     <string name="welcome_text">നിങ്ങളുടെ വിലകൾ. നിങ്ങളുടെ അലേർട്ടുകൾ. നിങ്ങളുടെ അവലോകനം.\nഅക്കൗണ്ടില്ല. പരസ്യങ്ങളില്ല. ട്രാക്കിംഗില്ല.</string>
     <string name="welcome_understand">മനസ്സിലാക്കുക – ഇപ്പോൾ ഒരു വിലയ്‌ക്കൊപ്പം എന്തെല്ലാം നീങ്ങുന്നു</string>

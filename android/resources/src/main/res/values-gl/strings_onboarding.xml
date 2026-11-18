@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Configura alarmas – prezo, porcentaxe, volume e movementos pouco habituais</string>
+    <string name="welcome_alert">Configura alarmas – prezo, porcentaxe, volume e movementos pouco habituais, revisado regularmente (non en directo)</string>
     <string name="welcome_alert_q">Cando avisar?</string>
     <string name="welcome_text">Os teus prezos. As túas alarmas. A túa visión xeral.\nSen conta. Sen anuncios. Sen seguimento.</string>
     <string name="welcome_understand">Entende – que se move agora mesmo xunto cun prezo</string>

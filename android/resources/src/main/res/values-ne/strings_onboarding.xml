@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">अलर्ट सेट गर्नुहोस् – मूल्य, प्रतिशत, भोल्युम र असामान्य उतारचढाव</string>
+    <string name="welcome_alert">अलर्ट सेट गर्नुहोस् – मूल्य, प्रतिशत, भोल्युम र असामान्य उतारचढाव, नियमित रूपमा जाँचिन्छ (लाइभ होइन)</string>
     <string name="welcome_alert_q">कहिले अलर्ट गर्ने?</string>
     <string name="welcome_text">तपाईंका मूल्यहरू। तपाईंका अलर्टहरू। तपाईंको अवलोकन।\nखाता चाहिँदैन। विज्ञापन छैन। ट्र्याकिङ छैन।</string>
     <string name="welcome_understand">बुझ्नुहोस् – अहिले कुनै मूल्यसँगै के चलिरहेको छ</string>

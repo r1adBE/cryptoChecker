@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Signal qoʻying – narx, foiz, hajm va gʻayrioddiy harakatlar</string>
+    <string name="welcome_alert">Signal qoʻying – narx, foiz, hajm va gʻayrioddiy harakatlar, muntazam tekshiriladi (jonli emas)</string>
     <string name="welcome_alert_q">Qachon ogohlantirish kerak?</string>
     <string name="welcome_text">Sizning kurslaringiz. Sizning signallaringiz. Sizning sharhingiz.\nHisobsiz. Reklamasiz. Kuzatuvsiz.</string>
     <string name="welcome_understand">Tushuning – hozir narx bilan birga nima harakatlanmoqda</string>

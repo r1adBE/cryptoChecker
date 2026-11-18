@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية</string>
+    <string name="welcome_alert">نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية، تُفحص بانتظام (ليس مباشرًا)</string>
     <string name="welcome_alert_q">متى أتلقى تنبيهًا؟</string>
     <string name="welcome_text">أسعارك. تنبيهاتك. نظرتك العامة.\nبلا حساب. بلا إعلانات. بلا تتبع.</string>
     <string name="welcome_understand">افهم – ما الذي يتحرك مع السعر الآن</string>

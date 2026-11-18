@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások</string>
+    <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások, rendszeresen ellenőrizve (nem élőben)</string>
     <string name="welcome_alert_q">Mikor szóljon?</string>
     <string name="welcome_text">A te árfolyamaid. A te riasztásaid. A te áttekintésed.\nFiók nélkül. Reklám nélkül. Követés nélkül.</string>
     <string name="welcome_understand">Megértés – mi mozog most együtt egy árfolyammal</string>

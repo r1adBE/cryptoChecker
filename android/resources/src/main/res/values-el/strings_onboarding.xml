@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">Συναγερμοί – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις</string>
+    <string name="welcome_alert">Συναγερμοί – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις, ελέγχονται τακτικά (όχι ζωντανά)</string>
     <string name="welcome_alert_q">Πότε να ειδοποιηθώ;</string>
     <string name="welcome_text">Οι τιμές σου. Οι συναγερμοί σου. Η επισκόπησή σου.\nΧωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.</string>
     <string name="welcome_understand">Κατανόηση – τι κινείται μαζί με μια τιμή αυτή τη στιγμή</string>
