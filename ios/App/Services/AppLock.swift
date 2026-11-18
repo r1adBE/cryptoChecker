@@ -11,6 +11,9 @@ import UIKit
 final class AppLock: ObservableObject {
     static let shared = AppLock()
 
+    /// Gerät, Einstellung und Fenster (`LiveAppLockEffects`); in Tests eine Fälschung.
+    private let effects: any AppLockEffects
+
     /// Portfolio gerade gesperrt (Einstellung an und in dieser Sitzung nicht entsperrt)?
     @Published private(set) var locked: Bool {
         didSet { updateCoverWindow() }
@@ -25,18 +28,16 @@ final class AppLock: ObservableObject {
     private var backgroundedAt: TimeInterval?
     /// Szene aktiv (nicht im App-Umschalter, Kontrollzentrum o. ä.).
     private(set) var sceneActive = true
-    /// Eigenes Fenster über allem für den Sichtschutz im App-Umschalter: Ein Overlay der
-    /// Hauptansicht verdeckt keine offenen Blätter (Sheets).
-    private var coverWindow: UIWindow?
 
-    private init() {
+    init(effects: any AppLockEffects = LiveAppLockEffects()) {
+        self.effects = effects
         // Kaltstart der App-Oberfläche: Portfolio gesperrt, wenn eingeschaltet — oder solange die
         // Einstellungen nicht zugänglich sind (vorgewärmt vor dem ersten Entsperren)
-        locked = AppData.shared.appLockEffective
+        locked = effects.lockEnabled
     }
 
     /// Sperre an — auch, solange die Einstellung unbekannt ist (`AppData.appLockEffective`).
-    private var enabled: Bool { AppData.shared.appLockEffective }
+    private var enabled: Bool { effects.lockEnabled }
 
     /// Zustand des Portfolio-Bereichs (die Einstellungen sind auf iOS immer schon gelesen).
     var access: PortfolioAccess {
@@ -74,14 +75,14 @@ final class AppLock: ObservableObject {
     }
 
     func didEnterBackground() {
-        backgroundedAt = PortfolioLockPolicy.monotonicSeconds()
+        backgroundedAt = effects.monotonicSeconds()
     }
 
     func didBecomeActive() {
         let since = backgroundedAt
         backgroundedAt = nil
         if enabled && !locked
-            && PortfolioLockPolicy.relockAfterBackground(backgroundSince: since, now: PortfolioLockPolicy.monotonicSeconds()) {
+            && PortfolioLockPolicy.relockAfterBackground(backgroundSince: since, now: effects.monotonicSeconds()) {
             locked = true
         }
         // Vielleicht inzwischen ein Gerätecode eingerichtet: der nächste Versuch prüft neu
@@ -95,12 +96,12 @@ final class AppLock: ObservableObject {
         guard locked, !authenticating else { return }
         // Kein Gerätecode mehr eingerichtet: nicht still entsperren (sonst wäre die Sperre mit dem Entfernen des Codes
         // umgangen) — gesperrt lassen und es nennen; Ausweg: Sperre nach Rückfrage ausschalten
-        guard Self.canAuthenticate() else {
+        guard effects.canAuthenticate() else {
             screenLockMissing = true
             return
         }
         authenticating = true
-        let ok = await Self.authenticate()
+        let ok = await effects.authenticate()
         authenticating = false
         if ok { locked = false }
     }
@@ -130,7 +131,42 @@ final class AppLock: ObservableObject {
 
     /// Sperre an und Szene nicht aktiv: Sichtschutz (App-Umschalter, auch über offenen Blättern).
     private func updateCoverWindow() {
-        let show = enabled && !sceneActive
+        effects.showCover(enabled && !sceneActive)
+    }
+}
+
+/// Was `AppLock` vom Gerät braucht: Einstellung, monotone Uhr, Entsperren und das Fenster des Sichtschutzes. In der App
+/// `LiveAppLockEffects`, in Tests eine Fälschung.
+@MainActor
+protocol AppLockEffects: AnyObject {
+    /// Sperre an (`AppData.appLockEffective`).
+    var lockEnabled: Bool { get }
+    /// Sekunden der monotonen Uhr (`PortfolioLockPolicy.monotonicSeconds`).
+    func monotonicSeconds() -> TimeInterval
+    /// Code, Face ID oder Touch ID eingerichtet (`AppLock.canAuthenticate`).
+    func canAuthenticate() -> Bool
+    /// Einmal entsperren lassen (`AppLock.authenticate`).
+    func authenticate() async -> Bool
+    /// Sichtschutz-Fenster zeigen bzw. verbergen.
+    func showCover(_ show: Bool)
+}
+
+/// Echtes Gerät: `AppData`, `LAContext` und ein eigenes Fenster über allem.
+@MainActor
+final class LiveAppLockEffects: AppLockEffects {
+    /// Eigenes Fenster über allem für den Sichtschutz im App-Umschalter: Ein Overlay der
+    /// Hauptansicht verdeckt keine offenen Blätter (Sheets).
+    private var coverWindow: UIWindow?
+
+    var lockEnabled: Bool { AppData.shared.appLockEffective }
+
+    func monotonicSeconds() -> TimeInterval { PortfolioLockPolicy.monotonicSeconds() }
+
+    func canAuthenticate() -> Bool { AppLock.canAuthenticate() }
+
+    func authenticate() async -> Bool { await AppLock.authenticate() }
+
+    func showCover(_ show: Bool) {
         guard show else {
             coverWindow?.isHidden = true
             return

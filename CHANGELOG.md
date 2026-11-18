@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 303)
+
+- Internal (iOS): explorer, app lock and automatic backup testable through small interfaces; 37 new tests.
+
 ## 16.2.2 (build 302)
 
 - Internal: more unit tests for the data layer (coin names, currency conversion, unusual-activity source).

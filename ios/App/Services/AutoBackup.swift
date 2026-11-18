@@ -21,17 +21,21 @@ final class AutoBackup: ObservableObject {
     @Published private(set) var state = State()
     @Published private(set) var running = false
 
-    private let defaults = UserDefaults.standard
+    private let defaults: UserDefaults
+    /// Schlüsselbund und Ordner-Lesezeichen (`LiveAutoBackupAccess`); in Tests eine Fälschung.
+    private let access: any AutoBackupAccess
     private static let enabledKey = "auto_backup_enabled"
     private static let bookmarkKey = "auto_backup_bookmark"
     private static let folderNameKey = "auto_backup_folder_name"
     private static let successKey = "auto_backup_last_success_at"
     private static let attemptKey = "auto_backup_last_attempt_at"
     private static let failedKey = "auto_backup_last_failed"
-    nonisolated private static let service = "com.cryptochecker.auto-backup"
-    nonisolated private static let account = "password"
 
-    private init() { state = read() }
+    init(defaults: UserDefaults = .standard, access: any AutoBackupAccess = LiveAutoBackupAccess()) {
+        self.defaults = defaults
+        self.access = access
+        state = read()
+    }
 
     private func read() -> State {
         State(enabled: defaults.bool(forKey: Self.enabledKey), folderName: defaults.string(forKey: Self.folderNameKey),
@@ -42,7 +46,7 @@ final class AutoBackup: ObservableObject {
     /// Einschalten mit gewähltem Ordner und Passwort, danach gleich die erste Sicherung. false = nicht gemerkt.
     @discardableResult
     func enable(folder: URL, password: String, data: AppData) -> Bool {
-        guard let bookmark = Self.bookmark(folder), Self.storePassword(password) else { return false }
+        guard let bookmark = access.bookmark(folder), access.storePassword(password) else { return false }
         defaults.set(bookmark, forKey: Self.bookmarkKey)
         defaults.set(folder.lastPathComponent, forKey: Self.folderNameKey)
         defaults.set(true, forKey: Self.enabledKey)
@@ -55,7 +59,7 @@ final class AutoBackup: ObservableObject {
 
     /// Anderer Ordner (Passwort bleibt), danach gleich sichern.
     func changeFolder(_ folder: URL, data: AppData) {
-        guard let bookmark = Self.bookmark(folder) else { return }
+        guard let bookmark = access.bookmark(folder) else { return }
         defaults.set(bookmark, forKey: Self.bookmarkKey)
         defaults.set(folder.lastPathComponent, forKey: Self.folderNameKey)
         defaults.set(false, forKey: Self.failedKey)
@@ -68,7 +72,7 @@ final class AutoBackup: ObservableObject {
         for key in [Self.enabledKey, Self.bookmarkKey, Self.folderNameKey, Self.successKey, Self.attemptKey, Self.failedKey] {
             defaults.removeObject(forKey: key)
         }
-        SecItemDelete(Self.passwordQuery as CFDictionary)
+        access.deletePassword()
         state = read()
     }
 
@@ -85,7 +89,7 @@ final class AutoBackup: ObservableObject {
         guard state.enabled, !running else { return }
         // Gespeicherter Stand gesperrt bzw. beschädigt: keine Datei, die ihn nicht enthält und gültig aussieht
         if BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) != nil { return record(false) }
-        guard let password = Self.readPassword(), let folder = resolvedFolder() else { return record(false) }
+        guard let password = access.readPassword(), let folder = resolvedFolder() else { return record(false) }
         let input = BackupManager.exportInput(data)
         let now = EpochTime.nowMillis
         defaults.set(Double(now), forKey: Self.attemptKey)
@@ -116,10 +120,9 @@ final class AutoBackup: ObservableObject {
 
     private func resolvedFolder() -> URL? {
         guard let bookmark = defaults.data(forKey: Self.bookmarkKey) else { return nil }
-        var stale = false
-        guard let url = try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &stale) else { return nil }
-        if stale, let fresh = Self.bookmark(url) { defaults.set(fresh, forKey: Self.bookmarkKey) }
-        return url
+        guard let resolved = access.resolveBookmark(bookmark) else { return nil }
+        if resolved.stale, let fresh = access.bookmark(resolved.url) { defaults.set(fresh, forKey: Self.bookmarkKey) }
+        return resolved.url
     }
 
     /// Datei schreiben, zurücklesen (`BackupManager.verify`), ältere eigene Dateien über `AutoBackupPolicy.keep` löschen.
@@ -147,21 +150,48 @@ final class AutoBackup: ObservableObject {
         }
         return true
     }
+}
 
-    nonisolated private static func bookmark(_ folder: URL) -> Data? {
+/// Was `AutoBackup` vom Gerät braucht: Passwort im Schlüsselbund und Ordner als Lesezeichen. In der App
+/// `LiveAutoBackupAccess`, in Tests eine Fälschung.
+@MainActor
+protocol AutoBackupAccess {
+    /// Passwort ablegen (ersetzt ein altes); false = nicht gemerkt.
+    func storePassword(_ password: String) -> Bool
+    func readPassword() -> String?
+    func deletePassword()
+    /// Lesezeichen des gewählten Ordners; nil = keins.
+    func bookmark(_ folder: URL) -> Data?
+    /// Ordner zum Lesezeichen und ob es erneuert werden sollte; nil = nicht auflösbar.
+    func resolveBookmark(_ bookmark: Data) -> (url: URL, stale: Bool)?
+}
+
+/// Echtes Gerät: Schlüsselbund nur dieses Geräts und Lesezeichen mit Sicherheitsbereich.
+@MainActor
+struct LiveAutoBackupAccess: AutoBackupAccess {
+    private static let service = "com.cryptochecker.auto-backup"
+    private static let account = "password"
+
+    func bookmark(_ folder: URL) -> Data? {
         let scoped = folder.startAccessingSecurityScopedResource()
         defer { if scoped { folder.stopAccessingSecurityScopedResource() } }
         return try? folder.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil)
     }
 
-    // MARK: Passwort im Schlüsselbund
-
-    nonisolated private static var passwordQuery: [String: Any] {
-        [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service,
-         kSecAttrAccount as String: account]
+    func resolveBookmark(_ bookmark: Data) -> (url: URL, stale: Bool)? {
+        var stale = false
+        guard let url = try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &stale) else { return nil }
+        return (url, stale)
     }
 
-    nonisolated private static func storePassword(_ password: String) -> Bool {
+    // MARK: Passwort im Schlüsselbund
+
+    private var passwordQuery: [String: Any] {
+        [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: Self.service,
+         kSecAttrAccount as String: Self.account]
+    }
+
+    func storePassword(_ password: String) -> Bool {
         SecItemDelete(passwordQuery as CFDictionary)
         var q = passwordQuery
         q[kSecValueData as String] = Data(password.utf8)
@@ -169,12 +199,16 @@ final class AutoBackup: ObservableObject {
         return SecItemAdd(q as CFDictionary, nil) == errSecSuccess
     }
 
-    nonisolated private static func readPassword() -> String? {
+    func readPassword() -> String? {
         var q = passwordQuery
         q[kSecReturnData as String] = true
         q[kSecMatchLimit as String] = kSecMatchLimitOne
         var result: CFTypeRef?
         guard SecItemCopyMatching(q as CFDictionary, &result) == errSecSuccess, let data = result as? Data else { return nil }
         return String(data: data, encoding: .utf8)
+    }
+
+    func deletePassword() {
+        SecItemDelete(passwordQuery as CFDictionary)
     }
 }

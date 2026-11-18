@@ -60,7 +60,10 @@ struct ExplorerMessage: Equatable, Identifiable {
 final class ExplorerViewModel: ObservableObject {
     static let dexKey = "DexScreener"
 
-    let data = AppData.shared
+    var data: AppData { AppData.shared }
+
+    /// Haptik, Ansage und Frage nach Mitteilungen (`LiveExplorerEffects`); in Tests eine Fälschung.
+    let effects: any ExplorerEffects
 
     /// Aus, wenn ein gemerktes Paar bearbeitet wird (`WatchEditSheet`, wie `WatchEditViewModel.kt`):
     /// dann wirkt nur der TradFi-Filter von `PairCache`, nicht «Token & TradFi» der Auswahl.
@@ -162,8 +165,9 @@ final class ExplorerViewModel: ObservableObject {
     var nameIndex: ExplorerNameIndex = .empty
     var nameIndexTask: Task<Void, Never>?
 
-    init(appliesAssetScope: Bool = true) {
+    init(appliesAssetScope: Bool = true, effects: any ExplorerEffects = LiveExplorerEffects()) {
         self.appliesAssetScope = appliesAssetScope
+        self.effects = effects
         // Explorer geöffnet: Ranking einmal holen, falls es fehlt (höchstens einmal je Sitzung)
         if appliesAssetScope { loadExchangeRanking() }
     }
@@ -221,7 +225,7 @@ final class ExplorerViewModel: ObservableObject {
         // Hat das Paar noch keinen Alarm, bietet die Meldung «Alarm setzen» an (wie Android)
         let hasAlarm = (data.activeAlarmCounts[watchId] ?? 0) != 0
         show(ExplorerMessage(text: text, long: true, alarmWatchId: hasAlarm ? nil : watchId, kind: .success))
-        AccessibilityNotification.Announcement(text).post()
+        effects.announce(text)
     }
 
     func show(_ note: ExplorerMessage) {
@@ -229,12 +233,31 @@ final class ExplorerViewModel: ObservableObject {
     }
 
     func haptic(_ event: HapticEvent) {
-        Haptics.play(event)
+        effects.haptic(event)
     }
 
     /// Erst wenn neue Paare (mit Meldungen) dazukommen, um Erlaubnis für Mitteilungen bitten — vorher die kurze
     /// Erklärung (`NotificationPrePrompt`, nur wenn das System wirklich fragen würde).
     func requestNotifications() {
-        NotificationPrePrompt.request(.pairsAdded)
+        effects.requestNotifications()
     }
+}
+
+/// Was «Paar hinzufügen» ausserhalb des eigenen Zustands auslöst: Haptik, VoiceOver-Ansage und die Frage nach
+/// Mitteilungen. In der App `LiveExplorerEffects`, in Tests eine Fälschung.
+@MainActor
+protocol ExplorerEffects {
+    func haptic(_ event: HapticEvent)
+    func announce(_ text: String)
+    func requestNotifications()
+}
+
+/// Echtes Gerät: `Haptics`, `AccessibilityNotification` und `NotificationPrePrompt` (`.pairsAdded`).
+@MainActor
+struct LiveExplorerEffects: ExplorerEffects {
+    func haptic(_ event: HapticEvent) { Haptics.play(event) }
+
+    func announce(_ text: String) { AccessibilityNotification.Announcement(text).post() }
+
+    func requestNotifications() { NotificationPrePrompt.request(.pairsAdded) }
 }

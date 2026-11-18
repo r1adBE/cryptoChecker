@@ -3285,6 +3285,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 300: Review 11: Seiteneffekte der Android-ViewModels hinter Schnittstellen (effects, EffectsModule/UiStoreModule), 30 JVM-Tests für 4 ViewModels.
 * Build 301: C-07 Rest: UI_DATA_REMAINING 79 → 3 (UiPortModule, StorageMemory, LocalStoredNotices); @RequiresApi(Q) an SettingsDevice (Lint-Fehler aus Build 300).
 * Build 302: Tests CoinNamesTest, CurrencyConverterTest, UnusualDataSourceTest; :data-Abdeckung 56,3 → 58,7 %.
+* Build 303: Review 11 iOS: ExplorerEffects, AppLockEffects, AutoBackupAccess; 37 Tests.
 
 ## Known warnings
 
