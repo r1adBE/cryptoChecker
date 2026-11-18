@@ -7,7 +7,7 @@ import WidgetKit
 
 /// Klein: Schlagzeile, Leitsatz (2 Zeilen), BTC-Chip; mittel: alle drei Chips, der erste Satz von
 /// «Kurz gesagt» statt des Leitsatzes (wenn er ganz in dessen 2 Zeilen passt); gross wie mittel mit dem
-/// Leitsatz, darunter der Block «Kurz gesagt».
+/// Leitsatz, darunter der Block «Kurz gesagt»; bleibt Platz, die Coins als Liste untereinander.
 struct PulseHomeView: View {
     let entry: PulseEntry
     let palette: WidgetPalette
@@ -63,6 +63,22 @@ struct PulseHomeView: View {
             .fixedSize(horizontal: true, vertical: false)
     }
 
+    /// Gross mit Platz: die Coins untereinander — Name in der Textfarbe, Veränderung in der Kursfarbe, darüber
+    /// rechts «24h» (wie Android `PulseWidgetChips.drawList`).
+    private func coinList(_ coins: [PulseCoinLine]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(L("widget_range_short_24h"))
+                .widgetSecondaryFont(weight: .medium)
+                .foregroundStyle(palette.secondary)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            ForEach(coins, id: \.name) { coin in
+                PulseWidgetListRow(coin: coin, palette: palette)
+            }
+        }
+        .padding(.top, Spacing.sm)
+    }
+
     /// Coins BTC, ETH, SOL als farbiger Text — nur so viele, wie ganz passen (klein: BTC), nie ein abgeschnittener.
     @ViewBuilder
     private func chips(_ coins: [PulseCoinLine]) -> some View {
@@ -92,6 +108,8 @@ struct PulseHomeView: View {
     private struct Variant: Hashable {
         let twoLines: Bool
         let plainCount: Int
+        /// Gross mit Platz: Coins als Liste untereinander statt der Zeile (wie Android `PulseWidgetList`).
+        let list: Bool
         /// Faktor der Schlagzeile und des Leitsatzes (Dynamic Type, 1 = Grundgrösse).
         let scale: CGFloat
     }
@@ -121,20 +139,27 @@ struct PulseHomeView: View {
         let sentences: [String] = size == .small ? [] : entry.plainSentences
         let leadText = lead(report, sentences: sentences)
         // Zuerst die Grundanordnung (zwei Nebenzeilen nur, wenn die Höhe reicht), darunter im grossen
-        // Widget so viele ganze Sätze, wie noch passen — die Coins behalten ihren Platz, Sätze fallen von hinten weg
+        // Widget so viele ganze Sätze, wie noch passen — die Coins behalten ihren Platz, Sätze fallen von hinten weg.
+        // Je Satzanzahl zuerst mit den Coins als Liste (gross, Block da), dann als Zeile: die Sätze haben Vorrang
         let twoLineOptions = fearGreedText != nil && breadth != nil ? [true, false] : [false]
         let counts = size == .large ? PulseWidgetPlain.candidateCounts(sentences.count) : [0]
         // Dynamic Type: zuerst alle Fassungen mit gewachsener Schlagzeile und Leitsatz, dann in Grundgrösse
         let grown = WidgetTextSize.primaryScale(textScale)
         let scales: [CGFloat] = grown > 1 ? [grown, 1] : [1]
         let variants = scales.flatMap { scale in
-            twoLineOptions.flatMap { two in counts.map { Variant(twoLines: two, plainCount: $0, scale: scale) } }
+            twoLineOptions.flatMap { two in
+                counts.flatMap { count in
+                    (size == .large && count > 0 ? [true, false] : [false]).map {
+                        Variant(twoLines: two, plainCount: count, list: $0, scale: scale)
+                    }
+                }
+            }
         }
         return ViewThatFits(in: .vertical) {
             ForEach(variants, id: \.self) { variant in
                 let plain = Array(sentences.prefix(variant.plainCount))
                 stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth,
-                      twoLines: variant.twoLines, lead: leadText, plain: plain, scale: variant.scale)
+                      twoLines: variant.twoLines, lead: leadText, plain: plain, list: variant.list, scale: variant.scale)
                     // Je Fassung ein eigener Satz für VoiceOver: genau das, was sie zeigt
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
@@ -149,7 +174,7 @@ struct PulseHomeView: View {
     /// darunter «Kurz gesagt» mit den Sätzen `plain` (leer = kein Block).
     private func stack(_ report: PulseReport, coins: [PulseCoinLine], time: String?, fearGreed fearGreedText: Text?,
                        breadth: Text?, twoLines: Bool, lead leadText: String, plain: [String],
-                       scale: CGFloat) -> some View {
+                       list: Bool, scale: CGFloat) -> some View {
         let glyph = PulseWidgetText.glyph(report.summary)
         let direction = PulseWidgetText.direction(report.summary)
         let headlineSize: CGFloat = WidgetFont.title * scale
@@ -177,8 +202,9 @@ struct PulseHomeView: View {
                 .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 3)
+            if list { coinList(coins) }
             Spacer(minLength: 4)
-            chips(coins)
+            if !list { chips(coins) }
             if time != nil || fearGreedText != nil || breadth != nil {
                 // «Stand 14:05» links, rechts «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»; passt nicht
                 // alles, die Marktbreite in einer zweiten Zeile darunter (`twoLines`), sonst zuerst
@@ -304,5 +330,31 @@ private struct PulseWidgetChip: View {
         .lineLimit(1)
         .minimumScaleFactor(0.8)
         .fixedSize(horizontal: true, vertical: false)
+    }
+}
+
+/// Eine Zeile der Coin-Liste im grossen Widget: «Bitcoin … ↗ +2.8 %» (mindestens 22 pt hoch, wie Android).
+private struct PulseWidgetListRow: View {
+    let coin: PulseCoinLine
+    let palette: WidgetPalette
+
+    var body: some View {
+        let change = PulseWidgetText.shown(coin.changePercent)
+        let color = palette.change(change)
+        HStack(spacing: 3) {
+            Text(coin.name)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(palette.text)
+            Spacer(minLength: 8)
+            ChangeArrowIcon(change: change)
+                .font(.system(size: 9, weight: .bold))
+                .foregroundStyle(color)
+            Text(ActivityTexts.percent(change, 1))
+                .font(.system(size: 14))
+                .monospacedDigit()
+                .foregroundStyle(color)
+        }
+        .lineLimit(1)
+        .frame(minHeight: 22)
     }
 }

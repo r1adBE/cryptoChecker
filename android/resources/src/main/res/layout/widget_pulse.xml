@@ -155,6 +155,109 @@
                 android:fontFeatureSettings="tnum"
                 android:visibility="gone" />
 
+            <!-- Gross mit Platz: Coins untereinander mit Namen und Veränderung statt der Zeile unten
+                 (PulseWidgetList); darüber rechts «24h» -->
+            <LinearLayout
+                android:id="@+id/pulse_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/pulse_list_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/pulse_list_row_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="22dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false">
+
+                    <TextView
+                        android:id="@+id/pulse_list_name_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pulse_list_change_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="14sp"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pulse_list_row_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="22dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false">
+
+                    <TextView
+                        android:id="@+id/pulse_list_name_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pulse_list_change_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="14sp"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pulse_list_row_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="22dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false">
+
+                    <TextView
+                        android:id="@+id/pulse_list_name_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pulse_list_change_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="14sp"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- Platzhalter: hält Chips und Stand unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
             <!-- UselessLeaf: Platzhalter mit Gewicht 1 hält den Rest unten (<View> ist in RemoteViews nicht erlaubt) -->
             <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
@@ -165,6 +268,7 @@
                 android:layout_weight="1" />
 
             <LinearLayout
+                android:id="@+id/pulse_chips_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

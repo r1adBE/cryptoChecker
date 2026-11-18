@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 309)
+
+- Pulse widget (large): with room below «In short», the coins are listed one per line with name and 24-hour change instead of a single row.
+
 ## 16.2.2 (build 308)
 
 - Portfolio and coin page: the «+» button sits in the header and no longer covers amounts.

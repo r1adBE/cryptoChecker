@@ -105,15 +105,20 @@ object PulseWidgetPlain {
      */
     fun sentenceCount(availableDp: Float, titleDp: Float, footnoteDp: Float, sentenceHeightsDp: List<Float>): Int {
         if (availableDp <= 0f || sentenceHeightsDp.isEmpty()) return 0
-        var used = BLOCK_TOP_DP + titleDp + FOOTNOTE_GAP_DP + footnoteDp
         var count = 0
-        for (height in sentenceHeightsDp.take(MAX_SENTENCES)) {
-            val need = SENTENCE_GAP_DP + height
-            if (used + need > availableDp) break
-            used += need
+        while (count < minOf(MAX_SENTENCES, sentenceHeightsDp.size) &&
+            blockUsedDp(titleDp, footnoteDp, sentenceHeightsDp, count + 1) <= availableDp
+        ) {
             count++
         }
         return count
+    }
+
+    /** Höhe des Blocks mit den ersten [count] Sätzen (dp); 0 = kein Block. Wie [sentenceCount] rechnet. */
+    fun blockUsedDp(titleDp: Float, footnoteDp: Float, sentenceHeightsDp: List<Float>, count: Int): Float {
+        if (count <= 0) return 0f
+        return BLOCK_TOP_DP + titleDp + FOOTNOTE_GAP_DP + footnoteDp +
+            sentenceHeightsDp.take(count).sumOf { (SENTENCE_GAP_DP + it).toDouble() }.toFloat()
     }
 
     /**

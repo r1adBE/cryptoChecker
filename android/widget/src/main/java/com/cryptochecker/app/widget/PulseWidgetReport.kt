@@ -79,19 +79,21 @@ internal fun drawPulseReport(
         else -> 1
     }
     val textWidthDp = widgetWidthDp - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
-    val plainCount = if (widgetWidthDp <= 0 || plainSentences.isEmpty()) {
-        0
+    val blockAvailable = PulseWidgetPlain.blockAvailableDp(heightDp, headlineStyle.lines, sideLines)
+    val measured = widgetWidthDp > 0 && plainSentences.isNotEmpty()
+    val titleDp = if (measured) toolkit.textBlock(plainTitle, PulseWidgetPlain.TITLE_SP, textWidthDp, bold = true).heightDp else 0f
+    // Mit den Quellen aller Sätze gemessen: mit weniger Sätzen wird der Hinweis höchstens kürzer
+    val footnoteDp = if (measured) {
+        toolkit.textBlock(plainNote(plainSentences.size), PulseWidgetPlain.FOOTNOTE_SP, textWidthDp).heightDp
     } else {
-        PulseWidgetPlain.sentenceCount(
-            availableDp = PulseWidgetPlain.blockAvailableDp(heightDp, headlineStyle.lines, sideLines),
-            titleDp = toolkit.textBlock(plainTitle, PulseWidgetPlain.TITLE_SP, textWidthDp, bold = true).heightDp,
-            // Mit den Quellen aller Sätze gemessen: mit weniger Sätzen wird der Hinweis höchstens kürzer
-            footnoteDp = toolkit.textBlock(plainNote(plainSentences.size), PulseWidgetPlain.FOOTNOTE_SP, textWidthDp).heightDp,
-            sentenceHeightsDp = plainSentences.map {
-                toolkit.textBlock(it, PulseWidgetPlain.SENTENCE_SP, textWidthDp).heightDp
-            },
-        )
+        0f
     }
+    val sentenceHeights = if (measured) {
+        plainSentences.map { toolkit.textBlock(it, PulseWidgetPlain.SENTENCE_SP, textWidthDp).heightDp }
+    } else {
+        emptyList()
+    }
+    val plainCount = if (measured) PulseWidgetPlain.sentenceCount(blockAvailable, titleDp, footnoteDp, sentenceHeights) else 0
     val size = PulseWidgetPlain.size(widgetWidthDp, plainCount > 0)
     val firstSentence = plainSentences.firstOrNull()
     val sentenceLead = size == PulseWidgetSize.MEDIUM && firstSentence != null &&
@@ -119,16 +121,27 @@ internal fun drawPulseReport(
     views.setTextViewText(R.id.pulse_plain_note, shownNote)
     views.setTextColor(R.id.pulse_plain_note, colors.secondaryTextColor)
 
-    // Nur so viele Coins, wie ganz in die Breite passen (nie ein abgeschnittener)
     val allCoins = PulseWidgetMath.coins(report, 3)
+    // Gross mit Platz unter «Kurz gesagt»: alle Coins als Liste (Name und Veränderung) statt der Zeile
+    val freeDp = blockAvailable - PulseWidgetPlain.blockUsedDp(titleDp, footnoteDp, sentenceHeights, shownPlain.size)
+    val asList = PulseWidgetList.fits(
+        large = shownPlain.isNotEmpty(),
+        freeDp = freeDp,
+        coins = allCoins.size,
+        rowTextDp = toolkit.textBlock("Ethereum", PulseWidgetList.ROW_SP, textWidthDp, bold = true).heightDp,
+        headerDp = toolkit.textBlock(period24h, PulseWidgetList.HEADER_SP, textWidthDp).heightDp,
+    )
+    // Sonst nur so viele Coins, wie ganz in die Breite passen (nie ein abgeschnittener)
     val chipWidths = allCoins.map { toolkit.textWidthDp(PulseWidgetMath.chipText(it), 12f, tabular = true) }
     // «24h» klein und grau vor den Coins (die Veränderungen sind 24-h-Werte); Platz dafür abziehen
     val periodLeading = PulseWidgetMath.periodLeadingDp(toolkit.textWidthDp(period24h, 12f, bold = false))
-    val coins = allCoins.take(PulseWidgetMath.coinCount(widgetWidthDp, chipWidths, periodLeading))
+    val coins = if (asList) allCoins else allCoins.take(PulseWidgetMath.coinCount(widgetWidthDp, chipWidths, periodLeading))
+    views.setViewVisibility(R.id.pulse_chips_row, if (asList) View.GONE else View.VISIBLE)
     views.setViewVisibility(R.id.pulse_coins_period, if (coins.isEmpty()) View.GONE else View.VISIBLE)
     views.setTextViewText(R.id.pulse_coins_period, period24h)
     views.setTextColor(R.id.pulse_coins_period, colors.secondaryTextColor)
-    PulseWidgetChips.draw(views, coins, colors)
+    PulseWidgetChips.draw(views, if (asList) emptyList() else coins, colors)
+    PulseWidgetChips.drawList(views, if (asList) coins else emptyList(), colors, period24h)
     views.setViewVisibility(R.id.pulse_time, if (stand != null) View.VISIBLE else View.GONE)
     views.setTextViewText(R.id.pulse_time, stand.orEmpty())
     views.setTextColor(R.id.pulse_time, colors.secondaryTextColor)
