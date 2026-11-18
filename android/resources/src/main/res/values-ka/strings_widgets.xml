@@ -71,7 +71,7 @@
     <string name="widget_portfolio_period_without">%1$s %2$s-ის გარეშე</string>
     <string name="widget_portfolio_range_48h">48 სთ</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: გახსენი პორტფელი</string>
+    <string name="widget_portfolio_range_fallback">%1$s ჯერ კიდევ იტვირთება</string>
     <string name="widget_portfolio_range_short_48h">48სთ</string>
     <string name="widget_portfolio_today_without">დღეს %1$s-ის გარეშე</string>
     <string name="widget_portfolio_view">ხედი</string>

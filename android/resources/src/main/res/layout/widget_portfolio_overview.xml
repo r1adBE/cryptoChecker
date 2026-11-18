@@ -2,7 +2,7 @@
 <!-- Portfolio-Widget, Ansicht «Übersicht» (wie die Gesamtkarte im Portfolio-Tab): Kopfzeile,
      Gesamtwert, Betrag «↘ −1’968.40 CHF  −2.31% · 24h», ≈ USDT, darunter Heute · 7 T · Gesamt — breit als drei
      Spalten (portfolio_figures_wide, widget_portfolio_figure_column.xml), schmal untereinander
-     (portfolio_figures_narrow, widget_portfolio_figure_row.xml) — und die Fusszeile.
+     (portfolio_figures_narrow, widget_portfolio_figure_row.xml), im hohen Widget der Wertverlauf, und die Fusszeile.
      Gleiche Ids wie widget_portfolio.xml für Kopf, Werte und Fusszeile (PortfolioWidgetRenderer).
      Nur RemoteViews-taugliche Views (kein <View>). -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -60,7 +60,10 @@
                 android:orientation="vertical"
                 android:visibility="gone" />
 
-            <!-- Platzhalter: hält die Fusszeile unten -->
+            <!-- Hohes Widget: Wertverlauf im freien Platz (PortfolioOverviewLayout.chartHeightDp), sonst ausgeblendet -->
+            <include layout="@layout/widget_portfolio_chart" />
+
+            <!-- Platzhalter: hält die Fusszeile unten (ausgeblendet, solange der Wertverlauf den Platz füllt) -->
             <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
                 tools:ignore="NestedWeights"

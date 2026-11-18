@@ -89,6 +89,9 @@ extension PortfolioTotalCard {
         return items
     }
 
+    /// Texte aller Hinweise (für die Meldung beim Antippen einer Teilsumme).
+    var hintTexts: [String] { hintItems.map(\.text) }
+
     /// Bereich «Hinweise» unter der Karte, zugeklappt: eine Zeile «Hinweise (n)» mit Pfeil
     /// (44 pt hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist); offen die Zeilen eng untereinander
     /// (`.subheadline`), eingerückt wie der Inhalt der Karte — wie Android `TotalCardHints`.

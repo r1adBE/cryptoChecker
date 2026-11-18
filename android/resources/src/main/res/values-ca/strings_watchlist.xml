@@ -145,8 +145,8 @@
     <string name="watch_enable_hint">Es reprenen els preus i les notificacions</string>
     <string name="watch_enabled_banner">S\'ha activat %1$s</string>
     <string name="watch_error_offline">Sense connexió</string>
-    <string name="watch_gesture_hint_short">Toca: alarma i «Què es mou amb ell?» · mantén premut per seleccionar · llisca a l\'esquerra per suprimir · llisca a la dreta per a preferit</string>
-    <string name="watch_hint_tap_why">Toca una moneda per a alarmes i «Què es mou amb ell?»</string>
+    <string name="watch_gesture_hint_short">Mantén premut per seleccionar · llisca a l\'esquerra per suprimir · llisca a la dreta per a preferit</string>
+    <string name="watch_hint_tap_why">Toca una fila per a alarmes i «Què es mou amb ell?»</string>
     <string name="watch_not_traded">Ja no es negocia en aquest exchange</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">No és a la llista</string>

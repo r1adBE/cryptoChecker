@@ -280,11 +280,7 @@ private suspend fun PortfolioWidgetRenderer.bindPortfolioChart(
         val chartColor = if (chartUp) colors.upColor else colors.downColor
         val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
         val bitmap = if (drawable) {
-            withContext(Dispatchers.Default) {
-                runCatchingCancellable { drawPortfolioChart(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale) }
-                    .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
-                    .getOrNull()
-            }
+            drawPortfolioChartOffMain(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale)
         } else {
             null
         }
@@ -319,4 +315,23 @@ private fun PortfolioWidgetRenderer.portfolioChartDescription(
     return A11yText.chart(context, periodLong, plan.bars.map { it.close }) {
         if (style.hideAmounts) hiddenSpoken else PriceFormat.valueWithCurrency(it, snapshot.currency)
     }
+}
+
+/**
+ * Chart abseits des Haupt-Threads zeichnen (Ansicht «Chart» und «Übersicht»); Fehler = null (das Widget zeigt dann
+ * den Platzhalter bzw. den Abstand).
+ */
+internal suspend fun PortfolioWidgetRenderer.drawPortfolioChartOffMain(
+    appWidgetId: Int,
+    slot: Int,
+    plan: PortfolioChartPlan,
+    color: Int,
+    style: PortfolioStyle,
+    widthDp: Float,
+    heightDp: Float,
+    fontScale: Float,
+): android.graphics.Bitmap? = withContext(Dispatchers.Default) {
+    runCatchingCancellable { drawPortfolioChart(appWidgetId, slot, plan, color, style, widthDp, heightDp, fontScale) }
+        .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
+        .getOrNull()
 }

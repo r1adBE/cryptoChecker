@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 taon</string>
     <string name="portfolio_history_period_30d">30 araw</string>
     <string name="portfolio_history_period_7d">7 araw</string>
+    <string name="portfolio_history_period_7d_currency">7 araw (%1$s)</string>
     <string name="portfolio_history_period_since_first">mula sa unang pagbili</string>
     <string name="portfolio_history_pnl_needs_prices">Kulang ang mga presyo ng pagbili para sa tubo/lugi – idagdag ang mga ito sa mga transaksyon.</string>
     <string name="portfolio_history_pnl_without">Tubo/lugi nang wala ang %1$s (walang presyo)</string>

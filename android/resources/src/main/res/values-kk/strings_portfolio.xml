@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 жыл</string>
     <string name="portfolio_history_period_30d">30 күн</string>
     <string name="portfolio_history_period_7d">7 күн</string>
+    <string name="portfolio_history_period_7d_currency">7 күн (%1$s)</string>
     <string name="portfolio_history_period_since_first">алғашқы сатып алудан бері</string>
     <string name="portfolio_history_pnl_needs_prices">Пайда/шығын үшін сатып алу бағалары жоқ – оларды транзакцияларға қосыңыз.</string>
     <string name="portfolio_history_pnl_without">%1$s есептелмеген пайда/шығын (баға жоқ)</string>

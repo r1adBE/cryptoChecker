@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">වසර 1</string>
     <string name="portfolio_history_period_30d">දින 30</string>
     <string name="portfolio_history_period_7d">දින 7</string>
+    <string name="portfolio_history_period_7d_currency">දින 7 (%1$s)</string>
     <string name="portfolio_history_period_since_first">පළමු මිලදී ගැනීමේ සිට</string>
     <string name="portfolio_history_pnl_needs_prices">ලාභය/පාඩුව සඳහා මිලදී ගැනීමේ මිල නැත – ඒවා ගනුදෙනුවලට එක් කරන්න.</string>
     <string name="portfolio_history_pnl_without">%1$s නොමැතිව ලාභය/පාඩුව (මිල නැත)</string>

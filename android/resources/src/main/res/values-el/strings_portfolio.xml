@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 έτος</string>
     <string name="portfolio_history_period_30d">30 ημέρες</string>
     <string name="portfolio_history_period_7d">7 ημέρες</string>
+    <string name="portfolio_history_period_7d_currency">7 ημέρες (%1$s)</string>
     <string name="portfolio_history_period_since_first">από την πρώτη αγορά</string>
     <string name="portfolio_history_pnl_needs_prices">Λείπουν τιμές αγοράς για το κέρδος/ζημία – πρόσθεσέ τες στις συναλλαγές.</string>
     <string name="portfolio_history_pnl_without">Κέρδος/ζημία χωρίς %1$s (λείπει η τιμή)</string>

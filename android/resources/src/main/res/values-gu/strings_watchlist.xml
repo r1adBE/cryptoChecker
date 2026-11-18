@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">ભાવ અને સૂચનાઓ ફરી શરૂ થાય છે</string>
     <string name="watch_enabled_banner">%1$s સક્રિય કર્યું</string>
     <string name="watch_error_offline">કનેક્શન નથી</string>
-    <string name="watch_gesture_hint_short">ટૅપ: એલર્ટ અને “સાથે શું હલી રહ્યું છે?” · પસંદ કરવા લાંબું દબાવો · ડિલીટ કરવા ડાબે સ્વાઇપ · મનપસંદ માટે જમણે સ્વાઇપ</string>
-    <string name="watch_hint_tap_why">એલર્ટ અને “સાથે શું હલી રહ્યું છે?” માટે કૉઇન પર ટૅપ કરો</string>
+    <string name="watch_gesture_hint_short">પસંદ કરવા લાંબું દબાવો · ડિલીટ કરવા ડાબે સ્વાઇપ · મનપસંદ માટે જમણે સ્વાઇપ</string>
+    <string name="watch_hint_tap_why">એલર્ટ અને “સાથે શું હલી રહ્યું છે?” માટે એક પંક્તિ પર ટૅપ કરો</string>
     <string name="watch_not_traded">આ એક્સચેન્જ પર હવે ટ્રેડ થતું નથી</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">વૉચલિસ્ટમાં નથી</string>

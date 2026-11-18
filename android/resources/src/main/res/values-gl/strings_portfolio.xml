@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 ano</string>
     <string name="portfolio_history_period_30d">30 días</string>
     <string name="portfolio_history_period_7d">7 días</string>
+    <string name="portfolio_history_period_7d_currency">7 días (%1$s)</string>
     <string name="portfolio_history_period_since_first">desde a primeira compra</string>
     <string name="portfolio_history_pnl_needs_prices">Faltan prezos de compra para as ganancias/perdas – engádeos nas transaccións.</string>
     <string name="portfolio_history_pnl_without">Ganancia/perda sen %1$s (falta o prezo)</string>

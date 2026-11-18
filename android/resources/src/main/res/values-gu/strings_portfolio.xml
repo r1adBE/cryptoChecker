@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 વર્ષ</string>
     <string name="portfolio_history_period_30d">30 દિવસ</string>
     <string name="portfolio_history_period_7d">7 દિવસ</string>
+    <string name="portfolio_history_period_7d_currency">7 દિવસ (%1$s)</string>
     <string name="portfolio_history_period_since_first">પહેલી ખરીદીથી</string>
     <string name="portfolio_history_pnl_needs_prices">નફા/નુકસાન માટે ખરીદ ભાવ ખૂટે છે – વ્યવહારોમાં તે ઉમેરો.</string>
     <string name="portfolio_history_pnl_without">%1$s વગર નફો/નુકસાન (ભાવ ખૂટે છે)</string>

@@ -87,7 +87,7 @@ fun PortfolioWidgetRenderer.timeText(snapshot: PortfolioSnapshot, outdated: Bool
 fun PortfolioWidgetRenderer.spokenTime(snapshot: PortfolioSnapshot, outdated: Boolean): String =
     if (outdated && !offline) WidgetOutdated.spoken(context, snapshot.time) else timeText(snapshot, outdated)
 
-/** Gewählter Zeitraum ohne Tageskurse: «7T folgt» (das Widget zeigt 24 h); sonst null. */
+/** Gewählter Zeitraum ohne Tageskurse: «7T wird noch geladen» (das Widget zeigt 24 h); sonst null. */
 fun PortfolioWidgetRenderer.fallbackHint(plan: PortfolioChartPlan): String? =
     if (plan.fallback) context.getString(R.string.widget_portfolio_range_fallback, rangeShort(plan.requested)) else null
 

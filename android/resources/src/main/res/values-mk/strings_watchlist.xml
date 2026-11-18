@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Цените и известувањата продолжуваат</string>
     <string name="watch_enabled_banner">%1$s е вклучен</string>
     <string name="watch_error_offline">Нема врска</string>
-    <string name="watch_gesture_hint_short">Допри: аларм и „Што се движи заедно?“ · подолго притисни за избор · повлечи лево за бришење · повлечи десно за омилено</string>
-    <string name="watch_hint_tap_why">Допри монета за аларми и „Што се движи заедно?“</string>
+    <string name="watch_gesture_hint_short">Подолго притисни за избор · повлечи лево за бришење · повлечи десно за омилено</string>
+    <string name="watch_hint_tap_why">Допри ред за аларми и „Што се движи заедно?“</string>
     <string name="watch_not_traded">Повеќе не се тргува на оваа берза</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Не е во листата за следење</string>

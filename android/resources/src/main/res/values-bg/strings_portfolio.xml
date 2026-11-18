@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 година</string>
     <string name="portfolio_history_period_30d">30 дни</string>
     <string name="portfolio_history_period_7d">7 дни</string>
+    <string name="portfolio_history_period_7d_currency">7 дни (%1$s)</string>
     <string name="portfolio_history_period_since_first">от първата покупка</string>
     <string name="portfolio_history_pnl_needs_prices">За печалбата/загубата липсват покупни цени – добави ги в транзакциите.</string>
     <string name="portfolio_history_pnl_without">Печалба/загуба без %1$s (липсва цена)</string>

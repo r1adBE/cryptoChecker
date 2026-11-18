@@ -130,13 +130,7 @@ private struct UsageCard: View {
         }
     }
 
-    private var labelKey: String {
-        switch level {
-        case .low: return "usage_level_low"
-        case .medium: return "usage_level_medium"
-        case .high: return "usage_level_high"
-        }
-    }
+    private var labelKey: String { level.labelKey }
 
     private var color: Color {
         switch level {
@@ -151,5 +145,16 @@ private struct UsageCard: View {
         let date = Date(timeIntervalSince1970: TimeInterval(millis) / 1000)
         if Calendar.current.isDateInToday(date) { return date.formatted(date: .omitted, time: .shortened) }
         return date.formatted(date: .abbreviated, time: .shortened)
+    }
+}
+
+extension UsageLevel {
+    /// «Geringe Aktivität» usw. — auf der Seite und unter «Akku & Aktivität» der Hauptseite (wie Android `labelRes`).
+    var labelKey: String {
+        switch self {
+        case .low: return "usage_level_low"
+        case .medium: return "usage_level_medium"
+        case .high: return "usage_level_high"
+        }
     }
 }

@@ -31,6 +31,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.withAddresses
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -41,6 +42,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 
 /**
@@ -104,6 +106,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
     }
 
     companion object {
+        /** Tagesschlüsse in der Hintergrund-Aktualisierung höchstens so lange (meist aus dem Zwischenspeicher). */
+        const val DAILY_TIMEOUT_MILLIS = 8_000L
+
         /**
          * Hintergrund-Aktualisierung nötig? Mit Portfolio-Widget immer; sonst nur mit scharfem Portfolio-Alarm. Nicht
          * lesbar ([activeAlarms] null) zählt als «vielleicht scharf»: lieber einmal zu viel aktualisieren, als einen
@@ -151,6 +156,12 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 PortfolioCalculator.summarize(trades, prices, CostMethod.DEFAULT, withParts = false).open
             }
             hourlyCandles.loadMissingCandles(defaultOpen.map { it.coin })
+            // Tagesschlüsse für «7 T» und «1 J»: übers Netz nur, wenn der Zwischenspeicher älter als 12 h ist
+            // (dailyPrices) — sonst zeigte das Widget «—», bis jemand den Wertverlauf im Portfolio-Tab öffnet
+            withTimeoutOrNull(DAILY_TIMEOUT_MILLIS) {
+                runCatchingCancellable { historySource.dailyPrices(coins, PortfolioHistory.MAX_DAYS) }
+                    .onFailure { Timber.d(it, "Portfolio-Widget: Tagesschlüsse nicht geladen") }
+            }
             record(transactions, prices, currency, fx, fetched)
         } catch (e: CancellationException) {
             throw e

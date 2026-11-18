@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 年</string>
     <string name="portfolio_history_period_30d">30 天</string>
     <string name="portfolio_history_period_7d">7 天</string>
+    <string name="portfolio_history_period_7d_currency">7 天（%1$s）</string>
     <string name="portfolio_history_period_since_first">自首次买入以来</string>
     <string name="portfolio_history_pnl_needs_prices">缺少买入价，无法计算盈亏——请在交易中补充。</string>
     <string name="portfolio_history_pnl_without">不含 %1$s 的盈亏（缺少价格）</string>

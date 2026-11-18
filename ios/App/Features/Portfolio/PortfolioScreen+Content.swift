@@ -104,7 +104,8 @@ extension PortfolioScreen {
             // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen
             let slices = PortfolioInsights.allocation(summary.open)
             if slices.count >= 2 {
-                PortfolioAllocationCard(slices: slices)
+                PortfolioAllocationCard(slices: slices,
+                                        unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)))
                     .portfolioListRow(top: 0, bottom: ListSegment.spacing)
             }
 
@@ -183,8 +184,5 @@ extension PortfolioScreen {
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: summary.open.map(\.coin))
         .animation(.easeInOut(duration: 0.25), value: showClosed)
         .refreshable { await model.refresh(force: true) }
-        // «+»-Knopf über der eigenen Tableiste (RootView); deren Einschub gibt der Liste unten Platz, die letzte
-        // Zeile rollt über den Knopf (verdeckt nichts — wie Android)
-        .portfolioAddButton { sheet = PortfolioTxDraft() }
     }
 }

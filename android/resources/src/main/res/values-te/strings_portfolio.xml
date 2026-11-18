@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 సంవత్సరం</string>
     <string name="portfolio_history_period_30d">30 రోజులు</string>
     <string name="portfolio_history_period_7d">7 రోజులు</string>
+    <string name="portfolio_history_period_7d_currency">7 రోజులు (%1$s)</string>
     <string name="portfolio_history_period_since_first">మొదటి కొనుగోలు నుండి</string>
     <string name="portfolio_history_pnl_needs_prices">లాభం/నష్టం కోసం కొనుగోలు ధరలు లేవు – లావాదేవీలలో వాటిని జోడించండి.</string>
     <string name="portfolio_history_pnl_without">%1$s లేకుండా లాభం/నష్టం (ధర లేదు)</string>

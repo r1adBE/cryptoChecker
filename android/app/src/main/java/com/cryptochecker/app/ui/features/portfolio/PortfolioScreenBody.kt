@@ -92,7 +92,7 @@ internal fun PortfolioList(
                     state = listState,
                     modifier = Modifier.fillMaxSize(),
                     // Unten Platz für den «+»-Knopf
-                    contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = Spacing.fabClearance),
+                    contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = Spacing.lg),
                     // Positionen ohne Fuge als eine Karte ([ListSegment]); die Karten darüber
                     // bringen den Abstand selbst mit
                     verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)

@@ -169,8 +169,8 @@
     <string name="watch_enable_hint">Atosaíonn praghsanna agus fógraí</string>
     <string name="watch_enabled_banner">%1$s cumasaithe</string>
     <string name="watch_error_offline">Gan cheangal</string>
-    <string name="watch_gesture_hint_short">Tapáil: foláireamh agus “Cad atá ag bogadh leis?” · brúigh go fada chun roghnú · svaidhpeáil ar chlé chun scriosadh · svaidhpeáil ar dheis le haghaidh ceanáin</string>
-    <string name="watch_hint_tap_why">Tapáil bonn le haghaidh foláireamh agus “Cad atá ag bogadh leis?”</string>
+    <string name="watch_gesture_hint_short">Brúigh go fada chun roghnú · svaidhpeáil ar chlé chun scriosadh · svaidhpeáil ar dheis le haghaidh ceanáin</string>
+    <string name="watch_hint_tap_why">Tapáil ró le haghaidh foláireamh agus “Cad atá ag bogadh leis?”</string>
     <string name="watch_not_traded">Ní thrádáiltear ar an malartán seo a thuilleadh</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Ní sa liosta faire</string>

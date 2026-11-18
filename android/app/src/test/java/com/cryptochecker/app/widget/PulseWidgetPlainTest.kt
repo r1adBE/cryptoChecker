@@ -16,9 +16,10 @@ class PulseWidgetPlainTest {
     private val minute = 60_000L
 
     @Test
-    fun `size - narrow or unknown small, wide with room large, otherwise medium`() {
+    fun `size - unknown small, room for the block large, otherwise narrow small and wide medium`() {
         assertEquals(PulseWidgetSize.SMALL, PulseWidgetPlain.size(0, blockFits = true))
-        assertEquals(PulseWidgetSize.SMALL, PulseWidgetPlain.size(249, blockFits = true))
+        assertEquals(PulseWidgetSize.LARGE, PulseWidgetPlain.size(249, blockFits = true))
+        assertEquals(PulseWidgetSize.SMALL, PulseWidgetPlain.size(249, blockFits = false))
         assertEquals(PulseWidgetSize.MEDIUM, PulseWidgetPlain.size(250, blockFits = false))
         assertEquals(PulseWidgetSize.LARGE, PulseWidgetPlain.size(250, blockFits = true))
     }

@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 jaar</string>
     <string name="portfolio_history_period_30d">30 dagen</string>
     <string name="portfolio_history_period_7d">7 dagen</string>
+    <string name="portfolio_history_period_7d_currency">7 dagen (%1$s)</string>
     <string name="portfolio_history_period_since_first">sinds de eerste aankoop</string>
     <string name="portfolio_history_pnl_needs_prices">Voor winst/verlies ontbreken aankoopprijzen – vul ze aan in de transacties.</string>
     <string name="portfolio_history_pnl_without">Winst/verlies zonder %1$s (prijs ontbreekt)</string>

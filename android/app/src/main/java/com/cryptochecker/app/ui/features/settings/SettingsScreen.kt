@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -54,6 +55,7 @@ import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.wearable.PhoneWatchSync
+import com.cryptochecker.marketdata.usage.UsageLevel
 import com.cryptochecker.resources.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +89,8 @@ fun SettingsScreen(
 ) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val languageTag by viewModel.languageTag.collectAsStateWithLifecycle()
+    // Untertitel von «Akku & Aktivität»; beim Zurückkehren von der Seite neu gelesen
+    val usageLevel by produceState<UsageLevel?>(null) { value = viewModel.usageLevel() }
     // Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer)
     var query by rememberSaveable { mutableStateOf("") }
     // Treffer auf der Hauptseite selbst (Sprache, Widgets, Links): Zeile kurz hervorheben
@@ -142,7 +146,7 @@ fun SettingsScreen(
             } else {
                 ProvideSettingsHighlight(mainHighlight) {
                     // 1 Allgemein: Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung
-                    GeneralSettingsSection(settings, languageTag, onOpenPage)
+                    GeneralSettingsSection(settings, languageTag, usageLevel, onOpenPage)
 
                     // 2 Darstellung: Hell/Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets
                     AppearanceSettingsSection(settings, onOpenPage)
@@ -221,7 +225,12 @@ private fun ResetAppDialog(onDismiss: () -> Unit, resetContext: Context, resetSc
 
 /** Gruppe «Allgemein» der Hauptseite ([SettingsScreen]): Sprache, Währung, Merkliste, Portfolio, Alarme, Kurse. */
 @Composable
-private fun GeneralSettingsSection(settings: AppSettings, languageTag: String, onOpenPage: (SettingsPage) -> Unit) {
+private fun GeneralSettingsSection(
+    settings: AppSettings,
+    languageTag: String,
+    usageLevel: UsageLevel?,
+    onOpenPage: (SettingsPage) -> Unit,
+) {
     SettingsSection(stringResource(R.string.settings_group_general), first = true) {
         SettingsAnchor("main.language") {
             LanguageRow(selectedTag = languageTag, onClick = { onOpenPage(SettingsPage.LANGUAGE) })
@@ -266,6 +275,8 @@ private fun GeneralSettingsSection(settings: AppSettings, languageTag: String, o
         SettingsNavRow(
             title = stringResource(R.string.settings_row_usage),
             icon = R.drawable.ic_settings_usage,
+            // Einstufung der letzten 24 h als Untertitel («Geringe Aktivität»), wie auf der Seite
+            value = usageLevel?.let { stringResource(it.labelRes) },
             onClick = { onOpenPage(SettingsPage.USAGE) }
         )
     }

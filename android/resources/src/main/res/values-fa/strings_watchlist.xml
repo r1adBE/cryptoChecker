@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">قیمت‌ها و اعلان‌ها دوباره فعال</string>
     <string name="watch_enabled_banner">%1$s فعال شد</string>
     <string name="watch_error_offline">اتصال برقرار نیست</string>
-    <string name="watch_gesture_hint_short">ضربه: هشدار و «چه چیزی همراه آن حرکت می‌کند؟» · برای انتخاب نگه دار · به چپ بکش برای حذف · به راست برای محبوب</string>
-    <string name="watch_hint_tap_why">برای هشدار و «چه چیزی همراه آن حرکت می‌کند؟» روی یک کوین ضربه بزن</string>
+    <string name="watch_gesture_hint_short">برای انتخاب نگه دار · به چپ بکش برای حذف · به راست برای محبوب</string>
+    <string name="watch_hint_tap_why">برای هشدارها و «چه چیزی همراه آن حرکت می‌کند؟» روی یک ردیف ضربه بزنید</string>
     <string name="watch_not_traded">دیگر در این صرافی معامله نمی‌شود</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">در واچ‌لیست نیست</string>

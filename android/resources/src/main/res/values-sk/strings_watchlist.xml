@@ -157,8 +157,8 @@
     <string name="watch_enable_hint">Kurzy a upozornenia sa obnovia</string>
     <string name="watch_enabled_banner">%1$s aktivovaný</string>
     <string name="watch_error_offline">Bez pripojenia</string>
-    <string name="watch_gesture_hint_short">Ťuknutie: alarm a „Čo sa hýbe spolu?“ · dlhé stlačenie vyberie · potiahnutie doľava odstráni · potiahnutie doprava = obľúbené</string>
-    <string name="watch_hint_tap_why">Ťukni na coin pre alarmy a „Čo sa hýbe spolu?“</string>
+    <string name="watch_gesture_hint_short">Dlhé stlačenie vyberie · potiahnutie doľava odstráni · potiahnutie doprava = obľúbené</string>
+    <string name="watch_hint_tap_why">Ťukni na riadok pre alarmy a „Čo sa hýbe spolu?“</string>
     <string name="watch_not_traded">Na tejto burze sa už neobchoduje</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nie je v zozname</string>

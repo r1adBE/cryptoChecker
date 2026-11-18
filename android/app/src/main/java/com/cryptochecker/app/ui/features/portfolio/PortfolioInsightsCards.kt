@@ -65,6 +65,7 @@ import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.resources.R
 
 /** Karte wie der Wertverlauf ([AppCard]), ruhiger Titel. */
@@ -100,10 +101,11 @@ private val SLICE_ALPHAS = listOf(1f, 0.72f, 0.5f, 0.32f)
 
 /**
  * «Aufteilung»: gestapelter Balken und Liste der vier grössten Coins nach Wert (Rest als «Andere»)
- * mit Anteil und Wert. Werte mit «Beträge verbergen» als «•••», Anteile bleiben.
+ * mit Anteil und Wert in der Anzeigewährung wie Gesamtwert und Positionen ([unit]). Werte mit «Beträge verbergen» als
+ * «•••», Anteile bleiben.
  */
 @Composable
-internal fun AllocationCard(slices: List<AllocationSlice>) {
+internal fun AllocationCard(slices: List<AllocationSlice>, unit: CardUnit) {
     val other = stringResource(R.string.portfolio_allocation_other)
     InsightCard(stringResource(R.string.portfolio_allocation_title)) {
         // Gestapelter Balken (Teile mit 2 dp Abstand); für den Screenreader zählt die Liste darunter
@@ -129,7 +131,7 @@ internal fun AllocationCard(slices: List<AllocationSlice>) {
             slices.forEachIndexed { index, slice ->
                 val name = slice.coin ?: other
                 val share = PortfolioWidgetMath.shareText(slice.sharePercent)
-                val value = PortfolioFormat.usdt(slice.valueUsd)
+                val value = PriceFormat.valueWithCurrency(unit.of(slice.valueUsd), unit.code)
                 val spoken = listOf(name, share, spokenAmount(value)).joinToString(", ")
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

@@ -167,7 +167,7 @@ enum PortfolioWidgetText {
         return L(day ? "widget_range_24h" : "widget_portfolio_range_48h")
     }
 
-    /// Gewählter Zeitraum ohne Tageskurse (Widget zeigt 24 h): «7T: Portfolio öffnen»; sonst nil.
+    /// Gewählter Zeitraum ohne Tageskurse (Widget zeigt 24 h): «7T wird noch geladen»; sonst nil.
     static func fallbackHint(_ plan: PortfolioChartPlan) -> String? {
         plan.fallback ? L("widget_portfolio_range_fallback", L(plan.requested.shortLabelKey)) : nil
     }

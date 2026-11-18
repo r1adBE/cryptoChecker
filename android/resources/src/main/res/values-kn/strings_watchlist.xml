@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">ಬೆಲೆಗಳು ಮತ್ತು ಅಧಿಸೂಚನೆಗಳು ಮತ್ತೆ ಆರಂಭವಾಗುತ್ತವೆ</string>
     <string name="watch_enabled_banner">%1$s ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
     <string name="watch_error_offline">ಸಂಪರ್ಕವಿಲ್ಲ</string>
-    <string name="watch_gesture_hint_short">ಟ್ಯಾಪ್: ಅಲರ್ಟ್ ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” · ಆಯ್ಕೆಮಾಡಲು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ · ಅಳಿಸಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ · ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್</string>
-    <string name="watch_hint_tap_why">ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” ಗಾಗಿ ಕಾಯಿನ್ ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+    <string name="watch_gesture_hint_short">ಆಯ್ಕೆಮಾಡಲು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ · ಅಳಿಸಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ · ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್</string>
+    <string name="watch_hint_tap_why">ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?”ಗಾಗಿ ಒಂದು ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
     <string name="watch_not_traded">ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲಿ ಇನ್ನು ವಹಿವಾಟಾಗುತ್ತಿಲ್ಲ</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿಲ್ಲ</string>

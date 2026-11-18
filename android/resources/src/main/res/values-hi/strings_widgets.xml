@@ -71,7 +71,7 @@
     <string name="widget_portfolio_period_without">%2$s के बिना %1$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: पोर्टफ़ोलियो खोलें</string>
+    <string name="widget_portfolio_range_fallback">%1$s अभी लोड हो रहा है</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">आज %1$s के बिना</string>
     <string name="widget_portfolio_view">दृश्य</string>

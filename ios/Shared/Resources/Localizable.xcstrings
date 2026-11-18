@@ -619154,6 +619154,461 @@
         }
       }
     },
+    "portfolio_history_period_7d_currency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dae (%1$@)"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ቀናት (%1$@)"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 أيام (%1$@)"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 gün (%1$@)"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 дни (%1$@)"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 দিন (%1$@)"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dana (%1$@)"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dies (%1$@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dní (%1$@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dage (%1$@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 Tage (%1$@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ημέρες (%1$@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days (%1$@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 días (%1$@)"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 päeva (%1$@)"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 egun (%1$@)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "۷ روز (%1$@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 päivää (%1$@)"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 araw (%1$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 jours (%1$@)"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 lá (%1$@)"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 días (%1$@)"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 દિવસ (%1$@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ימים (%1$@)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 दिन (%1$@)"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dana (%1$@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 nap (%1$@)"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 օր (%1$@)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 hari (%1$@)"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dagar (%1$@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 giorni (%1$@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7日間（%1$@）"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 დღე (%1$@)"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 күн (%1$@)"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ថ្ងៃ (%1$@)"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ದಿನಗಳು (%1$@)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7일 (%1$@)"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ມື້ (%1$@)"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dienos (%1$@)"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dienas (%1$@)"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 дена (%1$@)"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ദിവസം (%1$@)"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 хоног (%1$@)"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 दिवस (%1$@)"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 hari (%1$@)"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ရက် 7 (%1$@)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dager (%1$@)"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 दिन (%1$@)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dagen (%1$@)"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ਦਿਨ (%1$@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dni (%1$@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dias (%1$@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dias (%1$@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 zile (%1$@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 дней (%1$@)"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දින 7 (%1$@)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dní (%1$@)"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dni (%1$@)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ditë (%1$@)"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 дана (%1$@)"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dana (%1$@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dagar (%1$@)"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "siku 7 (%1$@)"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 நாட்கள் (%1$@)"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 రోజులు (%1$@)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 วัน (%1$@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 gün (%1$@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 днів (%1$@)"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 دن (%1$@)"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 kun (%1$@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ngày (%1$@)"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 日（%1$@）"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 天（%1$@）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 天（%1$@）"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "izinsuku ezingu-7 (%1$@)"
+          }
+        }
+      }
+    },
     "portfolio_history_period_since_first" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -997223,451 +997678,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik: alarm en “Wat beweeg saam?” · druk lank om te kies · swiep links om uit te vee · swiep regs vir gunsteling"
+            "value" : "Druk lank om te kies · swiep links om uit te vee · swiep regs vir gunsteling"
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ይንኩ፦ ማንቂያ እና «አብሮ ምን እየተንቀሳቀሰ ነው?» · ለመምረጥ በረጅሙ ይጫኑ · ለመሰረዝ ወደ ግራ ያንሸራትቱ · ለተወዳጅ ወደ ቀኝ ያንሸራትቱ"
+            "value" : "ለመምረጥ በረጅሙ ይጫኑ · ለመሰረዝ ወደ ግራ ያንሸራትቱ · ለተወዳጅ ወደ ቀኝ ያንሸራትቱ"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "انقر: التنبيه و«ما الذي يتحرك معه؟» · اضغط مطولًا للتحديد · اسحب لليسار للحذف · اسحب لليمين للمفضلة"
+            "value" : "اضغط مطولًا للتحديد · اسحب لليسار للحذف · اسحب لليمين للمفضلة"
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toxun: alarm və «Onunla birlikdə nə hərəkət edir?» · seçmək üçün uzun bas · silmək üçün sola sürüşdür · seçilmiş üçün sağa sürüşdür"
+            "value" : "Seçmək üçün uzun bas · silmək üçün sola sürüşdür · seçilmiş üçün sağa sürüşdür"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Докосване: аларма и „Какво се движи заедно?“ · продължително натискане избира · плъзгане наляво изтрива · плъзгане надясно = любими"
+            "value" : "Продължително натискане избира · плъзгане наляво изтрива · плъзгане надясно = любими"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ট্যাপ: অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?” · বেছে নিতে দীর্ঘক্ষণ চাপুন · মুছতে বাঁয়ে সোয়াইপ · প্রিয়র জন্য ডানে সোয়াইপ"
+            "value" : "বেছে নিতে দীর্ঘক্ষণ চাপুন · মুছতে বাঁয়ে সোয়াইপ · প্রিয়র জন্য ডানে সোয়াইপ"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodir: alarm i „Šta se kreće s njom?“ · dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit"
+            "value" : "Dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca: alarma i «Què es mou amb ell?» · mantén premut per seleccionar · llisca a l'esquerra per suprimir · llisca a la dreta per a preferit"
+            "value" : "Mantén premut per seleccionar · llisca a l'esquerra per suprimir · llisca a la dreta per a preferit"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klepnutím alarm a „Co se hýbe s ním?“ · podržením výběr · přejetím doleva smazat · doprava oblíbené"
+            "value" : "Podržením výběr · přejetím doleva smazat · doprava oblíbené"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryk: alarm og »Hvad bevæger sig med?« · hold nede for at vælge · stryg til venstre for at slette · til højre for favorit"
+            "value" : "Hold nede for at vælge · stryg til venstre for at slette · til højre for favorit"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippen: Alarm und «Was bewegt sich mit?» · lange drücken wählt aus · links wischen löscht · rechts wischen = Favorit"
+            "value" : "Lange drücken wählt aus · links wischen löscht · rechts wischen = Favorit"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πάτα: συναγερμός και «Τι κινείται μαζί;» · παρατεταμένο πάτημα για επιλογή · σύρε αριστερά για διαγραφή · δεξιά για αγαπημένο"
+            "value" : "Παρατεταμένο πάτημα για επιλογή · σύρε αριστερά για διαγραφή · δεξιά για αγαπημένο"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap: alert and “What is moving with it?” · long-press to select · swipe left to delete · swipe right for favorite"
+            "value" : "Long-press to select · swipe left to delete · swipe right for favorite"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca: alarma y «¿Qué se mueve con él?» · mantén pulsado para seleccionar · desliza a la izquierda para borrar · a la derecha para favorito"
+            "value" : "Mantén pulsado para seleccionar · desliza a la izquierda para borrar · a la derecha para favorito"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puuduta: hoiatus ja „Mis liigub kaasa?“ · vajuta pikalt valimiseks · pühi vasakule kustutamiseks · pühi paremale = lemmik"
+            "value" : "Vajuta pikalt valimiseks · pühi vasakule kustutamiseks · pühi paremale = lemmik"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sakatu: alarma eta «Zer mugitzen da harekin batera?» · sakatu luze hautatzeko · pasatu ezkerrera ezabatzeko · pasatu eskuinera gogokoetarako"
+            "value" : "Sakatu luze hautatzeko · pasatu ezkerrera ezabatzeko · pasatu eskuinera gogokoetarako"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ضربه: هشدار و «چه چیزی همراه آن حرکت می‌کند؟» · برای انتخاب نگه دار · به چپ بکش برای حذف · به راست برای محبوب"
+            "value" : "برای انتخاب نگه دار · به چپ بکش برای حذف · به راست برای محبوب"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Napauta: hälytys ja ”Mikä liikkuu mukana?” · paina pitkään valitaksesi · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi"
+            "value" : "Paina pitkään valitaksesi · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I-tap: alerto at “Ano ang gumagalaw kasabay nito?” · pindutin nang matagal para pumili · i-swipe pakaliwa para i-delete · i-swipe pakanan para sa paborito"
+            "value" : "Pindutin nang matagal para pumili · i-swipe pakaliwa para i-delete · i-swipe pakanan para sa paborito"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Touche : alerte et « Qu’est-ce qui bouge avec ? » · appui long pour sélectionner · balaie à gauche pour supprimer · à droite pour favori"
+            "value" : "Appui long pour sélectionner · balaie à gauche pour supprimer · à droite pour favori"
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapáil: foláireamh agus “Cad atá ag bogadh leis?” · brúigh go fada chun roghnú · svaidhpeáil ar chlé chun scriosadh · svaidhpeáil ar dheis le haghaidh ceanáin"
+            "value" : "Brúigh go fada chun roghnú · svaidhpeáil ar chlé chun scriosadh · svaidhpeáil ar dheis le haghaidh ceanáin"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca: alarma e «Que se move con el?» · mantén premido para seleccionar · despraza á esquerda para eliminar · despraza á dereita para favorito"
+            "value" : "Mantén premido para seleccionar · despraza á esquerda para eliminar · despraza á dereita para favorito"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ટૅપ: એલર્ટ અને “સાથે શું હલી રહ્યું છે?” · પસંદ કરવા લાંબું દબાવો · ડિલીટ કરવા ડાબે સ્વાઇપ · મનપસંદ માટે જમણે સ્વાઇપ"
+            "value" : "પસંદ કરવા લાંબું દબાવો · ડિલીટ કરવા ડાબે સ્વાઇપ · મનપસંદ માટે જમણે સ્વાઇપ"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקשה: התראה ו«מה זז יחד איתו?» · לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף"
+            "value" : "לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "टैप करें: अलार्म और “साथ में किसमें हलचल है?” · चुनने के लिए देर तक दबाएँ · हटाने के लिए बाईं ओर स्वाइप करें · पसंदीदा के लिए दाईं ओर"
+            "value" : "चुनने के लिए देर तक दबाएँ · हटाने के लिए बाईं ओर स्वाइप करें · पसंदीदा के लिए दाईं ओर"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodir: alarm i „Što se kreće s njom?“ · dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit"
+            "value" : "Dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koppintás: riasztás és „Mi mozog vele együtt?” · hosszan nyomva kijelölés · húzd balra a törléshez · jobbra a kedvencekhez"
+            "value" : "Hosszan nyomva kijelölés · húzd balra a törléshez · jobbra a kedvencekhez"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Հպում՝ ահազանգ և «Ի՞նչն է շարժվում դրա հետ» · երկար սեղմում՝ ընտրել · սահեցրու ձախ՝ ջնջել · սահեցրու աջ՝ ընտրյալ"
+            "value" : "Երկար սեղմում՝ ընտրել · սահեցրու ձախ՝ ջնջել · սահեցրու աջ՝ ընտրյալ"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketuk: alarm dan “Apa yang ikut bergerak?” · tekan lama untuk memilih · geser ke kiri untuk hapus · ke kanan untuk favorit"
+            "value" : "Tekan lama untuk memilih · geser ke kiri untuk hapus · ke kanan untuk favorit"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ýta: viðvörun og „Hvað hreyfist með?“ · halda inni til að velja · strjúka til vinstri til að eyða · strjúka til hægri fyrir uppáhald"
+            "value" : "Halda inni til að velja · strjúka til vinstri til að eyða · strjúka til hægri fyrir uppáhald"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tocca: allarme e «Cosa si muove insieme?» · tieni premuto per selezionare · scorri a sinistra per eliminare · a destra per preferito"
+            "value" : "Tieni premuto per selezionare · scorri a sinistra per eliminare · a destra per preferito"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "タップでアラームと「一緒に動いているのは？」 · 長押しで選択 · 左スワイプで削除 · 右スワイプでお気に入り"
+            "value" : "長押しで選択 · 左スワイプで削除 · 右スワイプでお気に入り"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "შეხება: განგაში და «რა მოძრაობს მასთან ერთად?» · ხანგრძლივი დაჭერა მოსანიშნად · გადაფურცლე მარცხნივ წასაშლელად · მარჯვნივ რჩეულისთვის"
+            "value" : "Ხანგრძლივი დაჭერა მოსანიშნად · გადაფურცლე მარცხნივ წასაშლელად · მარჯვნივ რჩეულისთვის"
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Түрту: ескерту және «Онымен бірге не қозғалады?» · таңдау үшін ұзақ басу · жою үшін солға сырғыту · таңдаулы үшін оңға сырғыту"
+            "value" : "Таңдау үшін ұзақ басу · жою үшін солға сырғыту · таңдаулы үшін оңға сырғыту"
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ចុច៖ ការដាស់តឿន និង «អ្វីកំពុងផ្លាស់ទីជាមួយវា?» · ចុចសង្កត់ដើម្បីជ្រើសរើស · អូសទៅឆ្វេងដើម្បីលុប · អូសទៅស្តាំសម្រាប់ចំណូលចិត្ត"
+            "value" : "ចុចសង្កត់ដើម្បីជ្រើសរើស · អូសទៅឆ្វេងដើម្បីលុប · អូសទៅស្តាំសម្រាប់ចំណូលចិត្ត"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಟ್ಯಾಪ್: ಅಲರ್ಟ್ ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” · ಆಯ್ಕೆಮಾಡಲು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ · ಅಳಿಸಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ · ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್"
+            "value" : "ಆಯ್ಕೆಮಾಡಲು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ · ಅಳಿಸಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ · ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "탭: 경보와 ‘함께 움직이는 것은?’ · 길게 눌러 선택 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기"
+            "value" : "길게 눌러 선택 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기"
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ແຕະ: ສັນຍານເຕືອນ ແລະ “ມີຫຍັງເໜັງຕີງນຳ?” · ກົດຄ້າງເພື່ອເລືອກ · ປັດຊ້າຍເພື່ອລຶບ · ປັດຂວາສຳລັບລາຍການທີ່ມັກ"
+            "value" : "ກົດຄ້າງເພື່ອເລືອກ · ປັດຊ້າຍເພື່ອລຶບ · ປັດຂວາສຳລັບລາຍການທີ່ມັກ"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bakstelėk: įspėjimas ir „Kas juda kartu?“ · ilgai paspausk, kad pasirinktum · perbrauk kairėn, kad ištrintum · perbrauk dešinėn – mėgstama"
+            "value" : "Ilgai paspausk, kad pasirinktum · perbrauk kairėn, kad ištrintum · perbrauk dešinėn – mėgstama"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pieskāriens: brīdinājums un „Kas kustas līdzi?“ · ilgi nospied, lai atlasītu · pavelc pa kreisi, lai dzēstu · pavelc pa labi – izlasē"
+            "value" : "Ilgi nospied, lai atlasītu · pavelc pa kreisi, lai dzēstu · pavelc pa labi – izlasē"
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Допри: аларм и „Што се движи заедно?“ · подолго притисни за избор · повлечи лево за бришење · повлечи десно за омилено"
+            "value" : "Подолго притисни за избор · повлечи лево за бришење · повлечи десно за омилено"
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ടാപ്പ്: അലേർട്ടും “ഒപ്പം എന്താണ് നീങ്ങുന്നത്?” · തിരഞ്ഞെടുക്കാൻ ദീർഘനേരം അമർത്തുക · ഇല്ലാതാക്കാൻ ഇടത്തോട്ട് സ്വൈപ്പ് · പ്രിയപ്പെട്ടതാക്കാൻ വലത്തോട്ട് സ്വൈപ്പ്"
+            "value" : "തിരഞ്ഞെടുക്കാൻ ദീർഘനേരം അമർത്തുക · ഇല്ലാതാക്കാൻ ഇടത്തോട്ട് സ്വൈപ്പ് · പ്രിയപ്പെട്ടതാക്കാൻ വലത്തോട്ട് സ്വൈപ്പ്"
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Товших: дохио ба «Түүнтэй хамт юу хөдөлж байна?» · сонгохын тулд удаан дарах · устгахын тулд зүүн тийш шудрах · дуртай болгохын тулд баруун тийш шудрах"
+            "value" : "Сонгохын тулд удаан дарах · устгахын тулд зүүн тийш шудрах · дуртай болгохын тулд баруун тийш шудрах"
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "टॅप: अलर्ट आणि “सोबत काय हलत आहे?” · निवडण्यासाठी दीर्घ दाबा · हटवण्यासाठी डावीकडे स्वाइप · आवडतेसाठी उजवीकडे स्वाइप"
+            "value" : "निवडण्यासाठी दीर्घ दाबा · हटवण्यासाठी डावीकडे स्वाइप · आवडतेसाठी उजवीकडे स्वाइप"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketik: amaran dan “Apa yang bergerak bersama?” · tekan lama untuk memilih · leret ke kiri untuk memadam · leret ke kanan untuk kegemaran"
+            "value" : "Tekan lama untuk memilih · leret ke kiri untuk memadam · leret ke kanan untuk kegemaran"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "တို့ပါ- သတိပေးချက်နှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” · ရွေးရန် ကြာကြာ ဖိပါ · ဖျက်ရန် ဘယ်သို့ ပွတ်ဆွဲပါ · အကြိုက်ဆုံးအတွက် ညာသို့ ပွတ်ဆွဲပါ"
+            "value" : "ရွေးရန် ကြာကြာ ဖိပါ · ဖျက်ရန် ဘယ်သို့ ပွတ်ဆွဲပါ · အကြိုက်ဆုံးအတွက် ညာသို့ ပွတ်ဆွဲပါ"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trykk: alarm og «Hva beveger seg med?» · hold inne for å velge · sveip til venstre for å slette · til høyre for favoritt"
+            "value" : "Hold inne for å velge · sveip til venstre for å slette · til høyre for favoritt"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ट्याप: अलर्ट र “यससँगै के चलिरहेको छ?” · छान्न लामो थिच्नुहोस् · मेटाउन बायाँ स्वाइप · मनपर्नेका लागि दायाँ स्वाइप"
+            "value" : "छान्न लामो थिच्नुहोस् · मेटाउन बायाँ स्वाइप · मनपर्नेका लागि दायाँ स्वाइप"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik: alarm en ‘Wat beweegt mee?’ · lang indrukken om te selecteren · veeg naar links om te verwijderen · naar rechts voor favoriet"
+            "value" : "Lang indrukken om te selecteren · veeg naar links om te verwijderen · naar rechts voor favoriet"
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਟੈਪ: ਅਲਰਟ ਅਤੇ “ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?” · ਚੁਣਨ ਲਈ ਦੇਰ ਤੱਕ ਦਬਾਓ · ਮਿਟਾਉਣ ਲਈ ਖੱਬੇ ਸਵਾਈਪ · ਮਨਪਸੰਦ ਲਈ ਸੱਜੇ ਸਵਾਈਪ"
+            "value" : "ਚੁਣਨ ਲਈ ਦੇਰ ਤੱਕ ਦਬਾਓ · ਮਿਟਾਉਣ ਲਈ ਖੱਬੇ ਸਵਾਈਪ · ਮਨਪਸੰਦ ਲਈ ਸੱਜੇ ਸਵਾਈਪ"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dotknij: alarm i „Co rusza się razem?” · przytrzymaj, aby zaznaczyć · przesuń w lewo, aby usunąć · w prawo – ulubione"
+            "value" : "Przytrzymaj, aby zaznaczyć · przesuń w lewo, aby usunąć · w prawo – ulubione"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque: alarme e «O que se mexe com ele?» · toque longo para selecionar · desliza para a esquerda para eliminar · para a direita para favorito"
+            "value" : "Toque longo para selecionar · desliza para a esquerda para eliminar · para a direita para favorito"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque: alarme e “O que se move junto?” · toque longo para selecionar · deslize para a esquerda para excluir · para a direita para favoritar"
+            "value" : "Toque longo para selecionar · deslize para a esquerda para excluir · para a direita para favoritar"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atinge: alarmă și „Ce se mișcă odată cu el?” · apasă lung pentru selectare · glisează la stânga pentru ștergere · la dreapta pentru favorit"
+            "value" : "Apasă lung pentru selectare · glisează la stânga pentru ștergere · la dreapta pentru favorit"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажми: оповещение и «Что движется вместе?» · удерживай для выбора · влево – удалить · вправо – в избранное"
+            "value" : "Удерживай для выбора · влево – удалить · вправо – в избранное"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "තට්ටු කිරීම: ඇඟවීම සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” · තේරීමට දිගු ඔබන්න · මැකීමට වමට ස්වයිප් කරන්න · ප්‍රියතම සඳහා දකුණට ස්වයිප් කරන්න"
+            "value" : "තේරීමට දිගු ඔබන්න · මැකීමට වමට ස්වයිප් කරන්න · ප්‍රියතම සඳහා දකුණට ස්වයිප් කරන්න"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ťuknutie: alarm a „Čo sa hýbe spolu?“ · dlhé stlačenie vyberie · potiahnutie doľava odstráni · potiahnutie doprava = obľúbené"
+            "value" : "Dlhé stlačenie vyberie · potiahnutie doľava odstráni · potiahnutie doprava = obľúbené"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapni: alarm in „Kaj se giblje zraven?“ · dolg pritisk izbere · povleci levo za brisanje · povleci desno za priljubljeno"
+            "value" : "Dolg pritisk izbere · povleci levo za brisanje · povleci desno za priljubljeno"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prek: alarm dhe “Çfarë lëviz bashkë?” · shtyp gjatë për të zgjedhur · rrëshqit majtas për ta fshirë · djathtas për të preferuar"
+            "value" : "Shtyp gjatë për të zgjedhur · rrëshqit majtas për ta fshirë · djathtas për të preferuar"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Додир: аларм и „Шта се креће с њом?“ · дуги притисак за избор · повуци улево за брисање · повуци удесно за фаворит"
+            "value" : "Дуги притисак за избор · повуци улево за брисање · повуци удесно за фаворит"
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodir: alarm i „Šta se kreće s njom?“ · dugi pritisak za izbor · povuci ulevo za brisanje · povuci udesno za favorit"
+            "value" : "Dugi pritisak za izbor · povuci ulevo za brisanje · povuci udesno za favorit"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck: larm och ”Vad rör sig med?” · håll ned för att markera · svep åt vänster för att ta bort · åt höger för favorit"
+            "value" : "Håll ned för att markera · svep åt vänster för att ta bort · åt höger för favorit"
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gusa: kengele na “Nini kinasonga pamoja nayo?” · bonyeza kwa muda mrefu ili kuchagua · telezesha kushoto ili kufuta · telezesha kulia kwa kipendwa"
+            "value" : "Bonyeza kwa muda mrefu ili kuchagua · telezesha kushoto ili kufuta · telezesha kulia kwa kipendwa"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தட்டவும்: விழிப்பூட்டல் மற்றும் “கூடவே எது நகர்கிறது?” · தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்"
+            "value" : "தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "నొక్కండి: అలర్ట్, “దానితో పాటు ఏది కదులుతోంది?” · ఎంచుకోవడానికి ఎక్కువసేపు నొక్కండి · తొలగించడానికి ఎడమవైపు స్వైప్ · ఇష్టమైనదిగా చేయడానికి కుడివైపు స్వైప్"
+            "value" : "ఎంచుకోవడానికి ఎక్కువసేపు నొక్కండి · తొలగించడానికి ఎడమవైపు స్వైప్ · ఇష్టమైనదిగా చేయడానికి కుడివైపు స్వైప్"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แตะ: สัญญาณเตือนและ “อะไรเคลื่อนไหวไปด้วย?” · กดค้างเพื่อเลือก · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด"
+            "value" : "กดค้างเพื่อเลือก · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dokun: alarm ve “Onunla birlikte ne hareket ediyor?” · seçmek için basılı tut · silmek için sola kaydır · favori için sağa kaydır"
+            "value" : "Seçmek için basılı tut · silmek için sola kaydır · favori için sağa kaydır"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Торкнися: сигнал і «Що рухається разом?» · утримуй для вибору · вліво – видалити · вправо – в обране"
+            "value" : "Утримуй для вибору · вліво – видалити · вправо – в обране"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ٹیپ: الرٹ اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” · منتخب کرنے کے لیے دیر تک دبائیں · حذف کے لیے بائیں سوائپ · پسندیدہ کے لیے دائیں سوائپ"
+            "value" : "منتخب کرنے کے لیے دیر تک دبائیں · حذف کے لیے بائیں سوائپ · پسندیدہ کے لیے دائیں سوائپ"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bosish: signal va «U bilan birga nima harakatlanmoqda?» · tanlash uchun bosib turish · oʻchirish uchun chapga surish · sevimli uchun oʻngga surish"
+            "value" : "Tanlash uchun bosib turish · oʻchirish uchun chapga surish · sevimli uchun oʻngga surish"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chạm: cảnh báo và “Cái gì biến động cùng?” · nhấn giữ để chọn · vuốt trái để xóa · vuốt phải để yêu thích"
+            "value" : "Nhấn giữ để chọn · vuốt trái để xóa · vuốt phải để yêu thích"
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "撳：提示同「有乜嘢一齊郁？」· 長按選取 · 向左掃刪除 · 向右掃加入最愛"
+            "value" : "長按選取 · 向左掃刪除 · 向右掃加入最愛"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "轻点：提醒和“哪些在同步波动？” · 长按选择 · 左滑删除 · 右滑收藏"
+            "value" : "长按选择 · 左滑删除 · 右滑收藏"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "輕觸：提醒和「哪些在同步波動？」 · 長按選擇 · 左滑刪除 · 右滑收藏"
+            "value" : "長按選擇 · 左滑刪除 · 右滑收藏"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thepha: i-alamu no-“Yini enyakaza kanye nayo?” · cindezela isikhathi eside ukuze ukhethe · swayiphela kwesobunxele ukuze ususe · swayiphela kwesokudla kuntandokazi"
+            "value" : "Cindezela isikhathi eside ukuze ukhethe · swayiphela kwesobunxele ukuze ususe · swayiphela kwesokudla kuntandokazi"
           }
         }
       }
@@ -997678,451 +998133,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik op 'n munt vir alarms en “Wat beweeg saam?”"
+            "value" : "Tik op ’n ry vir alarms en “Wat beweeg saam?”"
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ለማንቂያዎችና ለ«አብሮ ምን እየተንቀሳቀሰ ነው?» ሳንቲም ይንኩ"
+            "value" : "ለማንቂያዎች እና «አብሮ ምን እየተንቀሳቀሰ ነው?» አንድ ረድፍ ይንኩ"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "انقر على عملة للتنبيه و«ما الذي يتحرك معه؟»"
+            "value" : "انقر على صف للتنبيهات و«ما الذي يتحرك معه؟»"
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmlar və «Onunla birlikdə nə hərəkət edir?» üçün koinə toxun"
+            "value" : "Alarmlar və «Onunla birlikdə nə hərəkət edir?» üçün sıraya toxun"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Докосни монета за аларми и „Какво се движи заедно?“"
+            "value" : "Докосни ред за аларми и „Какво се движи заедно?“"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?”-এর জন্য একটি কয়েনে ট্যাপ করুন"
+            "value" : "অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?”-এর জন্য একটি সারিতে ট্যাপ করুন"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodirni kriptovalutu za alarme i „Šta se kreće s njom?“"
+            "value" : "Dodirni red za alarme i „Šta se kreće s njom?“"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca una moneda per a alarmes i «Què es mou amb ell?»"
+            "value" : "Toca una fila per a alarmes i «Què es mou amb ell?»"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klepni na minci pro alarm a „Co se hýbe s ním?“"
+            "value" : "Klepni na řádek pro alarmy a „Co se hýbe s ním?“"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryk på en mønt for alarm og »Hvad bevæger sig med?«"
+            "value" : "Tryk på en række for alarmer og »Hvad bevæger sig med?«"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippe auf einen Coin für Alarm und «Was bewegt sich mit?»"
+            "value" : "Tippe auf eine Zeile für Alarm und «Was bewegt sich mit?»"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πάτα ένα νόμισμα για συναγερμό και «Τι κινείται μαζί;»"
+            "value" : "Πάτα μια γραμμή για συναγερμούς και «Τι κινείται μαζί;»"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap a coin for alerts and “What is moving with it?”"
+            "value" : "Tap a row for alerts and “What is moving with it?”"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca una moneda para alarma y «¿Qué se mueve con él?»"
+            "value" : "Toca una fila para alarmas y «¿Qué se mueve con él?»"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puuduta münti hoiatuste ja „Mis liigub kaasa?“ jaoks"
+            "value" : "Puuduta rida hoiatuste ja „Mis liigub kaasa?“ jaoks"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sakatu txanpon bat alarmetarako eta «Zer mugitzen da harekin batera?» ikusteko"
+            "value" : "Sakatu errenkada bat alarmetarako eta «Zer mugitzen da harekin batera?»"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "برای هشدار و «چه چیزی همراه آن حرکت می‌کند؟» روی یک کوین ضربه بزن"
+            "value" : "برای هشدارها و «چه چیزی همراه آن حرکت می‌کند؟» روی یک ردیف ضربه بزنید"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Napauta kolikkoa: hälytys ja ”Mikä liikkuu mukana?”"
+            "value" : "Napauta riviä: hälytykset ja ”Mikä liikkuu mukana?”"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mag-tap ng coin para sa mga alerto at “Ano ang gumagalaw kasabay nito?”"
+            "value" : "I-tap ang isang hilera para sa mga alerto at “Ano ang gumagalaw kasabay nito?”"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Touche une crypto pour l’alerte et « Qu’est-ce qui bouge avec ? »"
+            "value" : "Touche une ligne pour l’alerte et « Qu’est-ce qui bouge avec ? »"
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapáil bonn le haghaidh foláireamh agus “Cad atá ag bogadh leis?”"
+            "value" : "Tapáil ró le haghaidh foláireamh agus “Cad atá ag bogadh leis?”"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca unha moeda para alarmas e «Que se move con el?»"
+            "value" : "Toca unha fila para alarmas e «Que se move con el?»"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "એલર્ટ અને “સાથે શું હલી રહ્યું છે?” માટે કૉઇન પર ટૅપ કરો"
+            "value" : "એલર્ટ અને “સાથે શું હલી રહ્યું છે?” માટે એક પંક્તિ પર ટૅપ કરો"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקישו על מטבע להתראה ו«מה זז יחד איתו?»"
+            "value" : "הקש על שורה להתראות ול«מה זז יחד איתו?»"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलार्म और “साथ में किसमें हलचल है?” के लिए किसी कॉइन पर टैप करें"
+            "value" : "अलार्म और “साथ में किसमें हलचल है?” के लिए किसी पंक्ति पर टैप करें"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodirni kriptovalutu za alarme i „Što se kreće s njom?“"
+            "value" : "Dodirni redak za alarme i „Što se kreće s njom?“"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koppints egy érmére: riasztás és „Mi mozog vele együtt?”"
+            "value" : "Koppints egy sorra a riasztásokhoz és ehhez: „Mi mozog vele együtt?”"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Հպիր կոինին՝ ահազանգերի և «Ի՞նչն է շարժվում դրա հետ»-ի համար"
+            "value" : "Հպեք տողին՝ ահազանգերի և «Ի՞նչն է շարժվում դրա հետ»-ի համար"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketuk koin untuk alarm dan “Apa yang ikut bergerak?”"
+            "value" : "Ketuk baris untuk alarm dan “Apa yang ikut bergerak?”"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ýttu á mynt fyrir viðvaranir og „Hvað hreyfist með?“"
+            "value" : "Ýttu á línu fyrir viðvaranir og „Hvað hreyfist með?“"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tocca una moneta per allarme e «Cosa si muove insieme?»"
+            "value" : "Tocca una riga per gli allarmi e «Cosa si muove insieme?»"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コインをタップでアラームと「一緒に動いているのは？」"
+            "value" : "行をタップするとアラームと「一緒に動いているのは？」"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "შეეხე მონეტას განგაშებისა და «რა მოძრაობს მასთან ერთად?»-ისთვის"
+            "value" : "შეეხეთ რიგს განგაშისა და «რა მოძრაობს მასთან ერთად?»-ისთვის"
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ескертулер мен «Онымен бірге не қозғалады?» үшін монетаны түртіңіз"
+            "value" : "Ескертулер мен «Онымен бірге не қозғалады?» үшін жолды түртіңіз"
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ចុចលើកាក់មួយសម្រាប់ការដាស់តឿន និង «អ្វីកំពុងផ្លាស់ទីជាមួយវា?»"
+            "value" : "ចុចជួរមួយសម្រាប់ការដាស់តឿន និង «អ្វីកំពុងផ្លាស់ទីជាមួយវា?»"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” ಗಾಗಿ ಕಾಯಿನ್ ಟ್ಯಾಪ್ ಮಾಡಿ"
+            "value" : "ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?”ಗಾಗಿ ಒಂದು ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "코인 탭: 경보와 ‘함께 움직이는 것은?’"
+            "value" : "행을 탭하면 경보와 ‘함께 움직이는 것은?’"
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ແຕະຫຼຽນສຳລັບສັນຍານເຕືອນ ແລະ “ມີຫຍັງເໜັງຕີງນຳ?”"
+            "value" : "ແຕະແຖວໜຶ່ງເພື່ອສັນຍານເຕືອນ ແລະ “ມີຫຍັງເໜັງຕີງນຳ?”"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bakstelėk monetą, kad matytum įspėjimus ir „Kas juda kartu?“"
+            "value" : "Bakstelėk eilutę: įspėjimai ir „Kas juda kartu?“"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pieskaries monētai, lai redzētu brīdinājumus un „Kas kustas līdzi?“"
+            "value" : "Pieskaries rindai: brīdinājumi un „Kas kustas līdzi?“"
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Допри монета за аларми и „Што се движи заедно?“"
+            "value" : "Допри ред за аларми и „Што се движи заедно?“"
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "അലേർട്ടുകൾക്കും “ഒപ്പം എന്താണ് നീങ്ങുന്നത്?” എന്നതിനും ഒരു കോയിനിൽ ടാപ്പ് ചെയ്യുക"
+            "value" : "അലേർട്ടുകൾക്കും “ഒപ്പം എന്താണ് നീങ്ങുന്നത്?” എന്നതിനും ഒരു വരിയിൽ ടാപ്പ് ചെയ്യുക"
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дохио болон «Түүнтэй хамт юу хөдөлж байна?»-г харахын тулд зоос дээр товшино уу"
+            "value" : "Дохио болон «Түүнтэй хамт юу хөдөлж байна?»-д мөрийг товшино уу"
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलर्ट आणि “सोबत काय हलत आहे?” साठी कॉइनवर टॅप करा"
+            "value" : "अलर्ट आणि “सोबत काय हलत आहे?” साठी एका ओळीवर टॅप करा"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketik koin untuk amaran dan “Apa yang bergerak bersama?”"
+            "value" : "Ketik satu baris untuk amaran dan “Apa yang bergerak bersama?”"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သတိပေးချက်များနှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” အတွက် ကွိုင်တစ်ခုကို တို့ပါ"
+            "value" : "သတိပေးချက်များနှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” အတွက် အတန်းတစ်ခုကို တို့ပါ"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trykk på en mynt for alarm og «Hva beveger seg med?»"
+            "value" : "Trykk på en rad for alarmer og «Hva beveger seg med?»"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलर्ट र “यससँगै के चलिरहेको छ?” का लागि कोइनमा ट्याप गर्नुहोस्"
+            "value" : "अलर्ट र “यससँगै के चलिरहेको छ?” का लागि एउटा पङ्क्तिमा ट्याप गर्नुहोस्"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik op een munt voor alarm en ‘Wat beweegt mee?’"
+            "value" : "Tik op een rij voor alarmen en ‘Wat beweegt mee?’"
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਅਲਰਟ ਅਤੇ “ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?” ਲਈ ਕਿਸੇ ਕੌਇਨ ’ਤੇ ਟੈਪ ਕਰੋ"
+            "value" : "ਅਲਰਟ ਅਤੇ “ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?” ਲਈ ਇੱਕ ਕਤਾਰ ’ਤੇ ਟੈਪ ਕਰੋ"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dotknij monety, aby ustawić alarm i zobaczyć „Co rusza się razem?”"
+            "value" : "Dotknij wiersza: alarmy i „Co rusza się razem?”"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca numa moeda para alarme e «O que se mexe com ele?»"
+            "value" : "Toque numa linha para alarmes e «O que se mexe com ele?»"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque em uma moeda para alarme e “O que se move junto?”"
+            "value" : "Toque em uma linha para alarmes e “O que se move junto?”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atinge o monedă pentru alarmă și „Ce se mișcă odată cu el?”"
+            "value" : "Atinge un rând pentru alarme și „Ce se mișcă odată cu el?”"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажми на монету: оповещение и «Что движется вместе?»"
+            "value" : "Нажми на строку: оповещения и «Что движется вместе?»"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ඇඟවීම් සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” සඳහා කාසියක් තට්ටු කරන්න"
+            "value" : "ඇඟවීම් සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” සඳහා පේළියක් තට්ටු කරන්න"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ťukni na coin pre alarmy a „Čo sa hýbe spolu?“"
+            "value" : "Ťukni na riadok pre alarmy a „Čo sa hýbe spolu?“"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapni kovanec za alarme in „Kaj se giblje zraven?“"
+            "value" : "Tapni vrstico za alarme in „Kaj se giblje zraven?“"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prek një monedhë për alarm dhe “Çfarë lëviz bashkë?”"
+            "value" : "Prek një rresht për alarmet dhe “Çfarë lëviz bashkë?”"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Додирни криптовалуту за аларме и „Шта се креће с њом?“"
+            "value" : "Додирни ред за аларме и „Шта се креће с њом?“"
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodirni kriptovalutu za alarme i „Šta se kreće s njom?“"
+            "value" : "Dodirni red za alarme i „Šta se kreće s njom?“"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck på ett mynt för larm och ”Vad rör sig med?”"
+            "value" : "Tryck på en rad för larm och ”Vad rör sig med?”"
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gusa sarafu kwa kengele na “Nini kinasonga pamoja nayo?”"
+            "value" : "Gusa safu kwa kengele na “Nini kinasonga pamoja nayo?”"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டல்களுக்கும் “கூடவே எது நகர்கிறது?” என்பதற்கும் ஒரு காயினைத் தட்டவும்"
+            "value" : "விழிப்பூட்டல்கள் மற்றும் “கூடவே எது நகர்கிறது?” க்கு ஒரு வரிசையைத் தட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌లు, “దానితో పాటు ఏది కదులుతోంది?” కోసం ఒక కాయిన్‌ను నొక్కండి"
+            "value" : "అలర్ట్‌లు, “దానితో పాటు ఏది కదులుతోంది?” కోసం ఒక వరుసను నొక్కండి"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แตะเหรียญเพื่อตั้งสัญญาณเตือนและดู “อะไรเคลื่อนไหวไปด้วย?”"
+            "value" : "แตะแถวเพื่อตั้งสัญญาณเตือนและดู “อะไรเคลื่อนไหวไปด้วย?”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm ve “Onunla birlikte ne hareket ediyor?” için bir coin’e dokun"
+            "value" : "Alarmlar ve “Onunla birlikte ne hareket ediyor?” için bir satıra dokun"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Торкнися монети: сигнал і «Що рухається разом?»"
+            "value" : "Торкнися рядка: сигнали і «Що рухається разом?»"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الرٹس اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” کے لیے کسی کوائن پر ٹیپ کریں"
+            "value" : "الرٹس اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” کے لیے کسی قطار پر ٹیپ کریں"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Signallar va «U bilan birga nima harakatlanmoqda?» uchun tangaga bosing"
+            "value" : "Signallar va «U bilan birga nima harakatlanmoqda?» uchun qatorni bosing"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chạm vào một coin để đặt cảnh báo và xem “Cái gì biến động cùng?”"
+            "value" : "Chạm vào một hàng để đặt cảnh báo và xem “Cái gì biến động cùng?”"
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "撳一隻幣睇提示同「有乜嘢一齊郁？」"
+            "value" : "撳一行睇提示同「有乜嘢一齊郁？」"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "轻点某个币种：提醒和“哪些在同步波动？”"
+            "value" : "轻点一行即可设置提醒和查看“哪些在同步波动？”"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "輕觸某個幣種：提醒和「哪些在同步波動？」"
+            "value" : "輕觸一列即可設定提醒和查看「哪些在同步波動？」"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thepha i-coin ukuze uthole ama-alamu no-“Yini enyakaza kanye nayo?”"
+            "value" : "Thepha umugqa ukuze uthole ama-alamu kanye no-“Yini enyakaza kanye nayo?”"
           }
         }
       }
@@ -1161318,451 +1161773,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: open Portefeulje"
+            "value" : "%1$@ laai nog"
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@፦ ፖርትፎሊዮን ይክፈቱ"
+            "value" : "%1$@ ገና በመጫን ላይ"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: افتح المحفظة"
+            "value" : "%1$@ قيد التحميل"
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Portfeli aç"
+            "value" : "%1$@ hələ yüklənir"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: отвори портфолиото"
+            "value" : "%1$@ още се зарежда"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: পোর্টফোলিও খুলুন"
+            "value" : "%1$@ এখনও লোড হচ্ছে"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otvori Portfolio"
+            "value" : "%1$@ se još učitava"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: obre la Cartera"
+            "value" : "%1$@ encara s’està carregant"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otevři Portfolio"
+            "value" : "%1$@ se ještě načítá"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: åbn Portefølje"
+            "value" : "%1$@ indlæses stadig"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Portfolio öffnen"
+            "value" : "%1$@ wird noch geladen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: άνοιξε το Χαρτοφυλάκιο"
+            "value" : "%1$@ φορτώνεται ακόμα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: open Portfolio"
+            "value" : "%1$@ still loading"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: abre Cartera"
+            "value" : "%1$@ aún se está cargando"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ava portfell"
+            "value" : "%1$@ laaditakse veel"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ireki Zorroa"
+            "value" : "%1$@ kargatzen oraindik"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: پرتفوی را باز کن"
+            "value" : "%1$@ هنوز در حال بارگیری است"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: avaa Salkku"
+            "value" : "%1$@ latautuu vielä"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: buksan ang Portfolio"
+            "value" : "Nilo-load pa ang %1$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ : ouvre Portefeuille"
+            "value" : "%1$@ encore en chargement"
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: oscail an Phunann"
+            "value" : "%1$@ fós á lódáil"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: abre a Carteira"
+            "value" : "%1$@ aínda se está a cargar"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: પોર્ટફોલિયો ખોલો"
+            "value" : "%1$@ હજી લોડ થઈ રહ્યું છે"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: פתחו את תיק השקעות"
+            "value" : "%1$@ עדיין בטעינה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: पोर्टफ़ोलियो खोलें"
+            "value" : "%1$@ अभी लोड हो रहा है"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otvori Portfelj"
+            "value" : "%1$@ se još učitava"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: nyisd meg a Portfóliót"
+            "value" : "%1$@ még töltődik"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@՝ բացիր Պորտֆելը"
+            "value" : "%1$@ դեռ բեռնվում է"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: buka Portofolio"
+            "value" : "%1$@ masih dimuat"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: opna Eignasafn"
+            "value" : "%1$@ er enn að hlaðast"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: apri Portafoglio"
+            "value" : "%1$@ ancora in caricamento"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@：ポートフォリオを開いてください"
+            "value" : "%1$@は読み込み中です"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: გახსენი პორტფელი"
+            "value" : "%1$@ ჯერ კიდევ იტვირთება"
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Портфельді ашыңыз"
+            "value" : "%1$@ әлі жүктелуде"
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@៖ បើកផលប័ត្រ"
+            "value" : "%1$@ កំពុងផ្ទុកនៅឡើយ"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ತೆರೆಯಿರಿ"
+            "value" : "%1$@ ಇನ್ನೂ ಲೋಡ್ ಆಗುತ್ತಿದೆ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: 포트폴리오를 여세요"
+            "value" : "%1$@ 불러오는 중입니다"
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ເປີດພອດໂຟລິໂອ"
+            "value" : "%1$@ ຍັງກຳລັງໂຫຼດ"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: atidaryk portfelį"
+            "value" : "%1$@ dar įkeliama"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: atver portfeli"
+            "value" : "%1$@ vēl ielādējas"
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: отвори Портфолио"
+            "value" : "%1$@ сè уште се вчитува"
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: പോർട്ട്ഫോളിയോ തുറക്കുക"
+            "value" : "%1$@ ഇപ്പോഴും ലോഡ് ചെയ്യുന്നു"
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Багцыг нээнэ үү"
+            "value" : "%1$@ ачаалж байна"
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: पोर्टफोलिओ उघडा"
+            "value" : "%1$@ अजून लोड होत आहे"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: buka Portfolio"
+            "value" : "%1$@ masih dimuatkan"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ပေါ့ဖိုလီယို ဖွင့်ပါ"
+            "value" : "%1$@ ဆက်လက် ဖွင့်နေဆဲ"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: åpne Portefølje"
+            "value" : "%1$@ lastes fortsatt"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: पोर्टफोलियो खोल्नुहोस्"
+            "value" : "%1$@ अझै लोड हुँदैछ"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: open Portfolio"
+            "value" : "%1$@ wordt nog geladen"
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ਪੋਰਟਫੋਲੀਓ ਖੋਲ੍ਹੋ"
+            "value" : "%1$@ ਹਾਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otwórz Portfel"
+            "value" : "%1$@ wciąż się wczytuje"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: abre o Portfólio"
+            "value" : "%1$@ ainda a carregar"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: abra o Portfólio"
+            "value" : "%1$@ ainda carregando"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: deschide Portofoliu"
+            "value" : "%1$@ încă se încarcă"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: открой Портфель"
+            "value" : "%1$@ ещё загружается"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: කළඹ විවෘත කරන්න"
+            "value" : "%1$@ තවමත් පූරණය වෙමින්"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otvoriť portfólio"
+            "value" : "%1$@ sa ešte načítava"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: odpri portfelj"
+            "value" : "%1$@ se še nalaga"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: hap Portofolin"
+            "value" : "%1$@ ende po ngarkohet"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: отвори Портфолио"
+            "value" : "%1$@ се још учитава"
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: otvori Portfolio"
+            "value" : "%1$@ se još učitava"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: öppna Portfölj"
+            "value" : "%1$@ laddas fortfarande"
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: fungua Jalada"
+            "value" : "%1$@ bado inapakiwa"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: போர்ட்ஃபோலியோவைத் திறக்கவும்"
+            "value" : "%1$@ இன்னும் ஏற்றப்படுகிறது"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: పోర్ట్‌ఫోలియో తెరవండి"
+            "value" : "%1$@ ఇంకా లోడ్ అవుతోంది"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: เปิดพอร์ตโฟลิโอ"
+            "value" : "%1$@ ยังโหลดอยู่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Portföy'ü aç"
+            "value" : "%1$@ hâlâ yükleniyor"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: відкрий Портфель"
+            "value" : "%1$@ ще завантажується"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: پورٹ فولیو کھولیں"
+            "value" : "%1$@ ابھی لوڈ ہو رہا ہے"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: Portfelni oching"
+            "value" : "%1$@ hali yuklanmoqda"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: mở Danh mục"
+            "value" : "%1$@ vẫn đang tải"
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@：開啟投資組合"
+            "value" : "%1$@ 仲載入緊"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@：请打开投资组合"
+            "value" : "%1$@ 仍在加载"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@：請開啟投資組合"
+            "value" : "%1$@ 仍在載入"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: vula i-Portfolio"
+            "value" : "%1$@ isalayisha"
           }
         }
       }

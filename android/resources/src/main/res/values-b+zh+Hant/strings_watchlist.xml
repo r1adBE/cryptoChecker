@@ -121,8 +121,8 @@
     <string name="watch_enable_hint">還原行情和通知</string>
     <string name="watch_enabled_banner">已啟用 %1$s</string>
     <string name="watch_error_offline">無連線</string>
-    <string name="watch_gesture_hint_short">輕觸：提醒和「哪些在同步波動？」 · 長按選擇 · 左滑刪除 · 右滑收藏</string>
-    <string name="watch_hint_tap_why">輕觸某個幣種：提醒和「哪些在同步波動？」</string>
+    <string name="watch_gesture_hint_short">長按選擇 · 左滑刪除 · 右滑收藏</string>
+    <string name="watch_hint_tap_why">輕觸一列即可設定提醒和查看「哪些在同步波動？」</string>
     <string name="watch_not_traded">該交易所已不再交易</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">不在自選中</string>

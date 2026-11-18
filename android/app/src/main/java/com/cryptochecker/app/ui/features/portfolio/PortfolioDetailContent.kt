@@ -76,7 +76,7 @@ internal fun PortfolioDetailContent(
                         start = 16.dp + inset,
                         top = 4.dp,
                         end = 16.dp + inset,
-                        bottom = Spacing.fabClearance
+                        bottom = Spacing.lg
                     ),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {

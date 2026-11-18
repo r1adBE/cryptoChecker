@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">দাম ও নোটিফিকেশন আবার শুরু হবে</string>
     <string name="watch_enabled_banner">%1$s সক্রিয় করা হয়েছে</string>
     <string name="watch_error_offline">সংযোগ নেই</string>
-    <string name="watch_gesture_hint_short">ট্যাপ: অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?” · বেছে নিতে দীর্ঘক্ষণ চাপুন · মুছতে বাঁয়ে সোয়াইপ · প্রিয়র জন্য ডানে সোয়াইপ</string>
-    <string name="watch_hint_tap_why">অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?”-এর জন্য একটি কয়েনে ট্যাপ করুন</string>
+    <string name="watch_gesture_hint_short">বেছে নিতে দীর্ঘক্ষণ চাপুন · মুছতে বাঁয়ে সোয়াইপ · প্রিয়র জন্য ডানে সোয়াইপ</string>
+    <string name="watch_hint_tap_why">অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?”-এর জন্য একটি সারিতে ট্যাপ করুন</string>
     <string name="watch_not_traded">এই এক্সচেঞ্জে আর লেনদেন হয় না</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">ওয়াচলিস্টে নেই</string>

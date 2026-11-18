@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 वर्ष</string>
     <string name="portfolio_history_period_30d">30 दिवस</string>
     <string name="portfolio_history_period_7d">7 दिवस</string>
+    <string name="portfolio_history_period_7d_currency">7 दिवस (%1$s)</string>
     <string name="portfolio_history_period_since_first">पहिल्या खरेदीपासून</string>
     <string name="portfolio_history_pnl_needs_prices">नफा/तोट्यासाठी खरेदी किमती नाहीत – व्यवहारांमध्ये त्या जोडा.</string>
     <string name="portfolio_history_pnl_without">%1$s शिवाय नफा/तोटा (किंमत नाही)</string>

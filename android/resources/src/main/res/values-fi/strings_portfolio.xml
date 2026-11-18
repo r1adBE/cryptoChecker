@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 vuosi</string>
     <string name="portfolio_history_period_30d">30 päivää</string>
     <string name="portfolio_history_period_7d">7 päivää</string>
+    <string name="portfolio_history_period_7d_currency">7 päivää (%1$s)</string>
     <string name="portfolio_history_period_since_first">ensimmäisestä ostosta</string>
     <string name="portfolio_history_pnl_needs_prices">Voitto/tappio vaatii ostohinnat – lisää ne tapahtumiin.</string>
     <string name="portfolio_history_pnl_without">Voitto/tappio ilman %1$s (hinta puuttuu)</string>

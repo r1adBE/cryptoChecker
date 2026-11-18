@@ -204,6 +204,7 @@
     <string name="portfolio_history_period_1y">1 year</string>
     <string name="portfolio_history_period_30d">30 days</string>
     <string name="portfolio_history_period_7d">7 days</string>
+    <string name="portfolio_history_period_7d_currency">7 days (%1$s)</string>
     <string name="portfolio_history_period_since_first">since first buy</string>
     <string name="portfolio_history_pnl_needs_prices">Purchase prices are missing for gain/loss – add them in the transactions.</string>
     <string name="portfolio_history_pnl_without">Gain/loss without %1$s (price missing)</string>

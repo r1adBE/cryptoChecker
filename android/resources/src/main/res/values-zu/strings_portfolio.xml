@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">unyaka o-1</string>
     <string name="portfolio_history_period_30d">izinsuku ezingu-30</string>
     <string name="portfolio_history_period_7d">izinsuku ezingu-7</string>
+    <string name="portfolio_history_period_7d_currency">izinsuku ezingu-7 (%1$s)</string>
     <string name="portfolio_history_period_since_first">kusukela ekuthengeni kokuqala</string>
     <string name="portfolio_history_pnl_needs_prices">Izintengo zokuthenga azikho zenzuzo/ukulahlekelwa – zengeze emisebenzini.</string>
     <string name="portfolio_history_pnl_without">Inzuzo/ukulahlekelwa ngaphandle kwe-%1$s (intengo ayikho)</string>

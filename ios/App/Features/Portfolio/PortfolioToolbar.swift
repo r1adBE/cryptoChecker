@@ -11,6 +11,10 @@ extension PortfolioScreen {
     @ToolbarContentBuilder
     func toolbarContent(hasTransactions: Bool, hasData: Bool, currency: String) -> some ToolbarContent {
         ToolbarItemGroup(placement: .topBarTrailing) {
+            // «+» oben (verdeckt keine Beträge), wie «+» der Merkliste
+            if hasData {
+                HeaderAddButton(label: L("portfolio_add_tx")) { sheet = PortfolioTxDraft() }
+            }
             // «Beträge verbergen»: alle Beträge als «•••» (Prozente bleiben), auch im Widget
             if hasData {
                 let hidden = data.settings.hidePortfolioAmounts

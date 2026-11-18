@@ -69,7 +69,7 @@
     <string name="widget_portfolio_period_without">%2$s 제외 %1$s</string>
     <string name="widget_portfolio_range_48h">48시간</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: 포트폴리오를 여세요</string>
+    <string name="widget_portfolio_range_fallback">%1$s 불러오는 중입니다</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">오늘(%1$s 제외)</string>
     <string name="widget_portfolio_view">보기</string>

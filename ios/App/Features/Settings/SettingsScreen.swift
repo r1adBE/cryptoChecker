@@ -38,6 +38,8 @@ struct SettingsScreen: View {
     @State private var mainHighlight: String?
     /// «App zurücksetzen» — Rückfrage.
     @State private var askReset = false
+    /// Einstufung der letzten 24 h unter «Akku & Aktivität»; nil = noch nicht gelesen.
+    @State private var usageLevel: UsageLevel?
     @EnvironmentObject private var router: AppRouter
 
     init() {}
@@ -188,8 +190,13 @@ struct SettingsScreen: View {
             }
             RowDivider()
             // Gleich daneben: was die Hintergrund-Prüfung kostet (Läufe, Anfragen, Bytes) — wie Android
-            SettingsNavRow(title: L("settings_row_usage"), icon: .system("battery.75percent"), value: nil) {
+            // Untertitel: Einstufung der letzten 24 h («Geringe Aktivität»), wie auf der Seite — wie Android
+            SettingsNavRow(title: L("settings_row_usage"), icon: .system("battery.75percent"),
+                value: usageLevel.map { L($0.labelKey) }) {
                 UsageSettingsPage()
+            }
+            .task {
+                usageLevel = await Task.detached(priority: .utility) { UsageLog.level(UsageMeter.shared.totals()) }.value
             }
         }
     }

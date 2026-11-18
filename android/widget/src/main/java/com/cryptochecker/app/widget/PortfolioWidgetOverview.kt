@@ -9,15 +9,21 @@ import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.resources.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 /**
  * Ansicht «Übersicht» (wie die Gesamtkarte im Portfolio-Tab): Kopfzeile, Gesamtwert,
  * Betrag und Prozent über den Zeitraum, ≈ USDT, Heute · 7 T · Gesamt ([PortfolioWidgetViews.figures]) und
  * Fusszeile — was in die Höhe passt ([PortfolioWidgetViews.overviewLayout]).
  */
-fun PortfolioWidgetRenderer.overviewViews(
+suspend fun PortfolioWidgetRenderer.overviewViews(
+    appWidgetId: Int,
+    slot: Int,
     widthDp: Int,
     heightDp: Int,
     snapshot: PortfolioSnapshot,
@@ -37,6 +43,7 @@ fun PortfolioWidgetRenderer.overviewViews(
     val textWidth = if (widthDp > 0) widthDp - 24f else null
     val values = bindValues(views, snapshot, plan, style, priceColor, textWidth, layout.changeLine, layout.usdt, wantUsdt, missing)
     val figuresText = bindFigures(views, PortfolioWidgetViews.figures(snapshot), layout, snapshot.currency, style)
+    bindOverviewChart(views, layout, plan, style, appWidgetId, slot, widthDp, fontScale)
 
     val timeText = timeText(snapshot, outdated)
     val footerMissing = missing.takeIf { !values.missingInLine }
@@ -147,3 +154,37 @@ fun PortfolioWidgetRenderer.bindFigures(
 }
 
 private const val FIGURE_AMOUNT_SP = 12f
+
+/**
+ * Wertverlauf im freien Platz eines hohen Übersicht-Widgets ([PortfolioOverviewLayout.chartHeightDp]); ohne Platz oder
+ * ohne Verlauf der Platzhalter. Bild abseits des Main-Threads wie in der Ansicht «Chart».
+ */
+private suspend fun PortfolioWidgetRenderer.bindOverviewChart(
+    views: RemoteViews,
+    layout: PortfolioOverviewLayout,
+    plan: PortfolioChartPlan,
+    style: PortfolioStyle,
+    appWidgetId: Int,
+    slot: Int,
+    widthDp: Int,
+    fontScale: Float,
+) {
+    val show = layout.chartHeightDp > 0f && widthDp > 0 && plan.hasChart
+    val bitmap = if (show) {
+        val up = PortfolioWidgetChart.direction(plan)?.let { it >= 0 } ?: (plan.bars.last().close >= plan.bars.first().open)
+        val color = if (up) style.colors.upColor else style.colors.downColor
+        drawPortfolioChartOffMain(appWidgetId, slot, plan, color, style, widthDp - 24f, layout.chartHeightDp, fontScale)
+    } else {
+        null
+    }
+    if (bitmap != null) {
+        views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
+        views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
+        views.setViewVisibility(R.id.portfolio_chart_pending, View.GONE)
+        views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
+        views.setViewVisibility(R.id.portfolio_spacer, View.GONE)
+    } else {
+        views.setViewVisibility(R.id.portfolio_chart_box, View.GONE)
+        views.setViewVisibility(R.id.portfolio_spacer, View.VISIBLE)
+    }
+}

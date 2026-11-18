@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">मूल्य र सूचनाहरू फेरि सुरु हुन्छन्</string>
     <string name="watch_enabled_banner">%1$s सक्रिय गरियो</string>
     <string name="watch_error_offline">जडान छैन</string>
-    <string name="watch_gesture_hint_short">ट्याप: अलर्ट र “यससँगै के चलिरहेको छ?” · छान्न लामो थिच्नुहोस् · मेटाउन बायाँ स्वाइप · मनपर्नेका लागि दायाँ स्वाइप</string>
-    <string name="watch_hint_tap_why">अलर्ट र “यससँगै के चलिरहेको छ?” का लागि कोइनमा ट्याप गर्नुहोस्</string>
+    <string name="watch_gesture_hint_short">छान्न लामो थिच्नुहोस् · मेटाउन बायाँ स्वाइप · मनपर्नेका लागि दायाँ स्वाइप</string>
+    <string name="watch_hint_tap_why">अलर्ट र “यससँगै के चलिरहेको छ?” का लागि एउटा पङ्क्तिमा ट्याप गर्नुहोस्</string>
     <string name="watch_not_traded">यो एक्सचेन्जमा अब कारोबार हुँदैन</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">वाचलिस्टमा छैन</string>

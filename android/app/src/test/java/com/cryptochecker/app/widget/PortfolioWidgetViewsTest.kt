@@ -232,6 +232,24 @@ class PortfolioWidgetViewsTest {
         assertTrue(l.figures && l.footer && l.usdt && l.figureAmounts)
     }
 
+    @Test
+    fun tallOverviewFillsTheFreeSpaceWithTheChart() {
+        val tall = PortfolioWidgetViews.overviewLayout(180, 330, 1f, hasChange = true, wantUsdt = true)
+        assertTrue(tall.footer)
+        assertTrue(tall.chartHeightDp >= PortfolioWidgetViews.OVERVIEW_CHART_MIN_DP)
+        // Knapp: kein Chart, nur die Kennzahlen
+        val fs = 1f
+        val tight = PortfolioWidgetViews.overviewLayout(
+            180,
+            (PortfolioWidgetMath.baseHeightDp(fs) + PortfolioWidgetMath.changeLineHeightDp(fs) + 80).toInt(),
+            fs,
+            hasChange = true,
+            wantUsdt = false,
+        )
+        assertEquals(0f, tight.chartHeightDp)
+        assertEquals(0f, PortfolioWidgetViews.overviewLayout(0, 0, fs, hasChange = true, wantUsdt = false).chartHeightDp)
+    }
+
     // Liste
 
     @Test

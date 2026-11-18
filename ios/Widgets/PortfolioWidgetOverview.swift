@@ -8,8 +8,8 @@ extension PortfolioHomeView {
     // MARK: Übersicht
 
     /// Ansicht «Übersicht» — wie die Gesamtkarte im Portfolio-Tab (wie Android `overviewViews`): Kopfzeile,
-    /// Gesamtwert, Betrag und Prozent über den Zeitraum, ≈ USDT, Heute · 7 T · Gesamt (klein untereinander,
-    /// mittel und gross als Spalten mit Betrag) und Fusszeile. Wird es eng, fallen Teile in der Reihenfolge
+    /// Gesamtwert, Betrag und Prozent über den Zeitraum, ≈ USDT, gross der Wertverlauf, Heute · 7 T · Gesamt (klein
+    /// untereinander, mittel und gross als Spalten mit Betrag) und Fusszeile. Wird es eng, fallen Teile in der Reihenfolge
     /// Beträge der Kennzahlen, ≈ USDT, Fusszeile, Betragszeile weg (wie `PortfolioWidgetViews.overviewLayout`).
     func overviewBody(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan) -> some View {
         let figures = PortfolioWidgetViews.figures(s)
@@ -44,7 +44,15 @@ extension PortfolioHomeView {
             totalText(s, size: large ? 30 : (family == .systemSmall ? 20 : 24), scale: scale)
             if change { changeLine(s, plan: plan) }
             if usdt != nil { usdtLine(usdt, missing: missing) }
-            Spacer(minLength: 4)
+            // Gross: der freie Platz zeigt den Wertverlauf statt einer leeren Fläche (wie Android
+            // `PortfolioOverviewLayout.chartHeightDp`); sonst verteilt der Abstand den Inhalt
+            if large && plan.hasChart {
+                chart(plan)
+                    .frame(minHeight: 48, maxHeight: .infinity)
+                    .padding(.vertical, Spacing.xs)
+            } else {
+                Spacer(minLength: 4)
+            }
             figuresView(figures, currency: s.currency, amounts: amounts, scale: scale)
             if showsFooter {
                 Spacer(minLength: 4)

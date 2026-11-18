@@ -55,12 +55,20 @@ struct PortfolioTotalCard: View {
     /// Details und Hinweise aufklappbar — wie Android `rememberSaveable`.
     @State private var showDetails = false
     @State var showHints = false
+    /// Teilsumme angetippt («ohne 2 Coins», «unvollständig»): die Hinweise gleich als Meldung — wie Android.
+    @State private var showHintsAlert = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             card
             // Hinweise klein unter der Karte (bleiben sichtbar, die Karte bleibt ein ruhiger Bericht)
             hints
+        }
+        // Teilsumme angetippt: der Grund steht sofort da, nicht erst zugeklappt unter der Karte (wie Android `TotalHintsDialog`)
+        .alert(L("portfolio_card_hints_count", hintTexts.count), isPresented: $showHintsAlert) {
+            Button(L("action_close"), role: .cancel) {}
+        } message: {
+            Text(hintTexts.joined(separator: "\n\n"))
         }
         // Weniger Bewegung: Ziffern wechseln ohne Rollen
         .animation(reduceMotion ? nil : .snappy, value: summary.totalValue)
@@ -305,7 +313,9 @@ struct PortfolioTotalCard: View {
     /// statt «7 T», weil das Kürzel allein unverständlich war — wie Android.
     private var figureRow: some View {
         HStack(alignment: .top, spacing: Spacing.sm) {
-            PortfolioInsightFigure(label: L("portfolio_history_period_7d"), spokenLabel: L("portfolio_history_period_7d"),
+            // Einheit im Titel wie «Seit Kauf (CHF)»; die Zahl selbst ohne Währung
+            PortfolioInsightFigure(label: L("portfolio_history_period_7d_currency", unit.code),
+                                   spokenLabel: L("portfolio_history_period_7d"),
                                    amount: weekChange?.amount, percent: weekChange?.percent, unit: unit,
                                    rewards: weekChange?.rewards ?? 0)
             // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);
@@ -343,18 +353,24 @@ struct PortfolioTotalCard: View {
     }
 
     /// Kleiner Hinweis direkt an einer Teilsumme («ohne 2 Coins», «unvollständig») — nicht nur in den zugeklappten
-    /// Hinweisen; antippen klappt «Hinweise» auf. Wie Android `PartialMarker`.
+    /// Hinweisen; antippen zeigt die Hinweise als Meldung. Wie Android `PartialMarker`.
     private func partialMarker(_ text: String) -> some View {
         Button {
-            showHints = true
+            showHintsAlert = true
         } label: {
-            Text(text)
-                .font(.caption)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .lineLimit(1)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 2)
-                .background(Capsule().fill(AppColors.containerHighest))
+            // Kleines «i» zeigt, dass Antippen den Grund erklärt (Hinweise der Karte), wie Android
+            HStack(spacing: 4) {
+                Text(text)
+                    .lineLimit(1)
+                Image(systemName: "info.circle")
+                    .imageScale(.small)
+                    .accessibilityHidden(true)
+            }
+            .font(.caption)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .background(Capsule().fill(AppColors.containerHighest))
         }
         .buttonStyle(.plain)
     }

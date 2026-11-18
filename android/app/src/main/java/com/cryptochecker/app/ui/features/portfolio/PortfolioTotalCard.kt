@@ -96,15 +96,9 @@ internal fun TotalCard(
     // Details und Hinweise aufklappbar (die Karte zeigt zuerst nur Gesamtwert, «Heute», 7 T, Seit Kauf)
     var showDetails by rememberSaveable { mutableStateOf(false) }
     var showHints by rememberSaveable { mutableStateOf(false) }
-    // Woher die Kurse stammen: «Kurse: Binance · USDT zum Marktkurs» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · …»
-    val priceSourceText = if (priceSources.isEmpty()) {
-        stringResource(R.string.portfolio_price_source)
-    } else {
-        stringResource(
-            R.string.portfolio_price_source_routes,
-            com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources)
-        )
-    }
+    // Teilsumme angetippt («ohne 2 Coins», «unvollständig»): die Hinweise gleich als Dialog
+    var hintsDialog by rememberSaveable { mutableStateOf(false) }
+    val priceSourceText = priceSourceText(priceSources)
     // USDT zum Marktkurs: ohne frische Messung trägt Ersatz 1 die Zahlen — dann
     // «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile
     val usdtNote = DepegAlarm.cardNote(
@@ -136,7 +130,7 @@ internal fun TotalCard(
                     summary = summary,
                     unit = unit,
                     stale = stale,
-                    onShowHints = { showHints = true },
+                    onShowHints = { hintsDialog = true },
                 )
                 // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
                 // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
@@ -160,7 +154,7 @@ internal fun TotalCard(
                     unit = unit,
                     weekChange = weekChange,
                     costFx = costFx,
-                    onShowHints = { showHints = true },
+                    onShowHints = { hintsDialog = true },
                 )
                 // «Details»: 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht — zugeklappt
                 TotalDetailsSection(
@@ -170,7 +164,7 @@ internal fun TotalCard(
                     unit = unit,
                     costFx = costFx,
                     yearChange = yearChange,
-                    onShowHints = { showHints = true },
+                    onShowHints = { hintsDialog = true },
                 )
             }
         }
@@ -192,8 +186,26 @@ internal fun TotalCard(
             usdtNote = usdtNote,
             priceSourceText = priceSourceText,
         )
-        TotalCardHints(hints = hints, expanded = showHints, onToggle = { showHints = !showHints }, onShortfall = onShortfall)
+        TotalCardHints(
+            hints = hints,
+            expanded = showHints,
+            onToggle = { showHints = !showHints },
+            onShortfall = onShortfall,
+            dialog = hintsDialog,
+            onDialogDismiss = { hintsDialog = false },
+        )
     }
+}
+
+/** Woher die Kurse stammen: «Kurse: Binance · USDT zum Marktkurs» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · …». */
+@Composable
+private fun priceSourceText(priceSources: Map<String, String>): String = if (priceSources.isEmpty()) {
+    stringResource(R.string.portfolio_price_source)
+} else {
+    stringResource(
+        R.string.portfolio_price_source_routes,
+        com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources)
+    )
 }
 
 /** Verlauf der Gesamtkarte: ruhig, 8 % → 2 % der Akzentfarbe. */
@@ -212,7 +224,8 @@ private fun TotalGainRow(
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         InsightFigure(
-            label = stringResource(R.string.portfolio_history_period_7d),
+            // Einheit im Titel wie «Seit Kauf (CHF)»; die Zahl selbst ohne Währung
+            label = stringResource(R.string.portfolio_history_period_7d_currency, unit.code),
             spokenLabel = stringResource(R.string.portfolio_history_period_7d),
             amount = weekChange?.amountUsd,
             percent = weekChange?.percent,

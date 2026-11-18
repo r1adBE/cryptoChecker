@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1年間</string>
     <string name="portfolio_history_period_30d">30日間</string>
     <string name="portfolio_history_period_7d">7日間</string>
+    <string name="portfolio_history_period_7d_currency">7日間（%1$s）</string>
     <string name="portfolio_history_period_since_first">初回購入から</string>
     <string name="portfolio_history_pnl_needs_prices">損益の計算に購入価格が不足しています。取引で入力してください。</string>
     <string name="portfolio_history_pnl_without">%1$s を除いた損益（価格なし）</string>

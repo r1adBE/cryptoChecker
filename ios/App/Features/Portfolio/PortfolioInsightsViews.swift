@@ -28,9 +28,11 @@ private func shareText(_ percent: Double) -> String {
 // MARK: Aufteilung
 
 /// «Aufteilung»: gestapelter Balken und Liste der vier grössten Coins nach Wert (Rest «Andere»)
-/// mit Anteil und Wert — wie `AllocationCard` (Android). Werte mit «Beträge verbergen» als «•••».
+/// mit Anteil und Wert in der Anzeigewährung wie Gesamtwert und Positionen (`unit`) — wie `AllocationCard` (Android).
+/// Werte mit «Beträge verbergen» als «•••».
 struct PortfolioAllocationCard: View {
     let slices: [AllocationSlice]
+    let unit: PortfolioCardUnit
     @Environment(\.hidePortfolioAmounts) private var hidden
     @Environment(\.appAccent) private var accent
     @Environment(\.colorScheme) private var colorScheme
@@ -78,7 +80,7 @@ struct PortfolioAllocationCard: View {
                 ForEach(Array(slices.enumerated()), id: \.offset) { index, slice in
                     let name = slice.coin ?? L("portfolio_allocation_other")
                     let share = shareText(slice.sharePercent)
-                    let value = PortfolioFormat.usdtValue(slice.valueUsd)
+                    let value = PriceFormat.valueWithCurrency(unit.of(slice.valueUsd), unit.code)
                     HStack(spacing: Spacing.sm) {
                         Circle()
                             .fill(color(index, slice))

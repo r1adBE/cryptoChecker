@@ -145,8 +145,8 @@
     <string name="watch_enable_hint">Cijene i obavijesti se nastavljaju</string>
     <string name="watch_enabled_banner">%1$s aktiviran</string>
     <string name="watch_error_offline">Nema veze</string>
-    <string name="watch_gesture_hint_short">Dodir: alarm i „Šta se kreće s njom?“ · dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit</string>
-    <string name="watch_hint_tap_why">Dodirni kriptovalutu za alarme i „Šta se kreće s njom?“</string>
+    <string name="watch_gesture_hint_short">Dugi pritisak za odabir · povuci ulijevo za brisanje · povuci udesno za favorit</string>
+    <string name="watch_hint_tap_why">Dodirni red za alarme i „Šta se kreće s njom?“</string>
     <string name="watch_not_traded">Na ovoj se berzi više ne trguje</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nije na spisku praćenja</string>

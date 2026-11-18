@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 နှစ်</string>
     <string name="portfolio_history_period_30d">ရက် 30</string>
     <string name="portfolio_history_period_7d">ရက် 7</string>
+    <string name="portfolio_history_period_7d_currency">ရက် 7 (%1$s)</string>
     <string name="portfolio_history_period_since_first">ပထမဆုံး ဝယ်ကတည်းက</string>
     <string name="portfolio_history_pnl_needs_prices">အမြတ်/အရှုံးအတွက် ဝယ်ဈေးများ မရှိပါ – ငွေပေးငွေယူများတွင် ထည့်ပါ။</string>
     <string name="portfolio_history_pnl_without">%1$s မပါသော အမြတ်/အရှုံး (ဈေးနှုန်း မရှိ)</string>

@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">قیمتیں اور اطلاعات دوبارہ شروع ہوں گی</string>
     <string name="watch_enabled_banner">%1$s فعال کر دیا گیا</string>
     <string name="watch_error_offline">کوئی کنکشن نہیں</string>
-    <string name="watch_gesture_hint_short">ٹیپ: الرٹ اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” · منتخب کرنے کے لیے دیر تک دبائیں · حذف کے لیے بائیں سوائپ · پسندیدہ کے لیے دائیں سوائپ</string>
-    <string name="watch_hint_tap_why">الرٹس اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” کے لیے کسی کوائن پر ٹیپ کریں</string>
+    <string name="watch_gesture_hint_short">منتخب کرنے کے لیے دیر تک دبائیں · حذف کے لیے بائیں سوائپ · پسندیدہ کے لیے دائیں سوائپ</string>
+    <string name="watch_hint_tap_why">الرٹس اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” کے لیے کسی قطار پر ٹیپ کریں</string>
     <string name="watch_not_traded">اس ایکسچینج پر اب ٹریڈ نہیں ہوتا</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">واچ لسٹ میں نہیں</string>

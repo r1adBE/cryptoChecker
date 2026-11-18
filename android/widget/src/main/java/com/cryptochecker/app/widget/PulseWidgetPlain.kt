@@ -72,12 +72,14 @@ object PulseWidgetPlain {
     )
 
     /**
-     * Grösse: schmal oder unbekannt = klein (unverändert); breit und Platz für mindestens einen
-     * ganzen Satz im Block ([blockFits], aus [sentenceCount]) = gross; sonst mittel.
+     * Grösse: unbekannt = klein (unverändert); Platz für mindestens einen ganzen Satz im Block
+     * ([blockFits], aus [sentenceCount]) = gross, auch schmal; sonst schmal = klein, breit = mittel.
      */
     fun size(widthDp: Int, blockFits: Boolean): PulseWidgetSize = when {
-        widthDp < WIDE_MIN_WIDTH_DP -> PulseWidgetSize.SMALL
+        widthDp <= 0 -> PulseWidgetSize.SMALL
+        // Schmal, aber hoch: der Block füllt den freien Platz statt einer leeren Fläche
         blockFits -> PulseWidgetSize.LARGE
+        widthDp < WIDE_MIN_WIDTH_DP -> PulseWidgetSize.SMALL
         else -> PulseWidgetSize.MEDIUM
     }
 

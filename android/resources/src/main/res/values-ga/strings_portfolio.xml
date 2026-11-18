@@ -212,6 +212,7 @@
     <string name="portfolio_history_period_1y">1 bhliain</string>
     <string name="portfolio_history_period_30d">30 lá</string>
     <string name="portfolio_history_period_7d">7 lá</string>
+    <string name="portfolio_history_period_7d_currency">7 lá (%1$s)</string>
     <string name="portfolio_history_period_since_first">ón gcéad cheannach</string>
     <string name="portfolio_history_pnl_needs_prices">Tá praghsanna ceannaigh ar iarraidh do ghnóthachan/caillteanas – cuir leis na hidirbhearta iad.</string>
     <string name="portfolio_history_pnl_without">Gnóthachan/caillteanas gan %1$s (praghas ar iarraidh)</string>

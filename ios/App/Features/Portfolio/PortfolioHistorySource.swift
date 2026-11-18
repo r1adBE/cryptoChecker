@@ -173,6 +173,15 @@ enum PortfolioHistorySource {
         return result
     }
 
+    /// Hintergrund: Tageskurse aller Coins des Portfolios mit denselben Wegen wie der Wertverlauf laden (übers Netz nur
+    /// nach 12 h) — dabei auch in die App Group gespiegelt (`PortfolioWidgetDailyStore`). Ohne Portfolio nichts.
+    static func refreshWidgetDaily() async {
+        let transactions = PortfolioStore.load().transactions
+        guard !transactions.isEmpty else { return }
+        _ = await dailyPrices(Array(Set(transactions.flatMap(\.coins))),
+                              entered: PortfolioRouteResolver.enteredCoins(transactions))
+    }
+
     /// Gekapselte Coins ohne eigene Tageskerzen (z. B. BTC.b): Reihe der Basis (`ChainAssets.priceViaBase`) — wie ihr
     /// Kurs; nur die verlangten Coins bleiben (die Basis wurde evtl. nur dafür geholt). Wie Android.
     private static func withWrapped(_ prices: PortfolioDailyPrices, requested: Set<String>) -> PortfolioDailyPrices {

@@ -36,6 +36,8 @@ struct RefreshBudget {
     static let totalMillis: Int64 = 25_000
     /// Portfolio-Stand nur mit so viel Restzeit.
     static let portfolioMinMillis: Int64 = 6_000
+    /// Tagesschlüsse des Portfolio-Widgets höchstens so lange (meist aus dem Zwischenspeicher, dann sofort).
+    static let portfolioDailyMaxMillis: Int64 = 5_000
     /// Aktivität und Gas nur mit so viel Restzeit.
     static let sideCheckMinMillis: Int64 = 5_000
     /// Alarme mit Zusatzdaten nur mit so viel Restzeit (kürzeste Stufe + Lease + Speichern).

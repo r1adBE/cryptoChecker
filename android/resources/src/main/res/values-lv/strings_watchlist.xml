@@ -145,8 +145,8 @@
     <string name="watch_enable_hint">Cenas un paziņojumi atsākas</string>
     <string name="watch_enabled_banner">%1$s iespējots</string>
     <string name="watch_error_offline">Nav savienojuma</string>
-    <string name="watch_gesture_hint_short">Pieskāriens: brīdinājums un „Kas kustas līdzi?“ · ilgi nospied, lai atlasītu · pavelc pa kreisi, lai dzēstu · pavelc pa labi – izlasē</string>
-    <string name="watch_hint_tap_why">Pieskaries monētai, lai redzētu brīdinājumus un „Kas kustas līdzi?“</string>
+    <string name="watch_gesture_hint_short">Ilgi nospied, lai atlasītu · pavelc pa kreisi, lai dzēstu · pavelc pa labi – izlasē</string>
+    <string name="watch_hint_tap_why">Pieskaries rindai: brīdinājumi un „Kas kustas līdzi?“</string>
     <string name="watch_not_traded">Šajā biržā vairs netiek tirgots</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nav vērojamo sarakstā</string>

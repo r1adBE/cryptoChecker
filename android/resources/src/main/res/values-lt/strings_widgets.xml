@@ -75,7 +75,7 @@
     <string name="widget_portfolio_period_without">%1$s be %2$s</string>
     <string name="widget_portfolio_range_48h">48 val.</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: atidaryk portfelį</string>
+    <string name="widget_portfolio_range_fallback">%1$s dar įkeliama</string>
     <string name="widget_portfolio_range_short_48h">48 val.</string>
     <string name="widget_portfolio_today_without">Šiandien be %1$s</string>
     <string name="widget_portfolio_view">Vaizdas</string>

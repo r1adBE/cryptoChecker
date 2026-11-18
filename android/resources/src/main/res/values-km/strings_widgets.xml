@@ -69,7 +69,7 @@
     <string name="widget_portfolio_period_without">%1$s មិនរាប់ %2$s</string>
     <string name="widget_portfolio_range_48h">48 ម៉ោង</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s៖ បើកផលប័ត្រ</string>
+    <string name="widget_portfolio_range_fallback">%1$s កំពុងផ្ទុកនៅឡើយ</string>
     <string name="widget_portfolio_range_short_48h">48ម៉ោង</string>
     <string name="widget_portfolio_today_without">ថ្ងៃនេះមិនរាប់ %1$s</string>
     <string name="widget_portfolio_view">ទិដ្ឋភាព</string>

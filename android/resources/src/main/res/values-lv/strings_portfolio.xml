@@ -206,6 +206,7 @@
     <string name="portfolio_history_period_1y">1 gads</string>
     <string name="portfolio_history_period_30d">30 dienas</string>
     <string name="portfolio_history_period_7d">7 dienas</string>
+    <string name="portfolio_history_period_7d_currency">7 dienas (%1$s)</string>
     <string name="portfolio_history_period_since_first">kopš pirmā pirkuma</string>
     <string name="portfolio_history_pnl_needs_prices">Peļņai/zaudējumiem trūkst pirkuma cenu – pievieno tās darījumos.</string>
     <string name="portfolio_history_pnl_without">Peļņa/zaudējumi bez %1$s (trūkst cenas)</string>

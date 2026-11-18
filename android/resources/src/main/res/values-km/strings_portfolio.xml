@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 ឆ្នាំ</string>
     <string name="portfolio_history_period_30d">30 ថ្ងៃ</string>
     <string name="portfolio_history_period_7d">7 ថ្ងៃ</string>
+    <string name="portfolio_history_period_7d_currency">7 ថ្ងៃ (%1$s)</string>
     <string name="portfolio_history_period_since_first">តាំងពីការទិញដំបូង</string>
     <string name="portfolio_history_pnl_needs_prices">ខ្វះតម្លៃទិញសម្រាប់ចំណេញ/ខាត – សូមបន្ថែមវានៅក្នុងប្រតិបត្តិការ។</string>
     <string name="portfolio_history_pnl_without">ចំណេញ/ខាតមិនរាប់ %1$s (ខ្វះតម្លៃ)</string>

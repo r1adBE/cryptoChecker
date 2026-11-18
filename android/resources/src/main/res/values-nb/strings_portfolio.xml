@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 år</string>
     <string name="portfolio_history_period_30d">30 dager</string>
     <string name="portfolio_history_period_7d">7 dager</string>
+    <string name="portfolio_history_period_7d_currency">7 dager (%1$s)</string>
     <string name="portfolio_history_period_since_first">siden første kjøp</string>
     <string name="portfolio_history_pnl_needs_prices">Kjøpspriser mangler for gevinst/tap – legg dem inn i transaksjonene.</string>
     <string name="portfolio_history_pnl_without">Gevinst/tap uten %1$s (pris mangler)</string>

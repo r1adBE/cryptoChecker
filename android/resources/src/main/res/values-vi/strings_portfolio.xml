@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 năm</string>
     <string name="portfolio_history_period_30d">30 ngày</string>
     <string name="portfolio_history_period_7d">7 ngày</string>
+    <string name="portfolio_history_period_7d_currency">7 ngày (%1$s)</string>
     <string name="portfolio_history_period_since_first">từ lần mua đầu tiên</string>
     <string name="portfolio_history_pnl_needs_prices">Thiếu giá mua để tính lãi/lỗ – hãy thêm trong giao dịch.</string>
     <string name="portfolio_history_pnl_without">Lãi/lỗ không gồm %1$s (thiếu giá)</string>

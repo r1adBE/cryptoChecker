@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 308)
+
+- Portfolio and coin page: the «+» button sits in the header and no longer covers amounts.
+- Portfolio card: allocation in the portfolio currency, «7 days (CHF)»; «without 2 coins» / «incomplete» show an info icon, tapping opens the hints as a dialog.
+- Widgets: the portfolio widget loads daily closes in the background (no more «7D —»), the large overview fills free space with the value chart, a narrow tall pulse widget shows «In short»; «1Y still loading» instead of «open Portfolio».
+- Watchlist gesture hint without repetition; Settings › «Battery & activity» shows the level as a subtitle.
+
 ## 16.2.2 (build 307)
 
 - Internal (Android): the market tab uses core-module interfaces for its data sources and cache; no screen depends on the data layer any more (C-07 complete); more data-layer tests.

@@ -206,6 +206,7 @@
     <string name="portfolio_history_period_1y">1 godina</string>
     <string name="portfolio_history_period_30d">30 dana</string>
     <string name="portfolio_history_period_7d">7 dana</string>
+    <string name="portfolio_history_period_7d_currency">7 dana (%1$s)</string>
     <string name="portfolio_history_period_since_first">od prve kupovine</string>
     <string name="portfolio_history_pnl_needs_prices">Za dobit/gubitak nedostaju nabavne cijene – dodaj ih u transakcijama.</string>
     <string name="portfolio_history_pnl_without">Dobit/gubitak bez %1$s (nedostaje cijena)</string>

@@ -210,7 +210,8 @@ class PortfolioWidgetRenderer @Inject constructor(
                 }
                 val build: suspend (Int, Int, Int) -> RemoteViews = { slot, w, h ->
                     when (view) {
-                        PortfolioWidgetView.OVERVIEW -> overviewViews(w, h, shown, plan, style, outdated, fontScale, wantUsdt)
+                        PortfolioWidgetView.OVERVIEW ->
+                            overviewViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                         PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos, entryFilter)
                         PortfolioWidgetView.CHART ->
                             portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)

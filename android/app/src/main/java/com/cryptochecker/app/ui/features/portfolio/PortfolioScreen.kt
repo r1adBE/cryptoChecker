@@ -16,7 +16,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
-import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.navigation.OnTabReselect
 import com.cryptochecker.app.ui.navigation.ScreenRoute
@@ -74,8 +73,6 @@ fun PortfolioScreen(
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
     val listState = rememberLazyListState()
-    // «+»-Knopf: beim Scrollen nach unten weg (verdeckt keine Beträge), nach oben wieder da
-    val fabScroll = rememberFabScroll(listState)
     // Erneutes Tippen auf den Tab «Portfolio»: an den Anfang der Liste (wie iOS)
     OnTabReselect(ScreenRoute.Portfolio) {
         if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
@@ -136,7 +133,6 @@ fun PortfolioScreen(
         viewModel = viewModel,
         banner = banner,
         listState = listState,
-        fabScroll = fabScroll,
         reduceMotion = reduceMotion,
         transactions = transactions,
         watchedAddresses = watchedAddresses,

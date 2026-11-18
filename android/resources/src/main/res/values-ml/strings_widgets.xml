@@ -71,7 +71,7 @@
     <string name="widget_portfolio_period_without">%2$s ഇല്ലാതെ %1$s</string>
     <string name="widget_portfolio_range_48h">48 മ.</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: പോർട്ട്ഫോളിയോ തുറക്കുക</string>
+    <string name="widget_portfolio_range_fallback">%1$s ഇപ്പോഴും ലോഡ് ചെയ്യുന്നു</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">%1$s ഇല്ലാതെ ഇന്ന്</string>
     <string name="widget_portfolio_view">കാഴ്ച</string>

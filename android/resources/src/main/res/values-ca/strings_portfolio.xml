@@ -206,6 +206,7 @@
     <string name="portfolio_history_period_1y">1 any</string>
     <string name="portfolio_history_period_30d">30 dies</string>
     <string name="portfolio_history_period_7d">7 dies</string>
+    <string name="portfolio_history_period_7d_currency">7 dies (%1$s)</string>
     <string name="portfolio_history_period_since_first">des de la primera compra</string>
     <string name="portfolio_history_pnl_needs_prices">Falten preus de compra per als guanys/pèrdues – afegeix-los a les transaccions.</string>
     <string name="portfolio_history_pnl_without">Guany/pèrdua sense %1$s (falta el preu)</string>

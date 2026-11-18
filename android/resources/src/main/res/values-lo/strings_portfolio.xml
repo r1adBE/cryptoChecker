@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 ປີ</string>
     <string name="portfolio_history_period_30d">30 ມື້</string>
     <string name="portfolio_history_period_7d">7 ມື້</string>
+    <string name="portfolio_history_period_7d_currency">7 ມື້ (%1$s)</string>
     <string name="portfolio_history_period_since_first">ນັບແຕ່ການຊື້ຄັ້ງທຳອິດ</string>
     <string name="portfolio_history_pnl_needs_prices">ຂາດລາຄາຊື້ສຳລັບກຳໄລ/ຂາດທຶນ – ເພີ່ມມັນໃນທຸລະກຳ.</string>
     <string name="portfolio_history_pnl_without">ກຳໄລ/ຂາດທຶນບໍ່ລວມ %1$s (ບໍ່ມີລາຄາ)</string>

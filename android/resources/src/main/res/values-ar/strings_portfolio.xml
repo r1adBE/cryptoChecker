@@ -215,6 +215,7 @@
     <string name="portfolio_history_period_1y">سنة واحدة</string>
     <string name="portfolio_history_period_30d">30 يومًا</string>
     <string name="portfolio_history_period_7d">7 أيام</string>
+    <string name="portfolio_history_period_7d_currency">7 أيام (%1$s)</string>
     <string name="portfolio_history_period_since_first">منذ أول شراء</string>
     <string name="portfolio_history_pnl_needs_prices">أسعار الشراء ناقصة لحساب الربح/الخسارة – أضفها في المعاملات.</string>
     <string name="portfolio_history_pnl_without">الربح/الخسارة دون %1$s (السعر مفقود)</string>

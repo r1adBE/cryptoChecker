@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 ਸਾਲ</string>
     <string name="portfolio_history_period_30d">30 ਦਿਨ</string>
     <string name="portfolio_history_period_7d">7 ਦਿਨ</string>
+    <string name="portfolio_history_period_7d_currency">7 ਦਿਨ (%1$s)</string>
     <string name="portfolio_history_period_since_first">ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ</string>
     <string name="portfolio_history_pnl_needs_prices">ਮੁਨਾਫ਼ੇ/ਨੁਕਸਾਨ ਲਈ ਖਰੀਦ ਕੀਮਤਾਂ ਗੁੰਮ ਹਨ – ਉਨ੍ਹਾਂ ਨੂੰ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਜੋੜੋ।</string>
     <string name="portfolio_history_pnl_without">%1$s ਤੋਂ ਬਿਨਾਂ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ (ਕੀਮਤ ਗੁੰਮ)</string>

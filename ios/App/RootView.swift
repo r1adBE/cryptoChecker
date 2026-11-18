@@ -34,7 +34,7 @@ struct RootView: View {
                 .tag(AppTab.cycle)
 
             if data.settings.portfolioEnabled {
-                withTabBar(PortfolioTab(rootVisible: $rootVisible, split: split).id(stackId(.portfolio)), portfolioAdd: true)
+                withTabBar(PortfolioTab(rootVisible: $rootVisible, split: split).id(stackId(.portfolio)))
                     .tag(AppTab.portfolio)
             }
 
@@ -103,19 +103,12 @@ struct RootView: View {
 
     /// Inhalt eines Tabs mit der eigenen Leiste unten (in jedem Tab, damit der Inhalt über ihr
     /// endet); die Systemleiste ist ausgeblendet. `hidden`: Seite ohne Leiste (z. B. «Paar hinzufügen»).
-    /// `portfolioAdd`: Slot für den «+»-Knopf der Portfolio-Seiten direkt über der Leiste (`PortfolioAddSlot`) —
-    /// auf dieser Ebene liegt er sicher über ihr, und der Einschub gibt der Liste darunter Platz (wie Android).
-    private func withTabBar<Content: View>(_ content: Content, hidden: Bool = false, portfolioAdd: Bool = false) -> some View {
+    private func withTabBar<Content: View>(_ content: Content, hidden: Bool = false) -> some View {
         content
             .toolbar(.hidden, for: .tabBar)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if !hidden && !keyboardVisible {
-                    VStack(spacing: 0) {
-                        if portfolioAdd {
-                            PortfolioAddAccessory()
-                        }
-                        AppTabBar(tabs: tabs, selection: $router.tab, onReselect: reselect)
-                    }
+                    AppTabBar(tabs: tabs, selection: $router.tab, onReselect: reselect)
                 }
             }
     }

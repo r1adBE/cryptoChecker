@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">விலைகளும் அறிவிப்புகளும் மீண்டும் தொடங்கும்</string>
     <string name="watch_enabled_banner">%1$s இயக்கப்பட்டது</string>
     <string name="watch_error_offline">இணைப்பு இல்லை</string>
-    <string name="watch_gesture_hint_short">தட்டவும்: விழிப்பூட்டல் மற்றும் “கூடவே எது நகர்கிறது?” · தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்</string>
-    <string name="watch_hint_tap_why">விழிப்பூட்டல்களுக்கும் “கூடவே எது நகர்கிறது?” என்பதற்கும் ஒரு காயினைத் தட்டவும்</string>
+    <string name="watch_gesture_hint_short">தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்</string>
+    <string name="watch_hint_tap_why">விழிப்பூட்டல்கள் மற்றும் “கூடவே எது நகர்கிறது?” க்கு ஒரு வரிசையைத் தட்டவும்</string>
     <string name="watch_not_traded">இந்த எக்ஸ்சேஞ்சில் இனி வர்த்தகமாகவில்லை</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">கண்காணிப்புப் பட்டியலில் இல்லை</string>

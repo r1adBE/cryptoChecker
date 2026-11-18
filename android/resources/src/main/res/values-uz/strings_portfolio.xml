@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 yil</string>
     <string name="portfolio_history_period_30d">30 kun</string>
     <string name="portfolio_history_period_7d">7 kun</string>
+    <string name="portfolio_history_period_7d_currency">7 kun (%1$s)</string>
     <string name="portfolio_history_period_since_first">birinchi xariddan beri</string>
     <string name="portfolio_history_pnl_needs_prices">Foyda/zarar uchun xarid narxlari yoʻq – ularni tranzaksiyalarga qoʻshing.</string>
     <string name="portfolio_history_pnl_without">%1$s hisobga olinmagan foyda/zarar (narx yoʻq)</string>

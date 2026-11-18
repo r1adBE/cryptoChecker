@@ -157,8 +157,8 @@
     <string name="watch_enable_hint">Курсы и уведомления снова включены</string>
     <string name="watch_enabled_banner">Пара %1$s включена</string>
     <string name="watch_error_offline">Нет соединения</string>
-    <string name="watch_gesture_hint_short">Нажми: оповещение и «Что движется вместе?» · удерживай для выбора · влево – удалить · вправо – в избранное</string>
-    <string name="watch_hint_tap_why">Нажми на монету: оповещение и «Что движется вместе?»</string>
+    <string name="watch_gesture_hint_short">Удерживай для выбора · влево – удалить · вправо – в избранное</string>
+    <string name="watch_hint_tap_why">Нажми на строку: оповещения и «Что движется вместе?»</string>
     <string name="watch_not_traded">Больше не торгуется на этой бирже</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Нет в списке</string>

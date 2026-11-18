@@ -73,7 +73,7 @@
     <string name="widget_portfolio_period_without">%1$s sem %2$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: abra o Portfólio</string>
+    <string name="widget_portfolio_range_fallback">%1$s ainda carregando</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Hoje sem %1$s</string>
     <string name="widget_portfolio_view">Visualização</string>

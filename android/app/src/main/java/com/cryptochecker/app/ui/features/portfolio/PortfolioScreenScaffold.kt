@@ -18,16 +18,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.AppSnackbarHost
-import com.cryptochecker.app.ui.components.FabScrollState
+import com.cryptochecker.app.ui.components.HeaderAddButton
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
@@ -43,7 +41,6 @@ internal fun PortfolioScaffold(
     viewModel: PortfolioViewModel,
     banner: WatchlistBanner,
     listState: LazyListState,
-    fabScroll: FabScrollState,
     reduceMotion: Boolean,
     transactions: List<PortfolioTxEntity>?,
     watchedAddresses: List<WatchedAddress>,
@@ -78,11 +75,12 @@ internal fun PortfolioScaffold(
     val importBatches = remember(transactions) { PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }) }
 
     Scaffold(
-        modifier = Modifier.nestedScroll(fabScroll.connection),
         topBar = {
             TopAppBar(
                 title = { TabTitle(stringResource(R.string.portfolio_title), R.drawable.ic_portfolio) },
                 actions = {
+                    // «+» oben (verdeckt keine Beträge), wie «+» der Merkliste
+                    if (hasData) HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { onSheetChange(TxDraft()) })
                     PortfolioToolbarActions(
                         hasData = hasData,
                         hasTransactions = hasTransactions,
@@ -107,13 +105,6 @@ internal fun PortfolioScaffold(
             )
         },
         snackbarHost = { AppSnackbarHost(banner.host) },
-        floatingActionButton = {
-            if (hasData) {
-                AppFab(onClick = {
-                    onSheetChange(TxDraft())
-                }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
-            }
-        }
     ) { padding ->
         PortfolioContent(
             padding = padding,

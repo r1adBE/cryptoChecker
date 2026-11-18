@@ -28,7 +28,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,10 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
-import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberFabScroll
+import com.cryptochecker.app.ui.components.HeaderAddButton
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
@@ -149,11 +147,8 @@ fun PortfolioDetailScreen(
         )
     }
     lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
-    // «+»-Knopf: beim Scrollen nach unten weg (verdeckt keine Beträge), nach oben wieder da
     val listState = rememberLazyListState()
-    val fabScroll = rememberFabScroll(listState)
     Scaffold(
-        modifier = Modifier.nestedScroll(fabScroll.connection),
         topBar = {
             TopAppBar(
                 title = { Text(symbol, fontWeight = FontWeight.SemiBold) },
@@ -164,16 +159,14 @@ fun PortfolioDetailScreen(
                             contentDescription = stringResource(R.string.action_back)
                         )
                     }
-                }
+                },
+                // «+» oben (verdeckt keine Beträge) wählt den Coin schon vor
+                actions = {
+                    HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { sheet = TxDraft(coin = symbol) })
+                },
             )
         },
         snackbarHost = { AppSnackbarHost(banner.host) },
-        floatingActionButton = {
-            // «+» wählt den Coin schon vor
-            AppFab(onClick = {
-                sheet = TxDraft(coin = symbol)
-            }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
-        }
     ) { padding ->
         PortfolioDetailContent(
             padding = padding,

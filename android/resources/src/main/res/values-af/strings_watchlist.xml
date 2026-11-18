@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Pryse en kennisgewings hervat</string>
     <string name="watch_enabled_banner">%1$s geaktiveer</string>
     <string name="watch_error_offline">Geen verbinding nie</string>
-    <string name="watch_gesture_hint_short">Tik: alarm en “Wat beweeg saam?” · druk lank om te kies · swiep links om uit te vee · swiep regs vir gunsteling</string>
-    <string name="watch_hint_tap_why">Tik op \'n munt vir alarms en “Wat beweeg saam?”</string>
+    <string name="watch_gesture_hint_short">Druk lank om te kies · swiep links om uit te vee · swiep regs vir gunsteling</string>
+    <string name="watch_hint_tap_why">Tik op ’n ry vir alarms en “Wat beweeg saam?”</string>
     <string name="watch_not_traded">Nie meer op hierdie beurs verhandel nie</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nie in volglys nie</string>

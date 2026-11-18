@@ -71,6 +71,8 @@ data class PortfolioOverviewLayout(
     val figureAmounts: Boolean,
     val footer: Boolean,
     val usdt: Boolean,
+    /** Höhe des Wertverlaufs im freien Platz (dp); 0 = kein Chart (zu wenig Platz). */
+    val chartHeightDp: Float = 0f,
 )
 
 /**
@@ -105,6 +107,12 @@ object PortfolioWidgetViews {
     /** Abstand unter der Kopfzeile bis zur Liste bzw. über den Kennzahlen (dp). */
     const val LIST_GAP_DP = 4f
     const val FIGURES_GAP_DP = 4f
+
+    /** Wertverlauf in der Übersicht erst ab so viel freier Höhe (dp) — darunter bleibt der Platz leer. */
+    const val OVERVIEW_CHART_MIN_DP = 48f
+
+    /** Abstand über dem Wertverlauf (dp) — wie `widget_portfolio_chart.xml`. */
+    const val OVERVIEW_CHART_GAP_DP = 4f
 
     /** Anteil der Total-Zeile: das ganze Portfolio. */
     const val LIST_TOTAL_SHARE = 100.0
@@ -362,6 +370,8 @@ object PortfolioWidgetViews {
         val footer = figures && take(true, PortfolioWidgetMath.footerHeightDp(fontScale))
         val usdt = footer && take(wantUsdt, PortfolioWidgetMath.usdtHeightDp(fontScale))
         val amounts = footer && take(wide, figureAmountHeightDp(fontScale))
-        return PortfolioOverviewLayout(wide, change, figures, amounts, footer, usdt)
+        // Hohes Widget: der freie Platz zeigt den Wertverlauf statt einer leeren Fläche
+        val chart = if (footer && free - OVERVIEW_CHART_GAP_DP >= OVERVIEW_CHART_MIN_DP) free - OVERVIEW_CHART_GAP_DP else 0f
+        return PortfolioOverviewLayout(wide, change, figures, amounts, footer, usdt, chart)
     }
 }

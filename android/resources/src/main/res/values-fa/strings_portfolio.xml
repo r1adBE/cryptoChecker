@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">۱ سال</string>
     <string name="portfolio_history_period_30d">۳۰ روز</string>
     <string name="portfolio_history_period_7d">۷ روز</string>
+    <string name="portfolio_history_period_7d_currency">۷ روز (%1$s)</string>
     <string name="portfolio_history_period_since_first">از اولین خرید</string>
     <string name="portfolio_history_pnl_needs_prices">برای سود/زیان قیمت خرید کم است – آن‌ها را در تراکنش‌ها اضافه کن.</string>
     <string name="portfolio_history_pnl_without">سود/زیان بدون %1$s (قیمت موجود نیست)</string>

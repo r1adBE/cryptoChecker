@@ -257,12 +257,12 @@ final class CryptoCheckerUITests: XCTestCase {
         XCTAssertTrue(scrollTo(app, app.buttons["Adjust price updates"].firstMatch), "price update link missing on the delivery page")
     }
 
-    // MARK: 8. «+»-Knopf des Portfolios beim Scrollen
+    // MARK: 8. «+»-Knopf des Portfolios in der Kopfzeile
 
-    /// Lange Liste: nach unten scrollen blendet «Add transaction» aus (verdeckt keine Beträge), nach oben wieder ein
-    /// (Regel `AddButtonScroll`). Wie Android `PortfolioFabScrollDeviceTest`.
+    /// Lange Liste: «Add transaction» steht oben in der Kopfzeile und bleibt beim Scrollen da (verdeckt nie Beträge).
+    /// Wie Android `PortfolioAddButtonDeviceTest`.
     @MainActor
-    func testAddButtonHidesWhileScrollingDown() throws {
+    func testAddButtonStaysInHeaderWhileScrolling() throws {
         let coins = ["BTC", "ETH", "SOL", "XRP", "ADA", "DOGE", "DOT", "LTC", "LINK", "AVAX", "ATOM", "UNI", "XLM", "ETC",
                      "FIL", "APT", "ARB", "OP", "NEAR", "ALGO", "AAVE", "SAND", "MANA", "EGLD", "XTZ", "THETA", "EOS",
                      "FLOW", "KAVA", "ZEC"]
@@ -279,19 +279,13 @@ final class CryptoCheckerUITests: XCTestCase {
         _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
         let add = app.buttons["Add transaction"]
         XCTAssertTrue(add.waitForExistence(timeout: uiTimeout), "add button missing")
-        // Kurzes Ziehen ohne Schwung: ein Wischen schöbe die Liste bis ans Ende, und dort kommt der Knopf gewollt zurück
-        // (AddButtonScroll: am Anfang bzw. Ende immer sichtbar)
         let top = anyCoin.firstMatch
         let before = top.identifier + " \(top.frame.minY)"
-        let from = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.6))
-        from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35)))
+        app.swipeUp()
         // Erst prüfen, dass die Liste wirklich scrollte (sonst sagte der Test nichts über den Knopf)
         XCTAssertNotEqual(anyCoin.firstMatch.identifier + " \(anyCoin.firstMatch.frame.minY)", before, "list did not scroll")
-        let hidden = wait(add, "exists == false || enabled == false")
-        let lines = app.debugDescription.split(separator: "\n").filter { $0.contains("Add transaction") }
-        XCTAssertTrue(hidden, "add button still shown while scrolling down: \(lines)")
-        app.swipeDown()
-        XCTAssertTrue(wait(add, "exists == true && enabled == true"), "add button not back after scrolling up")
+        XCTAssertTrue(add.exists && add.isHittable, "add button gone while scrolling")
+        XCTAssertTrue(app.navigationBars.buttons["Add transaction"].exists, "add button not in the header")
     }
 
     // MARK: 9. Leeres Portfolio

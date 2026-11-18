@@ -114,8 +114,12 @@ struct PortfolioCoinDetail: View {
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await model.refresh(force: true) }
         .animation(.spring(duration: 0.35), value: own.map(\.id))
-        // «+»-Knopf über der Tableiste (RootView, wie die Übersicht)
-        .portfolioAddButton { sheet = PortfolioTxDraft(coin: coin) }
+        // «+» oben (verdeckt keine Beträge) wählt den Coin schon vor
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                HeaderAddButton(label: L("portfolio_add_tx")) { sheet = PortfolioTxDraft(coin: coin) }
+            }
+        }
         .navigationTitle(coin)
         .navigationBarTitleDisplayMode(.inline)
         .task { await model.refresh(force: false) }

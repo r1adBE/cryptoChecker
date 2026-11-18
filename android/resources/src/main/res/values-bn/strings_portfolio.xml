@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 বছর</string>
     <string name="portfolio_history_period_30d">30 দিন</string>
     <string name="portfolio_history_period_7d">7 দিন</string>
+    <string name="portfolio_history_period_7d_currency">7 দিন (%1$s)</string>
     <string name="portfolio_history_period_since_first">প্রথম কেনার পর থেকে</string>
     <string name="portfolio_history_pnl_needs_prices">লাভ/ক্ষতির জন্য কেনার দাম নেই – লেনদেনে সেগুলো যোগ করুন।</string>
     <string name="portfolio_history_pnl_without">%1$s ছাড়া লাভ/ক্ষতি (দাম নেই)</string>

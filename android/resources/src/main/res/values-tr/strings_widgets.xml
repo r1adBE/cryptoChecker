@@ -71,7 +71,7 @@
     <string name="widget_portfolio_period_without">%2$s hariç %1$s</string>
     <string name="widget_portfolio_range_48h">48 sa</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: Portföy\'ü aç</string>
+    <string name="widget_portfolio_range_fallback">%1$s hâlâ yükleniyor</string>
     <string name="widget_portfolio_range_short_48h">48sa</string>
     <string name="widget_portfolio_today_without">Bugün %1$s hariç</string>
     <string name="widget_portfolio_view">Görünüm</string>

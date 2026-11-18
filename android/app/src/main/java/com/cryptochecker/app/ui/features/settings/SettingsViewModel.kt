@@ -49,6 +49,11 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     internal val widgetUpdater: WidgetUpdater get() = widgets.widgetUpdater
 
+    /** Einstufung der letzten 24 h für den Untertitel von «Akku & Aktivität» (gelesen auf [ioDispatcher]). */
+    suspend fun usageLevel(): com.cryptochecker.marketdata.usage.UsageLevel = kotlinx.coroutines.withContext(ioDispatcher) {
+        com.cryptochecker.marketdata.usage.UsageLog.level(com.cryptochecker.marketdata.usage.UsageMeter.shared.totals())
+    }
+
     /** «Alarm testen»: echter Alarm über den Weg der Kursalarme, ohne Nachtruhe. */
     suspend fun testAlarm(): com.cryptochecker.app.notification.AlarmTestResult = testActions.testAlarm()
 

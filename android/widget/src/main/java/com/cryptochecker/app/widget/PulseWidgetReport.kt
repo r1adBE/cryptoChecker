@@ -79,7 +79,7 @@ internal fun drawPulseReport(
         else -> 1
     }
     val textWidthDp = widgetWidthDp - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
-    val plainCount = if (widgetWidthDp < PulseWidgetPlain.WIDE_MIN_WIDTH_DP || plainSentences.isEmpty()) {
+    val plainCount = if (widgetWidthDp <= 0 || plainSentences.isEmpty()) {
         0
     } else {
         PulseWidgetPlain.sentenceCount(

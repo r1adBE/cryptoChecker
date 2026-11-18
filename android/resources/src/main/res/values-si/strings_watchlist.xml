@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">මිල සහ දැනුම්දීම් නැවත ආරම්භ වේ</string>
     <string name="watch_enabled_banner">%1$s සක්‍රිය කළා</string>
     <string name="watch_error_offline">සම්බන්ධතාවක් නැත</string>
-    <string name="watch_gesture_hint_short">තට්ටු කිරීම: ඇඟවීම සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” · තේරීමට දිගු ඔබන්න · මැකීමට වමට ස්වයිප් කරන්න · ප්‍රියතම සඳහා දකුණට ස්වයිප් කරන්න</string>
-    <string name="watch_hint_tap_why">ඇඟවීම් සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” සඳහා කාසියක් තට්ටු කරන්න</string>
+    <string name="watch_gesture_hint_short">තේරීමට දිගු ඔබන්න · මැකීමට වමට ස්වයිප් කරන්න · ප්‍රියතම සඳහා දකුණට ස්වයිප් කරන්න</string>
+    <string name="watch_hint_tap_why">ඇඟවීම් සහ “ඒ සමඟ චලනය වන්නේ කුමක්ද?” සඳහා පේළියක් තට්ටු කරන්න</string>
     <string name="watch_not_traded">මෙම හුවමාරුවේ තවදුරටත් වෙළඳාම් නොවේ</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">නිරීක්ෂණ ලැයිස්තුවේ නැත</string>

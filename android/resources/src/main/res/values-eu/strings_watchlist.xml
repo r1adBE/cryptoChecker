@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Prezioak eta jakinarazpenak berriro hasten dira</string>
     <string name="watch_enabled_banner">Aktibatu da: %1$s</string>
     <string name="watch_error_offline">Konexiorik ez</string>
-    <string name="watch_gesture_hint_short">Sakatu: alarma eta «Zer mugitzen da harekin batera?» · sakatu luze hautatzeko · pasatu ezkerrera ezabatzeko · pasatu eskuinera gogokoetarako</string>
-    <string name="watch_hint_tap_why">Sakatu txanpon bat alarmetarako eta «Zer mugitzen da harekin batera?» ikusteko</string>
+    <string name="watch_gesture_hint_short">Sakatu luze hautatzeko · pasatu ezkerrera ezabatzeko · pasatu eskuinera gogokoetarako</string>
+    <string name="watch_hint_tap_why">Sakatu errenkada bat alarmetarako eta «Zer mugitzen da harekin batera?»</string>
     <string name="watch_not_traded">Ez da jada negoziatzen burtsa honetan</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Ez dago zerrendan</string>

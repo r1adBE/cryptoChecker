@@ -156,7 +156,9 @@ internal fun LazyListScope.portfolioCardItems(
     // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen
     val slices = PortfolioInsights.allocation(current.open)
     if (slices.size >= 2) {
-        item(key = "allocation") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { AllocationCard(slices) } }
+        item(key = "allocation") {
+            Box(Modifier.padding(bottom = ListSegment.Spacing)) { AllocationCard(slices, cardUnit(currency, fxRate)) }
+        }
     }
 }
 

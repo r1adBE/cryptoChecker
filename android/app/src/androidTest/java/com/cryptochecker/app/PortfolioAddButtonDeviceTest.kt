@@ -26,17 +26,18 @@ import java.math.BigDecimal
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 /**
- * «+»-Knopf des Portfolios verdeckt beim Lesen keine Beträge (Regel
- * `AddButtonScroll`): beim Scrollen nach unten blendet er aus, nach oben wieder ein — in der Übersicht und auf der Seite
- * eines Coins. Echte Oberfläche mit langer Liste. Wie iOS `CryptoCheckerUITests.testAddButtonHidesWhileScrollingDown`.
+ * «+» des Portfolios steht oben in der Kopfzeile und verdeckt nie Beträge: auch nach dem Scrollen in der Übersicht und
+ * auf der Seite eines Coins da. Echte Oberfläche mit langer Liste. Wie iOS
+ * `CryptoCheckerUITests.testAddButtonStaysInHeaderWhileScrolling`.
  */
 @HiltAndroidTest
-class PortfolioFabScrollDeviceTest {
+class PortfolioAddButtonDeviceTest {
 
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
@@ -91,11 +92,11 @@ class PortfolioFabScrollDeviceTest {
         node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.TestTag)?.startsWith(UiTestTags.portfolioCoin("")) == true
     }
 
-    private val fab get() = hasContentDescription(compose.activity.getString(R.string.portfolio_add_tx))
+    private val add get() = hasContentDescription(compose.activity.getString(R.string.portfolio_add_tx))
 
-    private fun fabShown() = compose.onAllNodes(fab, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+    private fun addShown() = compose.onAllNodes(add, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
 
-    /** Ein Stück scrollen (nicht bis ans Ende: dort zeigt sich der Knopf wieder, damit nichts verdeckt bleibt). */
+    /** Ein Stück scrollen. */
     private fun scroll(down: Boolean) {
         compose.onAllNodes(hasScrollAction()).onFirst().performTouchInput {
             if (down) {
@@ -107,23 +108,23 @@ class PortfolioFabScrollDeviceTest {
         compose.waitForIdle()
     }
 
-    private fun hidesWhileScrollingDown() {
-        compose.waitUntil(TIMEOUT) { fabShown() }
+    private fun staysWhileScrolling() {
+        compose.waitUntil(TIMEOUT) { addShown() }
         scroll(down = true)
-        compose.waitUntil(TIMEOUT) { !fabShown() }
+        assertTrue("«+» nach dem Scrollen nach unten verschwunden", addShown())
         scroll(down = false)
-        compose.waitUntil(TIMEOUT) { fabShown() }
+        compose.waitUntil(TIMEOUT) { addShown() }
     }
 
     @Test
-    fun overviewAndCoinPageHideTheButtonWhileScrollingDown() {
+    fun overviewAndCoinPageKeepTheButtonInTheHeader() {
         click(UiTestTags.TAB_PORTFOLIO)
         compose.waitUntil(TIMEOUT) { compose.onAllNodes(anyCoin, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
-        hidesWhileScrollingDown()
+        staysWhileScrolling()
         // Seite von BTC (31 Buchungen); die Zeile kann weiter unten in der Liste stehen
         runCatching { compose.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasTestTag(UiTestTags.portfolioCoin("BTC"))) }
         click(UiTestTags.portfolioCoin("BTC"))
-        hidesWhileScrollingDown()
+        staysWhileScrolling()
     }
 
     private fun exists(tag: String) =

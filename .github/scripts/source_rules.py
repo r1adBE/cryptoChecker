@@ -526,13 +526,10 @@ def rule_spacing(t):
         for rel, path in files_under(t.java(module), "kt"):
             if re.search(r"bottom = 96\.dp", read(path)):
                 problems.append(f"{module}/{rel}: bottom = 96.dp statt Spacing.fabClearance")
-    overlay = re.compile(r"\.overlay\(alignment: \.bottomTrailing\) \{\s*PortfolioAddButton")
     for rel, path in files_under(t.i("App"), "swift"):
         text = read(path)
         if "Color.clear.frame(height: 96)" in text:
             problems.append(f"ios/App/{rel}: leerer Füllblock Color.clear.frame(height: 96)")
-        if overlay.search(text):
-            problems.append(f"ios/App/{rel}: «+»-Knopf als Overlay statt Einschub unten")
     return problems
 
 
@@ -2674,9 +2671,6 @@ AW_ROWS = [
       for name in ("AppNavHost.kt", "AppNavDestinations.kt", "AppNavTabDestinations.kt")],
     *[W(A_APP + "ui/navigation/" + name, "navigation.openExplorer()", n=0, why="«Paar hinzufügen» nur mit Schutz")
       for name in ("AppNavHost.kt", "AppNavDestinations.kt", "AppNavTabDestinations.kt")],
-    # «+»-Knopf bei «Animationen entfernen» ohne Skalieren
-    W(A_APP + "ui/components/AppFab.kt", "enter = if (reduceMotion) EnterTransition.None else scaleIn() + fadeIn(),",
-      "exit = if (reduceMotion) ExitTransition.None else scaleOut() + fadeOut(),", why="Animationen entfernen"),
     # Farben: kein violettes Tertiär bei Blau; Eingabefelder mit Kontroll-Rand; hoher Kontrast behält die Fehlerfarbe
     W(A_COREUI + "ui/theme/AppColorSchemes.kt", "0xFF804E73", "0xFFFED7F3", n=0, why="Blau ohne violettes Tertiär"),
     *[W(A_APP + "ui/features/" + name, "BorderStroke(1.dp, MaterialTheme.colorScheme.outline)", why="Feldrand outline (≥ 3:1)")

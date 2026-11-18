@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 ವರ್ಷ</string>
     <string name="portfolio_history_period_30d">30 ದಿನಗಳು</string>
     <string name="portfolio_history_period_7d">7 ದಿನಗಳು</string>
+    <string name="portfolio_history_period_7d_currency">7 ದಿನಗಳು (%1$s)</string>
     <string name="portfolio_history_period_since_first">ಮೊದಲ ಖರೀದಿಯಿಂದ</string>
     <string name="portfolio_history_pnl_needs_prices">ಲಾಭ/ನಷ್ಟಕ್ಕೆ ಖರೀದಿ ಬೆಲೆಗಳು ಇಲ್ಲ – ವಹಿವಾಟುಗಳಲ್ಲಿ ಅವುಗಳನ್ನು ಸೇರಿಸಿ.</string>
     <string name="portfolio_history_pnl_without">%1$s ಇಲ್ಲದೆ ಲಾಭ/ನಷ್ಟ (ಬೆಲೆ ಇಲ್ಲ)</string>

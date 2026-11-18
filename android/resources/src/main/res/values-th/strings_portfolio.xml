@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1 ปี</string>
     <string name="portfolio_history_period_30d">30 วัน</string>
     <string name="portfolio_history_period_7d">7 วัน</string>
+    <string name="portfolio_history_period_7d_currency">7 วัน (%1$s)</string>
     <string name="portfolio_history_period_since_first">ตั้งแต่ซื้อครั้งแรก</string>
     <string name="portfolio_history_pnl_needs_prices">ขาดราคาซื้อสำหรับคำนวณกำไร/ขาดทุน – เพิ่มในรายการธุรกรรม</string>
     <string name="portfolio_history_pnl_without">กำไร/ขาดทุนไม่รวม %1$s (ไม่มีราคา)</string>

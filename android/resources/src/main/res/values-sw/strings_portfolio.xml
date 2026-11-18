@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">mwaka 1</string>
     <string name="portfolio_history_period_30d">siku 30</string>
     <string name="portfolio_history_period_7d">siku 7</string>
+    <string name="portfolio_history_period_7d_currency">siku 7 (%1$s)</string>
     <string name="portfolio_history_period_since_first">tangu ununuzi wa kwanza</string>
     <string name="portfolio_history_pnl_needs_prices">Bei za ununuzi hazipo kwa faida/hasara – ziongeze kwenye miamala.</string>
     <string name="portfolio_history_pnl_without">Faida/hasara bila %1$s (bei haipo)</string>

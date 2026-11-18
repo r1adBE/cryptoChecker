@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Курсовете и известията се възобновяват</string>
     <string name="watch_enabled_banner">%1$s е активирана</string>
     <string name="watch_error_offline">Няма връзка</string>
-    <string name="watch_gesture_hint_short">Докосване: аларма и „Какво се движи заедно?“ · продължително натискане избира · плъзгане наляво изтрива · плъзгане надясно = любими</string>
-    <string name="watch_hint_tap_why">Докосни монета за аларми и „Какво се движи заедно?“</string>
+    <string name="watch_gesture_hint_short">Продължително натискане избира · плъзгане наляво изтрива · плъзгане надясно = любими</string>
+    <string name="watch_hint_tap_why">Докосни ред за аларми и „Какво се движи заедно?“</string>
     <string name="watch_not_traded">Вече не се търгува на тази борса</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Не е в списъка</string>

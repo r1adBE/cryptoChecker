@@ -200,6 +200,7 @@
     <string name="portfolio_history_period_1y">1년</string>
     <string name="portfolio_history_period_30d">30일</string>
     <string name="portfolio_history_period_7d">7일</string>
+    <string name="portfolio_history_period_7d_currency">7일 (%1$s)</string>
     <string name="portfolio_history_period_since_first">첫 매수 이후</string>
     <string name="portfolio_history_pnl_needs_prices">손익 계산에 매수가가 없습니다. 거래에서 추가하세요.</string>
     <string name="portfolio_history_pnl_without">%1$s 제외 손익(가격 없음)</string>

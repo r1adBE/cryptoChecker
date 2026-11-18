@@ -246,7 +246,8 @@ private fun UsageCard(title: String, totals: UsageTotals, driver: String, asOf: 
     }
 }
 
-private val UsageLevel.labelRes: Int
+/** «Geringe Aktivität» usw. — auf der Seite und unter «Akku & Aktivität» der Hauptseite. */
+internal val UsageLevel.labelRes: Int
     get() = when (this) {
         UsageLevel.LOW -> R.string.usage_level_low
         UsageLevel.MEDIUM -> R.string.usage_level_medium

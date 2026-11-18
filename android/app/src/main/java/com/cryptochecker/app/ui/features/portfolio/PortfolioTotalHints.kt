@@ -11,8 +11,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,11 +42,29 @@ internal data class TotalHintItem(val text: String, val error: Boolean = false, 
 /**
  * Bereich «Hinweise» unter der Gesamtkarte, zugeklappt: eine Zeile «Hinweise (n)» mit
  * Pfeil (48 dp hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist — veraltet, Wallet-Bestand); offen die
- * Zeilen ([TotalHint]) eng untereinander, eingerückt wie der Inhalt der Karte. Wie iOS `hints`.
+ * Zeilen ([TotalHint]) eng untereinander, eingerückt wie der Inhalt der Karte. [dialog]: Teilsumme angetippt, alle
+ * Zeilen als Dialog ([TotalHintsDialog]). Wie iOS `hints`.
  */
 @Composable
-internal fun TotalCardHints(hints: List<TotalHintItem>, expanded: Boolean, onToggle: () -> Unit, onShortfall: (Long) -> Unit) {
+internal fun TotalCardHints(
+    hints: List<TotalHintItem>,
+    expanded: Boolean,
+    onToggle: () -> Unit,
+    onShortfall: (Long) -> Unit,
+    dialog: Boolean = false,
+    onDialogDismiss: () -> Unit = {},
+) {
     if (hints.isEmpty()) return
+    if (dialog) {
+        TotalHintsDialog(
+            hints = hints,
+            onDismiss = onDialogDismiss,
+            onShortfall = {
+                onDialogDismiss()
+                onShortfall(it)
+            },
+        )
+    }
     val anyError = hints.any { it.error }
     val expandedText = stringResource(R.string.a11y_expanded)
     val collapsedText = stringResource(R.string.a11y_collapsed)
@@ -74,6 +96,31 @@ internal fun TotalCardHints(hints: List<TotalHintItem>, expanded: Boolean, onTog
             }
         }
     }
+}
+
+/**
+ * Alle Hinweise als Dialog, wenn eine Teilsumme angetippt wurde («ohne 2 Coins», «unvollständig») — so steht
+ * der Grund sofort da, nicht erst zugeklappt unter der Karte. Wallet-Hinweise öffnen die Transaktion. Wie iOS.
+ */
+@Composable
+internal fun TotalHintsDialog(hints: List<TotalHintItem>, onDismiss: () -> Unit, onShortfall: (Long) -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_close)) } },
+        title = { Text(stringResource(R.string.portfolio_card_hints_count, hints.size)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                hints.forEach { hint ->
+                    TotalHint(
+                        hint.text,
+                        color = if (hint.error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = Spacing.sm)
+                            .then(hint.txId?.let { id -> Modifier.clickable { onShortfall(id) } } ?: Modifier),
+                    )
+                }
+            }
+        },
+    )
 }
 
 /**

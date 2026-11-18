@@ -203,6 +203,7 @@
     <string name="portfolio_history_period_1y">1 ዓመት</string>
     <string name="portfolio_history_period_30d">30 ቀናት</string>
     <string name="portfolio_history_period_7d">7 ቀናት</string>
+    <string name="portfolio_history_period_7d_currency">7 ቀናት (%1$s)</string>
     <string name="portfolio_history_period_since_first">ከመጀመሪያው ግዢ ወዲህ</string>
     <string name="portfolio_history_pnl_needs_prices">ለትርፍ/ኪሳራ የግዢ ዋጋዎች ጎድለዋል – በግብይቶቹ ውስጥ ያክሏቸው።</string>
     <string name="portfolio_history_pnl_without">ትርፍ/ኪሳራ ያለ %1$s (ዋጋ ጎድሏል)</string>

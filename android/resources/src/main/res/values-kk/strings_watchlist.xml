@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Бағамдар мен хабарландырулар қайта жалғасады</string>
     <string name="watch_enabled_banner">%1$s қосылды</string>
     <string name="watch_error_offline">Байланыс жоқ</string>
-    <string name="watch_gesture_hint_short">Түрту: ескерту және «Онымен бірге не қозғалады?» · таңдау үшін ұзақ басу · жою үшін солға сырғыту · таңдаулы үшін оңға сырғыту</string>
-    <string name="watch_hint_tap_why">Ескертулер мен «Онымен бірге не қозғалады?» үшін монетаны түртіңіз</string>
+    <string name="watch_gesture_hint_short">Таңдау үшін ұзақ басу · жою үшін солға сырғыту · таңдаулы үшін оңға сырғыту</string>
+    <string name="watch_hint_tap_why">Ескертулер мен «Онымен бірге не қозғалады?» үшін жолды түртіңіз</string>
     <string name="watch_not_traded">Бұл биржада енді саудаланбайды</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Бақылау тізімінде жоқ</string>

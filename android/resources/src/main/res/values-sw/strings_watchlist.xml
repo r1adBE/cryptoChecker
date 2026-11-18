@@ -133,8 +133,8 @@
     <string name="watch_enable_hint">Bei na arifa zinaendelea</string>
     <string name="watch_enabled_banner">%1$s imewashwa</string>
     <string name="watch_error_offline">Hakuna muunganisho</string>
-    <string name="watch_gesture_hint_short">Gusa: kengele na “Nini kinasonga pamoja nayo?” · bonyeza kwa muda mrefu ili kuchagua · telezesha kushoto ili kufuta · telezesha kulia kwa kipendwa</string>
-    <string name="watch_hint_tap_why">Gusa sarafu kwa kengele na “Nini kinasonga pamoja nayo?”</string>
+    <string name="watch_gesture_hint_short">Bonyeza kwa muda mrefu ili kuchagua · telezesha kushoto ili kufuta · telezesha kulia kwa kipendwa</string>
+    <string name="watch_hint_tap_why">Gusa safu kwa kengele na “Nini kinasonga pamoja nayo?”</string>
     <string name="watch_not_traded">Haiuzwi tena kwenye jukwaa hili</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Haimo kwenye orodha ya ufuatiliaji</string>

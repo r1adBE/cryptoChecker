@@ -194,6 +194,16 @@ enum BackgroundRefresh {
                 await PortfolioModel.shared.refreshWatchedAddresses(force: false, budgetMillis: addressMillis - 500)
             }
         }
+        // Tagesschlüsse für «7 T» und «1 J» des Widgets: übers Netz nur, wenn der Zwischenspeicher älter als 12 h ist
+        // (`dailyPrices`) — sonst zeigte das Widget «—», bis jemand den Wertverlauf im Portfolio-Tab öffnet. Nur mit
+        // Restzeit über der Mindestzeit des Portfolio-Stands. Wie Android `PortfolioSnapshotUpdater.refresh`
+        let dailyMillis = min(RefreshBudget.portfolioDailyMaxMillis,
+                              portfolioEnd - EpochTime.nowMillis - RefreshBudget.portfolioMinMillis)
+        if dailyMillis >= 1_000 {
+            _ = await RefreshDeadline.run(within: dailyMillis) { @MainActor in
+                await PortfolioHistorySource.refreshWidgetDaily()
+            }
+        }
         let widget = await RefreshDeadline.run(within: max(0, portfolioEnd - EpochTime.nowMillis)) { @MainActor in
             await PortfolioWidgetStore.refresh()
         }
