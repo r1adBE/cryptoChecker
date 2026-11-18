@@ -52,10 +52,9 @@ class TourWidgetConfig(private val context: Context) {
         val intent = Intent(context, page.activity)
             .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        InstrumentationRegistry.getInstrumentation().run {
-            context.startActivity(intent)
-            waitForIdleSync()
-        }
+        // startActivitySync: wartet, bis die Activity läuft (startet sie wie der Launcher in einer eigenen Aufgabe)
+        val started = InstrumentationRegistry.getInstrumentation().startActivitySync(intent)
+        check(!started.isFinishing) { "${page.activity.simpleName} hat sich gleich geschlossen; ${diagnose(page)}" }
     }
 
     private fun <T> withShellBindPermission(block: () -> T): T {
@@ -66,6 +65,19 @@ class TourWidgetConfig(private val context: Context) {
         } finally {
             automation.dropShellPermissionIdentity()
         }
+    }
+
+    /**
+     * Zustand für die Fehlermeldung: Anbieter des zuletzt gebundenen Widgets laut System und die letzten Zeilen des
+     * Systemprotokolls zur Activity (Start, Ende, Absturz).
+     */
+    fun diagnose(page: Page): String {
+        val id = ids.lastOrNull()
+        val owner = id?.let { runCatching { manager.getAppWidgetInfo(it)?.provider?.flattenToShortString() }.getOrNull() }
+        val log = AppTestEnvironmentRule.shell("logcat -d -t 400").lineSequence()
+            .filter { page.activity.simpleName in it || "AndroidRuntime" in it }
+            .toList().takeLast(6).joinToString(" | ")
+        return "Widget $id, Anbieter ${owner ?: "unbekannt"}; Protokoll: ${log.ifEmpty { "nichts" }}"
     }
 
     /** Seite [page] vorne und kein Systemfenster darüber? (Fokus laut `dumpsys window`) */

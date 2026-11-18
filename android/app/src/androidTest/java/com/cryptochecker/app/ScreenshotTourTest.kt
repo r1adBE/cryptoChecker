@@ -221,7 +221,9 @@ class ScreenshotTourTest {
             TourWidgetConfig.PAGES.forEach { page ->
                 step(page.name, appInFront = false) {
                     widgets.open(page)
-                    nav.await("Einrichten-Seite ${page.activity.simpleName}") { widgets.inFront(page) }
+                    runCatching {
+                        nav.await("Einrichten-Seite ${page.activity.simpleName}") { widgets.inFront(page) }
+                    }.onFailure { throw AssertionError("${it.message}; ${widgets.diagnose(page)}", it) }
                 }
             }
         } finally {
