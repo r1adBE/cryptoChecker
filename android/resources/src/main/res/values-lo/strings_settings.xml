@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO ຕໍ່ກະເປົາເງິນ/ກະດານແລກປ່ຽນ</string>
     <string name="settings_cost_method_fifo_wallet_hint">ຫຼຽນທີ່ເກົ່າທີ່ສຸດກ່ອນພາຍໃນແຕ່ລະກະດານແລກປ່ຽນ ຫຼື ກະເປົາເງິນ; ການໂອນຍ້າຍລັອດພ້ອມວັນທີຊື້ຂອງມັນ.</string>
     <string name="settings_portfolio_lock">ລັອກພອດໂຟລິໂອ</string>
-    <string name="settings_portfolio_lock_footer">ລັອກຈະເຊື່ອງສິ່ງທີ່ສະແດງໃນໜ້າຈໍ. ຂໍ້ມູນຂອງທ່ານຖືກເກັບໄວ້ໃນອຸປະກອນນີ້ ແລະ ຖືກປ້ອງກັນດ້ວຍການເຂົ້າລະຫັດຂອງອຸປະກອນ. ທ່ານສາມາດປ້ອງກັນການສຳຮອງດ້ວຍລະຫັດຜ່ານ.</string>
+    <string name="settings_portfolio_lock_footer">ລັອກຈະເຊື່ອງສິ່ງທີ່ສະແດງໃນໜ້າຈໍ. ຂໍ້ມູນຂອງທ່ານຖືກເກັບໄວ້ໃນອຸປະກອນນີ້ ແລະ ຖືກປ້ອງກັນດ້ວຍການເຂົ້າລະຫັດຂອງອຸປະກອນ. ທ່ານສາມາດປ້ອງກັນການສຳຮອງດ້ວຍລະຫັດຜ່ານ. ເມື່ອເປີດ, ວິດເຈັດ, ໂມງ ແລະ ການແຈ້ງເຕືອນກໍບໍ່ສະແດງຄ່າ; ໃນພື້ນຫຼັງ ແອັບຍັງອ່ານພອດໂຟລິໂອຢູ່ (ເຊັ່ນ ສຳລັບການເຕືອນພອດໂຟລິໂອ).</string>
     <string name="settings_portfolio_lock_hint">ເຊື່ອງສະເພາະພອດໂຟລິໂອ: ປົດລັອກດ້ວຍລາຍນິ້ວມື, ໃບໜ້າ ຫຼື PIN ຂອງອຸປະກອນ. ລັອກອີກຄັ້ງຫຼັງຈາກຢູ່ໃນພື້ນຫຼັງເກີນໜຶ່ງນາທີ. ລາຍການຕິດຕາມ, ສັນຍານເຕືອນ ແລະ ວິດເຈັດອື່ນຍັງເປີດຢູ່.</string>
     <string name="settings_portfolio_lock_no_device_lock">ຖ້າບໍ່ມີ PIN ຫຼື ລະຫັດຜ່ານຂອງອຸປະກອນ ລັອກຈະບໍ່ເຊື່ອງຫຍັງເລີຍ – ໃຫ້ຕັ້ງລັອກໜ້າຈໍ.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

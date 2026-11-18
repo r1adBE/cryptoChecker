@@ -160,7 +160,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO zvlášť pro peněženku/burzu</string>
     <string name="settings_cost_method_fifo_wallet_hint">Nejstarší mince první v každé burze či peněžence; převody přesouvají loty s datem nákupu.</string>
     <string name="settings_portfolio_lock">Zámek portfolia</string>
-    <string name="settings_portfolio_lock_footer">Zámek skrývá zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžeš chránit heslem.</string>
+    <string name="settings_portfolio_lock_footer">Zámek skrývá zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžeš chránit heslem. Když je zapnutý, nezobrazují hodnoty ani widgety, hodinky a oznámení; na pozadí aplikace portfolio dál čte (např. pro upozornění portfolia).</string>
     <string name="settings_portfolio_lock_hint">Skrývá jen portfolio: odemknutí otiskem prstu, obličejem nebo PIN zařízení. Znovu se zamkne po více než minutě na pozadí. Sledované, alarmy a ostatní widgety zůstávají přístupné.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bez PIN nebo kódu zařízení zámek nic neskryje – nastav zámek obrazovky.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">فی والیٹ/ایکسچینج FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">ہر ایکسچینج یا والیٹ کے اندر سب سے پرانے کوائنز پہلے؛ ٹرانسفرز لاٹس کو ان کی تاریخِ خرید کے ساتھ منتقل کرتے ہیں۔</string>
     <string name="settings_portfolio_lock">پورٹ فولیو لاک</string>
-    <string name="settings_portfolio_lock_footer">لاک اسکرین پر نظر آنے والی چیزیں چھپاتا ہے۔ آپ کا ڈیٹا اس آلے پر محفوظ ہے اور آلے کی انکرپشن سے محفوظ ہے۔ بیک اپس کو پاس ورڈ سے محفوظ کیا جا سکتا ہے۔</string>
+    <string name="settings_portfolio_lock_footer">لاک اسکرین پر نظر آنے والی چیزیں چھپاتا ہے۔ آپ کا ڈیٹا اس آلے پر محفوظ ہے اور آلے کی انکرپشن سے محفوظ ہے۔ بیک اپس کو پاس ورڈ سے محفوظ کیا جا سکتا ہے۔ آن ہونے پر ویجیٹس، گھڑی اور اطلاعات بھی کوئی قدر نہیں دکھاتیں؛ پس منظر میں ایپ پورٹ فولیو پڑھتی رہتی ہے (مثلاً پورٹ فولیو الرٹس کے لیے)۔</string>
     <string name="settings_portfolio_lock_hint">صرف پورٹ فولیو چھپاتا ہے: فنگر پرنٹ، چہرے یا آلے کے PIN سے ان لاک کریں۔ پس منظر میں ایک منٹ سے زیادہ رہنے پر دوبارہ لاک ہو جاتا ہے۔ واچ لسٹ، الرٹس اور دیگر ویجیٹس کھلے رہتے ہیں۔</string>
     <string name="settings_portfolio_lock_no_device_lock">آلے کے PIN یا پاس کوڈ کے بغیر لاک کچھ نہیں چھپاتا – اسکرین لاک سیٹ کریں۔</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">የክትትል ዝርዝርዎን ከማስታወሻዎችና ቡድኖች ጋር፣ ማንቂያዎችን፣ ተወዳጆችን፣ ፖርትፎሊዮንና ቅንብሮችን ራስዎ እንደሚይዙት ፋይል ያስቀምጣል – ለምሳሌ ለአዲስ ስልክ።</string>
     <string name="backup_import">ይመልሱ</string>
     <string name="auto_backup_title">በራስ-ሰር ምትኬ አስቀምጥ</string>
-    <string name="auto_backup_hint">በየሳምንቱ፣ ተመስጥሮ፣ በመረጡት አቃፊ ውስጥ (ለምሳሌ በደመና)። አዲሶቹ 4 ፋይሎች ይቀመጣሉ።</string>
+    <string name="auto_backup_hint">በየሳምንቱ፣ ተመስጥሮ፣ በመረጡት አቃፊ ውስጥ (ለምሳሌ በደመና)። አዲሶቹ 4 ፋይሎች ይቀመጣሉ። ምትኬው በራሱ እንዲሠራ የይለፍ ቃሉ በዚህ መሣሪያ ላይ ይቆያል – ስለዚህ ፋይሎቹ፣ በደመና ውስጥም ቢሆኑ፣ ደኅንነታቸው የዚህን መሣሪያ የማያ ገጽ መቆለፊያ ያህል ብቻ ነው።</string>
     <string name="auto_backup_now">አሁን ምትኬ አስቀምጥ</string>
     <string name="auto_backup_change_folder">አቃፊ ቀይር</string>
     <string name="auto_backup_last">የመጨረሻ ምትኬ፦ %1$s</string>

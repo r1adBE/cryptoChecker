@@ -19,6 +19,7 @@ import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.setup.PortfolioDataCheck
+import com.cryptochecker.app.work.AutoBackupWorker
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -66,6 +67,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     @Inject lateinit var phoneWatchSync: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchSync>
 
     @Inject lateinit var phoneWatchFeed: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchFeed>
+
+    /** Lazy: Schalter der automatischen Sicherung erst im Hintergrund-Job ([followAutoBackup]). */
+    @Inject lateinit var autoBackupSettings: dagger.Lazy<com.cryptochecker.app.domain.backup.AutoBackupSettings>
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
@@ -167,6 +171,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         }
 
         followPortfolioSystemBackup()
+        followAutoBackup()
 
         Timber.i("Crypto Checker gestartet")
     }
@@ -226,6 +231,17 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
                 .collectLatest { allowed ->
                     PortfolioBackupMirror.setEnabled(this@CryptoCheckerApp, allowed)
                 }
+        }
+    }
+
+    /** Teil von [onCreate]: Automatische Sicherung an → wöchentlich auch ohne geöffnete App ([AutoBackupWorker]). */
+    private fun followAutoBackup() {
+        scope.launch {
+            autoBackupSettings.get().state
+                .map { it.enabled }
+                .distinctUntilChanged()
+                .catch { Timber.w(it, "Automatische Sicherung: Planung angehalten") }
+                .collectLatest { enabled -> AutoBackupWorker.sync(this@CryptoCheckerApp, enabled) }
         }
     }
 

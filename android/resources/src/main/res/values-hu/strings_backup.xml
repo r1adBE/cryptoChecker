@@ -9,7 +9,7 @@
     <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet te őrzöl – pl. új telefonhoz.</string>
     <string name="backup_import">Visszaállítás</string>
     <string name="auto_backup_title">Automatikus mentés</string>
-    <string name="auto_backup_hint">Hetente, titkosítva, egy választott mappába (pl. a felhőbe). A 4 legújabb fájl megmarad.</string>
+    <string name="auto_backup_hint">Hetente, titkosítva, egy választott mappába (pl. a felhőbe). A 4 legújabb fájl megmarad. A jelszó ezen az eszközön marad, hogy a mentés magától fusson – ezért a fájlok, még a felhőben is, csak annyira biztonságosak, mint ennek az eszköznek a képernyőzára.</string>
     <string name="auto_backup_now">Mentés most</string>
     <string name="auto_backup_change_folder">Mappa módosítása</string>
     <string name="auto_backup_last">Utolsó mentés: %1$s</string>

@@ -162,7 +162,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO لكل wallet/منصة</string>
     <string name="settings_cost_method_fifo_wallet_hint">أقدم العملات أولًا داخل كل منصة أو wallet؛ والتحويلات تنقل الدفعات مع تاريخ شرائها.</string>
     <string name="settings_portfolio_lock">قفل المحفظة</string>
-    <string name="settings_portfolio_lock_footer">القفل يُخفي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور.</string>
+    <string name="settings_portfolio_lock_footer">القفل يُخفي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور. أثناء تفعيله لا تعرض الأدوات والساعة والإشعارات أي قيم؛ ويواصل التطبيق قراءة المحفظة في الخلفية (مثلًا لتنبيهات المحفظة).</string>
     <string name="settings_portfolio_lock_hint">يُخفي المحفظة فقط: افتح القفل ببصمة الإصبع أو الوجه أو رمز PIN للجهاز. يُقفل مجددًا بعد أكثر من دقيقة في الخلفية. تبقى قائمة المتابعة والتنبيهات والأدوات الأخرى مفتوحة.</string>
     <string name="settings_portfolio_lock_no_device_lock">بدون رمز PIN أو رمز مرور للجهاز لا يُخفي القفل شيئًا – اضبط قفلًا للشاشة.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

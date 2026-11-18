@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">Әмиян/биржа бойынша FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Әр биржа немесе әмиян ішінде алдымен ең ескі монеталар; аударымдар лоттарды сатып алу күнімен бірге ауыстырады.</string>
     <string name="settings_portfolio_lock">Портфель құлпы</string>
-    <string name="settings_portfolio_lock_footer">Құлып экрандағыны жасырады. Деректеріңіз осы құрылғыда сақталады және құрылғы шифрлауымен қорғалған. Сақтық көшірмелерді құпиясөзбен қорғауға болады.</string>
+    <string name="settings_portfolio_lock_footer">Құлып экрандағыны жасырады. Деректеріңіз осы құрылғыда сақталады және құрылғы шифрлауымен қорғалған. Сақтық көшірмелерді құпиясөзбен қорғауға болады. Қосулы кезде виджеттер, сағат пен хабарландырулар да мән көрсетпейді; фонда қолданба портфельді оқи береді (мысалы, портфель ескертулері үшін).</string>
     <string name="settings_portfolio_lock_hint">Тек портфельді жасырады: саусақ ізімен, бетпен немесе құрылғы PIN кодымен ашылады. Фонда бір минуттан астам болғаннан кейін қайта құлыпталады. Бақылау тізімі, ескертулер және басқа виджеттер ашық қалады.</string>
     <string name="settings_portfolio_lock_no_device_lock">Құрылғы PIN коды немесе құпия кодсыз құлып ештеңені жасырмайды – экран құлпын орнатыңыз.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO nge-wallet/exchange ngayinye</string>
     <string name="settings_cost_method_fifo_wallet_hint">Ama-coin amadala kakhulu kuqala ngaphakathi kwe-exchange noma i-wallet ngayinye; ukudlulisa kuhambisa ama-lot nosuku lwawo lokuthenga.</string>
     <string name="settings_portfolio_lock">Ukhiye we-portfolio</string>
-    <string name="settings_portfolio_lock_footer">Ukhiye ufihla okuboniswa esikrinini. Idatha yakho igcinwe kule divayisi futhi ivikelwe ukubethela kwedivayisi. Ungavikela izipele ngephasiwedi.</string>
+    <string name="settings_portfolio_lock_footer">Ukhiye ufihla okuboniswa esikrinini. Idatha yakho igcinwe kule divayisi futhi ivikelwe ukubethela kwedivayisi. Ungavikela izipele ngephasiwedi. Uma kuvuliwe, amawijethi, iwashi nezaziso nakho akubonisi amanani; ngemuva uhlelo lokusebenza lusaqhubeka lufunda iphothifoliyo (isb. ezexwayiso zephothifoliyo).</string>
     <string name="settings_portfolio_lock_hint">Ifihla i-portfolio kuphela: vula ngezigxivizo zeminwe, ubuso noma i-PIN yedivayisi. Iyaphinda ikhiye ngemuva komzuzu ongaphezulu ngemuva. Uhlu lokubuka, ama-alamu namanye amawijethi ahlala evuliwe.</string>
     <string name="settings_portfolio_lock_no_device_lock">Ngaphandle kwe-PIN noma iphasikhodi yedivayisi ukhiye awufihli lutho – setha ukukhiya kwesikrini.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

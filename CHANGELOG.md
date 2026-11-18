@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 304)
+
+- Back up automatically: now really weekly, also while the app is closed (Android WorkManager; on iOS a background task whose time iOS decides). The setting says that the password stays on the device, so the files – also in a cloud folder – are only as safe as the device's screen lock (75 languages, privacy policy, SECURITY.md).
+- Portfolio lock: the setting says that widgets, the watch and notifications show no values either, and that the app keeps reading the portfolio in the background (75 languages).
+- iOS: a price notification that is still shown is updated with the new price after an outage, also below the threshold (as on Android).
+
 ## 16.2.2 (build 303)
 
 - Internal (iOS): explorer, app lock and automatic backup testable through small interfaces; 37 new tests.

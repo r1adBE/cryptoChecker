@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO tárcánként/tőzsdénként</string>
     <string name="settings_cost_method_fifo_wallet_hint">A legrégebbi coinok először tőzsdénként vagy tárcánként; az átvezetések a tételeket a vételi dátummal együtt viszik.</string>
     <string name="settings_portfolio_lock">Portfóliózár</string>
-    <string name="settings_portfolio_lock_footer">A zár eltakarja a megjelenítést. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheted.</string>
+    <string name="settings_portfolio_lock_footer">A zár eltakarja a megjelenítést. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheted. Bekapcsolva a widgetek, az óra és az értesítések sem mutatnak értékeket; a háttérben az app továbbra is olvassa a portfóliót (pl. a portfólió-riasztásokhoz).</string>
     <string name="settings_portfolio_lock_hint">Csak a portfóliót takarja el: feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával. Több mint egy perc háttérben töltött idő után újra zárol. A figyelőlista, a riasztások és a többi widget szabadon elérhető marad.</string>
     <string name="settings_portfolio_lock_no_device_lock">Eszköz-PIN vagy jelkód nélkül a zár semmit sem takar el – állíts be képernyőzárat.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

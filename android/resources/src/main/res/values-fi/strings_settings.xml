@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO lompakoittain/pörsseittäin</string>
     <string name="settings_cost_method_fifo_wallet_hint">Vanhimmat kolikot ensin kussakin pörssissä tai lompakossa; siirrot siirtävät erät ostopäivineen.</string>
     <string name="settings_portfolio_lock">Salkun lukitus</string>
-    <string name="settings_portfolio_lock_footer">Lukitus piilottaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla.</string>
+    <string name="settings_portfolio_lock_footer">Lukitus piilottaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla. Kun se on päällä, widgetit, kello ja ilmoitukset eivät näytä arvoja; taustalla sovellus lukee salkkua edelleen (esim. salkkuhälytyksiä varten).</string>
     <string name="settings_portfolio_lock_hint">Piilottaa vain salkun: avaa sormenjäljellä, kasvoilla tai laitteen PIN-koodilla. Lukittuu uudelleen, kun sovellus on ollut taustalla yli minuutin. Seurantalista, hälytykset ja muut widgetit pysyvät avoimina.</string>
     <string name="settings_portfolio_lock_no_device_lock">Ilman laitteen PIN-koodia tai pääsykoodia lukitus ei piilota mitään – ota näytön lukitus käyttöön.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">Vistar vaktlistann með athugasemdum og hópum, viðvaranir, uppáhöld, eignasafn og stillingar sem skrá sem þú geymir hjá þér – t.d. fyrir nýjan síma.</string>
     <string name="backup_import">Endurheimta</string>
     <string name="auto_backup_title">Sjálfvirk afritun</string>
-    <string name="auto_backup_hint">Í hverri viku, dulkóðað, í möppu að eigin vali (t.d. í skýinu). Nýjustu 4 skrárnar eru geymdar.</string>
+    <string name="auto_backup_hint">Í hverri viku, dulkóðað, í möppu að eigin vali (t.d. í skýinu). Nýjustu 4 skrárnar eru geymdar. Lykilorðið verður eftir á þessu tæki svo afritunin gangi sjálfkrafa – skrárnar eru því, líka í skýinu, aðeins jafn öruggar og skjálás þessa tækis.</string>
     <string name="auto_backup_now">Afrita núna</string>
     <string name="auto_backup_change_folder">Skipta um möppu</string>
     <string name="auto_backup_last">Síðasta afrit: %1$s</string>

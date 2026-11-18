@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">প্রতি ওয়ালেট/এক্সচেঞ্জে FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">প্রতিটি এক্সচেঞ্জ বা ওয়ালেটের ভেতরে সবচেয়ে পুরোনো কয়েন আগে; ট্রান্সফারে লট তাদের কেনার তারিখসহ সরে যায়।</string>
     <string name="settings_portfolio_lock">পোর্টফোলিও লক</string>
-    <string name="settings_portfolio_lock_footer">লক স্ক্রিনে যা দেখায় তা লুকায়। আপনার ডেটা এই ডিভাইসে সংরক্ষিত এবং ডিভাইসের এনক্রিপশন দিয়ে সুরক্ষিত। ব্যাকআপ পাসওয়ার্ড দিয়ে সুরক্ষিত করা যায়।</string>
+    <string name="settings_portfolio_lock_footer">লক স্ক্রিনে যা দেখায় তা লুকায়। আপনার ডেটা এই ডিভাইসে সংরক্ষিত এবং ডিভাইসের এনক্রিপশন দিয়ে সুরক্ষিত। ব্যাকআপ পাসওয়ার্ড দিয়ে সুরক্ষিত করা যায়। চালু থাকলে উইজেট, ঘড়ি ও বিজ্ঞপ্তিতেও কোনো মান দেখায় না; তবে ব্যাকগ্রাউন্ডে অ্যাপ পোর্টফোলিও পড়তে থাকে (যেমন পোর্টফোলিও অ্যালার্টের জন্য)।</string>
     <string name="settings_portfolio_lock_hint">শুধু পোর্টফোলিও লুকায়: আঙুলের ছাপ, মুখ বা ডিভাইস PIN দিয়ে আনলক করুন। ব্যাকগ্রাউন্ডে এক মিনিটের বেশি থাকলে আবার লক হয়। ওয়াচলিস্ট, অ্যালার্ট ও অন্যান্য উইজেট খোলা থাকে।</string>
     <string name="settings_portfolio_lock_no_device_lock">ডিভাইস PIN বা পাসকোড ছাড়া লক কিছুই লুকায় না – একটি স্ক্রিন লক সেট করুন।</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

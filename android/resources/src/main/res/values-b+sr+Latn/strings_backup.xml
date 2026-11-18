@@ -10,7 +10,7 @@
     <string name="backup_hint">Čuva tvoj spisak praćenja s beleškama i grupama, alarme, favorite, portfolio i podešavanja kao datoteku koja ostaje kod tebe – npr. za novi telefon.</string>
     <string name="backup_import">Vrati</string>
     <string name="auto_backup_title">Automatska rezervna kopija</string>
-    <string name="auto_backup_hint">Svake nedelje, šifrovano, u fasciklu po vašem izboru (npr. u oblaku). Čuvaju se najnovije 4 datoteke.</string>
+    <string name="auto_backup_hint">Svake nedelje, šifrovano, u fasciklu po vašem izboru (npr. u oblaku). Čuvaju se najnovije 4 datoteke. Lozinka ostaje na ovom uređaju da bi se rezervna kopija pravila sama – zato su datoteke, čak i u oblaku, bezbedne samo koliko i zaključavanje ekrana ovog uređaja.</string>
     <string name="auto_backup_now">Napravi kopiju sada</string>
     <string name="auto_backup_change_folder">Promeni fasciklu</string>
     <string name="auto_backup_last">Poslednja kopija: %1$s</string>

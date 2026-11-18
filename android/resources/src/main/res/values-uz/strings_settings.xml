@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">Hamyon/birja boʻyicha FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Har bir birja yoki hamyon ichida avval eng eski tangalar; oʻtkazmalar lotlarni xarid sanasi bilan koʻchiradi.</string>
     <string name="settings_portfolio_lock">Portfel qulfi</string>
-    <string name="settings_portfolio_lock_footer">Qulf ekranda koʻrsatilganni yashiradi. Maʼlumotlaringiz shu qurilmada saqlanadi va qurilma shifrlashi bilan himoyalangan. Zaxira nusxalarni parol bilan himoyalashingiz mumkin.</string>
+    <string name="settings_portfolio_lock_footer">Qulf ekranda koʻrsatilganni yashiradi. Maʼlumotlaringiz shu qurilmada saqlanadi va qurilma shifrlashi bilan himoyalangan. Zaxira nusxalarni parol bilan himoyalashingiz mumkin. Yoqilganda vidjetlar, soat va bildirishnomalar ham qiymat koʻrsatmaydi; fonda ilova portfelni oʻqishda davom etadi (masalan, portfel ogohlantirishlari uchun).</string>
     <string name="settings_portfolio_lock_hint">Faqat portfelni yashiradi: barmoq izi, yuz yoki qurilma PIN kodi bilan ochiladi. Fonda bir daqiqadan koʻproq boʻlgach yana qulflanadi. Kuzatuv roʻyxati, signallar va boshqa vidjetlar ochiq qoladi.</string>
     <string name="settings_portfolio_lock_no_device_lock">Qurilma PIN kodi yoki parolisiz qulf hech narsani yashirmaydi – ekran qulfini oʻrnating.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

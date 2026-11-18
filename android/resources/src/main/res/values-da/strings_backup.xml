@@ -9,7 +9,7 @@
     <string name="backup_hint">Gemmer liste med noter og grupper, alarmer, favoritter, portefølje og indstillinger i en fil, du selv opbevarer – fx til en ny telefon.</string>
     <string name="backup_import">Gendan</string>
     <string name="auto_backup_title">Sikkerhedskopiér automatisk</string>
-    <string name="auto_backup_hint">Hver uge, krypteret, i en mappe efter eget valg (f.eks. i skyen). De nyeste 4 filer gemmes.</string>
+    <string name="auto_backup_hint">Hver uge, krypteret, i en mappe efter eget valg (f.eks. i skyen). De nyeste 4 filer gemmes. Adgangskoden bliver på denne enhed, så sikkerhedskopien kører af sig selv – filerne er derfor, også i skyen, kun så sikre som skærmlåsen på denne enhed.</string>
     <string name="auto_backup_now">Sikkerhedskopiér nu</string>
     <string name="auto_backup_change_folder">Skift mappe</string>
     <string name="auto_backup_last">Seneste sikkerhedskopi: %1$s</string>

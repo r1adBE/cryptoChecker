@@ -9,7 +9,7 @@
     <string name="backup_hint">Salva lista con note e gruppi, allarmi, preferiti, portafoglio e impostazioni in un file che conservi tu, ad es. per un nuovo telefono.</string>
     <string name="backup_import">Ripristina</string>
     <string name="auto_backup_title">Backup automatico</string>
-    <string name="auto_backup_hint">Ogni settimana, cifrato, in una cartella a tua scelta (ad es. nel cloud). Restano i 4 file più recenti.</string>
+    <string name="auto_backup_hint">Ogni settimana, cifrato, in una cartella a tua scelta (ad es. nel cloud). Restano i 4 file più recenti. La password resta su questo dispositivo perché il backup avvenga da solo: i file, anche nel cloud, sono quindi sicuri solo quanto il blocco schermo di questo dispositivo.</string>
     <string name="auto_backup_now">Esegui backup ora</string>
     <string name="auto_backup_change_folder">Cambia cartella</string>
     <string name="auto_backup_last">Ultimo backup: %1$s</string>

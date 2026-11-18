@@ -9,7 +9,7 @@
     <string name="backup_hint">Zapisuje listę z notatkami i grupami, alarmy, ulubione, portfel i ustawienia w pliku, który przechowujesz sam – np. na nowy telefon.</string>
     <string name="backup_import">Przywróć</string>
     <string name="auto_backup_title">Automatyczna kopia zapasowa</string>
-    <string name="auto_backup_hint">Co tydzień, zaszyfrowana, w wybranym folderze (np. w chmurze). Zachowywane są 4 najnowsze pliki.</string>
+    <string name="auto_backup_hint">Co tydzień, zaszyfrowana, w wybranym folderze (np. w chmurze). Zachowywane są 4 najnowsze pliki. Hasło zostaje na tym urządzeniu, żeby kopia zapasowa tworzyła się sama – dlatego pliki, nawet w chmurze, są bezpieczne tylko na tyle, na ile blokada ekranu tego urządzenia.</string>
     <string name="auto_backup_now">Utwórz kopię teraz</string>
     <string name="auto_backup_change_folder">Zmień folder</string>
     <string name="auto_backup_last">Ostatnia kopia: %1$s</string>

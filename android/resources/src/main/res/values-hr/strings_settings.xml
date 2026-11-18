@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO po novčaniku/burzi</string>
     <string name="settings_cost_method_fifo_wallet_hint">Najstarije jedinice prve unutar svake burze ili novčanika; prijenosi premještaju stavke s njihovim datumom kupnje.</string>
     <string name="settings_portfolio_lock">Zaključavanje portfelja</string>
-    <string name="settings_portfolio_lock_footer">Zaključavanje skriva ono što je prikazano na zaslonu. Tvoji podaci spremaju se na ovom uređaju i zaštićeni su šifriranjem uređaja. Sigurnosne kopije možeš zaštititi lozinkom.</string>
+    <string name="settings_portfolio_lock_footer">Zaključavanje skriva ono što je prikazano na zaslonu. Tvoji podaci spremaju se na ovom uređaju i zaštićeni su šifriranjem uređaja. Sigurnosne kopije možeš zaštititi lozinkom. Dok je uključeno, ni widgeti, sat i obavijesti ne prikazuju vrijednosti; u pozadini aplikacija i dalje čita portfelj (npr. za upozorenja portfelja).</string>
     <string name="settings_portfolio_lock_hint">Skriva samo portfelj: otključavanje otiskom prsta, licem ili PIN-om uređaja. Ponovno se zaključava nakon više od minute u pozadini. Popis praćenja, alarmi i ostali widgeti ostaju otvoreni.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bez PIN-a ili šifre uređaja zaključavanje ništa ne skriva – postavi zaključavanje zaslona.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

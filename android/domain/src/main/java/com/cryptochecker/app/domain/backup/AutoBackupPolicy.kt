@@ -7,7 +7,8 @@ import java.util.Locale
 
 /**
  * Automatische Sicherung (Entscheid Inhaber 17.11.2026): wöchentlich, verschlüsselt, in einen gewählten Ordner; die
- * letzten [KEEP] eigenen Dateien bleiben. Fällig beim Öffnen der App ([isDue]); nach einem Fehlversuch frühestens nach
+ * letzten [KEEP] eigenen Dateien bleiben. Geprüft beim Öffnen der App und aus einer Hintergrund-Aufgabe (Android
+ * WorkManager, iOS Hintergrund-Aufgabe ohne festen Zeitpunkt), gesichert nur wenn fällig ([isDue]); nach einem Fehlversuch frühestens nach
  * [RETRY_AFTER_MILLIS] wieder. Gelöscht werden nur Dateien mit dem eigenen Namensmuster ([isOwnFile]), nie andere.
  * Reine Regeln; wie iOS `AutoBackupPolicy`, gemeinsame Testfälle `auto_backup.json`.
  */

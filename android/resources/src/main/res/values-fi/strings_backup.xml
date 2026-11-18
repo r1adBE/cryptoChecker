@@ -9,7 +9,7 @@
     <string name="backup_hint">Tallentaa listan muistiinpanoineen ja ryhmineen, hälytykset, suosikit, salkun ja asetukset tiedostoon, jonka säilytät itse – esim. uutta puhelinta varten.</string>
     <string name="backup_import">Palauta</string>
     <string name="auto_backup_title">Automaattinen varmuuskopio</string>
-    <string name="auto_backup_hint">Joka viikko salattuna valitsemaasi kansioon (esim. pilveen). Uusimmat 4 tiedostoa säilytetään.</string>
+    <string name="auto_backup_hint">Joka viikko salattuna valitsemaasi kansioon (esim. pilveen). Uusimmat 4 tiedostoa säilytetään. Salasana jää tälle laitteelle, jotta varmuuskopiointi toimii itsestään – siksi tiedostot ovat pilvessäkin vain yhtä turvassa kuin tämän laitteen näytön lukitus.</string>
     <string name="auto_backup_now">Varmuuskopioi nyt</string>
     <string name="auto_backup_change_folder">Vaihda kansio</string>
     <string name="auto_backup_last">Viimeisin varmuuskopio: %1$s</string>

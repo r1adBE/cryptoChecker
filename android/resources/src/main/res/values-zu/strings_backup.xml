@@ -9,7 +9,7 @@
     <string name="backup_hint">Ilondoloza uhlu lwakho lokubuka namanothi namaqembu, ama-alamu, izintandokazi, i-portfolio nezilungiselelo njengefayela olizigcinela wena – isibonelo, ocingweni olusha.</string>
     <string name="backup_import">Buyisela</string>
     <string name="auto_backup_title">Isipele esizenzakalelayo</string>
-    <string name="auto_backup_hint">Njalo ngesonto, sibethelwe, kufolda oyikhethayo (isb. efwini). Kugcinwa amafayela amasha angu-4.</string>
+    <string name="auto_backup_hint">Njalo ngesonto, sibethelwe, kufolda oyikhethayo (isb. efwini). Kugcinwa amafayela amasha angu-4. Iphasiwedi isala kule divayisi ukuze isipele sizenzele sodwa – ngakho amafayela, ngisho naku-cloud, avikeleke kuphela njengokukhiya isikrini kwale divayisi.</string>
     <string name="auto_backup_now">Yenza isipele manje</string>
     <string name="auto_backup_change_folder">Shintsha ifolda</string>
     <string name="auto_backup_last">Isipele sokugcina: %1$s</string>

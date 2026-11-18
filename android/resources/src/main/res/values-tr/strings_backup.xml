@@ -9,7 +9,7 @@
     <string name="backup_hint">Notlar ve gruplarla birlikte listeyi, alarmları, favorileri, portföyü ve ayarları kendi saklayacağın bir dosyaya kaydeder – ör. yeni telefon için.</string>
     <string name="backup_import">Geri yükle</string>
     <string name="auto_backup_title">Otomatik yedekleme</string>
-    <string name="auto_backup_hint">Her hafta, şifreli olarak, seçtiğiniz bir klasöre (ör. bulutta). En yeni 4 dosya saklanır.</string>
+    <string name="auto_backup_hint">Her hafta, şifreli olarak, seçtiğiniz bir klasöre (ör. bulutta). En yeni 4 dosya saklanır. Yedekleme kendiliğinden çalışsın diye parola bu cihazda kalır – bu yüzden dosyalar, bulutta bile, yalnızca bu cihazın ekran kilidi kadar güvendedir.</string>
     <string name="auto_backup_now">Şimdi yedekle</string>
     <string name="auto_backup_change_folder">Klasörü değiştir</string>
     <string name="auto_backup_last">Son yedekleme: %1$s</string>

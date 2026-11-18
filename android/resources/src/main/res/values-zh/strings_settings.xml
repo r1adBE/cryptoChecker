@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">按钱包/交易所分别 FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">在每个交易所或钱包内先卖最早的币；转移会连同买入日期移动批次。</string>
     <string name="settings_portfolio_lock">投资组合锁</string>
-    <string name="settings_portfolio_lock_footer">锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。您可以用密码保护备份。</string>
+    <string name="settings_portfolio_lock_footer">锁定只隐藏屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。您可以用密码保护备份。开启期间，小组件、手表和通知也不会显示数值；App 仍会在后台读取投资组合（例如用于投资组合提醒）。</string>
     <string name="settings_portfolio_lock_hint">仅隐藏投资组合：使用指纹、面容或设备 PIN 解锁。在后台超过一分钟后会再次锁定。自选列表、提醒和其他小部件不受影响。</string>
     <string name="settings_portfolio_lock_no_device_lock">没有设备 PIN 或密码，锁定什么也隐藏不了——请设置屏幕锁定。</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

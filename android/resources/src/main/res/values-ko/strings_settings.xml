@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">지갑/거래소별 FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">거래소나 지갑별로 가장 오래된 코인부터; 이체 시 로트가 매수일과 함께 옮겨집니다.</string>
     <string name="settings_portfolio_lock">포트폴리오 잠금</string>
-    <string name="settings_portfolio_lock_footer">잠금은 화면에 표시되는 내용을 가립니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다.</string>
+    <string name="settings_portfolio_lock_footer">잠금은 화면에 표시되는 내용을 가립니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다. 켜져 있는 동안에는 위젯, 워치, 알림에도 값이 표시되지 않습니다. 앱은 백그라운드에서 계속 포트폴리오를 읽습니다(예: 포트폴리오 알림용).</string>
     <string name="settings_portfolio_lock_hint">포트폴리오만 가립니다: 지문, 얼굴 또는 기기 PIN으로 잠금 해제. 백그라운드에서 1분 넘게 있으면 다시 잠깁니다. 관심 목록, 경보 및 다른 위젯은 잠기지 않습니다.</string>
     <string name="settings_portfolio_lock_no_device_lock">기기 PIN이나 암호가 없으면 잠금은 아무것도 가리지 않습니다. 화면 잠금을 설정하세요.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

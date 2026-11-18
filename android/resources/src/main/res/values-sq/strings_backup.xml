@@ -9,7 +9,7 @@
     <string name="backup_hint">Ruan listën me shënime dhe grupe, alarmet, të preferuarat, portofolin dhe cilësimet në një skedar që e mban vetë – p.sh. për një telefon të ri.</string>
     <string name="backup_import">Rikthe</string>
     <string name="auto_backup_title">Kopje rezervë automatike</string>
-    <string name="auto_backup_hint">Çdo javë, e enkriptuar, në një dosje që zgjidhni (p.sh. në re). Ruhen 4 skedarët më të rinj.</string>
+    <string name="auto_backup_hint">Çdo javë, e enkriptuar, në një dosje që zgjidhni (p.sh. në re). Ruhen 4 skedarët më të rinj. Fjalëkalimi mbetet në këtë pajisje që rezervimi të bëhet vetë – prandaj skedarët, edhe në re, janë po aq të sigurt sa kyçja e ekranit të kësaj pajisjeje.</string>
     <string name="auto_backup_now">Bëj kopje tani</string>
     <string name="auto_backup_change_folder">Ndrysho dosjen</string>
     <string name="auto_backup_last">Kopja e fundit: %1$s</string>

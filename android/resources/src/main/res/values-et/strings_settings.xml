@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO rahakoti/börsi kaupa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Vanimad mündid esmalt igal börsil või rahakotis; ülekanded liigutavad partiisid koos nende ostukuupäevaga.</string>
     <string name="settings_portfolio_lock">Portfelli lukk</string>
-    <string name="settings_portfolio_lock_footer">Lukk peidab ekraanil kuvatava. Sinu andmed on salvestatud selles seadmes ja kaitstud seadme krüpteeringuga. Varukoopiaid saad kaitsta parooliga.</string>
+    <string name="settings_portfolio_lock_footer">Lukk peidab ekraanil kuvatava. Sinu andmed on salvestatud selles seadmes ja kaitstud seadme krüpteeringuga. Varukoopiaid saad kaitsta parooliga. Kui see on sees, ei näita ka vidinad, kell ja märguanded väärtusi; taustal loeb rakendus portfelli edasi (nt portfelli hoiatuste jaoks).</string>
     <string name="settings_portfolio_lock_hint">Peidab ainult portfelli: ava sõrmejälje, näo või seadme PIN-koodiga. Lukustub uuesti pärast üle minuti taustal olemist. Jälgimisloend, hoiatused ja muud vidinad jäävad avatuks.</string>
     <string name="settings_portfolio_lock_no_device_lock">Ilma seadme PIN-koodi või pääsukoodita ei peida lukk midagi – seadista ekraanilukk.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

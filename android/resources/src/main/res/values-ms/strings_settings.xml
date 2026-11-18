@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO bagi setiap dompet/bursa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Koin paling lama dahulu dalam setiap bursa atau dompet; pindahan memindahkan lot bersama tarikh beliannya.</string>
     <string name="settings_portfolio_lock">Kunci portfolio</string>
-    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan apa yang ditunjukkan pada skrin. Data anda disimpan pada peranti ini dan dilindungi oleh penyulitan peranti. Anda boleh melindungi sandaran dengan kata laluan.</string>
+    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan apa yang ditunjukkan pada skrin. Data anda disimpan pada peranti ini dan dilindungi oleh penyulitan peranti. Anda boleh melindungi sandaran dengan kata laluan. Semasa dihidupkan, widget, jam tangan dan pemberitahuan juga tidak menunjukkan nilai; di latar belakang apl masih membaca portfolio (cth. untuk amaran portfolio).</string>
     <string name="settings_portfolio_lock_hint">Hanya menyembunyikan portfolio: buka kunci dengan cap jari, wajah atau PIN peranti. Dikunci semula selepas lebih seminit di latar belakang. Senarai pantau, amaran dan widget lain kekal terbuka.</string>
     <string name="settings_portfolio_lock_no_device_lock">Tanpa PIN atau kod laluan peranti, kunci tidak menyembunyikan apa-apa – sediakan kunci skrin.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

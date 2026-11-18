@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO theo từng ví/sàn</string>
     <string name="settings_cost_method_fifo_wallet_hint">Coin cũ nhất trước trong từng sàn hoặc ví; lệnh chuyển di chuyển các lô kèm ngày mua.</string>
     <string name="settings_portfolio_lock">Khóa danh mục</string>
-    <string name="settings_portfolio_lock_footer">Khóa ẩn nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu.</string>
+    <string name="settings_portfolio_lock_footer">Khóa ẩn nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu. Khi bật, tiện ích, đồng hồ và thông báo cũng không hiển thị giá trị; ở chế độ nền ứng dụng vẫn đọc danh mục đầu tư (ví dụ cho cảnh báo danh mục).</string>
     <string name="settings_portfolio_lock_hint">Chỉ ẩn danh mục: mở khóa bằng vân tay, khuôn mặt hoặc mã PIN thiết bị. Khóa lại sau hơn một phút chạy nền. Danh sách theo dõi, cảnh báo và các tiện ích khác vẫn mở.</string>
     <string name="settings_portfolio_lock_no_device_lock">Không có mã PIN hoặc mật mã thiết bị thì khóa không ẩn được gì – hãy thiết lập khóa màn hình.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO kartera/burtsa bakoitzeko</string>
     <string name="settings_cost_method_fifo_wallet_hint">Txanpon zaharrenak lehenik burtsa edo kartera bakoitzaren barruan; transferentziek loteak beren erosketa-datarekin mugitzen dituzte.</string>
     <string name="settings_portfolio_lock">Zorroaren blokeoa</string>
-    <string name="settings_portfolio_lock_footer">Blokeoak pantailan erakusten dena ezkutatzen du. Zure datuak gailu honetan gordetzen dira eta gailuaren zifratzeak babesten ditu. Babeskopiak pasahitz batekin babes ditzakezu.</string>
+    <string name="settings_portfolio_lock_footer">Blokeoak pantailan erakusten dena ezkutatzen du. Zure datuak gailu honetan gordetzen dira eta gailuaren zifratzeak babesten ditu. Babeskopiak pasahitz batekin babes ditzakezu. Aktibatuta dagoen bitartean, widgetek, erlojuak eta jakinarazpenek ere ez dute baliorik erakusten; atzeko planoan aplikazioak zorroa irakurtzen jarraitzen du (adib. zorroaren alertetarako).</string>
     <string name="settings_portfolio_lock_hint">Zorroa bakarrik ezkutatzen du: desblokeatu hatz-markarekin, aurpegiarekin edo gailuaren PINarekin. Atzeko planoan minutu bat baino gehiago egon ondoren blokeatzen da berriro. Zerrenda, alarmak eta beste widgetak irekita geratzen dira.</string>
     <string name="settings_portfolio_lock_no_device_lock">Gailuaren PIN edo pasakoderik gabe, blokeoak ez du ezer ezkutatzen – konfiguratu pantaila-blokeo bat.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

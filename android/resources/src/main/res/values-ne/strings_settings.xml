@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">प्रति वालेट/एक्सचेन्ज FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">हरेक एक्सचेन्ज वा वालेटभित्र सबैभन्दा पुराना कोइन पहिले; स्थानान्तरणले लटहरूलाई तिनको खरिद मितिसहित सार्छ।</string>
     <string name="settings_portfolio_lock">पोर्टफोलियो लक</string>
-    <string name="settings_portfolio_lock_footer">लकले स्क्रिनमा देखिने कुरा लुकाउँछ। तपाईंको डेटा यो डिभाइसमा राखिन्छ र डिभाइस इन्क्रिप्सनले सुरक्षित हुन्छ। तपाईं ब्याकअपलाई पासवर्डले सुरक्षित गर्न सक्नुहुन्छ।</string>
+    <string name="settings_portfolio_lock_footer">लकले स्क्रिनमा देखिने कुरा लुकाउँछ। तपाईंको डेटा यो डिभाइसमा राखिन्छ र डिभाइस इन्क्रिप्सनले सुरक्षित हुन्छ। तपाईं ब्याकअपलाई पासवर्डले सुरक्षित गर्न सक्नुहुन्छ। सक्रिय हुँदा विजेट, घडी र सूचनाहरूले पनि कुनै मान देखाउँदैनन्; पृष्ठभूमिमा एपले पोर्टफोलियो पढिरहन्छ (जस्तै पोर्टफोलियो अलर्टका लागि)।</string>
     <string name="settings_portfolio_lock_hint">पोर्टफोलियो मात्र लुकाउँछ: फिंगरप्रिन्ट, अनुहार वा डिभाइस PIN ले अनलक गर्नुहोस्। ब्याकग्राउन्डमा एक मिनेटभन्दा बढी भएपछि फेरि लक हुन्छ। वाचलिस्ट, अलर्ट र अन्य विजेटहरू खुला रहन्छन्।</string>
     <string name="settings_portfolio_lock_no_device_lock">डिभाइस PIN वा पासकोडबिना लकले केही लुकाउँदैन – स्क्रिन लक सेट गर्नुहोस्।</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

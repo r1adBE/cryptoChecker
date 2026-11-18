@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">පසුම්බියකට/හුවමාරුවකට FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">එක් එක් හුවමාරුව හෝ පසුම්බිය තුළ පැරණිතම කාසි පළමුව; මාරු කොටස් ඒවායේ මිලදී ගැනීමේ දිනය සමඟ ගෙන යයි.</string>
     <string name="settings_portfolio_lock">කළඹ අගුල</string>
-    <string name="settings_portfolio_lock_footer">අගුල තිරයේ පෙන්වන දේ සඟවයි. ඔබේ දත්ත මෙම උපාංගයේ ගබඩා වන අතර උපාංග සංකේතනයෙන් ආරක්ෂා වේ. ඔබට උපස්ථ මුරපදයකින් ආරක්ෂා කළ හැක.</string>
+    <string name="settings_portfolio_lock_footer">අගුල තිරයේ පෙන්වන දේ සඟවයි. ඔබේ දත්ත මෙම උපාංගයේ ගබඩා වන අතර උපාංග සංකේතනයෙන් ආරක්ෂා වේ. ඔබට උපස්ථ මුරපදයකින් ආරක්ෂා කළ හැක. සක්‍රිය විට විජට්, ඔරලෝසුව සහ දැනුම්දීම් ද අගයන් පෙන්වන්නේ නැත; පසුබිමේ යෙදුම තවමත් කළඹ කියවයි (උදා. කළඹ ඇඟවීම් සඳහා).</string>
     <string name="settings_portfolio_lock_hint">කළඹ පමණක් සඟවයි: ඇඟිලි සලකුණ, මුහුණ හෝ උපාංග PIN මගින් අගුළු හරින්න. පසුබිමේ මිනිත්තුවකට වඩා වැඩි කාලයකට පසු නැවත අගුළු වැටේ. නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම් සහ වෙනත් විජට් විවෘතව පවතී.</string>
     <string name="settings_portfolio_lock_no_device_lock">උපාංග PIN එකක් හෝ මුරකේතයක් නොමැතිව අගුල කිසිවක් නොසඟවයි – තිර අගුලක් සකසන්න.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

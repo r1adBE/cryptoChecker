@@ -9,7 +9,7 @@
     <string name="backup_hint">Sábhálann sé do liosta faire le nótaí agus grúpaí, foláirimh, ceanáin, punann agus socruithe mar chomhad a choinníonn tú féin – m.sh. le haghaidh fón nua.</string>
     <string name="backup_import">Athchóirigh</string>
     <string name="auto_backup_title">Cúltaca uathoibríoch</string>
-    <string name="auto_backup_hint">Gach seachtain, criptithe, i bhfillteán de do rogha (m.sh. sa néal). Coimeádtar na 4 chomhad is déanaí.</string>
+    <string name="auto_backup_hint">Gach seachtain, criptithe, i bhfillteán de do rogha (m.sh. sa néal). Coimeádtar na 4 chomhad is déanaí. Fanann an focal faire ar an ngléas seo ionas go ritheann an cúltaca as féin – mar sin níl na comhaid, fiú sa scamall, níos sábháilte ná glas scáileáin an ghléis seo.</string>
     <string name="auto_backup_now">Déan cúltaca anois</string>
     <string name="auto_backup_change_folder">Athraigh fillteán</string>
     <string name="auto_backup_last">Cúltaca deireanach: %1$s</string>

@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO pe wallet/bursă</string>
     <string name="settings_cost_method_fifo_wallet_hint">Cele mai vechi monede primele pe fiecare bursă sau wallet; transferurile mută loturile cu data cumpărării.</string>
     <string name="settings_portfolio_lock">Blocarea portofoliului</string>
-    <string name="settings_portfolio_lock_footer">Blocarea ascunde afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă.</string>
+    <string name="settings_portfolio_lock_footer">Blocarea ascunde afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă. Cât timp este activată, nici widgeturile, ceasul și notificările nu afișează valori; în fundal aplicația continuă să citească portofoliul (de ex. pentru alertele de portofoliu).</string>
     <string name="settings_portfolio_lock_hint">Ascunde doar portofoliul: deblochează cu amprenta, fața sau PIN-ul dispozitivului. Se blochează din nou după mai mult de un minut în fundal. Lista de urmărire, alarmele și celelalte widgeturi rămân accesibile.</string>
     <string name="settings_portfolio_lock_no_device_lock">Fără PIN sau cod al dispozitivului, blocarea nu ascunde nimic – setează o blocare a ecranului.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

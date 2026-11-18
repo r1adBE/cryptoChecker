@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO par wallet/plateforme</string>
     <string name="settings_cost_method_fifo_wallet_hint">Les coins les plus anciens d’abord, sur chaque plateforme ou wallet ; les transferts déplacent les lots avec leur date d’achat.</string>
     <string name="settings_portfolio_lock">Verrouillage du portefeuille</string>
-    <string name="settings_portfolio_lock_footer">Le verrouillage masque l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Tu peux protéger les sauvegardes par un mot de passe.</string>
+    <string name="settings_portfolio_lock_footer">Le verrouillage masque l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Tu peux protéger les sauvegardes par un mot de passe. Tant qu’il est activé, les widgets, la montre et les notifications n’affichent pas non plus de valeurs ; en arrière-plan, l’app continue de lire le portefeuille (p. ex. pour les alertes de portefeuille).</string>
     <string name="settings_portfolio_lock_hint">Masque uniquement le portefeuille : déverrouillage par empreinte, visage ou code PIN de l\'appareil. Se reverrouille après plus d\'une minute en arrière-plan. La liste de suivi, les alertes et les autres widgets restent accessibles.</string>
     <string name="settings_portfolio_lock_no_device_lock">Sans code PIN ou code de l’appareil, le verrouillage ne masque rien – configure un verrouillage d’écran.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

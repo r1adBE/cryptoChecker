@@ -9,7 +9,7 @@
     <string name="backup_hint">Guarda a lista com notas e grupos, alarmes, favoritos, portfólio e definições num ficheiro que guardas – p. ex. para um telemóvel novo.</string>
     <string name="backup_import">Restaurar</string>
     <string name="auto_backup_title">Cópia automática</string>
-    <string name="auto_backup_hint">Todas as semanas, encriptada, numa pasta à sua escolha (p. ex. na nuvem). São mantidos os 4 ficheiros mais recentes.</string>
+    <string name="auto_backup_hint">Todas as semanas, encriptada, numa pasta à sua escolha (p. ex. na nuvem). São mantidos os 4 ficheiros mais recentes. A palavra-passe fica neste dispositivo para que a cópia de segurança se faça sozinha – por isso os ficheiros, mesmo na nuvem, só estão tão seguros como o bloqueio de ecrã deste dispositivo.</string>
     <string name="auto_backup_now">Fazer cópia agora</string>
     <string name="auto_backup_change_folder">Alterar pasta</string>
     <string name="auto_backup_last">Última cópia: %1$s</string>

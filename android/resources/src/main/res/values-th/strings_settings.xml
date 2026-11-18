@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO แยกตามวอลเล็ต/กระดานเทรด</string>
     <string name="settings_cost_method_fifo_wallet_hint">เหรียญที่เก่าที่สุดก่อนภายในแต่ละกระดานเทรดหรือวอลเล็ต การโอนย้ายจะย้ายล็อตพร้อมวันที่ซื้อ</string>
     <string name="settings_portfolio_lock">ล็อกพอร์ตโฟลิโอ</string>
-    <string name="settings_portfolio_lock_footer">การล็อกจะซ่อนสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้</string>
+    <string name="settings_portfolio_lock_footer">การล็อกจะซ่อนสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้ ขณะเปิดอยู่ วิดเจ็ต นาฬิกา และการแจ้งเตือนจะไม่แสดงค่าเช่นกัน แต่แอปยังอ่านพอร์ตโฟลิโอในเบื้องหลังต่อไป (เช่น สำหรับการแจ้งเตือนพอร์ตโฟลิโอ)</string>
     <string name="settings_portfolio_lock_hint">ซ่อนเฉพาะพอร์ตโฟลิโอ: ปลดล็อกด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของอุปกรณ์ ล็อกอีกครั้งเมื่ออยู่เบื้องหลังนานกว่าหนึ่งนาที รายการติดตาม สัญญาณเตือน และวิดเจ็ตอื่นยังเปิดใช้ได้</string>
     <string name="settings_portfolio_lock_no_device_lock">หากไม่มี PIN หรือรหัสผ่านของอุปกรณ์ การล็อกจะไม่ซ่อนอะไรเลย – ตั้งค่าล็อกหน้าจอ</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

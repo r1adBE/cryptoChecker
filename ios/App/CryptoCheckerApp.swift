@@ -225,7 +225,8 @@ struct CryptoCheckerApp: App {
                 // Vorgemerkte Hintergrund-Aufgabe prüfen (bleibt stehen; nach verstellter Uhr ersetzt); automatische
                 // Sicherung, falls fällig (wöchentlich, `AutoBackupPolicy`)
                 BackgroundRefresh.schedule(settings: data.settings)
-                AutoBackup.shared.runIfDue(data)
+                // Nicht fällig: Hintergrund-Aufgabe auf den nächsten Termin (sonst vom Lauf selbst vorgemerkt)
+                if AutoBackup.shared.runIfDue(data) == nil { AutoBackupTask.schedule(AutoBackup.shared.state) }
             case .background:
                 data.setAppActive(false)
                 // Letzten Stand und Zähler («Akku & Aktivität») auf die Platte, bevor iOS die App anhält — abseits des
@@ -253,6 +254,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         BackgroundRefresh.register()
+        AutoBackupTask.register()
         UNUserNotificationCenter.current().delegate = self
         // Uhr-App: Abgleich der Coin-Liste mit der Apple Watch
         PhoneWatchLink.shared.activate()

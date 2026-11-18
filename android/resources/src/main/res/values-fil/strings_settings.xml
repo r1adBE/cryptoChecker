@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO bawat wallet/exchange</string>
     <string name="settings_cost_method_fifo_wallet_hint">Pinakalumang mga coin muna sa loob ng bawat exchange o wallet; inililipat ng mga transfer ang mga lot kasama ang petsa ng pagbili nila.</string>
     <string name="settings_portfolio_lock">Lock ng portfolio</string>
-    <string name="settings_portfolio_lock_footer">Itinatago ng lock ang ipinapakita sa screen. Naka-store sa device na ito ang data mo at protektado ng encryption ng device. Mapoprotektahan mo ng password ang mga backup.</string>
+    <string name="settings_portfolio_lock_footer">Itinatago ng lock ang ipinapakita sa screen. Naka-store sa device na ito ang data mo at protektado ng encryption ng device. Mapoprotektahan mo ng password ang mga backup. Habang naka-on, hindi rin nagpapakita ng halaga ang mga widget, relo at notification; sa background, patuloy pa ring binabasa ng app ang portfolio (hal. para sa mga alerto ng portfolio).</string>
     <string name="settings_portfolio_lock_hint">Ang portfolio lang ang itinatago: i-unlock gamit ang fingerprint, mukha o PIN ng device. Muling nagla-lock pagkatapos ng mahigit isang minuto sa background. Mananatiling bukas ang watchlist, mga alerto at ibang widget.</string>
     <string name="settings_portfolio_lock_no_device_lock">Kung walang PIN o passcode ang device, walang itinatago ang lock – mag-set up ng screen lock.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

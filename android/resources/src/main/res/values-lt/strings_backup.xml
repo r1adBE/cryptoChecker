@@ -9,7 +9,7 @@
     <string name="backup_hint">Išsaugo tavo stebimų sąrašą su pastabomis ir grupėmis, įspėjimus, mėgstamus, portfelį ir nustatymus kaip failą, kurį saugai savo nuožiūra – pvz., naujam telefonui.</string>
     <string name="backup_import">Atkurti</string>
     <string name="auto_backup_title">Automatinė atsarginė kopija</string>
-    <string name="auto_backup_hint">Kas savaitę, užšifruota, į pasirinktą aplanką (pvz., debesyje). Paliekami 4 naujausi failai.</string>
+    <string name="auto_backup_hint">Kas savaitę, užšifruota, į pasirinktą aplanką (pvz., debesyje). Paliekami 4 naujausi failai. Slaptažodis lieka šiame įrenginyje, kad atsarginė kopija būtų daroma savaime – todėl failai, net debesyje, apsaugoti tik tiek, kiek šio įrenginio ekrano užraktas.</string>
     <string name="auto_backup_now">Kurti kopiją dabar</string>
     <string name="auto_backup_change_folder">Keisti aplanką</string>
     <string name="auto_backup_last">Paskutinė kopija: %1$s</string>

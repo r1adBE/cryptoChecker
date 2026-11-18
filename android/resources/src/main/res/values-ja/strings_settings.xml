@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">ウォレット/取引所ごとのFIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">取引所またはウォレットごとに古いコインから先に売却。振替ではロットを購入日ごと移します。</string>
     <string name="settings_portfolio_lock">ポートフォリオのロック</string>
-    <string name="settings_portfolio_lock_footer">ロックは画面の表示を隠します。データはこの端末に保存され、端末の暗号化で保護されています。バックアップはパスワードで保護できます。</string>
+    <string name="settings_portfolio_lock_footer">ロックは画面の表示を隠します。データはこの端末に保存され、端末の暗号化で保護されています。バックアップはパスワードで保護できます。オンの間は、ウィジェット、ウォッチ、通知にも値は表示されません。アプリはバックグラウンドでポートフォリオを引き続き読み取ります（ポートフォリオのアラートなどのため）。</string>
     <string name="settings_portfolio_lock_hint">ポートフォリオだけを隠します：指紋、顔、または端末のPINでロック解除。バックグラウンドに1分以上あると再びロックされます。ウォッチリスト、アラーム、その他のウィジェットはそのまま使えます。</string>
     <string name="settings_portfolio_lock_no_device_lock">端末の PIN やパスコードがないとロックは何も隠しません。画面ロックを設定してください。</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">Enregistre liste avec notes et groupes, alertes, favoris, portefeuille et réglages dans un fichier que tu gardes – p. ex. pour un nouveau téléphone.</string>
     <string name="backup_import">Restaurer</string>
     <string name="auto_backup_title">Sauvegarde automatique</string>
-    <string name="auto_backup_hint">Chaque semaine, chiffrée, dans un dossier de votre choix (p. ex. dans le cloud). Les 4 fichiers les plus récents sont conservés.</string>
+    <string name="auto_backup_hint">Chaque semaine, chiffrée, dans un dossier de votre choix (p. ex. dans le cloud). Les 4 fichiers les plus récents sont conservés. Le mot de passe reste sur cet appareil pour que la sauvegarde se fasse seule : les fichiers, même dans le cloud, ne sont donc protégés que par le verrouillage de l’écran de cet appareil.</string>
     <string name="auto_backup_now">Sauvegarder maintenant</string>
     <string name="auto_backup_change_folder">Changer de dossier</string>
     <string name="auto_backup_last">Dernière sauvegarde : %1$s</string>

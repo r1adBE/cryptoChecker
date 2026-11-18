@@ -13,8 +13,8 @@ import kotlin.math.abs
  *  - [PriceUpdate.RESTORE] ebenso nach einem Aussetzer ([refresh]: das Paar hatte zuletzt einen Fehler, die Mitteilung
  *    steht noch): sonst zeigte sie bis zur nächsten Bewegung um die Schwelle den Kurs von vor dem Aussetzer.
  *  - [PriceUpdate.NONE]: sonst (bleibt, wie sie ist).
- * Reine Logik (Test `PriceUpdateRuleTest`); iOS hat kein Gegenstück (Mitteilungen überdauern dort den Neustart, und
- * angeheftete gibt es nicht).
+ * Reine Logik (Test `PriceUpdateRuleTest`). iOS kennt nur den Fall nach einem Aussetzer (`priceEffects`,
+ * `Outcome.priceRefreshOnly`): Mitteilungen überdauern dort den Neustart, und angeheftete gibt es nicht.
  */
 object PriceUpdateRule {
     fun decide(

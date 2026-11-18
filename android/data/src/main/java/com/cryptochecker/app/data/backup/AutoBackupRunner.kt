@@ -40,7 +40,7 @@ class AutoBackupRunner @Inject constructor(
         scope.launch { runIfDue() }
     }
 
-    /** Beim Öffnen der App: nur wenn fällig ([AutoBackupPolicy.isDue]). */
+    /** Beim Öffnen der App und aus der wöchentlichen Hintergrund-Aufgabe: nur wenn fällig ([AutoBackupPolicy.isDue]). */
     suspend fun runIfDue(now: Long = System.currentTimeMillis()) {
         val s = store.state.value
         if (!AutoBackupPolicy.isDue(s.enabled, s.lastSuccessAt, s.lastAttemptAt, now)) return

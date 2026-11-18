@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO საფულის/ბირჟის მიხედვით</string>
     <string name="settings_cost_method_fifo_wallet_hint">ჯერ ყველაზე ძველი მონეტები თითოეული ბირჟის ან საფულის ფარგლებში; გადარიცხვები ლოტებს შეძენის თარიღთან ერთად გადაიტანს.</string>
     <string name="settings_portfolio_lock">პორტფელის დაბლოკვა</string>
-    <string name="settings_portfolio_lock_footer">დაბლოკვა ეკრანზე ნაჩვენებს მალავს. შენი მონაცემები ამ მოწყობილობაზე ინახება და მოწყობილობის დაშიფვრით არის დაცული. სარეზერვო ასლების დაცვა პაროლით შეგიძლია.</string>
+    <string name="settings_portfolio_lock_footer">დაბლოკვა ეკრანზე ნაჩვენებს მალავს. შენი მონაცემები ამ მოწყობილობაზე ინახება და მოწყობილობის დაშიფვრით არის დაცული. სარეზერვო ასლების დაცვა პაროლით შეგიძლია. ჩართვისას ვიჯეტები, საათი და შეტყობინებებიც არ აჩვენებს მნიშვნელობებს; ფონზე აპი პორტფელს მაინც კითხულობს (მაგ. პორტფელის გაფრთხილებებისთვის).</string>
     <string name="settings_portfolio_lock_hint">მალავს მხოლოდ პორტფელს: განბლოკე თითის ანაბეჭდით, სახით ან მოწყობილობის PIN-ით. ფონში ერთ წუთზე მეტი ხნის შემდეგ ისევ იბლოკება. დაკვირვების სია, განგაშები და სხვა ვიჯეტები ღია რჩება.</string>
     <string name="settings_portfolio_lock_no_device_lock">მოწყობილობის PIN-ის ან კოდის გარეშე დაბლოკვა არაფერს მალავს – დააყენე ეკრანის დაბლოკვა.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

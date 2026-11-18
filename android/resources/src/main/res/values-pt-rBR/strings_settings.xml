@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO por carteira/corretora</string>
     <string name="settings_cost_method_fifo_wallet_hint">Primeiro as moedas mais antigas em cada corretora ou carteira; as transferências movem os lotes com a data de compra.</string>
     <string name="settings_portfolio_lock">Bloqueio do portfólio</string>
-    <string name="settings_portfolio_lock_footer">O bloqueio oculta o que aparece na tela. Os dados ficam neste dispositivo e são protegidos pela criptografia do dispositivo. Você pode proteger os backups com uma senha.</string>
+    <string name="settings_portfolio_lock_footer">O bloqueio oculta o que aparece na tela. Os dados ficam neste dispositivo e são protegidos pela criptografia do dispositivo. Você pode proteger os backups com uma senha. Enquanto está ativado, widgets, relógio e notificações também não mostram valores; em segundo plano o app continua lendo o portfólio (por ex. para os alertas do portfólio).</string>
     <string name="settings_portfolio_lock_hint">Oculta apenas o portfólio: desbloqueie com impressão digital, rosto ou PIN do dispositivo. Bloqueia de novo após mais de um minuto em segundo plano. A lista de acompanhamento, os alarmes e os outros widgets continuam acessíveis.</string>
     <string name="settings_portfolio_lock_no_device_lock">Sem PIN ou senha do dispositivo, o bloqueio não oculta nada – configure um bloqueio de tela.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO по новчанику/берзи</string>
     <string name="settings_cost_method_fifo_wallet_hint">Најстарије јединице прве унутар сваке берзе или новчаника; преноси премештају ставке с њиховим датумом куповине.</string>
     <string name="settings_portfolio_lock">Закључавање портфолија</string>
-    <string name="settings_portfolio_lock_footer">Закључавање скрива оно што је приказано на екрану. Твоји подаци чувају се на овом уређају и заштићени су шифровањем уређаја. Резервне копије можеш заштитити лозинком.</string>
+    <string name="settings_portfolio_lock_footer">Закључавање скрива оно што је приказано на екрану. Твоји подаци чувају се на овом уређају и заштићени су шифровањем уређаја. Резервне копије можеш заштитити лозинком. Док је укључено, ни виџети, сат и обавештења не приказују вредности; у позадини апликација и даље чита портфолио (нпр. за упозорења портфолија).</string>
     <string name="settings_portfolio_lock_hint">Скрива само портфолио: откључавање отиском прста, лицем или PIN-ом уређаја. Поново се закључава након више од минуте у позадини. Списак праћења, аларми и остали виџети остају отворени.</string>
     <string name="settings_portfolio_lock_no_device_lock">Без PIN-а или шифре уређаја закључавање ништа не скрива – постави закључавање екрана.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

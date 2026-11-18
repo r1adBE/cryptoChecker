@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">Pulqabı/birja üzrə FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Hər birja və ya pulqabı daxilində əvvəlcə ən köhnə koinlər; köçürmələr lotları alış tarixi ilə birlikdə köçürür.</string>
     <string name="settings_portfolio_lock">Portfel kilidi</string>
-    <string name="settings_portfolio_lock_footer">Kilid ekranda göstəriləni gizlədir. Məlumatların bu cihazda saxlanılır və cihaz şifrələməsi ilə qorunur. Ehtiyat nüsxələri parolla qoruya bilərsən.</string>
+    <string name="settings_portfolio_lock_footer">Kilid ekranda göstəriləni gizlədir. Məlumatların bu cihazda saxlanılır və cihaz şifrələməsi ilə qorunur. Ehtiyat nüsxələri parolla qoruya bilərsən. Aktiv olanda vidcetlər, saat və bildirişlər də dəyər göstərmir; tətbiq isə arxa planda portfeli oxumağa davam edir (məs. portfel xəbərdarlıqları üçün).</string>
     <string name="settings_portfolio_lock_hint">Yalnız portfeli gizlədir: barmaq izi, üz və ya cihaz PIN-i ilə kilidi aç. Arxa fonda bir dəqiqədən çox qaldıqdan sonra yenidən kilidlənir. İzləmə siyahısı, alarmlar və digər vidcetlər açıq qalır.</string>
     <string name="settings_portfolio_lock_no_device_lock">Cihaz PIN-i və ya parol kodu olmadan kilid heç nəyi gizlətmir – ekran kilidi qur.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

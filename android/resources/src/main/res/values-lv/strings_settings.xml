@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO katram maciņam/biržai</string>
     <string name="settings_cost_method_fifo_wallet_hint">Vecākās monētas vispirms katrā biržā vai maciņā; pārvedumi pārvieto partijas ar to pirkuma datumu.</string>
     <string name="settings_portfolio_lock">Portfeļa bloķēšana</string>
-    <string name="settings_portfolio_lock_footer">Bloķēšana paslēpj to, kas redzams ekrānā. Tavi dati glabājas šajā ierīcē un ir aizsargāti ar ierīces šifrēšanu. Dublējumus vari aizsargāt ar paroli.</string>
+    <string name="settings_portfolio_lock_footer">Bloķēšana paslēpj to, kas redzams ekrānā. Tavi dati glabājas šajā ierīcē un ir aizsargāti ar ierīces šifrēšanu. Dublējumus vari aizsargāt ar paroli. Kamēr tā ir ieslēgta, arī logrīki, pulkstenis un paziņojumi nerāda vērtības; fonā lietotne turpina lasīt portfeli (piem., portfeļa brīdinājumiem).</string>
     <string name="settings_portfolio_lock_hint">Paslēpj tikai portfeli: atbloķē ar pirkstu nospiedumu, seju vai ierīces PIN. Atkal bloķējas pēc vairāk nekā minūtes fonā. Vērojamo saraksts, brīdinājumi un citi logrīki paliek atvērti.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bez ierīces PIN vai piekļuves koda bloķēšana neko nepaslēpj – iestati ekrāna bloķēšanu.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

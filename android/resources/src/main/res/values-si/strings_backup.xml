@@ -9,7 +9,7 @@
     <string name="backup_hint">ඔබේ නිරීක්ෂණ ලැයිස්තුව සටහන් සහ කණ්ඩායම් සමඟ, ඇඟවීම්, ප්‍රියතම, කළඹ සහ සැකසීම් ඔබ විසින්ම තබා ගන්නා ගොනුවක් ලෙස සුරකියි – උදා. නව දුරකථනයක් සඳහා.</string>
     <string name="backup_import">ප්‍රතිසාධනය කරන්න</string>
     <string name="auto_backup_title">ස්වයංක්‍රීය උපස්ථය</string>
-    <string name="auto_backup_hint">සෑම සතියකම, සංකේතනය කර, ඔබ තෝරන ෆෝල්ඩරයකට (උදා. වලාකුළේ). නවතම ගොනු 4 තබා ගැනේ.</string>
+    <string name="auto_backup_hint">සෑම සතියකම, සංකේතනය කර, ඔබ තෝරන ෆෝල්ඩරයකට (උදා. වලාකුළේ). නවතම ගොනු 4 තබා ගැනේ. උපස්ථය තනිවම ක්‍රියාත්මක වීමට මුරපදය මෙම උපාංගයේම පවතී – එබැවින් ගොනු, වලාකුළේ තිබුණත්, මෙම උපාංගයේ තිර අගුල තරමට පමණක් ආරක්ෂිතයි.</string>
     <string name="auto_backup_now">දැන් උපස්ථ කරන්න</string>
     <string name="auto_backup_change_folder">ෆෝල්ඩරය වෙනස් කරන්න</string>
     <string name="auto_backup_last">අවසන් උපස්ථය: %1$s</string>

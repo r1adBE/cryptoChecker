@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO לפי ארנק/בורסה</string>
     <string name="settings_cost_method_fifo_wallet_hint">המטבעות הוותיקים קודם בכל בורסה או ארנק; העברות מעבירות מנות עם תאריך הקנייה.</string>
     <string name="settings_portfolio_lock">נעילת תיק השקעות</string>
-    <string name="settings_portfolio_lock_footer">הנעילה מסתירה את מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה.</string>
+    <string name="settings_portfolio_lock_footer">הנעילה מסתירה את מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה. כשהיא פעילה, גם הווידג׳טים, השעון וההתראות לא מציגים ערכים; ברקע האפליקציה ממשיכה לקרוא את התיק (למשל להתראות תיק).</string>
     <string name="settings_portfolio_lock_hint">מסתירה רק את תיק ההשקעות: ביטול נעילה בטביעת אצבע, בפנים או בקוד PIN של המכשיר. ננעל שוב אחרי יותר מדקה ברקע. רשימת המעקב, ההתראות ושאר הווידג׳טים נשארים פתוחים.</string>
     <string name="settings_portfolio_lock_no_device_lock">ללא PIN או קוד גישה במכשיר הנעילה לא מסתירה כלום – הגדירו נעילת מסך.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

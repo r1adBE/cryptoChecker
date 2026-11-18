@@ -9,7 +9,7 @@
     <string name="backup_hint">Uloží zoznam s poznámkami a skupinami, alarmy, obľúbené, portfólio a nastavenia ako súbor, ktorý si uschováš – napr. pre nový telefón.</string>
     <string name="backup_import">Obnoviť</string>
     <string name="auto_backup_title">Automatické zálohovanie</string>
-    <string name="auto_backup_hint">Každý týždeň šifrovane do priečinka podľa vášho výberu (napr. v cloude). Zostávajú 4 najnovšie súbory.</string>
+    <string name="auto_backup_hint">Každý týždeň šifrovane do priečinka podľa vášho výberu (napr. v cloude). Zostávajú 4 najnovšie súbory. Heslo zostáva v tomto zariadení, aby sa záloha robila sama – súbory sú preto, aj v cloude, chránené len tak dobre ako zámka obrazovky tohto zariadenia.</string>
     <string name="auto_backup_now">Zálohovať teraz</string>
     <string name="auto_backup_change_folder">Zmeniť priečinok</string>
     <string name="auto_backup_last">Posledná záloha: %1$s</string>

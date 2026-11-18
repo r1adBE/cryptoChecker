@@ -9,7 +9,7 @@
     <string name="backup_hint">ບັນທຶກລາຍການຕິດຕາມພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ, ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ, ພອດໂຟລິໂອ ແລະ ການຕັ້ງຄ່າ ເປັນໄຟລ໌ທີ່ທ່ານເກັບໄວ້ເອງ – ເຊັ່ນ ສຳລັບໂທລະສັບໃໝ່.</string>
     <string name="backup_import">ກູ້ຄືນ</string>
     <string name="auto_backup_title">ສຳຮອງອັດຕະໂນມັດ</string>
-    <string name="auto_backup_hint">ທຸກອາທິດ, ເຂົ້າລະຫັດ, ໄປໃສ່ໂຟນເດີທີ່ທ່ານເລືອກ (ເຊັ່ນ ໃນຄລາວ). ເກັບໄຟລ໌ໃໝ່ສຸດ 4 ໄຟລ໌.</string>
+    <string name="auto_backup_hint">ທຸກອາທິດ, ເຂົ້າລະຫັດ, ໄປໃສ່ໂຟນເດີທີ່ທ່ານເລືອກ (ເຊັ່ນ ໃນຄລາວ). ເກັບໄຟລ໌ໃໝ່ສຸດ 4 ໄຟລ໌. ລະຫັດຜ່ານຢູ່ໃນອຸປະກອນນີ້ ເພື່ອໃຫ້ການສຳຮອງຂໍ້ມູນເຮັດວຽກເອງ – ດັ່ງນັ້ນໄຟລ໌ ເຖິງຢູ່ໃນຄລາວກໍຕາມ ປອດໄພພຽງເທົ່າກັບການລັອກໜ້າຈໍຂອງອຸປະກອນນີ້.</string>
     <string name="auto_backup_now">ສຳຮອງດຽວນີ້</string>
     <string name="auto_backup_change_folder">ປ່ຽນໂຟນເດີ</string>
     <string name="auto_backup_last">ສຳຮອງຫຼ້າສຸດ: %1$s</string>

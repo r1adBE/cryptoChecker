@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO kwa kila wallet/jukwaa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Sarafu za zamani zaidi kwanza ndani ya kila jukwaa au wallet; uhamisho huhamisha mafungu pamoja na tarehe yake ya ununuzi.</string>
     <string name="settings_portfolio_lock">Kufuli ya jalada</string>
-    <string name="settings_portfolio_lock_footer">Kufuli huficha kinachoonyeshwa kwenye skrini. Data yako imehifadhiwa kwenye kifaa hiki na inalindwa na usimbaji wa kifaa. Unaweza kulinda nakala rudufu kwa nenosiri.</string>
+    <string name="settings_portfolio_lock_footer">Kufuli huficha kinachoonyeshwa kwenye skrini. Data yako imehifadhiwa kwenye kifaa hiki na inalindwa na usimbaji wa kifaa. Unaweza kulinda nakala rudufu kwa nenosiri. Ikiwa imewashwa, wijeti, saa na arifa pia hazionyeshi thamani; chinichini programu bado husoma jalada (k.m. kwa arifa za jalada).</string>
     <string name="settings_portfolio_lock_hint">Huficha jalada pekee: fungua kwa alama ya kidole, uso au PIN ya kifaa. Hufungwa tena baada ya zaidi ya dakika moja chinichini. Orodha ya ufuatiliaji, kengele na wijeti nyingine zinabaki wazi.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bila PIN au nambari ya siri ya kifaa kufuli haifichi chochote – weka kufuli ya skrini.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

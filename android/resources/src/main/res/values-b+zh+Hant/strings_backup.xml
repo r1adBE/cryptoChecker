@@ -9,7 +9,7 @@
     <string name="backup_hint">把清單（含備註和分組）、提醒、收藏、投資組合和設定儲存為由您自己保管的檔案，例如換新手機時使用。</string>
     <string name="backup_import">還原</string>
     <string name="auto_backup_title">自動備份</string>
-    <string name="auto_backup_hint">每週加密備份到您選擇的資料夾（例如雲端）。保留最新 4 個檔案。</string>
+    <string name="auto_backup_hint">每週加密備份到您選擇的資料夾（例如雲端）。保留最新 4 個檔案。密碼會保留在此裝置上，讓備份自動進行 – 因此檔案即使在雲端，也只跟此裝置的螢幕鎖定一樣安全。</string>
     <string name="auto_backup_now">立即備份</string>
     <string name="auto_backup_change_folder">更改資料夾</string>
     <string name="auto_backup_last">上次備份：%1$s</string>

@@ -9,7 +9,7 @@
     <string name="backup_hint">Desa la teva llista amb notes i grups, alarmes, preferits, cartera i configuració en un fitxer que guardes tu – p. ex. per a un mòbil nou.</string>
     <string name="backup_import">Restaura</string>
     <string name="auto_backup_title">Còpia automàtica</string>
-    <string name="auto_backup_hint">Cada setmana, xifrada, en una carpeta que triïs (p. ex. al núvol). Es conserven els 4 fitxers més recents.</string>
+    <string name="auto_backup_hint">Cada setmana, xifrada, en una carpeta que triïs (p. ex. al núvol). Es conserven els 4 fitxers més recents. La contrasenya es queda en aquest dispositiu perquè la còpia es faci sola – per això els fitxers, fins i tot al núvol, només són tan segurs com el bloqueig de pantalla d’aquest dispositiu.</string>
     <string name="auto_backup_now">Fes còpia ara</string>
     <string name="auto_backup_change_folder">Canvia la carpeta</string>
     <string name="auto_backup_last">Darrera còpia: %1$s</string>

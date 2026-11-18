@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO je Wallet/Börse</string>
     <string name="settings_cost_method_fifo_wallet_hint">Älteste Coins zuerst je Börse oder Wallet; Umbuchungen verschieben Posten mit Kaufdatum.</string>
     <string name="settings_portfolio_lock">Portfolio-Sperre</string>
-    <string name="settings_portfolio_lock_footer">Die Sperre verdeckt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen.</string>
+    <string name="settings_portfolio_lock_footer">Die Sperre verdeckt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen. Widgets, Uhr und Mitteilungen zeigen dann ebenfalls keine Werte; im Hintergrund liest die App das Portfolio weiter (z. B. für Portfolio-Alarme).</string>
     <string name="settings_portfolio_lock_hint">Verdeckt nur das Portfolio: entsperren mit Fingerabdruck, Gesicht oder Geräte-PIN. Sperrt wieder nach mehr als einer Minute im Hintergrund. Merkliste, Alarme und übrige Widgets bleiben offen.</string>
     <string name="settings_portfolio_lock_no_device_lock">Ohne Geräte-PIN/Code verdeckt die Sperre nichts – richte eine Bildschirmsperre ein.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

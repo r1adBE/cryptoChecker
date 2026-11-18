@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per wallet/börs</string>
     <string name="settings_cost_method_fifo_wallet_hint">Äldsta mynten först per börs eller wallet; överföringar flyttar lotter med sitt köpdatum.</string>
     <string name="settings_portfolio_lock">Portföljlås</string>
-    <string name="settings_portfolio_lock_footer">Låset döljer det som visas. Data finns på den här enheten och skyddas av enhetens kryptering. Du kan skydda säkerhetskopior med ett lösenord.</string>
+    <string name="settings_portfolio_lock_footer">Låset döljer det som visas. Data finns på den här enheten och skyddas av enhetens kryptering. Du kan skydda säkerhetskopior med ett lösenord. Medan det är på visar inte heller widgetar, klockan och aviseringar några värden; i bakgrunden läser appen fortfarande portföljen (t.ex. för portföljlarm).</string>
     <string name="settings_portfolio_lock_hint">Döljer bara portföljen: lås upp med fingeravtryck, ansikte eller enhetens PIN. Låses igen efter mer än en minut i bakgrunden. Bevakningslista, larm och andra widgetar förblir öppna.</string>
     <string name="settings_portfolio_lock_no_device_lock">Utan enhetens pinkod eller lösenkod döljer låset ingenting – ställ in ett skärmlås.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">İzləmə siyahını qeydlər və qruplarla, alarmları, seçilmişləri, portfeli və ayarları özün saxladığın fayl kimi yadda saxlayır – məsələn, yeni telefon üçün.</string>
     <string name="backup_import">Bərpa et</string>
     <string name="auto_backup_title">Avtomatik ehtiyat nüsxə</string>
-    <string name="auto_backup_hint">Hər həftə, şifrələnmiş şəkildə, seçdiyiniz qovluğa (məs. bulud). Ən yeni 4 fayl saxlanılır.</string>
+    <string name="auto_backup_hint">Hər həftə, şifrələnmiş şəkildə, seçdiyiniz qovluğa (məs. bulud). Ən yeni 4 fayl saxlanılır. Ehtiyat nüsxə özü işləsin deyə parol bu cihazda qalır – buna görə fayllar, hətta buludda belə, yalnız bu cihazın ekran kilidi qədər təhlükəsizdir.</string>
     <string name="auto_backup_now">İndi ehtiyat nüsxə yarat</string>
     <string name="auto_backup_change_folder">Qovluğu dəyiş</string>
     <string name="auto_backup_last">Son ehtiyat nüsxə: %1$s</string>

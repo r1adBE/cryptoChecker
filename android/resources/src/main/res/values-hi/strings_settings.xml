@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">हर वॉलेट/एक्सचेंज के लिए FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">हर एक्सचेंज या वॉलेट में सबसे पुराने कॉइन पहले; ट्रांसफ़र लॉट को उनकी खरीद तिथि के साथ ले जाते हैं।</string>
     <string name="settings_portfolio_lock">पोर्टफ़ोलियो लॉक</string>
-    <string name="settings_portfolio_lock_footer">यह लॉक स्क्रीन पर दिखने वाली जानकारी को छिपाता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं।</string>
+    <string name="settings_portfolio_lock_footer">यह लॉक स्क्रीन पर दिखने वाली जानकारी को छिपाता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं। चालू रहने पर विजेट, घड़ी और सूचनाएँ भी कोई मान नहीं दिखातीं; बैकग्राउंड में ऐप पोर्टफ़ोलियो पढ़ता रहता है (जैसे पोर्टफ़ोलियो अलर्ट के लिए)।</string>
     <string name="settings_portfolio_lock_hint">केवल पोर्टफ़ोलियो को छिपाता है: फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करें। बैकग्राउंड में एक मिनट से ज़्यादा रहने पर फिर लॉक हो जाता है। वॉचलिस्ट, अलार्म और बाकी विजेट खुले रहते हैं।</string>
     <string name="settings_portfolio_lock_no_device_lock">डिवाइस PIN या पासकोड के बिना लॉक कुछ भी नहीं छिपाता – स्क्रीन लॉक सेट करें।</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

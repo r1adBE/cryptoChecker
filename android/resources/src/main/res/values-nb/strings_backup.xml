@@ -9,7 +9,7 @@
     <string name="backup_hint">Lagrer liste med notater og grupper, alarmer, favoritter, portefølje og innstillinger i en fil du tar vare på selv – f.eks. til ny telefon.</string>
     <string name="backup_import">Gjenopprett</string>
     <string name="auto_backup_title">Sikkerhetskopier automatisk</string>
-    <string name="auto_backup_hint">Hver uke, kryptert, i en mappe du velger (f.eks. i skyen). De nyeste 4 filene beholdes.</string>
+    <string name="auto_backup_hint">Hver uke, kryptert, i en mappe du velger (f.eks. i skyen). De nyeste 4 filene beholdes. Passordet blir på denne enheten slik at sikkerhetskopien kjører av seg selv – filene er derfor, også i skyen, bare så sikre som skjermlåsen på denne enheten.</string>
     <string name="auto_backup_now">Sikkerhetskopier nå</string>
     <string name="auto_backup_change_folder">Bytt mappe</string>
     <string name="auto_backup_last">Siste sikkerhetskopi: %1$s</string>

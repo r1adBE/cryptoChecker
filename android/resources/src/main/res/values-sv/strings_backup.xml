@@ -9,7 +9,7 @@
     <string name="backup_hint">Sparar lista med anteckningar och grupper, larm, favoriter, portfölj och inställningar i en fil du själv sparar – t.ex. för en ny telefon.</string>
     <string name="backup_import">Återställ</string>
     <string name="auto_backup_title">Säkerhetskopiera automatiskt</string>
-    <string name="auto_backup_hint">Varje vecka, krypterat, i en mapp du väljer (t.ex. i molnet). De 4 nyaste filerna sparas.</string>
+    <string name="auto_backup_hint">Varje vecka, krypterat, i en mapp du väljer (t.ex. i molnet). De 4 nyaste filerna sparas. Lösenordet stannar på den här enheten så att säkerhetskopieringen sker av sig själv – filerna är därför, även i molnet, bara så säkra som skärmlåset på den här enheten.</string>
     <string name="auto_backup_now">Säkerhetskopiera nu</string>
     <string name="auto_backup_change_folder">Byt mapp</string>
     <string name="auto_backup_last">Senaste säkerhetskopia: %1$s</string>

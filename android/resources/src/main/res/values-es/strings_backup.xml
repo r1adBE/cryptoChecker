@@ -9,7 +9,7 @@
     <string name="backup_hint">Guarda tu lista con notas y grupos, alarmas, favoritos, cartera y ajustes en un archivo que guardas tú, p. ej. para un móvil nuevo.</string>
     <string name="backup_import">Restaurar</string>
     <string name="auto_backup_title">Copia automática</string>
-    <string name="auto_backup_hint">Cada semana, cifrada, en una carpeta que elijas (p. ej. en la nube). Se conservan los 4 archivos más recientes.</string>
+    <string name="auto_backup_hint">Cada semana, cifrada, en una carpeta que elijas (p. ej. en la nube). Se conservan los 4 archivos más recientes. La contraseña se queda en este dispositivo para que la copia se haga sola; por eso los archivos, incluso en la nube, solo son tan seguros como el bloqueo de pantalla de este dispositivo.</string>
     <string name="auto_backup_now">Hacer copia ahora</string>
     <string name="auto_backup_change_folder">Cambiar carpeta</string>
     <string name="auto_backup_last">Última copia: %1$s</string>

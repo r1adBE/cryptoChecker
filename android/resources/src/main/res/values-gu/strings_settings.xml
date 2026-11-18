@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">દરેક વૉલેટ/એક્સચેન્જ માટે FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">દરેક એક્સચેન્જ કે વૉલેટમાં સૌથી જૂના કૉઇન પહેલાં; ટ્રાન્સફર લૉટને તેમની ખરીદ તારીખ સાથે ખસેડે છે.</string>
     <string name="settings_portfolio_lock">પોર્ટફોલિયો લૉક</string>
-    <string name="settings_portfolio_lock_footer">લૉક સ્ક્રીન પર દેખાતું છુપાવે છે. તમારો ડેટા આ ડિવાઇસ પર સાચવાય છે અને ડિવાઇસ એન્ક્રિપ્શનથી સુરક્ષિત છે. બૅકઅપને તમે પાસવર્ડથી સુરક્ષિત કરી શકો છો.</string>
+    <string name="settings_portfolio_lock_footer">લૉક સ્ક્રીન પર દેખાતું છુપાવે છે. તમારો ડેટા આ ડિવાઇસ પર સાચવાય છે અને ડિવાઇસ એન્ક્રિપ્શનથી સુરક્ષિત છે. બૅકઅપને તમે પાસવર્ડથી સુરક્ષિત કરી શકો છો. ચાલુ હોય ત્યારે વિજેટ, ઘડિયાળ અને સૂચનાઓ પણ કોઈ મૂલ્ય બતાવતાં નથી; બેકગ્રાઉન્ડમાં ઍપ પોર્ટફોલિયો વાંચતી રહે છે (દા.ત. પોર્ટફોલિયો એલર્ટ માટે).</string>
     <string name="settings_portfolio_lock_hint">ફક્ત પોર્ટફોલિયો છુપાવે છે: ફિંગરપ્રિન્ટ, ચહેરો કે ડિવાઇસ PIN થી અનલૉક કરો. એક મિનિટથી વધુ બૅકગ્રાઉન્ડમાં રહે પછી ફરી લૉક થાય છે. વૉચલિસ્ટ, એલર્ટ અને બીજાં વિજેટ ખુલ્લાં રહે છે.</string>
     <string name="settings_portfolio_lock_no_device_lock">ડિવાઇસ PIN કે પાસકોડ વગર લૉક કંઈ છુપાવતું નથી – સ્ક્રીન લૉક સેટ કરો.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

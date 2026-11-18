@@ -160,7 +160,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO osobno dla walleta/giełdy</string>
     <string name="settings_cost_method_fifo_wallet_hint">Najstarsze monety najpierw w każdej giełdzie lub wallecie; przeniesienia przesuwają partie z datą zakupu.</string>
     <string name="settings_portfolio_lock">Blokada portfela</string>
-    <string name="settings_portfolio_lock_footer">Blokada zasłania to, co widać na ekranie. Dane są przechowywane na tym urządzeniu i chronione przez szyfrowanie urządzenia. Kopie zapasowe możesz zabezpieczyć hasłem.</string>
+    <string name="settings_portfolio_lock_footer">Blokada zasłania to, co widać na ekranie. Dane są przechowywane na tym urządzeniu i chronione przez szyfrowanie urządzenia. Kopie zapasowe możesz zabezpieczyć hasłem. Gdy jest włączona, widżety, zegarek i powiadomienia też nie pokazują wartości; w tle aplikacja nadal odczytuje portfel (np. na potrzeby alertów portfela).</string>
     <string name="settings_portfolio_lock_hint">Zasłania tylko portfel: odblokowanie odciskiem palca, twarzą lub PIN-em urządzenia. Blokuje się ponownie po ponad minucie w tle. Lista obserwowanych, alarmy i pozostałe widżety pozostają dostępne.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bez PIN-u lub kodu urządzenia blokada niczego nie zasłania – ustaw blokadę ekranu.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">Menyimpan senarai pantau anda beserta nota dan kumpulan, amaran, kegemaran, portfolio dan tetapan sebagai fail yang anda simpan sendiri – cth. untuk telefon baharu.</string>
     <string name="backup_import">Pulihkan</string>
     <string name="auto_backup_title">Sandaran automatik</string>
-    <string name="auto_backup_hint">Setiap minggu, disulitkan, ke folder pilihan anda (cth. dalam awan). 4 fail terbaharu disimpan.</string>
+    <string name="auto_backup_hint">Setiap minggu, disulitkan, ke folder pilihan anda (cth. dalam awan). 4 fail terbaharu disimpan. Kata laluan kekal pada peranti ini supaya sandaran berjalan sendiri – jadi fail, walaupun di awan, hanya selamat setakat kunci skrin peranti ini.</string>
     <string name="auto_backup_now">Sandar sekarang</string>
     <string name="auto_backup_change_folder">Tukar folder</string>
     <string name="auto_backup_last">Sandaran terakhir: %1$s</string>

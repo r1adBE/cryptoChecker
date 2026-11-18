@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO በእያንዳንዱ ቦርሳ/ልውውጥ</string>
     <string name="settings_cost_method_fifo_wallet_hint">በእያንዳንዱ ልውውጥ ወይም ቦርሳ ውስጥ በጣም ያረጁ ሳንቲሞች መጀመሪያ፤ ዝውውሮች ሎቶችን ከግዢ ቀናቸው ጋር ያንቀሳቅሳሉ።</string>
     <string name="settings_portfolio_lock">የፖርትፎሊዮ መቆለፊያ</string>
-    <string name="settings_portfolio_lock_footer">መቆለፊያው በማያ ገጹ ላይ የሚታየውን ይደብቃል። ውሂብዎ በዚህ መሣሪያ ላይ ተቀምጦ በመሣሪያው ምስጠራ ይጠበቃል። ምትኬዎችን በይለፍ ቃል መጠበቅ ይችላሉ።</string>
+    <string name="settings_portfolio_lock_footer">መቆለፊያው በማያ ገጹ ላይ የሚታየውን ይደብቃል። ውሂብዎ በዚህ መሣሪያ ላይ ተቀምጦ በመሣሪያው ምስጠራ ይጠበቃል። ምትኬዎችን በይለፍ ቃል መጠበቅ ይችላሉ። ሲበራ ዊጀቶች፣ ሰዓቱ እና ማሳወቂያዎች ምንም እሴት አያሳዩም፤ መተግበሪያው ግን በጀርባ ፖርትፎሊዮውን ማንበቡን ይቀጥላል (ለምሳሌ ለፖርትፎሊዮ ማንቂያዎች)።</string>
     <string name="settings_portfolio_lock_hint">ፖርትፎሊዮውን ብቻ ይደብቃል፦ በጣት አሻራ፣ በፊት ወይም በመሣሪያ PIN ይክፈቱ። ከበስተጀርባ ከአንድ ደቂቃ በላይ ከቆየ በኋላ እንደገና ይቆለፋል። የክትትል ዝርዝር፣ ማንቂያዎችና ሌሎች ዊጀቶች ክፍት ሆነው ይቆያሉ።</string>
     <string name="settings_portfolio_lock_no_device_lock">ያለ የመሣሪያ PIN ወይም የይለፍ ኮድ መቆለፊያው ምንም አይደብቅም – የማያ ገጽ መቆለፊያ ያዘጋጁ።</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

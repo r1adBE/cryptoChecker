@@ -9,7 +9,7 @@
     <string name="backup_hint">שומר את הרשימה עם ההערות והקבוצות, ההתראות, המועדפים, תיק ההשקעות וההגדרות בקובץ שנשאר אצלך – למשל לטלפון חדש.</string>
     <string name="backup_import">שחזור</string>
     <string name="auto_backup_title">גיבוי אוטומטי</string>
-    <string name="auto_backup_hint">בכל שבוע, מוצפן, לתיקייה לבחירתך (למשל בענן). 4 הקבצים החדשים ביותר נשמרים.</string>
+    <string name="auto_backup_hint">בכל שבוע, מוצפן, לתיקייה לבחירתך (למשל בענן). 4 הקבצים החדשים ביותר נשמרים. הסיסמה נשארת במכשיר הזה כדי שהגיבוי ירוץ מעצמו – לכן הקבצים, גם בענן, בטוחים רק כמו נעילת המסך של המכשיר הזה.</string>
     <string name="auto_backup_now">גיבוי עכשיו</string>
     <string name="auto_backup_change_folder">שינוי תיקייה</string>
     <string name="auto_backup_last">גיבוי אחרון: %1$s</string>

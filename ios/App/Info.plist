@@ -5,6 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.cryptochecker.app.refresh</string>
+		<string>com.cryptochecker.app.autobackup</string>
 	</array>
 	<key>CCGitCommit</key>
 	<string>$(GIT_COMMIT)</string>
@@ -191,6 +192,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
+		<string>processing</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict/>

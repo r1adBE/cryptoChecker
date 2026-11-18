@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO për wallet/bursë</string>
     <string name="settings_cost_method_fifo_wallet_hint">Monedhat më të vjetra të parat në çdo bursë ose wallet; transferimet i zhvendosin lotet me datën e blerjes.</string>
     <string name="settings_portfolio_lock">Kyçja e portofolit</string>
-    <string name="settings_portfolio_lock_footer">Kyçja fsheh atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim.</string>
+    <string name="settings_portfolio_lock_footer">Kyçja fsheh atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim. Kur është aktiv, as miniaplikacionet, ora dhe njoftimet nuk shfaqin vlera; në sfond aplikacioni vazhdon ta lexojë portofolin (p.sh. për sinjalizimet e portofolit).</string>
     <string name="settings_portfolio_lock_hint">Fsheh vetëm portofolin: shkyç me gjurmë gishti, fytyrë ose PIN të pajisjes. Kyçet përsëri pas më shumë se një minute në sfond. Lista e ndjekjes, alarmet dhe widget-et e tjera mbeten të hapura.</string>
     <string name="settings_portfolio_lock_no_device_lock">Pa PIN ose kod të pajisjes, kyçja nuk fsheh asgjë – vendos një kyçje ekrani.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

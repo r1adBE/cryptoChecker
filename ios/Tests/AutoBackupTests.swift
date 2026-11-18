@@ -44,13 +44,13 @@ final class AutoBackupTests: XCTestCase {
 
     /// Zweite Instanz auf denselben Einstellungen: Was sie liest, ist gespeichert.
     private func reread(_ defaults: UserDefaults) -> AutoBackup.State {
-        AutoBackup(defaults: defaults, access: FakeAutoBackupAccess()).state
+        AutoBackup(defaults: defaults, access: FakeAutoBackupAccess(), reschedule: { _ in }).state
     }
 
     func testFreshStoreIsOff() throws {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
-        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess())
+        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess(), reschedule: { _ in })
         XCTAssertEqual(backup.state, AutoBackup.State())
         XCTAssertFalse(backup.running)
     }
@@ -59,7 +59,7 @@ final class AutoBackupTests: XCTestCase {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
         let access = FakeAutoBackupAccess()
-        let backup = AutoBackup(defaults: defaults, access: access)
+        let backup = AutoBackup(defaults: defaults, access: access, reschedule: { _ in })
 
         access.bookmarkData = nil
         XCTAssertFalse(backup.enable(folder: folder, password: "geheim", data: AppData.shared))
@@ -77,7 +77,7 @@ final class AutoBackupTests: XCTestCase {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
         let access = FakeAutoBackupAccess()
-        let backup = AutoBackup(defaults: defaults, access: access)
+        let backup = AutoBackup(defaults: defaults, access: access, reschedule: { _ in })
 
         XCTAssertTrue(backup.enable(folder: folder, password: "geheim", data: AppData.shared))
 
@@ -96,7 +96,7 @@ final class AutoBackupTests: XCTestCase {
     func testFailedAttemptIsNotRetriedAtOnce() throws {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
-        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess())
+        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess(), reschedule: { _ in })
         XCTAssertTrue(backup.enable(folder: folder, password: "geheim", data: AppData.shared))
         let afterFirst = backup.state
 
@@ -108,7 +108,7 @@ final class AutoBackupTests: XCTestCase {
     func testNothingRunsWhileOff() throws {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
-        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess())
+        let backup = AutoBackup(defaults: defaults, access: FakeAutoBackupAccess(), reschedule: { _ in })
 
         backup.runIfDue(AppData.shared)
         backup.backUpNow(AppData.shared)
@@ -122,7 +122,7 @@ final class AutoBackupTests: XCTestCase {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
         let access = FakeAutoBackupAccess()
-        let backup = AutoBackup(defaults: defaults, access: access)
+        let backup = AutoBackup(defaults: defaults, access: access, reschedule: { _ in })
         XCTAssertTrue(backup.enable(folder: folder, password: "geheim", data: AppData.shared))
         let other = folder.deletingLastPathComponent().appendingPathComponent("Andere", isDirectory: true)
 
@@ -144,7 +144,7 @@ final class AutoBackupTests: XCTestCase {
         let (defaults, suite) = try makeDefaults()
         defer { defaults.removePersistentDomain(forName: suite) }
         let access = FakeAutoBackupAccess()
-        let backup = AutoBackup(defaults: defaults, access: access)
+        let backup = AutoBackup(defaults: defaults, access: access, reschedule: { _ in })
         XCTAssertTrue(backup.enable(folder: folder, password: "geheim", data: AppData.shared))
 
         backup.disable()
@@ -153,5 +153,33 @@ final class AutoBackupTests: XCTestCase {
         XCTAssertEqual(access.deleteCount, 1)
         XCTAssertNil(access.storedPassword)
         XCTAssertEqual(reread(defaults), AutoBackup.State())
+    }
+}
+
+/// Vormerkung der Hintergrund-Aufgabe: frühestens dann, wenn `AutoBackupPolicy.isDue` wieder gilt.
+final class AutoBackupTaskTests: XCTestCase {
+    private let day: Int64 = 24 * 60 * 60 * 1000
+    private let now: Int64 = 1_800_000_000_000
+
+    func testNeverBackedUpBeginsNow() {
+        XCTAssertEqual(AutoBackupTask.earliestBegin(lastSuccessAt: 0, lastAttemptAt: 0, now: now), now)
+    }
+
+    func testAfterSuccessBeginsAWeekLater() {
+        let begin = AutoBackupTask.earliestBegin(lastSuccessAt: now - day, lastAttemptAt: now - day, now: now)
+        XCTAssertEqual(begin, now + 6 * day)
+        XCTAssertFalse(AutoBackupPolicy.isDue(enabled: true, lastSuccessAt: now - day, lastAttemptAt: now - day,
+                                              now: begin - 1))
+        XCTAssertTrue(AutoBackupPolicy.isDue(enabled: true, lastSuccessAt: now - day, lastAttemptAt: now - day, now: begin))
+    }
+
+    func testAfterFailureWaitsForTheRetry() {
+        let attempt = now - 60_000
+        let begin = AutoBackupTask.earliestBegin(lastSuccessAt: now - 30 * day, lastAttemptAt: attempt, now: now)
+        XCTAssertEqual(begin, attempt + AutoBackupPolicy.retryAfterMillis)
+    }
+
+    func testTimesInTheFutureCountAsDue() {
+        XCTAssertEqual(AutoBackupTask.earliestBegin(lastSuccessAt: now + day, lastAttemptAt: now + day, now: now), now)
     }
 }

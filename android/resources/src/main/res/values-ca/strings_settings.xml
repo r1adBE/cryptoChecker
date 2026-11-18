@@ -159,7 +159,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per moneder/exchange</string>
     <string name="settings_cost_method_fifo_wallet_hint">Primer les monedes més antigues dins de cada exchange o moneder; les transferències mouen els lots amb la seva data de compra.</string>
     <string name="settings_portfolio_lock">Bloqueig de la cartera</string>
-    <string name="settings_portfolio_lock_footer">El bloqueig amaga el que es mostra a la pantalla. Les teves dades es desen en aquest dispositiu i estan protegides pel xifratge del dispositiu. Pots protegir les còpies de seguretat amb una contrasenya.</string>
+    <string name="settings_portfolio_lock_footer">El bloqueig amaga el que es mostra a la pantalla. Les teves dades es desen en aquest dispositiu i estan protegides pel xifratge del dispositiu. Pots protegir les còpies de seguretat amb una contrasenya. Mentre està activat, els widgets, el rellotge i les notificacions tampoc no mostren valors; en segon pla l’app continua llegint la cartera (p. ex. per a les alertes de cartera).</string>
     <string name="settings_portfolio_lock_hint">Només amaga la cartera: desbloqueja-la amb l\'empremta, la cara o el PIN del dispositiu. Es torna a bloquejar després de més d\'un minut en segon pla. La llista, les alarmes i els altres widgets es mantenen oberts.</string>
     <string name="settings_portfolio_lock_no_device_lock">Sense PIN o codi del dispositiu, el bloqueig no amaga res – configura un bloqueig de pantalla.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

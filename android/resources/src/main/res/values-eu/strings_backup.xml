@@ -9,7 +9,7 @@
     <string name="backup_hint">Zure zerrenda (oharrekin eta taldeekin), alarmak, gogokoak, zorroa eta ezarpenak zuk gordetzen duzun fitxategi batean gordetzen ditu – adib. telefono berri baterako.</string>
     <string name="backup_import">Leheneratu</string>
     <string name="auto_backup_title">Babeskopia automatikoa</string>
-    <string name="auto_backup_hint">Astero, zifratuta, zuk aukeratutako karpeta batean (adib. hodeian). Azken 4 fitxategiak gordetzen dira.</string>
+    <string name="auto_backup_hint">Astero, zifratuta, zuk aukeratutako karpeta batean (adib. hodeian). Azken 4 fitxategiak gordetzen dira. Pasahitza gailu honetan geratzen da babeskopia bere kasa egin dadin – beraz, fitxategiak, hodeian ere, gailu honen pantaila-blokeoa bezain seguruak baino ez dira.</string>
     <string name="auto_backup_now">Egin babeskopia orain</string>
     <string name="auto_backup_change_folder">Aldatu karpeta</string>
     <string name="auto_backup_last">Azken babeskopia: %1$s</string>

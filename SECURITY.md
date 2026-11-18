@@ -354,6 +354,16 @@ Deliberate trade-offs, stated so that nobody relies on more than the app does:
   someone who can run code as the app on a device unlocked once. (Android is
   comparable: its Keystore keys need no user authentication, for the same
   reason.)
+* **The automatic backup password stays on the device.** «Back up
+  automatically» runs without asking (weekly, also in the background: Android
+  WorkManager, iOS a background processing task whose time iOS decides), so its
+  password is stored on the device – sealed with an Android Keystore key without
+  user authentication, or in the iOS keychain with
+  `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`. Anyone who can run code as
+  the app on a device unlocked once can therefore open every automatic backup
+  file in the chosen folder, also in a cloud folder; the encryption protects the
+  files against the cloud provider and against copies, not against the device.
+  The setting says so. Manual backups never store the password.
 * **The app lock is a cover for the portfolio area.** The portfolio lock hides
   the portfolio in the app, the app switcher, widgets and notifications behind
   biometrics or the device credential. It is not an encryption layer of its

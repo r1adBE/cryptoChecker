@@ -12,17 +12,19 @@ extension Notifier {
 
     /// Kurs-Mitteilungen `watches` zeigen bzw. aktualisieren (ein Durchlauf oder eine Handlung); Reihenfolge =
     /// Vorrang für freie Plätze. `cancelled`: eben entfernte Paare (fallen auch aus der Sammelmeldung). Alle
-    /// gemeldeten Paare zählen als gezeigt — einzeln oder in der Sammelmeldung, wie auf Android.
-    static func showPrices(_ watches: [Watch], cancelled: [Int64] = []) async {
+    /// gemeldeten Paare zählen als gezeigt — einzeln oder in der Sammelmeldung, wie auf Android. `onlyIfShown`: Paare,
+    /// die nur nachgezogen werden, wenn ihre Mitteilung noch steht (`PriceDeliveredState.stillShown`).
+    static func showPrices(_ watches: [Watch], cancelled: [Int64] = [], onlyIfShown: Set<Int64> = []) async {
         let posts = distinctWatches(watches.filter { $0.lastPrice != nil })
         guard !posts.isEmpty || !cancelled.isEmpty else { return }
         let removed = Set(cancelled)
-        await PriceRunGate.shared.run { await showPricesNow(posts, cancelled: removed) }
+        await PriceRunGate.shared.run { await showPricesNow(posts, cancelled: removed, onlyIfShown: onlyIfShown) }
     }
 
     /// `showPrices`, nacheinander je Prozess (`PriceRunGate`).
-    private static func showPricesNow(_ posts: [Watch], cancelled: Set<Int64>) async {
+    private static func showPricesNow(_ all: [Watch], cancelled: Set<Int64>, onlyIfShown: Set<Int64>) async {
         let state = PriceDeliveredState(await center.deliveredNotifications())
+        let posts = all.filter { !onlyIfShown.contains($0.id) || state.stillShown($0.id) }
         // Nur Entfernen und keine Sammelmeldung offen: nichts zu tun (häufigster Fall bei Paaren ohne Mitteilung)
         if posts.isEmpty && !state.overflowShown { return }
         let plan = NotificationBudget.planPrices(
@@ -88,6 +90,9 @@ struct PriceDeliveredState {
     var overflowLines: [Int64: String] = [:]
     /// Andere offene Mitteilungen (Alarme, Markt …).
     var other = 0
+
+    /// Kurs-Mitteilung des Paars steht noch — einzeln oder als Zeile der Sammelmeldung.
+    func stillShown(_ id: Int64) -> Bool { prices.contains(id) || overflowIds.contains(id) }
 
     struct Entry {
         var identifier: String

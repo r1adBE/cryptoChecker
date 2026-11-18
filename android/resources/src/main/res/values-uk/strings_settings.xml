@@ -160,7 +160,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO за гаманцем/біржею</string>
     <string name="settings_cost_method_fifo_wallet_hint">Спершу найстаріші монети в межах кожної біржі чи гаманця; перекази переносять лоти з датою купівлі.</string>
     <string name="settings_portfolio_lock">Блокування портфеля</string>
-    <string name="settings_portfolio_lock_footer">Блокування приховує те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем.</string>
+    <string name="settings_portfolio_lock_footer">Блокування приховує те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем. Поки її ввімкнено, віджети, годинник і сповіщення теж не показують значень; у фоні застосунок і далі читає портфель (наприклад, для сповіщень портфеля).</string>
     <string name="settings_portfolio_lock_hint">Приховує лише портфель: розблокування відбитком пальця, обличчям або PIN-кодом пристрою. Знову блокується після понад хвилини у фоні. Список спостереження, сигнали та інші віджети залишаються доступними.</string>
     <string name="settings_portfolio_lock_no_device_lock">Без PIN-коду чи пароля пристрою блокування нічого не приховує – налаштуй блокування екрана.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

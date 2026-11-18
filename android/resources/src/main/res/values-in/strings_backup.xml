@@ -9,7 +9,7 @@
     <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan pengaturan ke file yang kamu simpan sendiri – mis. untuk ponsel baru.</string>
     <string name="backup_import">Pulihkan</string>
     <string name="auto_backup_title">Cadangkan otomatis</string>
-    <string name="auto_backup_hint">Setiap minggu, terenkripsi, ke folder pilihan Anda (mis. di cloud). 4 file terbaru disimpan.</string>
+    <string name="auto_backup_hint">Setiap minggu, terenkripsi, ke folder pilihan Anda (mis. di cloud). 4 file terbaru disimpan. Kata sandi tetap di perangkat ini agar pencadangan berjalan sendiri – jadi file, bahkan di cloud, hanya seaman kunci layar perangkat ini.</string>
     <string name="auto_backup_now">Cadangkan sekarang</string>
     <string name="auto_backup_change_folder">Ganti folder</string>
     <string name="auto_backup_last">Cadangan terakhir: %1$s</string>

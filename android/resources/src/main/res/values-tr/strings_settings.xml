@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">Cüzdan/borsa bazında FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Her borsa veya cüzdanda önce en eski coin\'ler; transferler lotları alış tarihiyle taşır.</string>
     <string name="settings_portfolio_lock">Portföy kilidi</string>
-    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri gizler. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsin.</string>
+    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri gizler. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsin. Açıkken widget’lar, saat ve bildirimler de değer göstermez; uygulama arka planda portföyü okumaya devam eder (ör. portföy uyarıları için).</string>
     <string name="settings_portfolio_lock_hint">Yalnızca portföyü gizler: parmak izi, yüz veya cihaz PIN\'i ile kilidi aç. Arka planda bir dakikadan uzun kaldıktan sonra yeniden kilitlenir. İzleme listesi, alarmlar ve diğer widget\'lar açık kalır.</string>
     <string name="settings_portfolio_lock_no_device_lock">Cihaz PIN’i veya şifresi olmadan kilit hiçbir şeyi gizlemez – bir ekran kilidi ayarla.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

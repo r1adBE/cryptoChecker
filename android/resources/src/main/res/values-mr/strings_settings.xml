@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">प्रति वॉलेट/एक्सचेंज FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">प्रत्येक एक्सचेंज किंवा वॉलेटमध्ये सर्वात जुने कॉइन आधी; हस्तांतरणे लॉट त्यांच्या खरेदी तारखेसह हलवतात.</string>
     <string name="settings_portfolio_lock">पोर्टफोलिओ लॉक</string>
-    <string name="settings_portfolio_lock_footer">लॉक स्क्रीनवर दिसणारे लपवतो. तुमचा डेटा या डिव्हाइसवर साठवला जातो आणि डिव्हाइस एन्क्रिप्शनने संरक्षित असतो. बॅकअप तुम्ही पासवर्डने संरक्षित करू शकता.</string>
+    <string name="settings_portfolio_lock_footer">लॉक स्क्रीनवर दिसणारे लपवतो. तुमचा डेटा या डिव्हाइसवर साठवला जातो आणि डिव्हाइस एन्क्रिप्शनने संरक्षित असतो. बॅकअप तुम्ही पासवर्डने संरक्षित करू शकता. चालू असताना विजेट, घड्याळ आणि सूचनाही कोणतेही मूल्य दाखवत नाहीत; पार्श्वभूमीत अ‍ॅप पोर्टफोलिओ वाचत राहतो (उदा. पोर्टफोलिओ अलर्टसाठी).</string>
     <string name="settings_portfolio_lock_hint">फक्त पोर्टफोलिओ लपवतो: फिंगरप्रिंट, चेहरा किंवा डिव्हाइस PIN ने अनलॉक करा. पार्श्वभूमीत एका मिनिटापेक्षा जास्त राहिल्यावर पुन्हा लॉक होतो. वॉचलिस्ट, अलर्ट आणि इतर विजेट उघडे राहतात.</string>
     <string name="settings_portfolio_lock_no_device_lock">डिव्हाइस PIN किंवा पासकोडशिवाय लॉक काहीही लपवत नाही – स्क्रीन लॉक सेट करा.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

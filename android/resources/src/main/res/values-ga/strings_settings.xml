@@ -161,7 +161,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO in aghaidh an sparáin/malartáin</string>
     <string name="settings_cost_method_fifo_wallet_hint">Na boinn is sine ar dtús laistigh de gach malartán nó sparán; bogann aistrithe baisceanna lena ndáta ceannaigh.</string>
     <string name="settings_portfolio_lock">Glas na punainne</string>
-    <string name="settings_portfolio_lock_footer">Folaíonn an glas a bhfuil ar an scáileán. Stóráiltear do shonraí ar an ngléas seo agus cosnaíonn criptiú an ghléis iad. Is féidir leat cúltacaí a chosaint le pasfhocal.</string>
+    <string name="settings_portfolio_lock_footer">Folaíonn an glas a bhfuil ar an scáileán. Stóráiltear do shonraí ar an ngléas seo agus cosnaíonn criptiú an ghléis iad. Is féidir leat cúltacaí a chosaint le pasfhocal. Fad atá sé ar siúl, ní thaispeánann giuirléidí, an uaireadóir ná fógraí luachanna ach oiread; sa chúlra léann an aip an phunann fós (m.sh. do fholáirimh phunainne).</string>
     <string name="settings_portfolio_lock_hint">Ní fholaíonn sé ach an phunann: díghlasáil le méarlorg, aghaidh nó UAP an ghléis. Glasálann sé arís tar éis níos mó ná nóiméad sa chúlra. Fanann an liosta faire, foláirimh agus giuirléidí eile oscailte.</string>
     <string name="settings_portfolio_lock_no_device_lock">Gan UAP nó paschód ar an ngléas ní fholaíonn an glas aon rud – socraigh glas scáileáin.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

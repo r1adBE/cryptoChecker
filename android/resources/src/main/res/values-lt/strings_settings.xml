@@ -160,7 +160,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO pagal piniginę / biržą</string>
     <string name="settings_cost_method_fifo_wallet_hint">Seniausios monetos pirmiausia kiekvienoje biržoje ar piniginėje; pervedimai perkelia partijas su jų pirkimo data.</string>
     <string name="settings_portfolio_lock">Portfelio užraktas</string>
-    <string name="settings_portfolio_lock_footer">Užraktas paslepia tai, kas rodoma ekrane. Tavo duomenys saugomi šiame įrenginyje ir apsaugoti įrenginio šifravimu. Atsargines kopijas gali apsaugoti slaptažodžiu.</string>
+    <string name="settings_portfolio_lock_footer">Užraktas paslepia tai, kas rodoma ekrane. Tavo duomenys saugomi šiame įrenginyje ir apsaugoti įrenginio šifravimu. Atsargines kopijas gali apsaugoti slaptažodžiu. Kol įjungta, valdikliai, laikrodis ir pranešimai taip pat nerodo verčių; fone programa toliau skaito portfelį (pvz., portfelio įspėjimams).</string>
     <string name="settings_portfolio_lock_hint">Paslepia tik portfelį: atrakink piršto atspaudu, veidu ar įrenginio PIN kodu. Vėl užsirakina po daugiau nei minutės fone. Stebimų sąrašas, įspėjimai ir kiti valdikliai lieka atviri.</string>
     <string name="settings_portfolio_lock_no_device_lock">Be įrenginio PIN kodo ar slaptakodžio užraktas nieko nepaslepia – nustatyk ekrano užraktą.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

@@ -9,7 +9,7 @@
     <string name="backup_hint">Kuzatuv roʻyxatini izoh va guruhlari bilan, signallar, sevimlilar, portfel va sozlamalarni oʻzingiz saqlaydigan fayl sifatida saqlaydi – masalan, yangi telefon uchun.</string>
     <string name="backup_import">Tiklash</string>
     <string name="auto_backup_title">Avtomatik zaxira nusxa</string>
-    <string name="auto_backup_hint">Har hafta, shifrlangan holda, siz tanlagan jildga (masalan, bulutda). Eng yangi 4 ta fayl saqlanadi.</string>
+    <string name="auto_backup_hint">Har hafta, shifrlangan holda, siz tanlagan jildga (masalan, bulutda). Eng yangi 4 ta fayl saqlanadi. Zaxira nusxa oʻzi bajarilishi uchun parol shu qurilmada qoladi – shuning uchun fayllar, hatto bulutda ham, faqat shu qurilmaning ekran qulfi darajasida xavfsiz.</string>
     <string name="auto_backup_now">Hozir zaxiralash</string>
     <string name="auto_backup_change_folder">Jildni oʻzgartirish</string>
     <string name="auto_backup_last">Oxirgi zaxira: %1$s</string>

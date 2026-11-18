@@ -4,8 +4,8 @@ import Security
 /// Automatische Sicherung (`AutoBackupPolicy`, Entscheid Inhaber 17.11.2026): wöchentlich, verschlüsselt, in einen
 /// gewählten Ordner (Dateien-App, auch iCloud Drive — ohne iCloud-Berechtigung der App), die neuesten 4 eigenen Dateien
 /// bleiben. Ordner als Lesezeichen mit Sicherheitsbereich in den eigenen Einstellungen, Passwort im Schlüsselbund nur
-/// dieses Geräts (`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, nie im Backup). Fällig beim Aktivwerden der App.
-/// Wie Android `AutoBackupStore` / `AutoBackupRunner`.
+/// dieses Geräts (`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, nie im Backup). Geprüft beim Aktivwerden der App
+/// und aus der Hintergrund-Aufgabe `AutoBackupTask` (Zeitpunkt bestimmt iOS). Wie Android `AutoBackupStore` / `AutoBackupRunner`.
 @MainActor
 final class AutoBackup: ObservableObject {
     static let shared = AutoBackup()
@@ -24,6 +24,8 @@ final class AutoBackup: ObservableObject {
     private let defaults: UserDefaults
     /// Schlüsselbund und Ordner-Lesezeichen (`LiveAutoBackupAccess`); in Tests eine Fälschung.
     private let access: any AutoBackupAccess
+    /// Hintergrund-Aufgabe nach jedem neuen Zustand vormerken bzw. absagen (`AutoBackupTask.schedule`); in Tests leer.
+    private let reschedule: @MainActor (State) -> Void
     private static let enabledKey = "auto_backup_enabled"
     private static let bookmarkKey = "auto_backup_bookmark"
     private static let folderNameKey = "auto_backup_folder_name"
@@ -31,9 +33,11 @@ final class AutoBackup: ObservableObject {
     private static let attemptKey = "auto_backup_last_attempt_at"
     private static let failedKey = "auto_backup_last_failed"
 
-    init(defaults: UserDefaults = .standard, access: any AutoBackupAccess = LiveAutoBackupAccess()) {
+    init(defaults: UserDefaults = .standard, access: any AutoBackupAccess = LiveAutoBackupAccess(),
+         reschedule: @escaping @MainActor (State) -> Void = AutoBackupTask.schedule) {
         self.defaults = defaults
         self.access = access
+        self.reschedule = reschedule
         state = read()
     }
 
@@ -53,6 +57,7 @@ final class AutoBackup: ObservableObject {
         defaults.set(false, forKey: Self.failedKey)
         defaults.set(0, forKey: Self.attemptKey)
         state = read()
+        reschedule(state)
         backUpNow(data)
         return true
     }
@@ -74,27 +79,37 @@ final class AutoBackup: ObservableObject {
         }
         access.deletePassword()
         state = read()
+        reschedule(state)
     }
 
-    /// Beim Aktivwerden der App: nur wenn fällig.
-    func runIfDue(_ data: AppData) {
+    /// Beim Aktivwerden der App und aus `AutoBackupTask`: nur wenn fällig. Liefert den Lauf (nil = keiner).
+    @discardableResult
+    func runIfDue(_ data: AppData) -> Task<Void, Never>? {
         let now = EpochTime.nowMillis
         guard AutoBackupPolicy.isDue(enabled: state.enabled, lastSuccessAt: state.lastSuccessAt,
-                                     lastAttemptAt: state.lastAttemptAt, now: now) else { return }
-        backUpNow(data)
+                                     lastAttemptAt: state.lastAttemptAt, now: now) else { return nil }
+        return backUpNow(data)
     }
 
-    /// «Jetzt sichern»: ein Lauf zur Zeit; Bauen und Verschlüsseln abseits des Haupt-Threads.
-    func backUpNow(_ data: AppData) {
-        guard state.enabled, !running else { return }
+    /// «Jetzt sichern»: ein Lauf zur Zeit; Bauen und Verschlüsseln abseits des Haupt-Threads. Liefert den Lauf
+    /// (nil = keiner gestartet).
+    @discardableResult
+    func backUpNow(_ data: AppData) -> Task<Void, Never>? {
+        guard state.enabled, !running else { return nil }
         // Gespeicherter Stand gesperrt bzw. beschädigt: keine Datei, die ihn nicht enthält und gültig aussieht
-        if BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) != nil { return record(false) }
-        guard let password = access.readPassword(), let folder = resolvedFolder() else { return record(false) }
+        if BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) != nil {
+            record(false)
+            return nil
+        }
+        guard let password = access.readPassword(), let folder = resolvedFolder() else {
+            record(false)
+            return nil
+        }
         let input = BackupManager.exportInput(data)
         let now = EpochTime.nowMillis
         defaults.set(Double(now), forKey: Self.attemptKey)
         running = true
-        Task {
+        return Task {
             let backgroundTask = BackgroundTaskGuard.begin("autoBackup")
             defer { backgroundTask.end() }
             let built = await BackupFileWork.build(input, password: password)
@@ -116,6 +131,7 @@ final class AutoBackup: ObservableObject {
         if ok { defaults.set(Double(now), forKey: Self.successKey) }
         if !ok { ErrorLog.record(area: "autoBackup", type: "failed") }
         state = read()
+        reschedule(state)
     }
 
     private func resolvedFolder() -> URL? {

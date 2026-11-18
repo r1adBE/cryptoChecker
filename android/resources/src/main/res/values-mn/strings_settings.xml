@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">Түрийвч/биржээр FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Бирж эсвэл түрийвч бүрийн дотор хамгийн хуучин зоос эхэлж; шилжүүлэг лотыг худалдан авсан огноотой нь шилжүүлнэ.</string>
     <string name="settings_portfolio_lock">Багцын түгжээ</string>
-    <string name="settings_portfolio_lock_footer">Түгжээ дэлгэц дээр харагдаж буйг нууна. Таны өгөгдөл энэ төхөөрөмж дээр хадгалагдаж, төхөөрөмжийн шифрлэлтээр хамгаалагдана. Нөөц хуулбарыг нууц үгээр хамгаалж болно.</string>
+    <string name="settings_portfolio_lock_footer">Түгжээ дэлгэц дээр харагдаж буйг нууна. Таны өгөгдөл энэ төхөөрөмж дээр хадгалагдаж, төхөөрөмжийн шифрлэлтээр хамгаалагдана. Нөөц хуулбарыг нууц үгээр хамгаалж болно. Асаалттай үед виджет, цаг, мэдэгдэл ч утга харуулахгүй; ар талд апп багцыг уншсаар байна (жишээ нь багцын сануулгад).</string>
     <string name="settings_portfolio_lock_hint">Зөвхөн багцыг нууна: хурууны хээ, царай эсвэл төхөөрөмжийн PIN-ээр тайлна. Арын горимд нэг минутаас удвал дахин түгжинэ. Ажиглах жагсаалт, дохио болон бусад виджет нээлттэй хэвээр.</string>
     <string name="settings_portfolio_lock_no_device_lock">Төхөөрөмжийн PIN эсвэл нууц кодгүйгээр түгжээ юу ч нуухгүй – дэлгэцийн түгжээ тохируулна уу.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

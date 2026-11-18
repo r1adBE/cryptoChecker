@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO برای هر کیف پول/صرافی</string>
     <string name="settings_cost_method_fifo_wallet_hint">قدیمی‌ترین سکه‌ها اول در هر صرافی یا کیف پول؛ انتقال‌ها بخش‌ها را با تاریخ خریدشان جابه‌جا می‌کنند.</string>
     <string name="settings_portfolio_lock">قفل پرتفوی</string>
-    <string name="settings_portfolio_lock_footer">قفل آنچه را نمایش داده می‌شود پنهان می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانی از نسخه‌های پشتیبان با گذرواژه محافظت کنی.</string>
+    <string name="settings_portfolio_lock_footer">قفل آنچه را نمایش داده می‌شود پنهان می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانی از نسخه‌های پشتیبان با گذرواژه محافظت کنی. وقتی روشن است، ابزارک‌ها، ساعت و اعلان‌ها هم مقداری نشان نمی‌دهند؛ برنامه در پس‌زمینه همچنان سبد دارایی را می‌خواند (مثلاً برای هشدارهای سبد).</string>
     <string name="settings_portfolio_lock_hint">فقط پرتفوی را پنهان می‌کند: با اثر انگشت، چهره یا پین دستگاه باز کن. پس از بیش از یک دقیقه در پس‌زمینه دوباره قفل می‌شود. واچ‌لیست، هشدارها و ابزارک‌های دیگر باز می‌مانند.</string>
     <string name="settings_portfolio_lock_no_device_lock">بدون PIN یا رمز دستگاه، قفل چیزی را پنهان نمی‌کند – قفل صفحه را تنظیم کن.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

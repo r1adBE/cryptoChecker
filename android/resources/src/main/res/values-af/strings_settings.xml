@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per beursie/beurs</string>
     <string name="settings_cost_method_fifo_wallet_hint">Oudste munte eerste binne elke beurs of beursie; oordragte skuif lotte met hul aankoopdatum.</string>
     <string name="settings_portfolio_lock">Portefeuljeslot</string>
-    <string name="settings_portfolio_lock_footer">Die slot versteek wat op die skerm gewys word. Jou data word op hierdie toestel gestoor en deur die toestelenkripsie beskerm. Jy kan rugsteune met \'n wagwoord beskerm.</string>
+    <string name="settings_portfolio_lock_footer">Die slot versteek wat op die skerm gewys word. Jou data word op hierdie toestel gestoor en deur die toestelenkripsie beskerm. Jy kan rugsteune met \'n wagwoord beskerm. Widgets, die horlosie en kennisgewings wys dan ook geen waardes nie; in die agtergrond lees die app steeds die portefeulje (bv. vir portefeulje-waarskuwings).</string>
     <string name="settings_portfolio_lock_hint">Versteek net die portefeulje: ontsluit met vingerafdruk, gesig of toestel-PIN. Sluit weer ná meer as \'n minuut in die agtergrond. Volglys, alarms en ander legstukke bly oop.</string>
     <string name="settings_portfolio_lock_no_device_lock">Sonder \'n toestel-PIN of wagkode versteek die slot niks – stel \'n skermslot op.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

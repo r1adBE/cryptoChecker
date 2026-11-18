@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per dompet/bursa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Koin tertua lebih dulu di tiap bursa atau dompet; transfer memindahkan lot beserta tanggal belinya.</string>
     <string name="settings_portfolio_lock">Kunci portofolio</string>
-    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Kamu bisa melindungi cadangan dengan kata sandi.</string>
+    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Kamu bisa melindungi cadangan dengan kata sandi. Selama aktif, widget, jam tangan, dan notifikasi juga tidak menampilkan nilai; di latar belakang aplikasi tetap membaca portofolio (mis. untuk peringatan portofolio).</string>
     <string name="settings_portfolio_lock_hint">Hanya menyembunyikan portofolio: buka dengan sidik jari, wajah, atau PIN perangkat. Terkunci lagi setelah lebih dari satu menit di latar belakang. Daftar pantau, alarm, dan widget lain tetap terbuka.</string>
     <string name="settings_portfolio_lock_no_device_lock">Tanpa PIN atau kode sandi perangkat, kunci tidak menyembunyikan apa pun – atur kunci layar.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

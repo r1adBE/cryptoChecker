@@ -9,7 +9,7 @@
     <string name="backup_hint">Saves your watchlist with notes and groups, alerts, favorites, portfolio and settings as a file you keep yourself – e.g. for a new device.</string>
     <string name="backup_import">Restore</string>
     <string name="auto_backup_title">Back up automatically</string>
-    <string name="auto_backup_hint">Every week, encrypted, into a folder you choose (e.g. in the cloud). The latest 4 files are kept.</string>
+    <string name="auto_backup_hint">Every week, encrypted, into a folder you choose (e.g. in the cloud). The latest 4 files are kept. The password stays on this device so the backup runs by itself – so the files, even in the cloud, are only as safe as this device’s screen lock.</string>
     <string name="auto_backup_now">Back up now</string>
     <string name="auto_backup_change_folder">Change folder</string>
     <string name="auto_backup_last">Last backup: %1$s</string>

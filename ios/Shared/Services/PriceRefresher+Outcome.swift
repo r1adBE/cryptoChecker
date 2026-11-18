@@ -181,6 +181,9 @@ extension PriceRefresher {
         var alarmLease: AlarmLease? = nil
         /// Watch-Id → (gemeldeter Kurs, Zeitpunkt).
         var notified: [Int64: (Double, Int64)] = [:]
+        /// Paare nach einem Aussetzer unter der Melde-Schwelle: ihre Mitteilung nur nachziehen, wenn sie noch steht —
+        /// mit dem neuen Kurs und dem alten Bezug (wie Android `PriceUpdateRule.RESTORE` mit `refresh`).
+        var priceRefreshOnly: Set<Int64> = []
         /// Kursansagen je Paar (Watch-Id, Text) — Alarm-Ansagen stehen in `PendingAlarm.speech`;
         /// der Sprecher behält je Paar nur die neueste wartende Ansage.
         var priceSpeech: [(watchId: Int64, text: String)] = []

@@ -110,7 +110,7 @@ enum PriceRefresher {
         }
 
         Notifier.cancelPrices(cancelIds)
-        await Notifier.showPrices(pricePosts, cancelled: cancelIds)
+        await Notifier.showPrices(pricePosts, cancelled: cancelIds, onlyIfShown: outcome.priceRefreshOnly)
 
         outcome.durationMillis = EpochTime.nowMillis - started
         if onlyWatchId == nil && liveQuotes == nil {

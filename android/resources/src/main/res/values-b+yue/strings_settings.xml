@@ -157,7 +157,7 @@
     <string name="settings_cost_method_fifo_wallet">每個錢包／交易所分開 FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">每個交易所或錢包內最舊嘅幣先賣；轉賬會連買入日期一齊轉移批次。</string>
     <string name="settings_portfolio_lock">投資組合鎖</string>
-    <string name="settings_portfolio_lock_footer">呢個鎖會隱藏畫面上顯示嘅內容。您嘅資料儲存喺呢部裝置，受裝置加密保護。您可以用密碼保護備份。</string>
+    <string name="settings_portfolio_lock_footer">呢個鎖會隱藏畫面上顯示嘅內容。您嘅資料儲存喺呢部裝置，受裝置加密保護。您可以用密碼保護備份。開咗之後，小工具、手錶同通知都唔會顯示數值；不過 App 喺背景仍然會讀取投資組合（例如用嚟做投資組合提醒）。</string>
     <string name="settings_portfolio_lock_hint">只隱藏投資組合：用指紋、面容或裝置 PIN 解鎖。喺背景超過一分鐘會再次鎖定。自選清單、提示同其他小工具保持開放。</string>
     <string name="settings_portfolio_lock_no_device_lock">冇裝置 PIN 或密碼嘅話，呢個鎖乜都隱藏唔到 – 請設定螢幕鎖。</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

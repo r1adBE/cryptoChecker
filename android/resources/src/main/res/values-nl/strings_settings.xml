@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per wallet/beurs</string>
     <string name="settings_cost_method_fifo_wallet_hint">Oudste munten eerst per beurs of wallet; overboekingen verplaatsen lots met hun aankoopdatum.</string>
     <string name="settings_portfolio_lock">Portfolio-vergrendeling</string>
-    <string name="settings_portfolio_lock_footer">De vergrendeling verbergt wat er wordt weergegeven. De gegevens staan op dit apparaat en worden beschermd door de apparaatversleuteling. Back-ups kun je met een wachtwoord beveiligen.</string>
+    <string name="settings_portfolio_lock_footer">De vergrendeling verbergt wat er wordt weergegeven. De gegevens staan op dit apparaat en worden beschermd door de apparaatversleuteling. Back-ups kun je met een wachtwoord beveiligen. Zolang die aan staat, tonen widgets, het horloge en meldingen ook geen waarden; op de achtergrond leest de app de portefeuille wel verder (bijv. voor portefeuillemeldingen).</string>
     <string name="settings_portfolio_lock_hint">Verbergt alleen de portfolio: ontgrendelen met vingerafdruk, gezicht of pincode van het apparaat. Vergrendelt opnieuw na meer dan een minuut op de achtergrond. Volglijst, alarmen en andere widgets blijven open.</string>
     <string name="settings_portfolio_lock_no_device_lock">Zonder pincode of toegangscode op het apparaat verbergt de vergrendeling niets – stel een schermvergrendeling in.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->

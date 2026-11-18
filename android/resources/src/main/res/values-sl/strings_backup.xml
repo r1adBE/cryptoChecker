@@ -9,7 +9,7 @@
     <string name="backup_hint">Shrani seznam z opombami in skupinami, alarme, priljubljene, portfelj in nastavitve kot datoteko, ki jo shraniš pri sebi – npr. za nov telefon.</string>
     <string name="backup_import">Obnovi</string>
     <string name="auto_backup_title">Samodejna varnostna kopija</string>
-    <string name="auto_backup_hint">Vsak teden, šifrirano, v mapo po vaši izbiri (npr. v oblaku). Ohranijo se 4 najnovejše datoteke.</string>
+    <string name="auto_backup_hint">Vsak teden, šifrirano, v mapo po vaši izbiri (npr. v oblaku). Ohranijo se 4 najnovejše datoteke. Geslo ostane v tej napravi, da varnostno kopiranje teče samo – zato so datoteke, tudi v oblaku, varne le toliko kot zaklepanje zaslona te naprave.</string>
     <string name="auto_backup_now">Varnostno kopiraj zdaj</string>
     <string name="auto_backup_change_folder">Zamenjaj mapo</string>
     <string name="auto_backup_last">Zadnja kopija: %1$s</string>

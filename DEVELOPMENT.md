@@ -3286,6 +3286,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 301: C-07 Rest: UI_DATA_REMAINING 79 → 3 (UiPortModule, StorageMemory, LocalStoredNotices); @RequiresApi(Q) an SettingsDevice (Lint-Fehler aus Build 300).
 * Build 302: Tests CoinNamesTest, CurrencyConverterTest, UnusualDataSourceTest; :data-Abdeckung 56,3 → 58,7 %.
 * Build 303: Review 11 iOS: ExplorerEffects, AppLockEffects, AutoBackupAccess; 37 Tests.
+* Build 304: Externes Audit 303: Auto-Sicherung im Hintergrund (WorkManager/BGProcessingTask), Hinweise Sicherung/Sperre (75 Sprachen), iOS-Kursmitteilung nach Aussetzer.
 
 ## Known warnings
 

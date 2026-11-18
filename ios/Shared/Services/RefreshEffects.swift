@@ -333,6 +333,11 @@ extension PriceRefresher {
             if notify {
                 pricePosts.append(updated)
                 outcome.notified[watch.id] = (price, now)
+            } else if watch.lastError != nil {
+                // Nach einem Aussetzer: Eine noch stehende Mitteilung zeigte sonst bis zur nächsten Bewegung um die
+                // Schwelle den Kurs von vorher. Bezug bleibt, also kein `notified`
+                pricePosts.append(updated)
+                outcome.priceRefreshOnly.insert(watch.id)
             }
         } else {
             cancelIds.append(watch.id)

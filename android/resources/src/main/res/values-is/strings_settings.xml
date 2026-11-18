@@ -158,7 +158,7 @@
     <string name="settings_cost_method_fifo_wallet">FIFO eftir veski/kauphöll</string>
     <string name="settings_cost_method_fifo_wallet_hint">Elstu myntir fyrst innan hverrar kauphallar eða veskis; millifærslur flytja lotur með kaupdegi sínum.</string>
     <string name="settings_portfolio_lock">Lás eignasafns</string>
-    <string name="settings_portfolio_lock_footer">Lásinn felur það sem birtist á skjánum. Gögnin þín eru geymd á þessu tæki og varin með dulkóðun tækisins. Þú getur varið öryggisafrit með lykilorði.</string>
+    <string name="settings_portfolio_lock_footer">Lásinn felur það sem birtist á skjánum. Gögnin þín eru geymd á þessu tæki og varin með dulkóðun tækisins. Þú getur varið öryggisafrit með lykilorði. Á meðan hún er virk sýna græjur, úrið og tilkynningar heldur engin gildi; í bakgrunni les appið áfram eignasafnið (t.d. fyrir eignasafnsviðvaranir).</string>
     <string name="settings_portfolio_lock_hint">Felur aðeins eignasafnið: opnaðu með fingrafari, andliti eða PIN-númeri tækisins. Læsist aftur eftir meira en mínútu í bakgrunni. Vaktlisti, viðvaranir og aðrar græjur haldast opin.</string>
     <string name="settings_portfolio_lock_no_device_lock">Án PIN-númers eða aðgangskóða tækisins felur lásinn ekkert – settu upp skjálás.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
