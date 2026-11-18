@@ -825,7 +825,6 @@ UI_DATA_REMAINING = {
     "features/settings/SettingsPickers.kt",
     "features/settings/SettingsViewModel.kt",
     "features/settings/StorageRecoveryNoticeDialog.kt",
-    "features/watchlist/WatchEditViewModel.kt",
     "features/watchlist/WatchSheetDexAddress.kt",
     "features/watchlist/WatchSparklines.kt",
     "features/watchlist/WatchlistBulkAdd.kt",

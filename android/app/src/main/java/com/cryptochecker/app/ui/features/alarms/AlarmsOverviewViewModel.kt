@@ -4,17 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.alarm.toAlarmReading
 import com.cryptochecker.app.data.guardedWrite
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
 import com.cryptochecker.app.domain.model.AlarmWithWatch
+import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotReader
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.WatchStore
-import com.cryptochecker.app.widget.PortfolioSnapshotStore
+import com.cryptochecker.app.effects.AlarmNotifications
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -32,12 +33,12 @@ import kotlinx.coroutines.withContext
 @HiltViewModel
 class AlarmsOverviewViewModel @Inject constructor(
     private val watchRepository: WatchStore,
-    private val portfolioAlarmRepository: PortfolioAlarmRepository,
+    private val portfolioAlarmRepository: PortfolioAlarmStore,
     settingsRepository: SettingsRepository,
     /** Mitteilung eines ausgeschalteten Alarms entfernen ([AlarmUserChange]). */
-    private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
+    private val appNotifier: AlarmNotifications,
     /** Letzte Momentaufnahme: warum Portfolio-Alarme gerade nicht prüfen ([portfolioPause]). */
-    private val snapshotStore: PortfolioSnapshotStore,
+    private val snapshotStore: PortfolioSnapshotReader,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {

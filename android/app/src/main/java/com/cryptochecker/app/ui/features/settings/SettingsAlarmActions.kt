@@ -8,7 +8,6 @@ import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.notification.AlarmSoundStore
-import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.notification.alarmChannel
 import kotlinx.coroutines.launch
 
@@ -55,7 +54,7 @@ internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enab
 
 /** Alarmton aus der System-Auswahl; null = Standardton. */
 fun SettingsViewModel.setAlarmSound(uri: android.net.Uri?) = update {
-    val name = uri?.let { AlarmSoundStore.title(context, it) }
+    val name = uri?.let { device.alarmSoundTitle(it) }
     val previous = settingsRepository.current().alarmSoundUri
     applyAlarmSound(uri?.toString(), name)
     deletePreviousOwnTone(previous, uri?.toString())
@@ -65,7 +64,7 @@ fun SettingsViewModel.setAlarmSound(uri: android.net.Uri?) = update {
 fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
     if (!AlarmSoundStore.supportsCustomFile) return@update
     val imported = kotlinx.coroutines.withContext(ioDispatcher) {
-        AlarmSoundStore.importFile(context, source)
+        device.importAlarmSound(source)
     }
     if (imported == null) {
         _soundError.value = true
@@ -83,16 +82,16 @@ fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
 private suspend fun SettingsViewModel.deletePreviousOwnTone(previous: String?, next: String?) {
     if (!AlarmSoundStore.supportsCustomFile) return
     kotlinx.coroutines.withContext(ioDispatcher) {
-        AlarmSoundStore.deletePreviousIfOwn(context, previous, next)
+        device.deletePreviousOwnTone(previous, next)
     }
 }
 
 internal suspend fun SettingsViewModel.applyAlarmSound(uri: String?, name: String?) {
     val version = settingsRepository.setAlarmSound(uri, name)
-    NotificationChannels.ensureAlarmChannel(context, version, uri)
+    device.ensureAlarmChannel(version, uri)
     // Kanal des gewählten Signals gleich mit dem neuen Ton anlegen
     val signal = settingsRepository.current().alarmSignal
-    if (signal != AlarmSignal.SYSTEM) NotificationChannels.ensureAlarmChannel(context, signal, version, uri)
+    if (signal != AlarmSignal.SYSTEM) device.ensureAlarmChannel(signal, version, uri)
 }
 
 /**

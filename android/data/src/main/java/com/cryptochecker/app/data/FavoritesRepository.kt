@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.watch.FavoriteKind
+import com.cryptochecker.app.domain.watch.FavoriteStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @Singleton
 class FavoritesRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : FavoriteStore {
     private val prefs get() = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
 
     private val flows: Map<FavoriteKind, MutableStateFlow<Set<String>>> =
@@ -26,9 +27,9 @@ class FavoritesRepository @Inject constructor(
             MutableStateFlow(prefs.getStringSet(kind.key, emptySet())?.toSet() ?: emptySet())
         }
 
-    fun favorites(kind: FavoriteKind): StateFlow<Set<String>> = flows.getValue(kind).asStateFlow()
+    override fun favorites(kind: FavoriteKind): StateFlow<Set<String>> = flows.getValue(kind).asStateFlow()
 
-    fun toggle(kind: FavoriteKind, item: String) {
+    override fun toggle(kind: FavoriteKind, item: String) {
         val flow = flows.getValue(kind)
         val updated = if (item in flow.value) flow.value - item else flow.value + item
         flow.value = updated

@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,7 +30,6 @@ import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
@@ -63,7 +61,8 @@ enum class TaxExportKind { GAINS, INCOME }
  */
 @HiltViewModel
 class PortfolioExportViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    /** Gewählte Zieldatei schreiben bzw. löschen (System). */
+    exportTarget: ExportTarget<Uri>,
     internal val repository: PortfolioRepository,
     internal val historic: HistoricPriceSource,
     internal val priceSource: PortfolioPriceSource,
@@ -75,7 +74,7 @@ class PortfolioExportViewModel @Inject constructor(
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
-    private val runner = ExportRunner(viewModelScope, UriExportTarget(context))
+    private val runner = ExportRunner(viewModelScope, exportTarget)
     val state: StateFlow<CutoffExportState> = runner.state
 
     /** Einstandsmethode (Methode der Vorlage, [TaxTemplate.methodFor]). */

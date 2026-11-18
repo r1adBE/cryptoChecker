@@ -40,8 +40,8 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.WatchStore
+import com.cryptochecker.app.effects.DiagnosticsDevice
 import com.cryptochecker.app.logos.CoinLogoUse
-import com.cryptochecker.app.work.AlarmReadinessProbe
 import com.cryptochecker.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
@@ -71,6 +71,8 @@ class DiagnosticsViewModel @Inject constructor(
     private val refreshStats: RefreshStats,
     private val watchRepository: WatchStore,
     private val coinLogoRepository: CoinLogoRepository,
+    /** Zustand des Geräts, Fehlerprotokoll, Berichtsdatei. */
+    private val device: DiagnosticsDevice,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -79,7 +81,7 @@ class DiagnosticsViewModel @Inject constructor(
     /** Text der Vorschau; null = keine Vorschau offen. */
     val preview: StateFlow<String?> = _preview.asStateFlow()
 
-    suspend fun build(context: Context): String = withContext(ioDispatcher) {
+    suspend fun build(): String = withContext(ioDispatcher) {
         val settings = runCatchingCancellable { settingsRepository.settings.first() }.getOrDefault(settingsRepository.cached)
         val alarms = runCatchingCancellable { watchRepository.observeAllAlarms().first() }.getOrDefault(emptyList())
         val activeAlarms = alarms.count { it.alarm.enabled }
@@ -92,13 +94,11 @@ class DiagnosticsViewModel @Inject constructor(
             AlarmReadiness.Platform.ANDROID,
         )
         val readiness = AlarmReadiness.rows(
-            AlarmReadinessProbe.read(
-                context,
+            device.readiness(
                 settings,
                 com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs),
                 hasAlarms,
                 now,
-                notificationsNotDetermined = com.cryptochecker.app.ui.components.NotificationPrePrompt.notDetermined(context),
             )
         )
         DiagnosticReport.build(
@@ -110,7 +110,7 @@ class DiagnosticsViewModel @Inject constructor(
                 sourceCommit = BuildConfig.GIT_COMMIT,
                 system = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})",
                 device = "${Build.MANUFACTURER} ${Build.MODEL}",
-                locale = context.resources.configuration.locales[0]?.toLanguageTag().orEmpty(),
+                locale = device.localeTag(),
                 settings = DiagnosticSettings(
                     updateMode = settings.updateMode.name,
                     backgroundIntervalMinutes = settings.backgroundIntervalMinutes,
@@ -129,7 +129,7 @@ class DiagnosticsViewModel @Inject constructor(
                 exchangePauses = refreshStats.backoffStates(),
                 // Fehlerprotokoll: Zeit, Codestelle bzw. Bereich und Fehlertyp, keine Texte (ErrorLog)
                 errorLog = com.cryptochecker.app.domain.diagnostics.ErrorLog.shown(
-                    com.cryptochecker.app.diagnostics.ErrorLogFile.of(context).readLines(),
+                    device.errorLogLines(),
                     ZoneId.systemDefault(),
                 ),
                 // Nur Anzahl Fehler im Hintergrund je Bereich
@@ -153,9 +153,9 @@ class DiagnosticsViewModel @Inject constructor(
     }
 
     /** Vorschau ohne Teilen geschlossen: eine vom letzten Teilen noch liegende Berichtsdatei gleich mit löschen ([DiagnosticsFiles]). */
-    fun cancel(cacheDir: File) {
+    fun cancel() {
         dismiss()
-        viewModelScope.launch(ioDispatcher) { DiagnosticsFiles.clear(cacheDir) }
+        viewModelScope.launch(ioDispatcher) { device.clearReportFiles() }
     }
 }
 
@@ -173,7 +173,7 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
                 horizontalPadding = 0.dp,
                 onClick = {
                     scope.launch {
-                        runCatchingCancellable { viewModel.build(context.applicationContext) }
+                        runCatchingCancellable { viewModel.build() }
                             .onSuccess(viewModel::showPreview)
                             .onFailure { Timber.w(it, "Diagnose nicht erstellt") }
                     }
@@ -184,7 +184,7 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
     }
     preview?.let { text ->
         AlertDialog(
-            onDismissRequest = { viewModel.cancel(context.cacheDir) },
+            onDismissRequest = { viewModel.cancel() },
             title = { Text(stringResource(R.string.diagnostics_preview_title)) },
             text = {
                 SelectionContainer {
@@ -206,7 +206,7 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
                 }) { Text(stringResource(R.string.diagnostics_action_share)) }
             },
             dismissButton = {
-                TextButton(onClick = { viewModel.cancel(context.cacheDir) }) { Text(stringResource(R.string.action_cancel)) }
+                TextButton(onClick = { viewModel.cancel() }) { Text(stringResource(R.string.action_cancel)) }
             },
         )
     }

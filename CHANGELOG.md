@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 300)
+
+- Internal (Android): screen logic no longer calls system services directly; 30 new tests for screen logic.
+
 ## 16.2.2 (build 299)
 
 - Internal: remaining source-text checks in unit tests became behaviour tests or checked rules; Wear OS complications are tested on the watch emulator.

@@ -11,7 +11,6 @@ import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.clearAlarmSnoozes
 import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.features.portfolio.UriExportTarget
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -54,7 +53,7 @@ private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri, withPass
     pendingExport = null
     val created = isEmptyDocument(uri)
     if (request == null) {
-        if (created) UriExportTarget(context).delete(uri)
+        if (created) device.deleteDocument(uri)
         if (withPassword == true) onPasswordMissing() else _backupMessage.value = BackupMessage.SaveFailed
         return
     }
@@ -70,16 +69,14 @@ private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri, withPass
         runCatchingCancellable { backupManager.export(uri, request.password) }
             .fold({ BackupMessage.Exported }, { BackupMessage.failure(it, saving = true) })
     }
-    if (message != BackupMessage.Exported && created) UriExportTarget(context).delete(uri)
+    if (message != BackupMessage.Exported && created) device.deleteDocument(uri)
     _backupMessage.value = message
 }
 
 /** Datei ist leer, also eben von der Dateiauswahl angelegt? Unlesbar → nein (dann wird nichts gelöscht). */
 private suspend fun SettingsViewModel.isEmptyDocument(uri: android.net.Uri): Boolean = withContext(ioDispatcher) {
     runCatchingCancellable {
-        context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)?.use { c ->
-            c.moveToFirst() && !c.isNull(0) && c.getLong(0) == 0L
-        } ?: false
+        device.isEmptyDocument(uri)
     }.getOrDefault(false)
 }
 

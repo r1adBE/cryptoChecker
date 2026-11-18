@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
+import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotReader
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeStamp
@@ -34,7 +35,7 @@ import timber.log.Timber
 class PortfolioSnapshotStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val keys: PortfolioSnapshotSeal.Keys,
-) {
+) : PortfolioSnapshotReader {
     private val prefs get() = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
 
     /** Zuletzt geöffneter Eintrag samt Inhalt: Widget und Aktualisierung lesen mehrmals hintereinander. */
@@ -42,7 +43,7 @@ class PortfolioSnapshotStore @Inject constructor(
     private var opened: Pair<String, JSONObject>? = null
 
     /** null = noch nie berechnet, oder nicht lesbar (Schlüssel nicht verfügbar, Eintrag kaputt). */
-    fun snapshot(): PortfolioSnapshot? {
+    override fun snapshot(): PortfolioSnapshot? {
         val p = payload() ?: return null
         val time = p.optLong(KEY_TIME, 0L)
         if (time <= 0L) return null

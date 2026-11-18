@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,8 +32,8 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.effects.DocumentReader
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -58,7 +57,8 @@ import timber.log.Timber
  */
 @HiltViewModel
 class PortfolioCsvImportViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    /** Gewählte Datei lesen (System). */
+    documents: DocumentReader,
     internal val repository: PortfolioRepository,
     historic: HistoricPriceSource,
     historySource: PortfolioHistorySource,
@@ -68,7 +68,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
-    private val reader = PortfolioCsvImportReader(context, repository, historic, historySource) {
+    private val reader = PortfolioCsvImportReader(documents, repository, historic, historySource) {
         settingsRepository.current().taxTemplate.zoneId
     }
 

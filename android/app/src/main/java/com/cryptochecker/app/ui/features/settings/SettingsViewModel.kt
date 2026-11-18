@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.settings
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
@@ -10,14 +9,13 @@ import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.WatchStore
+import com.cryptochecker.app.effects.SettingsDevice
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,7 +27,8 @@ import timber.log.Timber
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    @param:ApplicationContext internal val context: Context,
+    /** Sprache, Alarmton und -kanäle, Sicherungsdatei (Gerät). */
+    internal val device: SettingsDevice,
     internal val settingsRepository: SettingsRepository,
     internal val watchRepository: WatchStore,
     internal val scheduler: PriceUpdateScheduler,
@@ -113,7 +112,7 @@ class SettingsViewModel @Inject constructor(
     val watches: StateFlow<List<com.cryptochecker.app.domain.model.WatchEntity>> = watchRepository.observeWatches()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    private val _languageTag = MutableStateFlow(AppLanguages.currentTag(context))
+    private val _languageTag = MutableStateFlow(device.languageTag())
 
     /** Gewählte App-Sprache; leer = Systemsprache. */
     val languageTag: StateFlow<String> = _languageTag.asStateFlow()
@@ -121,7 +120,7 @@ class SettingsViewModel @Inject constructor(
     /** Sprache wechseln; die Fenster bauen sich danach in der neuen Sprache auf. */
     fun setLanguage(tag: String) {
         _languageTag.value = tag
-        AppLanguages.select(context, tag)
+        device.selectLanguage(tag)
         viewModelScope.launch { widgetUpdater.updateAll() }
     }
 

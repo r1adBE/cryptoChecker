@@ -3,7 +3,6 @@
 // Längengrenze ist (wie `PortfolioCsvImporter.load` auf iOS).
 package com.cryptochecker.app.ui.features.portfolio
 
-import android.content.Context
 import android.net.Uri
 import com.cryptochecker.app.data.backup.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
@@ -22,6 +21,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.effects.DocumentReader
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
@@ -49,7 +49,7 @@ internal class CsvImportInput(
 
 /** Datei lesen, zerlegen und Kurse laden für [PortfolioCsvImportViewModel]. */
 internal class PortfolioCsvImportReader(
-    private val context: Context,
+    private val documents: DocumentReader,
     private val repository: PortfolioRepository,
     private val historic: HistoricPriceSource,
     private val historySource: PortfolioHistorySource,
@@ -58,7 +58,7 @@ internal class PortfolioCsvImportReader(
 ) {
     /** Nie ungebremst lesen (wie die Sicherung); UTF-8, sonst Windows-1252 (Excel), BOM weg. */
     suspend fun readText(uri: Uri): String = withContext(Dispatchers.IO) {
-        context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it, max = BackupLimits.CSV_MAX_BYTES) }
+        documents.openInputStream(uri)?.use { BackupLimits.readLimited(it, max = BackupLimits.CSV_MAX_BYTES) }
             ?.let { CsvImportParser.decode(it) } ?: error("Datei kann nicht gelesen werden")
     }
 

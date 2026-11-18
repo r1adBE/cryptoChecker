@@ -7,9 +7,11 @@ import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
 import com.cryptochecker.resources.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -76,7 +78,9 @@ interface ExportTarget<T> {
 }
 
 /** Datei aus der Dateiauswahl des Systems (SAF), im UI-Test auch eine `file://`-Adresse. */
-class UriExportTarget(private val context: Context) : ExportTarget<Uri> {
+class UriExportTarget @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+) : ExportTarget<Uri> {
     override suspend fun write(target: Uri, csv: String) = withContext(Dispatchers.IO) {
         try {
             val stream = context.contentResolver.openOutputStream(target, "wt")

@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmStore
 import com.cryptochecker.app.domain.util.IoDispatcher
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,8 +20,8 @@ class PortfolioAlarmRepository @Inject constructor(
     /** Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
-    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
+) : PortfolioAlarmStore {
+    override fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
 
     suspend fun getAll(): List<PortfolioAlarmEntity> = dao.getAll()
 
@@ -35,13 +36,13 @@ class PortfolioAlarmRepository @Inject constructor(
             )
         )
 
-    suspend fun delete(id: Long) {
+    override suspend fun delete(id: Long) {
         dao.delete(id)
         // Nicht bei Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
         if (PortfolioAlarmDeliveryMarkers.prunable()) withContext(ioDispatcher) { deliveryMarkers.remove(listOf(id)) }
     }
 
-    suspend fun setEnabled(id: Long, enabled: Boolean) {
+    override suspend fun setEnabled(id: Long, enabled: Boolean) {
         // «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
         if (enabled && dao.getAll().any { it.id == id && PortfolioAlarmLogic.exceedsFall(it.kind, it.threshold) }) return
         dao.setEnabled(id, enabled)

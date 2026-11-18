@@ -2,22 +2,17 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.ActivityRepository
-import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.PairEditResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.watch.FavoriteKind
+import com.cryptochecker.app.domain.watch.FavoriteStore
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchStore
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -85,12 +80,9 @@ data class WatchEditState(
 class WatchEditViewModel @Inject constructor(
     private val exchangeRepository: ExchangeRepository,
     private val watchRepository: WatchStore,
-    private val favoritesRepository: FavoritesRepository,
-    private val priceRefresher: PriceRefresher,
-    private val notifier: AppNotifier,
-    private val widgetUpdater: WidgetUpdater,
-    private val activityRepository: ActivityRepository,
-    private val livePriceStream: LivePriceStream,
+    private val favoritesRepository: FavoriteStore,
+    /** Refresh-Sperre, Live-Kurse, Signale, Mitteilungen, Widgets und Kurs des Paars. */
+    private val effects: WatchEditEffects,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -209,9 +201,9 @@ class WatchEditViewModel @Inject constructor(
             // Unter der Refresh-Sperre: Kein laufender Durchlauf (REST oder Live) schreibt danach noch den
             // Kurs des alten Paars, der sonst zum Bezug des neuen würde (riesiger %-Alarm, falsche Kursmarke).
             // Gepufferte Live-Kurse des alten Paars gleich mit vergessen. Nie refreshOne in der Sperre (Verklemmung).
-            val result = priceRefresher.withRefreshLock {
+            val result = effects.withRefreshLock {
                 watchRepository.changePair(watchId, exchange, pair).also {
-                    if (it == PairEditResult.SAVED) livePriceStream.forget(listOf(watchId))
+                    if (it == PairEditResult.SAVED) effects.forgetLivePrices(listOf(watchId))
                 }
             }
             val done = result == PairEditResult.SAVED || result == PairEditResult.UNCHANGED
@@ -222,12 +214,12 @@ class WatchEditViewModel @Inject constructor(
             )
             if (result != PairEditResult.SAVED) return@launch
             // Alles, was am alten Paar hing: Signale, ⚡-Meldung, Kurs-Meldung
-            activityRepository.forget(watchId)
-            notifier.cancelActivity(watchId)
-            notifier.cancelPrice(watchId)
-            widgetUpdater.updateAll()
+            effects.forgetActivity(watchId)
+            effects.cancelActivityNotification(watchId)
+            effects.cancelPriceNotification(watchId)
+            effects.updateWidgets()
             // Gleich den neuen Kurs holen (aktualisiert auch die Widgets dieses Paars)
-            priceRefresher.refreshOne(watchId)
+            effects.refreshOne(watchId)
             watchRepository.getWatch(watchId)?.lastPrice?.takeIf { it > 0.0 }?.let {
                 watchRepository.setMissingPercentReferences(watchId, it)
             }
