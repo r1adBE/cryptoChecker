@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 298 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 299 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -159,7 +159,7 @@ Regeln für neuen Code:
 - Tests, die `@MainActor`-Code synchron nutzen (`AppData.shared`, SwiftUI-Views), tragen `@MainActor` an Klasse
   oder Methode (`XCTestCase` ist nicht isoliert).
 - Keine nackten Regex-Literale `/…/` (im Swift-6-Modus möglich): `#/…/#` oder `Regex(…)`, damit die Quelltext-Wächter
-  (`ios_release_audit.py`, `WatchlistConfirmCallGuard`) exakt bleiben.
+  (`ios_release_audit.py`, Regel `ios-write-calls` in `source_rules.py`) exakt bleiben.
 
 Die CI (Workflow «iOS», `.github/workflows/ios.yml`) baut die App im Swift-6-Modus und führt Unit- und UI-Tests bei
 jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Im App-Code

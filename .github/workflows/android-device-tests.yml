@@ -550,7 +550,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-  # Wear OS app on a Wear OS emulator (audit C-10): signed R8 release APK, start, price tile through the debug surface,
+  # Wear OS app on a Wear OS emulator: signed R8 release APK, start, price tile through the debug surface,
   # monkey, crash buffer (wear_smoke_test.sh). On pull requests when the Wear OS app or its libraries change.
   wear-smoke:
     needs: changes
@@ -593,6 +593,10 @@ jobs:
           chmod +x gradlew
           ./gradlew :wear:assembleRelease --stacktrace
 
+      # Device tests of the watch logic (complications), built before the emulator starts
+      - name: Build Wear OS debug and test APKs
+        run: ./gradlew :wear:assembleDebug :wear:assembleDebugAndroidTest --stacktrace
+
       # Throwaway key, valid for one day and never stored: only so the emulator accepts the APK
       - name: Sign Wear OS release APK with a throwaway key
         run: |
@@ -623,7 +627,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: android
           emulator-boot-timeout: 900
-          script: bash "$GITHUB_WORKSPACE/.github/scripts/wear_smoke_test.sh" "$RUNNER_TEMP/wear-smoke.apk" "$RUNNER_TEMP/wear-findings.tsv" "$RUNNER_TEMP/wear-logs"
+          # Smoke test, then the device tests on the same emulator; their exit code goes to a file (judged below)
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/wear_smoke_test.sh" "$RUNNER_TEMP/wear-smoke.apk" "$RUNNER_TEMP/wear-findings.tsv" "$RUNNER_TEMP/wear-logs"; ./gradlew :wear:connectedDebugAndroidTest --stacktrace; echo $? > "$RUNNER_TEMP/wear-tests-rc"
 
       - name: Wear OS smoke test results
         if: always()
@@ -638,6 +643,38 @@ jobs:
             exit 0
           fi
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "Wear OS smoke test"
+
+      # Device tests: no exit code = emulator or script did not get there (like the smoke test: error on main and tags);
+      # an exit code other than 0 = failed tests (always an error, report uploaded)
+      - name: Wear OS device test results
+        if: always()
+        run: |
+          RC_FILE="$RUNNER_TEMP/wear-tests-rc"
+          if [ ! -s "$RC_FILE" ]; then
+            if [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+              echo "::error title=Wear OS device tests::No result (emulator did not start or the tests did not run)"
+              exit 1
+            fi
+            echo "::warning title=Wear OS device tests::No result (emulator did not start or the tests did not run)"
+            exit 0
+          fi
+          RC=$(cat "$RC_FILE")
+          if [ "$RC" != "0" ]; then
+            echo "::error title=Wear OS device tests::failed (exit code $RC) - see the report artifact wear-device-test-reports"
+            exit 1
+          fi
+          echo "Wear OS device tests passed"
+
+      - name: Upload Wear OS device test reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wear-device-test-reports
+          path: |
+            android/wear/build/reports/androidTests/
+            android/wear/build/outputs/androidTest-results/
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Upload Wear OS smoke test logs
         if: always()

@@ -583,7 +583,7 @@ final class AccentContrastTests: XCTestCase {
 
     /// Akzent bei hohem Kontrast genau wie Android (`WidgetContrast.highContrastAccent`, in App und Widgets),
     /// Text auf dem Akzent bleibt ≥ 4.5:1 — wie `widgets raise the accent in high contrast like the app` (Android).
-    func testHighContrastAccentAsAndroidAndUsedByWidgets() throws {
+    func testHighContrastAccentAsAndroidAndUsedByWidgets() {
         let light: [AccentColor: UInt32] = [.ORANGE: 0x78341C, .RED: 0x891F28, .BLUE: 0x1F4490, .GREEN: 0x0C5334,
                                              .MARRS_GREEN: 0x184E4B]
         let dark: [AccentColor: UInt32] = [.ORANGE: 0xF5B7A2, .RED: 0xFFAFB1, .BLUE: 0xA8C6FD, .GREEN: 0x88D4AD,
@@ -597,12 +597,7 @@ final class AccentContrastTests: XCTestCase {
                 XCTAssertGreaterThanOrEqual(ContrastMath.ratio(hc, ColorTokens.surfaceContainer.hex(dark: isDark)), 4.5)
             }
         }
-        // Die Widget-Palette (eigenes Ziel, hier nicht übersetzt) nimmt den Akzent mit hohem Kontrast
-        let widgetStyle = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
-            .appendingPathComponent("../Widgets/WidgetStyle.swift").standardized
-        // Fehlt die Datei, soll der Test scheitern statt still zu bestehen
-        let source = try String(contentsOf: widgetStyle, encoding: .utf8)
-        XCTAssertTrue(source.contains("accent.primary(dark: dark, highContrast: highContrast)"))
+        // Die Widget-Palette (eigenes Ziel, hier nicht übersetzt) nimmt den Akzent mit hohem Kontrast: Regel `ios-wiring`
     }
 }
 

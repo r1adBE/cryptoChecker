@@ -2,7 +2,6 @@ package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -63,30 +62,5 @@ class AlarmSaveBuilderTest {
     fun moveWindowStartsNow() {
         val saved = AlarmSaveBuilder.build(input(AlarmCondition.MOVE_PERCENT_WINDOW, 3.0, freshReference = 1.0, id = 0), null)
         assertEquals(5_000L, saved.referenceAt)
-    }
-
-    @Test
-    fun saveReadsAndWritesInOneTransaction() {
-        fun source(
-            path: String
-        ) = listOf(
-            File(path),
-            File("app/$path"),
-            File("../data/$path"),
-            File("data/$path"),
-            File("../domain/$path"),
-            File("domain/$path")
-        ).first {
-            it.exists()
-        }.readText()
-        val vm = source("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsViewModel.kt")
-        val save = vm.substringAfter("fun save(draft: AlarmDraft").substringBefore("\n    fun delete(")
-        assertTrue(save.contains("saveMergedIfWatchExists("))
-        assertFalse(save.contains("AlarmEdit.merged("))
-        // In WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis: gespeichert, voll, abgelehnt)
-        val repo = source("src/main/java/com/cryptochecker/app/data/WatchRepositoryAlarmSave.kt")
-        val merged = repo.substringAfter("suspend fun WatchRepository.trySaveAlarmMerged(")
-        assertTrue(merged.contains("database.withTransaction"))
-        assertTrue(merged.contains("watchDao.getAlarm(id)"))
     }
 }

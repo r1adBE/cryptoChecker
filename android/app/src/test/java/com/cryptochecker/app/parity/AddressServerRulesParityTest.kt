@@ -4,9 +4,7 @@ import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import java.io.File
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -72,23 +70,6 @@ class AddressServerRulesParityTest {
         for (c in cases("btcCount")) {
             assertEquals("$c", c["count"].num()!!.toInt(), AddressServerRules.btcCount(addresses(c["chains"])))
         }
-    }
-
-    /** Eigener Bitcoin-Server immer ausdrücklich: kein Standardwert, der still öffentliche Knoten wählt. */
-    @Test
-    fun noDefaultValueForBitcoinServer() {
-        val path = "src/main/java/com/cryptochecker/app/data/portfolio/WatchedAddressSource.kt"
-        val text = listOf(
-            File(path),
-            File("app/$path"),
-            File("../data/$path"),
-            File("data/$path"),
-            File("../domain/$path"),
-            File("domain/$path")
-        ).first {
-            it.exists()
-        }.readText()
-        assertFalse(text.contains("btcServer: String? = null"))
     }
 
     private fun addresses(chains: Any?): List<WatchedAddress>? = (chains as List<*>?)?.mapIndexed { i, chain ->

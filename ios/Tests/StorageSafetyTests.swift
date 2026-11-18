@@ -29,28 +29,6 @@ final class StorageSafetyTests: XCTestCase {
         XCTAssertFalse(PortfolioStorageLock.isLocked(keyAvailable: true, storedFileExists: false))
     }
 
-    /// Adress-Schreibwege des Nutzers prüfen die Sperre, Guthaben-Abrufe und automatische Umstellungen nicht (wie Android
-    /// `PortfolioStorageLockTest`). Prüft die Quelle, weil `AppData` die echte App Group nutzt.
-    func testAddressUserWritesCheckLock() throws {
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Services/AppData+WatchedAddresses.swift")
-        let source = try String(contentsOf: file, encoding: .utf8)
-        func body(_ name: String) -> String {
-            guard let start = source.range(of: "func \(name)(") else { XCTFail("\(name) fehlt"); return "" }
-            let rest = source[start.upperBound...]
-            let end = rest.range(of: "\n    func ")?.lowerBound ?? rest.range(of: "\n    private func ")?.lowerBound ?? rest.endIndex
-            let nextPrivate = rest.range(of: "\n    private func ")?.lowerBound ?? rest.endIndex
-            return String(rest[..<min(end, nextPrivate)])
-        }
-        for name in ["addWatchedAddress", "removeWatchedAddress", "restoreWatchedAddress", "changeWatchedAddress",
-                     "setWatchedAddressLabel", "replaceWatchedAddresses", "mergeWatchedAddresses"] {
-            XCTAssertTrue(body(name).contains("guard !portfolioStorageLocked"), "\(name) prüft die Sperre nicht")
-        }
-        for name in ["applyWatchedAddressUpdates", "applyWatchedAddressOverlapShowOnly", "rollBackWatchedAddresses"] {
-            XCTAssertFalse(body(name).contains("portfolioStorageLocked"), "\(name) darf nicht gesperrt werden")
-        }
-    }
-
     // MARK: Lesen im Hintergrund
 
     func testDiskReloadAppliesOnlyUnchangedLatestRead() {

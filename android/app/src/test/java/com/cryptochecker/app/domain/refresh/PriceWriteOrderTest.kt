@@ -8,7 +8,6 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.model.SimpleTicker
-import java.io.File
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -65,30 +64,5 @@ class PriceWriteOrderTest {
         assertEquals(0, late.alarms)
         assertTrue(f.notifier.alarmPosts.isEmpty())
         assertTrue(f.store.alarm(7).enabled)
-    }
-
-    /** Die Bedingung der Datenbank entspricht [PriceWriteOrder.accepts] (beide Schreibwege). */
-    @Test
-    fun daoQueriesCarryTheOrderCondition() {
-        val dao = sourceFile("data/local/WatchDao.kt").readText()
-        val condition = "(lastUpdate <= :time OR lastUpdate > :plausibleUntil)"
-        assertEquals(2, dao.split(condition).size - 1)
-        val writer = sourceFile("data/WatchRepositoryRefresh.kt").readText()
-        assertTrue(writer.contains("PriceWriteOrder.plausibleUntil(now)"))
-    }
-
-    private fun sourceFile(path: String): File {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            val candidate = File(dir, "app/src/main/java/com/cryptochecker/app/$path")
-            if (candidate.isFile) return candidate
-            val inModule = File(dir, "src/main/java/com/cryptochecker/app/$path")
-            if (inModule.isFile) return inModule
-            // Datenschicht im Modul :data (gleiche Pakete)
-            val inData = File(dir, "data/src/main/java/com/cryptochecker/app/$path")
-            if (inData.isFile) return inData
-            dir = dir.parentFile
-        }
-        throw IllegalStateException("$path not found")
     }
 }

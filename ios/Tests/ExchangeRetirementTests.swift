@@ -159,24 +159,4 @@ final class ExchangeRetirementTests: XCTestCase {
         XCTAssertEqual(watch.retiredExchange(now: end - 86_400_000), "Bitpanda")
         XCTAssertTrue(watch.isNotTraded)
     }
-
-    /** Angebunden: Abruf, Explorer, Portfolio, Zeile, Paarseite, Merkliste, Uhr (Quelltext). */
-    func testWired() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func text(_ path: String) throws -> String {
-            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
-        }
-        XCTAssertTrue(try text("Shared/Services/PriceFetcher.swift")
-            .contains("if ExchangeRetirement.isRetired(sample.exchangeKey, now: started) { return retiredGroup("))
-        XCTAssertTrue(try text("Shared/Core/ExchangeService.swift")
-            .contains("if ExchangeRetirement.isRetired(exchange.key) { throw RetiredExchangeError(name: exchange.name) }"))
-        XCTAssertTrue(try text("App/Features/Explorer/ExplorerViewModel.swift")
-            .contains("!($0 is UnknownExchange) && !ExchangeRetirement.isRetired($0.key)"))
-        XCTAssertTrue(try text("Shared/Portfolio/PortfolioExchangeRoute.swift")
-            .contains("hit.key != defaultExchange, !ExchangeRetirement.isRetired(hit.key)"))
-        XCTAssertTrue(try text("App/Features/Watchlist/WatchlistHeader.swift")
-            .contains("WatchlistRetiredNotice(watches: data.watches)"))
-        XCTAssertTrue(try text("App/Services/PhoneWatchLink.swift")
-            .contains("price: retired ? nil : w.lastPrice"))
-    }
 }

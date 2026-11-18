@@ -43,24 +43,6 @@ class AlarmCreateGuardTest {
         assertEquals(2, inserts)
     }
 
-    /** Der Alarm-Editor sperrt auch beim Bearbeiten (wie iOS `AlarmCreateGuard`): kein ungesperrter Start mehr. */
-    @Test
-    fun `alarm editor also locks while editing`() {
-        var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
-        var source: java.io.File? = null
-        while (dir != null && source == null) {
-            source = listOf("", "app/", "android/app/")
-                .map { java.io.File(dir, it + "src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsViewModel.kt") }
-                .firstOrNull { it.isFile }
-            dir = dir.parentFile
-        }
-        assertNotNull("AlarmsViewModel.kt nicht gefunden (Arbeitsverzeichnis?)", source)
-        val text = source!!.readText()
-        val save = text.substringAfter("fun save(draft: AlarmDraft) {").substringBefore("\n    fun ")
-        assertTrue(save.contains("createGuard.launch(viewModelScope, guarded = true)"))
-        assertFalse(text.contains("guarded = draft.id == 0L"))
-    }
-
     @Test
     fun `unlocked start runs alongside a create`() = runBlocking {
         val guard = AlarmCreateGuard()

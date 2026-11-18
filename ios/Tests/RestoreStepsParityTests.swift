@@ -68,18 +68,11 @@ final class RestoreStepsParityTests: XCTestCase {
         }
     }
 
-    /// Reihenfolge der Schritte in `BackupManager.runRestoreSteps` = die der Datei.
+    /// Schritte der Datei; dass `BackupManager.runRestoreSteps` sie in dieser Reihenfolge schreibt, prüft die Regel
+    /// `ios-wiring` in `.github/scripts/source_rules.py`.
     func testStepsAsInCode() throws {
         let fixture = try S.fixture("restore_steps")
         let steps = try XCTUnwrap((fixture["ios"] as? [String: Any])?["steps"] as? [String])
         XCTAssertEqual(steps, ["watchlist", "portfolio", "addresses"])
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Services/BackupManager+Restore.swift")
-        let source = try String(contentsOf: file, encoding: .utf8)
-        let marks = ["data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)",
-                     "guard restorePortfolio(input.portfolio, into: data) else",
-                     "guard data.replaceWatchedAddresses(input.watched) != nil else"]
-        let positions = try marks.map { try XCTUnwrap(source.range(of: $0), $0).lowerBound }
-        XCTAssertEqual(positions, positions.sorted())
     }
 }

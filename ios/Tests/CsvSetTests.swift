@@ -99,24 +99,17 @@ final class CsvReadChoiceTests: XCTestCase {
 // ---- Zeilen ohne Tageskurs
 
 /// Die Vorschau sperrt «Importieren», solange Zeilen ohne Tageskurs unbestätigt sind, und das Speichern vermerkt sie
-/// (`CsvImportRateGate`; Fälle `csv_import.json` › «rateGate» in `CsvImportTests.testRateGate`). Liest die Quelle des
-/// Blatts, weil der Ablauf in der Ansicht steckt — wie Android `prepareCsvImport` mit `consent`.
+/// (`CsvImportRateGate`; Fälle `csv_import.json` › «rateGate» in `CsvImportTests.testRateGate`). Die Stellen im Blatt
+/// prüft die Regel `ios-wiring`, weil der Ablauf in der Ansicht steckt — wie Android `prepareCsvImport` mit `consent`.
 final class CsvImportRateGateSheetTests: XCTestCase {
-    private func source(_ name: String) throws -> String {
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Features/Portfolio/\(name)")
-        return try String(contentsOf: file, encoding: .utf8)
-    }
-
-    /// Der Kurstag kommt aus der Steuer-Vorlage (Neutral: Gerät) — beim Laden und bei jedem Neu-Lesen derselbe.
-    func testFxZoneComesFromTheTaxTemplate() throws {
+    /// Der Kurstag kommt aus der Steuer-Vorlage (Neutral: Gerät) — beim Laden und bei jedem Neu-Lesen derselbe (die
+    /// Stellen in `PortfolioScreen` und `PortfolioCsvImport` prüft die Regel `ios-wiring` in `source_rules.py`).
+    func testFxZoneComesFromTheTaxTemplate() {
         XCTAssertEqual(CsvImportParser.fxZoneFor(templateZone: "America/New_York", deviceZone: "America/Los_Angeles"),
                        "America/New_York")
         XCTAssertEqual(CsvImportParser.fxZoneFor(templateZone: nil, deviceZone: "America/Los_Angeles"), "America/Los_Angeles")
         XCTAssertEqual(TaxTemplate.US.zoneId, "America/New_York")
         XCTAssertNil(TaxTemplate.NEUTRAL.zoneId)
-        XCTAssertTrue(try source("PortfolioScreen.swift").contains("let templateZone = data.settings.taxTemplate.zoneId"))
-        XCTAssertTrue(try source("PortfolioCsvImport.swift").contains("let fxZone = loaded.result.fxZone"))
     }
 }
 

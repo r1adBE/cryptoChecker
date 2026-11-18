@@ -2,7 +2,6 @@ package com.cryptochecker.wear
 
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
-import java.io.File
 import java.io.IOException
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
@@ -23,7 +22,8 @@ import org.junit.Test
 
 /**
  * [WatchTaskAwait]: wartet ohne blockierten Thread auf eine Aufgabe der Play-Dienste — Ergebnis, Fehler und Frist wie
- * `Tasks.await`, dazu sofortiger Abbruch. [WatchDataLayer] nennt `Tasks.await` und `runCatching` nicht mehr.
+ * `Tasks.await`, dazu sofortiger Abbruch. Dass [WatchDataLayer] `Tasks.await` und `runCatching` nicht mehr nennt, prüft die
+ * Regel `android-wiring` in `.github/scripts/source_rules.py`.
  */
 class WatchTaskAwaitTest {
 
@@ -96,23 +96,6 @@ class WatchTaskAwaitTest {
         // Von den Play-Diensten abgebrochene Aufgabe: ein Fehler, kein Abbruch der Coroutine
         val canceled = WatchTaskAwait.catching { WatchTaskAwait.await(Tasks.forCanceled<String>(), 1) }
         assertTrue(canceled.exceptionOrNull().toString(), canceled.exceptionOrNull() is ExecutionException)
-    }
-
-    /** Quelltext-Wache: die Daten-Schicht blockiert keinen Thread mehr und schluckt keinen Abbruch. */
-    @Test
-    fun dataLayerNeitherBlocksNorSwallowsCancellation() {
-        val source = listOf("src/main/java", "wear/src/main/java", "android/wear/src/main/java")
-            .map { File(it, "com/cryptochecker/wear/WatchDataLayer.kt") }.first { it.isFile }.readText(Charsets.UTF_8)
-        assertFalse("Tasks.await blockiert einen Thread", source.contains("Tasks.await"))
-        assertFalse("runCatching schluckt den Abbruch", Regex("""\brunCatching\b""").containsMatchIn(source))
-        assertEquals(5, Regex("""WatchTaskAwait\.await\(""").findAll(source).count())
-        assertEquals(6, Regex("""WatchTaskAwait\.catching \{""").findAll(source).count())
-        // Zähler fürs Handy («Akku & Aktivität») über denselben Weg
-        val usage = listOf("src/main/java", "wear/src/main/java", "android/wear/src/main/java")
-            .map { File(it, "com/cryptochecker/wear/WatchUsage.kt") }.first { it.isFile }.readText(Charsets.UTF_8)
-        assertFalse("Tasks.await blockiert einen Thread", usage.contains("Tasks.await"))
-        assertFalse("runCatching schluckt den Abbruch", Regex("""\brunCatching\b""").containsMatchIn(usage))
-        assertEquals(1, Regex("""WatchTaskAwait\.await\(""").findAll(usage).count())
     }
 
     private companion object {

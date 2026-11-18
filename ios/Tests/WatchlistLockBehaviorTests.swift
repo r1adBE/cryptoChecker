@@ -271,7 +271,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         }
     }
 
-    // MARK: Vollständigkeit (Quelltext)
+    // MARK: Vollständigkeit (Listen; Abgleich mit den Quellen: Regel `ios-watchlist-keys`)
 
     /// Schreibwege des Nutzers: oben je mit Sperre und Gegenprobe geprüft.
     private static let writeKeys: Set<String> = [
@@ -302,43 +302,14 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         "prefetchPortfolioAlarmRates(_ widget", "evaluatePortfolioAlarms(_ widget", "sendTestAlarm()"
     ]
 
-    private func source(_ name: String) throws -> String {
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Services/\(name)")
-        return try String(contentsOf: file, encoding: .utf8)
-    }
-
-    /// Nicht-private Funktionen auf oberster Ebene der Erweiterung als «Name(erstes Argument».
-    private func publicFunctionKeys(_ text: String) -> [String] {
-        text.components(separatedBy: "\n").compactMap { line -> String? in
-            guard line.hasPrefix("    "), !line.hasPrefix("     "), let range = line.range(of: "func ") else { return nil }
-            let prefix = line[..<range.lowerBound]
-            guard !prefix.contains("private"), !prefix.contains("/") else { return nil }
-            let rest = line[range.upperBound...]
-            guard let open = rest.firstIndex(of: "(") else { return nil }
-            let name = rest[..<open]
-            let args = rest[rest.index(after: open)...]
-            let end = args.firstIndex { $0 == ":" || $0 == ")" } ?? args.endIndex
-            let first = args[..<end]
-            return first.isEmpty && args[end...].hasPrefix(")") ? "\(name)()" : "\(name)(\(first)"
-        }
-    }
-
     func testEveryAppDataWatchlistFunctionIsClassified() throws {
         // Jede Funktion in genau einer Liste
         XCTAssertTrue(Self.writeKeys.isDisjoint(with: Self.readKeys))
         XCTAssertTrue(Self.writeKeys.isDisjoint(with: Self.backgroundKeys))
         XCTAssertTrue(Self.readKeys.isDisjoint(with: Self.backgroundKeys))
-        var found = Set<String>()
-        for file in ["AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift"] {
-            for key in publicFunctionKeys(try source(file)) {
-                found.insert(key)
-                XCTAssertTrue(Self.writeKeys.contains(key) || Self.readKeys.contains(key) || Self.backgroundKeys.contains(key),
-                              "\(file): \(key) ist keiner Liste (Schreibweg/Lesen/Hintergrund) zugeordnet")
-            }
-        }
-        // Keine veralteten Einträge, und jeder Schreibweg steht im Verhaltenstest
-        XCTAssertEqual(found, Self.writeKeys.union(Self.readKeys).union(Self.backgroundKeys))
+        // Jede Funktion von AppData+Watchlist/WatchEdits/Reading/Alarms steht in einer Liste, keine Liste nennt eine
+        // veraltete: Regel `ios-watchlist-keys` in `.github/scripts/source_rules.py` (liest diese Listen).
+        // Jeder Schreibweg steht im Verhaltenstest
         let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
         XCTAssertEqual(Set(userWrites(exchange).map(\.key)), Self.writeKeys)
     }

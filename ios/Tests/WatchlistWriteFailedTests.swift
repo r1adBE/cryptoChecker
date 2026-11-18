@@ -43,23 +43,6 @@ final class WatchlistWriteFailedTests: XCTestCase {
         XCTAssertTrue(SharedStorage.watchlistWriteFailed)
     }
 
-    /// Gelöscht wird der Merker nur, wenn der Stand der App geschrieben ist (`saveSnapshotInBackground`), nie in
-    /// `writeFiles` bzw. `updateSnapshot` (Stand aus der Datei).
-    func testMarkerFallsOnlyWithTheAppState() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let files = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Files.swift"), encoding: .utf8)
-        XCTAssertFalse(files.contains("watchlistWriteFailed = false"))
-        let snapshot = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Snapshot.swift"),
-                                  encoding: .utf8)
-        XCTAssertEqual(snapshot.components(separatedBy: "watchlistWriteFailed = false").count - 1, 1)
-        let save = try XCTUnwrap(snapshot.components(separatedBy: "static func saveSnapshotInBackground(").last)
-        XCTAssertTrue(save.components(separatedBy: "static func mergeAndWriteFiles(").first?
-            .contains("if written { watchlistWriteFailed = false }") == true)
-        let update = try XCTUnwrap(snapshot.components(separatedBy: "static func updateSnapshot(").last?
-            .components(separatedBy: "static func saveSnapshotInBackground(").first)
-        XCTAssertFalse(update.contains("watchlistWriteFailed"))
-    }
-
     /// Liegen gebliebene Zwischendateien: nur alte `.<Name>.<UUID>.tmp` weg; junge und echte Dateien bleiben.
     func testOldTemporaryFilesGone() throws {
         let fm = FileManager.default
@@ -78,8 +61,6 @@ final class WatchlistWriteFailedTests: XCTestCase {
         XCTAssertFalse(fm.fileExists(atPath: old.path))
         XCTAssertTrue(fm.fileExists(atPath: young.path))
         XCTAssertTrue(fm.fileExists(atPath: real.path))
-        let storage = try String(contentsOf: URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("Shared/Storage/ProtectedStorage.swift"), encoding: .utf8)
-        XCTAssertTrue(storage.contains("ProtectedFile.removeStaleTemps(in: dir, now: now)"))
+        // Aufgerufen beim Öffnen der Ablage (`ProtectedStorage`): Regel `ios-wiring` in `.github/scripts/source_rules.py`
     }
 }

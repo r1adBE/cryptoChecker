@@ -3,8 +3,6 @@ package com.cryptochecker.app.ui.theme
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.widget.WidgetContrast
-import com.cryptochecker.app.util.SourceGuard
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -76,28 +74,5 @@ class ErrorContrastTest {
             assertTrue("${accent.name} onError dark", ratio(s.onError.toArgb(), error) >= 4.5)
             assertTrue("${accent.name} onErrorContainer dark", ratio(s.onErrorContainer.toArgb(), s.errorContainer.toArgb()) >= 4.5)
         }
-    }
-
-    /** Hoher Kontrast übernimmt die Fehlerfarbe (#B13419 erreicht AA schon auf der dunkelsten Karte). */
-    @Test
-    fun `high contrast does not reset the error colour`() {
-        val source = SourceGuard.android(sourceFile("../coreui/src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")
-        val start = source.indexOf("private fun ColorScheme.withHighContrast(")
-        assertTrue("withHighContrast fehlt", start >= 0)
-        val end = source.indexOf("\n}", start)
-        val body = source.substring(start, end)
-        assertTrue("withHighContrast überschreibt error", !Regex("""\berror(Container)?\s*=""").containsMatchIn(body))
-    }
-
-    private fun sourceFile(rel: String): String? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (prefix in listOf("", "app/", "android/app/")) {
-                val f = File(dir, prefix + rel)
-                if (f.isFile) return f.readText(Charsets.UTF_8)
-            }
-            dir = dir.parentFile
-        }
-        return null
     }
 }

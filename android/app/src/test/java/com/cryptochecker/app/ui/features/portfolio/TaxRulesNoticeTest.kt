@@ -2,7 +2,6 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import java.io.File
 import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -42,17 +41,5 @@ class TaxRulesNoticeTest {
     fun storedRulesDateIsFormatted() {
         val text = taxRulesDateLabel(TaxTemplate.RULES_DATE, MonthYearFormat.formatter(Locale.ENGLISH) { "MMM y" })
         assertFalse(text, text == TaxTemplate.RULES_DATE)
-    }
-
-    /** Seite «Steuer-Arbeitsunterlage» zeigt den Regelstand samt Hinweis; die CSV-Kopfzeilen formatieren gleich. */
-    @Test
-    fun worksheetUsesNoticeAndFormattedHeader() {
-        val page = listOf("TaxWorksheetScreen.kt", "TaxWorksheetContent.kt").joinToString("\n") { name ->
-            val rel = "src/main/java/com/cryptochecker/app/ui/features/portfolio/$name"
-            listOf(File(rel), File("app/$rel")).first { it.exists() }.readText()
-        }
-        assertTrue(page.contains("TaxRulesNotice(template, taxYear)"))
-        assertTrue(page.contains("taxRulesLine(template)"))
-        assertFalse("Rohwert RULES_DATE auf der Seite", page.contains("TaxTemplate.RULES_DATE"))
     }
 }

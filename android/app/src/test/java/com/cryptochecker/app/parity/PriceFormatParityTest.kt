@@ -49,15 +49,12 @@ class PriceFormatParityTest {
         assertEquals(setOf("en_US", "de_CH", "de_DE"), cases.filter { it["value"].num()!! < below }.map { it["locale"] }.toSet())
     }
 
-    /** Die Grenze der Datei ist die des Codes: unter 10 das Muster mit gültigen Stellen, ab 10 zwei Nachkommastellen. */
+    /**
+     * Die Grenze der Datei ist 10; dass der Code dieselbe nutzt (unter 10 das Muster mit gültigen Stellen, ab 10 zwei
+     * Nachkommastellen), prüft die Regel `android-wiring` in `.github/scripts/source_rules.py`.
+     */
     @Test
     fun limitAsInCode() {
         assertEquals(10.0, fixture["smallBelow"].num()!!, 0.0)
-        val source = sequenceOf("", "../", "android/")
-            .map { java.io.File(it + "marketdata/src/main/java/com/cryptochecker/marketdata/util/DisplayFormat.kt") }
-            .first { it.isFile }.readText()
-        assertTrue(source.contains("render(if (value < 10) patterns.fourDigits else patterns.cents, value)"))
-        assertTrue(source.contains("""val cents = DecimalFormat("#,###.00", symbols)"""))
-        assertTrue(source.contains("""val fourDigits = DecimalFormat("@###", symbols)"""))
     }
 }

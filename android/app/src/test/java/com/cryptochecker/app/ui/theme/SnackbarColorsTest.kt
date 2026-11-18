@@ -4,8 +4,6 @@ import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.domain.widget.WidgetContrast
-import com.cryptochecker.app.util.SourceGuard
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
@@ -108,42 +106,16 @@ class SnackbarColorsTest {
         }
     }
 
-    /** Die Fläche ist im Dunkelmodus dunkel (keine helle Pille `inverseSurface`) und hell im Hellmodus. */
+    /**
+     * Die Fläche ist im Dunkelmodus dunkel (keine helle Pille `inverseSurface`) und hell im Hellmodus. Dass die Snackbar
+     * diese Fläche nimmt und alle Bereiche `AppSnackbarHost` nutzen, prüft die Regel `android-wiring`
+     * (`.github/scripts/source_rules.py`).
+     */
     @Test
     fun `surface matches the theme`() {
         for (accent in AccentColor.entries) {
             assertEquals(0xFF353535.toInt(), appColorScheme(accent, dark = true).surfaceContainerHighest.toArgb())
             assertEquals(0xFFE5E2DB.toInt(), appColorScheme(accent, dark = false).surfaceContainerHighest.toArgb())
         }
-        val rel = "src/main/java/com/cryptochecker/app/ui/components/AppSnackbar.kt"
-        val source = SourceGuard.android(sourceFile(rel), rel)
-        assertTrue(source.contains("containerColor = colors.surfaceContainerHighest"))
-        assertTrue(source.contains("contentColor = colors.onSurface"))
-        assertTrue(!source.contains("colors.inverseSurface"))
-    }
-
-    /** Alle Snackbar-Bereiche der App nutzen `AppSnackbarHost` (sonst wieder die helle Material-Pille). */
-    @Test
-    fun `screens use AppSnackbarHost`() {
-        val rel = "src/main/java/com/cryptochecker/app"
-        val root = File(SourceGuard.android(sourceDir(rel), rel))
-        val offenders = root.walkTopDown().filter { it.isFile && it.extension == "kt" && it.name != "AppSnackbar.kt" }
-            .filter { Regex("""(?<![A-Za-z])SnackbarHost\(""").containsMatchIn(it.readText(Charsets.UTF_8)) }
-            .map { it.name }.toList()
-        assertTrue("SnackbarHost( statt AppSnackbarHost(: $offenders", offenders.isEmpty())
-    }
-
-    private fun sourceFile(rel: String): String? = sourceDir(rel)?.let { File(it).readText(Charsets.UTF_8) }
-
-    private fun sourceDir(rel: String): String? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (prefix in listOf("", "app/", "android/app/")) {
-                val f = File(dir, prefix + rel)
-                if (f.exists()) return f.path
-            }
-            dir = dir.parentFile
-        }
-        return null
     }
 }

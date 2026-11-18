@@ -1,11 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
-import java.io.File
 import java.math.BigDecimal
 import java.time.ZoneId
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -14,21 +11,6 @@ import org.junit.Test
  * Eigenschaft ergäbe ohne Compiler-Fehler leere Werte). Das Ergebnis ist dasselbe: Posten der Gewinne zuerst.
  */
 class TaxYearSummaryBuilderOrderTest {
-
-    @Test
-    fun gainLinesRunInBuild() {
-        val source = sequenceOf("", "domain/", "android/domain/")
-            .map { File(it + "src/main/java/com/cryptochecker/app/domain/portfolio/TaxYearSummaryBuilder.kt") }
-            .first { it.isFile }.readText()
-        assertTrue(source.contains("internal lateinit var net: Acc"))
-        assertFalse(source.contains("val net: Acc = gainLines()"))
-        // Genau ein Aufruf, als erste Anweisung von build()
-        assertEquals(1, Regex("""= gainLines\(\)""").findAll(source).count())
-        assertTrue(Regex("""fun build\(\): TaxYearSummary \{\s+net = gainLines\(\)""").containsMatchIn(source))
-        // Was die Summe liest, liest sie erst beim Zugriff (nach build)
-        assertTrue(source.contains("val netIncomplete: Boolean get() = net.incomplete"))
-        assertTrue(source.contains("val netFx: Boolean get() = net.fxMissing > 0"))
-    }
 
     /** Reihenfolge der Posten wie bisher: Gewinne/Verluste/Netto zuerst, danach Erlöse und Einkünfte. */
     @Test

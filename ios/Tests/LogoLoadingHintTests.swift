@@ -85,43 +85,4 @@ final class LogoLoadingHintTests: XCTestCase {
             XCTAssertEqual(got, c["show"] as? Bool, "show \(c)")
         }
     }
-
-    func testWiredToTheDownloadRunAndTheLogoSwitch() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        func text(_ path: String) throws -> String {
-            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
-        }
-        let store = try text("Shared/Storage/CoinLogoStore.swift")
-        let sync = store.components(separatedBy: "func syncAll(").last ?? ""
-        let start = try XCTUnwrap(sync.range(of: "if images { await CoinLogoLoading.runStarted() }"))
-        let rest = try XCTUnwrap(sync.range(of: "let rest = await Self.downloadMissing("))
-        let finish = try XCTUnwrap(sync.range(of: "await CoinLogoLoading.runFinished(complete:"))
-        XCTAssertTrue(start.upperBound < rest.lowerBound && rest.upperBound < finish.lowerBound)
-        // Erst nach «nichts zu laden»: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
-        let download = try text("Shared/Storage/CoinLogoStore+Download.swift")
-        let empty = try XCTUnwrap(download.range(of: "guard !pending.isEmpty else { return DownloadResult() }"))
-        let pending = try XCTUnwrap(download.range(of: "await CoinLogoLoading.imagesPending(pending.count"))
-        XCTAssertTrue(empty.upperBound < pending.lowerBound)
-        // Gesamtzahl erst mit der letzten Stufe; erledigte und gebremste Bilder zählen (kein stehender Prozentwert)
-        XCTAssertTrue(sync.contains("alternates: alternates, lastStage: true)"))
-        XCTAssertTrue(download.contains("await CoinLogoLoading.imagesPending(pending.count, last: lastStage)"))
-        // geladen, endgültig gescheitert, nicht gespeichert (Speicher voll), offen nach 403, nach der letzten Runde
-        // noch gestört
-        XCTAssertEqual(download.components(separatedBy: "await CoinLogoLoading.imageDone()").count, 6)
-        XCTAssertTrue(download.contains("roundPaused.append(job)\n                    await CoinLogoLoading.imagesPaused()"))
-        XCTAssertTrue(download.contains("for _ in transientLeft { await CoinLogoLoading.imageDone() }"))
-        // Erstes Laden gemerkt im Logo-Ordner (verschwindet mit ihm und beim Zurücksetzen); Ein- und Ausblenden
-        let loading = try text("Shared/Util/LogoLoadingHint.swift")
-        XCTAssertTrue(loading.contains("CoinLogoStore.directory.appendingPathComponent(LogoLoadingHint.doneMarker)"))
-        XCTAssertTrue(loading.contains("UIAccessibility.isReduceMotionEnabled ? nil :"))
-        let line = try text("App/Features/Watchlist/WatchlistLogoHint.swift")
-        XCTAssertTrue(line.contains("Line(percent: loading.percent).transition(.opacity)"))
-        XCTAssertTrue(line.contains("L(\"watchlist_logos_loading_percent\", PercentText.unsigned(Double(percent), decimals: 0))"))
-        // Einmal angesagt (ohne Prozent); Wert nur bei stehender Zeile, gedrosselt
-        XCTAssertTrue(line.contains("AttributedString(L(\"watchlist_logos_loading\"))"))
-        XCTAssertTrue(loading.contains("!visible || LogoLoadingHint.shouldShow(shown: percent, shownAt: shownAt"))
-        XCTAssertTrue(line.contains("if coinLogosEnabled && loading.visible"))
-        XCTAssertTrue(line.contains("L(\"watchlist_logos_loading\")"))
-        XCTAssertTrue(try text("App/Features/Watchlist/WatchlistHeader.swift").contains("WatchlistLogoHint()"))
-    }
 }

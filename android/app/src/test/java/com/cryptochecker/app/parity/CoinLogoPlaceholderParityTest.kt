@@ -2,10 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.widget.WidgetContrast
-import com.cryptochecker.app.util.SourceGuard
-import java.io.File
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -60,45 +57,5 @@ class CoinLogoPlaceholderParityTest {
         val used = listOf("BTC", "ETH", "SOL", "XRP", "DOGE", "ADA", "BNB", "TRX", "LINK", "AVAX", "DOT", "SUI")
             .map { CoinLogoPlaceholder.index(it) }.toSet()
         assertTrue("Farben: $used", used.size >= 5)
-    }
-
-    /**
-     * Quelltext-Wächter: App-Plakette und Widgets beider Plattformen zeichnen den Ersatz-Kreis aus [CoinLogoPlaceholder]
-     * (nicht mehr die getönte Akzentfarbe); das Einblenden beachtet «Animationen entfernen» bzw. «Bewegung reduzieren».
-     */
-    @Test
-    fun badgesAndWidgetsUseThePlaceholder() {
-        val badge = source("ui/components/CoinBadge.kt")
-        assertTrue(badge.contains("CoinLogoPlaceholder.fill(coin, dark)"))
-        assertTrue(badge.contains("rememberReduceMotion()") && badge.contains("shown.snapTo(1f)"))
-        assertFalse(badge.contains("INITIALS_TINT"))
-        assertTrue(source("widget/WidgetCoinLogos.kt").contains("colors.placeholderFill(symbol)"))
-        val iosBadge = iosSource("App/Components/CoinBadge.swift")
-        assertTrue(iosBadge.contains("CoinLogoPlaceholder.fill(symbol, dark: dark)"))
-        assertTrue(iosBadge.contains("withAnimation(reduceMotion ? nil"))
-        assertTrue(iosSource("Widgets/WidgetBadges.swift").contains("CoinLogoPlaceholder.fill(symbol, dark: dark)"))
-    }
-
-    private fun source(rel: String): String {
-        val module = if (rel.startsWith("widget/")) "widget" else "app"
-        val file = findUp(listOf("", "$module/", "android/$module/", "../$module/").map { "${it}src/main/java/com/cryptochecker/app/$rel" })
-        return SourceGuard.android(file, rel).readText(Charsets.UTF_8)
-    }
-
-    private fun iosSource(rel: String): String {
-        val file = findUp(listOf("ios/$rel", "../ios/$rel", "../../ios/$rel"))
-        return SourceGuard.ios(file, "ios/$rel").readText(Charsets.UTF_8)
-    }
-
-    private fun findUp(candidates: List<String>): File? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (rel in candidates) {
-                val f = File(dir, rel)
-                if (f.isFile) return f
-            }
-            dir = dir.parentFile
-        }
-        return null
     }
 }

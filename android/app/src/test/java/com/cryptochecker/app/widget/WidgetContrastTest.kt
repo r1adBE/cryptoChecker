@@ -1,8 +1,6 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.widget.WidgetContrast
-import com.cryptochecker.app.util.SourceGuard
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -58,12 +56,11 @@ class WidgetContrastTest {
         assertTrue(WidgetContrast.ratio(0xFF777777.toInt(), 0xFFF1EEE9.toInt()) < 4.5)
         assertTrue(WidgetContrast.ratio(0xFF5F5F5F.toInt(), 0xFFF1EEE9.toInt()) >= 4.5)
         assertTrue(WidgetContrast.ratio(0xFF919191.toInt(), 0xFF1F1F1F.toInt()) >= 4.5)
-        val source = listOf(
-            "../widget/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
-            "widget/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
-        ).map(::File).firstOrNull { it.exists() }?.readText().let { SourceGuard.android(it, "widget/WidgetColors.kt") }
-        assertTrue(source.contains("neutralColor = 0xFF5F5F5F.toInt()"))
-        assertTrue(!source.contains("neutralColor = 0xFF777777.toInt()"))
+        // Jede Akzentfarbe: hell #5F5F5F (nie mehr #777777), dunkel #919191
+        for (accent in com.cryptochecker.app.domain.settings.AccentColor.entries) {
+            assertEquals(accent.name, 0xFF5F5F5F.toInt(), WidgetColors.of(accent, dark = false).neutralColor)
+            assertEquals(accent.name, 0xFF919191.toInt(), WidgetColors.of(accent, dark = true).neutralColor)
+        }
     }
 
     @Test

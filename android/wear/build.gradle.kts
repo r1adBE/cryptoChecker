@@ -49,6 +49,8 @@ android {
         versionName = phoneVersion
         // Build-Nummer der Handy-App für die Anzeige unten in der Liste (versionCode der Uhr ist 90 000 + diese)
         buildConfigField("int", "PHONE_BUILD", "$phoneBuild")
+        // Gerätetests der Uhr-Logik (Komplikationen) auf dem Wear-OS-Emulator (Job «Wear OS smoke»)
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -116,4 +118,7 @@ dependencies {
     testImplementation(libs.junit)
     // Echtes org.json für die Parser-Tests (wie :app)
     testImplementation(libs.android.json)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.junit)
 }

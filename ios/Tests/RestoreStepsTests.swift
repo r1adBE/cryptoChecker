@@ -111,19 +111,4 @@ final class RestoreStepsTests: XCTestCase {
         XCTAssertTrue(stillOpen.error is Boom)
         XCTAssertEqual(stillOpen.log, ["watchlist", "undo watchlist", "not settled"])
     }
-
-    /// `BackupManager.writeRestored` geht über diesen Ablauf und wartet die Schreib-Warteschlange ab; nirgends sonst
-    /// wird das Journal nach einem Lauf gelöscht.
-    func testWriteRestoredUsesExecuteAndFlush() throws {
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Services/BackupManager+Restore.swift")
-        let source = try String(contentsOf: file, encoding: .utf8)
-        XCTAssertTrue(source.contains("try RestoreSteps.execute({ steps in"))
-        XCTAssertTrue(source.contains("settled: { restoreWritesSettled() }, deleteJournal: { if journal { RestoreJournal.delete() } })"))
-        // Abwarten immer; nur der UI-Test (kein Schlüsselbund im unsignierten Simulator) übergeht das Ergebnis
-        XCTAssertTrue(source.contains("let written = SharedStorage.flushSnapshotWrites()\n        #if DEBUG\n"
-            + "        if UITesting.isActive { return true }\n        #endif\n        return written"))
-        XCTAssertEqual(source.components(separatedBy: "RestoreJournal.delete()").count, 2)
-        XCTAssertTrue(source.contains("throw Failure.invalid(watchlistStep)"))
-    }
 }

@@ -97,17 +97,4 @@ final class ExactCadenceParityTests: XCTestCase {
             XCTAssertEqual(actual, c["expected"] as? Bool, "\(c)")
         }
     }
-
-    /// Die Hintergrund-Aufgabe vermerkt über diese Regel: gleich nach den Kursalarmen nur ohne wartende Alarme mit
-    /// Zusatzdaten, sonst erst nach deren Prüfung.
-    func testBackgroundTaskMarksThroughTheRule() throws {
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Services/BackgroundRefresh.swift")
-        let source = try String(contentsOf: file, encoding: .utf8)
-        XCTAssertEqual(source.components(separatedBy: "SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis").count - 1, 2)
-        XCTAssertEqual(source.components(separatedBy: "if BackgroundSchedule.marksAlarmCheck(").count - 1, 2)
-        let deferred = try XCTUnwrap(source.range(of: "await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)"))
-        let second = try XCTUnwrap(source.range(of: "deferredWaiting: true,"))
-        XCTAssertLessThan(deferred.lowerBound, second.lowerBound)
-    }
 }

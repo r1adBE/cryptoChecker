@@ -68,18 +68,12 @@ final class BackupResultDialogParityTests: XCTestCase {
     }
 
     /// Ansage erst nach 400 ms (nach dem Einblenden, abgebrochen → keine); gleicher Text erneut = neuer Toast.
-    func testToastAnnouncementDelayedAndSameTextRestarts() throws {
+    func testToastAnnouncementDelayedAndSameTextRestarts() {
         XCTAssertEqual(ToastModifier.announceDelay, 0.4, accuracy: 0.0001)
         // Eigene Kennung: `.task(id:)` startet auch bei gleichem Text neu
         XCTAssertNotEqual(ToastMessage("OK"), ToastMessage("OK"))
         let same = ToastMessage("OK")
         XCTAssertEqual(same, same)
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("App/Components/EmptyStateView.swift")
-        let source = try String(contentsOf: file, encoding: .utf8)
-        let wait = try XCTUnwrap(source.range(of: "try await Task.sleep(nanoseconds: UInt64(Self.announceDelay"))
-        let announce = try XCTUnwrap(source.range(of: "AccessibilityNotification.Announcement(shown.text).post()"))
-        XCTAssertLessThan(wait.lowerBound, announce.lowerBound)
-        XCTAssertEqual(source.components(separatedBy: "AccessibilityNotification.Announcement(").count, 2)
+        // Ansage erst nach der Wartezeit, an einer Stelle: Regel `ios-wiring` in `.github/scripts/source_rules.py`
     }
 }

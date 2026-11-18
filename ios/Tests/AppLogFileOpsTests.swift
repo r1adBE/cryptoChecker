@@ -38,17 +38,4 @@ final class AppLogFileOpsTests: XCTestCase {
         XCTAssertTrue(AppLog.isMissingFile(NSError(domain: NSPOSIXErrorDomain, code: Int(ENOENT))))
         XCTAssertFalse(AppLog.isMissingFile(NSError(domain: NSCocoaErrorDomain, code: NSFileWriteNoPermissionError)))
     }
-
-    func testNonCacheSitesNoLongerSwallowErrors() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let files = ["App/Services/AppData+Reset.swift", "App/Services/RestoreJournal.swift",
-                     "Shared/Storage/ProtectedFile.swift", "Shared/Storage/ProtectedStorage.swift",
-                     "Shared/Portfolio/WatchedAddressStore.swift", "Shared/Core/MirrorRevocations.swift"]
-        for name in files {
-            let source = try String(contentsOf: root.appendingPathComponent(name), encoding: .utf8)
-            for call in ["removeItem(", "moveItem(", ".write(to:"] {
-                XCTAssertFalse(source.split(separator: "\n").contains { $0.contains("try?") && $0.contains(call) }, "\(name): \(call)")
-            }
-        }
-    }
 }

@@ -21,16 +21,13 @@ class RestoreStepsParityTest {
     private val steps = platform["steps"].list().map { Step.valueOf(it as String) }
     private val rollbackOrder = platform["rollbackOrder"].list().map { it as String }
 
-    /** Reihenfolge der Schritte in `BackupManager.writeRestored` = die der Datei; alle Schritte der Aufzählung kommen vor. */
+    /**
+     * Alle Schritte der Aufzählung kommen in der Datei vor; dass `BackupManager.writeRestored` sie in deren Reihenfolge
+     * schreibt, prüft die Regel `android-wiring` in `.github/scripts/source_rules.py` (liest dieselbe Datei).
+     */
     @Test
     fun stepsAsInCode() {
         assertEquals(Step.entries.toSet(), steps.toSet())
-        val source = sequenceOf("../data/", "data/", "android/data/")
-            .map { java.io.File(it + "src/main/java/com/cryptochecker/app/data/backup/BackupManager.kt") }
-            .first { it.isFile }.readText()
-        val positions = steps.map { source.indexOf("RestoreRun.Write(Step.${it.name}") }
-        assertTrue(positions.toString(), positions.all { it >= 0 })
-        assertEquals(positions.sorted(), positions)
     }
 
     @Test

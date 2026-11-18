@@ -32,19 +32,9 @@ class WatchlistSymbolTest {
         assertNull(WatchlistSymbol.WARNING.kind)
     }
 
+    /** Gleiche Symbole wie iOS (Wert-Abgleich); dass das Menü die Liste öffnet, prüft die Regel `android-wiring`. */
     @Test
-    fun `ios lists the same symbols and the menu opens the sheet on both platforms`() {
-        val menu = SourceGuard.android(
-            findUp(
-                listOf("", "app/", "android/app/").map {
-                    it +
-                        "src/main/java/com/cryptochecker/app/ui/features/watchlist/WatchlistMenu.kt"
-                }
-            ),
-            "WatchlistMenu.kt",
-        ).readText(Charsets.UTF_8)
-        assertTrue(menu.contains("R.string.watchlist_symbols_legend"))
-        assertTrue(menu.contains("if (legendOpen) WatchlistSymbolLegendSheet(onDismiss = { legendOpen = false })"))
+    fun `ios lists the same symbols`() {
         val ios = SourceGuard.ios(
             findUp(listOf("ios", "../ios", "../../ios").map { "$it/Shared/Models/WatchlistSymbol.swift" }),
             "ios/Shared/Models/WatchlistSymbol.swift",

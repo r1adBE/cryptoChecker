@@ -1,11 +1,11 @@
 package com.cryptochecker.app.ui.theme
 
+import androidx.compose.material3.ColorScheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.widget.WidgetContrast
-import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.widget.WidgetColors
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -13,8 +13,8 @@ import org.junit.Test
 /**
  * WCAG-Kontrast der Akzentfarben (primary, auch als Schrift: Dialogknöpfe, Links) auf allen
  * Flächen — hell bis #E2E2E2, dunkel bis #353535 — mindestens 4.5:1; onPrimary auf primary ebenso.
- * Die Werte kommen aus [WidgetColors] (reines Kotlin); ein Quelltext-Abgleich stellt sicher, dass
- * `AppColorSchemes.kt` dieselben primary-Werte hat. Wie iOS `AccentContrastTests`.
+ * Die Werte kommen aus [WidgetColors] (reines Kotlin); der Abgleich mit [appColorScheme] stellt sicher, dass
+ * die App dieselben primary-Werte hat. Wie iOS `AccentContrastTests`.
  */
 class AccentContrastTest {
 
@@ -75,25 +75,12 @@ class AccentContrastTest {
         }
     }
 
-    /** primary in `AppColorSchemes.kt` = Akzent der Widgets (eine Palette, zwei Stellen). */
+    /** primary von [appColorScheme] = Akzent der Widgets (eine Palette, zwei Stellen). */
     @Test
     fun `app colour scheme and widget have the same accent`() {
-        val source = schemesSource()
-        val names = mapOf(
-            AccentColor.ORANGE to "orange",
-            AccentColor.RED to "red",
-            AccentColor.BLUE to "blue",
-            AccentColor.GREEN to "green",
-            AccentColor.MARRS_GREEN to "marrsGreen",
-        )
-        for ((accent, name) in names) {
+        for (accent in AccentColor.entries) {
             for (dark in listOf(false, true)) {
-                val block = "private val $name${if (dark) "Dark" else "Light"} = "
-                val start = source.indexOf(block)
-                assertTrue("$block fehlt", start >= 0)
-                val match = Regex("""primary = Color\(0x([0-9A-Fa-f]{8})\)""").find(source, start)
-                assertTrue("primary in $block fehlt", match != null)
-                val primary = match!!.groupValues[1].toLong(16).toInt()
+                val primary = appColorScheme(accent, dark).primary.toArgb()
                 assertEquals("${accent.name}/dark=$dark", WidgetColors.of(accent, dark).accentColor, primary)
             }
         }
@@ -125,17 +112,13 @@ class AccentContrastTest {
         }
     }
 
-    /** Die hellen Farbschemata in `AppColorSchemes.kt` nutzen die warmen Flächen. */
+    /** Die hellen Farbschemata ([appColorScheme]) nutzen die warmen Flächen. */
     @Test
     fun `light colour schemes have the warm surfaces`() {
-        val source = schemesSource()
-        for (name in listOf("orange", "red", "blue", "green", "marrsGreen")) {
-            val start = source.indexOf("private val ${name}Light = ")
-            val end = source.indexOf("\n)", start)
-            assertTrue("${name}Light fehlt", start >= 0 && end > start)
-            val block = source.substring(start, end)
-            for ((key, value) in WARM_SCHEME_TOKENS) {
-                assertTrue("$name: $key", block.contains("    $key = Color(0xFF$value)"))
+        for (accent in AccentColor.entries) {
+            val scheme = appColorScheme(accent, dark = false)
+            for ((key, token, value) in WARM_SCHEME_TOKENS) {
+                assertEquals("${accent.name}: $key", (0xFF000000 or value.toLong(16)).toInt(), token(scheme).toArgb())
             }
         }
     }
@@ -175,18 +158,17 @@ class AccentContrastTest {
 
     /**
      * Rand der Gruppen-Chips (einzige Kontur, WCAG 1.4.11) ist `outline` — ≥ 3:1 auf den
-     * Flächen der Kopfzeile; `outlineVariant` (#ADA9A0, ≈ 2.0–2.3:1) bleibt darunter. Werte aus dem Quelltext.
+     * Flächen der Kopfzeile; `outlineVariant` (#ADA9A0, ≈ 2.0–2.3:1) bleibt darunter. Werte aus [appColorScheme].
      */
     @Test
     fun `outline as chip border reaches 3 to 1`() {
-        val source = schemesSource()
         for ((outline, surfaces) in listOf(0xFF777777.toInt() to LIGHT_SURFACES + WARM_SURFACES, 0xFF919191.toInt() to DARK_SURFACES)) {
             for (bg in surfaces) {
                 val r = ratio(outline, bg)
                 assertTrue("outline %06X on %06X: %.2f".format(outline and 0xFFFFFF, bg and 0xFFFFFF, r), r >= 3.0)
             }
         }
-        assertTrue(source.contains("outline = Color(0xFF777777)") && source.contains("outline = Color(0xFF919191)"))
+        assertOutlines()
         assertTrue(ratio(0xFFADA9A0.toInt(), 0xFFF1EEE9.toInt()) < 3.0)
     }
 
@@ -198,18 +180,23 @@ class AccentContrastTest {
         assertTrue(ratio(0xFFC9C6BF.toInt(), 0xFFFBF9F6.toInt()) < 1.7)
     }
 
-    /** Blau ohne violettes Tertiär; tertiary als Schrift AA, onTertiary auf tertiary AA. */
+    /**
+     * Blau ohne violettes Tertiär (kein #804E73/#FED7F3 in `AppColorSchemes.kt`: Regel `android-wiring`); tertiary als
+     * Schrift AA, onTertiary auf tertiary AA.
+     */
     @Test
     fun `blue has a blue tertiary with AA`() {
-        val source = schemesSource()
-        assertTrue(!source.contains("0xFF804E73") && !source.contains("0xFFFED7F3"))
-        for ((tertiary, on, surfaces) in listOf(
-            Triple(0xFF3F5F90.toInt(), 0xFFFFFFFF.toInt(), LIGHT_SURFACES + WARM_SURFACES),
-            Triple(0xFFA8C8FF.toInt(), 0xFF05305F.toInt(), DARK_SURFACES),
+        for ((dark, tertiary, on) in listOf(
+            Triple(false, 0xFF3F5F90.toInt(), 0xFFFFFFFF.toInt()),
+            Triple(true, 0xFFA8C8FF.toInt(), 0xFF05305F.toInt()),
         )) {
-            for (bg in surfaces) assertTrue("tertiary on %06X".format(bg and 0xFFFFFF), ratio(tertiary, bg) >= 4.5)
+            for (bg in if (dark) DARK_SURFACES else LIGHT_SURFACES + WARM_SURFACES) {
+                assertTrue("tertiary on %06X".format(bg and 0xFFFFFF), ratio(tertiary, bg) >= 4.5)
+            }
             assertTrue(ratio(on, tertiary) >= 4.5)
-            assertTrue(source.contains("tertiary = Color(0x%08X)".format(tertiary)))
+            val scheme = appColorScheme(AccentColor.BLUE, dark)
+            assertEquals("dark=$dark", tertiary, scheme.tertiary.toArgb())
+            assertEquals("dark=$dark", on, scheme.onTertiary.toArgb())
         }
     }
 
@@ -232,7 +219,8 @@ class AccentContrastTest {
 
     /**
      * Eingabefelder (Suche der Merkliste, Gruppenname) haben einen Kontroll-Rand (`outline`,
-     * WCAG 1.4.11 ≥ 3:1 auf allen Flächen), keinen Trennlinien-Ton (`outlineVariant`).
+     * WCAG 1.4.11 ≥ 3:1 auf allen Flächen), keinen Trennlinien-Ton (`outlineVariant`) — die Felder selbst prüft die Regel
+     * `android-wiring` in `.github/scripts/source_rules.py`.
      */
     @Test
     fun `input field border reaches 3 to 1`() {
@@ -244,13 +232,7 @@ class AccentContrastTest {
             val r = ratio(0xFF919191.toInt(), bg)
             assertTrue("dark outline on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)
         }
-        val source = schemesSource()
-        assertTrue(source.contains("outline = Color(0xFF777777)") && source.contains("outline = Color(0xFF919191)"))
-        for (file in listOf("watchlist/WatchlistSearch.kt", "watchlist/WatchGroupEditSheet.kt")) {
-            val text = SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/features/$file"), file)
-            assertTrue("$file: Feldrand", text.contains("BorderStroke(1.dp, MaterialTheme.colorScheme.outline)"))
-            assertTrue("$file: Trennlinien-Ton als Feldrand", !text.contains("outlineVariant.copy(alpha = 0.6f)"))
-        }
+        assertOutlines()
     }
 
     /**
@@ -258,23 +240,12 @@ class AccentContrastTest {
      * ≥ 4.5:1 für alle Akzente; mit einer Tönung von 14 % lägen sie darunter. Wie iOS `AccentContrastTests`.
      */
 
-    /** Pflicht: fehlt die Datei, nicht still grün. */
-    private fun schemesSource(): String =
-        SourceGuard.android(
-            sourceFile("../coreui/src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"),
-            "ui/theme/AppColorSchemes.kt"
-        )
-
-    private fun sourceFile(rel: String): String? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (prefix in listOf("", "app/", "android/app/")) {
-                val f = File(dir, prefix + rel)
-                if (f.isFile) return f.readText(Charsets.UTF_8)
-            }
-            dir = dir.parentFile
+    /** `outline` jedes Schemas: hell #777777, dunkel #919191. */
+    private fun assertOutlines() {
+        for (accent in AccentColor.entries) {
+            assertEquals(accent.name, 0xFF777777.toInt(), appColorScheme(accent, dark = false).outline.toArgb())
+            assertEquals(accent.name, 0xFF919191.toInt(), appColorScheme(accent, dark = true).outline.toArgb())
         }
-        return null
     }
 
     private companion object {
@@ -312,12 +283,19 @@ class AccentContrastTest {
             0xFFF1F1F1.toInt() to 0xFFF3F1EB.toInt(),
             // outlineVariant bewusst dunkler (≈ 2.2:1): eigener Test
         )
-        val WARM_SCHEME_TOKENS = listOf(
-            "background" to "FBF9F6", "surface" to "FBF9F6", "surfaceBright" to "FBF9F6",
-            "surfaceVariant" to "E5E2DB", "outlineVariant" to "ADA9A0", "surfaceDim" to "DDDAD3",
-            "surfaceContainerLowest" to "FFFDFA", "surfaceContainerLow" to "F6F3EE",
-            "surfaceContainer" to "F1EEE9", "surfaceContainerHigh" to "EBE8E2",
-            "surfaceContainerHighest" to "E5E2DB", "inverseOnSurface" to "F3F1EB",
+        val WARM_SCHEME_TOKENS: List<Triple<String, (ColorScheme) -> Color, String>> = listOf(
+            Triple("background", { it.background }, "FBF9F6"),
+            Triple("surface", { it.surface }, "FBF9F6"),
+            Triple("surfaceBright", { it.surfaceBright }, "FBF9F6"),
+            Triple("surfaceVariant", { it.surfaceVariant }, "E5E2DB"),
+            Triple("outlineVariant", { it.outlineVariant }, "ADA9A0"),
+            Triple("surfaceDim", { it.surfaceDim }, "DDDAD3"),
+            Triple("surfaceContainerLowest", { it.surfaceContainerLowest }, "FFFDFA"),
+            Triple("surfaceContainerLow", { it.surfaceContainerLow }, "F6F3EE"),
+            Triple("surfaceContainer", { it.surfaceContainer }, "F1EEE9"),
+            Triple("surfaceContainerHigh", { it.surfaceContainerHigh }, "EBE8E2"),
+            Triple("surfaceContainerHighest", { it.surfaceContainerHighest }, "E5E2DB"),
+            Triple("inverseOnSurface", { it.inverseOnSurface }, "F3F1EB"),
         )
 
         /** surfaceContainerLowest … surfaceContainerHighest, Auswahlfläche #333333. */

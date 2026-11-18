@@ -1,13 +1,14 @@
 package com.cryptochecker.app.util
 
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
-import org.junit.Assert.assertTrue
 import org.junit.AssumptionViolatedException
 import org.junit.Test
 
-/** Meta-Test der Pfadwächter: ein fehlender Pfad lässt den Wächtertest scheitern bzw. überspringen. */
+/**
+ * Meta-Test der Pfadwächter: ein fehlender Pfad lässt den Wächtertest scheitern bzw. überspringen. Dass jeder Test, der
+ * einen iOS-Pfad liest, [SourceGuard] nutzt, prüft die Regel `source-guard` in `.github/scripts/source_rules.py`.
+ */
 class SourceGuardTest {
 
     @Test
@@ -22,54 +23,5 @@ class SourceGuardTest {
         assertThrows(AssumptionViolatedException::class.java) { SourceGuard.ios(null as String?, "ios/Gibt.swift", requireIos = false) }
         assertThrows(AssertionError::class.java) { SourceGuard.ios(null as String?, "ios/Gibt.swift", requireIos = true) }
         assertEquals("da", SourceGuard.ios("da", "x", requireIos = true))
-    }
-
-    /**
-     * Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
-     * nutzt [SourceGuard] — kein stilles `if (exists())`/`return` mehr. Kommentare zählen nicht. Gelesen werden die
-     * Tests von `:app` und die nach `:domain`/`:data` verschobenen (dort gibt es [SourceGuard] nicht: ein iOS-Leser
-     * gehört nach `:app`).
-     */
-    @Test
-    fun everyIosReaderUsesSourceGuard() {
-        val root = SourceGuard.android(
-            listOf("src/test/java", "app/src/test/java", "android/app/src/test/java").map(::File).firstOrNull { it.isDirectory },
-            "src/test/java",
-        ).absoluteFile
-        // root = <android>/app/src/test/java
-        val android = root.parentFile.parentFile.parentFile.parentFile
-        val roots =
-            listOf(root) +
-                listOf("domain", "data").map {
-                    SourceGuard.android(File(android, "$it/src/test/java").takeIf(File::isDirectory), "$it/src/test/java")
-                }
-        val offenders = roots.flatMap { dir ->
-            dir.walkTopDown().filter { it.isFile && it.extension == "kt" }
-                .filter { readsIosWithoutGuard(it.readText()) }
-                .map { it.relativeTo(android).invariantSeparatorsPath }.toList()
-        }
-        assertTrue("iOS-Pfad ohne SourceGuard:\n" + offenders.joinToString("\n"), offenders.isEmpty())
-    }
-
-    /** Gegenprobe: Der Meta-Scan schlägt bei einem eingebauten Beispiel ohne SourceGuard an, nicht bei Kommentaren. */
-    @Test
-    fun metaScanTriggers() {
-        assertTrue(readsIosWithoutGuard("val f = File(\"ios/App/X.swift\")\nif (f.exists()) check(f)"))
-        assertTrue(readsIosWithoutGuard("val roots = listOf(\"App\").map { File(\"../ios/${'$'}it\") }"))
-        assertTrue(!readsIosWithoutGuard("// wie ios/App/X.swift\nval x = 1"))
-        assertTrue(!readsIosWithoutGuard("val t = SourceGuard.ios(File(\"ios/App/X.swift\").takeIf { it.isFile }, \"x\")"))
-    }
-
-    private fun readsIosWithoutGuard(text: String): Boolean {
-        val code = text.replace(BLOCK_COMMENT, "").replace(LINE_COMMENT, "${'$'}1")
-        return IOS_PATH.containsMatchIn(code) && !code.contains("SourceGuard.")
-    }
-
-    private companion object {
-        val BLOCK_COMMENT = Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL)
-        val LINE_COMMENT = Regex("""(^|[ \t])//[^\n]*""", RegexOption.MULTILINE)
-
-        /** Zeichenkette mit `ios/` (nicht Teil eines Worts) oder `.swift`. */
-        val IOS_PATH = Regex(""""[^"\n]*(?:(?<![\w])ios/|\.swift\b)[^"\n]*"""")
     }
 }

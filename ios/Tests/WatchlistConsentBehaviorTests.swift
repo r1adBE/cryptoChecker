@@ -9,7 +9,7 @@ import XCTest
 /// - ohne vorherige Zustimmung lehnt der Schreibweg ab: nichts geschrieben, keine Frage, kein Hinweis;
 /// - über `withWatchlistConfirm` nach «Trotzdem» geschrieben, nach «Abbrechen» nicht (dann `cancelled`);
 /// - ein Durchlass ohne Szene gilt nur für die Aktion (`runConsented`) samt erbender `Task`, nicht für `Task.detached`.
-/// Dass JEDER Bildschirm vorher fragt, prüft weiter der Wächter `WatchlistConfirmCallGuardTests` über alle Dateien.
+/// Dass JEDER Bildschirm vorher fragt, prüft die Regel `ios-write-calls` in `.github/scripts/source_rules.py` über alle Dateien.
 @MainActor
 final class WatchlistConsentBehaviorTests: XCTestCase {
     private var watchlist: AppDataTestWatchlist?

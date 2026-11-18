@@ -136,22 +136,4 @@ final class RestoreReplaceWriteTests: XCTestCase {
         XCTAssertTrue(SharedStorage.replacesFile(requested: false, pending: true))
         XCTAssertFalse(SharedStorage.replacesFile(requested: false, pending: false))
     }
-
-    /// Nur Wiederherstellen und Zurückrollen (`replaceAll`) ersetzen; die Warteschlange merkt sich ein offenes Ersetzen.
-    func testOnlyReplaceAllUsesTheReplacePath() throws {
-        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let reset = try String(contentsOf: root.appendingPathComponent("App/Services/AppData+Reset.swift"), encoding: .utf8)
-        XCTAssertTrue(reset.contains("mutate({ s in s = newSnapshot }, replacing: true)"))
-        XCTAssertEqual(reset.components(separatedBy: "replacing: true").count - 1, 1)
-        let queue = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Snapshot.swift"),
-                               encoding: .utf8)
-        XCTAssertTrue(queue.contains("let replace = replacesFile(requested: replacing, pending: replacePendingBox.current)"))
-        XCTAssertTrue(queue.contains("if replace { replacePendingBox.current = !written }"))
-        let services = root.appendingPathComponent("App/Services")
-        for file in try FileManager.default.contentsOfDirectory(at: services, includingPropertiesForKeys: nil)
-        where file.pathExtension == "swift" && file.lastPathComponent != "AppData+Reset.swift" {
-            let text = try String(contentsOf: file, encoding: .utf8)
-            XCTAssertFalse(text.contains("replacing: true"), file.lastPathComponent)
-        }
-    }
 }

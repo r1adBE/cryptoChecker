@@ -39,7 +39,11 @@ Rules (ids in the annotation title):
   wiring             restore writes under the address refresh lock; every exact-check entry reads the shared demand
   portfolio-settings-confirm  iOS asks before another cost method / system backup; the tax sheet names the file contents
   watch-deletion     Wear OS reads deleted phone entries and forgets what came from the phone
-  ios-wiring         fixed wiring of iOS views, widgets, watch and data layer (table, former XCTest source checks)
+  ios-wiring         fixed wiring of iOS views, widgets, watch and data layer (tables, also within ranges and in order)
+  android-wiring     fixed wiring of the Android modules within ranges, counts and order (former unit-test source checks)
+  source-guard       every unit test that reads an iOS path goes through SourceGuard (never silently green)
+  ios-watchlist-keys every public watchlist function of AppData is classified in WatchlistLockBehaviorTests
+  ios-write-calls    every iOS call of a watchlist user write lies inside withWatchlistConfirm (per call, not per file)
 
 The comments and messages are in German like the tests they replace.
 """
@@ -704,7 +708,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1473, "domain": 1621, "data": 606, "marketdata": 32, "wear": 49}
+TEST_FLOOR = {"app": 1447, "domain": 1621, "data": 606, "marketdata": 32, "wear": 47}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -2410,7 +2414,7 @@ def ios_wiring_problems(sources, table=None):
 
 
 def rule_ios_wiring(t):
-    return ios_wiring_problems({path: read(need_file(t.i(*path.split("/")))) for path in IW_TABLE})
+    return ios_wiring_problems({path: read(need_file(t.i(*path.split("/")))) for path in IW_TABLE}) + rule_ios_wiring_scoped(t)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -2423,7 +2427,7 @@ TI_NOT_READ = set()
 TI_RAW_STRING = re.compile(r'"""[\s\S]*?"""')
 TI_LITERAL = re.compile(r'"((?:[^"\\\n]|\\.)*)"')
 TI_LEADING_TEMPLATE = re.compile(r"^(\$\{[^}]*\}|\$[A-Za-z_]+)")
-TI_MIN_PATHS = 100
+TI_MIN_PATHS = 95
 
 
 def path_part(literal):
@@ -2509,6 +2513,1115 @@ def rule_test_inputs(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# android-wiring, ios-wiring (Bereiche): feste Stellen je Datei, die ohne Gerät nicht als Verhalten prüfbar sind (Room,
+# Compose, SwiftUI, Hilt, Widgets, Uhr) — früher Quelltext-Prüfungen in den Unit- und XCTest-Dateien. Eine Zeile nennt die
+# Datei, den Text bzw. das Muster, wie oft er stehen muss (n: None = mindestens einmal, 0 = nie, k = genau k-mal) und
+# optional einen Bereich (ab einer Marke bis zur nächsten Marke, bis zum Ende des Rumpfs oder für k Zeichen).
+# «Steht» und Reihenfolgen zählen nur im Code (Kommentare nicht, ausser der Text enthält selbst «//» bzw. «/*»); «nie»
+# und genaue Zahlen zählen wie früher im ganzen Text samt Kommentaren. Marken suchen im Code; fehlt eine Marke, ist das
+# ein Befund.
+
+BODY = object()  # Bereich bis zur schliessenden Klammer des ersten «{» nach der Marke
+
+
+def W(file, *needles, n=None, within=None, regex=False, sq=False, order=False, seq=False, why=""):
+    """Eine Zeile der Tabelle; order: die Teile stehen in dieser Reihenfolge (seq: jeder nach dem vorigen gesucht)."""
+    return {"file": file, "needles": needles, "n": n, "within": within, "regex": regex, "sq": sq, "order": order,
+            "seq": seq, "why": why}
+
+
+def TREE(bases, ext, needle, regex=False, skip=(), least=0, why=""):
+    """Keine Datei mit [ext] unter [bases] (ausser den Namen in [skip]) enthält [needle]; mehr als [least] Dateien."""
+    return {"bases": bases if isinstance(bases, tuple) else (bases,), "ext": ext, "needle": needle, "regex": regex,
+            "skip": skip, "least": least, "why": why}
+
+
+def sc_squash(text):
+    """Wie `squashed()` der früheren Tests: ohne Leerraum, «,)» als «)»."""
+    return re.sub(r"\s+", "", text).replace(",)", ")")
+
+
+def _sc_has_comment(text):
+    return "//" in text or "/*" in text
+
+
+def sc_region(raw, code, within):
+    """(Anfang, Ende) des Bereichs; ein Text statt eines Paars nennt die fehlende Marke."""
+    if within is None:
+        return 0, len(code)
+    after, before = within
+    at = (raw if _sc_has_comment(after) else code).find(after)
+    if at < 0:
+        return f"«{after.splitlines()[0]}»"
+    start = at + len(after)
+    if before is None:
+        return start, len(code)
+    if before is BODY:
+        open_ = code.find("{", start)
+        close = ds_closing(code, open_) if open_ >= 0 else -1
+        return (start, close + 1) if close >= 0 else f"Rumpf nach «{after}»"
+    if isinstance(before, int):
+        return start, min(len(code), start + before)
+    if isinstance(before, tuple):
+        ends = [(raw if _sc_has_comment(b) else code).find(b, start) for b in before]
+        ends = [e for e in ends if e >= 0]
+        return start, min(ends) if ends else len(code)
+    end = (raw if _sc_has_comment(before) else code).find(before, start)
+    return (start, end) if end >= 0 else f"«{before.strip().splitlines()[0] if before.strip() else repr(before)}» nach «{after}»"
+
+
+def _sc_find(text, needle, regex, from_=0):
+    """(Anfang, Ende) des ersten Treffers ab from_ oder None."""
+    if regex:
+        m = re.compile(needle).search(text, from_)
+        return (m.start(), m.end()) if m else None
+    at = text.find(needle, from_)
+    return (at, at + len(needle)) if at >= 0 else None
+
+
+def _sc_count(text, needle, regex):
+    return len(re.findall(needle, text)) if regex else text.count(needle)
+
+
+def scoped_problems(sources, rows):
+    """Befunde der Zeilen [rows] gegen {Datei: Quelltext} (fehlende Datei = Befund)."""
+    problems = []
+    for row in rows:
+        file, why = row["file"], row["why"]
+        raw = sources.get(file)
+        if raw is None:
+            problems.append(f"{file}: Datei fehlt ({why})")
+            continue
+        code = ds_strip_comments(raw)
+        span = sc_region(raw, code, row["within"])
+        if isinstance(span, str):
+            problems.append(f"{file}: Marke {span} fehlt ({why})")
+            continue
+        raw_part, code_part = raw[span[0]:span[1]], code[span[0]:span[1]]
+        if row["sq"]:
+            raw_part, code_part = sc_squash(raw_part), sc_squash(code_part)
+
+        def prepared(needle):
+            return sc_squash(needle) if row["sq"] else needle
+
+        def shown(needle):
+            return needle.splitlines()[0] if needle.strip() else repr(needle)
+
+        if row["order"]:
+            ats, from_ = [], 0
+            for needle in row["needles"]:
+                text = raw_part if _sc_has_comment(needle) else code_part
+                hit = _sc_find(text, prepared(needle), row["regex"], from_ if row["seq"] else 0)
+                ats.append(hit)
+                if hit and row["seq"]:
+                    from_ = hit[1]
+            ordered = all(ats) and all(ats[i][1] <= ats[i + 1][0] for i in range(len(ats) - 1))
+            if not ordered:
+                problems.append(f"{file}: Reihenfolge {' → '.join('«' + shown(x) + '»' for x in row['needles'])} "
+                                f"nicht erfüllt ({why})")
+            continue
+        for needle in row["needles"]:
+            if row["n"] is None:
+                text = raw_part if _sc_has_comment(needle) else code_part
+                if _sc_find(text, prepared(needle), row["regex"]) is None:
+                    problems.append(f"{file}: «{shown(needle)}» fehlt ({why})")
+                continue
+            found = _sc_count(raw_part, prepared(needle), row["regex"])
+            if row["n"] == 0 and found:
+                problems.append(f"{file}: «{shown(needle)}» darf nicht stehen ({why})")
+            elif row["n"] != 0 and found != row["n"]:
+                problems.append(f"{file}: «{shown(needle)}» {found}× statt {row['n']}× ({why})")
+    return problems
+
+
+def tree_problems(files, row):
+    """Befunde einer TREE-Zeile gegen [(Name, Quelltext)] aller Dateien unter den Ordnern."""
+    if len(files) <= row["least"]:
+        return [f"{'/'.join(row['bases'])}: nur {len(files)} Dateien gefunden (Pfad defekt?)"]
+    hits = [name for name, text in files if name.rsplit("/", 1)[-1] not in row["skip"]
+            and _sc_find(text, row["needle"], row["regex"]) is not None]
+    return [f"{name}: «{row['needle']}» darf nicht stehen ({row['why']})" for name in hits]
+
+
+A_APP = "app/src/main/java/com/cryptochecker/app/"
+A_DATA = "data/src/main/java/com/cryptochecker/app/"
+A_DOMAIN = "domain/src/main/java/com/cryptochecker/app/"
+A_WIDGET = "widget/src/main/java/com/cryptochecker/app/"
+A_COREUI = "coreui/src/main/java/com/cryptochecker/app/"
+A_WEAR = "wear/src/main/java/com/cryptochecker/wear/"
+A_MARKET = "marketdata/src/main/java/com/cryptochecker/marketdata/"
+_PORTFOLIO_REPO = A_DATA + "data/portfolio/PortfolioRepository.kt"
+_PORTFOLIO_FUN = ("\n    suspend fun ", "\n    private ")
+_WATCH_REPO = A_DATA + "data/WatchRepository.kt"
+
+AW_ROWS = [
+    # Id-Listen der Merkliste in Blöcken von SQL_ID_CHUNK (Room läuft nur auf dem Gerät)
+    W(_WATCH_REPO, "chunked(SQL_ID_CHUNK).forEach { watchDao.setDisabled(it, disabled) }",
+      "chunked(SQL_ID_CHUNK).forEach { watchDao.clearChanges(it) }", why="IN (:ids) in Blöcken von SQL_ID_CHUNK"),
+    W(_WATCH_REPO, r"chunked\(\d+\)", n=0, regex=True, why="keine zweite, eigene Blockgrösse"),
+    W(A_DATA + "data/WatchRepositoryAdd.kt", "internal const val SQL_ID_CHUNK = 500", "unique.chunked(SQL_ID_CHUNK)",
+      why="eine Blockgrösse für alle IN (:ids)"),
+    # Bedingte Alarm-UPDATEs prüfen die Alarm-Währung; Paare löschen räumt das Alarm-Protokoll
+    *[W(A_DATA + "data/local/WatchDao.kt",
+        r"@Query\((?:(?!@Query\()[\s\S])*currency IS :currency(?:(?!@Query\()[\s\S])*fun " + name + r"\(",
+        regex=True, why=f"@Query von {name} prüft die Währung")
+      for name in ("markAlarmTriggered", "setAlarmReferenceIfUnchanged", "rearmAlarmIfUnchanged")],
+    *[W(_WATCH_REPO, "forgetDeletedAlarms()", within=("suspend fun " + name, "\n    }\n"),
+        why="Paare löschen entfernt die letzten Prüfungen ihrer Alarme aus dem Alarm-Protokoll")
+      for name in ("deleteWatch(id: Long)", "deleteWatches(ids: Collection<Long>)", "deleteAllWatches()")],
+    W(A_DATA + "data/WatchRepositoryAlarmCleanup.kt", "alarmLogStore.retainAlarms(",
+      within=("suspend fun WatchRepository.forgetDeletedAlarms()", None), why="Aufräumen des Alarm-Protokolls"),
+    # Speichern aus dem Alarm-Editor: Lesen und Schreiben in einer Transaktion; Sperre auch beim Bearbeiten
+    W(A_APP + "ui/features/alarms/AlarmsViewModel.kt", "saveMergedIfWatchExists(",
+      within=("fun save(draft: AlarmDraft", "\n    fun delete("), why="Speichern mit dem gespeicherten Stand"),
+    W(A_APP + "ui/features/alarms/AlarmsViewModel.kt", "AlarmEdit.merged(", n=0,
+      within=("fun save(draft: AlarmDraft", "\n    fun delete("), why="Zusammenführen erst in der Transaktion"),
+    W(A_DATA + "data/WatchRepositoryAlarmSave.kt", "database.withTransaction", "watchDao.getAlarm(id)",
+      within=("suspend fun WatchRepository.trySaveAlarmMerged(", None), why="Lesen und Schreiben in einer Transaktion"),
+    W(A_APP + "ui/features/alarms/AlarmsViewModel.kt", "createGuard.launch(viewModelScope, guarded = true)",
+      within=("fun save(draft: AlarmDraft) {", "\n    fun "), why="Alarm-Editor sperrt auch beim Bearbeiten"),
+    W(A_APP + "ui/features/alarms/AlarmsViewModel.kt", "guarded = draft.id == 0L", n=0,
+      why="kein ungesperrter Start beim Bearbeiten"),
+    # Reihenfolge der Kurs-Schreiber: die Bedingung der Datenbank entspricht PriceWriteOrder.accepts
+    W(A_DATA + "data/local/WatchDao.kt", "(lastUpdate <= :time OR lastUpdate > :plausibleUntil)", n=2,
+      why="beide Schreibwege mit der Bedingung von PriceWriteOrder"),
+    W(A_DATA + "data/WatchRepositoryRefresh.kt", "PriceWriteOrder.plausibleUntil(now)", why="Grenze aus PriceWriteOrder"),
+    # 15-s-Sperre für «Aktualisieren» liest das Ende der letzten vollständigen Aktualisierung
+    *[W(path, "lastFinishedAt = refreshStats.lastFullRefresh()", why="Sperre nach der vollständigen Aktualisierung")
+      for path in (A_DOMAIN + "domain/refresh/ManualRefresh.kt", A_WIDGET + "widget/PriceWidgetProvider.kt",
+                   A_WIDGET + "widget/ListWidgetRenderer.kt")],
+    W(A_APP + "ui/features/watchlist/WatchlistRefreshController.kt",
+      "fun lastFullRefreshAt(): Long = refreshStats.lastFullRefresh()", why="Menü-Countdown liest dieselbe Zeit"),
+    W(A_DOMAIN + "domain/refresh/LivePriceApplier.kt", "setLastFullRefresh", n=0, why="Live-Takt setzt die Sperre nie"),
+    # «Symbole erklärt» aus dem Menü der Merkliste
+    W(A_APP + "ui/features/watchlist/WatchlistMenu.kt", "R.string.watchlist_symbols_legend",
+      "if (legendOpen) WatchlistSymbolLegendSheet(onDismiss = { legendOpen = false })", why="Menü öffnet die Symbol-Liste"),
+    # Alarm-Kanal: zuerst nur den einen Kanal abfragen, alle listen erst beim Anlegen
+    W(A_APP + "notification/NotificationChannels.kt", "getNotificationChannel(id) != null) return id",
+      "manager.notificationChannels", order=True,
+      within=("fun ensureAlarmChannel(context: Context, mode: AlarmSignal", "manager.createNotificationChannel(channel)"),
+      why="eine Binder-Abfrage je Alarm"),
+    # Eigener Bitcoin-Server ohne Standardwert
+    W(A_DATA + "data/portfolio/WatchedAddressSource.kt", "btcServer: String? = null", n=0,
+      why="kein Standardwert, der still öffentliche Knoten wählt"),
+    # Ersatz-Kreis ohne Logo in App-Plakette und Widgets
+    W(A_APP + "ui/components/CoinBadge.kt", "CoinLogoPlaceholder.fill(coin, dark)", "rememberReduceMotion()",
+      "shown.snapTo(1f)", why="Ersatz-Kreis aus CoinLogoPlaceholder, Einblenden nach «Animationen entfernen»"),
+    W(A_APP + "ui/components/CoinBadge.kt", "INITIALS_TINT", n=0, why="nicht mehr die getönte Akzentfarbe"),
+    W(A_WIDGET + "widget/WidgetCoinLogos.kt", "colors.placeholderFill(symbol)", why="Widget zeichnet den Ersatz-Kreis"),
+    # Der Durchlauf vermerkt die volle Prüfung nach dem Auswerten aller Alarme
+    W(A_DOMAIN + "domain/refresh/PriceRefresher.kt",
+      "resultProcessor.process(lock, activeWatches, fetched, settings, dayStart, deferPrices = true)",
+      "if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()", order=True,
+      why="volle Prüfung erst nach dem Auswerten vermerkt"),
+    W(A_DOMAIN + "domain/refresh/PriceRefresher.kt", r"refreshStats\.setLastFullCheck\(", n=1, regex=True,
+      why="eine Stelle vermerkt die volle Prüfung"),
+    W(A_DOMAIN + "domain/refresh/PriceRefresher.kt",
+      "val traded = watches.filterNot { it.isNotTraded || RetiredWatch.exchangeOf(it) != null }",
+      "val earlyWatches = if (dayStart != null) traded else traded.filter {",
+      "traded.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) }",
+      why="keine Zusatzdaten für stillgelegte bzw. nicht gehandelte Paare"),
+    # Grenze des Kursformats (price_format.json › smallBelow = 10)
+    W(A_MARKET + "util/DisplayFormat.kt", "render(if (value < 10) patterns.fourDigits else patterns.cents, value)",
+      'val cents = DecimalFormat("#,###.00", symbols)', 'val fourDigits = DecimalFormat("@###", symbols)',
+      why="unter 10 gültige Stellen, ab 10 zwei Nachkommastellen"),
+    # Einstellungen ausserhalb von «Einstellungen» über guarded
+    W(A_DATA + "data/settings/DataStoreSettingsRepository.kt",
+      "suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block()\n true }",
+      sq=True, why="guarded fängt Schreibfehler"),
+    W(A_APP + "ui/features/watchlist/WatchlistEditController.kt", "settingsRepository.guarded { setWatchlistGroup(null) }",
+      "watchRepository.clearGroup(name)", order=True, sq=True, within=("fun deleteGroup(", "\n    }\n"),
+      why="Gruppe löschen: Einstellung zuerst, ein Fehler hält das Auflösen nicht auf"),
+    W(A_APP + "ui/lock/PortfolioLock.kt", "if (settingsRepository.guarded { setAppLock(false) }) appLockState.unlock()",
+      sq=True, why="nur nach geschriebener Einstellung entsperren"),
+    # Wert der Positions-Karte schrumpft bis 60 % statt Ziffern abzuschneiden
+    W(A_APP + "ui/features/portfolio/PortfolioPositionCard.kt", "autoSize = TextAutoSize.StepBased(",
+      "minFontSize = headline.fontSize * 0.6f", "overflow = TextOverflow.Ellipsis",
+      within=("val headline = MaterialTheme.typography.headlineSmall", None),
+      why="wie iOS minimumScaleFactor(0.6)"),
+    # Regelstand auf der Seite «Steuer-Arbeitsunterlage»
+    W(A_APP + "ui/features/portfolio/TaxWorksheetContent.kt", "TaxRulesNotice(template, taxYear)", why="Regelstand samt Hinweis"),
+    W(A_APP + "ui/features/portfolio/TaxWorksheetScreen.kt", "taxRulesLine(template)", why="CSV-Kopfzeile formatiert"),
+    *[W(A_APP + "ui/features/portfolio/" + name, "TaxTemplate.RULES_DATE", n=0, why="kein Rohwert RULES_DATE auf der Seite")
+      for name in ("TaxWorksheetScreen.kt", "TaxWorksheetContent.kt")],
+    # Alarm-Seiten und «Paar hinzufügen» nur über den Schutz gegen Doppel-Tipp
+    *[W(A_APP + "ui/navigation/" + name, r"navigation\.navigate\(ScreenRoute\.(Alarms\(|AlarmsOverview\b)", n=0, regex=True,
+        why="Alarm-Seiten nur über navigateOnce")
+      for name in ("AppNavHost.kt", "AppNavDestinations.kt", "AppNavTabDestinations.kt")],
+    *[W(A_APP + "ui/navigation/" + name, "navigation.openExplorer()", n=0, why="«Paar hinzufügen» nur mit Schutz")
+      for name in ("AppNavHost.kt", "AppNavDestinations.kt", "AppNavTabDestinations.kt")],
+    # «+»-Knopf bei «Animationen entfernen» ohne Skalieren
+    W(A_APP + "ui/components/AppFab.kt", "enter = if (reduceMotion) EnterTransition.None else scaleIn() + fadeIn(),",
+      "exit = if (reduceMotion) ExitTransition.None else scaleOut() + fadeOut(),", why="Animationen entfernen"),
+    # Farben: kein violettes Tertiär bei Blau; Eingabefelder mit Kontroll-Rand; hoher Kontrast behält die Fehlerfarbe
+    W(A_COREUI + "ui/theme/AppColorSchemes.kt", "0xFF804E73", "0xFFFED7F3", n=0, why="Blau ohne violettes Tertiär"),
+    *[W(A_APP + "ui/features/" + name, "BorderStroke(1.dp, MaterialTheme.colorScheme.outline)", why="Feldrand outline (≥ 3:1)")
+      for name in ("watchlist/WatchlistSearch.kt", "watchlist/WatchGroupEditSheet.kt")],
+    *[W(A_APP + "ui/features/" + name, "outlineVariant.copy(alpha = 0.6f)", n=0, why="kein Trennlinien-Ton als Feldrand")
+      for name in ("watchlist/WatchlistSearch.kt", "watchlist/WatchGroupEditSheet.kt")],
+    W(A_COREUI + "ui/theme/Theme.kt", r"\berror(Container)?\s*=", n=0, regex=True,
+      within=("private fun ColorScheme.withHighContrast(", "\n}"), why="hoher Kontrast überschreibt error nicht"),
+    W(A_APP + "ui/components/AppSnackbar.kt", "containerColor = colors.surfaceContainerHighest",
+      "contentColor = colors.onSurface", why="Snackbar-Fläche passend zum Thema"),
+    W(A_APP + "ui/components/AppSnackbar.kt", "colors.inverseSurface", n=0, why="keine helle Pille im Dunkelmodus"),
+    # «App zurücksetzen» löscht die Einträge der Uhr vor dem Leeren des Speichers
+    W(A_APP + "ui/features/settings/SettingsScreen.kt", "PhoneWatchSync.clearWatch(resetContext)",
+      "clearApplicationUserData()", order=True, why="Uhr vor dem Leeren des Speichers"),
+    W(A_APP + "wearable/PhoneWatchSync.kt", 'val uri = "${PutDataRequest.WEAR_URI_SCHEME}://$local$PATH".toUri()',
+      "deleteDataItems(uri, DataClient.FILTER_PREFIX)", why="eigener Knoten, alle Einträge unter dem Präfix"),
+    # Warten auf Pulse-Widget und Ansagen nicht unter der Prüf-Sperre von BackgroundCheck
+    W(A_APP + "work/BackgroundCheck.kt", "awaitBackgroundFetch", "awaitQueued", "awaitSideEffects", n=0,
+      within=("private suspend fun runLocked(", BODY), why="kein Warten unter der Sperre"),
+    W(A_APP + "work/BackgroundCheck.kt", "awaitBackgroundFetch", "awaitQueued", why="gewartet wird weiterhin"),
+    W(A_APP + "work/BackgroundCheck.kt", "running.withLock{runLocked(", "awaitSideEffects(", order=True, seq=True, sq=True,
+      why="gewartet wird erst nach running.withLock"),
+    # Adress-Schreibwege des Nutzers prüfen die Sperre, Guthaben-Abrufe und automatische Umstellungen nicht
+    *[W(_PORTFOLIO_REPO, "ensureWritable()", within=(f"fun {name}(", _PORTFOLIO_FUN), why=f"{name} prüft die Sperre")
+      for name in ("addWatchedAddress", "removeWatchedAddress", "setWatchedAddressLabel", "setWatchedAddressCostLots",
+                   "replaceWatchedAddresses", "mergeWatchedAddresses", "changeWatched")],
+    W(_PORTFOLIO_REPO, "ensureWritable()", n=0, within=("fun updateWatchedAddressBalance(", _PORTFOLIO_FUN),
+      why="Guthaben-Abruf ohne Sperre"),
+    W(A_DATA + "data/portfolio/WatchedAddressBalanceWriter.kt", "ensure", n=0, why="Guthaben-Abruf ohne Sperre"),
+    W(_PORTFOLIO_REPO, "userEdit = false", within=("fun setWatchedAddressOverlapShowOnly(", _PORTFOLIO_FUN),
+      why="automatische Umstellung ausdrücklich ohne Sperre"),
+    *[W(_PORTFOLIO_REPO, "userEdit = false", n=0, within=(f"fun {name}(", _PORTFOLIO_FUN), why=f"{name} umgeht die Sperre nicht")
+      for name in ("setWatchedAddressCountTokens", "setWatchedAddressNetworks", "setWatchedAddressCountInPortfolio")],
+    W(A_DATA + "data/portfolio/PortfolioRepositoryUndo.kt", "ensurePortfolioWritable()",
+      why="«Rückgängig» nach «Adresse entfernen» ist ein Schreibweg des Nutzers"),
+    # Einstellungen ersetzt → eigener Bitcoin-Server unbekannt, keine Bitcoin-Abfrage bis zur Bestätigung
+    W(A_DATA + "data/local/StorageRecoveryNotice.kt", "if (lockUnknown) {", "putBoolean(KEY_ADDRESS_SERVER_UNKNOWN, true)",
+      within=("fun recordSettingsReset(", "\n    }\n"), why="ersetzte Einstellungen machen den Server unbekannt"),
+    W(A_DATA + "data/portfolio/WatchedAddressRefresher.kt", "val unknown = settings.addressServerUnknown()",
+      "addresses.filter { AddressServer.queryAllowed(it.chain, unknown) }", "source.refresh(allowed, force",
+      why="Bitcoin-Adressen nicht abfragen, solange der Server unbekannt ist"),
+    W(A_DATA + "data/settings/DataStoreSettingsRepository.kt", "if (url != null) confirmAddressServer()",
+      within=("override suspend fun setAddressServer(", "\n    }\n"), why="eingetragener Server hebt die Sperre auf"),
+    W(A_APP + "ui/features/settings/SettingsAddressServer.kt",
+      "if (unknown && state.server == null) viewModel.confirmPublic(onSaved) else viewModel.save(null, onSaved)",
+      "stringResource(R.string.settings_address_server_unknown)", why="Rückfrage vor öffentlichen Knoten"),
+    W(A_APP + "ui/features/settings/StorageRecoveryNoticeDialog.kt",
+      'if (serverUnknown) "\\n\\n" + stringResource(R.string.settings_address_server_unknown)', why="Hinweis im Dialog"),
+    # Schreibwege des Nutzers in Merkliste und Alarme über guardedWrite (voller Speicher: Hinweis statt Absturz)
+    *[W(_WATCH_REPO, "guardedWrite(", within=(sig, ("\n    /**",)), why=f"{sig.strip('(')} über guardedWrite")
+      for sig in ("suspend fun changePair(", "suspend fun setMissingPercentReferences(", "suspend fun deleteWatch(id: Long)",
+                  "suspend fun deleteWatches(", "suspend fun deleteAllWatches()", "suspend fun setNotificationEnabled(",
+                  "suspend fun setFavorite(", "private suspend fun saveOrder(", "suspend fun setNote(", "suspend fun setGroup(",
+                  "suspend fun applyGroupEdit(", "suspend fun clearGroup(", "suspend fun setTtsEnabled(",
+                  "suspend fun setDisabled(", "suspend fun setNotifiedPrice(", "suspend fun deleteAlarm(",
+                  "suspend fun setAlarmEnabled(")],
+    *[W(A_DATA + "data/WatchRepositoryAdd.kt", "guardedWrite", within=(sig, "\n}\n"), why=f"{sig.strip('(')} über guardedWrite")
+      for sig in ("fun WatchRepository.tryAddWatch(", "fun WatchRepository.restore(",
+                  "fun WatchRepository.deleteWatchesWithoutAlarms(")],
+    *[W(A_DATA + "data/WatchRepositoryAlarmSave.kt", "guardedWrite<AlarmSaveResult>(", within=(sig, ("\n\n",)),
+        why=f"{sig.strip('(')} über guardedWrite")
+      for sig in ("fun WatchRepository.trySaveAlarm(", "fun WatchRepository.trySaveAlarmMerged(")],
+    # Argon2id überschreibt seine Arbeitsblöcke
+    W(A_DATA + "data/backup/Argon2id.kt", "} finally {\n                // Arbeitsblöcke überschreiben",
+      "                filler.wipe()\n            }", why="Arbeitsblöcke nach dem Rechnen überschrieben"),
+    W(A_DATA + "data/backup/Argon2id.kt", "r.fill(0)", "tmp.fill(0)", "input.fill(0)", "address.fill(0)",
+      within=("fun wipe() {", "}"), why="wipe leert jeden Block"),
+    # Wiederherstellen entfernt Schlummer-Vermerke nach den Alarm-Mitteilungen
+    W(A_APP + "ui/features/settings/SettingsBackupActions.kt",
+      "notifier.cancelAlarms(result.replacedAlarmIds, result.replacedPortfolioAlarmIds)", "notifier.clearAlarmSnoozes()",
+      order=True, why="Schlummern nach dem Entfernen der Alarm-Mitteilungen löschen"),
+    # Jahresübersicht: Posten der Gewinne in build(), nicht in einem Initialisierer
+    W(A_DOMAIN + "domain/portfolio/TaxYearSummaryBuilder.kt", "internal lateinit var net: Acc",
+      "val netIncomplete: Boolean get() = net.incomplete", "val netFx: Boolean get() = net.fxMissing > 0",
+      why="Summe liest erst nach build()"),
+    W(A_DOMAIN + "domain/portfolio/TaxYearSummaryBuilder.kt", "val net: Acc = gainLines()", n=0,
+      why="kein Initialisierer mitten in den Eigenschaften"),
+    W(A_DOMAIN + "domain/portfolio/TaxYearSummaryBuilder.kt", r"= gainLines\(\)", n=1, regex=True, why="genau ein Aufruf"),
+    W(A_DOMAIN + "domain/portfolio/TaxYearSummaryBuilder.kt", r"fun build\(\): TaxYearSummary \{\s+net = gainLines\(\)",
+      regex=True, why="als erste Anweisung von build()"),
+    # Uhr: Beträge und Kurse schrumpfen statt abzuschneiden; Daten-Schicht blockiert nicht und schluckt keinen Abbruch
+    W(A_WEAR + "WatchApp.kt", 'FitText("$coin  $price"', sq=True, why="Kurszeile mit FitText"),
+    W(A_WEAR + "WatchApp.kt", 'Text("$coin  $price", maxLines = 1', n=0, sq=True, why="kein Text ohne Schrumpfen"),
+    W(A_WEAR + "WatchPortfolioRow.kt", "FitText(WatchPortfolioText.total(p)", sq=True, why="Portfolio-Wert mit FitText"),
+    *[W(A_WEAR + name, "Tasks.await", n=0, why="Tasks.await blockiert einen Thread") for name in ("WatchDataLayer.kt", "WatchUsage.kt")],
+    *[W(A_WEAR + name, r"\brunCatching\b", n=0, regex=True, why="runCatching schluckt den Abbruch")
+      for name in ("WatchDataLayer.kt", "WatchUsage.kt")],
+    W(A_WEAR + "WatchDataLayer.kt", r"WatchTaskAwait\.await\(", n=5, regex=True, why="Warten über WatchTaskAwait"),
+    W(A_WEAR + "WatchDataLayer.kt", r"WatchTaskAwait\.catching \{", n=6, regex=True, why="Fehler über WatchTaskAwait.catching"),
+    W(A_WEAR + "WatchUsage.kt", r"WatchTaskAwait\.await\(", n=1, regex=True, why="Zähler fürs Handy über denselben Weg"),
+]
+
+AW_TREES = [
+    TREE(A_APP.rstrip("/"), "kt", '"cryptoChecker-Android/', skip=("HttpUserAgent.kt",), least=100,
+         why="fester User-Agent statt HttpUserAgent.android"),
+    TREE(A_APP.rstrip("/"), "kt", r"lastFinishedAt = (refreshStats\.)?lastRefresh(\(\))?[,)]", regex=True, least=100,
+         why="Sperre nach der Uhrzeit der Live-Takte"),
+    TREE(A_APP.rstrip("/"), "kt", r"(?<![A-Za-z])SnackbarHost\(", regex=True, skip=("AppSnackbar.kt",), least=100,
+         why="SnackbarHost( statt AppSnackbarHost("),
+]
+
+
+def restore_order_rows(fixture):
+    """Reihenfolge der Schreibschritte in BackupManager.writeRestored = die von restore_steps.json (android.steps)."""
+    import json
+    steps = json.loads(fixture)["android"]["steps"]
+    return [W(A_DATA + "data/backup/BackupManager.kt", *[f"RestoreRun.Write(Step.{s}" for s in steps], order=True,
+              why="Schritte wie in restore_steps.json")]
+
+
+def _tree_files(root, row):
+    files = []
+    for base in row["bases"]:
+        directory = need_dir(os.path.join(root, *base.split("/")))
+        files += [(f"{base}/{rel}", read(path)) for rel, path in files_under(directory, row["ext"])]
+    return files
+
+
+def rule_android_wiring(t):
+    rows = AW_ROWS + restore_order_rows(read(need_file(t.a("testdata", "parity", "restore_steps.json"))))
+    sources = {}
+    for row in rows:
+        path = t.a(*row["file"].split("/"))
+        if row["file"] not in sources and os.path.isfile(path):
+            sources[row["file"]] = read(path)
+    problems = scoped_problems(sources, rows)
+    for row in AW_TREES:
+        problems += tree_problems(_tree_files(t.android, row), row)
+    return problems
+
+
+_SAVE_BODY = ("\n    func ", "\n    private func ", "\n    ///")
+_ADDRESS_BODY = ("\n    func ", "\n    private func ")
+_SNAPSHOT = "Shared/Storage/SharedStorage+Snapshot.swift"
+_TRY_SWALLOW = r"(?m)^(?=.*try\?).*"
+
+IW_ROWS = [
+    # Ersatz-Kreis ohne Logo (Plakette, Widgets), Einblenden nach «Bewegung reduzieren»
+    W("App/Components/CoinBadge.swift", "CoinLogoPlaceholder.fill(symbol, dark: dark)", "withAnimation(reduceMotion ? nil",
+      why="Ersatz-Kreis aus CoinLogoPlaceholder"),
+    W("Widgets/WidgetBadges.swift", "CoinLogoPlaceholder.fill(symbol, dark: dark)", why="Widget zeichnet den Ersatz-Kreis"),
+    # Animationen der Merkliste und von «Paar hinzufügen» nach «Bewegung reduzieren»
+    *[W(path, r"(?m)^(?!.*reduceMotion).*\.animation\(", n=0, regex=True, why=".animation( ohne reduceMotion")
+      for path in ("App/Features/Watchlist/WatchlistList.swift", "App/Features/Explorer/ExplorerScreen.swift")],
+    W("App/Features/Explorer/ExplorerScreen.swift", "@Environment(\\.accessibilityReduceMotion) var reduceMotion",
+      "transaction.disablesAnimations = true", why="Transaktion an der Wurzel nimmt withAnimation heraus"),
+    # Schalter eines Alarms und Schreibweg nutzen dieselbe Regel
+    *[W(path, "enabled: BackupManager.toggleAllowed(", why="Schalter nach BackupManager.toggleAllowed")
+      for path in ("App/Features/Alarms/AlarmCard.swift", "App/Features/Alarms/AlarmsOverviewScreen.swift")],
+    W("App/Services/AppData+Alarms.swift", "BackupManager.toggleAllowed(", within=("func setAlarmEnabled(", "mutate("),
+      why="Schreibweg prüft vor dem Schreiben"),
+    W("App/Services/AppData+Alarms.swift", "func setAlarmEnabled(", n=1, why="eine Fassung des Schreibwegs"),
+    # Ausserhalb von Zwischenspeichern schluckt kein try? einen Dateifehler
+    *[W(path, _TRY_SWALLOW + re.escape(call), n=0, regex=True, why=f"try? mit {call}")
+      for path in ("App/Services/AppData+Reset.swift", "App/Services/RestoreJournal.swift", "Shared/Storage/ProtectedFile.swift",
+                   "Shared/Storage/ProtectedStorage.swift", "Shared/Portfolio/WatchedAddressStore.swift",
+                   "Shared/Core/MirrorRevocations.swift")
+      for call in ("removeItem(", "moveItem(", ".write(to:")],
+    # Toast: Ansage erst nach der Wartezeit, nur an einer Stelle
+    W("App/Components/EmptyStateView.swift", "try await Task.sleep(nanoseconds: UInt64(Self.announceDelay",
+      "AccessibilityNotification.Announcement(shown.text).post()", order=True, why="Ansage nach dem Einblenden"),
+    W("App/Components/EmptyStateView.swift", "AccessibilityNotification.Announcement(", n=1, why="eine Ansage"),
+    # CSV-Import: Kurstag aus der Steuer-Vorlage
+    W("App/Features/Portfolio/PortfolioScreen.swift", "let templateZone = data.settings.taxTemplate.zoneId",
+      why="Kurstag aus der Steuer-Vorlage"),
+    W("App/Features/Portfolio/PortfolioCsvImport.swift", "let fxZone = loaded.result.fxZone", why="Neu-Lesen mit derselben Zone"),
+    # Vermerke «wird gemeldet» erst nach dem Schreiben kürzen
+    W("App/Services/AppData+Alarms.swift", "removePairMarkersAfterWrite([id])", "removePortfolioMarkersAfterWrite([id])",
+      why="Löschwege kürzen über die Warteschlange"),
+    W("App/Services/AppData+Watchlist.swift", "retainPairMarkersAfterWrite(ids)", why="Löschwege kürzen über die Warteschlange"),
+    W("App/Services/AppData+DeliveryMarkers.swift", "await SharedStorage.snapshotWritesSettled()", why="nach dem Schreiben"),
+    *[W(path, "AlarmDelivery.pairs.remove(", "AlarmDelivery.pairs.retain(", "AlarmDelivery.portfolio.remove(", n=0,
+        why="sofortiges Kürzen") for path in ("App/Services/AppData+Alarms.swift", "App/Services/AppData+Watchlist.swift")],
+    # Blätter mit Eingaben fragen genau einmal und schliessen erst danach
+    *[W("App/Features/Alarms/AlarmsScreen+Save.swift", "withWatchlistConfirm(", n=1, within=(outer, _SAVE_BODY),
+        why=f"{outer} fragt genau einmal") for outer in ("func saveFromEditor(", "func templateFromEditor(")],
+    *[W("App/Features/Alarms/AlarmsScreen+Save.swift", core, within=(outer, _SAVE_BODY), why=f"{outer} ruft {core}")
+      for outer, core in (("func saveFromEditor(", "saveDraftNow("), ("func templateFromEditor(", "createFromTemplateNow("))],
+    W("App/Features/Alarms/AlarmsScreen+Save.swift", "withWatchlistConfirm", n=0,
+      within=("private func saveDraftNow(", _SAVE_BODY), why="der Kern fragt nicht selbst"),
+    W("App/Features/Alarms/AlarmsScreen+Save.swift", "withWatchlistConfirm", n=0,
+      within=("private func createFromTemplateNow(", _SAVE_BODY + ("WatchlistBannerAction.undo",)),
+      why="der Kern fragt nicht selbst (nur «Rückgängig» ist eine eigene Aktion)"),
+    W("App/Features/Alarms/AlarmsScreen+Save.swift", "confirmWatchlistWrite", n=0, why="nur über withWatchlistConfirm"),
+    *[W(path, "confirmClose", n=0, why="kein zweiter Weg zum Schliessen")
+      for path in ("App/Features/Alarms/AlarmEditorSheet.swift", "App/Features/Alarms/AlarmEditorSheet+Templates.swift")],
+    W("App/Features/Alarms/AlarmEditorSheet.swift", "onSave(saved, { dismiss() }, { createGuard.reset() })",
+      why="Editor schliesst über den Rückruf des Aufrufers"),
+    W("App/Features/Alarms/AlarmEditorSheet+Templates.swift", "onTemplate(template, { dismiss() }, { createGuard.reset() })",
+      why="Editor schliesst über den Rückruf des Aufrufers"),
+    W("App/Features/Alarms/AlarmsScreen.swift", "onSave: saveFromEditor", "onTemplate: templateFromEditor",
+      why="Editor speichert über die fragenden Wege"),
+    *[W("App/Features/Watchlist/" + name, r"on(Save|Select)\([^\n]*\)\s*[\n;]\s*dismiss\(\)", n=0, regex=True,
+        why="schliesst vor der Rückfrage") for name in ("WatchNoteSheet.swift", "WatchGroupSheet.swift")],
+    W("App/Features/Watchlist/WatchNoteSheet.swift", "onSave(note, { dismiss() }, { saving = false })",
+      why="schliesst über den Rückruf"),
+    W("App/Features/Watchlist/WatchGroupSheet.swift", "onSelect(group, { dismiss() }, { saving = false })",
+      why="schliesst über den Rückruf"),
+    W("App/Features/Watchlist/PairScreen.swift", "onSave: saveNote", "onSelect: saveGroup", why="Blätter über die fragenden Wege"),
+    *[W("App/Features/Watchlist/PairEdits.swift", "withWatchlistConfirm({", "close()", order=True, within=(name, _SAVE_BODY),
+        why=f"{name} schliesst erst nach der Frage") for name in ("func saveNote(", "func saveGroup(")],
+    *[W("App/Features/Watchlist/PairEdits.swift", "cancelled: cancelled", within=(name, _SAVE_BODY),
+        why="«Abbrechen» lässt das Blatt offen") for name in ("func saveNote(", "func saveGroup(")],
+    # Hintergrund-Aufgabe vermerkt die Alarm-Prüfung über BackgroundSchedule.marksAlarmCheck
+    W("App/Services/BackgroundRefresh.swift", "SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis",
+      "if BackgroundSchedule.marksAlarmCheck(", n=2, why="zwei Stellen über die Regel"),
+    W("App/Services/BackgroundRefresh.swift", "await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)",
+      "deferredWaiting: true,", order=True, why="erst nach der Prüfung der wartenden Alarme"),
+    # Stillgelegte Börsen: Abruf, Explorer, Portfolio, Merkliste, Uhr
+    W("Shared/Services/PriceFetcher.swift", "if ExchangeRetirement.isRetired(sample.exchangeKey, now: started) { return retiredGroup(",
+      why="kein Abruf einer stillgelegten Börse"),
+    W("Shared/Core/ExchangeService.swift",
+      "if ExchangeRetirement.isRetired(exchange.key) { throw RetiredExchangeError(name: exchange.name) }",
+      why="kein Abruf einer stillgelegten Börse"),
+    W("App/Features/Explorer/ExplorerViewModel.swift", "!($0 is UnknownExchange) && !ExchangeRetirement.isRetired($0.key)",
+      why="Explorer ohne stillgelegte Börsen"),
+    W("Shared/Portfolio/PortfolioExchangeRoute.swift", "hit.key != defaultExchange, !ExchangeRetirement.isRetired(hit.key)",
+      why="Portfolio ohne stillgelegte Börsen"),
+    W("App/Features/Watchlist/WatchlistHeader.swift", "WatchlistRetiredNotice(watches: data.watches)", why="Hinweis der Merkliste"),
+    W("App/Services/PhoneWatchLink.swift", "price: retired ? nil : w.lastPrice", why="Uhr ohne Kurs einer stillgelegten Börse"),
+    # Kein Speichern vor dem Lesen beim Start
+    W("App/Services/AppData.swift", r"(?m)^[ \t]*storedSnapshot = ", n=2, regex=True,
+      why="nur der Setter von snapshot und das Übernehmen beim Start schreiben den Stand"),
+    W("App/Services/AppData.swift", "ensureSnapshotLoaded()\n            return storedSnapshot",
+      "ensureSnapshotLoaded()\n            storedSnapshot = newValue", why="Zugriff liest vorher"),
+    *[W("App/Services/AppData+SnapshotLoad.swift", f"return {acc}", f"ensureSnapshotLoaded()\n            return {acc}", n=1,
+        why="Zugriff liest vorher") for acc in ("watchedState.addresses", "watchedState.file", "watchedState.intact",
+                                                "watchlistLockedValue")],
+    W("App/Services/AppData.swift", "var s = snapshot\n", within=("    func mutate(", 400), why="mutate liest den Stand über snapshot"),
+    W("App/Services/AppData+PortfolioLoad.swift", "guard !portfolioState.loaded else { return }\n        ensureSnapshotLoaded()",
+      why="Portfolio erst nach dem Lesen beim Start"),
+    W("App/Services/AppData.swift", "prepareAtLaunch", "readSnapshot", "loadChecked", "snapshot.", "startPortfolioPrefetch",
+      "watchedAddress", n=0, within=("    private init() {", "\n    }\n"), why="init liest nichts Geschütztes"),
+    W("App/Services/AppData.swift", "startSnapshotLoad()", within=("    private init() {", "\n    }\n"),
+      why="init startet das Lesen"),
+    # Hinweis «Logos werden geladen»: Lauf, Zähler, Ablage, Ein- und Ausblenden
+    W("Shared/Storage/CoinLogoStore.swift", "if images { await CoinLogoLoading.runStarted() }",
+      "let rest = await Self.downloadMissing(", "await CoinLogoLoading.runFinished(complete:", order=True,
+      within=("func syncAll(", None), why="Lauf beginnt vor und endet nach dem Laden"),
+    W("Shared/Storage/CoinLogoStore.swift", "func syncAll(", n=1, why="eine Fassung des Abgleichs"),
+    W("Shared/Storage/CoinLogoStore.swift", "alternates: alternates, lastStage: true)", within=("func syncAll(", None),
+      why="Gesamtzahl erst mit der letzten Stufe"),
+    W("Shared/Storage/CoinLogoStore+Download.swift", "guard !pending.isEmpty else { return DownloadResult() }",
+      "await CoinLogoLoading.imagesPending(pending.count", order=True, why="Coins ohne Logo-Adresse lösen keinen Hinweis aus"),
+    W("Shared/Storage/CoinLogoStore+Download.swift", "await CoinLogoLoading.imagesPending(pending.count, last: lastStage)",
+      "roundPaused.append(job)\n                    await CoinLogoLoading.imagesPaused()",
+      "for _ in transientLeft { await CoinLogoLoading.imageDone() }", why="erledigte und gebremste Bilder zählen"),
+    W("Shared/Storage/CoinLogoStore+Download.swift", "await CoinLogoLoading.imageDone()", n=5,
+      why="geladen, gescheitert, nicht gespeichert, offen nach 403, nach der letzten Runde gestört"),
+    W("Shared/Util/LogoLoadingHint.swift", "CoinLogoStore.directory.appendingPathComponent(LogoLoadingHint.doneMarker)",
+      "UIAccessibility.isReduceMotionEnabled ? nil :", "!visible || LogoLoadingHint.shouldShow(shown: percent, shownAt: shownAt",
+      why="erstes Laden im Logo-Ordner gemerkt, Wert gedrosselt"),
+    W("App/Features/Watchlist/WatchlistLogoHint.swift", "Line(percent: loading.percent).transition(.opacity)",
+      'L("watchlist_logos_loading_percent", PercentText.unsigned(Double(percent), decimals: 0))',
+      'AttributedString(L("watchlist_logos_loading"))', "if coinLogosEnabled && loading.visible", 'L("watchlist_logos_loading")',
+      why="Zeile mit Prozent, einmal angesagt"),
+    W("App/Features/Watchlist/WatchlistHeader.swift", "WatchlistLogoHint()", why="Hinweis im Kopf der Merkliste"),
+    # Paarwahl, Hinweis «Schwelle ungültig», Wisch-Löschen
+    *[W("App/Features/" + name, "AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey)",
+        why="gemerkter Schlüssel der Paarwahl") for name in ("Alarms/AlarmsOverviewScreen.swift", "Watchlist/WatchlistSheets.swift")],
+    *[W("App/Features/" + name, "AlarmPairPicker(watches: data.watches)", n=0, why="Schlüssel nicht im body gerechnet")
+      for name in ("Alarms/AlarmsOverviewScreen.swift", "Watchlist/WatchlistSheets.swift")],
+    W("App/Features/Alarms/AlarmsOverviewScreen.swift", "verticalPadding: 8, dimsLabel: false)", why="Hinweis nicht gedimmt"),
+    W("App/Components/Components.swift", ".opacity(enabled || !dimsLabel ? 1 : ColorTokens.disabledRowAlpha)",
+      why="nur der Schalter wird gedimmt"),
+    W("App/Features/Alarms/AlarmsOverviewScreen.swift", '"portfolio_alarm_threshold_invalid_recreate"', "deletePortfolio = alarm",
+      within=("private func portfolioCard(", None), why="«löschen und neu anlegen» samt Aktion"),
+    W("App/Features/Alarms/AlarmsOverviewScreen.swift", '"alarm_threshold_invalid_fix"', n=0,
+      within=("private func portfolioCard(", None), why="kein «anpassen» ohne Editor"),
+    *[W("App/Features/" + name, "role: .destructive", n=0, within=(".swipeActions(edge: .trailing", ".tint(AppColors.destructive)"),
+        why="Wisch-Löschen mit Rückfrage ohne Rolle")
+      for name in ("Watchlist/WatchlistScreen+Row.swift", "Portfolio/PortfolioAddressSheet.swift", "Alarms/AlarmsScreen.swift")],
+    # Portfolio: Sperrbildschirm-Widget mit der Regel der Ansicht; Datumsfelder ab 2009
+    W("Widgets/PortfolioWidget.swift", "PortfolioRectangularView(entry: entry.lockScreen)",
+      "copy.view = PortfolioWidgetOptions.lockScreenView", why="Sperrbildschirm mit Ansicht-Regel"),
+    *[W("App/Features/Portfolio/" + name, "in: ...Date()", n=0, why="Datum ohne untere Grenze")
+      for name in ("PortfolioAddressLotsSheet.swift", "PortfolioTxLedgerFields.swift")],
+    W("App/Features/Portfolio/PortfolioAddressLotsSheet.swift", "in: PortfolioTxSheet.dateRange()", why="Datumsfelder ab 1.1.2009"),
+    # Wiederherstellen: nur replaceAll ersetzt; Reihenfolge der Schritte; Ablauf über RestoreSteps
+    W("App/Services/AppData+Reset.swift", "mutate({ s in s = newSnapshot }, replacing: true)", why="replaceAll ersetzt"),
+    W("App/Services/AppData+Reset.swift", "replacing: true", n=1, why="nur replaceAll ersetzt"),
+    W(_SNAPSHOT, "let replace = replacesFile(requested: replacing, pending: replacePendingBox.current)",
+      "if replace { replacePendingBox.current = !written }", why="offenes Ersetzen gilt bis zum Schreiben"),
+    W("App/Services/BackupManager+Restore.swift",
+      "data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)",
+      "guard restorePortfolio(input.portfolio, into: data) else", "guard data.replaceWatchedAddresses(input.watched) != nil else",
+      order=True, why="Schritte wie in restore_steps.json (ios.steps)"),
+    W("App/Services/BackupManager+Restore.swift", "try RestoreSteps.execute({ steps in",
+      "settled: { restoreWritesSettled() }, deleteJournal: { if journal { RestoreJournal.delete() } })",
+      "let written = SharedStorage.flushSnapshotWrites()\n        #if DEBUG\n        if UITesting.isActive { return true }\n"
+      "        #endif\n        return written", "throw Failure.invalid(watchlistStep)",
+      why="writeRestored über RestoreSteps, wartet die Schreib-Warteschlange ab"),
+    W("App/Services/BackupManager+Restore.swift", "RestoreJournal.delete()", n=1, why="nirgends sonst wird das Journal gelöscht"),
+    # Widget-Palette nimmt den Akzent mit hohem Kontrast; Haupttexte der Widgets wachsen mit Dynamic Type
+    W("Widgets/WidgetStyle.swift", "accent.primary(dark: dark, highContrast: highContrast)", why="Akzent mit hohem Kontrast"),
+    *[W("Widgets/" + name, r"WidgetPrimaryFit|primaryScale|scale: CGFloat", regex=True,
+        why="Haupttexte ohne Dynamic Type (WidgetPrimaryFit / primaryScale)")
+      for name in ("WatchlistWidgetViews.swift", "SingleWidget.swift", "SingleWidgetHeader.swift", "PortfolioWidgetHome.swift",
+                   "PortfolioWidgetList.swift", "PortfolioWidgetOverview.swift", "PortfolioWidgetLockScreen.swift",
+                   "PulseWidgetHome.swift", "PriceLiveActivityWidget.swift")],
+    # Adress-Schreibwege des Nutzers prüfen die Sperre, Guthaben-Abrufe und automatische Umstellungen nicht
+    *[W("App/Services/AppData+WatchedAddresses.swift", "guard !portfolioStorageLocked", within=(f"func {name}(", _ADDRESS_BODY),
+        why=f"{name} prüft die Sperre")
+      for name in ("addWatchedAddress", "removeWatchedAddress", "restoreWatchedAddress", "changeWatchedAddress",
+                   "setWatchedAddressLabel", "replaceWatchedAddresses", "mergeWatchedAddresses")],
+    *[W("App/Services/AppData+WatchedAddresses.swift", "portfolioStorageLocked", n=0, within=(f"func {name}(", _ADDRESS_BODY),
+        why=f"{name} darf nicht gesperrt werden")
+      for name in ("applyWatchedAddressUpdates", "applyWatchedAddressOverlapShowOnly", "rollBackWatchedAddresses")],
+    # Portfolio-Komplikation: jeder Betrag ist privacySensitive
+    *[W("WatchWidgets/WatchPortfolioWidget.swift", needle, within=("private func value(_ p: WatchPortfolio)",
+                                                                    "struct WatchPortfolioWidget: Widget"),
+        why="Betrag privacySensitive")
+      for needle in ("Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle).privacySensitive()",
+                     "Text(WatchFreshness.inlineLine(total, time: p.time, now: now, intervalMinutes: entry.interval))"
+                     ".privacySensitive()",
+                     "Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).privacySensitive().widgetLabel(title)")],
+    *[W("WatchWidgets/WatchPortfolioWidget.swift", needle, n=n, within=("private func value(_ p: WatchPortfolio)",
+                                                                       "struct WatchPortfolioWidget: Widget"),
+        why="jeder Text mit Betrag in allen vier Familien markiert")
+      for needle, n in ((".privacySensitive()", 5), ("Text(total)", 1), ("Text(WatchText.portfolioToday(p)", 1),
+                        ("Text(WatchFreshness.inlineLine(total", 1), ("Text(WatchText.portfolioCompact(p))", 2))],
+    # «App zurücksetzen» setzt die Uhr-Verbindung zurück
+    W("App/Services/AppData+Reset.swift", "Self.clearStoredFiles()", "PhoneWatchLink.shared.reset()", order=True,
+      why="nach dem Leeren der Einstellungen"),
+    W("App/Services/PhoneWatchLink.swift", "settings = WatchSettings()", "portfolioOnWatch = false",
+      "quotesJson = WatchPhoneQuotes.toJson([])", "portfolioJson = WatchPortfolio.toJson(.clear)", "send()",
+      within=("func reset() {", 586), why="Stand wie nach der Installation, der Uhr gesendet"),
+    # Merker «Merkliste nicht gespeichert» fällt nur mit dem Stand der App
+    W("Shared/Storage/SharedStorage+Files.swift", "watchlistWriteFailed = false", n=0, why="nie in writeFiles"),
+    W(_SNAPSHOT, "watchlistWriteFailed = false", n=1, why="eine Stelle löscht den Merker"),
+    W(_SNAPSHOT, "if written { watchlistWriteFailed = false }",
+      within=("static func saveSnapshotInBackground(", "static func mergeAndWriteFiles("), why="nur nach geschriebenem Stand"),
+    W(_SNAPSHOT, "watchlistWriteFailed", n=0, within=("static func updateSnapshot(", "static func saveSnapshotInBackground("),
+      why="nie im Stand aus der Datei"),
+    W(_SNAPSHOT, "static func saveSnapshotInBackground(", "static func updateSnapshot(", n=1, why="je eine Fassung"),
+    W("Shared/Storage/ProtectedStorage.swift", "ProtectedFile.removeStaleTemps(in: dir, now: now)",
+      why="liegen gebliebene Zwischendateien aufräumen"),
+]
+
+IW_TREES = [
+    TREE("App", "swift", "watchedState", skip=("AppData.swift", "AppData+SnapshotLoad.swift"), least=100,
+         why="an watchedAddresses vorbei"),
+    TREE("App", "swift", "watchlistLockedValue", skip=("AppData.swift", "AppData+SnapshotLoad.swift"), least=100,
+         why="an watchlistLocked vorbei"),
+    TREE("App/Services", "swift", "replacing: true", skip=("AppData+Reset.swift",), why="nur replaceAll ersetzt"),
+    TREE(("App", "Shared", "Widgets"), "swift", '"chevron.right"', least=50, why="feste Pfeilrichtung (RTL): chevron.forward"),
+    TREE(("App", "Shared", "Widgets"), "swift", '"chevron.left"', least=50, why="feste Pfeilrichtung (RTL): chevron.backward"),
+]
+
+
+def rule_ios_wiring_scoped(t):
+    sources = {row["file"]: read(t.i(*row["file"].split("/"))) for row in IW_ROWS
+               if os.path.isfile(t.i(*row["file"].split("/")))}
+    problems = [f"ios/{p}" for p in scoped_problems(sources, IW_ROWS)]
+    for row in IW_TREES:
+        problems += [f"ios/{p}" for p in tree_problems(_tree_files(t.ios, row), row)]
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# source-guard: Jeder Unit-Test, der einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`), nutzt SourceGuard —
+# fehlt die Datei, wird der Test sichtbar übersprungen bzw. in der CI rot, nie still grün. Gelesen werden die Tests von
+# :app und die nach :domain/:data verschobenen (dort gibt es SourceGuard nicht: ein iOS-Leser gehört nach :app).
+
+SG_BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
+SG_LINE_COMMENT = re.compile(r"(^|[ \t])//[^\n]*", re.M)
+SG_IOS_PATH = re.compile(r'"[^"\n]*(?:(?<![\w])ios/|\.swift\b)[^"\n]*"')
+
+
+def reads_ios_without_guard(text):
+    code = SG_LINE_COMMENT.sub(r"\1", SG_BLOCK_COMMENT.sub("", text))
+    return bool(SG_IOS_PATH.search(code)) and "SourceGuard." not in code
+
+
+def rule_source_guard(t):
+    offenders = []
+    for module in ("app", "domain", "data"):
+        for rel, path in files_under(need_dir(t.a(module, "src", "test", "java")), "kt"):
+            if reads_ios_without_guard(read(path)):
+                offenders.append(f"{module}/src/test/java/{rel}: iOS-Pfad ohne SourceGuard")
+    return offenders
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ios-watchlist-keys: Jede nicht-private Funktion auf oberster Ebene der Merkliste von AppData steht in genau einer Liste
+# von WatchlistLockBehaviorTests (Schreibweg, Lesen, Hintergrund) — und keine Liste nennt eine Funktion, die es nicht mehr
+# gibt. Dass jeder Schreibweg im Verhaltenstest steht (userWrites), prüft der Test selbst.
+
+WK_FILES = ("AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift")
+WK_SETS = ("writeKeys", "readKeys", "backgroundKeys")
+
+
+def public_function_keys(text):
+    """Nicht-private Funktionen auf oberster Ebene der Erweiterung als «Name(erstes Argument»."""
+    keys = []
+    for line in text.split("\n"):
+        if not line.startswith("    ") or line.startswith("     ") or "func " not in line:
+            continue
+        at = line.index("func ")
+        prefix = line[:at]
+        if "private" in prefix or "/" in prefix:
+            continue
+        rest = line[at + 5:]
+        if "(" not in rest:
+            continue
+        name, args = rest.split("(", 1)
+        end = next((i for i, c in enumerate(args) if c in ":)"), len(args))
+        first = args[:end]
+        keys.append(f"{name}()" if not first and args[end:].startswith(")") else f"{name}({first}")
+    return keys
+
+
+def watchlist_key_sets(test_text):
+    """{Liste: Einträge} aus `private static let <Liste>: Set<String> = [ … ]` der Testdatei (Kommentare zählen nicht)."""
+    sets = {}
+    for name in WK_SETS:
+        m = re.search(r"static let " + name + r": Set<String> = \[(.*?)\n    \]", test_text, re.S)
+        sets[name] = None if m is None else set(re.findall(r'"([^"\n]*)"', ds_strip_comments(m.group(1))))
+    return sets
+
+
+def watchlist_key_problems(sources, test_text):
+    sets = watchlist_key_sets(test_text)
+    problems = [f"WatchlistLockBehaviorTests.swift: Liste {n} fehlt" for n, v in sets.items() if v is None]
+    if problems:
+        return problems
+    known = set().union(*sets.values())
+    found = set()
+    for name in WK_FILES:
+        for key in public_function_keys(sources.get(name, "")):
+            found.add(key)
+            if key not in known:
+                problems.append(f"App/Services/{name}: {key} ist keiner Liste (Schreibweg/Lesen/Hintergrund) zugeordnet")
+    problems += [f"WatchlistLockBehaviorTests.swift: {key} gibt es nicht mehr" for key in sorted(known - found)]
+    for a, b in (("writeKeys", "readKeys"), ("writeKeys", "backgroundKeys"), ("readKeys", "backgroundKeys")):
+        problems += [f"WatchlistLockBehaviorTests.swift: {key} steht in {a} und {b}" for key in sorted(sets[a] & sets[b])]
+    return problems
+
+
+def rule_ios_watchlist_keys(t):
+    sources = {name: read(need_file(t.i("App", "Services", name))) for name in WK_FILES}
+    return watchlist_key_problems(sources, read(need_file(t.i("Tests", "WatchlistLockBehaviorTests.swift"))))
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ios-write-calls: Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie Android `write-consent`.
+# Die Schreibwege kommen aus AppData (Funktionen in App/Services/AppData*.swift, deren Rumpf `watchlistWriteRefused(`
+# enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder Aufruf `data.<Schreibweg>(` in App
+# ausserhalb von Services liegt im Block von `withWatchlistConfirm { … }` (nicht im `cancelled:`-Block) oder in der Aktion
+# eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder
+# Aufrufer fragt (z. B. `addStarterConfirmed` oder `saveDraftNow`, dessen einziger Aufrufer `saveFromEditor` fragt). Der
+# eigene Rumpf einer Funktion zählt dabei nie als fragender Hilfsweg. `confirmWatchlistWrite` ist privat (die Aktion läuft
+# nur über `withWatchlistConfirm` unter `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten
+# Ausführung im Block (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { … }`
+# nicht. Das Verhalten der Zustimmung selbst prüft WatchlistConsentBehaviorTests an den Schreibwegen von AppData.
+
+# Erlaubte Aufrufe ohne Rückfrage (Datei relativ zu App, umschliessende Funktion). Leer: Systemwege wie «1 h später»
+# laufen unter iOS in AppData selbst (Services), nicht in Bildschirmen.
+IC_ALLOWED = []
+IC_DECLARATION = re.compile(
+    r"^[ \t]*(?:@\w+(?:\([^)\n]*\))?\s+)*"
+    r"(?:(?:private|fileprivate|internal|public|static|class|final|override|nonisolated|mutating)\s+)*"
+    r"(?:func\s+(\w+)\s*(?:<[^>\n]*>)?\s*\(|var\s+(\w+)\s*:[^=\n{]*\{[ \t]*$)", re.M)
+IC_REFUSED = re.compile(r"watchlistWriteRefused\(([^)]*)\)")
+IC_BARE_CALL = re.compile(r"(?<![\w.])(?:self\.)?(\w+)\(")
+IC_DATA_CALL = re.compile(r"\bdata\s*\.\s*(\w+)\(")
+IC_ARG_LABEL = re.compile(r"^\s*(\w+)\s*:(?!:)")
+IC_PARAM_HEAD = re.compile(r"^(\w+)(?:\s+(\w+))?\s*:")
+
+
+def ic_strip(t):
+    """Swift ohne Kommentare (auch verschachtelt, durch Leerraum ersetzt); Zeichenketten `"…"`, `\"\"\"…\"\"\"` und `#"…"#`
+    samt Interpolation `\\(…)` und erweiterte Regex-Literale `#/…/#` bleiben, Kommentarzeichen darin zählen nicht."""
+    n = len(t)
+    out = list(t)
+
+    def blank(a, b):
+        for k in range(a, b):
+            if out[k] != "\n":
+                out[k] = " "
+
+    def opens(i, c):
+        k = i
+        while k < n and t[k] == "#":
+            k += 1
+        return k < n and t[k] == c
+
+    def regex(start):
+        i, hashes = start, 0
+        while t[i] == "#":
+            hashes, i = hashes + 1, i + 1
+        i += 1
+        j = i
+        while j < n and t[j] in " \t":
+            j += 1
+        if j < n and t[j] == "\r":
+            j += 1
+        multi = j < n and t[j] == "\n"
+        close = "/" + "#" * hashes
+        while i < n:
+            if t[i] == "\\":
+                i += 2
+            elif t.startswith(close, i):
+                return i + len(close)
+            elif not multi and t[i] == "\n":
+                return i
+            else:
+                i += 1
+        return n
+
+    def string(start):
+        i, hashes = start, 0
+        while t[i] == "#":
+            hashes, i = hashes + 1, i + 1
+        multi = t.startswith('"""', i)
+        i += 3 if multi else 1
+        close = ('"""' if multi else '"') + "#" * hashes
+        escape = "\\" + "#" * hashes
+        while i < n:
+            if t.startswith(escape, i):
+                j = i + len(escape)
+                i = code(j + 1, True) if j < n and t[j] == "(" else j + 1
+            elif t.startswith(close, i):
+                return i + len(close)
+            elif not multi and t[i] == "\n":
+                return i
+            else:
+                i += 1
+        return n
+
+    def code(start, until_paren):
+        i, depth = start, 0
+        while i < n:
+            if t.startswith("//", i):
+                j = t.find("\n", i)
+                j = n if j < 0 else j
+                blank(i, j)
+                i = j
+            elif t.startswith("/*", i):
+                nested, k = 0, i
+                while k < n:
+                    if t.startswith("/*", k):
+                        nested, k = nested + 1, k + 2
+                    elif t.startswith("*/", k):
+                        nested, k = nested - 1, k + 2
+                        if nested == 0:
+                            break
+                    else:
+                        k += 1
+                blank(i, k)
+                i = k
+            elif t[i] == '"' or (t[i] == "#" and opens(i, '"')):
+                i = string(i)
+            elif t[i] == "#" and opens(i, "/"):
+                i = regex(i)
+            else:
+                if until_paren and t[i] == "(":
+                    depth += 1
+                if until_paren and t[i] == ")":
+                    if depth == 0:
+                        return i + 1
+                    depth -= 1
+                i += 1
+        return n
+
+    code(0, False)
+    return "".join(out)
+
+
+def _ic_ident(c):
+    return c.isascii() and (c.isalnum() or c == "_")
+
+
+class IcSource:
+    """Quelltext ohne Kommentare mit seinen Deklarationen (Funktionen und berechnete Eigenschaften)."""
+
+    def __init__(self, raw):
+        self.text = ic_strip(raw)
+        found = list(IC_DECLARATION.finditer(self.text))
+        self.regions = []
+        for i, m in enumerate(found):
+            is_func = m.group(1) is not None
+            self.regions.append({"name": m.group(1) if is_func else m.group(2), "start": m.start(), "header_end": m.end(),
+                                 "end": found[i + 1].start() if i + 1 < len(found) else len(self.text), "func": is_func})
+
+    def closing(self, open_):
+        """Index der passenden schliessenden Klammer zu open_ («(» bzw. «{»)."""
+        a = self.text[open_]
+        b = ")" if a == "(" else "}"
+        depth = 0
+        for i in range(open_, len(self.text)):
+            if self.text[i] == a:
+                depth += 1
+            elif self.text[i] == b:
+                depth -= 1
+                if depth == 0:
+                    return i
+        return len(self.text) - 1
+
+    def arguments(self, from_, to):
+        """Argumente zwischen from_ und to (Kommas auf oberster Ebene)."""
+        if from_ >= to:
+            return []
+        parts, depth, start = [], 0, from_
+        for i in range(from_, to):
+            c = self.text[i]
+            if c in "([{":
+                depth += 1
+            elif c in ")]}":
+                depth -= 1
+            elif c == "," and depth == 0:
+                parts.append(self.text[start:i])
+                start = i + 1
+        last = self.text[start:to]
+        if last.strip():
+            parts.append(last)
+        return parts
+
+    def region_at(self, pos):
+        before = [r for r in self.regions if r["start"] <= pos]
+        return before[-1] if before else None
+
+    def line(self, pos):
+        return self.text.count("\n", 0, pos) + 1
+
+
+def _ic_matches(src, regex, from_, to):
+    """Treffer im Bereich (wie NSRegularExpression mit Bereich: Ränder verankern, kein Blick darüber hinaus)."""
+    return [(from_ + m.start(), from_ + m.end(), m) for m in regex.finditer(src.text[from_:to])]
+
+
+def ic_params(src, region):
+    if not region["func"]:
+        return []
+    close = src.closing(region["header_end"] - 1)
+    params = []
+    for raw in src.arguments(region["header_end"], close):
+        arg = raw.strip()
+        m = IC_PARAM_HEAD.match(arg)
+        if not m:
+            continue
+        label = m.group(1)
+        kind = arg[m.end():]
+        params.append((label, m.group(2) or label, "=" in kind, "->" in kind))
+    return params
+
+
+def _ic_calls(src, regex, from_, to):
+    calls = []
+    for start, end, m in _ic_matches(src, regex, from_, to):
+        open_ = end - 1
+        close = src.closing(open_)
+        labels = []
+        for arg in src.arguments(open_ + 1, close):
+            label = IC_ARG_LABEL.match(arg)
+            labels.append(label.group(1) if label else "_")
+        k = close + 1
+        while k < len(src.text) and src.text[k] in " \n\t":
+            k += 1
+        calls.append({"pos": start, "name": m.group(1), "labels": labels,
+                      "trailing": k < len(src.text) and src.text[k] == "{"})
+    return calls
+
+
+def _ic_fits(params, labels, trailing):
+    """Passen die Argument-Bezeichner zur Deklaration (Standardwerte dürfen fehlen, eine nachgestellte Closure füllt den
+    ersten offenen Closure-Parameter)?"""
+    i, trailing_left = 0, trailing
+    for label, _, has_default, is_closure in params:
+        if i < len(labels) and labels[i] == label:
+            i += 1
+            continue
+        if has_default:
+            continue
+        if trailing_left and is_closure:
+            trailing_left = False
+            continue
+        return False
+    return i == len(labels)
+
+
+def _ic_is_write(call, writes):
+    return any(name == call["name"] and _ic_fits(params, call["labels"], call["trailing"]) for name, params in writes)
+
+
+def ic_write_paths(repo):
+    """[(Name, Parameter)] der Schreibwege: Rumpf mit watchlistWriteRefused( (nicht nur notify: false), dazu
+    Weiterleitungen darauf."""
+    writes, regions = [], []
+    for src in repo:
+        for region in src.regions:
+            if not region["func"] or region["name"] == "watchlistWriteRefused":
+                continue
+            regions.append((src, region))
+            refused = [m.group(1) for _, _, m in _ic_matches(src, IC_REFUSED, region["header_end"], region["end"])]
+            if refused and not all("notify: false" in r for r in refused):
+                writes.append((region["name"], ic_params(src, region)))
+    changed = True
+    while changed:
+        changed = False
+        for src, region in regions:
+            own = ic_params(src, region)
+            if (region["name"], own) in writes:
+                continue
+            if any(_ic_is_write(c, writes) for c in _ic_calls(src, IC_BARE_CALL, region["header_end"], region["end"])):
+                writes.append((region["name"], own))
+                changed = True
+    return writes
+
+
+def _ic_skip_back_args(text, k):
+    """Von «)» bei k zurück vor die passende «(»."""
+    depth = 0
+    while k >= 0:
+        if text[k] == ")":
+            depth += 1
+        elif text[k] == "(":
+            depth -= 1
+            if depth == 0:
+                break
+        k -= 1
+    return k - 1
+
+
+def _ic_detached_call(src, at):
+    """Steht vor der Klammer bei at (bei «{» auch über eine Argumentliste) Task.detached, .async oder .asyncAfter?"""
+    t = src.text
+    k = at - 1
+    while k >= 0 and t[k] in " \n\t":
+        k -= 1
+    if t[at] == "{" and k >= 0 and t[k] == ")":
+        k = _ic_skip_back_args(t, k)
+    while k >= 0 and t[k] == " ":
+        k -= 1
+    start = k
+    while start >= 0 and _ic_ident(t[start]):
+        start -= 1
+    if not (start < k and start > 0 and t[start] == "."):
+        return False
+    name = t[start + 1:k + 1]
+    if name in ("async", "asyncAfter"):
+        return True
+    return name == "detached" and t[max(0, start - 4):start] == "Task" and (start < 5 or not _ic_ident(t[start - 5]))
+
+
+def _ic_escapes(src, from_, pos):
+    """Beginnt zwischen from_ und pos eine losgelöste Ausführung, die pos noch umschliesst?"""
+    if from_ >= pos:
+        return False
+    open_ = []
+    for i in range(from_, pos):
+        c = src.text[i]
+        if c in "({":
+            open_.append(i)
+        elif c in ")}" and open_:
+            open_.pop()
+    return any(_ic_detached_call(src, at) for at in open_)
+
+
+def _ic_callee(src, brace):
+    """Name des Aufrufs, dessen (erste bzw. nachgestellte) Closure bei brace beginnt; None bei `label: {`."""
+    t = src.text
+    k = brace - 1
+    while k >= 0 and t[k] in " \n\t":
+        k -= 1
+    if k < 0:
+        return None
+    if t[k] == ")":
+        k = _ic_skip_back_args(t, k)
+    elif t[k] == "(":
+        k -= 1
+    while k >= 0 and t[k] == " ":
+        k -= 1
+    start = k
+    while start >= 0 and _ic_ident(t[start]):
+        start -= 1
+    return t[start + 1:k + 1] if start < k else None
+
+
+def _ic_inside_confirm(sources, src, from_, pos, seen):
+    if from_ > pos:
+        return False
+    open_ = []
+    for i in range(from_, pos):
+        if src.text[i] == "{":
+            open_.append(i)
+        elif src.text[i] == "}" and open_:
+            open_.pop()
+    for brace in reversed(open_):
+        name = _ic_callee(src, brace)
+        if name is None:
+            continue
+        if name == "withWatchlistConfirm":
+            return not _ic_escapes(src, brace + 1, pos)
+        if name not in seen and _ic_helper_confirms(sources, name, seen | {name}):
+            return not _ic_escapes(src, brace + 1, pos)
+    return False
+
+
+def _ic_helper_confirms(sources, name, seen):
+    """Funktion [name], die jede ihrer Closure-Aktionen nur im Block von withWatchlistConfirm ausführt."""
+    for src in sources.values():
+        for region in src.regions:
+            if not region["func"] or region["name"] != name:
+                continue
+            uses = []
+            for _, action, _, is_closure in ic_params(src, region):
+                if is_closure:
+                    regex = re.compile(r"(?<![\w.])" + re.escape(action) + r"\(")
+                    uses += [at for at, _, _ in _ic_matches(src, regex, region["header_end"], region["end"])]
+            if uses and all(_ic_inside_confirm(sources, src, region["header_end"], u, seen) for u in uses):
+                return True
+    return False
+
+
+def _ic_confirmed(sources, file, pos, seen):
+    """Liegt pos hinter der Rückfrage — oder fragen alle Aufrufer des umschliessenden Hilfswegs?"""
+    src = sources.get(file)
+    region = src.region_at(pos) if src else None
+    if region is None:
+        return False
+    # Der eigene Rumpf zählt nicht als fragender Hilfsweg
+    if _ic_inside_confirm(sources, src, region["header_end"], pos, seen | {region["name"]}):
+        return True
+    if region["name"] in seen or len(seen) > 4:
+        return False
+    regex = re.compile(r"(?<![\w])" + re.escape(region["name"]) + r"\(")
+    sites = [(other, m.start()) for other, s in sources.items() for m in regex.finditer(s.text)
+             if not any(r["start"] <= m.start() < r["header_end"] for r in s.regions)]
+    return bool(sites) and all(_ic_confirmed(sources, o, p, seen | {region["name"]}) for o, p in sites)
+
+
+def ic_check(sources, writes, allowed):
+    """(Aufrufe, Befunde «Datei:Zeile Funktion», Ausnahmen) der Schreibwege in {Datei: IcSource}."""
+    calls, problems, exempted = 0, [], []
+    for file in sorted(sources):
+        src = sources[file]
+        for call in _ic_calls(src, IC_DATA_CALL, 0, len(src.text)):
+            if not _ic_is_write(call, writes):
+                continue
+            calls += 1
+            region = src.region_at(call["pos"])
+            function = region["name"] if region else "?"
+            if (file, function) in allowed:
+                exempted.append(f"{file} {function}")
+            elif not _ic_confirmed(sources, file, call["pos"], set()):
+                problems.append(f"{file}:{src.line(call['pos'])} {function}")
+    return calls, problems, exempted
+
+
+def rule_ios_write_calls(t):
+    sources = {rel: IcSource(read(path)) for rel, path in files_under(need_dir(t.i("App")), "swift")}
+    writes = ic_write_paths([s for rel, s in sources.items() if rel.startswith("Services/AppData")])
+    names = {name for name, _ in writes}
+    problems = [f"Schreibweg {e} nicht abgeleitet: {sorted(names)}" for e in
+                ("toggleFavorite", "tryAddWatch", "addWatch", "saveAlarm", "deleteNotTradedForUndo", "setAlarmEnabled")
+                if e not in names]
+    toggles = [len(params) for name, params in writes if name == "toggleFavorite"]
+    if toggles != [1]:
+        problems.append(f"toggleFavorite: Überladung ohne Merkliste zählt mit ({toggles})")
+    calls, found, exempted = ic_check({r: s for r, s in sources.items() if not r.startswith("Services/")}, writes, IC_ALLOWED)
+    if calls < 30:
+        problems.append(f"nur {calls} Aufrufe gefunden — Scan defekt?")
+    if len(exempted) != len(IC_ALLOWED):
+        problems.append("Ausnahmeliste IC_ALLOWED veraltet")
+    return problems + [f"App/{p}: Schreibweg ohne Rückfrage «nicht gespeichert» davor" for p in found]
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # Run
 
 
@@ -2541,6 +3654,10 @@ RULES = [
     ("portfolio-settings-confirm", rule_portfolio_settings),
     ("watch-deletion", rule_watch_deletion),
     ("ios-wiring", rule_ios_wiring),
+    ("android-wiring", rule_android_wiring),
+    ("source-guard", rule_source_guard),
+    ("ios-watchlist-keys", rule_ios_watchlist_keys),
+    ("ios-write-calls", rule_ios_write_calls),
 ]
 
 
@@ -2689,6 +3806,8 @@ def self_test():
     eq((in_package(DOMAIN, DOMAIN), in_package(DOMAIN + "x.A", DOMAIN)), (True, False), "layers: in_package")
     _self_test_dialog(eq)
     _self_test_write_consent(eq)
+    _self_test_scoped(eq)
+    _self_test_write_calls(eq)
     eq(len(write_order_violations("ui/A.kt", "fun a() = scope.launch {\n    watchRepository.deleteAlarm(id)\n    notifier.cancel()\n}")), 1,
        "write-order: verworfenes Ergebnis")
     eq(write_order_violations("ui/A.kt", "fun a() = scope.launch {\n    if (!watchRepository.deleteAlarm(id)) return@launch\n}"), [],
@@ -2748,6 +3867,202 @@ def _self_test_dialog(eq):
         eq(dialog_violations(dialog(slot), strings), [], f"dialog-scroll fälschlich gemeldet: {slot}")
     inner = "AlertDialog(\n    onDismissRequest = {},\n    confirmButton = { Foo(text = { Text(a); Text(b) }) }\n)"
     eq(dialog_violations(inner, strings), [], "dialog-scroll: innerer text =")
+
+
+def _self_test_scoped(eq):
+    src = {"A.kt": "class A {\n    fun a() {\n        // b()\n        c()\n    }\n    fun d() { e() }\n}\n"}
+    eq(scoped_problems(src, [W("A.kt", "c()", within=("fun a()", BODY))]), [], "scoped: im Rumpf")
+    eq(len(scoped_problems(src, [W("A.kt", "b()", "e()", within=("fun a()", BODY))])), 2,
+       "scoped: auskommentiert bzw. ausserhalb des Rumpfs")
+    eq(len(scoped_problems(src, [W("A.kt", "b()", n=0)])), 1, "scoped: nie (auch im Kommentar)")
+    eq(len(scoped_problems(src, [W("A.kt", "c()", n=2)])), 1, "scoped: genaue Zahl")
+    eq(len(scoped_problems(src, [W("A.kt", "e()", "c()", order=True)])), 1, "scoped: Reihenfolge")
+    eq(scoped_problems(src, [W("A.kt", "c()", "e()", order=True)]), [], "scoped: Reihenfolge ok")
+    eq(len(scoped_problems(src, [W("A.kt", "c()", within=("fun x()", None))])), 1, "scoped: Anfangsmarke fehlt")
+    eq(len(scoped_problems(src, [W("A.kt", "c()", within=("fun a()", "fun zz"))])), 1, "scoped: Endmarke fehlt")
+    eq(scoped_problems(src, [W("A.kt", "c()", within=("fun a()", ("fun zz",)))]), [], "scoped: Endmarken frei")
+    eq(len(scoped_problems(src, [W("A.kt", "e()", within=("fun a()", ("fun d", "}")))])), 1, "scoped: früheste Endmarke")
+    eq(len(scoped_problems(src, [W("A.kt", r"\be\(\)", n=0, regex=True, within=("fun d()", 10))])), 1,
+       "scoped: Muster in k Zeichen")
+    eq(scoped_problems({"B.kt": "f( a ,\n b ,)"}, [W("B.kt", "f(a, b)", sq=True)]), [], "scoped: ohne Leerraum")
+    eq(len(scoped_problems({}, [W("C.kt", "x")])), 1, "scoped: Datei fehlt")
+    seq = {"D.kt": "fun x(\nrun()\nlock { run() }\nx("}
+    eq(scoped_problems(seq, [W("D.kt", "lock {", "x(", order=True, seq=True)]), [], "scoped: nacheinander gesucht")
+    eq(len(scoped_problems(seq, [W("D.kt", "lock {", "x(", order=True)])), 1, "scoped: erster Treffer zählt")
+    lines = {"E.swift": ".animation(reduceMotion ? nil : .default)\nlet a = 1\n.animation(.default)\n"
+                        "try? fm.removeItem(at: u)\nfm.removeItem(at: u)\n"}
+    eq(len(scoped_problems(lines, [W("E.swift", r"(?m)^(?!.*reduceMotion).*\.animation\(", n=0, regex=True),
+                                   W("E.swift", _TRY_SWALLOW + re.escape("removeItem("), n=0, regex=True)])), 2,
+       "scoped: Zeilen ohne reduceMotion bzw. mit try?")
+    tree = TREE("App", "swift", '"chevron.right"', skip=("Ok.swift",), least=1)
+    eq(tree_problems([("App/A.swift", 'Image(systemName: "chevron.right")'), ("App/Ok.swift", '"chevron.right"'),
+                      ("App/B.swift", 'Image(systemName: "chevron.left.forwardslash.chevron.right")')], tree),
+       ['App/A.swift: «"chevron.right"» darf nicht stehen ()'], "tree: Fund, Ausnahme, zusammengesetztes Symbol")
+    eq(len(tree_problems([("App/A.swift", "")], tree)), 1, "tree: zu wenige Dateien")
+    eq(restore_order_rows('{"android": {"steps": ["A", "B"]}}')[0]["needles"],
+       ("RestoreRun.Write(Step.A", "RestoreRun.Write(Step.B"), "restore-order: Schritte aus der Datei")
+    # source-guard: ohne SourceGuard gefunden, im Kommentar bzw. mit SourceGuard nicht
+    eq([reads_ios_without_guard(x) for x in (
+        'val f = File("ios/App/X.swift")\nif (f.exists()) check(f)', 'val roots = listOf("App").map { File("../ios/$it") }',
+        "// wie ios/App/X.swift\nval x = 1", 'val t = SourceGuard.ios(File("ios/App/X.swift").takeIf { it.isFile }, "x")')],
+       [True, True, False, False], "source-guard")
+    # ios-watchlist-keys: unbekannte, veraltete und doppelte Einträge
+    test = ('    private static let writeKeys: Set<String> = [\n        "setNote(_ watch", "gone()"\n    ]\n'
+            '    private static let readKeys: Set<String> = [\n        // Kommentar "x("\n        "watch(_ id", "setNote(_ watch"\n    ]\n'
+            '    private static let backgroundKeys: Set<String> = [\n        "sendTestAlarm()"\n    ]\n')
+    app = ("extension AppData {\n    func setNote(_ watch: Watch, _ n: String?) {\n        func inner() {}\n    }\n"
+           "    private func hidden() {}\n    func watch(_ id: Int64) -> Watch? { nil }\n    func sendTestAlarm() {}\n"
+           "    func newOne(x: Int) {}\n    // func commented() {}\n}\n")
+    eq(public_function_keys(app), ["setNote(_ watch", "watch(_ id", "sendTestAlarm()", "newOne(x"], "ios-watchlist-keys: Schlüssel")
+    eq(len(watchlist_key_problems({"AppData+Watchlist.swift": app}, test)), 3, "ios-watchlist-keys: Befunde")
+
+
+def _ic_names(problems):
+    return [p.split(" ")[-1] for p in problems]
+
+
+def _self_test_write_calls(eq):
+    """Gegenproben der Prüfung je Aufruf: ohne Rückfrage, direkt hinter confirmWatchlistWrite, im cancelled:-Block, nach
+    dem Block, Zeichenkette mit Kommentarzeichen, Regex-Literal, Schreibweg vor der Frage, losgelöste Ausführung → Befund;
+    Hilfsweg, erbender Task und andere Überladung → kein Befund."""
+    repo = IcSource(r"""extension AppData {
+    func toggleFavorite(_ watch: Watch) { guard !watchlistWriteRefused() else { return } }
+    func toggleFavorite(_ kind: FavoriteKind, _ item: String) { favorites.toggle() }
+    func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
+    func setNote(_ watch: Watch, _ note: String?) { guard !watchlistWriteRefused() else { return } }
+    func follow(_ id: Int64) { guard !watchlistWriteRefused(notify: false) else { return } }
+    func wrapper(_ ids: [Int64]) { reorder(ids) }
+}""")
+    writes = ic_write_paths([repo])
+    eq({name for name, _ in writes}, {"toggleFavorite", "reorder", "setNote", "wrapper"}, "ios-write-calls: Ableitung")
+    sample = IcSource(r"""extension X {
+    func ok() {
+        data.withWatchlistConfirm { data.toggleFavorite(w) }
+    }
+    func okHelper() {
+        tile { data.reorder([]) }
+    }
+    private func tile(action: @escaping () -> Void) -> some View {
+        Button { data.withWatchlistConfirm { action() } } label: { Text("x") }
+    }
+    func directConfirm() {
+        Task { guard await data.confirmWatchlistWrite() else { return }; data.setNote(w, nil) }
+    }
+    func bad() {
+        data.toggleFavorite(w)
+    }
+    func cancelledPath() {
+        data.withWatchlistConfirm { } cancelled: { data.reorder([]) }
+    }
+    func afterBlock() {
+        data.withWatchlistConfirm { }
+        data.setNote(w, nil)
+    }
+    func stringOpensComment() {
+        let s = "/* kein Kommentar \(s.count)"; data.reorder([]); let e = "*/"
+    }
+    func regexHidesNothing() {
+        let r = #/a//b/#; data.reorder([])
+    }
+    func ownClosureParam(_ note: String?, close: @escaping () -> Void) {
+        data.setNote(w, note)
+        data.withWatchlistConfirm({ close() }, cancelled: nil)
+    }
+    func otherOverload() {
+        data.toggleFavorite(.coin, "BTC")
+    }
+    // data.reorder([]) — Kommentar zählt nicht
+}""")
+    calls, problems, _ = ic_check({"Features/Sample.swift": sample}, writes, [])
+    eq((calls, _ic_names(problems)), (9, ["directConfirm", "bad", "cancelledPath", "afterBlock", "stringOpensComment",
+                                          "regexHidesNothing", "ownClosureParam"]), "ios-write-calls: Gegenprobe")
+    repo = IcSource(r"""extension AppData {
+    func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
+    func setNote(_ watch: Watch, _ note: String?) { guard !watchlistWriteRefused() else { return } }
+}""")
+    writes = ic_write_paths([repo])
+    direct = IcSource(r"""extension X {
+    func guardLine() {
+        Task { guard await data.confirmWatchlistWrite() else { return }; data.setNote(w, nil) }
+    }
+    func guardBlock() {
+        Task {
+            guard await data.confirmWatchlistWrite() else {
+                cancelled()
+                return
+            }
+            data.reorder([])
+        }
+    }
+    func inElse() {
+        Task { guard await data.confirmWatchlistWrite() else { data.reorder([]); return } }
+    }
+    func ifElse() {
+        Task { if await data.confirmWatchlistWrite() { } else { data.setNote(w, nil) } }
+    }
+    func negatedIf() {
+        Task { if !(await data.confirmWatchlistWrite()) { data.reorder([]) } }
+    }
+    func ignored() {
+        Task { _ = await data.confirmWatchlistWrite(); data.reorder([]) }
+    }
+    func stored() {
+        Task { let ok = await data.confirmWatchlistWrite(); if ok { data.reorder([]) } }
+    }
+    func positiveIf() {
+        Task { if await data.confirmWatchlistWrite() { data.reorder([]) } }
+    }
+    func outsideTask() {
+        Task { guard await data.confirmWatchlistWrite() else { return } }
+        data.reorder([])
+    }
+}""")
+    calls, problems, _ = ic_check({"Features/Sample.swift": direct}, writes, [])
+    eq((calls, _ic_names(problems)), (9, ["guardLine", "guardBlock", "inElse", "ifElse", "negatedIf", "ignored", "stored",
+                                          "positiveIf", "outsideTask"]), "ios-write-calls: direkte Frage zählt nie")
+    detached = IcSource(r"""extension X {
+    func okTask() {
+        data.withWatchlistConfirm { Task { await load(); data.reorder([]) } }
+    }
+    func okClosedDetached() {
+        data.withWatchlistConfirm {
+            Task.detached { log() }
+            data.setNote(w, nil)
+        }
+    }
+    func inDetached() {
+        data.withWatchlistConfirm { Task.detached(priority: .low) { await data.reorder([]) } }
+    }
+    func inMainAsync() {
+        data.withWatchlistConfirm { DispatchQueue.main.async { data.reorder([]) } }
+    }
+    func inAsyncAfter() {
+        data.withWatchlistConfirm {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { data.setNote(w, nil) }
+        }
+    }
+    func withExecute() {
+        data.withWatchlistConfirm({ DispatchQueue.global().async(execute: { data.reorder([]) }) }, cancelled: nil)
+    }
+    func viaHelper() {
+        tile { DispatchQueue.main.async { data.reorder([]) } }
+    }
+    private func tile(action: @escaping () -> Void) -> some View {
+        Button { data.withWatchlistConfirm { action() } } label: { Text("x") }
+    }
+}""")
+    calls, problems, _ = ic_check({"Features/Sample.swift": detached}, writes, [])
+    eq((calls, _ic_names(problems)), (7, ["inDetached", "inMainAsync", "inAsyncAfter", "withExecute", "viaHelper"]),
+       "ios-write-calls: losgelöste Ausführung")
+    # Mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach #/ — ein /* darin öffnet keinen Kommentar
+    writes = ic_write_paths([IcSource("extension AppData {\n    func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() "
+                                      "else { return } }\n}")])
+    eq([name for name, _ in writes], ["reorder"], "ios-write-calls: ein Schreibweg")
+    for gap in (" \t\n", "\r\n", " \r\n"):
+        text = ("extension X {\n    func spaced() {\n        let r = #/" + gap + "  a /* c" + gap
+                + "/#\n        data.reorder([])\n    }\n}\n")
+        eq(_ic_names(ic_check({"Features/Sample.swift": IcSource(text)}, writes, [])[1]), ["spaced"],
+           f"ios-write-calls: Regex-Literal {gap!r}")
 
 
 def _wc_names(problems):

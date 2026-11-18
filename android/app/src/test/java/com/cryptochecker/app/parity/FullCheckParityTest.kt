@@ -60,17 +60,4 @@ class FullCheckParityTest {
         assertTrue(BackgroundSchedule.marksAlarmCheck(fullCheck = true))
         assertEquals(false, BackgroundSchedule.marksAlarmCheck(fullCheck = false))
     }
-
-    /** Der Durchlauf vermerkt die volle Prüfung über diese Regel, nach dem Auswerten aller Alarme. */
-    @Test
-    fun runIsMarkedAfterEvaluation() {
-        val source = sequenceOf("", "../", "android/")
-            .map { java.io.File(it + "domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceRefresher.kt") }
-            .first { it.isFile }.readText()
-        val process = source.indexOf("resultProcessor.process(lock, activeWatches, fetched, settings, dayStart, deferPrices = true)")
-        val mark = source.indexOf("if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()")
-        assertTrue(process >= 0)
-        assertTrue(mark > process)
-        assertEquals(1, Regex("""refreshStats\.setLastFullCheck\(""").findAll(source).count())
-    }
 }

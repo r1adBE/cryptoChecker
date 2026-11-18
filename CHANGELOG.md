@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 299)
+
+- Internal: remaining source-text checks in unit tests became behaviour tests or checked rules; Wear OS complications are tested on the watch emulator.
+
 ## 16.2.2 (build 298)
 
 - Internal: long Android screens split into smaller parts (C-02); code generation for the database runs complete and is checked after each build, fixing flaky device-test builds without database classes; iOS favorites stream after the Observation switch.

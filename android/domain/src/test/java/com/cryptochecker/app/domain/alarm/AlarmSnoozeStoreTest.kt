@@ -1,10 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.util.KeyValueStore
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -55,26 +53,5 @@ class AlarmSnoozeStoreTest {
         assertNull(store.snoozeUntil(1))
         assertNull(store.snoozeUntil(7))
         assertEquals(3, memory.values["other"])
-    }
-
-    /** Das Wiederherstellen ruft es nach dem Entfernen der Alarm-Mitteilungen auf. */
-    @Test
-    fun restoreClearsSnoozes() {
-        val actions = source("app/src/main/java/com/cryptochecker/app/ui/features/settings/SettingsBackupActions.kt")
-        val cancel = actions.indexOf("notifier.cancelAlarms(result.replacedAlarmIds, result.replacedPortfolioAlarmIds)")
-        val clear = actions.indexOf("notifier.clearAlarmSnoozes()")
-        assertTrue(cancel > 0 && clear > cancel)
-    }
-
-    private fun source(path: String): String {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            for (prefix in listOf("", "android/")) {
-                val f = File(dir, prefix + path)
-                if (f.isFile) return f.readText(Charsets.UTF_8)
-            }
-            dir = dir.parentFile
-        }
-        throw AssertionError("$path nicht gefunden")
     }
 }

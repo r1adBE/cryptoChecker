@@ -5,8 +5,6 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartFx
-import com.cryptochecker.app.util.SourceGuard
-import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -86,61 +84,6 @@ class WatchlistGroupsHintTest {
         assertFalse(hint(searching = true))
         assertFalse(hint(sortMode = true))
         assertFalse(hint(quickView = QuickView.STALE))
-    }
-}
-
-// ---- aus WatchlistReduceMotionGuardTest
-
-/**
- * iOS-Merkliste: Jede `.animation(…)` der Liste richtet sich nach «Bewegung reduzieren» (`reduceMotion ? nil : …`),
- * wie die Überlagerungen. Quellwächter über `ios/App/Features/Watchlist/WatchlistList.swift`; im reinen
- * Android-Checkout übersprungen (sichtbar, in der CI Pflicht).
- */
-class WatchlistReduceMotionGuardTest {
-
-    @Test
-    fun `list animations respect reduce motion`() {
-        val file = SourceGuard.ios(iosFile("App/Features/Watchlist/WatchlistList.swift"), "ios/App/Features/Watchlist/WatchlistList.swift")
-        val ungated = file.readLines(Charsets.UTF_8)
-            .withIndex()
-            .filter { (_, line) -> line.contains(".animation(") && !line.contains("reduceMotion") }
-            .map { (index, line) -> "${index + 1}: ${line.trim()}" }
-        assertEquals(emptyList<String>(), ungated)
-    }
-
-    /**
-     * «Paar hinzufügen» (iOS): die Animationen der Seite richten sich nach «Bewegung reduzieren», und eine Transaktion
-     * an der Wurzel nimmt auch `withAnimation` der Unteransichten heraus.
-     */
-    @Test
-    fun `explorer respects reduce motion`() {
-        val rel = "App/Features/Explorer/ExplorerScreen.swift"
-        val text = SourceGuard.ios(iosFile(rel), "ios/$rel").readText(Charsets.UTF_8)
-        val ungated = text.lines().filter { it.contains(".animation(") && !it.contains("reduceMotion") }.map { it.trim() }
-        assertEquals(emptyList<String>(), ungated)
-        assertTrue(text.contains("@Environment(\\.accessibilityReduceMotion) var reduceMotion"))
-        assertTrue(text.contains("transaction.disablesAnimations = true"))
-    }
-
-    /** Android: der «+»-Knopf über Listen erscheint bei «Animationen entfernen» ohne Skalieren. */
-    @Test
-    fun `plus button respects remove animations`() {
-        val rel = "src/main/java/com/cryptochecker/app/ui/components/AppFab.kt"
-        val file = listOf(File(rel), File("app/$rel"), File("android/app/$rel")).firstOrNull { it.isFile }
-        val fab = SourceGuard.android(file, rel).readText(Charsets.UTF_8)
-        assertTrue(fab.contains("enter = if (reduceMotion) EnterTransition.None else scaleIn() + fadeIn(),"))
-        assertTrue(fab.contains("exit = if (reduceMotion) ExitTransition.None else scaleOut() + fadeOut(),"))
-    }
-
-    /** Datei unter `ios/`, vom Arbeitsverzeichnis aus aufwärts gesucht. */
-    private fun iosFile(rel: String): File? {
-        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
-        while (dir != null) {
-            val f = File(dir, "ios/$rel")
-            if (f.isFile) return f
-            dir = dir.parentFile
-        }
-        return null
     }
 }
 

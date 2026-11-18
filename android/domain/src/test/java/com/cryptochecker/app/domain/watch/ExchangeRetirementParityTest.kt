@@ -134,17 +134,6 @@ class ExchangeRetirementParityTest {
         assertNull(RetiredWatch.shown(marked, end - 86_400_000).lastPrice)
     }
 
-    /** Android lädt weder Alarm-Zusatzdaten noch Tages-Bezüge für stillgelegte bzw. nicht gehandelte Paare. */
-    @Test
-    fun noPrefetchForRetiredPairs() {
-        val source = sequenceOf("", "../", "android/")
-            .map { java.io.File(it + "domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceRefresher.kt") }
-            .first { it.isFile }.readText()
-        assertTrue(source.contains("val traded = watches.filterNot { it.isNotTraded || RetiredWatch.exchangeOf(it) != null }"))
-        assertTrue(source.contains("val earlyWatches = if (dayStart != null) traded else traded.filter {"))
-        assertTrue(source.contains("traded.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) }"))
-    }
-
     @Test
     fun clockIsReplaceable() {
         ExchangeRetirement.clock = { end - 1 }

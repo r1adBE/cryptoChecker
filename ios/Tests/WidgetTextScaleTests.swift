@@ -113,25 +113,8 @@ private struct ProposingFrame: Layout {
 
 /// Alle Widgets mit Haupttexten (Coin-Name, Kurs, Gesamtwert, Schlagzeile) wachsen mit Dynamic Type über
 /// `WidgetPrimaryFit` bzw. `primaryScale` — die Widget-Views gehören zum Widget-Ziel und lassen sich hier nicht
-/// rendern, darum die Prüfung an den Quellen (wie `SettingsLogicTests` an `WidgetStyle.swift`).
+/// rendern, darum prüft die Quellen die Regel `ios-wiring` in `.github/scripts/source_rules.py`.
 final class WidgetPrimaryScaleUsageTests: XCTestCase {
-    private static let files = [
-        "WatchlistWidgetViews.swift", "SingleWidget.swift", "SingleWidgetHeader.swift", "PortfolioWidgetHome.swift",
-        "PortfolioWidgetList.swift", "PortfolioWidgetOverview.swift", "PortfolioWidgetLockScreen.swift",
-        "PulseWidgetHome.swift", "PriceLiveActivityWidget.swift"
-    ]
-
-    func testWidgetsUsePrimaryScale() throws {
-        let dir = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appendingPathComponent("../Widgets")
-        for name in Self.files {
-            // Fehlt die Datei, soll der Test scheitern statt still zu bestehen
-            let source = try String(contentsOf: dir.appendingPathComponent(name).standardized, encoding: .utf8)
-            let scales = source.contains("WidgetPrimaryFit") || source.contains("primaryScale")
-                || source.contains("scale: CGFloat")
-            XCTAssertTrue(scales, "\(name): Haupttexte ohne Dynamic Type (WidgetPrimaryFit / primaryScale)")
-        }
-    }
-
     /// Portfolio-Liste (zweizeilig): mit grosser Schrift höhere Zeilen, also weniger Positionen
     /// (`rowHeight(fontScale:)`).
     func testPortfolioListShowsFewerRowsWithLargeText() {
