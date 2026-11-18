@@ -107,7 +107,7 @@ struct WatchlistWhyChangeBadge: View {
     var body: some View {
         HStack(spacing: Spacing.xs) {
             Text(label)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
             ChangePill(change: change, dashWhenMissing: true)
         }

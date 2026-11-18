@@ -21,7 +21,7 @@ struct PortfolioCompareChart: View {
     @Environment(\.onAccent) private var onAccent
     @Environment(\.priceHighContrast) private var highContrast
     @Environment(\.displayScale) private var displayScale
-    @ScaledMetric(relativeTo: .caption2) private var labelSize: CGFloat = 10
+    @ScaledMetric(relativeTo: .caption2) private var labelSize: CGFloat = 11
 
     /// x des Fingers beim Ziehen (nach kurzem Drücken); nil = kein Ziehen.
     @GestureState private var pressX: CGFloat? = nil

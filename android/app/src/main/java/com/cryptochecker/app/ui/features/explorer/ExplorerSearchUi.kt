@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -26,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,13 +36,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -268,15 +264,23 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(start = 16.dp, end = 8.dp, top = Spacing.md, bottom = Spacing.xs)
         ) {
-            // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
-            val others = lists.missing - lists.failed.size
-            if (lists.failed.isNotEmpty()) FailedListsText(lists.failed)
+            // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen. Antworteten viele
+            // nicht (meist: kein Netz), zuerst nur der ruhige Satz «… noch nicht auf dem Gerät», die Namen auf Tippen
+            var expanded by rememberSaveable(lists.failed) { mutableStateOf(false) }
+            val summarized = failedSummarized(lists.failed.size, expanded)
+            val others = if (summarized) lists.missing else lists.missing - lists.failed.size
+            if (lists.failed.isNotEmpty() && !summarized) FailedListsText(lists.failed, expanded) { expanded = true }
             if (lists.failed.isEmpty() || others > 0) {
                 Text(
                     text = pluralStringResource(R.plurals.explorer_lists_missing, others, others),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = if (lists.failed.isEmpty()) Modifier else Modifier.padding(top = Spacing.xs)
                 )
+            }
+            if (summarized) {
+                TextButton(onClick = { expanded = true }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                    Text(stringResource(R.string.watchlist_show_all))
+                }
             }
             Text(
                 text = stringResource(R.string.explorer_lists_privacy),
@@ -289,55 +293,6 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
             }
         }
     }
-}
-
-/**
- * «Binance, Bybit, Coinbase, +47 weitere antworten zurzeit nicht …»: Börsen ohne Antwort alphabetisch, eingeklappt
- * höchstens [FAILED_NAMES_SHOWN] (ohne Netz wären es sonst rund 50 Namen); Tipp auf den Satz zeigt alle. Wie iOS.
- */
-@Composable
-private fun FailedListsText(failed: List<String>) {
-    var expanded by rememberSaveable(failed) { mutableStateOf(false) }
-    val (names, hidden) = failedNamesShown(failed, expanded)
-    val more = if (hidden > 0) pluralStringResource(R.plurals.explorer_lists_failed_more, hidden, hidden) else null
-    // Zwei Texte statt Plural: die Zahl steht nicht im Satz (Xcode verlangt sie in Plural-Varianten)
-    val sentence = stringResource(
-        if (failed.size == 1) R.string.explorer_lists_failed_one else R.string.explorer_lists_failed_many,
-        (names + listOfNotNull(more)).joinToString(", ")
-    )
-    val accent = MaterialTheme.colorScheme.primary
-    val text = remember(sentence, more, accent) {
-        buildAnnotatedString {
-            append(sentence)
-            val start = more?.let { sentence.lastIndexOf(it) } ?: -1
-            if (more != null && start >= 0) {
-                addStyle(SpanStyle(color = accent, fontWeight = FontWeight.SemiBold), start, start + more.length)
-            }
-        }
-    }
-    Text(
-        text = text,
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = if (more == null) {
-            Modifier
-        } else {
-            Modifier.clickable(
-                role = Role.Button,
-                onClickLabel = stringResource(R.string.watchlist_show_all),
-                onClick = { expanded = true }
-            )
-        }
-    )
-}
-
-/** Eingeklappt so viele Börsennamen im Satz «… antworten zurzeit nicht». */
-internal const val FAILED_NAMES_SHOWN = 3
-
-/** Gezeigte Namen (alphabetisch) und wie viele dahinter als «+N weitere» stehen. Wie iOS `ExplorerListsOffer.shown`. */
-internal fun failedNamesShown(failed: List<String>, expanded: Boolean): Pair<List<String>, Int> {
-    val sorted = failed.sortedWith(String.CASE_INSENSITIVE_ORDER)
-    if (expanded || sorted.size <= FAILED_NAMES_SHOWN) return sorted to 0
-    return sorted.take(FAILED_NAMES_SHOWN) to sorted.size - FAILED_NAMES_SHOWN
 }
 
 /** Ein Coin: Plakette, Name und Kürzel, darunter an wie vielen Börsen (oder «noch nicht geladen»). */

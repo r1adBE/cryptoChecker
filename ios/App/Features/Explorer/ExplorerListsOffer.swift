@@ -19,6 +19,10 @@ struct ExplorerListsOffer: View {
         return (Array(sorted.prefix(namesShown)), sorted.count - namesShown)
     }
 
+    /// Viele Börsen ohne Antwort und noch nicht aufgeklappt: nur die Zahl der fehlenden Listen, keine Namen.
+    /// Wie Android `failedSummarized`.
+    static func summarized(failed: Int, expanded: Bool) -> Bool { failed > namesShown && !expanded }
+
     var body: some View {
         if let progress = lists.progress {
             VStack(alignment: .leading, spacing: Spacing.xs) {
@@ -40,15 +44,24 @@ struct ExplorerListsOffer: View {
             .padding(.vertical, Spacing.sm)
         } else if lists.missing > 0 {
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
-                let others = lists.missing - lists.failed.count
-                if !lists.failed.isEmpty {
+                // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen. Antworteten
+                // viele nicht (meist: kein Netz), zuerst nur der ruhige Satz «… noch nicht auf dem Gerät», die Namen
+                // auf Tippen (`summarized`)
+                let summarized = Self.summarized(failed: lists.failed.count, expanded: expanded)
+                let others = summarized ? lists.missing : lists.missing - lists.failed.count
+                if !lists.failed.isEmpty && !summarized {
                     failedText
                 }
                 if lists.failed.isEmpty || others > 0 {
                     Text(L("explorer_lists_missing", count: others, others))
                         .font(.subheadline)
                         .foregroundStyle(AppColors.onSurface)
+                }
+                if summarized {
+                    Button(L("watchlist_show_all")) { expanded = true }
+                        .font(.subheadline.weight(.semibold))
+                        .tint(accent.primary)
+                        .buttonStyle(.borderless)
                 }
                 Text(L("explorer_lists_privacy"))
                     .font(.footnote)

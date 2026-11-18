@@ -114,6 +114,7 @@ object PortfolioBackupMirror {
         if (!dbFile.exists()) return
         val db = androidx.room.Room.databaseBuilder(context, PortfolioDatabase::class.java, dbName)
             .openHelperFactory(factory)
+            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
             .build()
         try {
             val text = kotlinx.coroutines.runBlocking {

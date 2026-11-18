@@ -264,25 +264,25 @@ struct PortfolioAddressSheet: View {
                 }
                 if let status {
                     Text(status)
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(a.lastError != nil ? AppColors.error : AppColors.onSurfaceVariant)
                         .lineLimit(1)
                 }
                 if a.unknownTokens > 0 && a.countTokens {
                     Text(L("portfolio_address_unknown_tokens", count: a.unknownTokens))
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis (Knopf darunter); sonst dieselben
                 // Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt)
                 if let retarget, a.countInPortfolio {
                     Text(L("portfolio_address_withdrawal_match", retarget.from))
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(AppColors.error)
                         .fixedSize(horizontal: false, vertical: true)
                 } else if !overlap.isEmpty && a.countInPortfolio {
                     Text(L("portfolio_address_overlap", overlap.joined(separator: ", ")))
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(AppColors.error)
                         .fixedSize(horizontal: false, vertical: true)
                 }

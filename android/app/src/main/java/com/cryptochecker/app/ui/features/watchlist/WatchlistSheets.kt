@@ -56,6 +56,7 @@ internal fun WatchlistSheets(
             now = now,
             appStartMillis = appStartMillis,
             liveExchanges = state.live.liveExchanges,
+            showSteps = state.display.showReportSteps,
             onDismiss = { ui.showReport = false },
         )
     }

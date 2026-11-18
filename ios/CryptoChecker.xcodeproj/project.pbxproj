@@ -1268,6 +1268,7 @@
 		91B031144BDCEE35AAC63B4C /* CycleFavoriteCoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE9BBD73E2B258B10B5F24 /* CycleFavoriteCoinTests.swift */; };
 		91B10F3672032A4EAA2266CC /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B0029F281F466D8C2095CC /* Notifier.swift */; };
 		91C6EC1441E86D6A17D8A680 /* UITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35A18B32E8FC46E5B279342 /* UITesting.swift */; };
+		9270570D6FC7E6C3AF41484C /* ExplorerListsOfferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5107CBD1BE677E00EB8D /* ExplorerListsOfferTests.swift */; };
 		92712340591259115068BA00 /* PortfolioHistory+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC02E7DB640197C002D81E8 /* PortfolioHistory+Build.swift */; };
 		9285EDC0EE30C5847C53372C /* HistoricCloseChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46A9C7134CCE1B3F3217CD1 /* HistoricCloseChain.swift */; };
 		928BC91ADECA798819604917 /* CsvImportProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A2EEF88AB2EBD5D30F6BE3 /* CsvImportProgress.swift */; };
@@ -3827,6 +3828,7 @@
 		FF6FA16196109686904602E5 /* tax_rules_stale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tax_rules_stale.json; sourceTree = "<group>"; };
 		FFA5369AAC5C5A0F5F2C4A76 /* MarketGasCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketGasCard.swift; sourceTree = "<group>"; };
 		FFB21426F8BAE2CA2CCAB5BD /* WatchlistSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSymbol.swift; sourceTree = "<group>"; };
+		FFBF5107CBD1BE677E00EB8D /* ExplorerListsOfferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerListsOfferTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5363,6 +5365,7 @@
 				715F754C1094F58C749D3ABF /* ExplorerAddFeedbackTests.swift */,
 				2766448056802750871E74F7 /* ExplorerBrowseParityTests.swift */,
 				9C4FB0A747EADA8526D9A840 /* ExplorerBulkCountTests.swift */,
+				FFBF5107CBD1BE677E00EB8D /* ExplorerListsOfferTests.swift */,
 				0628FA17396767B8CFCBDF8B /* ExplorerPairSearchTests.swift */,
 				E822CE04C4C742ED903D0BFD /* ExplorerViewModelTests.swift */,
 				30D19C2FCDE3BA1EE11E8950 /* ExportErrorsParityTests.swift */,
@@ -7155,6 +7158,7 @@
 				328D52F920C0B217EFAA75A0 /* ExplorerAddFeedbackTests.swift in Sources */,
 				466486C3D21558AC7CA8481D /* ExplorerBrowseParityTests.swift in Sources */,
 				E2F42FD8FDC37AC574439005 /* ExplorerBulkCountTests.swift in Sources */,
+				9270570D6FC7E6C3AF41484C /* ExplorerListsOfferTests.swift in Sources */,
 				4E69813F2F44122FA00125E1 /* ExplorerPairSearchTests.swift in Sources */,
 				A4F3034EE3DA94D49D674ED8 /* ExplorerViewModelTests.swift in Sources */,
 				CBA116931E90439AF370F22E /* ExportErrorsParityTests.swift in Sources */,
@@ -8385,7 +8389,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8412,7 +8416,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8433,7 +8437,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8463,7 +8467,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8492,7 +8496,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8511,7 +8515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8598,7 +8602,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8627,7 +8631,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8653,7 +8657,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8675,7 +8679,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8705,7 +8709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8737,7 +8741,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 305;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

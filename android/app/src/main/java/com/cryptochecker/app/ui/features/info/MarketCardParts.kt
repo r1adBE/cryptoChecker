@@ -129,7 +129,7 @@ internal fun <S> CardSwap(state: S, key: (S) -> Any, content: @Composable Column
 
 /**
  * «Powered by CoinGecko» ([DataFreshness.POWERED_BY_COINGECKO]) unter Werten aus CoinGecko-Daten;
- * labelSmall = 11 sp (Bedingung: mindestens 10). Wie iOS `CoinGeckoAttribution`.
+ * labelSmall = 12 sp (Bedingung: mindestens 10). Wie iOS `CoinGeckoAttribution`.
  */
 @Composable
 internal fun CoinGeckoAttribution(modifier: Modifier = Modifier) {

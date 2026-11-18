@@ -56,6 +56,11 @@ internal fun RefreshReportSheet(
     appStartMillis: Long? = null,
     /** Börsen, deren Kurse gerade per WebSocket kommen; leer = keine Zeile. */
     liveExchanges: List<String> = emptyList(),
+    /**
+     * Ablauf-Zeiten (Netz, Datenbank, Alarme, Widgets, App-Start) zeigen — nur mit freigeschalteter Diagnose; sonst
+     * wirken sie auf normale Nutzer wie ein Fehlerbericht.
+     */
+    showSteps: Boolean = false,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -116,12 +121,13 @@ internal fun RefreshReportSheet(
                             }
                         }
                     }
-                    if (report.aborted == null) {
+                    // Ablauf nur mit freigeschalteter Diagnose ([showSteps])
+                    if (showSteps && report.aborted == null) {
                         ReportSection(stringResource(R.string.refresh_sheet_section_steps)) {
                             StepRows(report, locale)
                             AppStartRow(appStartMillis, locale)
                         }
-                    } else if (appStartMillis != null) {
+                    } else if (showSteps && appStartMillis != null) {
                         ReportSection(stringResource(R.string.refresh_sheet_section_steps)) {
                             AppStartRow(appStartMillis, locale)
                         }

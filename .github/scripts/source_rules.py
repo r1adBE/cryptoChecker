@@ -375,11 +375,13 @@ def rule_haptics(t):
 
 LABEL_SMALL = re.compile(r"typography\.labelSmall\b")
 CAPTION2 = re.compile(r"\.caption2\b")
+# Text in .caption2 (11 pt): nie — kleinste Textstufe ist .caption (12 pt) wie Android labelSmall 12 sp
+CAPTION2_TEXT = re.compile(r"(?:font\(|amount\(|\.system\()\.caption2\b")
 # Bereich (relativ zu `com/cryptochecker/app` in :app, leer = alles) → höchstens so viele Stellen; darf nur sinken
 TYPOGRAPHY_ANDROID_CEILINGS = {"": 48, "ui/features/info": 8, "ui/features/portfolio": 14, "ui/features/watchlist": 23}
 # Module ausserhalb von :app (seit dem Aufteilen) → höchstens so viele Stellen; darf nur sinken
 TYPOGRAPHY_MODULE_CEILINGS = {"coreui": 0, "widget": 0}
-TYPOGRAPHY_IOS_CAPTION2_CEILING = 44
+TYPOGRAPHY_IOS_CAPTION2_CEILING = 11
 
 
 def count_uses(directory, extension, pattern):
@@ -416,6 +418,9 @@ def rule_typography(t):
     if uses > TYPOGRAPHY_IOS_CAPTION2_CEILING:
         problems.append(f".caption2 in ios/App: {uses} Stellen, erlaubt höchstens {TYPOGRAPHY_IOS_CAPTION2_CEILING} — "
                         "für Metadaten .caption nehmen")
+    text_uses = count_uses(need_dir(t.i("App")), "swift", CAPTION2_TEXT)
+    if text_uses:
+        problems.append(f"Text in .caption2 (11 pt) in ios/App: {text_uses} Stellen — kleinste Textstufe ist .caption (12 pt)")
     return problems
 
 

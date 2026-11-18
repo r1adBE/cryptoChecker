@@ -14,6 +14,12 @@ extension PairScreen {
             Button { editNote = true } label: {
                 Label(L(hasNote(watch) ? "note_edit" : "note_add"), systemImage: "note.text")
             }
+            Button {
+                Haptics.play(.selection)
+                editPair = true
+            } label: { Label(L("watch_action_change_exchange"), systemImage: "arrow.left.arrow.right") }
+            // Wie die Glocke in der Zeile; das Häkchen trägt den Zustand
+            Toggle(isOn: notificationBinding) { Label(L("watchlist_notification"), systemImage: "bell") }
             // Auch mit ausgeschaltetem Portfolio: das erste Speichern schaltet es ein
             if PortfolioOff.offerAddToPortfolio(preview: false) {
                 Button { addToPortfolio(watch) } label: {
@@ -61,6 +67,21 @@ extension PairScreen {
     }
 
     /// «Vorlesen» mit Rückfrage «nicht gespeichert»; «Abbrechen» bzw. abgelehnt: der Schalter zeigt den echten Stand.
+    /// Kurs-Mitteilung des Paars als Umschalter im Menü ⋯ (aus = durchgestrichene Glocke in der Zeile).
+    private var notificationBinding: Binding<Bool> {
+        Binding(
+            get: { data.watch(currentId)?.notificationEnabled ?? false },
+            set: { enabled in
+                data.withWatchlistConfirm {
+                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage
+                    if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
+                    if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
+                    if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                } cancelled: { refusedToggles &+= 1 }
+            }
+        )
+    }
+
     private var ttsBinding: Binding<Bool> {
         Binding(
             get: { data.watch(currentId)?.ttsEnabled ?? false },

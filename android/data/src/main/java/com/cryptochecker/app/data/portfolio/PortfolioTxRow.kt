@@ -18,7 +18,7 @@ import java.math.BigDecimal
  * Preise, [PortfolioPriceConverters]) und bleiben darum unverändert; Bedeutung der Felder dort. Umwandlung: [toEntity] und
  * [toRow], Feld für Feld — ohne Standardwerte, damit [toRow] kein Feld vergessen kann.
  */
-@Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"]), Index(value = ["importBatch"])])
+@Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"]), Index(value = ["importBatch"]), Index(value = ["time", "id"])])
 data class PortfolioTxRow(
     @PrimaryKey(autoGenerate = true)
     val id: Long,

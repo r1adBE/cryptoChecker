@@ -110,7 +110,7 @@ struct WatchlistWhySheet: View {
                 // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
                 if let candleNote {
                     Text(candleNote)
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(.bottom, 16)

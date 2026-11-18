@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// Aktionen der Paarseite: ein Hauptknopf («Alarm setzen» bzw. in der Vorschau «Zur Merkliste hinzufügen»), kleine
-/// Knöpfe darunter (Favorit, «Was bewegt sich mit?», Börse wechseln, Kursbenachrichtigung), Sperrbildschirm und
+/// Aktionen der Paarseite: ein Hauptknopf («Alarm setzen» bzw. in der Vorschau «Zur Merkliste hinzufügen»), zwei
+/// kleine Knöpfe darunter (Favorit, «Was bewegt sich mit?»); Börse wechseln, Kurs-Mitteilung, Sperrbildschirm und
 /// Sortieren im Menü ⋯. Wie Android `PairActions.kt`.
 extension PairScreen {
     // MARK: Hauptknopf
@@ -45,9 +45,8 @@ extension PairScreen {
 
     // MARK: Kleine Knöpfe
 
-    /// Favorit und Kursbenachrichtigung als Umschalter (VoiceOver «ausgewählt»), «Was bewegt sich mit?» (nicht bei
-    /// nicht mehr gehandelten bzw. deaktivierten Paaren; ⚡ bei Signalen) und «Börse wechseln» (`WatchEditSheet`).
-    /// Brechen bei grosser Schrift in weitere Zeilen um.
+    /// Favorit als Umschalter (VoiceOver «ausgewählt») und «Was bewegt sich mit?» (nicht bei nicht mehr gehandelten
+    /// bzw. deaktivierten Paaren; ⚡ bei Signalen). Brechen bei grosser Schrift in weitere Zeilen um.
     func secondaryActions(_ watch: Watch) -> some View {
         FlowLayout(spacing: Spacing.sm) {
             PairChip(systemImage: watch.favorite ? "star.fill" : "star", title: L("watch_action_favorite"),
@@ -64,20 +63,6 @@ extension PairScreen {
                          badge: hasActivity(watch)) {
                     Haptics.play(.selection)
                     whyFor = WatchlistSheetTarget(id: watch.id)
-                }
-            }
-            PairChip(systemImage: "arrow.left.arrow.right", title: L("watch_action_change_exchange")) {
-                Haptics.play(.selection)
-                editPair = true
-            }
-            // Wie die Glocke in der Zeile; aus = durchgestrichen
-            PairChip(systemImage: watch.notificationEnabled ? "bell" : "bell.slash", title: L("watchlist_notification"),
-                     selected: watch.notificationEnabled) {
-                let enabled = !watch.notificationEnabled
-                data.withWatchlistConfirm {
-                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage
-                    if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
-                    if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
                 }
             }
         }

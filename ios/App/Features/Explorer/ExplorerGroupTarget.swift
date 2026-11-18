@@ -58,7 +58,7 @@ struct ExplorerGroupTargetSelector: View {
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                 Image(systemName: "chevron.down")
-                    .font(.caption2.weight(.semibold))
+                    .font(.caption.weight(.semibold))
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
             .padding(.horizontal, 12)

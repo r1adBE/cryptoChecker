@@ -59,7 +59,7 @@ extension WatchlistScreen {
                 // Offen während einer Aktualisierung: neuer Bericht und Live-Börsen erscheinen (eigene Beobachtung)
                 RefreshStateReader(state: data.refreshState) { state in
                     RefreshReportSheet(report: state.lastRefreshReport, appStartMillis: data.appStartMillis,
-                                       liveExchanges: state.liveExchanges)
+                                       liveExchanges: state.liveExchanges, showSteps: data.settings.developerUnlocked)
                 }
                 .environment(\.appAccent, accent)
                 // Eine feste Höhe: der Bericht kann lang sein, kein Stufenwechsel

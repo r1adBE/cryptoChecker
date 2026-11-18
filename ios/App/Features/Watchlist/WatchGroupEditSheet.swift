@@ -171,7 +171,7 @@ struct WatchGroupEditSheet: View {
                     HStack(spacing: 4) {
                         if watch.favorite {
                             Image(systemName: "star.fill")
-                                .font(.caption2)
+                                .font(.caption)
                                 .foregroundStyle(accent.primary)
                         }
                         Text(watch.displayName)

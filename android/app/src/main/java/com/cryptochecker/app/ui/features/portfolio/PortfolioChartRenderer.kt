@@ -42,8 +42,8 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-/** Beschriftungen ≈ 10 sp; grosse Systemschrift bis 1.5× (wie im Aktionsblatt). */
-private const val LABEL_SP = 10f
+/** Beschriftungen ≈ 11 sp; grosse Systemschrift bis 1.5× (wie im Aktionsblatt). */
+private const val LABEL_SP = 11f
 
 private const val MAX_FONT_SCALE = 1.5f
 

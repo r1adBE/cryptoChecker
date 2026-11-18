@@ -31,6 +31,8 @@ data class WatchlistSettings(
     val backgroundIntervalMinutes: Int,
     val changeBasis: ChangeBasis,
     val priceNotifications: Boolean,
+    /** Diagnose frei (Über die App, mehrmals tippen): Ablauf-Zeiten im Bericht «Letzte Aktualisierung». */
+    val developerUnlocked: Boolean = false,
 ) {
     companion object {
         fun of(s: AppSettings) = WatchlistSettings(
@@ -49,6 +51,7 @@ data class WatchlistSettings(
             backgroundIntervalMinutes = s.backgroundIntervalMinutes,
             changeBasis = s.changeBasis,
             priceNotifications = s.priceNotifications,
+            developerUnlocked = s.developerUnlocked,
         )
     }
 }

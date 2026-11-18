@@ -284,7 +284,7 @@ extension WatchlistRow {
                     : WatchlistRow.priceMarker(ExchangesConfig.exchange(watch.exchangeKey),
                                                hourlyClose: HourlyCloseStore.contains(watch.id)) {
                     Text(marker)
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
             }

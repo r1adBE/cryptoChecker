@@ -43,7 +43,7 @@ struct SheetChartCaption: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(verbatim: text)
-                .font(.caption2)
+                .font(.caption)
             if let rate = todayRate {
                 Text(verbatim: L("sheet_chart_usdt_today_rate", BidiText.isolate(rate.source), BidiText.isolate(rate.target)))
                     .font(.caption)

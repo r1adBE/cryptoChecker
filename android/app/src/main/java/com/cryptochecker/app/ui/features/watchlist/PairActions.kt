@@ -78,9 +78,10 @@ internal fun PairAlarmButton(enabled: Boolean, onClick: () -> Unit) {
 }
 
 /**
- * Kleine Knöpfe unter dem Hauptknopf; brechen bei grosser Schrift in weitere Zeilen um. Favorit und
- * Kursbenachrichtigung sind Umschalter (Screenreader: «ausgewählt»); «Was bewegt sich mit?» fehlt bei nicht mehr
- * gehandelten bzw. deaktivierten Paaren ([showWhy]), mit Signalen gefüllte Glühbirne ([hasActivity]).
+ * Zwei kleine Knöpfe unter dem Hauptknopf (das Häufige); «Börse wechseln» und die Kurs-Mitteilung stehen im Menü ⋮.
+ * Brechen bei grosser Schrift in weitere Zeilen um. Favorit ist ein Umschalter (Screenreader: «ausgewählt»); «Was
+ * bewegt sich mit?» fehlt bei nicht mehr gehandelten bzw. deaktivierten Paaren ([showWhy]), mit Signalen gefüllte
+ * Glühbirne ([hasActivity]).
  */
 @Composable
 internal fun PairSecondaryActions(
@@ -89,8 +90,6 @@ internal fun PairSecondaryActions(
     hasActivity: Boolean,
     onToggleFavorite: () -> Unit,
     onWhy: () -> Unit,
-    onChangeExchange: () -> Unit,
-    onNotificationChange: (Boolean) -> Unit,
 ) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
@@ -118,24 +117,6 @@ internal fun PairSecondaryActions(
                 },
             )
         }
-        AssistChip(
-            onClick = onChangeExchange,
-            label = { Text(stringResource(R.string.watch_action_change_exchange)) },
-            leadingIcon = { Icon(painterResource(R.drawable.ic_swap_horiz), null, Modifier.size(18.dp)) },
-        )
-        // Dieselbe schlichte Glocke wie in der Zeile der Merkliste; aus = durchgestrichen
-        FilterChip(
-            selected = watch.notificationEnabled,
-            onClick = { onNotificationChange(!watch.notificationEnabled) },
-            label = { Text(stringResource(R.string.watchlist_notification)) },
-            leadingIcon = {
-                Icon(
-                    painterResource(if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
-                    null,
-                    Modifier.size(18.dp)
-                )
-            },
-        )
     }
 }
 
@@ -143,6 +124,8 @@ internal fun PairSecondaryActions(
 internal class PairMenuActions(
     val onEditGroup: () -> Unit,
     val onEditNote: () -> Unit,
+    val onChangeExchange: () -> Unit,
+    val onNotificationChange: (Boolean) -> Unit,
     val onAddToPortfolio: (() -> Unit)?,
     val onRefresh: () -> Unit,
     val onAddWidget: () -> Unit,
@@ -152,8 +135,9 @@ internal class PairMenuActions(
 )
 
 /**
- * Menü ⋮ oben rechts: alles Seltene aus dem früheren Abschnitt «Mehr» — Gruppe, Notiz, Portfolio, Aktualisieren
- * (nicht bei [off]), Widget, Vorlesen (Häkchen), Deaktivieren/Aktivieren und zuletzt Löschen in der Fehlerfarbe.
+ * Menü ⋮ oben rechts: alles Seltene — Gruppe, Notiz, Börse wechseln, Kurs-Mitteilung (Häkchen), Portfolio,
+ * Aktualisieren (nicht bei [off]), Widget, Vorlesen (Häkchen), Deaktivieren/Aktivieren und zuletzt Löschen in der
+ * Fehlerfarbe.
  */
 @Composable
 internal fun PairOverflowMenu(
@@ -177,6 +161,14 @@ internal fun PairOverflowMenu(
             R.drawable.ic_note,
             stringResource(if (watch.note.isNullOrBlank()) R.string.note_add else R.string.note_edit),
             pick(actions.onEditNote),
+        )
+        MenuEntry(R.drawable.ic_swap_horiz, stringResource(R.string.watch_action_change_exchange), pick(actions.onChangeExchange))
+        // Dieselbe schlichte Glocke wie in der Zeile der Merkliste; das Häkchen trägt den Zustand
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.watchlist_notification)) },
+            leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null, tint = MaterialTheme.colorScheme.primary) },
+            trailingIcon = { Checkbox(checked = watch.notificationEnabled, onCheckedChange = null) },
+            onClick = pick { actions.onNotificationChange(!watch.notificationEnabled) },
         )
         actions.onAddToPortfolio?.let { MenuEntry(R.drawable.ic_portfolio, stringResource(R.string.portfolio_add_from_watch), pick(it)) }
         if (!off) MenuEntry(R.drawable.ic_refresh, stringResource(R.string.action_refresh), pick(actions.onRefresh))

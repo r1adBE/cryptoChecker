@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
@@ -35,8 +36,21 @@ abstract class PortfolioDatabase : RoomDatabase() {
     abstract fun getWatchedAddressDao(): WatchedAddressDao
 
     companion object {
-        const val VERSION = 1
+        const val VERSION = 2
         const val DB_NAME = DatabaseNames.PORTFOLIO
+
+        /**
+         * 1 → 2: Index `(time, id)` auf `portfolio_tx` — alle Listen sortieren danach (`ORDER BY time DESC, id DESC`);
+         * mit vielen tausend Buchungen sonst eine Sortierung über die ganze Tabelle. Daten unverändert.
+         */
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_portfolio_tx_time_id` ON `portfolio_tx` (`time`, `id`)")
+            }
+        }
+
+        /** Alle Migrationen, in jedem Builder dieser Datenbank eingetragen. */
+        val ALL_MIGRATIONS: Array<Migration> = arrayOf(MIGRATION_1_2)
 
         /**
          * Liegt das Portfolio in diesem Prozess nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt,

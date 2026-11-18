@@ -181,7 +181,7 @@ extension WatchSheetChartView {
             ChangePill(change: change, dashWhenMissing: true)
             if let volume {
                 Text(volume)
-                    .font(AppFont.amount(.caption2))
+                    .font(AppFont.amount(.caption))
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
         }
@@ -213,7 +213,7 @@ private struct SheetOhlcReadout: View {
             line(L("sheet_chart_open"), candle.open, L("ticker_high"), candle.high)
             line(L("ticker_low"), candle.low, L("sheet_chart_close"), candle.close)
         }
-        .font(AppFont.amount(.caption2))
+        .font(AppFont.amount(.caption))
         .padding(.top, 2)
     }
 

@@ -68,7 +68,7 @@ struct CryptoPulseCard: View {
             }
             // Ein Hinweis für die ganze Karte: mit «Kurz gesagt» der längere (nennt die 24 Stunden)
             Text(L(plain != nil ? "market_plain_footnote" : "pulse_disclaimer"))
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, Spacing.md)

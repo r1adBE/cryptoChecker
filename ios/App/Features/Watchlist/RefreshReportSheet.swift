@@ -10,6 +10,9 @@ struct RefreshReportSheet: View {
     var appStartMillis: Int64? = nil
     /// Börsen, deren Kurse gerade per WebSocket kommen; leer = keine Zeile.
     var liveExchanges: [String] = []
+    /// Ablauf-Zeiten (Netz, Datenbank, Alarme, Widgets, App-Start) zeigen — nur mit freigeschalteter Diagnose; sonst
+    /// wirken sie auf normale Nutzer wie ein Fehlerbericht. Wie Android `showSteps`.
+    var showSteps = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -34,7 +37,7 @@ struct RefreshReportSheet: View {
                                     RefreshReportExchangeList(exchanges: report.exchanges)
                                 }
                             }
-                            if report.aborted == nil || appStartMillis != nil {
+                            if showSteps && (report.aborted == nil || appStartMillis != nil) {
                                 RefreshReportSectionTitle(L("refresh_sheet_section_steps"))
                                 SectionCard(nil) {
                                     RefreshReportSteps(report: report, appStartMillis: appStartMillis)

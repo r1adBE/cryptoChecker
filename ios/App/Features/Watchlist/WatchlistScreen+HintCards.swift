@@ -68,6 +68,12 @@ extension WatchlistScreen {
                     .font(.footnote.weight(.semibold))
                 Text(L("watch_gesture_hint_short"))
                     .font(.footnote)
+                // Glocken, Raute, Zahl in den Zeilen: einmal erklären (dasselbe Blatt wie ⋯ › «Symbole erklärt»)
+                Button(L("watchlist_symbols_legend")) { showSymbolLegend = true }
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(accent.primary)
+                    .buttonStyle(.borderless)
+                    .padding(.top, Spacing.xs)
             }
             .foregroundStyle(AppColors.onSurface)
             .frame(maxWidth: .infinity, alignment: .leading)

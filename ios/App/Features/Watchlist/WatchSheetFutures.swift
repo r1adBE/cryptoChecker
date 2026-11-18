@@ -222,7 +222,7 @@ struct WatchlistFuturesSection: View {
             }
 
             Text(sourceText)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
         }

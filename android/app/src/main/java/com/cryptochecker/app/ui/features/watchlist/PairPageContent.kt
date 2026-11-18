@@ -46,7 +46,6 @@ internal class PairPageCallbacks(
     val onToggleFavorite: () -> Unit,
     val onWhy: () -> Unit,
     val onChangeExchange: () -> Unit,
-    val onNotificationChange: (Boolean) -> Unit,
     val onEditNote: () -> Unit,
 )
 
@@ -141,8 +140,6 @@ internal fun PairPageContent(
                     hasActivity = hasActivity,
                     onToggleFavorite = callbacks.onToggleFavorite,
                     onWhy = callbacks.onWhy,
-                    onChangeExchange = callbacks.onChangeExchange,
-                    onNotificationChange = callbacks.onNotificationChange,
                 )
                 Spacer(Modifier.height(Spacing.xl))
                 PairAlarmsSection(viewModel = alarms, host = alarmHost, watch = watch, limits = limits)

@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 306)
+
+- Easier to read: no text smaller than 12 pt on iPhone, chart labels slightly larger on both platforms.
+- Watchlist: the gesture hint links to «Symbols explained».
+- «Last update» shows the step timings only with diagnostics unlocked; «Add pair» first says calmly how many pair lists are missing when many exchanges don't answer, the names on tap.
+- Pair page: Favorite and «What is moving with it?» stay as buttons; «Change exchange» and the price notification are in the menu.
+- Android: portfolio database version 2 with an index for the transaction list (migration keeps all data).
+
 ## 16.2.2 (build 305)
 
 - Wide windows (iPad, large iPhones in landscape, Android tablets and phones in landscape): two columns – the start page of each tab on the left, what it opens on the right; on iPad sheets appear as cards.

@@ -63,7 +63,7 @@ struct PortfolioHistoryCompareSection: View {
                 .padding(.leading, Spacing.sm)
             Text(verbatim: PortfolioFormat.usdt)
         }
-        .font(.caption2)
+        .font(.caption)
         .foregroundStyle(AppColors.onSurfaceVariant)
         .accessibilityHidden(true)
     }
@@ -75,7 +75,7 @@ struct PortfolioHistoryCompareSection: View {
             Spacer(minLength: 8)
             Text(L("portfolio_history_today"))
         }
-        .font(.caption2.monospacedDigit())
+        .font(.caption.monospacedDigit())
         .foregroundStyle(AppColors.onSurfaceVariant)
         .environment(\.layoutDirection, .leftToRight)
         .accessibilityHidden(true)

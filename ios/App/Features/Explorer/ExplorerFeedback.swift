@@ -239,7 +239,7 @@ struct ExplorerHttpLogPanel: View {
             VStack(alignment: .leading, spacing: 0) {
                 titleBar
                 Text(lines.isEmpty ? "—" : lines.joined(separator: "\n"))
-                    .font(.system(.caption2, design: .monospaced))
+                    .font(.system(.caption, design: .monospaced))
                     .foregroundStyle(accent.onContainer)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)

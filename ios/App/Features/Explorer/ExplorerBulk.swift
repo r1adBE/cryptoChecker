@@ -85,7 +85,7 @@ extension ExplorerScreen {
                             HStack(spacing: 4) {
                                 if favorite {
                                     // Sonst liest VoiceOver den Bildnamen «star.fill» vor
-                                    Image(systemName: "star.fill").font(.caption2)
+                                    Image(systemName: "star.fill").font(.caption)
                                         .accessibilityLabel(L("a11y_favorite"))
                                 }
                                 Text(quote)
@@ -282,7 +282,7 @@ extension ExplorerScreen {
                 Spacer()
                 if pair.contractType != .none {
                     Text(pair.contractType.backupName)
-                        .font(.caption2.weight(.medium))
+                        .font(.caption.weight(.medium))
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 if let change = quickFilterChange(pair) {

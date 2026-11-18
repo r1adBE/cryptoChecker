@@ -232,7 +232,7 @@ struct PortfolioHistoryCard: View {
             Spacer(minLength: 8)
             Text(L("portfolio_history_today"))
         }
-        .font(.caption2.monospacedDigit())
+        .font(.caption.monospacedDigit())
         .foregroundStyle(AppColors.onSurfaceVariant)
         .padding(.top, 4)
         // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen

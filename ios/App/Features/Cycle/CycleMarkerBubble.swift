@@ -74,7 +74,7 @@ struct CycleMarkerBubble: View {
             Text(verbatim: "\(label) · \(PriceFormat.priceWithCurrency(marker.marker.priceUsd, "USD"))")
                 .font(.caption.weight(.semibold))
             Text(verbatim: "\(change) · \(Self.shortDate(marker.marker.date))")
-                .font(.caption2)
+                .font(.caption)
         }
         .monospacedDigit()
         .foregroundStyle(AppColors.surface)

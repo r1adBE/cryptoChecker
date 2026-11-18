@@ -138,7 +138,7 @@ struct TaxWorksheetPage: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .fixedSize(horizontal: false, vertical: true)
                 Text(L("tax_template_beta"))
-                    .font(.caption2.weight(.semibold))
+                    .font(.caption.weight(.semibold))
                     .foregroundStyle(AppColors.onSurface)
                     .padding(.horizontal, Spacing.xs)
                     .padding(.vertical, 1)

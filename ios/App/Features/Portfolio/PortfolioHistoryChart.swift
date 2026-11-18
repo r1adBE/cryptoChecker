@@ -39,7 +39,7 @@ struct PortfolioHistoryChart: View {
     @Environment(\.priceColorsInverted) private var inverted
     @Environment(\.displayScale) private var displayScale
     /// Beschriftung im Chart wächst mit der Textgrösse, höchstens bis `ChartLabelMetrics.maxSize` (1.5×).
-    @ScaledMetric(relativeTo: .caption2) private var labelSize: CGFloat = 10
+    @ScaledMetric(relativeTo: .caption2) private var labelSize: CGFloat = 11
 
     /// x des Fingers beim Ziehen (nach kurzem Drücken); nil = kein Ziehen.
     @GestureState private var pressX: CGFloat? = nil

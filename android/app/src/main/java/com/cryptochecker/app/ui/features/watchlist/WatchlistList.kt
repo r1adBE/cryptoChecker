@@ -30,6 +30,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -110,6 +114,12 @@ private fun GestureHint(onDismiss: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(top = 2.dp)
             )
+            // Glocken, Raute, Zahl in den Zeilen: einmal erklären (dasselbe Blatt wie ⋯ › «Symbole erklärt»)
+            var legendOpen by rememberSaveable { mutableStateOf(false) }
+            TextButton(onClick = { legendOpen = true }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                Text(stringResource(R.string.watchlist_symbols_legend), style = MaterialTheme.typography.bodySmall)
+            }
+            if (legendOpen) WatchlistSymbolLegendSheet(onDismiss = { legendOpen = false })
         }
         IconButton(onClick = onDismiss) {
             Icon(

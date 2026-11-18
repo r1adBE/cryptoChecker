@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
  * nach `<Version>.json` an, danach öffnet Room sie. Room vergleicht dabei den `identityHash` der Datei mit dem der
  * Entities — weicht das Golden-Schema ab, schlägt das Öffnen fehl.
  *
- * Beide Datenbanken stehen bei Version 1 (keine Migration); jede neue Version bekommt hier einen Migrationstest mit
+ * AppDatabase steht bei Version 1, PortfolioDatabase bei 2 (Index `time, id`); jede neue Version bekommt hier einen Migrationstest mit
  * Daten (RoomSchemaRulesTest). Unverschlüsselt (FrameworkSQLiteOpenHelperFactory): Geprüft wird das Schema; SQLCipher
  * ändert daran nichts. Die Schemas liegen als Assets im Test-APK (sourceSets in app/build.gradle.kts).
  */
@@ -58,6 +58,35 @@ class RoomSchemaMigrationTest {
             Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO_DB).build(),
             PortfolioDatabase.VERSION,
         )
+    }
+
+    /** 1 → 2: Buchungen bleiben Feld für Feld, der neue Index ist da, und Room öffnet die migrierte Datei. */
+    @Test
+    fun portfolio1To2KeepsTransactions() {
+        portfolioHelper.createDatabase(PORTFOLIO_DB, 1).use { db ->
+            db.execSQL(
+                "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, note, giftToSpouse, feeRow, interest, " +
+                    "stakingMove) VALUES (7, 'BTC', 'BUY', '0.5', '60000', 1700000000000, 'n', 0, 0, 0, 0)"
+            )
+        }
+        portfolioHelper.runMigrationsAndValidate(PORTFOLIO_DB, 2, true, *PortfolioDatabase.ALL_MIGRATIONS).use { db ->
+            db.query("SELECT coin, type, amount, priceUsdt, time, note FROM portfolio_tx WHERE id = 7").use { c ->
+                assertEquals(true, c.moveToFirst())
+                assertEquals("BTC", c.getString(0))
+                assertEquals("BUY", c.getString(1))
+                assertEquals("0.5", c.getString(2))
+                assertEquals("60000", c.getString(3))
+                assertEquals(1700000000000L, c.getLong(4))
+                assertEquals("n", c.getString(5))
+            }
+            db.query("SELECT name FROM sqlite_master WHERE type = 'index' AND name = 'index_portfolio_tx_time_id'").use { c ->
+                assertEquals(1, c.count)
+            }
+        }
+        val room = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO_DB)
+            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
+            .build()
+        assertOpens(room, PortfolioDatabase.VERSION)
     }
 
     /** Öffnen prüft den `identityHash` (sonst «Room cannot verify the data integrity»). */

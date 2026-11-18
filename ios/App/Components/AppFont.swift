@@ -7,8 +7,9 @@ import SwiftUI
 /// - Headline: Titel von Blättern und grossen Karten — `AppFont.headline`
 /// - Title: Titel von Karten und Abschnitten — `AppFont.title` (`.headline` des Systems)
 /// - Body: Fliesstext — `AppFont.body` (`.subheadline` als Nebenstufe)
-/// - Label: Nebentexte, Metadaten, Pillen — `AppFont.label` (`.caption` als Nebenstufe; `.caption2` nur für
-///   Quellenangaben, rechtliche Fusszeilen und Chart-Beschriftungen, wie `labelSmall` in Android)
+/// - Label: Nebentexte, Metadaten, Pillen — `AppFont.label` (`.caption`, 12 pt, als kleinste Textstufe für
+///   Quellenangaben, rechtliche Fusszeilen und Zweittexte, wie `labelSmall` 12 sp in Android); `.caption2` nur noch
+///   als Bezug kleiner Symbole und Chart-Beschriftungen (11 pt)
 /// - Numeric: `.monospacedDigit()` bzw. `AppFont.amount(_:weight:)` (SF Rounded mit gleich breiten
 ///   Ziffern, wie `amountNumbers()` in Android); alle Kurse, Prozente und Portfolio-Werte tragen eines davon.
 enum AppFont {

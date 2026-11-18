@@ -58,6 +58,13 @@ internal fun PairTopBarActions(
             actions = PairMenuActions(
                 onEditGroup = { onDialogsChange { it.copy(group = true) } },
                 onEditNote = { onDialogsChange { it.copy(note = true) } },
+                onChangeExchange = { onDialogsChange { it.copy(editPair = true) } },
+                onNotificationChange = { on ->
+                    // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                    viewModel.setNotificationEnabled(stored, on) { written ->
+                        if (written && on) pageEvents.send(WatchUiEvent.RequestNotifications)
+                    }
+                },
                 // Auch mit ausgeschaltetem Portfolio: das erste Speichern schaltet es ein
                 onAddToPortfolio = if (PortfolioOff.offerAddToPortfolio(preview = false)) {
                     {
@@ -161,12 +168,6 @@ internal fun PairScaffoldContent(
                 },
                 onWhy = { onDialogsChange { it.copy(why = true) } },
                 onChangeExchange = { onDialogsChange { it.copy(editPair = true) } },
-                onNotificationChange = { on ->
-                    // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                    viewModel.setNotificationEnabled(shown, on) { written ->
-                        if (written && on) pageEvents.send(WatchUiEvent.RequestNotifications)
-                    }
-                },
                 onEditNote = { onDialogsChange { it.copy(note = true) } },
             ),
             padding = padding,

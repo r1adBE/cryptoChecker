@@ -214,11 +214,11 @@ struct CycleSkeletonPill: View {
 }
 
 /// «Powered by CoinGecko» (`DataFreshness.poweredByCoinGecko`) unter Werten aus CoinGecko-Daten;
-/// caption2 = 11 pt (Bedingung: mindestens 10). Wie Android `CoinGeckoAttribution`.
+/// caption = 12 pt (Bedingung: mindestens 10). Wie Android `CoinGeckoAttribution`.
 struct CoinGeckoAttribution: View {
     var body: some View {
         Text(verbatim: DataFreshness.poweredByCoinGecko)
-            .font(.caption2)
+            .font(.caption)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .padding(.top, 2)
     }
@@ -229,7 +229,7 @@ struct CycleSourceText: View {
 
     var body: some View {
         Text(text)
-            .font(.caption2)
+            .font(.caption)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .padding(.top, Spacing.sm)
     }

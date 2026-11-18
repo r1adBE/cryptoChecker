@@ -354,6 +354,16 @@ Deliberate trade-offs, stated so that nobody relies on more than the app does:
   someone who can run code as the app on a device unlocked once. (Android is
   comparable: its Keystore keys need no user authentication, for the same
   reason.)
+* **No certificate pinning.** Connections use the system's certificate checks
+  only. Pinning the many exchange, data and node hosts would break the app at
+  every certificate change of a third party; the data fetched is public. A
+  man-in-the-middle therefore needs a certificate the device trusts – on
+  Android 7+ only system CAs count for the app, on iOS a CA the user installed
+  and trusted himself.
+* **Screenshots are not blocked in general.** The portfolio lock hides the
+  portfolio in the app switcher (Android: `FLAG_SECURE` while portfolio amounts
+  are shown); outside that, screenshots and screen recordings work as usual – iOS
+  offers no way to forbid them, and the watchlist holds only public prices.
 * **The automatic backup password stays on the device.** «Back up
   automatically» runs without asking (weekly, also in the background: Android
   WorkManager, iOS a background processing task whose time iOS decides), so its

@@ -58,7 +58,7 @@ private struct WatchlistSpotValues: View {
                 circulatingShare
             }
             Text(sourceLine)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
             CoinGeckoAttribution()
         }
@@ -80,7 +80,7 @@ private struct WatchlistSpotValues: View {
             SupplyBar(ratio: ratio)
                 .padding(.top, Spacing.xs)
             Text(L("spot_supply_of_max", SpotMarket.percent(ratio * 100)))
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .padding(.top, 2)
         }

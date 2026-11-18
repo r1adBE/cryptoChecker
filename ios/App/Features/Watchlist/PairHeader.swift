@@ -88,7 +88,7 @@ extension PairScreen {
             // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher (wie Android)
             if let note = sourceNote(watch) {
                 Text(note)
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
             // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)

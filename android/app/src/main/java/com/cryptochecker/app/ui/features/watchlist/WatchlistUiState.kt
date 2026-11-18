@@ -108,6 +108,8 @@ data class WatchlistDisplay(
     val activitySensitivity: ActivitySensitivity,
     /** Chart-Art im Aktionsblatt (Linie statt Kerzen). */
     val sheetChartLine: Boolean,
+    /** Ablauf-Zeiten (Netz, Datenbank, Widgets) im Bericht nur mit freigeschalteter Diagnose. */
+    val showReportSteps: Boolean = false,
 ) {
     companion object {
         fun of(s: WatchlistSettings) = WatchlistDisplay(
@@ -123,6 +125,7 @@ data class WatchlistDisplay(
             usageDays = s.usageDays,
             activitySensitivity = s.activitySensitivity,
             sheetChartLine = s.sheetChartLine,
+            showReportSteps = s.developerUnlocked,
         )
 
         /**

@@ -221,7 +221,7 @@ struct CycleHistoryChart: View {
             yearAxis
 
             Text(L("insights_chart_axis"))
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
 
             legend(series, colors: lineColors)
@@ -244,7 +244,7 @@ struct CycleHistoryChart: View {
                     let raw = width * CGFloat(Double(year * 360) / Self.maxDay)
                     let half = Self.labelWidth / 2
                     Text(verbatim: LocaleNumbers.integer(year))
-                        .font(.caption2)
+                        .font(.caption)
                         .monospacedDigit()
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(width: Self.labelWidth, height: axisHeight)
@@ -297,7 +297,7 @@ extension CycleHistoryChart {
                 }
             }
             Text(L("insights_chart_axis"))
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
             SkeletonPulse {
                 Text(verbatim: " ")

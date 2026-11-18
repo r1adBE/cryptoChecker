@@ -84,6 +84,7 @@ object LocalDataModule {
     ): PortfolioDatabase {
         val builder = Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
+            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
         builder.addCallback(PortfolioDatabase.callback(context))
         // Gelöschte Transaktionen (Menge, Preis, Notiz) und Alarm-Schwellen mit Nullen überschreiben
         builder.addCallback(SecureDeleteCallback)

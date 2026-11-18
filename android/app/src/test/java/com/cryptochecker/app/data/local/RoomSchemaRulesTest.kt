@@ -16,7 +16,7 @@ import org.junit.Test
  *
  * Neue Version: Schema committen, Migration und Datentest schreiben und hier in [MAIN_DATA_TESTS] bzw.
  * [PORTFOLIO_DATA_TESTS] eintragen — sonst schlägt dieser Test fehl. Gilt für AppDatabase und PortfolioDatabase
- * (getrennte Dateien, beide Version 1 ohne Migration).
+ * (getrennte Dateien; AppDatabase Version 1, PortfolioDatabase Version 2).
  */
 class RoomSchemaRulesTest {
 
@@ -31,7 +31,7 @@ class RoomSchemaRulesTest {
 
     @Test
     fun portfolioDatabaseHasSchemaAndDataMigrationTest() =
-        check(PortfolioDatabase::class.java.name, PortfolioDatabase.VERSION, emptyArray(), PORTFOLIO_DATA_TESTS)
+        check(PortfolioDatabase::class.java.name, PortfolioDatabase.VERSION, PortfolioDatabase.ALL_MIGRATIONS, PORTFOLIO_DATA_TESTS)
 
     private fun check(database: String, current: Int, migrations: Array<Migration>, dataTests: Map<Int, String>) {
         val currentFile = File(schemas, "$database/$current.json")
@@ -65,6 +65,6 @@ class RoomSchemaRulesTest {
     private companion object {
         /** Version → Datentest (MigrationTestHelper) des Wegs Version-1 → Version. */
         val MAIN_DATA_TESTS = emptyMap<Int, String>()
-        val PORTFOLIO_DATA_TESTS = emptyMap<Int, String>()
+        val PORTFOLIO_DATA_TESTS = mapOf(2 to "portfolio1To2KeepsTransactions")
     }
 }

@@ -20,7 +20,7 @@ struct WatchSheetChartView: View {
     /// %-Basis: bei «seit 00:00» heisst der erste Zeitraum «Heute» und beginnt beim Tagesbeginn.
     @Environment(\.changeView) var changeView
     /// Beschriftung im Chart wächst mit der Textgrösse, höchstens bis `ChartLabelMetrics.maxSize`.
-    @ScaledMetric(relativeTo: .caption2) var labelSize: CGFloat = 10
+    @ScaledMetric(relativeTo: .caption2) var labelSize: CGFloat = 11
 
     @State var range: PriceChartRange = .day
     @State private var result: SheetChartResult? = nil
