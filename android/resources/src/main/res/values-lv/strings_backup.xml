@@ -9,7 +9,7 @@
     <string name="backup_hint">Saglabā tavu vērojamo sarakstu ar piezīmēm un grupām, brīdinājumus, izlasi, portfeli un iestatījumus kā failu, ko glabā pie sevis – piem., jaunam tālrunim.</string>
     <string name="backup_import">Atjaunot</string>
     <string name="auto_backup_title">Automātiska dublēšana</string>
-    <string name="auto_backup_hint">Katru nedēļu, šifrēti, jūsu izvēlētā mapē (piem., mākonī). Tiek paturēti 4 jaunākie faili. Parole paliek šajā ierīcē, lai dublēšana notiktu pati – tāpēc faili, pat mākonī, ir tikai tik droši kā šīs ierīces ekrāna bloķēšana.</string>
+    <string name="auto_backup_hint">Aptuveni reizi nedēļā, šifrēti, jūsu izvēlētā mapē (piem., mākonī). Tiek paturēti 4 jaunākie faili. Parole paliek šajā ierīcē, lai dublēšana notiktu pati – tāpēc faili, pat mākonī, ir tikai tik droši kā šīs ierīces ekrāna bloķēšana.</string>
     <string name="auto_backup_now">Dublēt tagad</string>
     <string name="auto_backup_change_folder">Mainīt mapi</string>
     <string name="auto_backup_last">Pēdējā dublēšana: %1$s</string>

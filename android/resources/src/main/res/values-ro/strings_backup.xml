@@ -9,7 +9,7 @@
     <string name="backup_hint">Salvează lista cu note și grupuri, alarmele, favoritele, portofoliul și setările într-un fișier păstrat de tine – de ex. pentru un telefon nou.</string>
     <string name="backup_import">Restaurează</string>
     <string name="auto_backup_title">Copie de rezervă automată</string>
-    <string name="auto_backup_hint">Săptămânal, criptată, într-un dosar ales de tine (de ex. în cloud). Se păstrează cele mai noi 4 fișiere. Parola rămâne pe acest dispozitiv, ca backupul să ruleze singur – de aceea fișierele, chiar și în cloud, sunt la fel de sigure doar ca blocarea ecranului acestui dispozitiv.</string>
+    <string name="auto_backup_hint">Aproximativ o dată pe săptămână, criptată, într-un dosar ales de tine (de ex. în cloud). Se păstrează cele mai noi 4 fișiere. Parola rămâne pe acest dispozitiv, ca backupul să ruleze singur – de aceea fișierele, chiar și în cloud, sunt la fel de sigure doar ca blocarea ecranului acestui dispozitiv.</string>
     <string name="auto_backup_now">Fă copia acum</string>
     <string name="auto_backup_change_folder">Schimbă dosarul</string>
     <string name="auto_backup_last">Ultima copie: %1$s</string>

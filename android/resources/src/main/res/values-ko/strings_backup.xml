@@ -9,7 +9,7 @@
     <string name="backup_hint">메모와 그룹을 포함한 목록, 경보, 즐겨찾기, 포트폴리오, 설정을 직접 보관하는 파일로 저장합니다 (예: 새 휴대폰용).</string>
     <string name="backup_import">복원</string>
     <string name="auto_backup_title">자동 백업</string>
-    <string name="auto_backup_hint">매주 암호화하여 선택한 폴더(예: 클라우드)에 저장합니다. 최신 파일 4개가 유지됩니다. 백업이 자동으로 진행되도록 비밀번호는 이 기기에 남아 있습니다. 따라서 파일은 클라우드에 있더라도 이 기기의 화면 잠금만큼만 안전합니다.</string>
+    <string name="auto_backup_hint">약 일주일에 한 번 암호화하여 선택한 폴더(예: 클라우드)에 저장합니다. 최신 파일 4개가 유지됩니다. 백업이 자동으로 진행되도록 비밀번호는 이 기기에 남아 있습니다. 따라서 파일은 클라우드에 있더라도 이 기기의 화면 잠금만큼만 안전합니다.</string>
     <string name="auto_backup_now">지금 백업</string>
     <string name="auto_backup_change_folder">폴더 변경</string>
     <string name="auto_backup_last">마지막 백업: %1$s</string>

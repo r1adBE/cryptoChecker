@@ -165,7 +165,7 @@
     <string name="settings_cost_method_fifo_wallet_hint">Oldest coins first within each exchange or wallet; transfers move lots with their purchase date.</string>
     <string name="settings_portfolio_lock">Portfolio lock</string>
     <string name="settings_portfolio_lock_footer">The lock hides what’s shown on screen. Your data is stored on this device and is protected by the device encryption. You can protect backups with a password. Widgets, the watch and notifications show no values while it’s on; in the background the app still reads the portfolio (e.g. for portfolio alerts).</string>
-    <string name="settings_portfolio_lock_hint">Hides only the portfolio: unlock with fingerprint, face or device PIN. Locks again after more than a minute in the background. Watchlist, alerts and other widgets stay open.</string>
+    <string name="settings_portfolio_lock_hint">Hides only the portfolio: unlock with fingerprint, face or device PIN. Locks again after more than a minute in the background. Watchlist, alerts and all other widgets stay open.</string>
     <string name="settings_portfolio_lock_no_device_lock">Without a device PIN or passcode the lock hides nothing – set up a screen lock.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portfolio in system backup</string>

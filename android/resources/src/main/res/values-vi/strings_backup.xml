@@ -9,7 +9,7 @@
     <string name="backup_hint">Lưu danh sách kèm ghi chú và nhóm, cảnh báo, yêu thích, danh mục và cài đặt vào tệp do bạn giữ – vd. cho điện thoại mới.</string>
     <string name="backup_import">Khôi phục</string>
     <string name="auto_backup_title">Sao lưu tự động</string>
-    <string name="auto_backup_hint">Mỗi tuần, được mã hóa, vào thư mục bạn chọn (ví dụ trên đám mây). Giữ lại 4 tệp mới nhất. Mật khẩu được giữ trên thiết bị này để bản sao lưu tự chạy – vì vậy các tệp, kể cả trên đám mây, chỉ an toàn bằng khóa màn hình của thiết bị này.</string>
+    <string name="auto_backup_hint">Khoảng mỗi tuần một lần, được mã hóa, vào thư mục bạn chọn (ví dụ trên đám mây). Giữ lại 4 tệp mới nhất. Mật khẩu được giữ trên thiết bị này để bản sao lưu tự chạy – vì vậy các tệp, kể cả trên đám mây, chỉ an toàn bằng khóa màn hình của thiết bị này.</string>
     <string name="auto_backup_now">Sao lưu ngay</string>
     <string name="auto_backup_change_folder">Đổi thư mục</string>
     <string name="auto_backup_last">Lần sao lưu gần nhất: %1$s</string>

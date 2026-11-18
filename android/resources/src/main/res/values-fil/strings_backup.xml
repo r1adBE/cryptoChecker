@@ -9,7 +9,7 @@
     <string name="backup_hint">Sine-save ang watchlist mo kasama ang mga tala at grupo, mga alerto, paborito, portfolio at setting bilang file na ikaw mismo ang may hawak – halimbawa para sa bagong phone.</string>
     <string name="backup_import">I-restore</string>
     <string name="auto_backup_title">Awtomatikong backup</string>
-    <string name="auto_backup_hint">Bawat linggo, naka-encrypt, sa folder na pipiliin mo (hal. sa cloud). Itinatago ang pinakabagong 4 na file. Nananatili ang password sa device na ito para kusang tumakbo ang backup – kaya ang mga file, kahit nasa cloud, ay kasingligtas lang ng screen lock ng device na ito.</string>
+    <string name="auto_backup_hint">Humigit-kumulang isang beses bawat linggo, naka-encrypt, sa folder na pipiliin mo (hal. sa cloud). Itinatago ang pinakabagong 4 na file. Nananatili ang password sa device na ito para kusang tumakbo ang backup – kaya ang mga file, kahit nasa cloud, ay kasingligtas lang ng screen lock ng device na ito.</string>
     <string name="auto_backup_now">Mag-backup ngayon</string>
     <string name="auto_backup_change_folder">Palitan ang folder</string>
     <string name="auto_backup_last">Huling backup: %1$s</string>

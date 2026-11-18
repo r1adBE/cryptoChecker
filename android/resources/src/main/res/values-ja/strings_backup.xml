@@ -9,7 +9,7 @@
     <string name="backup_hint">メモとグループを含むリスト、アラーム、お気に入り、ポートフォリオ、設定を自分で保管するファイルに保存します（新しい端末用など）。</string>
     <string name="backup_import">復元</string>
     <string name="auto_backup_title">自動バックアップ</string>
-    <string name="auto_backup_hint">毎週、暗号化して、選んだフォルダ（クラウドなど）に保存します。最新の 4 ファイルが残ります。バックアップを自動で行うため、パスワードはこのデバイスに残ります。そのため、ファイルはクラウド上にあっても、このデバイスの画面ロックと同じ程度の安全性しかありません。</string>
+    <string name="auto_backup_hint">約1週間ごとに、暗号化して、選んだフォルダ（クラウドなど）に保存します。最新の 4 ファイルが残ります。バックアップを自動で行うため、パスワードはこのデバイスに残ります。そのため、ファイルはクラウド上にあっても、このデバイスの画面ロックと同じ程度の安全性しかありません。</string>
     <string name="auto_backup_now">今すぐバックアップ</string>
     <string name="auto_backup_change_folder">フォルダを変更</string>
     <string name="auto_backup_last">前回のバックアップ：%1$s</string>

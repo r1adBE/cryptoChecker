@@ -9,7 +9,7 @@
     <string name="backup_hint">Speichert Merkliste mit Notizen und Gruppen, Alarme, Favoriten, Portfolio und Einstellungen als Datei, die du selbst ablegst – z. B. für ein neues Gerät.</string>
     <string name="backup_import">Wiederherstellen</string>
     <string name="auto_backup_title">Automatisch sichern</string>
-    <string name="auto_backup_hint">Jede Woche verschlüsselt in einen Ordner deiner Wahl (z. B. in der Cloud). Die neuesten 4 Dateien bleiben. Das Passwort bleibt dafür auf diesem Gerät – die Dateien sind darum, auch in der Cloud, nur so sicher wie die Bildschirmsperre dieses Geräts.</string>
+    <string name="auto_backup_hint">Etwa einmal pro Woche verschlüsselt in einen Ordner deiner Wahl (z. B. in der Cloud). Die neuesten 4 Dateien bleiben. Das Passwort bleibt dafür auf diesem Gerät – die Dateien sind darum, auch in der Cloud, nur so sicher wie die Bildschirmsperre dieses Geräts.</string>
     <string name="auto_backup_now">Jetzt sichern</string>
     <string name="auto_backup_change_folder">Ordner ändern</string>
     <string name="auto_backup_last">Zuletzt gesichert: %1$s</string>

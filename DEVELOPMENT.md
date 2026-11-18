@@ -3298,6 +3298,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 310: CI: Simulator über UDID (pick_simulator.py) in ios, ios-performance, screenshots.
 * Build 311: Portfolio-Tab lädt fehlende Stundenkerzen (loadMissingHourly / tabHourly); iOS-Tour schliesst Speicher-Hinweis im Portfolio.
 * Build 312: Screenshot-Tour Android: Einrichten-Seiten der Widgets (TourWidgetConfig).
+* Build 313: Externes Review 312: Text Auto-Sicherung «etwa wöchentlich», EN-Zeile Portfolio-Sperre, TESTPLAN iCloud nach Neustart.
 
 ## Known warnings
 

@@ -9,7 +9,7 @@
     <string name="backup_hint">Garda a túa lista con notas e grupos, alarmas, favoritos, carteira e configuración nun ficheiro que gardas ti – p. ex. para un móbil novo.</string>
     <string name="backup_import">Restaurar</string>
     <string name="auto_backup_title">Copia automática</string>
-    <string name="auto_backup_hint">Cada semana, cifrada, nun cartafol que escollas (p. ex. na nube). Gárdanse os 4 ficheiros máis recentes. O contrasinal queda neste dispositivo para que a copia se faga soa; por iso os ficheiros, mesmo na nube, só son tan seguros como o bloqueo de pantalla deste dispositivo.</string>
+    <string name="auto_backup_hint">Aproximadamente unha vez por semana, cifrada, nun cartafol que escollas (p. ex. na nube). Gárdanse os 4 ficheiros máis recentes. O contrasinal queda neste dispositivo para que a copia se faga soa; por iso os ficheiros, mesmo na nube, só son tan seguros como o bloqueo de pantalla deste dispositivo.</string>
     <string name="auto_backup_now">Facer copia agora</string>
     <string name="auto_backup_change_folder">Cambiar o cartafol</string>
     <string name="auto_backup_last">Última copia: %1$s</string>

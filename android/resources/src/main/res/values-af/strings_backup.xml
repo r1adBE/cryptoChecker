@@ -9,7 +9,7 @@
     <string name="backup_hint">Stoor jou volglys met notas en groepe, alarms, gunstelinge, portefeulje en instellings as \'n lêer wat jy self hou – bv. vir \'n nuwe foon.</string>
     <string name="backup_import">Herstel</string>
     <string name="auto_backup_title">Outomaties rugsteun</string>
-    <string name="auto_backup_hint">Elke week, geënkripteer, in ’n vouer van jou keuse (bv. in die wolk). Die nuutste 4 lêers word gehou. Die wagwoord bly op hierdie toestel sodat die rugsteun vanself loop – die lêers is dus, selfs in die wolk, net so veilig soos hierdie toestel se skermslot.</string>
+    <string name="auto_backup_hint">Ongeveer een keer per week, geënkripteer, in ’n vouer van jou keuse (bv. in die wolk). Die nuutste 4 lêers word gehou. Die wagwoord bly op hierdie toestel sodat die rugsteun vanself loop – die lêers is dus, selfs in die wolk, net so veilig soos hierdie toestel se skermslot.</string>
     <string name="auto_backup_now">Rugsteun nou</string>
     <string name="auto_backup_change_folder">Verander vouer</string>
     <string name="auto_backup_last">Laaste rugsteun: %1$s</string>

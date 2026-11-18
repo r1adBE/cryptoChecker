@@ -9,7 +9,7 @@
     <string name="backup_hint">Bewaart lijst met notities en groepen, alarmen, favorieten, portfolio en instellingen als bestand dat je zelf bewaart – bijv. voor een nieuwe telefoon.</string>
     <string name="backup_import">Terugzetten</string>
     <string name="auto_backup_title">Automatisch back-uppen</string>
-    <string name="auto_backup_hint">Elke week, versleuteld, in een map naar keuze (bijv. in de cloud). De nieuwste 4 bestanden blijven bewaard. Het wachtwoord blijft op dit apparaat zodat de back-up vanzelf loopt – de bestanden zijn daardoor, ook in de cloud, maar zo veilig als de schermvergrendeling van dit apparaat.</string>
+    <string name="auto_backup_hint">Ongeveer eens per week, versleuteld, in een map naar keuze (bijv. in de cloud). De nieuwste 4 bestanden blijven bewaard. Het wachtwoord blijft op dit apparaat zodat de back-up vanzelf loopt – de bestanden zijn daardoor, ook in de cloud, maar zo veilig als de schermvergrendeling van dit apparaat.</string>
     <string name="auto_backup_now">Nu back-uppen</string>
     <string name="auto_backup_change_folder">Map wijzigen</string>
     <string name="auto_backup_last">Laatste back-up: %1$s</string>

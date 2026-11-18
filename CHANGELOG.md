@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 313)
+
+- Automatic backup: the hint says «about once a week» (the system picks the exact time); clearer English line for the portfolio lock.
+
 ## 16.2.2 (build 312)
 
 - Internal: the Android screenshot tour also captures the configure pages of the four widgets.

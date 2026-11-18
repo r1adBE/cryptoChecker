@@ -9,7 +9,7 @@
     <string name="backup_hint">Salvestab sinu jälgimisloendi koos märkuste ja rühmadega, hoiatused, lemmikud, portfelli ja seaded failina, mida hoiad ise – nt uue telefoni jaoks.</string>
     <string name="backup_import">Taasta</string>
     <string name="auto_backup_title">Automaatne varundus</string>
-    <string name="auto_backup_hint">Iga nädal krüpteeritult teie valitud kausta (nt pilves). Alles jäävad 4 uusimat faili. Parool jääb sellesse seadmesse, et varundus käiks iseenesest – seega on failid ka pilves ainult nii turvalised kui selle seadme ekraanilukk.</string>
+    <string name="auto_backup_hint">Umbes kord nädalas krüpteeritult teie valitud kausta (nt pilves). Alles jäävad 4 uusimat faili. Parool jääb sellesse seadmesse, et varundus käiks iseenesest – seega on failid ka pilves ainult nii turvalised kui selle seadme ekraanilukk.</string>
     <string name="auto_backup_now">Varunda kohe</string>
     <string name="auto_backup_change_folder">Muuda kausta</string>
     <string name="auto_backup_last">Viimane varundus: %1$s</string>

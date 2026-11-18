@@ -9,7 +9,7 @@
     <string name="backup_hint">把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由您自己保管的文件，例如换新手机时使用。</string>
     <string name="backup_import">恢复</string>
     <string name="auto_backup_title">自动备份</string>
-    <string name="auto_backup_hint">每周加密备份到您选择的文件夹（例如云端）。保留最新的 4 个文件。为了让备份自动进行，密码会保留在此设备上 – 因此文件即使在云端，也只与此设备的屏幕锁一样安全。</string>
+    <string name="auto_backup_hint">大约每周加密备份到您选择的文件夹（例如云端）。保留最新的 4 个文件。为了让备份自动进行，密码会保留在此设备上 – 因此文件即使在云端，也只与此设备的屏幕锁一样安全。</string>
     <string name="auto_backup_now">立即备份</string>
     <string name="auto_backup_change_folder">更改文件夹</string>
     <string name="auto_backup_last">上次备份：%1$s</string>
