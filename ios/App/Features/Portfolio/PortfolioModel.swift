@@ -10,8 +10,12 @@ final class PortfolioModel: ObservableObject {
     static let shared = PortfolioModel()
 
     @Published var prices = PortfolioPrices()
-    /// Kurse werden gerade geladen (Kreisel oben rechts).
+    /// Kurse werden gerade geladen (Menü «Aktualisieren» gesperrt).
     @Published var refreshing = false
+    /// Laden von Hand (Ziehen, Menü): Kreisel im Menü-Knopf; beim Öffnen stattdessen `loadProgress`.
+    @Published var manualRefresh = false
+    /// Dünner Ladebalken beim Öffnen (0–1, nil = keiner), erst nach einer halben Sekunde — wie Android.
+    @Published var loadProgress: Double?
     /// USD → `fxCurrency`; nil = unbekannt (Umrechnungszeile ausblenden).
     @Published var fxRate: Double?
     @Published var fxCurrency = ""
@@ -72,6 +76,7 @@ final class PortfolioModel: ObservableObject {
     @Published var costFxLoad: (currency: String, from: LocalDay, rates: [Int: Decimal]?, usdtUsd: [Int: Decimal], to: LocalDay)?
 
     var activeRefreshes = 0
+    var loadSteps = LoadProgress(total: 0) // Schritte des laufenden `refresh` (Balken)
     let addressGate = AddressRefreshGate() // eine Adress-Aktualisierung zur Zeit
     private var loadingCoins = false
     /// Gesamtrechnung abseits des Hauptthreads (`summary`, `shownSummary`).

@@ -29,13 +29,33 @@ extension PortfolioModel {
         data.applyWatchedAddressUpdates(updates)
     }
 
-    /// Beim Öffnen (60 s Zwischenspeicher), bei neuen Coins bzw. per Ziehen (`force`).
+    /// Beim Öffnen (60 s Zwischenspeicher), bei neuen Coins bzw. per Ziehen oder Menü (`force`). Die Abrufe laufen
+    /// gleichzeitig (Adressen, Verlauf, Devisenkurs, Kurse, «Seit Kauf») — Werte erscheinen, sobald ihr Teil da ist.
+    /// Beim Öffnen ein dünner Balken (`loadProgress`), erst nach einer halben Sekunde; von Hand der Kreisel. Wie Android.
     func refresh(force: Bool) async {
+        let owner = activeRefreshes == 0
         activeRefreshes += 1
         refreshing = true
+        if force { manualRefresh = true }
+        var bar: Task<Void, Never>?
+        if owner {
+            loadSteps = LoadProgress(total: Self.refreshSteps)
+            if !force {
+                bar = Task { [weak self] in
+                    try? await Task.sleep(nanoseconds: LoadProgress.showAfterMillis * 1_000_000)
+                    guard !Task.isCancelled, let self, self.activeRefreshes > 0 else { return }
+                    self.loadProgress = self.loadSteps.current
+                }
+            }
+        }
         defer {
+            bar?.cancel()
             activeRefreshes -= 1
             refreshing = activeRefreshes > 0
+            if !refreshing {
+                loadProgress = nil
+                manualRefresh = false
+            }
         }
         // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung; danach Verlauf und
         // «7 T»/«1 J» mit dem neuen Kurs (wie die Flows auf Android)
@@ -45,13 +65,15 @@ extension PortfolioModel {
             await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, stables: { await StableDepegPlanner.plan() })
             self?.recomputeHistory()
         }
-        // Adress-Guthaben zuerst (fällige Adressen), dann mit ihnen rechnen
-        await refreshWatchedAddresses(force: force)
-        let all = calcPortfolio
-        let symbols = Array(Set(all.flatMap(\.coins)))
+        let currency = data.settings.portfolioCurrency
+        let symbols = Array(Set(calcPortfolio.flatMap(\.coins)))
+        // Gleichzeitig, keiner wartet auf den anderen. Bringen die Adressen neue Coins, lädt `.task(id: calcCoins)`
+        // deren Kurse nach. Verlauf: Tageskerzen je Coin 12 h zwischengespeichert, Fehlgeschlagenes neu.
+        async let addresses: Void = stepAddresses(force: force)
+        async let history: Void = stepHistory(load: !symbols.isEmpty)
+        // Kein Kurs (auch kein höchstens 24 h alter): keine Umrechnung statt eines toten Kurses
+        async let fetchedRate = stepRate(currency)
         if !symbols.isEmpty {
-            // Verlauf parallel (Tageskerzen je Coin 12 h zwischengespeichert; Fehlgeschlagenes neu)
-            Task { await loadHistory() }
             // Erst Zwischenspeicher und gemerkter Stand (ohne Netz, nach einem Neustart), damit sofort
             // etwas dasteht (auch für neue Coins); dann frisch, wo nötig der gemerkte Stand je Coin
             prices = await PortfolioPriceSource.stored(symbols)
@@ -60,9 +82,8 @@ extension PortfolioModel {
             _ = await PortfolioPriceSource.prices(symbols, force: force)
             prices = await PortfolioPriceSource.stored(symbols)
         }
-        let currency = data.settings.portfolioCurrency
-        // Kein Kurs (auch kein höchstens 24 h alter): keine Umrechnung statt eines toten Kurses
-        let rate = await FxRateSource.usdTo(currency)
+        markLoadStep()
+        let rate = await fetchedRate
         if data.settings.portfolioCurrency == currency {
             fxRate = rate
             fxCurrency = currency
@@ -70,7 +91,9 @@ extension PortfolioModel {
         recomputeHistory()
         // «Seit Kauf»/Einstand in der Anzeigewährung: Kurse ab dem frühesten Erwerbstag (fehlten sie, erneut versuchen);
         // parallel, damit Widget und «Heute» nicht auf die Abfrage warten
-        Task { await loadCostFx() }
+        async let costFx: Void = stepCostFx()
+        // Widget und «Heute» mit den frischen Adress-Guthaben
+        await addresses
         // Portfolio-Widget: Stand mit denselben Kursen (zeichnet nur bei Änderung neu)
         // Gemerkter, veralteter Stand (ohne Netz, nach einem Neustart): nicht als «jetzt» aufnehmen
         // (Widget, Verlauf, Alarme blieben sonst mit alten Kursen stehen); «Heute» stattdessen aus dem
@@ -103,6 +126,38 @@ extension PortfolioModel {
             // Portfolio-Alarme mit dem neuen Stand prüfen
             await data.evaluatePortfolioAlarms(widget)
         }
+        await history
+        await costFx
+    }
+
+    /// Gleichzeitige Schritte in `refresh` (für den Balken).
+    static let refreshSteps = 5
+
+    /// Ein Schritt von `refresh` fertig: Balken vor (nur wenn er schon steht).
+    func markLoadStep() {
+        let shown = loadSteps.step()
+        if loadProgress != nil { loadProgress = shown }
+    }
+
+    private func stepAddresses(force: Bool) async {
+        await refreshWatchedAddresses(force: force)
+        markLoadStep()
+    }
+
+    private func stepHistory(load: Bool) async {
+        if load { await loadHistory() }
+        markLoadStep()
+    }
+
+    private func stepRate(_ currency: String) async -> Double? {
+        let rate = await FxRateSource.usdTo(currency)
+        markLoadStep()
+        return rate
+    }
+
+    private func stepCostFx() async {
+        await loadCostFx()
+        markLoadStep()
     }
 
     /// «Heute» aus dem zuletzt gespeicherten Portfolio-Stand, wenn er zur eingestellten %-Basis passt

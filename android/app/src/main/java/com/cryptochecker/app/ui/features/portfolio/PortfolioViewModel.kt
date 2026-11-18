@@ -161,8 +161,8 @@ class PortfolioViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.depegThresholdTenths)
 
-    internal val _refreshing = MutableStateFlow(false)
-    val refreshing: StateFlow<Boolean> = _refreshing.asStateFlow()
+    internal val load = PortfolioLoadState()
+    val refreshing: StateFlow<Boolean> get() = load.busy
 
     val currency: StateFlow<String> = settingsRepository.settings
         .map { it.portfolioCurrency }

@@ -113,6 +113,7 @@ struct PortfolioCoinDetail: View {
         .readableListMargins()
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await model.refresh(force: true) }
+        .overlay(alignment: .top) { LoadProgressBar(progress: model.loadProgress) }
         .animation(.spring(duration: 0.35), value: own.map(\.id))
         // «+» oben (verdeckt keine Beträge) wählt den Coin schon vor
         .toolbar {

@@ -102,8 +102,8 @@ extension PortfolioScreen {
                     }
                 }
             } label: {
-                // Läuft das Aktualisieren, dreht sich hier ein Kreis (der Knopf oben ist weg)
-                if model.refreshing {
+                // Aktualisieren von Hand (Menü, Ziehen): hier dreht sich ein Kreis; beim Öffnen der Balken über der Liste
+                if model.manualRefresh {
                     ProgressView().controlSize(.small)
                 } else {
                     Image(systemName: "ellipsis.circle")

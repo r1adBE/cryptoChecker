@@ -66,6 +66,8 @@ internal fun PortfolioScaffold(
     onOpenCostGaps: () -> Unit,
 ) {
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
+    // Kreis des Ziehens nur beim Ziehen bzw. Menü; beim Öffnen der Balken ([LoadProgressBar])
+    val pulling by viewModel.load.manual.collectAsStateWithLifecycle()
     var menuOpen by remember { mutableStateOf(false) }
 
     val hasTransactions = !transactions.isNullOrEmpty()
@@ -113,7 +115,7 @@ internal fun PortfolioScaffold(
             reduceMotion = reduceMotion,
             transactions = transactions,
             watchedAddresses = watchedAddresses,
-            refreshing = refreshing,
+            refreshing = pulling,
             hasData = hasData,
             currency = currency,
             hideAmounts = hideAmounts,

@@ -184,5 +184,7 @@ extension PortfolioScreen {
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: summary.open.map(\.coin))
         .animation(.easeInOut(duration: 0.25), value: showClosed)
         .refreshable { await model.refresh(force: true) }
+        // Beim Öffnen: dünner Balken oben über der Liste (verschiebt nichts), Werte erscheinen je Teil
+        .overlay(alignment: .top) { LoadProgressBar(progress: model.loadProgress) }
     }
 }

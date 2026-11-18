@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 316)
+
+- Portfolio loads faster: addresses, prices, history and exchange rates are fetched at the same time, values appear as they arrive.
+- Opening the portfolio shows a thin progress bar at the top instead of the spinner over the total (only if loading takes longer than half a second); the spinner stays for pull-to-refresh.
+
 ## 16.2.2 (build 315)
 
 - New accent colours: violet and dark grey (app, widgets and app icon). With dark grey the price colours keep their standard tones.

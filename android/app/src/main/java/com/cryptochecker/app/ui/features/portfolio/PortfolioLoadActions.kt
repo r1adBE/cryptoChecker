@@ -13,12 +13,15 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.withAddresses
+import com.cryptochecker.app.domain.util.LoadProgress
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -154,34 +157,68 @@ internal suspend fun PortfolioViewModel.loadFxSeries(code: String, from: LocalDa
     _fxSeries.value = FxSeriesLoad(code, from, rates, to)
 }
 
-/** Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen ([force]). */
+/**
+ * Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen oder Menü ([force]). Die Abrufe laufen gleichzeitig: Adressen,
+ * Kurse, Tagesschlüsse, Devisenkurs, Devisen-Reihe und Kurse für «Seit Kauf» hängen nicht voneinander ab — Werte
+ * erscheinen, sobald ihr Teil da ist. Bringen die Adressen neue Coins, lädt [start] deren Kurse nach.
+ * Beim Öffnen ein dünner Balken ([PortfolioLoadState.progress]), erst nach einer halben Sekunde; beim Ziehen der Kreis.
+ */
 fun PortfolioViewModel.refresh(force: Boolean) {
-    if (_refreshing.value) return
+    if (load.busyFlow.value) return
     viewModelScope.launch {
-        _refreshing.value = true
+        load.busyFlow.value = true
+        load.manualFlow.value = force
+        val progress = LoadProgress(REFRESH_STEPS)
+        val bar = if (force) {
+            null
+        } else {
+            launch {
+                delay(LoadProgress.SHOW_AFTER_MILLIS)
+                load.progressFlow.value = progress.current()
+            }
+        }
+
+        // Ein Schritt fertig: Balken vor (nur wenn er schon steht)
+        suspend fun step(block: suspend () -> Unit) {
+            block()
+            val shown = progress.step()
+            if (load.progressFlow.value != null) load.progressFlow.value = shown
+        }
         try {
-            // Adress-Guthaben zuerst (fällige Adressen; ohne Adressen keine Anfrage)
-            addressRefresher.refresh(force)
             val txs = (transactions.value ?: repository.getTransactions())
                 .withAddresses(safe { repository.getWatchedAddresses() } ?: watchedAddresses.value)
-            loadPrices(txs.flatMap { it.coins() }.toSet(), force)
-            // Fehlgeschlagene Coins erneut versuchen (der Rest kommt aus dem Zwischenspeicher)
-            loadCloses(historyRequest(txs, historyRange.value))
-            // Kein Kurs (auch kein höchstens 24 h alter): keine Umrechnung statt eines toten Kurses
-            _fxRate.value = safe { fxSource.usdTo(currency.value) }
-            // Fehlten die Devisen-Tageskurse oder enden sie vor dem heutigen UTC-Tag, erneut laden
-            val utcToday = LocalDate.now(ZoneOffset.UTC)
-            if (_fxSeries.value?.let { it.rates == null || PortfolioHistoryFx.fxLoadOutdated(it.to, utcToday) } != false) {
-                loadFxSeries(currency.value, fxSeriesFrom(txs, historyRange.value))
+            val code = currency.value
+            coroutineScope {
+                // Adress-Guthaben (fällige Adressen; ohne Adressen keine Anfrage)
+                launch { step { safe { addressRefresher.refresh(force) } } }
+                launch { step { loadPrices(txs.flatMap { it.coins() }.toSet(), force) } }
+                // Fehlgeschlagene Coins erneut versuchen (der Rest kommt aus dem Zwischenspeicher)
+                launch { step { loadCloses(historyRequest(txs, historyRange.value)) } }
+                // Kein Kurs (auch kein höchstens 24 h alter): keine Umrechnung statt eines toten Kurses
+                launch { step { _fxRate.value = safe { fxSource.usdTo(code) } } }
+                // Fehlten die Devisen-Tageskurse oder enden sie vor dem heutigen UTC-Tag, erneut laden
+                launch {
+                    step {
+                        val utcToday = LocalDate.now(ZoneOffset.UTC)
+                        if (_fxSeries.value?.let { it.rates == null || PortfolioHistoryFx.fxLoadOutdated(it.to, utcToday) } != false) {
+                            loadFxSeries(code, fxSeriesFrom(txs, historyRange.value))
+                        }
+                    }
+                }
+                // Kurse für «Seit Kauf» in der Anzeigewährung (loadCostFx prüft selbst, ob die geladenen noch reichen)
+                launch { step { summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(code, LocalDate.ofEpochDay(it)) } } }
             }
-            // Kurse für «Seit Kauf» in der Anzeigewährung: fehlten sie oder ist ein neuer Tag dazugekommen, neu laden
-            // (loadCostFx prüft selbst, ob die geladenen noch reichen)
-            summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(currency.value, LocalDate.ofEpochDay(it)) }
         } finally {
-            _refreshing.value = false
+            bar?.cancel()
+            load.progressFlow.value = null
+            load.manualFlow.value = false
+            load.busyFlow.value = false
         }
     }
 }
+
+/** Gleichzeitige Schritte in [refresh] (für den Balken). */
+private const val REFRESH_STEPS = 6
 
 internal suspend fun PortfolioViewModel.loadPrices(coins: Set<String>, force: Boolean) {
     if (coins.isEmpty()) return

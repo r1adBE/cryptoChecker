@@ -60,7 +60,8 @@ fun PortfolioDetailScreen(
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val symbol = remember(coin) { PortfolioCalculator.normalizeCoin(coin) }
-    val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
+    // Kreis des Ziehens nur beim Ziehen bzw. Menü; beim Öffnen der Balken ([LoadProgressBar])
+    val refreshing by viewModel.load.manual.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
     // Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
     val detail by remember(viewModel, symbol) { viewModel.coinDetailFlow(symbol) }.collectAsStateWithLifecycle(null)
