@@ -65,11 +65,10 @@ jobs:
       # first available iPhone (as in ios.yml).
       - name: Pick iOS Simulator
         run: |
-          DEVICE="iPhone 17"
-          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
-            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
-          fi
-          echo "Simulator: $DEVICE"
+          # By UDID (pick_simulator.py): simulator names may contain parentheses
+          PICK=$(python3 -I "$GITHUB_WORKSPACE/.github/scripts/pick_simulator.py" iphone) || { echo "::error::no iPhone simulator"; exit 1; }
+          DEVICE=${PICK%%$'\t'*}
+          echo "Simulator: ${PICK#*$'\t'} ($DEVICE)"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
 
       # Test classes: every «final class …PerformanceTests» in ios/Tests (new classes are picked up automatically).
@@ -110,7 +109,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Release \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             ENABLE_TESTABILITY=YES \
             2>/dev/null \
             | grep -E '^ *(TARGET_NAME|SWIFT_OPTIMIZATION_LEVEL|SWIFT_ACTIVE_COMPILATION_CONDITIONS) =' || true
@@ -130,7 +129,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Release \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedDataRelease" \
             $PERF_ONLY \
             ENABLE_TESTABILITY=YES \
@@ -159,7 +158,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedDataDebug" \
             $PERF_ONLY \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \

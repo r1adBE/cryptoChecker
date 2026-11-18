@@ -262,11 +262,10 @@ jobs:
       # first available iPhone.
       - name: Pick iOS Simulator
         run: |
-          DEVICE="iPhone 17"
-          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
-            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
-          fi
-          echo "Simulator: $DEVICE"
+          # By UDID (pick_simulator.py): simulator names may contain parentheses
+          PICK=$(python3 -I "$GITHUB_WORKSPACE/.github/scripts/pick_simulator.py" iphone) || { echo "::error::no iPhone simulator"; exit 1; }
+          DEVICE=${PICK%%$'\t'*}
+          echo "Simulator: ${PICK#*$'\t'} ($DEVICE)"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
 
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app). The same run records the line
@@ -292,7 +291,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             -resultBundlePath "$RUNNER_TEMP/UnitTests.xcresult" \
             -only-testing:CryptoCheckerTests \
@@ -399,11 +398,10 @@ jobs:
       # first available iPhone.
       - name: Pick iOS Simulator
         run: |
-          DEVICE="iPhone 17"
-          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
-            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
-          fi
-          echo "Simulator: $DEVICE"
+          # By UDID (pick_simulator.py): simulator names may contain parentheses
+          PICK=$(python3 -I "$GITHUB_WORKSPACE/.github/scripts/pick_simulator.py" iphone) || { echo "::error::no iPhone simulator"; exit 1; }
+          DEVICE=${PICK%%$'\t'*}
+          echo "Simulator: ${PICK#*$'\t'} ($DEVICE)"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
 
       # Boot the Simulator before xcodebuild and wait until it is fully up: a cold Simulator could fail the first app
@@ -451,7 +449,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             -only-testing:CryptoCheckerUITests \
             -parallel-testing-enabled NO \

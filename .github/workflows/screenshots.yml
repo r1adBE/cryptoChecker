@@ -160,24 +160,17 @@ jobs:
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
 
-      # Simulator: "iPhone 17" if the installed Xcode has it, otherwise its first available iPhone (as in ios.yml);
-      # iPad: the first available «iPad Pro 13-inch» (13" screenshots for the App Store), otherwise any iPad Pro.
+      # Simulator (.github/scripts/pick_simulator.py, by UDID): "iPhone 17" if the installed Xcode has it, otherwise its
+      # first available iPhone (as in ios.yml); iPad: the first «iPad Pro 13-inch» (13" App Store screenshots), else any iPad Pro.
       # Booted here so the status bar can be fixed (9:41, full battery; cosmetic, failures ignored).
       - name: Pick and boot iOS Simulator
         env:
           KIND: ${{ matrix.device }}
         run: |
-          if [ "$KIND" = ipad ]; then
-            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPad Pro 13-inch[^()]*' | sed 's/ *$//')
-            [ -n "$DEVICE" ] || DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPad Pro [^()]+' | sed 's/ *$//')
-          else
-            DEVICE="iPhone 17"
-            if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
-              DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
-            fi
-          fi
-          [ -n "$DEVICE" ] || { echo "::error::no $KIND simulator"; exit 1; }
-          echo "Simulator: $DEVICE"
+          # By UDID: iPad names carry the chip in parentheses (pick_simulator.py)
+          PICK=$(python3 -I "$GITHUB_WORKSPACE/.github/scripts/pick_simulator.py" "$KIND") || { echo "::error::no $KIND simulator"; exit 1; }
+          DEVICE=${PICK%%$'\t'*}
+          echo "Simulator: ${PICK#*$'\t'} ($DEVICE)"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
           xcrun simctl boot "$DEVICE" || true
           xcrun simctl bootstatus "$DEVICE" -b || true
@@ -197,7 +190,7 @@ jobs:
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -destination "platform=iOS Simulator,id=$SIM_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             -only-testing:CryptoCheckerUITests/ScreenshotTourTests \
             -parallel-testing-enabled NO \

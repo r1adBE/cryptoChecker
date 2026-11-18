@@ -3292,6 +3292,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 307: Eigenes Audit 303: N6 MarketSources/MarketCache, UI_DATA_REMAINING 0; N7 Tests.
 * Build 308: Durchsicht am Gerät: «+» in der Kopfzeile (AddButtonScroll entfernt), Währungen der Karte, Widget-Tagesschlüsse im Hintergrund, Widgets ohne Lücke, Hinweis-Dialog, Untertitel Akku & Aktivität.
 * Build 309: Puls-Widget gross: Coins als Liste (PulseWidgetList), Sätze haben Vorrang.
+* Build 310: CI: Simulator über UDID (pick_simulator.py) in ios, ios-performance, screenshots.
 
 ## Known warnings
 
