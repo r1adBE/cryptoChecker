@@ -5,8 +5,6 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.MarketExtraCodecs
-import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.CoinIndicatorModel
 import com.cryptochecker.app.domain.market.CryptoPulse
@@ -14,6 +12,7 @@ import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.HalvingMath
+import com.cryptochecker.app.domain.market.MarketCacheKinds
 import com.cryptochecker.app.domain.market.MarketUnusual
 import com.cryptochecker.app.domain.market.OnChainValues
 import com.cryptochecker.app.domain.market.Sourced
@@ -32,45 +31,45 @@ import timber.log.Timber
 fun InfoViewModel.loadPulse(force: Boolean = false): Job = sync(
     source = CycleSource.PULSE,
     force = force,
-    codec = CycleCacheCodecs.pulseInput,
+    codec = MarketCacheKinds.pulseInput,
     // Ohne Marktdaten keine Auswertung: weder zeigen noch speichern
     isUsable = { CryptoPulse.evaluate(it) != null },
     timeOf = { it.time },
     show = { input -> CryptoPulse.evaluate(input)?.let { _pulse.value = LoadState.Loaded(it) } },
     loading = { _pulse.value = LoadState.Loading },
     failed = { _pulse.value = LoadState.Failed },
-    fetch = { Sourced(pulseDataSource.fetchInput(), null) },
+    fetch = { Sourced(sources.pulseInput(), null) },
 )
 
 /** @param force true = Zwischenspeicher (10 Min.) übergehen (Ziehen nach unten, «Erneut»). */
 fun InfoViewModel.loadUnusual(force: Boolean = false): Job = sync(
     source = CycleSource.UNUSUAL,
     force = force,
-    codec = MarketExtraCodecs.unusualInput,
+    codec = MarketCacheKinds.unusualInput,
     isUsable = { MarketUnusual.evaluate(it) != null },
     timeOf = { it.time },
     show = { input -> MarketUnusual.evaluate(input)?.let { _unusual.value = LoadState.Loaded(it) } },
     loading = { _unusual.value = LoadState.Loading },
     failed = { _unusual.value = LoadState.Failed },
-    fetch = { Sourced(unusualDataSource.fetchInput(), null) },
+    fetch = { Sourced(sources.unusualInput(), null) },
 )
 
-/** Höchstens einmal am Tag aus dem Netz (siehe [MacroCalendarRepository]); wirft nie. */
+/** Höchstens einmal am Tag aus dem Netz (siehe `MacroCalendarRepository` in :data); wirft nie. */
 internal fun InfoViewModel.loadMacro(): Job = viewModelScope.launch {
-    _macroEvents.value = macroCalendar.events()
+    _macroEvents.value = sources.macroEvents()
 }
 
 /** @param force true = Zwischenspeicher übergehen (Ziehen nach unten, «Erneut»). */
 fun InfoViewModel.loadGas(force: Boolean = false): Job = sync(
     source = CycleSource.GAS,
     force = force,
-    codec = CycleCacheCodecs.gas,
+    codec = MarketCacheKinds.gas,
     timeOf = { it.time },
     show = { _gas.value = LoadState.Loaded(it) },
     loading = { _gas.value = LoadState.Loading },
     failed = { _gas.value = LoadState.Failed },
     // Ohne force darf der Gas-Alarm-Abruf der letzten Minute mitgenutzt werden
-    fetch = { gasDataSource.fetchSourced(if (force) 0L else CycleSource.GAS.ttlMillis) },
+    fetch = { sources.gas(if (force) 0L else CycleSource.GAS.ttlMillis) },
 )
 
 /** Coin-Karte; je Coin ein eigener Zwischenspeicher (15 Min.). */
@@ -80,14 +79,14 @@ fun InfoViewModel.loadCoin(force: Boolean = false): Job {
         source = CycleSource.COIN,
         name = CycleCachePolicy.coinName(symbol),
         force = force,
-        codec = CycleCacheCodecs.coinInputs,
+        codec = MarketCacheKinds.coinInputs,
         show = { _coin.value = LoadState.Loaded(CoinIndicatorModel.evaluate(symbol, it)) },
         loading = { _coin.value = LoadState.Loading },
         failed = {
             Timber.w("Coin-Daten für %s nicht verfügbar", symbol)
             _coin.value = LoadState.Failed
         },
-        fetch = { insights.fetchCoin(symbol) },
+        fetch = { sources.coin(symbol) },
     )
 }
 
@@ -109,7 +108,7 @@ internal fun InfoViewModel.startAll(force: Boolean): List<Job> = listOf(
 internal fun InfoViewModel.loadHalvingEstimate(force: Boolean): Job = viewModelScope.launch {
     val now = System.currentTimeMillis()
     if (!force && now - halvingEstimateAt in 0 until HALVING_ESTIMATE_TTL_MILLIS && _halvingEstimate.value != null) return@launch
-    val blocks = gasDataSource.bitcoinBlocks() ?: return@launch
+    val blocks = sources.bitcoinBlocks() ?: return@launch
     HalvingMath.estimate(blocks.first, blocks.second, now, java.time.ZoneId.systemDefault())?.let {
         _halvingEstimate.value = it
         halvingEstimateAt = now
@@ -119,18 +118,18 @@ internal fun InfoViewModel.loadHalvingEstimate(force: Boolean): Job = viewModelS
 internal fun InfoViewModel.loadFearGreed(force: Boolean): Job = sync(
     source = CycleSource.FEAR_GREED,
     force = force,
-    codec = CycleCacheCodecs.fearGreed,
+    codec = MarketCacheKinds.fearGreed,
     show = { _fearGreed.value = LoadState.Loaded(it) },
     loading = { _fearGreed.value = LoadState.Loading },
     failed = { _fearGreed.value = LoadState.Failed },
-    fetch = { Sourced(insights.fearGreed(), DataFreshness.ALTERNATIVE_ME) },
+    fetch = { Sourced(sources.fearGreed(), DataFreshness.ALTERNATIVE_ME) },
 )
 
 /** Ein CoinGecko-Aufruf für Dominanz und Markt-Summen (kein zweiter Abruf). */
 internal fun InfoViewModel.loadGlobal(force: Boolean): Job = sync(
     source = CycleSource.GLOBAL,
     force = force,
-    codec = CycleCacheCodecs.global,
+    codec = MarketCacheKinds.global,
     show = { global ->
         _dominance.value = LoadState.Loaded(global.dominance)
         _marketTotals.value = global.totals?.let { LoadState.Loaded(it) } ?: LoadState.Failed
@@ -143,28 +142,28 @@ internal fun InfoViewModel.loadGlobal(force: Boolean): Job = sync(
         _dominance.value = LoadState.Failed
         _marketTotals.value = LoadState.Failed
     },
-    fetch = { Sourced(insights.global(), DataFreshness.COINGECKO) },
+    fetch = { Sourced(sources.global(), DataFreshness.COINGECKO) },
 )
 
 internal fun InfoViewModel.loadAltSeason(force: Boolean): Job = sync(
     source = CycleSource.ALT_SEASON,
     force = force,
-    codec = CycleCacheCodecs.altSeason,
+    codec = MarketCacheKinds.altSeason,
     show = { _altSeason.value = LoadState.Loaded(it) },
     loading = { _altSeason.value = LoadState.Loading },
     failed = { _altSeason.value = LoadState.Failed },
-    fetch = { insights.altSeason() },
+    fetch = { sources.altSeason() },
 )
 
 internal fun InfoViewModel.loadHistory(force: Boolean): Job = sync(
     source = CycleSource.HISTORY,
     force = force,
-    codec = CycleCacheCodecs.history,
+    codec = MarketCacheKinds.history,
     isUsable = { it.series.isNotEmpty() },
     show = { _history.value = LoadState.Loaded(it) },
     loading = { _history.value = LoadState.Loading },
     failed = { _history.value = LoadState.Failed },
-    fetch = { Sourced(insights.cycleHistory(), null) },
+    fetch = { Sourced(sources.cycleHistory(), null) },
 )
 
 internal fun InfoViewModel.loadCoinList() {
@@ -195,7 +194,7 @@ internal fun InfoViewModel.loadCoinList() {
 fun InfoViewModel.loadMarket(force: Boolean = false): Job = sync(
     source = CycleSource.MARKET,
     force = force,
-    codec = CycleCacheCodecs.cycleInputs,
+    codec = MarketCacheKinds.cycleInputs,
     show = { _market.value = MarketState.Loaded(BitcoinIndicatorModel.evaluate(it)) },
     loading = { _market.value = MarketState.Loading },
     failed = { _market.value = MarketState.Failed },
@@ -204,20 +203,20 @@ fun InfoViewModel.loadMarket(force: Boolean = false): Job = sync(
         val known = if (force) {
             null
         } else {
-            cacheStore.read(CycleSource.ON_CHAIN.key, CycleCacheCodecs.onChain)
+            cache.read(CycleSource.ON_CHAIN.key, MarketCacheKinds.onChain)
                 ?.takeIf { CycleCachePolicy.isFresh(it.savedAt, now, CycleSource.ON_CHAIN.ttlMillis) }
                 ?.value
         }
-        val sourced = cycleDataSource.fetchSourced(knownOnChain = known)
+        val sourced = sources.cycleInputs(knownOnChain = known)
         val inputs = sourced.value
         if (known == null) {
             val onChain = OnChainValues(inputs.mvrv, inputs.puell, inputs.hash30d, inputs.hash60d)
             if (onChain.hasAny) {
-                cacheStore.write(
+                cache.write(
                     CycleSource.ON_CHAIN.key,
                     onChain,
                     System.currentTimeMillis(),
-                    CycleCacheCodecs.onChain,
+                    MarketCacheKinds.onChain,
                     provider = DataFreshness.COIN_METRICS,
                 )
             }

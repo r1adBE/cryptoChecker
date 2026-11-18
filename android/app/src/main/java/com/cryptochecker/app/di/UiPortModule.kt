@@ -137,6 +137,14 @@ abstract class UiPortModule {
     abstract fun autoBackupJobs(impl: AutoBackupRunner): AutoBackupJobs
 
     @Binds
+    abstract fun marketCache(impl: com.cryptochecker.app.data.market.MarketCacheAdapter): com.cryptochecker.app.domain.market.MarketCache
+
+    @Binds
+    abstract fun marketSources(
+        impl: com.cryptochecker.app.data.market.MarketSourcesAdapter
+    ): com.cryptochecker.app.domain.market.MarketSources
+
+    @Binds
     abstract fun autoBackupSettings(impl: AutoBackupStore): AutoBackupSettings
 
     @Binds

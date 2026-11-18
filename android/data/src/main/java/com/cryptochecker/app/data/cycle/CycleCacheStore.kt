@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.cycle
 
 import android.content.Context
+import com.cryptochecker.app.domain.market.CachedValue
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -12,12 +13,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import timber.log.Timber
-
-/**
- * Ein gespeicherter Wert, wann er geholt wurde (Epoch-ms) und von welchem Anbieter
- * ([provider], z. B. «CoinGecko»; null = unbekannt, auch bei Dateien ohne diese Angabe).
- */
-data class CachedValue<T>(val value: T, val savedAt: Long, val provider: String? = null)
 
 /** Wandelt einen Wert in JSON und zurück; [decode] darf bei ungültigem Inhalt werfen. */
 class CacheCodec<T>(val encode: (T) -> JSONObject, val decode: (JSONObject) -> T)

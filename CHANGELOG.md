@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 307)
+
+- Internal (Android): the market tab uses core-module interfaces for its data sources and cache; no screen depends on the data layer any more (C-07 complete); more data-layer tests.
+
 ## 16.2.2 (build 306)
 
 - Easier to read: no text smaller than 12 pt on iPhone, chart labels slightly larger on both platforms.

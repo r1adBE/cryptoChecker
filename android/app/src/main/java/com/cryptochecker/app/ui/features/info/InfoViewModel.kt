@@ -3,13 +3,6 @@ package com.cryptochecker.app.ui.features.info
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.activity.ActivityMonitor
-import com.cryptochecker.app.data.MacroCalendarRepository
-import com.cryptochecker.app.data.cycle.CycleCacheStore
-import com.cryptochecker.app.data.remote.CycleDataSource
-import com.cryptochecker.app.data.remote.GasDataSource
-import com.cryptochecker.app.data.remote.InsightsDataSource
-import com.cryptochecker.app.data.remote.PulseDataSource
-import com.cryptochecker.app.data.remote.UnusualDataSource
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.macro.MacroEvent
@@ -26,8 +19,10 @@ import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.domain.market.HalvingEstimate
 import com.cryptochecker.app.domain.market.HalvingInfo
+import com.cryptochecker.app.domain.market.MarketCache
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
+import com.cryptochecker.app.domain.market.MarketSources
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
@@ -66,22 +61,19 @@ sealed interface LoadState<out T> {
 /**
  * Markt-Tab. Für die ganze Activity einmal da (siehe AppNavHost), damit beim Wechsel
  * der Tabs nichts neu geladen wird. Jeder Bereich zeigt sofort seinen Zwischenspeicher
- * (Gerät, [CycleCacheStore]) und lädt nur im Hintergrund nach, wenn dieser älter als
+ * (Gerät, [MarketCache]) und lädt nur im Hintergrund nach, wenn dieser älter als
  * seine Gültigkeit ist ([CycleSource.ttlMillis]); neue Daten ersetzen die alten still.
  * Jeder Bereich lädt für sich mit harter Zeitgrenze — ein langsamer hält keinen anderen auf.
  */
 @HiltViewModel
 class InfoViewModel @Inject constructor(
-    internal val cycleDataSource: CycleDataSource,
-    internal val insights: InsightsDataSource,
+    /** Datenquellen des Markt-Tabs ([MarketSources], Umsetzung in :data). */
+    internal val sources: MarketSources,
     internal val exchangeRepository: ExchangeRepository,
     private val favoritesRepository: FavoriteStore,
-    internal val gasDataSource: GasDataSource,
-    internal val pulseDataSource: PulseDataSource,
-    internal val cacheStore: CycleCacheStore,
+    /** Zwischenspeicher auf dem Gerät ([MarketCache]). */
+    internal val cache: MarketCache,
     private val settingsRepository: SettingsRepository,
-    internal val unusualDataSource: UnusualDataSource,
-    internal val macroCalendar: MacroCalendarRepository,
     /** Paare der Merkliste und ihre ⚡-Signale ([InfoWatchlist]). */
     watchlist: InfoWatchlist,
     internal val activityMonitor: ActivityMonitor,

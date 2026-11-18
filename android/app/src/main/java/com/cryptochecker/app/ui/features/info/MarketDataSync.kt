@@ -4,10 +4,10 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.cycle.CacheCodec
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataStamp
+import com.cryptochecker.app.domain.market.MarketCacheKind
 import com.cryptochecker.app.domain.market.Sourced
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,7 +34,7 @@ import timber.log.Timber
 internal fun <T> InfoViewModel.sync(
     source: CycleSource,
     force: Boolean,
-    codec: CacheCodec<T>,
+    codec: MarketCacheKind<T>,
     show: (T) -> Unit,
     loading: () -> Unit,
     failed: () -> Unit,
@@ -56,7 +56,7 @@ internal fun <T> InfoViewModel.sync(
         var savedAt = shownEntry[source]?.takeIf { it.first == name }?.second
         if (savedAt == null) {
             // Noch nichts (oder anderer Coin) angezeigt: Gerät, sonst Ladezustand
-            val cached = cacheStore.read(name, codec)?.takeIf { isUsable(it.value) }
+            val cached = cache.read(name, codec)?.takeIf { isUsable(it.value) }
             if (cached != null && showSafely(source, show, cached.value)) {
                 savedAt = cached.savedAt
                 markShown(source, name, cached.savedAt, cached.provider)
@@ -82,7 +82,7 @@ internal fun <T> InfoViewModel.sync(
                 val fresh = sourced.value
                 val at = timeOf?.invoke(fresh)?.takeIf { it > 0L } ?: System.currentTimeMillis()
                 markShown(source, name, at, sourced.provider)
-                cacheStore.write(name, fresh, at, codec, sourced.provider)
+                cache.write(name, fresh, at, codec, sourced.provider)
             } else if (savedAt == null) {
                 failed()
             }

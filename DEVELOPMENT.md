@@ -3289,6 +3289,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 304: Externes Audit 303: Auto-Sicherung im Hintergrund (WorkManager/BGProcessingTask), Hinweise Sicherung/Sperre (75 Sprachen), iOS-Kursmitteilung nach Aussetzer.
 * Build 305: Externes Audit 303: zwei Spalten — iOS SplitTab (NavigationSplitView), Android TwoPane (TabRoots, ListPane), Test TwoPanePolicyTest.
 * Build 306: Eigenes Audit 303: M1 Schriftstufen, M2 Link Symbole, M3 Ablauf nur mit Diagnose und ruhiger Börsen-Hinweis, N1/N3/N4/N5/N9, Portfolio-DB 2.
+* Build 307: Eigenes Audit 303: N6 MarketSources/MarketCache, UI_DATA_REMAINING 0; N7 Tests.
 
 ## Known warnings
 

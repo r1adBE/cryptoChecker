@@ -764,13 +764,9 @@ def _layer(t, module, base, forbidden, app_packages, exceptions, source_set="mai
     return problems
 
 
-# C-07: Oberfläche ohne :data. :coreui hängt nicht mehr an :data (auch nicht über `api`); in app/ui verweisen nur noch die
-# Dateien aus UI_DATA_REMAINING auf das Paket data (Import oder voller Name) — die Liste darf nur kürzer werden.
-UI_DATA_REMAINING = {
-    "features/info/InfoViewModel.kt",
-    "features/info/MarketDataLoaders.kt",
-    "features/info/MarketDataSync.kt",
-}
+# C-07: Oberfläche ohne :data. :coreui hängt nicht mehr an :data (auch nicht über `api`); in app/ui verweist keine Datei
+# mehr auf das Paket data (Import oder voller Name) — die Liste bleibt leer.
+UI_DATA_REMAINING: set = set()
 
 
 def ui_data_problems(t):
