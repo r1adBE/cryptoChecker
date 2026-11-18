@@ -11,6 +11,8 @@ val AccentColor.labelRes: Int
         AccentColor.BLUE -> R.string.accent_blue
         AccentColor.GREEN -> R.string.accent_green
         AccentColor.MARRS_GREEN -> R.string.accent_marrs_green
+        AccentColor.VIOLET -> R.string.accent_violet
+        AccentColor.DARK_GRAY -> R.string.accent_dark_gray
     }
 
 /**
@@ -22,4 +24,6 @@ fun AccentColor.logoRes(dark: Boolean): Int = when (this) {
     AccentColor.BLUE -> if (dark) R.drawable.ic_app_logo_blue_dark else R.drawable.ic_app_logo_blue_light
     AccentColor.GREEN -> if (dark) R.drawable.ic_app_logo_green_dark else R.drawable.ic_app_logo_green_light
     AccentColor.MARRS_GREEN -> if (dark) R.drawable.ic_app_logo_marrs_green_dark else R.drawable.ic_app_logo_marrs_green_light
+    AccentColor.VIOLET -> if (dark) R.drawable.ic_app_logo_violet_dark else R.drawable.ic_app_logo_violet_light
+    AccentColor.DARK_GRAY -> if (dark) R.drawable.ic_app_logo_dark_gray_dark else R.drawable.ic_app_logo_dark_gray_light
 }

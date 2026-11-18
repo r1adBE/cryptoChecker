@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Tanpa baris USDT di “Daftar”</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Di “Ringkasan” seperti 30 hari</string>
+    <string name="pulse_widget_view_impulse">Momentum</string>
+    <string name="pulse_widget_view_movers">Naik &amp; turun teratas</string>
+    <string name="pulse_widget_lead_up">Kenaikan terbesar: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Penurunan terbesar: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Teratas %1$s (%2$s), terbawah %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">sekitar %1$s lagi</string>
+    <string name="pulse_widget_halving_note">Perkiraan menurut kalender</string>
 </resources>

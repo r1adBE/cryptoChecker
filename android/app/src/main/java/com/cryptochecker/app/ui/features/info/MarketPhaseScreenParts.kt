@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
@@ -133,23 +132,25 @@ internal fun MarketStatusPill(refreshingSince: Long?, updatedAt: Long?, online: 
         animationSpec = tween(if (animate) 200 else 0),
         label = "market_status"
     )
+    // Abstand und Höhe wie die Pille in Merkliste und Portfolio: oben bündig, darunter 8 dp bis zur Karte.
+    // Ohne Text steht eine unsichtbare Pille gleicher Höhe da (auch bei grosser Schrift), damit nichts springt.
     Box(
-        contentAlignment = Alignment.CenterStart,
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 40.dp)
-            .padding(bottom = Spacing.xs)
+            .padding(bottom = Spacing.sm)
             .graphicsLayer { alpha = visibility }
+            .then(if (text == null) Modifier.clearAndSetSemantics { } else Modifier)
     ) {
-        if (text != null) {
-            // Gleiche Pille wie im Portfolio-Tab (Aussehen wie die Status-Pille der Merkliste)
-            DataStatusPill(
-                text = text,
-                tone = tone,
-                reduceMotion = !animate,
-                modifier = if (refreshing || !online) Modifier.semantics { liveRegion = LiveRegionMode.Polite } else Modifier
-            )
-        }
+        DataStatusPill(
+            text = text ?: " ",
+            tone = tone,
+            reduceMotion = !animate,
+            modifier = if (text != null && (refreshing || !online)) {
+                Modifier.semantics { liveRegion = LiveRegionMode.Polite }
+            } else {
+                Modifier
+            }
+        )
     }
 }
 

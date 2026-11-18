@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Kék</string>
+    <string name="accent_dark_gray">Sötétszürke</string>
     <string name="accent_green">Zöld</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Narancs</string>
     <string name="accent_red">Piros</string>
+    <string name="accent_violet">Lila</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Szokásos Kínában, Japánban, Koreában és Tajvanon</string>

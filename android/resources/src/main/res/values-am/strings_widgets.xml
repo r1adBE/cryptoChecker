@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">በ«ዝርዝር» ውስጥ የUSDT መስመር የለም</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«አጠቃላይ እይታ» በምትኩ 30 ቀናትን ያሳያል</string>
+    <string name="pulse_widget_view_impulse">ግፊት</string>
+    <string name="pulse_widget_view_movers">አሸናፊዎችና ተሸናፊዎች</string>
+    <string name="pulse_widget_lead_up">ትልቁ ጭማሪ፦ %1$s፣ %2$s።</string>
+    <string name="pulse_widget_lead_down">ትልቁ ቅናሽ፦ %1$s፣ %2$s።</string>
+    <string name="pulse_widget_lead_mixed">ከላይ %1$s (%2$s)፣ ከታች %3$s (%4$s)።</string>
+    <string name="pulse_widget_halving_left">ወደ %1$s ገደማ ቀርቷል</string>
+    <string name="pulse_widget_halving_note">በቀን መቁጠሪያ የተገመተ</string>
 </resources>

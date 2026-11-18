@@ -152,7 +152,8 @@ struct CycleScreen: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 8)
+            // Oben 4 pt wie Merkliste und Portfolio: Status-Pille und erste Karte auf gleicher Höhe
+            .padding(.top, 4)
             .padding(.bottom, 24)
             // iPad/Querformat: Inhalt höchstens 640 pt breit, mittig
             .readableContentWidth()
@@ -181,7 +182,8 @@ struct CycleScreen: View {
                     onRetry: { viewModel.loadPulse(force: true) }
                 )
             }
-            .padding(.top, 4)
+            // 8 pt unter der Pille wie im Portfolio (4 + 4 zwischen den Listenzeilen)
+            .padding(.top, 8)
         }
         revealSlot(.fearGreed) {
             VStack(spacing: 0) {
@@ -351,7 +353,8 @@ struct CycleScreen: View {
             let tone: DataStatusTone = !online || refreshingSince != nil || text == nil ? .neutral : .fresh
             DataStatusPill(text: text ?? " ", tone: tone)
                 .opacity(text == nil ? 0 : 1)
-                .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+                // Ohne Text eine unsichtbare Pille gleicher Höhe (auch bei grosser Schrift): oben bündig, nichts springt
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
                 .accessibilityHidden(text == nil)
         }

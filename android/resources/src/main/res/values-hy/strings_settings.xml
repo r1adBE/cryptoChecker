@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Կապույտ</string>
+    <string name="accent_dark_gray">Մուգ մոխրագույն</string>
     <string name="accent_green">Կանաչ</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs կանաչ</string>
     <string name="accent_orange">Նարնջագույն</string>
     <string name="accent_red">Կարմիր</string>
+    <string name="accent_violet">Մանուշակագույն</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Տարածված է Չինաստանում, Ճապոնիայում, Կորեայում և Թայվանում</string>

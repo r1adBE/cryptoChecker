@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">नीलो</string>
+    <string name="accent_dark_gray">गाढा खैरो</string>
     <string name="accent_green">हरियो</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">सुन्तला</string>
     <string name="accent_red">रातो</string>
+    <string name="accent_violet">बैजनी</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">चीन, जापान, कोरिया र ताइवानमा सामान्य</string>

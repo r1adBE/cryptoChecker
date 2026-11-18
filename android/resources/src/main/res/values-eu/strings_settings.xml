@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Urdina</string>
+    <string name="accent_dark_gray">Gris iluna</string>
     <string name="accent_green">Berdea</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs berdea</string>
     <string name="accent_orange">Laranja</string>
     <string name="accent_red">Gorria</string>
+    <string name="accent_violet">Morea</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Ohikoa Txinan, Japonian, Korean eta Taiwanen</string>

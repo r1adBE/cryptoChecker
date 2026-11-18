@@ -247,15 +247,14 @@ internal fun WatchlistStatusRow(
     val allDisabled = visible.isNotEmpty() && visible.all { it.disabled }
     // Kein gehandeltes Paar: neutral statt grün — es gibt nichts, das «aktuell» sein könnte
     // «veraltet» in Bernstein wie die Zeile, Fehler (keine Verbindung, gescheitert) in Fehlerfarbe
-    val tone = when (
-        com.cryptochecker.app.domain.watch.StatusPillTone.of(
-            none = status.none,
-            deviceOffline = status.deviceOffline,
-            offline = status.offline,
-            stale = status.stale,
-            failed = status.failed,
-        )
-    ) {
+    val mark = com.cryptochecker.app.domain.watch.StatusPillTone.of(
+        none = status.none,
+        deviceOffline = status.deviceOffline,
+        offline = status.offline,
+        stale = status.stale,
+        failed = status.failed,
+    )
+    val tone = when (mark) {
         com.cryptochecker.app.domain.watch.StatusPillTone.NEUTRAL -> MaterialTheme.colorScheme.onSurfaceVariant
         com.cryptochecker.app.domain.watch.StatusPillTone.ERROR -> MaterialTheme.colorScheme.error
         com.cryptochecker.app.domain.watch.StatusPillTone.WARNING -> AppColors.warningText
@@ -300,6 +299,7 @@ internal fun WatchlistStatusRow(
                         allDisabled = allDisabled,
                         now = now,
                         tone = shownTone,
+                        mark = mark,
                         reduceMotion = reduceMotion,
                         staleOnly = staleOnly,
                         onClick = if (staleOnly || status.stale > 0) onToggleStale else null,

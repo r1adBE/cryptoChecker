@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">‘목록’에서는 USDT 줄 없음</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">‘개요’에서는 30일로 표시</string>
+    <string name="pulse_widget_view_impulse">모멘텀</string>
+    <string name="pulse_widget_view_movers">상승·하락 상위</string>
+    <string name="pulse_widget_lead_up">가장 많이 오름: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">가장 많이 내림: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">선두 %1$s(%2$s), 최하위 %3$s(%4$s).</string>
+    <string name="pulse_widget_halving_left">약 %1$s 남음</string>
+    <string name="pulse_widget_halving_note">달력 기준 추정</string>
 </resources>

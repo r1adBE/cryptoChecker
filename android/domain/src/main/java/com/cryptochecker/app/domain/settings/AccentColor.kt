@@ -22,6 +22,12 @@ enum class AccentColor(
 
     /** Marrs Green (#4BACA5), «Lieblingsfarbe der Welt» der G.F-Smith-Umfrage 2017. Am Ende angehängt: gespeicherte Namen bleiben gültig. */
     MARRS_GREEN(0xFF4BACA5.toInt(), "MarrsGreen"),
+
+    /** Violett #8B5CF6. Wie alle neuen Farben am Ende angehängt. */
+    VIOLET(0xFF8B5CF6.toInt(), "Violet"),
+
+    /** Dunkelgrau #4A4A4A: hell der Ton selbst, dunkel ein helleres Grau (AA auf den dunklen Flächen). */
+    DARK_GRAY(0xFF4A4A4A.toInt(), "DarkGray"),
     ;
 
     /**
@@ -35,6 +41,8 @@ enum class AccentColor(
         BLUE -> if (dark) 0xFF73A3FC.toInt() else 0xFF2B5FC8.toInt()
         GREEN -> if (dark) 0xFF4ABE83.toInt() else 0xFF107348.toInt()
         MARRS_GREEN -> if (dark) 0xFF5FB8B1.toInt() else 0xFF22706B.toInt()
+        VIOLET -> if (dark) 0xFFB393FF.toInt() else 0xFF7844D4.toInt()
+        DARK_GRAY -> if (dark) 0xFFA5A5A5.toInt() else 0xFF4A4A4A.toInt()
     }
 
     /**
@@ -43,6 +51,12 @@ enum class AccentColor(
      * auf dem Startbildschirm — er geschieht nur noch, wenn der Nutzer die Farbe wechselt.
      */
     fun launcherAlias(): String = "$ALIAS_PREFIX$aliasBase"
+
+    /**
+     * Ohne Farbton (Dunkelgrau): Keine Kursfarbe lässt sich mit ihm verwechseln, die Kursfarben behalten ihren Standard
+     * ([PriceColorScheme]). Der Abstand ΔE2000 läge zwar knapp unter 24, unterscheidet aber nur Helligkeit und Buntheit.
+     */
+    val isNeutral: Boolean get() = this == DARK_GRAY
 
     companion object {
         val DEFAULT = ORANGE

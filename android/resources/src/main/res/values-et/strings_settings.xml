@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Sinine</string>
+    <string name="accent_dark_gray">Tumehall</string>
     <string name="accent_green">Roheline</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranž</string>
     <string name="accent_red">Punane</string>
+    <string name="accent_violet">Violetne</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Tavaline Hiinas, Jaapanis, Koreas ja Taiwanis</string>

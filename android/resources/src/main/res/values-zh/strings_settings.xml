@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">蓝色</string>
+    <string name="accent_dark_gray">深灰色</string>
     <string name="accent_green">绿色</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">橙色</string>
     <string name="accent_red">红色</string>
+    <string name="accent_violet">紫色</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">中国、日本、韩国和台湾的惯例</string>

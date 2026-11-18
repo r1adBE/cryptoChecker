@@ -2,7 +2,12 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
-        gradlePluginPortal()
+        // Nur für das Foojay-Plugin (gibt es nur dort). Fällt Maven Central kurz aus, holte Gradle die
+        // Kotlin-Plugin-Marker sonst vom Portal, dessen POM anders aussieht als die geprüfte von Central
+        // (gradle/verification-metadata.xml) — die Prüfung schlug dann fehl.
+        gradlePluginPortal {
+            content { includeGroupByRegex("org\\.gradle\\.toolchains.*") }
+        }
     }
 }
 plugins {

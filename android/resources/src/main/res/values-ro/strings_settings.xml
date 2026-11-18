@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Albastru</string>
+    <string name="accent_dark_gray">Gri închis</string>
     <string name="accent_green">Verde</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Portocaliu</string>
     <string name="accent_red">Roșu</string>
+    <string name="accent_violet">Violet</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Uzual în China, Japonia, Coreea și Taiwan</string>

@@ -35,7 +35,7 @@ ZAIDI
 • Jalada la hiari (liwashe kwenye Mipangilio): manunuzi, mauzo, swap, uhamisho, tuzo, amana na utoaji; FIFO (chaguomsingi) au wastani (Ø); anwani za kusoma tu bila seed za BTC (na xpub), ETH na minyororo ya EVM, SOL, TRX, XRP, LTC, ADA na TON; uletaji wa CSV kutoka Relai, Swissquote, Bitpanda, Kraken, Binance na Coinbase; muhtasari wa mwaka kama CSV; kufuli yake. Swissquote: haina bei yake, CSV pekee.
 • Inasomeka kwa wote: kijani/nyekundu au bluu/machungwa, alama na mshale badala ya rangi pekee; TalkBack husoma kila safu kama sentensi moja
 • Nakala rudufu na kurejesha kwa faili – pia Android ↔ iPhone
-• Mwanga na giza, rangi kuu tano, lugha 75
+• Mwanga na giza, rangi kuu saba, lugha 75
 • Programu huria (MIT) – msimbo uko wazi kwenye GitHub
 
 Kumbuka: Crypto Checker inaonyesha bei na jalada unaloweka mwenyewe. Si jukwaa la biashara wala wallet, haifanyi biashara na haitoi ushauri wa uwekezaji.

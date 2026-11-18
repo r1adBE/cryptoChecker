@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Sininen</string>
+    <string name="accent_dark_gray">Tummanharmaa</string>
     <string name="accent_green">Vihreä</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranssi</string>
     <string name="accent_red">Punainen</string>
+    <string name="accent_violet">Violetti</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Tavallista Kiinassa, Japanissa, Koreassa ja Taiwanissa</string>

@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“યાદી” માં USDT લાઇન નથી</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ઝાંખી” તેના બદલે 30 દિવસ બતાવે છે</string>
+    <string name="pulse_widget_view_impulse">ગતિ</string>
+    <string name="pulse_widget_view_movers">વધનારા અને ઘટનારા</string>
+    <string name="pulse_widget_lead_up">સૌથી વધુ વધારો: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">સૌથી વધુ ઘટાડો: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">આગળ %1$s (%2$s), પાછળ %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">હજી લગભગ %1$s</string>
+    <string name="pulse_widget_halving_note">કૅલેન્ડર મુજબ અંદાજિત</string>
 </resources>

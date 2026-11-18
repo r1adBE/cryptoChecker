@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Bleu</string>
+    <string name="accent_dark_gray">Gris foncé</string>
     <string name="accent_green">Vert</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Orange</string>
     <string name="accent_red">Rouge</string>
+    <string name="accent_violet">Violet</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Courant en Chine, au Japon, en Corée et à Taïwan</string>

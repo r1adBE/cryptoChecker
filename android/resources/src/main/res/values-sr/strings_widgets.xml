@@ -121,4 +121,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Нема реда USDT у „Списак“</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Преглед“ уместо тога приказује 30 дана</string>
+    <string name="pulse_widget_view_impulse">Импулс</string>
+    <string name="pulse_widget_view_movers">Добитници и губитници</string>
+    <string name="pulse_widget_lead_up">Највећи раст: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Највећи пад: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Напред %1$s (%2$s), позади %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">још око %1$s</string>
+    <string name="pulse_widget_halving_note">Процена према календару</string>
 </resources>

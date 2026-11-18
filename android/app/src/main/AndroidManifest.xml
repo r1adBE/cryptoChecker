@@ -161,6 +161,38 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
+        <activity-alias
+            android:name=".LauncherViolet"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_violet_dark"
+            android:roundIcon="@mipmap/ic_launcher_violet_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherDarkGray"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_dark_gray_dark"
+            android:roundIcon="@mipmap/ic_launcher_dark_gray_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
         <!-- Einrichten-Activities der Widgets: exportiert, weil Startbildschirme sie direkt öffnen (beim Ablegen und
              «Widget neu einrichten» ab Android 12, widgetFeatures="reconfigurable"). Jede arbeitet nur mit der Id eines
              eigenen Widgets ihres Anbieters (WidgetConfigureGuard), sonst schliesst sie sich ohne Ergebnis;

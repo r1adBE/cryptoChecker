@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«სია»-ში USDT სტრიქონი არ არის</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«მიმოხილვა» მის ნაცვლად 30 დღეს აჩვენებს</string>
+    <string name="pulse_widget_view_impulse">იმპულსი</string>
+    <string name="pulse_widget_view_movers">მზარდები და კლებადები</string>
+    <string name="pulse_widget_lead_up">უდიდესი ზრდა: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">უდიდესი ვარდნა: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">წინ %1$s (%2$s), ბოლოს %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">დარჩა დაახლოებით %1$s</string>
+    <string name="pulse_widget_halving_note">შეფასებულია კალენდრით</string>
 </resources>

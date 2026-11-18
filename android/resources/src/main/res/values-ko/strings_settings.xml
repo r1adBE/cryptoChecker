@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">파랑</string>
+    <string name="accent_dark_gray">진회색</string>
     <string name="accent_green">초록</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">주황</string>
     <string name="accent_red">빨강</string>
+    <string name="accent_violet">보라</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">중국, 일본, 한국, 대만에서 일반적</string>

@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ສີຟ້າ</string>
+    <string name="accent_dark_gray">ສີເທົາເຂັ້ມ</string>
     <string name="accent_green">ສີຂຽວ</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">ສີຂຽວ Marrs</string>
     <string name="accent_orange">ສີສົ້ມ</string>
     <string name="accent_red">ສີແດງ</string>
+    <string name="accent_violet">ສີມ່ວງ</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ນິຍົມໃນຈີນ, ຍີ່ປຸ່ນ, ເກົາຫຼີ ແລະ ໄຕ້ຫວັນ</string>

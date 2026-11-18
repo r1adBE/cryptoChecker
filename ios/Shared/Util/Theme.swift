@@ -29,8 +29,8 @@ extension Color {
 /// Akzentfarbe der App — wie `AccentColor.kt`. Die Namen sind die Kotlin-Enum-Namen
 /// (Sicherungen bleiben zwischen Android und iOS austauschbar).
 enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
-    /// MARRS_GREEN am Ende (wie Android): gespeicherte Namen bleiben gültig.
-    case ORANGE, RED, BLUE, GREEN, MARRS_GREEN
+    /// Neue Farben am Ende (wie Android): gespeicherte Namen bleiben gültig.
+    case ORANGE, RED, BLUE, GREEN, MARRS_GREEN, VIOLET, DARK_GRAY
 
     static let `default`: AccentColor = .ORANGE
 
@@ -45,6 +45,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0x3B78F0
         case .GREEN: 0x22A96C
         case .MARRS_GREEN: 0x4BACA5
+        case .VIOLET: 0x8B5CF6
+        case .DARK_GRAY: 0x4A4A4A
         }
     }
 
@@ -56,10 +58,12 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0x2B5FC8
         case .GREEN: 0x107348
         case .MARRS_GREEN: 0x22706B
+        case .VIOLET: 0x7844D4
+        case .DARK_GRAY: 0x4A4A4A
         }
     }
 
-    /// Auf #353535 (hellste dunkle Fläche): Orange 4.68, Rot 4.59, Blau 4.89, Grün 5.25, Marrs 5.24.
+    /// Auf #353535 (hellste dunkle Fläche): Orange 4.68, Rot 4.59, Blau 4.89, Grün 5.25, Marrs 5.24, Violett und Dunkelgrau 4.98.
     private var primaryDark: UInt32 {
         switch self {
         case .ORANGE: 0xED835E
@@ -67,6 +71,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0x73A3FC
         case .GREEN: 0x4ABE83
         case .MARRS_GREEN: 0x5FB8B1
+        case .VIOLET: 0xB393FF
+        case .DARK_GRAY: 0xA5A5A5
         }
     }
 
@@ -81,6 +87,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0x1F4490
         case .GREEN: 0x0C5334
         case .MARRS_GREEN: 0x184E4B
+        case .VIOLET: 0x563199
+        case .DARK_GRAY: 0x474747
         }
     }
 
@@ -92,6 +100,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .GREEN: 0x88D4AD
         // #92CFCA wie Android zur Laufzeit
         case .MARRS_GREEN: 0x92CFCA
+        case .VIOLET: 0xCEBAFF
+        case .DARK_GRAY: 0xC4C4C4
         }
     }
 
@@ -102,6 +112,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0xDCE9FE
         case .GREEN: 0xD3F1DE
         case .MARRS_GREEN: 0xD7EFEC
+        case .VIOLET: 0xEDE3FE
+        case .DARK_GRAY: 0xE3E3E3
         }
     }
 
@@ -116,6 +128,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: 0x001A57
         case .GREEN: 0x002A16
         case .MARRS_GREEN: 0x072826
+        case .VIOLET: 0x25005A
+        case .DARK_GRAY: 0x181818
         }
     }
 
@@ -171,8 +185,15 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: "accent_blue"
         case .GREEN: "accent_green"
         case .MARRS_GREEN: "accent_marrs_green"
+        case .VIOLET: "accent_violet"
+        case .DARK_GRAY: "accent_dark_gray"
         }
     }
+
+    /// Ohne Farbton (Dunkelgrau): Keine Kursfarbe lässt sich mit ihm verwechseln, die Kursfarben behalten ihren
+    /// Standard (`PriceColorScheme`). Der Abstand ΔE2000 läge zwar knapp unter 24, unterscheidet aber nur Helligkeit
+    /// und Buntheit. Wie Android `isNeutral`.
+    var isNeutral: Bool { self == .DARK_GRAY }
 
     /// Name des alternativen App-Icons (nil = Standard-Icon Orange). Hell/Dunkel/Getönt
     /// liefert der Asset-Katalog selbst (Darstellungsvarianten, ab iOS 18).
@@ -180,7 +201,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         self == .ORANGE ? nil : "AppIcon" + assetBase
     }
 
-    /// Namensteil der Assets: Orange, Red, Blue, Green, MarrsGreen (wie `aliasBase` in Android).
+    /// Namensteil der Assets: Orange, Red, Blue, Green, MarrsGreen, Violet, DarkGray (wie `aliasBase` in Android).
     private var assetBase: String {
         switch self {
         case .ORANGE: "Orange"
@@ -188,6 +209,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .BLUE: "Blue"
         case .GREEN: "Green"
         case .MARRS_GREEN: "MarrsGreen"
+        case .VIOLET: "Violet"
+        case .DARK_GRAY: "DarkGray"
         }
     }
 

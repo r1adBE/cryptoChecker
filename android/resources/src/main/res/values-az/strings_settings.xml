@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Mavi</string>
+    <string name="accent_dark_gray">Tünd boz</string>
     <string name="accent_green">Yaşıl</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs yaşılı</string>
     <string name="accent_orange">Narıncı</string>
     <string name="accent_red">Qırmızı</string>
+    <string name="accent_violet">Bənövşəyi</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Çin, Yaponiya, Koreya və Tayvanda geniş yayılıb</string>

@@ -234,11 +234,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Modra</string>
+    <string name="accent_dark_gray">Temno siva</string>
     <string name="accent_green">Zelena</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranžna</string>
     <string name="accent_red">Rdeča</string>
+    <string name="accent_violet">Vijolična</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Običajno na Kitajskem, Japonskem, v Koreji in na Tajvanu</string>

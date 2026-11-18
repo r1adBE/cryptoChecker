@@ -85,8 +85,10 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
             && ColorDifference.deltaE2000(tone.dark, accent.primaryHex(dark: true)) >= tone.minAccentDark
     }
 
-    /// Erste Fassung, die ihre Schwelle einhält; sonst die mit dem grössten Abstand.
+    /// Erste Fassung, die ihre Schwelle einhält; sonst die mit dem grössten Abstand. Neben einem Akzent ohne Farbton
+    /// (`AccentColor.isNeutral`) immer der Standard.
     private static func pick(_ tones: [PriceTone], _ accent: AccentColor) -> PriceTone {
+        if accent.isNeutral { return tones[0] }
         if let tone = tones.first(where: { fitsBeside($0, accent) }) { return tone }
         return tones.max { accentDistance($0, accent) < accentDistance($1, accent) } ?? tones[0]
     }

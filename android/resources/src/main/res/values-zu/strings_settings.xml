@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Okuluhlaza okwesibhakabhaka</string>
+    <string name="accent_dark_gray">Okumpunga okumnyama</string>
     <string name="accent_green">Okuluhlaza</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Okuluhlaza kwe-Marrs</string>
     <string name="accent_orange">Okusawolintshi</string>
     <string name="accent_red">Okubomvu</string>
+    <string name="accent_violet">Okunsomi</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Kuvamile e-China, Japan, Korea nase-Taiwan</string>

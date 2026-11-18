@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">အပြာ</string>
+    <string name="accent_dark_gray">မီးခိုးရင့်</string>
     <string name="accent_green">အစိမ်း</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs အစိမ်း</string>
     <string name="accent_orange">လိမ္မော်ရောင်</string>
     <string name="accent_red">အနီ</string>
+    <string name="accent_violet">ခရမ်း</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">တရုတ်၊ ဂျပန်၊ ကိုရီးယားနှင့် ထိုင်ဝမ်တွင် အသုံးများသည်</string>

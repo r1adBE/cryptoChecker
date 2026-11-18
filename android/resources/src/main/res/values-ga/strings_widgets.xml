@@ -125,4 +125,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Gan líne USDT i “Liosta”</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Taispeánann “Forbhreathnú” 30 lá ina ionad</string>
+    <string name="pulse_widget_view_impulse">Fuinneamh</string>
+    <string name="pulse_widget_view_movers">Buaiteoirí agus caillteoirí</string>
+    <string name="pulse_widget_lead_up">An t-ardú is mó: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">An titim is mó: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Chun tosaigh %1$s (%2$s), ar deireadh %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">thart ar %1$s fágtha</string>
+    <string name="pulse_widget_halving_note">Measta de réir an fhéilire</string>
 </resources>

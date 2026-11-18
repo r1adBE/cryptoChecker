@@ -35,7 +35,7 @@ GEHIAGO
 • Zorroa aukeran (Ezarpenetan): erosketak, salmentak, trukeak, transferentziak, sariak, gordailuak, erretiratzeak; FIFO (lehenetsia) edo batez bestekoa (Ø); seedik gabeko irakurketa-helbideak: BTC (xpub barne), ETH eta EVM kateak, SOL, TRX, XRP, LTC, ADA, TON; CSV inportazioa: Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; urteko laburpena CSVn; blokeo propioa. Swissquote: prezio propiorik ez, CSV soilik.
 • Guztiontzat irakurgarria: berdea/gorria edo urdina/laranja, zeinua eta gezia, ez kolorea soilik; TalkBack-ek errenkada esaldi bakar gisa irakurtzen du
 • Babeskopia eta leheneratzea fitxategi batera – Android eta iPhone artean ere
-• Modu argia eta iluna, bost kolore nagusi, 75 hizkuntza
+• Modu argia eta iluna, zazpi kolore nagusi, 75 hizkuntza
 • Kode irekia (MIT), publikoa GitHub-en
 
 Oharra: Crypto Checker-ek prezioak eta zuk idatzitako zorroa erakusten ditu. Ez da burtsa ez kartera; ez du negoziatzen ez inbertsio-aholkurik ematen.

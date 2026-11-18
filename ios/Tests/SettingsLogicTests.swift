@@ -227,11 +227,28 @@ final class PriceColorSchemeTests: XCTestCase {
     /// normaler Kontrast); Ausnahme fallend neben Orange (Karmin, eigene Schwelle 19 hell / 20 dunkel).
     /// Unverändert genau dann, wenn schon der Standard 24 weit weg liegt. Steigend und fallend bleiben
     /// in jedem Schema klar verschieden.
+    /// Dunkelgrau (ohne Farbton): alle Schemata mit ihren Standardfarben, wie ohne Akzent — wie Android.
+    func testNeutralAccentKeepsStandardPriceColors() {
+        for accent in AccentColor.allCases where accent.isNeutral {
+            for scheme in PriceColorScheme.allCases {
+                for dark in [false, true] {
+                    for hc in [false, true] {
+                        XCTAssertEqual(scheme.upHex(dark: dark, highContrast: hc),
+                                       scheme.upHex(dark: dark, highContrast: hc, accent: accent))
+                        XCTAssertEqual(scheme.downHex(dark: dark, highContrast: hc),
+                                       scheme.downHex(dark: dark, highContrast: hc, accent: accent))
+                    }
+                }
+            }
+        }
+    }
+
     func testPriceColorsClearlyDistinctFromAccent() {
         let minimum: Double = PriceColorScheme.minAccentDeltaE
         for scheme in PriceColorScheme.allCases {
             for accent in AccentColor.allCases {
-                for up in [true, false] where scheme == .CALM || scheme == .CALM_COLOR_VISION {
+                // Ohne Farbton: Standard bleibt (`testNeutralAccentKeepsStandardPriceColors`)
+                for up in [true, false] where (scheme == .CALM || scheme == .CALM_COLOR_VISION) && !accent.isNeutral {
                     let plainFar: Bool = [false, true].allSatisfy { dk in
                         let p: UInt32 = up ? scheme.upHex(dark: dk) : scheme.downHex(dark: dk)
                         return deltaE2000(p, accent.primaryHex(dark: dk)) >= minimum
@@ -578,6 +595,8 @@ final class AccentContrastTests: XCTestCase {
         XCTAssertEqual(AccentColor.BLUE.primaryHex(dark: false), 0x2B5FC8)
         XCTAssertEqual(AccentColor.GREEN.primaryHex(dark: false), 0x107348)
         XCTAssertEqual(AccentColor.MARRS_GREEN.primaryHex(dark: false), 0x22706B)
+        XCTAssertEqual(AccentColor.VIOLET.primaryHex(dark: false), 0x7844D4)
+        XCTAssertEqual(AccentColor.DARK_GRAY.primaryHex(dark: false), 0x4A4A4A)
         XCTAssertEqual(AccentColor.ORANGE.primaryHex(dark: true), 0xED835E)
     }
 
@@ -585,9 +604,9 @@ final class AccentContrastTests: XCTestCase {
     /// Text auf dem Akzent bleibt ≥ 4.5:1 — wie `widgets raise the accent in high contrast like the app` (Android).
     func testHighContrastAccentAsAndroidAndUsedByWidgets() {
         let light: [AccentColor: UInt32] = [.ORANGE: 0x78341C, .RED: 0x891F28, .BLUE: 0x1F4490, .GREEN: 0x0C5334,
-                                             .MARRS_GREEN: 0x184E4B]
+                                             .MARRS_GREEN: 0x184E4B, .VIOLET: 0x563199, .DARK_GRAY: 0x474747]
         let dark: [AccentColor: UInt32] = [.ORANGE: 0xF5B7A2, .RED: 0xFFAFB1, .BLUE: 0xA8C6FD, .GREEN: 0x88D4AD,
-                                            .MARRS_GREEN: 0x92CFCA]
+                                            .MARRS_GREEN: 0x92CFCA, .VIOLET: 0xCEBAFF, .DARK_GRAY: 0xC4C4C4]
         for accent in AccentColor.allCases {
             XCTAssertEqual(accent.primaryHex(dark: false, highContrast: true), light[accent], accent.rawValue)
             XCTAssertEqual(accent.primaryHex(dark: true, highContrast: true), dark[accent], accent.rawValue)

@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ლურჯი</string>
+    <string name="accent_dark_gray">მუქი ნაცრისფერი</string>
     <string name="accent_green">მწვანე</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs მწვანე</string>
     <string name="accent_orange">ნარინჯისფერი</string>
     <string name="accent_red">წითელი</string>
+    <string name="accent_violet">იისფერი</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">გავრცელებულია ჩინეთში, იაპონიაში, კორეასა და ტაივანში</string>

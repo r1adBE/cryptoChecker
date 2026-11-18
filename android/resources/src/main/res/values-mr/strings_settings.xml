@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">निळा</string>
+    <string name="accent_dark_gray">गडद राखाडी</string>
     <string name="accent_green">हिरवा</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">नारिंगी</string>
     <string name="accent_red">लाल</string>
+    <string name="accent_violet">जांभळा</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">चीन, जपान, कोरिया आणि तैवानमध्ये सामान्य</string>

@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“பட்டியல்” இல் USDT வரி இல்லை</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“மேலோட்டம்” அதற்குப் பதிலாக 30 நாட்களைக் காட்டும்</string>
+    <string name="pulse_widget_view_impulse">உந்தம்</string>
+    <string name="pulse_widget_view_movers">ஏற்றம் மற்றும் இறக்கம்</string>
+    <string name="pulse_widget_lead_up">அதிக ஏற்றம்: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">அதிக இறக்கம்: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">முன்னணியில் %1$s (%2$s), கடைசியில் %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">இன்னும் சுமார் %1$s</string>
+    <string name="pulse_widget_halving_note">நாட்காட்டியின்படி மதிப்பீடு</string>
 </resources>

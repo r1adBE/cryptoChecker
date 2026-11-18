@@ -102,8 +102,18 @@ class WidgetPrefs @Inject constructor(
             remove(portfolioChartTypeKey(appWidgetId))
             remove(portfolioViewKey(appWidgetId))
             remove(portfolioEntriesKey(appWidgetId))
+            remove(pulseViewKey(appWidgetId))
         }
     }
+
+    /** Widget «Was gerade auffällt»: Ansicht (Impuls / Gewinner und Verlierer / Halving); ohne Wahl der Impuls. */
+    fun setPulseView(appWidgetId: Int, view: PulseWidgetView) {
+        prefs.edit { putString(pulseViewKey(appWidgetId), view.name) }
+    }
+
+    fun getPulseView(appWidgetId: Int): PulseWidgetView = PulseWidgetView.fromName(prefs.getString(pulseViewKey(appWidgetId), null))
+
+    private fun pulseViewKey(appWidgetId: Int) = "pulse_view_$appWidgetId"
 
     /** Portfolio-Widget: Ansicht (Übersicht / Chart / Liste); ohne Wahl der Chart. */
     fun setPortfolioView(appWidgetId: Int, view: PortfolioWidgetView) {

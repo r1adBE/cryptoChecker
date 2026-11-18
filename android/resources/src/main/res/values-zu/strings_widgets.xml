@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Awukho umugqa we-USDT ku-“Uhlu”</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Ukubuka konke” kubonisa izinsuku ezingu-30 esikhundleni salokho</string>
+    <string name="pulse_widget_view_impulse">Umfutho</string>
+    <string name="pulse_widget_view_movers">Abanqobi nabahluleki</string>
+    <string name="pulse_widget_lead_up">Ukukhuphuka okukhulu: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Ukwehla okukhulu: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Phambili %1$s (%2$s), ngemuva %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">kusele cishe %1$s</string>
+    <string name="pulse_widget_halving_note">Kulinganiselwe ngekhalenda</string>
 </resources>

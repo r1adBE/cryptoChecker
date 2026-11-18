@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 315)
+
+- New accent colours: violet and dark grey (app, widgets and app icon). With dark grey the price colours keep their standard tones.
+- Pulse widget: choose the view – impulse, top gainers and losers (24 h) or Bitcoin halving. No forecasts.
+- Status pills in the watchlist, market and portfolio show a symbol instead of a dot: ✓ up to date, ! outdated, ✕ error.
+- Market tab: the status pill and the first card sit at the same height as in the watchlist and portfolio.
+- Build: the Gradle plugin portal is only used for the Foojay plugin (the checksum check failed when it served the Kotlin plugin markers); the iOS asset generator runs again.
+
 ## 16.2.2 (build 314)
 
 - Backups with a password no longer need the large app heap (the key derivation works outside the Java heap).

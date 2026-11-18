@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Цэнхэр</string>
+    <string name="accent_dark_gray">Хар саарал</string>
     <string name="accent_green">Ногоон</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Улбар шар</string>
     <string name="accent_red">Улаан</string>
+    <string name="accent_violet">Нил ягаан</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Хятад, Япон, Солонгос, Тайваньд түгээмэл</string>

@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ሰማያዊ</string>
+    <string name="accent_dark_gray">ጥቁር ግራጫ</string>
     <string name="accent_green">አረንጓዴ</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs አረንጓዴ</string>
     <string name="accent_orange">ብርቱካናማ</string>
     <string name="accent_red">ቀይ</string>
+    <string name="accent_violet">ወይን ጠጅ</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">በቻይና፣ በጃፓን፣ በኮሪያና በታይዋን የተለመደ</string>

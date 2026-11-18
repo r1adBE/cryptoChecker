@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">כחול</string>
+    <string name="accent_dark_gray">אפור כהה</string>
     <string name="accent_green">ירוק</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">כתום</string>
     <string name="accent_red">אדום</string>
+    <string name="accent_violet">סגול</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">מקובל בסין, ביפן, בקוריאה ובטייוואן</string>

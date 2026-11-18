@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Biru</string>
+    <string name="accent_dark_gray">Kelabu gelap</string>
     <string name="accent_green">Hijau</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oren</string>
     <string name="accent_red">Merah</string>
+    <string name="accent_violet">Ungu</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Biasa di China, Jepun, Korea dan Taiwan</string>

@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">ไม่มีบรรทัด USDT ใน “รายการ”</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">ใน “ภาพรวม” แสดงเป็น 30 วัน</string>
+    <string name="pulse_widget_view_impulse">แรงส่ง</string>
+    <string name="pulse_widget_view_movers">ขึ้น-ลงมากสุด</string>
+    <string name="pulse_widget_lead_up">ขึ้นมากที่สุด: %1$s, %2$s</string>
+    <string name="pulse_widget_lead_down">ลงมากที่สุด: %1$s, %2$s</string>
+    <string name="pulse_widget_lead_mixed">นำหน้า %1$s (%2$s) ท้ายสุด %3$s (%4$s)</string>
+    <string name="pulse_widget_halving_left">เหลืออีกราว %1$s</string>
+    <string name="pulse_widget_halving_note">ประมาณตามปฏิทิน</string>
 </resources>

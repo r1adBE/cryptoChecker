@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Zila</string>
+    <string name="accent_dark_gray">Tumši pelēka</string>
     <string name="accent_green">Zaļa</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranža</string>
     <string name="accent_red">Sarkana</string>
+    <string name="accent_violet">Violeta</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Ierasts Ķīnā, Japānā, Korejā un Taivānā</string>

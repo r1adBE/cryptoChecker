@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">നീല</string>
+    <string name="accent_dark_gray">കടും ചാരനിറം</string>
     <string name="accent_green">പച്ച</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">ഓറഞ്ച്</string>
     <string name="accent_red">ചുവപ്പ്</string>
+    <string name="accent_violet">വയലറ്റ്</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ചൈന, ജപ്പാൻ, കൊറിയ, തായ്‌വാൻ എന്നിവിടങ്ങളിൽ സാധാരണം</string>

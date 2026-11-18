@@ -35,7 +35,7 @@ MÁIS
 • Carteira opcional (en Configuración): compras, vendas, intercambios, transferencias, recompensas, depósitos e retiradas; FIFO (predeterminado) ou media (Ø); enderezos só de lectura sen seed para BTC (incl. xpub), ETH e cadeas EVM, SOL, TRX, XRP, LTC, ADA e TON; importación CSV de Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual en CSV; bloqueo propio. Swissquote: sen prezo propio, só CSV.
 • Lexible para todos: verde/vermello ou azul/laranxa, signo e frecha, non só cor; TalkBack le cada fila como unha frase
 • Copia de seguranza e restauración nun ficheiro – tamén entre Android e iPhone
-• Modo claro e escuro, cinco cores de énfase, 75 idiomas
+• Modo claro e escuro, sete cores de énfase, 75 idiomas
 • Código aberto (MIT): o código é público en GitHub
 
 Nota: Crypto Checker mostra prezos e unha carteira que introduces ti. Non é un exchange nin un moedeiro, non negocia nin ofrece asesoramento de investimento.

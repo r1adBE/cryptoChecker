@@ -67,7 +67,8 @@ internal fun MarketNowContent(
                 .verticalScroll(scrollState)
                 // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
                 .readableWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                // Oben 4 dp wie Merkliste und Portfolio: Status-Pille und erste Karte auf gleicher Höhe
+                .padding(start = 16.dp, top = 4.dp, end = 16.dp, bottom = 8.dp)
                 // Kennung für UI-Tests (Bildschirmfotos): Puls geladen, alles Sichtbare auf «Jetzt» erschienen
                 .then(
                     if (pulse is LoadState.Loaded && !reveal.nowLoading(showMore)) {

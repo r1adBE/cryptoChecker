@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Mavi</string>
+    <string name="accent_dark_gray">Koyu gri</string>
     <string name="accent_green">Yeşil</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Turuncu</string>
     <string name="accent_red">Kırmızı</string>
+    <string name="accent_violet">Mor</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Çin, Japonya, Kore ve Tayvan’da yaygın</string>

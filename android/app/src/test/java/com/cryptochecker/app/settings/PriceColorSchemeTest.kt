@@ -261,7 +261,8 @@ class PriceColorSchemeTest {
         val min = PriceColorScheme.MIN_ACCENT_DELTA_E
         for (scheme in PriceColorScheme.entries) {
             for (accent in AccentColor.entries) {
-                if (scheme in ADAPTIVE) {
+                // Ohne Farbton: Standard bleibt ([neutral accent keeps the standard price colours])
+                if (scheme in ADAPTIVE && !accent.isNeutral) {
                     for (dark in listOf(false, true)) {
                         for (up in listOf(true, false)) {
                             val color = if (up) scheme.up(dark, accent = accent) else scheme.down(dark, accent = accent)
@@ -346,6 +347,22 @@ class PriceColorSchemeTest {
             else -> (r - g) / d + 4
         }
         return h * 60
+    }
+
+    /** Dunkelgrau (ohne Farbton): alle Schemata mit ihren Standardfarben, wie ohne Akzent. */
+    @Test
+    fun `neutral accent keeps the standard price colours`() {
+        for (accent in AccentColor.entries.filter { it.isNeutral }) {
+            for (scheme in PriceColorScheme.entries) {
+                assertTrue(scheme.name, !scheme.clashesWith(accent))
+                for (dark in listOf(false, true)) {
+                    for (hc in listOf(false, true)) {
+                        assertEquals(scheme.up(dark, hc), scheme.up(dark, hc, accent = accent))
+                        assertEquals(scheme.down(dark, hc), scheme.down(dark, hc, accent = accent))
+                    }
+                }
+            }
+        }
     }
 
     /** Hoher Kontrast nimmt dieselbe Fassung; Abstand zum Akzent dort mindestens ΔE2000 15. */

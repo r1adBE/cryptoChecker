@@ -234,11 +234,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Синій</string>
+    <string name="accent_dark_gray">Темно-сірий</string>
     <string name="accent_green">Зелений</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Помаранчевий</string>
     <string name="accent_red">Червоний</string>
+    <string name="accent_violet">Фіолетовий</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Прийнято в Китаї, Японії, Кореї та на Тайвані</string>

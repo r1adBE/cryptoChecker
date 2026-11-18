@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Roʻyxat»da USDT qatori yoʻq</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«Umumiy koʻrinish» oʻrniga 30 kunni koʻrsatadi</string>
+    <string name="pulse_widget_view_impulse">Impuls</string>
+    <string name="pulse_widget_view_movers">O‘sganlar va tushganlar</string>
+    <string name="pulse_widget_lead_up">Eng katta o‘sish: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Eng katta tushish: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Oldinda %1$s (%2$s), oxirida %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">taxminan %1$s qoldi</string>
+    <string name="pulse_widget_halving_note">Taqvim bo‘yicha taxmin</string>
 </resources>

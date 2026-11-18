@@ -35,7 +35,7 @@ IBA PA
 • Opsyonal na portfolio (i-on sa Mga Setting): bili, benta, swap, transfer, reward, deposit at withdrawal; FIFO (default) o average (Ø); read-only na address na walang seed para sa BTC (pati xpub), ETH & EVM chain, SOL, TRX, XRP, LTC, ADA at TON; CSV import ng Relai, Swissquote, Bitpanda, Kraken, Binance at Coinbase; taunang buod sa CSV; sariling lock. Swissquote: walang sariling presyo, CSV lang.
 • Nababasa ng lahat: berde/pula o asul/orange, sign at arrow sa halip na kulay lang; binabasa ng TalkBack ang bawat row bilang isang pangungusap
 • Backup & restore sa file – pati Android ↔ iPhone
-• Light at dark mode, limang accent color, 75 wika
+• Light at dark mode, pitong accent color, 75 wika
 • Open source (MIT) – publiko ang code sa GitHub
 
 Paalala: Ipinapakita ng Crypto Checker ang presyo at portfolio na ikaw ang naglagay. Hindi ito exchange o wallet, hindi nagte-trade at walang investment advice.

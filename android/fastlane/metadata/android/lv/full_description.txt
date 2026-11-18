@@ -35,7 +35,7 @@ VAIRĀK
 • Portfelis pēc izvēles (ieslēdz iestatījumos): pirkumi, pārdošanas, maiņas, pārvedumi, atlīdzības, iemaksas un izmaksas; FIFO (noklusējums) vai vidējais (Ø); tikai lasāmas adreses bez seed frāzes BTC (ieskaitot xpub), ETH un EVM ķēdēm, SOL, TRX, XRP, LTC, ADA un TON; CSV imports no Relai, Swissquote, Bitpanda, Kraken, Binance un Coinbase; gada pārskats CSV; sava bloķēšana. Swissquote: savas cenas nav, tikai CSV.
 • Salasāms visiem: zaļš/sarkans vai zils/oranžs, zīme un bultiņa, nevis tikai krāsa; TalkBack katru rindu nolasa kā vienu teikumu
 • Dublēšana un atjaunošana failā – arī starp Android un iPhone
-• Gaišais un tumšais režīms, piecas akcenta krāsas, 75 valodas
+• Gaišais un tumšais režīms, septiņas akcenta krāsas, 75 valodas
 • Atvērtais kods (MIT) – publisks GitHub
 
 Piezīme: Crypto Checker rāda cenas un portfeli, ko ievadi tu. Tā nav birža vai maciņš, netirgo un nesniedz ieguldījumu padomus.

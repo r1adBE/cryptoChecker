@@ -103,7 +103,7 @@ class PulseWidgetRenderer @Inject constructor(
         val online = connectivity.online()
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
-        val title = context.getString(R.string.pulse_now_title)
+        val impulseTitle = context.getString(R.string.pulse_now_title)
         // Fear & Greed nur aus dem Zwischenspeicher (Markt-Tab oder Pulse, ≤ 24 h) — kein eigener Abruf
         val cachedFng = if (fresh == null || report == null) {
             null
@@ -149,6 +149,12 @@ class PulseWidgetRenderer @Inject constructor(
             val dark = widgetPrefs.isDark(appWidgetId, settings)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
             val views = RemoteViews(context.packageName, R.layout.widget_pulse)
+            val view = widgetPrefs.getPulseView(appWidgetId)
+            val title = when (view) {
+                PulseWidgetView.IMPULSE -> impulseTitle
+                PulseWidgetView.MOVERS -> context.getString(R.string.movers_title)
+                PulseWidgetView.HALVING -> context.getString(R.string.insights_halving_title)
+            }
 
             toolkit.background(views, R.id.pulse_bg, colors, widgetPrefs.getOpacity(appWidgetId))
             views.setImageViewResource(R.id.pulse_logo, accent.logoRes(dark))
@@ -161,10 +167,17 @@ class PulseWidgetRenderer @Inject constructor(
             views.setViewVisibility(R.id.pulse_title, if (titleSp != null) View.VISIBLE else View.INVISIBLE)
             views.setTextViewTextSize(R.id.pulse_title, TypedValue.COMPLEX_UNIT_SP, titleSp ?: WidgetType.BODY)
 
-            if (report == null) {
+            val movers = report?.movers?.takeIf { !it.isEmpty }
+            if (view == PulseWidgetView.HALVING) {
+                // Nach Kalender, ohne Netz: auch ohne Marktdaten
+                views.setContentDescription(R.id.pulse_root, drawPulseHalving(context, views, colors))
+            } else if (view == PulseWidgetView.MOVERS && report != null && movers != null) {
+                val stand = PulseWidgetTexts.stand(context, report.time, online)
+                val spoken = drawPulseMovers(context, views, colors, movers, PulseWidgetMovers.rows(heightDp), stand)
+                views.setContentDescription(R.id.pulse_root, spoken)
+            } else if (report == null || view == PulseWidgetView.MOVERS) {
                 val message = context.getString(R.string.pulse_unavailable)
-                views.setViewVisibility(R.id.pulse_content, View.GONE)
-                views.setViewVisibility(R.id.pulse_message, View.VISIBLE)
+                showPulseSection(views, R.id.pulse_message)
                 views.setTextViewText(R.id.pulse_message, message)
                 views.setTextColor(R.id.pulse_message, colors.secondaryTextColor)
                 views.setContentDescription(R.id.pulse_root, "$title. $message")

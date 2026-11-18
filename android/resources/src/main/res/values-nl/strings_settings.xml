@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blauw</string>
+    <string name="accent_dark_gray">Donkergrijs</string>
     <string name="accent_green">Groen</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranje</string>
     <string name="accent_red">Rood</string>
+    <string name="accent_violet">Violet</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Gebruikelijk in China, Japan, Korea en Taiwan</string>

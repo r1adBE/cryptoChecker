@@ -44,7 +44,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "314"
+CURRENT_PROJECT_VERSION = "315"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -63,7 +63,8 @@ WATCH_DEPLOYMENT_TARGET = "10.0"
 WATCH_SHARED_RESOURCES = {os.path.join("App", "PrivacyInfo.xcprivacy")}
 ALTERNATE_ICONS = ["AppIconOrangeLight", "AppIconRed", "AppIconRedLight", "AppIconBlue",
                    "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight",
-                   "AppIconMarrsGreen", "AppIconMarrsGreenLight"]
+                   "AppIconMarrsGreen", "AppIconMarrsGreenLight",
+                   "AppIconViolet", "AppIconVioletLight", "AppIconDarkGray", "AppIconDarkGrayLight"]
 TOP_FOLDERS = ["Shared", "App", "Widgets", "WatchCore", "Watch", "WatchWidgets", "Tests", "UITests"]
 APP_ONLY_RESOURCES = {"InfoPlist.xcstrings"}
 # Ressourcen aus App/, die auch die Widget-Erweiterung braucht (eigenes Bundle,

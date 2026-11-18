@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“စာရင်း” တွင် USDT စာကြောင်း မပါ</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ခြုံငုံသုံးသပ်ချက်” သည် ၎င်းအစား ရက် 30 ကို ပြသည်</string>
+    <string name="pulse_widget_view_impulse">အရှိန်</string>
+    <string name="pulse_widget_view_movers">တက်/ကျ အများဆုံး</string>
+    <string name="pulse_widget_lead_up">အများဆုံးတက်: %1$s, %2$s။</string>
+    <string name="pulse_widget_lead_down">အများဆုံးကျ: %1$s, %2$s။</string>
+    <string name="pulse_widget_lead_mixed">ထိပ်ဆုံး %1$s (%2$s)၊ နောက်ဆုံး %3$s (%4$s)။</string>
+    <string name="pulse_widget_halving_left">%1$s ခန့် ကျန်</string>
+    <string name="pulse_widget_halving_note">ပြက္ခဒိန်အရ ခန့်မှန်း</string>
 </resources>

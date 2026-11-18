@@ -206,6 +206,42 @@ class WidgetColors(
                     neutralColor = 0xFF5F5F5F.toInt(),
                     dark = false,
                 )
+                AccentColor.VIOLET to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFFB393FF.toInt(),
+                    onAccentColor = 0xFF25005A.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.VIOLET to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFF7844D4.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                AccentColor.DARK_GRAY to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFFA5A5A5.toInt(),
+                    onAccentColor = 0xFF181818.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.DARK_GRAY to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFF4A4A4A.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
                 else -> error("unerreichbar")
             }
     }

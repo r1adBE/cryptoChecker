@@ -123,4 +123,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">W widoku „Lista” bez wiersza USDT</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">W widoku „Przegląd” jak 30 dni</string>
+    <string name="pulse_widget_view_impulse">Impuls</string>
+    <string name="pulse_widget_view_movers">Zwycięzcy i przegrani</string>
+    <string name="pulse_widget_lead_up">Największy wzrost: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Największy spadek: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Na czele %1$s (%2$s), na końcu %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">zostało ok. %1$s</string>
+    <string name="pulse_widget_halving_note">Szacunek według kalendarza</string>
 </resources>

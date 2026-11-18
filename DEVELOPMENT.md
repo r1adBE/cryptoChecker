@@ -3300,6 +3300,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 312: Screenshot-Tour Android: Einrichten-Seiten der Widgets (TourWidgetConfig).
 * Build 313: Externes Review 312: Text Auto-Sicherung «etwa wöchentlich», EN-Zeile Portfolio-Sperre, TESTPLAN iCloud nach Neustart.
 * Build 314: Audit 303: Argon2Memory/largeHeap weg, Anteile exakt, Willkommen «nicht live», Datenschutz aufklappbar.
+* Build 315: Akzente Violett/Dunkelgrau (AppColorSchemesMore.kt, isNeutral: Kursfarben bleiben Standard), Puls-Widget-Ansichten, StatusMark, Markt-Pille bündig, pluginManagement-Filter, gen_assets nur dunkle Icons.
 
 ## Known warnings
 

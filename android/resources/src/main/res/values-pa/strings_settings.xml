@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ਨੀਲਾ</string>
+    <string name="accent_dark_gray">ਗੂੜ੍ਹਾ ਸਲੇਟੀ</string>
     <string name="accent_green">ਹਰਾ</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">ਮਾਰਸ ਗ੍ਰੀਨ</string>
     <string name="accent_orange">ਸੰਤਰੀ</string>
     <string name="accent_red">ਲਾਲ</string>
+    <string name="accent_violet">ਜਾਮਨੀ</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ਚੀਨ, ਜਾਪਾਨ, ਕੋਰੀਆ ਅਤੇ ਤਾਈਵਾਨ ਵਿੱਚ ਆਮ</string>

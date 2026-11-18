@@ -62,6 +62,8 @@ class AccentContrastTest {
         assertEquals(0xFF2B5FC8.toInt(), WidgetColors.of(AccentColor.BLUE, false).accentColor)
         assertEquals(0xFF107348.toInt(), WidgetColors.of(AccentColor.GREEN, false).accentColor)
         assertEquals(0xFF22706B.toInt(), WidgetColors.of(AccentColor.MARRS_GREEN, false).accentColor)
+        assertEquals(0xFF7844D4.toInt(), WidgetColors.of(AccentColor.VIOLET, false).accentColor)
+        assertEquals(0xFF4A4A4A.toInt(), WidgetColors.of(AccentColor.DARK_GRAY, false).accentColor)
         assertEquals(0xFFED835E.toInt(), WidgetColors.of(AccentColor.ORANGE, true).accentColor)
     }
 

@@ -49,6 +49,26 @@
 				<key>CFBundleIconName</key>
 				<string>AppIconMarrsGreenLight</string>
 			</dict>
+			<key>AppIconViolet</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIconViolet</string>
+			</dict>
+			<key>AppIconVioletLight</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIconVioletLight</string>
+			</dict>
+			<key>AppIconDarkGray</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIconDarkGray</string>
+			</dict>
+			<key>AppIconDarkGrayLight</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIconDarkGrayLight</string>
+			</dict>
 			<key>AppIconOrangeLight</key>
 			<dict>
 				<key>CFBundleIconName</key>

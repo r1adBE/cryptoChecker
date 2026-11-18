@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Siyahı»da USDT sətri yoxdur</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«İcmal» əvəzində 30 gün göstərir</string>
+    <string name="pulse_widget_view_impulse">İmpuls</string>
+    <string name="pulse_widget_view_movers">Qaliblər və məğlublar</string>
+    <string name="pulse_widget_lead_up">Ən böyük artım: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Ən böyük düşüş: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Öndə %1$s (%2$s), sonda %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">təxminən %1$s qalıb</string>
+    <string name="pulse_widget_halving_note">Təqvimə görə təxmin</string>
 </resources>

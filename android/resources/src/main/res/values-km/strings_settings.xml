@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ខៀវ</string>
+    <string name="accent_dark_gray">ប្រផេះចាស់</string>
     <string name="accent_green">បៃតង</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">បៃតង Marrs</string>
     <string name="accent_orange">ទឹកក្រូច</string>
     <string name="accent_red">ក្រហម</string>
+    <string name="accent_violet">ស្វាយ</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ពេញនិយមនៅចិន ជប៉ុន កូរ៉េ និងតៃវ៉ាន់</string>

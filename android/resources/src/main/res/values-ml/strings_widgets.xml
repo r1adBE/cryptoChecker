@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ലിസ്റ്റ്”-ൽ USDT വരിയില്ല</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“അവലോകനം” പകരം 30 ദിവസം കാണിക്കുന്നു</string>
+    <string name="pulse_widget_view_impulse">ആക്കം</string>
+    <string name="pulse_widget_view_movers">ഉയർന്നവയും താഴ്ന്നവയും</string>
+    <string name="pulse_widget_lead_up">ഏറ്റവും വലിയ ഉയർച്ച: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">ഏറ്റവും വലിയ ഇടിവ്: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">മുന്നിൽ %1$s (%2$s), പിന്നിൽ %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">ഏകദേശം %1$s ബാക്കി</string>
+    <string name="pulse_widget_halving_note">കലണ്ടർ പ്രകാരം കണക്കാക്കിയത്</string>
 </resources>

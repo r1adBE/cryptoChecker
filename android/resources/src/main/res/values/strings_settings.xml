@@ -236,11 +236,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blue</string>
+    <string name="accent_dark_gray">Dark gray</string>
     <string name="accent_green">Green</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Orange</string>
     <string name="accent_red">Red</string>
+    <string name="accent_violet">Violet</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Common in China, Japan, Korea and Taiwan</string>

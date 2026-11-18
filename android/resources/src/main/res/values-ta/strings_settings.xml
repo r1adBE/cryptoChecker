@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">நீலம்</string>
+    <string name="accent_dark_gray">அடர் சாம்பல்</string>
     <string name="accent_green">பச்சை</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs பச்சை</string>
     <string name="accent_orange">ஆரஞ்சு</string>
     <string name="accent_red">சிவப்பு</string>
+    <string name="accent_violet">ஊதா</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">சீனா, ஜப்பான், கொரியா மற்றும் தைவானில் வழக்கமானது</string>

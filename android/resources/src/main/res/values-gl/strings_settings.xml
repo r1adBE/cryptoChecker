@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Azul</string>
+    <string name="accent_dark_gray">Gris escuro</string>
     <string name="accent_green">Verde</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Verde Marrs</string>
     <string name="accent_orange">Laranxa</string>
     <string name="accent_red">Vermello</string>
+    <string name="accent_violet">Violeta</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Habitual en China, Xapón, Corea e Taiwán</string>

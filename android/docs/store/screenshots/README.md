@@ -132,7 +132,7 @@ Orange ist die Erkennungsfarbe von Crypto Checker: App-Icon (Glocke), Standard-A
 **Ein Akzent, ein Modus:** Die Screenshots zeigen genau einen Akzent (Orange), und zwar so, wie die App ihn zeichnet –
 entweder **hell mit #A64827** (Standard, Demo-Sicherung) oder **dunkel mit #ED835E**. Ein Orange: #ED835E (Icon, dunkler Knopf), #A64827 ist nur die dunklere Stufe desselben Orange für hellen Hintergrund. Kein Bild mit anderem Akzent oder im anderen Modus beimischen.
 
-Blau, Grün, Rot und Marrs Green sind optionale Themes, die man in der App wählen kann. Sie können im Beschreibungstext erwähnt werden, gehören aber nicht in die Store-Bilder. Die alten blauen Globus-Grafiken sind nicht mehr Teil der Marke und dürfen nicht verwendet werden.
+Blau, Grün, Rot, Marrs Green, Violett und Dunkelgrau sind optionale Themes, die man in der App wählen kann. Sie können im Beschreibungstext erwähnt werden, gehören aber nicht in die Store-Bilder. Die alten blauen Globus-Grafiken sind nicht mehr Teil der Marke und dürfen nicht verwendet werden.
 
 ## Inhaltliche Regeln
 

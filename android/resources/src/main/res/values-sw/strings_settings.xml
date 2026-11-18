@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Bluu</string>
+    <string name="accent_dark_gray">Kijivu iliyokolea</string>
     <string name="accent_green">Kijani</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Kijani cha Marrs</string>
     <string name="accent_orange">Machungwa</string>
     <string name="accent_red">Nyekundu</string>
+    <string name="accent_violet">Zambarau</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Hutumika sana China, Japani, Korea na Taiwan</string>

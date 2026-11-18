@@ -234,11 +234,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Modrá</string>
+    <string name="accent_dark_gray">Tmavosivá</string>
     <string name="accent_green">Zelená</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oranžová</string>
     <string name="accent_red">Červená</string>
+    <string name="accent_violet">Fialová</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Bežné v Číne, Japonsku, Kórei a na Taiwane</string>

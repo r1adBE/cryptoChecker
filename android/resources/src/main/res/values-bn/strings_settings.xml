@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">নীল</string>
+    <string name="accent_dark_gray">গাঢ় ধূসর</string>
     <string name="accent_green">সবুজ</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">মার্স গ্রিন</string>
     <string name="accent_orange">কমলা</string>
     <string name="accent_red">লাল</string>
+    <string name="accent_violet">বেগুনি</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">চীন, জাপান, কোরিয়া ও তাইওয়ানে প্রচলিত</string>

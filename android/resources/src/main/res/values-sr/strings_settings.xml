@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Плава</string>
+    <string name="accent_dark_gray">Тамносива</string>
     <string name="accent_green">Зелена</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Наранџаста</string>
     <string name="accent_red">Црвена</string>
+    <string name="accent_violet">Љубичаста</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Уобичајено у Кини, Јапану, Кореји и Тајвану</string>

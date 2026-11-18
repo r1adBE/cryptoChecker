@@ -4,10 +4,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -50,7 +48,7 @@ fun dataStatusColor(tone: DataStatusTone): Color = when (tone) {
 }
 
 /**
- * Zustand der gezeigten Daten als Pille wie in der Merkliste: Punkt in der Tonfarbe und der Satz,
+ * Zustand der gezeigten Daten als Pille wie in der Merkliste: Zeichen in der Tonfarbe ([StatusMark]) und der Satz,
  * z. B. «Alles aktuell · vor 2 Min.», «Offline · Stand 14:05», «Kurse veraltet · Stand 09:12».
  * Für Markt- und Portfolio-Tab (die Merkliste hat ihre eigene, antippbare Pille). Farbe wechselt
  * weich, ausser bei reduzierter Bewegung. Screenreader: der Satz mit « · » als Pause, oder [spoken].
@@ -78,7 +76,7 @@ fun DataStatusPill(
             .padding(horizontal = 12.dp, vertical = Spacing.sm)
             .clearAndSetSemantics { contentDescription = description }
     ) {
-        Box(Modifier.size(8.dp).clip(RoundedCornerShape(50)).background(color))
+        StatusMark(tone.mark(), color)
         Text(
             text = text,
             style = MaterialTheme.typography.labelMedium.tabularNumbers(),

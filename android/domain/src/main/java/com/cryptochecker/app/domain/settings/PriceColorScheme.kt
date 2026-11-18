@@ -35,7 +35,8 @@ package com.cryptochecker.app.domain.settings
  * «Farbsehschwäche» haben je nur eine Fassung und bleiben
  * bei jedem Akzent die festen Börsenfarben. Geprüft
  * wird mit [ColorDifference]; hoher Kontrast nimmt dieselbe Fassung. Eine Fassung kann eine tiefere
- * eigene Schwelle haben ([PriceTone.minAccentLight] / [PriceTone.minAccentDark]). Wie iOS.
+ * eigene Schwelle haben ([PriceTone.minAccentLight] / [PriceTone.minAccentDark]). Ein Akzent ohne Farbton
+ * ([AccentColor.isNeutral], Dunkelgrau) lässt alle Kursfarben beim Standard. Wie iOS.
  *
  * Die Reihenfolge der Einträge ist die Reihenfolge der Karten in «Kursfarben»
  * (Ruhig, Frisch, Traditionell, Farbsehschwäche, Ruhig Farbsehschwäche); gespeichert wird der Name, nie die Position.
@@ -176,10 +177,17 @@ enum class PriceColorScheme(
             ColorDifference.deltaE2000(tone.light, accent.primary(dark = false)) >= tone.minAccentLight &&
                 ColorDifference.deltaE2000(tone.dark, accent.primary(dark = true)) >= tone.minAccentDark
 
-        /** Erste Fassung, die ihre Schwelle einhält; sonst die mit dem grössten Abstand. */
+        /**
+         * Erste Fassung, die ihre Schwelle einhält; sonst die mit dem grössten Abstand. Neben einem Akzent ohne
+         * Farbton ([AccentColor.isNeutral]) immer der Standard.
+         */
         private fun pick(tones: List<PriceTone>, accent: AccentColor): PriceTone =
-            tones.firstOrNull { fitsBeside(it, accent) }
-                ?: tones.maxBy { accentDistance(it, accent) }
+            if (accent.isNeutral) {
+                tones.first()
+            } else {
+                tones.firstOrNull { fitsBeside(it, accent) }
+                    ?: tones.maxBy { accentDistance(it, accent) }
+            }
     }
 }
 

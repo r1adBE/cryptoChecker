@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Μπλε</string>
+    <string name="accent_dark_gray">Σκούρο γκρι</string>
     <string name="accent_green">Πράσινο</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Πορτοκαλί</string>
     <string name="accent_red">Κόκκινο</string>
+    <string name="accent_violet">Βιολετί</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Σύνηθες σε Κίνα, Ιαπωνία, Κορέα και Ταϊβάν</string>

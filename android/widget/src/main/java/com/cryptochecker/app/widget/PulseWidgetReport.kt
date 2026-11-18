@@ -32,8 +32,7 @@ internal fun drawPulseReport(
     plainTitle: String,
     plainNote: (Int) -> String,
 ) {
-    views.setViewVisibility(R.id.pulse_content, View.VISIBLE)
-    views.setViewVisibility(R.id.pulse_message, View.GONE)
+    showPulseSection(views, R.id.pulse_content)
 
     // Zeichen folgt der Richtung, nie dem Farbtausch; gemischt/ruhig ohne Zeichen
     val headline = PulseWidgetTexts.headline(context, report.summary)

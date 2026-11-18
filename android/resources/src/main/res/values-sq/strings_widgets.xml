@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Pa rreshtin USDT te «Listë»</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Te «Përmbledhje» si 30 ditë</string>
+    <string name="pulse_widget_view_impulse">Impuls</string>
+    <string name="pulse_widget_view_movers">Fituesit dhe humbësit</string>
+    <string name="pulse_widget_lead_up">Rritja më e madhe: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Rënia më e madhe: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Përpara %1$s (%2$s), prapa %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">kanë mbetur rreth %1$s</string>
+    <string name="pulse_widget_halving_note">Vlerësim sipas kalendarit</string>
 </resources>

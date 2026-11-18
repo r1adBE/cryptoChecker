@@ -236,11 +236,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Gorm</string>
+    <string name="accent_dark_gray">Liath dorcha</string>
     <string name="accent_green">Glas</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Oráiste</string>
     <string name="accent_red">Dearg</string>
+    <string name="accent_violet">Corcra</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Coitianta sa tSín, sa tSeapáin, sa Chóiré agus sa Téaváin</string>

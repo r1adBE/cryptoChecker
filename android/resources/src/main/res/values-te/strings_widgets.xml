@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“జాబితా”లో USDT వరుస లేదు</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“అవలోకనం” బదులుగా 30 రోజులను చూపుతుంది</string>
+    <string name="pulse_widget_view_impulse">ఊపు</string>
+    <string name="pulse_widget_view_movers">పెరిగినవి, తగ్గినవి</string>
+    <string name="pulse_widget_lead_up">అత్యధిక పెరుగుదల: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">అత్యధిక తగ్గుదల: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">ముందు %1$s (%2$s), చివర %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">ఇంకా సుమారు %1$s</string>
+    <string name="pulse_widget_halving_note">క్యాలెండర్ ప్రకారం అంచనా</string>
 </resources>

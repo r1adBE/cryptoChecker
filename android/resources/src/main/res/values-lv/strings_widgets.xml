@@ -121,4 +121,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Skatā „Saraksts“ nav USDT rindas</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Pārskats“ tā vietā rāda 30 dienas</string>
+    <string name="pulse_widget_view_impulse">Impulss</string>
+    <string name="pulse_widget_view_movers">Uzvarētāji un zaudētāji</string>
+    <string name="pulse_widget_lead_up">Lielākais kāpums: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Lielākais kritums: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Priekšā %1$s (%2$s), beigās %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">atlikušas apmēram %1$s</string>
+    <string name="pulse_widget_halving_note">Aprēķināts pēc kalendāra</string>
 </resources>

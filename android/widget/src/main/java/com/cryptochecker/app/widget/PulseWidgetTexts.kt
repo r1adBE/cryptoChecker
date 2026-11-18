@@ -4,6 +4,7 @@ import android.content.Context
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.market.CryptoPulse
+import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PlainDirection
 import com.cryptochecker.app.domain.market.PlainDirectionKind
 import com.cryptochecker.app.domain.market.PlainMood
@@ -17,6 +18,8 @@ import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.widget.PulseWidgetLead
+import com.cryptochecker.app.domain.widget.PulseWidgetLeadKind
 import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.resources.R
@@ -46,25 +49,50 @@ object PulseWidgetTexts {
         }
     )
 
-    /** Leitsatz aus [CryptoPulse.leadSentence]: ein oder zwei ganze Sätze. */
+    /**
+     * Leitsatz des Widgets ([PulseWidgetLead]): der Coin, der am stärksten fällt bzw. steigt (gemischt beide Enden),
+     * mit seiner 24-h-Veränderung — sonst der Satz der Karte; dazu Volumen/Hebel nur, wenn auffällig.
+     */
     fun lead(context: Context, report: PulseReport): String {
-        val lead = CryptoPulse.leadSentence(report)
-        val first = context.getString(
-            when (lead.kind) {
-                PulseLeadKind.BTC_LEADS -> R.string.pulse_lead_btc_leads
-                PulseLeadKind.ALTS_STRONGER -> R.string.pulse_lead_alts_stronger
-                PulseLeadKind.BTC_STRONGER -> R.string.pulse_lead_btc_stronger
-                PulseLeadKind.BROAD_UP -> R.string.pulse_lead_broad_up
-                PulseLeadKind.BROAD_DOWN -> R.string.pulse_lead_broad_down
-                PulseLeadKind.DRIFT_UP -> R.string.pulse_lead_drift_up
-                PulseLeadKind.DRIFT_DOWN -> R.string.pulse_lead_drift_down
-                PulseLeadKind.MIXED -> R.string.pulse_lead_mixed
-                PulseLeadKind.CALM -> R.string.pulse_lead_calm
+        val choice = PulseWidgetLead.choose(report)
+        fun pct(coin: MoverCoin) = PercentText.signed(coin.change24h ?: 0.0, 1)
+        val first = when (choice.kind) {
+            PulseWidgetLeadKind.UP -> choice.top?.let { context.getString(R.string.pulse_widget_lead_up, it.symbol, pct(it)) }
+            PulseWidgetLeadKind.DOWN -> choice.bottom?.let { context.getString(R.string.pulse_widget_lead_down, it.symbol, pct(it)) }
+            PulseWidgetLeadKind.MIXED -> {
+                val top = choice.top
+                val bottom = choice.bottom
+                if (top != null && bottom != null) {
+                    context.getString(R.string.pulse_widget_lead_mixed, top.symbol, pct(top), bottom.symbol, pct(bottom))
+                } else {
+                    null
+                }
             }
-        )
-        // Fertig formatiert (Ziffern, Abstand und Zeichen der Sprache) statt eines festen «%» in der Übersetzung
-        val pct = PercentText.unsigned(lead.volumePercent.toDouble(), 0)
-        val second = when (lead.detail) {
+            PulseWidgetLeadKind.CARD -> null
+        } ?: cardLead(context, choice.card.kind)
+        val second = choice.detail?.let { detail(context, it, choice.card.volumePercent) }
+        return if (second == null) first else "$first $second"
+    }
+
+    /** Erster Satz der Karte ([CryptoPulse.leadSentence]). */
+    private fun cardLead(context: Context, kind: PulseLeadKind): String = context.getString(
+        when (kind) {
+            PulseLeadKind.BTC_LEADS -> R.string.pulse_lead_btc_leads
+            PulseLeadKind.ALTS_STRONGER -> R.string.pulse_lead_alts_stronger
+            PulseLeadKind.BTC_STRONGER -> R.string.pulse_lead_btc_stronger
+            PulseLeadKind.BROAD_UP -> R.string.pulse_lead_broad_up
+            PulseLeadKind.BROAD_DOWN -> R.string.pulse_lead_broad_down
+            PulseLeadKind.DRIFT_UP -> R.string.pulse_lead_drift_up
+            PulseLeadKind.DRIFT_DOWN -> R.string.pulse_lead_drift_down
+            PulseLeadKind.MIXED -> R.string.pulse_lead_mixed
+            PulseLeadKind.CALM -> R.string.pulse_lead_calm
+        }
+    )
+
+    /** Zusatzsatz (Volumen, Hebel); fertig formatiertes Prozent statt eines festen «%» in der Übersetzung. */
+    private fun detail(context: Context, detail: PulseDetail, volumePercent: Int): String {
+        val pct = PercentText.unsigned(volumePercent.toDouble(), 0)
+        return when (detail) {
             PulseDetail.VOL_ABOVE -> context.getString(R.string.pulse_detail_vol_above, pct)
             PulseDetail.VOL_ABOVE_FUND_NEUTRAL -> context.getString(R.string.pulse_detail_vol_above_fund_neutral, pct)
             PulseDetail.VOL_ABOVE_FUND_HIGH -> context.getString(R.string.pulse_detail_vol_above_fund_high, pct)
@@ -80,9 +108,7 @@ object PulseWidgetTexts {
             PulseDetail.FUND_NEUTRAL -> context.getString(R.string.pulse_detail_fund_neutral)
             PulseDetail.FUND_HIGH -> context.getString(R.string.pulse_detail_fund_high)
             PulseDetail.FUND_NEGATIVE -> context.getString(R.string.pulse_detail_fund_negative)
-            null -> null
         }
-        return if (second == null) first else "$first $second"
     }
 
     /** «Fear & Greed 72 · Gier» (Stufen wie die Karte im Markt-Tab). */

@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">نیلا</string>
+    <string name="accent_dark_gray">گہرا سرمئی</string>
     <string name="accent_green">سبز</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">مارز گرین</string>
     <string name="accent_orange">نارنجی</string>
     <string name="accent_red">سرخ</string>
+    <string name="accent_violet">بنفشی</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">چین، جاپان، کوریا اور تائیوان میں عام</string>

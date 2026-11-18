@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ಪಟ್ಟಿ” ಯಲ್ಲಿ USDT ಸಾಲು ಇಲ್ಲ</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ಅವಲೋಕನ” ಬದಲಿಗೆ 30 ದಿನಗಳನ್ನು ತೋರಿಸುತ್ತದೆ</string>
+    <string name="pulse_widget_view_impulse">ಆವೇಗ</string>
+    <string name="pulse_widget_view_movers">ಏರಿಕೆ ಮತ್ತು ಇಳಿಕೆ</string>
+    <string name="pulse_widget_lead_up">ಅತಿ ಹೆಚ್ಚು ಏರಿಕೆ: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">ಅತಿ ಹೆಚ್ಚು ಇಳಿಕೆ: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">ಮುಂದೆ %1$s (%2$s), ಹಿಂದೆ %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">ಸುಮಾರು %1$s ಬಾಕಿ</string>
+    <string name="pulse_widget_halving_note">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರಕಾರ ಅಂದಾಜು</string>
 </resources>

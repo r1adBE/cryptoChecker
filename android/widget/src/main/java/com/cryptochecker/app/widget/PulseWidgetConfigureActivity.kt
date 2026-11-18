@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -97,12 +98,14 @@ class PulseWidgetConfigureViewModel @Inject constructor(
 
     fun currentOpacity(appWidgetId: Int): Int = widgetPrefs.getOpacity(appWidgetId)
     fun currentTheme(appWidgetId: Int): WidgetTheme = widgetPrefs.getTheme(appWidgetId)
+    fun currentView(appWidgetId: Int): PulseWidgetView = widgetPrefs.getPulseView(appWidgetId)
 
-    fun apply(appWidgetId: Int, theme: WidgetTheme, opacity: Int, onDone: () -> Unit) {
+    fun apply(appWidgetId: Int, view: PulseWidgetView, theme: WidgetTheme, opacity: Int, onDone: () -> Unit) {
         viewModelScope.launch {
+            widgetPrefs.setPulseView(appWidgetId, view)
             widgetPrefs.setTheme(appWidgetId, theme)
             widgetPrefs.setOpacity(appWidgetId, opacity)
-            // Ohne Netz: nur die Farben ändern sich
+            // Ohne Netz: Ansicht und Farben kommen aus dem Zwischenspeicher
             widgetUpdater.updatePulse(intArrayOf(appWidgetId), fetch = false)
             onDone()
         }
@@ -116,6 +119,7 @@ private fun PulseWidgetConfigureContent(
     viewModel: PulseWidgetConfigureViewModel = hiltViewModel(),
     onDone: () -> Unit,
 ) {
+    var view by remember { mutableStateOf(viewModel.currentView(appWidgetId)) }
     var theme by remember { mutableStateOf(viewModel.currentTheme(appWidgetId)) }
     var opacity by remember { mutableIntStateOf(viewModel.currentOpacity(appWidgetId)) }
 
@@ -123,6 +127,21 @@ private fun PulseWidgetConfigureContent(
         topBar = { TopAppBar(title = { Text(stringResource(R.string.pulse_now_title)) }) }
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
+            Text(stringResource(R.string.widget_portfolio_view), style = MaterialTheme.typography.bodyMedium)
+            val views = listOf(
+                PulseWidgetView.IMPULSE to R.string.pulse_widget_view_impulse,
+                PulseWidgetView.MOVERS to R.string.pulse_widget_view_movers,
+                PulseWidgetView.HALVING to R.string.insights_halving_title,
+            )
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 16.dp)) {
+                views.forEachIndexed { index, (value, label) ->
+                    SegmentedButton(
+                        selected = view == value,
+                        onClick = { view = value },
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = views.size)
+                    ) { Text(stringResource(label), maxLines = 2, textAlign = TextAlign.Center) }
+                }
+            }
             Text(
                 stringResource(R.string.widget_background),
                 style = MaterialTheme.typography.bodyMedium
@@ -156,7 +175,7 @@ private fun PulseWidgetConfigureContent(
             )
 
             Button(
-                onClick = { viewModel.apply(appWidgetId, theme, opacity, onDone) },
+                onClick = { viewModel.apply(appWidgetId, view, theme, opacity, onDone) },
                 modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
             ) {
                 Text(stringResource(R.string.action_save))

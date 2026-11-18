@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the iOS asset catalogs from the Android VectorDrawables of cryptoChecker.
 
-  App/Resources/Assets.xcassets   AppIcon (+9 alternates), Logo* image sets, AccentColor, WidgetBackground
+  App/Resources/Assets.xcassets   AppIcon (+13 alternates), Logo* image sets, AccentColor, WidgetBackground
                                   Every icon set carries the iOS 18 appearance variants: any = dark icon
                                   (white glyph, the brand look, also used on iOS 17), dark = the same dark
                                   icon, tinted = dark glyph on black. The light renders are not used here.
@@ -39,7 +39,7 @@ DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "re
 A = "{http://schemas.android.com/apk/res/android}"
 AAPT = "{http://schemas.android.com/aapt}"
 
-COLORS = ["orange", "red", "blue", "green", "marrs_green"]
+COLORS = ["orange", "red", "blue", "green", "marrs_green", "violet", "dark_gray"]
 VARIANTS = ["dark", "light"]
 ACCENT = "#ED835E"
 WIDGET_BG = {"light": "#F1EEE9", "dark": "#1F1F1F"}  # WidgetColors.kt baseColor (hell warm, K-9)
@@ -675,27 +675,28 @@ def main():
     for color in COLORS:
         flats = {}
         for variant in VARIANTS:
-            # ---- app icon: adaptive icon background + foreground, inner 72 of 108 dp
-            adaptive = os.path.join(args.android_res, "mipmap-anydpi", f"ic_launcher_{color}_{variant}.xml")
-            bg_ref, fg_ref = parse_adaptive_icon(adaptive)
-            if not bg_ref.startswith("@color/"):
-                raise SystemExit(f"{adaptive}: only color backgrounds are supported ({bg_ref})")
-            bg = res.color(bg_ref)
-            bg = (bg[0], bg[1], bg[2], 1.0)
-            fg = Vector(os.path.join(drawable, fg_ref.split("/", 1)[1] + ".xml"), res)
-            inset = fg.vw * 18.0 / 108.0
-            crop = (inset, inset, fg.vw - 2 * inset, fg.vh - 2 * inset)
-            with open(os.path.join(svg_dir, fg.name + ".svg"), "w") as f:
-                f.write(to_svg(fg))
-            with open(os.path.join(svg_dir, f"AppIcon_{color}_{variant}.svg"), "w") as f:
-                f.write(to_svg(fg, viewbox=crop, background=bg, size=(1024, 1024)))
-            raw = os.path.join(tmp, f"{color}_{variant}.png")
-            render_png(fg, raw, 1024, 1024, viewbox=crop, background=bg)
-            im = Image.open(raw).convert("RGBA")
-            flat = Image.new("RGB", im.size, tuple(round(v * 255) for v in bg[:3]))
-            flat.paste(im, mask=im.split()[3])
-            flats[variant] = flat
+            # ---- app icon: adaptive icon background + foreground, inner 72 of 108 dp. Only the dark
+            # icon exists on Android (one launcher icon per accent) and only it is used here.
             if variant == "dark":
+                adaptive = os.path.join(args.android_res, "mipmap-anydpi", f"ic_launcher_{color}_{variant}.xml")
+                bg_ref, fg_ref = parse_adaptive_icon(adaptive)
+                if not bg_ref.startswith("@color/"):
+                    raise SystemExit(f"{adaptive}: only color backgrounds are supported ({bg_ref})")
+                bg = res.color(bg_ref)
+                bg = (bg[0], bg[1], bg[2], 1.0)
+                fg = Vector(os.path.join(drawable, fg_ref.split("/", 1)[1] + ".xml"), res)
+                inset = fg.vw * 18.0 / 108.0
+                crop = (inset, inset, fg.vw - 2 * inset, fg.vh - 2 * inset)
+                with open(os.path.join(svg_dir, fg.name + ".svg"), "w") as f:
+                    f.write(to_svg(fg))
+                with open(os.path.join(svg_dir, f"AppIcon_{color}_{variant}.svg"), "w") as f:
+                    f.write(to_svg(fg, viewbox=crop, background=bg, size=(1024, 1024)))
+                raw = os.path.join(tmp, f"{color}_{variant}.png")
+                render_png(fg, raw, 1024, 1024, viewbox=crop, background=bg)
+                im = Image.open(raw).convert("RGBA")
+                flat = Image.new("RGB", im.size, tuple(round(v * 255) for v in bg[:3]))
+                flat.paste(im, mask=im.split()[3])
+                flats[variant] = flat
                 flats["tinted"] = tinted_icon(flat)
 
             # ---- logo image sets (transparent), base 120 pt

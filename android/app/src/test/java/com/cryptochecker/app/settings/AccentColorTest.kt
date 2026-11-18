@@ -16,6 +16,8 @@ class AccentColorTest {
         assertEquals("com.cryptochecker.app.LauncherBlue", AccentColor.BLUE.launcherAlias())
         assertEquals("com.cryptochecker.app.LauncherGreen", AccentColor.GREEN.launcherAlias())
         assertEquals("com.cryptochecker.app.LauncherMarrsGreen", AccentColor.MARRS_GREEN.launcherAlias())
+        assertEquals("com.cryptochecker.app.LauncherViolet", AccentColor.VIOLET.launcherAlias())
+        assertEquals("com.cryptochecker.app.LauncherDarkGray", AccentColor.DARK_GRAY.launcherAlias())
         // Eindeutig je Farbe
         assertEquals(AccentColor.entries.size, AccentColor.entries.map { it.launcherAlias() }.toSet().size)
     }

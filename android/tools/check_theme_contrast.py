@@ -11,7 +11,7 @@ Schrift und Symbole onSurface · 0.55 auf allen Flächen und auf der gesperrten 
 gesperrter Schalter (Knopf surface auf der Spur), abgeblendete Zeilen (Haupt- und Nebentext · 0.7) ≥ 3:1 —
 Android `DisabledColors.kt`, iOS `ColorTokens.disabled*` (abgeglichen in [source_mismatches]).
 
-Werte wie AppColorSchemes.kt / ErrorColors.kt / AppColors.kt (Android) bzw. ios/Shared/Util/Theme.swift;
+Werte wie AppColorSchemes.kt (+ AppColorSchemesMore.kt) / ErrorColors.kt / AppColors.kt (Android) bzw. ios/Shared/Util/Theme.swift;
 primary, Neben-/Haupttext, outline und Fehlerfarbe gleicht das Skript mit dem Quelltext ab ([source_mismatches]).
 Unit-Tests: AccentContrastTest, ThemeContrastTest, ErrorContrastTest bzw. iOS ThemeContrastTests, ErrorColorTests.
 Kursfarben prüft check_price_colors.py (Formeln von dort).
@@ -24,7 +24,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from check_price_colors import contrast  # noqa: E402  (gleiche WCAG-Formel)
 
-ACCENTS = ("Orange", "Rot", "Blau", "Grün", "Marrs Green")
+ACCENTS = ("Orange", "Rot", "Blau", "Grün", "Marrs Green", "Violett", "Dunkelgrau")
 
 # primary je Akzent: hell, dunkel, hell hoher Kontrast, dunkel hoher Kontrast
 PRIMARY = {
@@ -33,6 +33,8 @@ PRIMARY = {
     "Blau": (0x2B5FC8, 0x73A3FC, 0x1F4490, 0xA8C6FD),
     "Grün": (0x107348, 0x4ABE83, 0x0C5334, 0x88D4AD),
     "Marrs Green": (0x22706B, 0x5FB8B1, 0x184E4B, 0x92CFCA),
+    "Violett": (0x7844D4, 0xB393FF, 0x563199, 0xCEBAFF),
+    "Dunkelgrau": (0x4A4A4A, 0xA5A5A5, 0x474747, 0xC4C4C4),
 }
 # hell: (primaryContainer, onPrimaryContainer, secondaryContainer, onSecondaryContainer)
 CONTAINERS_LIGHT = {
@@ -41,6 +43,8 @@ CONTAINERS_LIGHT = {
     "Blau": (0xDCE9FE, 0x001A57, 0xDCE1FF, 0x111B33),
     "Grün": (0xD3F1DE, 0x002A16, 0xC6EBD4, 0x012111),
     "Marrs Green": (0xD7EFEC, 0x072826, 0xCBE8E5, 0x071F1E),
+    "Violett": (0xEDE3FE, 0x25005A, 0xE8DEF8, 0x1E192B),
+    "Dunkelgrau": (0xE3E3E3, 0x181818, 0xDADADA, 0x131313),
 }
 
 LIGHT_SURFACES = {
@@ -155,7 +159,8 @@ def pairs():
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 THEME_KT = "android/coreui/src/main/java/com/cryptochecker/app/ui/theme/"
-SCHEME_NAMES = {"Orange": "orange", "Rot": "red", "Blau": "blue", "Grün": "green", "Marrs Green": "marrsGreen"}
+SCHEME_NAMES = {"Orange": "orange", "Rot": "red", "Blau": "blue", "Grün": "green", "Marrs Green": "marrsGreen", "Violett": "violet",
+                "Dunkelgrau": "darkGray"}
 
 
 def source_mismatches():
@@ -168,13 +173,16 @@ def source_mismatches():
             return None
 
     out = []
+    # Schemata in zwei Dateien (AppColorSchemesMore.kt: weitere Akzentfarben, wegen der Dateilänge)
+    more = read(THEME_KT + "AppColorSchemesMore.kt")
     schemes, errors, swift = read(THEME_KT + "AppColorSchemes.kt"), read(THEME_KT + "ErrorColors.kt"), \
         read("ios/Shared/Util/Theme.swift")
-    if None in (schemes, errors, swift):
-        return ["Quelldatei fehlt (AppColorSchemes.kt, ErrorColors.kt oder Theme.swift)"]
+    if None in (schemes, more, errors, swift):
+        return ["Quelldatei fehlt (AppColorSchemes.kt, AppColorSchemesMore.kt, ErrorColors.kt oder Theme.swift)"]
+    schemes += more
     for acc, name in SCHEME_NAMES.items():
         for d, suffix in ((0, "Light"), (1, "Dark")):
-            start = schemes.find(f"private val {name}{suffix} = ")
+            start = schemes.find(f" val {name}{suffix} = ")
             block = schemes[start:schemes.find("\n)", start)] if start >= 0 else ""
             for key, value in (("primary", PRIMARY[acc][d]), ("onSurface", ON_SURFACE[d]),
                                ("onSurfaceVariant", ON_SURFACE_VARIANT[d]), ("outline", OUTLINE[d])):

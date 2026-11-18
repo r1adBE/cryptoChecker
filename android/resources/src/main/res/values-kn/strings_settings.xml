@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">ನೀಲಿ</string>
+    <string name="accent_dark_gray">ಗಾಢ ಬೂದು</string>
     <string name="accent_green">ಹಸಿರು</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs ಹಸಿರು</string>
     <string name="accent_orange">ಕಿತ್ತಳೆ</string>
     <string name="accent_red">ಕೆಂಪು</string>
+    <string name="accent_violet">ನೇರಳೆ</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ಚೀನಾ, ಜಪಾನ್, ಕೊರಿಯಾ ಮತ್ತು ತೈವಾನ್‌ನಲ್ಲಿ ಸಾಮಾನ್ಯ</string>

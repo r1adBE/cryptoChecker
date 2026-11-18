@@ -20,7 +20,7 @@ enum DataStatusTone: Equatable {
     }
 }
 
-/// Zustand der gezeigten Daten als Pille wie in der Merkliste: Punkt in der Tonfarbe und der Satz,
+/// Zustand der gezeigten Daten als Pille wie in der Merkliste: Zeichen in der Tonfarbe (`StatusMark`) und der Satz,
 /// z. B. «Alles aktuell · vor 2 Min.», «Offline · Stand 14:05», «Kurse veraltet · Stand 09:12».
 /// Für Markt- und Portfolio-Tab (die Merkliste hat ihre eigene, antippbare Pille). VoiceOver: der Satz
 /// mit « · » als Pause, oder `spoken`. Wie Android `DataStatusPill`.
@@ -33,7 +33,7 @@ struct DataStatusPill: View {
     var body: some View {
         let color = tone.color
         HStack(spacing: 8) {
-            Circle().fill(color).frame(width: 8, height: 8)
+            StatusMark(tone: tone.mark, color: color)
             Text(text)
                 .font(.caption.weight(.medium).monospacedDigit())
                 .foregroundStyle(AppColors.onSurface)

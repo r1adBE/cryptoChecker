@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">آبی</string>
+    <string name="accent_dark_gray">خاکستری تیره</string>
     <string name="accent_green">سبز</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">نارنجی</string>
     <string name="accent_red">قرمز</string>
+    <string name="accent_violet">بنفش</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">رایج در چین، ژاپن، کره و تایوان</string>

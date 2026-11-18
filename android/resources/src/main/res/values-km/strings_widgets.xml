@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">គ្មានបន្ទាត់ USDT នៅក្នុង «បញ្ជី»</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«ទិដ្ឋភាពទូទៅ» បង្ហាញ 30 ថ្ងៃជំនួសវិញ</string>
+    <string name="pulse_widget_view_impulse">សន្ទុះ</string>
+    <string name="pulse_widget_view_movers">ឡើង និងធ្លាក់ខ្លាំង</string>
+    <string name="pulse_widget_lead_up">ឡើងខ្លាំងបំផុត៖ %1$s, %2$s។</string>
+    <string name="pulse_widget_lead_down">ធ្លាក់ខ្លាំងបំផុត៖ %1$s, %2$s។</string>
+    <string name="pulse_widget_lead_mixed">នាំមុខ %1$s (%2$s) នៅក្រោយ %3$s (%4$s)។</string>
+    <string name="pulse_widget_halving_left">នៅសល់ប្រហែល %1$s</string>
+    <string name="pulse_widget_halving_note">ប៉ាន់ស្មានតាមប្រតិទិន</string>
 </resources>

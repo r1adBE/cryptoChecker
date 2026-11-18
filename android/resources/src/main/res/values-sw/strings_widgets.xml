@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Hakuna mstari wa USDT kwenye “Orodha”</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Muhtasari” inaonyesha siku 30 badala yake</string>
+    <string name="pulse_widget_view_impulse">Kasi</string>
+    <string name="pulse_widget_view_movers">Walioongoza na waliopoteza</string>
+    <string name="pulse_widget_lead_up">Ongezeko kubwa zaidi: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Kushuka kukubwa zaidi: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Mbele %1$s (%2$s), nyuma %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">zimebaki takriban %1$s</string>
+    <string name="pulse_widget_halving_note">Imekadiriwa kwa kalenda</string>
 </resources>

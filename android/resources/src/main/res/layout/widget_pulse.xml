@@ -380,6 +380,11 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- Ansichten «Gewinner und Verlierer» und «Bitcoin-Halving» (PulseWidgetView); sonst ausgeblendet -->
+        <include layout="@layout/widget_pulse_movers" />
+
+        <include layout="@layout/widget_pulse_halving" />
+
         <!-- Ohne Marktdaten: ein ruhiger Satz statt leerer Felder -->
         <TextView
             android:id="@+id/pulse_message"

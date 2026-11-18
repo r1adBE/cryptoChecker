@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Plava</string>
+    <string name="accent_dark_gray">Tamnosiva</string>
     <string name="accent_green">Zelena</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Narančasta</string>
     <string name="accent_red">Crvena</string>
+    <string name="accent_violet">Ljubičasta</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Uobičajeno u Kini, Japanu, Koreji i Tajvanu</string>

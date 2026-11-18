@@ -117,4 +117,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">「清單」中不顯示 USDT 行</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">「總覽」中按 30 天顯示</string>
+    <string name="pulse_widget_view_impulse">動能</string>
+    <string name="pulse_widget_view_movers">漲幅與跌幅榜</string>
+    <string name="pulse_widget_lead_up">漲幅最大：%1$s，%2$s。</string>
+    <string name="pulse_widget_lead_down">跌幅最大：%1$s，%2$s。</string>
+    <string name="pulse_widget_lead_mixed">領先 %1$s（%2$s），落後 %3$s（%4$s）。</string>
+    <string name="pulse_widget_halving_left">約剩 %1$s</string>
+    <string name="pulse_widget_halving_note">依日曆估算</string>
 </resources>

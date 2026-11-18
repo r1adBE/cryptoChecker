@@ -232,11 +232,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Blau</string>
+    <string name="accent_dark_gray">Gris fosc</string>
     <string name="accent_green">Verd</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Verd Marrs</string>
     <string name="accent_orange">Taronja</string>
     <string name="accent_red">Vermell</string>
+    <string name="accent_violet">Violeta</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Habitual a la Xina, el Japó, Corea i Taiwan</string>

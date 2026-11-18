@@ -228,11 +228,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Xanh dương</string>
+    <string name="accent_dark_gray">Xám đậm</string>
     <string name="accent_green">Xanh lá</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Cam</string>
     <string name="accent_red">Đỏ</string>
+    <string name="accent_violet">Tím</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Phổ biến ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan</string>

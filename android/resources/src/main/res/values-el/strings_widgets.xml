@@ -119,4 +119,11 @@
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Χωρίς γραμμή USDT στη «Λίστα»</string>
     <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
     <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Στην «Επισκόπηση» ως 30 ημέρες</string>
+    <string name="pulse_widget_view_impulse">Ώθηση</string>
+    <string name="pulse_widget_view_movers">Κερδισμένοι και χαμένοι</string>
+    <string name="pulse_widget_lead_up">Μεγαλύτερη άνοδος: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_down">Μεγαλύτερη πτώση: %1$s, %2$s.</string>
+    <string name="pulse_widget_lead_mixed">Πρώτο %1$s (%2$s), τελευταίο %3$s (%4$s).</string>
+    <string name="pulse_widget_halving_left">απομένουν περίπου %1$s</string>
+    <string name="pulse_widget_halving_note">Εκτίμηση βάσει ημερολογίου</string>
 </resources>

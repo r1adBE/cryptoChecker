@@ -9,7 +9,8 @@ import com.cryptochecker.app.domain.settings.AccentColor
 /*
  * Farbschemata je Akzentfarbe, hell und dunkel.
  * Erzeugt aus den Grundfarben (Orange #ED835E, Rubinrot #E8414D,
- * Königsblau #3B78F0, Smaragdgrün #22A96C, Marrs Green #4BACA5) nach dem Tonstufen-Prinzip von Material 3:
+ * Königsblau #3B78F0, Smaragdgrün #22A96C, Marrs Green #4BACA5; Violett und Dunkelgrau in
+ * AppColorSchemesMore.kt) nach dem Tonstufen-Prinzip von Material 3:
  * gleicher Farbton, abgestufte Helligkeit. Hintergründe, Flächen und Karten
  * sind dunkel neutral grau, hell «warmes Papier» (#FBF9F6 … #E5E2DB, je mindestens
  * so hell wie neutrale Grautöne #F9F9F9 … #E2E2E2, damit kein Kontrast sinkt) — die
@@ -31,6 +32,8 @@ fun appColorScheme(accent: AccentColor, dark: Boolean): ColorScheme = when (acce
     AccentColor.BLUE -> if (dark) blueDark else blueLight
     AccentColor.GREEN -> if (dark) greenDark else greenLight
     AccentColor.MARRS_GREEN -> if (dark) marrsGreenDark else marrsGreenLight
+    AccentColor.VIOLET -> if (dark) violetDark else violetLight
+    AccentColor.DARK_GRAY -> if (dark) darkGrayDark else darkGrayLight
 }.let { (if (dark) it.withCleanContainers() else it).withWarmError(dark) }
 
 /**

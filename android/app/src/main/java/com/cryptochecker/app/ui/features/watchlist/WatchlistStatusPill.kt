@@ -18,7 +18,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,6 +45,8 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import com.cryptochecker.app.domain.format.A11ySpeech
+import com.cryptochecker.app.domain.watch.StatusPillTone
+import com.cryptochecker.app.ui.components.StatusMark
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
@@ -60,6 +61,8 @@ internal fun WatchlistStatusPill(
     allDisabled: Boolean,
     now: Long,
     tone: Color,
+    /** Zeichen vorne ([StatusMark]), aus demselben Zustand wie [tone]. */
+    mark: StatusPillTone,
     reduceMotion: Boolean,
     modifier: Modifier = Modifier,
     /** «Nur veraltete» an: ✕ am Ende. */
@@ -85,7 +88,7 @@ internal fun WatchlistStatusPill(
             .animateContentSize(if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS))
             .padding(horizontal = 12.dp, vertical = Spacing.sm)
     ) {
-        Box(Modifier.size(8.dp).clip(RoundedCornerShape(50)).background(tone))
+        StatusMark(mark, tone)
         val newest = status.newest
         // Kurzform bei Platzmangel (nur «Kurse der gewählten Börsen · …»), siehe [FirstFitText]
         var shortText: String? = null

@@ -35,8 +35,9 @@ extension WatchlistScreen {
         // Aktuell: ruhig in der Textfarbe, nicht in der Steigen-Farbe (frisch ≠ gestiegen); «veraltet» in Bernstein wie
         // die Zeile, Fehler (keine Verbindung, gescheitert) in Fehlerfarbe — wie Android
         let tone: Color
-        switch StatusPillTone.of(none: none, deviceOffline: deviceOffline, offline: offline, stale: staleCount,
-                                 failed: failed) {
+        let mark = StatusPillTone.of(none: none, deviceOffline: deviceOffline, offline: offline, stale: staleCount,
+                                     failed: failed)
+        switch mark {
         case .neutral: tone = AppColors.onSurfaceVariant
         case .error: tone = AppColors.error
         case .warning: tone = AppColors.warningText
@@ -90,9 +91,7 @@ extension WatchlistScreen {
         let tappable = staleOnly || staleCount > 0
         return HStack(spacing: 8) {
             HStack(spacing: 8) {
-                Circle()
-                    .fill(tone)
-                    .frame(width: 8, height: 8)
+                StatusMark(tone: mark, color: tone)
                     .shadow(color: tone.opacity(0.7), radius: 4)
                     // Pulsieren nur ohne «Bewegung reduzieren»; sonst ruhiger Punkt wie Android (dort pulsiert er nie)
                     .phaseAnimator(state.refreshing && !reduceMotion ? [0.35, 1.0] : [1.0]) { view, phase in

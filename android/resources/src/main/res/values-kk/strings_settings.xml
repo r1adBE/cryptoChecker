@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">Көк</string>
+    <string name="accent_dark_gray">Қою сұр</string>
     <string name="accent_green">Жасыл</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">Қызғылт сары</string>
     <string name="accent_red">Қызыл</string>
+    <string name="accent_violet">Күлгін</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">Қытайда, Жапонияда, Кореяда және Тайваньда кең тараған</string>

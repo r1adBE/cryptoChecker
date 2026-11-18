@@ -230,11 +230,13 @@
 
     <!-- Akzentfarben -->
     <string name="accent_blue">વાદળી</string>
+    <string name="accent_dark_gray">ઘેરો રાખોડી</string>
     <string name="accent_green">લીલો</string>
     <!-- Eigenname, in allen Sprachen gleich -->
     <string name="accent_marrs_green">Marrs Green</string>
     <string name="accent_orange">નારંગી</string>
     <string name="accent_red">લાલ</string>
+    <string name="accent_violet">જાંબલી</string>
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">ચીન, જાપાન, કોરિયા અને તાઇવાનમાં સામાન્ય</string>
