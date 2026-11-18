@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 302)
+
+- Internal: more unit tests for the data layer (coin names, currency conversion, unusual-activity source).
+
 ## 16.2.2 (build 301)
 
 - Internal (Android): the screens use core-module interfaces instead of the data layer almost everywhere (C-07); fix for an Android 10 check in the alarm-sound settings after the refactoring in build 300.
