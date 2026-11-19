@@ -180,9 +180,15 @@ suspend fun PortfolioSnapshotUpdater.record(
         store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
         snapshot
     }
-    // Aus dem Widget: «Uhrzeit · Dauer» in der Kopfzeile, danach 15 s Countdown statt Knopf — vor dem Zeichnen
-    if (recorded != null && startedAt > 0L) {
-        WidgetRefreshHeader.finished(widgetPrefs, WidgetRefreshHeader.Kind.PORTFOLIO, recorded.time, startedAt)
+    // «Uhrzeit · Dauer» in der Kopfzeile, danach 15 s Countdown statt Knopf — vor dem Zeichnen. Aus dem Widget die Dauer
+    // seit [startedAt]; aus der App die des Kursabrufs kurz davor ([lastPriceFetch]), sonst ohne Dauer
+    if (recorded != null) {
+        val kind = WidgetRefreshHeader.Kind.PORTFOLIO
+        val fetch = lastPriceFetch?.takeIf { (at, _) -> recorded.time - at in 0L..APP_FETCH_RECENT_MILLIS }
+        when {
+            startedAt > 0L -> WidgetRefreshHeader.finished(widgetPrefs, kind, recorded.time, startedAt)
+            fetch != null -> WidgetRefreshHeader.finished(widgetPrefs, kind, recorded.time, recorded.time - fetch.second, recorded.time)
+        }
     }
     widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
     // Portfolio-Wert auf der Uhr (nur mit Schalter, sonst nichts)
@@ -283,3 +289,6 @@ private suspend fun PortfolioSnapshotUpdater.buildSnapshot(
             unverifiedValueUsdt = unverifiedList.sumOf { pricedValues[it] ?: 0.0 },
         )
 }
+
+/** Eine Aufnahme der App gilt als Folge eines Kursabrufs, wenn er höchstens so lange (ms) zurückliegt. */
+private const val APP_FETCH_RECENT_MILLIS = 60_000L

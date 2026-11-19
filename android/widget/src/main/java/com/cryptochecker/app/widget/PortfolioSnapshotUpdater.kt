@@ -125,6 +125,19 @@ class PortfolioSnapshotUpdater @Inject constructor(
     }
 
     /**
+     * Letzter Kursabruf der App fürs Portfolio (Ende, Dauer; Wanduhr, ms) — [notePriceFetch]. Eine Aufnahme aus der App
+     * kurz danach zeigt diese Dauer im Widget («Uhrzeit · Dauer»), wie das Listen-Widget die Dauer jeder Aktualisierung.
+     */
+    @Volatile
+    internal var lastPriceFetch: Pair<Long, Long>? = null
+        private set
+
+    /** Kursabruf der App fertig ([durationMillis] seit seinem Start). */
+    fun notePriceFetch(durationMillis: Long, now: Long = System.currentTimeMillis()) {
+        lastPriceFetch = now to durationMillis.coerceAtLeast(0L)
+    }
+
+    /**
      * Kurse (60 s zwischengespeichert) und Devisenkurs holen, fehlende Stundenkerzen laden
      * ([PortfolioHourlyCandles.loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
      */

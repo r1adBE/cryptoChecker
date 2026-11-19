@@ -213,7 +213,13 @@ internal suspend fun PortfolioViewModel.loadPrices(coins: Set<String>, force: Bo
     if (coins.isEmpty()) return
     // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung
     viewModelScope.launch { safe { usdtPeg.checkIfDue() } }
-    safe { priceSource.prices(coins, force) }
+    val startedAt = System.currentTimeMillis()
+    val fetched = safe { priceSource.prices(coins, force) }
+    // Dauer für die Kopfzeile des Portfolio-Widgets («Uhrzeit · Dauer», wie das Listen-Widget) — nur, wenn wirklich
+    // abgefragt wurde (nicht aus dem Zwischenspeicher)
+    if (fetched?.times?.values?.any { it >= startedAt } == true) {
+        snapshotUpdater.notePriceFetch(System.currentTimeMillis() - startedAt)
+    }
     // Frisch Geholtes, sonst der gemerkte Stand je Coin (ohne Netz bleibt der letzte Wert stehen)
     safe { priceSource.stored(coins) }?.let { _prices.value = it }
 }

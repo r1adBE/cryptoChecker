@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Kopfzeile des Puls- und des Portfolio-Widgets wie im Merkliste-Widget: «Uhrzeit · Dauer» der letzten Aktualisierung
 /// aus dem Widget und die 15-s-Sperre des Knopfs (`WidgetRefreshState`). Speicher in der App Group, je Widget-Art.
@@ -52,6 +53,28 @@ enum WidgetHeaderStamp {
     static func lockUntil(_ kind: Kind, now: Int64) -> Int64 {
         WidgetRefreshState.blockedUntil(stored: blockedUntil(kind), lastFinishedAt: load(kind).finishedAt,
                                          runningSince: 0, now: now)
+    }
+
+    /// Letzter Kursabruf der App fürs Portfolio (Ende, Dauer; Wanduhr, ms). Eine Aufnahme aus der App kurz danach zeigt
+    /// diese Dauer im Widget («Uhrzeit · Dauer»), wie das Merkliste-Widget die Dauer jeder Aktualisierung. Wie Android
+    /// `PortfolioSnapshotUpdater.lastPriceFetch`.
+    private static let lastPriceFetch = OSAllocatedUnfairLock<(at: Int64, duration: Int64)?>(initialState: nil)
+
+    /// Eine Aufnahme gilt als Folge eines Kursabrufs, wenn er höchstens so lange (ms) zurückliegt.
+    static let appFetchRecentMillis: Int64 = 60_000
+
+    /// Kursabruf der App fürs Portfolio fertig (`durationMillis` seit seinem Start).
+    static func notePriceFetch(durationMillis: Int64, now: Int64 = EpochTime.nowMillis) {
+        lastPriceFetch.withLock { $0 = (now, max(0, durationMillis)) }
+    }
+
+    /// Aufnahme des Portfolio-Stands aus der App (`dataAt`): mit der Dauer des Kursabrufs kurz davor merken; ohne
+    /// solchen Abruf nichts (dann steht nur die Uhrzeit).
+    static func recordedFromApp(dataAt: Int64) {
+        guard let fetch = lastPriceFetch.withLock({ $0 }), (0...appFetchRecentMillis).contains(dataAt - fetch.at) else {
+            return
+        }
+        finished(.portfolio, dataAt: dataAt, startedAt: dataAt - fetch.duration, now: dataAt)
     }
 
     private static func key(_ kind: Kind, _ field: String) -> String { "widget_header_\(kind.rawValue)_\(field)" }

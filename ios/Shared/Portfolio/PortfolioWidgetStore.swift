@@ -223,6 +223,8 @@ enum PortfolioWidgetStore {
                                // Zählende Adressen ohne je geladenes Guthaben: Portfolio-Alarme prüfen dann nicht (seit
                                // über 24 h scheiternde rechnen sie ohne); nicht bestätigte Token wie ein alter Kurs
                                addressState: AddressAlarmState.of(watched, now: now))
+        // «Uhrzeit · Dauer» im Widget: mit der Dauer eines eben erfolgten Kursabrufs der App (vor dem Neuzeichnen)
+        WidgetHeaderStamp.recordedFromApp(dataAt: snapshot.updatedAt)
         if save(snapshot) && reload {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
         }

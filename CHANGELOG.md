@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 328)
+
+Widgets: Aktualisieren-Symbol überall gleich gross; Portfolio-Widget zeigt die Dauer auch nach dem Aktualisieren in der App.
+
 ## 16.2.2 (build 327)
 
 Widgets: das Aktualisieren-Symbol dreht sich, bis geladen ist.

@@ -44,7 +44,7 @@ enum WidgetHeaderUnlock {
 }
 
 /// Stand (erster Text, der passt; sonst keiner) und Knopf rechts in einer Kopfzeile; in der Sperre (`blockedUntil`)
-/// statt des Symbols ein Countdown, den WidgetKit selbst herunterzählt — wie `WidgetRefreshButton`.
+/// statt des Symbols ein Countdown, den WidgetKit selbst herunterzählt (`WidgetRefreshButton`, wie im Merkliste-Widget).
 struct WidgetHeaderTrailing<Intent: AppIntent>: View {
     let candidates: [String]
     let palette: WidgetPalette
@@ -54,8 +54,6 @@ struct WidgetHeaderTrailing<Intent: AppIntent>: View {
     var date = Date()
 
     var body: some View {
-        let seconds = WidgetRefreshState.remainingSeconds(blockedUntil: blockedUntil,
-                                                          now: Int64(date.timeIntervalSince1970 * 1000))
         HStack(spacing: 4) {
             ViewThatFits(in: .horizontal) {
                 ForEach(candidates, id: \.self) { text in
@@ -68,33 +66,8 @@ struct WidgetHeaderTrailing<Intent: AppIntent>: View {
                 }
                 Color.clear.frame(width: 0, height: 0)
             }
-            Button(intent: intent) {
-                Group {
-                    if seconds > 0 {
-                        Text(timerInterval: date...Date(timeIntervalSince1970: TimeInterval(blockedUntil) / 1000),
-                             countsDown: true)
-                            .font(.system(size: 9, weight: .semibold))
-                            .monospacedDigit()
-                            .foregroundStyle(palette.secondary)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.6)
-                    } else {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundStyle(palette.text) // neutral wie im Merkliste-Widget
-                    }
-                }
-                .frame(width: 22, height: 22)
-                .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
-                // Trefferfläche grösser als der Kreis, ohne die Kopfzeile höher zu machen
-                .padding(12)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .padding(-12)
-            // VoiceOver: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
-            .accessibilityLabel(seconds > 0 ? L("widget_refresh_blocked_a11y", seconds) : L("action_refresh"))
+            // Gleich gross und gleich gestaltet wie im Merkliste-Widget (Knopf, Countdown, Trefferfläche)
+            WidgetRefreshButton(intent: intent, palette: palette, size: 26, blockedUntil: blockedUntil, date: date)
         }
     }
 }

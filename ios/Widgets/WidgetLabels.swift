@@ -123,8 +123,10 @@ private struct WidgetChangePrefix: View {
 /// Knopf «Aktualisieren» (interaktiv, iOS 17). In der 15-s-Sperre (`WidgetRefreshState.blockedUntil`)
 /// steht statt des Symbols ein Countdown, den WidgetKit selbst herunterzählt; zum Ende der Sperre hat die
 /// Timeline einen eigenen Eintrag, dann ist das Symbol wieder da. Der Countdown nimmt Tipps an, startet aber
-/// nichts (gleiche Sperre in `RefreshPricesIntent`).
-struct WidgetRefreshButton: View {
+/// nichts (gleiche Sperre in `RefreshPricesIntent`). Dasselbe Aussehen im Puls- und Portfolio-Widget, dort mit deren
+/// Intent (`WidgetHeaderTrailing`).
+struct WidgetRefreshButton<Intent: AppIntent>: View {
+    let intent: Intent
     let palette: WidgetPalette
     var size: CGFloat = 26
     /// Gesperrt bis (Wanduhr, ms; 0 = nie) und Zeitpunkt des Eintrags.
@@ -135,7 +137,7 @@ struct WidgetRefreshButton: View {
         let seconds = WidgetRefreshState.remainingSeconds(blockedUntil: blockedUntil,
                                                           now: Int64(date.timeIntervalSince1970 * 1000))
         let outset = CGFloat(WidgetRefreshState.touchOutset(size: Double(size)))
-        Button(intent: RefreshPricesIntent()) {
+        Button(intent: intent) {
             Group {
                 if seconds > 0 {
                     Text(timerInterval: date...Date(timeIntervalSince1970: TimeInterval(blockedUntil) / 1000),
@@ -163,6 +165,13 @@ struct WidgetRefreshButton: View {
         .padding(-outset)
         // VoiceOver: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
         .accessibilityLabel(seconds > 0 ? L("widget_refresh_blocked_a11y", seconds) : L("action_refresh"))
+    }
+}
+
+extension WidgetRefreshButton where Intent == RefreshPricesIntent {
+    /// Merkliste-Widget: Kurse aller Paare aktualisieren.
+    init(palette: WidgetPalette, size: CGFloat = 26, blockedUntil: Int64 = 0, date: Date = Date()) {
+        self.init(intent: RefreshPricesIntent(), palette: palette, size: size, blockedUntil: blockedUntil, date: date)
     }
 }
 

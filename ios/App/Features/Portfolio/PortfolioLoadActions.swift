@@ -67,7 +67,12 @@ extension PortfolioModel {
             prices = await PortfolioPriceSource.stored(symbols)
             // Eingetragene Börsen zu Paaren auflösen (App Group), dann frisch — mit dem Kurs dieser Börsen
             await PortfolioRouteResolver.resolve(data.portfolio)
-            _ = await PortfolioPriceSource.prices(symbols, force: force)
+            let fetchStart = EpochTime.nowMillis
+            let fetched = await PortfolioPriceSource.prices(symbols, force: force)
+            // Dauer für die Kopfzeile des Portfolio-Widgets — nur, wenn wirklich abgefragt wurde (wie Android)
+            if fetched.times.values.contains(where: { $0 >= fetchStart }) {
+                WidgetHeaderStamp.notePriceFetch(durationMillis: EpochTime.nowMillis - fetchStart)
+            }
             prices = await PortfolioPriceSource.stored(symbols)
         }
         markLoadStep()
