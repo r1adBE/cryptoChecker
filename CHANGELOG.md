@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 321)
+
+Portfolio-Widget «Übersicht»: gross statt des Wertverlaufs die grössten Positionen (höchstens 3).
+
 ## 16.2.2 (build 320)
 
 Puls- und Portfolio-Widget: Kopfzeile wie im Merkliste-Widget – «Uhrzeit · Dauer» und nach dem Aktualisieren 15 Sekunden Countdown statt Knopf.

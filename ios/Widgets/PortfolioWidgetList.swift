@@ -179,8 +179,8 @@ extension PortfolioHomeView {
         }
     }
 
-    private func listRows(_ shown: [PortfolioWidgetPosition], entries: [[PortfolioWidgetEntry]], currency: String,
-                          basis: ChangeBasis, wide: Bool, scale: CGFloat, row: Double) -> some View {
+    func listRows(_ shown: [PortfolioWidgetPosition], entries: [[PortfolioWidgetEntry]], currency: String,
+                  basis: ChangeBasis, wide: Bool, scale: CGFloat, row: Double) -> some View {
         VStack(spacing: 0) {
             ForEach(Array(shown.enumerated()), id: \.element.symbol) { index, p in
                 let below = index < entries.count ? entries[index] : []

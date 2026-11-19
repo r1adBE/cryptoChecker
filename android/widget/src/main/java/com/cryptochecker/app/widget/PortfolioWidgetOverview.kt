@@ -1,29 +1,26 @@
-// Ansicht «Übersicht» des Portfolio-Widgets (Teil von `PortfolioWidgetRenderer`): Gesamtwert und Kennzahlen
-// (Heute · Zeitraum · Gesamt). Eigene Datei, weil jede Ansicht des Widgets für sich lesbar sein soll
+// Ansicht «Übersicht» des Portfolio-Widgets (Teil von `PortfolioWidgetRenderer`): Gesamtwert, Kennzahlen
+// (Heute · Zeitraum · Gesamt) und hoch die grössten Positionen. Eigene Datei, weil jede Ansicht des Widgets für sich lesbar sein soll
 // (wie `PortfolioWidgetOverview.swift`).
 package com.cryptochecker.app.widget
 
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.resources.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 /**
  * Ansicht «Übersicht» (wie die Gesamtkarte im Portfolio-Tab): Kopfzeile, Gesamtwert,
- * Betrag und Prozent über den Zeitraum, ≈ USDT, Heute · 7 T · Gesamt ([PortfolioWidgetViews.figures]) und
- * Fusszeile — was in die Höhe passt ([PortfolioWidgetViews.overviewLayout]).
+ * Betrag und Prozent über den Zeitraum, ≈ USDT, Heute · 7 T · Gesamt ([PortfolioWidgetViews.figures]), hoch die
+ * grössten Positionen ([PortfolioWidgetViews.overviewRows], Zeilen wie in der Liste) und Fusszeile — was in die Höhe
+ * passt ([PortfolioWidgetViews.overviewLayout]).
+ * @param logos Coin-Logo je Kürzel (Grossschreibung); null = Schalter «Coin-Logos in Widgets» aus
  */
-suspend fun PortfolioWidgetRenderer.overviewViews(
-    appWidgetId: Int,
-    slot: Int,
+fun PortfolioWidgetRenderer.overviewViews(
     widthDp: Int,
     heightDp: Int,
     snapshot: PortfolioSnapshot,
@@ -32,6 +29,7 @@ suspend fun PortfolioWidgetRenderer.overviewViews(
     outdated: Boolean,
     fontScale: Float,
     wantUsdt: Boolean,
+    logos: Map<String, android.graphics.Bitmap>?,
 ): RemoteViews {
     val colors = style.colors
     val missing = missingText(snapshot, plan, overview = true)
@@ -43,7 +41,8 @@ suspend fun PortfolioWidgetRenderer.overviewViews(
     val textWidth = if (widthDp > 0) widthDp - 24f else null
     val values = bindValues(views, snapshot, plan, style, priceColor, textWidth, layout.changeLine, layout.usdt, wantUsdt, missing)
     val figuresText = bindFigures(views, PortfolioWidgetViews.figures(snapshot), layout, snapshot.currency, style)
-    bindOverviewChart(views, layout, plan, style, appWidgetId, slot, widthDp, fontScale)
+    val topRows = PortfolioWidgetViews.overviewRows(snapshot.positions, layout, fontScale)
+    val rowsText = bindOverviewRows(views, topRows, layout, snapshot, style, logos, textWidth)
 
     // Stand steht in der Kopfzeile (WidgetRefreshHeader); unten nur noch Hinweise
     val footerMissing = missing.takeIf { !values.missingInLine }
@@ -68,6 +67,7 @@ suspend fun PortfolioWidgetRenderer.overviewViews(
             missing,
             fallbackHint,
             figuresText,
+            rowsText,
         ).joinToString(", ")
     )
     return views
@@ -155,35 +155,27 @@ fun PortfolioWidgetRenderer.bindFigures(
 private const val FIGURE_AMOUNT_SP = 12f
 
 /**
- * Wertverlauf im freien Platz eines hohen Übersicht-Widgets ([PortfolioOverviewLayout.chartHeightDp]); ohne Platz oder
- * ohne Verlauf der Platzhalter. Bild abseits des Main-Threads wie in der Ansicht «Chart».
+ * Grösste Positionen im freien Platz einer hohen Übersicht, Zeilen wie in der Ansicht «Liste» ([listRow]); ohne Platz
+ * ausgeblendet.
+ * @return Satz für den Screenreader oder null ohne Zeilen
  */
-private suspend fun PortfolioWidgetRenderer.bindOverviewChart(
+private fun PortfolioWidgetRenderer.bindOverviewRows(
     views: RemoteViews,
+    shown: List<PortfolioPosition>,
     layout: PortfolioOverviewLayout,
-    plan: PortfolioChartPlan,
+    snapshot: PortfolioSnapshot,
     style: PortfolioStyle,
-    appWidgetId: Int,
-    slot: Int,
-    widthDp: Int,
-    fontScale: Float,
-) {
-    val show = layout.chartHeightDp > 0f && widthDp > 0 && plan.hasChart
-    val bitmap = if (show) {
-        val up = PortfolioWidgetChart.direction(plan)?.let { it >= 0 } ?: (plan.bars.last().close >= plan.bars.first().open)
-        val color = if (up) style.colors.upColor else style.colors.downColor
-        drawPortfolioChartOffMain(appWidgetId, slot, plan, color, style, widthDp - 24f, layout.chartHeightDp, fontScale)
-    } else {
-        null
+    logos: Map<String, android.graphics.Bitmap>?,
+    textWidth: Float?,
+): String? {
+    views.removeAllViews(R.id.portfolio_overview_rows)
+    views.setViewVisibility(R.id.portfolio_overview_rows, if (shown.isEmpty()) View.GONE else View.VISIBLE)
+    if (shown.isEmpty()) return null
+    val basis = PortfolioWidgetViews.rowChangeBasis(snapshot)
+    val spoken = shown.mapIndexed { index, position ->
+        val (row, text) = listRow(position, index == shown.size - 1, layout.wide, snapshot.currency, style, logos, basis, textWidth)
+        views.addView(R.id.portfolio_overview_rows, row)
+        text
     }
-    if (bitmap != null) {
-        views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
-        views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
-        views.setViewVisibility(R.id.portfolio_chart_pending, View.GONE)
-        views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
-        views.setViewVisibility(R.id.portfolio_spacer, View.GONE)
-    } else {
-        views.setViewVisibility(R.id.portfolio_chart_box, View.GONE)
-        views.setViewVisibility(R.id.portfolio_spacer, View.VISIBLE)
-    }
+    return context.getString(R.string.a11y_portfolio_positions, spoken.joinToString("; "))
 }

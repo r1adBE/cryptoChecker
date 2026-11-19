@@ -96,6 +96,18 @@ enum PortfolioWidgetViews {
             .sorted { $0.value != $1.value ? $0.value > $1.value : $0.symbol < $1.symbol }
     }
 
+    /// Übersicht gross: höchstens so viele der grössten Positionen im freien Platz (Inhaber: «Übersicht ohne Chart,
+    /// gross mit den Top-Positionen») — wie Android `PortfolioWidgetViews.OVERVIEW_MAX_ROWS`.
+    static let overviewMaxRows = 3
+
+    /// Positionen der Übersicht: die grössten nach Wert, so viele ganze Zeilen in `height` (pt; nil = unbekannt)
+    /// passen, höchstens `overviewMaxRows` — wie Android `overviewRows`.
+    static func overviewRows(_ positions: [PortfolioWidgetPosition], height: Double?, wide: Bool,
+                             fontScale: Double = 1) -> [PortfolioWidgetPosition] {
+        let fits = height.map { Int(($0 / rowHeight(wide: wide, fontScale: fontScale)).rounded(.down)) } ?? overviewMaxRows
+        return Array(sortedByValue(positions).prefix(Swift.max(0, Swift.min(fits, overviewMaxRows))))
+    }
+
     /// Höhe einer Listenzeile (pt): einzeilig (breit) Logo 20 bzw. 12 pt; zweizeilig Logo 24 bzw.
     /// 12 + 12 pt (`WidgetFont.label`); je 8 pt Abstand — wie Android (`rowHeightDp`, Schriftgrösse 1).
     static func rowHeight(wide: Bool, fontScale: Double = 1) -> Double {

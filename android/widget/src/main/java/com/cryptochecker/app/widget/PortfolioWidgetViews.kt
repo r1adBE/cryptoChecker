@@ -71,8 +71,8 @@ data class PortfolioOverviewLayout(
     val figureAmounts: Boolean,
     val footer: Boolean,
     val usdt: Boolean,
-    /** Höhe des Wertverlaufs im freien Platz (dp); 0 = kein Chart (zu wenig Platz). */
-    val chartHeightDp: Float = 0f,
+    /** Platz für die grössten Positionen im freien Platz (dp; 0 = keiner) — wie viele passen: [PortfolioWidgetViews.overviewRows]. */
+    val positionsHeightDp: Float = 0f,
 )
 
 /**
@@ -108,11 +108,14 @@ object PortfolioWidgetViews {
     const val LIST_GAP_DP = 4f
     const val FIGURES_GAP_DP = 4f
 
-    /** Wertverlauf in der Übersicht erst ab so viel freier Höhe (dp) — darunter bleibt der Platz leer. */
-    const val OVERVIEW_CHART_MIN_DP = 48f
+    /**
+     * Übersicht hoch: höchstens so viele der grössten Positionen im freien Platz (Inhaber: «Übersicht ohne Chart, gross
+     * mit den Top-Positionen») — den Verlauf zeigt die Ansicht «Chart», alle Positionen die Ansicht «Liste».
+     */
+    const val OVERVIEW_MAX_ROWS = 3
 
-    /** Abstand über dem Wertverlauf (dp) — wie `widget_portfolio_chart.xml`. */
-    const val OVERVIEW_CHART_GAP_DP = 4f
+    /** Abstand über den Positionen der Übersicht (dp) — wie `portfolio_overview_rows` in widget_portfolio_overview.xml. */
+    const val OVERVIEW_ROWS_GAP_DP = 4f
 
     /** Anteil der Total-Zeile: das ganze Portfolio. */
     const val LIST_TOTAL_SHARE = 100.0
@@ -370,8 +373,19 @@ object PortfolioWidgetViews {
         val footer = figures && take(true, PortfolioWidgetMath.footerHeightDp(fontScale))
         val usdt = footer && take(wantUsdt, PortfolioWidgetMath.usdtHeightDp(fontScale))
         val amounts = footer && take(wide, figureAmountHeightDp(fontScale))
-        // Hohes Widget: der freie Platz zeigt den Wertverlauf statt einer leeren Fläche
-        val chart = if (footer && free - OVERVIEW_CHART_GAP_DP >= OVERVIEW_CHART_MIN_DP) free - OVERVIEW_CHART_GAP_DP else 0f
-        return PortfolioOverviewLayout(wide, change, figures, amounts, footer, usdt, chart)
+        // Hohes Widget: der freie Platz zeigt die grössten Positionen statt einer leeren Fläche (mindestens eine Zeile)
+        val rows = free - OVERVIEW_ROWS_GAP_DP
+        val positions = if (footer && rows >= rowHeightDp(wide, fontScale)) rows else 0f
+        return PortfolioOverviewLayout(wide, change, figures, amounts, footer, usdt, positions)
+    }
+
+    /**
+     * Positionen der Übersicht: die grössten nach Wert ([sortedByValue]), so viele ganze Zeilen in
+     * [PortfolioOverviewLayout.positionsHeightDp] passen, höchstens [OVERVIEW_MAX_ROWS].
+     */
+    fun overviewRows(positions: List<PortfolioPosition>, layout: PortfolioOverviewLayout, fontScale: Float): List<PortfolioPosition> {
+        if (layout.positionsHeightDp <= 0f) return emptyList()
+        val fits = floor(layout.positionsHeightDp / rowHeightDp(layout.wide, fontScale)).toInt()
+        return sortedByValue(positions).take(minOf(fits, OVERVIEW_MAX_ROWS).coerceAtLeast(0))
     }
 }

@@ -233,12 +233,15 @@ class PortfolioWidgetViewsTest {
     }
 
     @Test
-    fun tallOverviewFillsTheFreeSpaceWithTheChart() {
-        val tall = PortfolioWidgetViews.overviewLayout(180, 330, 1f, hasChange = true, wantUsdt = true)
-        assertTrue(tall.footer)
-        assertTrue(tall.chartHeightDp >= PortfolioWidgetViews.OVERVIEW_CHART_MIN_DP)
-        // Knapp: kein Chart, nur die Kennzahlen
+    fun tallOverviewFillsTheFreeSpaceWithTheTopPositions() {
         val fs = 1f
+        val tall = PortfolioWidgetViews.overviewLayout(180, 330, fs, hasChange = true, wantUsdt = true)
+        assertTrue(tall.footer)
+        assertTrue(tall.positionsHeightDp >= PortfolioWidgetViews.rowHeightDp(tall.wide, fs))
+        val positions = listOf(position("ETH", 3_000.0), position("BTC", 9_000.0), position("SOL", 500.0), position("ADA", 50.0))
+        // Höchstens drei, die grössten zuerst
+        assertEquals(listOf("BTC", "ETH", "SOL"), PortfolioWidgetViews.overviewRows(positions, tall, fs).map { it.symbol })
+        // Knapp: keine Positionen, nur die Kennzahlen
         val tight = PortfolioWidgetViews.overviewLayout(
             180,
             (PortfolioWidgetMath.baseHeightDp(fs) + PortfolioWidgetMath.changeLineHeightDp(fs) + 80).toInt(),
@@ -246,8 +249,17 @@ class PortfolioWidgetViewsTest {
             hasChange = true,
             wantUsdt = false,
         )
-        assertEquals(0f, tight.chartHeightDp)
-        assertEquals(0f, PortfolioWidgetViews.overviewLayout(0, 0, fs, hasChange = true, wantUsdt = false).chartHeightDp)
+        assertEquals(0f, tight.positionsHeightDp)
+        assertTrue(PortfolioWidgetViews.overviewRows(positions, tight, fs).isEmpty())
+        assertEquals(0f, PortfolioWidgetViews.overviewLayout(0, 0, fs, hasChange = true, wantUsdt = false).positionsHeightDp)
+    }
+
+    @Test
+    fun overviewShowsOnlyWholeRows() {
+        val fs = 1f
+        val row = PortfolioWidgetViews.rowHeightDp(wide = false, fs)
+        val oneRow = PortfolioOverviewLayout(false, true, true, false, true, false, positionsHeightDp = row * 1.5f)
+        assertEquals(1, PortfolioWidgetViews.overviewRows(listOf(position("BTC", 2.0), position("ETH", 1.0)), oneRow, fs).size)
     }
 
     // Liste

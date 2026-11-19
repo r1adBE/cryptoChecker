@@ -1,14 +1,15 @@
 import SwiftUI
 import WidgetKit
 
-// Ansicht «Übersicht» des Portfolio-Widgets: Gesamtwert und Kennzahlen (Heute · Zeitraum · Gesamt).
+// Ansicht «Übersicht» des Portfolio-Widgets: Gesamtwert, Kennzahlen (Heute · Zeitraum · Gesamt) und gross die grössten
+// Positionen.
 // Eigene Datei, weil jede Ansicht des Widgets für sich lesbar sein soll (wie `PortfolioWidgetOverview.kt`).
 
 extension PortfolioHomeView {
     // MARK: Übersicht
 
     /// Ansicht «Übersicht» — wie die Gesamtkarte im Portfolio-Tab (wie Android `overviewViews`): Kopfzeile,
-    /// Gesamtwert, Betrag und Prozent über den Zeitraum, ≈ USDT, gross der Wertverlauf, Heute · 7 T · Gesamt (klein
+    /// Gesamtwert, Betrag und Prozent über den Zeitraum, ≈ USDT, gross die grössten Positionen, Heute · 7 T · Gesamt (klein
     /// untereinander, mittel und gross als Spalten mit Betrag) und Fusszeile. Wird es eng, fallen Teile in der Reihenfolge
     /// Beträge der Kennzahlen, ≈ USDT, Fusszeile, Betragszeile weg (wie `PortfolioWidgetViews.overviewLayout`).
     func overviewBody(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan) -> some View {
@@ -44,12 +45,10 @@ extension PortfolioHomeView {
             totalText(s, size: large ? 30 : (family == .systemSmall ? 20 : 24), scale: scale)
             if change { changeLine(s, plan: plan) }
             if usdt != nil { usdtLine(usdt, missing: missing) }
-            // Gross: der freie Platz zeigt den Wertverlauf statt einer leeren Fläche (wie Android
-            // `PortfolioOverviewLayout.chartHeightDp`); sonst verteilt der Abstand den Inhalt
-            if large && plan.hasChart {
-                chart(plan)
-                    .frame(minHeight: 48, maxHeight: .infinity)
-                    .padding(.vertical, Spacing.xs)
+            // Gross: der freie Platz zeigt die grössten Positionen (Zeilen wie in der Liste) statt einer leeren Fläche
+            // (wie Android `PortfolioWidgetViews.overviewRows`); sonst verteilt der Abstand den Inhalt
+            if large && !s.topPositions.isEmpty {
+                overviewRows(s)
             } else {
                 Spacer(minLength: 4)
             }
@@ -59,6 +58,20 @@ extension PortfolioHomeView {
                 footer(s, period: nil, hint: PortfolioWidgetText.fallbackHint(plan), extra: footerMissing)
             }
         }
+    }
+
+    /// Grösste Positionen, so viele ganze Zeilen in den freien Platz passen (höchstens `overviewMaxRows`), oben
+    /// ausgerichtet; der Rest des Platzes bleibt über den Kennzahlen frei.
+    private func overviewRows(_ s: PortfolioWidgetSnapshot) -> some View {
+        let wide = family != .systemSmall
+        let row = PortfolioWidgetViews.rowHeight(wide: wide)
+        return GeometryReader { geo in
+            let shown = PortfolioWidgetViews.overviewRows(s.topPositions, height: Double(geo.size.height) - 8, wide: wide)
+            listRows(shown, entries: [], currency: s.currency, basis: PortfolioWidgetText.basis(s), wide: wide, scale: 1,
+                     row: row)
+                .padding(.vertical, 4)
+        }
+        .frame(minHeight: CGFloat(row) + 8, maxHeight: .infinity)
     }
 
     /// Klein: drei Zeilen (Beschriftung links, Wert rechtsbündig); sonst drei Spalten (Beschriftung, Wert, Betrag).
@@ -145,6 +158,13 @@ extension PortfolioHomeView {
                                                      usdt: spokenHidden ? nil : usdt, hidden: spokenHidden,
                                                      overview: true)
         let spoken = figures.map { PortfolioWidgetText.figureAccessibility($0, currency: s.currency, hidden: spokenHidden) }
-        return A11y.join([base, spoken.joined(separator: "; ")])
+        // Gross: die gezeigten Positionen (der Platz reicht für alle `overviewMaxRows`)
+        let rows = family == .systemLarge
+            ? PortfolioWidgetViews.overviewRows(s.topPositions, height: nil, wide: true).map {
+                PortfolioWidgetText.listRowAccessibility($0, currency: s.currency, basis: PortfolioWidgetText.basis(s),
+                                                         hidden: spokenHidden)
+            } : []
+        return A11y.join([base, spoken.joined(separator: "; "),
+                          rows.isEmpty ? nil : L("a11y_portfolio_positions", rows.joined(separator: "; "))])
     }
 }

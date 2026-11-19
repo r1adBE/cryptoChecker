@@ -199,8 +199,8 @@ class PortfolioWidgetRenderer @Inject constructor(
                 )
                 // Liste: Buchungen unter den Coins (Wahl beim Einrichten, voreingestellt aus)
                 val entryFilter = widgetPrefs.getPortfolioEntries(appWidgetId)
-                // Liste: Coin-Logos (Schalter «Coin-Logos in Widgets»), einmal für alle Grössen
-                val logos = if (view == PortfolioWidgetView.LIST && settings.widgetCoinLogos && shown.positions.isNotEmpty()) {
+                // Liste und Positionen der Übersicht: Coin-Logos (Schalter «Coin-Logos in Widgets»), einmal für alle Grössen
+                val logos = if (view != PortfolioWidgetView.CHART && settings.widgetCoinLogos && shown.positions.isNotEmpty()) {
                     try {
                         coinLogos.bitmaps(shown.positions.map { it.symbol.uppercase() }, style.colors)
                     } catch (e: CancellationException) {
@@ -215,7 +215,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                 val build: suspend (Int, Int, Int) -> RemoteViews = { slot, w, h ->
                     val built = when (view) {
                         PortfolioWidgetView.OVERVIEW ->
-                            overviewViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
+                            overviewViews(w, h, shown, plan, style, outdated, fontScale, wantUsdt, logos)
                         PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos, entryFilter)
                         PortfolioWidgetView.CHART ->
                             portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)

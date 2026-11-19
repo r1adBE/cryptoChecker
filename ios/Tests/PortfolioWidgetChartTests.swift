@@ -485,6 +485,18 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(sorted.map(\.symbol), ["BTC", "ADA", "ETH"])
     }
 
+    func testOverviewShowsTheTopThreeWholeRows() {
+        func p(_ symbol: String, _ value: Double) -> PortfolioWidgetPosition {
+            PortfolioWidgetPosition(symbol: symbol, value: value, sharePercent: 0, change24hPercent: nil)
+        }
+        let positions = [p("ETH", 3_000), p("BTC", 9_000), p("SOL", 500), p("ADA", 50)]
+        XCTAssertEqual(PortfolioWidgetViews.overviewRows(positions, height: nil, wide: true).map(\.symbol),
+                       ["BTC", "ETH", "SOL"])
+        let row = PortfolioWidgetViews.rowHeight(wide: false)
+        XCTAssertEqual(PortfolioWidgetViews.overviewRows(positions, height: row * 1.5, wide: false).count, 1)
+        XCTAssertTrue(PortfolioWidgetViews.overviewRows(positions, height: row / 2, wide: false).isEmpty)
+    }
+
     func testListRowsKeepFooterOnlyWhenItCostsNoRow() {
         func rows(_ available: Double?, _ count: Int) -> [Int] {
             let r = PortfolioWidgetViews.listRows(available: available, row: 30, footer: 18, count: count)
