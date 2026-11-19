@@ -70,7 +70,7 @@ struct CycleScreen: View {
                     withAnimation { proxy.scrollTo(Self.topId, anchor: .top) }
                 }
         }
-        // Dauert das Laden länger als 2 s: dünner Balken oben (verschiebt nichts)
+        // Während des Ladens: dünner Balken oben (verschiebt nichts)
         .overlay(alignment: .top) { LoadProgressBar(loading: viewModel.loadProgress) }
         .background(AppColors.background.ignoresSafeArea())
         // Kreisel nur kurz als «verstanden», das Laden läuft weiter (`PullAck`)

@@ -40,7 +40,7 @@ struct PortfolioHomeView: View {
                 }
             } else {
                 VStack(alignment: .leading, spacing: 0) {
-                    header()
+                    header(refresh: false)
                     Spacer(minLength: 4)
                     message(L("widget_portfolio_empty"))
                 }
@@ -61,8 +61,8 @@ struct PortfolioHomeView: View {
     }
 
     /// Logo und «Portfolio» — keine Pille; das Prozent steht als Text in der Betragszeile (`changeLine`),
-    /// wie Android.
-    func header(_ title: String = L("widget_portfolio_name")) -> some View {
+    /// wie Android. Mit Werten rechts der Stand und «Aktualisieren» wie im Merkliste-Widget (`refresh`).
+    func header(_ title: String = L("widget_portfolio_name"), refresh: Bool = true) -> some View {
         HStack(spacing: 4) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
             Text(title)
@@ -70,6 +70,12 @@ struct PortfolioHomeView: View {
                 .foregroundStyle(palette.text)
                 .lineLimit(1)
             Spacer(minLength: 0)
+            if refresh, let s = entry.shown {
+                WidgetHeaderTrailing(
+                    candidates: WidgetHeaderStatus.candidates(time: s.updatedAt, offline: entry.offline,
+                                                              outdated: entry.outdated, at: entry.date),
+                    palette: palette, intent: RefreshPortfolioIntent())
+            }
         }
     }
 
@@ -77,7 +83,7 @@ struct PortfolioHomeView: View {
     /// Chart, keine Positionen. Tippen öffnet den Portfolio-Tab (`widgetURL`).
     private var lockedBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header()
+            header(refresh: false)
             Spacer(minLength: 4)
             Image(systemName: "lock.fill")
                 .font(.system(size: family == .systemSmall ? 18 : 20, weight: .semibold))
@@ -95,7 +101,7 @@ struct PortfolioHomeView: View {
     /// keine Beträge. Tippen öffnet Einstellungen › Portfolio (`widgetURL`, `PortfolioOff.widgetTarget`).
     private var offBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header(L("widget_portfolio_off_title"))
+            header(L("widget_portfolio_off_title"), refresh: false)
             Spacer(minLength: 4)
             message(PortfolioWidgetText.offHint)
             Spacer(minLength: 0)
@@ -348,16 +354,17 @@ struct PortfolioHomeView: View {
         }
     }
 
-    /// «Stand 15:19 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42»; gewählter Zeitraum ohne
-    /// Tageskurse dazu «7T: Portfolio öffnen» (passt es nicht, ohne).
+    /// «24h» und Hinweise (der Stand steht in der Kopfzeile, `WidgetHeaderTrailing`); gewählter Zeitraum ohne
+    /// Tageskurse dazu «7T: Portfolio öffnen» (passt es nicht, ohne). Nichts zu sagen: keine Fusszeile.
+    @ViewBuilder
     func footer(_ s: PortfolioWidgetSnapshot, period: String?, hint: String?, extra: String? = nil) -> some View {
-        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, offline: entry.offline, at: entry.date)
-        let base = [time, period].compactMap { $0 }.joined(separator: " · ")
-        return ViewThatFits(in: .horizontal) {
-            if let hint { footerText(base + " · " + hint) }
-            // Liste: «+ 3 weitere» hinter der Uhrzeit, wird es eng, ohne
-            if let extra { footerText(base + " · " + extra) }
-            footerText(base)
+        let parts = { (more: String?) in [period, more].compactMap { $0 }.joined(separator: " · ") }
+        let candidates = [hint.map(parts), extra.map(parts), parts(nil), hint, extra].compactMap { $0 }
+            .filter { !$0.isEmpty }
+        if !candidates.isEmpty {
+            ViewThatFits(in: .horizontal) {
+                ForEach(Array(candidates.enumerated()), id: \.offset) { _, text in footerText(text) }
+            }
         }
     }
 

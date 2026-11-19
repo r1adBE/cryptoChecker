@@ -44,15 +44,18 @@ struct PulseHomeView: View {
     private var header: some View {
         HStack(spacing: 4) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
+                .accessibilityHidden(true)
             // Titel ganz (notfalls kleiner) oder nur das Logo — nie «Was gerade a…»
             ViewThatFits(in: .horizontal) {
                 titleText(size: WidgetFont.body)
                 titleText(size: WidgetFont.label)
                 Color.clear.frame(width: 0, height: 0)
             }
+            .accessibilityHidden(true)
             Spacer(minLength: 0)
+            // Stand und «Aktualisieren» wie im Merkliste-Widget
+            WidgetHeaderTrailing(candidates: entry.headerStatus, palette: palette, intent: RefreshPulseIntent())
         }
-        .accessibilityHidden(true)
     }
 
     private func titleText(size: CGFloat) -> some View {
@@ -158,7 +161,8 @@ struct PulseHomeView: View {
         return ViewThatFits(in: .vertical) {
             ForEach(variants, id: \.self) { variant in
                 let plain = Array(sentences.prefix(variant.plainCount))
-                stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth,
+                // Stand steht in der Kopfzeile (`WidgetHeaderTrailing`); hier nur noch für VoiceOver
+                stack(report, coins: coins, time: nil, fearGreed: fearGreedText, breadth: breadth,
                       twoLines: variant.twoLines, lead: leadText, plain: plain, list: variant.list, scale: variant.scale)
                     // Je Fassung ein eigener Satz für VoiceOver: genau das, was sie zeigt
                     .accessibilityElement(children: .ignore)

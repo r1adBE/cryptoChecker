@@ -77,18 +77,4 @@ final class PulseWidgetPlainTests: XCTestCase {
                                           fearGreed: nil, fearGreedSavedAt: nil)
         XCTAssertNil(PulseWidgetPlain.expiresAt(none, MarketPlainSummary.evaluate(none)))
     }
-
-    func testSourcesOnlyOfShownSentencesInTheirOrder() {
-        let both = MarketPlainSummary.evaluate(PulseWidgetPlain.input(
-            now: now, pulseMarketChange24h: 2.4, pulseSavedAt: now - 2 * minute,
-            fearGreed: 72, fearGreedSavedAt: now - 30 * minute))
-        XCTAssertEqual(PulseWidgetPlain.sources(both, shownCount: 2), "CoinGecko, alternative.me")
-        // Nur der erste Satz passt: nur seine Quelle
-        XCTAssertEqual(PulseWidgetPlain.sources(both, shownCount: 1), "CoinGecko")
-        XCTAssertNil(PulseWidgetPlain.sources(both, shownCount: 0))
-        // Nur Stimmung
-        let moodOnly = MarketPlainSummary.evaluate(PulseWidgetPlain.input(
-            now: now, pulseMarketChange24h: nil, pulseSavedAt: nil, fearGreed: 72, fearGreedSavedAt: now - 30 * minute))
-        XCTAssertEqual(PulseWidgetPlain.sources(moodOnly, shownCount: 3), "alternative.me")
-    }
 }

@@ -130,20 +130,6 @@ object PulseWidgetPlain {
         sentenceLines != null && sentenceLines in 1..leadLines
 
     /**
-     * Quellen der ersten [shownCount] Sätze für den Hinweis im grossen Widget («Daten: CoinGecko,
-     * alternative.me · …»): Richtung aus CoinGecko `/global`, Stimmung von alternative.me, was heraussticht
-     * aus CoinGecko-Daten (wie die Karte). Reihenfolge wie die Sätze, ohne Doppel; null = keine.
-     */
-    fun sources(summary: PlainSummary, shownCount: Int): String? {
-        val perSentence = listOfNotNull(
-            summary.direction?.let { DataFreshness.COINGECKO },
-            summary.mood?.let { DataFreshness.ALTERNATIVE_ME },
-            summary.standout?.let { DataFreshness.COINGECKO },
-        )
-        return DataFreshness.providers(*perSentence.take(shownCount.coerceAtLeast(0)).toTypedArray())
-    }
-
-    /**
      * Zeitpunkt, ab dem ein gezeigter Satz auf veralteten Daten stünde (frühester von allen; null =
      * kein Satz). Dann zeichnet das Widget ohne Netz neu, damit kein Satz länger steht als in der App.
      */

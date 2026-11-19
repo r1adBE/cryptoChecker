@@ -63,12 +63,27 @@ class PulseWidgetRenderer @Inject constructor(
         // Ohne gespeicherte Daten erst nach dem Abruf zeichnen (sonst kurz «nicht verfügbar»)
         if (cached != null || !fetch) drawPulse(appWidgetIds, cached)
         if (!fetch || pulseData.isPulseFresh(cached)) return
-        val loaded = pulseData.loadPulse()
-        if (loaded != null) {
-            drawPulse(appWidgetIds, loaded)
-        } else if (cached == null) {
-            drawPulse(appWidgetIds, null)
+        loadAndDraw(appWidgetIds, cached, PulseWidgetData.TTL)
+    }
+
+    /**
+     * Tipp auf «Aktualisieren»: Kreisel (aus dem Zwischenspeicher neu gezeichnet), dann frisch laden — ausser die Daten sind jünger als
+     * [PulseWidgetData.TAP_MIN_AGE_MILLIS] (schont die freie Quelle) — und neu zeichnen (Kreisel weg).
+     */
+    suspend fun refreshByTap(appWidgetIds: IntArray) {
+        if (appWidgetIds.isEmpty()) return
+        val cached = pulseData.readPulse()
+        drawPulse(appWidgetIds, cached, busy = true)
+        if (!connectivity.online()) {
+            drawPulse(appWidgetIds, cached)
+            return
         }
+        loadAndDraw(appWidgetIds, cached, PulseWidgetData.TAP_MIN_AGE_MILLIS)
+    }
+
+    private suspend fun loadAndDraw(appWidgetIds: IntArray, cached: CachedValue<PulseInput>?, maxAgeMillis: Long) {
+        // Auch ohne frisches Ergebnis neu zeichnen: so verschwindet der Kreisel eines Tipps
+        drawPulse(appWidgetIds, pulseData.loadPulse(maxAgeMillis) ?: cached)
     }
 
     /**
@@ -92,7 +107,7 @@ class PulseWidgetRenderer @Inject constructor(
      * (ab 220 dp Breite BTC/ETH/SOL, sonst BTC) und Stand. Ohne (brauchbare) Daten ein ruhiger
      * Satz. Screenreader: das ganze Widget als ein Satz wie die Karte.
      */
-    private suspend fun drawPulse(appWidgetIds: IntArray, value: CachedValue<PulseInput>?) {
+    private suspend fun drawPulse(appWidgetIds: IntArray, value: CachedValue<PulseInput>?, busy: Boolean = false) {
         if (appWidgetIds.isEmpty()) return
         val manager = AppWidgetManager.getInstance(context) ?: return
         val settings = settingsRepository.current()
@@ -139,12 +154,6 @@ class PulseWidgetRenderer @Inject constructor(
         val plainTitle = context.getString(R.string.market_plain_title)
         val plainFootnote = context.getString(R.string.market_plain_footnote)
 
-        // «Daten: CoinGecko, alternative.me · keine Prognose, keine Anlageberatung» — Quellen der gezeigten Sätze
-        fun plainNote(shownCount: Int): String =
-            plainSummary?.let { PulseWidgetPlain.sources(it, shownCount) }
-                ?.let { context.getString(R.string.pulse_plain_sources, it) + " · " + plainFootnote }
-                ?: plainFootnote
-
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId, settings)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
@@ -161,9 +170,31 @@ class PulseWidgetRenderer @Inject constructor(
             views.setTextViewText(R.id.pulse_title, title)
             views.setTextColor(R.id.pulse_title, colors.textColor)
             views.setOnClickPendingIntent(R.id.pulse_root, openMarket())
-            // Titel ganz oder gar nicht (dann nur das Logo), nie «Was gerade a…»
+            // Rechts in der Kopfzeile der Stand (Halving: nach Kalender, ohne) und «Aktualisieren», wie im Listen-Widget
             val (widgetWidthDp, heightDp) = toolkit.sizeDp(manager, appWidgetId)
-            val titleSp = PulseWidgetMath.titleSizeSp(widgetWidthDp) { toolkit.textWidthDp(title, it) }
+            val status = WidgetRefreshHeader.bind(
+                toolkit = toolkit,
+                views = views,
+                ids = WidgetRefreshHeader.PULSE,
+                candidates = if (view == PulseWidgetView.HALVING || fresh == null) {
+                    emptyList()
+                } else {
+                    WidgetRefreshHeader.candidates(context, fresh.savedAt, online, outdated = false)
+                },
+                widthDp = widgetWidthDp,
+                titleDp = toolkit.textWidthDp(title, WidgetType.LABEL),
+                colors = colors,
+                refresh = WidgetRefreshHeader.intent(
+                    context,
+                    PulseWidgetProvider::class.java,
+                    PulseWidgetProvider.ACTION_REFRESH,
+                    appWidgetId,
+                ),
+                busy = busy,
+            )
+            // Titel ganz oder gar nicht (dann nur das Logo), nie «Was gerade a…»; Stand und Knopf daneben abgezogen
+            val titleWidthDp = if (widgetWidthDp > 0) widgetWidthDp - WidgetRefreshHeader.usedDp(toolkit, status).toInt() else 0
+            val titleSp = PulseWidgetMath.titleSizeSp(titleWidthDp) { toolkit.textWidthDp(title, it) }
             views.setViewVisibility(R.id.pulse_title, if (titleSp != null) View.VISIBLE else View.INVISIBLE)
             views.setTextViewTextSize(R.id.pulse_title, TypedValue.COMPLEX_UNIT_SP, titleSp ?: WidgetType.BODY)
 
@@ -196,7 +227,8 @@ class PulseWidgetRenderer @Inject constructor(
                     fearGreedText = fearGreedText,
                     plainSentences = plainSentences,
                     plainTitle = plainTitle,
-                    plainNote = ::plainNote,
+                    // «Beschreibt die letzten 24 Stunden – keine Prognose, keine Anlageberatung» (Quellen nur in der App)
+                    plainNote = { plainFootnote },
                 )
             }
 

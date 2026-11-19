@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Kopfzeile aller Portfolio-Widget-Layouts: Logo und «Portfolio». Keine Pille — das Prozent steht als
+<!-- Kopfzeile aller Portfolio-Widget-Layouts: Logo und «Portfolio», rechts Stand und «Aktualisieren» wie im Listen-Widget. Keine Pille — das Prozent steht als
      Text in der Kursfarbe in der Betragszeile («↘ −1’968.40 CHF  −2.31% · 24h», PortfolioWidgetRenderer). -->
 <!-- UseCompoundDrawables: Logo als eigene 16-dp-ImageView, die der Renderer per RemoteViews setzt; als Compound-Drawable sähe es anders aus -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,4 +30,44 @@
         android:textColor="@color/widget_initial_text"
         android:textSize="14sp"
         android:textStyle="bold" />
+
+    <!-- Rechts wie im Listen-Widget: Stand (Uhrzeit, bei älteren Daten mit Datum; WidgetRefreshHeader) und der
+         Knopf «Aktualisieren»; während des Ladens an seiner Stelle ein Kreisel. Negative Ränder: 40-dp-Tippfläche,
+         ohne die Kopfzeile höher zu machen -->
+    <TextView
+        android:id="@+id/portfolio_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:maxLines="1"
+        android:textColor="@color/widget_initial_text_secondary"
+        android:textSize="12sp"
+        android:fontFeatureSettings="tnum" />
+
+    <ImageView
+        android:id="@+id/portfolio_refresh"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="-12dp"
+        android:layout_marginBottom="-12dp"
+        android:layout_marginEnd="-10dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_widget_refresh"
+        android:tint="@color/widget_initial_text"
+        tools:ignore="UseAppTint"
+        android:contentDescription="@string/action_refresh" />
+
+    <ProgressBar
+        android:id="@+id/portfolio_refresh_busy"
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="-12dp"
+        android:layout_marginBottom="-12dp"
+        android:layout_marginEnd="-10dp"
+        android:padding="12dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/widget_initial_text_secondary"
+        android:indeterminateTintMode="src_in"
+        android:contentDescription="@string/loading_hint" />
 </LinearLayout>

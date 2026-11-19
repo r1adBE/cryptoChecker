@@ -3,11 +3,14 @@ package com.cryptochecker.app.widget
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -24,6 +27,24 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
     @Inject lateinit var snapshotUpdater: PortfolioSnapshotUpdater
 
     @Inject lateinit var scheduler: WidgetScheduler
+
+    /** Knopf «Aktualisieren» in der Kopfzeile: Kreisel, frisch rechnen (Kurse), neu zeichnen — auch bei Fehler. */
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action != ACTION_REFRESH) return
+        launchAsync("Portfolio-Widget per Tipp aktualisieren") {
+            val ids = widgetUpdater.portfolioWidgetIds()
+            widgetUpdater.setPortfolioRefreshing(ids, on = true)
+            try {
+                com.cryptochecker.app.domain.work.countedRun {
+                    withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
+                }
+            } finally {
+                // Auch bei Fehler oder Zeitgrenze: Kreisel weg, Stand neu
+                withContext(NonCancellable) { widgetUpdater.setPortfolioRefreshing(ids, on = false) }
+            }
+        }
+    }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
@@ -65,7 +86,10 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
         widgetUpdater.forgetPortfolioWidgets(appWidgetIds)
     }
 
-    private companion object {
-        const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
+    companion object {
+        /** Tipp auf «Aktualisieren» in der Kopfzeile ([WidgetRefreshHeader]). */
+        const val ACTION_REFRESH = "com.cryptochecker.app.action.PORTFOLIO_WIDGET_REFRESH"
+
+        private const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
     }
 }

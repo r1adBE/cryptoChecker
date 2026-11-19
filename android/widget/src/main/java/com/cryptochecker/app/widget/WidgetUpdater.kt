@@ -73,6 +73,18 @@ class WidgetUpdater @Inject constructor(
         if (portfolioWidgets.update(appWidgetIds)) scheduleOutdatedCheck()
     }
 
+    /** Tipp auf «Aktualisieren» im Pulse-Widget ([PulseWidgetRenderer.refreshByTap]). */
+    suspend fun refreshPulseByTap(appWidgetIds: IntArray) {
+        pulseWidgets.refreshByTap(appWidgetIds)
+        if (appWidgetIds.isNotEmpty()) scheduleOutdatedCheck()
+    }
+
+    /** Tipp auf «Aktualisieren» im Portfolio-Widget: Kreisel an (vor dem Rechnen) bzw. aus (danach), neu zeichnen. */
+    suspend fun setPortfolioRefreshing(appWidgetIds: IntArray, on: Boolean) {
+        portfolioWidgets.setRefreshing(appWidgetIds, on)
+        if (!on) scheduleOutdatedCheck()
+    }
+
     /** Widgets «Was gerade auffällt» ([PulseWidgetRenderer.update]); danach der Wecker (Wechsel «Nach Uhrzeit»). */
     suspend fun updatePulse(appWidgetIds: IntArray, fetch: Boolean = true) {
         pulseWidgets.update(appWidgetIds, fetch)

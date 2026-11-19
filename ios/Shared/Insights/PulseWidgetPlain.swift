@@ -83,18 +83,6 @@ enum PulseWidgetPlain {
         return sentenceLines >= 1 && sentenceLines <= leadLines
     }
 
-    /// Quellen der ersten `shownCount` Sätze für den Hinweis im grossen Widget («Daten: CoinGecko,
-    /// alternative.me · …»): Richtung aus CoinGecko `/global`, Stimmung von alternative.me, was heraussticht
-    /// aus CoinGecko-Daten (wie die Karte). Reihenfolge wie die Sätze, ohne Doppel; nil = keine. Wie Android.
-    static func sources(_ summary: PlainSummary, shownCount: Int) -> String? {
-        let perSentence = [summary.direction.map { _ in DataFreshness.coinGecko },
-                           summary.mood.map { _ in DataFreshness.alternativeMe },
-                           summary.standout.map { _ in DataFreshness.coinGecko }].compactMap { $0 }
-        var names: [String] = []
-        for name in perSentence.prefix(max(shownCount, 0)) where !names.contains(name) { names.append(name) }
-        return names.isEmpty ? nil : names.joined(separator: ", ")
-    }
-
     /// Zeitpunkt, ab dem ein gezeigter Satz auf veralteten Daten stünde (frühester; nil = kein Satz).
     /// Dann folgt ein weiterer Eintrag der Timeline ohne diesen Satz.
     static func expiresAt(_ input: PlainSummaryInput, _ summary: PlainSummary) -> Int64? {

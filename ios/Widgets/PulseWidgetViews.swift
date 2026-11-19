@@ -9,18 +9,24 @@ private struct PulseViewHeader: View {
     let title: String
     let entry: PulseEntry
     let palette: WidgetPalette
+    /// Halving nach Kalender: ohne Stand (der Knopf bleibt, wie in allen Ansichten).
+    var showsStatus = true
 
     var body: some View {
         HStack(spacing: 4) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
+                .accessibilityHidden(true)
             ViewThatFits(in: .horizontal) {
                 titleText(WidgetFont.body)
                 titleText(WidgetFont.label)
                 Color.clear.frame(width: 0, height: 0)
             }
+            .accessibilityHidden(true)
             Spacer(minLength: 0)
+            // Stand und «Aktualisieren» wie im Merkliste-Widget
+            WidgetHeaderTrailing(candidates: showsStatus ? entry.headerStatus : [], palette: palette,
+                                 intent: RefreshPulseIntent())
         }
-        .accessibilityHidden(true)
     }
 
     private func titleText(_ size: CGFloat) -> some View {
@@ -45,7 +51,6 @@ struct PulseMoversView: View {
             if let data = entry.data, let movers = data.movers, !movers.isEmpty {
                 let gainers = movers.gainers.filter { ($0.change24h ?? 0) > 0 }
                 let losers = movers.losers.filter { ($0.change24h ?? 0) < 0 }
-                let stand = PulseWidgetText.stand(data.time, offline: entry.offline, at: entry.date)
                 ViewThatFits(in: .vertical) {
                     columns(gainers, losers, rows: 3)
                     columns(gainers, losers, rows: 2)
@@ -53,12 +58,6 @@ struct PulseMoversView: View {
                 }
                 .padding(.top, Spacing.xs)
                 Spacer(minLength: 2)
-                if let stand {
-                    Text(stand)
-                        .widgetSecondaryFont()
-                        .foregroundStyle(palette.secondary)
-                        .lineLimit(1)
-                }
             } else {
                 Spacer(minLength: 4)
                 Text(L("pulse_unavailable"))
@@ -147,7 +146,7 @@ struct PulseHalvingView: View {
         })
         let note = L("pulse_widget_halving_note")
         VStack(alignment: .leading, spacing: 2) {
-            PulseViewHeader(title: L("insights_halving_title"), entry: entry, palette: palette)
+            PulseViewHeader(title: L("insights_halving_title"), entry: entry, palette: palette, showsStatus: false)
             Text(month)
                 .font(.system(size: size == .small ? 20 : 22, weight: .bold))
                 .foregroundStyle(palette.text)

@@ -136,18 +136,17 @@ suspend fun PortfolioWidgetRenderer.portfolioViews(
         null
     }
 
-    // «Stand 15:19 · 24h»; Hinweis ohne Platz unter dem Betrag: in die Fusszeile, vor der Zeitspanne
-    val timeText = timeText(snapshot, outdated)
+    // «24h» (Stand in der Kopfzeile, WidgetRefreshHeader); Hinweis ohne Platz unter dem Betrag: davor
     val footerMissing = missing.takeIf { !values.missingInLine }
     bindFooter(
         views,
         layout.footer,
         textWidth,
         listOf(
-            listOfNotNull(timeText, footerMissing, periodShort, fallbackHint).joinToString(" · "),
-            listOfNotNull(timeText, footerMissing, periodShort).joinToString(" · "),
-            listOfNotNull(timeText, footerMissing).joinToString(" · "),
-            listOfNotNull(timeText, periodShort).joinToString(" · "),
+            listOfNotNull(footerMissing, periodShort, fallbackHint).joinToString(" · "),
+            listOfNotNull(footerMissing, periodShort).joinToString(" · "),
+            footerMissing.orEmpty(),
+            periodShort.orEmpty(),
         ),
         colors,
     )

@@ -120,7 +120,7 @@ class InfoViewModel @Inject constructor(
     /** Nach unten gezogen: läuft, bis alle Bereiche fertig sind (Kreisel nur kurz, `rememberPullAck`). */
     val pullRefreshing: StateFlow<Boolean> = _pullRefreshing.asStateFlow()
 
-    /** Laden der Bereiche (Balken ab 2 s, `LoadProgressBar`): je fertigen Bereich ein Schritt; null = nichts lädt. */
+    /** Laden der Bereiche (Balken, `LoadProgressBar`): je fertigen Bereich ein Schritt; null = nichts lädt. */
     val loadProgress: StateFlow<Float?> = LoadTally<CycleSource>().let { tally -> running.map { tally.next(it) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 

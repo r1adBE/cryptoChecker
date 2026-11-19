@@ -1,15 +1,13 @@
 import SwiftUI
 
-/// Dünner Ladebalken oben über dem Inhalt (`loading` 0–1, nil = es lädt nichts): erscheint erst, wenn das Laden länger
-/// als `LoadProgress.showAfterMillis` dauert, rückt mit jedem fertigen Teil weich vor und blendet aus, sobald alles da
-/// ist. Merkliste, Markt und Portfolio; in der Akzentfarbe (`tint`). Wie Android `LoadProgressBar`.
+/// Dünner Ladebalken oben über dem Inhalt (`loading` 0–1, nil = es lädt nichts): erscheint sofort, sobald etwas lädt
+/// (Inhaber: «sofort anzeigen»), rückt mit jedem fertigen Teil weich vor und blendet aus, sobald alles da ist.
+/// Merkliste, Markt und Portfolio; in der Akzentfarbe (`tint`). Wie Android `LoadProgressBar`.
 struct LoadProgressBar: View {
     let loading: Double?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    /// Läuft schon länger als `showAfterMillis` ohne Unterbrechung.
-    @State private var due = false
 
-    private var progress: Double? { due ? loading : nil }
+    private var progress: Double? { loading }
 
     var body: some View {
         GeometryReader { geo in
@@ -26,12 +24,6 @@ struct LoadProgressBar: View {
         .accessibilityElement()
         .accessibilityLabel(L("loading_hint"))
         .accessibilityHidden(progress == nil)
-        .task(id: loading != nil) {
-            due = false
-            guard loading != nil else { return }
-            try? await Task.sleep(nanoseconds: LoadProgress.showAfterMillis * 1_000_000)
-            if !Task.isCancelled { due = true }
-        }
     }
 }
 

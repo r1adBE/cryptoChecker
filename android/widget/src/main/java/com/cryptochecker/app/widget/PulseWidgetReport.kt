@@ -49,8 +49,9 @@ internal fun drawPulseReport(
     views.setInt(R.id.pulse_headline, "setMaxLines", headlineStyle.lines)
 
     // «Stand» bzw. «Keine Verbindung · Stand» in jeder Grösse (wie iOS); der Leitsatz weicht ihm notfalls
+    // Stand steht in der Kopfzeile (WidgetRefreshHeader); hier nur noch für den Screenreader
     val stand = PulseWidgetTexts.stand(context, report.time, online)
-    val leadLines = PulseWidgetMath.leadLines(heightDp, headlineStyle.lines, showsTime = stand != null)
+    val leadLines = PulseWidgetMath.leadLines(heightDp, headlineStyle.lines, showsTime = false)
 
     val breadth = report.breadth
     val period24h = context.getString(R.string.widget_range_short_24h)
@@ -141,9 +142,6 @@ internal fun drawPulseReport(
     views.setTextColor(R.id.pulse_coins_period, colors.secondaryTextColor)
     PulseWidgetChips.draw(views, if (asList) emptyList() else coins, colors)
     PulseWidgetChips.drawList(views, if (asList) coins else emptyList(), colors, period24h)
-    views.setViewVisibility(R.id.pulse_time, if (stand != null) View.VISIBLE else View.GONE)
-    views.setTextViewText(R.id.pulse_time, stand.orEmpty())
-    views.setTextColor(R.id.pulse_time, colors.secondaryTextColor)
     // «Was gerade auffällt. Breite Stärke. Bitcoin führt den Markt an. Bitcoin gestiegen um 2.8%, …»
     val spokenCoins = coins.joinToString(", ") { coin ->
         coin.name + " " + A11yText.change(context, PulseWidgetMath.spokenChange(coin.change), decimals = 1)

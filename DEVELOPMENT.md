@@ -3303,6 +3303,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 315: Akzente Violett/Dunkelgrau (AppColorSchemesMore.kt, isNeutral: Kursfarben bleiben Standard), Puls-Widget-Ansichten, StatusMark, Markt-Pille bündig, pluginManagement-Filter, gen_assets nur dunkle Icons.
 * Build 316: Portfolio-Laden parallel (refresh: coroutineScope bzw. async let), LoadProgress + LoadProgressBar, Kreisel nur von Hand (PortfolioLoadState.manual / manualRefresh).
 * Build 317: Space→FrameLayout + WidgetLayoutClassesTest; LoadProgressBar (ab 2 s) + rememberPullAck/PullAck (1 s); PriceRefresher.fullProgress, LoadTally (Markt); Portfolio-Pille immer da; Puls-Titel ohne Symbol; Audit: Querverweise, gen_assets ohne rmtree der Kataloge.
+* Build 318: WidgetRefreshHeader (Android) / WidgetHeaderTrailing + RefreshPulseIntent/RefreshPortfolioIntent (iOS); Portfolio-Kreisel über vollen Neuzeichnen-Durchlauf (Grössen-Layouts); WidgetChoiceRows; LoadProgressBar ohne Verzögerung; pulse_plain_sources entfernt.
 
 ## Known warnings
 

@@ -100,16 +100,4 @@ class PulseWidgetPlainTest {
         val none = PulseWidgetPlain.input(now, null, null, null, null)
         assertNull(PulseWidgetPlain.expiresAt(none, MarketPlainSummary.evaluate(none)))
     }
-
-    @Test
-    fun `sources - only those of the shown sentences, in their order`() {
-        val both = MarketPlainSummary.evaluate(PulseWidgetPlain.input(now, 2.4, now - 2 * minute, 72, now - 30 * minute))
-        assertEquals("CoinGecko, alternative.me", PulseWidgetPlain.sources(both, 2))
-        // Nur der erste Satz passt: nur seine Quelle
-        assertEquals("CoinGecko", PulseWidgetPlain.sources(both, 1))
-        assertNull(PulseWidgetPlain.sources(both, 0))
-        // Nur Stimmung
-        val moodOnly = MarketPlainSummary.evaluate(PulseWidgetPlain.input(now, null, null, 72, now - 30 * minute))
-        assertEquals("alternative.me", PulseWidgetPlain.sources(moodOnly, 3))
-    }
 }

@@ -45,7 +45,7 @@ suspend fun PortfolioWidgetRenderer.overviewViews(
     val figuresText = bindFigures(views, PortfolioWidgetViews.figures(snapshot), layout, snapshot.currency, style)
     bindOverviewChart(views, layout, plan, style, appWidgetId, slot, widthDp, fontScale)
 
-    val timeText = timeText(snapshot, outdated)
+    // Stand steht in der Kopfzeile (WidgetRefreshHeader); unten nur noch Hinweise
     val footerMissing = missing.takeIf { !values.missingInLine }
     val fallbackHint = fallbackHint(plan)
     bindFooter(
@@ -53,9 +53,8 @@ suspend fun PortfolioWidgetRenderer.overviewViews(
         layout.footer,
         textWidth,
         listOf(
-            listOfNotNull(timeText, footerMissing, fallbackHint).joinToString(" · "),
-            listOfNotNull(timeText, footerMissing).joinToString(" · "),
-            timeText,
+            listOfNotNull(footerMissing, fallbackHint).joinToString(" · "),
+            footerMissing.orEmpty(),
         ),
         colors,
     )

@@ -187,7 +187,7 @@ extension PortfolioScreen {
             let portfolio = model
             await PullAck.run { await portfolio.refresh(force: true) }
         }
-        // Dauert das Laden länger als 2 s: dünner Balken oben über der Liste (verschiebt nichts)
+        // Während des Ladens: dünner Balken oben über der Liste (verschiebt nichts)
         .overlay(alignment: .top) { LoadProgressBar(loading: model.loadProgress) }
     }
 }

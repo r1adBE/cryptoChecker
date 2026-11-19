@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -133,15 +132,13 @@ private fun PulseWidgetConfigureContent(
                 PulseWidgetView.MOVERS to R.string.pulse_widget_view_movers,
                 PulseWidgetView.HALVING to R.string.insights_halving_title,
             )
-            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 16.dp)) {
-                views.forEachIndexed { index, (value, label) ->
-                    SegmentedButton(
-                        selected = view == value,
-                        onClick = { view = value },
-                        shape = SegmentedButtonDefaults.itemShape(index = index, count = views.size)
-                    ) { Text(stringResource(label), maxLines = 2, textAlign = TextAlign.Center) }
-                }
-            }
+            // Zeilen untereinander: gleich hoch, zentriert, kein Umbruch mitten im Wort (lange Namen in allen Sprachen)
+            WidgetChoiceRows(
+                options = views,
+                selected = view,
+                onSelect = { view = it },
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 16.dp),
+            )
             Text(
                 stringResource(R.string.widget_background),
                 style = MaterialTheme.typography.bodyMedium

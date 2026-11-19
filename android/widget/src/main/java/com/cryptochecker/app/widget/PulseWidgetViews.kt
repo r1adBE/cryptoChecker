@@ -48,7 +48,7 @@ internal fun showPulseSection(views: RemoteViews, shown: Int) {
 
 /**
  * Gewinner links, Verlierer rechts (je bis zu [rows], aus der Rangliste des Pulse, CoinGecko Top 100 ohne
- * Stablecoins), Veränderung in der Kursfarbe; darunter der Stand. Leere Seite: «Kein Coin ist in 24 h gestiegen».
+ * Stablecoins), Veränderung in der Kursfarbe (Stand in der Kopfzeile). Leere Seite: «Kein Coin ist in 24 h gestiegen».
  * @return Satz für den Screenreader
  */
 internal fun drawPulseMovers(
@@ -72,9 +72,6 @@ internal fun drawPulseMovers(
     drawMoverColumn(views, colors, LOSS_ROWS, losers)
     if (gainers.isEmpty()) views.setTextViewText(R.id.pulse_gain_title, context.getString(R.string.movers_no_gainers))
     if (losers.isEmpty()) views.setTextViewText(R.id.pulse_loss_title, context.getString(R.string.movers_no_losers))
-    views.setViewVisibility(R.id.pulse_movers_time, if (stand != null) View.VISIBLE else View.GONE)
-    views.setTextViewText(R.id.pulse_movers_time, stand.orEmpty())
-    views.setTextColor(R.id.pulse_movers_time, colors.secondaryTextColor)
     fun spoken(list: List<MoverCoin>) = list.joinToString(", ") { it.symbol + " " + PercentText.signed(it.change24h ?: 0.0, 1) }
     return listOfNotNull(
         context.getString(R.string.movers_title),

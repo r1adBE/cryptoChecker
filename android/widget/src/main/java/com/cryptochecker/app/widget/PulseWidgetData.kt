@@ -29,8 +29,8 @@ class PulseWidgetData @Inject constructor(
     /** Höchstens ein Abruf der Pulse-Daten gleichzeitig (mehrere Auslöser kurz nacheinander). */
     private val pulseMutex = Mutex()
 
-    fun isPulseFresh(value: CachedValue<PulseInput>?): Boolean =
-        value != null && CycleCachePolicy.isFresh(value.savedAt, System.currentTimeMillis(), CycleSource.PULSE.ttlMillis)
+    fun isPulseFresh(value: CachedValue<PulseInput>?, maxAgeMillis: Long = TTL): Boolean =
+        value != null && CycleCachePolicy.isFresh(value.savedAt, System.currentTimeMillis(), maxAgeMillis)
 
     /** Gespeicherte Pulse-Eingaben, nur wenn sie sich auswerten lassen (wie im Markt-Tab). */
     suspend fun readPulse(): CachedValue<PulseInput>? =
@@ -41,8 +41,8 @@ class PulseWidgetData @Inject constructor(
      * Frisch laden (harte Zeitgrenze des Bereichs) und speichern; null bei Fehler. Lief
      * inzwischen schon ein Abruf (anderer Auslöser), gilt dessen frisches Ergebnis.
      */
-    suspend fun loadPulse(): CachedValue<PulseInput>? = pulseMutex.withLock {
-        readPulse()?.takeIf { isPulseFresh(it) }?.let { return@withLock it }
+    suspend fun loadPulse(maxAgeMillis: Long = TTL): CachedValue<PulseInput>? = pulseMutex.withLock {
+        readPulse()?.takeIf { isPulseFresh(it, maxAgeMillis) }?.let { return@withLock it }
         val fetched = try {
             withTimeoutOrNull(CycleSource.PULSE.timeoutMillis) { pulseDataSource.fetchInput() }
         } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
@@ -58,5 +58,13 @@ class PulseWidgetData @Inject constructor(
         val at = fresh.time.takeIf { it > 0L } ?: System.currentTimeMillis()
         cycleCacheStore.write(CycleSource.PULSE.key, fresh, at, CycleCacheCodecs.pulseInput)
         CachedValue(fresh, at)
+    }
+
+    companion object {
+        /** Gültigkeit wie im Markt-Tab ([CycleSource.PULSE], 5 Min.). */
+        val TTL: Long = CycleSource.PULSE.ttlMillis
+
+        /** Tipp auf «Aktualisieren»: jüngere Daten gelten als frisch (schont die freie Quelle bei mehreren Tipps). */
+        const val TAP_MIN_AGE_MILLIS = 30_000L
     }
 }

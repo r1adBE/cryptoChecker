@@ -12,7 +12,7 @@ final class PortfolioModel: ObservableObject {
     @Published var prices = PortfolioPrices()
     /// Kurse werden gerade geladen (Menü «Aktualisieren» gesperrt).
     @Published var refreshing = false
-    /// Fortschritt des Ladens (0–1, nil = es lädt nichts); der Balken zeigt ihn ab 2 s (`LoadProgressBar`) — wie Android.
+    /// Fortschritt des Ladens (0–1, nil = es lädt nichts); der Balken zeigt ihn (`LoadProgressBar`) — wie Android.
     @Published var loadProgress: Double?
     /// USD → `fxCurrency`; nil = unbekannt (Umrechnungszeile ausblenden).
     @Published var fxRate: Double?

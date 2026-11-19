@@ -21,6 +21,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.widget.LatestPerWidget
 import com.cryptochecker.app.domain.widget.PortfolioDrawState
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.util.AppIntents
@@ -104,6 +105,7 @@ class PortfolioWidgetRenderer @Inject constructor(
      */
     suspend fun update(appWidgetIds: IntArray): Boolean {
         if (appWidgetIds.isEmpty()) return false
+        val busy = refreshing
         val manager = AppWidgetManager.getInstance(context) ?: return false
         val settings = settingsRepository.current()
         val accent = settings.accentColor
@@ -209,13 +211,15 @@ class PortfolioWidgetRenderer @Inject constructor(
                     null
                 }
                 val build: suspend (Int, Int, Int) -> RemoteViews = { slot, w, h ->
-                    when (view) {
+                    val built = when (view) {
                         PortfolioWidgetView.OVERVIEW ->
                             overviewViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                         PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos, entryFilter)
                         PortfolioWidgetView.CHART ->
                             portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                     }
+                    // Kopfzeile rechts: Stand und «Aktualisieren» (bzw. Kreisel), wie im Listen- und im Pulse-Widget
+                    built.also { bindHeader(it, appWidgetId, w, shown, outdated, style.colors, busy) }
                 }
                 val sizes = portfolioSizesDp(manager, appWidgetId)
                 if (sizes.size > 1 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -253,6 +257,10 @@ class PortfolioWidgetRenderer @Inject constructor(
     private fun portfolioMessageViews(style: PortfolioStyle, message: String, locked: Boolean, title: String? = null): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_portfolio)
         portfolioFrame(views, style)
+        // Ohne Werte (aus, gesperrt, leer) nichts zu aktualisieren: Kopfzeile ohne Stand und Knopf
+        WidgetRefreshHeader.PORTFOLIO.let { ids ->
+            listOf(ids.status, ids.refresh, ids.busy).forEach { views.setViewVisibility(it, View.GONE) }
+        }
         if (title != null) views.setTextViewText(R.id.portfolio_title, title)
         views.setViewVisibility(R.id.portfolio_values, View.GONE)
         views.setViewVisibility(R.id.portfolio_lock_icon, if (locked) View.VISIBLE else View.GONE)
@@ -265,6 +273,43 @@ class PortfolioWidgetRenderer @Inject constructor(
             listOf(title ?: context.getString(R.string.widget_portfolio_name), message).joinToString(", ")
         )
         return views
+    }
+
+    /** Tipp auf «Aktualisieren» läuft: Kreisel statt Knopf, bis [setRefreshing] (false) neu zeichnet. */
+    @Volatile
+    private var refreshing = false
+
+    /** Kreisel an bzw. aus und neu zeichnen (voll, die Grössen-Layouts erlauben kein Teil-Update). */
+    suspend fun setRefreshing(appWidgetIds: IntArray, on: Boolean) {
+        refreshing = on
+        update(appWidgetIds)
+    }
+
+    private fun bindHeader(
+        views: RemoteViews,
+        appWidgetId: Int,
+        widthDp: Int,
+        snapshot: PortfolioSnapshot,
+        outdated: Boolean,
+        colors: WidgetColors,
+        busy: Boolean,
+    ) {
+        WidgetRefreshHeader.bind(
+            toolkit = toolkit,
+            views = views,
+            ids = WidgetRefreshHeader.PORTFOLIO,
+            candidates = WidgetRefreshHeader.candidates(context, snapshot.time, !offline, outdated),
+            widthDp = widthDp,
+            titleDp = toolkit.textWidthDp(context.getString(R.string.widget_portfolio_name), WidgetType.BODY),
+            colors = colors,
+            refresh = WidgetRefreshHeader.intent(
+                context,
+                PortfolioWidgetProvider::class.java,
+                PortfolioWidgetProvider.ACTION_REFRESH,
+                appWidgetId,
+            ),
+            busy = busy,
+        )
     }
 
     /** Gelöschte Portfolio-Widgets: zwischengespeicherte Charts aller Grössen freigeben. */

@@ -34,6 +34,14 @@ class PulseWidgetProvider : AppWidgetProvider() {
                 widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
             }
         }
+        // Knopf «Aktualisieren» in der Kopfzeile: alle Pulse-Widgets (gleiche Daten), Kreisel bis zum Neuzeichnen
+        if (intent.action == ACTION_REFRESH) {
+            launchAsync("Pulse-Widget per Tipp aktualisieren") {
+                val ids = widgetUpdater.pulseWidgetIds()
+                withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.refreshPulseByTap(ids) }
+                    ?: widgetUpdater.updatePulse(ids, fetch = false)
+            }
+        }
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
@@ -78,6 +86,9 @@ class PulseWidgetProvider : AppWidgetProvider() {
 
     companion object {
         private const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
+
+        /** Tipp auf «Aktualisieren» in der Kopfzeile ([WidgetRefreshHeader]). */
+        const val ACTION_REFRESH = "com.cryptochecker.app.action.PULSE_WIDGET_REFRESH"
 
         /** Wecker aus [PulseWidgetRenderer] (veraltender Satz von «Kurz gesagt»). */
         const val ACTION_PLAIN_EXPIRED = "com.cryptochecker.app.action.PULSE_PLAIN_EXPIRED"

@@ -267,7 +267,7 @@ class WatchlistViewModel @Inject internal constructor(
     /** Nach unten ziehen bzw. Knopf oben, mit 15-s-Sperre ([RefreshDebounce]). */
     fun refreshAllByUser(): RefreshDebounce.Decision = refresh.refreshAllByUser()
 
-    /** Balken über der Liste während einer vollständigen Aktualisierung (ab 2 s, `LoadProgressBar`). */
+    /** Balken über der Liste während einer vollständigen Aktualisierung (`LoadProgressBar`). */
     val refreshProgress: StateFlow<Float?> get() = refresh.progress
 
     /** Ende der letzten vollständigen Aktualisierung, für den Countdown der 15-s-Sperre im Menü. */

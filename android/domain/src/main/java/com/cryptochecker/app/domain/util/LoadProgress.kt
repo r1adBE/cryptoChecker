@@ -18,9 +18,6 @@ class LoadProgress(private val total: Int) {
     fun current(): Float = shown(done, total)
 
     companion object {
-        /** Erst nach dieser Zeit erscheint der Balken: Schnelles Laden bleibt ohne Balken (Inhaber: «länger als 2 s»). */
-        const val SHOW_AFTER_MILLIS = 2_000L
-
         /** Kreisel beim Ziehen: nur so lange als «verstanden», danach übernimmt der Balken. */
         const val PULL_ACK_MILLIS = 1_000L
 

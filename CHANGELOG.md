@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 318)
+
+- Loading bar in the watchlist, market and portfolio appears right away.
+- Pulse and portfolio widgets share the watchlist's header: date and time of the data and a refresh button (Android shows a spinner while loading); the «as of» line at the bottom is gone.
+- Pulse widget no longer lists the data sources.
+- Pulse widget setup: the three views are rows of equal height.
+
 ## 16.2.2 (build 317)
 
 - Pulse widget: the new views no longer stay empty on the home screen (a layout element Android does not allow in widgets); every widget layout is now checked without a device.

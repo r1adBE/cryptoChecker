@@ -107,10 +107,11 @@ fun PortfolioWidgetRenderer.bindFooter(
     candidates: List<String>,
     colors: WidgetColors
 ) {
-    views.setViewVisibility(R.id.portfolio_time, if (visible) View.VISIBLE else View.GONE)
-    val text = WidgetTextFit.firstFitting(candidates, textWidth?.minus(WidgetTextFit.SAFETY_DP)) {
+    val text = WidgetTextFit.firstFitting(candidates.filter { it.isNotBlank() }, textWidth?.minus(WidgetTextFit.SAFETY_DP)) {
         toolkit.textWidthDp(it, FOOTER_SP, bold = false, tabular = true)
     }
+    // Ohne Hinweis keine Fusszeile (der Stand steht oben)
+    views.setViewVisibility(R.id.portfolio_time, if (visible && text.isNotBlank()) View.VISIBLE else View.GONE)
     views.setTextViewText(R.id.portfolio_time, text)
     views.setTextColor(R.id.portfolio_time, colors.secondaryTextColor)
 }
@@ -124,5 +125,5 @@ private const val TOTAL_MAX_SP = 26f
  */
 private const val USDT_SP = 12f
 
-/** Fusszeile «Stand 15:19» (wie textSize von portfolio_time in den Layouts). */
+/** Fusszeile mit Hinweisen (wie textSize von portfolio_time in den Layouts). */
 private const val FOOTER_SP = 12f

@@ -78,7 +78,7 @@ final class CycleViewModel: ObservableObject {
     @Published var refreshingKeys: Set<String> = [] {
         didSet { loadProgress = loadTally.next(refreshingKeys) }
     }
-    /// Laden der Bereiche (Balken ab 2 s, `LoadProgressBar`): je fertigen Bereich ein Schritt; nil = nichts lädt.
+    /// Laden der Bereiche (Balken, `LoadProgressBar`): je fertigen Bereich ein Schritt; nil = nichts lädt.
     @Published private(set) var loadProgress: Double?
     private var loadTally = LoadTally<String>()
 

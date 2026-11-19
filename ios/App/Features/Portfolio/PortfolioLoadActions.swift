@@ -31,7 +31,7 @@ extension PortfolioModel {
 
     /// Beim Öffnen (60 s Zwischenspeicher), bei neuen Coins bzw. per Ziehen oder Menü (`force`). Die Abrufe laufen
     /// gleichzeitig (Adressen, Verlauf, Devisenkurs, Kurse, «Seit Kauf») — Werte erscheinen, sobald ihr Teil da ist.
-    /// Dauert es länger als 2 s, ein dünner Balken (`loadProgress`, `LoadProgressBar`); beim Ziehen kurz der Kreisel. Wie Android.
+    /// Während des Ladens ein dünner Balken (`loadProgress`, `LoadProgressBar`); beim Ziehen kurz der Kreisel. Wie Android.
     func refresh(force: Bool) async {
         let owner = activeRefreshes == 0
         activeRefreshes += 1
@@ -121,7 +121,7 @@ extension PortfolioModel {
     /// Gleichzeitige Schritte in `refresh` (für den Balken).
     static let refreshSteps = 5
 
-    /// Ein Schritt von `refresh` fertig: Balken vor (sichtbar erst nach 2 s, `LoadProgressBar`).
+    /// Ein Schritt von `refresh` fertig: Balken vor (`LoadProgressBar`).
     func markLoadStep() {
         let shown = loadSteps.step()
         if loadProgress != nil { loadProgress = shown }

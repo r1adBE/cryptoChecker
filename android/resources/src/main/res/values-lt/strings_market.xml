@@ -248,7 +248,6 @@
 
     <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
          (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
-    <string name="pulse_plain_sources">Duomenys: %1$s</string>
 
     <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
     <string name="movers_title">Kylančios ir krentančios per 24 val.</string>

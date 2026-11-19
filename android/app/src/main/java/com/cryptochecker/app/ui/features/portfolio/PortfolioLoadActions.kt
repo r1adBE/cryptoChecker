@@ -160,7 +160,7 @@ internal suspend fun PortfolioViewModel.loadFxSeries(code: String, from: LocalDa
  * Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen oder Menü ([force]). Die Abrufe laufen gleichzeitig: Adressen,
  * Kurse, Tagesschlüsse, Devisenkurs, Devisen-Reihe und Kurse für «Seit Kauf» hängen nicht voneinander ab — Werte
  * erscheinen, sobald ihr Teil da ist. Bringen die Adressen neue Coins, lädt [start] deren Kurse nach.
- * Dauert es länger als 2 s, ein dünner Balken ([PortfolioLoadState.progress]); beim Ziehen kurz der Kreisel.
+ * Während des Ladens ein dünner Balken ([PortfolioLoadState.progress]); beim Ziehen kurz der Kreisel.
  */
 fun PortfolioViewModel.refresh(force: Boolean) {
     if (load.busyFlow.value) return
@@ -169,7 +169,7 @@ fun PortfolioViewModel.refresh(force: Boolean) {
         load.manualFlow.value = force
         val progress = LoadProgress(REFRESH_STEPS)
         load.progressFlow.value = progress.current()
-        // Ein Schritt fertig: Balken vor (sichtbar erst nach [LoadProgress.SHOW_AFTER_MILLIS], [LoadProgressBar])
+        // Ein Schritt fertig: Balken vor ([LoadProgressBar])
         suspend fun step(block: suspend () -> Unit) {
             block()
             load.progressFlow.value = progress.step()

@@ -35,8 +35,8 @@ struct WatchlistRefreshEvents: ViewModifier {
     }
 }
 
-/// Ziehen = alles aktualisieren (`refresh`, Kreisel nur kurz: `PullAck` in `refreshByUser`) und, dauert es länger als
-/// 2 s, der dünne Balken oben (`LoadProgressBar`). Beobachtet `RefreshState` nur für den Balken — die Liste rechnet
+/// Ziehen = alles aktualisieren (`refresh`, Kreisel nur kurz: `PullAck` in `refreshByUser`) und während des Ladens
+/// der dünne Balken oben (`LoadProgressBar`). Beobachtet `RefreshState` nur für den Balken — die Liste rechnet
 /// beim Fortschritt nicht neu.
 struct WatchlistRefreshing: ViewModifier {
     let state: RefreshState

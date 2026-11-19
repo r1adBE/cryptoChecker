@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Widget «Was gerade auffällt» (Crypto Pulse, Stil wie die anderen Widgets): Schlagzeile mit
      ↗/↘ in der Kursfarbe, Leitsatz (höchstens 2 Zeilen), Fear & Greed (mittel/gross), Coin-Chips
-     BTC/ETH/SOL (nur so viele, wie ganz passen), Stand; gross darunter «Kurz gesagt». Inhalt setzt WidgetUpdater.updatePulse. Nur RemoteViews-taugliche Views.
+     BTC/ETH/SOL (nur so viele, wie ganz passen); Stand und «Aktualisieren» in der Kopfzeile; gross darunter «Kurz gesagt». Inhalt setzt WidgetUpdater.updatePulse. Nur RemoteViews-taugliche Views.
      Runde Ecken: Wurzel mit @android:id/background und Umriss (ab 12 clipToOutline), darunter
      die eingefärbte Fläche. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -59,6 +59,45 @@
                 android:textColor="@color/widget_initial_text"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+            <!-- Rechts wie im Listen-Widget: Stand (Uhrzeit, bei älteren Daten mit Datum; WidgetRefreshHeader) und der
+                 Knopf «Aktualisieren»; während des Ladens an seiner Stelle ein Kreisel. Negative Ränder: 40-dp-Tippfläche,
+                 ohne die Kopfzeile höher zu machen -->
+            <TextView
+                android:id="@+id/pulse_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:textColor="@color/widget_initial_text_secondary"
+                android:textSize="12sp"
+                android:fontFeatureSettings="tnum" />
+
+            <ImageView
+                android:id="@+id/pulse_refresh"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="-12dp"
+                android:layout_marginBottom="-12dp"
+                android:layout_marginEnd="-10dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_widget_refresh"
+                android:tint="@color/widget_initial_text"
+                tools:ignore="UseAppTint"
+                android:contentDescription="@string/action_refresh" />
+
+            <ProgressBar
+                android:id="@+id/pulse_refresh_busy"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="-12dp"
+                android:layout_marginBottom="-12dp"
+                android:layout_marginEnd="-10dp"
+                android:padding="12dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/widget_initial_text_secondary"
+                android:indeterminateTintMode="src_in"
+                android:contentDescription="@string/loading_hint" />
         </LinearLayout>
 
         <!-- Skelett bis zum ersten Zeichnen: eine graue Platzhalter-Zeile und darunter die Ladeanzeige (Kreisel und
@@ -258,7 +297,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Platzhalter: hält Chips und Stand unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
+            <!-- Platzhalter: hält die Chips unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
             <!-- UselessLeaf: Platzhalter mit Gewicht 1 hält den Rest unten (<View> ist in RemoteViews nicht erlaubt) -->
             <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
@@ -317,15 +356,6 @@
                 android:textStyle="bold"
                 android:fontFeatureSettings="tnum" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/pulse_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:maxLines="1"
-                android:textSize="12sp"
-                android:fontFeatureSettings="tnum" />
 
             <!-- «Kurz gesagt» (nur gross, PulseWidgetPlain): so viele ganze Sätze, wie unter den bisherigen
                  Inhalt passen, je auf einer eigenen Zeile, darunter der Hinweis; Abstände = PulseWidgetPlain -->

@@ -163,16 +163,19 @@ extension PortfolioHomeView {
             .privacySensitive()
     }
 
-    /// «Stand 15:19 · Heute ohne SOL · + 3 weitere»; wird es eng, zuerst ohne «weitere», dann ohne Hinweis —
-    /// wie Android (Fusszeile der Liste).
+    /// «Heute ohne SOL · + 3 weitere» (der Stand steht in der Kopfzeile); wird es eng, zuerst ohne «weitere», dann
+    /// nur einer der beiden — wie Android (Fusszeile der Liste). Nichts zu sagen: keine Fusszeile.
+    @ViewBuilder
     private func listFooter(_ s: PortfolioWidgetSnapshot, missing: String?, more: String?) -> some View {
-        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, offline: entry.offline, at: entry.date)
-        let candidates = [[time, missing, more], [time, missing], [time, more], [time]]
+        let candidates = [[missing, more], [missing], [more]]
             .map { $0.compactMap { $0 }.joined(separator: " · ") }
+            .filter { !$0.isEmpty }
         var seen = Set<String>()
         let unique = candidates.filter { seen.insert($0).inserted }
-        return ViewThatFits(in: .horizontal) {
-            ForEach(unique, id: \.self) { footerText($0) }
+        if !unique.isEmpty {
+            ViewThatFits(in: .horizontal) {
+                ForEach(unique, id: \.self) { footerText($0) }
+            }
         }
     }
 

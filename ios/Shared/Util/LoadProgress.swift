@@ -4,8 +4,6 @@ import Foundation
 /// Portfolio: Adressen, Kurse, Verlauf, Devisen …). Jeder fertige Schritt rückt den Balken vor, egal in welcher
 /// Reihenfolge. Wie Android `LoadProgress`.
 struct LoadProgress: Sendable {
-    /// Erst nach dieser Zeit erscheint der Balken: Schnelles Laden bleibt ohne Balken (Inhaber: «länger als 2 s»).
-    static let showAfterMillis: UInt64 = 2_000
     /// Kreisel beim Ziehen: nur so lange als «verstanden», danach übernimmt der Balken.
     static let pullAckMillis: UInt64 = 1_000
     /// Ein kleiner Anfang, damit der Balken sofort lebt (nie ganz leer).

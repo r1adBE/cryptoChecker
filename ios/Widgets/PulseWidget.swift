@@ -76,14 +76,16 @@ struct PulseEntry: ThemedTimelineEntry {
         return MarketPlainSummaryText.sentences(MarketPlainSummary.evaluate(input))
     }
 
-    /// Hinweis unter den ersten `shownCount` Sätzen: «Daten: CoinGecko, alternative.me · keine Prognose,
-    /// keine Anlageberatung» (Quellen der gezeigten Sätze; ohne Quelle nur der Hinweis).
-    func plainNote(shownCount: Int) -> String {
-        let footnote = L("market_plain_footnote")
-        guard let input = plainInput,
-              let sources = PulseWidgetPlain.sources(MarketPlainSummary.evaluate(input), shownCount: shownCount)
-        else { return footnote }
-        return L("pulse_plain_sources", sources) + " · " + footnote
+    /// Hinweis unter den Sätzen: «Beschreibt die letzten 24 Stunden – keine Prognose, keine Anlageberatung»
+    /// (Quellen nur in der App). `shownCount` bleibt für die Messung der Fassungen.
+    func plainNote(shownCount _: Int) -> String {
+        L("market_plain_footnote")
+    }
+
+    /// Stand rechts in der Kopfzeile (`WidgetHeaderStatus`, lang → kurz); ohne Daten leer.
+    var headerStatus: [String] {
+        guard let data else { return [] }
+        return WidgetHeaderStatus.candidates(time: data.time, offline: offline, outdated: false, at: date)
     }
 
     /// Ab dann stünde ein gezeigter Satz auf veralteten Daten (Epoch-ms); nil = kein Satz.

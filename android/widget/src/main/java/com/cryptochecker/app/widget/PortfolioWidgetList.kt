@@ -87,16 +87,15 @@ fun PortfolioWidgetRenderer.listViews(
     val totalChange = PortfolioWidgetViews.listTotalChange(snapshot)
     val total = bindListTotal(views, snapshot, totalChange, style, rowBasis, textWidth, layout.wide)
     val missing = missingText(snapshot, plan, overview = true)
-    val timeText = timeText(snapshot, outdated)
+    // Stand steht in der Kopfzeile (WidgetRefreshHeader); unten nur noch Hinweise
     bindFooter(
         views,
         layout.footer,
         textWidth,
         listOf(
-            listOfNotNull(timeText, missing, more).joinToString(" · "),
-            listOfNotNull(timeText, missing).joinToString(" · "),
-            listOfNotNull(timeText, more).joinToString(" · "),
-            timeText,
+            listOfNotNull(missing, more).joinToString(" · "),
+            missing.orEmpty(),
+            more.orEmpty(),
         ),
         colors,
     )
