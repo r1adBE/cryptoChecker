@@ -45,11 +45,11 @@ class WatchFetcherTest {
                 }
             }, save = { quotes, _ -> saved += quotes })
 
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             yield()
             // Neue Liste vom Handy, während der erste Abruf noch wartet
             shown = listOf("SOL")
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             settle(fetcher)
             slow.complete(Unit)
             yield()
@@ -79,9 +79,9 @@ class WatchFetcherTest {
                 }
             }, save = { quotes, _ -> saved += quotes })
 
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             yield()
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             settle(fetcher)
             slow.complete(Unit)
             repeat(5) { yield() }
@@ -95,7 +95,7 @@ class WatchFetcherTest {
         runBlocking {
             var saves = 0
             val fetcher = WatchFetcher(this, shown = { listOf("BTC") }, fetch = { emptyMap() }, save = { _, _ -> saves++ })
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             settle(fetcher)
             assertEquals(0, saves)
             assertTrue(fetcher.failed.value)
@@ -122,14 +122,14 @@ class WatchFetcherTest {
                 }
             }, save = { fresh, startedAt -> cache = WatchCache.merge(cache, fresh, startedAt, coins) }, now = { time })
 
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             settle(fetcher)
             assertEquals(150.0, cache.getValue("SOL").quote.price, 0.0)
 
             // Zweiter Abruf: SOL läuft bei allen Börsen in die Zeitüberschreitung
             solTimesOut = true
             time = 2_000L
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             settle(fetcher)
 
             assertEquals(67000.0, cache.getValue("BTC").quote.price, 0.0)
@@ -153,7 +153,7 @@ class WatchFetcherTest {
                 mapOf("BTC" to q("BTC", 1.0))
             }, save = { _, startedAt -> starts += startedAt }, now = { clock })
 
-            fetcher.refresh()
+            fetcher.refresh(force = true)
             yield()
             clock = 5_000L
             slow.complete(Unit)
@@ -173,5 +173,53 @@ class WatchFetcherTest {
         assertEquals(WatchCached(q("BTC", 2.0), 2_000L), cache["BTC"])
         // ETH hatte keinen neueren Stand: der Kurs der Komplikation gilt, mit ihrem Start als Zeit
         assertEquals(WatchCached(q("ETH", 3.0), 1_000L), cache["ETH"])
+    }
+
+    @Test
+    fun nothingToFetchShowsNoSpinner() {
+        runBlocking {
+            var asked = 0
+            val fetcher = WatchFetcher(
+                this,
+                shown = { listOf("PEPE/WETH|DexScreener|Pool995b79ee") },
+                fetch = {
+                    asked++
+                    emptyMap()
+                },
+                save = { _, _ -> },
+                plan = { _, _ -> emptyList() },
+                tapAckMillis = 1_000L,
+            )
+            fetcher.refresh(force = true)
+            yield()
+            // Nichts zu holen: kein Kreisel, kein Fehler, kein Abruf
+            assertFalse(fetcher.fetching.value)
+            settle(fetcher)
+            assertEquals(0, asked)
+            assertFalse(fetcher.failed.value)
+        }
+    }
+
+    @Test
+    fun tapKeepsTheSpinnerForTheAckTime() {
+        runBlocking {
+            var clock = 0L
+            val fetcher = WatchFetcher(
+                this,
+                shown = { listOf("BTC") },
+                fetch = { mapOf("BTC" to q("BTC", 1.0)) },
+                save = { _, _ -> },
+                now = { clock },
+                tapAckMillis = 50L,
+            )
+            fetcher.refresh(force = true)
+            yield()
+            assertTrue(fetcher.fetching.value)
+            clock = 10L
+            // Wartet die restlichen 40 ms ab, dann aus
+            kotlinx.coroutines.withTimeout(2_000L) { while (fetcher.loading.value) kotlinx.coroutines.delay(5L) }
+            assertFalse(fetcher.fetching.value)
+            assertFalse(fetcher.loading.value)
+        }
     }
 }

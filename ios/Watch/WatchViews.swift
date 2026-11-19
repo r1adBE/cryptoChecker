@@ -6,17 +6,13 @@ import SwiftUI
 /// Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
-    /// «Aktualisieren»: Kreisel im Knopf mindestens `refreshAckNanos` lang, auch wenn das Laden schneller ist — so ist
-    /// sichtbar, dass der Tipp angekommen ist (wie Wear `REFRESH_ACK_MS`).
-    @State private var tapAck: Task<Void, Never>?
-    private static let refreshAckNanos: UInt64 = 1_000_000_000
 
     var body: some View {
         TimelineView(.everyMinute) { context in
             list(now: Int64(context.date.timeIntervalSince1970 * 1000))
         }
         .navigationTitle("Crypto Checker")
-        .task { model.refresh() }
+        .task { model.refreshDue() }
         // Offen: im Intervall des iPhones, nur was fällig ist (`WatchInterval`)
         .task(id: model.settings.interval) {
             while !Task.isCancelled {
@@ -43,16 +39,12 @@ struct WatchQuoteList: View {
             }
             Text(status(coins)).font(.footnote).foregroundStyle(.secondary)
             Button {
-                model.refresh()
-                tapAck?.cancel()
-                tapAck = Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: Self.refreshAckNanos)
-                    if !Task.isCancelled { tapAck = nil }
-                }
+                model.refresh(force: true)
             } label: {
-                // Während des Ladens dreht ein Kreisel im Knopf (wie Wear `CircularProgressIndicator`)
+                // Während eines Abrufs dreht ein Kreisel im Knopf (`WatchModel.fetching`, wie Wear
+                // `CircularProgressIndicator`); nichts zu holen: keiner
                 HStack(spacing: 8) {
-                    if model.loading || tapAck != nil {
+                    if model.fetching {
                         ProgressView().frame(width: 18, height: 18)
                     }
                     Text(WatchText.t("watch_refresh"))

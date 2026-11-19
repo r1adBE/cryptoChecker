@@ -3309,6 +3309,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 321: PortfolioWidgetViews.overviewRows (Kotlin + Swift, getestet), PortfolioOverviewLayout.positionsHeightDp statt chartHeightDp; Übersicht nutzt listRow bzw. listRows und Coin-Logos.
 * Build 322: settings_accent_hint in allen Sprachen um einen Satz ergänzt.
 * Build 323: WatchPhoneQuotes.selfFetch: force vor der Handy-Regel (Kotlin + Swift, watch_link.json); Wear Chip-Icon CircularProgressIndicator, watchOS ProgressView, je mindestens 1 s.
+* Build 324: WatchFetcher.fetching + tapAckMillis (Tests), refresh(force) ohne Vorgabe; iOS WatchModel.fetching, refreshDue().
 
 ## Known warnings
 

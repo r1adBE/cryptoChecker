@@ -49,10 +49,8 @@ import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import java.text.DateFormat
 import java.util.Date
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
@@ -108,13 +106,13 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
                         force
                     )
                 },
+                tapAckMillis = REFRESH_ACK_MS,
             )
         }
         val loading by fetcher.loading.collectAsState()
         val failed by fetcher.failed.collectAsState()
-        // «Aktualisieren»: Kreisel im Knopf mindestens [REFRESH_ACK_MS] lang, auch wenn das Laden schneller ist —
-        // so ist sichtbar, dass der Tipp angekommen ist
-        var tapAck by remember { mutableStateOf<Job?>(null) }
+        // Kreisel im Knopf «Aktualisieren»: nur während eines Abrufs, nach dem Tipp mindestens [REFRESH_ACK_MS]
+        val fetching by fetcher.fetching.collectAsState()
 
         /** Änderung auf der Uhr: nach dem Stand des Handys mit höherer Nummer speichern und ans Handy geben. */
         fun change(edit: (WatchSettings) -> WatchSettings) = WatchDataLayer.change(context, store, edit)
@@ -125,7 +123,11 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
             pulled = true
         }
         // Neu laden bei anderer Liste und bei anderer Kursquelle («Immer selbst abrufen» sofort), wie iOS takeFromPhone
-        LaunchedEffect(settings.shown, settings.source, pulled) { if (pulled) fetcher.refresh() }
+        // Öffnen und neue Liste: nur, was fällig ist — mit Kursen vom Handy kein Abruf bei jedem Blick auf die Uhr; mit
+        // «Immer selbst abrufen» alles (wie iOS `WatchModel.refreshDue`)
+        LaunchedEffect(settings.shown, settings.source, pulled) {
+            if (pulled) fetcher.refresh(force = settings.source == WatchSettings.Source.SELF)
+        }
         // Sichtbar: im Intervall des Handys, nur was fällig ist; nach dem Zurückkehren (nicht beim ersten Öffnen, da lädt
         // schon der Effekt oben) gleich das Fällige
         LaunchedEffect(settings.interval, pulled, shown) {
@@ -167,16 +169,9 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
             } else {
                 QuoteList(
                     settings, cache, portfolio, now, loading, failed,
-                    refreshing = loading || tapAck?.isActive == true,
+                    refreshing = fetching,
                     state = listState,
-                    onRefresh = {
-                        fetcher.refresh()
-                        tapAck?.cancel()
-                        tapAck = scope.launch {
-                            delay(REFRESH_ACK_MS)
-                            tapAck = null
-                        }
-                    },
+                    onRefresh = { fetcher.refresh(force = true) },
                     onToggleMode = {
                         // Ziel nach der gezeigten Wahl, nicht nach einem neueren Stand des Handys
                         val target = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
@@ -382,5 +377,5 @@ internal fun missingShort(context: Context, key: String): String {
 /** Takt, in dem die Uhr-App das Alter der Kurse neu bewertet. */
 private const val AGE_TICK_MS = 60_000L
 
-/** Kreisel im Knopf «Aktualisieren» mindestens so lange (ms) — wie iOS `WatchQuoteList.refreshAckNanos`. */
+/** Kreisel im Knopf «Aktualisieren» nach dem Tipp mindestens so lange (ms) — wie iOS `WatchModel.tapAckNanos`. */
 private const val REFRESH_ACK_MS = 1_000L

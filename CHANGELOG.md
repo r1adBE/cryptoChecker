@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 324)
+
+Uhr: Öffnen fragt die Börsen nicht mehr bei jedem Blick ab; Kreisel nur, wenn wirklich geladen wird.
+
 ## 16.2.2 (build 323)
 
 Uhr: «Aktualisieren» holt die Kurse selbst frisch, auch ohne Handy in der Nähe; Kreisel im Knopf beim Laden.

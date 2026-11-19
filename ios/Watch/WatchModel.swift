@@ -16,6 +16,10 @@ final class WatchModel {
     var portfolio: WatchPortfolio? = WatchStore.portfolio()
     var loading = false
     var failed = false
+    /// Ein Abruf an der Quelle läuft (Kreisel im Knopf «Aktualisieren»); nach dem Knopf mindestens `tapAckNanos` lang.
+    /// Nichts zu holen (nur Paare vom iPhone, frische Kurse): kein Kreisel. Wie Wear `WatchFetcher.fetching`.
+    var fetching = false
+    @ObservationIgnored private static let tapAckNanos: UInt64 = 1_000_000_000
     @ObservationIgnored private var gate = WatchFetchGate()
     @ObservationIgnored private var fetchTask: Task<Void, Never>?
     /// Eine Instanz je App (die Verbindung zum iPhone meldet neue Wahl hierher, `WatchLink`).
@@ -29,7 +33,7 @@ final class WatchModel {
         let changed = takeSettings(json)
         takePhoneQuotes(quotes)
         takePortfolio(portfolio)
-        if changed { refresh() }
+        if changed { refreshDue() }
     }
 
     /// Wahl und eigene Liste bei höherer oder gleicher Änderungsnummer, iPhone-Liste, Kursquelle und Intervall immer;
@@ -77,12 +81,18 @@ final class WatchModel {
         WatchStore.takePortfolio(.clear)
         portfolio = nil
         WatchComplications.reload()
-        if changed { refresh() }
+        if changed { refreshDue() }
     }
 
-    /// Abruf für die gezeigte Liste, nur was fällig ist (`force` = «Aktualisieren», Öffnen, neue Liste); ein laufender
-    /// wird abgebrochen. Ohne Fälliges (das iPhone liefert frische Kurse) kein Abruf und kein Fehler.
-    func refresh(force: Bool = true) {
+    /// Öffnen, neue Liste, andere Kursquelle: nur, was fällig ist — mit Kursen vom iPhone kein Abruf bei jedem Blick
+    /// auf die Uhr; mit «Immer selbst abrufen» alles. Wie Wear `WatchApp` (`refresh(force = source == SELF)`).
+    func refreshDue() {
+        refresh(force: settings.source == .alwaysSelf)
+    }
+
+    /// Abruf für die gezeigte Liste (`force` = «Aktualisieren»: alles, auch Coins vom iPhone — sonst nur, was fällig
+    /// ist); ein laufender wird abgebrochen. Ohne Fälliges kein Abruf, kein Kreisel und kein Fehler.
+    func refresh(force: Bool) {
         let coins = settings.shown
         let run = gate.start()
         let startedAt = WatchStore.now()
@@ -96,12 +106,20 @@ final class WatchModel {
         guard !need.isEmpty else {
             failed = false
             loading = false
+            fetching = false
             return
         }
         loading = true
+        fetching = true
         fetchTask = Task {
             let fresh = await WatchPriceSource.fetch(need)
             guard !Task.isCancelled, gate.accepts(run, asked: coins, shown: settings.shown) else { return }
+            // Knopf: Kreisel mindestens kurz, damit der Tipp sichtbar ankommt
+            if force {
+                let elapsed = UInt64(max(0, WatchStore.now() - startedAt)) * 1_000_000
+                if elapsed < Self.tapAckNanos { try? await Task.sleep(nanoseconds: Self.tapAckNanos - elapsed) }
+                guard !Task.isCancelled else { return }
+            }
             if !fresh.isEmpty {
                 // Je Coin zusammengeführt: fehlende Coins behalten ihren letzten Kurs samt Zeit, ebenso Coins, die
                 // ein später gestarteter Abruf (Komplikation) schon geschrieben hat
@@ -110,6 +128,7 @@ final class WatchModel {
             }
             failed = fresh.isEmpty
             loading = false
+            fetching = false
         }
     }
 
@@ -120,7 +139,7 @@ final class WatchModel {
         WatchStore.settings = settings
         WatchLink.shared.publish(settings)
         WatchComplications.reload()
-        refresh()
+        refreshDue()
     }
 
     func toggleMode() {
