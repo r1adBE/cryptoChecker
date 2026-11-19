@@ -106,6 +106,8 @@ class PortfolioWidgetRenderer @Inject constructor(
     suspend fun update(appWidgetIds: IntArray): Boolean {
         if (appWidgetIds.isEmpty()) return false
         val busy = refreshing
+        // 15-s-Sperre nach einer Aktualisierung aus dem Widget: Countdown statt Knopf, wie im Listen-Widget
+        val lock = WidgetRefreshHeader.lock(context, widgetPrefs, WidgetRefreshHeader.Kind.PORTFOLIO)
         val manager = AppWidgetManager.getInstance(context) ?: return false
         val settings = settingsRepository.current()
         val accent = settings.accentColor
@@ -219,7 +221,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                             portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                     }
                     // Kopfzeile rechts: Stand und «Aktualisieren» (bzw. Kreisel), wie im Listen- und im Pulse-Widget
-                    built.also { bindHeader(it, appWidgetId, w, shown, outdated, style.colors, busy) }
+                    built.also { bindHeader(it, appWidgetId, w, shown, outdated, style.colors, busy, lock) }
                 }
                 val sizes = portfolioSizesDp(manager, appWidgetId)
                 if (sizes.size > 1 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -258,8 +260,8 @@ class PortfolioWidgetRenderer @Inject constructor(
         val views = RemoteViews(context.packageName, R.layout.widget_portfolio)
         portfolioFrame(views, style)
         // Ohne Werte (aus, gesperrt, leer) nichts zu aktualisieren: Kopfzeile ohne Stand und Knopf
-        WidgetRefreshHeader.PORTFOLIO.let { ids ->
-            listOf(ids.status, ids.refresh, ids.busy).forEach { views.setViewVisibility(it, View.GONE) }
+        WidgetRefreshHeader.Kind.PORTFOLIO.ids.let { ids ->
+            listOf(ids.status, ids.refresh, ids.busy, ids.countdown).forEach { views.setViewVisibility(it, View.GONE) }
         }
         if (title != null) views.setTextViewText(R.id.portfolio_title, title)
         views.setViewVisibility(R.id.portfolio_values, View.GONE)
@@ -277,7 +279,8 @@ class PortfolioWidgetRenderer @Inject constructor(
 
     /** Tipp auf «Aktualisieren» läuft: Kreisel statt Knopf, bis [setRefreshing] (false) neu zeichnet. */
     @Volatile
-    private var refreshing = false
+    var refreshing = false
+        private set
 
     /** Kreisel an bzw. aus und neu zeichnen (voll, die Grössen-Layouts erlauben kein Teil-Update). */
     suspend fun setRefreshing(appWidgetIds: IntArray, on: Boolean) {
@@ -293,12 +296,21 @@ class PortfolioWidgetRenderer @Inject constructor(
         outdated: Boolean,
         colors: WidgetColors,
         busy: Boolean,
+        lock: WidgetRefreshHeader.Lock,
     ) {
+        val kind = WidgetRefreshHeader.Kind.PORTFOLIO
         WidgetRefreshHeader.bind(
+            context = context,
             toolkit = toolkit,
             views = views,
-            ids = WidgetRefreshHeader.PORTFOLIO,
-            candidates = WidgetRefreshHeader.candidates(context, snapshot.time, !offline, outdated),
+            ids = kind.ids,
+            candidates = WidgetRefreshHeader.candidates(
+                context,
+                snapshot.time,
+                widgetPrefs.headerStamp(kind).durationFor(snapshot.time),
+                !offline,
+                outdated,
+            ),
             widthDp = widthDp,
             titleDp = toolkit.textWidthDp(context.getString(R.string.widget_portfolio_name), WidgetType.BODY),
             colors = colors,
@@ -309,6 +321,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                 appWidgetId,
             ),
             busy = busy,
+            lock = lock,
         )
     }
 

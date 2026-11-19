@@ -3305,6 +3305,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 317: Space→FrameLayout + WidgetLayoutClassesTest; LoadProgressBar (ab 2 s) + rememberPullAck/PullAck (1 s); PriceRefresher.fullProgress, LoadTally (Markt); Portfolio-Pille immer da; Puls-Titel ohne Symbol; Audit: Querverweise, gen_assets ohne rmtree der Kataloge.
 * Build 318: WidgetRefreshHeader (Android) / WidgetHeaderTrailing + RefreshPulseIntent/RefreshPortfolioIntent (iOS); Portfolio-Kreisel über vollen Neuzeichnen-Durchlauf (Grössen-Layouts); WidgetChoiceRows; LoadProgressBar ohne Verzögerung; pulse_plain_sources entfernt.
 * Build 319: LoadTopBar (Balken über der TopAppBar, unter der Statusleiste); dailyData ohne skipped-Bedingung (beide Plattformen), MarketTopBar ausgelagert.
+* Build 320: WidgetRefreshHeader: candidates mit Dauer (ListWidgetHeader.statusText), Lock/Chronometer, onTap mit WidgetRefreshState, Neuzeichnen am Ende über WidgetRefreshUnlock.Target je Widget; WidgetHeaderStamp (domain + Swift) mit Dauer und Ende je Widget-Art; iOS WidgetHeaderTrailing mit Countdown, WidgetHeaderTap, WidgetHeaderUnlock.
 
 ## Known warnings
 

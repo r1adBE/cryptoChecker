@@ -25,7 +25,7 @@ private struct PulseViewHeader: View {
             Spacer(minLength: 0)
             // Stand und «Aktualisieren» wie im Merkliste-Widget
             WidgetHeaderTrailing(candidates: showsStatus ? entry.headerStatus : [], palette: palette,
-                                 intent: RefreshPulseIntent())
+                                 intent: RefreshPulseIntent(), blockedUntil: entry.refreshBlockedUntil, date: entry.date)
         }
     }
 

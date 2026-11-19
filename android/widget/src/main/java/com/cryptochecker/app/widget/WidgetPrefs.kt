@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.ThemeSchedule
 import com.cryptochecker.app.domain.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.WidgetHeaderStamp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -199,6 +200,26 @@ class WidgetPrefs @Inject constructor(
         get() = prefs.getLong(KEY_REFRESH_BLOCKED_UNTIL, 0L)
         set(value) = prefs.edit { putLong(KEY_REFRESH_BLOCKED_UNTIL, value) }
 
+    /** Letzte Aktualisierung aus dem Puls- bzw. Portfolio-Widget ([WidgetHeaderStamp]). */
+    internal fun headerStamp(kind: WidgetRefreshHeader.Kind): WidgetHeaderStamp = WidgetHeaderStamp(
+        dataAt = prefs.getLong(KEY_HEADER_PREFIX + kind.key + "_data_at", 0L),
+        durationMillis = prefs.getLong(KEY_HEADER_PREFIX + kind.key + "_duration", 0L),
+        finishedAt = prefs.getLong(KEY_HEADER_PREFIX + kind.key + "_finished_at", 0L),
+    )
+
+    internal fun saveHeaderStamp(kind: WidgetRefreshHeader.Kind, stamp: WidgetHeaderStamp) = prefs.edit {
+        putLong(KEY_HEADER_PREFIX + kind.key + "_data_at", stamp.dataAt)
+        putLong(KEY_HEADER_PREFIX + kind.key + "_duration", stamp.durationMillis)
+        putLong(KEY_HEADER_PREFIX + kind.key + "_finished_at", stamp.finishedAt)
+    }
+
+    /** Knopf des Puls- bzw. Portfolio-Widgets gesperrt bis (Wanduhr, ms; 0 = nie) — wie [refreshBlockedUntil]. */
+    internal fun headerBlockedUntil(kind: WidgetRefreshHeader.Kind): Long =
+        prefs.getLong(KEY_HEADER_PREFIX + kind.key + "_blocked_until", 0L)
+
+    internal fun setHeaderBlockedUntil(kind: WidgetRefreshHeader.Kind, until: Long) =
+        prefs.edit { putLong(KEY_HEADER_PREFIX + kind.key + "_blocked_until", until) }
+
     /**
      * Nächster Versuch der Aktualisierung aus dem Widget (Wanduhr, ms; 0 = keiner), solange sie nach «erneut
      * versuchen» wartet ([ListWidgetRetry]): Listen-Widgets zeigen bis dahin die Uhrzeit dieses Versuchs.
@@ -264,6 +285,7 @@ class WidgetPrefs @Inject constructor(
         const val KEY_LAST_HIGH_CONTRAST = "last_high_contrast"
         const val KEY_REFRESH_BLOCKED_UNTIL = "refresh_blocked_until"
         const val KEY_REFRESH_RETRY_AT = "refresh_retry_at"
+        const val KEY_HEADER_PREFIX = "header_"
         const val GROUP_PREFIX = "widget_group_"
     }
 }

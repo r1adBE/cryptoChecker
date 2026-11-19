@@ -28,21 +28,48 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
 
     @Inject lateinit var scheduler: WidgetScheduler
 
-    /** Knopf «Aktualisieren» in der Kopfzeile: Kreisel, frisch rechnen (Kurse), neu zeichnen — auch bei Fehler. */
+    @Inject lateinit var connectivity: WidgetConnectivity
+
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        if (intent.action != ACTION_REFRESH) return
-        launchAsync("Portfolio-Widget per Tipp aktualisieren") {
-            val ids = widgetUpdater.portfolioWidgetIds()
-            widgetUpdater.setPortfolioRefreshing(ids, on = true)
-            try {
-                com.cryptochecker.app.domain.work.countedRun {
-                    withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
-                }
-            } finally {
-                // Auch bei Fehler oder Zeitgrenze: Kreisel weg, Stand neu
-                withContext(NonCancellable) { widgetUpdater.setPortfolioRefreshing(ids, on = false) }
+        val kind = WidgetRefreshHeader.Kind.PORTFOLIO
+        when (intent.action) {
+            ACTION_REFRESH -> launchAsync("Portfolio-Widget per Tipp aktualisieren") {
+                WidgetRefreshHeader.onTap(
+                    prefs = widgetPrefs,
+                    kind = kind,
+                    online = connectivity.online(),
+                    running = widgetUpdater.portfolioRefreshing,
+                    start = { refreshByTap() },
+                    redraw = { widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds()) },
+                )
             }
+            // Sperre vorbei: Symbol statt Countdown
+            ACTION_REFRESH_UNLOCKED -> launchAsync("Portfolio-Widgets nach der Sperre neu zeichnen") {
+                widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
+            }
+            ACTION_REFRESH_HOLD -> {
+                val blockedUntil = intent.getLongExtra(PriceWidgetProvider.EXTRA_BLOCKED_UNTIL, 0L)
+                launchAsync("Portfolio-Widgets am Ende der Sperre neu zeichnen") {
+                    WidgetRefreshUnlock.onHold(context, blockedUntil, kind.unlock) {
+                        widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
+                    }
+                }
+            }
+        }
+    }
+
+    /** Knopf «Aktualisieren»: Kreisel, frisch rechnen (Kurse), neu zeichnen — auch bei Fehler (dann Countdown oder Knopf). */
+    private suspend fun refreshByTap() {
+        val ids = widgetUpdater.portfolioWidgetIds()
+        widgetUpdater.setPortfolioRefreshing(ids, on = true)
+        try {
+            com.cryptochecker.app.domain.work.countedRun {
+                withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
+            }
+        } finally {
+            // Auch bei Fehler oder Zeitgrenze: Kreisel weg, Stand neu
+            withContext(NonCancellable) { widgetUpdater.setPortfolioRefreshing(ids, on = false) }
         }
     }
 
@@ -89,6 +116,12 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
     companion object {
         /** Tipp auf «Aktualisieren» in der Kopfzeile ([WidgetRefreshHeader]). */
         const val ACTION_REFRESH = "com.cryptochecker.app.action.PORTFOLIO_WIDGET_REFRESH"
+
+        /** Wecker aus [WidgetRefreshUnlock.schedule]: Sperre vorbei, Symbol wieder zeigen. */
+        const val ACTION_REFRESH_UNLOCKED = "com.cryptochecker.app.action.PORTFOLIO_WIDGET_REFRESH_UNLOCKED"
+
+        /** Empfang aus [WidgetRefreshUnlock.hold]: bis zum Ende der Sperre warten, dann Symbol statt Countdown. */
+        const val ACTION_REFRESH_HOLD = "com.cryptochecker.app.action.PORTFOLIO_WIDGET_REFRESH_HOLD"
 
         private const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
     }

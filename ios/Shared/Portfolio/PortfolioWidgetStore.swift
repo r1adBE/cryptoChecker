@@ -238,6 +238,21 @@ enum PortfolioWidgetStore {
                rate: FxRateSource.cached(currency), reload: reload)
     }
 
+    /// Wie `refresh(reload:)`.
+    /// - Parameter stamp: aus dem Widget bzw. der Hintergrund-Aufgabe — «Uhrzeit · Dauer» und die 15-s-Sperre des Knopfs
+    ///   (`WidgetHeaderStamp`) vor dem Neuzeichnen merken, wie Android `PortfolioSnapshotUpdater.refresh`
+    @discardableResult
+    static func refresh(reload: Bool = true, stamp: Bool) async -> PortfolioWidgetSnapshot? {
+        guard stamp else { return await refresh(reload: reload) }
+        let startedAt = EpochTime.nowMillis
+        let snapshot = await refresh(reload: false)
+        if let snapshot, snapshot.updatedAt >= startedAt {
+            WidgetHeaderStamp.finished(.portfolio, dataAt: snapshot.updatedAt, startedAt: startedAt)
+            if reload { WidgetCenter.shared.reloadTimelines(ofKind: kind) }
+        }
+        return snapshot
+    }
+
     /// Kurse und Devisenkurs holen (60 s Zwischenspeicher) — Hintergrund-Aktualisierung
     /// und Widget, damit das Widget nicht vom Öffnen der App abhängt.
     @discardableResult

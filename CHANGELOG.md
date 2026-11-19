@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 320)
+
+Puls- und Portfolio-Widget: Kopfzeile wie im Merkliste-Widget – «Uhrzeit · Dauer» und nach dem Aktualisieren 15 Sekunden Countdown statt Knopf.
+
 ## 16.2.2 (build 319)
 
 - The loading bar sits at the very top in the market and portfolio too, like in the watchlist.

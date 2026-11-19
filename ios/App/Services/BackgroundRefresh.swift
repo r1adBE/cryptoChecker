@@ -205,7 +205,7 @@ enum BackgroundRefresh {
             }
         }
         let widget = await RefreshDeadline.run(within: max(0, portfolioEnd - EpochTime.nowMillis)) { @MainActor in
-            await PortfolioWidgetStore.refresh()
+            await PortfolioWidgetStore.refresh(stamp: true)
         }
         if let widget, !Task.isCancelled {
             // Portfolio-Alarme mit dem neuen Stand prüfen (nur mit eingeschaltetem Portfolio). Devisenkurse

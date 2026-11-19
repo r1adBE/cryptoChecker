@@ -66,19 +66,25 @@ class PulseWidgetRenderer @Inject constructor(
         loadAndDraw(appWidgetIds, cached, PulseWidgetData.TTL)
     }
 
+    /** Läuft gerade eine Aktualisierung per Tipp ([refreshByTap])? */
+    @Volatile
+    var refreshing = false
+        private set
+
     /**
-     * Tipp auf «Aktualisieren»: Kreisel (aus dem Zwischenspeicher neu gezeichnet), dann frisch laden — ausser die Daten sind jünger als
-     * [PulseWidgetData.TAP_MIN_AGE_MILLIS] (schont die freie Quelle) — und neu zeichnen (Kreisel weg).
+     * Tipp auf «Aktualisieren» (ausserhalb der 15-s-Sperre, [WidgetRefreshHeader.onTap]): Kreisel (aus dem
+     * Zwischenspeicher neu gezeichnet), frisch laden und neu zeichnen (Kreisel weg, danach der Countdown).
      */
     suspend fun refreshByTap(appWidgetIds: IntArray) {
         if (appWidgetIds.isEmpty()) return
-        val cached = pulseData.readPulse()
-        drawPulse(appWidgetIds, cached, busy = true)
-        if (!connectivity.online()) {
-            drawPulse(appWidgetIds, cached)
-            return
+        refreshing = true
+        try {
+            val cached = pulseData.readPulse()
+            drawPulse(appWidgetIds, cached, busy = true)
+            loadAndDraw(appWidgetIds, cached, maxAgeMillis = 0L)
+        } finally {
+            refreshing = false
         }
-        loadAndDraw(appWidgetIds, cached, PulseWidgetData.TAP_MIN_AGE_MILLIS)
     }
 
     private suspend fun loadAndDraw(appWidgetIds: IntArray, cached: CachedValue<PulseInput>?, maxAgeMillis: Long) {
@@ -116,6 +122,13 @@ class PulseWidgetRenderer @Inject constructor(
         widgetPrefs.lastHighContrast = highContrast
         val now = System.currentTimeMillis()
         val online = connectivity.online()
+        // Kopfzeile wie im Listen-Widget: «Uhrzeit · Dauer», nach einer Aktualisierung 15 s Countdown statt Knopf
+        val stamp = widgetPrefs.headerStamp(WidgetRefreshHeader.Kind.PULSE)
+        val lock = if (busy) {
+            WidgetRefreshHeader.Lock()
+        } else {
+            WidgetRefreshHeader.lock(context, widgetPrefs, WidgetRefreshHeader.Kind.PULSE, now)
+        }
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
         val impulseTitle = context.getString(R.string.pulse_now_title)
@@ -173,13 +186,14 @@ class PulseWidgetRenderer @Inject constructor(
             // Rechts in der Kopfzeile der Stand (Halving: nach Kalender, ohne) und «Aktualisieren», wie im Listen-Widget
             val (widgetWidthDp, heightDp) = toolkit.sizeDp(manager, appWidgetId)
             val status = WidgetRefreshHeader.bind(
+                context = context,
                 toolkit = toolkit,
                 views = views,
-                ids = WidgetRefreshHeader.PULSE,
+                ids = WidgetRefreshHeader.Kind.PULSE.ids,
                 candidates = if (view == PulseWidgetView.HALVING || fresh == null) {
                     emptyList()
                 } else {
-                    WidgetRefreshHeader.candidates(context, fresh.savedAt, online, outdated = false)
+                    WidgetRefreshHeader.candidates(context, fresh.savedAt, stamp.durationFor(fresh.savedAt), online, outdated = false)
                 },
                 widthDp = widgetWidthDp,
                 titleDp = toolkit.textWidthDp(title, WidgetType.LABEL),
@@ -191,6 +205,7 @@ class PulseWidgetRenderer @Inject constructor(
                     appWidgetId,
                 ),
                 busy = busy,
+                lock = lock,
             )
             // Titel ganz oder gar nicht (dann nur das Logo), nie «Was gerade a…»; Stand und Knopf daneben abgezogen
             val titleWidthDp = if (widgetWidthDp > 0) widgetWidthDp - WidgetRefreshHeader.usedDp(toolkit, status).toInt() else 0

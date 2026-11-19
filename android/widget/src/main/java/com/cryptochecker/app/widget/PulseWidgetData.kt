@@ -25,6 +25,7 @@ import timber.log.Timber
 class PulseWidgetData @Inject constructor(
     private val pulseDataSource: PulseDataSource,
     private val cycleCacheStore: CycleCacheStore,
+    private val widgetPrefs: WidgetPrefs,
 ) {
     /** Höchstens ein Abruf der Pulse-Daten gleichzeitig (mehrere Auslöser kurz nacheinander). */
     private val pulseMutex = Mutex()
@@ -43,6 +44,7 @@ class PulseWidgetData @Inject constructor(
      */
     suspend fun loadPulse(maxAgeMillis: Long = TTL): CachedValue<PulseInput>? = pulseMutex.withLock {
         readPulse()?.takeIf { isPulseFresh(it, maxAgeMillis) }?.let { return@withLock it }
+        val startedAt = System.currentTimeMillis()
         val fetched = try {
             withTimeoutOrNull(CycleSource.PULSE.timeoutMillis) { pulseDataSource.fetchInput() }
         } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
@@ -57,14 +59,13 @@ class PulseWidgetData @Inject constructor(
         val fresh = fetched?.takeIf { CryptoPulse.evaluate(it) != null } ?: return@withLock null
         val at = fresh.time.takeIf { it > 0L } ?: System.currentTimeMillis()
         cycleCacheStore.write(CycleSource.PULSE.key, fresh, at, CycleCacheCodecs.pulseInput)
+        // Kopfzeile «Uhrzeit · Dauer» und 15-s-Sperre des Knopfs, wie im Listen-Widget
+        WidgetRefreshHeader.finished(widgetPrefs, WidgetRefreshHeader.Kind.PULSE, at, startedAt)
         CachedValue(fresh, at)
     }
 
     companion object {
         /** Gültigkeit wie im Markt-Tab ([CycleSource.PULSE], 5 Min.). */
         val TTL: Long = CycleSource.PULSE.ttlMillis
-
-        /** Tipp auf «Aktualisieren»: jüngere Daten gelten als frisch (schont die freie Quelle bei mehreren Tipps). */
-        const val TAP_MIN_AGE_MILLIS = 30_000L
     }
 }

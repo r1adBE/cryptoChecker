@@ -2,41 +2,60 @@ import AppIntents
 import SwiftUI
 import WidgetKit
 
-// Rechter Teil der Kopfzeile im Puls- und im Portfolio-Widget, einheitlich mit dem Merkliste-Widget: der Stand
-// (Datum und Uhrzeit, eng nur die Uhrzeit; veraltet bzw. ohne Netz mit Hinweis) und der Knopf «Aktualisieren».
-// Wie Android `WidgetRefreshHeader`.
+// Rechter Teil der Kopfzeile im Puls- und im Portfolio-Widget, genau wie im Merkliste-Widget: der Stand («Uhrzeit ·
+// Dauer», eng nur die Uhrzeit; veraltet bzw. ohne Netz mit Hinweis) und der Knopf «Aktualisieren», nach einer
+// Aktualisierung 15 s lang ein Countdown (`WidgetHeaderStamp`, `WidgetRefreshState`). Wie Android `WidgetRefreshHeader`.
 
 /// Texte für den Stand, lang → kurz.
 enum WidgetHeaderStatus {
-    /// «19. Nov., 10:12» / «10:12»; veraltet «veraltet · …» / «veraltet»; ohne Netz «Keine Verbindung · Stand …» /
-    /// «Keine Verbindung». Ohne Zeit (0) leer.
-    static func candidates(time: Int64, offline: Bool, outdated: Bool, at date: Date) -> [String] {
+    /// «06:42:15 · 840 ms» / «06:42:15» (wie `WidgetData.refreshMeta` im Merkliste-Widget); veraltet «veraltet · …» /
+    /// «veraltet»; ohne Netz «Keine Verbindung · Stand …» / «Keine Verbindung». Ohne Zeit (0) leer.
+    /// - Parameter duration: Dauer der Aktualisierung zu diesem Stand (`WidgetHeaderStamp.Stamp.duration`); 0 = ohne
+    static func candidates(time: Int64, duration: Int64, offline: Bool, outdated: Bool, at date: Date) -> [String] {
         switch WidgetStatusRule.kind(online: !offline, outdated: outdated, time: time) {
         case .offline: [WidgetOffline.label(time, at: date), WidgetOffline.short]
         case .offlineNoTime: [WidgetOffline.short]
         case .outdated: [WidgetOutdated.label(time, at: date), L("widget_outdated")]
-        case .time: time > 0 ? [dateTime(time), timeOnly(time)] : []
+        case .time:
+            time > 0 ? unique([WidgetData.refreshMeta(at: time, duration: duration),
+                               WidgetData.refreshMeta(at: time, duration: 0)]) : []
         }
     }
 
-    /// «19. Nov., 10:12» — mit Datum, damit klar ist, von wann der Stand ist.
-    static func dateTime(_ time: Int64) -> String {
-        Date(timeIntervalSince1970: TimeInterval(time) / 1000)
-            .formatted(.dateTime.day().month(.abbreviated).hour().minute())
-    }
-
-    private static func timeOnly(_ time: Int64) -> String {
-        Date(timeIntervalSince1970: TimeInterval(time) / 1000).formatted(date: .omitted, time: .shortened)
+    private static func unique(_ texts: [String]) -> [String] {
+        texts.reduce(into: []) { list, text in if !list.contains(text) { list.append(text) } }
     }
 }
 
-/// Stand (erster Text, der passt; sonst keiner) und Knopf rechts in einer Kopfzeile.
+/// Eintrag zum Ende der Sperre: bringt das Symbol zurück (der Countdown davor zählt von selbst), wie im
+/// Merkliste-Widget (`WatchlistProvider`).
+enum WidgetHeaderUnlock {
+    static func adding<E: TimelineEntry>(_ entries: [E], blockedUntil: Int64,
+                                         copy: (E, Date) -> E) -> [E] {
+        guard let first = entries.first,
+              let unlock = WidgetRefreshState.unlockAt(blockedUntil: blockedUntil,
+                                                       now: Int64(first.date.timeIntervalSince1970 * 1000)) else {
+            return entries
+        }
+        let unlockDate = Date(timeIntervalSince1970: TimeInterval(unlock) / 1000)
+        let base = entries.last { $0.date <= unlockDate } ?? first
+        return (entries + [copy(base, unlockDate)]).sorted { $0.date < $1.date }
+    }
+}
+
+/// Stand (erster Text, der passt; sonst keiner) und Knopf rechts in einer Kopfzeile; in der Sperre (`blockedUntil`)
+/// statt des Symbols ein Countdown, den WidgetKit selbst herunterzählt — wie `WidgetRefreshButton`.
 struct WidgetHeaderTrailing<Intent: AppIntent>: View {
     let candidates: [String]
     let palette: WidgetPalette
     let intent: Intent
+    /// Gesperrt bis (Wanduhr, ms; 0 = nie) und Zeitpunkt des Eintrags.
+    var blockedUntil: Int64 = 0
+    var date = Date()
 
     var body: some View {
+        let seconds = WidgetRefreshState.remainingSeconds(blockedUntil: blockedUntil,
+                                                          now: Int64(date.timeIntervalSince1970 * 1000))
         HStack(spacing: 4) {
             ViewThatFits(in: .horizontal) {
                 ForEach(candidates, id: \.self) { text in
@@ -50,60 +69,101 @@ struct WidgetHeaderTrailing<Intent: AppIntent>: View {
                 Color.clear.frame(width: 0, height: 0)
             }
             Button(intent: intent) {
-                Image(systemName: "arrow.clockwise")
-                    .font(.system(size: 10, weight: .bold))
-                    .foregroundStyle(palette.text) // neutral wie im Merkliste-Widget
-                    .frame(width: 22, height: 22)
-                    .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
-                    // Trefferfläche grösser als der Kreis, ohne die Kopfzeile höher zu machen
-                    .padding(12)
-                    .contentShape(Rectangle())
+                Group {
+                    if seconds > 0 {
+                        Text(timerInterval: date...Date(timeIntervalSince1970: TimeInterval(blockedUntil) / 1000),
+                             countsDown: true)
+                            .font(.system(size: 9, weight: .semibold))
+                            .monospacedDigit()
+                            .foregroundStyle(palette.secondary)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
+                    } else {
+                        Image(systemName: "arrow.clockwise")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(palette.text) // neutral wie im Merkliste-Widget
+                    }
+                }
+                .frame(width: 22, height: 22)
+                .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
+                // Trefferfläche grösser als der Kreis, ohne die Kopfzeile höher zu machen
+                .padding(12)
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .padding(-12)
-            .accessibilityLabel(L("action_refresh"))
+            // VoiceOver: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
+            .accessibilityLabel(seconds > 0 ? L("widget_refresh_blocked_a11y", seconds) : L("action_refresh"))
         }
     }
 }
 
-/// Puls-Widget aktualisieren: frisch laden — ausser die Daten sind jünger als 30 s (schont die freie Quelle bei
-/// mehreren Tipps) — und neu zeichnen. Ohne Netz nur neu zeichnen. Wie Android `PulseWidgetRenderer.refreshByTap`.
+/// Tipp auf «Aktualisieren» im Puls- bzw. Portfolio-Widget mit derselben 15-s-Sperre wie im Merkliste-Widget
+/// (`WidgetRefreshState.onTap`): ohne Netz nur neu zeichnen; eben erst aktualisiert, Countdown zeichnen (weitere Tipps
+/// auf ihn tun nichts); sonst `start` und neu zeichnen. Wie Android `WidgetRefreshHeader.onTap`.
+enum WidgetHeaderTap {
+    static func perform(_ kind: WidgetHeaderStamp.Kind, widgetKind: String, start: () async -> Void) async {
+        let tap = WidgetRefreshState.onTap(online: !(await WidgetOffline.isOffline()), running: false,
+                                           lastFinishedAt: WidgetHeaderStamp.load(kind).finishedAt,
+                                           now: EpochTime.nowMillis)
+        switch tap {
+        case .offline:
+            break
+        case .start:
+            await start()
+        case .running:
+            return
+        case .blocked(let until):
+            guard WidgetHeaderStamp.blockedUntil(kind) != until else { return }
+            WidgetHeaderStamp.setBlockedUntil(kind, until)
+        }
+        WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
+    }
+}
+
+/// Puls-Widget aktualisieren (ausserhalb der Sperre, `WidgetHeaderTap`): frisch laden und neu zeichnen. Wie Android
+/// `PulseWidgetRenderer.refreshByTap`.
 struct RefreshPulseIntent: AppIntent {
     static let title: LocalizedStringResource = "action_refresh"
     static let isDiscoverable: Bool = false
-    static let tapMinAgeMillis: Int64 = 30_000
 
     func perform() async throws -> some IntentResult {
-        let stored = CryptoPulseSource.stored()
-        let young = stored.map { EpochTime.nowMillis - $0.time < Self.tapMinAgeMillis } ?? false
-        if !young, !(await WidgetOffline.isOffline()) {
-            _ = await RefreshDeadline.run(within: PortfolioProvider.refreshDeadlineMillis) { () async -> Bool in
-                (try? await CryptoPulseSource.shared.fetch(force: true)) != nil
+        await WidgetHeaderTap.perform(.pulse, widgetKind: PulseWidgetData.kind) {
+            let startedAt = EpochTime.nowMillis
+            let fetched = await RefreshDeadline.run(within: PortfolioProvider.refreshDeadlineMillis) {
+                () async -> PulseMarketData? in
+                try? await CryptoPulseSource.shared.fetch(force: true)
+            }
+            if let data = fetched ?? nil, data.hasMarket, data.time > 0 {
+                WidgetHeaderStamp.finished(.pulse, dataAt: data.time, startedAt: startedAt)
             }
         }
-        WidgetCenter.shared.reloadTimelines(ofKind: PulseWidgetData.kind)
         return .result()
     }
 }
 
-/// Portfolio-Widget aktualisieren: Kurse holen und den Stand neu rechnen (wie der Zeitplan, nur sofort), dann neu
-/// zeichnen. Gesperrt oder Portfolio aus: nichts holen. Wie Android `PortfolioWidgetProvider.ACTION_REFRESH`.
+/// Portfolio-Widget aktualisieren (ausserhalb der Sperre): Kurse holen und den Stand neu rechnen (wie der Zeitplan, nur
+/// sofort), dann neu zeichnen. Gesperrt oder Portfolio aus: nichts holen. Wie Android `PortfolioWidgetProvider`.
 struct RefreshPortfolioIntent: AppIntent {
     static let title: LocalizedStringResource = "action_refresh"
     static let isDiscoverable: Bool = false
 
     func perform() async throws -> some IntentResult {
         let loaded = SharedStorage.loadSettingsChecked()
-        if loaded.settings.portfolioEnabled, !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed),
-           !(await WidgetOffline.isOffline()) {
+        guard loaded.settings.portfolioEnabled,
+              !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed) else {
+            WidgetCenter.shared.reloadTimelines(ofKind: PortfolioWidgetStore.kind)
+            return .result()
+        }
+        await WidgetHeaderTap.perform(.portfolio, widgetKind: PortfolioWidgetStore.kind) {
             UsageMeter.shared.countRun()
             _ = await RefreshDeadline.run(within: PortfolioProvider.refreshDeadlineMillis) { () async -> Bool in
-                await PortfolioWidgetStore.refresh(reload: false)
+                await PortfolioWidgetStore.refresh(reload: false, stamp: true)
                 return true
             }
             UsageMeter.shared.flush()
         }
-        WidgetCenter.shared.reloadTimelines(ofKind: PortfolioWidgetStore.kind)
         return .result()
     }
 }

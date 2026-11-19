@@ -72,9 +72,12 @@ struct PortfolioHomeView: View {
             Spacer(minLength: 0)
             if refresh, let s = entry.shown {
                 WidgetHeaderTrailing(
-                    candidates: WidgetHeaderStatus.candidates(time: s.updatedAt, offline: entry.offline,
-                                                              outdated: entry.outdated, at: entry.date),
-                    palette: palette, intent: RefreshPortfolioIntent())
+                    candidates: WidgetHeaderStatus.candidates(time: s.updatedAt,
+                                                              duration: entry.headerStamp.duration(for: s.updatedAt),
+                                                              offline: entry.offline, outdated: entry.outdated,
+                                                              at: entry.date),
+                    palette: palette, intent: RefreshPortfolioIntent(),
+                    blockedUntil: entry.refreshBlockedUntil, date: entry.date)
             }
         }
     }

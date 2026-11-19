@@ -54,7 +54,8 @@ struct PulseHomeView: View {
             .accessibilityHidden(true)
             Spacer(minLength: 0)
             // Stand und «Aktualisieren» wie im Merkliste-Widget
-            WidgetHeaderTrailing(candidates: entry.headerStatus, palette: palette, intent: RefreshPulseIntent())
+            WidgetHeaderTrailing(candidates: entry.headerStatus, palette: palette, intent: RefreshPulseIntent(),
+                                 blockedUntil: entry.refreshBlockedUntil, date: entry.date)
         }
     }
 

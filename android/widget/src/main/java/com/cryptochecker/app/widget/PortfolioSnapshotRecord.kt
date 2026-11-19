@@ -85,6 +85,8 @@ suspend fun PortfolioSnapshotUpdater.record(
      * gespeicherte (Hintergrund, Widget).
      */
     displayFx: PortfolioDisplayFx? = null,
+    /** Beginn einer Aktualisierung aus dem Widget ([PortfolioSnapshotUpdater.refresh]); 0 = sonst (App). */
+    startedAt: Long = 0L,
 ): PortfolioSnapshot? = withContext(ioDispatcher) {
     // Portfolio nur leer im Arbeitsspeicher, obwohl die Datei mit dem gespeicherten Stand da ist (Schlüssel gerade
     // nicht lesbar): nichts aufnehmen — sonst zeigte das Widget ein leeres Portfolio und der Verlauf bekäme eine Null
@@ -177,6 +179,10 @@ suspend fun PortfolioSnapshotUpdater.record(
         )
         store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
         snapshot
+    }
+    // Aus dem Widget: «Uhrzeit · Dauer» in der Kopfzeile, danach 15 s Countdown statt Knopf — vor dem Zeichnen
+    if (recorded != null && startedAt > 0L) {
+        WidgetRefreshHeader.finished(widgetPrefs, WidgetRefreshHeader.Kind.PORTFOLIO, recorded.time, startedAt)
     }
     widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
     // Portfolio-Wert auf der Uhr (nur mit Schalter, sonst nichts)

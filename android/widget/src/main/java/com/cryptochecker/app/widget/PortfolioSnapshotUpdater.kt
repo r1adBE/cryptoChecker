@@ -73,6 +73,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
     internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** Portfolio-Wert auf der Uhr (nur mit Schalter): nach jeder Aufnahme senden, ohne eigene Abfrage. */
     internal val watchFeed: dagger.Lazy<PortfolioWatchFeed>,
+    /** Kopfzeile des Widgets: Dauer der Aktualisierung und 15-s-Sperre des Knopfs ([WidgetRefreshHeader]). */
+    internal val widgetPrefs: WidgetPrefs,
     @param:IoDispatcher internal val ioDispatcher: CoroutineDispatcher,
 ) {
     internal val mutex = Mutex()
@@ -127,6 +129,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
      * ([PortfolioHourlyCandles.loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
      */
     suspend fun refresh(): Unit = withContext(ioDispatcher) {
+        val startedAt = System.currentTimeMillis()
         try {
             // Adress-Guthaben (nur fällige) und als Einzahlung ohne Kaufpreis mitrechnen — wie der Portfolio-Tab;
             // höchstens 8 s zusammen (je Anfrage 5 s), damit Kurse, Aufnahme und Alarme nie ausfallen
@@ -162,7 +165,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 runCatchingCancellable { historySource.dailyPrices(coins, PortfolioHistory.MAX_DAYS) }
                     .onFailure { Timber.d(it, "Portfolio-Widget: Tagesschlüsse nicht geladen") }
             }
-            record(transactions, prices, currency, fx, fetched)
+            record(transactions, prices, currency, fx, fetched, startedAt = startedAt)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

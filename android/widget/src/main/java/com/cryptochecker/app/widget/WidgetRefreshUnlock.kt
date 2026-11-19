@@ -11,11 +11,11 @@ import com.cryptochecker.app.util.ExactAlarms
 import timber.log.Timber
 
 /**
- * Ende der 15-s-Sperre im Listen-Widget: Den Countdown zählt der Launcher selbst herunter (Chronometer),
+ * Ende der 15-s-Sperre im Listen-, Puls- und Portfolio-Widget: Den Countdown zählt der Launcher selbst herunter (Chronometer),
  * neu gezeichnet wird, wenn die Sperre endet — dann kommt das Symbol zurück. Ein Chronometer bleibt nicht bei
  * 0 stehen, sondern zählt ins Minus weiter («−01:05»); das Neuzeichnen muss also sicher kommen:
  *
- * - **Warten im Empfänger** ([hold]): Ein Broadcast an [PriceWidgetProvider] wartet mit goAsync bis zum Ende
+ * - **Warten im Empfänger** ([hold]): Ein Broadcast an den Provider ([Target]) wartet mit goAsync bis zum Ende
  *   und zeichnet dann neu. Solange ein Empfänger läuft, friert Android den Prozess nicht ein (sonst lief ein
  *   `delay` im Prozess erst nach Minuten weiter). Je Empfang höchstens [HOP_MILLIS] (unter der Grenze von
  *   goAsync, [com.cryptochecker.app.util.ReceiverAsync.TIMEOUT_MILLIS]); bleibt mehr, reicht er an den nächsten
@@ -27,6 +27,19 @@ import timber.log.Timber
  * Countdown erscheint nur, solange die Sperre noch läuft ([WidgetRefreshState.remainingMillis]).
  */
 object WidgetRefreshUnlock {
+    /**
+     * Empfänger der Sperre: das Listen-Widget ([LIST]) bzw. Puls- und Portfolio-Widget ([WidgetRefreshHeader.Kind]),
+     * je mit eigenem Wecker ([requestCode]).
+     */
+    data class Target(val provider: Class<*>, val holdAction: String, val unlockedAction: String, val requestCode: Int)
+
+    val LIST = Target(
+        PriceWidgetProvider::class.java,
+        PriceWidgetProvider.ACTION_REFRESH_HOLD,
+        PriceWidgetProvider.ACTION_REFRESH_UNLOCKED,
+        -7_014,
+    )
+
     /** Wartezeit je Empfang; mit dem Zeichnen danach sicher unter der Grenze von goAsync (9 s). */
     const val HOP_MILLIS = 6_000L
 
@@ -47,21 +60,30 @@ object WidgetRefreshUnlock {
         }
     }
 
-    /** Empfang an [PriceWidgetProvider] ([PriceWidgetProvider.ACTION_REFRESH_HOLD]), der bis [blockedUntil] wartet. */
-    fun hold(context: Context, blockedUntil: Long) {
-        val intent = Intent(context, PriceWidgetProvider::class.java)
-            .setAction(PriceWidgetProvider.ACTION_REFRESH_HOLD)
+    /** Empfang an den Provider von [target] ([Target.holdAction]), der bis [blockedUntil] wartet. */
+    fun hold(context: Context, blockedUntil: Long, target: Target = LIST) {
+        val intent = Intent(context, target.provider)
+            .setAction(target.holdAction)
             .putExtra(PriceWidgetProvider.EXTRA_BLOCKED_UNTIL, blockedUntil)
         runCatching { context.sendBroadcast(intent) }
             .onFailure { Timber.w(it, "Warten auf das Ende der Widget-Sperre nicht gestartet") }
     }
 
-    fun schedule(context: Context, blockedUntil: Long, now: Long = System.currentTimeMillis()) {
+    /**
+     * Empfang von [hold] ausführen: bis zum Ende warten, dann [redraw] — oder an den nächsten Empfang weiterreichen.
+     */
+    suspend fun onHold(context: Context, blockedUntil: Long, target: Target, redraw: suspend () -> Unit) {
+        val step = holdStep(blockedUntil, System.currentTimeMillis())
+        kotlinx.coroutines.delay(step.waitMillis)
+        if (step.redraw) redraw() else hold(context, blockedUntil, target)
+    }
+
+    fun schedule(context: Context, blockedUntil: Long, now: Long = System.currentTimeMillis(), target: Target = LIST) {
         val alarmManager = context.getSystemService(AlarmManager::class.java) ?: return
-        val intent = Intent(context, PriceWidgetProvider::class.java).setAction(PriceWidgetProvider.ACTION_REFRESH_UNLOCKED)
+        val intent = Intent(context, target.provider).setAction(target.unlockedAction)
         val pending = PendingIntent.getBroadcast(
             context,
-            REQUEST_CODE,
+            target.requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
@@ -81,6 +103,4 @@ object WidgetRefreshUnlock {
             }
         }.onFailure { Timber.w(it, "Wecker für das Ende der Widget-Sperre nicht gestellt") }
     }
-
-    private const val REQUEST_CODE = -7_014
 }

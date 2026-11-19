@@ -45,6 +45,10 @@ struct PortfolioEntry: ThemedTimelineEntry {
     var isSample = false
     /// Ohne Internet beim Erstellen (`WidgetOffline`): «Keine Verbindung · Stand 15:19» statt «Stand …».
     var offline = false
+    /// Letzte Aktualisierung aus dem Widget (Dauer in der Kopfzeile, `WidgetHeaderStamp`).
+    var headerStamp = WidgetHeaderStamp.Stamp()
+    /// Knopf gesperrt bis (ms; 0 = nie): bis dahin Countdown statt Symbol, wie im Merkliste-Widget.
+    var refreshBlockedUntil: Int64 = 0
 
     /// Wirksame Anzeige: je Ansicht (`PortfolioWidgetOptions`: Liste ohne «+ USDT»), dann bei einem USD-Stablecoin
     /// «Nur USDT», ohne USDT-Wert nur Umrechnung.
@@ -223,7 +227,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
             // brauchen — dann verwirft WidgetKit die Timeline. Höchstens `refreshDeadlineMillis` warten, sonst mit
             // dem gespeicherten Stand zeichnen und bald neu versuchen (wie Merkliste und Puls).
             let finished = await RefreshDeadline.run(within: Self.refreshDeadlineMillis) { () async -> Bool in
-                await PortfolioWidgetStore.refresh(reload: false)
+                await PortfolioWidgetStore.refresh(reload: false, stamp: true)
                 return true
             }
             timedOut = finished == nil
@@ -234,8 +238,16 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         // Zweiter Eintrag, sobald die Momentaufnahme veraltet («veraltet · 06:42»)
         var times: [Int64] = []
         if entry.state == .values, let current = entry.snapshot { times = [current.updatedAt] }
-        let entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
+        // Kopfzeile wie im Merkliste-Widget: «Uhrzeit · Dauer», nach einer Aktualisierung 15 s Countdown
+        entry.headerStamp = WidgetHeaderStamp.load(.portfolio)
+        entry.refreshBlockedUntil = WidgetHeaderStamp.lockUntil(.portfolio, now: Int64(entry.date.timeIntervalSince1970 * 1000))
+        var entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
             var later = entry
+            later.date = date
+            return later
+        }
+        entries = WidgetHeaderUnlock.adding(entries, blockedUntil: entry.refreshBlockedUntil) { base, date in
+            var later = base
             later.date = date
             return later
         }

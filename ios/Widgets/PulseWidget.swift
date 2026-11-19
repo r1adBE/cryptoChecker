@@ -44,6 +44,10 @@ struct PulseEntry: ThemedTimelineEntry {
     var offline = false
     /// Darstellung der App für «System» (beim Erstellen des Eintrags gelesen).
     var appTheme = WidgetAppTheme.current
+    /// Letzte Aktualisierung aus dem Widget (Dauer in der Kopfzeile, `WidgetHeaderStamp`).
+    var headerStamp = WidgetHeaderStamp.Stamp()
+    /// Knopf gesperrt bis (ms; 0 = nie): bis dahin Countdown statt Symbol, wie im Merkliste-Widget.
+    var refreshBlockedUntil: Int64 = 0
 
     /// Auswertung wie die Karte. Fear & Greed und Gas ändern Schlagzeile, Leitsatz und
     /// Chips nicht (nur die Zusatzsätze der Karte) — das Widget lädt sie deshalb nicht.
@@ -85,7 +89,8 @@ struct PulseEntry: ThemedTimelineEntry {
     /// Stand rechts in der Kopfzeile (`WidgetHeaderStatus`, lang → kurz); ohne Daten leer.
     var headerStatus: [String] {
         guard let data else { return [] }
-        return WidgetHeaderStatus.candidates(time: data.time, offline: offline, outdated: false, at: date)
+        return WidgetHeaderStatus.candidates(time: data.time, duration: headerStamp.duration(for: data.time),
+                                             offline: offline, outdated: false, at: date)
     }
 
     /// Ab dann stünde ein gezeigter Satz auf veralteten Daten (Epoch-ms); nil = kein Satz.
@@ -98,7 +103,8 @@ struct PulseEntry: ThemedTimelineEntry {
     func at(_ later: Date) -> PulseEntry {
         PulseEntry(date: later, data: data, theme: theme, accent: accent, priceColors: priceColors,
                    highContrast: highContrast, priceColorsInverted: priceColorsInverted, fearGreed: fearGreed,
-                   plainFearGreed: plainFearGreed, displayWidth: displayWidth, offline: offline, appTheme: appTheme)
+                   plainFearGreed: plainFearGreed, displayWidth: displayWidth, offline: offline, appTheme: appTheme,
+                   headerStamp: headerStamp, refreshBlockedUntil: refreshBlockedUntil)
     }
 
     /// Beispiel für Galerie und Platzhalter: «Breite Stärke».
@@ -135,7 +141,15 @@ enum PulseWidgetData {
     /// Frisch (oder aus dem Zwischenspeicher, falls jünger als 5 Min.); scheitert der Abruf,
     /// der letzte gespeicherte Stand, solange er nicht zu alt ist.
     static func current() async -> PulseMarketData? {
-        if let data = await fetch(seconds: fetchSeconds), data.hasMarket { return data }
+        let before = CryptoPulseSource.stored()?.time ?? 0
+        let startedAt = EpochTime.nowMillis
+        if let data = await fetch(seconds: fetchSeconds), data.hasMarket {
+            // Neu geholt (nicht der gespeicherte Stand): «Uhrzeit · Dauer» und 15-s-Sperre wie im Merkliste-Widget
+            if data.time > 0 && data.time != before {
+                WidgetHeaderStamp.finished(.pulse, dataAt: data.time, startedAt: startedAt)
+            }
+            return data
+        }
         return showable(CryptoPulseSource.stored())
     }
 
@@ -193,10 +207,15 @@ struct PulseProvider: AppIntentTimelineProvider {
         let data = await PulseWidgetData.current()
         var first = Self.entry(data, theme: configuration.theme, width: context.displaySize.width)
         first.offline = await WidgetOffline.isOffline()
+        // Kopfzeile wie im Merkliste-Widget: «Uhrzeit · Dauer», nach einer Aktualisierung 15 s Countdown
+        first.headerStamp = WidgetHeaderStamp.load(.pulse)
+        first.refreshBlockedUntil = WidgetHeaderStamp.lockUntil(.pulse, now: Int64(first.date.timeIntervalSince1970 * 1000))
         // Gleicher Takt wie die anderen Widgets; ohne Netz ein früher Neuversuch (der Hinweis soll mit dem Netz gehen)
         let reload = first.offline ? WidgetData.reload(kind: PulseWidgetData.kind, wantsQuickRetry: true)
             : WidgetData.nextReload
-        let entries = WidgetAppTheme.addingSwitch(Self.entries(first, until: reload), until: reload)
+        let withUnlock = WidgetHeaderUnlock.adding(Self.entries(first, until: reload),
+                                                   blockedUntil: first.refreshBlockedUntil) { base, date in base.at(date) }
+        let entries = WidgetAppTheme.addingSwitch(withUnlock, until: reload)
         return Timeline(entries: entries, policy: .after(reload))
     }
 

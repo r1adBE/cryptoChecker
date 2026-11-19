@@ -70,4 +70,18 @@
         android:indeterminateTint="@color/widget_initial_text_secondary"
         android:indeterminateTintMode="src_in"
         android:contentDescription="@string/loading_hint" />
+
+    <!-- Statt des Knopfs während der 15-s-Sperre: zählt selbst herunter wie im Listen-Widget (WidgetRefreshHeader) -->
+    <Chronometer
+        android:id="@+id/portfolio_refresh_countdown"
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="-12dp"
+        android:layout_marginBottom="-12dp"
+        android:layout_marginEnd="-10dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:fontFeatureSettings="tnum" />
 </LinearLayout>

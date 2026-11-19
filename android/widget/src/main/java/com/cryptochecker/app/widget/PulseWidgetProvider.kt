@@ -25,6 +25,8 @@ class PulseWidgetProvider : AppWidgetProvider() {
 
     @Inject lateinit var scheduler: WidgetScheduler
 
+    @Inject lateinit var connectivity: WidgetConnectivity
+
     override fun onReceive(context: Context, intent: Intent) {
         // Ruft die Injektion auf und verteilt an onUpdate/onDeleted.
         super.onReceive(context, intent)
@@ -34,12 +36,35 @@ class PulseWidgetProvider : AppWidgetProvider() {
                 widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
             }
         }
-        // Knopf «Aktualisieren» in der Kopfzeile: alle Pulse-Widgets (gleiche Daten), Kreisel bis zum Neuzeichnen
-        if (intent.action == ACTION_REFRESH) {
-            launchAsync("Pulse-Widget per Tipp aktualisieren") {
+        // Knopf «Aktualisieren» in der Kopfzeile: alle Pulse-Widgets (gleiche Daten), Kreisel bis zum Neuzeichnen;
+        // danach 15 s Countdown wie im Listen-Widget ([WidgetRefreshHeader.onTap])
+        val kind = WidgetRefreshHeader.Kind.PULSE
+        when (intent.action) {
+            ACTION_REFRESH -> launchAsync("Pulse-Widget per Tipp aktualisieren") {
                 val ids = widgetUpdater.pulseWidgetIds()
-                withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.refreshPulseByTap(ids) }
-                    ?: widgetUpdater.updatePulse(ids, fetch = false)
+                WidgetRefreshHeader.onTap(
+                    prefs = widgetPrefs,
+                    kind = kind,
+                    online = connectivity.online(),
+                    running = widgetUpdater.pulseRefreshing,
+                    start = {
+                        withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.refreshPulseByTap(ids) }
+                            ?: widgetUpdater.updatePulse(ids, fetch = false)
+                    },
+                    redraw = { widgetUpdater.updatePulse(ids, fetch = false) },
+                )
+            }
+            // Sperre vorbei: Symbol statt Countdown
+            ACTION_REFRESH_UNLOCKED -> launchAsync("Pulse-Widgets nach der Sperre neu zeichnen") {
+                widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
+            }
+            ACTION_REFRESH_HOLD -> {
+                val blockedUntil = intent.getLongExtra(PriceWidgetProvider.EXTRA_BLOCKED_UNTIL, 0L)
+                launchAsync("Pulse-Widgets am Ende der Sperre neu zeichnen") {
+                    WidgetRefreshUnlock.onHold(context, blockedUntil, kind.unlock) {
+                        widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
+                    }
+                }
             }
         }
     }
@@ -89,6 +114,12 @@ class PulseWidgetProvider : AppWidgetProvider() {
 
         /** Tipp auf «Aktualisieren» in der Kopfzeile ([WidgetRefreshHeader]). */
         const val ACTION_REFRESH = "com.cryptochecker.app.action.PULSE_WIDGET_REFRESH"
+
+        /** Wecker aus [WidgetRefreshUnlock.schedule]: Sperre vorbei, Symbol wieder zeigen. */
+        const val ACTION_REFRESH_UNLOCKED = "com.cryptochecker.app.action.PULSE_WIDGET_REFRESH_UNLOCKED"
+
+        /** Empfang aus [WidgetRefreshUnlock.hold]: bis zum Ende der Sperre warten, dann Symbol statt Countdown. */
+        const val ACTION_REFRESH_HOLD = "com.cryptochecker.app.action.PULSE_WIDGET_REFRESH_HOLD"
 
         /** Wecker aus [PulseWidgetRenderer] (veraltender Satz von «Kurz gesagt»). */
         const val ACTION_PLAIN_EXPIRED = "com.cryptochecker.app.action.PULSE_PLAIN_EXPIRED"
