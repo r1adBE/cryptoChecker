@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Akcento spalva</string>
-    <string name="settings_accent_hint">Programėlės, valdiklių ir programėlės piktogramos spalva. Kai kurie pagrindiniai ekranai pakeitus pašalina piktogramą – tada pridėk ją iš naujo.</string>
+    <string name="settings_accent_hint">Programėlės, valdiklių ir programėlės piktogramos spalva. Kai kurie pagrindiniai ekranai pakeitus pašalina piktogramą – tada pridėk ją iš naujo. Pranešimuose piktograma lieka oranžinė.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Monetų logotipai</string>
     <string name="settings_coin_logos_app">Programėlėje</string>

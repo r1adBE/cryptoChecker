@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Cor de destaque</string>
-    <string name="settings_accent_hint">Cor do app, dos widgets e do ícone do app. Algumas telas iniciais removem o ícone na troca – adicione-o de novo.</string>
+    <string name="settings_accent_hint">Cor do app, dos widgets e do ícone do app. Algumas telas iniciais removem o ícone na troca – adicione-o de novo. Nas notificações o ícone continua laranja.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logos das moedas</string>
     <string name="settings_coin_logos_app">No app</string>

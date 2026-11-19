@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">ពណ៌សង្កត់</string>
-    <string name="settings_accent_hint">ពណ៌សម្រាប់កម្មវិធី វិដជិត និងរូបតំណាងកម្មវិធី។ អេក្រង់ដើមខ្លះដករូបតំណាងចេញនៅពេលវាផ្លាស់ប្តូរ – សូមបន្ថែមវាម្តងទៀតពេលនោះ។</string>
+    <string name="settings_accent_hint">ពណ៌សម្រាប់កម្មវិធី វិដជិត និងរូបតំណាងកម្មវិធី។ អេក្រង់ដើមខ្លះដករូបតំណាងចេញនៅពេលវាផ្លាស់ប្តូរ – សូមបន្ថែមវាម្តងទៀតពេលនោះ។ នៅក្នុងការជូនដំណឹង រូបតំណាងនៅតែពណ៌ទឹកក្រូច។</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">រូបសញ្ញាកាក់</string>
     <string name="settings_coin_logos_app">ក្នុងកម្មវិធី</string>

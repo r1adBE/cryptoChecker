@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Nabarmentze-kolorea</string>
-    <string name="settings_accent_hint">Aplikaziorako, widgetetarako eta aplikazioaren ikonorako kolorea. Hasierako pantaila batzuek ikonoa kentzen dute aldatzen denean – kasu horretan, gehitu berriro.</string>
+    <string name="settings_accent_hint">Aplikaziorako, widgetetarako eta aplikazioaren ikonorako kolorea. Hasierako pantaila batzuek ikonoa kentzen dute aldatzen denean – kasu horretan, gehitu berriro. Jakinarazpenetan ikonoak laranja izaten jarraitzen du.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Txanponen logoak</string>
     <string name="settings_coin_logos_app">Aplikazioan</string>

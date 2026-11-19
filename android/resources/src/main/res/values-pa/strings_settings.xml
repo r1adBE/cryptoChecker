@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">ਮੁੱਖ ਰੰਗ</string>
-    <string name="settings_accent_hint">ਐਪ, ਵਿਜੇਟਾਂ ਅਤੇ ਐਪ ਆਈਕਨ ਦਾ ਰੰਗ। ਕੁਝ ਹੋਮ ਸਕ੍ਰੀਨਾਂ ਬਦਲਣ ’ਤੇ ਆਈਕਨ ਹਟਾ ਦਿੰਦੀਆਂ ਹਨ – ਫਿਰ ਇਸਨੂੰ ਦੁਬਾਰਾ ਜੋੜੋ।</string>
+    <string name="settings_accent_hint">ਐਪ, ਵਿਜੇਟਾਂ ਅਤੇ ਐਪ ਆਈਕਨ ਦਾ ਰੰਗ। ਕੁਝ ਹੋਮ ਸਕ੍ਰੀਨਾਂ ਬਦਲਣ ’ਤੇ ਆਈਕਨ ਹਟਾ ਦਿੰਦੀਆਂ ਹਨ – ਫਿਰ ਇਸਨੂੰ ਦੁਬਾਰਾ ਜੋੜੋ। ਸੂਚਨਾਵਾਂ ਵਿੱਚ ਆਈਕਨ ਸੰਤਰੀ ਹੀ ਰਹਿੰਦਾ ਹੈ।</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">ਕੌਇਨ ਲੋਗੋ</string>
     <string name="settings_coin_logos_app">ਐਪ ਵਿੱਚ</string>

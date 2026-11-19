@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">نمایاں رنگ</string>
-    <string name="settings_accent_hint">ایپ، ویجیٹس اور ایپ آئیکن کا رنگ۔ کچھ ہوم اسکرینز بدلنے پر آئیکن ہٹا دیتی ہیں – پھر اسے دوبارہ شامل کریں۔</string>
+    <string name="settings_accent_hint">ایپ، ویجیٹس اور ایپ آئیکن کا رنگ۔ کچھ ہوم اسکرینز بدلنے پر آئیکن ہٹا دیتی ہیں – پھر اسے دوبارہ شامل کریں۔ اطلاعات میں آئیکن نارنجی ہی رہتا ہے۔</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">کوائن لوگوز</string>
     <string name="settings_coin_logos_app">ایپ میں</string>

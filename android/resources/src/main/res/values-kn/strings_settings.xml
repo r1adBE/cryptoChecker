@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">ಆಕ್ಸೆಂಟ್ ಬಣ್ಣ</string>
-    <string name="settings_accent_hint">ಆ್ಯಪ್, ವಿಜೆಟ್‌ಗಳು ಮತ್ತು ಆ್ಯಪ್ ಐಕಾನ್‌ಗೆ ಬಣ್ಣ. ಕೆಲವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗಳು ಐಕಾನ್ ಬದಲಾದಾಗ ಅದನ್ನು ತೆಗೆದುಹಾಕುತ್ತವೆ – ಆಗ ಮತ್ತೆ ಸೇರಿಸಿ.</string>
+    <string name="settings_accent_hint">ಆ್ಯಪ್, ವಿಜೆಟ್‌ಗಳು ಮತ್ತು ಆ್ಯಪ್ ಐಕಾನ್‌ಗೆ ಬಣ್ಣ. ಕೆಲವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗಳು ಐಕಾನ್ ಬದಲಾದಾಗ ಅದನ್ನು ತೆಗೆದುಹಾಕುತ್ತವೆ – ಆಗ ಮತ್ತೆ ಸೇರಿಸಿ. ಅಧಿಸೂಚನೆಗಳಲ್ಲಿ ಐಕಾನ್ ಕಿತ್ತಳೆ ಬಣ್ಣದಲ್ಲೇ ಇರುತ್ತದೆ.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">ಕಾಯಿನ್ ಲೋಗೋಗಳು</string>
     <string name="settings_coin_logos_app">ಆ್ಯಪ್‌ನಲ್ಲಿ</string>

@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Couleur d\'accent</string>
-    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoute-la à nouveau.</string>
+    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoute-la à nouveau. Dans les notifications, l’icône reste orange.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logos des cryptos</string>
     <string name="settings_coin_logos_app">Dans l\'app</string>

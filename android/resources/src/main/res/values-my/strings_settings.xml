@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">အသားပေး အရောင်</string>
-    <string name="settings_accent_hint">အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။</string>
+    <string name="settings_accent_hint">အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။ အသိပေးချက်များတွင် အိုင်ကွန်သည် လိမ္မော်ရောင်အတိုင်း ရှိနေပါသည်။</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">ကွိုင် လိုဂိုများ</string>
     <string name="settings_coin_logos_app">အက်ပ်ထဲတွင်</string>

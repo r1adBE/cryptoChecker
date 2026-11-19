@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Kolor akcentu</string>
-    <string name="settings_accent_hint">Kolor aplikacji, widżetów i ikony aplikacji. Niektóre ekrany główne usuwają ikonę przy zmianie – wtedy dodaj ją ponownie.</string>
+    <string name="settings_accent_hint">Kolor aplikacji, widżetów i ikony aplikacji. Niektóre ekrany główne usuwają ikonę przy zmianie – wtedy dodaj ją ponownie. W powiadomieniach ikona pozostaje pomarańczowa.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo monet</string>
     <string name="settings_coin_logos_app">W aplikacji</string>

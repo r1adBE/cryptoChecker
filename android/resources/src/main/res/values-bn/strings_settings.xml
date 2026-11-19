@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">অ্যাকসেন্ট রং</string>
-    <string name="settings_accent_hint">অ্যাপ, উইজেট ও অ্যাপ আইকনের রং। কিছু হোম স্ক্রিন বদলানোর সময় আইকন সরিয়ে দেয় – তখন আবার যোগ করুন।</string>
+    <string name="settings_accent_hint">অ্যাপ, উইজেট ও অ্যাপ আইকনের রং। কিছু হোম স্ক্রিন বদলানোর সময় আইকন সরিয়ে দেয় – তখন আবার যোগ করুন। বিজ্ঞপ্তিতে আইকনটি কমলা থাকে।</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">কয়েন লোগো</string>
     <string name="settings_coin_logos_app">অ্যাপে</string>

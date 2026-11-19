@@ -125,7 +125,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Accent color</string>
-    <string name="settings_accent_hint">Color for the app, widgets and app icon. Some home screens remove the icon when it changes – add it again then.</string>
+    <string name="settings_accent_hint">Color for the app, widgets and app icon. Some home screens remove the icon when it changes – add it again then. In notifications the icon stays orange.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin logos</string>
     <string name="settings_coin_logos_app">In the app</string>

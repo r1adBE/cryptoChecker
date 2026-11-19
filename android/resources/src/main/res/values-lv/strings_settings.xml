@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Akcenta krāsa</string>
-    <string name="settings_accent_hint">Lietotnes, logrīku un lietotnes ikonas krāsa. Daži sākuma ekrāni maiņas laikā noņem ikonu – tad pievieno to atkal.</string>
+    <string name="settings_accent_hint">Lietotnes, logrīku un lietotnes ikonas krāsa. Daži sākuma ekrāni maiņas laikā noņem ikonu – tad pievieno to atkal. Paziņojumos ikona paliek oranža.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Monētu logotipi</string>
     <string name="settings_coin_logos_app">Lietotnē</string>

@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">აქცენტის ფერი</string>
-    <string name="settings_accent_hint">ფერი აპისთვის, ვიჯეტებისა და აპის ხატულისთვის. ზოგი მთავარი ეკრანი ხატულას შლის, როცა ის იცვლება – მაშინ ხელახლა დაამატე.</string>
+    <string name="settings_accent_hint">ფერი აპისთვის, ვიჯეტებისა და აპის ხატულისთვის. ზოგი მთავარი ეკრანი ხატულას შლის, როცა ის იცვლება – მაშინ ხელახლა დაამატე. შეტყობინებებში ხატულა ნარინჯისფერი რჩება.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">მონეტების ლოგოები</string>
     <string name="settings_coin_logos_app">აპში</string>

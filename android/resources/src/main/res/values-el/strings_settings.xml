@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Χρώμα έμφασης</string>
-    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε πρόσθεσέ το ξανά.</string>
+    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε πρόσθεσέ το ξανά. Στις ειδοποιήσεις το εικονίδιο παραμένει πορτοκαλί.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Λογότυπα νομισμάτων</string>
     <string name="settings_coin_logos_app">Στην εφαρμογή</string>

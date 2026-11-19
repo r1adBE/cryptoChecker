@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">강조 색상</string>
-    <string name="settings_accent_hint">앱, 위젯, 앱 아이콘의 색상. 일부 홈 화면은 변경 시 아이콘을 제거합니다. 그러면 다시 추가하세요.</string>
+    <string name="settings_accent_hint">앱, 위젯, 앱 아이콘의 색상. 일부 홈 화면은 변경 시 아이콘을 제거합니다. 그러면 다시 추가하세요. 알림에서는 아이콘이 주황색으로 유지됩니다.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">코인 로고</string>
     <string name="settings_coin_logos_app">앱에서</string>

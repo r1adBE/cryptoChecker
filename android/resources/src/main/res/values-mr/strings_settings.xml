@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">ॲक्सेंट रंग</string>
-    <string name="settings_accent_hint">ॲप, विजेट आणि ॲप आयकनसाठी रंग. काही होम स्क्रीन आयकन बदलल्यावर तो काढून टाकतात – तेव्हा तो पुन्हा जोडा.</string>
+    <string name="settings_accent_hint">ॲप, विजेट आणि ॲप आयकनसाठी रंग. काही होम स्क्रीन आयकन बदलल्यावर तो काढून टाकतात – तेव्हा तो पुन्हा जोडा. सूचनांमध्ये आयकन नारिंगीच राहतो.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">कॉइन लोगो</string>
     <string name="settings_coin_logos_app">ॲपमध्ये</string>

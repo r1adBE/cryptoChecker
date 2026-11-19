@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">የአክሰንት ቀለም</string>
-    <string name="settings_accent_hint">ለመተግበሪያው፣ ለዊጀቶችና ለመተግበሪያ አዶው ቀለም። አንዳንድ የመነሻ ማያ ገጾች አዶው ሲቀየር ያስወግዱታል – ያኔ እንደገና ያክሉት።</string>
+    <string name="settings_accent_hint">ለመተግበሪያው፣ ለዊጀቶችና ለመተግበሪያ አዶው ቀለም። አንዳንድ የመነሻ ማያ ገጾች አዶው ሲቀየር ያስወግዱታል – ያኔ እንደገና ያክሉት። በማሳወቂያዎች ውስጥ አዶው ብርቱካናማ ሆኖ ይቆያል።</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">የሳንቲም አርማዎች</string>
     <string name="settings_coin_logos_app">በመተግበሪያው ውስጥ</string>

@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Barva zvýraznění</string>
-    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidej znovu.</string>
+    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidej znovu. V oznámeních zůstává ikona oranžová.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Loga mincí</string>
     <string name="settings_coin_logos_app">V aplikaci</string>

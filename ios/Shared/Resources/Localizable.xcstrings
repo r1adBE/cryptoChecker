@@ -747383,451 +747383,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kleur vir die app, legstukke en app-ikoon. Sommige tuisskerms verwyder die ikoon wanneer dit verander – voeg dit dan weer by."
+            "value" : "Kleur vir die app, legstukke en app-ikoon. Sommige tuisskerms verwyder die ikoon wanneer dit verander – voeg dit dan weer by. In kennisgewings bly die ikoon oranje."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ለመተግበሪያው፣ ለዊጀቶችና ለመተግበሪያ አዶው ቀለም። አንዳንድ የመነሻ ማያ ገጾች አዶው ሲቀየር ያስወግዱታል – ያኔ እንደገና ያክሉት።"
+            "value" : "ለመተግበሪያው፣ ለዊጀቶችና ለመተግበሪያ አዶው ቀለም። አንዳንድ የመነሻ ማያ ገጾች አዶው ሲቀየር ያስወግዱታል – ያኔ እንደገና ያክሉት። በማሳወቂያዎች ውስጥ አዶው ብርቱካናማ ሆኖ ይቆያል።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ."
+            "value" : "لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ. في الإشعارات تبقى الأيقونة برتقالية."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tətbiq, vidcetlər və tətbiq ikonu üçün rəng. Bəzi əsas ekranlar ikon dəyişəndə onu silir – onda yenidən əlavə et."
+            "value" : "Tətbiq, vidcetlər və tətbiq ikonu üçün rəng. Bəzi əsas ekranlar ikon dəyişəndə onu silir – onda yenidən əlavə et. Bildirişlərdə simvol narıncı qalır."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Цвят за приложението, уиджетите и иконата на приложението. Някои начални екрани премахват иконата при смяна – тогава я добави отново."
+            "value" : "Цвят за приложението, уиджетите и иконата на приложението. Някои начални екрани премахват иконата при смяна – тогава я добави отново. В известията иконата остава оранжева."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "অ্যাপ, উইজেট ও অ্যাপ আইকনের রং। কিছু হোম স্ক্রিন বদলানোর সময় আইকন সরিয়ে দেয় – তখন আবার যোগ করুন।"
+            "value" : "অ্যাপ, উইজেট ও অ্যাপ আইকনের রং। কিছু হোম স্ক্রিন বদলানোর সময় আইকন সরিয়ে দেয় – তখন আবার যোগ করুন। বিজ্ঞপ্তিতে আইকনটি কমলা থাকে।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni ekrani uklanjaju ikonu kada se promijeni – tada je ponovo dodaj."
+            "value" : "Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni ekrani uklanjaju ikonu kada se promijeni – tada je ponovo dodaj. U obavještenjima ikona ostaje narandžasta."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color per a l'app, els widgets i la icona de l'app. Algunes pantalles d'inici eliminen la icona quan canvia – en aquest cas, torna-la a afegir."
+            "value" : "Color per a l'app, els widgets i la icona de l'app. Algunes pantalles d'inici eliminen la icona quan canvia – en aquest cas, torna-la a afegir. A les notificacions la icona continua sent taronja."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidej znovu."
+            "value" : "Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidej znovu. V oznámeních zůstává ikona oranžová."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farve til appen, widgets og appikonet. Nogle startskærme fjerner ikonet ved skift – tilføj det så igen."
+            "value" : "Farve til appen, widgets og appikonet. Nogle startskærme fjerner ikonet ved skift – tilføj det så igen. I notifikationer forbliver ikonet orange."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen."
+            "value" : "Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen. In Mitteilungen bleibt das Symbol orange."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε πρόσθεσέ το ξανά."
+            "value" : "Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε πρόσθεσέ το ξανά. Στις ειδοποιήσεις το εικονίδιο παραμένει πορτοκαλί."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color for the app, widgets and app icon. Some home screens remove the icon when it changes – add it again then."
+            "value" : "Color for the app, widgets and app icon. Some home screens remove the icon when it changes – add it again then. In notifications the icon stays orange."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color de la app, los widgets y el icono de la app. Algunas pantallas de inicio quitan el icono al cambiarlo; vuelve a añadirlo."
+            "value" : "Color de la app, los widgets y el icono de la app. Algunas pantallas de inicio quitan el icono al cambiarlo; vuelve a añadirlo. En las notificaciones el icono sigue siendo naranja."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rakenduse, vidinate ja rakenduse ikooni värv. Mõni avakuva eemaldab ikooni muutmisel – siis lisa see uuesti."
+            "value" : "Rakenduse, vidinate ja rakenduse ikooni värv. Mõni avakuva eemaldab ikooni muutmisel – siis lisa see uuesti. Teavitustes jääb ikoon oranžiks."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aplikaziorako, widgetetarako eta aplikazioaren ikonorako kolorea. Hasierako pantaila batzuek ikonoa kentzen dute aldatzen denean – kasu horretan, gehitu berriro."
+            "value" : "Aplikaziorako, widgetetarako eta aplikazioaren ikonorako kolorea. Hasierako pantaila batzuek ikonoa kentzen dute aldatzen denean – kasu horretan, gehitu berriro. Jakinarazpenetan ikonoak laranja izaten jarraitzen du."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کن."
+            "value" : "رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کن. در اعلان‌ها نماد نارنجی می‌ماند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen."
+            "value" : "Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen. Ilmoituksissa kuvake pysyy oranssina."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon."
+            "value" : "Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon. Sa mga notification, nananatiling orange ang icon."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoute-la à nouveau."
+            "value" : "Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoute-la à nouveau. Dans les notifications, l’icône reste orange."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dath don aip, do ghiuirléidí agus do dheilbhín na haipe. Baineann roinnt scáileán baile an deilbhín nuair a athraíonn sé – cuir leis arís é ansin."
+            "value" : "Dath don aip, do ghiuirléidí agus do dheilbhín na haipe. Baineann roinnt scáileán baile an deilbhín nuair a athraíonn sé – cuir leis arís é ansin. Fanann an deilbhín oráiste sna fógraí."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cor para a app, os widgets e a icona da app. Algunhas pantallas de inicio eliminan a icona cando cambia – nese caso, engádea de novo."
+            "value" : "Cor para a app, os widgets e a icona da app. Algunhas pantallas de inicio eliminan a icona cando cambia – nese caso, engádea de novo. Nas notificacións a icona segue sendo laranxa."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ઍપ, વિજેટ અને ઍપ આઇકનનો રંગ. કેટલીક હોમ સ્ક્રીન આઇકન બદલાય ત્યારે તેને દૂર કરે છે – ત્યારે તેને ફરી ઉમેરો."
+            "value" : "ઍપ, વિજેટ અને ઍપ આઇકનનો રંગ. કેટલીક હોમ સ્ક્રીન આઇકન બદલાય ત્યારે તેને દૂર કરે છે – ત્યારે તેને ફરી ઉમેરો. સૂચનાઓમાં આઇકન નારંગી જ રહે છે."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה. חלק ממסכי הבית מסירים את הסמל בעת ההחלפה – אז יש להוסיף אותו מחדש."
+            "value" : "צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה. חלק ממסכי הבית מסירים את הסמל בעת ההחלפה – אז יש להוסיף אותו מחדש. בהתראות הסמל נשאר כתום."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ें।"
+            "value" : "ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ें। सूचनाओं में आइकन नारंगी ही रहता है।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni zasloni uklanjaju ikonu kada se promijeni – tada je ponovno dodaj."
+            "value" : "Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni zasloni uklanjaju ikonu kada se promijeni – tada je ponovno dodaj. U obavijestima ikona ostaje narančasta."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra."
+            "value" : "Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra. Az értesítésekben az ikon narancssárga marad."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Գույնը հավելվածի, վիջեթների և հավելվածի պատկերակի համար։ Որոշ գլխավոր էկրաններ հեռացնում են պատկերակը, երբ այն փոխվում է – այդ դեպքում ավելացրու այն նորից։"
+            "value" : "Գույնը հավելվածի, վիջեթների և հավելվածի պատկերակի համար։ Որոշ գլխավոր էկրաններ հեռացնում են պատկերակը, երբ այն փոխվում է – այդ դեպքում ավելացրու այն նորից։ Ծանուցումներում պատկերակը մնում է նարնջագույն։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi."
+            "value" : "Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi. Di notifikasi, ikon tetap oranye."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Litur fyrir forritið, græjur og tákn forritsins. Sumir heimaskjáir fjarlægja táknið þegar það breytist – bættu því þá við aftur."
+            "value" : "Litur fyrir forritið, græjur og tákn forritsins. Sumir heimaskjáir fjarlægja táknið þegar það breytist – bættu því þá við aftur. Í tilkynningum helst táknið appelsínugult."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Colore dell’app, dei widget e dell’icona dell’app. Alcune schermate Home rimuovono l’icona al cambio: aggiungila di nuovo."
+            "value" : "Colore dell’app, dei widget e dell’icona dell’app. Alcune schermate Home rimuovono l’icona al cambio: aggiungila di nuovo. Nelle notifiche l’icona resta arancione."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリ、ウィジェット、アプリアイコンの色。 ホーム画面によっては変更時にアイコンが消えます。その場合は追加し直してください。"
+            "value" : "アプリ、ウィジェット、アプリアイコンの色。 ホーム画面によっては変更時にアイコンが消えます。その場合は追加し直してください。通知では、アイコンはオレンジのままです。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ფერი აპისთვის, ვიჯეტებისა და აპის ხატულისთვის. ზოგი მთავარი ეკრანი ხატულას შლის, როცა ის იცვლება – მაშინ ხელახლა დაამატე."
+            "value" : "ფერი აპისთვის, ვიჯეტებისა და აპის ხატულისთვის. ზოგი მთავარი ეკრანი ხატულას შლის, როცა ის იცვლება – მაშინ ხელახლა დაამატე. შეტყობინებებში ხატულა ნარინჯისფერი რჩება."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Қолданба, виджеттер және қолданба белгішесі үшін түс. Кейбір басты экрандар белгіше өзгергенде оны алып тастайды – сонда оны қайта қосыңыз."
+            "value" : "Қолданба, виджеттер және қолданба белгішесі үшін түс. Кейбір басты экрандар белгіше өзгергенде оны алып тастайды – сонда оны қайта қосыңыз. Хабарландыруларда белгіше қызғылт сары болып қалады."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ពណ៌សម្រាប់កម្មវិធី វិដជិត និងរូបតំណាងកម្មវិធី។ អេក្រង់ដើមខ្លះដករូបតំណាងចេញនៅពេលវាផ្លាស់ប្តូរ – សូមបន្ថែមវាម្តងទៀតពេលនោះ។"
+            "value" : "ពណ៌សម្រាប់កម្មវិធី វិដជិត និងរូបតំណាងកម្មវិធី។ អេក្រង់ដើមខ្លះដករូបតំណាងចេញនៅពេលវាផ្លាស់ប្តូរ – សូមបន្ថែមវាម្តងទៀតពេលនោះ។ នៅក្នុងការជូនដំណឹង រូបតំណាងនៅតែពណ៌ទឹកក្រូច។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಆ್ಯಪ್, ವಿಜೆಟ್‌ಗಳು ಮತ್ತು ಆ್ಯಪ್ ಐಕಾನ್‌ಗೆ ಬಣ್ಣ. ಕೆಲವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗಳು ಐಕಾನ್ ಬದಲಾದಾಗ ಅದನ್ನು ತೆಗೆದುಹಾಕುತ್ತವೆ – ಆಗ ಮತ್ತೆ ಸೇರಿಸಿ."
+            "value" : "ಆ್ಯಪ್, ವಿಜೆಟ್‌ಗಳು ಮತ್ತು ಆ್ಯಪ್ ಐಕಾನ್‌ಗೆ ಬಣ್ಣ. ಕೆಲವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗಳು ಐಕಾನ್ ಬದಲಾದಾಗ ಅದನ್ನು ತೆಗೆದುಹಾಕುತ್ತವೆ – ಆಗ ಮತ್ತೆ ಸೇರಿಸಿ. ಅಧಿಸೂಚನೆಗಳಲ್ಲಿ ಐಕಾನ್ ಕಿತ್ತಳೆ ಬಣ್ಣದಲ್ಲೇ ಇರುತ್ತದೆ."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱, 위젯, 앱 아이콘의 색상. 일부 홈 화면은 변경 시 아이콘을 제거합니다. 그러면 다시 추가하세요."
+            "value" : "앱, 위젯, 앱 아이콘의 색상. 일부 홈 화면은 변경 시 아이콘을 제거합니다. 그러면 다시 추가하세요. 알림에서는 아이콘이 주황색으로 유지됩니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ສີສຳລັບແອັບ, ວິດເຈັດ ແລະ ໄອຄອນແອັບ. ໜ້າຈໍຫຼັກບາງອັນຈະລຶບໄອຄອນອອກເມື່ອມັນປ່ຽນ – ໃຫ້ເພີ່ມມັນອີກຄັ້ງ."
+            "value" : "ສີສຳລັບແອັບ, ວິດເຈັດ ແລະ ໄອຄອນແອັບ. ໜ້າຈໍຫຼັກບາງອັນຈະລຶບໄອຄອນອອກເມື່ອມັນປ່ຽນ – ໃຫ້ເພີ່ມມັນອີກຄັ້ງ. ໃນການແຈ້ງເຕືອນ ໄອຄອນຍັງເປັນສີສົ້ມ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Programėlės, valdiklių ir programėlės piktogramos spalva. Kai kurie pagrindiniai ekranai pakeitus pašalina piktogramą – tada pridėk ją iš naujo."
+            "value" : "Programėlės, valdiklių ir programėlės piktogramos spalva. Kai kurie pagrindiniai ekranai pakeitus pašalina piktogramą – tada pridėk ją iš naujo. Pranešimuose piktograma lieka oranžinė."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lietotnes, logrīku un lietotnes ikonas krāsa. Daži sākuma ekrāni maiņas laikā noņem ikonu – tad pievieno to atkal."
+            "value" : "Lietotnes, logrīku un lietotnes ikonas krāsa. Daži sākuma ekrāni maiņas laikā noņem ikonu – tad pievieno to atkal. Paziņojumos ikona paliek oranža."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Боја за апликацијата, виџетите и иконата на апликацијата. Некои почетни екрани ја отстрануваат иконата кога ќе се промени – тогаш додај ја повторно."
+            "value" : "Боја за апликацијата, виџетите и иконата на апликацијата. Некои почетни екрани ја отстрануваат иконата кога ќе се промени – тогаш додај ја повторно. Во известувањата иконата останува портокалова."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ആപ്പ്, വിജറ്റുകൾ, ആപ്പ് ഐക്കൺ എന്നിവയുടെ നിറം. ചില ഹോം സ്ക്രീനുകൾ ഐക്കൺ മാറുമ്പോൾ അത് നീക്കം ചെയ്യും – അപ്പോൾ അത് വീണ്ടും ചേർക്കുക."
+            "value" : "ആപ്പ്, വിജറ്റുകൾ, ആപ്പ് ഐക്കൺ എന്നിവയുടെ നിറം. ചില ഹോം സ്ക്രീനുകൾ ഐക്കൺ മാറുമ്പോൾ അത് നീക്കം ചെയ്യും – അപ്പോൾ അത് വീണ്ടും ചേർക്കുക. അറിയിപ്പുകളിൽ ഐക്കൺ ഓറഞ്ച് നിറത്തിൽ തന്നെ തുടരും."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Апп, виджет болон аппын дүрсний өнгө. Зарим үндсэн дэлгэц дүрс өөрчлөгдөхөд түүнийг хасдаг – тэгвэл дахин нэмнэ үү."
+            "value" : "Апп, виджет болон аппын дүрсний өнгө. Зарим үндсэн дэлгэц дүрс өөрчлөгдөхөд түүнийг хасдаг – тэгвэл дахин нэмнэ үү. Мэдэгдэлд дүрс тэмдэг улбар шар хэвээр үлдэнэ."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ॲप, विजेट आणि ॲप आयकनसाठी रंग. काही होम स्क्रीन आयकन बदलल्यावर तो काढून टाकतात – तेव्हा तो पुन्हा जोडा."
+            "value" : "ॲप, विजेट आणि ॲप आयकनसाठी रंग. काही होम स्क्रीन आयकन बदलल्यावर तो काढून टाकतात – तेव्हा तो पुन्हा जोडा. सूचनांमध्ये आयकन नारिंगीच राहतो."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warna untuk apl, widget dan ikon apl. Sesetengah skrin utama mengalih keluar ikon apabila ia berubah – tambahkannya semula."
+            "value" : "Warna untuk apl, widget dan ikon apl. Sesetengah skrin utama mengalih keluar ikon apabila ia berubah – tambahkannya semula. Dalam pemberitahuan, ikon kekal oren."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။"
+            "value" : "အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။ အသိပေးချက်များတွင် အိုင်ကွန်သည် လိမ္မော်ရောင်အတိုင်း ရှိနေပါသည်။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farge for appen, widgeter og appikonet. Noen startskjermer fjerner ikonet ved bytte – legg det da til på nytt."
+            "value" : "Farge for appen, widgeter og appikonet. Noen startskjermer fjerner ikonet ved bytte – legg det da til på nytt. I varsler forblir ikonet oransje."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "एप, विजेट र एप आइकनको रङ। केही होम स्क्रिनले रङ बदलिँदा आइकन हटाउँछन् – त्यसो भए फेरि थप्नुहोस्।"
+            "value" : "एप, विजेट र एप आइकनको रङ। केही होम स्क्रिनले रङ बदलिँदा आइकन हटाउँछन् – त्यसो भए फेरि थप्नुहोस्। सूचनाहरूमा आइकन सुन्तला रङकै रहन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kleur voor de app, widgets en het app-pictogram. Sommige startschermen verwijderen het pictogram bij het wisselen – voeg het dan opnieuw toe."
+            "value" : "Kleur voor de app, widgets en het app-pictogram. Sommige startschermen verwijderen het pictogram bij het wisselen – voeg het dan opnieuw toe. In meldingen blijft het pictogram oranje."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਐਪ, ਵਿਜੇਟਾਂ ਅਤੇ ਐਪ ਆਈਕਨ ਦਾ ਰੰਗ। ਕੁਝ ਹੋਮ ਸਕ੍ਰੀਨਾਂ ਬਦਲਣ ’ਤੇ ਆਈਕਨ ਹਟਾ ਦਿੰਦੀਆਂ ਹਨ – ਫਿਰ ਇਸਨੂੰ ਦੁਬਾਰਾ ਜੋੜੋ।"
+            "value" : "ਐਪ, ਵਿਜੇਟਾਂ ਅਤੇ ਐਪ ਆਈਕਨ ਦਾ ਰੰਗ। ਕੁਝ ਹੋਮ ਸਕ੍ਰੀਨਾਂ ਬਦਲਣ ’ਤੇ ਆਈਕਨ ਹਟਾ ਦਿੰਦੀਆਂ ਹਨ – ਫਿਰ ਇਸਨੂੰ ਦੁਬਾਰਾ ਜੋੜੋ। ਸੂਚਨਾਵਾਂ ਵਿੱਚ ਆਈਕਨ ਸੰਤਰੀ ਹੀ ਰਹਿੰਦਾ ਹੈ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kolor aplikacji, widżetów i ikony aplikacji. Niektóre ekrany główne usuwają ikonę przy zmianie – wtedy dodaj ją ponownie."
+            "value" : "Kolor aplikacji, widżetów i ikony aplikacji. Niektóre ekrany główne usuwają ikonę przy zmianie – wtedy dodaj ją ponownie. W powiadomieniach ikona pozostaje pomarańczowa."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cor da app, dos widgets e do ícone da app. Alguns ecrãs principais removem o ícone na troca – adiciona-o de novo."
+            "value" : "Cor da app, dos widgets e do ícone da app. Alguns ecrãs principais removem o ícone na troca – adiciona-o de novo. Nas notificações o ícone continua laranja."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cor do app, dos widgets e do ícone do app. Algumas telas iniciais removem o ícone na troca – adicione-o de novo."
+            "value" : "Cor do app, dos widgets e do ícone do app. Algumas telas iniciais removem o ícone na troca – adicione-o de novo. Nas notificações o ícone continua laranja."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou."
+            "value" : "Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou. În notificări pictograma rămâne portocalie."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Цвет приложения, виджетов и значка приложения. Некоторые рабочие столы удаляют значок при смене – тогда добавь его снова."
+            "value" : "Цвет приложения, виджетов и значка приложения. Некоторые рабочие столы удаляют значок при смене – тогда добавь его снова. В уведомлениях значок остаётся оранжевым."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "යෙදුම, විජට් සහ යෙදුම් නිරූපකය සඳහා වර්ණය. සමහර මුල් තිර එය වෙනස් වූ විට නිරූපකය ඉවත් කරයි – එවිට එය නැවත එක් කරන්න."
+            "value" : "යෙදුම, විජට් සහ යෙදුම් නිරූපකය සඳහා වර්ණය. සමහර මුල් තිර එය වෙනස් වූ විට නිරූපකය ඉවත් කරයි – එවිට එය නැවත එක් කරන්න. දැනුම්දීම්වල නිරූපකය තැඹිලි පැහැයෙන්ම පවතී."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farba pre aplikáciu, miniaplikácie a ikonu aplikácie. Niektoré domovské obrazovky pri zmene ikonu odstránia – potom ju pridaj znova."
+            "value" : "Farba pre aplikáciu, miniaplikácie a ikonu aplikácie. Niektoré domovské obrazovky pri zmene ikonu odstránia – potom ju pridaj znova. V upozorneniach zostáva ikona oranžová."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Barva za aplikacijo, pripomočke in ikono aplikacije. Nekateri začetni zasloni ob menjavi ikono odstranijo – takrat jo dodaj znova."
+            "value" : "Barva za aplikacijo, pripomočke in ikono aplikacije. Nekateri začetni zasloni ob menjavi ikono odstranijo – takrat jo dodaj znova. V obvestilih ikona ostane oranžna."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri."
+            "value" : "Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri. Në njoftime ikona mbetet portokalli."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Боја за апликацију, виџете и икону апликације. Неки почетни екрани уклањају икону када се промени – тада је поново додај."
+            "value" : "Боја за апликацију, виџете и икону апликације. Неки почетни екрани уклањају икону када се промени – тада је поново додај. У обавештењима икона остаје наранџаста."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Boja za aplikaciju, vidžete i ikonu aplikacije. Neki početni ekrani uklanjaju ikonu kada se promeni – tada je ponovo dodaj."
+            "value" : "Boja za aplikaciju, vidžete i ikonu aplikacije. Neki početni ekrani uklanjaju ikonu kada se promeni – tada je ponovo dodaj. U obaveštenjima ikona ostaje narandžasta."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen."
+            "value" : "Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen. I aviseringar förblir ikonen orange."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rangi ya programu, wijeti na aikoni ya programu. Baadhi ya skrini za nyumbani huondoa aikoni inapobadilika – iongeze tena basi."
+            "value" : "Rangi ya programu, wijeti na aikoni ya programu. Baadhi ya skrini za nyumbani huondoa aikoni inapobadilika – iongeze tena basi. Katika arifa, aikoni hubaki na rangi ya chungwa."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஆப், விட்ஜெட்கள் மற்றும் ஆப் ஐகானுக்கான நிறம். சில முகப்புத் திரைகள் ஐகான் மாறும்போது அதை அகற்றும் – அப்போது மீண்டும் சேர்க்கவும்."
+            "value" : "ஆப், விட்ஜெட்கள் மற்றும் ஆப் ஐகானுக்கான நிறம். சில முகப்புத் திரைகள் ஐகான் மாறும்போது அதை அகற்றும் – அப்போது மீண்டும் சேர்க்கவும். அறிவிப்புகளில் ஐகான் ஆரஞ்சு நிறத்திலேயே இருக்கும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "యాప్, విడ్జెట్‌లు, యాప్ ఐకాన్ కోసం రంగు. కొన్ని హోమ్ స్క్రీన్‌లు ఐకాన్ మారినప్పుడు దాన్ని తీసివేస్తాయి – అప్పుడు మళ్లీ జోడించండి."
+            "value" : "యాప్, విడ్జెట్‌లు, యాప్ ఐకాన్ కోసం రంగు. కొన్ని హోమ్ స్క్రీన్‌లు ఐకాన్ మారినప్పుడు దాన్ని తీసివేస్తాయి – అప్పుడు మళ్లీ జోడించండి. నోటిఫికేషన్‌లలో ఐకాన్ నారింజ రంగులోనే ఉంటుంది."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง"
+            "value" : "สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง ในการแจ้งเตือน ไอคอนยังคงเป็นสีส้ม"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama, widget'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekle."
+            "value" : "Uygulama, widget'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekle. Bildirimlerde simge turuncu kalır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додай його знову."
+            "value" : "Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додай його знову. У сповіщеннях значок залишається помаранчевим."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ایپ، ویجیٹس اور ایپ آئیکن کا رنگ۔ کچھ ہوم اسکرینز بدلنے پر آئیکن ہٹا دیتی ہیں – پھر اسے دوبارہ شامل کریں۔"
+            "value" : "ایپ، ویجیٹس اور ایپ آئیکن کا رنگ۔ کچھ ہوم اسکرینز بدلنے پر آئیکن ہٹا دیتی ہیں – پھر اسے دوبارہ شامل کریں۔ اطلاعات میں آئیکن نارنجی ہی رہتا ہے۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilova, vidjetlar va ilova belgisi uchun rang. Baʼzi bosh ekranlar belgi oʻzgarganda uni olib tashlaydi – unda uni qayta qoʻshing."
+            "value" : "Ilova, vidjetlar va ilova belgisi uchun rang. Baʼzi bosh ekranlar belgi oʻzgarganda uni olib tashlaydi – unda uni qayta qoʻshing. Bildirishnomalarda belgi toʻq sariq boʻlib qoladi."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại."
+            "value" : "Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại. Trong thông báo, biểu tượng vẫn có màu cam."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App、小工具同 App 圖示嘅顏色。有啲主畫面喺圖示更改時會移除佢 – 到時請再加返。"
+            "value" : "App、小工具同 App 圖示嘅顏色。有啲主畫面喺圖示更改時會移除佢 – 到時請再加返。喺通知入面，圖示會保持橙色。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用、小组件和应用图标的颜色。部分主屏幕在更换时会移除图标，届时请重新添加。"
+            "value" : "应用、小组件和应用图标的颜色。部分主屏幕在更换时会移除图标，届时请重新添加。在通知中，图标仍为橙色。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "應用程式、小工具和應用程式圖示的顏色。部分主畫面在更換時會移除圖示，屆時請重新新增。"
+            "value" : "應用程式、小工具和應用程式圖示的顏色。部分主畫面在更換時會移除圖示，屆時請重新新增。在通知中，圖示會維持橘色。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Umbala we-app, amawijethi nesithonjana se-app. Ezinye izikrini zasekhaya zisusa isithonjana uma sishintsha – sengeze futhi uma kunjalo."
+            "value" : "Umbala we-app, amawijethi nesithonjana se-app. Ezinye izikrini zasekhaya zisusa isithonjana uma sishintsha – sengeze futhi uma kunjalo. Ezaziso, isithonjana sihlala sisawolintshi."
           }
         }
       }

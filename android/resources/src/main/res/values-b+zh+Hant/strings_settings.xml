@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">強調色</string>
-    <string name="settings_accent_hint">應用程式、小工具和應用程式圖示的顏色。部分主畫面在更換時會移除圖示，屆時請重新新增。</string>
+    <string name="settings_accent_hint">應用程式、小工具和應用程式圖示的顏色。部分主畫面在更換時會移除圖示，屆時請重新新增。在通知中，圖示會維持橘色。</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">幣種圖示</string>
     <string name="settings_coin_logos_app">在應用程式中</string>

@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Culoare de accent</string>
-    <string name="settings_accent_hint">Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou.</string>
+    <string name="settings_accent_hint">Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou. În notificări pictograma rămâne portocalie.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo-urile monedelor</string>
     <string name="settings_coin_logos_app">În aplicație</string>

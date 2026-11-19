@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Акцент түсі</string>
-    <string name="settings_accent_hint">Қолданба, виджеттер және қолданба белгішесі үшін түс. Кейбір басты экрандар белгіше өзгергенде оны алып тастайды – сонда оны қайта қосыңыз.</string>
+    <string name="settings_accent_hint">Қолданба, виджеттер және қолданба белгішесі үшін түс. Кейбір басты экрандар белгіше өзгергенде оны алып тастайды – сонда оны қайта қосыңыз. Хабарландыруларда белгіше қызғылт сары болып қалады.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Монета логотиптері</string>
     <string name="settings_coin_logos_app">Қолданбада</string>

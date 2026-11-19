@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Онцлох өнгө</string>
-    <string name="settings_accent_hint">Апп, виджет болон аппын дүрсний өнгө. Зарим үндсэн дэлгэц дүрс өөрчлөгдөхөд түүнийг хасдаг – тэгвэл дахин нэмнэ үү.</string>
+    <string name="settings_accent_hint">Апп, виджет болон аппын дүрсний өнгө. Зарим үндсэн дэлгэц дүрс өөрчлөгдөхөд түүнийг хасдаг – тэгвэл дахин нэмнэ үү. Мэдэгдэлд дүрс тэмдэг улбар шар хэвээр үлдэнэ.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Зоосны лого</string>
     <string name="settings_coin_logos_app">Апп дотор</string>

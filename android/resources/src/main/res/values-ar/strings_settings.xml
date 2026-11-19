@@ -123,7 +123,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">لون التمييز</string>
-    <string name="settings_accent_hint">لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ.</string>
+    <string name="settings_accent_hint">لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ. في الإشعارات تبقى الأيقونة برتقالية.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">شعارات العملات</string>
     <string name="settings_coin_logos_app">في التطبيق</string>

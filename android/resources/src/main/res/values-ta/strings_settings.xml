@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">அழுத்த நிறம்</string>
-    <string name="settings_accent_hint">ஆப், விட்ஜெட்கள் மற்றும் ஆப் ஐகானுக்கான நிறம். சில முகப்புத் திரைகள் ஐகான் மாறும்போது அதை அகற்றும் – அப்போது மீண்டும் சேர்க்கவும்.</string>
+    <string name="settings_accent_hint">ஆப், விட்ஜெட்கள் மற்றும் ஆப் ஐகானுக்கான நிறம். சில முகப்புத் திரைகள் ஐகான் மாறும்போது அதை அகற்றும் – அப்போது மீண்டும் சேர்க்கவும். அறிவிப்புகளில் ஐகான் ஆரஞ்சு நிறத்திலேயே இருக்கும்.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">காயின் லோகோக்கள்</string>
     <string name="settings_coin_logos_app">ஆப்பில்</string>

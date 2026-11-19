@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Акцентна боја</string>
-    <string name="settings_accent_hint">Боја за апликацијата, виџетите и иконата на апликацијата. Некои почетни екрани ја отстрануваат иконата кога ќе се промени – тогаш додај ја повторно.</string>
+    <string name="settings_accent_hint">Боја за апликацијата, виџетите и иконата на апликацијата. Некои почетни екрани ја отстрануваат иконата кога ќе се промени – тогаш додај ја повторно. Во известувањата иконата останува портокалова.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Логоа на монети</string>
     <string name="settings_coin_logos_app">Во апликацијата</string>

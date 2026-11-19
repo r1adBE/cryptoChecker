@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Kiemelőszín</string>
-    <string name="settings_accent_hint">Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra.</string>
+    <string name="settings_accent_hint">Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra. Az értesítésekben az ikon narancssárga marad.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Érmelogók</string>
     <string name="settings_coin_logos_app">Az alkalmazásban</string>

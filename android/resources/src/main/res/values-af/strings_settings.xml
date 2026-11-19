@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Aksentkleur</string>
-    <string name="settings_accent_hint">Kleur vir die app, legstukke en app-ikoon. Sommige tuisskerms verwyder die ikoon wanneer dit verander – voeg dit dan weer by.</string>
+    <string name="settings_accent_hint">Kleur vir die app, legstukke en app-ikoon. Sommige tuisskerms verwyder die ikoon wanneer dit verander – voeg dit dan weer by. In kennisgewings bly die ikoon oranje.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Muntlogo\'s</string>
     <string name="settings_coin_logos_app">In die app</string>

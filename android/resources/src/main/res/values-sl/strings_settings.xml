@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Barva poudarka</string>
-    <string name="settings_accent_hint">Barva za aplikacijo, pripomočke in ikono aplikacije. Nekateri začetni zasloni ob menjavi ikono odstranijo – takrat jo dodaj znova.</string>
+    <string name="settings_accent_hint">Barva za aplikacijo, pripomočke in ikono aplikacije. Nekateri začetni zasloni ob menjavi ikono odstranijo – takrat jo dodaj znova. V obvestilih ikona ostane oranžna.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logotipi kovancev</string>
     <string name="settings_coin_logos_app">V aplikaciji</string>

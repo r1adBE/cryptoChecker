@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Ngjyra e theksit</string>
-    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri.</string>
+    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri. Në njoftime ikona mbetet portokalli.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logot e monedhave</string>
     <string name="settings_coin_logos_app">Në aplikacion</string>

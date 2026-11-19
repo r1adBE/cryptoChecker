@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">యాక్సెంట్ రంగు</string>
-    <string name="settings_accent_hint">యాప్, విడ్జెట్‌లు, యాప్ ఐకాన్ కోసం రంగు. కొన్ని హోమ్ స్క్రీన్‌లు ఐకాన్ మారినప్పుడు దాన్ని తీసివేస్తాయి – అప్పుడు మళ్లీ జోడించండి.</string>
+    <string name="settings_accent_hint">యాప్, విడ్జెట్‌లు, యాప్ ఐకాన్ కోసం రంగు. కొన్ని హోమ్ స్క్రీన్‌లు ఐకాన్ మారినప్పుడు దాన్ని తీసివేస్తాయి – అప్పుడు మళ్లీ జోడించండి. నోటిఫికేషన్‌లలో ఐకాన్ నారింజ రంగులోనే ఉంటుంది.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">కాయిన్ లోగోలు</string>
     <string name="settings_coin_logos_app">యాప్‌లో</string>

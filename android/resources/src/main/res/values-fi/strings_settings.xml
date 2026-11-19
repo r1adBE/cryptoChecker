@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Korostusväri</string>
-    <string name="settings_accent_hint">Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen.</string>
+    <string name="settings_accent_hint">Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen. Ilmoituksissa kuvake pysyy oranssina.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Kolikoiden logot</string>
     <string name="settings_coin_logos_app">Sovelluksessa</string>

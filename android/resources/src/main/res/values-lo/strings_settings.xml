@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">ສີເນັ້ນ</string>
-    <string name="settings_accent_hint">ສີສຳລັບແອັບ, ວິດເຈັດ ແລະ ໄອຄອນແອັບ. ໜ້າຈໍຫຼັກບາງອັນຈະລຶບໄອຄອນອອກເມື່ອມັນປ່ຽນ – ໃຫ້ເພີ່ມມັນອີກຄັ້ງ.</string>
+    <string name="settings_accent_hint">ສີສຳລັບແອັບ, ວິດເຈັດ ແລະ ໄອຄອນແອັບ. ໜ້າຈໍຫຼັກບາງອັນຈະລຶບໄອຄອນອອກເມື່ອມັນປ່ຽນ – ໃຫ້ເພີ່ມມັນອີກຄັ້ງ. ໃນການແຈ້ງເຕືອນ ໄອຄອນຍັງເປັນສີສົ້ມ.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">ໂລໂກ້ຫຼຽນ</string>
     <string name="settings_coin_logos_app">ໃນແອັບ</string>

@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Rangi kuu</string>
-    <string name="settings_accent_hint">Rangi ya programu, wijeti na aikoni ya programu. Baadhi ya skrini za nyumbani huondoa aikoni inapobadilika – iongeze tena basi.</string>
+    <string name="settings_accent_hint">Rangi ya programu, wijeti na aikoni ya programu. Baadhi ya skrini za nyumbani huondoa aikoni inapobadilika – iongeze tena basi. Katika arifa, aikoni hubaki na rangi ya chungwa.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Nembo za sarafu</string>
     <string name="settings_coin_logos_app">Kwenye programu</string>

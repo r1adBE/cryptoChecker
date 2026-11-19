@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Áherslulitur</string>
-    <string name="settings_accent_hint">Litur fyrir forritið, græjur og tákn forritsins. Sumir heimaskjáir fjarlægja táknið þegar það breytist – bættu því þá við aftur.</string>
+    <string name="settings_accent_hint">Litur fyrir forritið, græjur og tákn forritsins. Sumir heimaskjáir fjarlægja táknið þegar það breytist – bættu því þá við aftur. Í tilkynningum helst táknið appelsínugult.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Merki mynta</string>
     <string name="settings_coin_logos_app">Í forritinu</string>

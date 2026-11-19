@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Kulay ng accent</string>
-    <string name="settings_accent_hint">Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon.</string>
+    <string name="settings_accent_hint">Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon. Sa mga notification, nananatiling orange ang icon.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Mga logo ng coin</string>
     <string name="settings_coin_logos_app">Sa app</string>

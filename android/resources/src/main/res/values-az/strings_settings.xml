@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Vurğu rəngi</string>
-    <string name="settings_accent_hint">Tətbiq, vidcetlər və tətbiq ikonu üçün rəng. Bəzi əsas ekranlar ikon dəyişəndə onu silir – onda yenidən əlavə et.</string>
+    <string name="settings_accent_hint">Tətbiq, vidcetlər və tətbiq ikonu üçün rəng. Bəzi əsas ekranlar ikon dəyişəndə onu silir – onda yenidən əlavə et. Bildirişlərdə simvol narıncı qalır.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Koin loqoları</string>
     <string name="settings_coin_logos_app">Tətbiqdə</string>

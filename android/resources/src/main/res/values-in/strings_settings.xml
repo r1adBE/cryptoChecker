@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Warna aksen</string>
-    <string name="settings_accent_hint">Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi.</string>
+    <string name="settings_accent_hint">Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi. Di notifikasi, ikon tetap oranye.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo koin</string>
     <string name="settings_coin_logos_app">Di aplikasi</string>

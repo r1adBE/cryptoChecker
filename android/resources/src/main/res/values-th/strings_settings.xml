@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">สีเน้น</string>
-    <string name="settings_accent_hint">สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง</string>
+    <string name="settings_accent_hint">สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง ในการแจ้งเตือน ไอคอนยังคงเป็นสีส้ม</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">โลโก้เหรียญ</string>
     <string name="settings_coin_logos_app">ในแอป</string>

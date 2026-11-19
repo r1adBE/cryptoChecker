@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Цвет акцента</string>
-    <string name="settings_accent_hint">Цвет приложения, виджетов и значка приложения. Некоторые рабочие столы удаляют значок при смене – тогда добавь его снова.</string>
+    <string name="settings_accent_hint">Цвет приложения, виджетов и значка приложения. Некоторые рабочие столы удаляют значок при смене – тогда добавь его снова. В уведомлениях значок остаётся оранжевым.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Логотипы монет</string>
     <string name="settings_coin_logos_app">В приложении</string>

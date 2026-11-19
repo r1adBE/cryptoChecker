@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Akzentfarbe</string>
-    <string name="settings_accent_hint">Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen.</string>
+    <string name="settings_accent_hint">Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen. In Mitteilungen bleibt das Symbol orange.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin-Logos</string>
     <string name="settings_coin_logos_app">In der App</string>

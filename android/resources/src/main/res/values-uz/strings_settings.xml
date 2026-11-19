@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Urgʻu rangi</string>
-    <string name="settings_accent_hint">Ilova, vidjetlar va ilova belgisi uchun rang. Baʼzi bosh ekranlar belgi oʻzgarganda uni olib tashlaydi – unda uni qayta qoʻshing.</string>
+    <string name="settings_accent_hint">Ilova, vidjetlar va ilova belgisi uchun rang. Baʼzi bosh ekranlar belgi oʻzgarganda uni olib tashlaydi – unda uni qayta qoʻshing. Bildirishnomalarda belgi toʻq sariq boʻlib qoladi.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Tanga logotiplari</string>
     <string name="settings_coin_logos_app">Ilovada</string>

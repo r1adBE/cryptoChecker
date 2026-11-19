@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Vurgu rengi</string>
-    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekle.</string>
+    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekle. Bildirimlerde simge turuncu kalır.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin logoları</string>
     <string name="settings_coin_logos_app">Uygulamada</string>

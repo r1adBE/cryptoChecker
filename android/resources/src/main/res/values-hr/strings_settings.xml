@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Boja naglaska</string>
-    <string name="settings_accent_hint">Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni zasloni uklanjaju ikonu kada se promijeni – tada je ponovno dodaj.</string>
+    <string name="settings_accent_hint">Boja za aplikaciju, widgete i ikonu aplikacije. Neki početni zasloni uklanjaju ikonu kada se promijeni – tada je ponovno dodaj. U obavijestima ikona ostaje narančasta.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logotipi kriptovaluta</string>
     <string name="settings_coin_logos_app">U aplikaciji</string>

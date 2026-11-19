@@ -122,7 +122,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Dath béime</string>
-    <string name="settings_accent_hint">Dath don aip, do ghiuirléidí agus do dheilbhín na haipe. Baineann roinnt scáileán baile an deilbhín nuair a athraíonn sé – cuir leis arís é ansin.</string>
+    <string name="settings_accent_hint">Dath don aip, do ghiuirléidí agus do dheilbhín na haipe. Baineann roinnt scáileán baile an deilbhín nuair a athraíonn sé – cuir leis arís é ansin. Fanann an deilbhín oráiste sna fógraí.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Lógónna bonn</string>
     <string name="settings_coin_logos_app">San aip</string>

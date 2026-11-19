@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Акцентен цвят</string>
-    <string name="settings_accent_hint">Цвят за приложението, уиджетите и иконата на приложението. Някои начални екрани премахват иконата при смяна – тогава я добави отново.</string>
+    <string name="settings_accent_hint">Цвят за приложението, уиджетите и иконата на приложението. Някои начални екрани премахват иконата при смяна – тогава я добави отново. В известията иконата остава оранжева.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Лога на монети</string>
     <string name="settings_coin_logos_app">В приложението</string>

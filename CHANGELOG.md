@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 322)
+
+Android: Hinweis unter «Akzentfarbe» – in Mitteilungen bleibt das Symbol orange.
+
 ## 16.2.2 (build 321)
 
 Portfolio-Widget «Übersicht»: gross statt des Wertverlaufs die grössten Positionen (höchstens 3).

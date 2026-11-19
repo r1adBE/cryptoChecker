@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">උච්චාරණ වර්ණය</string>
-    <string name="settings_accent_hint">යෙදුම, විජට් සහ යෙදුම් නිරූපකය සඳහා වර්ණය. සමහර මුල් තිර එය වෙනස් වූ විට නිරූපකය ඉවත් කරයි – එවිට එය නැවත එක් කරන්න.</string>
+    <string name="settings_accent_hint">යෙදුම, විජට් සහ යෙදුම් නිරූපකය සඳහා වර්ණය. සමහර මුල් තිර එය වෙනස් වූ විට නිරූපකය ඉවත් කරයි – එවිට එය නැවත එක් කරන්න. දැනුම්දීම්වල නිරූපකය තැඹිලි පැහැයෙන්ම පවතී.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">කාසි ලාංඡන</string>
     <string name="settings_coin_logos_app">යෙදුම තුළ</string>

@@ -118,7 +118,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Màu nhấn</string>
-    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại.</string>
+    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại. Trong thông báo, biểu tượng vẫn có màu cam.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo coin</string>
     <string name="settings_coin_logos_app">Trong ứng dụng</string>

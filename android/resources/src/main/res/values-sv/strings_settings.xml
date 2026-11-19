@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Accentfärg</string>
-    <string name="settings_accent_hint">Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen.</string>
+    <string name="settings_accent_hint">Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen. I aviseringar förblir ikonen orange.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Myntlogotyper</string>
     <string name="settings_coin_logos_app">I appen</string>

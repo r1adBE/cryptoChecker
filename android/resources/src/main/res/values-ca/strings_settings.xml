@@ -120,7 +120,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Color d\'èmfasi</string>
-    <string name="settings_accent_hint">Color per a l\'app, els widgets i la icona de l\'app. Algunes pantalles d\'inici eliminen la icona quan canvia – en aquest cas, torna-la a afegir.</string>
+    <string name="settings_accent_hint">Color per a l\'app, els widgets i la icona de l\'app. Algunes pantalles d\'inici eliminen la icona quan canvia – en aquest cas, torna-la a afegir. A les notificacions la icona continua sent taronja.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logotips de monedes</string>
     <string name="settings_coin_logos_app">A l\'app</string>

@@ -3307,6 +3307,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 319: LoadTopBar (Balken über der TopAppBar, unter der Statusleiste); dailyData ohne skipped-Bedingung (beide Plattformen), MarketTopBar ausgelagert.
 * Build 320: WidgetRefreshHeader: candidates mit Dauer (ListWidgetHeader.statusText), Lock/Chronometer, onTap mit WidgetRefreshState, Neuzeichnen am Ende über WidgetRefreshUnlock.Target je Widget; WidgetHeaderStamp (domain + Swift) mit Dauer und Ende je Widget-Art; iOS WidgetHeaderTrailing mit Countdown, WidgetHeaderTap, WidgetHeaderUnlock.
 * Build 321: PortfolioWidgetViews.overviewRows (Kotlin + Swift, getestet), PortfolioOverviewLayout.positionsHeightDp statt chartHeightDp; Übersicht nutzt listRow bzw. listRows und Coin-Logos.
+* Build 322: settings_accent_hint in allen Sprachen um einen Satz ergänzt.
 
 ## Known warnings
 

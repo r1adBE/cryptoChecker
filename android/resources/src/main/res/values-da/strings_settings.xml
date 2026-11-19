@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Accentfarve</string>
-    <string name="settings_accent_hint">Farve til appen, widgets og appikonet. Nogle startskærme fjerner ikonet ved skift – tilføj det så igen.</string>
+    <string name="settings_accent_hint">Farve til appen, widgets og appikonet. Nogle startskærme fjerner ikonet ved skift – tilføj det så igen. I notifikationer forbliver ikonet orange.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Møntlogoer</string>
     <string name="settings_coin_logos_app">I appen</string>

@@ -121,7 +121,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Колір акценту</string>
-    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додай його знову.</string>
+    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додай його знову. У сповіщеннях значок залишається помаранчевим.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Логотипи монет</string>
     <string name="settings_coin_logos_app">У застосунку</string>

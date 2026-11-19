@@ -119,7 +119,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">رنگ تأکیدی</string>
-    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کن.</string>
+    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کن. در اعلان‌ها نماد نارنجی می‌ماند.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">لوگوی ارزها</string>
     <string name="settings_coin_logos_app">در برنامه</string>
