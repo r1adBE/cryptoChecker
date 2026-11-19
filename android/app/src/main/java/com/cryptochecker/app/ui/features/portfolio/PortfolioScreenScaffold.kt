@@ -28,6 +28,7 @@ import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HeaderAddButton
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
+import com.cryptochecker.app.ui.components.rememberPullAck
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import com.cryptochecker.resources.R
 
@@ -66,8 +67,9 @@ internal fun PortfolioScaffold(
     onOpenCostGaps: () -> Unit,
 ) {
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
-    // Kreis des Ziehens nur beim Ziehen bzw. Menü; beim Öffnen der Balken ([LoadProgressBar])
-    val pulling by viewModel.load.manual.collectAsStateWithLifecycle()
+    // Kreisel nur kurz beim Ziehen bzw. Menü ([rememberPullAck]); dauert es länger, der Balken ([LoadProgressBar])
+    val manual by viewModel.load.manual.collectAsStateWithLifecycle()
+    val pulling = rememberPullAck(manual)
     var menuOpen by remember { mutableStateOf(false) }
 
     val hasTransactions = !transactions.isNullOrEmpty()

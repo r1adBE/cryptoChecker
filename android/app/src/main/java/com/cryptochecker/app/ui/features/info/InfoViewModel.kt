@@ -29,6 +29,7 @@ import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.LoadTally
 import com.cryptochecker.app.domain.util.NetworkStatus
 import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.domain.watch.FavoriteStore
@@ -116,8 +117,12 @@ class InfoViewModel @Inject constructor(
 
     private val _pullRefreshing = MutableStateFlow(false)
 
-    /** Nach unten gezogen: Anzeige läuft, bis alle Bereiche fertig sind. */
+    /** Nach unten gezogen: läuft, bis alle Bereiche fertig sind (Kreisel nur kurz, `rememberPullAck`). */
     val pullRefreshing: StateFlow<Boolean> = _pullRefreshing.asStateFlow()
+
+    /** Laden der Bereiche (Balken ab 2 s, `LoadProgressBar`): je fertigen Bereich ein Schritt; null = nichts lädt. */
+    val loadProgress: StateFlow<Float?> = LoadTally<CycleSource>().let { tally -> running.map { tally.next(it) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     // ---- Crypto Pulse (oben im Tab)
     internal val _pulse = MutableStateFlow<LoadState<PulseReport>>(LoadState.Loading)

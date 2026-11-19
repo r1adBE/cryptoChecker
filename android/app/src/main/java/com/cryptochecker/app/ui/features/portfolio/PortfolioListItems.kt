@@ -79,16 +79,15 @@ internal fun LazyListScope.portfolioCardItems(
     historyPnl: Boolean,
     watchedAddresses: List<WatchedAddress>,
 ) {
-    if (priceState != PortfolioPriceState.NONE) {
-        item(key = "status") {
-            PortfolioStatusPill(
-                state = priceState,
-                updatedAt = prices.updatedAt,
-                now = now,
-                reduceMotion = reduceMotion,
-                modifier = Modifier.padding(bottom = Spacing.sm)
-            )
-        }
+    // Immer da (ohne Stand unsichtbar, gleich hoch): kommt der Stand später, springt nichts und die Liste öffnet oben
+    item(key = "status") {
+        PortfolioStatusPill(
+            state = priceState,
+            updatedAt = prices.updatedAt,
+            now = now,
+            reduceMotion = reduceMotion,
+            modifier = Modifier.padding(bottom = Spacing.sm)
+        )
     }
     item(key = "total") {
         Box(Modifier.padding(bottom = ListSegment.Spacing)) {

@@ -59,6 +59,9 @@ internal class WatchlistRefreshController @AssistedInject constructor(
     val widgetRetryAt: StateFlow<Long?> = scheduler.observeManualRetryAt()
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
 
+    /** Fortschritt der laufenden vollständigen Aktualisierung (Balken über der Liste), null = keine. */
+    val progress: StateFlow<Float?> = priceRefresher.fullProgress
+
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<RefreshReport?> = refreshStats.lastReport
 

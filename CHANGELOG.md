@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 317)
+
+- Pulse widget: the new views no longer stay empty on the home screen (a layout element Android does not allow in widgets); every widget layout is now checked without a device.
+- Loading bar in the watchlist, market and portfolio, only when loading takes longer than 2 seconds; the pull-to-refresh spinner shows for at most a second.
+- Portfolio no longer opens scrolled below the status pill.
+- «Crypto Pulse» title without an icon, like the other cards.
+- Screen readers no longer read «tilde» in the halving widget.
+
 ## 16.2.2 (build 316)
 
 - Portfolio loads faster: addresses, prices, history and exchange rates are fetched at the same time, values appear as they arrive.

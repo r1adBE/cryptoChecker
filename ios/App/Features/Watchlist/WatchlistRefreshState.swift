@@ -34,3 +34,19 @@ struct WatchlistRefreshEvents: ViewModifier {
             .onChange(of: state.liveWatchIds) { _, _ in onLiveChange() }
     }
 }
+
+/// Ziehen = alles aktualisieren (`refresh`, Kreisel nur kurz: `PullAck` in `refreshByUser`) und, dauert es länger als
+/// 2 s, der dünne Balken oben (`LoadProgressBar`). Beobachtet `RefreshState` nur für den Balken — die Liste rechnet
+/// beim Fortschritt nicht neu.
+struct WatchlistRefreshing: ViewModifier {
+    let state: RefreshState
+    let refresh: @MainActor () async -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .refreshable { await refresh() }
+            .overlay(alignment: .top) {
+                RefreshStateReader(state: state) { LoadProgressBar(loading: $0.progress) }
+            }
+    }
+}

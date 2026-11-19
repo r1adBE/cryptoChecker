@@ -132,7 +132,10 @@ extension WatchlistScreen {
                 // Mittig, solange es passt; sonst scrollbar (grosse Schrift, kleine Geräte)
                 .frame(maxWidth: .infinity, minHeight: geo.size.height)
             }
-            .refreshable { await data.refreshAll() }
+            .refreshable {
+                let store = data
+                await PullAck.run { _ = await store.refreshAll() }
+            }
         }
         // «+» oben rechts (der Hinweis verweist darauf); in der Merkliste neben der Lupe
         .overlay(alignment: .topTrailing) {

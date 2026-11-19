@@ -93,7 +93,7 @@ extension WatchlistScreen {
             HStack(spacing: 8) {
                 StatusMark(tone: mark, color: tone)
                     .shadow(color: tone.opacity(0.7), radius: 4)
-                    // Pulsieren nur ohne «Bewegung reduzieren»; sonst ruhiger Punkt wie Android (dort pulsiert er nie)
+                    // Pulsieren nur ohne «Bewegung reduzieren»; sonst ruhiges Zeichen wie Android (dort pulsiert es nie)
                     .phaseAnimator(state.refreshing && !reduceMotion ? [0.35, 1.0] : [1.0]) { view, phase in
                         view.opacity(phase)
                     } animation: { _ in .easeInOut(duration: 0.6) }

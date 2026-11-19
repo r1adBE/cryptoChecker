@@ -43,7 +43,7 @@ object WatchlistWriteRefusal {
     /**
      * Je gescheitertem Schreiben eines Nutzer-Schreibwegs (Speicher voll, Datei nicht beschreibbar — `guardedWrite`,
      * gedrosselt) ein Ereignis: Die Oberfläche zeigt «Konnte nicht gespeichert werden» (`WatchlistLockedHint`) statt
-     * abzustürzen. Wie iOS `AppStatus.watchlistWriteFailedHints`.
+     * abzustürzen. Wie iOS `SharedStorage.watchlistWriteFailedNotice`.
      */
     val failures: SharedFlow<Unit> = failed.asSharedFlow()
 

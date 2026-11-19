@@ -134,10 +134,11 @@ struct PulseHalvingView: View {
     var body: some View {
         let today = LocalDay(date: entry.date)
         let info = BitcoinHalving.info(today: today)
-        let month = "~" + DateFormatterCache.string(info.nextHalvingEstimate.date, purpose: "monthYear",
-                                                    locale: LocaleNumbers.appLocale) { f in
+        let monthYear = DateFormatterCache.string(info.nextHalvingEstimate.date, purpose: "monthYear",
+                                                  locale: LocaleNumbers.appLocale) { f in
             f.setLocalizedDateFormatFromTemplate("MMMyyyy")
         }
+        let month = "~" + monthYear
         let days = max(0, today.days(until: info.nextHalvingEstimate))
         let left = L("pulse_widget_halving_left", L("alarm_near_window_days", count: days))
         let last = L("neutral_halving_last", DateFormatterCache.string(info.lastHalving.date, purpose: "mediumDate") { f in
@@ -170,6 +171,7 @@ struct PulseHalvingView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(12)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.join([L("insights_halving_title"), month, left, last, note]))
+        // VoiceOver ohne «~» (würde als «Tilde» gelesen); «geschätzt» sagt der Hinweis — wie Android
+        .accessibilityLabel(A11y.join([L("insights_halving_title"), monthYear, left, last, note]))
     }
 }

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Abstand Geld/Brief in % der Mitte, Hinweis erst über 2 %. Wie iOS `BidAskSpreadTests`. */
+/** Abstand Geld/Brief in % der Mitte, Hinweis erst über 2 %. Wie iOS `NetRulesTests.testBidAskSpread`. */
 class BidAskSpreadTest {
 
     @Test

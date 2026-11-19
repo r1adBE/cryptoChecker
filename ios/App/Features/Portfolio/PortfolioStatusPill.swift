@@ -15,7 +15,8 @@ enum PortfolioStamp {
 
 /// Status der Portfolio-Kurse wie in der Merkliste (`DataStatusPill`): grün «Alles aktuell · vor 2 Min.»,
 /// rot «Kurse veraltet · Stand 09:12», neutral «Offline · Stand 14:05» (bzw. «Offline» ohne Stand).
-/// Nichts bei `.none`. Wie `PortfolioStatusPill` (Android).
+/// Bei `.none` (noch kein Kurs, beim Öffnen) eine unsichtbare Pille gleicher Höhe: Die Liste darunter springt nicht,
+/// wenn der Stand kommt. Wie `PortfolioStatusPill` (Android).
 struct PortfolioStatusPill: View {
     let state: PortfolioPriceState
     let updatedAt: Int64
@@ -24,6 +25,10 @@ struct PortfolioStatusPill: View {
     var body: some View {
         if let text {
             DataStatusPill(text: text, tone: tone, spoken: spoken)
+        } else {
+            DataStatusPill(text: " ", tone: .neutral)
+                .opacity(0)
+                .accessibilityHidden(true)
         }
     }
 

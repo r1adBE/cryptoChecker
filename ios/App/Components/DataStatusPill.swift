@@ -2,11 +2,11 @@ import SwiftUI
 
 /// Ton der `DataStatusPill` — gleiche Farben wie die Status-Pille der Merkliste.
 enum DataStatusTone: Equatable {
-    /// Grün: alles aktuell.
+    /// Alles aktuell: ✓ in der Textfarbe.
     case fresh
-    /// Neutral (grau): offline oder lädt gerade — kein Fehler der App.
+    /// Neutral (grau, Punkt): offline oder lädt gerade — kein Fehler der App.
     case neutral
-    /// Rot: veraltet.
+    /// Veraltet: ! in der Fehlerfarbe.
     case warn
 
     /// Aktuell `onSurface` (ruhig, nicht in der Steigen-Farbe: frisch ≠ gestiegen), neutral `onSurfaceVariant`,

@@ -21,7 +21,6 @@ import java.time.ZoneOffset
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -161,7 +160,7 @@ internal suspend fun PortfolioViewModel.loadFxSeries(code: String, from: LocalDa
  * Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen oder Menü ([force]). Die Abrufe laufen gleichzeitig: Adressen,
  * Kurse, Tagesschlüsse, Devisenkurs, Devisen-Reihe und Kurse für «Seit Kauf» hängen nicht voneinander ab — Werte
  * erscheinen, sobald ihr Teil da ist. Bringen die Adressen neue Coins, lädt [start] deren Kurse nach.
- * Beim Öffnen ein dünner Balken ([PortfolioLoadState.progress]), erst nach einer halben Sekunde; beim Ziehen der Kreis.
+ * Dauert es länger als 2 s, ein dünner Balken ([PortfolioLoadState.progress]); beim Ziehen kurz der Kreisel.
  */
 fun PortfolioViewModel.refresh(force: Boolean) {
     if (load.busyFlow.value) return
@@ -169,20 +168,11 @@ fun PortfolioViewModel.refresh(force: Boolean) {
         load.busyFlow.value = true
         load.manualFlow.value = force
         val progress = LoadProgress(REFRESH_STEPS)
-        val bar = if (force) {
-            null
-        } else {
-            launch {
-                delay(LoadProgress.SHOW_AFTER_MILLIS)
-                load.progressFlow.value = progress.current()
-            }
-        }
-
-        // Ein Schritt fertig: Balken vor (nur wenn er schon steht)
+        load.progressFlow.value = progress.current()
+        // Ein Schritt fertig: Balken vor (sichtbar erst nach [LoadProgress.SHOW_AFTER_MILLIS], [LoadProgressBar])
         suspend fun step(block: suspend () -> Unit) {
             block()
-            val shown = progress.step()
-            if (load.progressFlow.value != null) load.progressFlow.value = shown
+            load.progressFlow.value = progress.step()
         }
         try {
             val txs = (transactions.value ?: repository.getTransactions())
@@ -209,7 +199,6 @@ fun PortfolioViewModel.refresh(force: Boolean) {
                 launch { step { summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(code, LocalDate.ofEpochDay(it)) } } }
             }
         } finally {
-            bar?.cancel()
             load.progressFlow.value = null
             load.manualFlow.value = false
             load.busyFlow.value = false

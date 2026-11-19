@@ -70,8 +70,14 @@ struct CycleScreen: View {
                     withAnimation { proxy.scrollTo(Self.topId, anchor: .top) }
                 }
         }
+        // Dauert das Laden länger als 2 s: dünner Balken oben (verschiebt nichts)
+        .overlay(alignment: .top) { LoadProgressBar(loading: viewModel.loadProgress) }
         .background(AppColors.background.ignoresSafeArea())
-        .refreshable { await viewModel.refreshAll() }
+        // Kreisel nur kurz als «verstanden», das Laden läuft weiter (`PullAck`)
+        .refreshable {
+            let model = viewModel
+            await PullAck.run { await model.refreshAll() }
+        }
         .tabTitle(L("tab_market_phase"), icon: .cycle)
         .toolbar {
             // ⋯ wie in Merkliste und Portfolio: App (→ «Über»), Aktualisieren
@@ -83,11 +89,8 @@ struct CycleScreen: View {
                         onRefresh: refreshAll
                     )
                 } label: {
-                    if viewModel.refreshingKeys.isEmpty {
-                        Image(systemName: "ellipsis.circle")
-                    } else {
-                        ProgressView().controlSize(.small)
-                    }
+                    // Laden zeigt der Balken über dem Inhalt (wie Android: der Knopf bleibt ruhig)
+                    Image(systemName: "ellipsis.circle")
                 }
                 .accessibilityLabel(L("action_more"))
             }
@@ -340,8 +343,8 @@ struct CycleScreen: View {
             .accessibilityLabel(L("loading_hint"))
     }
 
-    /// Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Punkt und
-    /// Satz in einer Pille — grün «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»),
+    /// Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Zeichen
+    /// und Satz in einer Pille — ✓ «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»),
     /// während still neu geladen wird neutral «Stand 14:05 · wird aktualisiert…». Ohne Netz (wie die
     /// Merkliste, `NetworkStatus`) neutral «Offline · Stand 14:05» — die Karten zeigen weiter den letzten
     /// Stand. Immer gleich hoch, auch ohne Stand — darunter springt nichts. Wie Android `MarketStatusPill`.

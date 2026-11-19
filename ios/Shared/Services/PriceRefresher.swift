@@ -36,7 +36,8 @@ enum PriceRefresher {
     static func refresh(snapshot: SharedStorage.Snapshot, settings: AppSettings, onlyWatchId: Int64? = nil,
                         liveIds: Set<Int64> = [],
                         liveQuotes: [Int64: LiveQuote]? = nil, networkBudgetMillis: Int64? = nil,
-                        deadline: RefreshDeadline? = nil, lowMemory: Bool = false) async -> Outcome {
+                        deadline: RefreshDeadline? = nil, lowMemory: Bool = false,
+                        progress: (@Sendable (Double) -> Void)? = nil) async -> Outcome {
         let started = EpochTime.nowMillis
         var outcome = Outcome()
         outcome.alarmLogLive = liveQuotes != nil
@@ -90,7 +91,7 @@ enum PriceRefresher {
             loaded = await loadFromNetwork(
                 watches, paused: paused, snapshot: snapshot, settings: settings, basis: basis, dayStart: dayStart,
                 onlyWatchId: onlyWatchId, lowMemory: lowMemory, networkBudgetMillis: networkBudgetMillis,
-                deadline: deadline, backoff: backoff, initialBackoff: initialBackoff)
+                deadline: deadline, backoff: backoff, initialBackoff: initialBackoff, progress: progress)
         }
         candleLoads.append(contentsOf: loaded.candleLoads)
         let fetched = loaded.fetched

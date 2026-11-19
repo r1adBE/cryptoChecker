@@ -7,8 +7,10 @@ package com.cryptochecker.app.ui.features.portfolio
 import android.text.format.DateUtils
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceState
 import com.cryptochecker.app.ui.components.DataStatusPill
@@ -32,7 +34,8 @@ internal fun portfolioStampTime(millis: Long): String {
 /**
  * Status der Portfolio-Kurse wie in der Merkliste ([DataStatusPill]): grün «Alles aktuell · vor 2 Min.»,
  * rot «Kurse veraltet · Stand 09:12», neutral «Offline · Stand 14:05» (bzw. «Offline» ohne Stand).
- * Nichts bei [PortfolioPriceState.NONE].
+ * Bei [PortfolioPriceState.NONE] (noch kein Kurs, beim Öffnen) eine unsichtbare Pille gleicher Höhe: Die Liste darunter
+ * springt nicht, wenn der Stand kommt, und öffnet nicht unter der Pille gescrollt.
  */
 @Composable
 internal fun PortfolioStatusPill(
@@ -42,8 +45,16 @@ internal fun PortfolioStatusPill(
     reduceMotion: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    if (state == PortfolioPriceState.NONE) {
+        DataStatusPill(
+            text = " ",
+            tone = DataStatusTone.NEUTRAL,
+            modifier = modifier.alpha(0f).clearAndSetSemantics { },
+        )
+        return
+    }
     val text = when (state) {
-        PortfolioPriceState.NONE -> return
+        PortfolioPriceState.NONE -> ""
         PortfolioPriceState.FRESH -> stringResource(R.string.watchlist_all_fresh, ago(updatedAt, now))
         PortfolioPriceState.STALE -> stringResource(R.string.portfolio_status_stale, portfolioStampTime(updatedAt))
         PortfolioPriceState.OFFLINE -> if (updatedAt > 0) {

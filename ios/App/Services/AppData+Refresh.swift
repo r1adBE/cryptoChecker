@@ -27,7 +27,9 @@ extension AppData {
         // denselben Stand auswerten (Alarme doppelt). Abgebrochen: kein Durchlauf
         guard await waitForLiveApply() else { return nil }
         let liveIds = liveCoveredIds()
-        let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds)
+        refreshState.progress = LoadProgress.start // Balken über der Liste (`LoadProgressBar`)
+        let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds,
+                                                   progress: refreshState.progressSink())
         // Übernehmen der Reihe nach (`PriceWriteGate`) — auch nach einem Abbruch: das Ergebnis ist schon geholt
         _ = await priceWriteGate.acquire(cancellable: false)
         defer { priceWriteGate.release() }

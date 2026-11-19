@@ -16,11 +16,16 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeView
+import com.cryptochecker.app.ui.components.LoadProgressBar
+import com.cryptochecker.app.ui.components.rememberPullAck
 
 /** Inhalt unter dem Gerüst der Merkliste: Blätter, Gerüst bzw. Start-Auswahl oder Kopf und Liste. Nicht neu startbar. */
 @NonRestartableComposable
@@ -97,9 +102,11 @@ internal fun WatchlistScaffoldContent(
         return
     }
 
-    // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
+    // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben). Kreisel nur kurz als «verstanden»; dauert es
+    // länger, der Balken oben ([LoadProgressBar]). Eben erst aktualisiert: [PullRefresh.echo]
+    val refreshProgress by viewModel.refreshProgress.collectAsStateWithLifecycle()
     PullToRefreshBox(
-        isRefreshing = state.live.refreshing || pull.echo,
+        isRefreshing = rememberPullAck(state.live.refreshing) || pull.echo,
         onRefresh = pull.request,
         modifier = Modifier.fillMaxSize().padding(padding)
     ) {
@@ -150,5 +157,6 @@ internal fun WatchlistScaffoldContent(
             deleteWithUndo = deleteWithUndo,
             favoriteWithBanner = favoriteWithBanner,
         )
+        LoadProgressBar(refreshProgress, reduceMotion, Modifier.align(Alignment.TopCenter))
     }
 }

@@ -67,11 +67,10 @@ extension PortfolioScreen {
         let state = priceState(summary)
         let stale = pricesStale(state)
         return List {
-            if state != .none {
-                PortfolioStatusPill(state: state, updatedAt: model.prices.updatedAt, now: now)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .portfolioListRow(top: 4, bottom: 4)
-            }
+            // Immer da (ohne Stand unsichtbar, gleich hoch): kommt der Stand später, springt nichts
+            PortfolioStatusPill(state: state, updatedAt: model.prices.updatedAt, now: now)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .portfolioListRow(top: 4, bottom: 4)
             totalCard(summary, currency: currency, stale: stale)
             .portfolioListRow(top: 4, bottom: 8)
 
@@ -183,8 +182,12 @@ extension PortfolioScreen {
         .readableListMargins()
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: summary.open.map(\.coin))
         .animation(.easeInOut(duration: 0.25), value: showClosed)
-        .refreshable { await model.refresh(force: true) }
-        // Beim Öffnen: dünner Balken oben über der Liste (verschiebt nichts), Werte erscheinen je Teil
-        .overlay(alignment: .top) { LoadProgressBar(progress: model.loadProgress) }
+        // Kreisel nur kurz als «verstanden», das Laden läuft weiter (`PullAck`)
+        .refreshable {
+            let portfolio = model
+            await PullAck.run { await portfolio.refresh(force: true) }
+        }
+        // Dauert das Laden länger als 2 s: dünner Balken oben über der Liste (verschiebt nichts)
+        .overlay(alignment: .top) { LoadProgressBar(loading: model.loadProgress) }
     }
 }

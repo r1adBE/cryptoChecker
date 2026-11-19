@@ -1,10 +1,13 @@
 import Foundation
 
-/// Fortschritt eines Ladevorgangs aus mehreren gleichzeitigen Schritten (Portfolio: Adressen, Kurse, Verlauf,
-/// Devisen …). Jeder fertige Schritt rückt den Balken vor, egal in welcher Reihenfolge. Wie Android `LoadProgress`.
+/// Fortschritt eines Ladevorgangs aus mehreren gleichzeitigen Schritten (Merkliste: je Börse; Markt: je Karte;
+/// Portfolio: Adressen, Kurse, Verlauf, Devisen …). Jeder fertige Schritt rückt den Balken vor, egal in welcher
+/// Reihenfolge. Wie Android `LoadProgress`.
 struct LoadProgress: Sendable {
-    /// Erst nach dieser Zeit erscheint der Balken: Schnelles Laden bleibt ohne Flackern.
-    static let showAfterMillis: UInt64 = 500
+    /// Erst nach dieser Zeit erscheint der Balken: Schnelles Laden bleibt ohne Balken (Inhaber: «länger als 2 s»).
+    static let showAfterMillis: UInt64 = 2_000
+    /// Kreisel beim Ziehen: nur so lange als «verstanden», danach übernimmt der Balken.
+    static let pullAckMillis: UInt64 = 1_000
     /// Ein kleiner Anfang, damit der Balken sofort lebt (nie ganz leer).
     static let start = 0.08
 
@@ -25,5 +28,22 @@ struct LoadProgress: Sendable {
     static func shown(done: Int, total: Int) -> Double {
         guard total > 0 else { return 1 }
         return start + (1 - start) * Double(min(max(done, 0), total)) / Double(total)
+    }
+}
+
+/// Fortschritt aus einer Menge laufender Teile (Markt: Bereiche, die gerade laden): Jeder Teil, der während eines
+/// Ladens dazukommt, zählt mit; fertig ist, wer nicht mehr läuft. Läuft nichts mehr, beginnt die Zählung neu.
+/// Wie Android `LoadTally`.
+struct LoadTally<Key: Hashable> {
+    private var seen: Set<Key> = []
+
+    /// Anteil für den Balken; nil = nichts lädt.
+    mutating func next(_ running: Set<Key>) -> Double? {
+        guard !running.isEmpty else {
+            seen = []
+            return nil
+        }
+        seen.formUnion(running)
+        return LoadProgress.shown(done: seen.count - running.count, total: seen.count)
     }
 }

@@ -145,7 +145,7 @@ extension WatchlistScreen {
         .readableListMargins()
         .background(AppColors.background)
         .environment(\.editMode, $editMode)
-        .refreshable { await refreshByUser() }
+        .modifier(WatchlistRefreshing(state: data.refreshState) { await refreshByUser() })
         // «Bewegung reduzieren»: Zeilen und Hinweise springen ohne Bewegung an ihren Platz (wie die Überlagerungen)
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: watches.map(\.id))
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: groups)
@@ -308,11 +308,14 @@ extension WatchlistScreen {
         data.settings = settings
     }
 
-    /// Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein neuer
+    /// Alles aktualisieren (nach unten ziehen, Menü). Der Kreisel dreht nur kurz als «verstanden» (`PullAck`), das
+    /// Laden läuft weiter, dauert es länger, zeigt es der Balken. Eben erst aktualisiert (unter 15 s): kein neuer
     /// Durchlauf — der Menüpunkt ist dann grau mit Countdown (`WatchlistMenuHead`); wer zieht, sieht den
     /// Kreisel kurz drehen (`.refreshable` wartet so lange) und dann «Gerade aktualisiert · vor N s».
     func refreshByUser() async {
-        let decision = await data.refreshAllByUser()
+        let store = data
+        // Nicht innert der Zeit fertig: es lief ein echter Durchlauf (kein «Gerade aktualisiert»)
+        guard let decision = await PullAck.run({ await store.refreshAllByUser() }) else { return }
         guard let ago = RefreshDebounce.pullEchoSeconds(decision, lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                                         now: EpochTime.nowMillis) else { return }
         try? await Task.sleep(nanoseconds: UInt64(RefreshDebounce.pullEchoMillis) * 1_000_000)

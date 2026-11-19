@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Ziel «Anpassen» aus der Alarm-Mitteilung (wie iOS `AppRouter.alarmEditTarget`). */
+/** Ziel «Anpassen» aus der Alarm-Mitteilung (wie iOS `AlarmEditTarget`). */
 class AlarmEditTargetTest {
 
     @Test

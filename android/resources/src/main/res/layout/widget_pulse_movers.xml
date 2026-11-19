@@ -2,6 +2,7 @@
 <!-- Pulse-Widget, Ansicht «Gewinner und Verlierer 24 h» (PulseWidgetMovers): links Gewinner, rechts Verlierer, je
      bis zu drei Coins mit 24-h-Veränderung in der Kursfarbe, darunter der Stand. Teil von widget_pulse.xml. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pulse_movers"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -115,7 +116,9 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Space
+        <!-- Abstand zwischen den Spalten (FrameLayout, da <Space> in RemoteViews nicht erlaubt ist) -->
+        <FrameLayout
+            tools:ignore="UselessLeaf"
             android:layout_width="12dp"
             android:layout_height="1dp" />
 
@@ -219,7 +222,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Space
+    <!-- Platzhalter mit Gewicht 1 hält den Stand unten (FrameLayout, da <Space>/<View> in RemoteViews nicht erlaubt sind) -->
+    <FrameLayout
+        tools:ignore="UselessLeaf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

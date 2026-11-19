@@ -27,9 +27,24 @@ final class FullRefreshFlag {
 /// Geschrieben wird nur von `AppData` (Aktualisieren, Live-Strom, Lesen von der Platte).
 @MainActor
 final class RefreshState: ObservableObject {
-    /// Volle Aktualisierung läuft (`AppData.refreshAll`).
+    /// Volle Aktualisierung läuft (`AppData.refreshAll`); zu Ende: kein Balken mehr (`progress`).
     @Published var refreshing = false {
-        didSet { if fullFlag.running != refreshing { fullFlag.running = refreshing } }
+        didSet {
+            if fullFlag.running != refreshing { fullFlag.running = refreshing }
+            if !refreshing { progress = nil }
+        }
+    }
+    /// Fortschritt der vollen Aktualisierung (Balken über der Merkliste, `LoadProgress`); nil = keine.
+    @Published var progress: Double?
+
+    /// Für den Abruf (anderer Thread): je fertige Börse auf dem Hauptthread übernehmen, nie rückwärts.
+    nonisolated func progressSink() -> @Sendable (Double) -> Void {
+        { [weak self] value in
+            Task { @MainActor in
+                guard let self, let shown = self.progress else { return }
+                self.progress = max(shown, value)
+            }
+        }
     }
     /// Dauer der letzten vollen Aktualisierung (ms, gespeichert); 0 = noch keine.
     @Published var lastRefreshMillis: Int64

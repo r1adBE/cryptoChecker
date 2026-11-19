@@ -664,10 +664,16 @@ def main():
     app_cat = os.path.join(ROOT, "App", "Resources", "Assets.xcassets")
     widget_cat = os.path.join(ROOT, "Widgets", "Assets.xcassets")
     svg_dir = os.path.join(HERE, "svg")
-    for d in (app_cat, widget_cat, svg_dir):
-        if os.path.isdir(d):
-            shutil.rmtree(d)
-        os.makedirs(d)
+    # Nur, was dieses Skript erzeugt, neu anlegen: handgemachte Sets im Katalog (z. B. PortfolioIcon, TabWatchlist) bleiben
+    generated = re.compile(r"^(AppIcon\w*\.appiconset|Logo\w*\.imageset|AccentColor\.colorset|WidgetBackground\.colorset)$")
+    for d in (app_cat, widget_cat):
+        os.makedirs(d, exist_ok=True)
+        for name in os.listdir(d):
+            if generated.match(name):
+                shutil.rmtree(os.path.join(d, name))
+    if os.path.isdir(svg_dir):
+        shutil.rmtree(svg_dir)
+    os.makedirs(svg_dir)
     write_json(os.path.join(app_cat, "Contents.json"), {"info": INFO})
     write_json(os.path.join(widget_cat, "Contents.json"), {"info": INFO})
 

@@ -138,8 +138,13 @@ struct MarketSectionPage: View {
             .onChange(of: viewModel.revealed) { _, _ in scrollToMacro(proxy) }
             .onAppear { scrollToMacro(proxy) }
         }
+        .overlay(alignment: .top) { LoadProgressBar(loading: viewModel.loadProgress) }
         .background(AppColors.background.ignoresSafeArea())
-        .refreshable { await viewModel.refreshAll() }
+        // Kreisel nur kurz als «verstanden», das Laden läuft weiter (`PullAck`)
+        .refreshable {
+            let model = viewModel
+            await PullAck.run { await model.refreshAll() }
+        }
         .navigationTitle(L(section.titleKey))
         .navigationBarTitleDisplayMode(.inline)
         // Nachladen bei Netz wieder da übernimmt der Tab darunter (`CycleScreen`)

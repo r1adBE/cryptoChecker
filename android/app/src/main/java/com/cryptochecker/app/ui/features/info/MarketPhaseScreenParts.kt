@@ -100,8 +100,8 @@ internal fun RevealLoadingRow() {
 }
 
 /**
- * Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Punkt und Satz
- * in einer Pille — grün «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»), während
+ * Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Zeichen und Satz
+ * in einer Pille — ✓ «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»), während
  * still neu geladen wird neutral «Stand 14:05 · wird aktualisiert…» (ältester gezeigter Stand).
  * Ohne Netz (wie die Merkliste, [NetworkStatus]) neutral «Offline ·
  * Stand 14:05» — die Karten zeigen weiter den letzten Stand.

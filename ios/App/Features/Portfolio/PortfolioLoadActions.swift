@@ -31,31 +31,19 @@ extension PortfolioModel {
 
     /// Beim Öffnen (60 s Zwischenspeicher), bei neuen Coins bzw. per Ziehen oder Menü (`force`). Die Abrufe laufen
     /// gleichzeitig (Adressen, Verlauf, Devisenkurs, Kurse, «Seit Kauf») — Werte erscheinen, sobald ihr Teil da ist.
-    /// Beim Öffnen ein dünner Balken (`loadProgress`), erst nach einer halben Sekunde; von Hand der Kreisel. Wie Android.
+    /// Dauert es länger als 2 s, ein dünner Balken (`loadProgress`, `LoadProgressBar`); beim Ziehen kurz der Kreisel. Wie Android.
     func refresh(force: Bool) async {
         let owner = activeRefreshes == 0
         activeRefreshes += 1
         refreshing = true
-        if force { manualRefresh = true }
-        var bar: Task<Void, Never>?
         if owner {
             loadSteps = LoadProgress(total: Self.refreshSteps)
-            if !force {
-                bar = Task { [weak self] in
-                    try? await Task.sleep(nanoseconds: LoadProgress.showAfterMillis * 1_000_000)
-                    guard !Task.isCancelled, let self, self.activeRefreshes > 0 else { return }
-                    self.loadProgress = self.loadSteps.current
-                }
-            }
+            loadProgress = loadSteps.current
         }
         defer {
-            bar?.cancel()
             activeRefreshes -= 1
             refreshing = activeRefreshes > 0
-            if !refreshing {
-                loadProgress = nil
-                manualRefresh = false
-            }
+            if !refreshing { loadProgress = nil }
         }
         // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung; danach Verlauf und
         // «7 T»/«1 J» mit dem neuen Kurs (wie die Flows auf Android)
@@ -133,7 +121,7 @@ extension PortfolioModel {
     /// Gleichzeitige Schritte in `refresh` (für den Balken).
     static let refreshSteps = 5
 
-    /// Ein Schritt von `refresh` fertig: Balken vor (nur wenn er schon steht).
+    /// Ein Schritt von `refresh` fertig: Balken vor (sichtbar erst nach 2 s, `LoadProgressBar`).
     func markLoadStep() {
         let shown = loadSteps.step()
         if loadProgress != nil { loadProgress = shown }

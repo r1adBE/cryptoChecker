@@ -1,4 +1,4 @@
-// Status der Merkliste als Pille (Punkt in der Statusfarbe und Satz, z. B. «Kurse der gewählten Börsen ·
+// Status der Merkliste als Pille (Zeichen in der Statusfarbe und Satz, z. B. «Kurse der gewählten Börsen ·
 // vor 2 Min.»), die passende Kurzform je Breite und der Chip «3 deaktiviert».
 // Eigene Datei, weil die Pille ihre Text-Varianten und Bewegung selbst regelt; `WatchlistStatusRow` ordnet
 // nur an.
@@ -52,7 +52,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.resources.R
 
-/** Punkt in der Statusfarbe und der Satz dazu, z. B. «Kurse der gewählten Börsen · vor 2 Min.». */
+/** Zeichen ([StatusMark]) in der Statusfarbe und der Satz dazu, z. B. «Kurse der gewählten Börsen · vor 2 Min.». */
 @Composable
 internal fun WatchlistStatusPill(
     status: WatchlistStatus,

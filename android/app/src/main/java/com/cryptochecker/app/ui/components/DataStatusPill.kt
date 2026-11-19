@@ -26,13 +26,13 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /** Ton der [DataStatusPill] — gleiche Farben wie die Status-Pille der Merkliste. */
 enum class DataStatusTone {
-    /** Grün: alles aktuell. */
+    /** Alles aktuell: ✓ in der Textfarbe. */
     FRESH,
 
-    /** Neutral (grau): offline oder lädt gerade — kein Fehler der App. */
+    /** Neutral (grau, Punkt): offline oder lädt gerade — kein Fehler der App. */
     NEUTRAL,
 
-    /** Rot: veraltet. */
+    /** Veraltet: ! in der Fehlerfarbe. */
     WARN,
 }
 

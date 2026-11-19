@@ -43,6 +43,7 @@ import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HeaderAddButton
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberPullAck
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
@@ -60,8 +61,9 @@ fun PortfolioDetailScreen(
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val symbol = remember(coin) { PortfolioCalculator.normalizeCoin(coin) }
-    // Kreis des Ziehens nur beim Ziehen bzw. Menü; beim Öffnen der Balken ([LoadProgressBar])
-    val refreshing by viewModel.load.manual.collectAsStateWithLifecycle()
+    // Kreisel nur kurz beim Ziehen bzw. Menü ([rememberPullAck]); dauert es länger, der Balken ([LoadProgressBar])
+    val manual by viewModel.load.manual.collectAsStateWithLifecycle()
+    val refreshing = rememberPullAck(manual)
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
     // Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
     val detail by remember(viewModel, symbol) { viewModel.coinDetailFlow(symbol) }.collectAsStateWithLifecycle(null)

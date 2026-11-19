@@ -12,9 +12,7 @@ final class PortfolioModel: ObservableObject {
     @Published var prices = PortfolioPrices()
     /// Kurse werden gerade geladen (Menü «Aktualisieren» gesperrt).
     @Published var refreshing = false
-    /// Laden von Hand (Ziehen, Menü): Kreisel im Menü-Knopf; beim Öffnen stattdessen `loadProgress`.
-    @Published var manualRefresh = false
-    /// Dünner Ladebalken beim Öffnen (0–1, nil = keiner), erst nach einer halben Sekunde — wie Android.
+    /// Fortschritt des Ladens (0–1, nil = es lädt nichts); der Balken zeigt ihn ab 2 s (`LoadProgressBar`) — wie Android.
     @Published var loadProgress: Double?
     /// USD → `fxCurrency`; nil = unbekannt (Umrechnungszeile ausblenden).
     @Published var fxRate: Double?

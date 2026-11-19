@@ -59,8 +59,10 @@ import com.cryptochecker.app.notification.MacroTexts
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
+import com.cryptochecker.app.ui.components.LoadProgressBar
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.readableWidth
+import com.cryptochecker.app.ui.components.rememberPullAck
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
@@ -246,8 +248,10 @@ fun MarketSectionScreen(
             )
         }
     ) { padding ->
+        // Kreisel nur kurz als «verstanden»; dauert es länger, der Balken oben ([LoadProgressBar])
+        val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
         PullToRefreshBox(
-            isRefreshing = pullRefreshing,
+            isRefreshing = rememberPullAck(pullRefreshing),
             onRefresh = viewModel::refreshAll,
             modifier = Modifier.fillMaxSize().padding(padding)
         ) {
@@ -267,6 +271,7 @@ fun MarketSectionScreen(
                 if (MarketSections.loading(section, reveal.shown)) RevealLoadingRow()
                 Spacer(modifier = Modifier.height(24.dp))
             }
+            LoadProgressBar(loadProgress, reduceMotion = !motion, Modifier.align(Alignment.TopCenter))
         }
     }
 }

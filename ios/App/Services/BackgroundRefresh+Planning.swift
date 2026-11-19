@@ -5,7 +5,7 @@ import os
 import WidgetKit
 
 // Planen und Absagen der Hintergrund-Aktualisierung (Teil von `BackgroundRefresh`, eigene Datei),
-// wie Android nur bei Bedarf (`BackgroundWorkDemand.periodicNeeded`, `PriceUpdateScheduler.syncPeriodic`).
+// wie Android nur bei Bedarf (`BackgroundWorkPolicy.periodicNeeded`, `PriceUpdateScheduler.syncPeriodic`).
 
 extension BackgroundRefresh {
     static func schedule(settings: AppSettings) {

@@ -23,7 +23,7 @@ struct SplitTab<Root: View>: View {
     }
 }
 
-/// Breiten der linken Spalte (pt); wie Android `TwoPaneMetrics`.
+/// Breiten der linken Spalte (pt); wie Android `TwoPanePolicy`.
 enum SplitTabMetrics {
     static let listMin: CGFloat = 340
     static let listIdeal: CGFloat = 420

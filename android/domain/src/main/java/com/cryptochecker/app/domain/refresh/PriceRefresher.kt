@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.util.DomainLog
+import com.cryptochecker.app.domain.util.LoadProgress
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -71,6 +72,11 @@ class PriceRefresher(
     /** true, solange eine vollständige Aktualisierung arbeitet (gleich welcher Herkunft). */
     val fullRefreshRunning: StateFlow<Boolean> = _fullRefreshRunning.asStateFlow()
 
+    internal val fullProgressFlow = MutableStateFlow<Float?>(null)
+
+    /** Fortschritt der laufenden vollständigen Aktualisierung (Balken, [LoadProgress]: je Börse ein Schritt, dazu das Auswerten); null = keine. */
+    val fullProgress: StateFlow<Float?> = fullProgressFlow.asStateFlow()
+
     /**
      * Beginn der laufenden vollständigen Aktualisierung (ms); 0 = keine. Das Merkliste-Widget unterscheidet
      * so eine neu begonnene von der eben fertigen, die noch unter der Sperre zeichnet ([WidgetRefreshState.blockedUntil]).
@@ -123,11 +129,13 @@ class PriceRefresher(
         refreshLock.withLockThen(lateFillScope) { lock ->
             fullRefreshStartedAt = System.currentTimeMillis()
             _fullRefreshRunning.value = true
+            fullProgressFlow.value = LoadProgress.START
             try {
                 // Die Kurs-Meldungen merkt refreshAllLocked gleich nach dem Speichern vor (RefreshLock.stageTail)
                 refreshOnIo(lock, deadlineAt) to null
             } finally {
                 _fullRefreshRunning.value = false
+                fullProgressFlow.value = null
                 fullRefreshStartedAt = 0L
             }
         }

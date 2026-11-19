@@ -3302,6 +3302,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 314: Audit 303: Argon2Memory/largeHeap weg, Anteile exakt, Willkommen «nicht live», Datenschutz aufklappbar.
 * Build 315: Akzente Violett/Dunkelgrau (AppColorSchemesMore.kt, isNeutral: Kursfarben bleiben Standard), Puls-Widget-Ansichten, StatusMark, Markt-Pille bündig, pluginManagement-Filter, gen_assets nur dunkle Icons.
 * Build 316: Portfolio-Laden parallel (refresh: coroutineScope bzw. async let), LoadProgress + LoadProgressBar, Kreisel nur von Hand (PortfolioLoadState.manual / manualRefresh).
+* Build 317: Space→FrameLayout + WidgetLayoutClassesTest; LoadProgressBar (ab 2 s) + rememberPullAck/PullAck (1 s); PriceRefresher.fullProgress, LoadTally (Markt); Portfolio-Pille immer da; Puls-Titel ohne Symbol; Audit: Querverweise, gen_assets ohne rmtree der Kataloge.
 
 ## Known warnings
 

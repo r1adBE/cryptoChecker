@@ -5,7 +5,7 @@ import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Vorgelesene Kurse im Dezimalzeichen der Sprache der Ansage, lateinische Ziffern. Wie iOS `SpokenPriceLocaleTests`. */
+/** Vorgelesene Kurse im Dezimalzeichen der Sprache der Ansage, lateinische Ziffern. Wie iOS `NetRulesTests.testSpokenPriceUsesSpeechLocaleSeparator`. */
 class SpokenPriceLocaleTest {
 
     @Test

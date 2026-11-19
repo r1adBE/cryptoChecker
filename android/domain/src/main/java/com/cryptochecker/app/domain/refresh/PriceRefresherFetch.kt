@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.LoadProgress
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import kotlinx.coroutines.async
@@ -85,11 +86,16 @@ internal suspend fun PriceRefresher.fetchAllGroups(
     val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
     val fetched = HashMap<Long, Fetched>()
     var cutByBudget = 0
+    // Balken der Merkliste: je fertige Börse ein Schritt, der letzte ist das Auswerten danach
+    val progress = LoadProgress(activeGroups.size + 1)
     val activeReports = coroutineScope {
         activeGroups
             // Mit Frist: je Börse eigenes Budget, eine langsame Börse hält die anderen nicht auf
             .map { group ->
-                async { priceFetcher.fetchGroup(group.value, settings.includeRollingFutures, deadlineAt, alarmedIds) }
+                async {
+                    priceFetcher.fetchGroup(group.value, settings.includeRollingFutures, deadlineAt, alarmedIds)
+                        .also { synchronized(progress) { fullProgressFlow.value = progress.step() } }
+                }
             }
             .awaitAll()
     }.map { (results, fetchedGroup) ->

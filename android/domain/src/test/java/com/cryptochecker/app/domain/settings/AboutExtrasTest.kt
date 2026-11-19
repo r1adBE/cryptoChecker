@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.settings
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Diagnose erst nach der Freischaltung, «Entwickler» nur im Debug-Build. Wie iOS `AboutExtrasTests`. */
+/** Diagnose erst nach der Freischaltung, «Entwickler» nur im Debug-Build. Wie iOS `UiHonestyTests.testAboutExtras`. */
 class AboutExtrasTest {
     @Test
     fun diagnosticsAfterUnlockDeveloperOnlyInDebug() {

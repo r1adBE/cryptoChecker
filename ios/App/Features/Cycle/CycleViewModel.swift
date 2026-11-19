@@ -75,7 +75,12 @@ final class CycleViewModel: ObservableObject {
     /// Anbieter der gezeigten Daten je Bereich (z. B. «CoinGecko»), sofern bekannt.
     @Published var providers: [String: String] = [:]
     /// Bereiche, die gerade neu laden.
-    @Published var refreshingKeys: Set<String> = []
+    @Published var refreshingKeys: Set<String> = [] {
+        didSet { loadProgress = loadTally.next(refreshingKeys) }
+    }
+    /// Laden der Bereiche (Balken ab 2 s, `LoadProgressBar`): je fertigen Bereich ein Schritt; nil = nichts lädt.
+    @Published private(set) var loadProgress: Double?
+    private var loadTally = LoadTally<String>()
 
     /// Welche Teile des Tabs (`CycleRevealSlot`, je Register von oben) sichtbar sind — einmal je
     /// App-Sitzung schrittweise (`CycleReveal`), danach bleibt alles stehen.

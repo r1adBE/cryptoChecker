@@ -20,7 +20,6 @@ struct CryptoPulseCard: View {
     let plain: PlainSummary?
     let onRetry: () -> Void
 
-    @Environment(\.appAccent) private var accent
     @Environment(\.priceColorScheme) private var priceColors
     @Environment(\.priceHighContrast) private var highContrast
     @Environment(\.priceColorsInverted) private var inverted
@@ -137,12 +136,9 @@ struct CryptoPulseCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    /// «Krypto-Puls»: ohne Symbol, gleich wie die Titel der übrigen Karten — wie Android `PulseOverline`.
     private var overline: some View {
         HStack(spacing: Spacing.xs) {
-            Image(systemName: "waveform.path.ecg")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(accent.primary)
-                .accessibilityHidden(true)
             Text(L("pulse_now_title"))
                 .sectionTitleStyle()
         }

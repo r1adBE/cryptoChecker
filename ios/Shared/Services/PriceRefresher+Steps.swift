@@ -73,7 +73,8 @@ extension PriceRefresher {
                                 settings: AppSettings, basis: ChangeBasis, dayStart: Int64?, onlyWatchId: Int64?,
                                 lowMemory: Bool, networkBudgetMillis: Int64?, deadline: RefreshDeadline?,
                                 backoff: [String: ExchangeBackoff.State],
-                                initialBackoff: [String: ExchangeBackoff.State]) async -> Loaded {
+                                initialBackoff: [String: ExchangeBackoff.State],
+                                progress: (@Sendable (Double) -> Void)? = nil) async -> Loaded {
         // Bezüge (Kerzen) parallel zu den Kursen für Paare, die beim letzten Mal Kerzen brauchten
         // (rollend: Ticker ohne 24-h-Wert; Tages-Basen: alle); der Rest nach den Kursen.
         let remembered = candleNeeds.ids
@@ -88,7 +89,7 @@ extension PriceRefresher {
         let networkBudget = deadline.map { $0.allowance(wanted: networkBudgetMillis ?? Int64.max) } ?? networkBudgetMillis
         let (fetched, signals) = await fetchGroups(groups, settings: settings, onlyWatchId: onlyWatchId,
                                                    lowMemory: lowMemory, alarmedIds: alarmedIds,
-                                                   networkBudget: networkBudget)
+                                                   networkBudget: networkBudget, progress: progress)
         // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
         var exchanges: [ExchangeRefresh] = []
         if onlyWatchId == nil {
@@ -110,8 +111,10 @@ extension PriceRefresher {
     }
 
     /// Alle Börsen gleichzeitig abfragen; mit `networkBudget` nach dieser Zeit die übrigen abbrechen (Teilergebnis).
+    /// `progress`: Balken der Merkliste (`LoadProgress`) — je fertige Börse ein Schritt, der letzte ist das Auswerten.
     static func fetchGroups(_ groups: [String: [Watch]], settings: AppSettings, onlyWatchId: Int64?, lowMemory: Bool,
-                            alarmedIds: Set<Int64>, networkBudget: Int64?) async -> ([Int64: Fetched], [GroupSignals]) {
+                            alarmedIds: Set<Int64>, networkBudget: Int64?,
+                            progress: (@Sendable (Double) -> Void)? = nil) async -> ([Int64: Fetched], [GroupSignals]) {
         var fetched: [Int64: Fetched] = [:]
         var signals: [GroupSignals] = []
         // Mit Budget: fertige Einzelabfragen laufender Börsen behalten, je Lauf anderer Beginn der Reihenfolge
@@ -147,6 +150,7 @@ extension PriceRefresher {
                 fetched.merge(results) { a, _ in a }
                 if let signal { signals.append(signal) }
                 pendingGroups -= 1
+                progress?(LoadProgress.shown(done: groups.count - pendingGroups, total: groups.count + 1))
                 if pendingGroups == 0 {
                     // Alle Börsen fertig: den Zeitgeber nicht abwarten
                     group.cancelAll()

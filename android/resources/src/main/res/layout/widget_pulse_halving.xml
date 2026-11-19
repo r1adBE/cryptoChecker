@@ -2,6 +2,7 @@
 <!-- Pulse-Widget, Ansicht «Bitcoin-Halving» (PulseWidgetHalving): voraussichtlicher Monat gross, verbleibende Tage,
      letztes Halving und «Nach Kalender geschätzt». Ohne Netz, keine Prognose. Teil von widget_pulse.xml. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pulse_halving"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -27,7 +28,9 @@
         android:ellipsize="end"
         android:textSize="14sp" />
 
-    <Space
+    <!-- Platzhalter mit Gewicht 1 hält den Stand unten (FrameLayout, da <Space>/<View> in RemoteViews nicht erlaubt sind) -->
+    <FrameLayout
+        tools:ignore="UselessLeaf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

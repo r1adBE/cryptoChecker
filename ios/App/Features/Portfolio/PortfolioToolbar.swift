@@ -102,12 +102,8 @@ extension PortfolioScreen {
                     }
                 }
             } label: {
-                // Aktualisieren von Hand (Menü, Ziehen): hier dreht sich ein Kreis; beim Öffnen der Balken über der Liste
-                if model.manualRefresh {
-                    ProgressView().controlSize(.small)
-                } else {
-                    Image(systemName: "ellipsis.circle")
-                }
+                // Laden zeigt der Balken über der Liste (wie Android: der Knopf bleibt ruhig)
+                Image(systemName: "ellipsis.circle")
             }
             .accessibilityLabel(L("action_more"))
             .accessibilityIdentifier(UiTestTags.portfolioMenu)

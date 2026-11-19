@@ -104,7 +104,8 @@ private fun drawMoverColumn(views: RemoteViews, colors: WidgetColors, ids: List<
 internal fun drawPulseHalving(context: Context, views: RemoteViews, colors: WidgetColors, today: LocalDate = LocalDate.now()): String {
     showPulseSection(views, R.id.pulse_halving)
     val info = BitcoinHalving.info(today)
-    val month = "~" + info.nextHalvingEstimate.format(MonthYearFormat.formatter())
+    val monthYear = info.nextHalvingEstimate.format(MonthYearFormat.formatter())
+    val month = "~$monthYear"
     val days = ChronoUnit.DAYS.between(today, info.nextHalvingEstimate).coerceAtLeast(0).toInt()
     val left = context.getString(
         R.string.pulse_widget_halving_left,
@@ -123,5 +124,6 @@ internal fun drawPulseHalving(context: Context, views: RemoteViews, colors: Widg
     views.setTextColor(R.id.pulse_halving_last, colors.secondaryTextColor)
     views.setTextViewText(R.id.pulse_halving_note, note)
     views.setTextColor(R.id.pulse_halving_note, colors.secondaryTextColor)
-    return listOf(context.getString(R.string.insights_halving_title), month, left, last, note).joinToString(". ")
+    // Screenreader ohne «~» (würde als «Tilde» gelesen); «geschätzt» sagt der Hinweis
+    return listOf(context.getString(R.string.insights_halving_title), monthYear, left, last, note).joinToString(". ")
 }
