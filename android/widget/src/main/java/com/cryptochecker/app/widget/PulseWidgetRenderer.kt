@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
@@ -18,6 +19,7 @@ import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.LoadProgress
 import com.cryptochecker.app.domain.widget.PulseBackgroundFetch
 import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.settings.HighContrast
@@ -27,6 +29,7 @@ import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
@@ -80,8 +83,13 @@ class PulseWidgetRenderer @Inject constructor(
         refreshing = true
         try {
             val cached = pulseData.readPulse()
+            val startedAt = SystemClock.elapsedRealtime()
             drawPulse(appWidgetIds, cached, busy = true)
-            loadAndDraw(appWidgetIds, cached, maxAgeMillis = 0L)
+            val loaded = pulseData.loadPulse(maxAgeMillis = 0L)
+            // Kreisel mindestens [LoadProgress.PULL_ACK_MILLIS], wie beim Ziehen in der App und auf der Uhr
+            delay((LoadProgress.PULL_ACK_MILLIS - (SystemClock.elapsedRealtime() - startedAt)).coerceAtLeast(0L))
+            // Auch ohne frisches Ergebnis neu zeichnen: so verschwindet der Kreisel
+            drawPulse(appWidgetIds, loaded ?: cached)
         } finally {
             refreshing = false
         }

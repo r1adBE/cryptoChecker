@@ -27,9 +27,9 @@ struct LoadProgressBar: View {
     }
 }
 
-/// Kreisel des Ziehens (`.refreshable`): nur kurz als «verstanden» (`LoadProgress.pullAckMillis`) bzw. bis das Laden
-/// fertig ist — `.refreshable` wartet nur so lange, das Laden selbst läuft weiter, danach übernimmt der Balken.
-/// Wie Android `rememberPullAck`.
+/// Kreisel des Ziehens (`.refreshable`): genau `LoadProgress.pullAckMillis` als «verstanden» — auch wenn das Laden
+/// früher fertig ist (überall gleich wie auf der Uhr); `.refreshable` wartet nur so lange, das Laden selbst läuft
+/// weiter, danach übernimmt der Balken. Wie Android `rememberPullAck`.
 enum PullAck {
     /// - Returns: das Ergebnis von `work`, wenn es innerhalb der Zeit fertig wurde; sonst nil (es läuft weiter).
     @MainActor
@@ -39,9 +39,9 @@ enum PullAck {
         Task { @MainActor in
             state.value = await work()
         }
-        // In kleinen Schritten warten: fertig oder die Zeit des «Verstanden» ist um (das Laden läuft weiter)
+        // Die Zeit des «Verstanden» ganz abwarten (das Laden läuft weiter, wenn es länger dauert)
         var waited: UInt64 = 0
-        while state.value == nil && waited < LoadProgress.pullAckMillis {
+        while waited < LoadProgress.pullAckMillis {
             try? await Task.sleep(nanoseconds: step * 1_000_000)
             waited += step
         }

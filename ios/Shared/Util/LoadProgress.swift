@@ -4,7 +4,7 @@ import Foundation
 /// Portfolio: Adressen, Kurse, Verlauf, Devisen …). Jeder fertige Schritt rückt den Balken vor, egal in welcher
 /// Reihenfolge. Wie Android `LoadProgress`.
 struct LoadProgress: Sendable {
-    /// Kreisel beim Ziehen: nur so lange als «verstanden», danach übernimmt der Balken.
+    /// Kreisel beim Ziehen und nach einem Tipp (Uhr): so lange als «verstanden», danach der Balken.
     static let pullAckMillis: UInt64 = 1_000
     /// Ein kleiner Anfang, damit der Balken sofort lebt (nie ganz leer).
     static let start = 0.08

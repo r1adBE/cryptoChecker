@@ -63,10 +63,15 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
     private suspend fun refreshByTap() {
         val ids = widgetUpdater.portfolioWidgetIds()
         widgetUpdater.setPortfolioRefreshing(ids, on = true)
+        val startedAt = android.os.SystemClock.elapsedRealtime()
         try {
             com.cryptochecker.app.domain.work.countedRun {
                 withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
             }
+            // Kreisel mindestens [LoadProgress.PULL_ACK_MILLIS], wie beim Ziehen in der App und auf der Uhr
+            val left = com.cryptochecker.app.domain.util.LoadProgress.PULL_ACK_MILLIS -
+                (android.os.SystemClock.elapsedRealtime() - startedAt)
+            if (left > 0L) kotlinx.coroutines.delay(left)
         } finally {
             // Auch bei Fehler oder Zeitgrenze: Kreisel weg, Stand neu
             withContext(NonCancellable) { widgetUpdater.setPortfolioRefreshing(ids, on = false) }

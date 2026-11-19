@@ -18,7 +18,7 @@ class LoadProgress(private val total: Int) {
     fun current(): Float = shown(done, total)
 
     companion object {
-        /** Kreisel beim Ziehen: nur so lange als «verstanden», danach übernimmt der Balken. */
+        /** Kreisel beim Ziehen und nach einem Tipp (Widgets, Uhr): so lange als «verstanden», danach der Balken. */
         const val PULL_ACK_MILLIS = 1_000L
 
         /** Ein kleiner Anfang, damit der Balken sofort lebt (nie ganz leer). */

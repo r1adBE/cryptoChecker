@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 325)
+
+Kreisel beim Ziehen und in Puls-/Portfolio-Widget mindestens 1 Sekunde, wie auf der Uhr.
+
 ## 16.2.2 (build 324)
 
 Uhr: Öffnen fragt die Börsen nicht mehr bei jedem Blick ab; Kreisel nur, wenn wirklich geladen wird.

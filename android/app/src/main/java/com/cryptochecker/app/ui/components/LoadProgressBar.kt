@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import android.os.SystemClock
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
@@ -13,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -65,18 +67,25 @@ private const val LOAD_STEP_MILLIS = 350
 private const val LOAD_FADE_MILLIS = 200
 
 /**
- * Kreisel des Ziehens: nur kurz als «verstanden» ([LoadProgress.PULL_ACK_MILLIS]) bzw. bis das Laden fertig ist,
- * danach übernimmt der Balken ([LoadProgressBar]). [active] = von Hand angestossenes Laden läuft.
+ * Kreisel des Ziehens: genau [LoadProgress.PULL_ACK_MILLIS] als «verstanden» — auch wenn das Laden früher fertig ist
+ * (überall gleich: Widgets und Uhr mindestens so lange); dauert es länger, übernimmt danach der Balken
+ * ([LoadProgressBar]). [active] = von Hand angestossenes Laden läuft. Wie iOS `PullAck`.
  */
 @Composable
 fun rememberPullAck(active: Boolean): Boolean {
     var shown by remember { mutableStateOf(false) }
+    var startedAt by remember { mutableLongStateOf(0L) }
     LaunchedEffect(active) {
-        shown = active
         if (active) {
+            startedAt = SystemClock.elapsedRealtime()
+            shown = true
             delay(LoadProgress.PULL_ACK_MILLIS)
+            shown = false
+        } else if (shown) {
+            // Schon fertig: die restliche Zeit noch zeigen
+            delay((LoadProgress.PULL_ACK_MILLIS - (SystemClock.elapsedRealtime() - startedAt)).coerceAtLeast(0L))
             shown = false
         }
     }
-    return shown && active
+    return shown
 }
