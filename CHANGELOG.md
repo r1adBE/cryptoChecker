@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 329)
+
+Widgets: Knopf erscheint erst mit dem ersten Zeichnen (Start-Layout).
+
 ## 16.2.2 (build 328)
 
 Widgets: Aktualisieren-Symbol überall gleich gross; Portfolio-Widget zeigt die Dauer auch nach dem Aktualisieren in der App.

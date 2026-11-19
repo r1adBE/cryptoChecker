@@ -3314,6 +3314,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 326: Kreisel-Views (pulse/portfolio_refresh_busy) und busy aus WidgetRefreshHeader entfernt; Portfolio setRefreshing zeichnet nur am Ende.
 * Build 327: WidgetTapSpin (Regel getestet), ProgressBar-Views mit animated-rotate in widget_list/pulse/portfolio_header; Merkliste ACTION_SPIN_HOLD wartet auf lastFullRefresh.
 * Build 328: Puls/Portfolio-Knopf padding 8dp (24dp Symbol); iOS WidgetRefreshButton generisch (Intent), WidgetHeaderTrailing nutzt ihn; notePriceFetch/recordedFromApp (Android record, iOS updateNow).
+* Build 329: WidgetDrawDeviceTest.initialLayoutsShowTheSkeleton an Kopfzeile mit Countdown/Spin angepasst; pulse_refresh/portfolio_refresh visibility invisible.
 
 ## Known warnings
 

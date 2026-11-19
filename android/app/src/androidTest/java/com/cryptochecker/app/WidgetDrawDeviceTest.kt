@@ -260,7 +260,14 @@ class WidgetDrawDeviceTest {
                 assertEquals(View.GONE, root.findViewById<View>(R.id.widget_refresh_countdown).visibility)
             } else {
                 assertNull(name, root.findViewById<View>(R.id.widget_refresh))
-                assertTrue(name, descendants(root as ViewGroup).none { it is Chronometer })
+                // Puls und Portfolio: Knopf, Countdown und drehendes Symbol der Kopfzeile erst mit dem ersten Zeichnen
+                assertTrue(name, descendants(root as ViewGroup).filterIsInstance<Chronometer>().all { it.visibility == View.GONE })
+                for (id in listOf(R.id.pulse_refresh, R.id.portfolio_refresh)) {
+                    root.findViewById<View>(id)?.let { assertEquals(name, View.INVISIBLE, it.visibility) }
+                }
+                for (id in listOf(R.id.pulse_refresh_spin, R.id.portfolio_refresh_spin)) {
+                    root.findViewById<View>(id)?.let { assertEquals(name, View.GONE, it.visibility) }
+                }
             }
         }
         // Vorschauen im Widget-Auswahlmenü bleiben ohne Skelett
