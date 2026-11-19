@@ -79,11 +79,11 @@ class WidgetUpdater @Inject constructor(
         if (appWidgetIds.isNotEmpty()) scheduleOutdatedCheck()
     }
 
-    /** Läuft gerade eine Aktualisierung per Tipp im Pulse- bzw. Portfolio-Widget (Kreisel)? */
+    /** Läuft gerade eine Aktualisierung per Tipp im Pulse- bzw. Portfolio-Widget? */
     val pulseRefreshing: Boolean get() = pulseWidgets.refreshing
     val portfolioRefreshing: Boolean get() = portfolioWidgets.refreshing
 
-    /** Tipp auf «Aktualisieren» im Portfolio-Widget: Kreisel an (vor dem Rechnen) bzw. aus (danach), neu zeichnen. */
+    /** Tipp auf «Aktualisieren» im Portfolio-Widget läuft (vor dem Rechnen) bzw. ist fertig (danach neu zeichnen). */
     suspend fun setPortfolioRefreshing(appWidgetIds: IntArray, on: Boolean) {
         portfolioWidgets.setRefreshing(appWidgetIds, on)
         if (!on) scheduleOutdatedCheck()

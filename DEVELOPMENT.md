@@ -3311,6 +3311,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 323: WatchPhoneQuotes.selfFetch: force vor der Handy-Regel (Kotlin + Swift, watch_link.json); Wear Chip-Icon CircularProgressIndicator, watchOS ProgressView, je mindestens 1 s.
 * Build 324: WatchFetcher.fetching + tapAckMillis (Tests), refresh(force) ohne Vorgabe; iOS WatchModel.fetching, refreshDue().
 * Build 325: rememberPullAck/PullAck warten die volle PULL_ACK-Zeit; Pulse refreshByTap und Portfolio refreshByTap halten den Kreisel mindestens PULL_ACK_MILLIS.
+* Build 326: Kreisel-Views (pulse/portfolio_refresh_busy) und busy aus WidgetRefreshHeader entfernt; Portfolio setRefreshing zeichnet nur am Ende.
 
 ## Known warnings
 

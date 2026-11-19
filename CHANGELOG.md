@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 326)
+
+Puls- und Portfolio-Widget: beim Aktualisieren kein Kreisel mehr, genau wie das Merkliste-Widget.
+
 ## 16.2.2 (build 325)
 
 Kreisel beim Ziehen und in Puls-/Portfolio-Widget mindestens 1 Sekunde, wie auf der Uhr.

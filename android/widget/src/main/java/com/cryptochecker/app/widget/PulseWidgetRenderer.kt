@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
@@ -19,7 +18,6 @@ import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
-import com.cryptochecker.app.domain.util.LoadProgress
 import com.cryptochecker.app.domain.widget.PulseBackgroundFetch
 import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.settings.HighContrast
@@ -29,7 +27,6 @@ import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
@@ -75,28 +72,21 @@ class PulseWidgetRenderer @Inject constructor(
         private set
 
     /**
-     * Tipp auf «Aktualisieren» (ausserhalb der 15-s-Sperre, [WidgetRefreshHeader.onTap]): Kreisel (aus dem
-     * Zwischenspeicher neu gezeichnet), frisch laden und neu zeichnen (Kreisel weg, danach der Countdown).
+     * Tipp auf «Aktualisieren» (ausserhalb der 15-s-Sperre, [WidgetRefreshHeader.onTap]): frisch laden und neu zeichnen
+     * (danach der Countdown). Ohne Kreisel, wie das Listen-Widget.
      */
     suspend fun refreshByTap(appWidgetIds: IntArray) {
         if (appWidgetIds.isEmpty()) return
         refreshing = true
         try {
-            val cached = pulseData.readPulse()
-            val startedAt = SystemClock.elapsedRealtime()
-            drawPulse(appWidgetIds, cached, busy = true)
-            val loaded = pulseData.loadPulse(maxAgeMillis = 0L)
-            // Kreisel mindestens [LoadProgress.PULL_ACK_MILLIS], wie beim Ziehen in der App und auf der Uhr
-            delay((LoadProgress.PULL_ACK_MILLIS - (SystemClock.elapsedRealtime() - startedAt)).coerceAtLeast(0L))
-            // Auch ohne frisches Ergebnis neu zeichnen: so verschwindet der Kreisel
-            drawPulse(appWidgetIds, loaded ?: cached)
+            loadAndDraw(appWidgetIds, pulseData.readPulse(), maxAgeMillis = 0L)
         } finally {
             refreshing = false
         }
     }
 
     private suspend fun loadAndDraw(appWidgetIds: IntArray, cached: CachedValue<PulseInput>?, maxAgeMillis: Long) {
-        // Auch ohne frisches Ergebnis neu zeichnen: so verschwindet der Kreisel eines Tipps
+        // Auch ohne frisches Ergebnis neu zeichnen (Stand, Countdown nach einem Tipp)
         drawPulse(appWidgetIds, pulseData.loadPulse(maxAgeMillis) ?: cached)
     }
 
@@ -121,7 +111,7 @@ class PulseWidgetRenderer @Inject constructor(
      * (ab 220 dp Breite BTC/ETH/SOL, sonst BTC) und Stand. Ohne (brauchbare) Daten ein ruhiger
      * Satz. Screenreader: das ganze Widget als ein Satz wie die Karte.
      */
-    private suspend fun drawPulse(appWidgetIds: IntArray, value: CachedValue<PulseInput>?, busy: Boolean = false) {
+    private suspend fun drawPulse(appWidgetIds: IntArray, value: CachedValue<PulseInput>?) {
         if (appWidgetIds.isEmpty()) return
         val manager = AppWidgetManager.getInstance(context) ?: return
         val settings = settingsRepository.current()
@@ -132,11 +122,7 @@ class PulseWidgetRenderer @Inject constructor(
         val online = connectivity.online()
         // Kopfzeile wie im Listen-Widget: «Uhrzeit · Dauer», nach einer Aktualisierung 15 s Countdown statt Knopf
         val stamp = widgetPrefs.headerStamp(WidgetRefreshHeader.Kind.PULSE)
-        val lock = if (busy) {
-            WidgetRefreshHeader.Lock()
-        } else {
-            WidgetRefreshHeader.lock(context, widgetPrefs, WidgetRefreshHeader.Kind.PULSE, now)
-        }
+        val lock = WidgetRefreshHeader.lock(context, widgetPrefs, WidgetRefreshHeader.Kind.PULSE, now)
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
         val impulseTitle = context.getString(R.string.pulse_now_title)
@@ -212,7 +198,6 @@ class PulseWidgetRenderer @Inject constructor(
                     PulseWidgetProvider.ACTION_REFRESH,
                     appWidgetId,
                 ),
-                busy = busy,
                 lock = lock,
             )
             // Titel ganz oder gar nicht (dann nur das Logo), nie «Was gerade a…»; Stand und Knopf daneben abgezogen

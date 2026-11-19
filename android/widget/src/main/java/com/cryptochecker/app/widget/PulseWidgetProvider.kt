@@ -36,7 +36,7 @@ class PulseWidgetProvider : AppWidgetProvider() {
                 widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
             }
         }
-        // Knopf «Aktualisieren» in der Kopfzeile: alle Pulse-Widgets (gleiche Daten), Kreisel bis zum Neuzeichnen;
+        // Knopf «Aktualisieren» in der Kopfzeile: alle Pulse-Widgets (gleiche Daten), ohne Kreisel wie das Listen-Widget;
         // danach 15 s Countdown wie im Listen-Widget ([WidgetRefreshHeader.onTap])
         val kind = WidgetRefreshHeader.Kind.PULSE
         when (intent.action) {
