@@ -524,14 +524,11 @@
     ]
    },
    {
-    "name": "mit Handy, auf Wunsch: Handy-Coins trotzdem nicht (ETH 50 Min. bei 30 Min. noch frisch)",
+    "name": "mit Handy, auf Wunsch («Aktualisieren»): alles selbst, auch Handy-Coins (Handy weit weg)",
     "usePhone": true,
     "interval": 30,
     "force": true,
-    "expected": [
-     "SOL",
-     "ADA"
-    ]
+    "expected": ["BTC", "ETH", "SOL", "ADA"]
    },
    {
     "name": "mit Handy, 30 Min.: SOL noch frisch, ETH erst nach 3 × 30 Min. veraltet",

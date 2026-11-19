@@ -122,21 +122,21 @@ enum WatchPhoneQuotes {
     /// Stand einer Lieferung vom iPhone: neueste Zeit der Kurse; 0 = keine Kurse.
     static func deliveryTime(_ quotes: [Quote]) -> Int64 { quotes.map(\.time).max() ?? 0 }
 
-    /// Coins aus `shown`, die die Uhr selbst abfragt. Ohne Kurs immer. Mit Kursen vom iPhone (`usePhone`: Wahl «Kurse vom
-    /// Handy» und iPhone verbunden) nie für einen Coin, den das iPhone liefert (`phoneCoins`), solange dessen Kurs nicht
-    /// veraltet ist (`WatchFreshness`) — auch nicht auf «Aktualisieren». Sonst auf Wunsch (`force`) oder ab
-    /// `WatchInterval.refetchAfterMillis`. `times` = Stand je Coin auf der Uhr. Nie für ein Paar, das die Uhr nicht
-    /// selbst abfragen kann (`WatchPair.selfFetchable`: Pool, Laufzeit-Kontrakt) — das kommt nur vom iPhone.
+    /// Coins aus `shown`, die die Uhr selbst abfragt. Ohne Kurs und auf Wunsch (`force`, «Aktualisieren») immer — auch
+    /// Coins vom iPhone: das iPhone kann weit weg sein (Inhaber). Im Takt mit Kursen vom iPhone (`usePhone`: Wahl «Kurse
+    /// vom Handy» und iPhone verbunden) nie für einen Coin, den das iPhone liefert (`phoneCoins`), solange dessen Kurs
+    /// nicht veraltet ist (`WatchFreshness`); sonst ab `WatchInterval.refetchAfterMillis`. `times` = Stand je Coin auf der
+    /// Uhr. Nie für ein Paar, das die Uhr nicht selbst abfragen kann (`WatchPair.selfFetchable`: Pool,
+    /// Laufzeit-Kontrakt) — das kommt nur vom iPhone.
     static func selfFetch(_ shown: [String], times: [String: Int64], phoneCoins: Set<String>, usePhone: Bool,
                           intervalMinutes: Int, now: Int64, force: Bool) -> [String] {
         shown.filter { coin in
             if WatchPair.parse(coin)?.selfFetchable == false { return false }
             let time = times[coin] ?? 0
-            if time <= 0 { return true }
+            if time <= 0 || force { return true }
             if usePhone && phoneCoins.contains(coin) {
                 return WatchFreshness.isOutdated(time, now: now, intervalMinutes: intervalMinutes)
             }
-            if force { return true }
             return now - time > WatchInterval.refetchAfterMillis(intervalMinutes)
         }
     }

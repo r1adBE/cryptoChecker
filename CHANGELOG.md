@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 323)
+
+Uhr: «Aktualisieren» holt die Kurse selbst frisch, auch ohne Handy in der Nähe; Kreisel im Knopf beim Laden.
+
 ## 16.2.2 (build 322)
 
 Android: Hinweis unter «Akzentfarbe» – in Mitteilungen bleibt das Symbol orange.

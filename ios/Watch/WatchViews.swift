@@ -6,6 +6,10 @@ import SwiftUI
 /// Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
+    /// «Aktualisieren»: Kreisel im Knopf mindestens `refreshAckNanos` lang, auch wenn das Laden schneller ist — so ist
+    /// sichtbar, dass der Tipp angekommen ist (wie Wear `REFRESH_ACK_MS`).
+    @State private var tapAck: Task<Void, Never>?
+    private static let refreshAckNanos: UInt64 = 1_000_000_000
 
     var body: some View {
         TimelineView(.everyMinute) { context in
@@ -38,7 +42,22 @@ struct WatchQuoteList: View {
                 row(coin, now: now)
             }
             Text(status(coins)).font(.footnote).foregroundStyle(.secondary)
-            Button(WatchText.t("watch_refresh")) { model.refresh() }
+            Button {
+                model.refresh()
+                tapAck?.cancel()
+                tapAck = Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: Self.refreshAckNanos)
+                    if !Task.isCancelled { tapAck = nil }
+                }
+            } label: {
+                // Während des Ladens dreht ein Kreisel im Knopf (wie Wear `CircularProgressIndicator`)
+                HStack(spacing: 8) {
+                    if model.loading || tapAck != nil {
+                        ProgressView().frame(width: 18, height: 18)
+                    }
+                    Text(WatchText.t("watch_refresh"))
+                }
+            }
             // Schalter statt Knopf mit Zustandstext: an = Favoriten des iPhones, aus = eigene Liste (wie Wear `ToggleChip`)
             Toggle(WatchText.t("ios_watch_list_from_iphone"), isOn: Binding(get: { phone }, set: { on in
                 if on != phone { model.toggleMode() }

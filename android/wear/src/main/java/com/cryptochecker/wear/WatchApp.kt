@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,12 +25,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Checkbox
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -46,8 +49,10 @@ import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import java.text.DateFormat
 import java.util.Date
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
@@ -107,6 +112,9 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
         }
         val loading by fetcher.loading.collectAsState()
         val failed by fetcher.failed.collectAsState()
+        // «Aktualisieren»: Kreisel im Knopf mindestens [REFRESH_ACK_MS] lang, auch wenn das Laden schneller ist —
+        // so ist sichtbar, dass der Tipp angekommen ist
+        var tapAck by remember { mutableStateOf<Job?>(null) }
 
         /** Änderung auf der Uhr: nach dem Stand des Handys mit höherer Nummer speichern und ans Handy geben. */
         fun change(edit: (WatchSettings) -> WatchSettings) = WatchDataLayer.change(context, store, edit)
@@ -159,8 +167,16 @@ fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: ()
             } else {
                 QuoteList(
                     settings, cache, portfolio, now, loading, failed,
+                    refreshing = loading || tapAck?.isActive == true,
                     state = listState,
-                    onRefresh = { fetcher.refresh() },
+                    onRefresh = {
+                        fetcher.refresh()
+                        tapAck?.cancel()
+                        tapAck = scope.launch {
+                            delay(REFRESH_ACK_MS)
+                            tapAck = null
+                        }
+                    },
                     onToggleMode = {
                         // Ziel nach der gezeigten Wahl, nicht nach einem neueren Stand des Handys
                         val target = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
@@ -181,6 +197,7 @@ private fun QuoteList(
     now: Long,
     loading: Boolean,
     failed: Boolean,
+    refreshing: Boolean,
     state: ScalingLazyListState,
     onRefresh: () -> Unit,
     onToggleMode: () -> Unit,
@@ -210,7 +227,17 @@ private fun QuoteList(
             Text(status, textAlign = TextAlign.Center, style = MaterialTheme.typography.caption3)
         }
         item {
-            Chip(onClick = onRefresh, label = { Text(stringResource(R.string.watch_refresh)) }, modifier = Modifier.fillMaxWidth())
+            // Während des Ladens dreht ein Kreisel im Knopf (wie iOS `ProgressView`)
+            Chip(
+                onClick = onRefresh,
+                label = { Text(stringResource(R.string.watch_refresh)) },
+                icon = if (refreshing) {
+                    { CircularProgressIndicator(modifier = Modifier.size(ChipDefaults.IconSize), strokeWidth = 2.dp) }
+                } else {
+                    null
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
         item {
             // Schalter «Liste vom Handy»: an = Favoriten des Handys, aus = eigene Liste (wie watchOS `Toggle`)
@@ -354,3 +381,6 @@ internal fun missingShort(context: Context, key: String): String {
 
 /** Takt, in dem die Uhr-App das Alter der Kurse neu bewertet. */
 private const val AGE_TICK_MS = 60_000L
+
+/** Kreisel im Knopf «Aktualisieren» mindestens so lange (ms) — wie iOS `WatchQuoteList.refreshAckNanos`. */
+private const val REFRESH_ACK_MS = 1_000L

@@ -130,11 +130,12 @@ object WatchPhoneQuotes {
     fun deliveryTime(quotes: List<Quote>): Long = quotes.maxOfOrNull { it.time } ?: 0L
 
     /**
-     * Coins aus [shown], die die Uhr selbst abfragt. Ohne Kurs immer. Mit Kursen vom Handy ([usePhone]: Wahl «Kurse vom
-     * Handy» und Handy verbunden) nie für einen Coin, den das Handy liefert ([phoneCoins]), solange dessen Kurs nicht
-     * veraltet ist ([WatchFreshness]) — auch nicht auf «Aktualisieren». Sonst auf Wunsch ([force]) oder ab
-     * [WatchInterval.refetchAfterMillis]. [times] = Stand je Coin auf der Uhr. Nie für ein Paar, das die Uhr nicht selbst
-     * abfragen kann ([WatchPair.selfFetchable]: Pool, Laufzeit-Kontrakt) — das kommt nur vom Handy.
+     * Coins aus [shown], die die Uhr selbst abfragt. Ohne Kurs und auf Wunsch ([force], «Aktualisieren») immer — auch
+     * Coins vom Handy: das Handy kann weit weg sein (Inhaber). Im Takt mit Kursen vom Handy ([usePhone]: Wahl «Kurse
+     * vom Handy» und Handy verbunden) nie für einen Coin, den das Handy liefert ([phoneCoins]), solange dessen Kurs nicht
+     * veraltet ist ([WatchFreshness]); sonst ab [WatchInterval.refetchAfterMillis]. [times] = Stand je Coin auf der Uhr.
+     * Nie für ein Paar, das die Uhr nicht selbst abfragen kann ([WatchPair.selfFetchable]: Pool, Laufzeit-Kontrakt) —
+     * das kommt nur vom Handy.
      */
     fun selfFetch(
         shown: List<String>,
@@ -149,8 +150,8 @@ object WatchPhoneQuotes {
         when {
             WatchPair.parse(coin)?.selfFetchable == false -> false
             time <= 0L -> true
-            usePhone && coin in phoneCoins -> WatchFreshness.isOutdated(time, now, intervalMinutes)
             force -> true
+            usePhone && coin in phoneCoins -> WatchFreshness.isOutdated(time, now, intervalMinutes)
             else -> now - time > WatchInterval.refetchAfterMillis(intervalMinutes)
         }
     }
