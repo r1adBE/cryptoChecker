@@ -154,7 +154,9 @@ enum PortfolioWidgetChart {
                                             todayEpochDay: todayEpochDay, fxRate: 1,
                                             ranges: ranges.filter { usable[$0.key] != nil }, addresses: addresses,
                                             method: method)
-        let points = series.skipped.isEmpty && series.hasChart ? series.points : []
+        // Wie der Verlauf der App: ein Coin ohne passende Tageskurse fällt heraus (im Widget «ohne …»), der Verlauf
+        // der übrigen bleibt — sonst stünde «1J wird noch geladen», obwohl der Verlauf da ist (wie Android)
+        let points = series.hasChart ? series.points : []
         var changes: [Int: PortfolioChange] = [:]
         for days in PortfolioWidgetRange.periodDays {
             // Wie «Gewinn 7 T» im Portfolio-Tab: Käufe/Verkäufe im Zeitraum herausgerechnet

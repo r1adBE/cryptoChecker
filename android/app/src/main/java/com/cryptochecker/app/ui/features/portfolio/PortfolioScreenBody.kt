@@ -12,11 +12,8 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
@@ -31,7 +28,6 @@ import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.LoadProgressBar
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.Spacing
 
@@ -89,8 +85,6 @@ internal fun PortfolioList(
         onRefresh = { viewModel.refresh(force = true) },
         modifier = modifier
     ) {
-        // Beim Öffnen: dünner Balken oben über der Liste (verschiebt nichts), Werte erscheinen je Teil
-        val loadProgress by viewModel.load.progress.collectAsStateWithLifecycle()
         // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
         ReadableInset { inset ->
             CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
@@ -167,6 +161,5 @@ internal fun PortfolioList(
                 }
             }
         }
-        LoadProgressBar(loadProgress, reduceMotion, Modifier.align(Alignment.TopCenter))
     }
 }

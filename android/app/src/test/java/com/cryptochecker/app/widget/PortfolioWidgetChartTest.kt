@@ -222,7 +222,7 @@ class PortfolioWidgetChartTest {
     }
 
     @Test
-    fun coinWithoutUsableClosesMeansNoDailyData() {
+    fun coinWithoutUsableClosesIsLeftOutOfDailyData() {
         val trades = listOf(
             PortfolioTrade(1, "BTC", PortfolioTxType.BUY, 1.0, 50.0, start(today - 500)),
             PortfolioTrade(2, "ETH", PortfolioTxType.BUY, 1.0, 50.0, start(today - 500)),
@@ -241,7 +241,9 @@ class PortfolioWidgetChartTest {
             today,
             today,
         )
-        assertTrue(data.points.isEmpty())
+        // Verlauf wie in der App ohne ETH: nur BTC (100)
+        assertTrue(data.points.isNotEmpty())
+        assertEquals(100.0, data.points.last().value, d)
         // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (dieselbe Zahl)
         assertEquals(0.0, data.changes.getValue(7).amount, d)
         assertEquals(listOf("ETH"), data.changes.getValue(7).skipped)

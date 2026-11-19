@@ -59,7 +59,7 @@ import com.cryptochecker.app.notification.MacroTexts
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
-import com.cryptochecker.app.ui.components.LoadProgressBar
+import com.cryptochecker.app.ui.components.LoadTopBar
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberPullAck
@@ -233,23 +233,26 @@ fun MarketSectionScreen(
         onMacroJumpHandled()
     }
 
+    // Ladebalken ganz oben wie in der Merkliste ([LoadTopBar])
+    val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(sectionTitle(section), modifier = Modifier.semantics { heading() }) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.action_back)
-                        )
+            LoadTopBar(loadProgress, !motion) {
+                TopAppBar(
+                    title = { Text(sectionTitle(section), modifier = Modifier.semantics { heading() }) },
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = stringResource(R.string.action_back)
+                            )
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     ) { padding ->
-        // Kreisel nur kurz als «verstanden»; dauert es länger, der Balken oben ([LoadProgressBar])
-        val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
+        // Kreisel nur kurz als «verstanden»; der Ladebalken steht ganz oben ([LoadTopBar])
         PullToRefreshBox(
             isRefreshing = rememberPullAck(pullRefreshing),
             onRefresh = viewModel::refreshAll,
@@ -271,7 +274,6 @@ fun MarketSectionScreen(
                 if (MarketSections.loading(section, reveal.shown)) RevealLoadingRow()
                 Spacer(modifier = Modifier.height(24.dp))
             }
-            LoadProgressBar(loadProgress, reduceMotion = !motion, Modifier.align(Alignment.TopCenter))
         }
     }
 }

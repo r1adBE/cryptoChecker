@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 319)
+
+- The loading bar sits at the very top in the market and portfolio too, like in the watchlist.
+- Portfolio widget: the 7-day, 30-day and 1-year history also shows when single coins have no daily prices (like in the app, «without …»), instead of «1Y still loading».
+
 ## 16.2.2 (build 318)
 
 - Loading bar in the watchlist, market and portfolio appears right away.

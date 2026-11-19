@@ -26,6 +26,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HeaderAddButton
+import com.cryptochecker.app.ui.components.LoadTopBar
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.rememberPullAck
@@ -70,6 +71,8 @@ internal fun PortfolioScaffold(
     // Kreisel nur kurz beim Ziehen bzw. Menü ([rememberPullAck]); dauert es länger, der Balken ([LoadProgressBar])
     val manual by viewModel.load.manual.collectAsStateWithLifecycle()
     val pulling = rememberPullAck(manual)
+    // Ladebalken ganz oben wie in der Merkliste ([LoadTopBar])
+    val loadProgress by viewModel.load.progress.collectAsStateWithLifecycle()
     var menuOpen by remember { mutableStateOf(false) }
 
     val hasTransactions = !transactions.isNullOrEmpty()
@@ -80,33 +83,35 @@ internal fun PortfolioScaffold(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { TabTitle(stringResource(R.string.portfolio_title), R.drawable.ic_portfolio) },
-                actions = {
-                    // «+» oben (verdeckt keine Beträge), wie «+» der Merkliste
-                    if (hasData) HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { onSheetChange(TxDraft()) })
-                    PortfolioToolbarActions(
-                        hasData = hasData,
-                        hasTransactions = hasTransactions,
-                        hideAmounts = hideAmounts,
-                        refreshing = refreshing,
-                        currency = currency,
-                        importBatches = importBatches,
-                        menuOpen = menuOpen,
-                        onMenuOpenChange = { menuOpen = it },
-                        viewModel = viewModel,
-                        onOpenAbout = onOpenAbout,
-                        onPickCurrency = onPickCurrency,
-                        onOpenAddresses = onOpenAddresses,
-                        onOpenCsvImport = onOpenCsvImport,
-                        onOpenImports = onOpenImports,
-                        onOpenExport = onOpenExport,
-                        onOpenTaxWorksheet = onOpenTaxWorksheet,
-                        onOpenAlarm = onOpenAlarm,
-                        onAskClear = onAskClear,
-                    )
-                }
-            )
+            LoadTopBar(loadProgress, reduceMotion) {
+                TopAppBar(
+                    title = { TabTitle(stringResource(R.string.portfolio_title), R.drawable.ic_portfolio) },
+                    actions = {
+                        // «+» oben (verdeckt keine Beträge), wie «+» der Merkliste
+                        if (hasData) HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { onSheetChange(TxDraft()) })
+                        PortfolioToolbarActions(
+                            hasData = hasData,
+                            hasTransactions = hasTransactions,
+                            hideAmounts = hideAmounts,
+                            refreshing = refreshing,
+                            currency = currency,
+                            importBatches = importBatches,
+                            menuOpen = menuOpen,
+                            onMenuOpenChange = { menuOpen = it },
+                            viewModel = viewModel,
+                            onOpenAbout = onOpenAbout,
+                            onPickCurrency = onPickCurrency,
+                            onOpenAddresses = onOpenAddresses,
+                            onOpenCsvImport = onOpenCsvImport,
+                            onOpenImports = onOpenImports,
+                            onOpenExport = onOpenExport,
+                            onOpenTaxWorksheet = onOpenTaxWorksheet,
+                            onOpenAlarm = onOpenAlarm,
+                            onAskClear = onAskClear,
+                        )
+                    }
+                )
+            }
         },
         snackbarHost = { AppSnackbarHost(banner.host) },
     ) { padding ->

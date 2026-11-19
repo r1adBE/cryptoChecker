@@ -10,13 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataStamp
@@ -28,7 +25,6 @@ import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.components.LoadProgressBar
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberPullAck
 
@@ -59,8 +55,7 @@ internal fun MarketNowContent(
     onOpenCoin: (String) -> Unit,
     onOpenSection: (MarketSection) -> Unit,
 ) {
-    // Kreisel nur kurz als «verstanden»; dauert es länger, der Balken oben ([LoadProgressBar])
-    val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
+    // Kreisel nur kurz als «verstanden»; der Ladebalken steht ganz oben ([LoadTopBar])
     PullToRefreshBox(
         isRefreshing = rememberPullAck(pullRefreshing),
         onRefresh = viewModel::refreshAll,
@@ -135,6 +130,5 @@ internal fun MarketNowContent(
             if (reveal.nowLoading(showMore)) RevealLoadingRow()
             Spacer(modifier = Modifier.height(24.dp))
         }
-        LoadProgressBar(loadProgress, reduceMotion = !motion, Modifier.align(Alignment.TopCenter))
     }
 }

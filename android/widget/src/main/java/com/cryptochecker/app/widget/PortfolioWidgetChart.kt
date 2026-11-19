@@ -231,7 +231,9 @@ object PortfolioWidgetChart {
             addresses = addresses,
             method = method,
         )
-        val points = if (series.skipped.isEmpty() && series.hasChart) series.points else emptyList()
+        // Wie der Verlauf der App: ein Coin ohne passende Tageskurse fällt heraus (im Widget «ohne …»), der Verlauf
+        // der übrigen bleibt — sonst stünde «1J wird noch geladen», obwohl der Verlauf da ist
+        val points = if (series.hasChart) series.points else emptyList()
         val changes = PERIOD_DAYS.mapNotNull { days ->
             // Dieselbe Zahl wie die App («7 T»/«1 J»), auch wenn ein Coin fehlt — dann mit «ohne …» ([PortfolioChange.skipped])
             PortfolioPeriodChange.gain(trades, current, usable, todayEpochDay - days, addresses = addresses, method = method)

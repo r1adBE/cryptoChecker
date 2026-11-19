@@ -16,17 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.domain.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.components.LoadProgressBar
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.SkeletonList
@@ -70,7 +66,6 @@ internal fun PortfolioDetailContent(
         onRefresh = { viewModel.refresh(force = true) },
         modifier = Modifier.fillMaxSize().padding(padding)
     ) {
-        val loadProgress by viewModel.load.progress.collectAsStateWithLifecycle()
         // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
         ReadableInset { inset ->
             CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
@@ -145,6 +140,5 @@ internal fun PortfolioDetailContent(
                 }
             }
         }
-        LoadProgressBar(loadProgress, reduceMotion, Modifier.align(Alignment.TopCenter))
     }
 }

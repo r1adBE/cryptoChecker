@@ -46,6 +46,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.AppMenuHead
 import com.cryptochecker.app.ui.components.AppSnackbarHost
+import com.cryptochecker.app.ui.components.LoadTopBar
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
@@ -183,18 +184,7 @@ fun MarketPhaseScreen(
 
     Scaffold(
         snackbarHost = { AppSnackbarHost(banner.host) },
-        topBar = {
-            TopAppBar(
-                title = { TabTitle(stringResource(R.string.tab_market_phase), R.drawable.ic_tab_market) },
-                actions = {
-                    MarketMenuAction(
-                        refreshing = pullRefreshing,
-                        onOpenAbout = onOpenAbout,
-                        onRefresh = viewModel::refreshAll,
-                    )
-                }
-            )
-        }
+        topBar = { MarketTopBar(viewModel, motion, pullRefreshing, onOpenAbout) }
     ) { padding ->
         MarketNowContent(
             padding = padding,
@@ -379,4 +369,23 @@ private fun rememberInstantReveal(viewModel: InfoViewModel, reveal: MarketReveal
         viewModel.reveal.value.let { r -> r.shown.filterTo(mutableSetOf()) { r.isShownOnNow(it) } }
     }
     return reveal.instant + revealedOnEntry
+}
+
+/** Titel «Markt» mit Menü; der Ladebalken ganz oben wie in der Merkliste ([LoadTopBar]). */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MarketTopBar(viewModel: InfoViewModel, motion: Boolean, pullRefreshing: Boolean, onOpenAbout: () -> Unit) {
+    val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
+    LoadTopBar(loadProgress, !motion) {
+        TopAppBar(
+            title = { TabTitle(stringResource(R.string.tab_market_phase), R.drawable.ic_tab_market) },
+            actions = {
+                MarketMenuAction(
+                    refreshing = pullRefreshing,
+                    onOpenAbout = onOpenAbout,
+                    onRefresh = viewModel::refreshAll,
+                )
+            }
+        )
+    }
 }

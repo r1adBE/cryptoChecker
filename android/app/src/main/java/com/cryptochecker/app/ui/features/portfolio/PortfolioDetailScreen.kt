@@ -42,6 +42,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HeaderAddButton
+import com.cryptochecker.app.ui.components.LoadTopBar
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberPullAck
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
@@ -64,6 +65,8 @@ fun PortfolioDetailScreen(
     // Kreisel nur kurz beim Ziehen bzw. Menü ([rememberPullAck]); dauert es länger, der Balken ([LoadProgressBar])
     val manual by viewModel.load.manual.collectAsStateWithLifecycle()
     val refreshing = rememberPullAck(manual)
+    // Ladebalken ganz oben wie in der Merkliste ([LoadTopBar])
+    val loadProgress by viewModel.load.progress.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
     // Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
     val detail by remember(viewModel, symbol) { viewModel.coinDetailFlow(symbol) }.collectAsStateWithLifecycle(null)
@@ -153,21 +156,23 @@ fun PortfolioDetailScreen(
     val listState = rememberLazyListState()
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(symbol, fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.action_back)
-                        )
-                    }
-                },
-                // «+» oben (verdeckt keine Beträge) wählt den Coin schon vor
-                actions = {
-                    HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { sheet = TxDraft(coin = symbol) })
-                },
-            )
+            LoadTopBar(loadProgress, reduceMotion) {
+                TopAppBar(
+                    title = { Text(symbol, fontWeight = FontWeight.SemiBold) },
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = stringResource(R.string.action_back)
+                            )
+                        }
+                    },
+                    // «+» oben (verdeckt keine Beträge) wählt den Coin schon vor
+                    actions = {
+                        HeaderAddButton(stringResource(R.string.portfolio_add_tx), onClick = { sheet = TxDraft(coin = symbol) })
+                    },
+                )
+            }
         },
         snackbarHost = { AppSnackbarHost(banner.host) },
     ) { padding ->

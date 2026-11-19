@@ -189,7 +189,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(data.changes[365]?.amount ?? .nan, 10, accuracy: d)
     }
 
-    func testCoinWithoutUsableClosesMeansNoDailyData() {
+    func testCoinWithoutUsableClosesIsLeftOutOfDailyData() {
         let trades = [
             PortfolioTx(id: 1, coin: "BTC", type: .BUY, amount: 1, priceUsdt: 50, time: start(today - 500)),
             PortfolioTx(id: 2, coin: "ETH", type: .BUY, amount: 1, priceUsdt: 50, time: start(today - 500))
@@ -201,7 +201,9 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let data = PortfolioWidgetChart.dailyData(trades: trades, closes: ["BTC": btc, "ETH": eth], ranges: [:],
                                                   holdings: ["BTC": 1, "ETH": 1], current: ["BTC": 100, "ETH": 10],
                                                   todayEpochDay: today, todayUtcDay: today)
-        XCTAssertTrue(data.points.isEmpty)
+        // Verlauf wie in der App ohne ETH: nur BTC (100)
+        XCTAssertFalse(data.points.isEmpty)
+        XCTAssertEqual(data.points.last?.value ?? .nan, 100, accuracy: 1e-9)
         // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (dieselbe Zahl)
         XCTAssertEqual(data.changes[7]?.amount ?? .nan, 0, accuracy: 1e-9)
         XCTAssertEqual(data.changes[7]?.skipped, ["ETH"])
