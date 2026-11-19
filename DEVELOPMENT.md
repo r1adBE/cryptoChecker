@@ -3312,6 +3312,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 324: WatchFetcher.fetching + tapAckMillis (Tests), refresh(force) ohne Vorgabe; iOS WatchModel.fetching, refreshDue().
 * Build 325: rememberPullAck/PullAck warten die volle PULL_ACK-Zeit; Pulse refreshByTap und Portfolio refreshByTap halten den Kreisel mindestens PULL_ACK_MILLIS.
 * Build 326: Kreisel-Views (pulse/portfolio_refresh_busy) und busy aus WidgetRefreshHeader entfernt; Portfolio setRefreshing zeichnet nur am Ende.
+* Build 327: WidgetTapSpin (Regel getestet), ProgressBar-Views mit animated-rotate in widget_list/pulse/portfolio_header; Merkliste ACTION_SPIN_HOLD wartet auf lastFullRefresh.
 
 ## Known warnings
 

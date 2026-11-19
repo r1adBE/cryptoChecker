@@ -34,7 +34,7 @@ class PriceWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
 
         when (intent.action) {
-            ACTION_REFRESH -> onRefreshTap()
+            ACTION_REFRESH -> onRefreshTap(context)
             // Sperre vorbei: Symbol statt Countdown
             ACTION_REFRESH_UNLOCKED -> {
                 launchAsync("Listen-Widgets nach der Sperre neu zeichnen") {
@@ -54,6 +54,11 @@ class PriceWidgetProvider : AppWidgetProvider() {
                     }
                 }
             }
+            // Drehender Knopf: auf das Ende der Aktualisierung warten, dann neu zeichnen ([spinHold])
+            ACTION_SPIN_HOLD -> {
+                val startedAt = intent.getLongExtra(EXTRA_SPIN_STARTED_AT, 0L)
+                launchAsync("Listen-Widgets nach dem Laden neu zeichnen") { spinHold(context, startedAt) }
+            }
             // Ein angezeigter Stand ist inzwischen veraltet: ohne Netz neu zeichnen («veraltet · 06:42»)
             ACTION_OUTDATED_CHECK -> {
                 launchAsync("Veraltete Widgets neu zeichnen") {
@@ -71,7 +76,7 @@ class PriceWidgetProvider : AppWidgetProvider() {
      * Ohne Internet: nichts holen und kein Countdown, nur neu zeichnen («Keine Verbindung · Stand 14:05»); kommt das
      * Netz zurück, holt [com.cryptochecker.app.widget.WidgetReconnectWorker] die Kurse ([WidgetConnectivity]).
      */
-    private fun onRefreshTap() {
+    private fun onRefreshTap(context: Context) {
         val tap = WidgetRefreshState.onTap(
             online = connectivity.online(),
             running = priceRefresher.fullRefreshRunning.value,
@@ -82,7 +87,16 @@ class PriceWidgetProvider : AppWidgetProvider() {
             // Ohne Netz: nur neu zeichnen («Keine Verbindung · Stand 14:05»), nichts holen, kein Countdown
             WidgetRefreshState.Tap.Offline ->
                 launchAsync("Listen-Widgets ohne Netz zeichnen") { widgetUpdater.update(widgetUpdater.widgetIds()) }
-            WidgetRefreshState.Tap.Start -> scheduler.refreshNow()
+            WidgetRefreshState.Tap.Start -> {
+                // Knopf dreht sich, bis die Aktualisierung fertig ist ([WidgetTapSpin]); danach neu zeichnen
+                val startedAt = System.currentTimeMillis()
+                widgetPrefs.setTapSpinStartedAt(WidgetTapSpin.Key.LIST, startedAt)
+                scheduler.refreshNow()
+                launchAsync("Listen-Widgets mit drehendem Knopf zeichnen") {
+                    widgetUpdater.update(widgetUpdater.widgetIds())
+                    spinHold(context, startedAt)
+                }
+            }
             WidgetRefreshState.Tap.Running -> Unit
             is WidgetRefreshState.Tap.Blocked -> {
                 // Erster Tipp in dieser Sperre: sicherheitshalber neu zeichnen (etwa wenn das Zeichnen nach der
@@ -94,6 +108,26 @@ class PriceWidgetProvider : AppWidgetProvider() {
                 }
             }
         }
+    }
+
+    /**
+     * Drehender Knopf nach einem Tipp: in kleinen Schritten warten, bis die Aktualisierung fertig ist (mindestens
+     * [WidgetTapSpin.ACK_MILLIS], höchstens [WidgetTapSpin.MAX_MILLIS]), dann neu zeichnen. Länger als ein Empfang
+     * dauern darf: an den nächsten Empfang weiterreichen ([ACTION_SPIN_HOLD]).
+     */
+    private suspend fun spinHold(context: Context, startedAt: Long) {
+        val until = System.currentTimeMillis() + WidgetRefreshUnlock.HOP_MILLIS
+        while (WidgetTapSpin.busy(startedAt, refreshStats.lastFullRefresh(), System.currentTimeMillis())) {
+            if (System.currentTimeMillis() >= until) {
+                val next = Intent(context, PriceWidgetProvider::class.java)
+                    .setAction(ACTION_SPIN_HOLD)
+                    .putExtra(EXTRA_SPIN_STARTED_AT, startedAt)
+                WidgetRefreshUnlock.send(context, next)
+                return
+            }
+            delay(SPIN_POLL_MILLIS)
+        }
+        widgetUpdater.update(widgetUpdater.widgetIds())
     }
 
     override fun onUpdate(
@@ -144,6 +178,13 @@ class PriceWidgetProvider : AppWidgetProvider() {
 
         /** Ende der Sperre (Wanduhr, ms) zu [ACTION_REFRESH_HOLD]. */
         const val EXTRA_BLOCKED_UNTIL = "com.cryptochecker.app.extra.BLOCKED_UNTIL"
+
+        /** Empfang aus [spinHold]: weiter auf das Ende der Aktualisierung warten (drehender Knopf). */
+        const val ACTION_SPIN_HOLD = "com.cryptochecker.app.action.WIDGET_REFRESH_SPIN_HOLD"
+        const val EXTRA_SPIN_STARTED_AT = "com.cryptochecker.app.extra.SPIN_STARTED_AT"
+
+        /** Abstand der Blicke auf das Ende der Aktualisierung (ms). */
+        private const val SPIN_POLL_MILLIS = 250L
 
         /** Wecker aus [WidgetOutdated.schedule]: Widgets mit inzwischen veraltetem Stand neu zeichnen. */
         const val ACTION_OUTDATED_CHECK = "com.cryptochecker.app.action.WIDGET_OUTDATED_CHECK"

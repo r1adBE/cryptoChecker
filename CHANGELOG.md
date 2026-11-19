@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 327)
+
+Widgets: das Aktualisieren-Symbol dreht sich, bis geladen ist.
+
 ## 16.2.2 (build 326)
 
 Puls- und Portfolio-Widget: beim Aktualisieren kein Kreisel mehr, genau wie das Merkliste-Widget.

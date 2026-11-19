@@ -20,18 +20,18 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Rechter Teil der Kopfzeile im Puls- und im Portfolio-Widget, genau wie im Listen-Widget: der Stand («Uhrzeit · Dauer»,
  * eng nur die Uhrzeit; veraltet bzw. ohne Netz mit Hinweis) und der Knopf «Aktualisieren», nach einer Aktualisierung in
- * der 15-s-Sperre ein Countdown ([Lock], [WidgetRefreshState]); während des Ladens bleibt der Knopf. Ids je Layout ([Ids]), Breiten aus widget_pulse.xml bzw. widget_portfolio_header.xml. Wie iOS `WidgetHeaderStatus`.
+ * der 15-s-Sperre ein Countdown ([Lock], [WidgetRefreshState]); während des Ladens dreht er sich ([WidgetTapSpin]). Ids je Layout ([Ids]), Breiten aus widget_pulse.xml bzw. widget_portfolio_header.xml. Wie iOS `WidgetHeaderStatus`.
  */
 internal object WidgetRefreshHeader {
 
     /** Ids der Views einer Kopfzeile. */
-    data class Ids(val status: Int, val refresh: Int, val countdown: Int)
+    data class Ids(val status: Int, val refresh: Int, val countdown: Int, val spin: Int)
 
     /** Widget mit dieser Kopfzeile: eigener Stand und eigene Sperre; [key] für die Einstellungen. */
     enum class Kind(val key: String, val ids: Ids, val unlock: WidgetRefreshUnlock.Target) {
         PULSE(
             "pulse",
-            Ids(R.id.pulse_status, R.id.pulse_refresh, R.id.pulse_refresh_countdown),
+            Ids(R.id.pulse_status, R.id.pulse_refresh, R.id.pulse_refresh_countdown, R.id.pulse_refresh_spin),
             WidgetRefreshUnlock.Target(
                 PulseWidgetProvider::class.java,
                 PulseWidgetProvider.ACTION_REFRESH_HOLD,
@@ -41,7 +41,7 @@ internal object WidgetRefreshHeader {
         ),
         PORTFOLIO(
             "portfolio",
-            Ids(R.id.portfolio_status, R.id.portfolio_refresh, R.id.portfolio_refresh_countdown),
+            Ids(R.id.portfolio_status, R.id.portfolio_refresh, R.id.portfolio_refresh_countdown, R.id.portfolio_refresh_spin),
             WidgetRefreshUnlock.Target(
                 PortfolioWidgetProvider::class.java,
                 PortfolioWidgetProvider.ACTION_REFRESH_HOLD,
@@ -137,8 +137,8 @@ internal object WidgetRefreshHeader {
 
     /**
      * Stand und Knopf setzen. Der Stand ist der erste der [candidates], der neben den Titel passt ([widthDp] Breite des
-     * Widgets, [titleDp] Breite des Titels); sonst keiner — der Titel bleibt immer. Rechts in
-     * der Sperre der Countdown ([lock]), sonst der Knopf.
+     * Widgets, [titleDp] Breite des Titels); sonst keiner — der Titel bleibt immer. Rechts beim Laden nach einem Tipp das
+     * drehende Symbol ([busy]), sonst in der Sperre der Countdown ([lock]), sonst der Knopf.
      * @return gezeigter Stand (leer = keiner)
      */
     fun bind(
@@ -152,6 +152,7 @@ internal object WidgetRefreshHeader {
         colors: WidgetColors,
         refresh: PendingIntent,
         lock: Lock = Lock(),
+        busy: Boolean = false,
     ): String {
         val available = if (widthDp > 0) widthDp - FIXED_DP - titleDp - WidgetTextFit.SAFETY_DP else null
         val text = candidates.firstOrNull {
@@ -168,7 +169,9 @@ internal object WidgetRefreshHeader {
         views.setViewVisibility(ids.refresh, if (countdown) View.GONE else View.VISIBLE)
         views.setViewVisibility(ids.countdown, if (countdown) View.VISIBLE else View.GONE)
         views.setOnClickPendingIntent(ids.refresh, refresh)
-        if (countdown) {
+        WidgetTapSpin.bind(views, busy, ids.refresh, ids.spin, ids.countdown, colors.textColor)
+        views.setOnClickPendingIntent(ids.spin, refresh)
+        if (countdown && !busy) {
             // Zählt der Launcher selbst herunter; am Ende zeichnet [WidgetRefreshUnlock] neu (Symbol zurück)
             views.setChronometer(
                 ids.countdown,

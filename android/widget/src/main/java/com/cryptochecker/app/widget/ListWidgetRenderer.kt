@@ -141,6 +141,8 @@ class ListWidgetRenderer @Inject constructor(
         val lockMillis = WidgetRefreshState.countdownMillis(WidgetRefreshState.remainingMillis(blockedUntil, now), screenOn)
         val lockSeconds = if (lockMillis > 0) WidgetRefreshState.remainingSeconds(blockedUntil, now) else 0
         if (lockMillis > 0) scheduleUnlock(blockedUntil, now)
+        // Nach einem Tipp dreht sich der Knopf, bis die Aktualisierung fertig ist ([WidgetTapSpin])
+        val busy = WidgetTapSpin.busy(widgetPrefs.tapSpinStartedAt(WidgetTapSpin.Key.LIST), refreshStats.lastFullRefresh(), now)
 
         // Widgets, deren Zeilen der Dienst liefert: danach neu laden lassen
         val viaService = ArrayList<Int>()
@@ -165,7 +167,7 @@ class ListWidgetRenderer @Inject constructor(
                     appWidgetId,
                     render(
                         manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, status, inline, title, version, empty,
-                        lockMillis, lockSeconds,
+                        lockMillis, lockSeconds, busy,
                     ),
                 )
             }.onFailure { Timber.w(it, "Widget %d konnte nicht gezeichnet werden", appWidgetId) }
@@ -202,6 +204,8 @@ class ListWidgetRenderer @Inject constructor(
         lockMillis: Long,
         /** Dieselbe Restzeit in ganzen Sekunden (für den Screenreader). */
         lockSeconds: Int,
+        /** Nach einem Tipp: der Knopf dreht sich, bis geladen ist ([WidgetTapSpin]). */
+        busy: Boolean,
     ): RemoteViews {
         val opacity = widgetPrefs.getOpacity(appWidgetId)
         val views = RemoteViews(context.packageName, R.layout.widget_list)
@@ -274,7 +278,7 @@ class ListWidgetRenderer @Inject constructor(
         // Der Kopf (Logo, Titel, Uhrzeit) öffnet die App
         views.setOnClickPendingIntent(R.id.widget_header, toolkit.openApp())
         views.setOnClickPendingIntent(R.id.widget_refresh, refreshIntent(appWidgetId))
-        refreshButton(views, appWidgetId, background, lockMillis, lockSeconds)
+        refreshButton(views, appWidgetId, background, lockMillis, lockSeconds, busy)
 
         return views
     }

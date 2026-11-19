@@ -85,6 +85,21 @@
                 tools:ignore="UseAppTint"
                 android:contentDescription="@string/action_refresh" />
 
+            <!-- Während des Ladens nach einem Tipp: dasselbe Symbol, dreht sich (WidgetTapSpin) -->
+            <ProgressBar
+                android:id="@+id/pulse_refresh_spin"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="-12dp"
+                android:layout_marginBottom="-12dp"
+                android:layout_marginEnd="-10dp"
+                android:padding="12dp"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/ic_widget_refresh_spin"
+                android:indeterminateDuration="900"
+                android:contentDescription="@string/loading_hint" />
+
             <!-- Statt des Knopfs während der 15-s-Sperre: zählt selbst herunter wie im Listen-Widget (WidgetRefreshHeader) -->
             <Chronometer
                 android:id="@+id/pulse_refresh_countdown"

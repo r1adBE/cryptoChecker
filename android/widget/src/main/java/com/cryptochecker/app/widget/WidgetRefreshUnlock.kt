@@ -65,8 +65,13 @@ object WidgetRefreshUnlock {
         val intent = Intent(context, target.provider)
             .setAction(target.holdAction)
             .putExtra(PriceWidgetProvider.EXTRA_BLOCKED_UNTIL, blockedUntil)
+        send(context, intent)
+    }
+
+    /** Empfang an den eigenen Provider schicken (ausserhalb von Coroutinen; Fehler nur protokolliert). */
+    fun send(context: Context, intent: Intent) {
         runCatching { context.sendBroadcast(intent) }
-            .onFailure { Timber.w(it, "Warten auf das Ende der Widget-Sperre nicht gestartet") }
+            .onFailure { Timber.w(it, "Warten auf das Ende im Widget nicht gestartet") }
     }
 
     /**

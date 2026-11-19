@@ -59,17 +59,25 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    /** Knopf «Aktualisieren»: frisch rechnen (Kurse), neu zeichnen — auch bei Fehler (dann Countdown oder Knopf). */
+    /** Knopf «Aktualisieren»: dreht sich, frisch rechnen (Kurse), neu zeichnen — auch bei Fehler (dann Countdown oder Knopf). */
     private suspend fun refreshByTap() {
         val ids = widgetUpdater.portfolioWidgetIds()
+        val key = WidgetTapSpin.Key.PORTFOLIO
+        val startedAt = System.currentTimeMillis()
+        widgetPrefs.setTapSpinStartedAt(key, startedAt)
+        // Knopf dreht sich, bis gerechnet ist ([WidgetTapSpin])
         widgetUpdater.setPortfolioRefreshing(ids, on = true)
         try {
             com.cryptochecker.app.domain.work.countedRun {
                 withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
             }
         } finally {
-            // Auch bei Fehler oder Zeitgrenze: Stand neu
-            withContext(NonCancellable) { widgetUpdater.setPortfolioRefreshing(ids, on = false) }
+            // Auch bei Fehler oder Zeitgrenze: Drehen aus (mindestens kurz), Stand neu
+            withContext(NonCancellable) {
+                widgetPrefs.setTapSpinDoneAt(key, System.currentTimeMillis())
+                kotlinx.coroutines.delay(WidgetTapSpin.ackLeft(startedAt, System.currentTimeMillis()))
+                widgetUpdater.setPortfolioRefreshing(ids, on = false)
+            }
         }
     }
 

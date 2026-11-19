@@ -27,6 +27,7 @@ import com.cryptochecker.resources.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
@@ -72,17 +73,27 @@ class PulseWidgetRenderer @Inject constructor(
         private set
 
     /**
-     * Tipp auf «Aktualisieren» (ausserhalb der 15-s-Sperre, [WidgetRefreshHeader.onTap]): frisch laden und neu zeichnen
-     * (danach der Countdown). Ohne Kreisel, wie das Listen-Widget.
+     * Tipp auf «Aktualisieren» (ausserhalb der 15-s-Sperre, [WidgetRefreshHeader.onTap]): der Knopf dreht sich
+     * ([WidgetTapSpin], aus dem Zwischenspeicher gezeichnet), frisch laden, mindestens [WidgetTapSpin.ACK_MILLIS] nach
+     * dem Tipp neu zeichnen (danach der Countdown) — wie das Listen-Widget.
      */
     suspend fun refreshByTap(appWidgetIds: IntArray) {
         if (appWidgetIds.isEmpty()) return
+        val key = WidgetTapSpin.Key.PULSE
+        val startedAt = System.currentTimeMillis()
+        widgetPrefs.setTapSpinStartedAt(key, startedAt)
+        val cached = pulseData.readPulse()
         refreshing = true
-        try {
-            loadAndDraw(appWidgetIds, pulseData.readPulse(), maxAgeMillis = 0L)
+        val loaded = try {
+            drawPulse(appWidgetIds, cached)
+            pulseData.loadPulse(maxAgeMillis = 0L)
         } finally {
             refreshing = false
+            widgetPrefs.setTapSpinDoneAt(key, System.currentTimeMillis())
         }
+        delay(WidgetTapSpin.ackLeft(startedAt, System.currentTimeMillis()))
+        // Auch ohne frisches Ergebnis neu zeichnen: so hört das Drehen auf
+        drawPulse(appWidgetIds, loaded ?: cached)
     }
 
     private suspend fun loadAndDraw(appWidgetIds: IntArray, cached: CachedValue<PulseInput>?, maxAgeMillis: Long) {
@@ -123,6 +134,7 @@ class PulseWidgetRenderer @Inject constructor(
         // Kopfzeile wie im Listen-Widget: «Uhrzeit · Dauer», nach einer Aktualisierung 15 s Countdown statt Knopf
         val stamp = widgetPrefs.headerStamp(WidgetRefreshHeader.Kind.PULSE)
         val lock = WidgetRefreshHeader.lock(context, widgetPrefs, WidgetRefreshHeader.Kind.PULSE, now)
+        val busy = WidgetTapSpin.busy(widgetPrefs, WidgetTapSpin.Key.PULSE, now)
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
         val impulseTitle = context.getString(R.string.pulse_now_title)
@@ -199,6 +211,7 @@ class PulseWidgetRenderer @Inject constructor(
                     appWidgetId,
                 ),
                 lock = lock,
+                busy = busy,
             )
             // Titel ganz oder gar nicht (dann nur das Logo), nie «Was gerade a…»; Stand und Knopf daneben abgezogen
             val titleWidthDp = if (widgetWidthDp > 0) widgetWidthDp - WidgetRefreshHeader.usedDp(toolkit, status).toInt() else 0

@@ -213,6 +213,17 @@ class WidgetPrefs @Inject constructor(
         putLong(KEY_HEADER_PREFIX + kind.key + "_finished_at", stamp.finishedAt)
     }
 
+    /** Tipp auf «Aktualisieren» (Wanduhr, ms; 0 = keiner) bzw. Ende dieses Ladens — für [WidgetTapSpin]. */
+    internal fun tapSpinStartedAt(key: WidgetTapSpin.Key): Long = prefs.getLong(KEY_SPIN_PREFIX + key.key + "_started_at", 0L)
+
+    internal fun setTapSpinStartedAt(key: WidgetTapSpin.Key, at: Long) =
+        prefs.edit { putLong(KEY_SPIN_PREFIX + key.key + "_started_at", at) }
+
+    internal fun tapSpinDoneAt(key: WidgetTapSpin.Key): Long = prefs.getLong(KEY_SPIN_PREFIX + key.key + "_done_at", 0L)
+
+    internal fun setTapSpinDoneAt(key: WidgetTapSpin.Key, at: Long) =
+        prefs.edit { putLong(KEY_SPIN_PREFIX + key.key + "_done_at", at) }
+
     /** Knopf des Puls- bzw. Portfolio-Widgets gesperrt bis (Wanduhr, ms; 0 = nie) — wie [refreshBlockedUntil]. */
     internal fun headerBlockedUntil(kind: WidgetRefreshHeader.Kind): Long =
         prefs.getLong(KEY_HEADER_PREFIX + kind.key + "_blocked_until", 0L)
@@ -286,6 +297,7 @@ class WidgetPrefs @Inject constructor(
         const val KEY_REFRESH_BLOCKED_UNTIL = "refresh_blocked_until"
         const val KEY_REFRESH_RETRY_AT = "refresh_retry_at"
         const val KEY_HEADER_PREFIX = "header_"
+        const val KEY_SPIN_PREFIX = "tap_spin_"
         const val GROUP_PREFIX = "widget_group_"
     }
 }

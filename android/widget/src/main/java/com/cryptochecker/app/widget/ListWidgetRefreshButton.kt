@@ -41,7 +41,7 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 /**
- * Knopf oder Countdown: In der Sperre zählt ein Chronometer bis zu ihrem Ende herunter — das macht der
+ * Knopf, drehendes Symbol (nach einem Tipp, bis geladen ist) oder Countdown: In der Sperre zählt ein Chronometer bis zu ihrem Ende herunter — das macht der
  * Launcher selbst, ohne Neuzeichnen je Sekunde. Am Ende wird einmal neu gezeichnet ([scheduleUnlock]),
  * dann ist wieder das Symbol da. Der Countdown nimmt Tipps an, startet
  * aber nichts (gleiche Sperre im Empfänger).
@@ -51,8 +51,16 @@ internal fun ListWidgetRenderer.refreshButton(
     appWidgetId: Int,
     background: WidgetColors,
     lockMillis: Long,
-    lockSeconds: Int
+    lockSeconds: Int,
+    busy: Boolean,
 ) {
+    // Nach einem Tipp: drehendes Symbol, bis geladen ist ([WidgetTapSpin]); geht dem Countdown vor
+    WidgetTapSpin.bind(views, busy, R.id.widget_refresh, R.id.widget_refresh_spin, R.id.widget_refresh_countdown, background.textColor)
+    views.setOnClickPendingIntent(R.id.widget_refresh_spin, refreshIntent(appWidgetId))
+    if (busy) {
+        views.setChronometer(R.id.widget_refresh_countdown, SystemClock.elapsedRealtime(), null, false)
+        return
+    }
     val locked = lockMillis > 0
     views.setViewVisibility(R.id.widget_refresh, if (locked) View.GONE else View.VISIBLE)
     views.setViewVisibility(R.id.widget_refresh_countdown, if (locked) View.VISIBLE else View.GONE)
