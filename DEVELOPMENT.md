@@ -3322,6 +3322,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 334: CrashRecord (Test), ErrorLog.recordNow/Sink.appendNow, ErrorLogFile synchron mit Zeitgrenze.
 * Build 335: ProcessExits liest ApplicationExitInfo (API 30+) für den Abschnitt «Process exits»; DiagnosticsDevice.processExits mit Standard null.
 * Build 336: MainActivity: kein Launcher-Alias-Wechsel in onStop, solange eine selbst gestartete Activity vorne ist (startActivityForResult setzt, onStart löscht). WatchlistLogoHint bzw. MissingLogosModel.loadingHintNeeded prüfen hasLogo für die Coins der Merkliste.
+* Build 337: DiagnosticReport.processExitLines aus build herausgelöst (Code metrics: höchstens 100 Zeilen Logik je Funktion).
 
 ## Known warnings
 

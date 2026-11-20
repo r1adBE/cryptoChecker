@@ -188,15 +188,18 @@ object DiagnosticReport {
         }
         lines += BackgroundErrors.line(input.backgroundErrors)
         BackgroundErrors.kindsLine(input.backgroundErrors)?.let { lines += it }
-        input.processExits?.let { exits ->
-            lines += ""
-            lines += "== Process exits (newest first) =="
-            if (exits.isEmpty()) lines += NONE
-            exits.sortedByDescending { it.at }.forEach {
-                lines += "${at(it.at)} | ${clean(it.reason)} | ${clean(it.importance)} | pss ${it.pssMb} MB | rss ${it.rssMb} MB"
-            }
-        }
+        input.processExits?.let { lines += processExitLines(it, ::at) }
         return lines.joinToString("\n") + "\n"
+    }
+
+    /** Abschnitt «Process exits»: neueste zuerst, je Ende Zeit, Grund, Wichtigkeit und Speicher ([ProcessExit]). */
+    private fun processExitLines(exits: List<ProcessExit>, at: (Long) -> String): List<String> {
+        val lines = mutableListOf("", "== Process exits (newest first) ==")
+        if (exits.isEmpty()) lines += NONE
+        exits.sortedByDescending { it.at }.forEach {
+            lines += "${at(it.at)} | ${clean(it.reason)} | ${clean(it.importance)} | pss ${it.pssMb} MB | rss ${it.rssMb} MB"
+        }
+        return lines
     }
 
     /**
