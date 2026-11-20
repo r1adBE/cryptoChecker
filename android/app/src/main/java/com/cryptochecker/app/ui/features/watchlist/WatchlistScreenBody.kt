@@ -264,7 +264,7 @@ private fun WatchlistFixedHead(
         retryAt = live.widgetRetryAt,
     )
     // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
-    if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(reduceMotion = reduceMotion)
+    if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(watches, reduceMotion = reduceMotion)
     // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
     if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistMissingLogos(watches, reduceMotion = reduceMotion)
     // Börse stillgelegt (ExchangeRetirement): einmal erklären, mit ✕

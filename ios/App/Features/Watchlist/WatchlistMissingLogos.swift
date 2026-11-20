@@ -101,6 +101,9 @@ final class MissingLogosModel: ObservableObject {
     /// Zeilen des Blatts (beim Öffnen festgehalten).
     @Published private(set) var rows: [MissingLogosSheet.Row] = []
     @Published var showList = false
+    /// «Logos werden geladen» zeigen: Das Laden läuft und einem Coin der Merkliste fehlt das Logo noch (mitgeliefert
+    /// oder geladen). Haben alle schon eins, sagt die Zeile nichts Neues. Wie Android `WatchlistLogoHint`.
+    @Published private(set) var loadingHintNeeded = false
     private var names: [String: String] = [:]
     /// Davon «noch nicht geladen» (Adresse bekannt, nicht gescheitert: kommt mit dem nächsten Abgleich bzw. im WLAN).
     private var notYet: Set<String> = []
@@ -130,7 +133,18 @@ final class MissingLogosModel: ObservableObject {
 
     /// Coins ohne mitgeliefertes oder geladenes Logo bestimmen (Dateien lesen im Actor `CoinLogoStore`).
     func refresh(_ entries: [(key: String, watch: Watch)], enabled: Bool, loading: Bool, lookup: Lookup = .live) async {
-        guard enabled, !loading, lookup.firstLoadDone() else { return show(nil) }
+        guard enabled, !loading, lookup.firstLoadDone() else {
+            var needed = false
+            if enabled && loading {
+                for entry in entries where !needed {
+                    needed = await !lookup.hasLogo(entry.key)
+                }
+            }
+            guard !Task.isCancelled else { return }
+            loadingHintNeeded = needed
+            return show(nil)
+        }
+        loadingHintNeeded = false
         var without: [String] = []
         var names: [String: String] = [:]
         var notYet: Set<String> = []

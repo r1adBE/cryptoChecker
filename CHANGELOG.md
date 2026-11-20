@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 336)
+
+Android: App verschwindet nicht mehr nach der Ordner- bzw. Dateiauswahl, wenn eine wiederhergestellte Sicherung eine andere Akzentfarbe hat. Android und iOS: «Logos werden geladen» nur noch, wenn einem Coin der Merkliste das Logo fehlt.
+
 ## 16.2.2 (build 335)
 
 Android: Diagnosebericht zeigt die letzten Prozess-Enden laut Android (Grund, Wichtigkeit, Speicher).

@@ -52,6 +52,15 @@ import com.cryptochecker.resources.R
 /** Test-Tag der Zeile (UI-Tests). */
 const val MISSING_LOGOS_TAG = "missing_logos_line"
 
+/** Logo-Schlüssel der Coins der Merkliste ([MissingLogoNotice.candidates]); für «Coins ohne Logo» und den Lade-Hinweis. */
+internal fun logoKeys(watches: List<WatchEntity>, tradFiPairs: Set<String>): List<String> =
+    MissingLogoNotice.candidates(
+        watches.map {
+            val pair = CoinLogos.pairKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name)
+            MissingLogoNotice.WatchedCoin(it.exchangeKey, it.baseAsset, tradFi = pair in tradFiPairs)
+        }
+    )
+
 /**
  * Ruhige Zeile «2 Coins ohne Logo» an der Stelle von «Logos werden geladen …» ([WatchlistLogoHint]), wenn Coins der
  * Merkliste nach dem ersten Laden weder ein mitgeliefertes noch ein geladenes Logo haben ([MissingLogoNotice]: welche
@@ -68,14 +77,7 @@ internal fun WatchlistMissingLogos(watches: List<WatchEntity>, reduceMotion: Boo
     val revision by source.revision.collectAsStateWithLifecycle()
     val tradFiPairs by source.tradFiPairs.collectAsStateWithLifecycle()
     val dismissed by source.missingDismissed.collectAsStateWithLifecycle()
-    val keys = remember(watches, tradFiPairs) {
-        MissingLogoNotice.candidates(
-            watches.map {
-                val pair = CoinLogos.pairKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name)
-                MissingLogoNotice.WatchedCoin(it.exchangeKey, it.baseAsset, tradFi = pair in tradFiPairs)
-            }
-        )
-    }
+    val keys = remember(watches, tradFiPairs) { logoKeys(watches, tradFiPairs) }
     // Coins ohne Logo; null = noch offen (erstes Laden nicht erledigt oder Hinweis «Logos werden geladen» steht)
     val missing by produceState<List<String>?>(null, keys, revision, loadingLine) {
         source.loadMissingDismissed()

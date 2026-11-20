@@ -1971,7 +1971,7 @@ def rule_permission_event(t):
 # (MissingLogosHintTest, MissingLogosModelTests).
 
 
-ML_ANDROID = (("WatchlistLogoHint(reduceMotion = reduceMotion)", "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)"),)
+ML_ANDROID = (("WatchlistLogoHint(watches, reduceMotion = reduceMotion)", "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)"),)
 ML_IOS = (("WatchlistLogoHint()", "WatchlistMissingLogos()"),)
 ML_IOS_CHECK = ".background { WatchlistMissingLogosCheck(watches: data.watches) }"
 ML_ANDROID_STORE = "private val prefs by lazy { CoinLogoStorage.prefs(context) }"
@@ -3646,10 +3646,10 @@ def self_test():
     eq(len(lot_sheet_problems({"PortfolioAddressSheet.kt": LD_SAVEABLE["PortfolioAddressSheet.kt"][0]})), 3, "lot-sheets: fehlt")
 
     # missing-logos: richtige Reihenfolge ok, vertauscht und ohne Ablage gefunden
-    ok_body = "WatchlistLogoHint(reduceMotion = reduceMotion)\nWatchlistMissingLogos(watches, reduceMotion = reduceMotion)"
+    ok_body = "WatchlistLogoHint(watches, reduceMotion = reduceMotion)\nWatchlistMissingLogos(watches, reduceMotion = reduceMotion)"
     ok_header = "WatchlistLogoHint()\nWatchlistMissingLogos()\n" + ML_IOS_CHECK
     eq(missing_logo_problems(ok_body, ML_ANDROID_STORE, ok_header, ML_IOS_STORE), [], "missing-logos: ok")
-    swapped = "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)\nWatchlistLogoHint(reduceMotion = reduceMotion)"
+    swapped = "WatchlistMissingLogos(watches, reduceMotion = reduceMotion)\nWatchlistLogoHint(watches, reduceMotion = reduceMotion)"
     eq(len(missing_logo_problems(swapped, "", "// " + ok_header, ML_IOS_STORE)), 3, "missing-logos: Fehler")
 
     # settings-anchors: Ziel ohne Anker gefunden, auskommentierter Anker zählt nicht

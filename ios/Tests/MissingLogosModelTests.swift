@@ -69,4 +69,17 @@ final class MissingLogosModelTests: XCTestCase {
                                             logosEnabled: true)
         XCTAssertFalse(state.visible)
     }
+
+    /// «Logos werden geladen» nur, wenn einem Coin der Merkliste das Logo noch fehlt.
+    func testLoadingHintOnlyForCoinsWithoutLogo() async {
+        let entries = MissingLogosModel.entries([watch(1, "ZZQA"), watch(2, "ZZQB")])
+        let keyB = MissingLogoNotice.key(exchangeKey: "Binance", base: "ZZQB", tradFi: false) ?? "ZZQB"
+        for (hasAll, loading, expected) in [(true, true, false), (false, true, true), (false, false, false)] {
+            let model = MissingLogosModel()
+            let lookup = MissingLogosModel.Lookup(firstLoadDone: { true }, hasLogo: { hasAll || $0 != keyB },
+                                                  notYetLoaded: { _ in false })
+            await model.refresh(entries, enabled: true, loading: loading, lookup: lookup)
+            XCTAssertEqual(model.loadingHintNeeded, expected, "all \(hasAll), loading \(loading)")
+        }
+    }
 }

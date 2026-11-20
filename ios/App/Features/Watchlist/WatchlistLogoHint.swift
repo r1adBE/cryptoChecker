@@ -4,17 +4,19 @@ import SwiftUI
 /// laden: «Logos werden geladen …» (`CoinLogoLoading`, `LogoLoadingHint`), sobald die Gesamtzahl bekannt ist mit
 /// Fortschritt «Logos werden geladen · 40 %» (Prozent in der Schreibweise der Sprache, `PercentText`; gedrosselt).
 /// Schrift wie der Status («Börsenkurse · gerade eben»), in der ruhigen Nebenfarbe; blendet aus, wenn der Durchgang
-/// endet. Nur beim ersten Laden. Schalter «Coin-Logos › In der App» aus: nie. VoiceOver: einmal höflich angesagt (ohne
+/// endet. Nur beim ersten Laden und nur, wenn einem Coin der Merkliste das Logo noch fehlt
+/// (`MissingLogosModel.loadingHintNeeded`). Schalter «Coin-Logos › In der App» aus: nie. VoiceOver: einmal höflich angesagt (ohne
 /// Prozent, nicht bei jedem neuen Wert). Wie Android `WatchlistLogoHint`.
 @MainActor
 struct WatchlistLogoHint: View {
     @ObservedObject private var loading = CoinLogoLoading.shared
+    @ObservedObject private var missing = MissingLogosModel.shared
     @Environment(\.coinLogosEnabled) private var coinLogosEnabled
 
     var body: some View {
         // Ohne Zeile gar keine Ansicht (kein Abstand im Kopf); ein- und ausblenden über `CoinLogoLoading` (wie Android,
         // Bewegung reduzieren: ohne Überblenden)
-        if coinLogosEnabled && loading.visible { Line(percent: loading.percent).transition(.opacity) }
+        if coinLogosEnabled && loading.visible && missing.loadingHintNeeded { Line(percent: loading.percent).transition(.opacity) }
     }
 
     /// Die Zeile selbst; ihr Zustand (schon angesagt) gilt, solange sie steht.

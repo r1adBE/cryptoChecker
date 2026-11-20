@@ -21,6 +21,7 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.components.CoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
+import com.cryptochecker.app.ui.features.watchlist.LOGO_LOADING_TAG
 import com.cryptochecker.app.ui.features.watchlist.MISSING_LOGOS_TAG
 import com.cryptochecker.app.ui.features.watchlist.WatchlistLogoHint
 import com.cryptochecker.app.ui.features.watchlist.WatchlistMissingLogos
@@ -61,7 +62,9 @@ class MissingLogosHintTest {
         loadingNow: Boolean = false,
         percentNow: Int? = null,
         private val firstDone: Boolean = true,
+        private val allHaveLogos: Boolean = false,
     ) : CoinLogoSource {
+        override suspend fun hasLogo(symbol: String): Boolean = allHaveLogos
         val dismissed = MutableStateFlow<Set<String>?>(emptySet())
         override val missingDismissed: StateFlow<Set<String>?> = dismissed
         override suspend fun firstLoadDone(): Boolean = firstDone
@@ -170,15 +173,28 @@ class MissingLogosHintTest {
             40 to compose.activity.getString(R.string.watchlist_logos_loading_percent, PercentText.unsigned(40.0, 0)),
             null to text(R.string.watchlist_logos_loading),
         )) {
-            val source = NoLogos(emptySet(), loadingNow = true, percentNow = percent)
-            compose.runOnUiThread {
-                compose.activity.setContent {
-                    MaterialTheme {
-                        CompositionLocalProvider(LocalCoinLogoSource provides source) { WatchlistLogoHint(reduceMotion = true) }
+            setHint(NoLogos(emptySet(), loadingNow = true, percentNow = percent))
+            compose.waitUntil(5_000) { compose.onAllNodes(hasText(expected)).fetchSemanticsNodes().isNotEmpty() }
+        }
+    }
+
+    /** Haben alle Coins der Merkliste schon ein Logo (z. B. mitgeliefert), steht «Logos werden geladen» nicht. */
+    @Test
+    fun loadingLineHiddenWhenAllCoinsHaveLogos() {
+        setHint(NoLogos(emptySet(), loadingNow = true, percentNow = 40, allHaveLogos = true))
+        compose.waitForIdle()
+        compose.onAllNodesWithTag(LOGO_LOADING_TAG).assertCountEquals(0)
+    }
+
+    private fun setHint(source: NoLogos) {
+        compose.runOnUiThread {
+            compose.activity.setContent {
+                MaterialTheme {
+                    CompositionLocalProvider(LocalCoinLogoSource provides source) {
+                        WatchlistLogoHint(listOf(watch(1, "ZZQA")), reduceMotion = true)
                     }
                 }
             }
-            compose.waitUntil(5_000) { compose.onAllNodes(hasText(expected)).fetchSemanticsNodes().isNotEmpty() }
         }
     }
 }

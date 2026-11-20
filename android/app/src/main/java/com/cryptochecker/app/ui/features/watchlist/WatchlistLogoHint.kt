@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -23,6 +25,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.resources.R
@@ -37,15 +40,22 @@ const val LOGO_LOADING_TAG = "logo_loading_line"
  * geladen · 40 %» (Prozent in der Schreibweise der Sprache, [PercentText]; gedrosselt). Schrift wie der Status
  * («Börsenkurse · gerade eben»), in der ruhigen Nebenfarbe; verschwindet von selbst, wenn der Durchgang endet. Schalter
  * «Coin-Logos › In der App» aus: keine Quelle, keine Zeile. Screenreader: einmal höflich angesagt (ohne Prozent, nicht
- * bei jedem neuen Wert). Wie iOS `WatchlistLogoHint`.
+ * bei jedem neuen Wert). Nur, wenn einem Coin der Merkliste ([watches]) das Logo noch fehlt (mitgeliefert oder geladen):
+ * Haben alle schon eins, sagt die Zeile nichts Neues. Wie iOS `WatchlistLogoHint`.
  */
 @Composable
-internal fun WatchlistLogoHint(reduceMotion: Boolean, modifier: Modifier = Modifier) {
+internal fun WatchlistLogoHint(watches: List<WatchEntity>, reduceMotion: Boolean, modifier: Modifier = Modifier) {
     val source = LocalCoinLogoSource.current ?: return
     val loading by source.loading.collectAsStateWithLifecycle()
     val percent by source.loadingPercent.collectAsStateWithLifecycle()
+    val revision by source.revision.collectAsStateWithLifecycle()
+    val tradFiPairs by source.tradFiPairs.collectAsStateWithLifecycle()
+    val keys = remember(watches, tradFiPairs) { logoKeys(watches, tradFiPairs) }
+    val needed by produceState(false, keys, revision, loading) {
+        value = loading && keys.any { !source.hasLogo(it) }
+    }
     AnimatedVisibility(
-        visible = loading,
+        visible = loading && needed,
         enter = if (reduceMotion) EnterTransition.None else fadeIn(tween(HINT_FADE_MILLIS)) + expandVertically(),
         exit = if (reduceMotion) ExitTransition.None else fadeOut(tween(HINT_FADE_MILLIS)) + shrinkVertically(),
         modifier = modifier,

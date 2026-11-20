@@ -178,8 +178,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Die App hat selbst eine andere Activity geöffnet (Ordner-/Dateiauswahl, Teilen, Browser, Systemeinstellungen) und
+     * wartet auf die Rückkehr: dann das App-Icon in [onStop] nicht umschalten. Ein Alias-Wechsel entfernt den Task, der
+     * über den alten Alias gestartet wurde — die App wäre nach der Rückkehr weg (z. B. nach einer Wiederherstellung mit
+     * anderer Akzentfarbe beim Wählen des Sicherungsordners). Zurück in [onStart].
+     */
+    private var ownActivityOpen = false
+
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
+    override fun startActivityForResult(intent: Intent, requestCode: Int, options: Bundle?) {
+        ownActivityOpen = true
+        super.startActivityForResult(intent, requestCode, options)
+    }
+
     override fun onStart() {
         super.onStart()
+        ownActivityOpen = false
         AppVisibility.onStart()
         appLockState.onForeground()
         // Coin-Logos: fehlende (alle Coins der Rangliste, nie einzeln) im Hintergrund nachladen
@@ -216,7 +231,8 @@ class MainActivity : AppCompatActivity() {
     /**
      * App-Icon erst beim Verlassen umschalten: Geschieht es, während die App
      * sichtbar ist, beenden manche Android-Versionen sie sofort. Beim Drehen
-     * des Bildschirms (Neuaufbau) nicht. Das Icon hängt nur an der Akzentfarbe
+     * des Bildschirms (Neuaufbau) nicht, ebenso wenig, solange eine von der App
+     * geöffnete Activity vorne ist ([ownActivityOpen]). Das Icon hängt nur an der Akzentfarbe
      * (nicht an Hell/Dunkel), ändert sich also nur nach einem Farbwechsel.
      */
     override fun onStop() {
@@ -225,7 +241,7 @@ class MainActivity : AppCompatActivity() {
             AppVisibility.onStop()
             appLockState.onBackground()
             // Erst mit gelesenen Einstellungen: sonst stellte der Standardwert das Icon auf Orange
-            if (settingsRepository.loaded) appearanceApplier.applyLauncherIcon(settingsRepository.cached.accentColor)
+            if (settingsRepository.loaded && !ownActivityOpen) appearanceApplier.applyLauncherIcon(settingsRepository.cached.accentColor)
         }
     }
 
