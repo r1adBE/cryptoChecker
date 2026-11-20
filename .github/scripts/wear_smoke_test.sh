@@ -84,8 +84,10 @@ $CRASHES"
 elif printf '%s' "$MONKEY" | grep -q "CRASH"; then
   add error "Wear OS: monkey reported a crash: $(printf '%s' "$MONKEY" | grep -m3 -A5 CRASH)"
 fi
-if grep -qE "Exception.*(TileService|PriceTileService)|PriceTileService.*Exception" "$OUT/logcat.txt"; then
-  add error "Wear OS: tile service threw: $(grep -m3 -E "Exception.*(TileService|PriceTileService)|PriceTileService.*Exception" "$OUT/logcat.txt")"
+# Only our tile: other apps' tiles on the emulator image (e.g. Messages «VoiceToTextTileService» missing) are not ours
+TILE_ERR='Exception.*PriceTileService|PriceTileService.*Exception'
+if grep -qE "$TILE_ERR" "$OUT/logcat.txt"; then
+  add error "Wear OS: tile service threw: $(grep -m3 -E "$TILE_ERR" "$OUT/logcat.txt")"
 fi
 if grep -qE "ANR in $PKG" "$OUT/logcat.txt"; then
   add warning "Wear OS: ANR in $PKG (slow software-rendered emulator?)"

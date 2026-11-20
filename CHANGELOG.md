@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 330)
+
+CI: Wear-Rauchtest prüft nur die eigene Kachel.
+
 ## 16.2.2 (build 329)
 
 Widgets: Knopf erscheint erst mit dem ersten Zeichnen (Start-Layout).
