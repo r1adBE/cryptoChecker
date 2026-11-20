@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 332)
+
+Merkliste-Widget: Zeilen bleiben stehen, wenn sich nur die Kopfzeile ändert.
+
 ## 16.2.2 (build 331)
 
 Merkliste-Widget: beim Neuzeichnen kein «Wird geladen…» mehr in den Zeilen.

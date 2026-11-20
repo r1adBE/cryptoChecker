@@ -3317,6 +3317,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 329: WidgetDrawDeviceTest.initialLayoutsShowTheSkeleton an Kopfzeile mit Countdown/Spin angepasst; pulse_refresh/portfolio_refresh visibility invisible.
 * Build 330: wear_smoke_test.sh: TILE_ERR ohne allgemeines TileService-Muster.
 * Build 331: inlineRows misst die Parcel-Grösse (MAX_INLINE_BYTES 400 KB, MAX_INLINE_ROWS 500); PriceWidgetService.getLoadingView leere Zeile.
+* Build 332: ListWidgetDataVersion.forContent (Test), ListWidgetRows.drawVersion/contentKey; notifyAppWidgetViewDataChanged nur bei neuem Stand.
 
 ## Known warnings
 

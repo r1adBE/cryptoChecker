@@ -158,10 +158,12 @@ class ListWidgetRenderer @Inject constructor(
             // verlässlich): nicht neu zeichnen — der Launcher behält den bisherigen Inhalt statt «Noch keine Paare»
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) continue
             val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId, all) else null
-            if (inline == null) viaService += appWidgetId
             val title = headerTitle(appWidgetId, all)
-            // Neuer Stand je Zeichnen: Zeilen aus dem Dienst gehören so zur Uhrzeit im Kopf (ListWidgetDataVersion)
-            val version = rows.versions.next(appWidgetId)
+            // Zeilen aus dem Dienst: neuer Stand nur mit neuem Zeilen-Inhalt — so gehören sie zur Uhrzeit im Kopf, und ein
+            // Neuzeichnen nur des Kopfs (Countdown, drehender Knopf) lässt die Zeilen stehen, statt sie kurz zu leeren
+            // (ListWidgetDataVersion.forContent); nur dann meldet sich die Liste neu
+            val (version, reload) = rows.drawVersion(appWidgetId, viaService = inline == null) { all.get() }
+            if (reload) viaService += appWidgetId
             runCatchingCancellable {
                 WidgetPublish.update(
                     manager,

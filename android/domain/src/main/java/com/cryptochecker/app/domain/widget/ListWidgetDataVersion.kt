@@ -10,14 +10,25 @@ import java.util.concurrent.ConcurrentHashMap
  * Zeilen und lädt nur auf notifyAppWidgetViewDataChanged neu. Kommt diese Meldung an, bevor der Launcher
  * die neuen RemoteViews angewendet hat (asynchrones Anwenden, neu aufgebaute Liste aus dem Zwischenspeicher
  * des Launchers), geht sie verloren: Kopf mit neuer Uhrzeit, darunter die alten Kurse. Deshalb
- *  - bekommt jedes Zeichnen einen neuen Stand ([next]); die Intent trägt dessen [token], damit der
- *    Launcher einen frischen Adapter bindet statt des alten (Zwischenspeicher je Intent),
+ *  - bekommt jedes Zeichnen mit neuen Zeilen einen neuen Stand ([forContent]); die Intent trägt dessen [token],
+ *    damit der Launcher einen frischen Adapter bindet statt des alten (Zwischenspeicher je Intent),
  *  - prüft die Fabrik bei jeder Abfrage ([isStale]), ob ihre Zeilen zum letzten Zeichnen gehören,
  *    und lädt sonst selbst neu — auch wenn sie als schon erstellte Fabrik keine Meldung bekommt.
  * Der Token läuft im Kreis ([TOKEN_CYCLE]), damit je Widget nur wenige Fabriken entstehen.
  */
 class ListWidgetDataVersion {
     private val versions = ConcurrentHashMap<Int, Long>()
+    private val contents = ConcurrentHashMap<Int, Int>()
+
+    /**
+     * Stand für ein Zeichnen mit Zeilen-Inhalt [content] (Schlüssel aus Paaren, Kursen, Farben): neu nur, wenn sich der
+     * Inhalt geändert hat. Zeichnen nur der Kopf neu (Countdown zu Symbol, drehender Knopf), bleibt die Adapter-Intent
+     * gleich und der Launcher behält seine Zeilen — sonst leert er sie kurz, bis die Fabrik neu geladen hat.
+     */
+    fun forContent(appWidgetId: Int, content: Int): Long {
+        val previous = contents.put(appWidgetId, content)
+        return if (previous == content && current(appWidgetId) > 0L) current(appWidgetId) else next(appWidgetId)
+    }
 
     /** Neuer Stand für [appWidgetId] — vor dem Zeichnen, damit Kopf und Zeilen zusammengehören. */
     fun next(appWidgetId: Int): Long = versions.merge(appWidgetId, 1L, Long::plus) ?: 1L
@@ -31,6 +42,7 @@ class ListWidgetDataVersion {
     /** Gelöschtes Widget vergessen. */
     fun remove(appWidgetId: Int) {
         versions.remove(appWidgetId)
+        contents.remove(appWidgetId)
     }
 
     companion object {

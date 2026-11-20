@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.AssetKind
@@ -43,7 +44,21 @@ class ListWidgetRowData(
     val logos: Map<String, android.graphics.Bitmap>? = null,
     /** Breite des Widgets (dp, 0 = unbekannt): Kurs bei sehr grosser Schrift kleiner statt abgeschnitten. */
     val widthDp: Int = 0,
-)
+) {
+    /**
+     * Schlüssel für den gezeigten Inhalt der Zeilen ([ListWidgetDataVersion.forContent]):
+     * Paare samt Kursen, Farben, %-Basis, Logos, Breite und — auf die Minute — das Alter für «veraltet».
+     */
+    fun contentKey(now: Long = System.currentTimeMillis()): Int = listOf(
+        watches,
+        listOf(background.textColor, background.secondaryTextColor, background.upColor, background.downColor),
+        changeView,
+        outdatedAfter,
+        logos?.keys,
+        widthDp,
+        now / 60_000L,
+    ).hashCode()
+}
 
 /**
  * Zeilen des Listen-Widgets «Merkliste». Ab Android 12 legt [ListWidgetRenderer] sie direkt in
@@ -64,6 +79,19 @@ class ListWidgetRows @Inject constructor(
 
     /** Alle Paare (eine Abfrage); ein Zeichnen liest sie einmal für alle Widgets ([WidgetOnceRead]). */
     suspend fun allWatches(): List<WatchEntity> = watchRepository.getWatches()
+
+    /**
+     * Stand ([ListWidgetDataVersion]) für ein Zeichnen. Zeilen direkt im Widget: immer neu. Zeilen aus dem Dienst
+     * ([viaService]): neu nur mit neuem Zeilen-Inhalt ([ListWidgetRowData.contentKey]; nicht lesbar: neu).
+     * @return Stand und ob der Dienst neu laden muss
+     */
+    suspend fun drawVersion(appWidgetId: Int, viaService: Boolean, all: suspend () -> List<WatchEntity>): Pair<Long, Boolean> {
+        if (!viaService) return versions.next(appWidgetId) to false
+        val before = versions.current(appWidgetId)
+        val content = runCatchingCancellable { load(appWidgetId, all()).contentKey() }.getOrNull()
+        val version = if (content == null) versions.next(appWidgetId) else versions.forContent(appWidgetId, content)
+        return version to (version != before)
+    }
 
     /** Lädt die Daten für das Widget [appWidgetId]; [all] = schon gelesene Paare, null = hier lesen. */
     suspend fun load(appWidgetId: Int, all: List<WatchEntity>? = null): ListWidgetRowData {

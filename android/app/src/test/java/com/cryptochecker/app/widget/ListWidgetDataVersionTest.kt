@@ -52,4 +52,20 @@ class ListWidgetDataVersionTest {
         assertEquals(ListWidgetDataVersion.TOKEN_CYCLE, tokens.toSet().size)
         assertTrue(tokens.all { it in 0 until ListWidgetDataVersion.TOKEN_CYCLE })
     }
+
+    @Test
+    fun `same row content keeps the version, new content gets a new one`() {
+        val v = ListWidgetDataVersion()
+        val first = v.forContent(7, content = 42)
+        assertTrue(first > 0L)
+        // Nur der Kopf neu (Countdown, drehender Knopf): gleicher Stand, gleiche Intent, Zeilen bleiben stehen
+        assertEquals(first, v.forContent(7, content = 42))
+        // Neue Kurse: neuer Stand
+        val second = v.forContent(7, content = 43)
+        assertNotEquals(first, second)
+        assertTrue(v.isStale(7, first))
+        // Vergessenes Widget: wieder neu
+        v.remove(7)
+        assertNotEquals(0L, v.forContent(7, content = 43))
+    }
 }
