@@ -5,6 +5,7 @@ import android.util.AtomicFile
 import com.cryptochecker.app.domain.diagnostics.ErrorLog
 import java.io.File
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 /**
  * Ablage des Fehlerprotokolls ([ErrorLog]): eine kleine Textdatei in `noBackupFilesDir` (nicht in der Systemsicherung).
@@ -16,7 +17,16 @@ class ErrorLogFile private constructor(context: Context) : ErrorLog.Sink {
     private val writer = Executors.newSingleThreadExecutor { r -> Thread(r, "error-log").apply { isDaemon = true } }
 
     override fun append(line: String) {
-        writer.execute {
+        writer.execute { write(line) }
+    }
+
+    /** Nach den wartenden Einträgen und vor der Rückkehr geschrieben (höchstens [NOW_TIMEOUT_MILLIS]). */
+    override fun appendNow(line: String) {
+        runCatching { writer.submit { write(line) }.get(NOW_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS) }
+    }
+
+    private fun write(line: String) {
+        synchronized(this) {
             runCatching {
                 val next = ErrorLog.appended(readLines(), line)
                 val out = file.startWrite()
@@ -38,6 +48,7 @@ class ErrorLogFile private constructor(context: Context) : ErrorLog.Sink {
 
     companion object {
         const val FILE_NAME = "error_log.txt"
+        private const val NOW_TIMEOUT_MILLIS = 1_500L
 
         @Volatile private var instance: ErrorLogFile? = null
 

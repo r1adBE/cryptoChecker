@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 334)
+
+Diagnose: Abstürze stehen im Fehlerprotokoll (nur auf dem Gerät, ohne Inhalte).
+
 ## 16.2.2 (build 333)
 
 Merkliste-Widget: Liste bleibt beim Tipp stehen, Pfeil kommt pünktlich nach dem Countdown.

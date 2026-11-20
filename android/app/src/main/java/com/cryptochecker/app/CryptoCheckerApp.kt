@@ -127,6 +127,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Fehlerprotokoll für den Diagnosebericht (Zeit, Codestelle, Fehlertyp; keine Texte), auch im Release-Build
         com.cryptochecker.app.domain.diagnostics.ErrorLog.install(com.cryptochecker.app.diagnostics.ErrorLogFile.of(this))
         Timber.plant(com.cryptochecker.app.diagnostics.ErrorLogTree())
+        // Abstürze ebenfalls ins Fehlerprotokoll (Codestelle und Typ, nur auf dem Gerät), danach wie bisher
+        com.cryptochecker.app.diagnostics.CrashRecord.install()
         // Debug-Schalter «Stichtag vorziehen»: Uhr der Stilllegungs-Regel (nicht die des Geräts), nur im Debug-Build
         com.cryptochecker.app.ui.features.settings.RetirementPreview.apply(this)
         installStaticHooks()

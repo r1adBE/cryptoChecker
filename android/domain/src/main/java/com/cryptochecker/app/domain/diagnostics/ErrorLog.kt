@@ -24,6 +24,9 @@ object ErrorLog {
     /** Ablage der Zeilen (in der App eine Datei ohne Systemsicherung). */
     interface Sink {
         fun append(line: String)
+
+        /** Wie [append], aber geschrieben, bevor es zurückkehrt (Absturz: der Prozess endet gleich danach). */
+        fun appendNow(line: String) = append(line)
     }
 
     @Volatile private var sink: Sink? = null
@@ -37,6 +40,12 @@ object ErrorLog {
     fun record(level: Char, area: String, type: String?, now: Long = System.currentTimeMillis()) {
         val target = sink ?: return
         runCatching { target.append(line(now, level, area, type)) }
+    }
+
+    /** Absturz festhalten ([line]), geschrieben bevor es zurückkehrt; wirft nie. */
+    fun recordNow(level: Char, area: String, type: String?, now: Long = System.currentTimeMillis()) {
+        val target = sink ?: return
+        runCatching { target.appendNow(line(now, level, area, type)) }
     }
 
     /** Erlaubte Zeichen eines Felds: Buchstaben, Ziffern und `_ . $ : - < >`; Rest fällt weg; leer → «-». */
