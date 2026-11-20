@@ -6,13 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Parcel
 import android.os.PowerManager
 import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import androidx.annotation.RequiresApi
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
@@ -157,12 +155,20 @@ class ListWidgetRenderer @Inject constructor(
             // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar; nach dem Zählen oben
             // verlässlich): nicht neu zeichnen — der Launcher behält den bisherigen Inhalt statt «Noch keine Paare»
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) continue
-            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId, all) else null
+            // Zeilen einmal je Zeichnen laden (direkt im Widget und Stand für den Dienst) — schnell genug, dass das Symbol
+            // am Ende des Countdowns pünktlich kommt
+            val data = runCatchingCancellable { rows.load(appWidgetId, all.get()) }
+                .onFailure { Timber.w(it, "Widget-Zeilen %d nicht geladen", appWidgetId) }.getOrNull()
+            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && data != null) {
+                ListWidgetInline.rows(rows, appWidgetId, data)
+            } else {
+                null
+            }
             val title = headerTitle(appWidgetId, all)
             // Zeilen aus dem Dienst: neuer Stand nur mit neuem Zeilen-Inhalt — so gehören sie zur Uhrzeit im Kopf, und ein
             // Neuzeichnen nur des Kopfs (Countdown, drehender Knopf) lässt die Zeilen stehen, statt sie kurz zu leeren
             // (ListWidgetDataVersion.forContent); nur dann meldet sich die Liste neu
-            val (version, reload) = rows.drawVersion(appWidgetId, viaService = inline == null) { all.get() }
+            val (version, reload) = rows.drawVersion(appWidgetId, viaService = inline == null, data)
             if (reload) viaService += appWidgetId
             runCatchingCancellable {
                 WidgetPublish.update(
@@ -318,40 +324,6 @@ class ListWidgetRenderer @Inject constructor(
         }
     }
 
-    /**
-     * Zeilen für [appWidgetId] direkt im Widget (ab Android 12). Null unter Android 12, bei mehr als
-     * [MAX_INLINE_ROWS] Paaren bzw. [MAX_INLINE_BYTES] (alles geht in einem Binder-Aufruf mit) oder bei einem Fehler —
-     * dann liefert sie [PriceWidgetService].
-     */
-    @RequiresApi(Build.VERSION_CODES.S)
-    private suspend fun inlineRows(
-        appWidgetId: Int,
-        all: WidgetOnceRead<List<WatchEntity>>,
-    ): RemoteViews.RemoteCollectionItems? {
-        return runCatchingCancellable {
-            val data = rows.load(appWidgetId, all.get())
-            if (data.watches.size > MAX_INLINE_ROWS) return@runCatchingCancellable null
-            val builder = RemoteViews.RemoteCollectionItems.Builder()
-                .setHasStableIds(true)
-                .setViewTypeCount(1)
-            data.watches.forEachIndexed { index, watch -> builder.addItem(watch.id, rows.row(data, index)) }
-            val items = builder.build()
-            // Grösse des Binder-Aufrufs gemessen statt geschätzt (Zeilen, Logos — gleiche Coins teilen ein Bild): nur zu
-            // gross geht über den Dienst, der beim Neuzeichnen die Zeilen kurz leert
-            val bytes = Parcel.obtain().let { parcel ->
-                try {
-                    items.writeToParcel(parcel, 0)
-                    parcel.dataSize()
-                } finally {
-                    parcel.recycle()
-                }
-            }
-            items.takeIf { bytes <= MAX_INLINE_BYTES }
-        }.onFailure {
-            Timber.w(it, "Widget-Zeilen %d: weiter über den Dienst", appWidgetId)
-        }.getOrNull()
-    }
-
     /** Vorlage für die Zeilen; die Zeile ergänzt nur noch die Id ihres Paares. */
     private fun openAppTemplate(): PendingIntent {
         val intent = AppIntents.main(context).apply {
@@ -385,14 +357,5 @@ class ListWidgetRenderer @Inject constructor(
 
         /** Token der Adapter-Intent ([ListWidgetDataVersion.token]). */
         const val EXTRA_ROWS_TOKEN = "com.cryptochecker.app.extra.ROWS_TOKEN"
-
-        /** Bis so viele Paare direkt im Widget (Obergrenze vor dem Messen); darüber über den Dienst. */
-        const val MAX_INLINE_ROWS = 500
-
-        /**
-         * Zeilen samt Logos höchstens so gross (Bytes) direkt im Widget — ein Binder-Aufruf fasst rund 1 MB, geteilt mit
-         * dem übrigen Widget; darüber über den Dienst.
-         */
-        const val MAX_INLINE_BYTES = 400_000
     }
 }

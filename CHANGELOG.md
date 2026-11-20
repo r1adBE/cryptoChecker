@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 333)
+
+Merkliste-Widget: Liste bleibt beim Tipp stehen, Pfeil kommt pünktlich nach dem Countdown.
+
 ## 16.2.2 (build 332)
 
 Merkliste-Widget: Zeilen bleiben stehen, wenn sich nur die Kopfzeile ändert.

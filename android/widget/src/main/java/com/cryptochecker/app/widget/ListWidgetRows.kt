@@ -10,7 +10,6 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.domain.watch.AssetKind
@@ -46,17 +45,29 @@ class ListWidgetRowData(
     val widthDp: Int = 0,
 ) {
     /**
-     * Schlüssel für den gezeigten Inhalt der Zeilen ([ListWidgetDataVersion.forContent]):
-     * Paare samt Kursen, Farben, %-Basis, Logos, Breite und — auf die Minute — das Alter für «veraltet».
+     * Schlüssel für den gezeigten Inhalt der Zeilen ([ListWidgetDataVersion.forContent]): nur was eine Zeile zeigt —
+     * Name, Börse, Kurs, Veränderung, grau/veraltet/unverändert — plus Farben, Logos und Breite. Felder, die ein Abruf
+     * ohne sichtbare Änderung schreibt (Zeitpunkt der Abfrage, Mitteilungen), zählen nicht: sonst leerte schon der
+     * Beginn einer Aktualisierung die Liste kurz.
      */
     fun contentKey(now: Long = System.currentTimeMillis()): Int = listOf(
-        watches,
+        watches.map { w ->
+            listOf(
+                w.id,
+                w.displayName,
+                w.exchangeName,
+                w.quoteAsset,
+                w.lastPrice,
+                w.shownChange(changeView),
+                w.disabled,
+                ExchangeRetirement.exchangeOf(w.lastError),
+                WidgetFreshness.outdatedTime(w, now, outdatedAfter) != null,
+                WidgetFreshness.unchangedSince(w, now, outdatedAfter),
+            )
+        },
         listOf(background.textColor, background.secondaryTextColor, background.upColor, background.downColor),
-        changeView,
-        outdatedAfter,
         logos?.keys,
         widthDp,
-        now / 60_000L,
     ).hashCode()
 }
 
@@ -82,13 +93,13 @@ class ListWidgetRows @Inject constructor(
 
     /**
      * Stand ([ListWidgetDataVersion]) für ein Zeichnen. Zeilen direkt im Widget: immer neu. Zeilen aus dem Dienst
-     * ([viaService]): neu nur mit neuem Zeilen-Inhalt ([ListWidgetRowData.contentKey]; nicht lesbar: neu).
+     * ([viaService]): neu nur mit neuem Zeilen-Inhalt ([ListWidgetRowData.contentKey]; [data] nicht lesbar: neu).
      * @return Stand und ob der Dienst neu laden muss
      */
-    suspend fun drawVersion(appWidgetId: Int, viaService: Boolean, all: suspend () -> List<WatchEntity>): Pair<Long, Boolean> {
+    fun drawVersion(appWidgetId: Int, viaService: Boolean, data: ListWidgetRowData?): Pair<Long, Boolean> {
         if (!viaService) return versions.next(appWidgetId) to false
         val before = versions.current(appWidgetId)
-        val content = runCatchingCancellable { load(appWidgetId, all()).contentKey() }.getOrNull()
+        val content = data?.contentKey()
         val version = if (content == null) versions.next(appWidgetId) else versions.forContent(appWidgetId, content)
         return version to (version != before)
     }
