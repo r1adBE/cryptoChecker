@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 331)
+
+Merkliste-Widget: beim Neuzeichnen kein «Wird geladen…» mehr in den Zeilen.
+
 ## 16.2.2 (build 330)
 
 CI: Wear-Rauchtest prüft nur die eigene Kachel.

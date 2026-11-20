@@ -102,7 +102,11 @@ private class WatchlistViewsFactory(
     override fun getViewAt(position: Int): RemoteViews =
         data?.let { rows.row(it, position) } ?: RemoteViews(context.packageName, R.layout.widget_list_item)
 
-    override fun getLoadingView(): RemoteViews? = null
+    /**
+     * Platzhalter, solange eine Zeile nachlädt: eine leere Zeile in Zeilenhöhe — statt des System-Platzhalters
+     * «Wird geladen…» in jeder Zeile, der beim Neuzeichnen kurz die ganze Liste ersetzt.
+     */
+    override fun getLoadingView(): RemoteViews = RemoteViews(context.packageName, R.layout.widget_list_item)
 
     override fun getViewTypeCount(): Int = 1
 

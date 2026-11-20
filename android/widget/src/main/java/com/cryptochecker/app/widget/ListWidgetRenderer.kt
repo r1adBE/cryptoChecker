@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Parcel
 import android.os.PowerManager
 import android.os.SystemClock
 import android.util.TypedValue
@@ -317,7 +318,7 @@ class ListWidgetRenderer @Inject constructor(
 
     /**
      * Zeilen für [appWidgetId] direkt im Widget (ab Android 12). Null unter Android 12, bei mehr als
-     * [MAX_INLINE_ROWS] Paaren (alles geht in einem Binder-Aufruf mit) oder bei einem Fehler —
+     * [MAX_INLINE_ROWS] Paaren bzw. [MAX_INLINE_BYTES] (alles geht in einem Binder-Aufruf mit) oder bei einem Fehler —
      * dann liefert sie [PriceWidgetService].
      */
     @RequiresApi(Build.VERSION_CODES.S)
@@ -327,14 +328,23 @@ class ListWidgetRenderer @Inject constructor(
     ): RemoteViews.RemoteCollectionItems? {
         return runCatchingCancellable {
             val data = rows.load(appWidgetId, all.get())
-            // Mit Logos reist je Zeile ein kleines Bild mit: früher an den Dienst abgeben
-            val limit = if (data.logos != null) MAX_INLINE_ROWS_WITH_LOGOS else MAX_INLINE_ROWS
-            if (data.watches.size > limit) return@runCatchingCancellable null
+            if (data.watches.size > MAX_INLINE_ROWS) return@runCatchingCancellable null
             val builder = RemoteViews.RemoteCollectionItems.Builder()
                 .setHasStableIds(true)
                 .setViewTypeCount(1)
             data.watches.forEachIndexed { index, watch -> builder.addItem(watch.id, rows.row(data, index)) }
-            builder.build()
+            val items = builder.build()
+            // Grösse des Binder-Aufrufs gemessen statt geschätzt (Zeilen, Logos — gleiche Coins teilen ein Bild): nur zu
+            // gross geht über den Dienst, der beim Neuzeichnen die Zeilen kurz leert
+            val bytes = Parcel.obtain().let { parcel ->
+                try {
+                    items.writeToParcel(parcel, 0)
+                    parcel.dataSize()
+                } finally {
+                    parcel.recycle()
+                }
+            }
+            items.takeIf { bytes <= MAX_INLINE_BYTES }
         }.onFailure {
             Timber.w(it, "Widget-Zeilen %d: weiter über den Dienst", appWidgetId)
         }.getOrNull()
@@ -374,10 +384,13 @@ class ListWidgetRenderer @Inject constructor(
         /** Token der Adapter-Intent ([ListWidgetDataVersion.token]). */
         const val EXTRA_ROWS_TOKEN = "com.cryptochecker.app.extra.ROWS_TOKEN"
 
-        /** Bis so viele Paare direkt im Widget; darüber über den Dienst (Grösse eines Binder-Aufrufs). */
-        const val MAX_INLINE_ROWS = 200
+        /** Bis so viele Paare direkt im Widget (Obergrenze vor dem Messen); darüber über den Dienst. */
+        const val MAX_INLINE_ROWS = 500
 
-        /** Mit Coin-Logos (je Zeile bis 48 × 48 px, gleiche Coins teilen ein Bild). */
-        const val MAX_INLINE_ROWS_WITH_LOGOS = 40
+        /**
+         * Zeilen samt Logos höchstens so gross (Bytes) direkt im Widget — ein Binder-Aufruf fasst rund 1 MB, geteilt mit
+         * dem übrigen Widget; darüber über den Dienst.
+         */
+        const val MAX_INLINE_BYTES = 400_000
     }
 }
