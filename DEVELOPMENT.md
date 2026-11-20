@@ -3320,6 +3320,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 332: ListWidgetDataVersion.forContent (Test), ListWidgetRows.drawVersion/contentKey; notifyAppWidgetViewDataChanged nur bei neuem Stand.
 * Build 333: ListWidgetInline (aus dem Renderer, Bytes je Zeile), ein rows.load je Zeichnen, contentKey nur sichtbare Felder.
 * Build 334: CrashRecord (Test), ErrorLog.recordNow/Sink.appendNow, ErrorLogFile synchron mit Zeitgrenze.
+* Build 335: ProcessExits liest ApplicationExitInfo (API 30+) für den Abschnitt «Process exits»; DiagnosticsDevice.processExits mit Standard null.
 
 ## Known warnings
 

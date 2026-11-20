@@ -140,6 +140,8 @@ class DiagnosticsViewModel @Inject constructor(
                 } else {
                     null
                 },
+                // Wie Android den Prozess zuletzt beendet hat (Grund, Wichtigkeit, Speicher) — ohne Texte
+                processExits = runCatchingCancellable { device.processExits() }.getOrNull(),
             )
         )
     }

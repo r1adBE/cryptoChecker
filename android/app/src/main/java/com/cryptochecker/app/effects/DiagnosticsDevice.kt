@@ -2,6 +2,8 @@ package com.cryptochecker.app.effects
 
 import android.content.Context
 import com.cryptochecker.app.diagnostics.ErrorLogFile
+import com.cryptochecker.app.diagnostics.ProcessExit
+import com.cryptochecker.app.diagnostics.ProcessExits
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.diagnostics.DiagnosticsFiles
 import com.cryptochecker.app.domain.settings.AppSettings
@@ -20,6 +22,9 @@ interface DiagnosticsDevice {
 
     /** Zeilen des Fehlerprotokolls auf dem Gerät. */
     fun errorLogLines(): List<String>
+
+    /** Letzte Enden des App-Prozesses laut Android; null = nicht verfügbar. */
+    fun processExits(): List<ProcessExit>? = null
 
     /** Liegende Berichtsdatei vom letzten Teilen löschen; gibt die Anzahl gelöschter Dateien zurück. */
     fun clearReportFiles(): Int
@@ -42,6 +47,8 @@ class AndroidDiagnosticsDevice @Inject constructor(
     override fun localeTag(): String = context.resources.configuration.locales[0]?.toLanguageTag().orEmpty()
 
     override fun errorLogLines(): List<String> = ErrorLogFile.of(context).readLines()
+
+    override fun processExits(): List<ProcessExit>? = ProcessExits.read(context)
 
     override fun clearReportFiles(): Int = DiagnosticsFiles.clear(context.cacheDir)
 }

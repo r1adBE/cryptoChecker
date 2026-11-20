@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 335)
+
+Android: Diagnosebericht zeigt die letzten Prozess-Enden laut Android (Grund, Wichtigkeit, Speicher).
+
 ## 16.2.2 (build 334)
 
 Diagnose: Abstürze stehen im Fehlerprotokoll (nur auf dem Gerät, ohne Inhalte).

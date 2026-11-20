@@ -55,6 +55,8 @@ data class DiagnosticInput(
     val backgroundErrors: BackgroundErrorSummary = BackgroundErrorSummary(),
     /** Coin-Logos: nur Zahlen ([LogoDiagnostics]); null = Abschnitt fehlt (Logos aus bzw. nicht lesbar). */
     val logos: LogoDiagnostics? = null,
+    /** Letzte Enden des App-Prozesses laut Android ([ProcessExit]); null = Abschnitt fehlt (iOS, vor Android 11). */
+    val processExits: List<ProcessExit>? = null,
 )
 
 /**
@@ -186,6 +188,14 @@ object DiagnosticReport {
         }
         lines += BackgroundErrors.line(input.backgroundErrors)
         BackgroundErrors.kindsLine(input.backgroundErrors)?.let { lines += it }
+        input.processExits?.let { exits ->
+            lines += ""
+            lines += "== Process exits (newest first) =="
+            if (exits.isEmpty()) lines += NONE
+            exits.sortedByDescending { it.at }.forEach {
+                lines += "${at(it.at)} | ${clean(it.reason)} | ${clean(it.importance)} | pss ${it.pssMb} MB | rss ${it.rssMb} MB"
+            }
+        }
         return lines.joinToString("\n") + "\n"
     }
 

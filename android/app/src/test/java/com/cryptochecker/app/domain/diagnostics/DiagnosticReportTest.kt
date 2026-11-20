@@ -3,6 +3,8 @@ package com.cryptochecker.app.domain.diagnostics
 import com.cryptochecker.app.diagnostics.DiagnosticInput
 import com.cryptochecker.app.diagnostics.DiagnosticReport
 import com.cryptochecker.app.diagnostics.DiagnosticSettings
+import com.cryptochecker.app.diagnostics.ProcessExit
+import com.cryptochecker.app.diagnostics.ProcessExits
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
@@ -197,5 +199,23 @@ class DiagnosticReportTest {
         // Ein Hash wird nie als Adresse ersetzt
         val text = DiagnosticReport.build(input().copy(sourceCommit = "3f9a1c2e7b4d5a6f8e9d0c1b2a3f4e5d6c7b8a9f"))
         assertTrue(text.contains("Source: 3f9a1c2e7b4d\n"))
+    }
+
+    @Test
+    fun processExitsOnlyWhenGiven() {
+        val without = DiagnosticReport.build(input())
+        assertFalse(without.contains("Process exits"))
+
+        val exits = listOf(
+            ProcessExit(now - 120_000, ProcessExits.reasonName(3), ProcessExits.importanceName(400), 210, 380),
+            ProcessExit(now - 60_000, ProcessExits.reasonName(99), ProcessExits.importanceName(7), 0, 0),
+        )
+        val text = DiagnosticReport.build(input().copy(processExits = exits))
+        val section = text.substringAfter("== Process exits (newest first) ==\n").lines()
+        assertEquals("2026-10-18 13:59 | reason_99 | importance_7 | pss 0 MB | rss 0 MB", section[0])
+        assertEquals("2026-10-18 13:58 | LOW_MEMORY | CACHED | pss 210 MB | rss 380 MB", section[1])
+
+        val empty = DiagnosticReport.build(input().copy(processExits = emptyList()))
+        assertTrue(empty.contains("== Process exits (newest first) ==\n(none)"))
     }
 }
