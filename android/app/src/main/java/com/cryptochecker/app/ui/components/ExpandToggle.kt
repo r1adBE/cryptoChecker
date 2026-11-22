@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -19,12 +22,15 @@ import com.cryptochecker.resources.R
 /**
  * Knopf, der etwas auf- bzw. zuklappt («Was bewegt sich mit?», «Details anzeigen», «Indikatoren einblenden»,
  * «Liste zeigen»): Text in der Themenfarbe mit Pfeil nach unten (zu) bzw. oben (offen) — wie die
- * Abschnitte «Einordnung»/«Daten». Kein «→»: das stünde für einen Seitenwechsel.
- * Wie `ExpandToggleLabel` (iOS).
+ * Abschnitte «Einordnung»/«Daten». Kein «→»: das stünde für einen Seitenwechsel. Sagt den Zustand
+ * («aufgeklappt»/«zugeklappt») selbst an. Wie `ExpandToggleLabel` mit `expandToggleState` (iOS).
  */
 @Composable
 fun ExpandToggleButton(text: String, expanded: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    TextButton(onClick = onClick, modifier = modifier) {
+    // Zustand für den Screenreader («aufgeklappt»/«zugeklappt»): der Pfeil selbst ist stumm, und nicht jeder Text
+    // wechselt mit (z. B. «Gebühren» beim Erfassen). Wie iOS `expandToggleState`.
+    val state = stringResource(if (expanded) R.string.a11y_expanded else R.string.a11y_collapsed)
+    TextButton(onClick = onClick, modifier = modifier.semantics { stateDescription = state }) {
         Text(text)
         ExpandChevronIcon(expanded = expanded, size = 18.dp, modifier = Modifier.padding(start = 2.dp))
     }

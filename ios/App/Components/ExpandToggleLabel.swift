@@ -22,3 +22,11 @@ struct ExpandToggleLabel: View {
         .contentShape(Rectangle())
     }
 }
+
+extension View {
+    /// Zustand eines Auf-/Zuklapp-Knopfs für VoiceOver («aufgeklappt»/«zugeklappt») — an den Knopf selbst, nicht an
+    /// `ExpandToggleLabel`, damit der Knopf ihn ansagt. Wie Android `ExpandToggleButton` (stateDescription).
+    func expandToggleState(_ expanded: Bool) -> some View {
+        accessibilityValue(L(expanded ? "a11y_expanded" : "a11y_collapsed"))
+    }
+}

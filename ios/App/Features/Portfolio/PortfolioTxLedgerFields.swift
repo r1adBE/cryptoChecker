@@ -199,6 +199,7 @@ extension PortfolioTxSheet {
             ExpandToggleLabel(title: title, expanded: showLedger)
         }
         .buttonStyle(.plain)
+        .expandToggleState(showLedger)
         if showLedger {
             VStack(alignment: .leading, spacing: Spacing.md) {
                 if hasFee {

@@ -23,6 +23,7 @@ extension ExplorerScreen {
                     HStack(spacing: Spacing.sm) {
                         Image(systemName: "square.stack.3d.up.fill")
                             .foregroundStyle(accent.primary)
+                            .accessibilityHidden(true)
                         Text(L("explorer_bulk_title"))
                             .font(.headline)
                             .foregroundStyle(AppColors.onSurface)
@@ -32,10 +33,12 @@ extension ExplorerScreen {
                             .font(.footnote.weight(.bold))
                             .foregroundStyle(accent.primary)
                             .rotationEffect(.degrees(showBulk ? 180 : 0))
+                            .accessibilityHidden(true)
                     }
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                .expandToggleState(showBulk)
             }
 
             if showBulk || bulkTabbed {
@@ -135,6 +138,7 @@ extension ExplorerScreen {
                                       expanded: showBulkList)
                 }
                 .buttonStyle(.borderless)
+                .expandToggleState(showBulkList)
             }
             .padding(.top, Spacing.md)
 

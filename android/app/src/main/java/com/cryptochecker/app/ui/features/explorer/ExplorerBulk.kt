@@ -19,6 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.domain.watch.FavoriteKind
 import com.cryptochecker.app.ui.components.DialogText
@@ -79,12 +82,15 @@ internal fun BulkPairsCard(
     val gap = 12.dp
     StepCard {
         if (!asTab) {
+            // Für den Screenreader ein Knopf mit Zustand («aufgeklappt»/«zugeklappt»), wie `ExpandToggleButton`
+            val state = stringResource(if (showBulk) R.string.a11y_expanded else R.string.a11y_collapsed)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.small)
-                    .clickable { onBulkOpenChange(!showBulk) }
+                    .clickable(role = Role.Button) { onBulkOpenChange(!showBulk) }
+                    .semantics { stateDescription = state }
                     .padding(vertical = 4.dp)
             ) {
                 Text(

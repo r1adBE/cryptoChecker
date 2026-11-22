@@ -174,7 +174,7 @@ struct PortfolioTotalCard: View {
             }
             .buttonStyle(.plain)
             .frame(minHeight: 44)
-            .accessibilityValue(L(showDetails ? "a11y_expanded" : "a11y_collapsed"))
+            .expandToggleState(showDetails)
             if showDetails {
                 details
             }

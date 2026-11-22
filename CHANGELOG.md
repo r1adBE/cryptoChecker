@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 341)
+
+Android und iOS: Auf-/Zuklapp-Knöpfe sagen dem Screenreader, ob sie auf- oder zugeklappt sind.
+
 ## 16.2.2 (build 340)
 
 Android: Die gewählte App-Sprache gilt ab Android 13 auch dann für die Zahlen, wenn gerade kein App-Fenster offen ist.

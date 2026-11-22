@@ -213,6 +213,7 @@ struct CryptoPulseCard: View {
                     ExpandToggleLabel(title: L(expanded ? "pulse_less" : "pulse_details_action"), expanded: expanded)
                 }
                 .buttonStyle(.plain)
+                .expandToggleState(expanded)
             }
             .padding(.top, Spacing.sm)
 

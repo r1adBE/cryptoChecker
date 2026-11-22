@@ -142,6 +142,7 @@ struct WatchlistWhyDetails: View {
                 ExpandToggleLabel(title: L(showDetails ? "why_details_hide" : "why_details"), expanded: showDetails)
             }
             .buttonStyle(.plain)
+            .expandToggleState(showDetails)
             if showDetails {
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(Array(reasons.enumerated()), id: \.offset) { _, reason in

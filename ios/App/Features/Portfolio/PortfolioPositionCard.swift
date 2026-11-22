@@ -205,6 +205,7 @@ struct PortfolioOpenLotsSection: View {
                 ExpandToggleLabel(title: L("portfolio_open_lots", lots.count), expanded: expanded)
             }
             .buttonStyle(.plain)
+            .expandToggleState(expanded)
             if expanded {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
                     ForEach(items) { item in

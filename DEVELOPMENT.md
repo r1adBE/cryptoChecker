@@ -3326,6 +3326,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 338: AppLanguages.applyNumberLocale nimmt die gewählte App-Sprache (AppCompatDelegate.getApplicationLocales) bzw. die Locale der Konfiguration statt Locale.getDefault().
 * Build 339: StorageKey.retrying (StorageKey+Retry.swift): zwei Wiederholungen ausser errSecInteractionNotAllowed. FittingVariants ersetzt ViewThatFits+ForEach in den Widgets (flach, Kennung nach Position, nie leer).
 * Build 340: AppLanguages: ab Android 13 LocaleManager statt AppCompatDelegate (set/get), applyNumberLocale(context, …). iOS: StorageKeyRetryTests prüft die Wiederholung beim Anlegen.
+* Build 341: ExpandToggleButton setzt stateDescription selbst; iOS View.expandToggleState an allen Auf-/Zuklapp-Knöpfen; Explorer-Kopf mit Rolle Button und Zustand.
 
 ## Known warnings
 

@@ -40,6 +40,7 @@ struct CycleMoversCard: View {
                                           expanded: expanded)
                     }
                     .buttonStyle(.plain)
+                    .expandToggleState(expanded)
                     .padding(.top, Spacing.xs)
                 }
                 CycleSourceText(text: L("movers_source"))

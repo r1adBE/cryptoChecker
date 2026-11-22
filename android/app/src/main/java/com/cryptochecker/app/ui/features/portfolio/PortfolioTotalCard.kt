@@ -18,8 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
@@ -322,15 +320,11 @@ private fun TotalDetailsSection(
     yearChange: TodayChange?,
     onShowHints: () -> Unit,
 ) {
-    val expandedText = stringResource(R.string.a11y_expanded)
-    val collapsedText = stringResource(R.string.a11y_collapsed)
+    // Zustand sagt der Knopf selbst an (`ExpandToggleButton`)
     ExpandToggleButton(
         text = stringResource(R.string.portfolio_card_details),
         expanded = showDetails,
         onClick = onToggle,
-        modifier = Modifier.semantics {
-            stateDescription = if (showDetails) expandedText else collapsedText
-        }
     )
     if (showDetails) {
         TotalCardDetails(
