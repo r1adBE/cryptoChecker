@@ -183,9 +183,15 @@ object AppLanguages {
      * Zahlen-Locale (Anzeige und Eingabe) = App-Sprache + Region des Geräts
      * ([com.cryptochecker.app.domain.util.LocaleNumbers.formatLocale]): Deutsch auf einem Schweizer
      * Gerät zeigt «90’000.00» wie die Eingabe, nicht «90.000,00».
+     * @param appLocale Sprache ohne gewählte App-Sprache; aus einer Konfiguration übergeben, wo es sie gibt — `Locale.getDefault()` kann
+     *   beim Neuaufbau nach einem Sprachwechsel noch die alte Sprache sein (Deutsch → Albanisch → Deutsch zeigte
+     *   danach albanische Trennzeichen «60.240,00»)
      */
-    fun applyNumberLocale() {
-        com.cryptochecker.app.domain.util.LocaleNumbers.applyFormatLocale(Locale.getDefault(), deviceRegionLocale().country)
+    fun applyNumberLocale(appLocale: Locale = Locale.getDefault()) {
+        // Gewählte App-Sprache zuerst (AppCompat, ab Android 13 das System): sie ist auch während des Neuaufbaus schon
+        // die neue; ohne Wahl die Sprache der Konfiguration bzw. des Systems
+        val chosen = AppCompatDelegate.getApplicationLocales().get(0) ?: appLocale
+        com.cryptochecker.app.domain.util.LocaleNumbers.applyFormatLocale(chosen, deviceRegionLocale().country)
         // Kursformate (zwischengespeicherte Trennzeichen) neu aufbauen
         com.cryptochecker.marketdata.util.DisplayFormat.updateLocale()
     }

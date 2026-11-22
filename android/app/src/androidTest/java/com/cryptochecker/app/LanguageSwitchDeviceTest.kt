@@ -72,4 +72,17 @@ class LanguageSwitchDeviceTest {
         assertEquals(german.getString(R.string.channel_alarms_vibrate), manager.getNotificationChannel(id).name.toString())
         assertEquals(german.getString(R.string.channel_alarms_description), manager.getNotificationChannel(id).description)
     }
+
+    /**
+     * Deutsch → Albanisch → Deutsch: die Zahlen folgen der gewählten Sprache, auch wenn beim Neuaufbau noch die alte
+     * Sprache als Standard gemeldet wird (zeigte «60.240,00» statt der deutschen Trennzeichen).
+     */
+    @Test
+    fun numbersFollowTheChosenLanguageEvenWithAStaleDefault() {
+        select("de")
+        select("sq")
+        select("de")
+        instrumentation.runOnMainSync { AppLanguages.applyNumberLocale(Locale.forLanguageTag("sq")) }
+        assertEquals("de", Locale.getDefault(Locale.Category.FORMAT).language)
+    }
 }

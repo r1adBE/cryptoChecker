@@ -69,8 +69,9 @@ class MainActivity : AppCompatActivity() {
         // Ab Android 16 (targetSdk 36) zeichnet das System ohnehin randlos.
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        // AppCompat setzt die Sprache neu: Zahlen-Locale (Sprache + Region) nachziehen
-        com.cryptochecker.app.setup.AppLanguages.applyNumberLocale()
+        // AppCompat setzt die Sprache neu: Zahlen-Locale (Sprache + Region) nachziehen — aus der Konfiguration dieses
+        // Fensters, die schon die neue Sprache trägt
+        com.cryptochecker.app.setup.AppLanguages.applyNumberLocale(resources.configuration.locales[0] ?: java.util.Locale.getDefault())
         if (savedInstanceState == null) {
             // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
             StartupClock.onUiCreated()

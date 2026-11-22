@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 338)
+
+Android: Nach einem Sprachwechsel in der App (z. B. Deutsch → Albanisch → Deutsch) zeigen Zahlen wieder die Trennzeichen der gewählten Sprache und Region.
+
 ## 16.2.2 (build 337)
 
 Intern: Diagnosebericht aufgeteilt (Code-Grenze), Inhalt unverändert.

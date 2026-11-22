@@ -95,7 +95,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
      */
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
-        AppLanguages.applyNumberLocale()
+        AppLanguages.applyNumberLocale(newConfig.locales[0] ?: java.util.Locale.getDefault())
         priceOverlay.get().onConfigurationChanged()
     }
 
