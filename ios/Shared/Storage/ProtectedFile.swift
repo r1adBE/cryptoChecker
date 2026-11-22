@@ -151,14 +151,18 @@ final class StorageKey: Sendable {
 
     private let readGeneration: @Sendable () -> String?
     private let writeGeneration: @Sendable (String) -> Void
+    /// Wartet zwischen Wiederholungen (µs; `StorageKey+Retry`), in Tests ersetzt.
+    let pause: @Sendable (UInt32) -> Void
     private let state: OSAllocatedUnfairLock<State>
 
     init(keychain: StorageKeychain,
          readGeneration: @escaping @Sendable () -> String? = { SharedStorage.defaults.string(forKey: StorageKey.generationKey) },
-         writeGeneration: @escaping @Sendable (String) -> Void = { SharedStorage.defaults.set($0, forKey: StorageKey.generationKey) }) {
+         writeGeneration: @escaping @Sendable (String) -> Void = { SharedStorage.defaults.set($0, forKey: StorageKey.generationKey) },
+         pause: @escaping @Sendable (UInt32) -> Void = { usleep($0) }) {
         self.state = OSAllocatedUnfairLock(initialState: State(keychain: keychain))
         self.readGeneration = readGeneration
         self.writeGeneration = writeGeneration
+        self.pause = pause
     }
 
     func lookup() -> Lookup {
@@ -181,7 +185,8 @@ final class StorageKey: Sendable {
             }
             let fresh = SymmetricKey(size: .bits256)
             do {
-                if try s.keychain.add(fresh.withUnsafeBytes { Data($0) }) {
+                let keychain = s.keychain
+                if try retrying({ try keychain.add(fresh.withUnsafeBytes { Data($0) }) }) {
                     s.cached = fresh
                     s.cachedGeneration = readGeneration()
                     return fresh
@@ -240,7 +245,8 @@ final class StorageKey: Sendable {
         }
         do {
             let generation = readGeneration()
-            guard let data = try s.keychain.read() else { return .absent }
+            let keychain = s.keychain
+            guard let data = try retrying({ try keychain.read() }) else { return .absent }
             guard data.count == 32 else { return .unavailable }
             let key = SymmetricKey(data: data)
             s.cached = key

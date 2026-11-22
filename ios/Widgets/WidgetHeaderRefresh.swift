@@ -56,7 +56,8 @@ struct WidgetHeaderTrailing<Intent: AppIntent>: View {
     var body: some View {
         HStack(spacing: 4) {
             ViewThatFits(in: .horizontal) {
-                ForEach(candidates, id: \.self) { text in
+                // Kennung nach Position: gleiche Texte wären doppelte Kennungen (`FittingVariants`)
+                ForEach(Array(candidates.enumerated()), id: \.offset) { _, text in
                     Text(text)
                         .font(.system(size: WidgetTextSize.minSecondary))
                         .monospacedDigit()

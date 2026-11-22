@@ -76,9 +76,7 @@ struct WidgetPnlLabel: View {
     var body: some View {
         if let change {
             let texts = PortfolioWidgetViews.pnlTexts(change, currency: currency, hidden: hidden)
-            ViewThatFits(in: .horizontal) {
-                ForEach(texts, id: \.self) { line($0) }
-            }
+            FittingVariants(in: .horizontal, texts) { line($0) }
             .foregroundStyle(palette.change(Double(change.direction)))
         } else {
             Text("—")

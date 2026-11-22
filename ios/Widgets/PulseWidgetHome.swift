@@ -159,19 +159,17 @@ struct PulseHomeView: View {
                 }
             }
         }
-        return ViewThatFits(in: .vertical) {
-            ForEach(variants, id: \.self) { variant in
-                let plain = Array(sentences.prefix(variant.plainCount))
-                // Stand steht in der Kopfzeile (`WidgetHeaderTrailing`); hier nur noch für VoiceOver
-                stack(report, coins: coins, time: nil, fearGreed: fearGreedText, breadth: breadth,
-                      twoLines: variant.twoLines, lead: leadText, plain: plain, list: variant.list, scale: variant.scale)
-                    // Je Fassung ein eigener Satz für VoiceOver: genau das, was sie zeigt
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
-                                                               breadth: wide ? report.breadth : nil,
-                                                               lead: leadText, plain: plain,
-                                                               plainNote: entry.plainNote(shownCount: plain.count)))
-            }
+        return FittingVariants(in: .vertical, variants) { variant in
+            let plain = Array(sentences.prefix(variant.plainCount))
+            // Stand steht in der Kopfzeile (`WidgetHeaderTrailing`); hier nur noch für VoiceOver
+            stack(report, coins: coins, time: nil, fearGreed: fearGreedText, breadth: breadth,
+                  twoLines: variant.twoLines, lead: leadText, plain: plain, list: variant.list, scale: variant.scale)
+                // Je Fassung ein eigener Satz für VoiceOver: genau das, was sie zeigt
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
+                                                           breadth: wide ? report.breadth : nil,
+                                                           lead: leadText, plain: plain,
+                                                           plainNote: entry.plainNote(shownCount: plain.count)))
         }
     }
 

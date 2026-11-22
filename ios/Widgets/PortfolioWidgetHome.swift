@@ -292,12 +292,10 @@ struct PortfolioHomeView: View {
             // Gesperrtes Gerät (StandBy): nur das Prozent zeigen; ohne Prozent verdeckt
             let percentOnly = all.filter { $0.amount == nil }
             let options = redactionReasons.contains(.privacy) && !percentOnly.isEmpty ? percentOnly : all
-            ViewThatFits(in: .horizontal) {
-                ForEach(options, id: \.self) { option in
-                    ForEach(PortfolioWidgetViews.changeLineSizes, id: \.self) { size in
-                        changeLabel(option, currency: s.currency, direction: direction, size: size)
-                    }
-                }
+            // Je Fassung erst in normaler, dann in kleinerer Schrift — eine flache Liste (`FittingVariants`)
+            let variants = options.flatMap { option in PortfolioWidgetViews.changeLineSizes.map { (option, $0) } }
+            FittingVariants(in: .horizontal, variants) { option, size in
+                changeLabel(option, currency: s.currency, direction: direction, size: size)
             }
             .privacySensitive(options.contains { $0.amount != nil })
             .padding(.top, 2)
@@ -365,9 +363,7 @@ struct PortfolioHomeView: View {
         let candidates = [hint.map(parts), extra.map(parts), parts(nil), hint, extra].compactMap { $0 }
             .filter { !$0.isEmpty }
         if !candidates.isEmpty {
-            ViewThatFits(in: .horizontal) {
-                ForEach(Array(candidates.enumerated()), id: \.offset) { _, text in footerText(text) }
-            }
+            FittingVariants(in: .horizontal, candidates) { footerText($0) }
         }
     }
 

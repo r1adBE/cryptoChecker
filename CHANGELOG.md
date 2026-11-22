@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 339)
+
+iOS: Kurzer Schlüsselbund-Fehler beim Start führt nicht mehr dazu, dass die App nichts speichert. Widgets mit wählbaren Textfassungen (Portfolio, Puls, Kopfzeilen) sind gegen einen SwiftUI-Absturz abgesichert.
+
 ## 16.2.2 (build 338)
 
 Android: Nach einem Sprachwechsel in der App (z. B. Deutsch → Albanisch → Deutsch) zeigen Zahlen wieder die Trennzeichen der gewählten Sprache und Region.

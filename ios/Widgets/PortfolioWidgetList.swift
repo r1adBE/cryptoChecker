@@ -173,9 +173,7 @@ extension PortfolioHomeView {
         var seen = Set<String>()
         let unique = candidates.filter { seen.insert($0).inserted }
         if !unique.isEmpty {
-            ViewThatFits(in: .horizontal) {
-                ForEach(unique, id: \.self) { footerText($0) }
-            }
+            FittingVariants(in: .horizontal, unique) { footerText($0) }
         }
     }
 
