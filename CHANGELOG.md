@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 340)
+
+Android: Die gewählte App-Sprache gilt ab Android 13 auch dann für die Zahlen, wenn gerade kein App-Fenster offen ist.
+
 ## 16.2.2 (build 339)
 
 iOS: Kurzer Schlüsselbund-Fehler beim Start führt nicht mehr dazu, dass die App nichts speichert. Widgets mit wählbaren Textfassungen (Portfolio, Puls, Kopfzeilen) sind gegen einen SwiftUI-Absturz abgesichert.

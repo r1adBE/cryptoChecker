@@ -71,7 +71,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // AppCompat setzt die Sprache neu: Zahlen-Locale (Sprache + Region) nachziehen — aus der Konfiguration dieses
         // Fensters, die schon die neue Sprache trägt
-        com.cryptochecker.app.setup.AppLanguages.applyNumberLocale(resources.configuration.locales[0] ?: java.util.Locale.getDefault())
+        val configured = resources.configuration.locales[0] ?: java.util.Locale.getDefault()
+        com.cryptochecker.app.setup.AppLanguages.applyNumberLocale(this, configured)
         if (savedInstanceState == null) {
             // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
             StartupClock.onUiCreated()

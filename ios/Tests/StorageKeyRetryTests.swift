@@ -32,8 +32,16 @@ final class StorageKeyRetryTests: XCTestCase {
             return stored
         }
 
+        /// Nur beim Anlegen: so viele Fehler, bevor es klappt.
+        var addFailures = 0
+        private(set) var addCalls = 0
+
         func add(_ key: Data) throws -> Bool {
-            try failIfDue()
+            addCalls += 1
+            if addFailures > 0 {
+                addFailures -= 1
+                throw StorageKeychainError(status: status)
+            }
             guard stored == nil else { return false }
             stored = key
             return true
@@ -77,11 +85,12 @@ final class StorageKeyRetryTests: XCTestCase {
 
     func testCreatingRetriesAShortAddError() {
         let keychain = FlakyKeychain(failures: 0, status: errSecNotAvailable)
+        keychain.addFailures = 1
         let pauses = Pauses()
-        let storageKey = keys(keychain, pauses)
-        keychain.failures = 1
-        // Lesen scheitert einmal (Wiederholung findet nichts), Anlegen klappt
-        XCTAssertNotNil(storageKey.createIfAbsent())
+        // Lesen findet nichts (kein Fehler), das Anlegen scheitert einmal und klappt beim zweiten Versuch
+        XCTAssertNotNil(keys(keychain, pauses).createIfAbsent())
         XCTAssertNotNil(keychain.stored)
+        XCTAssertEqual(keychain.addCalls, 2)
+        XCTAssertEqual(pauses.values, [StorageKey.retryPauses[0]])
     }
 }

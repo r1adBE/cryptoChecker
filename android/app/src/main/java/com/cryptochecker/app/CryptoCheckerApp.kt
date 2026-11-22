@@ -95,7 +95,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
      */
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
-        AppLanguages.applyNumberLocale(newConfig.locales[0] ?: java.util.Locale.getDefault())
+        AppLanguages.applyNumberLocale(this, newConfig.locales[0] ?: java.util.Locale.getDefault())
         priceOverlay.get().onConfigurationChanged()
     }
 
@@ -119,7 +119,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         super.onCreate()
 
         AppLanguages.restoreForActivities(this)
-        AppLanguages.applyNumberLocale()
+        AppLanguages.applyNumberLocale(this)
         // Uhrzeiten (PriceFormat.time, MomentText) nach der 12/24-h-Einstellung des Systems
         com.cryptochecker.app.util.ClockText.install(this)
 

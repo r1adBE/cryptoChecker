@@ -1,9 +1,11 @@
 package com.cryptochecker.app.setup
 
+import android.app.LocaleManager
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.LocaleList
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
@@ -113,7 +115,7 @@ object AppLanguages {
     /** Aktuell gewählte Sprache; leer = Systemsprache. */
     fun currentTag(context: Context): String {
         val tag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            AppCompatDelegate.getApplicationLocales().get(0)?.toLanguageTag().orEmpty()
+            systemAppLocales(context)?.get(0)?.toLanguageTag().orEmpty()
         } else {
             storedTag(context)
         }
@@ -123,13 +125,15 @@ object AppLanguages {
     /** Sprache wählen; leerer Tag = zurück zur Systemsprache. Fenster bauen sich neu auf. */
     fun select(context: Context, tag: String) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit { putString(KEY_TAG, tag) }
-        AppCompatDelegate.setApplicationLocales(
-            if (tag.isEmpty()) {
-                LocaleListCompat.getEmptyLocaleList()
-            } else {
-                LocaleListCompat.forLanguageTags(tag)
-            }
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Direkt beim System: AppCompat reicht die Wahl nur weiter, solange ein Fenster offen ist
+            context.getSystemService(LocaleManager::class.java)?.applicationLocales =
+                if (tag.isEmpty()) LocaleList.getEmptyLocaleList() else LocaleList.forLanguageTags(tag)
+        } else {
+            AppCompatDelegate.setApplicationLocales(
+                if (tag.isEmpty()) LocaleListCompat.getEmptyLocaleList() else LocaleListCompat.forLanguageTags(tag)
+            )
+        }
         applyToProcess(context.applicationContext, tag)
         // Kanalnamen (auch der Alarm-Kanäle) in der neuen Sprache — bis Android 12 sofort, sonst beim nächsten Start
         com.cryptochecker.app.notification.NotificationChannels.createAll(context.applicationContext)
@@ -147,7 +151,7 @@ object AppLanguages {
             Locale.forLanguageTag(tag)
         }
         Locale.setDefault(locale)
-        applyNumberLocale()
+        applyNumberLocale(app)
         val resources = app.resources
         val config = Configuration(resources.configuration).apply { setLocales(LocaleList(locale)) }
         @Suppress("DEPRECATION")
@@ -172,7 +176,7 @@ object AppLanguages {
 
         val locale = Locale.forLanguageTag(tag)
         Locale.setDefault(locale)
-        applyNumberLocale()
+        applyNumberLocale(base)
         val config = Configuration(base.resources.configuration).apply {
             setLocales(LocaleList(locale))
         }
@@ -187,14 +191,26 @@ object AppLanguages {
      *   beim Neuaufbau nach einem Sprachwechsel noch die alte Sprache sein (Deutsch → Albanisch → Deutsch zeigte
      *   danach albanische Trennzeichen «60.240,00»)
      */
-    fun applyNumberLocale(appLocale: Locale = Locale.getDefault()) {
-        // Gewählte App-Sprache zuerst (AppCompat, ab Android 13 das System): sie ist auch während des Neuaufbaus schon
-        // die neue; ohne Wahl die Sprache der Konfiguration bzw. des Systems
-        val chosen = AppCompatDelegate.getApplicationLocales().get(0) ?: appLocale
+    fun applyNumberLocale(context: Context, appLocale: Locale = Locale.getDefault()) {
+        // Gewählte App-Sprache zuerst (ab Android 13 beim System, darunter gespeichert): sie ist auch während des
+        // Neuaufbaus schon die neue; ohne Wahl die Sprache der Konfiguration bzw. des Systems
+        val chosen = chosenLocale(context) ?: appLocale
         com.cryptochecker.app.domain.util.LocaleNumbers.applyFormatLocale(chosen, deviceRegionLocale().country)
         // Kursformate (zwischengespeicherte Trennzeichen) neu aufbauen
         com.cryptochecker.marketdata.util.DisplayFormat.updateLocale()
     }
+
+    /** In der App gewählte Sprache; null = Systemsprache. Ab Android 13 beim System (auch ohne offenes Fenster). */
+    private fun chosenLocale(context: Context): Locale? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            systemAppLocales(context)?.get(0)
+        } else {
+            storedTag(context).takeIf { it.isNotEmpty() }?.let(Locale::forLanguageTag)
+        }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun systemAppLocales(context: Context): LocaleList? =
+        context.getSystemService(LocaleManager::class.java)?.applicationLocales?.takeIf { !it.isEmpty }
 
     /**
      * Alte Android-Codes (iw, in, tl) auf die heutigen abbilden und nur die Sprache behalten —

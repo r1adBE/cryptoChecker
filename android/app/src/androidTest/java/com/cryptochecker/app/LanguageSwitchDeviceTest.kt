@@ -82,7 +82,7 @@ class LanguageSwitchDeviceTest {
         select("de")
         select("sq")
         select("de")
-        instrumentation.runOnMainSync { AppLanguages.applyNumberLocale(Locale.forLanguageTag("sq")) }
+        instrumentation.runOnMainSync { AppLanguages.applyNumberLocale(app, Locale.forLanguageTag("sq")) }
         assertEquals("de", Locale.getDefault(Locale.Category.FORMAT).language)
     }
 }
