@@ -3327,6 +3327,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 339: StorageKey.retrying (StorageKey+Retry.swift): zwei Wiederholungen ausser errSecInteractionNotAllowed. FittingVariants ersetzt ViewThatFits+ForEach in den Widgets (flach, Kennung nach Position, nie leer).
 * Build 340: AppLanguages: ab Android 13 LocaleManager statt AppCompatDelegate (set/get), applyNumberLocale(context, …). iOS: StorageKeyRetryTests prüft die Wiederholung beim Anlegen.
 * Build 341: ExpandToggleButton setzt stateDescription selbst; iOS View.expandToggleState an allen Auf-/Zuklapp-Knöpfen; Explorer-Kopf mit Rolle Button und Zustand.
+* Build 342: SegmentedAppearance setzt UISegmentedControl.appearance (selectedSegmentTintColor = accent.container, Schrift onContainer), aufgerufen in CryptoCheckerApp bei jedem Akzentwechsel.
 
 ## Known warnings
 

@@ -193,6 +193,7 @@ struct CryptoCheckerApp: App {
                 // Hoher Kontrast: Einstellung oder «Kontrast erhöhen» des Systems
                 .highContrastRoot(data.settings.highContrast)
                 .tint(data.settings.accentColor.primary)
+                .onChange(of: data.settings.accentColor, initial: true) { SegmentedAppearance.apply($1) }
                 .appColorScheme(data.settings)
                 .onOpenURL { url in
                     // cryptochecker://add, cryptochecker://watch/12 … — nur das eigene Schema;

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 342)
+
+iOS: Auswahl-Schalter zeigen die gewählte Option in der Akzentfarbe – auch im dunklen Design gut erkennbar.
+
 ## 16.2.2 (build 341)
 
 Android und iOS: Auf-/Zuklapp-Knöpfe sagen dem Screenreader, ob sie auf- oder zugeklappt sind.
