@@ -3329,6 +3329,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 341: ExpandToggleButton setzt stateDescription selbst; iOS View.expandToggleState an allen Auf-/Zuklapp-Knöpfen; Explorer-Kopf mit Rolle Button und Zustand.
 * Build 342: SegmentedAppearance setzt UISegmentedControl.appearance (selectedSegmentTintColor = accent.container, Schrift onContainer), aufgerufen in CryptoCheckerApp bei jedem Akzentwechsel.
 * Build 343: MetricKitCollector abonniert MXMetricManager (Diagnose- und Metrik-Berichte) und legt Codes in ProcessExitLog (UserDefaults, höchstens 5) ab; DiagnosticReport zeigt «Process exits» wie Android.
+* Build 344: MetricKitCollector: Sendable statt @unchecked Sendable (Prüfung swift_escape_hatches.py, Obergrenze 0).
 
 ## Known warnings
 

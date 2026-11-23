@@ -4,8 +4,8 @@ import MetricKit
 /// Abonniert die Berichte von iOS über Abstürze, Hänger und Enden der App (MetricKit) und legt sie als Codes in
 /// `ProcessExitLog` ab — nur auf dem Gerät, nichts wird gesendet. Der Diagnosebericht zeigt sie unter «Process exits»,
 /// wie Android (ApplicationExitInfo). Absturzberichte liefert iOS beim nächsten Start, Ende-Zähler einmal am Tag.
-/// `@unchecked Sendable`: kein veränderlicher Zustand; MetricKit ruft auf beliebigen Threads.
-final class MetricKitCollector: NSObject, MXMetricManagerSubscriber, @unchecked Sendable {
+/// Ohne veränderlichen Zustand und darum `Sendable`: MetricKit ruft auf beliebigen Threads.
+final class MetricKitCollector: NSObject, MXMetricManagerSubscriber, Sendable {
     static let shared = MetricKitCollector()
 
     /// Beim Start: abonnieren und schon gelieferte Berichte übernehmen.

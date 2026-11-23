@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 344)
+
+Intern: iOS-Diagnose ohne unsichere Ausnahme bei der Nebenläufigkeit, Verhalten unverändert.
+
 ## 16.2.2 (build 343)
 
 iOS: Der Diagnosebericht zeigt Abstürze, Hänger und Enden der App laut iOS – nur als Codes, nur auf dem Gerät.
