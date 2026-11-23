@@ -110,6 +110,8 @@ struct DiagnosticsPreviewPage: View {
             full.backgroundErrors = BackgroundErrorCounter.summary()
             // Coin-Logos nur als Zahlen (auf dem Gerät, gesperrt, letzter Durchgang) — nur mit eingeschalteten Logos
             if logosOn { full.logos = CoinLogoStore.diagnostics() }
+            // Abstürze, Hänger und Enden laut iOS (MetricKit), nur Codes
+            full.processExits = ProcessExitLog.load()
             return DiagnosticReport.build(full)
         }.value
     }

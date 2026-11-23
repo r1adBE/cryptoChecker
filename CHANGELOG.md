@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 343)
+
+iOS: Der Diagnosebericht zeigt Abstürze, Hänger und Enden der App laut iOS – nur als Codes, nur auf dem Gerät.
+
 ## 16.2.2 (build 342)
 
 iOS: Auswahl-Schalter zeigen die gewählte Option in der Akzentfarbe – auch im dunklen Design gut erkennbar.

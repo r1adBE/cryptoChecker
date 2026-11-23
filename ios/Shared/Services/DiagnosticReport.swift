@@ -42,6 +42,8 @@ struct DiagnosticInput: Sendable {
     var backgroundErrors = BackgroundErrorSummary()
     /// Coin-Logos: nur Zahlen (`LogoDiagnostics`); nil = Abschnitt fehlt (Logos aus bzw. nicht lesbar).
     var logos: LogoDiagnostics?
+    /// Letzte Enden bzw. Abstürze laut iOS (`ProcessExitLog`); nil = Abschnitt fehlt. Wie Android «Process exits».
+    var processExits: [ProcessExitEntry]?
 }
 
 /// «Diagnose teilen»: reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
@@ -169,7 +171,18 @@ enum DiagnosticReport {
         }
         lines.append(BackgroundErrors.line(input.backgroundErrors))
         if let kinds = BackgroundErrors.kindsLine(input.backgroundErrors) { lines.append(kinds) }
+        if let exits = input.processExits { lines += processExitLines(exits, at: at) }
         return lines.joined(separator: "\n") + "\n"
+    }
+
+    /// Abschnitt «Process exits»: neueste zuerst, je Eintrag Zeit, Art und Kennung. Wie Android `processExitLines`.
+    private static func processExitLines(_ exits: [ProcessExitEntry], at: (Int64) -> String) -> [String] {
+        var lines = ["", "== Process exits (newest first) =="]
+        if exits.isEmpty { lines.append(none) }
+        for exit in exits.sorted(by: { $0.at > $1.at }) {
+            lines.append("\(at(exit.at)) | \(clean(exit.kind)) | \(clean(exit.detail))")
+        }
+        return lines
     }
 
     /// Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».

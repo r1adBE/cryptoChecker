@@ -124,4 +124,19 @@ final class DiagnosticReportTests: XCTestCase {
         full.sourceCommit = "3f9a1c2e7b4d5a6f8e9d0c1b2a3f4e5d6c7b8a9f"
         XCTAssertTrue(DiagnosticReport.build(full).contains("Source: 3f9a1c2e7b4d\n"))
     }
+
+    /// «Process exits» nur, wenn gegeben (wie Android); neueste zuerst, Zeit · Art · Kennung.
+    func testProcessExitsSectionOnlyWhenGiven() {
+        XCTAssertFalse(DiagnosticReport.build(input()).contains("Process exits"))
+        var full = input()
+        full.processExits = [ProcessExitEntry(at: now - 120_000, kind: "HANG", detail: "3.2 s"),
+                             ProcessExitEntry(at: now - 60_000, kind: "CRASH", detail: "EXC_BAD_ACCESS SIGSEGV")]
+        let text = DiagnosticReport.build(full)
+        let section = text.components(separatedBy: "== Process exits (newest first) ==\n").last ?? ""
+        let lines = section.split(separator: "\n").map(String.init)
+        XCTAssertTrue(lines[0].hasSuffix("| CRASH | EXC_BAD_ACCESS SIGSEGV"), lines[0])
+        XCTAssertTrue(lines[1].hasSuffix("| HANG | 3.2 s"), lines[1])
+        full.processExits = []
+        XCTAssertTrue(DiagnosticReport.build(full).contains("== Process exits (newest first) ==\n(none)"))
+    }
 }

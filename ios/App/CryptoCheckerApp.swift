@@ -256,6 +256,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         BackgroundRefresh.register()
         AutoBackupTask.register()
+        // Abstürze, Hänger und Enden laut iOS nur auf dem Gerät mitschreiben (Diagnosebericht, nichts wird gesendet)
+        MetricKitCollector.shared.start()
         UNUserNotificationCenter.current().delegate = self
         // Uhr-App: Abgleich der Coin-Liste mit der Apple Watch
         PhoneWatchLink.shared.activate()
